@@ -1,0 +1,33 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"baseUrl": "./src",
+		"outDir": "./dist/out-tsc",
+		"sourceMap": true,
+		"allowJs": true,
+		"declaration": false,
+		"downlevelIteration": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"target": "es5",
+		"types": ["node"],
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		"paths": {
+			"@app/*": ["app/*"],
+			"@env/*": ["environments/*"],
+			"echarts": ["node_modules/echarts/dist/echarts.min.js"]
+		},
+		"lib": [
+			"es2017",
+			"dom"
+		]
+	},
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "allowEmptyCodegenFiles": true
+  }
+}

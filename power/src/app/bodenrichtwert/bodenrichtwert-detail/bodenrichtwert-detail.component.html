@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">{{feature.properties.bodenrichtwertzonename}}</h5>
+    <h6 class="card-subtitle">{{feature.properties.name}}</h6>
+  </div>
+<!--  <ul *ngFor="let item of feature.properties | keyvalue">-->
+<!--    <li *ngIf="item.value">{{item.key}} : {{item.value}}</li>-->
+<!--  </ul>-->
+  <div class="card-body">
+    <dl class="row">
+      <dd class="col-md-6">Art der Nutzung</dd>
+      <dt class="col-md-6">{{feature.properties.art}}</dt>
+      <dd class="col-md-6">Bodenrichtwert</dd>
+      <dt class="col-md-6">{{feature.properties.ergaenzung}}</dt>
+      <dd class="col-md-6">Bodenrichtwert</dd>
+      <dt class="col-md-6">{{feature.properties.bodenrichtwert}}</dt>
+      <dd class="col-md-6">Beitragsabgabenrechtlicher Zustand</dd>
+      <dt class="col-md-6">{{feature.properties.beitragsabgabenrechtlicherzustand}}</dt>
+    </dl>
+  </div>
+</div>

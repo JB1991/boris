@@ -1,0 +1,62 @@
+<div class="container-fluid p-0">
+  <nav class="navbar navbar-light navbar-expand-md border-bottom bg-white fixed-top">
+    <a class="navbar-brand" href="#" style="color:#343a40">
+      <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top">
+      <strong class="d-none d-md-inline">Portal für Wertermittlung<span *ngIf="name"> - {{name}}</span><span
+        style="color:#c4153a">.niedersachsen</span></strong>
+      <strong class="d-md-none"><span *ngIf="!name">POWER</span>{{name}}<span
+        style="color:#c4153a">.niedersachsen</span></strong>
+    </a>
+
+    <button class="navbar-toggler" style="border: none; padding-right: 0px;" type="button"
+            (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" [class.active]="!isCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" style="z-index: 2000" [ngbCollapse]="isCollapsed">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngFor="let page of pages">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="[page.link]"
+             [routerLinkActive]="['active']">{{page.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <router-outlet></router-outlet>
+
+  <div class="container">
+    <footer class="pt-4 my-md-5 pt-md-5 border-top w-100 m-0 overflow-hidden">
+      <div class="row justify-content-around">
+<!--        <div class="col-md-4 text-center">-->
+<!--          <h5>Features</h5>-->
+<!--          <ul class="list-unstyled text-small">-->
+<!--            <li><a class="text-muted" href="#">Cool stuff</a></li>-->
+<!--            <li><a class="text-muted" href="#">Random feature</a></li>-->
+<!--            <li><a class="text-muted" href="#">Team feature</a></li>-->
+<!--            <li><a class="text-muted" href="#">Stuff for developers</a></li>-->
+<!--            <li><a class="text-muted" href="#">Another one</a></li>-->
+<!--            <li><a class="text-muted" href="#">Last time</a></li>-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--        <div class="col-md-4 text-center">-->
+<!--          <h5>Resources</h5>-->
+<!--          <ul class="list-unstyled text-small">-->
+<!--            <li><a class="text-muted" href="#">Resource</a></li>-->
+<!--            <li><a class="text-muted" href="#">Resource name</a></li>-->
+<!--            <li><a class="text-muted" href="#">Another resource</a></li>-->
+<!--            <li><a class="text-muted" href="#">Final resource</a></li>-->
+<!--          </ul>-->
+<!--        </div>-->
+        <div class="col-md-4 text-center">
+          <h5>Informationen</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html">Impressum</a></li>
+            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html">Datenschutz</a></li>
+            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html">Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+<!--</div>-->

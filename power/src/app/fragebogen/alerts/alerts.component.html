@@ -1,0 +1,13 @@
+<!-- alerts container -->
+<div id="alert-root" class="container fixed-bottom">
+    <div *ngFor="let alert of alerts.alertslist; index as i">
+        <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(i)">
+            <button aria-label="Schließen" title="Schließen" class="close ng-star-inserted" type="button" (click)="onClosed(i)">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Schließen</span>
+            </button>
+            <span class="h4 alert-heading">{{ alert.title }}</span>
+            <p class="m-0">{{ alert.text }}</p>
+        </alert>
+    </div>
+</div>

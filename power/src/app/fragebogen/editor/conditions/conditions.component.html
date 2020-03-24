@@ -1,0 +1,104 @@
+<div *ngFor="let item of struct; index as i">
+    <div class="form-row m-0 mb-2">
+        <div class="form-group col-2 m-0 pl-0">
+            <label for="conditionCondition{{ i }}" class="sr-only">Verknüpfung*</label>
+            <select class="custom-select"
+                [(ngModel)]="item.condition"
+                (change)="modelChanged($event)"
+                [class.is-invalid]="!item.condition && i !== 0"
+                [disabled]="i === 0"
+                id="conditionCondition{{ i }}"
+                name="conditionCondition{{ i }}"
+                required>
+                <option value="and">Und</option>
+                <option value="or">Oder</option>
+            </select>
+        </div>
+
+        <div class="form-group col-4 m-0">
+            <label for="conditionQuestion{{ i }}" class="sr-only">Formularfeld*</label>
+            <select class="custom-select"
+                [(ngModel)]="item.question"
+                (change)="modelChanged($event)"
+                [class.is-invalid]="!item.question"
+                id="conditionQuestion{{ i }}"
+                name="conditionQuestion{{ i }}"
+                required>
+                <option value="" disabled>Formularfeld auswählen</option>
+                <option *ngFor="let question of questions; index as j"
+                    value="{{ question.name }}">
+                    {{ question.title }}
+                </option>
+                <option *ngFor="let variable of storage.model.calculatedValues; index as j"
+                    value="{{ variable.name }}">
+                    {{ '&#123;' + variable.name + '&#125;' }}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group col-2 m-0">
+            <label for="conditionOperator{{ i }}" class="sr-only">Operator*</label>
+            <select class="custom-select"
+                [(ngModel)]="item.operator"
+                (change)="switchValueType($event, i); modelChanged($event)"
+                [class.is-invalid]="!item.operator"
+                id="conditionOperator{{ i }}"
+                name="conditionOperator{{ i }}"
+                required>
+                <option value="empty">Leer</option>
+                <option value="notempty">Nicht leer</option>
+                <option value="contains">Enthält</option>
+                <option value="notcontains">Enthält nicht</option>
+                <option value="equal">=</option>
+                <option value="notequal">&lt;&gt;</option>
+                <option value="greater">&gt;</option>
+                <option value="less">&lt;</option>
+                <option value="greaterorequal">&gt;=</option>
+                <option value="lessorequal">&lt;=</option>
+                <option value="anyof" *ngIf="item.choices">Enthält mindestens eines</option>
+                <option value="allof" *ngIf="item.choices">Enthält alle</option>
+            </select>
+        </div>
+
+        <div class="form-group col-4 m-0 pr-0" *ngIf="!(item.operator === 'empty' || item.operator === 'notempty')">
+            <label for="conditionValue{{ i }}" class="sr-only">Wert*</label>
+            <input type="text"
+                class="form-control"
+                [(ngModel)]="item.value"
+                (change)="modelChanged($event)"
+                *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
+                [class.is-invalid]="!item.value"
+                id="conditionValue{{ i }}"
+                name="conditionValue{{ i }}"
+                placeholder="Wert"
+                maxlength="200"
+                required>
+
+            <select multiple
+                class="custom-select"
+                *ngIf="item.operator === 'anyof' || item.operator === 'allof'"
+                [class.is-invalid]="!item.value"
+                id="conditionValue{{ i }}"
+                name="conditionValue{{ i }}"
+                required>
+                <option *ngFor="let choice of item.choices; index as j"
+                    (click)="selectedItems($event, i, j)"
+                    value="{{ choice.value }}"
+                    [selected]="item.value.indexOf(choice.value) !== -1">
+                    {{ choice.text ? choice.text : choice.value }}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="mb-2">
+    <button type="button" class="btn btn-danger btn-sm mr-2" title="Bedingung entfernen" (click)="ConditionDel()">
+        <i class="fas fa-minus fa-fw" aria-hidden="true"></i>
+        <span class="sr-only">Bedingung entfernen</span>
+    </button>
+    <button type="button" class="btn btn-success btn-sm" title="Bedingung hinzufügen" (click)="ConditionAdd()">
+        <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+        <span class="sr-only">Bedingung hinzufügen</span>
+    </button>
+</div>

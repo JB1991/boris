@@ -1,0 +1,189 @@
+<main class="row w-100 m-0" id="content" tabindex="-1">
+    <!-- left side -->
+    <div class="col-12 col-lg-3 col-xl-2 p-2">
+        <!-- toolbox -->
+        <div class="card bg-light">
+            <div class="card-header h5 clickable" (click)="isCollapsedToolBox = !isCollapsedToolBox">
+                <i class="fas fa-toolbox fa-fw" aria-hidden="true"></i>
+                Toolbox
+            </div>
+            <ul id="toolbox" class="list-group list-group-flush" [collapse]="isCollapsedToolBox" [isAnimated]="true">
+                <smooth-dnd-container groupName="toolbox"
+                    [getChildPayload]="getPayloadToolbox"
+                    behaviour="copy">
+                    <li id="{{ item.type }}"
+                        *ngFor="let item of storage.FormularFields"
+                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light"
+                        (click)="wsNewElement(item.type)">
+                        <i class="{{ item.icon }} fa-fw" aria-hidden="true"></i>
+                        <span class="d-none d-sm-inline pl-2">{{ item.name }}</span>
+                    </li>
+                    <li id="elementcopy"
+                        *ngIf="elementCopy"
+                        class="list-group-item clickable smooth-dnd-draggable-wrapper bg-light"
+                        (click)="wsNewElement('elementcopy')">
+                        <i class="fas fa-paste fa-fw" aria-hidden="true"></i>
+                        <span class="d-none d-sm-inline pl-2">Zwischenablage</span>
+                    </li>
+                </smooth-dnd-container>
+            </ul>
+        </div>
+    </div>
+
+    <!-- right side -->
+    <div class="col-12 col-lg-9 col-xl-10 p-2">
+        <div class="row m-0 mb-2">
+            <!-- pagination -->
+            <div class="col-12 col-md-6 p-0">
+                <nav aria-label="Formular page navigation" class="mb-2 mb-md-0">
+                    <ul class="pagination m-0">
+                        <smooth-dnd-container groupName="pagination"
+                            (drop)="onDropPagination($event)"
+                            [getChildPayload]="getPayloadPagination"
+                            [shouldAcceptDrop]="shouldAcceptDropPagination"
+                            orientation="horizontal"
+                            lockAxis="x">
+                            <li *ngFor="let page of storage.model.pages; index as i"
+                                class="page-item clickable text-primary smooth-dnd-draggable-wrapper"
+                                [class.active]="i === storage.selectedPageID">
+                                <a class="page-link"
+                                    (click)="wsPageSelect(i)"
+                                    title="Show page {{ i + 1 }}"
+                                    [attr.data-id]="i">
+                                    {{ i + 1 }}
+                                </a>
+                            </li>
+                        </smooth-dnd-container>
+
+                        <li class="page-item clickable text-success">
+                            <a class="page-link" (click)="wsPageCreate(storage.selectedPageID)" title="Neue Seite hinzufügen">
+                                <i class="fas fa-file-alt fa-fw" aria-hidden="true"></i>
+                                <span class="sr-only">Neue Seite hinzufügen</span>
+                            </a>
+                        </li>
+                        <li class="page-item clickable text-danger">
+                            <a class="page-link" (click)="wsPageDelete(storage.selectedPageID)" title="Aktive Seite löschen">
+                                <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
+                                <span class="sr-only">Aktive Seite löschen</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- buttons -->
+            <div class="col-12 col-md-6 p-0 text-right textpos">
+                <button type="button"
+                    class="btn btn-secondary mr-2"
+                    title="Letzte Änderung wiederholen"
+                    (click)="history.RedoChanges(); ClearCollapsed()"
+                    [disabled]="history.RedoIndex === 0">
+                    <i class="fas fa-redo" aria-hidden="true"></i>
+                    <span class="sr-only">Letzte Änderung wiederholen</span>
+                </button>
+                <button type="button"
+                    class="btn btn-secondary mr-2"
+                    title="Letzte Änderung rückgängig machen"
+                    (click)="history.UndoChanges(); ClearCollapsed()"
+                    [disabled]="history.UndoIndex === 0">
+                    <i class="fas fa-undo" aria-hidden="true"></i>
+                    <span class="sr-only">Letzte Änderung rückgängig machen</span>
+                </button>
+                <button type="button"
+                    class="btn btn-primary mr-2"
+                    title="Formular Einstellugen öffnen"
+                    (click)="modalformular.Open()">
+                    <i class="fas fa-cogs fa-fw" aria-hidden="true"></i>
+                    <span class="sr-only">Formular Einstellugen öffnen</span>
+                </button>
+                <button type="button"
+                    class="btn btn-secondary mr-2"
+                    title="Formular Vorschau öffnen"
+                    (click)="preview.Toggle()">
+                    <i class="fas fa-expand fa-fw" aria-hidden="true"></i>
+                    <span class="sr-only">Formular Vorschau öffnen</span>
+                </button>
+                <button type="button"
+                    class="btn btn-success"
+                    title="Formular speichern"
+                    (click)="wsSave()"
+                    [disabled]="!storage.UnsavedChanges">
+                    <i class="far fa-save fa-fw" aria-hidden="true"></i>
+                    <span class="sr-only">Formular speichern</span>
+                </button>
+            </div>
+        </div>
+        <hr>
+
+        <!-- workspace -->
+        <div id="placeholder"
+            *ngIf="storage.model.pages[storage.selectedPageID].elements.length === 0"
+            class="text-muted">
+            Ziehe etwas in den Arbeitsbereich...
+        </div>
+        <smooth-dnd-container class="h-100"
+            groupName="workspace"
+            (drop)="onDropWorkspace($event)"
+            [getChildPayload]="getPayloadWorkspace"
+            [shouldAcceptDrop]="shouldAcceptDropWorkspace"
+            dragClass="drag-ghost"
+            dragHandleSelector=".card-header"
+            nonDragAreaSelector=".btn">
+            <smooth-dnd-draggable *ngFor="let container of storage.model.pages[storage.selectedPageID].elements; index as i">
+                <div class="card bg-light mb-3" [attr.data-id]="i">
+                    <div class="card-header h5 clickable"
+                        (click)="isCollapsed[i] = !isCollapsed[i]"
+                        [attr.aria-expanded]="!isCollapsed[i]">
+                        <!-- element tite -->
+                        <div class="float-sm-left text-nowrap overflow-hidden">
+                            <i class="{{ getIcon(container.type) }} fa-fw" aria-hidden="true"></i>
+                            {{ container.title }}
+                        </div>
+
+                        <!-- element buttons -->
+                        <div class="float-sm-right" (click)="$event.stopPropagation()">
+                            <button type="button"
+                                class="btn btn-secondary btn-sm mr-2"
+                                title="In Zwischenablage kopieren"
+                                (click)="wsElementCopy(i)">
+                                <i class="fas fa-clipboard fa-fw" aria-hidden="true"></i>
+                                <span class="sr-only">In Zwischenablage kopieren</span>
+                            </button>
+                            <button type="button"
+                                class="btn btn-primary btn-sm mr-2"
+                                title="Element konfigurieren"
+                                (click)="modalelement.Open(i, storage.selectedPageID)">
+                                <i class="fas fa-cog fa-fw" aria-hidden="true"></i>
+                                <span class="sr-only">Element konfigurieren</span>
+                            </button>
+                            <button type="button"
+                                class="btn btn-danger btn-sm"
+                                title="Element Löschen"
+                                (click)="wsElementRemove(i)">
+                                <i class="fas fa-times fa-fw" aria-hidden="true"></i>
+                                <span class="sr-only">Element Löschen</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- element preview -->
+                    <div class="card-body p-0" [collapse]="isCollapsed[i]" [isAnimated]="true">
+                        <surveyjs-wrapper [model]="container | preview"
+                            [css]="storage.css_style"
+                            [showInvisible]="true">
+                        </surveyjs-wrapper>
+                    </div>
+                </div>
+            </smooth-dnd-draggable>
+        </smooth-dnd-container>
+    </div>
+
+    <!-- configure formular modal -->
+    <app-modal-formular #modalformular></app-modal-formular>
+
+    <!-- configure element modal -->
+    <app-modal-element #modalelement></app-modal-element>
+</main>
+
+<!-- preview -->
+<app-preview #preview></app-preview>

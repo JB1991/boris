@@ -1,0 +1,969 @@
+AGS;Geme_Bezeichnung;WOMA_ID
+3462001;Blomberg;4101
+3462002;Dunum;4101
+3462003;Esens, Stadt;4101
+3462004;Eversmeer;4101
+3462005;Friedeburg;4101
+3462006;Holtgast;4101
+3462007;Langeoog;4110
+3462008;Moorweg;4101
+3462009;Nenndorf;4101
+3462010;Neuharlingersiel;4101
+3462011;Neuschoo;4101
+3462012;Ochtersum;4101
+3462013;Schweindorf;4101
+3462014;Spiekeroog;4110
+3462015;Stedesdorf;4101
+3462016;Utarp;4101
+3462017;Werdum;4101
+3462018;Westerholt;4101
+3462019;Wittmund, Stadt;4101
+3461001;Berne;4101
+3461002;Brake (Unterweser), Stadt;4101
+3461003;Butjadingen;4101
+3461004;Elsfleth, Stadt;4101
+3461005;Jade;4101
+3461006;Lemwerder;4104
+3461007;Nordenham, Stadt;4101
+3461008;Ovelgönne;4101
+3461009;Stadland;4101
+3460001;Bakum;4103
+3460002;Damme, Stadt;4103
+3460003;Dinklage, Stadt;4103
+3460004;Goldenstedt;4103
+3460005;Holdorf;4103
+3460006;Lohne (Oldenburg), Stadt;4103
+3460007;Neuenkirchen-Vörden;4103
+3460008;Steinfeld (Oldenburg);4103
+3460009;Vechta, Stadt;4103
+3460010;Visbek;4103
+3459001;Alfhausen;4103
+3459002;Ankum;4103
+3459003;Bad Essen;4103
+3459004;Bad Iburg, Stadt;4103
+3459005;Bad Laer;4103
+3459006;Bad Rothenfelde;4103
+3459007;Badbergen;4103
+3459008;Belm;4203
+3459009;Berge;4103
+3459010;Bersenbrück, Stadt;4103
+3459011;Bippen;4103
+3459012;Bissendorf;4203
+3459013;Bohmte;4103
+3459014;Bramsche, Stadt;4103
+3459015;Dissen am Teutoburger Wald, Stadt;4103
+3459016;Eggermühlen;4103
+3459017;Fürstenau, Stadt;4103
+3459018;Gehrde;4103
+3459019;Georgsmarienhütte, Stadt;4203
+3459020;Hagen am Teutoburger Wald;4203
+3459021;Hasbergen;4203
+3459022;Hilter am Teutoburger Wald;4103
+3459023;Kettenkamp;4103
+3459024;Melle, Stadt;4103
+3459025;Menslage;4103
+3459026;Merzen;4103
+3459027;Neuenkirchen;4103
+3459028;Nortrup;4103
+3459029;Ostercappeln;4103
+3459030;Quakenbrück, Stadt;4103
+3459031;Rieste;4103
+3459032;Voltlage;4103
+3459033;Wallenhorst;4203
+3459034;Glandorf;4103
+3458001;Beckeln;4103
+3458002;Colnrade;4103
+3458003;Dötlingen;4103
+3458004;Dünsen;4103
+3458005;Ganderkesee;4103
+3458006;Groß Ippener;4103
+3458007;Großenkneten;4103
+3458008;Harpstedt, Flecken;4103
+3458009;Hatten;4103
+3458010;Hude (Oldb);4103
+3458011;Kirchseelte;4103
+3458012;Prinzhöfte;4103
+3458013;Wardenburg;4103
+3458014;Wildeshausen, Stadt;4103
+3458015;Winkelsett;4103
+3457002;Borkum, Stadt;4110
+3457003;Brinkum;4102
+3457006;Detern, Flecken;4102
+3457008;Filsum;4102
+3457009;Firrel;4102
+3457010;Hesel;4102
+3457011;Holtland;4102
+3457012;Jemgum;4102
+3457013;Leer (Ostfriesland), Stadt;4102
+3457014;Moormerland;4102
+3457015;Neukamperfehn;4102
+3457016;Nortmoor;4102
+3457017;Ostrhauderfehn;4102
+3457018;Rhauderfehn;4102
+3457019;Schwerinsdorf;4102
+3457020;Uplengen;4102
+3457021;Weener, Stadt;4102
+3457022;Westoverledingen;4102
+3457024;Bunde;4102
+3457501;Insel Lütje Hörn, gemfr. Gebiet;4110
+3456001;Bad Bentheim, Stadt;4102
+3456002;Emlichheim;4102
+3456003;Engden;4102
+3456004;Esche;4102
+3456005;Georgsdorf;4102
+3456006;Getelo;4102
+3456007;Gölenkamp;4102
+3456008;Halle;4102
+3456009;Hoogstede;4102
+3456010;Isterberg;4102
+3456011;Itterbeck;4102
+3456012;Laar;4102
+3456013;Lage;4102
+3456014;Neuenhaus, Stadt;4102
+3456015;Nordhorn, Stadt;4102
+3456016;Ohne;4102
+3456017;Osterwald;4102
+3456018;Quendorf;4102
+3456019;Ringe;4102
+3456020;Samern;4102
+3456023;Uelsen;4102
+3456024;Wielen;4102
+3456025;Wietmarschen;4102
+3456026;Wilsum;4102
+3456027;Schüttorf, Stadt;4102
+3455007;Jever, Stadt;4101
+3455014;Sande;4101
+3455015;Schortens, Stadt;4101
+3455020;Wangerland;4101
+3455021;Wangerooge, Nordseebad;4110
+3455025;Bockhorn;4101
+3455026;Varel, Stadt;4101
+3455027;Zetel;4101
+3454001;Andervenne;4102
+3454002;Bawinkel;4102
+3454003;Beesten;4102
+3454004;Bockhorst;4102
+3454005;Börger;4102
+3454006;Breddenberg;4102
+3454007;Dersum;4102
+3454008;Dörpen;4102
+3454009;Dohren;4102
+3454010;Emsbüren;4102
+3454011;Esterwegen;4102
+3454012;Freren, Stadt;4102
+3454013;Fresenburg;4102
+3454014;Geeste;4102
+3454015;Gersten;4102
+3454016;Groß Berßen;4102
+3454017;Handrup;4102
+3454018;Haren (Ems), Stadt;4102
+3454019;Haselünne, Stadt;4102
+3454020;Heede;4102
+3454021;Herzlake;4102
+3454022;Hilkenbrook;4102
+3454023;Hüven;4102
+3454024;Klein Berßen;4102
+3454025;Kluse;4102
+3454026;Lähden;4102
+3454027;Lahn;4102
+3454028;Langen;4102
+3454029;Lathen;4102
+3454030;Lehe;4102
+3454031;Lengerich;4102
+3454032;Lingen (Ems), Stadt;4102
+3454033;Lorup;4102
+3454034;Lünne;4102
+3454035;Meppen, Stadt;4102
+3454036;Messingen;4102
+3454037;Neubörger;4102
+3454038;Neulehe;4102
+3454039;Niederlangen;4102
+3454040;Oberlangen;4102
+3454041;Papenburg, Stadt;4102
+3454042;Rastdorf;4102
+3454043;Renkenberge;4102
+3454044;Rhede (Ems);4102
+3454045;Salzbergen;4102
+3454046;Schapen;4102
+3454047;Sögel;4102
+3454048;Spahnharrenstätte;4102
+3454049;Spelle;4102
+3454050;Stavern;4102
+3454051;Surwold;4102
+3454052;Sustrum;4102
+3454053;Thuine;4102
+3454054;Twist;4102
+3454055;Vrees;4102
+3454056;Walchum;4102
+3454057;Werlte, Stadt;4102
+3454058;Werpeloh;4102
+3454059;Wettrup;4102
+3454060;Wippingen;4102
+3453001;Barßel;4102
+3453002;Bösel;4103
+3453003;Cappeln (Oldenburg);4103
+3453004;Cloppenburg, Stadt;4103
+3453005;Emstek;4103
+3453006;Essen (Oldenburg);4103
+3453007;Friesoythe, Stadt;4103
+3453008;Garrel;4103
+3453009;Lastrup;4103
+3453010;Lindern (Oldenburg);4103
+3453011;Löningen, Stadt;4103
+3453012;Molbergen;4103
+3453013;Saterland;4102
+3452001;Aurich, Stadt;4101
+3452002;Baltrum;4110
+3452003;Berumbur;4101
+3452006;Großefehn;4101
+3452007;Großheide;4101
+3452008;Hage, Flecken;4101
+3452009;Hagermarsch;4101
+3452010;Halbemond;4101
+3452011;Hinte;4101
+3452012;Ihlow;4101
+3452013;Juist;4110
+3452014;Krummhörn;4101
+3452015;Leezdorf;4101
+3452016;Lütetsburg;4101
+3452017;Marienhafe, Flecken;4101
+3452019;Norden, Stadt;4101
+3452020;Norderney, Stadt;4110
+3452021;Osteel;4101
+3452022;Rechtsupweg;4101
+3452023;Südbrookmerland;4101
+3452024;Upgant-Schott;4101
+3452025;Wiesmoor, Stadt;4101
+3452026;Wirdum;4101
+3452027;Dornum;4101
+3452501;Nordseeinsel Memmert, gemfr. Gebiet;4110
+3451001;Apen;4102
+3451002;Bad Zwischenahn;4103
+3451004;Edewecht;4103
+3451005;Rastede;4103
+3451007;Westerstede, Stadt;4103
+3451008;Wiefelstede;4103
+3405000;Wilhelmshaven, Stadt;4101
+3404000;Osnabrück, Stadt;4203
+3403000;Oldenburg (Oldenburg), Stadt;4201
+3402000;Emden, Stadt;4101
+3401000;Delmenhorst, Stadt;4104
+3361001;Achim, Stadt;4104
+3361002;Blender;4105
+3361003;Dörverden;4105
+3361004;Emtinghausen;4105
+3361005;Kirchlinteln;4105
+3361006;Langwedel, Flecken;4104
+3361008;Ottersberg, Flecken;4104
+3361009;Oyten;4104
+3361010;Riede;4104
+3361012;Verden (Aller), Stadt;4105
+3361013;Thedinghausen;4105
+3360001;Altenmedingen;4107
+3360002;Bad Bevensen, Stadt;4107
+3360003;Barum;4107
+3360004;Bienenbüttel;4107
+3360005;Bad Bodenteich, Flecken;4107
+3360006;Ebstorf,Klosterflecken;4107
+3360007;Eimke;4107
+3360008;Emmendorf;4107
+3360009;Gerdau;4107
+3360010;Hanstedt;4107
+3360011;Himbergen;4107
+3360012;Jelmstorf;4107
+3360013;Lüder;4107
+3360014;Natendorf;4107
+3360015;Oetzen;4107
+3360016;Rätzlingen;4107
+3360017;Römstedt;4107
+3360018;Rosche;4107
+3360019;Schwienau;4107
+3360020;Soltendieck;4107
+3360022;Stoetze;4107
+3360023;Suderburg;4107
+3360024;Suhlendorf;4107
+3360025;Uelzen, Hansestadt;4107
+3360026;Weste;4107
+3360029;Wriedel;4107
+3360030;Wrestedt;4107
+3359001;Agathenburg;4106
+3359002;Ahlerstedt;4106
+3359003;Apensen;4106
+3359004;Balje;4101
+3359005;Bargstedt;4106
+3359006;Beckdorf;4106
+3359007;Bliedersdorf;4106
+3359008;Brest;4106
+3359009;Burweg;4105
+3359011;Deinste;4105
+3359012;Dollern;4106
+3359013;Drochtersen;4105
+3359014;Düdenbüttel;4105
+3359015;Engelschoff;4105
+3359016;Estorf;4105
+3359017;Fredenbeck;4105
+3359018;Freiburg (Elbe), Flecken;4101
+3359019;Großenwörden;4105
+3359020;Grünendeich;4106
+3359021;Guderhandviertel;4106
+3359022;Hammah;4105
+3359023;Harsefeld, Flecken;4106
+3359024;Heinbockel;4105
+3359025;Himmelpforten;4105
+3359026;Hollern-Twielenfleth;4106
+3359027;Horneburg, Flecken;4106
+3359029;Kranenburg;4105
+3359030;Krummendeich;4101
+3359031;Kutenholz;4105
+3359032;Mittelnkirchen;4106
+3359033;Neuenkirchen;4106
+3359034;Nottensdorf;4106
+3359035;Oederquart;4101
+3359036;Oldendorf;4105
+3359037;Sauensiek;4106
+3359038;Stade, Hansestadt;4106
+3359039;Steinkirchen;4106
+3359040;Wischhafen;4101
+3359010;Buxtehude, Hansestadt;4106
+3359028;Jork;4106
+3358001;Ahlden (Aller), Flecken;4105
+3358002;Bispingen;4105
+3358003;Böhme;4105
+3358004;Bomlitz;4105
+3358005;Buchholz (Aller);4108
+3358006;Eickeloh;4105
+3358007;Essel;4108
+3358008;Bad Fallingbostel, Stadt;4105
+3358009;Frankenfeld;4105
+3358010;Gilten;4108
+3358011;Grethem;4105
+3358012;Hademstorf;4105
+3358013;Häuslingen;4105
+3358014;Hodenhagen;4105
+3358015;Lindwedel;4108
+3358016;Munster, Stadt;4105
+3358017;Neuenkirchen;4105
+3358018;Rethem (Aller), Stadt;4105
+3358019;Schneverdingen, Stadt;4105
+3358020;Schwarmstedt;4108
+3358021;Soltau, Stadt;4105
+3358022;Walsrode, Stadt;4105
+3358023;Wietzendorf;4105
+3358501;Osterheide, gemfr. Bezirk;4105
+3357001;Ahausen;4105
+3357002;Alfstedt;4105
+3357003;Anderlingen;4105
+3357004;Basdahl;4105
+3357005;Bötersen;4105
+3357006;Bothel;4105
+3357007;Breddorf;4105
+3357008;Bremervörde, Stadt;4105
+3357009;Brockel;4105
+3357010;Bülstedt;4105
+3357011;Deinstedt;4105
+3357012;Ebersdorf;4105
+3357013;Elsdorf;4105
+3357014;Farven;4105
+3357015;Fintel;4105
+3357016;Gnarrenburg;4105
+3357017;Groß Meckelsen;4105
+3357018;Gyhum;4105
+3357019;Hamersen;4105
+3357020;Hassendorf;4105
+3357021;Heeslingen;4105
+3357022;Hellwege;4105
+3357023;Helvesiek;4105
+3357024;Hemsbünde;4105
+3357025;Hemslingen;4105
+3357026;Hepstedt;4105
+3357027;Hipstedt;4105
+3357028;Horstedt;4105
+3357029;Kalbe;4105
+3357030;Kirchtimke;4105
+3357031;Kirchwalsede;4105
+3357032;Klein Meckelsen;4105
+3357033;Lauenbrück;4105
+3357034;Lengenbostel;4105
+3357035;Oerel;4105
+3357036;Ostereistedt;4105
+3357037;Reeßum;4105
+3357038;Rhade;4105
+3357039;Rotenburg (Wümme), Stadt;4105
+3357040;Sandbostel;4105
+3357041;Scheeßel;4105
+3357042;Seedorf;4105
+3357043;Selsingen;4105
+3357044;Sittensen;4105
+3357045;Sottrum;4105
+3357046;Stemmen;4105
+3357047;Tarmstedt;4105
+3357048;Tiste;4105
+3357049;Vahlde;4105
+3357050;Vierden;4105
+3357051;Visselhövede, Stadt;4105
+3357052;Vorwerk;4105
+3357053;Westertimke;4105
+3357054;Westerwalsede;4105
+3357055;Wilstedt;4105
+3357056;Wohnste;4105
+3357057;Zeven, Stadt;4105
+3356001;Axstedt;4105
+3356002;Grasberg;4104
+3356003;Hambergen;4105
+3356004;Holste;4105
+3356005;Lilienthal;4104
+3356006;Lübberstedt;4105
+3356007;Osterholz-Scharmbeck, Stadt;4105
+3356008;Ritterhude;4104
+3356009;Schwanewede;4105
+3356010;Vollersode;4105
+3356011;Worpswede;4105
+3355001;Adendorf;4106
+3355002;Amelinghausen;4106
+3355003;Artlenburg, Flecken;4106
+3355004;Bardowick, Flecken;4106
+3355005;Barendorf;4106
+3355006;Barnstedt;4106
+3355007;Barum;4106
+3355008;Betzendorf;4106
+3355009;Bleckede, Stadt;4107
+3355010;Boitze;4107
+3355011;Brietlingen;4106
+3355012;Dahlem;4107
+3355013;Dahlenburg, Flecken;4107
+3355014;Deutsch Evern;4106
+3355015;Echem;4106
+3355016;Embsen;4106
+3355017;Handorf;4106
+3355018;Hittbergen;4106
+3355019;Hohnstorf (Elbe);4106
+3355020;Kirchgellersen;4106
+3355021;Lüdersburg;4106
+3355022;Lüneburg, Hansestadt;4106
+3355023;Mechtersen;4106
+3355024;Melbeck;4106
+3355025;Nahrendorf;4107
+3355026;Neetze;4106
+3355027;Oldendorf (Luhe);4106
+3355028;Radbruch;4106
+3355029;Rehlingen;4106
+3355030;Reinstorf;4106
+3355031;Reppenstedt;4106
+3355032;Rullstorf;4106
+3355033;Scharnebeck;4106
+3355034;Soderstorf;4106
+3355035;Südergellersen;4106
+3355036;Thomasburg;4106
+3355037;Tosterglope;4107
+3355038;Vastorf;4106
+3355039;Vögelsen;4106
+3355040;Wendisch Evern;4106
+3355041;Westergellersen;4106
+3355042;Wittorf;4106
+3355049;Amt Neuhaus;4107
+3354001;Bergen an der Dumme, Flecken;4107
+3354002;Clenze, Flecken;4107
+3354003;Damnatz;4107
+3354004;Dannenberg (Elbe), Stadt;4107
+3354005;Gartow, Flecken;4107
+3354006;Göhrde;4107
+3354007;Gorleben;4107
+3354008;Gusborn;4107
+3354009;Hitzacker (Elbe), Stadt;4107
+3354010;Höhbeck;4107
+3354011;Jameln;4107
+3354012;Karwitz;4107
+3354013;Küsten;4107
+3354014;Langendorf;4107
+3354015;Lemgow;4107
+3354016;Luckau (Wendland);4107
+3354017;Lübbow;4107
+3354018;Lüchow (Wendland), Stadt;4107
+3354019;Neu Darchau;4107
+3354020;Prezelle;4107
+3354021;Schnackenburg, Stadt;4107
+3354022;Schnega;4107
+3354023;Trebel;4107
+3354024;Waddeweitz;4107
+3354025;Woltersdorf;4107
+3354026;Wustrow (Wendland), Stadt;4107
+3354027;Zernien;4107
+3354501;Gartow, gemfr. Gebiet;4107
+3354502;Göhrde, gemfr. Gebiet;4107
+3353001;Appel;4106
+3353002;Asendorf;4106
+3353003;Bendestorf;4106
+3353004;Brackel;4106
+3353005;Buchholz in der Nordheide, Stadt;4106
+3353006;Dohren;4106
+3353007;Drage;4106
+3353008;Drestedt;4106
+3353009;Egestorf;4106
+3353010;Eyendorf;4106
+3353011;Garlstorf;4106
+3353012;Garstedt;4106
+3353013;Gödenstorf;4106
+3353014;Halvesbostel;4106
+3353015;Handeloh;4106
+3353016;Hanstedt;4106
+3353017;Harmstorf;4106
+3353018;Heidenau;4106
+3353019;Hollenstedt;4106
+3353020;Jesteburg;4106
+3353021;Kakenstorf;4106
+3353022;Königsmoor;4106
+3353023;Marschacht;4106
+3353024;Marxen;4106
+3353025;Moisburg;4106
+3353027;Otter;4106
+3353028;Regesbostel;4106
+3353030;Salzhausen;4106
+3353033;Tespe;4106
+3353034;Toppenstedt;4106
+3353035;Tostedt;4106
+3353036;Undeloh;4106
+3353037;Vierhöfen;4106
+3353038;Welle;4106
+3353039;Wenzendorf;4106
+3353041;Wistedt;4106
+3353042;Wulfsen;4106
+3353026;Neu Wulmstorf;4106
+3353029;Rosengarten;4106
+3353031;Seevetal;4106
+3353032;Stelle;4106
+3353040;Winsen (Luhe), Stadt;4106
+3352002;Armstorf;4105
+3352004;Belum;4101
+3352008;Bülkau;4101
+3352011;Cuxhaven, Stadt;4101
+3352020;Hechthausen;4105
+3352022;Hemmoor, Stadt;4105
+3352024;Hollnseth;4105
+3352025;Ihlienworth;4101
+3352029;Lamstedt;4105
+3352032;Loxstedt;4101
+3352036;Mittelstenahe;4105
+3352038;Neuenkirchen;4101
+3352039;Neuhaus (Oste), Flecken;4101
+3352041;Nordleda;4101
+3352042;Oberndorf;4101
+3352043;Odisheim;4101
+3352044;Osten;4105
+3352045;Osterbruch;4101
+3352046;Otterndorf, Stadt;4101
+3352050;Schiffdorf;4101
+3352051;Steinau;4101
+3352052;Stinstedt;4101
+3352055;Wanna;4101
+3352056;Wingst;4101
+3352059;Beverstedt;4101
+3352060;Hagen im Bremischen;4101
+3352061;Wurster Nordseeküste;4101
+3352062;Geestland, Stadt;4101
+3352063;Cadenberge;4101
+3351001;Adelheidsdorf;4108
+3351002;Ahnsbeck;4108
+3351003;Beedenbostel;4108
+3351004;Bergen, Stadt;4107
+3351005;Bröckel;4108
+3351006;Celle, Stadt;4108
+3351007;Eicklingen;4108
+3351008;Eldingen;4108
+3351010;Faßberg;4107
+3351012;Hambühren;4108
+3351015;Hohne;4108
+3351016;Lachendorf;4108
+3351017;Langlingen;4108
+3351018;Nienhagen;4108
+3351021;Wathlingen;4108
+3351022;Wienhausen, Klostergemeinde;4108
+3351023;Wietze;4108
+3351024;Winsen (Aller);4108
+3351025;Eschede;4107
+3351026;Südheide;4107
+3351501;Lohheide, gemfr. Bezirk;4107
+3257001;Ahnsen;4109
+3257002;Apelern;4109
+3257003;Auetal;4109
+3257004;Auhagen;4109
+3257005;Bad Eilsen;4109
+3257006;Bad Nenndorf, Stadt;4109
+3257007;Beckedorf;4109
+3257008;Buchholz;4109
+3257009;Bückeburg, Stadt;4109
+3257010;Hagenburg, Flecken;4109
+3257011;Haste;4109
+3257012;Heeßen;4109
+3257013;Helpsen;4109
+3257014;Hespe;4109
+3257015;Heuerßen;4109
+3257016;Hohnhorst;4109
+3257017;Hülsede;4109
+3257018;Lauenau, Flecken;4109
+3257019;Lauenhagen;4109
+3257020;Lindhorst;4109
+3257021;Lüdersfeld;4109
+3257022;Luhden;4109
+3257023;Meerbeck;4109
+3257024;Messenkamp;4109
+3257025;Niedernwöhren;4109
+3257026;Nienstädt;4109
+3257027;Nordsehl;4109
+3257028;Obernkirchen, Stadt;4109
+3257029;Pohle;4109
+3257030;Pollhagen;4109
+3257031;Rinteln, Stadt;4109
+3257032;Rodenberg, Stadt;4109
+3257033;Sachsenhagen, Stadt;4109
+3257034;Seggebruch;4109
+3257035;Stadthagen, Stadt;4109
+3257036;Suthfeld;4109
+3257037;Wiedensahl, Flecken;4109
+3257038;Wölpinghausen;4109
+3256001;Balge;4105
+3256002;Binnen;4105
+3256003;Bücken, Flecken;4105
+3256004;Diepenau, Flecken;4105
+3256005;Drakenburg, Flecken;4105
+3256006;Estorf;4105
+3256007;Eystrup;4105
+3256008;Gandesbergen;4105
+3256009;Hämelhausen;4105
+3256010;Hassel (Weser);4105
+3256011;Haßbergen;4105
+3256012;Heemsen;4105
+3256013;Hilgermissen;4105
+3256014;Hoya, Stadt;4105
+3256015;Hoyerhagen;4105
+3256016;Husum;4105
+3256017;Landesbergen;4105
+3256018;Leese;4105
+3256019;Liebenau, Flecken;4105
+3256020;Linsburg;4105
+3256021;Marklohe;4105
+3256022;Nienburg (Weser), Stadt;4105
+3256023;Pennigsehl;4105
+3256024;Raddestorf;4105
+3256025;Rehburg-Loccum, Stadt;4105
+3256026;Rodewald;4105
+3256027;Rohrsen;4105
+3256028;Schweringen;4105
+3256029;Steimbke;4105
+3256030;Steyerberg, Flecken;4105
+3256031;Stöckse;4105
+3256032;Stolzenau;4105
+3256033;Uchte, Flecken;4105
+3256034;Warmsen;4105
+3256035;Warpe;4105
+3256036;Wietzen;4105
+3255001;Arholzen;4109
+3255002;Bevern, Flecken;4109
+3255003;Bodenwerder, Münchhausenstadt;4109
+3255004;Boffzen;4109
+3255005;Brevörde;4109
+3255007;Deensen;4109
+3255008;Delligsen, Flecken;4109
+3255009;Derental;4109
+3255010;Dielmissen;4109
+3255012;Eimen;4109
+3255013;Eschershausen, Stadt;4109
+3255014;Fürstenberg;4109
+3255015;Golmbach;4109
+3255016;Halle;4109
+3255017;Hehlen;4109
+3255018;Heinade;4109
+3255019;Heinsen;4109
+3255020;Heyen;4109
+3255021;Holenberg;4109
+3255022;Holzen;4109
+3255023;Holzminden, Stadt;4109
+3255025;Kirchbrak;4109
+3255026;Lauenförde, Flecken;4109
+3255027;Lenne;4109
+3255028;Lüerdissen;4109
+3255030;Negenborn;4109
+3255031;Ottenstein, Flecken;4109
+3255032;Pegestorf;4109
+3255033;Polle, Flecken;4109
+3255034;Stadtoldendorf, Stadt;4109
+3255035;Vahlbruch;4109
+3255036;Wangelnstedt;4109
+3255501;Boffzen, gemfr. Gebiet;4109
+3255502;Eimen, gemfr. Gebiet;4109
+3255503;Eschershausen, gemfr. Gebiet;4109
+3255504;Grünenplan, gemfr. Gebiet;4109
+3255505;Holzminden, gemfr. Gebiet;4109
+3255506;Merxhausen, gemfr. Gebiet;4109
+3255508;Wenzen, gemfr. Gebiet;4109
+3254002;Alfeld (Leine), Stadt;4109
+3254003;Algermissen;4109
+3254005;Bad Salzdetfurth, Stadt;4109
+3254008;Bockenem, Stadt;4109
+3254011;Diekholzen;4109
+3254013;Eime, Flecken;4109
+3254014;Elze, Stadt;4109
+3254017;Giesen;4109
+3254020;Harsum;4109
+3254021;Hildesheim, Stadt;4109
+3254022;Holle;4109
+3254026;Nordstemmen;4109
+3254028;Sarstedt, Stadt;4109
+3254029;Schellerten;4109
+3254032;Söhlde;4109
+3254041;Duingen, Flecken;4109
+3254042;Freden (Leine);4109
+3254043;Gronau (Leine), Stadt;4109
+3254044;Lamspringe;4109
+3254045;Sibbesse;4109
+3252001;Aerzen, Flecken;4109
+3252002;Bad Münder am Deister, Stadt;4109
+3252003;Bad Pyrmont, Stadt;4109
+3252004;Coppenbrügge, Flecken;4109
+3252005;Emmerthal;4109
+3252006;Hameln, Stadt;4109
+3252007;Hessisch Oldendorf, Stadt;4109
+3252008;Salzhemmendorf, Flecken;4109
+3251001;Affinghausen;4105
+3251002;Asendorf;4105
+3251003;Bahrenborstel;4105
+3251004;Barenburg, Flecken;4105
+3251005;Barnstorf, Flecken;4105
+3251006;Barver;4105
+3251007;Bassum, Stadt;4105
+3251008;Borstel;4105
+3251009;Brockum;4105
+3251011;Dickel;4105
+3251012;Diepholz, Stadt;4105
+3251013;Drebber;4105
+3251014;Drentwede;4105
+3251015;Ehrenburg;4105
+3251017;Eydelstedt;4105
+3251018;Freistatt;4105
+3251019;Hemsloh;4105
+3251020;Hüde;4105
+3251021;Kirchdorf;4105
+3251022;Lembruch;4105
+3251023;Lemförde, Flecken;4105
+3251024;Maasen;4105
+3251025;Marl;4105
+3251026;Martfeld;4105
+3251027;Mellinghausen;4105
+3251028;Neuenkirchen;4105
+3251029;Quernheim;4105
+3251030;Rehden;4105
+3251031;Scholen;4105
+3251032;Schwaförden;4105
+3251033;Schwarme;4105
+3251034;Siedenburg, Flecken;4105
+3251035;Staffhorst;4105
+3251036;Stemshorn;4105
+3251037;Stuhr;4104
+3251038;Sudwalde;4105
+3251040;Sulingen, Stadt;4105
+3251041;Syke, Stadt;4105
+3251042;Twistringen, Stadt;4105
+3251043;Varrel;4105
+3251044;Wagenfeld;4105
+3251045;Wehrbleck;4105
+3251046;Wetschen;4105
+3251047;Weyhe;4104
+3251049;Bruchhausen-Vilsen, Flecken;4105
+3241002;Barsinghausen, Stadt;4108
+3241003;Burgdorf, Stadt;4108
+3241004;Burgwedel, Stadt;4108
+3241011;Lehrte, Stadt;4108
+3241012;Neustadt am Rübenberge, Stadt;4108
+3241013;Pattensen, Stadt;4108
+3241016;Sehnde, Stadt;4108
+3241017;Springe, Stadt;4108
+3241018;Uetze;4108
+3241019;Wedemark;4108
+3241020;Wennigsen (Deister);4108
+3241005;Garbsen, Stadt;4108
+3241006;Gehrden, Stadt;4108
+3241007;Hemmingen, Stadt;4108
+3241008;Isernhagen;4108
+3241009;Laatzen, Stadt;4108
+3241010;Langenhagen, Stadt;4108
+3241014;Ronnenberg, Stadt;4108
+3241015;Seelze, Stadt;4108
+3241021;Wunstorf, Stadt;4108
+3241001;Hannover, Landeshauptstadt;4205
+3159002;Bad Grund (Harz);4109
+3159003;Bad Lauterberg im Harz, Stadt;4109
+3159004;Bad Sachsa, Stadt;4109
+3159012;Elbingerode;4109
+3159018;Hattorf am Harz;4109
+3159019;Herzberg am Harz, Stadt;4109
+3159020;Hörden am Harz;4109
+3159026;Osterode am Harz, Stadt;4109
+3159501;Harz (Ldkr. Göttingen), gemfr. Geb.;4109
+3159001;Adelebsen, Flecken;4109
+3159005;Bilshausen;4109
+3159006;Bodensee;4109
+3159007;Bovenden, Flecken;4208
+3159008;Bühren;4109
+3159009;Dransfeld, Stadt;4109
+3159010;Duderstadt, Stadt;4109
+3159011;Ebergötzen;4109
+3159013;Friedland;4109
+3159014;Gieboldehausen, Flecken;4109
+3159015;Gleichen;4109
+3159017;Hann. Münden, Stadt;4109
+3159021;Jühnde;4109
+3159022;Krebeck;4109
+3159023;Landolfshausen;4109
+3159024;Niemetal;4109
+3159025;Obernfeld;4109
+3159027;Rhumspringe;4109
+3159028;Rollshausen;4109
+3159029;Rosdorf;4208
+3159030;Rüdershausen;4109
+3159031;Scheden;4109
+3159032;Seeburg;4109
+3159033;Seulingen;4109
+3159034;Staufenberg;4109
+3159035;Waake;4109
+3159036;Walkenried;4109
+3159037;Wollbrandshausen;4109
+3159038;Wollershausen;4109
+3159039;Wulften am Harz;4109
+3159016;Göttingen, Stadt;4208
+3158002;Baddeckenstedt;4109
+3158004;Burgdorf;4109
+3158005;Cramme;4109
+3158006;Cremlingen;4108
+3158007;Dahlum;4109
+3158008;Denkte;4109
+3158009;Dettum;4108
+3158010;Dorstadt;4109
+3158011;Elbe;4109
+3158012;Erkerode;4108
+3158013;Evessen;4108
+3158014;Flöthe;4109
+3158016;Haverlah;4109
+3158017;Hedeper;4109
+3158018;Heere;4109
+3158019;Heiningen;4109
+3158021;Kissenbrück;4109
+3158022;Kneitlingen;4109
+3158023;Ohrum;4109
+3158025;Roklum;4109
+3158027;Schöppenstedt, Stadt;4109
+3158028;Sehlde;4109
+3158030;Sickte;4108
+3158031;Uehrde;4109
+3158032;Vahlberg;4109
+3158033;Veltheim (Ohe);4108
+3158035;Winnigstedt;4109
+3158036;Wittmar;4109
+3158037;Wolfenbüttel, Stadt;4108
+3158038;Börßum;4109
+3158039;Schladen-Werla;4109
+3158040;Remlingen-Semmenstedt;4109
+3158501;Am Großen Rhode, gemfr. Gebiet;4109
+3158502;Barnstorf-Warle, gemfr. Gebiet;4109
+3158503;Voigtsdahlum, gemfr. Gebiet;4109
+3157001;Edemissen;4108
+3157002;Hohenhameln;4108
+3157005;Lengede;4108
+3157006;Peine, Stadt;4108
+3157007;Vechelde;4108
+3157008;Wendeburg;4108
+3157009;Ilsede;4108
+3155001;Bad Gandersheim, Stadt;4109
+3155002;Bodenfelde, Flecken;4109
+3155003;Dassel, Stadt;4109
+3155005;Hardegsen, Stadt;4109
+3155006;Kalefeld;4109
+3155007;Katlenburg-Lindau;4109
+3155009;Moringen, Stadt;4109
+3155010;Nörten-Hardenberg, Flecken;4109
+3155011;Northeim, Stadt;4109
+3155012;Uslar, Stadt;4109
+3155013;Einbeck, Stadt;4109
+3155501;Solling (Landkreis Northeim), gemfr. Geb.;4109
+3154001;Bahrdorf;4108
+3154002;Beierstedt;4109
+3154004;Danndorf;4108
+3154005;Frellstedt;4109
+3154006;Gevensleben;4109
+3154007;Grafhorst;4108
+3154008;Grasleben;4109
+3154009;Groß Twülpstedt;4108
+3154012;Jerxheim;4109
+3154013;Königslutter am Elm, Stadt;4108
+3154014;Lehre;4108
+3154015;Mariental;4109
+3154016;Querenhorst;4109
+3154017;Räbke;4109
+3154018;Rennau;4109
+3154019;Schöningen, Stadt;4109
+3154021;Süpplingen;4109
+3154022;Süpplingenburg;4109
+3154024;Velpke;4108
+3154025;Warberg;4109
+3154026;Wolsdorf;4109
+3154027;Söllingen;4109
+3154028;Helmstedt, Stadt;4109
+3154501;Brunsleberfeld, gemfr. Gebiet;4109
+3154502;Helmstedt, gemfr. Gebiet;4109
+3154503;Königslutter, gemfr. Gebiet;4108
+3154504;Mariental, gemfr. Gebiet;4109
+3154506;Schöningen, gemfr. Gebiet;4109
+3153002;Bad Harzburg, Stadt;4109
+3153006;Hahausen;4109
+3153007;Langelsheim, Stadt;4109
+3153008;Liebenburg;4109
+3153009;Lutter am Barenberge, Flecken;4109
+3153012;Seesen, Stadt;4109
+3153014;Wallmoden;4109
+3153016;Braunlage, Stadt;4109
+3153017;Goslar, Stadt;4109
+3153018;Clausthal-Zellerfeld, Berg- und Universitätsstadt;4109
+3153504;Harz (Landkreis Goslar), gemfr. Gebiet;4109
+3151001;Adenbüttel;4108
+3151002;Barwedel;4108
+3151003;Bergfeld;4108
+3151004;Bokensdorf;4108
+3151005;Brome, Flecken;4108
+3151006;Calberlah;4108
+3151007;Dedelstorf;4107
+3151008;Ehra-Lessien;4108
+3151009;Gifhorn, Stadt;4108
+3151010;Groß Oesingen;4108
+3151011;Hankensbüttel;4107
+3151012;Hillerse;4108
+3151013;Isenbüttel;4108
+3151014;Jembke;4108
+3151015;Leiferde;4108
+3151016;Meine;4108
+3151017;Meinersen;4108
+3151018;Müden (Aller);4108
+3151019;Obernholz;4107
+3151020;Osloß;4108
+3151021;Parsau;4108
+3151022;Ribbesbüttel;4108
+3151023;Rötgesbüttel;4108
+3151024;Rühen;4108
+3151025;Sassenburg;4108
+3151026;Schönewörde;4108
+3151027;Schwülper;4108
+3151028;Sprakensehl;4107
+3151029;Steinhorst;4107
+3151030;Tappenbeck;4108
+3151031;Tiddische;4108
+3151032;Tülau;4108
+3151033;Ummern;4108
+3151034;Vordorf;4108
+3151035;Wagenhoff;4108
+3151036;Wahrenholz;4108
+3151037;Wasbüttel;4108
+3151038;Wesendorf;4108
+3151039;Weyhausen;4108
+3151040;Wittingen, Stadt;4107
+3151041;Didderse;4108
+3151501;Giebel, gemfr. Gebiet;4108
+3103000;Wolfsburg, Stadt;4204
+3102000;Salzgitter, Stadt;4109
+3101000;Braunschweig, Stadt;4206

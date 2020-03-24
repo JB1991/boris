@@ -1,0 +1,11 @@
+/* set alert container above all other elements */
+#alert-root {
+    z-index: 9999;
+}
+#alert-root .alert {
+    z-index: 10000;
+    box-shadow: 0 0 0.5rem rgba(83,78,76,.5);
+    -webkit-box-shadow: 0 0 0.5rem rgba(83,78,76,.5);
+    -moz-box-shadow: 0 0 0.5rem rgba(83,78,76,.5);
+    width: 50%;
+}

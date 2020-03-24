@@ -1,0 +1,70 @@
+<!-- navigation component -->
+<nav id="navigation" class="navbar navbar-expand-md navbar-light bg-lgln mb-2" aria-label="Page navigation" role="banner">
+    <!-- lgln logo -->
+    <a class="navbar-brand" title="Startseite" [routerLink]="['/']">
+        <img src="./assets/logo.png" height="50px" alt="LGLN Logo">
+    </a>
+
+    <!-- responsive menu button on mobile devices -->
+    <button class="navbar-toggler navbar-toggler-right"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarsExampleDefault"
+        title="Toggle navigation"
+        aria-label="Toggle navigation"
+        (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="navbarsExampleDefault">
+        &#9776;
+    </button>
+
+    <!-- menu items -->
+    <div [collapse]="isCollapsed"
+        [isAnimated]="true"
+        id="navbarsExampleDefault"
+        class="collapse navbar-collapse">
+        <ul class="navbar-nav" role="navigation">
+            <li class="nav-item">
+                <a class="nav-link"
+                    title="Startseite"
+                    [class.active]="isPage(1)"
+                    [routerLink]="['/']"
+                    (click)="isCollapsed = true">
+                    Startseite
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                    title="Dashboard"
+                    [class.active]="isPage(0)"
+                    [routerLink]="['/dashboard']"
+                    (click)="isCollapsed = true">
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                    title="Formular"
+                    [class.active]="isPage(2)"
+                    [routerLink]="['/formular']"
+                    (click)="isCollapsed = true">
+                    Formular
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                    title="Editor"
+                    [class.active]="isPage(3)"
+                    [routerLink]="['/editor']"
+                    (click)="isCollapsed = true">
+                    Editor
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- niedersachsen logo -->
+    <div class="navbar-text" class="d-md-inline d-none">
+        <img src="./assets/nds.png" height="50px" alt="Niedersachen Wappen">
+    </div>
+</nav>

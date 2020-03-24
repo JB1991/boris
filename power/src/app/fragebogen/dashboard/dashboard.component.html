@@ -1,0 +1,52 @@
+<!-- dashboard page -->
+<main class="mainpage" id="content" tabindex="-1">
+    <!-- formular list -->
+    <div class="card bg-light">
+        <div class="card-header h5">
+            <i class="fas fa-list fa-fw" aria-hidden="true"></i>
+            Formulars
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover m-0">
+                <thead>
+                    <tr>
+                        <th scope="col" class="border-top-0 w-75">Titel</th>
+                        <th scope="col" class="border-top-0">Version</th>
+                        <th scope="col" class="border-top-0">Datum</th>
+                        <th scope="col" class="border-top-0"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let formular of formsList; index as i">
+                        <td scope="row">
+                            <a title="Formular öffnen" [routerLink]="['/editor', formular.id]">
+                                {{ formular.title }}
+                            </a>
+                        </td>
+                        <td>{{ formular.version }}</td>
+                        <td>{{ formular.created_at | date:'dd.MM.yyyy HH:mm' }}</td>
+                        <td>
+                            <button type="button"
+                                class="btn btn-success btn-sm"
+                                title="Formular exportieren"
+                                (click)="exportFormular(formular.id)">
+                                <i class="far fa-save fa-fw" aria-hidden="true"></i>
+                                Export
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <span *ngIf="!formsList.length">Keine Formulare gefunden</span>
+        </div>
+        <div class="card-footer">
+            <button type="button"
+            class="btn btn-primary btn-sm"
+            title="Formular importieren"
+            (click)="importFormular()">
+            <i class="fas fa-upload fa-fw" aria-hidden="true"></i>
+            Import
+        </button>
+        </div>
+    </div>
+</main>

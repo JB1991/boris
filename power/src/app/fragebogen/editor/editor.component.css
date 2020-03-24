@@ -1,0 +1,21 @@
+@media (max-width: 767px) {
+    .textpos {
+        text-align: left !important;
+    }
+}
+@media (max-width: 991px) {
+    #toolbox ul, #toolbox li {
+        display: inline-block;
+        vertical-align: top;
+        border-width: 0px !important;
+    }
+}
+
+.drag-ghost {
+    opacity: 0.5;
+}
+
+li.smooth-dnd-draggable-wrapper:last-child .page-link {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}

@@ -1,0 +1,9 @@
+<div class="fullscreen bg-white" *ngIf="isOpen">
+    <div class="container p-3">
+        <button type="button" class="btn btn-secondary mb-3" title="Formular Vorschau schließen" (click)="Toggle()">
+            <i class="fas fa-compress fa-fw" aria-hidden="true"></i>
+            Vorschau schließen
+        </button>
+        <surveyjs-wrapper [model]="storage.model" [css]="surveyjs_style" (result)="debugPrint($event)"></surveyjs-wrapper>
+    </div>
+</div>

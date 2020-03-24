@@ -1,0 +1,125 @@
+image: docker:19-git
+
+services:
+  - docker:19-dind
+
+variables:
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_REF_SLUG
+
+stages:
+  - init
+  - test
+  - build
+  - package
+  - deploy
+
+install:
+  stage: init
+  image: node:13
+  script:
+    - cd power
+    - npm install
+  artifacts:
+    paths:
+      - power/node_modules/
+  cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - power/node_modules/
+  only:
+    - master
+    - merge_requests
+
+test:lint:
+  stage: test
+  image: node:13
+  script:
+    - cd power
+    - ng lint --format json > ../gl-code-quality-report.json
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+    paths:
+      - gl-code-quality-report.json
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+
+test:karma:
+  stage: test
+  image: node:13
+  script:
+    - cd power
+    - ng test --progress false --watch false
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+
+test:e2e:
+  stage: test
+  image: node:13
+  allow_failure: true
+  script:
+    - cd power
+    - ng e2e
+  only:
+    - merge_requests
+    - master
+
+test:audit:
+  stage: test
+  image: node:latest
+  allow_failure: true
+  script:
+    - cd power
+    - npm audit
+  only:
+    - merge_requests
+    - master
+
+build:
+  stage: build
+  image: node:13
+  script:
+    - cd power
+    - npm run build -- --prod
+  artifacts:
+    paths:
+      - power/dist/power
+  cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - power/dist/
+  only:
+    - master
+    - merge_requests
+
+package:
+  stage: package
+  image: docker
+  dependencies:
+    - build
+  script:
+    - export VERSION=$(cat power/package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$VERSION" .
+    - docker push "$CI_REGISTRY_IMAGE:$VERSION"
+  only:
+    - master
+    - merge_requests
+  
+deploy:dev:
+  stage: deploy
+  image: dtzar/helm-kubectl:3.1.2
+  dependencies: []
+  script:
+    - export VERSION=$(cat power/package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - helm upgrade power ./chart/power -n dev --install --set=image.tag="$VERSION"
+  only:
+    - master

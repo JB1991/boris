@@ -1,0 +1,35 @@
+resolver  127.0.0.11 valid=10s;  # recover from the backend's IP changing
+
+server {
+  listen  80;
+  gzip on;
+
+  location / {
+    gzip on;
+    root  /usr/share/nginx/html;
+    try_files $uri $uri/ /index.html;
+  }
+
+  location /health {
+    access_log off;
+    return 200 "healthy\n";
+  }
+
+  location /geocoding/suggestions/ {
+    rewrite ^\/geocoding\/suggestions\/(.*) /gdz_geokodierung__${BKG_GEOCODING_SECRET}/suggest$1 break;
+    proxy_pass https://sg.geodatenzentrum.de/;
+    return 404;
+  }
+
+  location /geocoding/geosearch/ {
+    rewrite ^\/geocoding\/geosearch\/(.*) /gdz_ortssuche__${BKG_GEOCODING_SECRET}/geosearch.json$1 break;
+    proxy_pass https://sg.geodatenzentrum.de/;
+    return 404;
+  }
+
+#  location /geoserver/ {
+#    proxy_pass ${GEOSERVER_URL};
+#    proxy_set_header HOST $http_host;
+#  }
+
+}

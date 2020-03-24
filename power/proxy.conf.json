@@ -1,0 +1,23 @@
+{
+  "/geocoding/geosearch/" : {
+    "target": "https://sg.geodatenzentrum.de/gdz_ortssuche__1a415c0d-ddb1-7a7d-27f0-88ef2cfa13d6/geosearch.json",
+    "pathRewrite": {
+      "^/geocoding/geosearch/": ""
+    },
+    "secure": false,
+    "debugLevel": "info"
+  },
+  "/geocoding/suggestions/" : {
+    "target": "https://sg.geodatenzentrum.de/gdz_geokodierung__1a415c0d-ddb1-7a7d-27f0-88ef2cfa13d6/suggest",
+    "pathRewrite": {
+      "^/geocoding/suggestions/": ""
+    },
+    "secure": false,
+    "debugLevel": "info"
+  },
+  "/geoserver/": {
+    "target": "http://localhost:8080/",
+    "secure":false,
+    "debugLevel": "info"
+  }
+}
