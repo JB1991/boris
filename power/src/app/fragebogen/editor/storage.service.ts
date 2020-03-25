@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-import * as data from './data';
+import * as templates from './data';
 import { Bootstrap4_CSS } from '../surveyjs/style';
 
 /**
@@ -13,10 +13,10 @@ import { Bootstrap4_CSS } from '../surveyjs/style';
   providedIn: 'root'
 })
 export class StorageService {
-  public model: any = JSON.parse(JSON.stringify(data.FormularTemplate));
+  public model: any = JSON.parse(JSON.stringify(templates.FormularTemplate));
   public css_style: any = JSON.parse(JSON.stringify(Bootstrap4_CSS));
-  public FormularFields = data.FormularFields;
-  public DatabaseMap = data.DatabaseMap;
+  public FormularFields = templates.FormularFields;
+  public DatabaseMap = templates.DatabaseMap;
   public selectedPageID = 0;
   public selectedElementID: number = null;
   public UnsavedChanges = false;
@@ -31,11 +31,11 @@ export class StorageService {
    * Resets service to empty model
    */
   public ResetService() {
-    this.model = JSON.parse(JSON.stringify(data.FormularTemplate));
+    this.model = JSON.parse(JSON.stringify(templates.FormularTemplate));
     this.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
     this.css_style.container = 'sv_container';
-    this.FormularFields = data.FormularFields;
-    this.DatabaseMap = data.DatabaseMap;
+    this.FormularFields = templates.FormularFields;
+    this.DatabaseMap = templates.DatabaseMap;
     this.selectedPageID = 0;
     this.selectedElementID = null;
     this.UnsavedChanges = false;

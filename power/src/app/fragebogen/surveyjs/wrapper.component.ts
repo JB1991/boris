@@ -4,7 +4,7 @@ import { init } from './nouislider.js';
 import * as Showdown from 'showdown';
 
 @Component({
-  selector: 'surveyjs-wrapper',
+  selector: 'power-formulars-surveyjs-wrapper',
   template: `<div #surveyjsDiv></div>`
 })
 export class WrapperComponent implements OnChanges {

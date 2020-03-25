@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
 import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
 
 @Component({
-  selector: 'app-editor',
+  selector: 'power-formulars-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css']
 })
@@ -66,7 +66,9 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
   @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
     // on test environment skip
-    if (!environment.production) return true;
+    if (!environment.production) {
+      return true;
+    }
     return !this.storage.GetUnsavedChanges();
   }
 
@@ -259,7 +261,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     }
 
     // saving data
-    var id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.storage.FormularSave(this.storage.model, id).subscribe((data) => {
       // check for error
       if (!data || data['Error']) {

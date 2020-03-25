@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-formular',
+  selector: 'power-formulars-formular',
   templateUrl: './formular.component.html',
   styleUrls: ['./formular.component.css']
 })

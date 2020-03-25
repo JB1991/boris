@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
-  selector: 'app-alerts',
+  selector: 'power-alerts',
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.css']
 })

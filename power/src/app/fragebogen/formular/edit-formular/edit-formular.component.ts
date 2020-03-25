@@ -5,7 +5,7 @@ import { ComponentCanDeactivate } from '../../pendingchanges.guard';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-edit-formular',
+  selector: 'power-formulars-formular-edit',
   templateUrl: './edit-formular.component.html',
   styleUrls: ['./edit-formular.component.css']
 })

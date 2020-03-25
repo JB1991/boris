@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'power-formulars-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })

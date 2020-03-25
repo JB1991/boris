@@ -4,7 +4,7 @@ import { StorageService } from '../storage.service';
 import { Bootstrap4_CSS } from '../../surveyjs/style';
 
 @Component({
-  selector: 'app-preview',
+  selector: 'power-formulars-editor-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.css']
 })

@@ -6,7 +6,7 @@ import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
 
 @Component({
-  selector: 'app-modal-formular',
+  selector: 'power-formulars-editor-modal-formular',
   templateUrl: './modal-formular.component.html',
   styleUrls: ['./modal-formular.component.css']
 })

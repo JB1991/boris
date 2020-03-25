@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingscreenService } from './loadingscreen.service';
 
 @Component({
-  selector: 'app-loadingscreen',
+  selector: 'power-loadingscreen',
   templateUrl: './loadingscreen.component.html',
   styleUrls: ['./loadingscreen.component.css']
 })
