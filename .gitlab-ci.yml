@@ -20,6 +20,7 @@ install:
     - cd power
     - npm install
   artifacts:
+    expire_in: 1 week
     paths:
       - power/node_modules/
   cache:
@@ -27,8 +28,8 @@ install:
     paths:
       - power/node_modules/
   only:
-    - master
     - merge_requests
+    - master
 
 test:lint:
   stage: test
@@ -86,6 +87,7 @@ build:
     - cd power
     - npm run build -- --prod
   artifacts:
+    expire_in: 1 week
     paths:
       - power/dist/power
   cache:
@@ -94,7 +96,6 @@ build:
       - power/dist/
   only:
     - master
-    - merge_requests
 
 package:
   stage: package
@@ -108,8 +109,7 @@ package:
     - docker push "$CI_REGISTRY_IMAGE:$VERSION"
   only:
     - master
-    - merge_requests
-  
+
 deploy:dev:
   stage: deploy
   image: dtzar/helm-kubectl:3.1.2
