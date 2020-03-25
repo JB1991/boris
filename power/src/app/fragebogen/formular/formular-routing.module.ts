@@ -12,7 +12,7 @@ import { EditFormularComponent } from './edit-formular/edit-formular.component';
 const routes: Routes = [
   {
     path: 'formular',
-    component: FormularComponent,
+    component: FormularComponent
   },
   {
     path: 'formular/:id',

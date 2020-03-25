@@ -1,30 +1,27 @@
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CollapseModule, AlertModule } from 'ngx-bootstrap';
 
-import { FragebogenComponent } from './fragebogen.component';
+import { FragebogenRoutingModule } from './fragebogen-routing.module';
 import { AlertsComponent } from './alerts/alerts.component';
 import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component';
 
 import { AlertsService } from './alerts/alerts.service';
 import { LoadingscreenService } from './loadingscreen/loadingscreen.service';
+import { HomeComponent } from './home/home.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { FormularModule } from './formular/formular.module';
 import { EditorModule } from './editor/editor.module';
-import {FragebogenRoutingModule} from '@app/fragebogen/fragebogen-routing.module';
-import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
-    FragebogenComponent,
+    HomeComponent,
     AlertsComponent,
     LoadingscreenComponent,
   ],
   imports: [
     FragebogenRoutingModule,
-    CommonModule,
     HttpClientModule,
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
@@ -36,9 +33,9 @@ import {CommonModule} from '@angular/common';
     Title,
     AlertsService,
     LoadingscreenService,
-  ],
-  bootstrap: [FragebogenComponent]
+  ]
 })
+
 export class FragebogenModule {
   constructor() {
   }

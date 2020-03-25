@@ -12,7 +12,7 @@ export class LoadingscreenService {
    * Shows or hides loadingscreen
    * @param state new state
    */
-  public setVisible(state: boolean) {
+  public setVisible(state: boolean){
     this.isVisible = state;
   }
 }

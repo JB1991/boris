@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { EditorComponent } from './editor/editor.component';
-import { FormularComponent } from './formular/formular.component';
+import { HomeComponent } from './home/home.component';
 
-import { PendingChangesGuard } from './pendingchanges.guard';
-
-
+/**
+ * routes contains all known paths
+ */
 const routes: Routes = [
-  {path: '', component: FormularComponent},
-  {path: 'editor', component: EditorComponent, canDeactivate: [PendingChangesGuard]},
+  {
+    path: '',
+    component: HomeComponent
+  },
 ];
 
 @NgModule({

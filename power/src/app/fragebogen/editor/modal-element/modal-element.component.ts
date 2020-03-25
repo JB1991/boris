@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
-import { AlertsService } from '@app/fragebogen/alerts/alerts.service';
+import { AlertsService } from '../../alerts/alerts.service';
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
 
@@ -121,19 +121,19 @@ export class ModalElementComponent implements OnInit {
       // upload success
       reader.onload = () => {
         // downscale image
-        const img = new Image();
+        var img = new Image();
         img.onload = () => {
-          const canvas = document.createElement('canvas'),
-          ctx = canvas.getContext('2d'),
+          var canvas = document.createElement('canvas'),
+          ctx = canvas.getContext("2d"),
           oc = document.createElement('canvas'),
           octx = oc.getContext('2d');
 
           canvas.width = 300; // destination canvas size
           canvas.height = canvas.width * img.height / img.width;
-          let cur = {
+          var cur = {
             width: Math.floor(img.width * 0.5),
             height: Math.floor(img.height * 0.5)
-          };
+          }
           oc.width = cur.width;
           oc.height = cur.height;
 
@@ -149,7 +149,7 @@ export class ModalElementComponent implements OnInit {
           ctx.drawImage(oc, 0, 0, cur.width, cur.height, 0, 0, canvas.width, canvas.height);
 
           // save image
-          this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].choices[i].imageLink = canvas.toDataURL('image/jpeg');
+          this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].choices[i].imageLink = canvas.toDataURL("image/jpeg");
           input.remove();
         };
         img.src = String(reader.result);
