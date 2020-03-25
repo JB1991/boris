@@ -52,7 +52,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         this.loadingscreen.setVisible(false);
       }, (error: Error) => {
         // failed to load
-        this.router.navigate([''], { replaceUrl: true });
+        this.router.navigate(['/formulare'], { replaceUrl: true });
         this.loadingscreen.setVisible(false);
 
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
