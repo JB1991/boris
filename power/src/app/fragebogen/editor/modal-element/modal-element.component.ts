@@ -6,7 +6,7 @@ import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
 
 @Component({
-  selector: 'app-modal-element',
+  selector: 'power-formulars-editor-modal-element',
   templateUrl: './modal-element.component.html',
   styleUrls: ['./modal-element.component.css']
 })
@@ -149,7 +149,11 @@ export class ModalElementComponent implements OnInit {
           ctx.drawImage(oc, 0, 0, cur.width, cur.height, 0, 0, canvas.width, canvas.height);
 
           // save image
-          this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].choices[i].imageLink = canvas.toDataURL('image/jpeg');
+          this.storage.model
+            .pages[this.storage.selectedPageID]
+            .elements[this.storage.selectedElementID]
+            .choices[i]
+            .imageLink = canvas.toDataURL('image/jpeg');
           input.remove();
         };
         img.src = String(reader.result);
@@ -164,7 +168,11 @@ export class ModalElementComponent implements OnInit {
    */
   public deleteImage(i: number) {
     if (confirm('Möchten Sie wirklich das Bild löschen?')) {
-      this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].choices[i].imageLink = '';
+      this.storage.model
+        .pages[this.storage.selectedPageID]
+        .elements[this.storage.selectedElementID]
+        .choices[i]
+        .imageLink = '';
     }
   }
 
@@ -179,7 +187,10 @@ export class ModalElementComponent implements OnInit {
     this.storage.model
       .pages[this.storage.selectedPageID]
       .elements[this.storage.selectedElementID]
-      .choices.splice(this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].choices.length - 1, 1);
+      .choices.splice(this.storage.model
+                        .pages[this.storage.selectedPageID]
+                        .elements[this.storage.selectedElementID]
+                        .choices.length - 1, 1);
   }
 
   /**
@@ -190,12 +201,17 @@ export class ModalElementComponent implements OnInit {
       this.storage.model
         .pages[this.storage.selectedPageID]
         .elements[this.storage.selectedElementID]
-        .choices.splice(this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].choices.length, 0, {value: '', text: ''});
+        .choices.splice(this.storage.model.pages[this.storage.selectedPageID]
+        .elements[this.storage.selectedElementID]
+        .choices.length, 0, {value: '', text: ''});
     } else {
       this.storage.model
         .pages[this.storage.selectedPageID]
         .elements[this.storage.selectedElementID]
-        .choices.splice(this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].choices.length, 0, {value: '', text: '', imageLink: ''});
+        .choices.splice(this.storage.model
+                          .pages[this.storage.selectedPageID]
+                          .elements[this.storage.selectedElementID]
+                          .choices.length, 0, {value: '', text: '', imageLink: ''});
     }
   }
 
@@ -210,7 +226,10 @@ export class ModalElementComponent implements OnInit {
     this.storage.model
       .pages[this.storage.selectedPageID]
       .elements[this.storage.selectedElementID]
-      .columns.splice(this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].columns.length - 1, 1);
+      .columns.splice(this.storage.model
+                        .pages[this.storage.selectedPageID]
+                        .elements[this.storage.selectedElementID]
+                        .columns.length - 1, 1);
   }
 
   /**
@@ -220,7 +239,10 @@ export class ModalElementComponent implements OnInit {
     this.storage.model
       .pages[this.storage.selectedPageID]
       .elements[this.storage.selectedElementID]
-      .columns.splice(this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].columns.length, 0, {value: '', text: ''});
+      .columns.splice(this.storage.model
+                        .pages[this.storage.selectedPageID]
+                        .elements[this.storage.selectedElementID]
+                        .columns.length, 0, {value: '', text: ''});
   }
 
   /**
@@ -234,7 +256,10 @@ export class ModalElementComponent implements OnInit {
     this.storage.model
       .pages[this.storage.selectedPageID]
       .elements[this.storage.selectedElementID]
-      .rows.splice(this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].rows.length - 1, 1);
+      .rows.splice(this.storage.model
+                    .pages[this.storage.selectedPageID]
+                    .elements[this.storage.selectedElementID]
+                    .rows.length - 1, 1);
   }
 
   /**
@@ -244,6 +269,9 @@ export class ModalElementComponent implements OnInit {
     this.storage.model
       .pages[this.storage.selectedPageID]
       .elements[this.storage.selectedElementID]
-      .rows.splice(this.storage.model.pages[this.storage.selectedPageID].elements[this.storage.selectedElementID].rows.length, 0, {value: '', text: ''});
+      .rows.splice(this.storage.model
+                    .pages[this.storage.selectedPageID]
+                    .elements[this.storage.selectedElementID]
+                    .rows.length, 0, {value: '', text: ''});
   }
 }

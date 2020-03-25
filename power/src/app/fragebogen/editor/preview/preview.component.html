@@ -4,6 +4,7 @@
             <i class="fas fa-compress fa-fw" aria-hidden="true"></i>
             Vorschau schließen
         </button>
-        <surveyjs-wrapper [model]="storage.model" [css]="surveyjs_style" (result)="debugPrint($event)"></surveyjs-wrapper>
+        <power-formulars-surveyjs-wrapper [model]="storage.model" [css]="surveyjs_style" (result)="debugPrint($event)">
+        </power-formulars-surveyjs-wrapper>
     </div>
 </div>

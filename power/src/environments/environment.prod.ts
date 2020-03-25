@@ -9,5 +9,5 @@ export const environment = {
   },
   ows: '/geoserver/boris/ows?',
   basemap : 'https://vector-tiles-lgln.s3.ap.cloud-object-storage.appdomain.cloud/basemap.json',
-  api_url: 'http://localhost:8080/'
+  fragebogen_api: 'http://localhost:8080/'
 };

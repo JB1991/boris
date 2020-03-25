@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     {name: 'Bodenrichtwerte', link: '/bodenrichtwerte'},
     {name: 'Bodenwert-Kalkulator', link: '/bodenwertkalkulator'},
     {name: 'Immobilien', link: '/immobilienpreisindex'},
-    {name: 'Fragebogen', link: '/fragebogen'},
+    {name: 'Formulare', link: '/formulare'},
     // { name: 'Demo', link: '/demo' }
   ];
 

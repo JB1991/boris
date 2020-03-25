@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-import * as data from './data';
+import * as templates from './data';
 import { Bootstrap4_CSS } from '../surveyjs/style';
 
 /**
@@ -13,10 +13,10 @@ import { Bootstrap4_CSS } from '../surveyjs/style';
   providedIn: 'root'
 })
 export class StorageService {
-  public model: any = JSON.parse(JSON.stringify(data.FormularTemplate));
+  public model: any = JSON.parse(JSON.stringify(templates.FormularTemplate));
   public css_style: any = JSON.parse(JSON.stringify(Bootstrap4_CSS));
-  public FormularFields = data.FormularFields;
-  public DatabaseMap = data.DatabaseMap;
+  public FormularFields = templates.FormularFields;
+  public DatabaseMap = templates.DatabaseMap;
   public selectedPageID = 0;
   public selectedElementID: number = null;
   public UnsavedChanges = false;
@@ -31,11 +31,11 @@ export class StorageService {
    * Resets service to empty model
    */
   public ResetService() {
-    this.model = JSON.parse(JSON.stringify(data.FormularTemplate));
+    this.model = JSON.parse(JSON.stringify(templates.FormularTemplate));
     this.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
     this.css_style.container = 'sv_container';
-    this.FormularFields = data.FormularFields;
-    this.DatabaseMap = data.DatabaseMap;
+    this.FormularFields = templates.FormularFields;
+    this.DatabaseMap = templates.DatabaseMap;
     this.selectedPageID = 0;
     this.selectedElementID = null;
     this.UnsavedChanges = false;
@@ -48,7 +48,7 @@ export class StorageService {
    */
   public FormularLoad(id: string): Observable<Object> {
     // load data from server
-    return this.httpClient.get(environment.api_url + 'forms/' + id);
+    return this.httpClient.get(environment.fragebogen_api + 'forms/' + id);
   }
 
   /**
@@ -58,9 +58,9 @@ export class StorageService {
    */
   public FormularSave(data: any, id?: string): Observable<Object> {
     if (id) {
-      return this.httpClient.post(environment.api_url + 'forms/' + id, JSON.stringify(data));
+      return this.httpClient.post(environment.fragebogen_api + 'forms/' + id, JSON.stringify(data));
     } else {
-      return this.httpClient.put(environment.api_url + 'forms/', JSON.stringify(data));
+      return this.httpClient.put(environment.fragebogen_api + 'forms/', JSON.stringify(data));
     }
   }
 

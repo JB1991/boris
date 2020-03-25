@@ -1,3 +1,4 @@
 ./power/node_modules
 npm-debug.log
 builds
+.git

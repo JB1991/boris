@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
 import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
 
 @Component({
-  selector: 'app-editor',
+  selector: 'power-formulars-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css']
 })
@@ -52,7 +52,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         this.loadingscreen.setVisible(false);
       }, (error: Error) => {
         // failed to load
-        this.router.navigate([''], { replaceUrl: true });
+        this.router.navigate(['/formulare'], { replaceUrl: true });
         this.loadingscreen.setVisible(false);
 
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
@@ -66,7 +66,9 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
   @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
     // on test environment skip
-    if (!environment.production) { return true; }
+    if (!environment.production) {
+      return true;
+    }
     return !this.storage.GetUnsavedChanges();
   }
 

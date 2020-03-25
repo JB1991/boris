@@ -21,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./bodenwert-kalkulator/bodenwert-kalkulator.module').then(m => m.BodenwertKalkulatorModule)
   },
   {
-    path: 'fragebogen',
+    path: 'formulare',
     loadChildren: () => import('./fragebogen/fragebogen.module').then(m => m.FragebogenModule)
   },
   {

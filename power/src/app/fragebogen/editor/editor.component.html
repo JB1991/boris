@@ -168,10 +168,10 @@
 
                     <!-- element preview -->
                     <div class="card-body p-0" [collapse]="isCollapsed[i]" [isAnimated]="true">
-                        <surveyjs-wrapper [model]="container | preview"
+                        <power-formulars-surveyjs-wrapper [model]="container | preview"
                             [css]="storage.css_style"
                             [showInvisible]="true">
-                        </surveyjs-wrapper>
+                        </power-formulars-surveyjs-wrapper>
                     </div>
                 </div>
             </smooth-dnd-draggable>
@@ -179,11 +179,11 @@
     </div>
 
     <!-- configure formular modal -->
-    <app-modal-formular #modalformular></app-modal-formular>
+    <power-formulars-editor-modal-formular #modalformular></power-formulars-editor-modal-formular>
 
     <!-- configure element modal -->
-    <app-modal-element #modalelement></app-modal-element>
+    <power-formulars-editor-modal-element #modalelement></power-formulars-editor-modal-element>
 </main>
 
 <!-- preview -->
-<app-preview #preview></app-preview>
+<power-formulars-editor-preview #preview></power-formulars-editor-preview>

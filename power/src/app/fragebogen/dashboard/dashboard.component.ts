@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'power-formulars-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // load formular list
-    this.httpClient.get(environment.api_url + 'forms?history=false').subscribe((data) => {
+    this.httpClient.get(environment.fragebogen_api + 'forms?history=false').subscribe((data) => {
       // check for error
       if (!data || data[`Error`]) {
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data[`Error`]);
@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
    */
   public exportFormular(id: string) {
     // load formular
-    this.httpClient.get(environment.api_url + 'forms/' + id).subscribe((data) => {
+    this.httpClient.get(environment.fragebogen_api + 'forms/' + id).subscribe((data) => {
       // check for error
       if (!data || data[`Error`]) {
         this.alerts.NewAlert('danger', 'Export fehlgeschlagen', data[`Error`]);
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
 
       // upload success
       reader.onload = () => {
-        this.httpClient.put(environment.api_url + 'forms/', reader.result).subscribe((data) => {
+        this.httpClient.put(environment.fragebogen_api + 'forms/', reader.result).subscribe((data) => {
           // check for error
           if (!data || data[`Error`]) {
             this.alerts.NewAlert('danger', 'Import fehlgeschlagen', data[`Error`]);

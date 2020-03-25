@@ -544,21 +544,22 @@
                 <div *ngIf="tabSelected === 3">
                     Sichtbarkeitsbedingung
                     <br>
-                    <app-conditions [(data)]="storage.model.pages[storage.selectedPageID].elements[storage.selectedElementID].visibleIf">
-                    </app-conditions>
+                    <power-formulars-editor-conditions [(data)]="storage.model.pages[storage.selectedPageID].elements[storage.selectedElementID].visibleIf">
+                    </power-formulars-editor-conditions>
 
                     <hr>
                     Pflichtbedingung
                     <br>
-                    <app-conditions [(data)]="storage.model.pages[storage.selectedPageID].elements[storage.selectedElementID].requiredIf">
-                    </app-conditions>
+                    <power-formulars-editor-conditions [(data)]="storage.model.pages[storage.selectedPageID].elements[storage.selectedElementID].requiredIf">
+                    </power-formulars-editor-conditions>
                 </div>
 
                 <!-- modal validators tab -->
                 <div *ngIf="tabSelected === 4">
                     Validatoren
                     <br>
-                    <app-validators [(data)]="storage.model.pages[storage.selectedPageID].elements[storage.selectedElementID]"></app-validators>
+                    <power-formulars-editor-validators [(data)]="storage.model.pages[storage.selectedPageID].elements[storage.selectedElementID]">
+                    </power-formulars-editor-validators>
                 </div>
 
             <!-- modal buttons -->

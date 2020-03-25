@@ -1,7 +1,7 @@
 /**
  * default template for new formulars
  */
-export let FormularTemplate = {
+export const FormularTemplate = {
   locale: 'de',
   title: 'Neues Formular',
   loadingHtml: 'Das Formular wird geladen <div class=\'spinner-border\' role=\'status\'></div>',
@@ -11,7 +11,8 @@ export let FormularTemplate = {
       elements: [
         {
           title: 'Datenschutzerklärung',
-          description: 'Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).',
+          description: 'Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de]\
+(https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).',
           name: 'e1',
           type: 'checkbox',
           valueName: '',
@@ -53,7 +54,7 @@ export let FormularTemplate = {
 /**
  * DatabaseMap holds infos for mapping formular elements to database columns
  */
-export let DatabaseMap = [
+export const DatabaseMap = [
     {text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: ''},
     {text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: ''},
 ];
@@ -61,7 +62,7 @@ export let DatabaseMap = [
 /**
  * List of all formular field with icons and template
  */
-export let FormularFields = [
+export const FormularFields = [
   {
     type: 'text',
     name: 'Eingabefeld',
