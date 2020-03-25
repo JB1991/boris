@@ -5,9 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CollapseModule, AlertModule } from 'ngx-bootstrap';
 
 import { FragebogenComponent } from './fragebogen.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './home/home.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component';
 
@@ -22,9 +19,6 @@ import {CommonModule} from '@angular/common';
 @NgModule({
   declarations: [
     FragebogenComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
     AlertsComponent,
     LoadingscreenComponent,
   ],

@@ -48,7 +48,7 @@ export class StorageService {
    */
   public FormularLoad(id: string): Observable<Object> {
     // load data from server
-    return this.httpClient.get(environment.api_url + 'forms/' + id);
+    return this.httpClient.get(environment.fragebogen_api + 'forms/' + id);
   }
 
   /**
@@ -58,9 +58,9 @@ export class StorageService {
    */
   public FormularSave(data: any, id?: string): Observable<Object> {
     if (id) {
-      return this.httpClient.post(environment.api_url + 'forms/' + id, JSON.stringify(data));
+      return this.httpClient.post(environment.fragebogen_api + 'forms/' + id, JSON.stringify(data));
     } else {
-      return this.httpClient.put(environment.api_url + 'forms/', JSON.stringify(data));
+      return this.httpClient.put(environment.fragebogen_api + 'forms/', JSON.stringify(data));
     }
   }
 
