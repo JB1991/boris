@@ -31,3 +31,9 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
     Dies startet einen Webserver, der unter [http://localhost:4200](http://localhost:4200) erreicht werden kann.
     Bei Änderungen am Code werden Änderungen automatisch übertragen. 
  
+# Tests
+
+1. Unit-Tests ausführen
+    ```
+    ng test --code-coverage
+   ```

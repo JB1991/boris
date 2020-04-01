@@ -16,6 +16,7 @@ describe('BodenrichtwertDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BodenrichtwertDetailComponent);
     component = fixture.componentInstance;
+    component.feature = { properties: { } };
     fixture.detectChanges();
   });
 
