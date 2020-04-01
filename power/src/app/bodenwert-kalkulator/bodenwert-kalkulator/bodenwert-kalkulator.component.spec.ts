@@ -1,4 +1,5 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {NgbAccordion} from '@ng-bootstrap/ng-bootstrap';
 
 import {BodenwertKalkulatorComponent} from './bodenwert-kalkulator.component';
 
@@ -8,7 +9,7 @@ describe('BodenwertKalkulatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [BodenwertKalkulatorComponent]
+      declarations: [BodenwertKalkulatorComponent, NgbAccordion]
     })
       .compileComponents();
   }));
