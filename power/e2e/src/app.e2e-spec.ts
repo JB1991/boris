@@ -1,14 +1,14 @@
 import {AppPage} from './app.po';
 
-describe('workspace-project App', () => {
+describe('POWER-Frontend', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display headline', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toContain('POWER');
+    expect(page.getParagraphText()).toContain('Portal für Wertermittlung');
   });
 });
