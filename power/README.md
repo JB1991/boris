@@ -33,7 +33,23 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
  
 # Tests
 
-1. Unit-Tests ausführen
+1. Linter ausführen
     ```
-    ng test --code-coverage
+    ng lint
    ```
+
+2. Unit-Tests ausführen
+    ```
+    ng test --code-coverage --browsers Chrome
+   ```
+
+3. E2E-Tests ausführen
+    ```
+    ng e2e
+   ```
+ 
+ 4. Audit ausführen
+     ```
+     npm audit
+    ```
+ 
