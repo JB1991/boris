@@ -37,6 +37,7 @@ test:lint:
   image: node:13
   script:
     - cd power
+    - node_modules/@angular/cli/bin/ng lint
     - node_modules/@angular/cli/bin/ng lint --format json > ../gl-code-quality-report.json
   artifacts:
     reports:
@@ -51,17 +52,17 @@ test:lint:
 test:karma:
   stage: test
   image: node:13
-  script:
+  before_script:
     # Install chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
     - echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |  tee /etc/apt/sources.list.d/google-chrome.list
     - apt-get update
     - apt-get install google-chrome-stable -y
+  script:
     # Run tests
     - cd power
     - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   coverage: '/Lines \W+: (\d+\.\d+)%.*/'
-  allow_failure: true
   only:
     - merge_requests
     - master
@@ -69,13 +70,13 @@ test:karma:
 test:e2e:
   stage: test
   image: node:13
-  allow_failure: true
-  script:
+  before_script:
     # Install chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
     - echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |  tee /etc/apt/sources.list.d/google-chrome.list
     - apt-get update
     - apt-get install google-chrome-stable -y
+  script:
     # Run E2E tests
     - cd power
     - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
@@ -85,7 +86,7 @@ test:e2e:
 
 test:audit:
   stage: test
-  image: node:latest
+  image: node:13
   allow_failure: true
   script:
     - cd power
