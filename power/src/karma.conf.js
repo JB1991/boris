@@ -35,9 +35,9 @@ module.exports = function (config) {
     },
     singleRun: false,
     junitReporter: {
-      outputDir: '..',
+      outputDir: '../output',
       outputFile: 'junit_karma.xml',
-      useBrowserName: false,
+      useBrowserName: false
     }
   });
 };

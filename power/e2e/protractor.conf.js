@@ -16,12 +16,26 @@ exports.config = {
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 30000,
+    print: function () {
+    }
   },
   onPrepare() {
     require('ts-node').register({
       project: require('path').join(__dirname, './tsconfig.e2e.json')
     });
-    jasmine.getEnv().addReporter(new SpecReporter({spec: {displayStacktrace: true}}));
+    let jasmineReporters = require('jasmine-reporters');
+    const specReporter = new SpecReporter({
+      spec: {
+        displayStacktrace: true
+      }
+    });
+    const junitReporter = new jasmineReporters.JUnitXmlReporter({
+      savePath: 'output',
+      filePrefix: 'junit_e2e',
+      consolidateAll: true
+    });
+    jasmine.getEnv().addReporter(specReporter);
+    jasmine.getEnv().addReporter(junitReporter);
   }
 };

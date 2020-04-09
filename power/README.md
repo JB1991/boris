@@ -44,7 +44,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 2. E2E-Tests ausführen
    ```
-   ng e2e
+   ng e2e --port 4201
    ```
  
 3. Audit ausführen
