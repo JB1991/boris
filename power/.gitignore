@@ -33,6 +33,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+junit_karma.xml
 
 # System Files
 .DS_Store
