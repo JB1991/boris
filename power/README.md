@@ -1,5 +1,8 @@
 # Portal für Wertermittlungsinformationen
 
+[![pipeline status](https://gitlab.com/lgln/power.ni/power-frontend/badges/master/pipeline.svg)](https://gitlab.com/lgln/power.ni/power-frontend/-/commits/master)
+[![coverage report](https://gitlab.com/lgln/power.ni/power-frontend/badges/master/coverage.svg)](https://gitlab.com/lgln/power.ni/power-frontend/-/commits/master)
+
 In diesem Projekt wird gemeinsam an einer Plattform zur Visualisierung von Wertermittlungsinformationen gearbeitet.
 Diese Plattform wird in Form einer Single-Page-Application (SPA) realisiert, die weitere Dienste (für z.B. Daten oder 
 Geokodierung) einbindet. 
