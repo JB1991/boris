@@ -6,12 +6,13 @@ Geokodierung) einbindet.
 
 Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesvermessung Niedersachsen (LGLN).
 
-# Vorraussetzungen
+# Voraussetzungen
 
 1. git
 2. node
 3. npm
 4. ng
+5. docker
 
 # Getting started
 
@@ -33,23 +34,23 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
  
 # Tests
 
-1. Linter ausführen
-    ```
-    ng lint
+1. Unit-Tests ausführen
+   ```
+   ng test --code-coverage --browsers Chrome
    ```
 
-2. Unit-Tests ausführen
-    ```
-    ng test --code-coverage --browsers Chrome
+2. E2E-Tests ausführen
+   ```
+   ng e2e
+   ```
+ 
+3. Audit ausführen
+   ```
+   npm audit
    ```
 
-3. E2E-Tests ausführen
-    ```
-    ng e2e
+4. Code Climate ausführen (Analyse der Code-Qualität)
    ```
- 
- 4. Audit ausführen
-     ```
-     npm audit
-    ```
- 
+   docker pull codeclimate/codeclimate
+   docker run -it --rm --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze
+   ```

@@ -32,23 +32,6 @@ install:
     - merge_requests
     - master
 
-test:lint:
-  stage: test
-  image: node:13
-  script:
-    - cd power
-    - node_modules/@angular/cli/bin/ng lint
-    - node_modules/@angular/cli/bin/ng lint --format json > ../gl-code-quality-report.json
-  artifacts:
-    reports:
-      codequality: gl-code-quality-report.json
-    paths:
-      - gl-code-quality-report.json
-  allow_failure: true
-  only:
-    - merge_requests
-    - master
-
 test:karma:
   stage: test
   image: node:13
@@ -59,7 +42,7 @@ test:karma:
     - apt-get update
     - apt-get install google-chrome-stable -y
   script:
-    # Run tests
+    # Run Karma tests
     - cd power
     - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   coverage: '/Lines \W+: (\d+\.\d+)%.*/'
@@ -91,6 +74,20 @@ test:audit:
   script:
     - cd power
     - npm audit
+  only:
+    - merge_requests
+    - master
+
+include:
+  # Refers to: https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/Code-Quality.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+
+code_quality:
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+    paths:
+      - gl-code-quality-report.json
   only:
     - merge_requests
     - master
