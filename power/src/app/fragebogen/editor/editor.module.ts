@@ -14,7 +14,8 @@ import { PreviewPipe } from './preview.pipe';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
 
-import { ModalModule, CollapseModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { SurveyjsModule } from '../surveyjs/surveyjs.module';
 
