@@ -57,3 +57,26 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    docker pull codeclimate/codeclimate
    docker run -it --rm --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze
    ```
+
+# CI/CD
+Nach dem Commit und Push ins Repository wird automatisch die [CI/CD-Pipeline auf GitLab](https://gitlab.com/lgln/power.ni/power-frontend/pipelines) angestoßen.
+Die Konfiguration dazu befindet sich in der Datei `.gitlab-ci.yml`.
+
+**Stages**:
+1. **Init**:
+Die Node-Module werden installiert und an die weiteren Stages per Cache weitergereicht.
+
+2. **Test**:
+Hier werden die Karma- und E2E-Tests sowie ein Audit auf Schwachstellen ausgeführt.
+Zudem wird ein Code-Quality-Report generiert.
+Diese sind nach Beendigung dieser Stage in den Pipeline-Details unter den Tabs "Tests" und "Code Quality" ersichtlich.
+
+3. **Build**:
+Das eigentliche Bauen der Anwendung findet hier statt.
+
+4. **Package**:
+Hier wird ein Docker-Container gebaut und in die Registry hochgeladen.
+
+5. **Deploy**:
+Abschließend wird der Container im Kubernetes-Cluster per [Helm](https://helm.sh/) deployt.
+Das Deployment findet nur statt, wenn in der Datei `package.json` die Versionsnummer inkrementiert wurde.
