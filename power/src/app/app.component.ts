@@ -14,14 +14,6 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  pages = [
-    {name: 'Bodenrichtwerte', link: '/bodenrichtwerte'},
-    {name: 'Bodenwert-Kalkulator', link: '/bodenwertkalkulator'},
-    {name: 'Immobilien', link: '/immobilienpreisindex'},
-    {name: 'Formulare', link: '/formulare'},
-    // { name: 'Demo', link: '/demo' }
-  ];
-
   isCollapsed = true;
 
   show = false;
@@ -30,8 +22,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   appNameSubscription: Subscription;
 
   /**
-   * Konstruktor
-   * @param store
+   * Constructor
+   * @param appNameService
+   * @param cdRef
    */
   constructor(
     private appNameService: AppNameService,
