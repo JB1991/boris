@@ -39,7 +39,7 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: 
     ingress.bluemix.net/redirect-to-https: "True"
   hosts:

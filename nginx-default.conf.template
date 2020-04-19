@@ -27,9 +27,9 @@ server {
     return 404;
   }
 
-#  location /geoserver/ {
-#    proxy_pass ${GEOSERVER_URL};
-#    proxy_set_header HOST $http_host;
-#  }
+  location /geoserver/ {
+    proxy_pass ${GEOSERVER_URL};
+    proxy_set_header HOST $http_host;
+  }
 
 }
