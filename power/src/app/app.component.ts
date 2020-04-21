@@ -27,10 +27,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
    * @param cdRef
    */
   constructor(
-    private appNameService: AppNameService,
     private cdRef: ChangeDetectorRef
   ) {
-    this.appNameService.getName().subscribe(name => this.name = name);
   }
 
   ngOnInit(): void {
@@ -43,7 +41,6 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-    this.appNameSubscription.unsubscribe();
   }
 
   toggleCollapse() {

@@ -1,5 +1,4 @@
 import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {AppNameService} from '@app/app-name.service';
 import {GeosearchService} from '@app/shared/geosearch/geosearch.service';
 import {Feature} from 'geojson';
 import {Subscription} from 'rxjs';
@@ -138,7 +137,7 @@ export const TEILMAERKTE = [
     }
   `]
 })
-export class BodenrichtwertComponent implements OnInit, OnDestroy {
+export class BodenrichtwertComponent implements OnDestroy {
 
   adresse: Feature;
   adresseSubscription: Subscription;
@@ -151,7 +150,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
   @ViewChild('acc', {static: true}) acc: NgbAccordion;
 
-  constructor(private appNameService: AppNameService, private geosearchService: GeosearchService, private bodenrichtwertService: BodenrichtwertService) {
+  constructor(private geosearchService: GeosearchService, private bodenrichtwertService: BodenrichtwertService) {
     this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
     this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
       this.acc.expandAll();
@@ -161,12 +160,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     this.teilmarkt = TEILMAERKTE[0];
   }
 
-  ngOnInit() {
-    this.appNameService.updateName('BORIS');
-  }
-
   ngOnDestroy(): void {
-    this.appNameService.updateName(null);
     this.adresseSubscription.unsubscribe();
   }
 

@@ -17,18 +17,21 @@ server {
 
   location /geocoding/suggestions/ {
     rewrite ^\/geocoding\/suggestions\/(.*) /gdz_geokodierung__${BKG_GEOCODING_SECRET}/suggest$1 break;
-    proxy_pass https://sg.geodatenzentrum.de/;
+    set $geodatenzentrum https://sg.geodatenzentrum.de/;
+    proxy_pass $geodatenzentrum;
     return 404;
   }
 
   location /geocoding/geosearch/ {
     rewrite ^\/geocoding\/geosearch\/(.*) /gdz_ortssuche__${BKG_GEOCODING_SECRET}/geosearch.json$1 break;
-    proxy_pass https://sg.geodatenzentrum.de/;
+    set $geodatenzentrum https://sg.geodatenzentrum.de/;
+    proxy_pass $geodatenzentrum;
     return 404;
   }
 
   location /geoserver/ {
-    proxy_pass ${GEOSERVER_URL};
+    set $geoserver ${GEOSERVER_URL};
+    proxy_pass $geoserver;
     proxy_set_header HOST $http_host;
   }
 
