@@ -74,13 +74,10 @@
   },
   "regionen": {
     "4101": {
-      "name": "Küste, weiteres Umland",
+      "name": "Küste u. weiteres Umland",
       "short": "KÜ",
-      "color": [
-        158,
-        218,
-        229
-      ]
+      "color": "#ffcb96",
+      "colorh": "#f8eee4",
     },
     "4110": {
       "name": "Ostfriesische Inseln",
@@ -94,128 +91,86 @@
     "4104": {
       "name": "Bremer Umland",
       "short": "HB",
-      "color": [
-        255,
-        213,
-        213
-      ]
+      "color": "#7193b8",
+      "colorh": "#dde4ea"
     },
     "4103": {
-      "name": "Oldenburg, Münsterland, Osnabrück",
+      "name": "Oldenburg - Münsterland - Osnabrück",
       "short": "OL-MÜ-OS",
-      "color": [
-        157,
-        155,
-        61
-      ]
+      "color": "#a3da96",
+      "colorh": "#e6f1e4"
     },
     "4203": {
-      "name": "Stadt Osnabrück (incl. städt. Gemeinden)",
+      "name": "Stadt Osnabrück u. städt. Gemeinden",
       "short": "OS",
-      "color": [
-        214,
-        39,
-        40
-      ]
+      "color": "#ffb0ae",
+      "colorh": "#f8e9e8"
     },
     "4102": {
       "name": "Westliches Niedersachsen",
       "short": "West",
-      "color": [
-        170,
-        135,
-        128
-      ]
+      "color": "#dc8eaa",
+      "colorh": "#f1e3e8"
     },
     "4201": {
       "name": "Stadt Oldenburg",
       "short": "OL",
-      "color": [
-        255,
-        127,
-        14
-      ]
+      "color": "#e7787a",
+      "colorh": "#f3dfdf"
     },
     "4105": {
       "name": "Mittleres Niedersachsen",
       "short": "Mitte",
-      "color": [
-        107,
-        107,
-        107
-      ]
+      "color": "#7ab372",
+      "colorh": "#dfe9dd"
     },
     "4107": {
       "name": "Östliches Niedersachsen",
       "short": "Ost",
-      "color": [
-        219,
-        219,
-        141
-      ]
+      "color": "#c4ad56",
+      "colorh": "#ede8d8"
     },
     "4106": {
-      "name": "Hamburger südliches Umland",
+      "name": "Hamburger Umland",
       "short": "HH",
-      "color": [
-        114,
-        114,
-        143
-      ]
+      "color": "#b3d5ed",
+      "colorh": "#e9f0f4"
     },
     "4108": {
-      "name": "Hannover, Braunschweig, Wolfsburg",
+      "name": "Hannover - Braunschweig - Wolfsburg",
       "short": "H-BS-WOB",
-      "color": [
-        218,
-        182,
-        175
-      ]
+      "color": "#f5a455",
+      "colorh": "#f5e7d8"
     },
     "4109": {
       "name": "Südliches Niedersachsen",
       "short": "Süd",
-      "color": [
-        44,
-        160,
-        44
-      ]
+      "color": "#c8bfbc",
+      "colorh": "#edeceb"
     },
     "4205": {
       "name": "Stadt Hannover",
       "short": "H",
-      "color": [
-        214,
-        39,
-        40
-      ]
+      "color": "#9ec9c4",
+      "colorh": "#e5eded"
     },
     "4208": {
-      "name": "Stadt Göttingen (incl. städt. Gemeinden)",
+      "name": "Stadt Göttingen u. städt. Gemeinden",
       "short": "GÖ",
-      "color": [
-        255,
-        187,
-        120
-      ]
+      "color": "#6daca9",
+      "colorh": "#dce8e8"
     },
     "4204": {
       "name": "Stadt Wolfsburg",
       "short": "WOB",
-      "color": [
-        214,
-        39,
-        40
-      ]
+      "color": "#938c8a",
+      "colorh": "#e4e2e2"
     },
     "4206": {
       "name": "Stadt Braunschweig",
       "short": "BS",
-      "color": [
-        225,
-        87,
-        89
-      ]
+      "color": "#f4d882",
+      "colorh": "#f5f1e0"
     }
   },
   "items": [

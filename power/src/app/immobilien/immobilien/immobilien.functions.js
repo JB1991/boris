@@ -169,9 +169,13 @@ export function modifyColor(color, percent) {
  * @param data Data for Download
  * @param filename Filename for the Data to download
  */
-export function downloadFile(data, filename) {
-    const blob = new Blob([data], { type: 'text/csv' });
-    const url= window.URL.createObjectURL(blob);
+export function downloadFile(data, filename, filetype='text/csv', isurl=false) {
+    if (!isurl) {
+        const blob = new Blob([data], { type: filetype });
+        const url= window.URL.createObjectURL(blob);
+    } else
+        const url = data;
+
     var anchor = document.createElement("a");
     anchor.download = filename;
     anchor.href = url;
