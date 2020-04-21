@@ -1,8 +1,7 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 
 import {Subject, Subscription} from 'rxjs';
-
-import {AppNameService} from '@app/app-name.service';
+import {Config, ConfigService} from '@app/config.service';
 
 @Component({
   selector: 'power-root',
@@ -19,19 +18,21 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   show = false;
 
   name: string;
-  appNameSubscription: Subscription;
 
+  config: Config;
   /**
    * Constructor
-   * @param appNameService
    * @param cdRef
+   * @param configService
    */
   constructor(
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private configService: ConfigService
   ) {
   }
 
   ngOnInit(): void {
+    this.config = this.configService.config;
   }
 
   ngAfterViewChecked(): void {
@@ -41,9 +42,5 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-  }
-
-  toggleCollapse() {
-    this.show = !this.show;
   }
 }

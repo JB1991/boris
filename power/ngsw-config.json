@@ -19,6 +19,7 @@
       "resources": {
         "files": [
           "/assets/**",
+          "!/assets/config.json",
           "/mvt/**"
         ]
       }

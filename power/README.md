@@ -80,3 +80,9 @@ Hier wird ein Docker-Container gebaut und in die Registry hochgeladen.
 5. **Deploy**:
 Abschließend wird der Container im Kubernetes-Cluster per [Helm](https://helm.sh/) deployt.
 Das Deployment findet nur statt, wenn in der Datei `package.json` die Versionsnummer inkrementiert wurde.
+
+# Configuration
+
+## Active Modules
+To enable or disable specific modules in runtime, you can add or remove module names from [config.json](src/assets/config.json). 
+These values have to match [app.component.html](src/app/app.component.html). The config.json file can be changed in the final artifact.

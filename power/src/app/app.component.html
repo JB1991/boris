@@ -17,16 +17,21 @@
     </button>
     <div class="collapse navbar-collapse" style="z-index: 2000" [ngbCollapse]="isCollapsed">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+
+<!--        <li class="nav-item" *ngFor="let module of modules">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="" routerLinkActive="active">{{module}}</a>
+        </li>-->
+
+        <li class="nav-item" *ngIf="config.modules.includes('bodenrichtwerte')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/bodenrichtwerte" routerLinkActive="active">Bodenrichtwerte</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="config.modules.includes('bodenwerte')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/bodenwertkalkulator" routerLinkActive="active">Bodenwert-Kalkulator</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="config.modules.includes('immobilien')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/immobilienpreisindex" routerLinkActive="active">Immobilien</a>
         </li>
-        <li class="nav-item" ngbDropdown>
+        <li class="nav-item" ngbDropdown *ngIf="config.modules.includes('fragebogen')">
           <a class="nav-link" ngbDropdownToggle>Formulare</a>
           <div ngbDropdownMenu>
             <a ngbDropdownItem routerLink="/formulare" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Überblick</a>

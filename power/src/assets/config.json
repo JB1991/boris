@@ -1,0 +1,8 @@
+{
+  "modules": [
+    "bodenrichtwerte",
+    "bodenwerte",
+    "immobilien",
+    "fragebogen"
+  ]
+}
