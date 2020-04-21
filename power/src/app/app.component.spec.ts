@@ -23,10 +23,4 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toContain('power');
   }));
-  it('should render title in a strong tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('strong').textContent).toContain('Portal für Wertermittlung');
-  }));
 });
