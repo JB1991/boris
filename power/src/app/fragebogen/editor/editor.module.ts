@@ -18,6 +18,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { SurveyjsModule } from '../surveyjs/surveyjs.module';
+import { AlertsModule } from '../alerts/alerts.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SurveyjsModule } from '../surveyjs/surveyjs.module';
     ModalModule.forRoot(),
     CollapseModule.forRoot(),
     SurveyjsModule,
+    AlertsModule
   ],
   providers: [
     StorageService,
