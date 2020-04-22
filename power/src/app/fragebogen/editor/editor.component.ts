@@ -28,8 +28,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
               private titleService: Title,
               private alerts: AlertsService,
               private loadingscreen: LoadingscreenService,
-              private storage: StorageService,
-              private history: HistoryService) {
+              public storage: StorageService,
+              public history: HistoryService) {
       this.titleService.setTitle('Formular Editor - POWER.NI');
       this.storage.ResetService();
       this.history.ResetService();
