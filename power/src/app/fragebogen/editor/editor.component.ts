@@ -10,7 +10,7 @@ import { AlertsService } from '../alerts/alerts.service';
 import { ComponentCanDeactivate } from '../pendingchanges.guard';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
 import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
 
 @Component({
@@ -27,9 +27,9 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
               private router: Router,
               private titleService: Title,
               private alerts: AlertsService,
-              public loadingscreen: LoadingscreenService,
-              public storage: StorageService,
-              public history: HistoryService) {
+              private loadingscreen: LoadingscreenService,
+              private storage: StorageService,
+              private history: HistoryService) {
       this.titleService.setTitle('Formular Editor - POWER.NI');
       this.storage.ResetService();
       this.history.ResetService();

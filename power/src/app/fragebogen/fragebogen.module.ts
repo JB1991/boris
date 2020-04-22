@@ -5,8 +5,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { FragebogenRoutingModule } from './fragebogen-routing.module';
-import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component';
-
 import { AlertsService } from './alerts/alerts.service';
 import { LoadingscreenService } from './loadingscreen/loadingscreen.service';
 import { HomeComponent } from './home/home.component';
@@ -17,7 +15,6 @@ import { EditorModule } from './editor/editor.module';
 @NgModule({
   declarations: [
     HomeComponent,
-    LoadingscreenComponent,
   ],
   imports: [
     FragebogenRoutingModule,

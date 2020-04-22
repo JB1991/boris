@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {environment} from '@env/environment';
 import {AlertsService} from '../alerts/alerts.service';
+import {LoadingscreenService} from '../loadingscreen/loadingscreen.service';
 
 @Component({
   selector: 'power-formulars-dashboard',
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router,
               private titleService: Title,
               private alerts: AlertsService,
-              private httpClient: HttpClient) {
+              private httpClient: HttpClient,
+              private loadingscreen: LoadingscreenService) {
     this.titleService.setTitle('Dashboard - POWER.NI');
   }
 
@@ -37,7 +39,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // Load form list
+    this.loadingscreen.setVisible(true);
     this.httpClient.get(environment.fragebogen_api + 'forms?history=false').subscribe((data) => {
+        this.loadingscreen.setVisible(false);
         // Check for error
         if (!data) {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', 'Keine Daten erhalten');
@@ -54,6 +58,7 @@ export class DashboardComponent implements OnInit {
       },
       // Failed to load
       (error: Error) => {
+        this.loadingscreen.setVisible(false);
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error[`statusText`]);
         this.error = error[`statusText`];
       });
