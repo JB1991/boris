@@ -228,7 +228,7 @@ export class EditFormularComponent implements OnInit, ComponentCanDeactivate {
     this.route.params.subscribe((params) => {
       this.pin = params.pin;
     });
-    this.service.loadFormular(this.pin).subscribe((data) => {
+    this.service.loadTask(this.pin).subscribe((data) => {
       this.model = data;
       this.wsUnsavedChanges = true;
     });

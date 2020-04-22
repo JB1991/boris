@@ -29,7 +29,7 @@ export class ModalFormularComponent implements OnInit {
    * Opens configure formular midal
    */
   public Open() {
-    this.storage.SetAutoSaveEnabled(false);
+    this.storage.setAutoSaveEnabled(false);
     this.tabSelected = 0;
     this.backup = JSON.stringify(this.storage.model);
 
@@ -53,7 +53,7 @@ export class ModalFormularComponent implements OnInit {
       this.storage.model = JSON.parse(this.backup);
     }
 
-    this.storage.SetAutoSaveEnabled(true);
+    this.storage.setAutoSaveEnabled(true);
     this.modal.hide();
   }
 
@@ -69,11 +69,11 @@ export class ModalFormularComponent implements OnInit {
 
     // check if formular changed
     if (this.backup !== JSON.stringify(this.storage.model)) {
-      this.history.MakeHistory(JSON.parse(this.backup));
+      this.history.makeHistory(JSON.parse(this.backup));
       this.storage.model = JSON.parse(JSON.stringify(this.storage.model));
     }
 
-    this.storage.SetAutoSaveEnabled(true);
+    this.storage.setAutoSaveEnabled(true);
     this.modal.hide();
   }
 

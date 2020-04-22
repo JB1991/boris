@@ -8,21 +8,21 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class HistoryService {
-  private UndoBuffer: any = [];
-  private RedoBuffer: any = [];
-  public UndoIndex = 0;
-  public RedoIndex = 0;
+  private undoBuffer: any = [];
+  private redoBuffer: any = [];
+  public undoIndex = 0;
+  public redoIndex = 0;
 
   constructor(public storage: StorageService) { }
 
   /**
    * Resets service to empty model
    */
-  public ResetService() {
-    this.UndoBuffer = [];
-    this.RedoBuffer = [];
-    this.UndoIndex = 0;
-    this.RedoIndex = 0;
+  public resetService() {
+    this.undoBuffer = [];
+    this.redoBuffer = [];
+    this.undoIndex = 0;
+    this.redoIndex = 0;
   }
 
   /**
@@ -30,21 +30,21 @@ export class HistoryService {
    * @param data JSON data
    * @param del True to delete future
    */
-  public MakeHistory(data: any, del: boolean = true) {
-    this.storage.SetUnsavedChanges(true);
-    this.UndoBuffer[this.UndoIndex] = JSON.stringify(data);
-    this.UndoIndex++;
+  public makeHistory(data: any, del: boolean = true) {
+    this.storage.setUnsavedChanges(true);
+    this.undoBuffer[this.undoIndex] = JSON.stringify(data);
+    this.undoIndex++;
 
     // limit size
-    if (this.UndoIndex > 10) {
-      this.UndoIndex--;
-      delete this.UndoBuffer[0];
+    if (this.undoIndex > 10) {
+      this.undoIndex--;
+      delete this.undoBuffer[0];
     }
 
     // delete future
     if (del) {
-        this.RedoBuffer = [];
-        this.RedoIndex = 0;
+        this.redoBuffer = [];
+        this.redoIndex = 0;
     }
   }
 
@@ -52,38 +52,37 @@ export class HistoryService {
    * Creates future to redo things
    * @param data JSON data
    */
-  public MakeFuture(data: any) {
-    this.storage.SetUnsavedChanges(true);
-    this.RedoBuffer[this.RedoIndex] = JSON.stringify(data);
-    this.RedoIndex++;
+  public makeFuture(data: any) {
+    this.storage.setUnsavedChanges(true);
+    this.redoBuffer[this.redoIndex] = JSON.stringify(data);
+    this.redoIndex++;
 
     // limit size
-    if (this.RedoBuffer > 10) {
-      this.RedoIndex--;
-      delete this.RedoBuffer[0];
+    if (this.redoBuffer > 10) {
+      this.redoIndex--;
+      delete this.redoBuffer[0];
     }
   }
 
   /**
    * Undo last change
-   * @param data JSON data
    */
-  public UndoChanges(): any {
+  public undoChanges(): any {
     // check if future exists
-    if (this.UndoIndex < 1) {
+    if (this.undoIndex < 1) {
       return;
     }
 
     // reduce index
-    this.UndoIndex--;
-    if (typeof this.UndoBuffer[this.UndoIndex] === 'undefined') {
+    this.undoIndex--;
+    if (typeof this.undoBuffer[this.undoIndex] === 'undefined') {
       throw new Error('History does not exists');
     }
 
     // restore
-    this.MakeFuture(this.storage.model);
-    delete this.UndoBuffer[this.UndoIndex + 1];
-    this.storage.model = JSON.parse(this.UndoBuffer[this.UndoIndex]);
+    this.makeFuture(this.storage.model);
+    delete this.undoBuffer[this.undoIndex + 1];
+    this.storage.model = JSON.parse(this.undoBuffer[this.undoIndex]);
 
     // check if selected page exists
     if (this.storage.selectedPageID >= this.storage.model.pages.length) {
@@ -93,24 +92,23 @@ export class HistoryService {
 
   /**
    * Redo last change
-   * @param data JSON data
    */
-  public RedoChanges(): any {
+  public redoChanges(): any {
     // check if history exists
-    if (this.RedoIndex < 1) {
+    if (this.redoIndex < 1) {
       return;
     }
 
     // reduce index
-    this.RedoIndex--;
-    if (typeof this.RedoBuffer[this.RedoIndex] === 'undefined') {
+    this.redoIndex--;
+    if (typeof this.redoBuffer[this.redoIndex] === 'undefined') {
       throw new Error('Future does not exists');
     }
 
     // restore
-    this.MakeHistory(this.storage.model, false);
-    delete this.RedoBuffer[this.RedoIndex + 1];
-    this.storage.model = JSON.parse(this.RedoBuffer[this.RedoIndex]);
+    this.makeHistory(this.storage.model, false);
+    delete this.redoBuffer[this.redoIndex + 1];
+    this.storage.model = JSON.parse(this.redoBuffer[this.redoIndex]);
 
     // check if selected page exists
     if (this.storage.selectedPageID >= this.storage.model.pages.length) {

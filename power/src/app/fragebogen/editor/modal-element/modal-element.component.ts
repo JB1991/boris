@@ -33,7 +33,7 @@ export class ModalElementComponent implements OnInit {
    * @param page Page number
    */
   public Open(element: number, page: number) {
-    this.storage.SetAutoSaveEnabled(false);
+    this.storage.setAutoSaveEnabled(false);
     this.tabSelected = 0;
     this.storage.selectedPageID = page;
     this.storage.selectedElementID = element;
@@ -59,7 +59,7 @@ export class ModalElementComponent implements OnInit {
       this.storage.model = JSON.parse(this.backup);
     }
 
-    this.storage.SetAutoSaveEnabled(true);
+    this.storage.setAutoSaveEnabled(true);
     this.modal.hide();
     this.storage.selectedElementID = null;
   }
@@ -76,11 +76,11 @@ export class ModalElementComponent implements OnInit {
 
     // check if formular changed
     if (this.backup !== JSON.stringify(this.storage.model)) {
-      this.history.MakeHistory(JSON.parse(this.backup));
+      this.history.makeHistory(JSON.parse(this.backup));
       this.storage.model = JSON.parse(JSON.stringify(this.storage.model));
     }
 
-    this.storage.SetAutoSaveEnabled(true);
+    this.storage.setAutoSaveEnabled(true);
     this.modal.hide();
     this.storage.selectedElementID = null;
   }

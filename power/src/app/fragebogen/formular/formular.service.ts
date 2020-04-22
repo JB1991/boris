@@ -4,37 +4,39 @@ import { Observable, throwError } from 'rxjs';
 
 import { PurchaseCase } from '../shared/purchase-case';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormularService {
-  private api = 'http://localhost:9090';
   private retryCount = 3;
 
   constructor(private http: HttpClient) { }
 
-  // Get formular from backend via ID
-  loadFormular(id: string): Observable<PurchaseCase> {
-    return this.http.get<PurchaseCase>(`${this.api}/formular/${id}`)
-      .pipe(
-        retry(this.retryCount),
-        catchError(this.errorHandler)
-      );
-  }
-
-  // Post formular to backend via ID
-  saveFormular(id: string, model: any): Observable<PurchaseCase> {
-    return this.http.post<PurchaseCase>(`${this.api}/formular/${id}`, model)
-      .pipe(
-        retry(this.retryCount),
-        catchError(this.errorHandler)
-      );
-  }
-
   // Error handling
-  private errorHandler(error: HttpErrorResponse): Observable<any> {
+  private static errorHandler(error: HttpErrorResponse): Observable<any> {
     console.error('Error occurred!');
     return throwError(error);
+  }
+
+  // Get formular from backend via PIN
+  loadTask(pin: string): Observable<PurchaseCase> {
+    const url = environment.fragebogen_api + '/tasks?pin=' + pin;
+    return this.http.get<PurchaseCase>(url)
+      .pipe(
+        retry(this.retryCount),
+        catchError(FormularService.errorHandler)
+      );
+  }
+
+  // Post formular to backend via PIN
+  saveTask(pin: string, model: any): Observable<PurchaseCase> {
+    const url = environment.fragebogen_api + '/tasks?pin=' + pin;
+    return this.http.post<PurchaseCase>(url, model)
+      .pipe(
+        retry(this.retryCount),
+        catchError(FormularService.errorHandler)
+      );
   }
 }

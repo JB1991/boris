@@ -30,7 +30,7 @@ export class StorageService {
   /**
    * Resets service to empty model
    */
-  public ResetService() {
+  public resetService() {
     this.model = JSON.parse(JSON.stringify(templates.FormularTemplate));
     this.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
     this.css_style.container = 'sv_container';
@@ -43,24 +43,36 @@ export class StorageService {
   }
 
   /**
-   * Loads a formular by id. If id is empty default template is loaded
-   * @param id Formular id
+   * Loads a form by id. If id is empty default template is loaded
+   * @param id Form id
    */
-  public FormularLoad(id: string): Observable<Object> {
+  public loadForm(id: string): Observable<Object> {
     // load data from server
-    return this.httpClient.get(environment.fragebogen_api + 'forms/' + id);
+    const url = environment.fragebogen_api + 'forms/' + id;
+    return this.httpClient.get(url);
   }
 
   /**
-   * Saves formular. If id is not specified a new will be created.
+   * Saves form. If id is not specified a new will be created.
    * @param data Surveyjs model
-   * @param id Formular id
+   * @param id Form id
+   * @param tags Form tags
    */
-  public FormularSave(data: any, id?: string): Observable<Object> {
+  public saveForm(data: any, id?: string, tags?: string[]): Observable<Object> {
+    const body = JSON.stringify(data);
     if (id) {
-      return this.httpClient.post(environment.fragebogen_api + 'forms/' + id, JSON.stringify(data));
+      const url = environment.fragebogen_api + 'forms/' + id;
+      return this.httpClient.put(url, body);
+    } else if (tags) {
+      let query: string;
+      if (tags.length > 0) {
+        query = '?' + tags.join(',');
+      }
+      const url = environment.fragebogen_api + 'forms' + query;
+      return this.httpClient.post(url, body);
     } else {
-      return this.httpClient.put(environment.fragebogen_api + 'forms/', JSON.stringify(data));
+      const url = environment.fragebogen_api + 'forms';
+      return this.httpClient.post(url, body);
     }
   }
 
@@ -68,14 +80,14 @@ export class StorageService {
    * Sets unsaved changes state
    * @param state true or false
    */
-  public SetUnsavedChanges(state: boolean) {
+  public setUnsavedChanges(state: boolean) {
     this.UnsavedChanges = state;
   }
 
   /**
    * Returns true if unsaved changes exists
    */
-  public GetUnsavedChanges(): boolean {
+  public getUnsavedChanges(): boolean {
     return this.UnsavedChanges;
   }
 
@@ -83,14 +95,14 @@ export class StorageService {
    * Enables or disables autosave
    * @param state true or false
    */
-  public SetAutoSaveEnabled(state: boolean) {
+  public setAutoSaveEnabled(state: boolean) {
     this.AutoSaveEnabled = state;
   }
 
   /**
    * Returns true if autosave is enabled
    */
-  public GetAutoSaveEnabled(): boolean {
+  public getAutoSaveEnabled(): boolean {
     return this.AutoSaveEnabled;
   }
 
@@ -100,7 +112,7 @@ export class StorageService {
   /**
    * Get next unique page id
    */
-  public NewPageID(): string {
+  public newPageID(): string {
     // first page id 'p1'
     const prefix = 'p';
     let counter = 1;
@@ -122,7 +134,7 @@ export class StorageService {
   /**
    * Get next unique element id
    */
-  public NewElementID(): string {
+  public newElementID(): string {
     // first element id 'e1'
     const prefix = 'e';
     let counter = 1;

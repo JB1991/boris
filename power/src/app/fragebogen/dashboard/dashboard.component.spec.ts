@@ -15,11 +15,10 @@ describe('DashboardComponent', () => {
 
   const formSample = require('../../../assets/form-sample.json');
   const form = JSON.stringify(formSample);
-  const formId = formSample.Form.id;
-  const formsUrl = environment.fragebogen_api + 'forms?history=false';
-  const formUrl = environment.fragebogen_api + 'forms/';
-  const formUrlWithId = environment.fragebogen_api + 'forms/' + formId;
-  const answer = {Forms: [{id: formId, version: 1, title: 'Minimal', created_at: '2020-03-18T07:52:50.047504Z'}], Error: ''};
+  const formId = 'bqg0hvkdev01va6s70ug';
+  const formsUrl = environment.fragebogen_api + 'forms';
+  const formsUrlWithId = environment.fragebogen_api + 'forms/' + formId;
+  const answer = {data: [{'id': 'bqg0hvkdev01va6s70ug', 'title': 'Minimal', 'tags': [''], 'created': '2020-04-22T09:06:06.077198Z', 'updated': '2020-04-22T09:10:16.562098Z'}]};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,13 +45,13 @@ describe('DashboardComponent', () => {
     expect(component.error).toEqual('');
   });
 
-  it('ngOnInit() should fail if no data is returned by the API', () => {
+  it('ngOnInit() should fail if no response is returned by the API', () => {
     // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', null);
 
     // Check that no forms and an error is returned by the API
     expect(component.formsList.length).toBe(0);
-    expect(component.error).toBe('Could not load forms (no data)');
+    expect(component.error).toBe('Could not load forms (no response)');
   });
 
   it('ngOnInit() should fail if no forms are returned by the API', () => {
@@ -96,7 +95,7 @@ describe('DashboardComponent', () => {
     component.exportForm(formId);
 
     // Take GET request of exportForm() from queue and return the answer
-    answerHTTPRequest(formUrlWithId, 'GET', formSample);
+    answerHTTPRequest(formsUrlWithId, 'GET', formSample);
 
     // Expect that the <a> tag was created
     expect(document.createElement).toHaveBeenCalledTimes(1);
@@ -115,7 +114,7 @@ describe('DashboardComponent', () => {
     expect(component.error).toBe('');
   });
 
-  it('exportForm() should fail if no data is returned by the API', () => {
+  it('exportForm() should fail if no response is returned by the API', () => {
     // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
@@ -123,11 +122,11 @@ describe('DashboardComponent', () => {
     component.exportForm(formId);
 
     // Take GET request of exportForm() from queue and return the answer
-    answerHTTPRequest(formUrlWithId, 'GET', null);
+    answerHTTPRequest(formsUrlWithId, 'GET', null);
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Could not export form (no data)');
+    expect(component.error).toBe('Could not export form (no response)');
   });
 
   it('exportForm() should fail if an error is returned by the API', () => {
@@ -138,7 +137,7 @@ describe('DashboardComponent', () => {
     component.exportForm(formId);
 
     // Take GET request of exportForm() from queue and return the answer
-    answerHTTPRequest(formUrlWithId, 'GET', {Form: null, Error: 'not found'});
+    answerHTTPRequest(formsUrlWithId, 'GET', {Form: null, Error: 'not found'});
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
@@ -153,7 +152,7 @@ describe('DashboardComponent', () => {
     component.exportForm(formId);
 
     // Take GET request of exportForm() from queue and return the answer
-    answerHTTPRequest(formUrlWithId, 'GET', '', {status: 404, statusText: 'Not found'});
+    answerHTTPRequest(formsUrlWithId, 'GET', '', {status: 404, statusText: 'Not found'});
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
@@ -221,15 +220,15 @@ describe('DashboardComponent', () => {
     expect(component.error).toBe('');
   });
 
-  it('processPutRequest() should execute a PUT request against the API', () => {
+  it('processPostRequest() should execute a POST request against the API', () => {
     // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Call processPutRequest()
-    component.processPutRequest(form);
+    // Call processPostRequest()
+    component.processPostRequest(form);
 
-    // Take PUT request from queue and return the answer
-    answerHTTPRequest(formUrl, 'PUT', answer);
+    // Take POST request from queue and return the answer
+    answerHTTPRequest(formsUrl, 'POST', answer);
 
     // Take another GET request from queue and return the answer (for ngOnInit()-call)
     answerHTTPRequest(formsUrl, 'GET', answer);
@@ -239,57 +238,57 @@ describe('DashboardComponent', () => {
     expect(component.error).toBe('');
   });
 
-  it('processPutRequest() should fail if null is passed as body', () => {
+  it('processPostRequest() should fail if null is passed as body', () => {
     // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Call processPutRequest()
-    component.processPutRequest(null);
+    // Call processPostRequest()
+    component.processPostRequest(null);
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Invalid JSON file');
   });
 
-  it('processPutRequest() should fail if invalid JSON is passed as body', () => {
+  it('processPostRequest() should fail if invalid JSON is passed as body', () => {
     // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Call processPutRequest()
-    component.processPutRequest('foobar');
+    // Call processPostRequest()
+    component.processPostRequest('foobar');
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Invalid JSON file');
   });
 
-  it('processPutRequest() should fail if no data is returned by the API', () => {
+  it('processPostRequest() should fail if no response is returned by the API', () => {
     // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Call processPutRequest()
-    component.processPutRequest(form);
+    // Call processPostRequest()
+    component.processPostRequest(form);
 
-    // Take PUT request from queue and return the answer
-    answerHTTPRequest(formUrl, 'PUT', null);
+    // Take POST request from queue and return the answer
+    answerHTTPRequest(formsUrl, 'POST', null);
 
     // Take another GET request from queue and return the answer (for ngOnInit()-call)
     answerHTTPRequest(formsUrl, 'GET', answer);
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Could not import form (no data)');
+    expect(component.error).toBe('Could not import form (no response)');
   });
 
-  it('processPutRequest() should fail if an error is returned by the API', () => {
+  it('processPostRequest() should fail if an error is returned by the API', () => {
     // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Call processPutRequest()
-    component.processPutRequest(form);
+    // Call processPostRequest()
+    component.processPostRequest(form);
 
-    // Take PUT request from queue and return the answer
-    answerHTTPRequest(formUrl, 'PUT', {Form: null, Error: 'not found'});
+    // Take POST request from queue and return the answer
+    answerHTTPRequest(formsUrl, 'POST', {Form: null, Error: 'not found'});
 
     // Take another GET request from queue and return the answer (for ngOnInit()-call)
     answerHTTPRequest(formsUrl, 'GET', answer);
@@ -299,15 +298,15 @@ describe('DashboardComponent', () => {
     expect(component.error).toBe('Could not import form (error)');
   });
 
-  it('processPutRequest() should fail if a 404 is returned by the API', () => {
+  it('processPostRequest() should fail if a 404 is returned by the API', () => {
     // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Call processPutRequest()
-    component.processPutRequest(form);
+    // Call processPostRequest()
+    component.processPostRequest(form);
 
-    // Take PUT request from queue and return the answer
-    answerHTTPRequest(formUrl, 'PUT', '', {status: 404, statusText: 'Not found'});
+    // Take POST request from queue and return the answer
+    answerHTTPRequest(formsUrl, 'POST', '', {status: 404, statusText: 'Not found'});
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);

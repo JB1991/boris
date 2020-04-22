@@ -28,7 +28,7 @@ export const FormularTemplate = {
         }
       ],
       title: 'Startseite',
-      description: 'Zum ausfüllen dieses online Formulares müssen sie zuerst einige Bedingungen akzeptieren.',
+      description: 'Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.',
       name: 'p1'
     }
   ],

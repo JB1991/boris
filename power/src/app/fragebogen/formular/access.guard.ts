@@ -11,8 +11,8 @@ export class AccessGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return new Promise((resolve) => {
-      this.service.loadFormular(route.params.id).subscribe((data) => {
-        if (data === null) {
+      this.service.loadTask(route.params.pin).subscribe((response) => {
+        if (response === null) {
           this.router.navigateByUrl('formular');
           return resolve(false);
         }
@@ -22,7 +22,7 @@ export class AccessGuard implements CanActivate {
   }
 }
 
-function IsJsonString(str): boolean {
+function isJsonString(str): boolean {
   try {
     JSON.parse(str);
   } catch (e) {

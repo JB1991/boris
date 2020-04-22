@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   }
 
   /**
-   * Check if `str` is a valid JSON string
+   * Check if 'str' is a valid JSON string
    * @param str String to be checked
    */
   private static isValidJsonString(str): boolean {
@@ -37,30 +37,41 @@ export class DashboardComponent implements OnInit {
     return true;
   }
 
+  /**
+   * Check if 'str' is a valid form ID
+   * @param str String to be checked
+   */
+  private static isValidFormID(str): boolean {
+    // The Form-API uses XID for the form ID (https://github.com/rs/xid)
+    const validXID: RegExp = /^[a-z0-9]{20}$/;
+    return str.match(validXID);
+  }
+
   ngOnInit(): void {
     // Load form list
     this.loadingscreen.setVisible(true);
-    this.httpClient.get(environment.fragebogen_api + 'forms?history=false').subscribe((data) => {
+    const url = environment.fragebogen_api + 'forms';
+    this.httpClient.get(url).subscribe((response) => {
         this.loadingscreen.setVisible(false);
         // Check for error
-        if (!data) {
+        if (!response) {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', 'Keine Daten erhalten');
-          this.error = 'Could not load forms (no data)';
-        } else if (data[`Error`]) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data[`Error`]);
+          this.error = 'Could not load forms (no response)';
+        } else if (response['Error']) {
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', response['Error']);
           this.error = 'Could not load forms (error)';
         }
 
         // Store form
-        if (data && data[`Forms`]) {
-          this.formsList = data[`Forms`];
+        if (response && response['data']) {
+          this.formsList = response['data'];
         }
       },
       // Failed to load
       (error: Error) => {
         this.loadingscreen.setVisible(false);
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error[`statusText`]);
-        this.error = error[`statusText`];
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+        this.error = error['statusText'];
       });
   }
 
@@ -70,38 +81,38 @@ export class DashboardComponent implements OnInit {
    */
   public exportForm(id: string) {
     // Input validation
-    const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
-
-    if (!id || !id.match(UUID)) {
+    if (!id || !DashboardComponent.isValidFormID(id)) {
       this.alerts.NewAlert('danger', 'Export fehlgeschlagen', 'Ungültige Formular-ID');
       this.error = 'Invalid UUID';
       return;
     }
 
     // Load form
-    this.httpClient.get(environment.fragebogen_api + 'forms/' + id).subscribe((data) => {
+    const url = environment.fragebogen_api + 'forms/' + id;
+    this.httpClient.get(url).subscribe((response) => {
         // Check for error
-        if (!data) {
+        if (!response) {
           this.alerts.NewAlert('danger', 'Export fehlgeschlagen', 'Keine Daten');
-          this.error = 'Could not export form (no data)';
-        } else if (data[`Error`]) {
-          this.alerts.NewAlert('danger', 'Export fehlgeschlagen', data[`Error`]);
+          this.error = 'Could not export form (no response)';
+        } else if (response['Error']) {
+          this.alerts.NewAlert('danger', 'Export fehlgeschlagen', response['Error']);
           this.error = 'Could not export form (error)';
         }
 
         // Store form
-        if (data && data[`Form`]) {
+        if (response && response['data']) {
           const pom = document.createElement('a');
-          const encodedURIComponent = encodeURIComponent(JSON.stringify(data[`Form`][`data`]));
-          pom.setAttribute('href', 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent);
+          const encodedURIComponent = encodeURIComponent(JSON.stringify(response['data']['content']));
+          const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
+          pom.setAttribute('href', href);
           pom.setAttribute('download', 'formular.json');
           pom.click();
         }
       },
       // Failed to load
       (error: Error) => {
-        this.alerts.NewAlert('danger', 'Export fehlgeschlagen', error[`statusText`]);
-        this.error = error[`statusText`];
+        this.alerts.NewAlert('danger', 'Export fehlgeschlagen', error['statusText']);
+        this.error = error['statusText'];
       });
   }
 
@@ -122,12 +133,12 @@ export class DashboardComponent implements OnInit {
 
     // File selected
     input.onchange = (event: Event) => {
-      const file = event.target[`files`][0];
+      const file = event.target['files'][0];
       const reader = new FileReader();
 
       // Upload success
       reader.onload = () => {
-        this.processPutRequest(reader.result);
+        this.processPostRequest(reader.result);
       };
 
       // FileReader is async -> call readAsText() after declaring the onload handler
@@ -137,10 +148,10 @@ export class DashboardComponent implements OnInit {
   }
 
   /**
-   * Handling of the HTTP PUT request for importing a form
-   * @param body The body of the HTTP PUT request
+   * Handling of the HTTP POST request for importing a form
+   * @param body The body of the HTTP POST request
    */
-  public processPutRequest(body) {
+  public processPostRequest(body) {
     // Input validation
     if (!body || !DashboardComponent.isValidJsonString(body)) {
       this.alerts.NewAlert('danger', 'Import fehlgeschlagen', 'Ungültige JSON-Datei');
@@ -148,13 +159,14 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    this.httpClient.put(environment.fragebogen_api + 'forms/', body).subscribe((data) => {
+    const url = environment.fragebogen_api + 'forms';
+    this.httpClient.post(url, body).subscribe((response) => {
         // Check for error
-        if (!data) {
+        if (!response) {
           this.alerts.NewAlert('danger', 'Import fehlgeschlagen', 'Keine Daten erhalten');
-          this.error = 'Could not import form (no data)';
-        } else if (data[`Error`]) {
-          this.alerts.NewAlert('danger', 'Import fehlgeschlagen', data[`Error`]);
+          this.error = 'Could not import form (no response)';
+        } else if (response['Error']) {
+          this.alerts.NewAlert('danger', 'Import fehlgeschlagen', response['Error']);
           this.error = 'Could not import form (error)';
         }
 
@@ -163,8 +175,8 @@ export class DashboardComponent implements OnInit {
       },
       // Failed to upload
       (error: Error) => {
-        this.alerts.NewAlert('danger', 'Import fehlgeschlagen', error[`statusText`]);
-        this.error = error[`statusText`];
+        this.alerts.NewAlert('danger', 'Import fehlgeschlagen', error['statusText']);
+        this.error = error['statusText'];
       });
   }
 }

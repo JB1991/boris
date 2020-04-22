@@ -1,10 +1,13 @@
 {
-  "Form": {
-    "id": "451c778f-1258-4526-81e3-b74d98778313",
-    "version": 2,
+  "data": {
+    "id": "bqg0hvkdev01va6s70ug",
     "title": "Minimal",
-    "created_at": "2020-03-18T07:52:50.047504Z",
-    "data": {
+    "tags": [
+      ""
+    ],
+    "created": "2020-04-22T09:06:06.077198Z",
+    "updated": "2020-04-22T09:10:16.562098Z",
+    "content": {
       "calculatedValues": [
         {
           "expression": "50000",
@@ -23,37 +26,37 @@
       "maxTextLength": 1000,
       "pages": [
         {
+          "name": "p1",
           "description": "Zum ausfüllen dieses online Formulares müssen sie zuerst einige Bedingungen akzeptieren.",
           "elements": [
             {
-              "description": "",
+              "name": "e1",
+              "type": "checkbox",
+              "description": "Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).",
               "isRequired": true,
-              "name": "e2",
-              "rangeMax": 2020,
-              "rangeMin": 1500,
-              "step": 1,
-              "title": "Baujahr",
-              "type": "nouislider",
-              "valueName": ""
-            },
-            {
+              "requiredErrorText": "Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.",
+              "title": "Datenschutzerklärung",
               "choices": [
                 {
                   "text": "Ich habe diese gelesen und akzeptiert",
                   "value": "1"
                 }
               ],
-              "colCount": 1,
-              "description": "Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).",
+              "removeRowText": null,
+              "placeHolder": null,
+              "colCount": 1
+            },
+            {
+              "name": "e2",
+              "type": "text",
+              "description": "...",
               "isRequired": true,
-              "name": "e1",
-              "requiredErrorText": "Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.",
-              "title": "Datenschutzerklärung",
-              "type": "checkbox",
-              "valueName": ""
+              "title": "Tolle Frage",
+              "removeRowText": null,
+              "inputType": "text",
+              "placeHolder": null
             }
           ],
-          "name": "p1",
           "title": "Startseite"
         }
       ],
@@ -63,6 +66,5 @@
       "storeOthersAsComment": false,
       "title": "Minimal"
     }
-  },
-  "Error": ""
+  }
 }
