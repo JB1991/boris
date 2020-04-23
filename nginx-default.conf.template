@@ -35,4 +35,10 @@ server {
     proxy_set_header HOST $http_host;
   }
 
+  location /forms/ {
+    set $forms ${FORMS_URL};
+    proxy_pass $forms;
+    proxy_set_header HOST $http_host;
+  }
+
 }
