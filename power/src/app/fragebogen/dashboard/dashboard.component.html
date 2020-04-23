@@ -14,6 +14,7 @@
           <th scope="col" class="border-top-0">Erstellt</th>
           <th scope="col" class="border-top-0">Aktualisiert</th>
           <th scope="col" class="border-top-0"></th>
+          <th scope="col" class="border-top-0"></th>
         </tr>
         </thead>
         <tbody>
@@ -26,19 +27,23 @@
           <td>{{ form.created | date:'dd.MM.yyyy HH:mm' }}</td>
           <td>{{ form.updated | date:'dd.MM.yyyy HH:mm' }}</td>
           <td>
-            <button type="button"
-                    class="btn btn-success btn-sm"
-                    id="button-export"
-                    title="Formular exportieren"
+            <button type="button" class="btn btn-success btn-sm" id="button-export" title="Formular exportieren"
                     (click)="exportForm(form.id)">
-              <i class="far fa-save fa-fw" aria-hidden="true"></i>
+              <i class="far fa-save" aria-hidden="true"></i>
               Export
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger btn-sm" id="button-delete" title="Formular löschen"
+                    (click)="deleteForm(form.id)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              Löschen
             </button>
           </td>
         </tr>
         </tbody>
       </table>
-      <span *ngIf="!formsList.length">Keine Formulare gefunden</span>
+      <span class="m-3" *ngIf="!formsList.length">Keine Formulare gefunden</span>
     </div>
     <div class="card-footer">
       <button type="button"

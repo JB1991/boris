@@ -41,8 +41,9 @@ export class DashboardComponent implements OnInit {
    * Check if 'str' is a valid form ID
    * @param str String to be checked
    */
-  private static isValidFormID(str): boolean {
+  private static isValidXID(str): boolean {
     // The Form-API uses XID for the form ID (https://github.com/rs/xid)
+    // TODO Use more concrete RegEx for XID
     const validXID: RegExp = /^[a-z0-9]{20}$/;
     return str.match(validXID);
   }
@@ -55,7 +56,7 @@ export class DashboardComponent implements OnInit {
         this.loadingscreen.setVisible(false);
         // Check for error
         if (!response) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', 'Keine Daten erhalten');
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', 'Keine Antwort erhalten');
           this.error = 'Could not load forms (no response)';
         } else if (response['Error']) {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', response['Error']);
@@ -76,14 +77,22 @@ export class DashboardComponent implements OnInit {
   }
 
   /**
+   * Reload the current page
+   */
+  private reloadPage() {
+    this.formsList = [];
+    this.ngOnInit();
+  }
+
+  /**
    * Exports form to json
    * @param id form id
    */
   public exportForm(id: string) {
     // Input validation
-    if (!id || !DashboardComponent.isValidFormID(id)) {
+    if (!id || !DashboardComponent.isValidXID(id)) {
       this.alerts.NewAlert('danger', 'Export fehlgeschlagen', 'Ungültige Formular-ID');
-      this.error = 'Invalid UUID';
+      this.error = 'Export: Invalid UUID';
       return;
     }
 
@@ -92,7 +101,7 @@ export class DashboardComponent implements OnInit {
     this.httpClient.get(url).subscribe((response) => {
         // Check for error
         if (!response) {
-          this.alerts.NewAlert('danger', 'Export fehlgeschlagen', 'Keine Daten');
+          this.alerts.NewAlert('danger', 'Export fehlgeschlagen', 'Keine Antwort erhalten');
           this.error = 'Could not export form (no response)';
         } else if (response['Error']) {
           this.alerts.NewAlert('danger', 'Export fehlgeschlagen', response['Error']);
@@ -148,6 +157,35 @@ export class DashboardComponent implements OnInit {
   }
 
   /**
+   * Deletes an existing form
+   * @param id form id
+   */
+  public deleteForm(id: string) {
+    // Input validation
+    if (!id || !DashboardComponent.isValidXID(id)) {
+      this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', 'Ungültige Formular-ID');
+      this.error = 'Delete: Invalid UUID';
+      return;
+    }
+
+    const url = environment.fragebogen_api + 'forms/' + id;
+    this.httpClient.delete(url).subscribe((response) => {
+        // Check for error
+        if (!response) {
+          this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', 'Keine Antwort erhalten');
+          this.error = 'Could not delete form (no response)';
+        }
+
+        this.reloadPage();
+      },
+      // Failed to load
+      (error: Error) => {
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+        this.error = error['statusText'];
+      });
+  }
+
+  /**
    * Handling of the HTTP POST request for importing a form
    * @param body The body of the HTTP POST request
    */
@@ -163,15 +201,14 @@ export class DashboardComponent implements OnInit {
     this.httpClient.post(url, body).subscribe((response) => {
         // Check for error
         if (!response) {
-          this.alerts.NewAlert('danger', 'Import fehlgeschlagen', 'Keine Daten erhalten');
+          this.alerts.NewAlert('danger', 'Import fehlgeschlagen', 'Keine Antwort erhalten');
           this.error = 'Could not import form (no response)';
         } else if (response['Error']) {
           this.alerts.NewAlert('danger', 'Import fehlgeschlagen', response['Error']);
           this.error = 'Could not import form (error)';
         }
 
-        // Reload
-        this.ngOnInit();
+        this.reloadPage();
       },
       // Failed to upload
       (error: Error) => {
