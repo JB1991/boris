@@ -16,8 +16,8 @@ describe('DashboardComponent', () => {
   const formSample = require('../../../assets/form-sample.json');
   const form = JSON.stringify(formSample);
   const formId = 'bqg0hvkdev01va6s70ug';
-  const formsUrl = environment.fragebogen_api + 'forms';
-  const formsUrlWithId = environment.fragebogen_api + 'forms/' + formId;
+  const formsUrl = environment.formAPI + 'forms';
+  const formsUrlWithId = environment.formAPI + 'forms/' + formId;
   const answer = {data: [{'id': 'bqg0hvkdev01va6s70ug', 'title': 'Minimal', 'tags': [''], 'created': '2020-04-22T09:06:06.077198Z', 'updated': '2020-04-22T09:10:16.562098Z'}]};
 
   beforeEach(async(() => {
@@ -168,7 +168,7 @@ describe('DashboardComponent', () => {
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Invalid UUID');
+    expect(component.error).toBe('Export: Invalid UUID');
   });
 
   it('exportForm() should fail if an invalid UUID is passed as form id', () => {
@@ -180,7 +180,7 @@ describe('DashboardComponent', () => {
 
     // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Invalid UUID');
+    expect(component.error).toBe('Export: Invalid UUID');
   });
 
   it('importForm() should allow uploading a file', () => {

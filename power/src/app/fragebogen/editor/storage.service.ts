@@ -48,7 +48,7 @@ export class StorageService {
    */
   public loadForm(id: string): Observable<Object> {
     // load data from server
-    const url = environment.fragebogen_api + 'forms/' + id;
+    const url = environment.formAPI + 'forms/' + id;
     return this.httpClient.get(url);
   }
 
@@ -61,17 +61,17 @@ export class StorageService {
   public saveForm(data: any, id?: string, tags?: string[]): Observable<Object> {
     const body = JSON.stringify(data);
     if (id) {
-      const url = environment.fragebogen_api + 'forms/' + id;
+      const url = environment.formAPI + 'forms/' + id;
       return this.httpClient.put(url, body);
     } else if (tags) {
       let query: string;
       if (tags.length > 0) {
         query = '?' + tags.join(',');
       }
-      const url = environment.fragebogen_api + 'forms' + query;
+      const url = environment.formAPI + 'forms' + query;
       return this.httpClient.post(url, body);
     } else {
-      const url = environment.fragebogen_api + 'forms';
+      const url = environment.formAPI + 'forms';
       return this.httpClient.post(url, body);
     }
   }

@@ -22,7 +22,7 @@ export class FormularService {
 
   // Get formular from backend via PIN
   loadTask(pin: string): Observable<PurchaseCase> {
-    const url = environment.fragebogen_api + '/tasks?pin=' + pin;
+    const url = environment.formAPI + '/tasks?pin=' + pin;
     return this.http.get<PurchaseCase>(url)
       .pipe(
         retry(this.retryCount),
@@ -32,7 +32,7 @@ export class FormularService {
 
   // Post formular to backend via PIN
   saveTask(pin: string, model: any): Observable<PurchaseCase> {
-    const url = environment.fragebogen_api + '/tasks?pin=' + pin;
+    const url = environment.formAPI + '/tasks?pin=' + pin;
     return this.http.post<PurchaseCase>(url, model)
       .pipe(
         retry(this.retryCount),

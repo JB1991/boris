@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // Load form list
     this.loadingscreen.setVisible(true);
-    const url = environment.fragebogen_api + 'forms';
+    const url = environment.formAPI + 'forms';
     this.httpClient.get(url).subscribe((response) => {
         this.loadingscreen.setVisible(false);
         // Check for error
@@ -97,7 +97,7 @@ export class DashboardComponent implements OnInit {
     }
 
     // Load form
-    const url = environment.fragebogen_api + 'forms/' + id;
+    const url = environment.formAPI + 'forms/' + id;
     this.httpClient.get(url).subscribe((response) => {
         // Check for error
         if (!response) {
@@ -168,7 +168,7 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    const url = environment.fragebogen_api + 'forms/' + id;
+    const url = environment.formAPI + 'forms/' + id;
     this.httpClient.delete(url).subscribe((response) => {
         // Check for error
         if (!response) {
@@ -197,7 +197,7 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    const url = environment.fragebogen_api + 'forms';
+    const url = environment.formAPI + 'forms';
     this.httpClient.post(url, body).subscribe((response) => {
         // Check for error
         if (!response) {
