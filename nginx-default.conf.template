@@ -1,4 +1,4 @@
-resolver  127.0.0.11 valid=10s;  # recover from the backend's IP changing
+#resolver  127.0.0.11 valid=10s;  # recover from the backend's IP changing
 
 server {
   listen  80;
@@ -17,27 +17,23 @@ server {
 
   location /geocoding/suggestions/ {
     rewrite ^\/geocoding\/suggestions\/(.*) /gdz_geokodierung__${BKG_GEOCODING_SECRET}/suggest$1 break;
-    set $geodatenzentrum https://sg.geodatenzentrum.de/;
-    proxy_pass $geodatenzentrum;
+    proxy_pass https://sg.geodatenzentrum.de/;
     return 404;
   }
 
   location /geocoding/geosearch/ {
     rewrite ^\/geocoding\/geosearch\/(.*) /gdz_ortssuche__${BKG_GEOCODING_SECRET}/geosearch.json$1 break;
-    set $geodatenzentrum https://sg.geodatenzentrum.de/;
-    proxy_pass $geodatenzentrum;
+    proxy_pass https://sg.geodatenzentrum.de/;
     return 404;
   }
 
   location /geoserver/ {
-    set $geoserver ${GEOSERVER_URL};
-    proxy_pass $geoserver;
+    proxy_pass ${GEOSERVER_URL};
     proxy_set_header HOST $http_host;
   }
 
   location /formapi/ {
-    set $forms ${FORMS_URL};
-    proxy_pass $forms;
+    proxy_pass ${FORMS_URL};
     proxy_set_header HOST $http_host;
   }
 
