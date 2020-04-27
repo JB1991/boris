@@ -46,55 +46,41 @@ describe('DashboardComponent', () => {
   });
 
   it('ngOnInit() should fail if no response is returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', null);
 
-    // Check that no forms and an error is returned by the API
     expect(component.formsList.length).toBe(0);
     expect(component.error).toBe('Could not load forms (no response)');
   });
 
   it('ngOnInit() should fail if no forms are returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', {Form: null, Error: 'not found'});
 
-    // Check that no forms and an error is returned by the API
     expect(component.formsList.length).toBe(0);
     expect(component.error).toBe('Could not load forms (error)');
   });
 
   it('ngOnInit() should get a list of forms by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Check that one form and no error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('');
   });
 
   it('ngOnInit() should fail if a 404 is returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', '', {status: 404, statusText: 'Not found'});
 
-    // Check that no forms and an error is returned by the API
     expect(component.formsList.length).toBe(0);
     expect(component.error).toBe('Not found');
   });
 
   it('exportForm() should download the form returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Create spy object with methods click() and setAttribute()
+    // Create spy object with methods click() and setAttribute() and spy on document.createElement()
     const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
-
-    // Spy on document.createElement() and return the spy object
     spyOn(document, 'createElement').and.returnValue(spyObj);
 
-    // Call export form
     component.exportForm(formId);
-
-    // Take GET request of exportForm() from queue and return the answer
     answerHTTPRequest(formsUrlWithId, 'GET', formSample);
 
     // Expect that the <a> tag was created
@@ -109,82 +95,54 @@ describe('DashboardComponent', () => {
     expect(spyObj.click).toHaveBeenCalledTimes(1);
     expect(spyObj.click).toHaveBeenCalledWith();
 
-    // Check that one form and no error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('');
   });
 
   it('exportForm() should fail if no response is returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call export form
     component.exportForm(formId);
-
-    // Take GET request of exportForm() from queue and return the answer
     answerHTTPRequest(formsUrlWithId, 'GET', null);
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Could not export form (no response)');
   });
 
   it('exportForm() should fail if an error is returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call export form
     component.exportForm(formId);
-
-    // Take GET request of exportForm() from queue and return the answer
     answerHTTPRequest(formsUrlWithId, 'GET', {Form: null, Error: 'not found'});
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Could not export form (error)');
   });
 
   it('exportForm() should fail if a 404 is returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call export form
     component.exportForm(formId);
-
-    // Take GET request of exportForm() from queue and return the answer
     answerHTTPRequest(formsUrlWithId, 'GET', '', {status: 404, statusText: 'Not found'});
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Not found');
   });
 
   it('exportForm() should fail if null is passed as form id', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call export form
     component.exportForm(null);
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Export: Invalid UUID');
   });
 
   it('exportForm() should fail if an invalid UUID is passed as form id', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call export form
     component.exportForm('foobar');
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Export: Invalid UUID');
   });
 
   it('importForm() should allow uploading a file', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
 
     // Check the import button
@@ -212,116 +170,119 @@ describe('DashboardComponent', () => {
     const input = document.querySelector('#file-upload');
     input.dispatchEvent(event);
 
-    // Expect that reader.readAsText() was called
     expect(mockReader.readAsText).toHaveBeenCalledTimes(1);
-
-    // Check that one form and no error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('');
   });
 
   it('processPostRequest() should execute a POST request against the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call processPostRequest()
     component.processPostRequest(form);
-
-    // Take POST request from queue and return the answer
     answerHTTPRequest(formsUrl, 'POST', answer);
-
-    // Take another GET request from queue and return the answer (for ngOnInit()-call)
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Check that one form and no error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('');
   });
 
   it('processPostRequest() should fail if null is passed as body', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call processPostRequest()
     component.processPostRequest(null);
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Invalid JSON file');
   });
 
   it('processPostRequest() should fail if invalid JSON is passed as body', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call processPostRequest()
     component.processPostRequest('foobar');
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Invalid JSON file');
   });
 
   it('processPostRequest() should fail if no response is returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call processPostRequest()
     component.processPostRequest(form);
-
-    // Take POST request from queue and return the answer
     answerHTTPRequest(formsUrl, 'POST', null);
-
-    // Take another GET request from queue and return the answer (for ngOnInit()-call)
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Could not import form (no response)');
   });
 
   it('processPostRequest() should fail if an error is returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call processPostRequest()
     component.processPostRequest(form);
-
-    // Take POST request from queue and return the answer
     answerHTTPRequest(formsUrl, 'POST', {Form: null, Error: 'not found'});
-
-    // Take another GET request from queue and return the answer (for ngOnInit()-call)
     answerHTTPRequest(formsUrl, 'GET', answer);
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Could not import form (error)');
   });
 
   it('processPostRequest() should fail if a 404 is returned by the API', () => {
-    // Take GET request from queue and return the answer
     answerHTTPRequest(formsUrl, 'GET', answer);
-
-    // Call processPostRequest()
     component.processPostRequest(form);
-
-    // Take POST request from queue and return the answer
     answerHTTPRequest(formsUrl, 'POST', '', {status: 404, statusText: 'Not found'});
 
-    // Check that one form and an error is returned by the API
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Not found');
   });
 
+  it('deleteForm() should delete a form', () => {
+    answerHTTPRequest(formsUrl, 'GET', answer);
+    component.deleteForm(formId);
+    answerHTTPRequest(formsUrlWithId, 'DELETE', {'data': null});
+    answerHTTPRequest(formsUrl, 'GET', {data: []});
+
+    expect(component.formsList.length).toBe(0);
+    expect(component.error).toBe('');
+  });
+
+  it('deleteForm() should fail if a 404 is returned by the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', answer);
+    component.deleteForm(formId);
+    answerHTTPRequest(formsUrlWithId, 'DELETE', '', {status: 404, statusText: 'Not found'});
+
+    expect(component.formsList.length).toBe(1);
+    expect(component.error).toBe('Not found');
+  });
+
+  it('deleteForm() should fail if null is passed as form id', () => {
+    answerHTTPRequest(formsUrl, 'GET', answer);
+    component.deleteForm(null);
+
+    expect(component.formsList.length).toBe(1);
+    expect(component.error).toBe('Delete: Invalid UUID');
+  });
+
+  it('deleteForm() should fail if an invalid UUID is passed as form id', () => {
+    answerHTTPRequest(formsUrl, 'GET', answer);
+    component.deleteForm('foobar');
+
+    expect(component.formsList.length).toBe(1);
+    expect(component.error).toBe('Delete: Invalid UUID');
+  });
+
+  it('deleteForm() should fail if no response is returned by the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', answer);
+    component.deleteForm(formId);
+    answerHTTPRequest(formsUrlWithId, 'DELETE', null);
+
+    expect(component.formsList.length).toBe(1);
+    expect(component.error).toBe('Could not delete form (no response)');
+  });
+
   /**
-   * Process HTTP requests
-   * @param url The URL of the GET request
+   * Mocks the API by taking HTTP requests form the queue and returning the answer
+   * @param url The URL of the HTTP request
    * @param method HTTP request method
    * @param body The body of the answer
    * @param opts Optional HTTP information of the answer
    */
   function answerHTTPRequest(url, method, body, opts?) {
-    // Take GET request from queue
+    // Take HTTP request from queue
     const request = httpTestingController.expectOne(url);
     expect(request.request.method).toEqual(method);
 

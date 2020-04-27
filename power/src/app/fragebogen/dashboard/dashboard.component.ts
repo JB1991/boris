@@ -43,7 +43,6 @@ export class DashboardComponent implements OnInit {
    */
   private static isValidXID(str): boolean {
     // The Form-API uses XID for the form ID (https://github.com/rs/xid)
-    // TODO Use more concrete RegEx for XID
     const validXID: RegExp = /^[a-z0-9]{20}$/;
     return str.match(validXID);
   }
@@ -174,9 +173,9 @@ export class DashboardComponent implements OnInit {
         if (!response) {
           this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', 'Keine Antwort erhalten');
           this.error = 'Could not delete form (no response)';
+        } else {
+          this.reloadPage();
         }
-
-        this.reloadPage();
       },
       // Failed to load
       (error: Error) => {
