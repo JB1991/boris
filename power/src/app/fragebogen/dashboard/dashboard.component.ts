@@ -167,6 +167,11 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
+    // Ask user to confirm deletion
+    if (!confirm('Möchten Sie dieses Formular wirklich löschen?')) {
+      return;
+    }
+
     const url = environment.formAPI + 'forms/' + id;
     this.httpClient.delete(url).subscribe((response) => {
         // Check for error

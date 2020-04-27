@@ -231,6 +231,9 @@ describe('DashboardComponent', () => {
   });
 
   it('deleteForm() should delete a form', () => {
+    // Stub out confirm dialog
+    spyOn(window, 'confirm').and.returnValue(true);
+
     answerHTTPRequest(formsUrl, 'GET', answer);
     component.deleteForm(formId);
     answerHTTPRequest(formsUrlWithId, 'DELETE', {'data': null});
@@ -241,6 +244,9 @@ describe('DashboardComponent', () => {
   });
 
   it('deleteForm() should fail if a 404 is returned by the API', () => {
+    // Stub out confirm dialog
+    spyOn(window, 'confirm').and.returnValue(true);
+
     answerHTTPRequest(formsUrl, 'GET', answer);
     component.deleteForm(formId);
     answerHTTPRequest(formsUrlWithId, 'DELETE', '', {status: 404, statusText: 'Not found'});
@@ -266,12 +272,26 @@ describe('DashboardComponent', () => {
   });
 
   it('deleteForm() should fail if no response is returned by the API', () => {
+    // Stub out confirm dialog
+    spyOn(window, 'confirm').and.returnValue(true);
+
     answerHTTPRequest(formsUrl, 'GET', answer);
     component.deleteForm(formId);
     answerHTTPRequest(formsUrlWithId, 'DELETE', null);
 
     expect(component.formsList.length).toBe(1);
     expect(component.error).toBe('Could not delete form (no response)');
+  });
+
+  it('deleteForm() should not delete a form if the user does not agree to the deletion', () => {
+    // Stub out confirm dialog
+    spyOn(window, 'confirm').and.returnValue(false);
+
+    answerHTTPRequest(formsUrl, 'GET', answer);
+    component.deleteForm(formId);
+
+    expect(component.formsList.length).toBe(1);
+    expect(component.error).toBe('');
   });
 
   /**
