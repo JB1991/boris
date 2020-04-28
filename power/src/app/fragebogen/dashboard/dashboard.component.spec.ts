@@ -18,7 +18,15 @@ describe('DashboardComponent', () => {
   const formId = 'bqg0hvkdev01va6s70ug';
   const formsUrl = environment.formAPI + 'forms';
   const formsUrlWithId = environment.formAPI + 'forms/' + formId;
-  const answer = {data: [{'id': 'bqg0hvkdev01va6s70ug', 'title': 'Minimal', 'tags': [''], 'created': '2020-04-22T09:06:06.077198Z', 'updated': '2020-04-22T09:10:16.562098Z'}]};
+  const answer = {
+    data: [{
+      'id': 'bqg0hvkdev01va6s70ug',
+      'title': 'Minimal',
+      'tags': [''],
+      'created': '2020-04-22T09:06:06.077198Z',
+      'updated': '2020-04-22T09:10:16.562098Z'
+    }]
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -49,14 +57,14 @@ describe('DashboardComponent', () => {
     answerHTTPRequest(formsUrl, 'GET', null);
 
     expect(component.formsList.length).toBe(0);
-    expect(component.error).toBe('Could not load forms (no response)');
+    expect(component.error).toBe('Laden fehlgeschlagen (Keine Antwort)');
   });
 
   it('ngOnInit() should fail if no forms are returned by the API', () => {
     answerHTTPRequest(formsUrl, 'GET', {Form: null, Error: 'not found'});
 
     expect(component.formsList.length).toBe(0);
-    expect(component.error).toBe('Could not load forms (error)');
+    expect(component.error).toBe('Laden fehlgeschlagen (Fehler)');
   });
 
   it('ngOnInit() should get a list of forms by the API', () => {
@@ -105,7 +113,7 @@ describe('DashboardComponent', () => {
     answerHTTPRequest(formsUrlWithId, 'GET', null);
 
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Could not export form (no response)');
+    expect(component.error).toBe('Export fehlgeschlagen (Keine Antwort)');
   });
 
   it('exportForm() should fail if an error is returned by the API', () => {
@@ -114,7 +122,7 @@ describe('DashboardComponent', () => {
     answerHTTPRequest(formsUrlWithId, 'GET', {Form: null, Error: 'not found'});
 
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Could not export form (error)');
+    expect(component.error).toBe('Export fehlgeschlagen (Fehler)');
   });
 
   it('exportForm() should fail if a 404 is returned by the API', () => {
@@ -208,7 +216,7 @@ describe('DashboardComponent', () => {
     answerHTTPRequest(formsUrl, 'GET', answer);
 
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Could not import form (no response)');
+    expect(component.error).toBe('Import fehlgeschlagen (Keine Antwort)');
   });
 
   it('processPostRequest() should fail if an error is returned by the API', () => {
@@ -218,7 +226,7 @@ describe('DashboardComponent', () => {
     answerHTTPRequest(formsUrl, 'GET', answer);
 
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Could not import form (error)');
+    expect(component.error).toBe('Import fehlgeschlagen (Fehler)');
   });
 
   it('processPostRequest() should fail if a 404 is returned by the API', () => {
@@ -278,9 +286,10 @@ describe('DashboardComponent', () => {
     answerHTTPRequest(formsUrl, 'GET', answer);
     component.deleteForm(formId);
     answerHTTPRequest(formsUrlWithId, 'DELETE', null);
+    answerHTTPRequest(formsUrl, 'GET', answer);
 
     expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Could not delete form (no response)');
+    expect(component.error).toBe('Löschen fehlgeschlagen (Keine Antwort)');
   });
 
   it('deleteForm() should not delete a form if the user does not agree to the deletion', () => {

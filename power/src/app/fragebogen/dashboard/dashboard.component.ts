@@ -24,63 +24,25 @@ export class DashboardComponent implements OnInit {
     this.titleService.setTitle('Dashboard - POWER.NI');
   }
 
-  /**
-   * Check if 'str' is a valid JSON string
-   * @param str String to be checked
-   */
-  private static isValidJsonString(str): boolean {
-    try {
-      JSON.parse(str);
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * Check if 'str' is a valid form ID
-   * @param str String to be checked
-   */
-  private static isValidXID(str): boolean {
-    // The Form-API uses XID for the form ID (https://github.com/rs/xid)
-    const validXID: RegExp = /^[a-z0-9]{20}$/;
-    return str.match(validXID);
-  }
-
   ngOnInit(): void {
     // Load form list
     this.loadingscreen.setVisible(true);
     const url = environment.formAPI + 'forms';
     this.httpClient.get(url).subscribe((response) => {
         this.loadingscreen.setVisible(false);
-        // Check for error
-        if (!response) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', 'Keine Antwort erhalten');
-          this.error = 'Could not load forms (no response)';
-        } else if (response['Error']) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', response['Error']);
-          this.error = 'Could not load forms (error)';
-        }
-
-        // Store form
-        if (response && response['data']) {
-          this.formsList = response['data'];
-        }
+        this.errorCheck(response, 'Laden');
+        this.storeForm(response);
       },
-      // Failed to load
       (error: Error) => {
         this.loadingscreen.setVisible(false);
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
-        this.error = error['statusText'];
+        this.loadFailed(error, 'Laden');
       });
   }
 
-  /**
-   * Reload the current page
-   */
-  private reloadPage() {
-    this.formsList = [];
-    this.ngOnInit();
+  private storeForm(response) {
+    if (response && response['data']) {
+      this.formsList = response['data'];
+    }
   }
 
   /**
@@ -89,7 +51,7 @@ export class DashboardComponent implements OnInit {
    */
   public exportForm(id: string) {
     // Input validation
-    if (!id || !DashboardComponent.isValidXID(id)) {
+    if (!id || !DashboardComponent.isValidFormID(id)) {
       this.alerts.NewAlert('danger', 'Export fehlgeschlagen', 'Ungültige Formular-ID');
       this.error = 'Export: Invalid UUID';
       return;
@@ -98,42 +60,36 @@ export class DashboardComponent implements OnInit {
     // Load form
     const url = environment.formAPI + 'forms/' + id;
     this.httpClient.get(url).subscribe((response) => {
-        // Check for error
-        if (!response) {
-          this.alerts.NewAlert('danger', 'Export fehlgeschlagen', 'Keine Antwort erhalten');
-          this.error = 'Could not export form (no response)';
-        } else if (response['Error']) {
-          this.alerts.NewAlert('danger', 'Export fehlgeschlagen', response['Error']);
-          this.error = 'Could not export form (error)';
-        }
-
-        // Store form
-        if (response && response['data']) {
-          const pom = document.createElement('a');
-          const encodedURIComponent = encodeURIComponent(JSON.stringify(response['data']['content']));
-          const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
-          pom.setAttribute('href', href);
-          pom.setAttribute('download', 'formular.json');
-          pom.click();
-        }
+        this.errorCheck(response, 'Export');
+        DashboardComponent.downloadForm(response);
       },
-      // Failed to load
       (error: Error) => {
-        this.alerts.NewAlert('danger', 'Export fehlgeschlagen', error['statusText']);
-        this.error = error['statusText'];
+        this.loadFailed(error, 'Export');
       });
+  }
+
+  private static isValidFormID(str): boolean {
+    // The Form-API uses XID for the form ID (https://github.com/rs/xid)
+    const validXID: RegExp = /^[a-z0-9]{20}$/;
+    return str.match(validXID);
+  }
+
+  private static downloadForm(response) {
+    if (response && response['data']) {
+      const pom = document.createElement('a');
+      const encodedURIComponent = encodeURIComponent(JSON.stringify(response['data']['content']));
+      const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
+      pom.setAttribute('href', href);
+      pom.setAttribute('download', 'formular.json');
+      pom.click();
+    }
   }
 
   /**
    * Imports form from JSON
    */
   public importForm() {
-    // Create input element
-    const input = document.createElement('input');
-    input.id = 'file-upload';
-    input.type = 'file';
-    input.accept = 'application/JSON';
-    input.hidden = true;
+    const input = DashboardComponent.createInputElement();
 
     // Add the input element to the DOM so that it can be accessed from the tests
     const importButton = document.getElementById('button-import');
@@ -155,13 +111,22 @@ export class DashboardComponent implements OnInit {
     input.click();
   }
 
+  private static createInputElement() {
+    const input = document.createElement('input');
+    input.id = 'file-upload';
+    input.type = 'file';
+    input.accept = 'application/JSON';
+    input.hidden = true;
+    return input;
+  }
+
   /**
    * Deletes an existing form
    * @param id form id
    */
   public deleteForm(id: string) {
     // Input validation
-    if (!id || !DashboardComponent.isValidXID(id)) {
+    if (!id || !DashboardComponent.isValidFormID(id)) {
       this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', 'Ungültige Formular-ID');
       this.error = 'Delete: Invalid UUID';
       return;
@@ -174,18 +139,11 @@ export class DashboardComponent implements OnInit {
 
     const url = environment.formAPI + 'forms/' + id;
     this.httpClient.delete(url).subscribe((response) => {
-        // Check for error
-        if (!response) {
-          this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', 'Keine Antwort erhalten');
-          this.error = 'Could not delete form (no response)';
-        } else {
-          this.reloadPage();
-        }
+        this.errorCheck(response, 'Löschen');
+        this.reloadCurrentPage();
       },
-      // Failed to load
       (error: Error) => {
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
-        this.error = error['statusText'];
+        this.loadFailed(error, 'Löschen');
       });
   }
 
@@ -195,7 +153,7 @@ export class DashboardComponent implements OnInit {
    */
   public processPostRequest(body) {
     // Input validation
-    if (!body || !DashboardComponent.isValidJsonString(body)) {
+    if (!body || !DashboardComponent.isValidJson(body)) {
       this.alerts.NewAlert('danger', 'Import fehlgeschlagen', 'Ungültige JSON-Datei');
       this.error = 'Invalid JSON file';
       return;
@@ -203,21 +161,42 @@ export class DashboardComponent implements OnInit {
 
     const url = environment.formAPI + 'forms';
     this.httpClient.post(url, body).subscribe((response) => {
-        // Check for error
-        if (!response) {
-          this.alerts.NewAlert('danger', 'Import fehlgeschlagen', 'Keine Antwort erhalten');
-          this.error = 'Could not import form (no response)';
-        } else if (response['Error']) {
-          this.alerts.NewAlert('danger', 'Import fehlgeschlagen', response['Error']);
-          this.error = 'Could not import form (error)';
-        }
-
-        this.reloadPage();
+        this.errorCheck(response, 'Import');
+        this.reloadCurrentPage();
       },
-      // Failed to upload
       (error: Error) => {
-        this.alerts.NewAlert('danger', 'Import fehlgeschlagen', error['statusText']);
-        this.error = error['statusText'];
+        this.loadFailed(error, 'Import');
       });
+  }
+
+  private reloadCurrentPage() {
+    this.formsList = [];
+    this.ngOnInit();
+  }
+
+  private errorCheck(response, operation) {
+    const message = operation + ' fehlgeschlagen';
+
+    if (!response) {
+      this.alerts.NewAlert('danger', message, 'Keine Antwort erhalten');
+      this.error = message + ' (Keine Antwort)';
+    } else if (response['Error']) {
+      this.alerts.NewAlert('danger', message, response['Error']);
+      this.error = message + ' (Fehler)';
+    }
+  }
+
+  private loadFailed(error, operation) {
+    this.alerts.NewAlert('danger', operation + ' fehlgeschlagen', error['statusText']);
+    this.error = error['statusText'];
+  }
+
+  private static isValidJson(str): boolean {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 }
