@@ -6,7 +6,7 @@ import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalFormularComponent } from './modal-formular.component';
 import { StorageService } from '../storage.service';
 
-describe('ModalFormularComponent', () => {
+describe('Fragebogen.Editor.ModalFormular.ModalFormularComponent', () => {
   let component: ModalFormularComponent;
   let fixture: ComponentFixture<ModalFormularComponent>;
 

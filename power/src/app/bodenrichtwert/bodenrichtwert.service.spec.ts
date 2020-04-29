@@ -4,7 +4,7 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 
 import {BodenrichtwertService} from './bodenrichtwert.service';
 
-describe('BodenrichtwertService', () => {
+describe('Bodenrichtwert.BodenrichtwertService', () => {
   let service: BodenrichtwertService;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;

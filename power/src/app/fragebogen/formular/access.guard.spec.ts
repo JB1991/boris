@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AccessGuard } from './access.guard';
 import { FormularService } from './formular.service';
 
-describe('AccessGuard', () => {
+describe('Fragebogen.Formular.AccessGuard', () => {
   let service: AccessGuard;
 
   beforeEach(async(() => {

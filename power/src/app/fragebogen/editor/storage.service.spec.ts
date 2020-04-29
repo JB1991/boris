@@ -3,7 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { StorageService } from './storage.service';
 
-describe('StorageService', () => {
+describe('Fragebogen.Editor.StorageService', () => {
   let service: StorageService;
 
   beforeEach(async(() => {

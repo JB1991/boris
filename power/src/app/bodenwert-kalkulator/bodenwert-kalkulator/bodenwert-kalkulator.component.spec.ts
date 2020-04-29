@@ -3,7 +3,7 @@ import {NgbAccordion} from '@ng-bootstrap/ng-bootstrap';
 
 import {BodenwertKalkulatorComponent} from './bodenwert-kalkulator.component';
 
-describe('BodenwertKalkulatorComponent', () => {
+describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
   let component: BodenwertKalkulatorComponent;
   let fixture: ComponentFixture<BodenwertKalkulatorComponent>;
 

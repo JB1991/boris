@@ -1,6 +1,6 @@
 import {ImmobilienModule} from './immobilien.module';
 
-describe('ImmobilienModule', () => {
+describe('Immobilien.ImmobilienModule', () => {
   let immobilienModule: ImmobilienModule;
 
   beforeEach(() => {

@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConditionsComponent } from './conditions.component';
 import { StorageService } from '../storage.service';
 
-describe('ConditionsComponent', () => {
+describe('Fragebogen.Editor.Conditions.ConditionsComponent', () => {
   let component: ConditionsComponent;
   let fixture: ComponentFixture<ConditionsComponent>;
 

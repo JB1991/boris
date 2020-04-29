@@ -4,7 +4,7 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 
 import {ImmobilienComponent} from './immobilien.component';
 
-describe('ImmobilienComponent', () => {
+describe('Immobilien.Immobilien.ImmobilienComponent', () => {
   let component: ImmobilienComponent;
   let fixture: ComponentFixture<ImmobilienComponent>;
   let httpClient: HttpClient;

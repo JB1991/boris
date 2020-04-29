@@ -3,7 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FormularService } from './formular.service';
 
-describe('FormularService', () => {
+describe('Fragebogen.Formular.FormularService', () => {
   let service: FormularService;
 
   beforeEach(async(() => {

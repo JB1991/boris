@@ -7,7 +7,7 @@ import {By} from '@angular/platform-browser';
 import {environment} from '@env/environment';
 import {DashboardComponent} from './dashboard.component';
 
-describe('DashboardComponent', () => {
+describe('Fragebogen.Dashboard.DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let httpClient: HttpClient;

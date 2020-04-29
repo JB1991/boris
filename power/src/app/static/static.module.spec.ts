@@ -1,6 +1,6 @@
 import {StaticModule} from './static.module';
 
-describe('StaticModule', () => {
+describe('Static.StaticModule', () => {
   let staticModule: StaticModule;
 
   beforeEach(() => {

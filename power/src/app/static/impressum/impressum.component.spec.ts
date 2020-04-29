@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ImpressumComponent} from './impressum.component';
 
-describe('ImpressumComponent', () => {
+describe('Static.Impressum.ImpressumComponent', () => {
   let component: ImpressumComponent;
   let fixture: ComponentFixture<ImpressumComponent>;
 

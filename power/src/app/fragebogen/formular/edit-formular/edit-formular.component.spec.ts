@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { EditFormularComponent } from './edit-formular.component';
 import { FormularService } from '../formular.service';
 
-describe('EditFormularComponent', () => {
+describe('Fragebogen.Formular.EditFormular.EditFormularComponent', () => {
   let component: EditFormularComponent;
   let fixture: ComponentFixture<EditFormularComponent>;
 

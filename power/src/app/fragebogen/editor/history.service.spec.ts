@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HistoryService } from './history.service';
 import { StorageService } from './storage.service';
 
-describe('HistoryService', () => {
+describe('Fragebogen.Editor.HistoryService', () => {
   let service: HistoryService;
 
   beforeEach(async(() => {

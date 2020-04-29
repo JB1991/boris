@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { AlertsService } from './alerts.service';
 
-describe('LoadingscreenService', () => {
+describe('Fragebogen.Alerts.AlertsService', () => {
   let service: AlertsService;
 
   beforeEach(() => {

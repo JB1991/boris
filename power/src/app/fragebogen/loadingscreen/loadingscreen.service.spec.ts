@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { LoadingscreenService } from './loadingscreen.service';
 
-describe('LoadingscreenService', () => {
+describe('Fragebogen.Loadingscreen.LoadingscreenService', () => {
   let service: LoadingscreenService;
 
   beforeEach(() => {

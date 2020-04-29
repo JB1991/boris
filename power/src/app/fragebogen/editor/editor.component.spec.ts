@@ -11,7 +11,7 @@ import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
 import { PreviewPipe } from './preview.pipe';
 
-describe('EditorComponent', () => {
+describe('Fragebogen.Editor.EditorComponent', () => {
   let component: EditorComponent;
   let fixture: ComponentFixture<EditorComponent>;
 

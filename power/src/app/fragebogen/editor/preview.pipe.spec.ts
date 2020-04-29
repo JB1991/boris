@@ -1,6 +1,6 @@
 import { PreviewPipe } from './preview.pipe';
 
-describe('PreviewPipe', () => {
+describe('Fragebogen.Editor.PreviewPipe', () => {
   it('create an instance', () => {
     const pipe = new PreviewPipe();
     expect(pipe).toBeTruthy();

@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 
 import { FormularComponent } from './formular.component';
 
-describe('FormularComponent', () => {
+describe('Fragebogen.Formular.FormularComponent', () => {
   let component: FormularComponent;
   let fixture: ComponentFixture<FormularComponent>;
 

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoadingscreenComponent } from './loadingscreen.component';
 
-describe('LoadingscreenComponent', () => {
+describe('Fragebogen.Loadingscreen.LoadingscreenComponent', () => {
   let component: LoadingscreenComponent;
   let fixture: ComponentFixture<LoadingscreenComponent>;
 

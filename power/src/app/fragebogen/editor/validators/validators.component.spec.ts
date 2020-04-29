@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ValidatorsComponent } from './validators.component';
 import { StorageService } from '../storage.service';
 
-describe('ValidatorsComponent', () => {
+describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
   let component: ValidatorsComponent;
   let fixture: ComponentFixture<ValidatorsComponent>;
 
