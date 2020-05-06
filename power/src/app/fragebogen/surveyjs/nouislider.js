@@ -128,6 +128,7 @@ export function init(Survey) {
           el.removeAttribute("disabled");
         }
       };
+	  question.value = slider.get();
     },
     willUnmount: function(question, el) {
       if (!!question.noUiSlider) {
