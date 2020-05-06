@@ -51,7 +51,7 @@
     "ngx-echarts": "^4.2.2",
     "ngx-mapbox-gl": "4.4.1",
     "ngx-smooth-dnd": "^0.4.1",
-    "node-sass": "~4.13.1",
+    "node-sass": "^4.14.1",
     "nouislider": "^14.3.0",
     "npm": "^6.14.5",
     "polylabel": "^1.0.2",
