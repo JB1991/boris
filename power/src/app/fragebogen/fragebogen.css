@@ -51,6 +51,11 @@
     display: none;
 }
 
+/* disable padding around questions */
+.sv_qstn {
+    padding: 0px !important;
+}
+
 /* matrix: remove word wrap */
 th, td {
     white-space: nowrap;

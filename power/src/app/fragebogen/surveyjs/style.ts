@@ -2,14 +2,17 @@
  * surveyjs style object for bootstrap 4
  */
 export const Bootstrap4_CSS = {
-  root: 'sv_main sv_default_css',
+  root: 'sv_main sv_bootstrap_css',
   container: 'sv_container card',
-  header: 'sv_header',
-  body: 'sv_body',
-  bodyEmpty: 'sv_body sv_body_empty',
-  footer: 'sv_nav card-footer',
-  title: 'd-block card-header h3',
+  header: 'panel-heading card-header',
+  body: 'panel-body',
+  bodyEmpty: 'panel-body sv_body_empty',
+  footer: 'panel-footer card-footer',
+  title: 'h3',
   description: 'font-weight-light formular-description',
+  logo: 'sv_logo',
+  logoImage: 'sv_logo__image',
+  headerText: 'sv_header__text',
   navigationButton: '',
   completedPage: 'sv_completed_page card-body',
   navigation: {
@@ -30,7 +33,7 @@ export const Bootstrap4_CSS = {
   pageDescription: 'font-weight-light hassubtext',
   row: 'sv_row',
   question: {
-    mainRoot: 'sv_q sv_qstn mb-3 p-1',
+    mainRoot: 'sv_q sv_qstn',
     flowRoot: 'sv_q_flow sv_qstn',
     header: '',
     headerLeft: 'title-left',
@@ -79,6 +82,13 @@ export const Bootstrap4_CSS = {
     column: 'sv_q_select_column'
   },
   comment: 'form-control',
+  html: {
+    root: ''
+  },
+  image: {
+    root: 'sv_q_image',
+    image: 'sv_image_image'
+  },
   matrix: {
     root: 'sv_q_matrix table table-hover',
     label: 'sv_q_m_label w-25',

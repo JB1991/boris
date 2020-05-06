@@ -297,13 +297,13 @@ export class ValidatorsComponent implements OnInit, OnChanges {
       case 'date1':
         this.struct.splice(this.struct.length, 0, {
           type: 'regex',
-          data: '^(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)\\d{2})$'
+          regex: '^(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)\\d{2})$'
         });
         break;
         case 'date2':
           this.struct.splice(this.struct.length, 0, {
             type: 'regex',
-            data: '^((?:19|20)\\d{2})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
+            regex: '^((?:19|20)\\d{2})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$'
           });
           break;
       default:

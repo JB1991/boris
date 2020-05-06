@@ -26,11 +26,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/webfonts",
               "src/manifest.json"
             ],
             "styles": [
-              "src/styles.scss",
-              "src/webfonts/fontawesome.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -97,6 +97,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/webfonts",
               "src/manifest.json"
             ]
           }
