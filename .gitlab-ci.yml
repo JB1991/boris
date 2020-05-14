@@ -98,9 +98,6 @@ code_quality:
       codequality: gl-code-quality-report.json
     paths:
       - gl-code-quality-report.json
-  only:
-    - merge_requests
-    - master
 
 build:
   stage: build
@@ -145,3 +142,18 @@ deploy:dev:
     - helm upgrade power ./chart/power -n dev --install --set=image.tag="$VERSION"
   only:
     - master
+
+deploy:staging:
+  stage: deploy
+  image: dtzar/helm-kubectl:3.1.2
+  dependencies: []
+  script:
+    - export VERSION=$(cat power/package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - helm upgrade power ./chart/power -n staging --install --set=image.tag="$VERSION"
+  only:
+    - master
+  when: manual
