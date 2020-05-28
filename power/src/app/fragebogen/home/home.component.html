@@ -1,9 +1,48 @@
 <!-- landing page -->
 <main class="mainpage mt-4" id="content" tabindex="-1">
-  <h2>Überblick</h2>
-  <ul>
-    <li><a title="Dashboard öffnen" routerLink="/formulare/dashboard">Dashboard</a></li>
-    <li><a title="Editor öffnen" routerLink="/formulare/editor">Editor</a></li>
-    <li><a title="Ausfüllen öffnen" routerLink="/formulare/formular">Ausfüllen</a></li>
-  </ul>
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <div class="jumbotron">
+        <h1 class="display-4">Formular ausfüllen</h1>
+        <p class="lead">Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen.</p>
+        <hr class="my-4">
+        <div class="lead">
+          <form (ngSubmit)="submitFormular(pin.value)" class="form-inline">
+            <input type="text" class="form-control mr-2" id="pin" placeholder="Formular PIN" #pin>
+            <button type="submit" class="btn btn-success my-2">Los</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="jumbotron">
+        <h1 class="display-4">Formular finden</h1>
+        <p class="lead">Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare.</p>
+        <hr class="my-4">
+        <div class="lead">
+          Coming Soon.
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="jumbotron">
+        <h1 class="display-4">Notarportal</h1>
+        <p class="lead">Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen.</p>
+        <hr class="my-4">
+        <div class="lead">
+          Coming Soon.
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="jumbotron">
+        <h1 class="display-4">Mitarbeiterportal</h1>
+        <p class="lead">Login für Mitarbeiter der Landesvermessung von Niedersachsen.</p>
+        <hr class="my-4">
+        <div class="lead">
+          <a [routerLink]="['/formulare/dashboard']">Zum Mitarbeiterportal</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>

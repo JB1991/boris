@@ -47,6 +47,13 @@
     </div>
     <div class="card-footer">
       <button type="button"
+              class="btn btn-success btn-sm mr-2"
+              title="Neues Formular erstellen"
+              [routerLink]="['/formulare/editor']">
+        <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+        Neues Formular
+      </button>
+      <button type="button"
               class="btn btn-primary btn-sm"
               id="button-import"
               title="Formular importieren"
