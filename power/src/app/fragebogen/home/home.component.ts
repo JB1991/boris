@@ -16,7 +16,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  submitFormular(value: string) {
-    this.router.navigate(['formulare', 'fillout', value], { replaceUrl: true });
+  /**
+   * Redirects to formular fillout dialogue
+   * @param pin Formular pin
+   */
+  submitPIN(pin: string) {
+    this.router.navigate(['/forms', 'fillout', pin], { replaceUrl: true });
   }
 }

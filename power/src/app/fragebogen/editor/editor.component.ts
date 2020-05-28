@@ -52,7 +52,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         this.loadingscreen.setVisible(false);
       }, (error: Error) => {
         // failed to load
-        this.router.navigate(['/formulare'], { replaceUrl: true });
+        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         this.loadingscreen.setVisible(false);
 
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
@@ -275,7 +275,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
 
       // redirect to new id
       if (!id) {
-        this.router.navigate(['formulare', 'editor', data['data']['id']], { replaceUrl: true });
+        this.router.navigate(['forms', 'editor', data['data']['id']], { replaceUrl: true });
       }
     }, (error: Error) => {
       // failed to save

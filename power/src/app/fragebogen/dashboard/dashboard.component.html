@@ -20,7 +20,7 @@
         <tbody>
         <tr *ngFor="let form of formsList; index as i">
           <td scope="row">
-            <a title="Formular öffnen" [routerLink]="['/formulare/editor', form.id]">
+            <a title="Formular öffnen" [routerLink]="['/forms/details', form.id]">
               {{ form.title }}
             </a>
           </td>
@@ -49,7 +49,7 @@
       <button type="button"
               class="btn btn-success btn-sm mr-2"
               title="Neues Formular erstellen"
-              [routerLink]="['/formulare/editor']">
+              [routerLink]="['/forms/editor']">
         <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
         Neues Formular
       </button>

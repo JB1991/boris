@@ -7,7 +7,7 @@
         <p class="lead">Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen.</p>
         <hr class="my-4">
         <div class="lead">
-          <form (ngSubmit)="submitFormular(pin.value)" class="form-inline">
+          <form #pinFormular="ngForm" (ngSubmit)="submitPIN(pin.value)" class="form-inline">
             <input type="text" class="form-control mr-2" id="pin" placeholder="Formular PIN" #pin>
             <button type="submit" class="btn btn-success my-2">Los</button>
           </form>
@@ -40,7 +40,7 @@
         <p class="lead">Login für Mitarbeiter der Landesvermessung von Niedersachsen.</p>
         <hr class="my-4">
         <div class="lead">
-          <a [routerLink]="['/formulare/dashboard']">Zum Mitarbeiterportal</a>
+          <a [routerLink]="['/forms/dashboard']">Zum Mitarbeiterportal</a>
         </div>
       </div>
     </div>
