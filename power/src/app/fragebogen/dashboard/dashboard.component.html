@@ -20,7 +20,7 @@
         <tbody>
         <tr *ngFor="let form of formsList; index as i">
           <td scope="row">
-            <a title="Formular öffnen" [routerLink]="['/forms/details', form.id]">
+            <a title="Formular öffnen" [routerLink]="['/forms/editor', form.id]">
               {{ form.title }}
             </a>
           </td>

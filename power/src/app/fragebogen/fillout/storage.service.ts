@@ -5,7 +5,7 @@ import { environment } from '@env/environment';
 import { Bootstrap4_CSS } from '../surveyjs/style';
 
 /**
- * StorageService handles loading and saving formulars for the editor component
+ * StorageService handles loading and saving tasks/formulars for the fillout component
  */
 @Injectable({
   providedIn: 'root'

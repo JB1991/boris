@@ -18,6 +18,7 @@ export class WrapperComponent implements OnChanges {
   @Input() showInvisible = false;
   @Output() public result: EventEmitter<any> = new EventEmitter();
   @Output() public interimResult: EventEmitter<any> = new EventEmitter();
+  @Output() public changes: EventEmitter<any> = new EventEmitter();
 
   ngOnChanges() {
     if (this.theme !== undefined) {
@@ -83,6 +84,11 @@ export class WrapperComponent implements OnChanges {
     }
     if (this.navigateToURL) {
       props['navigateToURL'] = this.navigateToURL;
+    }
+    if (this.changes) {
+      props['onValueChanged'] = (s, _) => {
+        this.changes.emit(s.data);
+      };
     }
     if (this.interimResult) {
       props['onCurrentPageChanged'] = (s, _) => {

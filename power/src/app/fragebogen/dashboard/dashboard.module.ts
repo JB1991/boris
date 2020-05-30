@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { AlertsModule } from '../alerts/alerts.module';
 import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
+import { StorageService } from './storage.service';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,9 @@ import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
     DashboardRoutingModule,
     AlertsModule,
     LoadingscreenModule
+  ],
+  providers: [
+    StorageService
   ]
 })
 export class DashboardModule { }

@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Title} from '@angular/platform-browser';
-import {HttpClient} from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@env/environment';
 
-import {environment} from '@env/environment';
-import {AlertsService} from '../alerts/alerts.service';
-import {LoadingscreenService} from '../loadingscreen/loadingscreen.service';
+import { StorageService } from './storage.service';
+import { AlertsService } from '../alerts/alerts.service';
+import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
 
 @Component({
   selector: 'power-formulars-dashboard',
@@ -20,7 +21,8 @@ export class DashboardComponent implements OnInit {
               private titleService: Title,
               private alerts: AlertsService,
               private httpClient: HttpClient,
-              private loadingscreen: LoadingscreenService) {
+              private loadingscreen: LoadingscreenService,
+              public storage: StorageService) {
     this.titleService.setTitle('Dashboard - POWER.NI');
   }
 
