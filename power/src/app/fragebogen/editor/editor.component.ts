@@ -5,12 +5,12 @@ import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult } from 'ngx-smooth-dnd';
+import { environment } from '@env/environment';
 
 import { AlertsService } from '../alerts/alerts.service';
 import { ComponentCanDeactivate } from '../pendingchanges.guard';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { environment } from '@env/environment';
 import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
 
 @Component({

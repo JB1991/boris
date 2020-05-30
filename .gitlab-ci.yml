@@ -98,6 +98,9 @@ code_quality:
       codequality: gl-code-quality-report.json
     paths:
       - gl-code-quality-report.json
+  only:
+    - merge_requests
+    - master
 
 build:
   stage: build

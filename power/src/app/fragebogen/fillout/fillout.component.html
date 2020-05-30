@@ -1,4 +1,12 @@
 <!-- landing page -->
-<main class="mainpage mt-4" id="content" tabindex="-1">
-  Test
+<main class="container mt-4" id="content" tabindex="-1" *ngIf="storage.form">
+  <power-formulars-surveyjs-wrapper [model]="storage.form.content" [css]="storage.css_style"
+    (result)="submit($event)" (interimResult)="progress($event)">
+  </power-formulars-surveyjs-wrapper>
 </main>
+
+<!-- alerts component -->
+<power-alerts></power-alerts>
+
+<!-- loadingscreen component -->
+<power-loadingscreen></power-loadingscreen>

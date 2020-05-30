@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FilloutComponent } from './fillout.component';
 
+import { PendingChangesGuard } from '../pendingchanges.guard';
+
 /**
  * routes contains all known paths
  */
@@ -11,8 +13,11 @@ const routes: Routes = [
     component: FilloutComponent
   },
   {
-    path: 'fillout/:id',
-    component: FilloutComponent
+    path: 'fillout/:pin',
+    component: FilloutComponent,
+    canDeactivate: [
+      PendingChangesGuard
+    ]
   },
 ];
 
