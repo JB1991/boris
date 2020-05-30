@@ -13,8 +13,6 @@ import {HttpClient} from '@angular/common/http';
 import {Config, ConfigService} from '@app/config.service';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, ObservableInput, of} from 'rxjs';
-import { AlertsModule } from '@app/shared/alerts/alerts.module';
-import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
 
 function load(httpClient: HttpClient, configService: ConfigService) {
   return (): Promise<boolean> => {
@@ -49,9 +47,7 @@ function load(httpClient: HttpClient, configService: ConfigService) {
     SharedModule,
     AppRoutingModule,
     ServiceWorkerModule.register('./ngsw-worker.js', {enabled: environment.production}),
-    RouterModule,
-    AlertsModule.forRoot(),
-    LoadingscreenModule.forRoot()
+    RouterModule
   ],
   providers: [
     {

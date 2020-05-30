@@ -23,5 +23,6 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
     this.alerts.NewAlert("danger", "Test", "A");
+    this.loadingscreen.setVisible(true);
   }
 }

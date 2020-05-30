@@ -11,8 +11,7 @@ import { EditorModule } from './editor/editor.module';
 import { DetailsModule } from './details/details.module';
 import { FilloutModule } from './fillout/fillout.module';
 
-import { AlertsModule } from '@app/shared/alerts/alerts.module';
-import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,8 +26,7 @@ import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.mod
     EditorModule,
     DetailsModule,
     FilloutModule,
-    AlertsModule,
-    LoadingscreenModule
+    SharedModule
   ],
   providers: [
     Title,
