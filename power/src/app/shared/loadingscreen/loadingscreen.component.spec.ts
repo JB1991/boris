@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoadingscreenComponent } from './loadingscreen.component';
 
@@ -8,7 +9,8 @@ describe('Fragebogen.Loadingscreen.LoadingscreenComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoadingscreenComponent ]
+      declarations: [ LoadingscreenComponent ],
+      imports: [ RouterTestingModule.withRoutes([]) ]
     })
     .compileComponents();
   }));
