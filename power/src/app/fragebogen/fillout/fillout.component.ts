@@ -22,7 +22,7 @@ export class FilloutComponent implements OnInit {
               private alerts: AlertsService,
               private loadingscreen: LoadingscreenService,
               public storage: StorageService) {
-    this.titleService.setTitle('LGLN - POWER.NI');
+    this.titleService.setTitle('Formulare - POWER.NI');
     this.storage.resetService();
   }
 

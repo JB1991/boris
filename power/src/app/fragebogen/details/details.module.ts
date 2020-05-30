@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DetailsRoutingModule } from './details-routing.module';
 import { DetailsComponent } from './details.component';
+import { StorageService } from './storage.service';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,9 @@ import { DetailsComponent } from './details.component';
   imports: [
     CommonModule,
     DetailsRoutingModule
+  ],
+  providers: [
+    StorageService
   ]
 })
 export class DetailsModule { }
