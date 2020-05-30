@@ -24,7 +24,6 @@ export class FilloutComponent implements OnInit {
               public storage: StorageService) {
     this.titleService.setTitle('LGLN - POWER.NI');
     this.storage.resetService();
-    this.alerts.resetService();
   }
 
   ngOnInit() {
