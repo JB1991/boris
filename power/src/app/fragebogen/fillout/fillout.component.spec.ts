@@ -5,8 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { FilloutComponent } from './fillout.component';
-import { AlertsService } from '../alerts/alerts.service';
-import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { StorageService } from './storage.service';
 
 describe('Fragebogen.Fillout.FilloutComponent', () => {

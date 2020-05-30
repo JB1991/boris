@@ -3,8 +3,8 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
-import { AlertsService } from '../alerts/alerts.service';
-import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
   selector: 'power-formulars-details',
@@ -22,5 +22,6 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.alerts.NewAlert("danger", "Test", "A");
   }
 }

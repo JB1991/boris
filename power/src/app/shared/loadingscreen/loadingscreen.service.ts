@@ -15,4 +15,11 @@ export class LoadingscreenService {
   public setVisible(state: boolean) {
     this.isVisible = state;
   }
+
+  /**
+   * Resets service to empty model
+   */
+  public resetService() {
+    this.isVisible = false;
+  }
 }

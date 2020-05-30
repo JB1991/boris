@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StorageService {
+  public formsList: any = [];
+
   constructor(private httpClient: HttpClient) {
   }
 

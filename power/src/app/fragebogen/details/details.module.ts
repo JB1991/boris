@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { DetailsRoutingModule } from './details-routing.module';
 import { DetailsComponent } from './details.component';
-import { AlertsModule } from '../alerts/alerts.module';
-import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
 
 @NgModule({
   declarations: [
@@ -12,9 +11,8 @@ import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
   ],
   imports: [
     CommonModule,
-    DetailsRoutingModule,
-    AlertsModule,
-    LoadingscreenModule
+    RouterModule,
+    DetailsRoutingModule
   ]
 })
 export class DetailsModule { }

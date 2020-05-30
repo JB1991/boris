@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoadingscreenComponent } from './loadingscreen.component';
@@ -11,11 +11,15 @@ import { LoadingscreenService } from './loadingscreen.service';
   imports: [
     CommonModule,
   ],
-  providers: [
-    LoadingscreenService
-  ],
   exports: [
     LoadingscreenComponent
   ]
 })
-export class LoadingscreenModule { }
+export class LoadingscreenModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+        ngModule: LoadingscreenModule,
+        providers: [LoadingscreenService]
+    };
+  }
+}

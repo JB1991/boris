@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { StorageService } from './storage.service';
-import { AlertsService } from '../alerts/alerts.service';
-import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
   selector: 'power-formulars-dashboard',

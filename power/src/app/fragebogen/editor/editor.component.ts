@@ -7,11 +7,11 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult } from 'ngx-smooth-dnd';
 import { environment } from '@env/environment';
 
-import { AlertsService } from '../alerts/alerts.service';
 import { ComponentCanDeactivate } from '../pendingchanges.guard';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
   selector: 'power-formulars-editor',

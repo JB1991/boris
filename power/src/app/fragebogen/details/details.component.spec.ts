@@ -5,8 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { DetailsComponent } from './details.component';
-import { AlertsService } from '../alerts/alerts.service';
-import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
   let component: DetailsComponent;

@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { FragebogenRoutingModule } from './fragebogen-routing.module';
-import { AlertsService } from './alerts/alerts.service';
-import { LoadingscreenService } from './loadingscreen/loadingscreen.service';
 import { HomeComponent } from './home/home.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { EditorModule } from './editor/editor.module';
 import { DetailsModule } from './details/details.module';
 import { FilloutModule } from './fillout/fillout.module';
+
+import { AlertsModule } from '@app/shared/alerts/alerts.module';
+import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
 
 @NgModule({
   declarations: [
@@ -23,16 +23,15 @@ import { FilloutModule } from './fillout/fillout.module';
     HttpClientModule,
     FormsModule,
     CollapseModule.forRoot(),
-    AlertModule.forRoot(),
     DashboardModule,
     EditorModule,
     DetailsModule,
     FilloutModule,
+    AlertsModule,
+    LoadingscreenModule
   ],
   providers: [
     Title,
-    AlertsService,
-    LoadingscreenService,
   ]
 })
 
