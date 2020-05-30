@@ -1,19 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { HomeComponent } from './home.component';
+import { FilloutComponent } from './fillout.component';
+import { AlertsService } from '../alerts/alerts.service';
+import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
+import { StorageService } from './storage.service';
 
-describe('Fragebogen.Home.HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('Fragebogen.Fillout.FilloutComponent', () => {
+  let component: FilloutComponent;
+  let fixture: ComponentFixture<FilloutComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
+        HttpClientTestingModule,
         RouterTestingModule.withRoutes([])
       ],
       providers: [
@@ -29,17 +32,20 @@ describe('Fragebogen.Home.HomeComponent', () => {
             }
           }
         },
-        Title
+        Title,
+        AlertsService,
+        LoadingscreenService,
+        StorageService
       ],
       declarations: [
-        HomeComponent
+        FilloutComponent
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(FilloutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

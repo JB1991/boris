@@ -1,25 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { FilloutComponent } from './fillout.component';
 
 import { PendingChangesGuard } from '../pendingchanges.guard';
-import { AccessGuard } from './access.guard';
-import { FormularComponent } from './formular.component';
-import { EditFormularComponent } from './edit-formular/edit-formular.component';
 
 /**
  * routes contains all known paths
  */
 const routes: Routes = [
   {
-    path: 'formular',
-    component: FormularComponent
+    path: 'fillout',
+    component: FilloutComponent
   },
   {
-    path: 'formular/:id',
-    component: EditFormularComponent,
-    canActivate: [
-      AccessGuard
-    ],
+    path: 'fillout/:pin',
+    component: FilloutComponent,
     canDeactivate: [
       PendingChangesGuard
     ]
@@ -30,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class FormularRoutingModule { }
+export class FilloutRoutingModule { }

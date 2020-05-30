@@ -1,24 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
+import { DetailsRoutingModule } from './details-routing.module';
+import { DetailsComponent } from './details.component';
 import { AlertsModule } from '../alerts/alerts.module';
 import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
-import { StorageService } from './storage.service';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    DetailsComponent,
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
+    DetailsRoutingModule,
     AlertsModule,
     LoadingscreenModule
-  ],
-  providers: [
-    StorageService
   ]
 })
-export class DashboardModule { }
+export class DetailsModule { }

@@ -20,7 +20,7 @@
         <tbody>
         <tr *ngFor="let form of formsList; index as i">
           <td scope="row">
-            <a title="Formular öffnen" [routerLink]="['/formulare/editor', form.id]">
+            <a title="Formular öffnen" [routerLink]="['/forms/editor', form.id]">
               {{ form.title }}
             </a>
           </td>
@@ -46,6 +46,13 @@
       <span class="m-3" *ngIf="!formsList.length">Keine Formulare gefunden</span>
     </div>
     <div class="card-footer">
+      <button type="button"
+              class="btn btn-success btn-sm mr-2"
+              title="Neues Formular erstellen"
+              [routerLink]="['/forms/editor']">
+        <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+        Neues Formular
+      </button>
       <button type="button"
               class="btn btn-primary btn-sm"
               id="button-import"

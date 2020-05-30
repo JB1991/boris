@@ -1,19 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { HomeComponent } from './home.component';
+import { DetailsComponent } from './details.component';
+import { AlertsService } from '../alerts/alerts.service';
+import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
 
-describe('Fragebogen.Home.HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('Fragebogen.Details.DetailsComponent', () => {
+  let component: DetailsComponent;
+  let fixture: ComponentFixture<DetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
+        HttpClientTestingModule,
         RouterTestingModule.withRoutes([])
       ],
       providers: [
@@ -29,17 +31,19 @@ describe('Fragebogen.Home.HomeComponent', () => {
             }
           }
         },
-        Title
+        Title,
+        AlertsService,
+        LoadingscreenService
       ],
       declarations: [
-        HomeComponent
+        DetailsComponent
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(DetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

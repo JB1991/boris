@@ -26,14 +26,8 @@
         <li class="nav-item" *ngIf="config.modules.includes('immobilien')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/immobilienpreisindex" routerLinkActive="active">Immobilien</a>
         </li>
-        <li class="nav-item" ngbDropdown *ngIf="config.modules.includes('fragebogen')">
-          <a class="nav-link" ngbDropdownToggle>Formulare</a>
-          <div ngbDropdownMenu>
-            <a ngbDropdownItem routerLink="/formulare" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Überblick</a>
-            <a ngbDropdownItem routerLink="/formulare/dashboard" routerLinkActive="active">Dashboard</a>
-            <a ngbDropdownItem routerLink="/formulare/editor" routerLinkActive="active">Editor</a>
-            <a ngbDropdownItem routerLink="/formulare/formular" routerLinkActive="active">Ausfüllen</a>
-          </div>
+        <li class="nav-item" *ngIf="config.modules.includes('fragebogen')">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/forms" routerLinkActive="active">Formulare</a>
         </li>
       </ul>
     </div>

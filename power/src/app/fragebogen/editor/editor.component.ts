@@ -5,12 +5,12 @@ import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult } from 'ngx-smooth-dnd';
+import { environment } from '@env/environment';
 
 import { AlertsService } from '../alerts/alerts.service';
 import { ComponentCanDeactivate } from '../pendingchanges.guard';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { environment } from '@env/environment';
 import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
 
 @Component({
@@ -52,7 +52,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         this.loadingscreen.setVisible(false);
       }, (error: Error) => {
         // failed to load
-        this.router.navigate(['/formulare'], { replaceUrl: true });
+        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         this.loadingscreen.setVisible(false);
 
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
@@ -275,7 +275,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
 
       // redirect to new id
       if (!id) {
-        this.router.navigate(['formulare', 'editor', data['data']['id']], { replaceUrl: true });
+        this.router.navigate(['forms', 'editor', data['data']['id']], { replaceUrl: true });
       }
     }, (error: Error) => {
       // failed to save

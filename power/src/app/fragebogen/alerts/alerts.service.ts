@@ -26,4 +26,11 @@ export class AlertsService {
 
     this.alertslist.push({type, title, text, timeout});
   }
+
+  /**
+   * Resets service to empty model
+   */
+  public resetService() {
+    this.alertslist = [];
+  }
 }

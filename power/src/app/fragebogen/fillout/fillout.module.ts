@@ -1,24 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
+import { FilloutRoutingModule } from './fillout-routing.module';
+import { FilloutComponent } from './fillout.component';
 import { AlertsModule } from '../alerts/alerts.module';
 import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
 import { StorageService } from './storage.service';
+import { SurveyjsModule } from '../surveyjs/surveyjs.module';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    FilloutComponent,
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
+    FilloutRoutingModule,
     AlertsModule,
-    LoadingscreenModule
+    LoadingscreenModule,
+    SurveyjsModule
   ],
   providers: [
     StorageService
   ]
 })
-export class DashboardModule { }
+export class FilloutModule { }

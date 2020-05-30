@@ -1,16 +1,16 @@
 import { TestBed, async } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { FormularService } from './formular.service';
+import { StorageService } from './storage.service';
 
-describe('Fragebogen.Formular.FormularService', () => {
-  let service: FormularService;
+describe('Fragebogen.Fillout.StorageService', () => {
+  let service: StorageService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ]
     });
-    service = TestBed.inject(FormularService);
+    service = TestBed.inject(StorageService);
   }));
 
   it('should be created', () => {
