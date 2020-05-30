@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 
 import { StorageService } from './storage.service';
-import { AlertsService } from '../alerts/alerts.service';
-import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
   selector: 'power-formulars-fillout',
@@ -22,9 +22,8 @@ export class FilloutComponent implements OnInit {
               private alerts: AlertsService,
               private loadingscreen: LoadingscreenService,
               public storage: StorageService) {
-    this.titleService.setTitle('LGLN - POWER.NI');
+    this.titleService.setTitle('Formulare - POWER.NI');
     this.storage.resetService();
-    this.alerts.resetService();
   }
 
   ngOnInit() {

@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DetailsRoutingModule } from './details-routing.module';
 import { DetailsComponent } from './details.component';
-import { AlertsModule } from '../alerts/alerts.module';
-import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
+import { StorageService } from './storage.service';
 
 @NgModule({
   declarations: [
@@ -12,9 +11,10 @@ import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
   ],
   imports: [
     CommonModule,
-    DetailsRoutingModule,
-    AlertsModule,
-    LoadingscreenModule
+    DetailsRoutingModule
+  ],
+  providers: [
+    StorageService
   ]
 })
 export class DetailsModule { }

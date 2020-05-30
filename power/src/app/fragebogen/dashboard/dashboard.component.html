@@ -18,9 +18,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let form of formsList; index as i">
+        <tr *ngFor="let form of storage.formsList; index as i">
           <td scope="row">
-            <a title="Formular öffnen" [routerLink]="['/forms/editor', form.id]">
+            <a title="Formular öffnen" [routerLink]="['/forms/details', form.id]">
               {{ form.title }}
             </a>
           </td>
@@ -28,14 +28,14 @@
           <td>{{ form.updated | date:'dd.MM.yyyy HH:mm' }}</td>
           <td>
             <button type="button" class="btn btn-success btn-sm" id="button-export" title="Formular exportieren"
-                    (click)="exportForm(form.id)">
+                    (click)="exportForm(i)">
               <i class="far fa-save" aria-hidden="true"></i>
               Export
             </button>
           </td>
           <td>
             <button type="button" class="btn btn-danger btn-sm" id="button-delete" title="Formular löschen"
-                    (click)="deleteForm(form.id)">
+                    (click)="deleteForm(i)">
               <i class="fa fa-trash" aria-hidden="true"></i>
               Löschen
             </button>
@@ -43,7 +43,7 @@
         </tr>
         </tbody>
       </table>
-      <span class="m-3" *ngIf="!formsList.length">Keine Formulare gefunden</span>
+      <span class="m-3" *ngIf="!storage.formsList.length">Keine Formulare gefunden</span>
     </div>
     <div class="card-footer">
       <button type="button"
@@ -64,9 +64,3 @@
     </div>
   </div>
 </main>
-
-<!-- alerts component -->
-<power-alerts></power-alerts>
-
-<!-- loadingscreen component -->
-<power-loadingscreen></power-loadingscreen>

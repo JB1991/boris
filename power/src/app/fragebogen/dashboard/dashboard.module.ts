@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { AlertsModule } from '../alerts/alerts.module';
-import { LoadingscreenModule } from '../loadingscreen/loadingscreen.module';
 import { StorageService } from './storage.service';
 
 @NgModule({
@@ -13,9 +11,7 @@ import { StorageService } from './storage.service';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
-    AlertsModule,
-    LoadingscreenModule
+    DashboardRoutingModule
   ],
   providers: [
     StorageService

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   constructor(private titleService: Title, private router: Router) {
-    this.titleService.setTitle('LGLN - POWER.NI');
+    this.titleService.setTitle('Formulare - POWER.NI');
   }
 
   ngOnInit() {
