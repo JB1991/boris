@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { DetailsComponent } from './details.component';
+import { AlertsService } from '../alerts/alerts.service';
+import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
   let component: DetailsComponent;
@@ -8,7 +14,30 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailsComponent ]
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: () => {
+                  return 123;
+                }
+              }
+            }
+          }
+        },
+        Title,
+        AlertsService,
+        LoadingscreenService
+      ],
+      declarations: [
+        DetailsComponent
+      ]
     })
     .compileComponents();
   }));
