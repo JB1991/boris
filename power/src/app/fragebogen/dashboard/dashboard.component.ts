@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     // load forms from server
     this.storage.loadForms().subscribe((data) => {
       // check for error
-      if (!data || data['error']) {
+      if (!data || data['error'] || !data['data']) {
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : ''));
         this.loadingscreen.setVisible(false);
 
@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
 
       // save data
       this.storage.formsList = data['data'];
-    }, (error) => {
+    }, (error: Error) => {
         // failed to load forms list
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
         this.loadingscreen.setVisible(false);
@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit {
       // success
       this.storage.formsList.splice(i, 1);
       this.alerts.NewAlert('success', 'Formular gelöscht', 'Das Formular wurde erfolgreich gelöscht.');
-    }, (error) => {
+    }, (error: Error) => {
         // failed to delete form
         this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
         throw error;
@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
     // load form
     this.storage.loadForm(this.storage.formsList[i].id).subscribe((data) => {
       // check for error
-      if (!data || data['error']) {
+      if (!data || data['error'] || !data['data'] || !data['data']['content']) {
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : this.storage.formsList[i].id));
         throw new Error('Could not load form: ' + (data['error'] ? data['error'] : this.storage.formsList[i].id));
       }
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
       pom.setAttribute('href', href);
       pom.setAttribute('download', 'formular.json');
       pom.click();
-    }, (error) => {
+    }, (error: Error) => {
         // failed to load form
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
         throw error;
@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
       reader.onload = () => {
         this.storage.createForm(reader.result).subscribe((data) => {
           // check for error
-          if (!data || data['error']) {
+          if (!data || data['error'] || !data['data']) {
             this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (data['error'] ? data['error'] : ''));
             throw new Error('Could not load form: ' + (data['error'] ? data['error'] : ''));
           }
@@ -134,7 +134,7 @@ export class DashboardComponent implements OnInit {
           // success
           this.storage.formsList.push(data['data']);
           this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
-        }, (error) => {
+        }, (error: Error) => {
             // failed to create form
             this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
             throw error;

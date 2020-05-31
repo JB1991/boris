@@ -9,6 +9,8 @@ import { environment } from '@env/environment';
   providedIn: 'root'
 })
 export class StorageService {
+  public form: any = null;
+  public tasksList: any = [];
 
   constructor(private httpClient: HttpClient) {
   }
@@ -17,16 +19,8 @@ export class StorageService {
    * Resets service to empty model
    */
   public resetService() {
-  }
-
-  /**
-   * Loads task by pin.
-   * @param pin Task pin
-   */
-  public loadTask(pin: string) {
-    // load data from server
-    const url = environment.formAPI + 'tasks?pin=' + pin;
-    return this.httpClient.get(url);
+    this.form = null;
+    this.tasksList = [];
   }
 
   /**
@@ -40,22 +34,22 @@ export class StorageService {
   }
 
   /**
-   * Saves progress
-   * @param id Task id
-   * @param data Data from survey
+   * Loads tasks for form.
+   * @param id Form id
    */
-  public saveInterimResults(id: string, data: any) {
-    const url = environment.formAPI + 'tasks/' + id;
-    return this.httpClient.put(url, data)
+  public loadTasks(id: string) {
+    // load data from server
+    const url = environment.formAPI + 'forms/' + id + '/tasks';
+    return this.httpClient.get(url);
   }
 
   /**
-   * Completes form
-   * @param pin Task pin
-   * @param data Data from survey
+   * Deletes task
+   * @param id Task id
    */
-  public completeForm(pin: string, data: any) {
-    const url = environment.formAPI + 'tasks?pin=' + pin;
-    return this.httpClient.patch(url, data)
+  public deleteTask(id: string) {
+    // delete task
+    const url = environment.formAPI + 'tasks/' + id;
+    return this.httpClient.delete(url);
   }
 }

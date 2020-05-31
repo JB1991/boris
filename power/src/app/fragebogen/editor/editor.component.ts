@@ -42,8 +42,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       this.loadingscreen.setVisible(true);
       this.storage.loadForm(id).subscribe((data) => {
         // check for error
-        if (!data || data['Error']) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data['Error']);
+        if (!data || data['error'] || !data['data'] || !data['data']['content']) {
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data['error']);
           throw new Error('Could not load formular with id: ' + id);
         }
 
@@ -264,8 +264,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     const id = this.route.snapshot.paramMap.get('id');
     this.storage.saveForm(this.storage.model, id).subscribe((data) => {
       // check for error
-      if (!data || data['Error']) {
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data['Error']);
+      if (!data || data['error']) {
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data['error']);
         throw new Error('Could not save formular with id: ' + id);
       }
 

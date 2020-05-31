@@ -35,7 +35,7 @@ export class FilloutComponent implements OnInit {
       // load task by pin
       this.storage.loadTask(pin).subscribe((data) => {
         // check for error
-        if (!data || data['error']) {
+        if (!data || data['error'] || !data['data']) {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : pin));
           this.loadingscreen.setVisible(false);
 
@@ -49,7 +49,7 @@ export class FilloutComponent implements OnInit {
         // load form by id
         this.storage.loadForm(this.storage.task.form).subscribe((data2) => {
           // check for error
-          if (!data2 || data2['error']) {
+          if (!data2 || data2['error'] || !data2['data']) {
             this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : this.storage.task.form));
             this.loadingscreen.setVisible(false);
 
@@ -110,7 +110,7 @@ export class FilloutComponent implements OnInit {
         throw new Error('Could not complete task: ' + (data['error'] ? data['error'] : this.storage.task.pin));
       }
       this.storage.setUnsavedChanges(false);
-    }, (error) => {
+    }, (error: Error) => {
         // failed to complete task
         this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
         throw error;
@@ -130,7 +130,7 @@ export class FilloutComponent implements OnInit {
         throw new Error('Could not save task: ' + (data['error'] ? data['error'] : this.storage.task.id));
       }
       this.storage.setUnsavedChanges(false);
-    }, (error) => {
+    }, (error: Error) => {
         // failed to save task
         this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
         throw error;
