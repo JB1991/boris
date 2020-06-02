@@ -1,6 +1,6 @@
 {
   "name": "power",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Portal für Wertermittlungsinformationen",
   "author": "Landesamt für Geoinformation und Landesvermessung Niedersachsen",
   "scripts": {
@@ -71,7 +71,7 @@
     "@types/jasmine": "^3.5.10",
     "@types/jasminewd2": "^2.0.8",
     "@types/mapbox-gl": "0.51.4",
-    "@types/node": "^12.12.42",
+    "@types/node": "^12.12.43",
     "codelyzer": "^5.2.2",
     "jasmine-core": "~3.5.0",
     "jasmine-reporters": "^2.3.2",

@@ -1,5 +1,5 @@
 <!-- dashboard page -->
-<main class="mainpage mt-4" id="content" tabindex="-1">
+<main class="mainpage" id="content" tabindex="-1">
   <!-- forms list -->
   <div class="card bg-light">
     <div class="card-header h5">
@@ -14,7 +14,6 @@
           <th scope="col" class="border-top-0">Erstellt</th>
           <th scope="col" class="border-top-0">Aktualisiert</th>
           <th scope="col" class="border-top-0"></th>
-          <th scope="col" class="border-top-0"></th>
         </tr>
         </thead>
         <tbody>
@@ -27,16 +26,14 @@
           <td>{{ form.created | date:'dd.MM.yyyy HH:mm' }}</td>
           <td>{{ form.updated | date:'dd.MM.yyyy HH:mm' }}</td>
           <td>
-            <button type="button" class="btn btn-success btn-sm" id="button-export" title="Formular exportieren"
+            <button type="button" class="btn btn-success btn-sm mr-2" id="button-export" title="Formular exportieren"
                     (click)="exportForm(i)">
-              <i class="far fa-save" aria-hidden="true"></i>
+              <i class="far fa-save fa-fw" aria-hidden="true"></i>
               Export
             </button>
-          </td>
-          <td>
             <button type="button" class="btn btn-danger btn-sm" id="button-delete" title="Formular löschen"
                     (click)="deleteForm(i)">
-              <i class="fa fa-trash" aria-hidden="true"></i>
+              <i class="fa fa-trash fa-fw" aria-hidden="true"></i>
               Löschen
             </button>
           </td>
