@@ -10,6 +10,16 @@
         border-width: 0px !important;
     }
 }
+#toolbox {
+    border-width: 0px !important;
+}
+#toolbox li {
+    border-left-width: 0px !important;
+    border-right-width: 0px !important;
+}
+#toolbox li:last-child {
+    border-bottom-width: 0px !important;
+}
 
 .drag-ghost {
     opacity: 0.5;
@@ -18,4 +28,9 @@
 li.smooth-dnd-draggable-wrapper:last-child .page-link {
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
+}
+
+.scrolllist {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
