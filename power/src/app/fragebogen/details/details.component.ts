@@ -37,8 +37,8 @@ export class DetailsComponent implements OnInit {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
           this.loadingscreen.setVisible(false);
 
-          this.router.navigate(['/forms'], { replaceUrl: true });
-          throw new Error('Could not load task: ' + (data['error'] ? data['error'] : id));
+          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+          throw new Error('Could not load form: ' + (data['error'] ? data['error'] : id));
         }
 
         // save data
@@ -52,7 +52,7 @@ export class DetailsComponent implements OnInit {
             this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : id));
             this.loadingscreen.setVisible(false);
 
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             throw new Error('Could not load task: ' + (data2['error'] ? data2['error'] : id));
           }
 
@@ -65,7 +65,7 @@ export class DetailsComponent implements OnInit {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
           this.loadingscreen.setVisible(false);
 
-          this.router.navigate(['/forms'], { replaceUrl: true });
+          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
           throw error2;
         });
       }, (error: Error) => {
@@ -73,13 +73,13 @@ export class DetailsComponent implements OnInit {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
           this.loadingscreen.setVisible(false);
 
-          this.router.navigate(['/forms'], { replaceUrl: true });
+          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
           throw error;
       });
     } else {
       // missing id
       this.loadingscreen.setVisible(false);
-      this.router.navigate(['/forms'], { replaceUrl: true });
+      this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
     }
   }
 
@@ -106,6 +106,33 @@ export class DetailsComponent implements OnInit {
       this.alerts.NewAlert('success', 'Antwort gelöscht', 'Die Antwort wurde erfolgreich gelöscht.');
     }, (error: Error) => {
         // failed to delete task
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+        throw error;
+    });
+  }
+
+  /**
+   * Deletes form
+   */
+  public deleteForm() {
+    // Ask user to confirm deletion
+    if (!confirm('Möchten Sie dieses Formular wirklich löschen?')) {
+      return;
+    }
+
+    // delete form
+    this.storage.deleteForm(this.storage.form.id).subscribe((data) => {
+      // check for error
+      if (!data || data['error']) {
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (data['error'] ? data['error'] : this.storage.form.id));
+        throw new Error('Could not delete form: ' + (data['error'] ? data['error'] : this.storage.form.id));
+      }
+
+      // success
+      this.alerts.NewAlert('success', 'Formular gelöscht', 'Das Formular wurde erfolgreich gelöscht.');
+      this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+    }, (error: Error) => {
+        // failed to delete form
         this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
         throw error;
     });

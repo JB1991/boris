@@ -52,4 +52,24 @@ export class StorageService {
     const url = environment.formAPI + 'tasks/' + id;
     return this.httpClient.delete(url);
   }
+
+  /**
+   * Deletes formular
+   * @param id Formular id
+   */
+  public deleteForm(id: string) {
+    // delete formular
+    const url = environment.formAPI + 'forms/' + id;
+    return this.httpClient.delete(url);
+  }
+
+  /**
+   * Creates task
+   * @param id Task id
+   */
+  public createTask(id: string) {
+    // create task
+    const url = environment.formAPI + 'forms/' + id + '/tasks';
+    return this.httpClient.post(url, {});
+  }
 }

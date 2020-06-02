@@ -5,13 +5,25 @@
 
 	<!-- form details -->
 	<div class="row mb-4" *ngIf="storage.form">
-		<div class="col-12 col-lg-6">
+		<div class="col-12 col-md-6">
 			ID: {{ storage.form.id }}
 			<br>Tags: {{ storage.form.tags }}
 		</div>
-		<div class="col-12 col-lg-6">
+		<div class="col-12 col-md-6">
 			Erstellt: {{ storage.form.created | date:'dd.MM.yyyy HH:mm:ss' }}
 			<br>Aktualisiert: {{ storage.form.created | date:'dd.MM.yyyy HH:mm:ss' }}
+		</div>
+		<div class="col-12 pt-2">
+			<button type="button" class="btn btn-primary btn-sm mr-2" title="Formular bearbeiten"
+					[routerLink]="['/forms/editor', storage.form.id]">
+              <i class="fa fa-edit fa-fw" aria-hidden="true"></i>
+              Bearbeiten
+			</button>
+            <button type="button" class="btn btn-danger btn-sm" title="Formular löschen"
+                    (click)="deleteForm()">
+              <i class="fa fa-trash fa-fw" aria-hidden="true"></i>
+              Löschen
+            </button>
 		</div>
 	</div>
 
@@ -34,7 +46,9 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let task of storage.tasksList; index as i">
-						<td scope="row">{{ task.pin }}</td>
+						<td scope="row">
+							<a [routerLink]="['/forms/fillout', task.pin]">{{ task.pin }}</a>
+						</td>
 						<td></td>
 						<td>{{ task.created | date:'dd.MM.yyyy HH:mm' }}</td>
 						<td>{{ task.updated | date:'dd.MM.yyyy HH:mm' }}</td>
@@ -54,10 +68,12 @@
 		<button type="button"
 				class="btn btn-success btn-sm mr-2"
 				title="Neue PIN erstellen"
-				(click)="createTask()">
+				(click)="maketask.open()">
 			<i class="fas fa-plus fa-fw" aria-hidden="true"></i>
 			Neue PIN erstellen
 		</button>
 		</div>
 	</div>
 </main>
+
+<power-formulars-details-maketask #maketask></power-formulars-details-maketask>

@@ -26,7 +26,7 @@ export class ModalFormularComponent implements OnInit {
   }
 
   /**
-   * Opens configure formular midal
+   * Opens configure formular modal
    */
   public Open() {
     this.storage.setAutoSaveEnabled(false);
