@@ -1,5 +1,5 @@
 <!-- fillout page -->
-<main class="container" id="content" tabindex="-1" *ngIf="storage.form">
+<main class="container p-1 p-lg-3" id="content" tabindex="-1" *ngIf="storage.form">
   <power-formulars-surveyjs-wrapper [model]="storage.form.content" [css]="storage.css_style"
     (result)="submit($event)" (interimResult)="progress($event)" (changes)="changed($event)">
   </power-formulars-surveyjs-wrapper>

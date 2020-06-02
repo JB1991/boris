@@ -1,19 +1,19 @@
 <!-- details page -->
-<main class="mainpage" id="content" tabindex="-1">
+<main class="mainpage p-1 p-lg-3" id="content" tabindex="-1">
 	<!-- title -->
 	<h4 *ngIf="storage.form">{{ storage.form.title }}</h4>
 
 	<!-- form details -->
-	<div class="row mb-4" *ngIf="storage.form">
-		<div class="col-12 col-md-6">
+	<div class="row m-0 mb-3" *ngIf="storage.form">
+		<div class="col-12 col-md-6 pl-0">
 			ID: {{ storage.form.id }}
 			<br>Tags: {{ storage.form.tags }}
 		</div>
-		<div class="col-12 col-md-6">
+		<div class="col-12 col-md-6 pl-0">
 			Erstellt: {{ storage.form.created | date:'dd.MM.yyyy HH:mm:ss' }}
 			<br>Aktualisiert: {{ storage.form.created | date:'dd.MM.yyyy HH:mm:ss' }}
 		</div>
-		<div class="col-12 pt-2">
+		<div class="col-12 pl-0 pt-2">
 			<button type="button" class="btn btn-primary btn-sm mr-2" title="Formular bearbeiten"
 					[routerLink]="['/forms/editor', storage.form.id]">
               <i class="fa fa-edit fa-fw" aria-hidden="true"></i>

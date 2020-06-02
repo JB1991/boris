@@ -43,7 +43,6 @@ export class DetailsComponent implements OnInit {
 
         // save data
         this.storage.form = data['data'];
-        console.log(this.storage.form);
 
         // load tasks from server
         this.storage.loadTasks(id).subscribe((data2) => {
@@ -58,7 +57,6 @@ export class DetailsComponent implements OnInit {
 
           // save data
           this.storage.tasksList = data2['data'];
-          console.log(this.storage.tasksList);
           this.loadingscreen.setVisible(false);
         }, (error2: Error) => {
           // failed to load forms list
