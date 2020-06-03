@@ -46,7 +46,7 @@
       <button type="button"
               class="btn btn-success btn-sm mr-2"
               title="Neues Formular erstellen"
-              [routerLink]="['/forms/editor']">
+              (click)="newform.open()">
         <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
         Neues Formular
       </button>
@@ -61,3 +61,5 @@
     </div>
   </div>
 </main>
+
+<power-formulars-dashboard-newform #newform></power-formulars-dashboard-newform>

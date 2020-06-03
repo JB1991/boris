@@ -43,8 +43,11 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       this.storage.loadForm(id).subscribe((data) => {
         // check for error
         if (!data || data['error'] || !data['data'] || !data['data']['content']) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data['error']);
-          throw new Error('Could not load formular with id: ' + id);
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
+          this.loadingscreen.setVisible(false);
+
+          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+          throw new Error('Could not load formular: ' + (data['error'] ? data['error'] : id));
         }
 
         // store formular
@@ -52,10 +55,10 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         this.loadingscreen.setVisible(false);
       }, (error: Error) => {
         // failed to load
-        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
         this.loadingscreen.setVisible(false);
 
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         throw error;
       });
     }
@@ -265,8 +268,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     this.storage.saveForm(this.storage.model, id).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data['error']);
-        throw new Error('Could not save formular with id: ' + id);
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
+        throw new Error('Could not save formular: ' + (data['error'] ? data['error'] : id));
       }
 
       // success
@@ -275,7 +278,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
 
       // redirect to new id
       if (!id) {
-        this.router.navigate(['forms', 'editor', data['data']['id']], { replaceUrl: true });
+        this.router.navigate(['forms', 'editor', encodeURIComponent(data['data']['id'])], { replaceUrl: true });
       }
     }, (error: Error) => {
       // failed to save

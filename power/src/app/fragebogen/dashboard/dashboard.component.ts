@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // load forms from server
+    this.loadingscreen.setVisible(true);
     this.storage.loadForms().subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
@@ -37,6 +38,29 @@ export class DashboardComponent implements OnInit {
 
       // save data
       this.storage.formsList = data['data'];
+
+      // loads tags from server
+      this.storage.loadTags().subscribe((data2) => {
+        // check for error
+        if (!data2 || data2['error'] || !data2['data']) {
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : ''));
+          this.loadingscreen.setVisible(false);
+
+          this.router.navigate(['/forms'], { replaceUrl: true });
+          throw new Error('Could not load tags list: ' + (data2['error'] ? data2['error'] : ''));
+        }
+
+        // save data
+        this.storage.tagList = data2['data'];
+        this.loadingscreen.setVisible(false);
+      }, (error2: Error) => {
+          // failed to load tags list
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
+          this.loadingscreen.setVisible(false);
+
+          this.router.navigate(['/forms'], { replaceUrl: true });
+          throw error2;
+      });
     }, (error: Error) => {
         // failed to load forms list
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
