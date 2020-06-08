@@ -9,6 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "lint:styles": "npx stylelint \"src/**/*.*\"",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -71,7 +72,7 @@
     "@types/jasmine": "^3.5.10",
     "@types/jasminewd2": "^2.0.8",
     "@types/mapbox-gl": "0.51.4",
-    "@types/node": "^12.12.43",
+    "@types/node": "^12.12.44",
     "codelyzer": "^5.2.2",
     "jasmine-core": "~3.5.0",
     "jasmine-reporters": "^2.3.2",
@@ -83,8 +84,12 @@
     "karma-jasmine-html-reporter": "^1.5.4",
     "karma-junit-reporter": "^2.0.1",
     "protractor": "^7.0.0",
+    "stylelint": "^13.6.0",
+    "stylelint-config-standard": "^20.0.0",
     "ts-node": "^8.10.2",
     "tslint": "^5.20.1",
+    "tslint-angular": "^3.0.2",
+    "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "3.7.5"
   }
 }

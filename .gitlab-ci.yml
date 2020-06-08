@@ -88,16 +88,27 @@ test:audit:
     - merge_requests
     - master
 
-include:
-  # Refers to: https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/Code-Quality.gitlab-ci.yml
-  - template: Code-Quality.gitlab-ci.yml
+test:lint:
+  stage: test
+  image: node:13
+  allow_failure: true
+  script:
+    - cd power
+    - npm run lint
+  only:
+    - merge_requests
+    - master
 
-code_quality:
-  artifacts:
-    reports:
-      codequality: gl-code-quality-report.json
-    paths:
-      - gl-code-quality-report.json
+test:lint:styles:
+  stage: test
+  image: node:13
+  allow_failure: true
+  script:
+    - cd power
+    - npm run lint:styles
+  only:
+    - merge_requests
+    - master
 
 build:
   stage: build
