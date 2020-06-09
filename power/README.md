@@ -39,7 +39,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 1. Unit-Tests ausführen
    ```
-   ng test --code-coverage --browsers Chrome --source-map=false
+   ng test --code-coverage --browsers Chrome
    ```
 
 2. E2E-Tests ausführen
