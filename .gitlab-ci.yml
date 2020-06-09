@@ -44,7 +44,7 @@ test:karma:
   script:
     # Run Karma tests
     - cd power
-    - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage --source-map=false
+    - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   coverage: '/Lines \W+: (\d+\.\d+)%.*/'
   artifacts:
     reports:
