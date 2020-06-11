@@ -19,15 +19,14 @@ install:
   script:
     # Install node modules
     - cd power
-    - npm install
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - power/node_modules/
+    - npm ci
   cache:
-    key: "$CI_JOB_NAME"
+    key:
+      files:
+        - power/package.json
     paths:
       - power/node_modules/
+  dependencies: []
   only:
     - merge_requests
     - master
@@ -47,10 +46,19 @@ test:karma:
     - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   coverage: '/Lines \W+: (\d+\.\d+)%.*/'
   artifacts:
+    expire_in: 1 week
     reports:
       junit: power/output/junit_karma.xml
     paths:
       - power/output/junit_karma.xml
+  cache:
+    key:
+      files:
+        - power/package.json
+    paths:
+      - power/node_modules/
+    policy: pull
+  dependencies: []
   only:
     - merge_requests
     - master
@@ -69,10 +77,19 @@ test:e2e:
     - cd power
     - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   artifacts:
+    expire_in: 1 week
     reports:
       junit: power/output/junit_e2e.xml
     paths:
       - power/output/junit_e2e.xml
+  cache:
+    key:
+      files:
+        - power/package.json
+    paths:
+      - power/node_modules/
+    policy: pull
+  dependencies: []
   only:
     - merge_requests
     - master
@@ -84,6 +101,14 @@ test:audit:
   script:
     - cd power
     - npm audit
+  cache:
+    key:
+      files:
+        - power/package.json
+    paths:
+      - power/node_modules/
+    policy: pull
+  dependencies: []
   only:
     - merge_requests
     - master
@@ -95,6 +120,14 @@ test:lint:
   script:
     - cd power
     - npm run lint
+  cache:
+    key:
+      files:
+        - power/package.json
+    paths:
+      - power/node_modules/
+    policy: pull
+  dependencies: []
   only:
     - merge_requests
     - master
@@ -106,6 +139,14 @@ test:lint:styles:
   script:
     - cd power
     - npm run lint:styles
+  cache:
+    key:
+      files:
+        - power/package.json
+    paths:
+      - power/node_modules/
+    policy: pull
+  dependencies: []
   only:
     - merge_requests
     - master
@@ -117,33 +158,37 @@ build:
     - cd power
     - npm run build -- --prod
   artifacts:
-    expire_in: 1 week
+    expire_in: 2 days
     paths:
       - power/dist/power
   cache:
-    key: "$CI_JOB_NAME"
+    key:
+      files:
+        - power/package.json
     paths:
-      - power/dist/
+      - power/node_modules/
+    policy: pull
+  dependencies: []
   only:
     - master
 
 package:
   stage: package
   image: docker
-  dependencies:
-    - build
   script:
     - export VERSION=$(cat power/package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$VERSION" .
     - docker push "$CI_REGISTRY_IMAGE:$VERSION"
+  cache: {}
+  dependencies:
+    - build
   only:
     - master
 
 deploy:dev:
   stage: deploy
   image: dtzar/helm-kubectl:3.1.2
-  dependencies: []
   script:
     - export VERSION=$(cat power/package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
@@ -151,13 +196,14 @@ deploy:dev:
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
     - helm upgrade power ./chart/power -n dev --install --set=image.tag="$VERSION"
+  cache: {}
+  dependencies: []
   only:
     - master
 
 deploy:staging:
   stage: deploy
   image: dtzar/helm-kubectl:3.1.2
-  dependencies: []
   script:
     - export VERSION=$(cat power/package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
@@ -165,6 +211,8 @@ deploy:staging:
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
     - helm upgrade power ./chart/power -n staging --install --set=image.tag="$VERSION"
+  cache: {}
+  dependencies: []
   only:
     - master
   when: manual
