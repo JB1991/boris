@@ -15,38 +15,38 @@ export class StorageService {
   }
 
   /**
-   * Loads list of formulars
+   * Loads list of forms
    */
-  public loadForms() {
-    // load data from server
+  public loadFormsList() {
+    // Load data from server
     const url = environment.formAPI + 'forms';
     return this.httpClient.get(url);
   }
 
   /**
-   * Loads a formular by id
+   * Loads a form by id
    */
   public loadForm(id: string) {
-    // load form from server
+    // Load form from server
     const url = environment.formAPI + 'forms/' + id;
     return this.httpClient.get(url);
   }
 
   /**
-   * Upload form from json
+   * Upload form from JSON
    */
   public createForm(data: any) {
-    // uploads form
+    // Uploads form
     const url = environment.formAPI + 'forms';
     return this.httpClient.post(url, data);
   }
 
   /**
-   * Deletes formular
-   * @param id Formular id
+   * Deletes form
+   * @param id Form id
    */
   public deleteForm(id: string) {
-    // delete formular
+    // Delete form
     const url = environment.formAPI + 'forms/' + id;
     return this.httpClient.delete(url);
   }

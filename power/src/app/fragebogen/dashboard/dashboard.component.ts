@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { environment } from '@env/environment';
 
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
-  selector: 'power-formulars-dashboard',
+  selector: 'power-forms-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -24,71 +23,72 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // load forms from server
-    this.storage.loadForms().subscribe((data) => {
-      // check for error
+    // Load forms from server
+    this.storage.loadFormsList().subscribe((data) => {
+      // Check for error
       if (!data || data['error'] || !data['data']) {
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : ''));
+        const alertText = (data['error'] ? data['error'] : '');
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
         this.loadingscreen.setVisible(false);
-
-        this.router.navigate(['/forms'], { replaceUrl: true });
-        throw new Error('Could not load forms list: ' + (data['error'] ? data['error'] : ''));
+        this.router.navigate(['/forms'], {replaceUrl: true});
+        throw new Error('Could not load forms list: ' + alertText);
       }
 
-      // save data
+      // Save data
       this.storage.formsList = data['data'];
     }, (error: Error) => {
-        // failed to load forms list
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
-        this.loadingscreen.setVisible(false);
-
-        this.router.navigate(['/forms'], { replaceUrl: true });
-        throw error;
+      // Failed to load forms list
+      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+      this.loadingscreen.setVisible(false);
+      this.router.navigate(['/forms'], {replaceUrl: true});
+      throw error;
     });
   }
 
   /**
    * Deletes an existing form
-   * @param i Number of form
+   * @param id Number of form
    */
-  public deleteForm(i: number) {
+  public deleteForm(id: number) {
     // Ask user to confirm deletion
     if (!confirm('Möchten Sie dieses Formular wirklich löschen?')) {
       return;
     }
 
-    // delete form
-    this.storage.deleteForm(this.storage.formsList[i].id).subscribe((data) => {
-      // check for error
+    // Delete form
+    this.storage.deleteForm(this.storage.formsList[id].id).subscribe((data) => {
+      // Check for error
       if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (data['error'] ? data['error'] : this.storage.formsList[i].id));
-        throw new Error('Could not delete form: ' + (data['error'] ? data['error'] : this.storage.formsList[i].id));
+        const alertText = (data['error'] ? data['error'] : this.storage.formsList[id].id);
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
+        throw new Error('Could not delete form: ' + alertText);
       }
 
-      // success
-      this.storage.formsList.splice(i, 1);
+      // Success
+      this.storage.formsList.splice(id, 1);
       this.alerts.NewAlert('success', 'Formular gelöscht', 'Das Formular wurde erfolgreich gelöscht.');
     }, (error: Error) => {
-        // failed to delete form
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
-        throw error;
+      // Failed to delete form
+      this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+      throw error;
     });
   }
 
   /**
-   * Exports form to json
+   * Exports form to JON
    * @param id form id
    */
-  public exportForm(i: number) {
-    // load form
-    this.storage.loadForm(this.storage.formsList[i].id).subscribe((data) => {
-      // check for error
+  public exportForm(id: number) {
+    // Load form
+    this.storage.loadForm(this.storage.formsList[id].id).subscribe((data) => {
+      // Check for error
       if (!data || data['error'] || !data['data'] || !data['data']['content']) {
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : this.storage.formsList[i].id));
-        throw new Error('Could not load form: ' + (data['error'] ? data['error'] : this.storage.formsList[i].id));
+        const alertText = (data['error'] ? data['error'] : this.storage.formsList[id].id);
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+        throw new Error('Could not load form: ' + alertText);
       }
 
-      // download json
+      // Download JSON
       const pom = document.createElement('a');
       const encodedURIComponent = encodeURIComponent(JSON.stringify(data['data']['content']));
       const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
@@ -96,9 +96,9 @@ export class DashboardComponent implements OnInit {
       pom.setAttribute('download', 'formular.json');
       pom.click();
     }, (error: Error) => {
-        // failed to load form
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
-        throw error;
+      // Failed to load form
+      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+      throw error;
     });
   }
 
@@ -106,16 +106,8 @@ export class DashboardComponent implements OnInit {
    * Imports form from JSON
    */
   public importForm() {
-    // create input
-    const input = document.createElement('input');
-    input.id = 'file-upload';
-    input.type = 'file';
-    input.accept = 'application/JSON';
-    input.hidden = true;
-
-    // Add the input element to the DOM so that it can be accessed from the tests
-    const importButton = document.getElementById('button-import');
-    importButton.parentNode.insertBefore(input, importButton);
+    const input = DashboardComponent.createInputElement();
+    DashboardComponent.addInputElementToDOM(input);
 
     // File selected
     input.onchange = (event: Event) => {
@@ -125,25 +117,45 @@ export class DashboardComponent implements OnInit {
       // Upload success
       reader.onload = () => {
         this.storage.createForm(reader.result).subscribe((data) => {
-          // check for error
+          // Check for error
           if (!data || data['error'] || !data['data']) {
-            this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (data['error'] ? data['error'] : ''));
-            throw new Error('Could not load form: ' + (data['error'] ? data['error'] : ''));
+            const alertText = (data['error'] ? data['error'] : '');
+            this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
+            throw new Error('Could not load form: ' + alertText);
           }
-
-          // success
+          // Success
           this.storage.formsList.push(data['data']);
           this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
         }, (error: Error) => {
-            // failed to create form
-            this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
-            throw error;
+          // Failed to create form
+          this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+          throw error;
         });
       };
-
       // FileReader is async -> call readAsText() after declaring the onload handler
       reader.readAsText(file);
     };
     input.click();
+  }
+
+  /**
+   * Create and return an input element for uploading files
+   */
+  private static createInputElement() {
+    const input = document.createElement('input');
+    input.id = 'file-upload';
+    input.type = 'file';
+    input.accept = 'application/JSON';
+    input.hidden = true;
+    return input;
+  }
+
+  /**
+   * Add the input element to the DOM so that it can be accessed from the tests
+   * @param input Input element
+   */
+  private static addInputElementToDOM(input: HTMLInputElement) {
+    const importButton = document.getElementById('button-import');
+    importButton.parentNode.insertBefore(input, importButton);
   }
 }
