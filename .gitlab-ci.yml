@@ -19,12 +19,9 @@ install:
   script:
     # Install node modules
     - cd power
-    - npm i @angular/cli
-    - npm ci
+    - npm install
   cache:
-    key:
-      files:
-        - power/package.json
+    key: same-key
     paths:
       - power/node_modules/
   dependencies: []
@@ -53,9 +50,7 @@ test:karma:
     paths:
       - power/output/junit_karma.xml
   cache:
-    key:
-      files:
-        - power/package.json
+    key: same-key
     paths:
       - power/node_modules/
     policy: pull
@@ -84,9 +79,7 @@ test:e2e:
     paths:
       - power/output/junit_e2e.xml
   cache:
-    key:
-      files:
-        - power/package.json
+    key: same-key
     paths:
       - power/node_modules/
     policy: pull
@@ -103,9 +96,7 @@ test:audit:
     - cd power
     - npm audit
   cache:
-    key:
-      files:
-        - power/package.json
+    key: same-key
     paths:
       - power/node_modules/
     policy: pull
@@ -122,9 +113,7 @@ test:lint:
     - cd power
     - npm run lint
   cache:
-    key:
-      files:
-        - power/package.json
+    key: same-key
     paths:
       - power/node_modules/
     policy: pull
@@ -141,9 +130,7 @@ test:lint:styles:
     - cd power
     - npm run lint:styles
   cache:
-    key:
-      files:
-        - power/package.json
+    key: same-key
     paths:
       - power/node_modules/
     policy: pull
@@ -163,9 +150,7 @@ build:
     paths:
       - power/dist/power
   cache:
-    key:
-      files:
-        - power/package.json
+    key: same-key
     paths:
       - power/node_modules/
     policy: pull
