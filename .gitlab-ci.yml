@@ -19,7 +19,8 @@ install:
   script:
     # Install node modules
     - cd power
-    - npm install
+    - npm i @angular/cli
+    - npm ci
   cache:
     key:
       files:
