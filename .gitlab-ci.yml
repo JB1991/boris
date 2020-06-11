@@ -19,7 +19,7 @@ install:
   script:
     # Install node modules
     - cd power
-    - npm ci
+    - npm install
   cache:
     key:
       files:
