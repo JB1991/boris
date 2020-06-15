@@ -105,7 +105,7 @@
                                     [(ngModel)]="storage.model.pages[storage.selectedPageID].elements[storage.selectedElementID].valueName"
                                     id="configElementDatabase"
                                     name="configElementDatabase"
-                                    required>
+                                    required disabled>
                                     <option value="">Kein automatisches Importieren</option>
                                     <option *ngFor="let field of storage.DatabaseMap; index as i"
                                         value="{{ field.name }}">

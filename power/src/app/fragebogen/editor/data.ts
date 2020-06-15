@@ -32,16 +32,7 @@ export const FormularTemplate = {
       name: 'p1'
     }
   ],
-  calculatedValues: [
-    {
-      name: 'preis',
-      expression: '50000'
-    },
-    {
-      name: 'kaufjahr',
-      expression: '2019'
-    }
-  ],
+  calculatedValues: [],
   sendResultOnPageNext: true,
   showQuestionNumbers: 'onPage',
   showProgressBar: 'bottom',
