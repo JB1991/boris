@@ -23,9 +23,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Load forms from server
+    // load forms from server
+    this.loadingscreen.setVisible(true);
     this.storage.loadFormsList().subscribe((data) => {
-      // Check for error
+      // check for error
       if (!data || data['error'] || !data['data']) {
         const alertText = (data['error'] ? data['error'] : '');
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
@@ -36,6 +37,29 @@ export class DashboardComponent implements OnInit {
 
       // Save data
       this.storage.formsList = data['data'];
+
+      // loads tags from server
+      this.storage.loadTags().subscribe((data2) => {
+        // check for error
+        if (!data2 || data2['error'] || !data2['data']) {
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : ''));
+          this.loadingscreen.setVisible(false);
+
+          this.router.navigate(['/forms'], { replaceUrl: true });
+          throw new Error('Could not load tags list: ' + (data2['error'] ? data2['error'] : ''));
+        }
+
+        // save data
+        this.storage.tagList = data2['data'];
+        this.loadingscreen.setVisible(false);
+      }, (error2: Error) => {
+          // failed to load tags list
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
+          this.loadingscreen.setVisible(false);
+
+          this.router.navigate(['/forms'], { replaceUrl: true });
+          throw error2;
+      });
     }, (error: Error) => {
       // Failed to load forms list
       this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
@@ -121,8 +145,9 @@ export class DashboardComponent implements OnInit {
           if (!data || data['error'] || !data['data']) {
             const alertText = (data['error'] ? data['error'] : '');
             this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
-            throw new Error('Could not load form: ' + alertText);
+            throw new Error('Could not create form: ' + alertText);
           }
+
           // Success
           this.storage.formsList.push(data['data']);
           this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');

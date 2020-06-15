@@ -48,7 +48,7 @@ export class StorageService {
    */
   public loadForm(id: string): Observable<Object> {
     // load data from server
-    const url = environment.formAPI + 'forms/' + id;
+    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
     return this.httpClient.get(url);
   }
 
@@ -61,7 +61,7 @@ export class StorageService {
   public saveForm(data: any, id?: string, tags?: string[]): Observable<Object> {
     const body = JSON.stringify(data);
     if (id) {
-      const url = environment.formAPI + 'forms/' + id;
+      const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
       return this.httpClient.put(url, body);
     } else if (tags) {
       let query: string;

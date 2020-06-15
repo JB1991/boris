@@ -5,7 +5,7 @@ import { environment } from '@env/environment';
 import { Bootstrap4_CSS } from '../surveyjs/style';
 
 /**
- * StorageService handles loading and saving tasks/formulars for the fillout component
+ * StorageService handles api requests and data storage
  */
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class StorageService {
    */
   public loadTask(pin: string) {
     // load data from server
-    const url = environment.formAPI + 'tasks?pin=' + pin;
+    const url = environment.formAPI + 'tasks?pin=' + encodeURIComponent(pin);
     return this.httpClient.get(url);
   }
 
@@ -45,7 +45,7 @@ export class StorageService {
    */
   public loadForm(id: string) {
     // load data from server
-    const url = environment.formAPI + 'forms/' + id;
+    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
     return this.httpClient.get(url);
   }
 
@@ -55,7 +55,7 @@ export class StorageService {
    * @param data Data from survey
    */
   public saveInterimResults(id: string, data: any) {
-    const url = environment.formAPI + 'tasks/' + id;
+    const url = environment.formAPI + 'tasks/' + encodeURIComponent(id);
     return this.httpClient.put(url, data)
   }
 
@@ -65,7 +65,7 @@ export class StorageService {
    * @param data Data from survey
    */
   public completeForm(pin: string, data: any) {
-    const url = environment.formAPI + 'tasks?pin=' + pin;
+    const url = environment.formAPI + 'tasks?pin=' + encodeURIComponent(pin);
     return this.httpClient.patch(url, data)
   }
 

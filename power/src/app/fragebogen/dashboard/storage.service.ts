@@ -10,12 +10,22 @@ import { environment } from '@env/environment';
 })
 export class StorageService {
   public formsList: any = [];
+  public tagList: any = [];
+  public serviceList: any = [{value: 'AKS', name: 'Automatische Kaufpreissammlung'}];
 
   constructor(private httpClient: HttpClient) {
   }
 
   /**
-   * Loads list of forms
+   * Resets service to empty model
+   */
+  public resetService() {
+    this.formsList = [];
+    this.tagList = [];
+  }
+
+  /**
+   * Loads list of formulars
    */
   public loadFormsList() {
     // Load data from server
@@ -27,17 +37,28 @@ export class StorageService {
    * Loads a form by id
    */
   public loadForm(id: string) {
-    // Load form from server
-    const url = environment.formAPI + 'forms/' + id;
+    // load form from server
+    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
+    return this.httpClient.get(url);
+  }
+
+  /**
+   * Load tags
+   */
+  public loadTags() {
+    // load tags from server
+    const url = environment.formAPI + 'tags';
     return this.httpClient.get(url);
   }
 
   /**
    * Upload form from JSON
+   * @param data SurveyJS
+   * @package tags Tag list
    */
-  public createForm(data: any) {
+  public createForm(data: any, tags: string = '') {
     // Uploads form
-    const url = environment.formAPI + 'forms';
+    const url = environment.formAPI + 'forms' + (tags ? '?tags=' + tags : '');
     return this.httpClient.post(url, data);
   }
 
@@ -46,15 +67,8 @@ export class StorageService {
    * @param id Form id
    */
   public deleteForm(id: string) {
-    // Delete form
-    const url = environment.formAPI + 'forms/' + id;
+    // delete formular
+    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
     return this.httpClient.delete(url);
-  }
-
-  /**
-   * Resets service to empty model
-   */
-  public resetService() {
-    this.formsList = [];
   }
 }
