@@ -53,10 +53,12 @@ export class StorageService {
 
   /**
    * Upload form from JSON
+   * @param data SurveyJS
+   * @package tags Tag list
    */
-  public createForm(data: any) {
+  public createForm(data: any, tags: string = '') {
     // Uploads form
-    const url = environment.formAPI + 'forms';
+    const url = environment.formAPI + 'forms' + (tags ? '?tags=' + tags : '');
     return this.httpClient.post(url, data);
   }
 

@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     // load forms from server
     this.loadingscreen.setVisible(true);
-    this.storage.loadForms().subscribe((data) => {
+    this.storage.loadFormsList().subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
         const alertText = (data['error'] ? data['error'] : '');
@@ -145,8 +145,9 @@ export class DashboardComponent implements OnInit {
           if (!data || data['error'] || !data['data']) {
             const alertText = (data['error'] ? data['error'] : '');
             this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
-            throw new Error('Could not load form: ' + alertText);
+            throw new Error('Could not create form: ' + alertText);
           }
+
           // Success
           this.storage.formsList.push(data['data']);
           this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
