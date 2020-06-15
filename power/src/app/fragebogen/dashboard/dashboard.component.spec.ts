@@ -13,7 +13,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
-  const formSample = require('../../../assets/form-sample.json');
+  const formSample = require('../../../assets/fragebogen/form-sample.json');
   const form = JSON.stringify(formSample);
   const formId = 'bqg0hvkdev01va6s70ug';
   const formsUrl = environment.formAPI + 'forms';

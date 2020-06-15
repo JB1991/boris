@@ -27,14 +27,14 @@ export class StorageService {
   /**
    * Loads list of formulars
    */
-  public loadForms() {
-    // load data from server
+  public loadFormsList() {
+    // Load data from server
     const url = environment.formAPI + 'forms';
     return this.httpClient.get(url);
   }
 
   /**
-   * Loads a formular by id
+   * Loads a form by id
    */
   public loadForm(id: string) {
     // load form from server
@@ -52,17 +52,17 @@ export class StorageService {
   }
 
   /**
-   * Upload form from json
+   * Upload form from JSON
    */
   public createForm(data: any) {
-    // uploads form
+    // Uploads form
     const url = environment.formAPI + 'forms';
     return this.httpClient.post(url, data);
   }
 
   /**
-   * Deletes formular
-   * @param id Formular id
+   * Deletes form
+   * @param id Form id
    */
   public deleteForm(id: string) {
     // delete formular

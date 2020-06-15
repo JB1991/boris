@@ -1,12 +1,9 @@
 {
   "data": {
-    "id": "bqg0hvkdev01va6s70ug",
+    "id": "brf2hhsdev046mhfpio0",
     "title": "Minimal",
-    "tags": [
-      ""
-    ],
-    "created": "2020-04-22T09:06:06.077198Z",
-    "updated": "2020-04-22T09:10:16.562098Z",
+    "created": "2020-06-08T12:02:15.87744Z",
+    "updated": "2020-06-08T12:02:15.87744Z",
     "content": {
       "calculatedValues": [
         {
@@ -20,15 +17,22 @@
       ],
       "checkErrorsMode": "onValueChanged",
       "completedHtml": "Vielen Dank für das Abschließen von diesem Formular.",
-      "loadingHtml": "Das Formular wird geladen \u003cdiv class='spinner-border' role='status'\u003e\u003c/div\u003e",
+      "loadingHtml": "Das Formular wird geladen <div class='spinner-border' role='status'></div>",
       "locale": "de",
       "maxOthersLength": 100,
       "maxTextLength": 1000,
       "pages": [
         {
           "name": "p1",
-          "description": "Zum ausfüllen dieses online Formulares müssen sie zuerst einige Bedingungen akzeptieren.",
+          "description": "Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.",
           "elements": [
+            {
+              "name": "e2",
+              "type": "text",
+              "isRequired": true,
+              "title": "Titel der Frage",
+              "inputType": "text"
+            },
             {
               "name": "e1",
               "type": "checkbox",
@@ -42,19 +46,7 @@
                   "value": "1"
                 }
               ],
-              "removeRowText": null,
-              "placeHolder": null,
               "colCount": 1
-            },
-            {
-              "name": "e2",
-              "type": "text",
-              "description": "...",
-              "isRequired": true,
-              "title": "Tolle Frage",
-              "removeRowText": null,
-              "inputType": "text",
-              "placeHolder": null
             }
           ],
           "title": "Startseite"

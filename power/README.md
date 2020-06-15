@@ -39,7 +39,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 1. Unit-Tests ausführen
    ```
-   ng test --code-coverage --browsers Chrome --source-map=false
+   ng test --code-coverage --browsers Chrome
    ```
 
 2. E2E-Tests ausführen
@@ -52,10 +52,10 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    npm audit
    ```
 
-4. Code Climate ausführen (Analyse der Code-Qualität)
+4. Linter ausführen (TypeScript und CSS)
    ```
-   docker pull codeclimate/codeclimate
-   docker run -it --rm --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze
+   npm run lint
+   npm run lint:styles
    ```
 
 # CI/CD
