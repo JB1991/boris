@@ -62,11 +62,10 @@ export class StorageService {
   /**
    * Completes form
    * @param pin Task pin
-   * @param data Data from survey
    */
-  public completeForm(pin: string, data: any) {
+  public completeForm(pin: string) {
     const url = environment.formAPI + 'tasks?pin=' + encodeURIComponent(pin);
-    return this.httpClient.patch(url, data)
+    return this.httpClient.patch(url, {})
   }
 
   /**

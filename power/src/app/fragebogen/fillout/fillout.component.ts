@@ -103,18 +103,32 @@ export class FilloutComponent implements OnInit {
    */
   public submit(data: any) {
     if (!data) return;
-    this.storage.completeForm(this.storage.task.pin, data).subscribe((data) => {
+    this.storage.saveInterimResults(this.storage.task.id, data).subscribe((data2) => {
       // check for error
-      if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data['error'] ? data['error'] : this.storage.task.pin));
-        throw new Error('Could not complete task: ' + (data['error'] ? data['error'] : this.storage.task.pin));
+      if (!data2 || data2['error']) {
+        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data2['error'] ? data2['error'] : this.storage.task.id));
+        throw new Error('Could not save task: ' + (data2['error'] ? data2['error'] : this.storage.task.id));
       }
-      this.storage.setUnsavedChanges(false);
+
+      // complete
+      this.storage.completeForm(this.storage.task.pin).subscribe((data3) => {
+        // check for error
+        if (!data3 || data3['error']) {
+          this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data3['error'] ? data3['error'] : this.storage.task.pin));
+          throw new Error('Could not complete task: ' + (data3['error'] ? data3['error'] : this.storage.task.pin));
+        }
+        this.storage.setUnsavedChanges(false);
+        this.alerts.NewAlert('success', 'Speichern erfolgreich', 'Ihre Daten wurden erfolgreich gespeichert.');
+      }, (error2: Error) => {
+          // failed to complete task
+          this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error2['statusText']);
+          throw error2;
+      });
     }, (error: Error) => {
-        // failed to complete task
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
-        throw error;
-    });
+      // failed to save task
+      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
+      throw error;
+  });
   }
 
   /**
@@ -123,11 +137,11 @@ export class FilloutComponent implements OnInit {
    */
   public progress(data: any) {
     if (!data) return;
-    this.storage.saveInterimResults(this.storage.task.id, data).subscribe((data) => {
+    this.storage.saveInterimResults(this.storage.task.id, data).subscribe((data2) => {
       // check for error
-      if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data['error'] ? data['error'] : this.storage.task.id));
-        throw new Error('Could not save task: ' + (data['error'] ? data['error'] : this.storage.task.id));
+      if (!data2 || data2['error']) {
+        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data2['error'] ? data2['error'] : this.storage.task.id));
+        throw new Error('Could not save task: ' + (data2['error'] ? data2['error'] : this.storage.task.id));
       }
       this.storage.setUnsavedChanges(false);
     }, (error: Error) => {
