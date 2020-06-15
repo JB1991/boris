@@ -105,7 +105,7 @@
         </div>
 
         <div class="form-group col-3 m-0 pr-0" *ngIf="item.type === 'expression' && !(item.operator === 'empty' || item.operator === 'notempty')">
-            <label for="validatorExpValue{{ i }}" class="sr-only">Wert*</label>
+            <label for="validatorExpValue{{ i }}" class="sr-only">Wert oder Variabel %7Be1%7D</label>
             <input type="text"
                 class="form-control"
                 [(ngModel)]="item.value"
@@ -114,7 +114,7 @@
                 [class.is-invalid]="!item.value"
                 id="validatorExpValue{{ i }}"
                 name="validatorExpValue{{ i }}"
-                placeholder="Wert"
+                placeholder="Wert oder Variabel {e1}"
                 maxlength="200"
                 required>
 
