@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 
@@ -16,7 +17,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
       imports: [
         HttpClientTestingModule,
         FormsModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        RouterTestingModule.withRoutes([])
       ],
       providers: [
         BsModalService,
