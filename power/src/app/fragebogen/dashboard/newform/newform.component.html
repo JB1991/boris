@@ -34,7 +34,7 @@
                             class="custom-control-input"
                             [(ngModel)]="public"
                             id="formpublic"
-                            name="formpublic">
+                            name="formpublic" disabled>
                         <label class="custom-control-label" for="formpublic">Formular ist öffentlich</label>
                     </div>
 
@@ -45,7 +45,7 @@
                             [(ngModel)]="service"
                             id="formservice"
                             name="formservice"
-                            required>
+                            required disabled>
                             <option value="">Keine Anbindung an andere Dienste</option>
                             <option *ngFor="let serv of storage.serviceList; index as i"
                                 value="{{ serv.value }}">
