@@ -1,95 +1,107 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {HttpClient} from '@angular/common/http';
-import {By} from '@angular/platform-browser';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
+import { By } from '@angular/platform-browser';
 
-import {environment} from '@env/environment';
-import {DashboardComponent} from './dashboard.component';
+import { environment } from '@env/environment';
+import { DashboardComponent } from './dashboard.component';
+import { StorageService } from '@app/fragebogen/dashboard/storage.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
+// TODO Replace StorageService with a test double? (stub, fake, spy or mock)
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
+  let storage: StorageService;
+  let alerts: jasmine.SpyObj<AlertsService>;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
+  const formId: String = 'brf2hhsdev046mhfpio0';
+  const formsUrl: String = environment.formAPI + 'forms';
+  const tagsUrl: String = environment.formAPI + 'tags';
+  const formsUrlWithId: String = environment.formAPI + 'forms/' + formId;
+
   const formSample = require('../../../assets/fragebogen/form-sample.json');
-  const form = JSON.stringify(formSample);
-  const formId = 'bqg0hvkdev01va6s70ug';
-  const formsUrl = environment.formAPI + 'forms';
-  const formsUrlWithId = environment.formAPI + 'forms/' + formId;
-  const answer = {
-    data: [{
-      'id': 'bqg0hvkdev01va6s70ug',
-      'title': 'Minimal',
-      'tags': [''],
-      'created': '2020-04-22T09:06:06.077198Z',
-      'updated': '2020-04-22T09:10:16.562098Z'
-    }]
-  };
+  const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
+  const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([])
+      ],
+      providers: [
+        StorageService,
+        {provide: AlertsService, useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])}
+      ],
+      declarations: [
+        DashboardComponent
       ]
-    })
-      .compileComponents();
-  }));
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    // Inject the http service and test controller for each test
+    storage = TestBed.inject(StorageService);
+    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
 
-    // Check that the component is defined including the forms list and error status
     expect(component).toBeDefined();
-    //expect(component.formsList.length).toBe(0);
-    //expect(component.error).toEqual('');
-  });
+    expect(storage.formsList.length).toBe(0);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+  }));
 
-  /*
-  it('ngOnInit() should fail if no response is returned by the API', () => {
+  it('ngOnInit() should fail if no response for forms is returned by the API', () => {
     answerHTTPRequest(formsUrl, 'GET', null);
-
-    expect(component.formsList.length).toBe(0);
-    expect(component.error).toBe('Laden fehlgeschlagen (Keine Antwort)');
+    expect(storage.formsList.length).toBe(0);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '');
   });
 
-  it('ngOnInit() should fail if no forms are returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', {Form: null, Error: 'not found'});
-
-    expect(component.formsList.length).toBe(0);
-    expect(component.error).toBe('Laden fehlgeschlagen (Fehler)');
+  it('ngOnInit() should fail if no response for tags is returned by the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', null);
+    expect(storage.tagList.length).toBe(0);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '');
   });
 
   it('ngOnInit() should get a list of forms by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('');
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    expect(storage.formsList.length).toBe(1);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
-  it('ngOnInit() should fail if a 404 is returned by the API', () => {
+  it('ngOnInit() should fail if a 404 is returned by the API for forms', () => {
     answerHTTPRequest(formsUrl, 'GET', '', {status: 404, statusText: 'Not found'});
+    expect(storage.formsList.length).toBe(0);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not found');
+  });
 
-    expect(component.formsList.length).toBe(0);
-    expect(component.error).toBe('Not found');
+  it('ngOnInit() should fail if a 404 is returned by the API for tags', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', '', {status: 404, statusText: 'Not found'});
+    expect(storage.tagList.length).toBe(0);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not found');
   });
 
   it('exportForm() should download the form returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
 
     // Create spy object with methods click() and setAttribute() and spy on document.createElement()
     const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
     spyOn(document, 'createElement').and.returnValue(spyObj);
 
-    component.exportForm(formId);
+    component.exportForm(0);
     answerHTTPRequest(formsUrlWithId, 'GET', formSample);
 
     // Expect that the <a> tag was created
@@ -104,55 +116,39 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     expect(spyObj.click).toHaveBeenCalledTimes(1);
     expect(spyObj.click).toHaveBeenCalledWith();
 
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('');
+    expect(storage.formsList.length).toBe(1);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
   it('exportForm() should fail if no response is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.exportForm(formId);
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.exportForm(0);
     answerHTTPRequest(formsUrlWithId, 'GET', null);
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Export fehlgeschlagen (Keine Antwort)');
+    expect(storage.formsList.length).toBe(1);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
   });
 
   it('exportForm() should fail if an error is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.exportForm(formId);
-    answerHTTPRequest(formsUrlWithId, 'GET', {Form: null, Error: 'not found'});
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Export fehlgeschlagen (Fehler)');
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.exportForm(0);
+    answerHTTPRequest(formsUrlWithId, 'GET', {'error': 'not found'});
+    expect(storage.formsList.length).toBe(1);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
   });
 
   it('exportForm() should fail if a 404 is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.exportForm(formId);
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.exportForm(0);
     answerHTTPRequest(formsUrlWithId, 'GET', '', {status: 404, statusText: 'Not found'});
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Not found');
-  });
-
-  it('exportForm() should fail if null is passed as form id', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.exportForm(null);
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Export: Invalid UUID');
-  });
-
-  it('exportForm() should fail if an invalid UUID is passed as form id', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.exportForm('foobar');
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Export: Invalid UUID');
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
   });
 
   it('importForm() should allow uploading a file', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
 
     // Check the import button
     const button = fixture.debugElement.query(By.css('#button-import'));
@@ -172,138 +168,101 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     const file = new File([blob], 'formular.json');
     const event = new Event('change', {bubbles: true});
 
-    // Overwrite native target property
+    // Overwrite native target property and trigger event directly
     Object.defineProperty(event, 'target', {value: {files: {0: file}}});
-
-    // Trigger event directly
     const input = document.querySelector('#file-upload');
     input.dispatchEvent(event);
 
     expect(mockReader.readAsText).toHaveBeenCalledTimes(1);
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('');
+    expect(storage.formsList.length).toBe(1);
   });
 
-  it('processPostRequest() should execute a POST request against the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.processPostRequest(form);
-    answerHTTPRequest(formsUrl, 'POST', answer);
-    answerHTTPRequest(formsUrl, 'GET', answer);
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('');
+  it('uploadForm() should upload a form to the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.uploadForm(formSample);
+    answerHTTPRequest(formsUrl, 'POST', formSample);
+    expect(storage.formsList.length).toBe(2);
   });
 
-  it('processPostRequest() should fail if null is passed as body', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.processPostRequest(null);
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Invalid JSON file');
-  });
-
-  it('processPostRequest() should fail if invalid JSON is passed as body', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.processPostRequest('foobar');
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Invalid JSON file');
-  });
-
-  it('processPostRequest() should fail if no response is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.processPostRequest(form);
+  it('uploadForm() should fail if no response is returned by the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.uploadForm(formSample);
     answerHTTPRequest(formsUrl, 'POST', null);
-    answerHTTPRequest(formsUrl, 'GET', answer);
 
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Import fehlgeschlagen (Keine Antwort)');
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(storage.formsList.length).toBe(1);
   });
 
-  it('processPostRequest() should fail if an error is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.processPostRequest(form);
-    answerHTTPRequest(formsUrl, 'POST', {Form: null, Error: 'not found'});
-    answerHTTPRequest(formsUrl, 'GET', answer);
+  it('uploadForm() should fail if an error is returned by the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.uploadForm(formSample);
+    answerHTTPRequest(formsUrl, 'POST', {'error': 'not found'});
 
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Import fehlgeschlagen (Fehler)');
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(storage.formsList.length).toBe(1);
   });
 
-  it('processPostRequest() should fail if a 404 is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.processPostRequest(form);
+  it('uploadForm() should fail if a 404 is returned by the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.uploadForm(formSample);
     answerHTTPRequest(formsUrl, 'POST', '', {status: 404, statusText: 'Not found'});
 
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Not found');
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(storage.formsList.length).toBe(1);
   });
 
   it('deleteForm() should delete a form', () => {
     // Stub out confirm dialog
     spyOn(window, 'confirm').and.returnValue(true);
 
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.deleteForm(formId);
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.deleteForm(0);
     answerHTTPRequest(formsUrlWithId, 'DELETE', {'data': null});
-    answerHTTPRequest(formsUrl, 'GET', {data: []});
-
-    expect(component.formsList.length).toBe(0);
-    expect(component.error).toBe('');
+    expect(storage.formsList.length).toBe(0);
   });
 
   it('deleteForm() should fail if a 404 is returned by the API', () => {
     // Stub out confirm dialog
     spyOn(window, 'confirm').and.returnValue(true);
 
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.deleteForm(formId);
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.deleteForm(0);
     answerHTTPRequest(formsUrlWithId, 'DELETE', '', {status: 404, statusText: 'Not found'});
 
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Not found');
-  });
-
-  it('deleteForm() should fail if null is passed as form id', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.deleteForm(null);
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Delete: Invalid UUID');
-  });
-
-  it('deleteForm() should fail if an invalid UUID is passed as form id', () => {
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.deleteForm('foobar');
-
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Delete: Invalid UUID');
+    expect(storage.formsList.length).toBe(1);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
   });
 
   it('deleteForm() should fail if no response is returned by the API', () => {
     // Stub out confirm dialog
     spyOn(window, 'confirm').and.returnValue(true);
 
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.deleteForm(formId);
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.deleteForm(0);
     answerHTTPRequest(formsUrlWithId, 'DELETE', null);
-    answerHTTPRequest(formsUrl, 'GET', answer);
 
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('Löschen fehlgeschlagen (Keine Antwort)');
+    expect(storage.formsList.length).toBe(1);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
   });
 
   it('deleteForm() should not delete a form if the user does not agree to the deletion', () => {
     // Stub out confirm dialog
     spyOn(window, 'confirm').and.returnValue(false);
 
-    answerHTTPRequest(formsUrl, 'GET', answer);
-    component.deleteForm(formId);
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.deleteForm(0);
 
-    expect(component.formsList.length).toBe(1);
-    expect(component.error).toBe('');
+    expect(storage.formsList.length).toBe(1);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
-  */
 
   /**
    * Mocks the API by taking HTTP requests form the queue and returning the answer
@@ -318,10 +277,17 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     expect(request.request.method).toEqual(method);
 
     // Return the answer
-    request.flush(body, opts);
+    request.flush(deepCopy(body), opts);
+  }
+
+  function deepCopy(data) {
+    return JSON.parse(JSON.stringify(data));
   }
 
   afterEach(() => {
+    storage.resetService();
+    storage = null;
+
     // Verify that no requests are remaining
     httpTestingController.verify();
 

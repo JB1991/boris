@@ -25,7 +25,7 @@ export class StorageService {
   }
 
   /**
-   * Loads list of formulars
+   * Loads list of forms
    */
   public loadFormsList() {
     // Load data from server
@@ -46,7 +46,7 @@ export class StorageService {
    * Load tags
    */
   public loadTags() {
-    // load tags from server
+    // Load tags from server
     const url = environment.formAPI + 'tags';
     return this.httpClient.get(url);
   }
@@ -54,7 +54,7 @@ export class StorageService {
   /**
    * Upload form from JSON
    * @param data SurveyJS
-   * @package tags Tag list
+   * @param tags Tag list
    */
   public createForm(data: any, tags: string = '') {
     // Uploads form
@@ -67,7 +67,7 @@ export class StorageService {
    * @param id Form id
    */
   public deleteForm(id: string) {
-    // delete formular
+    // Delete form
     const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
     return this.httpClient.delete(url);
   }

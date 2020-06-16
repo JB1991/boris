@@ -23,50 +23,54 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // load forms from server
+    // Load forms from server
     this.loadingscreen.setVisible(true);
     this.storage.loadFormsList().subscribe((data) => {
-      // check for error
+      // Check for error
       if (!data || data['error'] || !data['data']) {
-        const alertText = (data['error'] ? data['error'] : '');
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
-        this.loadingscreen.setVisible(false);
-        this.router.navigate(['/forms'], {replaceUrl: true});
-        throw new Error('Could not load forms list: ' + alertText);
+        this.loadError(data);
+        return;
       }
 
       // Save data
       this.storage.formsList = data['data'];
 
-      // loads tags from server
+      // Load tags from server
       this.storage.loadTags().subscribe((data2) => {
-        // check for error
+        // Check for error
         if (!data2 || data2['error'] || !data2['data']) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : ''));
-          this.loadingscreen.setVisible(false);
-
-          this.router.navigate(['/forms'], { replaceUrl: true });
-          throw new Error('Could not load tags list: ' + (data2['error'] ? data2['error'] : ''));
+          this.loadError(data2);
+          return;
         }
 
-        // save data
+        // Save data
         this.storage.tagList = data2['data'];
         this.loadingscreen.setVisible(false);
       }, (error2: Error) => {
-          // failed to load tags list
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
-          this.loadingscreen.setVisible(false);
-
-          this.router.navigate(['/forms'], { replaceUrl: true });
-          throw error2;
+        // Failed to load tags list
+        this.loadFailed(error2);
+        return;
       });
     }, (error: Error) => {
       // Failed to load forms list
-      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
-      this.loadingscreen.setVisible(false);
-      this.router.navigate(['/forms'], {replaceUrl: true});
-      throw error;
+      this.loadFailed(error);
+      return;
     });
+  }
+
+  private loadError(data) {
+    const alertText = (data && data['error'] ? data['error'] : '');
+    this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+    this.loadingscreen.setVisible(false);
+    this.router.navigate(['/forms'], {replaceUrl: true});
+    console.log('Could not load forms list: ' + alertText);
+  }
+
+  private loadFailed(error) {
+    this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+    this.loadingscreen.setVisible(false);
+    this.router.navigate(['/forms'], {replaceUrl: true});
+    console.log(error);
   }
 
   /**
@@ -83,9 +87,10 @@ export class DashboardComponent implements OnInit {
     this.storage.deleteForm(this.storage.formsList[id].id).subscribe((data) => {
       // Check for error
       if (!data || data['error']) {
-        const alertText = (data['error'] ? data['error'] : this.storage.formsList[id].id);
+        const alertText = (data && data['error'] ? data['error'] : this.storage.formsList[id].id);
         this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
-        throw new Error('Could not delete form: ' + alertText);
+        console.log('Could not delete form: ' + alertText);
+        return;
       }
 
       // Success
@@ -94,12 +99,13 @@ export class DashboardComponent implements OnInit {
     }, (error: Error) => {
       // Failed to delete form
       this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
-      throw error;
+      console.log(error);
+      return;
     });
   }
 
   /**
-   * Exports form to JON
+   * Exports form to JSON
    * @param id form id
    */
   public exportForm(id: number) {
@@ -107,9 +113,10 @@ export class DashboardComponent implements OnInit {
     this.storage.loadForm(this.storage.formsList[id].id).subscribe((data) => {
       // Check for error
       if (!data || data['error'] || !data['data'] || !data['data']['content']) {
-        const alertText = (data['error'] ? data['error'] : this.storage.formsList[id].id);
+        const alertText = (data && data['error'] ? data['error'] : this.storage.formsList[id].id);
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
-        throw new Error('Could not load form: ' + alertText);
+        console.log('Could not load form: ' + alertText);
+        return;
       }
 
       // Download JSON
@@ -122,7 +129,8 @@ export class DashboardComponent implements OnInit {
     }, (error: Error) => {
       // Failed to load form
       this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
-      throw error;
+      console.log(error);
+      return;
     });
   }
 
@@ -138,29 +146,38 @@ export class DashboardComponent implements OnInit {
       const file = event.target['files'][0];
       const reader = new FileReader();
 
-      // Upload success
+      // Upload success (separate function for testing purposes)
       reader.onload = () => {
-        this.storage.createForm(reader.result).subscribe((data) => {
-          // Check for error
-          if (!data || data['error'] || !data['data']) {
-            const alertText = (data['error'] ? data['error'] : '');
-            this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
-            throw new Error('Could not create form: ' + alertText);
-          }
-
-          // Success
-          this.storage.formsList.push(data['data']);
-          this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
-        }, (error: Error) => {
-          // Failed to create form
-          this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
-          throw error;
-        });
+        this.uploadForm(reader.result);
       };
       // FileReader is async -> call readAsText() after declaring the onload handler
       reader.readAsText(file);
     };
     input.click();
+  }
+
+  /**
+   * Uploads the form to the API
+   * @param form Form
+   */
+  public uploadForm(form: string | ArrayBuffer) {
+    this.storage.createForm(form).subscribe((data) => {
+      // Check for error
+      if (!data || data['error'] || !data['data']) {
+        const alertText = (data && data['error'] ? data['error'] : '');
+        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
+        console.log('Could not load form: ' + alertText);
+        return;
+      }
+      // Success
+      this.storage.formsList.push(data['data']);
+      this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
+    }, (error: Error) => {
+      // Failed to create form
+      this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+      console.log(error);
+      return;
+    });
   }
 
   /**
