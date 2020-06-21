@@ -16,9 +16,8 @@
     "debugLevel": "info"
   },
   "/geoserver/": {
-    "target": "https://dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0000.eu-de.containers.appdomain.cloud/",
-    "changeOrigin": true,
-    "secure": false,
+    "target": "http://localhost:8080/",
+    "secure":false,
     "debugLevel": "info"
   },
   "/formapi/" : {
