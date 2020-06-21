@@ -60,7 +60,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
   load() {
     // Gruppieren nach WNUM
-    const grouped = this.groupBy(this.features.features, item => item.properties.bodenrichtwertnummer);
+    const grouped = this.groupBy(this.features.features, item => item.properties.wnum);
 
     const result: Map<string, []> = new Map<string, []>();
     for (const key of grouped.keys()) {
@@ -86,11 +86,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
       const t = value
         // Stichtage < 2011 löschen
         .filter(brw => {
-          return new Date(brw.properties.stichtag) > new Date('2011-12-31');
+          return new Date(brw.properties.stag) > new Date('2011-12-31');
         })
         // Ausschließlich STAG und BRW zurückgeben
         .map(brw => {
-          return {stag: brw.properties.stichtag.substring(0, 4), brw: brw.properties.bodenrichtwert, nutzung: brw.properties.ergaenzung};
+          return {stag: brw.properties.stag.substring(0, 4), brw: brw.properties.brw, nutzung: brw.properties.ergaenzung};
         });
 
       const hash = Object.create(null);
