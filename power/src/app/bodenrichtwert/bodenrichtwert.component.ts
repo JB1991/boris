@@ -52,10 +52,6 @@ export const TEILMAERKTE = [
           </ngb-panel>
         </ngb-accordion>
 
-      <!--<div class="height-minus-header bg-light">-->
-      <!--  <a class="anchor" #details></a>-->
-      <!--    <power-bodenrichtwert-detail></power-bodenrichtwert-detail>-->
-      <!--</div>-->
       <div class="height-minus-header row m-1" *ngIf="features">
         <a class="anchor" #verlauf></a>
         <power-bodenrichtwert-verlauf class="col-md-12" [features]="features"></power-bodenrichtwert-verlauf>
@@ -150,14 +146,17 @@ export class BodenrichtwertComponent implements OnDestroy {
 
   @ViewChild('acc', {static: true}) acc: NgbAccordion;
 
-  constructor(private geosearchService: GeosearchService, private bodenrichtwertService: BodenrichtwertService) {
-    this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
-    this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
-      this.acc.expandAll();
-      this.features = ft;
-    });
-    this.stichtag = STICHTAGE[0];
-    this.teilmarkt = TEILMAERKTE[0];
+  constructor(
+    private geosearchService: GeosearchService,
+    private bodenrichtwertService: BodenrichtwertService,
+  ) {
+      this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
+      this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
+        this.acc.expandAll();
+        this.features = ft;
+      });
+      this.stichtag = STICHTAGE[0];
+      this.teilmarkt = TEILMAERKTE[0];
   }
 
   ngOnDestroy(): void {
