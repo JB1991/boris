@@ -29,7 +29,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
           - name: power-modules-config
-            mountPath: "/usr/share/nginx/html/assets"
+            mountPath: "/usr/share/nginx/html/config/assets"
             readOnly: true
           envFrom:
             - secretRef:
