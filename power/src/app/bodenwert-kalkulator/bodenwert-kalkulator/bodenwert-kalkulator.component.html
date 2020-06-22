@@ -60,7 +60,7 @@
       [center]="[9.590764, 52.37345]"
       (load)="loadMap($event)">
 
-      <mgl-vector-source id="geoserver" [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=boris:ax_flurstueck&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
+      <mgl-vector-source id="geoserver" [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=alkis:ax_flurstueck&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
       </mgl-vector-source>
 
       <mgl-layer
@@ -117,27 +117,21 @@
         <ng-template ngbPanelContent>
           <table class="table table-bordered">
             <tr>
-              <th>Kennzeichen</th>
+<!--              <th>Kennzeichen</th>-->
               <th>Amtliche Fläche</th>
               <th>Wert</th>
             </tr>
             <tr *ngFor="let feature of this.flurstueckSelection | keyvalue">
-              <td>{{feature.value.properties.flurstueckskennzeichen}}</td>
+<!--              <td>{{feature.value.properties.flurstueckskennzeichen}}</td>-->
               <td>{{feature.value.properties.amtlicheflaeche}} m&#178;</td>
               <td>{{feature.value.properties.wert | currency:'EUR':"symbol" : '1.2-2'}}</td>
             </tr>
           </table>
 
-          <h3>Summe (noch der
-            Fläche) {{ flurstueckSelection | keyvalue | flurstueckPipe | currency:'EUR':"symbol" : '1.2-2'}} </h3>
+          <h3>Summe {{ flurstueckSelection | keyvalue | flurstueckPipe | currency:'EUR':"symbol" : '1.2-2'}} </h3>
         </ng-template>
       </ngb-panel>
     </ngb-accordion>
   </div>
-
-  <!--<div class="height-minus-header bg-light">-->
-  <!--  <a class="anchor" #details></a>-->
-  <!--    <boris-bodenrichtwert-detail></boris-bodenrichtwert-detail>-->
-  <!--</div>-->
 
 </div>
