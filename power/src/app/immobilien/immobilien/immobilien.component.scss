@@ -1,4 +1,4 @@
-/deep/ body {
+::ng-deep  body {
     overflow-x: hidden;
 }
 
@@ -20,11 +20,11 @@ ul {
 	list-style: none;
 }
 
-/deep/ .accordion .card {
+::ng-deep .accordion .card {
 	overflow: visible !important;
 }
 
-/deep/ .btn-link {
+::ng-deep .btn-link {
 	color: #343a40 !important;
 	text-align: left;
 }
