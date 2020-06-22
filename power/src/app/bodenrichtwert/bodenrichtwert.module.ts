@@ -15,6 +15,7 @@ import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
 
 import {NgxEchartsModule} from 'ngx-echarts';
 import { NutzungPipe } from './util/nutzung.pipe';
+import { BeitragPipe } from './util/beitrag.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NutzungPipe } from './util/nutzung.pipe';
     BodenrichtwertDetailComponent,
     BodenrichtwertVerlaufComponent,
     BodenrichtwertListeComponent,
-    NutzungPipe
+    NutzungPipe,
+    BeitragPipe
   ],
   imports: [
     SharedModule,

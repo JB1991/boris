@@ -29,9 +29,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     xAxis: {
       type: 'category',
       data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+      nameLocation: 'start'
     },
     yAxis: {
-      type: 'value'
+      type: 'value',
+      axisLabel: {
+        formatter: '{value} €/m²'
+      }
     },
     series: []
   };

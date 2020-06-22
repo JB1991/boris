@@ -8,9 +8,12 @@
       <dd class="col-md-6">Art der Nutzung</dd>
       <dt class="col-md-6">{{ feature.properties.nutzung | nutzung}}</dt>
       <dd class="col-md-6">Bodenrichtwert</dd>
-      <dt class="col-md-6">{{feature.properties.brw}}</dt>
+      <dt class="col-md-6">{{feature.properties.brw}} &euro; / m&#178;</dt>
       <dd class="col-md-6">Beitragsabgabenrechtlicher Zustand</dd>
-      <dt class="col-md-6">{{feature.properties.beit}}</dt>
+      <dt class="col-md-6">{{feature.properties.beit | beitrag }}</dt>
+      <dd class="col-md-6">Umrechnungsfaktoren</dd>
+<!--      <dt class="col-md-6">{{feature.properties.umrechnungstabellendatei | json}} <br>-->
+<!--        {{feature.properties.umrechnungstabellenwerte | json}}</dt>-->
     </dl>
   </div>
 </div>
