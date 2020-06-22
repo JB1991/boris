@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PreviewComponent } from './preview.component';
 import { StorageService } from '../storage.service';
 
-describe('PreviewComponent', () => {
+describe('Fragebogen.Editor.Preview.PreviewComponent', () => {
   let component: PreviewComponent;
   let fixture: ComponentFixture<PreviewComponent>;
 

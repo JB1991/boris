@@ -50,7 +50,7 @@ export class BodenrichtwertService {
       '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
       '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
       ' service="WFS" version="1.1.0" outputFormat="JSON" maxFeatures="1">\n' +
-      '  <wfs:Query typeName="boris:br_bodenrichtwertzonal" srsName="EPSG:4326" >\n' +
+      '  <wfs:Query typeName="boris:br_brzone_flat" srsName="EPSG:4326" >\n' +
       '    <ogc:Filter>\n' +
       '      <ogc:And>\n' +
       '        <ogc:PropertyIsEqualTo>\n' +
@@ -75,18 +75,18 @@ export class BodenrichtwertService {
       '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
       '  xmlns:gml="http://www.opengis.net/gml/3.2" \n' +
       ' service="WFS" version="1.1.0" outputFormat="JSON" maxFeatures="5">\n' +
-      '  <wfs:Query typeName="boris:br_bodenrichtwertzonal" srsName="EPSG:3857" >\n' +
+      '  <wfs:Query typeName="boris:br_brzone_flat" srsName="EPSG:3857" >\n' +
       '    <ogc:Filter>\n' +
       '      <ogc:And>\n' +
       '        <ogc:PropertyIsEqualTo>\n' +
-      '          <ogc:PropertyName>stichtag</ogc:PropertyName>\n' +
+      '          <ogc:PropertyName>stag</ogc:PropertyName>\n' +
       '          <ogc:Function name="dateParse">\n' +
       '            <ogc:Literal>yyyy-MM-dd</ogc:Literal>\n' +
       '            <ogc:Literal>' + stag.toISOString().substring(0, 10) + '</ogc:Literal>\n' +
       '          </ogc:Function>\n' +
       '        </ogc:PropertyIsEqualTo>\n' +
       '        <ogc:PropertyIsEqualTo>\n' +
-      '          <ogc:PropertyName>entwicklungszustand</ogc:PropertyName>\n' +
+      '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
       '            <ogc:Literal>' + entw + '</ogc:Literal>\n' +
       '        </ogc:PropertyIsEqualTo>\n' +
       '        <ogc:Intersects>\n' +
@@ -113,11 +113,11 @@ export class BodenrichtwertService {
       '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
       '  xmlns:gml="http://www.opengis.net/gml/3.2" \n' +
       ' service="WFS" version="1.1.0" outputFormat="JSON">\n' +
-      '  <wfs:Query typeName="boris:br_bodenrichtwertzonal" srsName="EPSG:3857" >\n' +
+      '  <wfs:Query typeName="boris:br_brzone_flat" srsName="EPSG:3857" >\n' +
       '    <ogc:Filter>\n' +
       '      <ogc:And>\n' +
       '        <ogc:PropertyIsEqualTo>\n' +
-      '          <ogc:PropertyName>entwicklungszustand</ogc:PropertyName>\n' +
+      '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
       '            <ogc:Literal>' + entw + '</ogc:Literal>\n' +
       '        </ogc:PropertyIsEqualTo>\n' +
       '        <ogc:Intersects>\n' +

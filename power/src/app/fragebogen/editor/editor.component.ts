@@ -5,13 +5,13 @@ import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult } from 'ngx-smooth-dnd';
+import { environment } from '@env/environment';
 
-import { AlertsService } from '../alerts/alerts.service';
 import { ComponentCanDeactivate } from '../pendingchanges.guard';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { environment } from '../../../environments/environment';
-import { LoadingscreenService } from '../loadingscreen/loadingscreen.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
   selector: 'power-formulars-editor',
@@ -27,12 +27,12 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
               private router: Router,
               private titleService: Title,
               private alerts: AlertsService,
-              public loadingscreen: LoadingscreenService,
+              private loadingscreen: LoadingscreenService,
               public storage: StorageService,
               public history: HistoryService) {
       this.titleService.setTitle('Formular Editor - POWER.NI');
-      this.storage.ResetService();
-      this.history.ResetService();
+      this.storage.resetService();
+      this.history.resetService();
   }
 
   ngOnInit() {
@@ -40,27 +40,30 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadingscreen.setVisible(true);
-      this.storage.FormularLoad(id).subscribe((data) => {
+      this.storage.loadForm(id).subscribe((data) => {
         // check for error
-        if (!data || data['Error']) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data['Error']);
-          throw new Error('Could not load formular with id: ' + id);
+        if (!data || data['error'] || !data['data'] || !data['data']['content']) {
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
+          this.loadingscreen.setVisible(false);
+
+          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+          throw new Error('Could not load formular: ' + (data['error'] ? data['error'] : id));
         }
 
         // store formular
-        this.storage.model = data['Form']['data'];
+        this.storage.model = data['data']['content'];
         this.loadingscreen.setVisible(false);
       }, (error: Error) => {
         // failed to load
-        this.router.navigate(['/formulare'], { replaceUrl: true });
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
         this.loadingscreen.setVisible(false);
 
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         throw error;
       });
     }
 
-    this.ClearCollapsed();
+    this.clearCollapsed();
   }
 
   @HostListener('window:beforeunload')
@@ -69,7 +72,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     if (!environment.production) {
       return true;
     }
-    return !this.storage.GetUnsavedChanges();
+    return !this.storage.getUnsavedChanges();
   }
 
   /**
@@ -82,7 +85,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
 
     // order of pages changed
     if (dropResult.payload.from === 'pagination') {
-      this.history.MakeHistory(this.storage.model);
+      this.history.makeHistory(this.storage.model);
       moveItemInArray(this.storage.model.pages, dropResult.removedIndex, dropResult.addedIndex);
       this.storage.selectedPageID = dropResult.addedIndex;
 
@@ -94,7 +97,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       if (dropResult.addedIndex === this.storage.selectedPageID) {
         return;
       }
-      this.history.MakeHistory(this.storage.model);
+      this.history.makeHistory(this.storage.model);
       this.isCollapsed.splice(dropResult.payload.index, 1);
       transferArrayItem(
         this.storage.model.pages[this.storage.selectedPageID].elements,
@@ -115,7 +118,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
 
     // order of elements changed
     if (dropResult.payload.from === 'workspace') {
-      this.history.MakeHistory(this.storage.model);
+      this.history.makeHistory(this.storage.model);
       moveItemInArray(this.isCollapsed, dropResult.removedIndex, dropResult.addedIndex);
       moveItemInArray(this.storage.model.pages[this.storage.selectedPageID].elements, dropResult.removedIndex, dropResult.addedIndex);
 
@@ -130,8 +133,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         throw new Error('Could not create new Element');
       }
 
-      this.history.MakeHistory(this.storage.model);
-      data.name = this.storage.NewElementID();
+      this.history.makeHistory(this.storage.model);
+      data.name = this.storage.newElementID();
       this.isCollapsed.splice(dropResult.addedIndex, 0, window.innerWidth <= 767);
       this.storage.model.pages[this.storage.selectedPageID].elements.splice(dropResult.addedIndex, 0, data);
     }
@@ -181,8 +184,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       throw new Error('Could not create new Element');
     }
 
-    this.history.MakeHistory(this.storage.model);
-    data.name = this.storage.NewElementID();
+    this.history.makeHistory(this.storage.model);
+    data.name = this.storage.newElementID();
     this.isCollapsed.splice(0, 0, window.innerWidth <= 767);
     this.storage.model.pages[this.storage.selectedPageID].elements.splice(0, 0, data);
   }
@@ -192,18 +195,18 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
    * @param page Page number
    */
   public wsPageCreate(page: number = this.storage.model.pages.length - 1) {
-    this.history.MakeHistory(this.storage.model);
+    this.history.makeHistory(this.storage.model);
     this.storage.model.pages.splice(page + 1, 0,
       {
         title: '',
         description: '',
         elements: [],
         questionsOrder: 'default',
-        name: this.storage.NewPageID()
+        name: this.storage.newPageID()
       }
     );
     this.storage.selectedPageID++;
-    this.ClearCollapsed();
+    this.clearCollapsed();
   }
 
   /**
@@ -215,14 +218,14 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     if (!confirm('Möchten Sie diese Seite wirklich löschen?')) {
       return;
     }
-    this.history.MakeHistory(this.storage.model);
+    this.history.makeHistory(this.storage.model);
     this.storage.model.pages.splice(page, 1);
 
     // check if selected page is out of bounds
     if (this.storage.selectedPageID >= this.storage.model.pages.length && this.storage.selectedPageID > 0) {
       this.storage.selectedPageID--;
     }
-    this.ClearCollapsed();
+    this.clearCollapsed();
 
     // ensure that at least one page exists
     if (this.storage.model.pages.length < 1) {
@@ -248,7 +251,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       return;
     }
     this.storage.selectedPageID = page;
-    this.ClearCollapsed();
+    this.clearCollapsed();
   }
 
   /**
@@ -256,26 +259,26 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
    */
   public wsSave() {
     // check for changes and if saving is enabled
-    if (!this.storage.GetUnsavedChanges() || !this.storage.GetAutoSaveEnabled()) {
+    if (!this.storage.getUnsavedChanges() || !this.storage.getAutoSaveEnabled()) {
       return;
     }
 
     // saving data
     const id = this.route.snapshot.paramMap.get('id');
-    this.storage.FormularSave(this.storage.model, id).subscribe((data) => {
+    this.storage.saveForm(this.storage.model, id).subscribe((data) => {
       // check for error
-      if (!data || data['Error']) {
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', data['Error']);
-        throw new Error('Could not save formular with id: ' + id);
+      if (!data || data['error']) {
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
+        throw new Error('Could not save formular: ' + (data['error'] ? data['error'] : id));
       }
 
       // success
-      this.storage.SetUnsavedChanges(false);
+      this.storage.setUnsavedChanges(false);
       this.alerts.NewAlert('success', 'Speichern erfolgreich', '');
 
       // redirect to new id
       if (!id) {
-        this.router.navigate(['editor', data['Form']['id']], { replaceUrl: true });
+        this.router.navigate(['forms', 'editor', encodeURIComponent(data['data']['id'])], { replaceUrl: true });
       }
     }, (error: Error) => {
       // failed to save
@@ -303,7 +306,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     if (!confirm('Möchten Sie das Element wirklich löschen?')) {
       return;
     }
-    this.history.MakeHistory(this.storage.model);
+    this.history.makeHistory(this.storage.model);
     this.isCollapsed.splice(element, 1);
     this.storage.model.pages[page].elements.splice(element, 1);
   }
@@ -314,21 +317,13 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
   /**
    * Resets isCollapsed
    */
-  public ClearCollapsed() {
+  public clearCollapsed() {
     this.isCollapsed = [];
 
     // check screen width
     for (let i = 0; i < this.storage.model.pages[this.storage.selectedPageID].elements.length; i++) {
-      if (window.innerWidth <= 767) {
-        this.isCollapsed[i] = true;
-      } else {
-        this.isCollapsed[i] = false;
-      }
+      this.isCollapsed[i] = window.innerWidth <= 767;
     }
-  }
-
-  public sortX(): number {
-    return 1;
   }
 
   public getIcon(type: string): string {

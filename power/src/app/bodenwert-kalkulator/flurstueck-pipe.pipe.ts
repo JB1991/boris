@@ -7,7 +7,7 @@ export class FlurstueckPipe implements PipeTransform {
 
   transform(keyvaluearray: any, ...args: any[]): any {
     return keyvaluearray.map((t: { key, value }) => {
-      return t.value.properties.amtlicheflaeche;
+      return t.value.properties.wert;
     }).reduce((a, b) => a + b, 0);
   }
 

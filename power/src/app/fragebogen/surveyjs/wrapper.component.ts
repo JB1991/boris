@@ -18,6 +18,7 @@ export class WrapperComponent implements OnChanges {
   @Input() showInvisible = false;
   @Output() public result: EventEmitter<any> = new EventEmitter();
   @Output() public interimResult: EventEmitter<any> = new EventEmitter();
+  @Output() public changes: EventEmitter<any> = new EventEmitter();
 
   ngOnChanges() {
     if (this.theme !== undefined) {
@@ -68,24 +69,38 @@ export class WrapperComponent implements OnChanges {
     if (this.mode !== undefined) {
       survey.mode = this.mode;
     }
-    if (this.completedHtml !== undefined) {
-      survey.completedHtml = this.completedHtml;
-    }
-    if (this.navigateToURL !== undefined) {
-      survey.navigateToURL = this.navigateToURL;
-    }
     survey.showInvisibleElements = this.showInvisible;
-    survey.onComplete.add((s) => {
-      this.result.emit(s.data);
-    });
-    survey.onValueChanged.add((s) => {
-      this.interimResult.emit(s.data);
-    });
 
-    if (this.css !== undefined) {
-      Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, {model: survey, css: this.css});
-    } else {
-      Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, {model: survey});
+    // build property model
+    let props = {model: survey};
+    if (this.css) {
+      props['css'] = this.css;
     }
+    if (this.model['data']) {
+      props['data'] = this.model['data'];
+    }
+    if (this.completedHtml) {
+      props['completedHtml'] = this.completedHtml;
+    }
+    if (this.navigateToURL) {
+      props['navigateToURL'] = this.navigateToURL;
+    }
+    if (this.changes) {
+      props['onValueChanged'] = (s, _) => {
+        this.changes.emit(s.data);
+      };
+    }
+    if (this.interimResult) {
+      props['onCurrentPageChanged'] = (s, _) => {
+        this.interimResult.emit(s.data);
+      };
+    }
+    if (this.result) {
+      props['onComplete'] = (s, _) => {
+        this.result.emit(s.data);
+      };
+    }
+
+    Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, props);
   }
 }

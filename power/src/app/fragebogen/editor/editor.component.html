@@ -1,6 +1,6 @@
-<main class="row w-100 m-0 mt-4" id="content" tabindex="-1">
+<main class="row w-100 m-0 p-1 p-lg-2" id="content" tabindex="-1">
     <!-- left side -->
-    <div class="col-12 col-lg-3 col-xl-2 p-2">
+    <div class="col-12 col-lg-3 col-xl-2 p-0 pr-lg-2 mb-2">
         <!-- toolbox -->
         <div class="card bg-light">
             <div class="card-header h5 clickable" (click)="isCollapsedToolBox = !isCollapsedToolBox">
@@ -31,10 +31,10 @@
     </div>
 
     <!-- right side -->
-    <div class="col-12 col-lg-9 col-xl-10 p-2">
-        <div class="row m-0 mb-2">
+    <div class="col-12 col-lg-9 col-xl-10 p-0">
+        <div class="row m-0">
             <!-- pagination -->
-            <div class="col-12 col-md-6 p-0">
+            <div class="col-12 col-md-7 col-xl-8 p-0 scrolllist">
                 <nav aria-label="Formular page navigation" class="mb-2 mb-md-0">
                     <ul class="pagination m-0">
                         <smooth-dnd-container groupName="pagination"
@@ -72,20 +72,20 @@
             </div>
 
             <!-- buttons -->
-            <div class="col-12 col-md-6 p-0 text-right textpos">
+            <div class="col-12 col-md-5 col-xl-4 p-0 text-right textpos">
                 <button type="button"
                     class="btn btn-secondary mr-2"
                     title="Letzte Änderung wiederholen"
-                    (click)="history.RedoChanges(); ClearCollapsed()"
-                    [disabled]="history.RedoIndex === 0">
+                    (click)="history.redoChanges(); clearCollapsed()"
+                    [disabled]="history.redoIndex === 0">
                     <i class="fas fa-redo" aria-hidden="true"></i>
                     <span class="sr-only">Letzte Änderung wiederholen</span>
                 </button>
                 <button type="button"
                     class="btn btn-secondary mr-2"
                     title="Letzte Änderung rückgängig machen"
-                    (click)="history.UndoChanges(); ClearCollapsed()"
-                    [disabled]="history.UndoIndex === 0">
+                    (click)="history.undoChanges(); clearCollapsed()"
+                    [disabled]="history.undoIndex === 0">
                     <i class="fas fa-undo" aria-hidden="true"></i>
                     <span class="sr-only">Letzte Änderung rückgängig machen</span>
                 </button>
@@ -113,7 +113,7 @@
                 </button>
             </div>
         </div>
-        <hr>
+        <hr class="my-2">
 
         <!-- workspace -->
         <div id="placeholder"
@@ -130,13 +130,13 @@
             dragHandleSelector=".card-header"
             nonDragAreaSelector=".btn">
             <smooth-dnd-draggable *ngFor="let container of storage.model.pages[storage.selectedPageID].elements; index as i">
-                <div class="card bg-light mb-3" [attr.data-id]="i">
+                <div class="card bg-light mb-2" [attr.data-id]="i">
                     <div class="card-header h5 clickable"
                         (click)="isCollapsed[i] = !isCollapsed[i]"
                         [attr.aria-expanded]="!isCollapsed[i]">
                         <!-- element tite -->
                         <div class="float-sm-left text-nowrap overflow-hidden">
-                            <i class="{{ getIcon(container.type) }} fa-fw" aria-hidden="true"></i>
+                            <i class="{{ getIcon(container.type) }} fa-fw d-none d-sm-inline" aria-hidden="true"></i>
                             {{ container.title }}
                         </div>
 
@@ -187,6 +187,3 @@
 
 <!-- preview -->
 <power-formulars-editor-preview #preview></power-formulars-editor-preview>
-
-<!-- alerts component -->
-<power-alerts></power-alerts>

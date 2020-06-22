@@ -1,3 +1,5 @@
+import noUiSlider from "nouislider";
+
 /**
  * Initializes nouislider for surveyjs.
  * This file is a modified version from surveyjs-widgets
@@ -166,4 +168,8 @@ export function init(Survey) {
   };
 
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "customtype");
+}
+
+if (typeof Survey !== "undefined") {
+  init(Survey);
 }

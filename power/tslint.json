@@ -1,6 +1,7 @@
 {
   "rulesDirectory": [
-    "node_modules/codelyzer"
+    "node_modules/codelyzer",
+    "node_modules/tslint-microsoft-contrib"
   ],
   "rules": {
     "arrow-return-shorthand": true,
@@ -10,10 +11,30 @@
       true,
       "check-space"
     ],
+    "component-class-suffix": true,
+    "component-max-inline-declarations": true,
+    "component-selector": [
+      true,
+      "element",
+      [],
+      "kebab-case"
+    ],
+    "contextual-lifecycle": true,
     "curly": true,
+    "cyclomatic-complexity": [
+      true,
+      10
+    ],
     "deprecation": {
       "severity": "warn"
     },
+    "directive-class-suffix": true,
+    "directive-selector": [
+      true,
+      "attribute",
+      [],
+      "camelCase"
+    ],
     "eofline": true,
     "forin": true,
     "import-blacklist": [
@@ -23,28 +44,31 @@
     "import-spacing": true,
     "indent": [
       true,
-      "spaces"
+      "spaces",
+      2
     ],
     "interface-over-type-literal": true,
+    "jsdoc-format": true,
     "label-position": true,
+    "max-file-line-count": [
+      true,
+      300
+    ],
+    "max-func-body-length": [
+      true,
+      30
+    ],
     "max-line-length": [
       true,
-      140
+      120
     ],
     "member-access": false,
     "member-ordering": [
-      true,
-      {
-        "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
-        ]
-      }
+      false
     ],
     "no-arg": true,
     "no-bitwise": true,
+    "no-conflicting-lifecycle": true,
     "no-console": [
       true,
       "debug",
@@ -59,12 +83,20 @@
     "no-empty": false,
     "no-empty-interface": true,
     "no-eval": true,
+    "no-host-metadata-property": true,
     "no-inferrable-types": [
       true,
       "ignore-params"
     ],
+    "no-input-rename": true,
+    "no-inputs-metadata-property": true,
     "no-misused-new": true,
     "no-non-null-assertion": true,
+    "no-output-native": true,
+    "no-output-on-prefix": true,
+    "no-output-rename": true,
+    "no-outputs-metadata-property": true,
+    "no-queries-metadata-property": true,
     "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-string-throw": true,
@@ -82,6 +114,7 @@
       "check-whitespace"
     ],
     "prefer-const": true,
+    "prefer-inline-decorator": true,
     "quotemark": [
       true,
       "single"
@@ -91,6 +124,8 @@
       true,
       "always"
     ],
+    "template-banana-in-box": true,
+    "template-no-negated-async": true,
     "triple-equals": [
       true,
       "allow-null-check"
@@ -106,6 +141,8 @@
       }
     ],
     "unified-signatures": true,
+    "use-lifecycle-interface": true,
+    "use-pipe-transform-interface": true,
     "variable-name": false,
     "whitespace": [
       true,
@@ -114,17 +151,7 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ],
-    "no-output-on-prefix": true,
-    "no-inputs-metadata-property": true,
-    "no-outputs-metadata-property": true,
-    "no-host-metadata-property": true,
-    "no-input-rename": true,
-    "no-output-rename": true,
-    "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true,
-    "component-class-suffix": true,
-    "directive-class-suffix": true
+    ]
   },
   "jsRules": {
     "no-empty": true

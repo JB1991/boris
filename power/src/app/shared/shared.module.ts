@@ -4,7 +4,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbAccordionModule, NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
-
+import { AlertsModule } from '@app/shared/alerts/alerts.module';
+import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
 
 @NgModule({
   declarations: [GeosearchComponent],
@@ -15,7 +16,9 @@ import {CommonModule} from '@angular/common';
     GeosearchComponent,
     NgbAccordionModule,
     NgbCollapseModule,
-    CommonModule
+    CommonModule,
+    AlertsModule,
+    LoadingscreenModule
   ],
   imports: [
     NgbModule,

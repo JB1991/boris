@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WrapperComponent } from './wrapper.component';
 
-describe('WrapperComponent', () => {
+describe('Fragebogen.Surveyjs.WrapperComponent', () => {
   let component: WrapperComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 

@@ -1,0 +1,111 @@
+<div bsModal #modalnewform="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- modal head -->
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Neues Formular</h4>
+
+                <!-- modal close button -->
+                <button type="button" class="close" title="Schließen" data-dismiss="modal" aria-label="Schließen" (click)="Close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- modal body -->
+            <div class="modal-body">
+                <form #newForm="ngForm" onsubmit="return false;">
+                    <!-- title -->
+                    <div class="form-group">
+                        <label for="formtitle">Formular Titel*</label>
+                        <input type="text"
+                            class="form-control"
+                            [(ngModel)]="title"
+                            [class.is-invalid]="!title"
+                            id="formtitle"
+                            name="formtitle"
+                            maxlength="200"
+                            placeholder="Mein Formular"
+                            required>
+                    </div>
+
+                    <!-- public -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                            class="custom-control-input"
+                            [(ngModel)]="public"
+                            id="formpublic"
+                            name="formpublic" disabled>
+                        <label class="custom-control-label" for="formpublic">Formular ist öffentlich</label>
+                    </div>
+
+                    <!-- service -->
+                    <div class="form-group">
+                        <label for="formservice">Verknüpfter Dienst</label>
+                        <select class="custom-select"
+                            [(ngModel)]="service"
+                            id="formservice"
+                            name="formservice"
+                            required disabled>
+                            <option value="">Keine Anbindung an andere Dienste</option>
+                            <option *ngFor="let serv of storage.serviceList; index as i"
+                                value="{{ serv.value }}">
+                                {{ serv.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- template -->
+                    <div class="form-group">
+                        <label for="formtemplate">Template</label>
+                        <select class="custom-select"
+                            [(ngModel)]="template"
+                            id="formtemplate"
+                            name="formtemplate"
+                            required>
+                            <option value="">Standard</option>
+                            <option *ngFor="let templ of storage.formsList; index as i"
+                                value="{{ templ.id }}">
+                                {{ templ.title }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- tags -->
+                    <div class="form-group">
+                        <label for="formtag">Formular mit Tags markieren</label>
+                        <input type="text"
+                            list="tags"
+                            class="form-control"
+                            [(ngModel)]="tagInput"
+                            (keyup.enter)="addTag()"
+                            (change)="addTag()"
+                            id="formtag"
+                            name="formtag"
+                            maxlength="50"
+                            placeholder="Tag mit ENTER bestätigen"
+                            required>
+                        <datalist id="tags">
+                            <option *ngFor="let tag of storage.tagList; index as i"
+                                    value="{{ tag }}">
+                        </datalist>
+                        <div>
+                            <span class="badge badge-pill badge-primary clickable mr-1"
+                                  *ngFor="let tag of tagList; index as i"
+                                  (click)="removeTag(i)">
+                                {{ tag }}
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- modal buttons -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" title="Formular erstellen"
+                        (click)="NewForm()">
+                    Erstellen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

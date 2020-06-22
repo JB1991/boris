@@ -1,6 +1,6 @@
 import {FlurstueckPipe} from './flurstueck-pipe.pipe';
 
-describe('FlurstueckPipe', () => {
+describe('BodenwertKalkulator.FlurstueckPipe', () => {
   it('create an instance', () => {
     const pipe = new FlurstueckPipe();
     expect(pipe).toBeTruthy();

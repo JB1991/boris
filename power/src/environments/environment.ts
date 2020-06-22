@@ -13,7 +13,7 @@ export const environment = {
   },
   ows: '/geoserver/boris/ows?',
   basemap : 'https://vector-tiles-lgln.s3.ap.cloud-object-storage.appdomain.cloud/basemap.json',
-  fragebogen_api: 'http://localhost:8080/'
+  formAPI: 'http://localhost:8080/'
 };
 
 /*

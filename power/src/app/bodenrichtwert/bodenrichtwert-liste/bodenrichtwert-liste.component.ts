@@ -34,7 +34,7 @@ import {BodenrichtwertService} from '../bodenrichtwert.service';
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 col-sm-12" *ngFor="let ft of filteredFeatures">
+      <div class="col" *ngFor="let ft of filteredFeatures">
         <power-bodenrichtwert-detail [feature]="ft"></power-bodenrichtwert-detail>
       </div>
     </div>
@@ -60,7 +60,7 @@ export class BodenrichtwertListeComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.filteredFeatures = this.features.features.filter(ft => ft.properties.stichtag === this.stichtag + 'Z');
+    this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z');
   }
 
   selectFeature(feature: Feature) {

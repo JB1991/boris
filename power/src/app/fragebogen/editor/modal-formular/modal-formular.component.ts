@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
-import { AlertsService } from '../../alerts/alerts.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
 
@@ -26,10 +26,10 @@ export class ModalFormularComponent implements OnInit {
   }
 
   /**
-   * Opens configure formular midal
+   * Opens configure formular modal
    */
   public Open() {
-    this.storage.SetAutoSaveEnabled(false);
+    this.storage.setAutoSaveEnabled(false);
     this.tabSelected = 0;
     this.backup = JSON.stringify(this.storage.model);
 
@@ -53,7 +53,7 @@ export class ModalFormularComponent implements OnInit {
       this.storage.model = JSON.parse(this.backup);
     }
 
-    this.storage.SetAutoSaveEnabled(true);
+    this.storage.setAutoSaveEnabled(true);
     this.modal.hide();
   }
 
@@ -69,11 +69,11 @@ export class ModalFormularComponent implements OnInit {
 
     // check if formular changed
     if (this.backup !== JSON.stringify(this.storage.model)) {
-      this.history.MakeHistory(JSON.parse(this.backup));
+      this.history.makeHistory(JSON.parse(this.backup));
       this.storage.model = JSON.parse(JSON.stringify(this.storage.model));
     }
 
-    this.storage.SetAutoSaveEnabled(true);
+    this.storage.setAutoSaveEnabled(true);
     this.modal.hide();
   }
 

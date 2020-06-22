@@ -28,20 +28,11 @@ export const FormularTemplate = {
         }
       ],
       title: 'Startseite',
-      description: 'Zum ausfüllen dieses online Formulares müssen sie zuerst einige Bedingungen akzeptieren.',
+      description: 'Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.',
       name: 'p1'
     }
   ],
-  calculatedValues: [
-    {
-      name: 'preis',
-      expression: '50000'
-    },
-    {
-      name: 'kaufjahr',
-      expression: '2019'
-    }
-  ],
+  calculatedValues: [],
   sendResultOnPageNext: true,
   showQuestionNumbers: 'onPage',
   showProgressBar: 'bottom',

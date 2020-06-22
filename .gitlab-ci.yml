@@ -88,16 +88,24 @@ test:audit:
     - merge_requests
     - master
 
-include:
-  # Refers to: https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/Code-Quality.gitlab-ci.yml
-  - template: Code-Quality.gitlab-ci.yml
+test:lint:
+  stage: test
+  image: node:13
+  allow_failure: true
+  script:
+    - cd power
+    - npm run lint
+  only:
+    - merge_requests
+    - master
 
-code_quality:
-  artifacts:
-    reports:
-      codequality: gl-code-quality-report.json
-    paths:
-      - gl-code-quality-report.json
+test:lint:styles:
+  stage: test
+  image: node:13
+  allow_failure: true
+  script:
+    - cd power
+    - npm run lint:styles
   only:
     - merge_requests
     - master
@@ -145,3 +153,18 @@ deploy:dev:
     - helm upgrade power ./chart/power -n dev --install --set=image.tag="$VERSION"
   only:
     - master
+
+deploy:staging:
+  stage: deploy
+  image: dtzar/helm-kubectl:3.1.2
+  dependencies: []
+  script:
+    - export VERSION=$(cat power/package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - helm upgrade power ./chart/power -n staging --install --set=image.tag="$VERSION"
+  only:
+    - master
+  when: manual

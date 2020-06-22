@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {BodenrichtwertDetailComponent} from './bodenrichtwert-detail.component';
 
-describe('BodenrichtwertDetailComponent', () => {
+describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
   let component: BodenrichtwertDetailComponent;
   let fixture: ComponentFixture<BodenrichtwertDetailComponent>;
 

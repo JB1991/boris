@@ -12,8 +12,9 @@ import {BodenrichtwertDetailComponent} from './bodenrichtwert-detail/bodenrichtw
 import {AngularResizedEventModule} from 'angular-resize-event';
 
 import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
-import {NgxEchartsModule} from 'ngx-echarts';
 
+import {NgxEchartsModule} from 'ngx-echarts';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [

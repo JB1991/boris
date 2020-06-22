@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {BodenrichtwertKarteComponent} from './bodenrichtwert-karte.component';
 
-describe('BodenrichtwertkarteComponent', () => {
+describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
   let component: BodenrichtwertKarteComponent;
   let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
   let httpClient: HttpClient;

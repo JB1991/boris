@@ -1,0 +1,62 @@
+{
+  "data": {
+    "id": "brf2hhsdev046mhfpio0",
+    "title": "Minimal",
+    "created": "2020-06-08T12:02:15.87744Z",
+    "updated": "2020-06-08T12:02:15.87744Z",
+    "content": {
+      "calculatedValues": [
+        {
+          "expression": "50000",
+          "name": "preis"
+        },
+        {
+          "expression": "2019",
+          "name": "kaufjahr"
+        }
+      ],
+      "checkErrorsMode": "onValueChanged",
+      "completedHtml": "Vielen Dank für das Abschließen von diesem Formular.",
+      "loadingHtml": "Das Formular wird geladen <div class='spinner-border' role='status'></div>",
+      "locale": "de",
+      "maxOthersLength": 100,
+      "maxTextLength": 1000,
+      "pages": [
+        {
+          "name": "p1",
+          "description": "Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.",
+          "elements": [
+            {
+              "name": "e2",
+              "type": "text",
+              "isRequired": true,
+              "title": "Titel der Frage",
+              "inputType": "text"
+            },
+            {
+              "name": "e1",
+              "type": "checkbox",
+              "description": "Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).",
+              "isRequired": true,
+              "requiredErrorText": "Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.",
+              "title": "Datenschutzerklärung",
+              "choices": [
+                {
+                  "text": "Ich habe diese gelesen und akzeptiert",
+                  "value": "1"
+                }
+              ],
+              "colCount": 1
+            }
+          ],
+          "title": "Startseite"
+        }
+      ],
+      "sendResultOnPageNext": true,
+      "showProgressBar": "bottom",
+      "showQuestionNumbers": "onPage",
+      "storeOthersAsComment": false,
+      "title": "Minimal"
+    }
+  }
+}

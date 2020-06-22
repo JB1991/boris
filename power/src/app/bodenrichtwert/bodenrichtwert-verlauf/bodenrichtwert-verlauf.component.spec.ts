@@ -4,7 +4,7 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 
 import {BodenrichtwertVerlaufComponent} from './bodenrichtwert-verlauf.component';
 
-describe('BodenrichtwertVerlaufComponent', () => {
+describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
   let component: BodenrichtwertVerlaufComponent;
   let fixture: ComponentFixture<BodenrichtwertVerlaufComponent>;
   let httpClient: HttpClient;

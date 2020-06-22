@@ -38,7 +38,7 @@ function load(httpClient: HttpClient, configService: ConfigService) {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -47,7 +47,7 @@ function load(httpClient: HttpClient, configService: ConfigService) {
     SharedModule,
     AppRoutingModule,
     ServiceWorkerModule.register('./ngsw-worker.js', {enabled: environment.production}),
-    RouterModule,
+    RouterModule
   ],
   providers: [
     {

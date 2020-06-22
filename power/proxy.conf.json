@@ -19,5 +19,13 @@
     "target": "http://localhost:8080/",
     "secure":false,
     "debugLevel": "info"
+  },
+  "/formapi/" : {
+    "target": "http://localhost:8090/",
+    "pathRewrite": {
+      "^/forms/": ""
+    },
+    "secure": false,
+    "debugLevel": "info"
   }
 }

@@ -3,7 +3,7 @@
     <a class="navbar-brand" href="#" style="color:#343a40">
       <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top">
       <strong class="d-none d-md-inline">
-        Portal für Wertermittlung
+        <span>Portal für Wertermittlung</span>
         <span style="color:#c4153a">.niedersachsen</span>
       </strong>
       <strong class="d-md-none">
@@ -17,28 +17,17 @@
     </button>
     <div class="collapse navbar-collapse" style="z-index: 2000" [ngbCollapse]="isCollapsed">
       <ul class="navbar-nav ml-auto">
-
-<!--        <li class="nav-item" *ngFor="let module of modules">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="" routerLinkActive="active">{{module}}</a>
-        </li>-->
-
         <li class="nav-item" *ngIf="config.modules.includes('bodenrichtwerte')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/bodenrichtwerte" routerLinkActive="active">Bodenrichtwerte</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('bodenwerte')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/bodenwertkalkulator" routerLinkActive="active">Bodenwert-Kalkulator</a>
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/bodenwertkalkulator" routerLinkActive="active">Bodenwerte</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('immobilien')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/immobilienpreisindex" routerLinkActive="active">Immobilien</a>
         </li>
-        <li class="nav-item" ngbDropdown *ngIf="config.modules.includes('fragebogen')">
-          <a class="nav-link" ngbDropdownToggle>Formulare</a>
-          <div ngbDropdownMenu>
-            <a ngbDropdownItem routerLink="/formulare" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Überblick</a>
-            <a ngbDropdownItem routerLink="/formulare/dashboard" routerLinkActive="active">Dashboard</a>
-            <a ngbDropdownItem routerLink="/formulare/editor" routerLinkActive="active">Editor</a>
-            <a ngbDropdownItem routerLink="/formulare/formular" routerLinkActive="active">Ausfüllen</a>
-          </div>
+        <li class="nav-item" *ngIf="config.modules.includes('fragebogen')">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/forms" routerLinkActive="active">Formulare</a>
         </li>
       </ul>
     </div>
@@ -61,3 +50,9 @@
     </footer>
   </div>
 </div>
+
+<!-- alerts component -->
+<power-alerts></power-alerts>
+
+<!-- loadingscreen component -->
+<power-loadingscreen></power-loadingscreen>

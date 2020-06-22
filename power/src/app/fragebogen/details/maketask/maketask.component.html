@@ -1,0 +1,45 @@
+<div bsModal #modalmaketask="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- modal head -->
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">PIN Generator</h4>
+
+                <!-- modal close button -->
+                <button type="button" class="close" title="Schließen" data-dismiss="modal" aria-label="Schließen" (click)="Close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- modal body -->
+            <div class="modal-body">
+                <!-- generate form -->
+                <form #taskForm="ngForm" onsubmit="return false;">
+                    <div class="form-group row">
+                        <label for="inputAmount" class="col-sm-4 col-form-label">Anzahl Codes</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control"
+                                    min="1" max="100"
+                                    id="inputAmount"
+                                    name="inputAmount"
+                                    [(ngModel)]="amount" disabled>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- results -->
+                <div class="scrolllist">
+                    <pre class="m-0" *ngFor="let pin of pinList; index as i"><code>{{ pin }}</code></pre>
+                </div>
+            </div>
+
+            <!-- modal buttons -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" title="Codes erstellen"
+                        (click)="Generate()">
+                    Codes erstellen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,26 @@
-resolver  127.0.0.11 valid=10s;  # recover from the backend's IP changing
+#resolver  127.0.0.11 valid=10s;  # recover from the backend's IP changing
 
 server {
   listen  80;
   gzip on;
+  server_tokens off;
+
+  # security headers
+  #proxy_cookie_path / "/; HTTPOnly; Secure";
+  #add_header Strict-Transport-Security "max-age=63072000; includeSubdomains;" always;
+  #add_header Content-Security-Policy "default-src 'none'; script-src 'self' 'unsafe-eval'; style-src 'unsafe-inline' 'self'; img-src 'self' https: data:; font-src 'self'; media-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self';" always;
+  add_header X-Frame-Options SAMEORIGIN always;
+  add_header X-XSS-Protection "1; mode=block" always;
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header Access-Control-Allow-Origin "*" always;
+  add_header Referrer-Policy "same-origin" always;
+  #add_header Expect-CT "max-age=86400, enforce" always;
+
+  # disable cache
+  add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+  if_modified_since off;
+  expires off;
+  etag off;
 
   location / {
     gzip on;
@@ -17,22 +35,18 @@ server {
 
   location /geocoding/suggestions/ {
     rewrite ^\/geocoding\/suggestions\/(.*) /gdz_geokodierung__${BKG_GEOCODING_SECRET}/suggest$1 break;
-    set $geodatenzentrum https://sg.geodatenzentrum.de/;
-    proxy_pass $geodatenzentrum;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass https://sg.geodatenzentrum.de/;
     return 404;
   }
 
   location /geocoding/geosearch/ {
     rewrite ^\/geocoding\/geosearch\/(.*) /gdz_ortssuche__${BKG_GEOCODING_SECRET}/geosearch.json$1 break;
-    set $geodatenzentrum https://sg.geodatenzentrum.de/;
-    proxy_pass $geodatenzentrum;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass https://sg.geodatenzentrum.de/;
     return 404;
-  }
-
-  location /geoserver/ {
-    set $geoserver ${GEOSERVER_URL};
-    proxy_pass $geoserver;
-    proxy_set_header HOST $http_host;
   }
 
 }

@@ -2,7 +2,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 
 import { PendingChangesGuard } from './pendingchanges.guard';
 
-describe('PendingchangesGuard', () => {
+describe('Fragebogen.PendingchangesGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [PendingChangesGuard]

@@ -1,6 +1,4 @@
 .mainpage {
-    margin: 10px;
-    padding: 10px;
     text-align: justify;
     outline: none;
 }
@@ -46,9 +44,9 @@
     margin-bottom: 20px;
 }
 
-/* progressbar: hide progress text */
-.sv_main .sv_container .sv_body div.sv_progress > span {
-    display: none;
+/* disable padding around questions */
+.sv_qstn {
+    padding: 0px !important;
 }
 
 /* matrix: remove word wrap */

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'power-formulars-home',
@@ -8,10 +9,18 @@ import { Title } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private titleService: Title) {
-    this.titleService.setTitle('LGLN - POWER.NI');
+  constructor(private titleService: Title, private router: Router) {
+    this.titleService.setTitle('Formulare - POWER.NI');
   }
 
   ngOnInit() {
+  }
+
+  /**
+   * Redirects to formular fillout dialogue
+   * @param pin Formular pin
+   */
+  submitPIN(pin: string) {
+    this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
   }
 }

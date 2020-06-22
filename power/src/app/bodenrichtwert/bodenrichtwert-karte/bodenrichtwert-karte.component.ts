@@ -1,10 +1,11 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 
-import {LngLat, Map, Marker} from 'mapbox-gl';
+import {LngLat, LngLatBounds, Map, Marker} from 'mapbox-gl';
 import {BodenrichtwertService} from '../bodenrichtwert.service';
 import {GeosearchService} from '../../shared/geosearch/geosearch.service';
 import {environment} from '@env/environment';
 import {STICHTAGE, TEILMAERKTE} from '@app/bodenrichtwert/bodenrichtwert.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'power-bodenrichtwertkarte',
@@ -25,9 +26,13 @@ export class BodenrichtwertKarteComponent implements OnInit {
     color: '#c4153a',
   });
 
+  zoom = 18;
+
   lat: number;
   lng: number;
 
+  x;
+  y;
 
   @Input() teilmarkt;
   @Output() teilmarktChange = new EventEmitter();
@@ -39,7 +44,28 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   STICHTAGE = STICHTAGE;
 
-  constructor(private bodenrichtwertService: BodenrichtwertService, private geosearchService: GeosearchService) {
+  f;
+
+  bounds = new LngLatBounds([
+    [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
+  ]);
+
+  constructor(
+    private bodenrichtwertService: BodenrichtwertService,
+    private geosearchService: GeosearchService
+    ) {
+      // this.route.fragment.subscribe(f => {
+      //   if (f) {
+      //     this.f = f;
+      //     this.zoom = Number.parseFloat(f.split('/')[0]);
+      //     this.x = Number.parseFloat(f.split('/')[1]);
+      //     this.y = Number.parseFloat(f.split('/')[2]);
+      //     if (this.map) {
+      //       this.map.setZoom(this.zoom);
+      //       this.map.setCenter([this.x, this.y]);
+      //     }
+      //   }
+      // });
   }
 
   ngOnInit() {
@@ -47,6 +73,14 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   loadMap(event: Map) {
     this.map = event;
+    if (this.zoom && this.x && this.y) {
+      this.map.setZoom(this.zoom);
+      this.map.setCenter([this.x, this.y]);
+    }
+    // this.map.on('moveend', ev => {
+    //   const locationHash = ev.target.getZoom() + '/' + ev.target.getCenter().lng + '/' + ev.target.getCenter().lat;
+    //   console.log(locationHash);
+    // });
     // TODO Map Loading Events sollen durch Interceptor laufen, um Animation in Kopfzeile zu zeigen
   }
 
