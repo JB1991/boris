@@ -1,13 +1,13 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {EChartOption} from 'echarts';
-import {BodenrichtwertService} from '../bodenrichtwert.service';
 import {Feature, FeatureCollection} from 'geojson';
-import {NutzungPipe} from "@app/bodenrichtwert/util/nutzung.pipe";
+import {NutzungPipe} from '@app/bodenrichtwert/util/nutzung.pipe';
 
 @Component({
   selector: 'power-bodenrichtwert-verlauf',
   templateUrl: './bodenrichtwert-verlauf.component.html',
-  styleUrls: ['./bodenrichtwert-verlauf.component.scss']
+  styleUrls: ['./bodenrichtwert-verlauf.component.scss'],
+  providers: [NutzungPipe]
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges {
 

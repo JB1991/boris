@@ -34,7 +34,7 @@ import { BeitragPipe } from './util/beitrag.pipe';
     AngularResizedEventModule,
     BodenrichtwertRoutingModule,
   ],
-  providers: [BodenrichtwertService, NutzungPipe]
+  providers: [BodenrichtwertService, NutzungPipe, BeitragPipe]
 })
 export class BodenrichtwertModule {
 }
