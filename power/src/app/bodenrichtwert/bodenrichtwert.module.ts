@@ -30,7 +30,6 @@ import {RouterModule} from '@angular/router';
     NgxEchartsModule,
     AngularResizedEventModule,
     BodenrichtwertRoutingModule,
-    RouterModule.forChild([]),
   ],
   providers: [BodenrichtwertService]
 })
