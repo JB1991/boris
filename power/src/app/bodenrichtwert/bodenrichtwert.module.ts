@@ -14,6 +14,7 @@ import {AngularResizedEventModule} from 'angular-resize-event';
 import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
 
 import {NgxEchartsModule} from 'ngx-echarts';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {NgxEchartsModule} from 'ngx-echarts';
     NgxEchartsModule,
     AngularResizedEventModule,
     BodenrichtwertRoutingModule,
+    RouterModule.forRoot([]),
   ],
   providers: [BodenrichtwertService]
 })
