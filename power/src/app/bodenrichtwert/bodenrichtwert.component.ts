@@ -34,7 +34,7 @@ export const TEILMAERKTE = [
             <ng-template ngbPanelHeader>
               <div>
                 <div *ngIf="!adresse" class="text-center">
-                  <h5 class="m-0 mx-center">Wählen Sie eine Position auf der Karte</h5>
+                  <h5 class="m-0 mx-center">Wählen Sie eine Position</h5>
                 </div>
                 <div *ngIf="adresse" class="text-center">
                   <h5 class="m-0 mx-center">{{adresse.properties.text}}
@@ -52,7 +52,7 @@ export const TEILMAERKTE = [
           </ngb-panel>
         </ngb-accordion>
 
-      <div class="height-minus-header row m-1" *ngIf="features">
+      <div class="row m-1 pt-3" [class.d-none]="!features">
         <a class="anchor" #verlauf></a>
         <power-bodenrichtwert-verlauf class="col-md-12" [features]="features"></power-bodenrichtwert-verlauf>
       </div>
@@ -61,12 +61,9 @@ export const TEILMAERKTE = [
 
   `,
   styles: [`
+
     power-bodenrichtwertkarte {
       flex-grow: 1;
-    }
-
-    .height-minus-header {
-      min-height: calc(100vh - 56px);
     }
 
     .height-minus-header-map {
@@ -131,6 +128,21 @@ export const TEILMAERKTE = [
     ngb-accordion /deep/ .card /deep/ .card-header {
       background-color: white !important;
     }
+
+    /*@media only screen*/
+    /*    and (device-width : 375px)*/
+    /*    and (device-height : 812px)*/
+    /*    and (-webkit-device-pixel-ratio : 3)*/
+    /*{*/
+    /*  .height-minus-header-map {*/
+    /*    height: calc(100vh - 206px);*/
+    /*    -moz-transition: height .6s ease;*/
+    /*    -webkit-transition: height .6s ease;*/
+    /*    -o-transition: height .6s ease;*/
+    /*    transition: height .6s ease;*/
+    /*  }*/
+    /*}*/
+
   `]
 })
 export class BodenrichtwertComponent implements OnDestroy {
@@ -143,6 +155,8 @@ export class BodenrichtwertComponent implements OnDestroy {
 
   stichtag;
   teilmarkt;
+
+  locationHash;
 
   @ViewChild('acc', {static: true}) acc: NgbAccordion;
 
@@ -157,6 +171,7 @@ export class BodenrichtwertComponent implements OnDestroy {
       });
       this.stichtag = STICHTAGE[0];
       this.teilmarkt = TEILMAERKTE[0];
+
   }
 
   ngOnDestroy(): void {

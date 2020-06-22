@@ -81,13 +81,11 @@
 
 
   <mgl-map
-    [maxZoom]="18"
     (click)="onMapClickEvent($event)"
     [style]="MAP_STYLE_URL"
     [trackResize]="'true'"
-    [bounds]="[[6.19523325024787,51.2028429493903],[11.7470832174838,54.1183357191213]]"
+    [bounds]="bounds"
     (load)="loadMap($event)">
-
     <mgl-geojson-source
       id="ndsgeojson"
       [data]="baseUrl+'/assets/niedersachsen.geojson'"
