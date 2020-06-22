@@ -2,8 +2,8 @@
     <div class="row mh-100" [ngClass]="{'rowrtl': layoutRtl == true}">
         <div class="col-sm-8">
             <div echarts [options]="options" [loading]="!mapLoaded" (chartInit)="onChartInit($event)" (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
-            <div echarts [options]="chartOption" (chartInit)="onChartChartInit($event)" (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)" class="demo-chart chart-graph"></div>
-            <div style="text-align:center;">HINWEIS: Das Basisjahr der Indexreihenberechung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </div>
+        <div echarts [options]="chartOption" (chartInit)="onChartChartInit($event)" (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)" (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>
+        <div style="text-align:center;" [ngStyle]="{'font-size': fontSizePage+'rem'}">HINWEIS: Das Basisjahr der Indexreihenberechung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </div>
         </div>
         <div class="col-sm-4">
             <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)" #acc="ngbAccordion">
@@ -11,7 +11,7 @@
 
                 <ngb-panel *ngFor="let select of selection; let p = index" id="static-{{p}}">
                     <ng-template ngbPanelTitle>
-                        <i class="fa" [ngClass]="{'fa-plus-circle': accordionComponent.isExpanded('static-p') == false, 'fa-minus-circle': accordionComponent.isExpanded('static-p') == true}" aria-hidden="true"></i>
+                    <i class="fa" [ngClass]="{'fa-plus-circle': staticExpand(p) == false, 'fa-minus-circle': staticExpand(p) == true}" aria-hidden="true"></i>
                         {{select['name']}}
                     </ng-template>
                     <ng-template ngbPanelContent>
@@ -115,7 +115,7 @@
                         Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
                     </ng-template>
                     <ng-template ngbPanelContent>
-                        <label for="typeahead-focus">Suche deine Gemeinde:</label>
+                    <label for="typeahead-focus">Suchen Sie Ihre Gemeinde:</label>
                         <input
                                id="typeahead-focus"
                                type="text"
@@ -127,7 +127,7 @@
                                #instance="ngbTypeahead"
                                />
                         <hr>
-                        <pre>Deine Wohnungsmarkregion: {{ regionName(gemeinden[model]) | json }}</pre>
+                    Ihre Wohnungsmarkregion: {{ regionName(gemeinden[model]) | json }}
 
                     </ng-template>
                 </ngb-panel>

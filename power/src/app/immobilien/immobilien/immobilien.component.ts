@@ -16,6 +16,7 @@ import {
     getDate,
     getGeometryArray,
     getMyMapRegionen,
+    convertRemToPixels,
     getNiPixTimeslot,
     getSingleFeature,
     modifyRegionen
@@ -51,6 +52,17 @@ export class ImmobilienComponent implements OnInit {
 
     // Layout RTL
     layoutRtl = false;
+
+    //FontSize
+    fontSizePage = 1;
+    fontSizeBase = 0.8;
+    fontSizeCopy = 0.7;
+    fontSizeAxisLabel = 0.8;
+    fontSizeMap = 0.8;
+
+    // Export
+    exportChart = false;
+    chartExportWidth = 1800;
 
     // Config URl
     configUrl = 'assets/data/cfg.json';
@@ -129,6 +141,8 @@ export class ImmobilienComponent implements OnInit {
     // Date array
     date = [];
 
+    legendText = {};
+
     // Nipix data
     nipix = {};
 
@@ -151,7 +165,7 @@ export class ImmobilienComponent implements OnInit {
     chart_range = {
         id: 'a',
         type: 'line',
-        z: 0,
+        z: -1,
         xAxisIndex: 1,
         yAxisIndex: 1,
         silent: true,
@@ -171,14 +185,22 @@ export class ImmobilienComponent implements OnInit {
      * Configuration Option for the Chart
      */
     chartOption: echarts.EChartOption = {
+        'textStyle': {
+            'fontSize': convertRemToPixels(this.fontSizeBase)
+        },
         'title': <any>{
             'text': 'Niedersächsischer Immobilienpreisindex (NIPIX)',
             'left': 'center',
-            'top': 10
+            'top': 10,
+            'show': false,
+            'textStyle': {
+                fontSize: convertRemToPixels(this.fontSizePage)
+            }
         },
         grid: [
             {
-                top: 130,
+                id: 'main',
+                top: 56 + convertRemToPixels(this.fontSizePage) * 1.5,
                 left: '60',
                 right: '90',
                 bottom: 75,
@@ -187,6 +209,7 @@ export class ImmobilienComponent implements OnInit {
                 'show': true
             },
             {
+                id: 'bottom',
                 left: '60',
                 right: '90',
                 height: '30',
@@ -203,6 +226,7 @@ export class ImmobilienComponent implements OnInit {
                 style: {
                     fill: '#333',
                     textAlign: 'right',
+                    fontSize: convertRemToPixels(this.fontSizeCopy),
                     text: '© Oberer Gutachterausschusses für Grundstückswerte in Niedersachsen, '+getDate()
                 }
             }
@@ -214,7 +238,10 @@ export class ImmobilienComponent implements OnInit {
                 data: this.date,
                 axisLine: {onZero: false},
                 splitLine: {show: false},
-                axisLabel: {show: true},
+                axisLabel: {
+                    show: true,
+                    fontSize: convertRemToPixels(this.fontSizeAxisLabel)
+                },
                 name: 'Zeit'
             },
             {
@@ -237,7 +264,10 @@ export class ImmobilienComponent implements OnInit {
                 type: 'value',
                 boundaryGap: ['10%', '20%'],
                 scale: true,
-                axisLabel: {show: true},
+                axisLabel: {
+                    show: true,
+                    fontSize: convertRemToPixels(this.fontSizeAxisLabel)
+                },
                 name: 'Preisentwicklung',
                 nameLocation: 'middle',
                 nameRotate: 90,
@@ -551,6 +581,9 @@ export class ImmobilienComponent implements OnInit {
     exportAsImage() {
 
         const mergeHide = {
+            title: {
+                show: true,
+            },
             toolbox: {
                 show: false
             },
@@ -558,6 +591,22 @@ export class ImmobilienComponent implements OnInit {
                 <any>{
                     type: 'slider',
                     show: false
+                }
+            ],
+            grid: [
+                {
+                    id: 'main',
+                    right: 600
+                }
+            ],
+            graphic: [
+                {
+                    id: 'copyright',
+                    right: 600
+                },
+                {
+                    id: 'legend',
+                    ignore: false
                 }
             ],
             xAxis: [
@@ -586,7 +635,20 @@ export class ImmobilienComponent implements OnInit {
             ]
         };
 
+        this.exportChart = true;
+        this.chart.resize({width: this.chartExportWidth});
+        this.chart.setOption(mergeHide);
+
+    }
+
+    exportAsImageFinish() {
+
+        this.exportChart = false;
+
         const mergeShow = {
+            title: {
+                show: false
+            },
             toolbox: {
                 show: true
             },
@@ -594,6 +656,22 @@ export class ImmobilienComponent implements OnInit {
                 <any>{
                     type: 'slider',
                     show: true
+                }
+            ],
+            grid: [
+                {
+                    id: 'main',
+                    right: 90
+                }
+            ],
+            graphic: [
+                {
+                    id: 'copyright',
+                    right: 90
+                },
+                {
+                    id: 'legend',
+                    ignore: true
                 }
             ],
             xAxis: [
@@ -623,14 +701,13 @@ export class ImmobilienComponent implements OnInit {
         };
 
 
-        this.chart.setOption(mergeHide);
-
         let img = this.chart.getDataURL({
             type: 'png',
             pixelRatio: 2,
             backgroundColor: '#fff'
         });
 
+        this.chart.resize({width: 'auto'});
         this.chart.setOption(mergeShow);
 
         downloadFile(img, "nipix.png", "", true);
@@ -784,16 +861,17 @@ export class ImmobilienComponent implements OnInit {
 
         if (params.dataIndex == this.rangeEndIndex) {
 
-            if (params.seriesIndex == 0) {
+            if (this.legendposition.length >= params.seriesIndex) {
                 this.legendposition = [];
             }
 
             let printlegend = true;
             const pixel = Math.round(this.chart.convertToPixel({'yAxisIndex': 0}, params.data));
+            const clearance = Math.round((convertRemToPixels(this.fontSizePage)-2)/2);
 
             for (let i = 0; i < this.legendposition.length; i++) {
                 // Default fontSize: 18px
-                if ((pixel > this.legendposition[i] - 10) && (pixel < this.legendposition[i] + 10)) {
+                if ((pixel > this.legendposition[i]-clearance) && (pixel < this.legendposition[i]+clearance)) {
                     printlegend = false;
                 }
             }
@@ -979,18 +1057,22 @@ export class ImmobilienComponent implements OnInit {
             'title': {
                 'text': 'Wohnungsmarktregionen in Niedersachsen',
                 'left': 'center',
-                'top': 10
+                'top': 10,
+                'textStyle': {
+                    fontSize: convertRemToPixels(this.fontSizePage)
+                }
             },
             graphic: [
                 {
                     type: 'text',
                     id: 'copyright',
-                    right: 90,
-                    bottom: 40,
+                    left: 90,
+                    bottom: convertRemToPixels(this.fontSizeCopy)*2.5,
                     z: 100,
                     style: {
                         fill: '#333',
-                        textAlign: 'right',
+                        textAlign: 'left',
+                        fontSize: convertRemToPixels(this.fontSizeCopy),
                         text: '© Oberer Gutachterausschusses für\nGrundstückswerte in Niedersachsen, ' + getDate()
                     }
                 }
@@ -1006,7 +1088,10 @@ export class ImmobilienComponent implements OnInit {
                     } else {
                         return params.name;
                     }
-                }.bind(this)
+                }.bind(this),
+                "textStyle": {
+                    "fontSize": convertRemToPixels(this.fontSizeMap)
+                }
             },
             'toolbox': {
                 'show': true,
@@ -1063,6 +1148,7 @@ export class ImmobilienComponent implements OnInit {
                     'zlevel': 2,
 
                     'label': {
+                        'fontSize': convertRemToPixels(this.fontSizeMap),
                         'normal': {
                             'show': true,
                             'position': 'right',
@@ -1250,6 +1336,15 @@ export class ImmobilienComponent implements OnInit {
         this.updateChart();
     }
 
+    /**
+     * Finish Randering
+     */
+    onChartFinished(ec) {
+        if (this.exportChart) {
+            this.exportAsImageFinish();
+        }
+    }
+
 
     /**
      * Change between NiPix Category (Eigenheime, Wohnungen)
@@ -1299,6 +1394,38 @@ export class ImmobilienComponent implements OnInit {
     }
 
 
+    generateTextElement(name, color='#000', position=0, posX=undefined) {
+        return  {
+            type: 'text',
+            top: position*1.5*convertRemToPixels(this.fontSizeBase),
+            left: posX,
+            style: {
+                fill: convertColor(color),
+                textAlign: 'left',
+                fontSize: convertRemToPixels(this.fontSizeBase),
+                text: name
+            }
+        };
+    }
+
+    generateDotElement(radius=4, color='#fff', position=0, posX=0, bordercolor='#000', border=0) {
+        return {
+            type: 'circle',
+                cursor: 'normal',
+                shape: {
+                    cx: -2*radius + posX*radius*4,
+                        cy: position*1.5*convertRemToPixels(this.fontSizeBase)+convertRemToPixels(this.fontSizeBase)/2,
+                        r: radius
+                },
+                style: {
+                    fill: convertColor(color),
+                    stroke: convertColor(bordercolor),
+                    lineWidth: border 
+                }
+        };
+
+    }
+
     /**
      * Update Chart
      */
@@ -1306,6 +1433,8 @@ export class ImmobilienComponent implements OnInit {
 
         let range_start = this.chart_range['data'][2][0]; // Math.trunc(100 * this.date.indexOf(this.referenceDate.replace("_","/"))/this.date.length);
         let range_end = this.chart_range['data'][3][0]; // 100;
+        //Additional subtitle
+        let subAdd = "";
 
         if (this.rangeStartIndex == 0) {
             this.rangeStartIndex = Math.round((this.date.length - 1) / 100 * range_start);
@@ -1316,7 +1445,7 @@ export class ImmobilienComponent implements OnInit {
             this.rangeEndIndex = Math.round((this.date.length - 1) / 100 * range_end);
         }
 
-        const range_text = "Zeitraum von " + this.date[this.rangeStartIndex] + " bis " + this.date[this.rangeEndIndex];
+        const range_text = 'Zeitraum von ' + this.date[this.rangeStartIndex] + ' bis ' + this.date[this.rangeEndIndex];
 
         if (start !== null) {
             range_start = start;
@@ -1351,92 +1480,89 @@ export class ImmobilienComponent implements OnInit {
         const legend = [];
         const empty = [];
         for (let i = 0; i < chartOptionMerge.series.length; i++) {
-            legend.push(chartOptionMerge.series[i]['name']);
-            if (chartOptionMerge.series[i]['data'].length == 0) {
-                empty.push(chartOptionMerge.series[i]['name']);
-            }
+            if (chartOptionMerge.series[i]['data'].length == 0)
+                legend.push(chartOptionMerge.series[i]['name']+' (ohne Daten)');
+            else
+                legend.push(chartOptionMerge.series[i]['name']);
         }
 
         chartOptionMerge.series.push(this.chart_range);
 
         let infotext = '';
+        let infoLegend = [];
+
+        let infoLegendPosition = 0;
 
         if (this.selection[this.activeSelection] !== undefined && this.selection[this.activeSelection] !== null) {
-            if ((this.selection[this.activeSelection]['type'] == 'single') || (this.selection[this.activeSelection]['type'] == 'multiIndex')) {
+            if ((this.selection[this.activeSelection]['type'] == 'single')) {
 
-                const ccat = this.getDraw(this.selection[this.activeSelection]['preset'][0]);
-                infotext = ccat['nipixCategory'] + '\n';
-                if (legend.length < 4) {
-                    const infoseries = [];
-                    for (let i = 0; i < legend.length; i++) {
-                        if (this.myRegionen.hasOwnProperty(legend[i])) {
-                            infoseries.push(this.myRegionen[legend[i]]['name']);
-                        } else {
-                            infoseries.push(legend[i]);
-                        }
+                let ccat = this.getDraw(this.selection[this.activeSelection]['preset'][0]);
+                subAdd = ' ('+ccat['nipixCategory']+')';
+                let infoseries = [];
+
+                console.log('single', this.getDraw(this.selection[this.activeSelection]['preset']));
+                for (let i = 0; i < chartOptionMerge.series.length; i++) {
+                    let addText = '';
+                    const element = this.myRegionen[chartOptionMerge.series[i]['name']];
+
+                    if (chartOptionMerge.series[i]['data'].length == 0)
+                        addText = '[ohne Daten] ';
+
+
+                    if (this.myRegionen.hasOwnProperty(chartOptionMerge.series[i]['name'])) {
+                        infoLegend.push(this.generateTextElement(addText+element['name']+' ('+element['short']+')','#000', infoLegendPosition));
+                        infoLegend.push(this.generateDotElement(4, element['color'], infoLegendPosition));
+                        infoLegendPosition++;
                     }
-                    infotext += infoseries.join(', ');
                 }
-            } else if ((this.selection[this.activeSelection]['type'] == 'multi')) {
+			} else if ((this.selection[this.activeSelection]['type'] == 'multi') || (this.selection[this.activeSelection]['type'] == 'multiIndex')) {
                 const ccat = this.selection[this.activeSelection]['preset'];
                 for (let i = 0; i < ccat.length; i++) {
-                    infotext += this.shortNames[ccat[i]] + ': ' + ccat[i] + '\n';
+                    infoLegend.push(this.generateTextElement(ccat[i]+' ('+this.shortNames[ccat[i]]+')','#000', infoLegendPosition));
+                    infoLegend.push(this.generateDotElement(4, this.getDraw(ccat[i]).colors, infoLegendPosition));
+                    infoLegendPosition++;
+
                 }
             } else if ((this.selection[this.activeSelection]['type'] == 'multiSelect')) {
                 const ccat = this.selection[this.activeSelection]['preset'];
-                for (let i = 0; i < ccat.length; i++) {
-                    const citem = this.getDraw(ccat[i]);
-                    if (citem['show'] == true) {
-                        const items = [];
-
-                        for (let v = 0; v < citem['values'].length; v++) {
-                            items.push(this.myRegionen[citem['values'][v]]['short']);
-                        }
-
-                        infotext += ccat[i] + ': ' + items.join(' ') + '\n';
+                for (let i = 0; i < this.allItems.length; i++) {
+                    for (let d = 0; d < ccat.length; d++) {
+                        const citem = this.getDraw(ccat[d]);
+                        if (citem['show'] == true)
+                            if (citem['values'].includes(this.allItems[i]))
+                                infoLegend.push(this.generateDotElement(4, citem['colors'], infoLegendPosition, d));
                     }
+                    infoLegend.push(this.generateTextElement(this.getSeriesLabel(this.allItems[i]),'#000', infoLegendPosition,4*4*4));
+
+                    infoLegendPosition++;
                 }
 
             }
         }
 
-        if (empty.length > 0) {
-            const emptyseries = [];
-            for (let i = 0; i < empty.length; i++) {
-                if (this.myRegionen.hasOwnProperty(empty[i])) {
-                    emptyseries.push(this.myRegionen[empty[i]]['name'] + ' (' + this.myRegionen[empty[i]]['short'] + ')');
-                } else {
-                    emptyseries.push(empty[i]);
-                }
-            }
-            infotext += 'ohne Daten: ' + emptyseries.join(', ');
-        }
 
         chartOptionMerge['graphic'] = [
             this.chartOption['graphic'][0],
             {
-                type: 'text',
-                id: 'info',
-                left: 65,
+                type: 'group',
+                id: 'legend',
+                left: this.chartExportWidth-600+65,
+                ignore: true,
                 top: 65,
                 z: 100,
-                style: {
-                    fill: '#333',
-                    textAlign: 'left',
-                    text: infotext
-                }
+                children:[].concat(infoLegend)
             },
             {
                 type: 'text',
                 id: 'zeitraum',
-                scale: [1.3,1.3],
                 left: 'center',
                 //rifht: 0,
-                top: 108,
+                top: 65,
                 z: 101,
                 style: {
                     fill: '#333',
                     textAlign: 'center',
+                    fontSize: convertRemToPixels(this.fontSizePage),
                     text: range_text
                 }
             }
@@ -1448,10 +1574,12 @@ export class ImmobilienComponent implements OnInit {
             'z': -1,
             'data': legend,
             'formatter': function (name) {
-                if (this.shortNames.hasOwnProperty(name)) {
+                if (this.legendText.hasOwnProperty(name)) {
+                    return this.legendText[name];
+                } else if (this.shortNames.hasOwnProperty(name)) {
                     return this.shortNames[name];
                 } else if (this.myRegionen.hasOwnProperty(name)) {
-                    return this.myRegionen[name]['short'];
+                    return this.myRegionen[name]['name'];
                 } else {
                     return name;
                 }
@@ -1460,9 +1588,10 @@ export class ImmobilienComponent implements OnInit {
 
         chartOptionMerge['title'] = {
             'text': 'Niedersächsischer Immobilienpreisindex (NIPIX)',
-            'subtext': this.chartTitle,
+            'subtext': this.chartTitle+subAdd,
             'left': 'center',
-            'top': 10
+            'top': 10,
+            'show': false
         };
         // Set Options to chart
         if (this.chart != null) {
@@ -1756,6 +1885,15 @@ export class ImmobilienComponent implements OnInit {
         clearTimeout(this.highlightedTimeout);
         this.highlightedSeries = '';
         this.updateMapSelect();
+    }
+
+    /**
+     * Check Static Expand
+     *
+     * @param id id of the tab
+     */
+    staticExpand(id) {
+        return this.accordionComponent.isExpanded('static-'+id);
     }
 }
 
