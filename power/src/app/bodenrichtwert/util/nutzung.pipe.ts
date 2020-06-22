@@ -87,7 +87,7 @@ export class NutzungPipe implements PipeTransform {
   };
 
 
-  transform(value: [], args: any[]): string {
+  transform(value: any[], ...args: any[]): any {
 
     let res = '';
 
