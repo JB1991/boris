@@ -1,57 +1,62 @@
-::ng-deep  body {
-    overflow-x: hidden;
+::ng-deep body {
+  overflow-x: hidden;
 }
 
 .demo-chart {
-	height: 400px;
+  height: 400px;
 }
 
 .chart-graph {
-	height: 470px;
-	margin-top: -80px;
+  height: 470px;
+  margin-top: -80px;
 }
 
 .chart-map {
-	z-index:99;
-	background-image: linear-gradient( to top, rgba(0,0,0,0), rgba(0,0,0,0) 45px, #fff 45px);
+  z-index: 99;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 45px, #fff 45px);
 }
 
 ul {
-	list-style: none;
+  list-style: none;
 }
 
 ::ng-deep .accordion .card {
-	overflow: visible !important;
+  overflow: visible !important;
 }
 
 ::ng-deep .btn-link {
-	color: #343a40 !important;
-	text-align: left;
+  color: #343a40 !important;
+  text-align: left;
 }
 
 .check {
-	width:1.5rem;
-	display: inline-block;
-	margin-right:0.5rem;
-	padding-left:0.3rem;
+  width: 1.5rem;
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding-left: 0.3rem;
 }
 
 .row * {
-	direction: ltr;
+  direction: ltr;
 }
 
 .rowrtl {
-	direction: rtl;
+  direction: rtl;
 }
 input[type=checkbox] { display:none; } /* to hide the checkbox itself */
 input[type=checkbox] + label:before {
-	font-family: FontAwesome;
-	display: inline-block;
+  font-family: FontAwesome;
+  display: inline-block;
 }
 
-input[type=checkbox] + label:before { content: "\f096"; } /* unchecked icon */
-input[type=checkbox] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+input[type=checkbox] + label:before { 
+  content: "\f096"; /* unchecked icon */
+  letter-spacing: 10px; /* space between checkbox and label */
+}
 
-input[type=checkbox]:checked + label:before { content: "\f046"; } /* checked icon */
-input[type=checkbox]:checked + label:before { letter-spacing: 6.5px; } /* allow space for check mark */
+input[type=checkbox]:checked + label:before {
+  content: "\f046"; /* checked icon */
+  letter-spacing: 6.5px; /* allow space for check mark */
+}
 
+/* vim: set expandtab ts=2 sw=2 sts=2: */
