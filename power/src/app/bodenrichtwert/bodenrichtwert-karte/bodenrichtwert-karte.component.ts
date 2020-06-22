@@ -52,22 +52,20 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   constructor(
     private bodenrichtwertService: BodenrichtwertService,
-    private geosearchService: GeosearchService,
-    private route: ActivatedRoute,
-    private router: Router
+    private geosearchService: GeosearchService
     ) {
-      this.route.fragment.subscribe(f => {
-        if (f) {
-          this.f = f;
-          this.zoom = Number.parseFloat(f.split('/')[0]);
-          this.x = Number.parseFloat(f.split('/')[1]);
-          this.y = Number.parseFloat(f.split('/')[2]);
-          if (this.map) {
-            this.map.setZoom(this.zoom);
-            this.map.setCenter([this.x, this.y]);
-          }
-        }
-      });
+      // this.route.fragment.subscribe(f => {
+      //   if (f) {
+      //     this.f = f;
+      //     this.zoom = Number.parseFloat(f.split('/')[0]);
+      //     this.x = Number.parseFloat(f.split('/')[1]);
+      //     this.y = Number.parseFloat(f.split('/')[2]);
+      //     if (this.map) {
+      //       this.map.setZoom(this.zoom);
+      //       this.map.setCenter([this.x, this.y]);
+      //     }
+      //   }
+      // });
   }
 
   ngOnInit() {
@@ -79,10 +77,10 @@ export class BodenrichtwertKarteComponent implements OnInit {
       this.map.setZoom(this.zoom);
       this.map.setCenter([this.x, this.y]);
     }
-    this.map.on('moveend', ev => {
-      const locationHash = ev.target.getZoom() + '/' + ev.target.getCenter().lng + '/' + ev.target.getCenter().lat;
-      console.log(locationHash);
-    });
+    // this.map.on('moveend', ev => {
+    //   const locationHash = ev.target.getZoom() + '/' + ev.target.getCenter().lng + '/' + ev.target.getCenter().lat;
+    //   console.log(locationHash);
+    // });
     // TODO Map Loading Events sollen durch Interceptor laufen, um Animation in Kopfzeile zu zeigen
   }
 
