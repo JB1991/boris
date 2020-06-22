@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {EChartOption} from 'echarts';
 import {BodenrichtwertService} from '../bodenrichtwert.service';
 import {Feature, FeatureCollection} from 'geojson';
+import {NutzungPipe} from "@app/bodenrichtwert/util/nutzung.pipe";
 
 @Component({
   selector: 'power-bodenrichtwert-verlauf',
@@ -28,9 +29,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     xAxis: {
       type: 'category',
       data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+      nameLocation: 'start'
     },
     yAxis: {
-      type: 'value'
+      type: 'value',
+      axisLabel: {
+        formatter: '{value} €/m²'
+      }
     },
     series: []
   };
@@ -41,7 +46,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
   echartsInstance;
 
-  constructor() {
+  constructor(
+    private nutzungPipe: NutzungPipe
+  ) {
 
   }
 
@@ -76,7 +83,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         const tmp = features.find(f => f.properties.stag.includes(x[i].stag));
         if (tmp) {
           x[i].brw = tmp.properties.brw;
-          x[i].nutzung = tmp.properties.nutzung;
+          x[i].nutzung = this.nutzungPipe.transform(tmp.properties.nutzung, null);
         }
       }
       this.chartOption.legend.data.push(x[0].nutzung);
