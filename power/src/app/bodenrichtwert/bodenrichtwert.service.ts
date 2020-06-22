@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, Subject, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {Feature, FeatureCollection} from 'geojson';
 import {environment} from '../../environments/environment';
 
@@ -132,7 +132,20 @@ export class BodenrichtwertService {
       '</wfs:GetFeature>';
 
 
-    return this.http.post<FeatureCollection>(this.url, filter).pipe(catchError(this.handleError));
+    return this.http.post<FeatureCollection>(this.url, filter)
+      .pipe(
+        map( response => {
+
+            const ft = response.features.map(f => {
+              f.properties.nutzung = JSON.parse(f.properties.nutzung);
+              f.properties.umrechnungstabellendatei = JSON.parse(f.properties.umrechnungstabellendatei);
+              f.properties.umrechnungstabellenwerte = JSON.parse(f.properties.umrechnungstabellenwerte);
+              return f;
+            });
+            response.features = ft;
+            return response;
+        }),
+        catchError(this.handleError));
 
   }
 
@@ -155,11 +168,15 @@ export class BodenrichtwertService {
       '  service="WFS" version="1.1.0">\n' +
       '</wfs:GetCapabilities>';
     const options = {responseType: 'text' as 'json'};
-    return this.http.post(this.url, body, options).pipe(catchError(this.handleError));
+    return this.http.post(this.url, body, options)
+      .pipe( catchError(this.handleError));
   }
 
   // TODO Return available stichtage from WFS
   getStichtage() {
 
   }
+
+
+
 }

@@ -14,6 +14,7 @@ import {AngularResizedEventModule} from 'angular-resize-event';
 import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
 
 import {NgxEchartsModule} from 'ngx-echarts';
+import { NutzungPipe } from './util/nutzung.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {NgxEchartsModule} from 'ngx-echarts';
     BodenrichtwertDetailComponent,
     BodenrichtwertVerlaufComponent,
     BodenrichtwertListeComponent,
+    NutzungPipe
   ],
   imports: [
     SharedModule,
@@ -30,7 +32,7 @@ import {NgxEchartsModule} from 'ngx-echarts';
     AngularResizedEventModule,
     BodenrichtwertRoutingModule,
   ],
-  providers: [BodenrichtwertService]
+  providers: [BodenrichtwertService, NutzungPipe]
 })
 export class BodenrichtwertModule {
 }
