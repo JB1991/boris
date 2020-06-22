@@ -12,16 +12,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
   state: any;
 
-
   chartOption: EChartOption = {
-    title: {
-      text: 'Step Line'
-    },
     tooltip: {
       trigger: 'axis'
     },
     legend: {
-      data: ['Step Start', 'Step Middle', 'Step End']
+      data: []
     },
     grid: {
       left: '3%',
@@ -43,34 +39,27 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
   @Input() features: FeatureCollection;
 
-  lat: any;
-  lng: any;
+  echartsInstance;
 
-  echartsIntance;
-
-  constructor(private bodenrichtwertService: BodenrichtwertService) {
+  constructor() {
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.features) {
-      this.load();
+      this.generate(this.features.features);
     }
   }
 
-  load() {
+  generate(features) {
     // Gruppieren nach WNUM
-    const grouped = this.groupBy(this.features.features, item => item.properties.wnum);
-
-    const result: Map<string, []> = new Map<string, []>();
-    for (const key of grouped.keys()) {
-      result.set(key, []);
-    }
+    const grouped_by_wnum = this.groupBy(features, item => item.properties.wnum);
 
     this.chartOption.series = [];
-    this.chartOption.legend = {data: []};
 
-    for (const [key, value] of grouped.entries()) {
+    for (const [key, value] of grouped_by_wnum.entries()) {
+
+      features = Array.from(value);
 
       const x = [
         {stag: '2012', brw: 0, nutzung: ''},
@@ -83,50 +72,23 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         {stag: '2019', brw: 0, nutzung: ''},
       ];
 
-      const t = value
-        // Stichtage < 2011 löschen
-        .filter(brw => {
-          return new Date(brw.properties.stag) > new Date('2011-12-31');
-        })
-        // Ausschließlich STAG und BRW zurückgeben
-        .map(brw => {
-          return {stag: brw.properties.stag.substring(0, 4), brw: brw.properties.brw, nutzung: brw.properties.ergaenzung};
-        });
-
-      const hash = Object.create(null);
-      x.forEach(obj => hash[obj.stag] = obj);
-      t.forEach(obj => Object.assign(hash[obj.stag], obj));
-
-        // Sortieren nach Stichtagen
-        x.sort((a, b) => {
-          const dateA = new Date(a.stag).getTime();
-          const dateB = new Date(b.stag).getTime();
-          if (dateA < dateB) {
-            return -1;
-          } else if (dateA > dateB) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-
-      console.log(x);
-
-      // TODO Aktuelles Jahr zusätzlich anzeigen mit letztem STAG
-
-      this.chartOption.legend.data.push(key);
-
-      this.chartOption.series.push({
-          name: key,
-          type: 'line',
-          step: 'end',
-          data: x.map(brw => brw.brw)
+      for (let i = 0; i < x.length; i++) {
+        const tmp = features.find(f => f.properties.stag.includes(x[i].stag));
+        if (tmp) {
+          x[i].brw = tmp.properties.brw;
+          x[i].nutzung = tmp.properties.nutzung;
         }
-      );
-
+      }
+      this.chartOption.legend.data.push(x[0].nutzung);
+      this.chartOption.series.push({
+              name: x[0].nutzung,
+              type: 'line',
+              step: 'end',
+              data: x.map(t => t.brw)
+            }
+          );
     }
-    this.echartsIntance.setOption(Object.assign(this.chartOption, this.chartOption), true, true);
-
+    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true, true);
   }
 
   groupBy(list, keyGetter) {
@@ -145,7 +107,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
   uniqBy(a, key) {
     const seen = {};
-    return a.filter(function(item) {
+    return a.filter(function (item) {
       const k = key(item);
       return seen.hasOwnProperty(k) ? false : (seen[k] = true);
     });
@@ -153,5 +115,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
   downloadGeoJSON() {
 
+  }
+
+  onChartInit(event: any) {
+    this.echartsInstance = event;
   }
 }
