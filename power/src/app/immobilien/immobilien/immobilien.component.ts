@@ -1411,17 +1411,17 @@ export class ImmobilienComponent implements OnInit {
     generateDotElement(radius=4, color='#fff', position=0, posX=0, bordercolor='#000', border=0) {
         return {
             type: 'circle',
-                cursor: 'normal',
-                shape: {
-                    cx: -2*radius + posX*radius*4,
-                        cy: position*1.5*convertRemToPixels(this.fontSizeBase)+convertRemToPixels(this.fontSizeBase)/2,
-                        r: radius
-                },
-                style: {
-                    fill: convertColor(color),
-                    stroke: convertColor(bordercolor),
-                    lineWidth: border 
-                }
+            cursor: 'normal',
+            shape: {
+                cx: -2*radius + posX*radius*4,
+                cy: position*1.5*convertRemToPixels(this.fontSizeBase)+convertRemToPixels(this.fontSizeBase)/2,
+                r: radius
+            },
+            style: {
+                fill: convertColor(color),
+                stroke: convertColor(bordercolor),
+                lineWidth: border
+            }
         };
 
     }
@@ -1515,7 +1515,7 @@ export class ImmobilienComponent implements OnInit {
                         infoLegendPosition++;
                     }
                 }
-			} else if ((this.selection[this.activeSelection]['type'] == 'multi') || (this.selection[this.activeSelection]['type'] == 'multiIndex')) {
+            } else if ((this.selection[this.activeSelection]['type'] == 'multi') || (this.selection[this.activeSelection]['type'] == 'multiIndex')) {
                 const ccat = this.selection[this.activeSelection]['preset'];
                 for (let i = 0; i < ccat.length; i++) {
                     infoLegend.push(this.generateTextElement(ccat[i]+' ('+this.shortNames[ccat[i]]+')','#000', infoLegendPosition));
