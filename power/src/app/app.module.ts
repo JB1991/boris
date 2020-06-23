@@ -17,7 +17,7 @@ import {Observable, ObservableInput, of} from 'rxjs';
 function load(httpClient: HttpClient, configService: ConfigService) {
   return (): Promise<boolean> => {
     return new Promise<boolean>((resolve: (a: boolean) => void): void => {
-      httpClient.get<Config>('./assets/config.json')
+      httpClient.get<Config>('./assets/config/config.json')
         .pipe(
           map((x: Config) => {
             configService.config = x;
