@@ -51,7 +51,7 @@ spec:
       volumes:
       - name: power-modules-config
         configMap:
-          name: power-modules
+          name: {{ .Release.Name }}-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
