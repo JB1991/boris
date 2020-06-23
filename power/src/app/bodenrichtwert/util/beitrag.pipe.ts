@@ -11,7 +11,7 @@ export class BeitragPipe implements PipeTransform {
     '3': 'erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz',
   };
 
-  transform(value: any, ...args: unknown[]): unknown {
+  transform(value: any, ...args: any[]): any {
     return this.beitrag[value];
   }
 

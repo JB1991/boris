@@ -1,141 +1,142 @@
 <div class="vh-100 d-flex flex-column align-items-stretch" style="padding-top: 58px">
-<div class="row mh-100" [ngClass]="{'rowrtl': layoutRtl == true}">
-    <div class="col-sm-8">
-        <div echarts [options]="options" [loading]="!mapLoaded" (chartInit)="onChartInit($event)" (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
-        <div echarts [options]="chartOption" (chartInit)="onChartChartInit($event)" (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)" class="demo-chart chart-graph"></div>
-    </div>
-    <div class="col-sm-4">
-        <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)" #acc="ngbAccordion">
+    <div class="row mh-100" [ngClass]="{'rowrtl': layoutRtl == true}">
+        <div class="col-sm-8">
+            <div echarts [options]="options" [loading]="!mapLoaded" (chartInit)="onChartInit($event)" (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
+        <div echarts [options]="chartOption" (chartInit)="onChartChartInit($event)" (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)" (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>
+        <div style="text-align:center;" [ngStyle]="{'font-size': fontSizePage+'rem'}">HINWEIS: Das Basisjahr der Indexreihenberechung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </div>
+        </div>
+        <div class="col-sm-4">
+            <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)" #acc="ngbAccordion">
 
 
-            <ngb-panel *ngFor="let select of selection; let p = index" id="static-{{p}}">
-                <ng-template ngbPanelTitle>
-                    <i class="fa" [ngClass]="{'fa-plus-circle': accordionComponent.isExpanded('static-p') == false, 'fa-minus-circle': accordionComponent.isExpanded('static-p') == true}" aria-hidden="true"></i>
-                    {{select['name']}}
-                </ng-template>
-                <ng-template ngbPanelContent>
+                <ngb-panel *ngFor="let select of selection; let p = index" id="static-{{p}}">
+                    <ng-template ngbPanelTitle>
+                    <i class="fa" [ngClass]="{'fa-plus-circle': staticExpand(p) == false, 'fa-minus-circle': staticExpand(p) == true}" aria-hidden="true"></i>
+                        {{select['name']}}
+                    </ng-template>
+                    <ng-template ngbPanelContent>
 
-                    <!-- NiPix Category Selection -->
-                    <div ngbDropdown *ngIf="select['type'] == 'single' || select['type'] == 'multiIndex'" class="d-inline-block btn-block ">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" ngbDropdownToggle>
-                            <i class="fa" [ngClass]="iconFor[getDraw(select['preset'][0]).nipixCategory]" aria-hidden="true"></i>
-                            {{getDraw(select['preset'][0]).nipixCategory}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of nicat" (click)="onChangeCat(select['preset'],f)">
-                                <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i>
-                                {{f}}
+                        <!-- NiPix Category Selection -->
+                        <div ngbDropdown *ngIf="select['type'] == 'single' || select['type'] == 'multiIndex'" class="d-inline-block btn-block ">
+                            <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" ngbDropdownToggle>
+                                <i class="fa" [ngClass]="iconFor[getDraw(select['preset'][0]).nipixCategory]" aria-hidden="true"></i>
+                                {{getDraw(select['preset'][0]).nipixCategory}}
                             </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
+                                <button class="dropdown-item" *ngFor="let f of nicat" (click)="onChangeCat(select['preset'],f)">
+                                    <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i>
+                                    {{f}}
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- MultiSelect -->
-                    <div ngbDropdown class="d-inline-block btn-block " *ngIf="select['type'] == 'multiSelect'">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}" ngbDropdownToggle>
-                            {{ (select['selected']) }} Vergleiche
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of select['preset']" (click)="onSetNumber(select['name'],f)">
-                                {{f}} Vergleiche
+                        <!-- MultiSelect -->
+                        <div ngbDropdown class="d-inline-block btn-block " *ngIf="select['type'] == 'multiSelect'">
+                            <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}" ngbDropdownToggle>
+                                {{ (select['selected']) }} Vergleiche
                             </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
+                                <button class="dropdown-item" *ngFor="let f of select['preset']" (click)="onSetNumber(select['name'],f)">
+                                    {{f}} Vergleiche
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Select DrawValues-->
-                    <ul *ngIf="select['type'] == 'single' || select['type'] == 'multiSelect'">
+                        <!-- Select DrawValues-->
+                        <ul *ngIf="select['type'] == 'single' || select['type'] == 'multiSelect'">
 
-                        <li *ngIf="select['type'] == 'multiSelect'">
-                            <ng-container *ngFor="let itm of select['preset']; let i = index">
-                                <span class="check" [style.background-color]="getCustomColor(itm)" style="padding-bottom: .5rem;" (click)="toggleNipixCategory(itm)" *ngIf="getDraw(itm).show">
-                                    <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true" *ngIf="getDraw(itm)['nipixCategory'] == 'gebrauchte Eigenheime'"></i>
-                                    <i class="fa fa-hospital-o" [ngClass]="fa-home" aria-hidden="true" *ngIf="getDraw(itm)['nipixCategory'] == 'gebrauchte Eigentumswohnungen'"></i>
-                                </span>
-                            </ng-container>
-                            <span *ngFor="let f of nicat">
-                                <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i>{{f.replace("gebrauchte","")}}
-                            </span>
-                        </li>
-
-
-                        <li>
-                            <ng-container *ngFor="let itm of select['preset']; let i = index">
-                                <ng-container *ngIf="getDraw(itm).show">
-                                    <span class="check" [style.background-color]="getCustomColor(itm)" style="padding-bottom: .5rem;">
-                                        <input id="{{i}}vall" [checked]="getDraw(itm).values.length == 0" type="checkbox" (click)="toggleAllSelect(itm)">
-                                        <label for="{{i}}vall" style="margin-bottom: 0px;">
-                                        </label>
+                            <li *ngIf="select['type'] == 'multiSelect'">
+                                <ng-container *ngFor="let itm of select['preset']; let i = index">
+                                    <span class="check" [style.background-color]="getCustomColor(itm)" style="padding-bottom: .5rem;" (click)="toggleNipixCategory(itm)" *ngIf="getDraw(itm).show">
+                                        <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true" *ngIf="getDraw(itm)['nipixCategory'] == 'gebrauchte Eigenheime'"></i>
+                                        <i class="fa fa-hospital-o" [ngClass]="fa-home" aria-hidden="true" *ngIf="getDraw(itm)['nipixCategory'] == 'gebrauchte Eigentumswohnungen'"></i>
                                     </span>
-                                    <span *ngIf="select['type'] == 'single' && getDraw(itm).values.length == 0">alle auswählen</span>
-                                    <span *ngIf="select['type'] == 'single' && getDraw(itm).values.length > 0">Auswahl aufheben</span>
                                 </ng-container>
-                            </ng-container>
-                            <ng-container *ngIf="select['type'] == 'multiSelect'">
-                                alle/keine auswählen
-                            </ng-container>
-
-                        </li>
-
-                        <li *ngFor="let subitem of allItems">
-                            <ng-container *ngFor="let itm of select['preset']; let i = index">
-
-                                <span class="check" [style.background-color]="getCustomColor(itm)" *ngIf="getDraw(itm).show">
-                                    <input id="{{i}}v1{{subitem}}" [checked]="getDraw(itm).values.includes(subitem)" type="checkbox" (click)="toggleMapSelect(itm, subitem, select['type'])">
-                                    <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0px;"></label>
+                                <span *ngFor="let f of nicat">
+                                    <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i> {{f}}
                                 </span>
-                            </ng-container>
-                            <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;" [style.background-color]="getSeriesColor(subitem)" *ngIf="select['type'] == 'single'"></span>
-                            {{ getSeriesLabel(subitem) }}
-                        </li>
-                    </ul>
-
-                    <!-- Select DrawShow -->
-                    <ul *ngIf="select['type'] == 'multi' || select['type'] == 'multiIndex'">
-                        <li *ngFor="let itm of select['preset']">
-                            <input id="{{itm}}" type="checkbox" [checked]="getDraw(itm).show" (change)="onToggleDrawRoot(itm)">
-                            <label for="{{itm}}"></label>
-                            <span (click)="onClickDrawRoot(itm)">
-                                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;" [style.background-color]="getDraw(itm).colors"></span>
-                                {{ itm }}
-                                <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true" *ngIf="itm == 'Eigenheime'"></i>
-                                <i class="fa fa-hospital-o" [ngClass]="fa-home" aria-hidden="true" *ngIf="itm == 'Eigentumswohnungen'"></i>
-                                ({{ shortNames[itm] }})</span>
-                        </li>
-                    </ul>
+                            </li>
 
 
-                </ng-template>
-            </ngb-panel>
+                            <li>
+                                <ng-container *ngFor="let itm of select['preset']; let i = index">
+                                    <ng-container *ngIf="getDraw(itm).show">
+                                        <span class="check" [style.background-color]="getCustomColor(itm)" style="padding-bottom: .5rem;">
+                                            <input id="{{i}}vall" [checked]="getDraw(itm).values.length == 0" type="checkbox" (click)="toggleAllSelect(itm)">
+                                            <label for="{{i}}vall" style="margin-bottom: 0px;">
+                                            </label>
+                                        </span>
+                                        <span *ngIf="select['type'] == 'single' && getDraw(itm).values.length == 0">alle auswählen</span>
+                                        <span *ngIf="select['type'] == 'single' && getDraw(itm).values.length > 0">Auswahl aufheben</span>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-container *ngIf="select['type'] == 'multiSelect'">
+                                    alle/keine auswählen
+                                </ng-container>
+
+                            </li>
+
+                            <li *ngFor="let subitem of allItems">
+                                <ng-container *ngFor="let itm of select['preset']; let i = index">
+
+                                    <span class="check" [style.background-color]="getCustomColor(itm)" *ngIf="getDraw(itm).show">
+                                        <input id="{{i}}v1{{subitem}}" [checked]="getDraw(itm).values.includes(subitem)" type="checkbox" (click)="toggleMapSelect(itm, subitem, select['type'])">
+                                        <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0px;"></label>
+                                    </span>
+                                </ng-container>
+                                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;" [style.background-color]="getSeriesColor(subitem)" *ngIf="select['type'] == 'single'"></span>
+                                {{ getSeriesLabel(subitem) }}
+                            </li>
+                        </ul>
+
+                        <!-- Select DrawShow -->
+                        <ul *ngIf="select['type'] == 'multi' || select['type'] == 'multiIndex'">
+                            <li *ngFor="let itm of select['preset']">
+                                <input id="{{itm}}" type="checkbox" [checked]="getDraw(itm).show" (change)="onToggleDrawRoot(itm)">
+                                <label for="{{itm}}"></label>
+                                <span (click)="onClickDrawRoot(itm)">
+                                    <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;" [style.background-color]="getDraw(itm).colors"></span>
+                                    {{ itm }}
+                                    <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true" *ngIf="itm == 'Eigenheime'"></i>
+                                    <i class="fa fa-hospital-o" [ngClass]="fa-home" aria-hidden="true" *ngIf="itm == 'Eigentumswohnungen'"></i>
+                                    ({{ shortNames[itm] }})</span>
+                            </li>
+                        </ul>
 
 
-            <!-- Find Woma-Region -->
-            <ngb-panel id="static-99">
-                <ng-template ngbPanelTitle>
-                    <i class="fa" [ngClass]="{'fa-plus-circle': accordionComponent.isExpanded('static-99') == false, 'fa-minus-circle': accordionComponent.isExpanded('static-99') == true}" aria-hidden="true"></i>
-                    Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <label for="typeahead-focus">Suche deine Gemeinde:</label>
-                    <input
-                           id="typeahead-focus"
-                           type="text"
-                           class="form-control"
-                           [(ngModel)]="model"
-                           [ngbTypeahead]="search"
-                           (focus)="focus$.next($event.target.value)"
-                           (click)="click$.next($event.target.value)"
-                           #instance="ngbTypeahead"
-                           />
-                    <hr>
-                    <pre>Deine Wohnungsmarkregion: {{ regionName(gemeinden[model]) | json }}</pre>
+                    </ng-template>
+                </ngb-panel>
 
-                </ng-template>
-            </ngb-panel>
 
-        </ngb-accordion>
-        <div style="text-align: center; margin-top: 1rem;">
-            Es gelten die <a href="{{agnbUrl}}" target="_blank">Allgemeine Geschäfts- und Nutzungsbedingungen (AGNB)</a>
+                <!-- Find Woma-Region -->
+                <ngb-panel id="static-99">
+                    <ng-template ngbPanelTitle>
+                        <i class="fa" [ngClass]="{'fa-plus-circle': accordionComponent.isExpanded('static-99') == false, 'fa-minus-circle': accordionComponent.isExpanded('static-99') == true}" aria-hidden="true"></i>
+                        Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                    <label for="typeahead-focus">Suchen Sie Ihre Gemeinde:</label>
+                        <input
+                               id="typeahead-focus"
+                               type="text"
+                               class="form-control"
+                               [(ngModel)]="model"
+                               [ngbTypeahead]="search"
+                               (focus)="focus$.next($event.target.value)"
+                               (click)="click$.next($event.target.value)"
+                               #instance="ngbTypeahead"
+                               />
+                        <hr>
+                    Ihre Wohnungsmarkregion: {{ regionName(gemeinden[model]) | json }}
+
+                    </ng-template>
+                </ngb-panel>
+
+            </ngb-accordion>
+            <div style="text-align: center; margin-top: 1rem;">
+                Es gelten die <a href="{{agnbUrl}}" target="_blank">Allgemeine Geschäfts- und Nutzungsbedingungen (AGNB)</a>
+            </div>
         </div>
     </div>
 </div>
 <!-- vim: set expandtab ts=4 sw=4 sts=4 :-->
-</div>

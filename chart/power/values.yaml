@@ -67,3 +67,10 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+config:
+  modules:
+    - "bodenrichtwerte"
+    - "bodenwerte"
+    - "immobilien"
+    - "fragebogen"
