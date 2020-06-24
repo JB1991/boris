@@ -92,7 +92,6 @@ export class NutzungPipe implements PipeTransform {
     let res = '';
 
     for (const nutzung of value) {
-      console.log(nutzung);
       res += this.art_der_nutzung[nutzung['nutz']];
       if (nutzung['enuta'].length > 0) {
         res += ' (' + this.ergaenzende_art_der_nutzung[nutzung['enuta']] + ')';

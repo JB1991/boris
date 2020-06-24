@@ -109,7 +109,7 @@
 
     <mgl-vector-source
       id="geoserver"
-      [tiles]="[baseUrl+'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=boris:br_brzone_flat&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']"
+      [tiles]="[baseUrl+'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=boris:br_brzone_flat_min&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']"
     >
     </mgl-vector-source>
 
@@ -118,7 +118,8 @@
       id="bauland"
       type="line"
       [source]="'geoserver'"
-      [sourceLayer]="'br_brzone_flat'"
+      [minzoom]="11"
+      [sourceLayer]="'br_brzone_flat_min'"
       [paint]="{
       'line-color': '#c4153a',
       'line-width': {
@@ -136,7 +137,8 @@
       id="landwirtschaft"
       type="line"
       [source]="'geoserver'"
-      [sourceLayer]="'br_brzone_flat'"
+      [sourceLayer]="'br_brzone_flat_min'"
+      [minzoom]="10"
       [paint]="{
       'line-color': '#009900',
       'line-width': {
@@ -153,7 +155,7 @@
       id="appto"
       type="symbol"
       [source]="'geoserver'"
-      [sourceLayer]="'br_brzone_flat'"
+      [sourceLayer]="'br_brzone_flat_min'"
       [minzoom]=13
       [paint]="{
       'text-halo-color' : '#fff',
@@ -162,7 +164,7 @@
       'text-color' : 'rgb(117, 129, 145)'
      }"
       [layout]="{
-      'text-field': '{bodenrichtwert}',
+      'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
       'text-size': 12,
       'text-font': ['Klokantech Noto Sans Regular']
     }"
