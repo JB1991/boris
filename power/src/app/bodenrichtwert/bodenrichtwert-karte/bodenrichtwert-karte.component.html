@@ -118,6 +118,7 @@
       id="bauland"
       type="line"
       [source]="'geoserver'"
+      [minzoom]="11"
       [sourceLayer]="'br_brzone_flat'"
       [paint]="{
       'line-color': '#c4153a',
@@ -137,6 +138,7 @@
       type="line"
       [source]="'geoserver'"
       [sourceLayer]="'br_brzone_flat'"
+      [minzoom]="10"
       [paint]="{
       'line-color': '#009900',
       'line-width': {
@@ -150,7 +152,7 @@
     ></mgl-layer>
 
     <mgl-layer
-      id="appto"
+      id="appto_bauland"
       type="symbol"
       [source]="'geoserver'"
       [sourceLayer]="'br_brzone_flat'"
@@ -162,11 +164,36 @@
       'text-color' : 'rgb(117, 129, 145)'
      }"
       [layout]="{
-      'text-field': '{bodenrichtwert}',
-      'text-size': 12,
+      'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
+      'text-size': {
+        'stops': [[12,10],[15,16]]
+        },
       'text-font': ['Klokantech Noto Sans Regular']
     }"
-      [filter]="['all',['==','stag',stichtag]]"
+      [filter]="['all',['==','stag',stichtag],['in','entw','B','SF'],['==','entw', teilmarkt.value]]"
+    >
+    </mgl-layer>
+
+    <mgl-layer
+      id="appto_landwirtschaft"
+      type="symbol"
+      [source]="'geoserver'"
+      [sourceLayer]="'br_brzone_flat'"
+      [minzoom]=10
+      [paint]="{
+      'text-halo-color' : '#fff',
+      'text-halo-width' : 2,
+      'text-halo-blur' : 2,
+      'text-color' : 'rgb(117, 129, 145)'
+     }"
+      [layout]="{
+      'text-field': '{brw}',
+      'text-size': {
+        'stops': [[10,20],[15,24]]
+        },
+      'text-font': ['Klokantech Noto Sans Regular']
+    }"
+      [filter]="['all',['==','stag',stichtag],['==','entw','L'],['==','entw', teilmarkt.value]]"
     >
     </mgl-layer>
 
