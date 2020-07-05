@@ -10,14 +10,15 @@ import {ImmobilienComponent} from './immobilien/immobilien.component';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		ImmobilienRoutingModule,
-		NgbModule,
-		NgxEchartsModule,
-		FormsModule
-	],
-	declarations: [ImmobilienComponent]
+    imports: [
+        CommonModule,
+        ImmobilienRoutingModule,
+        NgbModule,
+        NgxEchartsModule,
+        FormsModule
+    ],
+    declarations: [ImmobilienComponent]
 })
 
 export class ImmobilienModule { }
+/* vim: set expandtab ts=4 sw=4 sts=4: */
