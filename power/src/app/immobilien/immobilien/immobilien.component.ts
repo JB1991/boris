@@ -73,7 +73,7 @@ export class ImmobilienComponent implements OnInit {
     // Icon array
     iconFor = {
         'gebrauchte Eigenheime': 'fa-home',
-        'gebrauchte Eigentumswohnungen': 'fa-hospital-o',
+        'gebrauchte Eigentumswohnungen': 'fa-building',
     };
 
     // show loading spinner:
