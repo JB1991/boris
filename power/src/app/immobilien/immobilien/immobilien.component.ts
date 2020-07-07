@@ -67,6 +67,9 @@ export class ImmobilienComponent implements OnInit {
     // Config URl
     configUrl = 'assets/data/cfg.json';
 
+    // InitState
+    initState = 0;
+
     // ABGN Url
     agnbUrl = '';
 
@@ -425,6 +428,8 @@ export class ImmobilienComponent implements OnInit {
 
         this.http.get(url)
             .subscribe(json => {
+                // Reset initState
+                this.initState = 1;
 
                 // Layout
                 this.layoutRtl = json['layoutRtl'];
@@ -495,6 +500,9 @@ export class ImmobilienComponent implements OnInit {
                 }
 
                 this.gemeinden = rgn;
+
+                // InitState
+                this.initState++;
             });
     }
 
@@ -514,6 +522,9 @@ export class ImmobilienComponent implements OnInit {
 
                     // register map:
                     echarts.registerMap('NDS', geoJson);
+
+                    // initState
+                    this.initState++;
 
                     this.setMapOptions();
                 });
@@ -570,6 +581,9 @@ export class ImmobilienComponent implements OnInit {
 
                 // Update NiPix category
                 this.nicat = Object.keys(this.nipix);
+
+                // InitState
+                this.initState++;
 
                 setTimeout(this.onPanelChange.bind(this), 50, {'nextState': true, 'panelId': 'static-0'});
             });
@@ -1325,7 +1339,10 @@ export class ImmobilienComponent implements OnInit {
      */
     onChartInit(ec) {
         this.map = ec;
-        this.updateMapSelect();
+
+        if (this.initState == 4) {
+            this.updateMapSelect();
+        }
     }
 
     /**
@@ -1333,7 +1350,10 @@ export class ImmobilienComponent implements OnInit {
      */
     onChartChartInit(ec) {
         this.chart = ec;
-        this.updateChart();
+
+        if (this.initState == 4) {
+            this.updateChart();
+        }
     }
 
     /**
