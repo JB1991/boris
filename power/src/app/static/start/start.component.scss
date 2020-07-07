@@ -18,16 +18,15 @@ h1 {
   }
 }
 
-
 .site-header {
-  background-color: rgba(0, 0, 0, .85);
+  background-color: rgba(0, 0, 0, 0.85);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 }
 
 .site-header a {
   color: #999;
-  transition: ease-in-out color .15s;
+  transition: ease-in-out color 0.15s;
 }
 
 .site-header a:hover {
@@ -38,7 +37,6 @@ h1 {
 .headline {
   z-index: 1;
 }
-
 
 .product-device {
   position: absolute;
@@ -61,10 +59,9 @@ h1 {
   content: "";
   background-image: url("/assets/IMG_B691C85D0356-1.webp");
   background-size: 280px 540px;
-  background-color: rgba(255, 255, 255, .1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
 }
-
 
 .product-device-2 {
   top: -25%;
