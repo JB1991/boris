@@ -1,7 +1,7 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-
-import {Subject, Subscription} from 'rxjs';
-import {Config, ConfigService} from '@app/config.service';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Config, ConfigService } from '@app/config.service';
+import { version } from '../../package.json';
 
 @Component({
   selector: 'power-root',
@@ -10,21 +10,14 @@ import {Config, ConfigService} from '@app/config.service';
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   title = 'power';
+  isCollapsed = true;
+  show = false;
+  name: string;
+  config: Config;
+  appVersion: string = version;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  isCollapsed = true;
-
-  show = false;
-
-  name: string;
-
-  config: Config;
-  /**
-   * Constructor
-   * @param cdRef
-   * @param configService
-   */
   constructor(
     private cdRef: ChangeDetectorRef,
     private configService: ConfigService

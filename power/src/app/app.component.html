@@ -1,21 +1,21 @@
 <div class="container-fluid p-0">
   <nav class="navbar navbar-light navbar-expand-md border-bottom bg-white fixed-top">
-    <a class="navbar-brand" href="#" style="color:#343a40">
-      <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top">
+    <a class="navbar-brand" href="#" style="color: #343a40;">
+      <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top" alt="LGLN Logo">
       <strong class="d-none d-md-inline">
         <span>Portal für Wertermittlung</span>
-        <span style="color:#c4153a">.niedersachsen</span>
+        <span style="color: #c4153a;">.niedersachsen</span>
       </strong>
       <strong class="d-md-none">
         <span>POWER</span>
-        <span style="color:#c4153a">.niedersachsen</span>
+        <span style="color: #c4153a;">.niedersachsen</span>
       </strong>
     </a>
     <button class="navbar-toggler" style="border: none; padding-right: 0;" type="button"
             (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" [class.active]="!isCollapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" style="z-index: 2000" [ngbCollapse]="isCollapsed">
+    <div class="collapse navbar-collapse" style="z-index: 2000;" [ngbCollapse]="isCollapsed">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="config.modules.includes('bodenrichtwerte')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/bodenrichtwerte" routerLinkActive="active">Bodenrichtwerte</a>
@@ -45,6 +45,7 @@
             <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html">Datenschutz</a></li>
             <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html">Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
           </ul>
+          <p class="text-muted">Version: {{ appVersion }}</p>
         </div>
       </div>
     </footer>
