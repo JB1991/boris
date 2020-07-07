@@ -1,36 +1,41 @@
 @media (max-width: 767px) {
-    .textpos {
-        text-align: left !important;
-    }
+  .textpos {
+    text-align: left !important;
+  }
 }
+
 @media (max-width: 991px) {
-    #toolbox ul, #toolbox li {
-        display: inline-block;
-        vertical-align: top;
-        border-width: 0px !important;
-    }
+  #toolbox ul,
+  #toolbox li {
+    display: inline-block;
+    vertical-align: top;
+    border-width: 0 !important;
+  }
 }
+
 #toolbox {
-    border-width: 0px !important;
+  border-width: 0 !important;
 }
+
 #toolbox li {
-    border-left-width: 0px !important;
-    border-right-width: 0px !important;
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
 }
+
 #toolbox li:last-child {
-    border-bottom-width: 0px !important;
+  border-bottom-width: 0 !important;
 }
 
 .drag-ghost {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 li.smooth-dnd-draggable-wrapper:last-child .page-link {
-    border-top-right-radius: 0px !important;
-    border-bottom-right-radius: 0px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 .scrolllist {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
