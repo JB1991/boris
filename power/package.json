@@ -9,7 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "lint:styles": "npx stylelint \"src/**/*.{css,html,scss}\"",
+    "lint:styles": "npx stylelint \"src/app/**/*.{css,html,scss}\"",
     "e2e": "ng e2e"
   },
   "private": true,
