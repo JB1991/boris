@@ -46,7 +46,7 @@ export class ImmobilienComponent implements OnInit {
 
     gemeinden = {};
 
-    @ViewChild('instance', {static: true}) instance: NgbTypeahead;
+    @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
 
     title = 'lgln';
 
@@ -379,7 +379,7 @@ export class ImmobilienComponent implements OnInit {
     // Find My WomaReg
     search = (text$: Observable<string>) => {
         const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-        const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+        const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.searchWoMaReg.isPopupOpen()));
         const inputFocus$ = this.focus$;
 
         const gem = this.gemeinden;

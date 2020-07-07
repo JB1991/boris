@@ -123,7 +123,7 @@
                            [ngbTypeahead]="search"
                            (focus)="focus$.next($event.target.value)"
                            (click)="click$.next($event.target.value)"
-                           #instance="ngbTypeahead"
+                           #searchWoMaReg="ngbTypeahead"
                            />
                     <hr>
                     Ihre Wohnungsmarkregion: {{ regionName(gemeinden[model]) | json }}
