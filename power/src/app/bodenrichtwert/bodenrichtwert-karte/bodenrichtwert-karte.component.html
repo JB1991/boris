@@ -27,34 +27,42 @@
           <power-geosearch (selectResult)="onSearchSelect($event)"></power-geosearch>
         </div>
         <div class="nav">
-          <a class="nav-link" (click)="enableLocationTracking()"><img src="/assets/icons/geo.svg" width="25" height="25"
-                                   style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link" (click)="toggle3dView()"><img src="/assets/icons/building.svg" width="25" height="25"
-                                                            style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link" (click)="resetMap()"><img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"
-                                                        style="font-size:25px; vertical-align: middle;"></a>
+          <a class="nav-link" (click)="enableLocationTracking()">
+            <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link" (click)="toggle3dView()">
+            <img src="/assets/icons/building.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link" (click)="resetMap()">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
         </div>
       </nav>
     </div>
   </div>
+
   <!-- mobile -->
   <div class="d-md-none">
     <div class="nav-scroller bg-white shadow-sm border-top">
       <nav class="nav nav-underline">
         <div class="nav mr-auto">
-          <a class="nav-link" (click)="toggleFilterActive()"><img src="/assets/icons/filter.svg" width="25" height="25"
-                                                                  style="font-size:25px; vertical-align: middle;"></a>
-
+          <a class="nav-link" (click)="toggleFilterActive()">
+            <img src="/assets/icons/filter.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
         </div>
         <div class="nav ml-auto">
-          <a class="nav-link" (click)="toggleSearchActive()"><img src="/assets/icons/search.svg" width="25" height="25"
-                                                                  style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link"><img src="/assets/icons/geo.svg" width="25" height="25"
-                                   style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link" (click)="toggle3dView()"><img src="/assets/icons/building.svg" width="25" height="25"
-                                                            style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link" (click)="resetMap()"><img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"
-                                                        style="font-size:25px; vertical-align: middle;"></a>
+          <a class="nav-link" (click)="toggleSearchActive()">
+            <img src="/assets/icons/search.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link">
+            <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link" (click)="toggle3dView()">
+            <img src="/assets/icons/building.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link" (click)="resetMap()">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
         </div>
       </nav>
     </div>
@@ -78,7 +86,6 @@
       </div>
     </div>
   </div>
-
 
   <mgl-map
     (click)="onMapClickEvent($event)"
@@ -105,7 +112,6 @@
       }
     }"
     ></mgl-layer>
-
 
     <mgl-vector-source
       id="geoserver"
@@ -197,9 +203,7 @@
     >
     </mgl-layer>
 
-
     <mgl-control [position]="'bottom-left'" mglScale unit="metric"></mgl-control>
-
 
   </mgl-map>
 </div>
