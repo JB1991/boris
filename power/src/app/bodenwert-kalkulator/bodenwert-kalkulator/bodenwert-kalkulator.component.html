@@ -6,41 +6,48 @@
       <nav class="nav nav-underline d-flex justify-content-between">
         <div class="nav">
           <div class="btn-group d-flex">
-
           </div>
         </div>
         <div class="nav px-auto" style="position: relative;">
           <power-geosearch></power-geosearch>
         </div>
         <div class="nav">
-          <a class="nav-link"><img src="/assets/icons/geo.svg" width="25" height="25"
-                                   style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link" (click)="toggle3dView()"><img src="/assets/icons/building.svg" width="25" height="25"
-                                                            style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link"><img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"
-                                   style="font-size:25px; vertical-align: middle;"></a>
+          <a class="nav-link">
+            <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link" (click)="toggle3dView()">
+            <img src="/assets/icons/building.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
         </div>
       </nav>
     </div>
   </div>
+
   <!-- mobile -->
   <div class="d-md-none">
     <div class="nav-scroller bg-white shadow-sm border-top">
       <nav class="nav nav-underline">
         <div class="nav mr-auto">
-          <a class="nav-link"><img src="/assets/icons/filter.svg" width="25" height="25"
-                                   style="font-size:25px; vertical-align: middle;"></a>
-
+          <a class="nav-link">
+            <img src="/assets/icons/filter.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
         </div>
         <div class="nav ml-auto">
-          <a class="nav-link" (click)="toggleSearchActive()"><img src="/assets/icons/search.svg" width="25" height="25"
-                                                                  style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link"><img src="/assets/icons/geo.svg" width="25" height="25"
-                                   style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link" (click)="toggle3dView()"><img src="/assets/icons/building.svg" width="25" height="25"
-                                                            style="font-size:25px; vertical-align: middle;"></a>
-          <a class="nav-link"><img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"
-                                   style="font-size:25px; vertical-align: middle;"></a>
+          <a class="nav-link" (click)="toggleSearchActive()">
+            <img src="/assets/icons/search.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link">
+            <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link" (click)="toggle3dView()">
+            <img src="/assets/icons/building.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
+          <a class="nav-link">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          </a>
         </div>
       </nav>
     </div>
@@ -117,12 +124,10 @@
         <ng-template ngbPanelContent>
           <table class="table table-bordered">
             <tr>
-<!--              <th>Kennzeichen</th>-->
               <th>Amtliche Fläche</th>
               <th>Wert</th>
             </tr>
             <tr *ngFor="let feature of this.flurstueckSelection | keyvalue">
-<!--              <td>{{feature.value.properties.flurstueckskennzeichen}}</td>-->
               <td>{{feature.value.properties.amtlicheflaeche}} m&#178;</td>
               <td>{{feature.value.properties.wert | currency:'EUR':"symbol" : '1.2-2'}}</td>
             </tr>

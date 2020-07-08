@@ -10,18 +10,18 @@
 
 .height-minus-header-map {
   height: calc(100vh - 106px);
-  -moz-transition: height .6s ease;
-  -webkit-transition: height .6s ease;
-  -o-transition: height .6s ease;
-  transition: height .6s ease;
+  -moz-transition: height 0.6s ease;
+  -webkit-transition: height 0.6s ease;
+  -o-transition: height 0.6s ease;
+  transition: height 0.6s ease;
 }
 
 .small {
   height: 50vh;
-  -moz-transition: height .6s ease;
-  -webkit-transition: height .6s ease;
-  -o-transition: height .6s ease;
-  transition: height .6s ease;
+  -moz-transition: height 0.6s ease;
+  -webkit-transition: height 0.6s ease;
+  -o-transition: height 0.6s ease;
+  transition: height 0.6s ease;
 }
 
 .anchor {
@@ -45,16 +45,16 @@
   padding-bottom: 1rem;
   margin-top: -1px;
   overflow-x: auto;
-  color: rgba(255, 255, 255, .75);
+  color: rgba(255, 255, 255, 0.75);
   text-align: center;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
 
 .nav-underline .nav-link {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  font-size: .875rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 0.875rem;
   color: #6c757d;
 }
 
