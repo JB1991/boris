@@ -9,6 +9,14 @@
           "ng-deep"
         ]
       }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignore": [
+          "custom-elements"
+        ]
+      }
     ]
   }
 }
