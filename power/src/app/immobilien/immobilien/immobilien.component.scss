@@ -43,19 +43,20 @@ ul {
 .rowrtl {
   direction: rtl;
 }
-input[type=checkbox] { display:none; } /* to hide the checkbox itself */
-input[type=checkbox] + label:before {
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 400;
-  display: inline-block;
+
+input[type=checkbox] {
+  display: none; /* to hide the checkbox itself */
 }
 
-input[type=checkbox] + label:before { 
+input[type=checkbox] + label::before {
+  font-family: 'Font Awesome 5 Free', sans-serif;
+  font-weight: 400;
+  display: inline-block;
   content: "\f0c8"; /* unchecked icon */
   letter-spacing: 10px; /* space between checkbox and label */
 }
 
-input[type=checkbox]:checked + label:before {
+input[type=checkbox]:checked + label::before {
   content: "\f14a"; /* checked icon */
   letter-spacing: 6.5px; /* allow space for check mark */
 }
