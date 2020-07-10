@@ -10,7 +10,8 @@
       <table class="table table-hover m-0">
         <thead>
         <tr>
-          <th scope="col" class="border-top-0 w-75">Titel</th>
+          <th scope="col" class="border-top-0">ID</th>
+          <th scope="col" class="border-top-0 w-50">Titel</th>
           <th scope="col" class="border-top-0">Tags</th>
           <th scope="col" class="border-top-0">Erstellt</th>
           <th scope="col" class="border-top-0">Aktualisiert</th>
@@ -19,6 +20,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let form of storage.formsList; index as i">
+          <td>{{ form.id }}</td>
           <td scope="row">
             <a title="Formular öffnen" [routerLink]="['/forms/details', form.id]">
               {{ form.title }}

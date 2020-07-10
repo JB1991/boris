@@ -55,7 +55,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         this.loadingscreen.setVisible(false);
       }, (error: Error) => {
         // failed to load
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
         this.loadingscreen.setVisible(false);
 
         this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -282,7 +282,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       }
     }, (error: Error) => {
       // failed to save
-      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
       throw error;
     });
   }

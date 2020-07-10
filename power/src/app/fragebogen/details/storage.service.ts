@@ -29,7 +29,7 @@ export class StorageService {
    */
   public loadForm(id: string) {
     // load data from server
-    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
     return this.httpClient.get(url);
   }
 
@@ -39,7 +39,7 @@ export class StorageService {
    */
   public loadTasks(id: string) {
     // load data from server
-    const url = environment.formAPI + 'forms/' + encodeURIComponent(id) + '/tasks';
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks?fields=id,form-id,factor,pin,created,accessed,submitted,status';
     return this.httpClient.get(url);
   }
 
@@ -49,8 +49,19 @@ export class StorageService {
    */
   public deleteTask(id: string) {
     // delete task
-    const url = environment.formAPI + 'tasks/' + encodeURIComponent(id);
+    const url = environment.formAPI + 'intern/tasks/' + encodeURIComponent(id);
     return this.httpClient.delete(url);
+  }
+
+  /**
+   * Publish formular
+   * @param id Formular id
+   * @param access Formular access
+   */
+  public publishForm(id: string, access: string) {
+    // delete formular
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '?publish=true&access=' + encodeURIComponent(access);
+    return this.httpClient.post(url, null);
   }
 
   /**
@@ -59,7 +70,7 @@ export class StorageService {
    */
   public deleteForm(id: string) {
     // delete formular
-    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
     return this.httpClient.delete(url);
   }
 
@@ -69,7 +80,7 @@ export class StorageService {
    */
   public createTask(id: string) {
     // create task
-    const url = environment.formAPI + 'forms/' + encodeURIComponent(id) + '/tasks';
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks';
     return this.httpClient.post(url, {});
   }
 }

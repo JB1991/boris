@@ -30,12 +30,23 @@ export class StorageService {
   }
 
   /**
-   * Loads task by pin.
+   * Get access by pin.
    * @param pin Task pin
+   * @param factor Task factor
    */
-  public loadTask(pin: string) {
+  public getAccess(pin: string, factor: string) {
     // load data from server
-    const url = environment.formAPI + 'tasks?pin=' + encodeURIComponent(pin);
+    const url = environment.formAPI + 'public/access?pin=' + encodeURIComponent(pin) + '&factor=' + encodeURIComponent(factor);
+    return this.httpClient.get(url);
+  }
+
+  /**
+   * Loads task by id.
+   * @param id Task id
+   */
+  public loadTask(id: string) {
+    // load data from server
+    const url = environment.formAPI + 'public/tasks' + encodeURIComponent(id);
     return this.httpClient.get(url);
   }
 
@@ -45,7 +56,7 @@ export class StorageService {
    */
   public loadForm(id: string) {
     // load data from server
-    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
+    const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id);
     return this.httpClient.get(url);
   }
 
@@ -55,17 +66,21 @@ export class StorageService {
    * @param data Data from survey
    */
   public saveInterimResults(id: string, data: any) {
-    const url = environment.formAPI + 'tasks/' + encodeURIComponent(id);
-    return this.httpClient.put(url, data)
+    const url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id);
+    return this.httpClient.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   }
 
   /**
-   * Completes form
-   * @param pin Task pin
+   * Completes task
+   * @param id Task id
    */
-  public completeForm(pin: string) {
-    const url = environment.formAPI + 'tasks?pin=' + encodeURIComponent(pin);
-    return this.httpClient.patch(url, {})
+  public completeTask(id: string) {
+    const url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id) + '?submit=true';
+    return this.httpClient.post(url, {})
   }
 
   /**

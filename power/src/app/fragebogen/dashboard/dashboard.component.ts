@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadFailed(error) {
-    this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+    this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
     this.loadingscreen.setVisible(false);
     this.router.navigate(['/forms'], {replaceUrl: true});
     console.log(error);
@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
       this.alerts.NewAlert('success', 'Formular gelöscht', 'Das Formular wurde erfolgreich gelöscht.');
     }, (error: Error) => {
       // Failed to delete form
-      this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
       console.log(error);
       return;
     });
@@ -128,7 +128,7 @@ export class DashboardComponent implements OnInit {
       pom.click();
     }, (error: Error) => {
       // Failed to load form
-      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
       console.log(error);
       return;
     });
@@ -174,7 +174,7 @@ export class DashboardComponent implements OnInit {
       this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
     }, (error: Error) => {
       // Failed to create form
-      this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
       console.log(error);
       return;
     });
