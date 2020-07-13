@@ -1,10 +1,17 @@
 {
   "data": [
     {
-      "id": "brf2hhsdev046mhfpio0",
-      "title": "Minimal",
-      "created": "2020-06-08T12:02:15.87744Z",
-      "updated": "2020-06-08T12:02:15.87744Z"
+      "access": "public",
+      "access-minutes": 60,
+      "created": "2020-07-13T10:23:07.259574Z",
+      "id": "bs63c2os5bcus8t5q0kg",
+      "owners": [
+        "Public"
+      ],
+      "readers": null,
+      "status": "created",
+      "tags": null,
+      "title": "Minimal"
     }
   ]
 }

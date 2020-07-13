@@ -10,11 +10,11 @@ describe('Fragebogen.Dashboard.StorageService', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
-  const formId = 'brf2hhsdev046mhfpio0';
-  const formsUrl = environment.formAPI + 'forms';
-  const tagsUrl: String = environment.formAPI + 'tags';
-  const formsUrlWithId = environment.formAPI + 'forms/' + formId;
+  const formId = 'bs63c2os5bcus8t5q0kg';
+  const formsURL = environment.formAPI + 'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title';
 
+  const formContent = require('../../../assets/fragebogen/form-content.json');
+  const formDeleted = require('../../../assets/fragebogen/form-deleted.json');
   const formSample = require('../../../assets/fragebogen/form-sample.json');
   const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
   const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
@@ -36,27 +36,27 @@ describe('Fragebogen.Dashboard.StorageService', () => {
 
   it('loadFormsList() should load a list of forms', () => {
     service.loadFormsList().subscribe(data => expect(data).toEqual(formsListSample));
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(formsURL, 'GET', formsListSample);
   });
 
   it('loadForm() should load a form by id', () => {
     service.loadForm(formId).subscribe(data => expect(data).toEqual(formSample));
-    answerHTTPRequest(formsUrlWithId, 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/' + formId, 'GET', formSample);
   });
 
   it('loadTags() should load the tags', () => {
     service.loadTags().subscribe(data => expect(data).toEqual(tagsSample));
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
   });
 
   it('createForm() should upload a form from JSON', () => {
-    service.createForm(formSample).subscribe(data => expect(data).toEqual(formSample));
-    answerHTTPRequest(formsUrl, 'POST', formSample);
+    service.createForm(formContent).subscribe(data => expect(data).toEqual(formSample));
+    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample);
   });
 
   it('deleteForm() should delete a form by id', () => {
-    service.deleteForm(formId).subscribe(data => expect(data).toEqual({}));
-    answerHTTPRequest(formsUrlWithId, 'DELETE', {});
+    service.deleteForm(formId).subscribe(data => expect(data).toEqual(formDeleted));
+    answerHTTPRequest(environment.formAPI + 'intern/forms/' + formId, 'DELETE', formDeleted);
   });
 
   it('resetService() should reset service to empty model', () => {

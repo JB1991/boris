@@ -30,7 +30,7 @@ export class StorageService {
    */
   public loadFormsList() {
     // Load data from server
-    const url = environment.formAPI + 'intern/forms?fields=id,title,status,created,published,cancelled,tags,owners,readers,access';
+    const url = environment.formAPI + 'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title';
     return this.httpClient.get(url);
   }
 
@@ -57,7 +57,7 @@ export class StorageService {
    * @param data SurveyJS
    * @param tags Tag list
    */
-  public createForm(data: any, tags: string = '') {
+  public createForm(data: any, tags?: string) {
     // Uploads form
     const url = environment.formAPI + 'intern/forms' + (tags ? '?tags=' + tags : '');
     return this.httpClient.post(url, data, {
