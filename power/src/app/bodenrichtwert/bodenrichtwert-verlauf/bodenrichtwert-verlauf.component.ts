@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {EChartOption} from 'echarts';
 import {Feature, FeatureCollection} from 'geojson';
-import {NutzungPipe} from '@app/bodenrichtwert/util/nutzung.pipe';
+import {NutzungPipe} from '@app/bodenrichtwert/pipes/nutzung.pipe';
 
 @Component({
   selector: 'power-bodenrichtwert-verlauf',
@@ -12,6 +12,17 @@ import {NutzungPipe} from '@app/bodenrichtwert/util/nutzung.pipe';
 export class BodenrichtwertVerlaufComponent implements OnChanges {
 
   state: any;
+
+  series_template = [
+    {stag: '2012', brw: 0, nutzung: ''},
+    {stag: '2013', brw: 0, nutzung: ''},
+    {stag: '2014', brw: 0, nutzung: ''},
+    {stag: '2015', brw: 0, nutzung: ''},
+    {stag: '2016', brw: 0, nutzung: ''},
+    {stag: '2017', brw: 0, nutzung: ''},
+    {stag: '2018', brw: 0, nutzung: ''},
+    {stag: '2019', brw: 0, nutzung: ''},
+  ];
 
   chartOption: EChartOption = {
     tooltip: {
@@ -68,16 +79,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
       features = Array.from(value);
 
-      const x = [
-        {stag: '2012', brw: 0, nutzung: ''},
-        {stag: '2013', brw: 0, nutzung: ''},
-        {stag: '2014', brw: 0, nutzung: ''},
-        {stag: '2015', brw: 0, nutzung: ''},
-        {stag: '2016', brw: 0, nutzung: ''},
-        {stag: '2017', brw: 0, nutzung: ''},
-        {stag: '2018', brw: 0, nutzung: ''},
-        {stag: '2019', brw: 0, nutzung: ''},
-      ];
+      const x = this.series_template;
 
       for (let i = 0; i < x.length; i++) {
         const tmp = features.find(f => f.properties.stag.includes(x[i].stag));

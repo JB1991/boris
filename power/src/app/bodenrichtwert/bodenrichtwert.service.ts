@@ -10,10 +10,25 @@ import {environment} from '../../environments/environment';
 })
 export class BodenrichtwertService {
 
+  /**
+   * URL where to fetch GeoJSON from
+   * @private
+   */
   private url = environment.ows;
 
+  /**
+   * FeatureCollection, that can be subscribed to
+   */
   private features = new Subject<FeatureCollection>();
+
+  /**
+   * Selected Feature, that can be subscribed to
+   */
   private selected = new Subject<Feature>();
+
+  /**
+   * Selected Stichtag, that can be subscribed to
+   */
   private stichtag = new Subject<Date>();
 
   constructor(private http: HttpClient) {
@@ -43,8 +58,18 @@ export class BodenrichtwertService {
     this.stichtag.next(date);
   }
 
-  getFeatureByObjektidentifikator(id: string): Observable<FeatureCollection> {
+  getCapabilities() {
+    const body =
+      '<wfs:GetCapabilities \n' +
+      '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
+      '  service="WFS" version="1.1.0">\n' +
+      '</wfs:GetCapabilities>';
+    const options = {responseType: 'text' as 'json'};
+    return this.http.post(this.url, body, options)
+      .pipe( catchError(this.handleError));
+  }
 
+  getFeatureByObjektidentifikator(id: string): Observable<FeatureCollection> {
     const filter =
       '<wfs:GetFeature \n' +
       '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
@@ -62,13 +87,11 @@ export class BodenrichtwertService {
       '  </wfs:Query>\n' +
       '</wfs:GetFeature>';
 
-
     return this.http.post<FeatureCollection>(this.url, filter).pipe(catchError(this.handleError));
-
   }
 
+  // tslint:disable-next-line:max-func-body-length
   getFeatureByLatLonStagEntw(lat: any, lon: any, stag: Date, entw: any): Observable<FeatureCollection> {
-
     const filter =
       '<wfs:GetFeature \n' +
       '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
@@ -100,13 +123,11 @@ export class BodenrichtwertService {
       '  </wfs:Query>\n' +
       '</wfs:GetFeature>';
 
-
     return this.http.post<FeatureCollection>(this.url, filter).pipe(catchError(this.handleError));
-
   }
 
+  // tslint:disable-next-line:max-func-body-length
   getFeatureByLatLonEntw(lat: any, lon: any, entw: any): Observable<FeatureCollection> {
-
     const filter =
       '<wfs:GetFeature \n' +
       '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
@@ -131,11 +152,13 @@ export class BodenrichtwertService {
       '  </wfs:Query>\n' +
       '</wfs:GetFeature>';
 
-
-    return this.http.post<FeatureCollection>(this.url, filter)
+    /*
+     * Umrechnuntstabellendatei and Umrechnungstabellenwerte are presented as String not JSON,
+     * therefore they have to be parsed manually
+     */
+    const data = this.http.post<FeatureCollection>(this.url, filter)
       .pipe(
         map( response => {
-
             const ft = response.features.map(f => {
               f.properties.nutzung = JSON.parse(f.properties.nutzung);
               f.properties.umrechnungstabellendatei = JSON.parse(f.properties.umrechnungstabellendatei);
@@ -147,6 +170,7 @@ export class BodenrichtwertService {
         }),
         catchError(this.handleError));
 
+    return data;
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -159,24 +183,4 @@ export class BodenrichtwertService {
     }
     return throwError('Something bad happened; please try again later.');
   }
-
-  getCapabilities() {
-
-    const body =
-      '<wfs:GetCapabilities \n' +
-      '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
-      '  service="WFS" version="1.1.0">\n' +
-      '</wfs:GetCapabilities>';
-    const options = {responseType: 'text' as 'json'};
-    return this.http.post(this.url, body, options)
-      .pipe( catchError(this.handleError));
-  }
-
-  // TODO Return available stichtage from WFS
-  getStichtage() {
-
-  }
-
-
-
 }

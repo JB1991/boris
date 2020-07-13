@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {BodenrichtwertDetailComponent} from './bodenrichtwert-detail.component';
-import {BeitragPipe} from '@app/bodenrichtwert/util/beitrag.pipe';
-import {NutzungPipe} from '@app/bodenrichtwert/util/nutzung.pipe';
+import {BeitragPipe} from '@app/bodenrichtwert/pipes/beitrag.pipe';
+import {NutzungPipe} from '@app/bodenrichtwert/pipes/nutzung.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
   let component: BodenrichtwertDetailComponent;

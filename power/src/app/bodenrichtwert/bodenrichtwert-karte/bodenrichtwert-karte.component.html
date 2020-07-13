@@ -9,7 +9,7 @@
                  aria-label="Button group with nested dropdown">
               <button class="btn btn-block" ngbDropdownToggle>Stichtag: {{stichtag | date:"yyyy"}}</button>
               <div class="dropdown-menu" ngbDropdownMenu>
-                <button *ngFor="let stag of STICHTAGE" (click)="onStagChange(stag)"
+                <button *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)"
                         ngbDropdownItem>{{stag  | date:"yyyy"}}</button>
               </div>
             </div>
@@ -31,10 +31,12 @@
             <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
           </a>
           <a class="nav-link" (click)="toggle3dView()">
-            <img src="/assets/icons/building.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/building.svg" width="25" height="25"
+                 style="font-size: 25px; vertical-align: middle;">
           </a>
           <a class="nav-link" (click)="resetMap()">
-            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"
+                 style="font-size: 25px; vertical-align: middle;">
           </a>
         </div>
       </nav>
@@ -58,23 +60,25 @@
             <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
           </a>
           <a class="nav-link" (click)="toggle3dView()">
-            <img src="/assets/icons/building.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/building.svg" width="25" height="25"
+                 style="font-size: 25px; vertical-align: middle;">
           </a>
           <a class="nav-link" (click)="resetMap()">
-            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"
+                 style="font-size: 25px; vertical-align: middle;">
           </a>
         </div>
       </nav>
     </div>
   </div>
 
-  <power-geosearch  [class.d-none]="!searchActive" (selectResult)="flyTo($event)"></power-geosearch>
+  <power-geosearch [class.d-none]="!searchActive" (selectResult)="flyTo($event)"></power-geosearch>
   <div [class.d-none]="!filterActive">
     <div class="btn-group d-flex w-100">
       <div class="btn-group" style="flex: 1;" ngbDropdown role="group" aria-label="Button group with nested dropdown">
         <button class="btn btn-block" ngbDropdownToggle>Stichtag: {{stichtag}}</button>
         <div class="dropdown-menu" ngbDropdownMenu>
-          <button *ngFor="let stag of STICHTAGE" (click)="onStagChange(stag)" ngbDropdownItem>{{stag}}</button>
+          <button *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)" ngbDropdownItem>{{stag}}</button>
         </div>
       </div>
       <div class="btn-group" style="flex: 1;" ngbDropdown role="group" aria-label="Button group with nested dropdown">
@@ -93,10 +97,8 @@
     [trackResize]="'true'"
     [bounds]="bounds"
     (load)="loadMap($event)">
-    <mgl-geojson-source
-      id="ndsgeojson"
-      [data]="baseUrl+'/assets/niedersachsen.geojson'"
-    ></mgl-geojson-source>
+
+    <mgl-geojson-source id="ndsgeojson" [data]="baseUrl+'/assets/niedersachsen.geojson'"></mgl-geojson-source>
 
     <mgl-layer
       id="nds"
@@ -120,7 +122,6 @@
     </mgl-vector-source>
 
     <mgl-layer
-      #bauland
       id="bauland"
       type="line"
       [source]="'geoserver'"
@@ -139,7 +140,6 @@
     ></mgl-layer>
 
     <mgl-layer
-      #landwirtschaft
       id="landwirtschaft"
       type="line"
       [source]="'geoserver'"

@@ -1,11 +1,10 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {LngLat, LngLatBounds, Map, Marker} from 'mapbox-gl';
 import {BodenrichtwertService} from '../bodenrichtwert.service';
 import {GeosearchService} from '../../shared/geosearch/geosearch.service';
 import {environment} from '@env/environment';
-import {STICHTAGE, TEILMAERKTE} from '@app/bodenrichtwert/bodenrichtwert.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {STICHTAGE, TEILMAERKTE} from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 
 @Component({
   selector: 'power-bodenrichtwertkarte',
@@ -116,7 +115,8 @@ export class BodenrichtwertKarteComponent implements OnInit {
   }
 
   getAdressFromLatLng(lat, lng) {
-    this.geosearchService.getAdressFromCoordinates(lat, lng).subscribe(res => this.geosearchService.updateFeatures(res.features[0]));
+    this.geosearchService.getAdressFromCoordinates(lat, lng)
+      .subscribe(res => this.geosearchService.updateFeatures(res.features[0]));
   }
 
   onMapClickEvent(evt: mapboxgl.MapMouseEvent) {
@@ -152,48 +152,65 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   toggle3dView() {
     if (!this.threedActive) {
-      const layers = this.map.getStyle().layers;
-      let firstSymbolId;
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol') {
-          firstSymbolId = layers[i].id;
-          break;
-        }
-      }
-      this.map.addLayer({
-        id: 'building-extrusion',
-        type: 'fill-extrusion',
-        source: 'openmaptiles',
-        'source-layer': 'building',
-        paint: {
-          'fill-extrusion-color': 'rgb(219, 219, 218)',
-          'fill-extrusion-height': 0,
-          'fill-extrusion-opacity': 0.7,
-          'fill-extrusion-height-transition': {
-            duration: 600,
-            delay: 0
-          }
-        }
-      });
-      this.map.easeTo({
-        pitch: 60,
-        zoom: 17,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
+      this.activate3D();
     } else if (this.threedActive) {
-      this.map.easeTo({
-        pitch: 0,
-        zoom: 14,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
-      this.map.removeLayer('building-extrusion');
+      this.deactivate3D();
     }
     this.threedActive = !this.threedActive;
   }
 
-  onStagChange(stichtag: any) {
+  private activate3D() {
+    const firstSymbolId = this.findFirstLayerWithSymbol();
+    this.map.addLayer({
+      id: 'building-extrusion',
+      type: 'fill-extrusion',
+      source: 'openmaptiles',
+      'source-layer': 'building',
+      paint: {
+        'fill-extrusion-color': 'rgb(219, 219, 218)',
+        'fill-extrusion-height': 0,
+        'fill-extrusion-opacity': 0.7,
+        'fill-extrusion-height-transition': {
+          duration: 600,
+          delay: 0
+        }
+      }
+    });
+    this.map.easeTo({
+      pitch: 60,
+      zoom: 17,
+      center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+    });
+    this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
+  }
+
+  private deactivate3D() {
+    this.map.easeTo({
+      pitch: 0,
+      zoom: 14,
+      center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+    });
+    this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+    this.map.removeLayer('building-extrusion');
+  }
+
+  /**
+   * Returns the first Layer with Symbols
+   * @private
+   */
+  private findFirstLayerWithSymbol() {
+    const layers = this.map.getStyle().layers;
+    let firstSymbolId;
+    for (let i = 0; i < layers.length; i++) {
+      if (layers[i].type === 'symbol') {
+        firstSymbolId = layers[i].id;
+        break;
+      }
+    }
+    return firstSymbolId;
+  }
+
+  onStichtagChange(stichtag: any) {
     this.stichtag = stichtag;
     this.stichtagChange.next(stichtag);
   }
@@ -205,7 +222,10 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   resetMap() {
     this.map.resize();
-    let camera = this.map.cameraForBounds([[6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]]);
+    const camera = this.map.cameraForBounds([
+      [6.19523325024787, 51.2028429493903],
+      [11.7470832174838, 54.1183357191213]
+    ]);
     camera.bearing = 0;
     camera.pitch = 0;
     this.toggle3dView();
