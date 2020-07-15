@@ -78,21 +78,6 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
-  // it('ngOnInit() should fail if a 404 is returned by the API for forms', () => {
-  //   answerHTTPRequest(formsUrl, 'GET', '', {status: 404, statusText: 'Not found'});
-  //   expect(storage.formsList.length).toBe(0);
-  //   expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-  //   expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not found');
-  // });
-
-  // it('ngOnInit() should fail if a 404 is returned by the API for tags', () => {
-  //   answerHTTPRequest(formsUrl, 'GET', formsListSample);
-  //   answerHTTPRequest(tagsUrl, 'GET', '', {status: 404, statusText: 'Not found'});
-  //   expect(storage.tagList.length).toBe(0);
-  //   expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-  //   expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not found');
-  // });
-
   it('exportForm() should download the form returned by the API', () => {
     answerHTTPRequest(formsUrl, 'GET', formsListSample);
     answerHTTPRequest(tagsUrl, 'GET', tagsSample);
@@ -138,14 +123,6 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
   });
 
-  // it('exportForm() should fail if a 404 is returned by the API', () => {
-  //   answerHTTPRequest(formsUrl, 'GET', formsListSample);
-  //   answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-  //   component.exportForm(0);
-  //   answerHTTPRequest(formsUrlWithId, 'GET', '', {status: 404, statusText: 'Not found'});
-  //   expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-  // });
-
   it('importForm() should allow uploading a file', () => {
     answerHTTPRequest(formsUrl, 'GET', formsListSample);
     answerHTTPRequest(tagsUrl, 'GET', tagsSample);
@@ -177,43 +154,33 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     expect(storage.formsList.length).toBe(1);
   });
 
-  // it('uploadForm() should upload a form to the API', () => {
-  //   answerHTTPRequest(formsUrl, 'GET', formsListSample);
-  //   answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-  //   component.uploadForm(formSample);
-  //   answerHTTPRequest(formsUrl, 'POST', formSample);
-  //   expect(storage.formsList.length).toBe(2);
-  // });
+  it('uploadForm() should upload a form to the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.uploadForm(formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample);
+    expect(storage.formsList.length).toBe(2);
+  });
 
-  // it('uploadForm() should fail if no response is returned by the API', () => {
-  //   answerHTTPRequest(formsUrl, 'GET', formsListSample);
-  //   answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-  //   component.uploadForm(formSample);
-  //   answerHTTPRequest(formsUrl, 'POST', null);
-  //
-  //   expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-  //   expect(storage.formsList.length).toBe(1);
-  // });
+  it('uploadForm() should fail if no response is returned by the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.uploadForm(formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', null);
 
-  // it('uploadForm() should fail if an error is returned by the API', () => {
-  //   answerHTTPRequest(formsUrl, 'GET', formsListSample);
-  //   answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-  //   component.uploadForm(formSample);
-  //   answerHTTPRequest(formsUrl, 'POST', {'error': 'not found'});
-  //
-  //   expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-  //   expect(storage.formsList.length).toBe(1);
-  // });
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(storage.formsList.length).toBe(1);
+  });
 
-  // it('uploadForm() should fail if a 404 is returned by the API', () => {
-  //   answerHTTPRequest(formsUrl, 'GET', formsListSample);
-  //   answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-  //   component.uploadForm(formSample);
-  //   answerHTTPRequest(formsUrl, 'POST', '', {status: 404, statusText: 'Not found'});
-  //
-  //   expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-  //   expect(storage.formsList.length).toBe(1);
-  // });
+  it('uploadForm() should fail if an error is returned by the API', () => {
+    answerHTTPRequest(formsUrl, 'GET', formsListSample);
+    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
+    component.uploadForm(formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', {'error': 'not found'});
+
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(storage.formsList.length).toBe(1);
+  });
 
   it('deleteForm() should delete a form', () => {
     // Stub out confirm dialog
@@ -225,19 +192,6 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     answerHTTPRequest(formsUrlWithId, 'DELETE', {'data': null});
     expect(storage.formsList.length).toBe(0);
   });
-
-  // it('deleteForm() should fail if a 404 is returned by the API', () => {
-  //   // Stub out confirm dialog
-  //   spyOn(window, 'confirm').and.returnValue(true);
-  //
-  //   answerHTTPRequest(formsUrl, 'GET', formsListSample);
-  //   answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-  //   component.deleteForm(0);
-  //   answerHTTPRequest(formsUrlWithId, 'DELETE', '', {status: 404, statusText: 'Not found'});
-  //
-  //   expect(storage.formsList.length).toBe(1);
-  //   expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-  // });
 
   it('deleteForm() should fail if no response is returned by the API', () => {
     // Stub out confirm dialog
