@@ -1,9 +1,9 @@
-import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {GeosearchService} from '@app/shared/geosearch/geosearch.service';
-import {Feature} from 'geojson';
-import {Subscription} from 'rxjs';
-import {NgbAccordion} from '@ng-bootstrap/ng-bootstrap';
-import {BodenrichtwertService} from '@app/bodenrichtwert/bodenrichtwert.service';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
+import { Feature } from 'geojson';
+import { Subscription } from 'rxjs';
+import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 
 /**
  * Possible selections of Stichtage
@@ -80,13 +80,13 @@ export class BodenrichtwertComponent implements OnDestroy {
     private geosearchService: GeosearchService,
     private bodenrichtwertService: BodenrichtwertService,
   ) {
-      this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
-      this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
-        this.acc.expandAll();
-        this.features = ft;
-      });
-      this.stichtag = STICHTAGE[0];
-      this.teilmarkt = TEILMAERKTE[0];
+    this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
+    this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
+      this.acc.expandAll();
+      this.features = ft;
+    });
+    this.stichtag = STICHTAGE[0];
+    this.teilmarkt = TEILMAERKTE[0];
   }
 
   /**

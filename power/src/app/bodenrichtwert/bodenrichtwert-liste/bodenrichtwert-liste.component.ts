@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {Feature, FeatureCollection} from 'geojson';
-import {BodenrichtwertService} from '../bodenrichtwert.service';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Feature, FeatureCollection } from 'geojson';
+import { BodenrichtwertService } from '../bodenrichtwert.service';
 
 @Component({
   selector: 'power-bodenrichtwert-liste',

@@ -1,7 +1,7 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {EChartOption} from 'echarts';
-import {Feature, FeatureCollection} from 'geojson';
-import {NutzungPipe} from '@app/bodenrichtwert/pipes/nutzung.pipe';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { EChartOption } from 'echarts';
+import { Feature, FeatureCollection } from 'geojson';
+import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 
 @Component({
   selector: 'power-bodenrichtwert-verlauf',
@@ -90,12 +90,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
       }
       this.chartOption.legend.data.push(x[0].nutzung);
       this.chartOption.series.push({
-              name: x[0].nutzung,
-              type: 'line',
-              step: 'end',
-              data: x.map(t => t.brw)
-            }
-          );
+          name: x[0].nutzung,
+          type: 'line',
+          step: 'end',
+          data: x.map(t => t.brw)
+        }
+      );
     }
     this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true, true);
   }

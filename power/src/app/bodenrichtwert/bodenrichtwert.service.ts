@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable, Subject, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-import {Feature, FeatureCollection} from 'geojson';
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { Feature, FeatureCollection } from 'geojson';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +66,7 @@ export class BodenrichtwertService {
       '</wfs:GetCapabilities>';
     const options = {responseType: 'text' as 'json'};
     return this.http.post(this.url, body, options)
-      .pipe( catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   getFeatureByObjektidentifikator(id: string): Observable<FeatureCollection> {
@@ -158,15 +158,15 @@ export class BodenrichtwertService {
      */
     const data = this.http.post<FeatureCollection>(this.url, filter)
       .pipe(
-        map( response => {
-            const ft = response.features.map(f => {
-              f.properties.nutzung = JSON.parse(f.properties.nutzung);
-              f.properties.umrechnungstabellendatei = JSON.parse(f.properties.umrechnungstabellendatei);
-              f.properties.umrechnungstabellenwerte = JSON.parse(f.properties.umrechnungstabellenwerte);
-              return f;
-            });
-            response.features = ft;
-            return response;
+        map(response => {
+          const ft = response.features.map(f => {
+            f.properties.nutzung = JSON.parse(f.properties.nutzung);
+            f.properties.umrechnungstabellendatei = JSON.parse(f.properties.umrechnungstabellendatei);
+            f.properties.umrechnungstabellenwerte = JSON.parse(f.properties.umrechnungstabellenwerte);
+            return f;
+          });
+          response.features = ft;
+          return response;
         }),
         catchError(this.handleError));
 

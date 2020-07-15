@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {LngLat, LngLatBounds, Map, Marker} from 'mapbox-gl';
-import {BodenrichtwertService} from '../bodenrichtwert.service';
-import {GeosearchService} from '../../shared/geosearch/geosearch.service';
-import {environment} from '@env/environment';
-import {STICHTAGE, TEILMAERKTE} from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
+import { LngLat, LngLatBounds, Map, Marker } from 'mapbox-gl';
+import { BodenrichtwertService } from '../bodenrichtwert.service';
+import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
+import { environment } from '@env/environment';
+import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 
 @Component({
   selector: 'power-bodenrichtwertkarte',
