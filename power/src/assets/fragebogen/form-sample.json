@@ -1,9 +1,7 @@
 {
   "data": {
-    "id": "brf2hhsdev046mhfpio0",
-    "title": "Minimal",
-    "created": "2020-06-08T12:02:15.87744Z",
-    "updated": "2020-06-08T12:02:15.87744Z",
+    "access": "public",
+    "access-minutes": 60,
     "content": {
       "calculatedValues": [
         {
@@ -23,32 +21,32 @@
       "maxTextLength": 1000,
       "pages": [
         {
-          "name": "p1",
           "description": "Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.",
           "elements": [
             {
-              "name": "e2",
-              "type": "text",
+              "inputType": "text",
               "isRequired": true,
+              "name": "e2",
               "title": "Titel der Frage",
-              "inputType": "text"
+              "type": "text"
             },
             {
-              "name": "e1",
-              "type": "checkbox",
-              "description": "Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).",
-              "isRequired": true,
-              "requiredErrorText": "Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.",
-              "title": "Datenschutzerklärung",
               "choices": [
                 {
                   "text": "Ich habe diese gelesen und akzeptiert",
                   "value": "1"
                 }
               ],
-              "colCount": 1
+              "colCount": 1,
+              "description": "Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).",
+              "isRequired": true,
+              "name": "e1",
+              "requiredErrorText": "Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.",
+              "title": "Datenschutzerklärung",
+              "type": "checkbox"
             }
           ],
+          "name": "p1",
           "title": "Startseite"
         }
       ],
@@ -57,6 +55,15 @@
       "showQuestionNumbers": "onPage",
       "storeOthersAsComment": false,
       "title": "Minimal"
-    }
+    },
+    "created": "2020-07-13T10:23:07.259574Z",
+    "id": "bs63c2os5bcus8t5q0kg",
+    "owners": [
+      "Public"
+    ],
+    "readers": null,
+    "status": "created",
+    "tags": null,
+    "title": "Minimal"
   }
 }

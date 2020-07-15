@@ -60,7 +60,7 @@ export class MaketaskComponent implements OnInit {
       this.storage.tasksList.push(data['data']);
     }, (error: Error) => {
         // failed to create task
-        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
         throw error;
     });
   }

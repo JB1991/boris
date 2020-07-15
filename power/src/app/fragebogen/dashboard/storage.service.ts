@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
+import {options} from 'knockout';
 
 /**
  * StorageService handles api requests and data storage
@@ -29,7 +30,7 @@ export class StorageService {
    */
   public loadFormsList() {
     // Load data from server
-    const url = environment.formAPI + 'forms';
+    const url = environment.formAPI + 'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title';
     return this.httpClient.get(url);
   }
 
@@ -38,7 +39,7 @@ export class StorageService {
    */
   public loadForm(id: string) {
     // load form from server
-    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
     return this.httpClient.get(url);
   }
 
@@ -47,7 +48,7 @@ export class StorageService {
    */
   public loadTags() {
     // Load tags from server
-    const url = environment.formAPI + 'tags';
+    const url = environment.formAPI + 'intern/tags';
     return this.httpClient.get(url);
   }
 
@@ -56,10 +57,14 @@ export class StorageService {
    * @param data SurveyJS
    * @param tags Tag list
    */
-  public createForm(data: any, tags: string = '') {
+  public createForm(data: any, tags?: string) {
     // Uploads form
-    const url = environment.formAPI + 'forms' + (tags ? '?tags=' + tags : '');
-    return this.httpClient.post(url, data);
+    const url = environment.formAPI + 'intern/forms' + (tags ? '?tags=' + tags : '');
+    return this.httpClient.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
   }
 
   /**
@@ -68,7 +73,7 @@ export class StorageService {
    */
   public deleteForm(id: string) {
     // Delete form
-    const url = environment.formAPI + 'forms/' + encodeURIComponent(id);
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
     return this.httpClient.delete(url);
   }
 }

@@ -68,7 +68,7 @@ export class NewformComponent implements OnInit {
         this.makeForm(data['data']['content']);
       }, (error: Error) => {
         // Failed to load form
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
         throw error;
       });
       return;
@@ -99,7 +99,7 @@ export class NewformComponent implements OnInit {
       this.router.navigate(['/forms/editor', data['data'].id], {replaceUrl: true});
     }, (error: Error) => {
       // Failed to create form
-      this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
       throw error;
     });
   }

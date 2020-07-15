@@ -45,17 +45,18 @@ export class DetailsComponent implements OnInit {
         this.storage.form = data['data'];
 
         // load tasks from server
-        this.storage.loadTasks(id).subscribe((data2) => {
+        this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {
           // check for error
           if (!data2 || data2['error'] || !data2['data']) {
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : id));
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : this.storage.form.id));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-            throw new Error('Could not load task: ' + (data2['error'] ? data2['error'] : id));
+            throw new Error('Could not load task: ' + (data2['error'] ? data2['error'] : this.storage.form.id));
           }
 
           // save data
+          console.log(data2);
           this.storage.tasksList = data2['data'];
           this.loadingscreen.setVisible(false);
         }, (error2: Error) => {
@@ -68,7 +69,7 @@ export class DetailsComponent implements OnInit {
         });
       }, (error: Error) => {
           // failed to load forms list
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
           this.loadingscreen.setVisible(false);
 
           this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -104,9 +105,37 @@ export class DetailsComponent implements OnInit {
       this.alerts.NewAlert('success', 'Antwort gelöscht', 'Die Antwort wurde erfolgreich gelöscht.');
     }, (error: Error) => {
         // failed to delete task
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
         throw error;
     });
+  }
+
+  /**
+   * Publish form
+   */
+  public publishFormPin6() {
+    // Ask user to confirm deletion
+    if (!confirm('Möchten Sie dieses Formular wirklich veröffentlichen?')) {
+      return;
+    }
+
+    // publish form
+    this.storage.publishForm(this.storage.form.id, 'pin6').subscribe((data) => {
+      // check for error
+      if (!data || data['error']) {
+        this.alerts.NewAlert('danger', 'Veröffentlichen fehlgeschlagen', (data['error'] ? data['error'] : this.storage.form.id));
+        throw new Error('Could not publish form: ' + (data['error'] ? data['error'] : this.storage.form.id));
+      }
+      // success
+      this.alerts.NewAlert('success', 'Formular veröffentlicht', 'Das Formular wurde erfolgreich veröffentlicht.');
+
+      // TODO: Reload page?
+    }, (error: Error) => {
+      // failed to publish form
+      this.alerts.NewAlert('danger', 'Veröffentlichen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
+      throw error;
+    });
+
   }
 
   /**
@@ -131,7 +160,7 @@ export class DetailsComponent implements OnInit {
       this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
     }, (error: Error) => {
         // failed to delete form
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
         throw error;
     });
   }

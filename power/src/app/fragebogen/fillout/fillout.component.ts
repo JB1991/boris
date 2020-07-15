@@ -33,7 +33,7 @@ export class FilloutComponent implements OnInit {
       this.loadingscreen.setVisible(true);
 
       // load task by pin
-      this.storage.loadTask(pin).subscribe((data) => {
+      this.storage.getAccess(pin, '').subscribe((data) => {
         // check for error
         if (!data || data['error'] || !data['data']) {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : pin));
@@ -75,7 +75,7 @@ export class FilloutComponent implements OnInit {
         });
       }, (error: Error) => {
         // failed to load task
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
         this.loadingscreen.setVisible(false);
 
         this.router.navigate(['/forms'], { replaceUrl: true });
@@ -111,7 +111,7 @@ export class FilloutComponent implements OnInit {
       }
 
       // complete
-      this.storage.completeForm(this.storage.task.pin).subscribe((data3) => {
+      this.storage.completeTask(this.storage.task.id).subscribe((data3) => {
         // check for error
         if (!data3 || data3['error']) {
           this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data3['error'] ? data3['error'] : this.storage.task.pin));
@@ -126,7 +126,7 @@ export class FilloutComponent implements OnInit {
       });
     }, (error: Error) => {
       // failed to save task
-      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
       throw error;
   });
   }
@@ -146,7 +146,7 @@ export class FilloutComponent implements OnInit {
       this.storage.setUnsavedChanges(false);
     }, (error: Error) => {
         // failed to save task
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
         throw error;
     });
   }
