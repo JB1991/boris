@@ -23,6 +23,9 @@ export class AlertsService {
     if (!type) {
       throw new Error('Type is required');
     }
+    if (!(type === 'success' || type === 'danger' || type === 'info' || type === 'warning')) {
+      throw new Error('Type is invalid');
+    }
 
     this.alertslist.push({type, title, text, timeout});
   }

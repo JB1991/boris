@@ -16,7 +16,7 @@ export class WrapperComponent implements OnChanges {
   @Input() completedHtml: string;
   @Input() navigateToURL: string;
   @Input() showInvisible = false;
-  @Output() public result: EventEmitter<any> = new EventEmitter();
+  @Output() public submitResult: EventEmitter<any> = new EventEmitter();
   @Output() public interimResult: EventEmitter<any> = new EventEmitter();
   @Output() public changes: EventEmitter<any> = new EventEmitter();
 
@@ -72,7 +72,7 @@ export class WrapperComponent implements OnChanges {
     survey.showInvisibleElements = this.showInvisible;
 
     // build property model
-    let props = {model: survey};
+    const props = {model: survey};
     if (this.css) {
       props['css'] = this.css;
     }
@@ -95,9 +95,9 @@ export class WrapperComponent implements OnChanges {
         this.interimResult.emit(s.data);
       };
     }
-    if (this.result) {
+    if (this.submitResult) {
       props['onComplete'] = (s, _) => {
-        this.result.emit(s.data);
+        this.submitResult.emit(s.data);
       };
     }
 

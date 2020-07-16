@@ -5,13 +5,13 @@ import { Router, NavigationEnd } from '@angular/router';
   providedIn: 'root'
 })
 export class LoadingscreenService {
-  public isVisible = false;
+  public visible = false;
 
   constructor(private router: Router) {
     // hide loadingscreen after routing event
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.isVisible = false;
+        this.visible = false;
       }
     });
   }
@@ -21,13 +21,20 @@ export class LoadingscreenService {
    * @param state new state
    */
   public setVisible(state: boolean) {
-    this.isVisible = state;
+    this.visible = state;
+  }
+
+  /**
+   * Returns loadingscreen state
+   */
+  public isVisible(): boolean {
+    return this.visible;
   }
 
   /**
    * Resets service to empty model
    */
   public resetService() {
-    this.isVisible = false;
+    this.visible = false;
   }
 }
