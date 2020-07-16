@@ -58,6 +58,10 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    npm run lint:styles
    ```
 
+# Coding Guideline
+Die Programmier-Richtlinie für dieses Projekt ist hier zu finden:
+[Coding Guideline - Angular-Frontend](https://gitlab.com/lgln/power.ni/coding-guidelines/frontend)
+
 # CI/CD
 Nach dem Commit und Push ins Repository wird automatisch die [CI/CD-Pipeline auf GitLab](https://gitlab.com/lgln/power.ni/power-frontend/pipelines) angestoßen.
 Die Konfiguration dazu befindet sich in der Datei `.gitlab-ci.yml`.
@@ -83,6 +87,7 @@ Das Deployment findet nur statt, wenn in der Datei `package.json` die Versionsnu
 
 # Configuration
 
-## Active Modules
-To enable or disable specific modules in runtime, you can add or remove module names from [config.json](src/assets/config.json). 
-These values have to match [app.component.html](src/app/app.component.html). The config.json file can be changed in the final artifact.
+## Module (de)aktivieren
+Um bestimmte Module zur Laufzeit zu aktivieren oder deaktivieren, füge die Namen der Module zur Datei [config.json](src/assets/config/config.json) hinzu.
+Die Bezeichner müssen mit den Namen in der Datei [app.component.html](src/app/app.component.html) übereinstimmen.
+Die Datei `config.json` kann im finalen Artefakt geändert werden.
