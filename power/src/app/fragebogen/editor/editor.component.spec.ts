@@ -9,7 +9,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { PreviewPipe } from './preview.pipe';
+import { PreviewPipe } from '../surveyjs/preview.pipe';
 
 describe('Fragebogen.Editor.EditorComponent', () => {
   let component: EditorComponent;
