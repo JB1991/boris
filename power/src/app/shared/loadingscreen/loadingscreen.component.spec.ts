@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LoadingscreenComponent } from './loadingscreen.component';
 import { LoadingscreenService } from './loadingscreen.service';
 
-describe('Fragebogen.Loadingscreen.LoadingscreenComponent', () => {
+describe('Shared.Loadingscreen.LoadingscreenComponent', () => {
   let component: LoadingscreenComponent;
   let fixture: ComponentFixture<LoadingscreenComponent>;
   let storage: LoadingscreenService;
@@ -21,12 +21,12 @@ describe('Fragebogen.Loadingscreen.LoadingscreenComponent', () => {
     fixture.detectChanges();
 
     storage = TestBed.inject(LoadingscreenService);
-    expect(storage.isVisible).toBeFalsy();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(storage.isVisible).toBeFalsy();
+    expect(storage).toBeTruthy();
+    expect(storage.isVisible()).toBeFalse();
   });
 
   // reset service after each test

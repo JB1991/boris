@@ -19,7 +19,6 @@ describe('Shared.Alerts.AlertsComponent', () => {
     fixture.detectChanges();
 
     storage = TestBed.inject(AlertsService);
-    expect(storage.alertslist).toEqual([]);
   }));
 
   it('should create', () => {

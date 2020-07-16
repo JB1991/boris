@@ -50,7 +50,8 @@ export class FilloutComponent implements OnInit {
         this.storage.loadForm(this.storage.task.form).subscribe((data2) => {
           // check for error
           if (!data2 || data2['error'] || !data2['data']) {
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : this.storage.task.form));
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen',
+                                 (data2['error'] ? data2['error'] : this.storage.task.form));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
@@ -75,7 +76,8 @@ export class FilloutComponent implements OnInit {
         });
       }, (error: Error) => {
         // failed to load task
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen',
+                             (error['error']['error'] ? error['error']['error'] : error['statusText']));
         this.loadingscreen.setVisible(false);
 
         this.router.navigate(['/forms'], { replaceUrl: true });
@@ -88,8 +90,7 @@ export class FilloutComponent implements OnInit {
     }
   }
 
-  @HostListener('window:beforeunload')
-  canDeactivate(): Observable<boolean> | boolean {
+  @HostListener('window:beforeunload') canDeactivate(): Observable<boolean> | boolean {
     // on test environment skip
     if (!environment.production) {
       return true;
@@ -102,11 +103,15 @@ export class FilloutComponent implements OnInit {
    * @param data Data
    */
   public submit(data: any) {
-    if (!data) return;
+    if (!data) {
+      return;
+    }
+
     this.storage.saveInterimResults(this.storage.task.id, data).subscribe((data2) => {
       // check for error
       if (!data2 || data2['error']) {
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data2['error'] ? data2['error'] : this.storage.task.id));
+        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen',
+                             (data2['error'] ? data2['error'] : this.storage.task.id));
         throw new Error('Could not save task: ' + (data2['error'] ? data2['error'] : this.storage.task.id));
       }
 
@@ -114,7 +119,8 @@ export class FilloutComponent implements OnInit {
       this.storage.completeTask(this.storage.task.id).subscribe((data3) => {
         // check for error
         if (!data3 || data3['error']) {
-          this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data3['error'] ? data3['error'] : this.storage.task.pin));
+          this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen',
+                               (data3['error'] ? data3['error'] : this.storage.task.pin));
           throw new Error('Could not complete task: ' + (data3['error'] ? data3['error'] : this.storage.task.pin));
         }
         this.storage.setUnsavedChanges(false);
@@ -126,7 +132,8 @@ export class FilloutComponent implements OnInit {
       });
     }, (error: Error) => {
       // failed to save task
-      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
+      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen',
+                           (error['error']['error'] ? error['error']['error'] : error['statusText']));
       throw error;
   });
   }
@@ -136,17 +143,22 @@ export class FilloutComponent implements OnInit {
    * @param data Data
    */
   public progress(data: any) {
-    if (!data) return;
+    if (!data) {
+      return;
+    }
+
     this.storage.saveInterimResults(this.storage.task.id, data).subscribe((data2) => {
       // check for error
       if (!data2 || data2['error']) {
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (data2['error'] ? data2['error'] : this.storage.task.id));
+        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen',
+                             (data2['error'] ? data2['error'] : this.storage.task.id));
         throw new Error('Could not save task: ' + (data2['error'] ? data2['error'] : this.storage.task.id));
       }
       this.storage.setUnsavedChanges(false);
     }, (error: Error) => {
         // failed to save task
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
+        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen',
+                             (error['error']['error'] ? error['error']['error'] : error['statusText']));
         throw error;
     });
   }

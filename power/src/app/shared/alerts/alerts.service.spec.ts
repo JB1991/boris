@@ -20,7 +20,7 @@ describe('Shared.Alerts.AlertsService', () => {
     expect(service.alertslist[0].timeout).toEqual(5000);
     expect(service.alertslist[0].title).toEqual('Test Title');
   });
-  it('should reset alert.service', () => {
+  it('should reset service', () => {
     service.NewAlert('success', 'Test Title', 'Test Body', 3500);
     expect(service.alertslist[0].timeout).toEqual(3500);
 

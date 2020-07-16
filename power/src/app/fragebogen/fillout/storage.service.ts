@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { Bootstrap4_CSS } from '../surveyjs/style';
+import { Observable } from 'rxjs';
 
 /**
  * StorageService handles api requests and data storage
@@ -12,8 +13,8 @@ import { Bootstrap4_CSS } from '../surveyjs/style';
 })
 export class StorageService {
   public css_style: any = JSON.parse(JSON.stringify(Bootstrap4_CSS));
-  public task: any;
-  public form: any;
+  public task: any = null;
+  public form: any = null;
   public UnsavedChanges = false;
 
   constructor(private httpClient: HttpClient) {
@@ -34,9 +35,10 @@ export class StorageService {
    * @param pin Task pin
    * @param factor Task factor
    */
-  public getAccess(pin: string, factor: string) {
+  public getAccess(pin: string, factor: string): Observable<Object> {
     // load data from server
-    const url = environment.formAPI + 'public/access?pin=' + encodeURIComponent(pin) + '&factor=' + encodeURIComponent(factor);
+    const url = environment.formAPI + 'public/access?pin=' + encodeURIComponent(pin)
+                + '&factor=' + encodeURIComponent(factor);
     return this.httpClient.get(url);
   }
 
@@ -44,7 +46,7 @@ export class StorageService {
    * Loads task by id.
    * @param id Task id
    */
-  public loadTask(id: string) {
+  public loadTask(id: string): Observable<Object> {
     // load data from server
     const url = environment.formAPI + 'public/tasks' + encodeURIComponent(id);
     return this.httpClient.get(url);
@@ -54,7 +56,7 @@ export class StorageService {
    * Loads form by id.
    * @param id Form id
    */
-  public loadForm(id: string) {
+  public loadForm(id: string): Observable<Object> {
     // load data from server
     const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id);
     return this.httpClient.get(url);
@@ -65,22 +67,22 @@ export class StorageService {
    * @param id Task id
    * @param data Data from survey
    */
-  public saveInterimResults(id: string, data: any) {
+  public saveInterimResults(id: string, data: any): Observable<Object> {
     const url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id);
     return this.httpClient.post(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    });
   }
 
   /**
    * Completes task
    * @param id Task id
    */
-  public completeTask(id: string) {
+  public completeTask(id: string): Observable<Object> {
     const url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id) + '?submit=true';
-    return this.httpClient.post(url, {})
+    return this.httpClient.post(url, {});
   }
 
   /**
