@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoadingscreenService } from './loadingscreen.service';
 
-describe('Fragebogen.Loadingscreen.LoadingscreenService', () => {
+describe('Shared.Loadingscreen.LoadingscreenService', () => {
   let service: LoadingscreenService;
 
   beforeEach(() => {

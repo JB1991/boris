@@ -20,6 +20,14 @@ describe('Shared.Alerts.AlertsService', () => {
     expect(service.alertslist[0].timeout).toEqual(5000);
     expect(service.alertslist[0].title).toEqual('Test Title');
   });
+  it('should add invalid alert', () => {
+    expect(function() {
+      service.NewAlert(null, '', '');
+    }).toThrowError('Type is required');
+    expect(function() {
+      service.NewAlert('succes', 'Test Title', 'Test Body');
+    }).toThrowError('Type is invalid');
+  });
   it('should reset service', () => {
     service.NewAlert('success', 'Test Title', 'Test Body', 3500);
     expect(service.alertslist[0].timeout).toEqual(3500);
