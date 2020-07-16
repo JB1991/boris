@@ -21,5 +21,6 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    component.ngOnChanges();
   });
 });

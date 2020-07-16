@@ -1,0 +1,12 @@
+<div class="fullscreen bg-white" *ngIf="isOpen">
+    <div class="container p-3">
+        <button type="button" class="btn btn-secondary mb-3" title="Formular Vorschau schließen" (click)="Toggle()">
+            <i class="fas fa-compress fa-fw" aria-hidden="true"></i>
+            Vorschau schließen
+        </button>
+        <div *ngIf="form">
+            <power-formulars-surveyjs-wrapper [model]="form" [css]="surveyjs_style" (submitResult)="debugPrint($event)">
+            </power-formulars-surveyjs-wrapper>
+        </div>
+    </div>
+</div>
