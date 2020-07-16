@@ -1,18 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { StorageService } from '../storage.service';
-import { Bootstrap4_CSS } from '../../surveyjs/style';
+import { Bootstrap4_CSS } from '../style';
 
 @Component({
-  selector: 'power-formulars-editor-preview',
+  selector: 'power-formulars-surveyjs-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
+  @Input() public form: any;
   public isOpen = false;
   public surveyjs_style = Bootstrap4_CSS;
 
-  constructor(public storage: StorageService) {
+  constructor() {
   }
 
   ngOnInit() {

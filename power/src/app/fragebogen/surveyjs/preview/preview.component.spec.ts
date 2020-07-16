@@ -1,17 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { PreviewComponent } from './preview.component';
-import { StorageService } from '../storage.service';
 
-describe('Fragebogen.Editor.Preview.PreviewComponent', () => {
+describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
   let component: PreviewComponent;
   let fixture: ComponentFixture<PreviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [ StorageService ],
       declarations: [ PreviewComponent ]
     })
     .compileComponents();
@@ -25,5 +21,13 @@ describe('Fragebogen.Editor.Preview.PreviewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should open/close', () => {
+    expect(component.isOpen).toBeFalse();
+    component.Toggle();
+    expect(component.isOpen).toBeTrue();
+    component.Toggle();
+    expect(component.isOpen).toBeFalse();
   });
 });

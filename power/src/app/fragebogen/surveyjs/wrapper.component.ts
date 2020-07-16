@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import * as Survey from 'survey-angular';
-import { init } from './nouislider.js';
+import { init } from './nouislider/nouislider.js';
 import * as Showdown from 'showdown';
 
 @Component({
@@ -76,7 +76,7 @@ export class WrapperComponent implements OnChanges {
     if (this.css) {
       props['css'] = this.css;
     }
-    if (this.model['data']) {
+    if (this.model && this.model['data']) {
       props['data'] = this.model['data'];
     }
     if (this.completedHtml) {
