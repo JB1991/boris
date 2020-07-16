@@ -6,11 +6,9 @@ import { EditorRoutingModule } from './editor-routing.module';
 import { EditorComponent } from './editor.component';
 import { ModalFormularComponent } from './modal-formular/modal-formular.component';
 import { ModalElementComponent } from './modal-element/modal-element.component';
-import { PreviewComponent } from './preview/preview.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { ValidatorsComponent } from './validators/validators.component';
 
-import { PreviewPipe } from './preview.pipe';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
 
@@ -24,10 +22,8 @@ import { SurveyjsModule } from '../surveyjs/surveyjs.module';
     EditorComponent,
     ModalFormularComponent,
     ModalElementComponent,
-    PreviewPipe,
-    PreviewComponent,
     ConditionsComponent,
-    ValidatorsComponent,
+    ValidatorsComponent
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Bootstrap4_CSS } from '../style';
 
 @Component({
-  selector: 'power-formulars-editor-preview',
+  selector: 'power-formulars-surveyjs-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.css']
 })
