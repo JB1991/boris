@@ -35,20 +35,12 @@ export class StorageService {
    * @param pin Task pin
    * @param factor Task factor
    */
-  public getAccess(pin: string, factor: string): Observable<Object> {
+  public getAccess(pin: string, factor?: string): Observable<Object> {
     // load data from server
-    const url = environment.formAPI + 'public/access?pin=' + encodeURIComponent(pin)
-                + '&factor=' + encodeURIComponent(factor);
-    return this.httpClient.get(url);
-  }
-
-  /**
-   * Loads task by id.
-   * @param id Task id
-   */
-  public loadTask(id: string): Observable<Object> {
-    // load data from server
-    const url = environment.formAPI + 'public/tasks' + encodeURIComponent(id);
+    let url = environment.formAPI + 'public/access?pin=' + encodeURIComponent(pin);
+    if (factor) {
+      url += '&factor=' + encodeURIComponent(factor);
+    }
     return this.httpClient.get(url);
   }
 
@@ -65,24 +57,20 @@ export class StorageService {
   /**
    * Saves progress
    * @param id Task id
-   * @param data Data from survey
+   * @param data Data from form
+   * @param submit Submit form
    */
-  public saveInterimResults(id: string, data: any): Observable<Object> {
-    const url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id);
+  public saveResults(id: string, data: any, submit: boolean = false): Observable<Object> {
+    let url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id);
+    if (submit) {
+      url += '?submit=true';
+    }
+
     return this.httpClient.post(url, data, {
       headers: {
         'Content-Type': 'application/json'
       }
     });
-  }
-
-  /**
-   * Completes task
-   * @param id Task id
-   */
-  public completeTask(id: string): Observable<Object> {
-    const url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id) + '?submit=true';
-    return this.httpClient.post(url, {});
   }
 
   /**

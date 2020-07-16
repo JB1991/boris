@@ -16,7 +16,7 @@ export class WrapperComponent implements OnChanges {
   @Input() completedHtml: string;
   @Input() navigateToURL: string;
   @Input() showInvisible = false;
-  @Output() public res: EventEmitter<any> = new EventEmitter();
+  @Output() public submitResult: EventEmitter<any> = new EventEmitter();
   @Output() public interimResult: EventEmitter<any> = new EventEmitter();
   @Output() public changes: EventEmitter<any> = new EventEmitter();
 
@@ -95,9 +95,9 @@ export class WrapperComponent implements OnChanges {
         this.interimResult.emit(s.data);
       };
     }
-    if (this.res) {
+    if (this.submitResult) {
       props['onComplete'] = (s, _) => {
-        this.res.emit(s.data);
+        this.submitResult.emit(s.data);
       };
     }
 
