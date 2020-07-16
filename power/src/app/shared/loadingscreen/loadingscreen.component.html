@@ -1,10 +1,12 @@
 <div id="loadingscreen" *ngIf="loadingscreen.isVisible">
     <div class="row h-100 m-0">
         <div class="col-sm-12 my-auto text-center">
-            <h1>
-                <i class="fas fa-cog fa-spin fa-fw"></i>
+            <div class="h1">
+                <div class="spinner-border m-2" role="status">
+                    <span class="sr-only">Wird geladen...</span>
+                </div>
                 <span class="font-weight-light">Wird geladen...</span>
-            </h1>
+            </div>
         </div>
     </div>
 </div>
