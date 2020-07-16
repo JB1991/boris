@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
    * @param pin Formular pin
    */
   submitPIN(pin: string) {
+    if (!pin) {
+      return;
+    }
     this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
   }
 }

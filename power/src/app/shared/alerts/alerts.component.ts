@@ -19,7 +19,7 @@ export class AlertsComponent implements OnInit {
    */
   public onClosed(id: number) {
     if (id < 0 || id >= this.alerts.alertslist.length) {
-      return;
+      throw new Error('Invalid id');
     }
     this.alerts.alertslist.splice(id, 1);
   }

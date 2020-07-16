@@ -25,6 +25,7 @@ describe('Shared.Alerts.AlertsComponent', () => {
     expect(component).toBeTruthy();
     expect(storage.alertslist).toEqual([]);
   });
+
   it('should close one alert', () => {
     storage.NewAlert('success', 'Test Title 1', 'Test Body');
     storage.NewAlert('danger', 'Test Title 2', 'Test Body', 3500);
@@ -34,6 +35,17 @@ describe('Shared.Alerts.AlertsComponent', () => {
     expect(storage.alertslist.length).toEqual(2);
     expect(storage.alertslist[0].type).toEqual('success');
     expect(storage.alertslist[1].type).toEqual('info');
+  });
+
+  it('should crash', () => {
+    storage.NewAlert('success', 'Test Title 1', 'Test Body');
+
+    expect(function() {
+      component.onClosed(1);
+    }).toThrowError('Invalid id');
+    expect(function() {
+      component.onClosed(-1);
+    }).toThrowError('Invalid id');
   });
 
   // reset service after each test

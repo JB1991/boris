@@ -36,11 +36,18 @@ describe('Fragebogen.Home.HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
   it('should redirect', () => {
     spyOn(routing, 'navigate');
     component.submitPIN('123');
     expect(routing.navigate).toHaveBeenCalledTimes(1);
     expect(routing.navigate).toHaveBeenCalledWith(['/forms', 'fillout', encodeURIComponent('123')],
       { replaceUrl: true });
+  });
+
+  it('should not redirect', () => {
+    spyOn(routing, 'navigate');
+    component.submitPIN('');
+    expect(routing.navigate).toHaveBeenCalledTimes(0);
   });
 });

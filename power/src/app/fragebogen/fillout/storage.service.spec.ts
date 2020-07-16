@@ -29,23 +29,28 @@ describe('Fragebogen.Fillout.StorageService', () => {
     expect(service.form).toBeNull();
     expect(service.UnsavedChanges).toBeFalse();
   });
+
   it('should request access', () => {
     service.getAccess('123', 'abc').subscribe(data => expect(data).toEqual(accessSample));
     answerHTTPRequest(environment.formAPI + 'public/access?pin=123&factor=abc', 'GET', accessSample);
   });
+
   it('should load form', () => {
     service.loadForm('123').subscribe(data => expect(data).toEqual(formSample));
     answerHTTPRequest(environment.formAPI + 'public/forms/123', 'GET', formSample);
   });
+
   it('should submit form', () => {
     service.saveResults('123', submitSample, true).subscribe(data => expect(data).toEqual(submitSample));
     answerHTTPRequest(environment.formAPI + 'public/tasks/123?submit=true', 'POST', submitSample);
   });
+
   it('should set unsavedchanges', () => {
     expect(service.getUnsavedChanges()).toBeFalse();
     service.setUnsavedChanges(true);
     expect(service.getUnsavedChanges()).toBeTrue();
   });
+
   it('should reset service', () => {
     service.form = {'a': 1};
     service.task = {'b': 2};

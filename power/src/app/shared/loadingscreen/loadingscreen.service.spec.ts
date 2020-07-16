@@ -19,12 +19,14 @@ describe('Shared.Loadingscreen.LoadingscreenService', () => {
     expect(service).toBeTruthy();
     expect(service.isVisible()).toBeFalse();
   });
+
   it('should change visibility', () => {
     service.setVisible(true);
     expect(service.isVisible()).toBeTrue();
     service.setVisible(false);
     expect(service.isVisible()).toBeFalse();
   });
+
   it('should reset service', () => {
     service.setVisible(true);
 
