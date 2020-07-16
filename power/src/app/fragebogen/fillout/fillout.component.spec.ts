@@ -15,7 +15,6 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
   let storage: StorageService;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-  let routing: jasmine.SpyObj<Router>;
 
   const accessSample = require('../../../assets/fragebogen/access.json');
   const formSample = require('../../../assets/fragebogen/form-sample.json');
@@ -53,7 +52,6 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     fixture.detectChanges();
 
     storage = TestBed.inject(StorageService);
-    routing = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     expect(component).toBeDefined();
