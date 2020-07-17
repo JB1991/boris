@@ -102,22 +102,29 @@ export class StorageService {
     }
 
     // load data from server
-    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks';
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks' +
+                '?fields=id,pin,created,accessed,submitted,status';
     return this.httpClient.get(url);
   }
 
   /**
    * Creates task
    * @param id Task id
+   * @param amount Number of tasks
+   * @param factor Factor
    */
-  public createTask(id: string) {
+  public createTask(id: string, amount: number = 1, factor?: string) {
     // check data
     if (!id) {
       throw new Error('id is required');
     }
 
     // create task
-    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks';
+    let url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks' +
+                '?number=' + encodeURIComponent(amount);
+    if (factor) {
+      url += '&factor=' + encodeURIComponent(factor);
+    }
     return this.httpClient.post(url, {});
   }
 

@@ -48,22 +48,26 @@ export class MaketaskComponent implements OnInit {
     }
 
     // make pins
-    this.storage.createTask(this.storage.form.id).subscribe((data) => {
+    this.storage.createTask(this.storage.form.id, this.amount).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
-        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen',
-                             (data['error'] ? data['error'] : this.storage.form.id));
-        throw new Error('Could not create task: ' + (data['error'] ? data['error'] : this.storage.form.id));
+        const alertText = (data['error'] ? data['error'] : this.storage.form.id);
+        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
+
+        console.log('Could not create task: ' + alertText);
+        return;
       }
 
       // success
-      this.pinList.push(data['data'].pin);
-      this.storage.tasksList.push(data['data']);
+      for (let i = 0; i < data['data'].length; i++) {
+        this.pinList.push(data['data'][i].pin);
+        this.storage.tasksList.push(data['data'][i]);
+      }
     }, (error: Error) => {
         // failed to create task
-        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen',
-                             (error['error']['error'] ? error['error']['error'] : error['statusText']));
-        throw error;
+        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+        console.log(error);
+        return;
     });
   }
 }
