@@ -11,7 +11,7 @@ import { timingSafeEqual } from 'crypto';
   styleUrls: ['./maketask.component.css']
 })
 export class MaketaskComponent implements OnInit {
-  @ViewChild('modalmaketask') private modal: ModalDirective;
+  @ViewChild('modalmaketask') public modal: ModalDirective;
   public amount = 1;
   public pinList = [];
 
@@ -34,7 +34,7 @@ export class MaketaskComponent implements OnInit {
   /**
    * Closes make task modal
    */
-  public Close() {
+  public close() {
     this.modal.hide();
   }
 
@@ -51,7 +51,7 @@ export class MaketaskComponent implements OnInit {
     this.storage.createTask(this.storage.form.id, this.amount).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
-        const alertText = (data['error'] ? data['error'] : this.storage.form.id);
+        const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
         this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
 
         console.log('Could not create task: ' + alertText);

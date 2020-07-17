@@ -10,7 +10,7 @@ import { StorageService } from '../storage.service';
   styleUrls: ['./publish.component.css']
 })
 export class PublishComponent implements OnInit {
-  @ViewChild('modalpublish') private modal: ModalDirective;
+  @ViewChild('modalpublish') public modal: ModalDirective;
   public pin = 'pin8';
   public accesstime = 60;
 
@@ -32,7 +32,7 @@ export class PublishComponent implements OnInit {
   /**
    * Closes modal
    */
-  public Close() {
+  public close() {
     this.modal.hide();
   }
 
@@ -51,7 +51,7 @@ Dies lässt sich nicht mehr umkehren!')) {
     this.storage.publishForm(this.storage.form.id, this.pin, this.accesstime).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
-        const alertText = (data['error'] ? data['error'] : this.storage.form.id);
+        const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
         this.alerts.NewAlert('danger', 'Veröffentlichen fehlgeschlagen', alertText);
 
         console.log('Could not publish form: ' + alertText);
@@ -61,7 +61,7 @@ Dies lässt sich nicht mehr umkehren!')) {
       // success
       this.storage.form = data['data'];
       this.alerts.NewAlert('success', 'Formular veröffentlicht', 'Das Formular wurde erfolgreich veröffentlicht.');
-      this.Close();
+      this.close();
     }, (error: Error) => {
         // failed to publish form
         this.alerts.NewAlert('danger', 'Veröffentlichen fehlgeschlagen', error['statusText']);

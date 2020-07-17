@@ -26,7 +26,19 @@ describe('Fragebogen.PendingchangesGuard', () => {
 
   it('can route if unguarded', () => {
     mockComponent.returnValue = true;
-    expect(guard.canDeactivate(mockComponent)).toBeTruthy();
+    expect(guard.canDeactivate(mockComponent)).toBeTrue();
+  });
+
+  it('can route if accepted', () => {
+    spyOn(window, 'confirm').and.returnValue(true);
+    mockComponent.returnValue = false;
+    expect(guard.canDeactivate(mockComponent)).toBeTrue();
+  });
+
+  it('can not route if declined', () => {
+    spyOn(window, 'confirm').and.returnValue(false);
+    mockComponent.returnValue = false;
+    expect(guard.canDeactivate(mockComponent)).toBeFalse();
   });
 });
 
