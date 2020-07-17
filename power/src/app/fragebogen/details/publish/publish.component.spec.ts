@@ -48,7 +48,6 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    expect(component).toBeDefined();
   }));
 
   it('should create', () => {

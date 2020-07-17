@@ -34,7 +34,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             snapshot: {
               paramMap: {
                 get: () => {
-                  return 1234;
+                  return '1234';
                 }
               }
             }
@@ -60,7 +60,6 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    expect(component).toBeDefined();
   }));
 
   it('should create', () => {

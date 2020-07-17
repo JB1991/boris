@@ -53,7 +53,7 @@ export class DetailsComponent implements OnInit {
     this.storage.loadForm(id).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
-        const alertText = (data['error'] ? data['error'] : id);
+        const alertText = (data && data['error'] ? data['error'] : id);
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
 
         this.loadingscreen.setVisible(false);
@@ -71,7 +71,7 @@ export class DetailsComponent implements OnInit {
         this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {
           // check for error
           if (!data2 || data2['error'] || !data2['data']) {
-            const alertText = (data2['error'] ? data2['error'] : this.storage.form.id);
+            const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.form.id);
             this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
 
             this.loadingscreen.setVisible(false);
@@ -120,7 +120,7 @@ export class DetailsComponent implements OnInit {
     this.storage.deleteForm(this.storage.form.id).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
-        const alertText = (data['error'] ? data['error'] : this.storage.form.id);
+        const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
         this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
 
         console.log('Could not delete form: ' + alertText);
@@ -151,7 +151,7 @@ export class DetailsComponent implements OnInit {
     this.storage.archiveForm(this.storage.form.id).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
-        const alertText = (data['error'] ? data['error'] : this.storage.form.id);
+        const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
         this.alerts.NewAlert('danger', 'Archivieren fehlgeschlagen', alertText);
 
         console.log('Could not archive form: ' + alertText);
@@ -188,7 +188,7 @@ export class DetailsComponent implements OnInit {
     this.storage.deleteTask(this.storage.tasksList[i].id).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
-        const alertText = (data['error'] ? data['error'] : this.storage.tasksList[i].id);
+        const alertText = (data && data['error'] ? data['error'] : this.storage.tasksList[i].id);
         this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
 
         console.log('Could not delete task: ' + alertText);
