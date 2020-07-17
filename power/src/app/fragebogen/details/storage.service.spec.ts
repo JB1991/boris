@@ -46,7 +46,8 @@ describe('Fragebogen.Details.StorageService', () => {
 
   it('should publish form', () => {
     service.publishForm('123').subscribe(data => expect(data).toEqual(formSample));
-    answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60', 'POST', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
+                      'POST', formSample);
   });
 
   it('should fail publish form', () => {
