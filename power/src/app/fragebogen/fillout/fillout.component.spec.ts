@@ -180,6 +180,21 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     expect(storage.getUnsavedChanges()).toBeTrue();
   });
 
+  it('should throw error', () => {
+    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+    answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+
+    expect(function () {
+      component.loadData('');
+    }).toThrowError('pin is required');
+    expect(function () {
+      component.submit('');
+    }).toThrowError('no data provided');
+    expect(function () {
+      component.progress(null);
+    }).toThrowError('no data provided');
+  });
+
   /**
    * Mocks the API by taking HTTP requests form the queue and returning the answer
    * @param url The URL of the HTTP request

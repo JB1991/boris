@@ -52,9 +52,13 @@ export class FilloutComponent implements OnInit {
    * @param factor Task factor
    */
   public loadData(pin: string, factor: string = null) {
-    this.loadingscreen.setVisible(true);
+    // check data
+    if (!pin) {
+      throw new Error('pin is required');
+    }
 
     // get access by pin
+    this.loadingscreen.setVisible(true);
     this.storage.getAccess(pin, factor).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
@@ -116,8 +120,9 @@ export class FilloutComponent implements OnInit {
    * @param data Data
    */
   public submit(data: any) {
+    // check data
     if (!data) {
-      return;
+      throw new Error('no data provided');
     }
 
     // complete
@@ -145,8 +150,9 @@ export class FilloutComponent implements OnInit {
    * @param data Data
    */
   public progress(data: any) {
+    // check data
     if (!data) {
-      return;
+      throw new Error('no data provided');
     }
 
     // interim results

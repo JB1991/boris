@@ -26,6 +26,9 @@ export class AlertsService {
     if (!(type === 'success' || type === 'danger' || type === 'info' || type === 'warning')) {
       throw new Error('Type is invalid');
     }
+    if (timeout < 1000 || timeout > 60000) {
+      throw new Error('timeout too big or small');
+    }
 
     this.alertslist.push({type, title, text, timeout});
   }

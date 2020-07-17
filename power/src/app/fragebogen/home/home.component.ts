@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
    */
   submitPIN(pin: string) {
     if (!pin) {
-      return;
+      throw new Error('pin is required');
     }
     this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
   }

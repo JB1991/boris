@@ -35,14 +35,35 @@ describe('Fragebogen.Fillout.StorageService', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=123&factor=abc', 'GET', accessSample);
   });
 
+  it('should fail access', () => {
+    expect(function () {
+      service.getAccess('');
+    }).toThrowError('pin is required');
+  });
+
   it('should load form', () => {
     service.loadForm('123').subscribe(data => expect(data).toEqual(formSample));
     answerHTTPRequest(environment.formAPI + 'public/forms/123', 'GET', formSample);
   });
 
+  it('should fail form', () => {
+    expect(function () {
+      service.loadForm(null);
+    }).toThrowError('id is required');
+  });
+
   it('should submit form', () => {
     service.saveResults('123', submitSample, true).subscribe(data => expect(data).toEqual(submitSample));
     answerHTTPRequest(environment.formAPI + 'public/tasks/123?submit=true', 'POST', submitSample);
+  });
+
+  it('should fail submit form', () => {
+    expect(function () {
+      service.saveResults('123', null);
+    }).toThrowError('no data provided');
+    expect(function () {
+      service.saveResults('', submitSample);
+    }).toThrowError('id is required');
   });
 
   it('should set unsavedchanges', () => {
