@@ -12,7 +12,7 @@ import { timingSafeEqual } from 'crypto';
 })
 export class MaketaskComponent implements OnInit {
   @ViewChild('modalmaketask') private modal: ModalDirective;
-  public amount: number = 1;
+  public amount = 1;
   public pinList = [];
 
   constructor(private modalService: BsModalService,
@@ -51,7 +51,8 @@ export class MaketaskComponent implements OnInit {
     this.storage.createTask(this.storage.form.id).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
-        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (data['error'] ? data['error'] : this.storage.form.id));
+        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen',
+                             (data['error'] ? data['error'] : this.storage.form.id));
         throw new Error('Could not create task: ' + (data['error'] ? data['error'] : this.storage.form.id));
       }
 
@@ -60,7 +61,8 @@ export class MaketaskComponent implements OnInit {
       this.storage.tasksList.push(data['data']);
     }, (error: Error) => {
         // failed to create task
-        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
+        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen',
+                             (error['error']['error'] ? error['error']['error'] : error['statusText']));
         throw error;
     });
   }

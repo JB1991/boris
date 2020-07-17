@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
+import { type } from 'os';
 
 /**
  * StorageService handles api requests and data storage
@@ -28,40 +29,51 @@ export class StorageService {
    * @param id Form id
    */
   public loadForm(id: string) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
     // load data from server
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
     return this.httpClient.get(url);
   }
 
   /**
-   * Loads tasks for form.
+   * Publish form by id.
+   * @param id Form id
+   * @param pin Pin type
+   * @param time Time
+   */
+  public publishForm(id: string, pin: string = 'pin6', time: number = 60) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+    if (!(pin === 'public' || pin === 'pin6' || pin === 'pin8' || pin === 'pin6-factor')) {
+      throw new Error('pin is invalid');
+    }
+
+    // load data from server
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '?publish=true'
+              + '&access=' + encodeURIComponent(pin)
+              + '&access-minutes=' + encodeURIComponent(time);
+    return this.httpClient.post(url, '');
+  }
+
+  /**
+   * Archives form by id.
    * @param id Form id
    */
-  public loadTasks(id: string) {
+  public archiveForm(id: string) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
     // load data from server
-    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks?fields=id,form-id,factor,pin,created,accessed,submitted,status';
-    return this.httpClient.get(url);
-  }
-
-  /**
-   * Deletes task
-   * @param id Task id
-   */
-  public deleteTask(id: string) {
-    // delete task
-    const url = environment.formAPI + 'intern/tasks/' + encodeURIComponent(id);
-    return this.httpClient.delete(url);
-  }
-
-  /**
-   * Publish formular
-   * @param id Formular id
-   * @param access Formular access
-   */
-  public publishForm(id: string, access: string) {
-    // delete formular
-    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '?publish=true&access=' + encodeURIComponent(access);
-    return this.httpClient.post(url, null);
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '?cancel=true';
+    return this.httpClient.post(url, '');
   }
 
   /**
@@ -69,9 +81,29 @@ export class StorageService {
    * @param id Formular id
    */
   public deleteForm(id: string) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
     // delete formular
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
     return this.httpClient.delete(url);
+  }
+
+  /**
+   * Loads tasks for form.
+   * @param id Form id
+   */
+  public loadTasks(id: string) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
+    // load data from server
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks';
+    return this.httpClient.get(url);
   }
 
   /**
@@ -79,8 +111,28 @@ export class StorageService {
    * @param id Task id
    */
   public createTask(id: string) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
     // create task
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks';
     return this.httpClient.post(url, {});
+  }
+
+  /**
+   * Deletes task
+   * @param id Task id
+   */
+  public deleteTask(id: string) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
+    // delete task
+    const url = environment.formAPI + 'intern/tasks/' + encodeURIComponent(id);
+    return this.httpClient.delete(url);
   }
 }

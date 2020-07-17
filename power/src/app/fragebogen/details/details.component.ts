@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { StorageService } from './storage.service';
+import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
 @Component({
   selector: 'power-formulars-details',
@@ -13,6 +14,7 @@ import { StorageService } from './storage.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+  @ViewChild('preview') public preview: PreviewComponent;
 
   constructor(private titleService: Title,
               private router: Router,
@@ -25,117 +27,84 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // load data from server
+    // get id
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.loadingscreen.setVisible(true);
-
-      // load form form server
-      this.storage.loadForm(id).subscribe((data) => {
-        // check for error
-        if (!data || data['error'] || !data['data']) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
-          this.loadingscreen.setVisible(false);
-
-          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-          throw new Error('Could not load form: ' + (data['error'] ? data['error'] : id));
-        }
-
-        // save data
-        this.storage.form = data['data'];
-
-        // load tasks from server
-        this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {
-          // check for error
-          if (!data2 || data2['error'] || !data2['data']) {
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data2['error'] ? data2['error'] : this.storage.form.id));
-            this.loadingscreen.setVisible(false);
-
-            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-            throw new Error('Could not load task: ' + (data2['error'] ? data2['error'] : this.storage.form.id));
-          }
-
-          // save data
-          console.log(data2);
-          this.storage.tasksList = data2['data'];
-          this.loadingscreen.setVisible(false);
-        }, (error2: Error) => {
-          // failed to load forms list
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
-          this.loadingscreen.setVisible(false);
-
-          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-          throw error2;
-        });
-      }, (error: Error) => {
-          // failed to load forms list
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
-          this.loadingscreen.setVisible(false);
-
-          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-          throw error;
-      });
+      // load data
+      this.loadData(id);
     } else {
       // missing id
-      this.loadingscreen.setVisible(false);
       this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
     }
   }
 
   /**
-   * Deletes an existing task
-   * @param i Number of task
+   * Load form data
+   * @param id Form id
    */
-  public deleteTask(i: number) {
-    // Ask user to confirm deletion
-    if (!confirm('Möchten Sie diese Antwort wirklich löschen?')) {
-      return;
+  public loadData(id: string) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
     }
 
-    // delete task
-    this.storage.deleteTask(this.storage.tasksList[i].id).subscribe((data) => {
+    // load form form server
+    this.loadingscreen.setVisible(true);
+    this.storage.loadForm(id).subscribe((data) => {
       // check for error
-      if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (data['error'] ? data['error'] : this.storage.tasksList[i].id));
-        throw new Error('Could not delete form: ' + (data['error'] ? data['error'] : this.storage.tasksList[i].id));
+      if (!data || data['error'] || !data['data']) {
+        const alertText = (data['error'] ? data['error'] : id);
+        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+
+        this.loadingscreen.setVisible(false);
+        this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
+        console.log('Could not load form: ' + alertText);
+        return;
       }
 
-      // success
-      this.storage.tasksList.splice(i, 1);
-      this.alerts.NewAlert('success', 'Antwort gelöscht', 'Die Antwort wurde erfolgreich gelöscht.');
-    }, (error: Error) => {
-        // failed to delete task
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
-        throw error;
-    });
-  }
+      // save data
+      this.storage.form = data['data'];
+      console.log(this.storage.form);
 
-  /**
-   * Publish form
-   */
-  public publishFormPin6() {
-    // Ask user to confirm deletion
-    if (!confirm('Möchten Sie dieses Formular wirklich veröffentlichen?')) {
+      if (this.storage.form.status !== 'created') {
+        // load tasks from server
+        this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {
+          // check for error
+          if (!data2 || data2['error'] || !data2['data']) {
+            const alertText = (data2['error'] ? data2['error'] : this.storage.form.id);
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+
+            this.loadingscreen.setVisible(false);
+            this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
+            console.log('Could not load task: ' + alertText);
+            return;
+          }
+
+          // save data
+          this.storage.tasksList = data2['data'];
+          console.log(this.storage.tasksList);
+          this.loadingscreen.setVisible(false);
+        }, (error2: Error) => {
+          // failed to load task list
+          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
+          this.loadingscreen.setVisible(false);
+
+          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+          console.log(error2);
+          return;
+        });
+      } else {
+        this.loadingscreen.setVisible(false);
+      }
+    }, (error: Error) => {
+      // failed to load form
+      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+      this.loadingscreen.setVisible(false);
+
+      this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+      console.log(error);
       return;
-    }
-
-    // publish form
-    this.storage.publishForm(this.storage.form.id, 'pin6').subscribe((data) => {
-      // check for error
-      if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Veröffentlichen fehlgeschlagen', (data['error'] ? data['error'] : this.storage.form.id));
-        throw new Error('Could not publish form: ' + (data['error'] ? data['error'] : this.storage.form.id));
-      }
-      // success
-      this.alerts.NewAlert('success', 'Formular veröffentlicht', 'Das Formular wurde erfolgreich veröffentlicht.');
-
-      // TODO: Reload page?
-    }, (error: Error) => {
-      // failed to publish form
-      this.alerts.NewAlert('danger', 'Veröffentlichen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
-      throw error;
     });
-
   }
 
   /**
@@ -151,8 +120,11 @@ export class DetailsComponent implements OnInit {
     this.storage.deleteForm(this.storage.form.id).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (data['error'] ? data['error'] : this.storage.form.id));
-        throw new Error('Could not delete form: ' + (data['error'] ? data['error'] : this.storage.form.id));
+        const alertText = (data['error'] ? data['error'] : this.storage.form.id);
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
+
+        console.log('Could not delete form: ' + alertText);
+        return;
       }
 
       // success
@@ -160,8 +132,77 @@ export class DetailsComponent implements OnInit {
       this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
     }, (error: Error) => {
         // failed to delete form
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
-        throw error;
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+        console.log(error);
+        return;
+    });
+  }
+
+  /**
+   * Archives form
+   */
+  public archiveForm() {
+    // Ask user to confirm achivation
+    if (!confirm('Möchten Sie dieses Formular wirklich archivieren?\nDies lässt sich nicht mehr umkehren!')) {
+      return;
+    }
+
+    // archive form
+    this.storage.archiveForm(this.storage.form.id).subscribe((data) => {
+      // check for error
+      if (!data || data['error']) {
+        const alertText = (data['error'] ? data['error'] : this.storage.form.id);
+        this.alerts.NewAlert('danger', 'Archivieren fehlgeschlagen', alertText);
+
+        console.log('Could not archive form: ' + alertText);
+        return;
+      }
+
+      // success
+      this.storage.form = data['data'];
+      this.alerts.NewAlert('success', 'Formular archiviert', 'Das Formular wurde erfolgreich archiviert.');
+    }, (error: Error) => {
+        // failed to publish form
+        this.alerts.NewAlert('danger', 'Archivieren fehlgeschlagen', error['statusText']);
+        console.log(error);
+        return;
+    });
+  }
+
+  /**
+   * Deletes an existing task
+   * @param i Number of task
+   */
+  public deleteTask(i: number) {
+    // check data
+    if (i < 0 || i >= this.storage.tasksList.length) {
+      throw new Error('invalid i');
+    }
+
+    // Ask user to confirm deletion
+    if (!confirm('Möchten Sie diese Antwort wirklich löschen?')) {
+      return;
+    }
+
+    // delete task
+    this.storage.deleteTask(this.storage.tasksList[i].id).subscribe((data) => {
+      // check for error
+      if (!data || data['error']) {
+        const alertText = (data['error'] ? data['error'] : this.storage.tasksList[i].id);
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
+
+        console.log('Could not delete task: ' + alertText);
+        return;
+      }
+
+      // success
+      this.storage.tasksList.splice(i, 1);
+      this.alerts.NewAlert('success', 'Antwort gelöscht', 'Die Antwort wurde erfolgreich gelöscht.');
+    }, (error: Error) => {
+        // failed to delete task
+        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+        console.log(error);
+        return;
     });
   }
 }
