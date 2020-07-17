@@ -55,7 +55,7 @@
       300
     ],
     "max-func-body-length": [
-      true,
+      false,
       30
     ],
     "max-line-length": [
