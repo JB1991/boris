@@ -52,9 +52,13 @@ export class FilloutComponent implements OnInit {
    * @param factor Task factor
    */
   public loadData(pin: string, factor: string = null) {
-    this.loadingscreen.setVisible(true);
+    // check data
+    if (!pin) {
+      throw new Error('pin is required');
+    }
 
     // get access by pin
+    this.loadingscreen.setVisible(true);
     this.storage.getAccess(pin, factor).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
@@ -113,18 +117,19 @@ export class FilloutComponent implements OnInit {
 
   /**
    * Submits form after completing it
-   * @param data Data
+   * @param result Data
    */
-  public submit(data: any) {
-    if (!data) {
-      return;
+  public submit(result: any) {
+    // check data
+    if (!result) {
+      throw new Error('no data provided');
     }
 
     // complete
-    this.storage.saveResults(this.storage.task.id, data, true).subscribe((data2) => {
+    this.storage.saveResults(this.storage.task.id, result, true).subscribe((data) => {
       // check for error
-      if (!data2 || data2['error']) {
-        const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.task.pin);
+      if (!data || data['error']) {
+        const alertText = (data && data['error'] ? data['error'] : this.storage.task.pin);
         this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', alertText);
 
         console.log('Could not submit results: ' + alertText);
@@ -132,47 +137,48 @@ export class FilloutComponent implements OnInit {
       }
       this.storage.setUnsavedChanges(false);
       this.alerts.NewAlert('success', 'Speichern erfolgreich', 'Ihre Daten wurden erfolgreich gespeichert.');
-    }, (error2: Error) => {
+    }, (error: Error) => {
         // failed to complete task
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error2['statusText']);
-        console.log(error2);
+        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
+        console.log(error);
         return;
     });
   }
 
   /**
    * Receives form data to save it
-   * @param data Data
+   * @param result Data
    */
-  public progress(data: any) {
-    if (!data) {
-      return;
+  public progress(result: any) {
+    // check data
+    if (!result) {
+      throw new Error('no data provided');
     }
 
     // interim results
-    this.storage.saveResults(this.storage.task.id, data).subscribe((data2) => {
+    this.storage.saveResults(this.storage.task.id, result).subscribe((data) => {
       // check for error
-      if (!data2 || data2['error']) {
-        const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.task.pin);
+      if (!data || data['error']) {
+        const alertText = (data && data['error'] ? data['error'] : this.storage.task.pin);
         this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', alertText);
 
         console.log('Could not save results: ' + alertText);
         return;
       }
       this.storage.setUnsavedChanges(false);
-    }, (error2: Error) => {
+    }, (error: Error) => {
         // failed to save task
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error2['statusText']);
-        console.log(error2);
+        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
+        console.log(error);
         return;
     });
   }
 
   /**
    * Receives change events
-   * @param data Data
+   * @param result Data
    */
-  public changed(data: any) {
+  public changed(result: any) {
     this.storage.setUnsavedChanges(true);
   }
 }

@@ -46,8 +46,8 @@ describe('Fragebogen.Home.HomeComponent', () => {
   });
 
   it('should not redirect', () => {
-    spyOn(routing, 'navigate');
-    component.submitPIN('');
-    expect(routing.navigate).toHaveBeenCalledTimes(0);
+    expect(function () {
+      component.submitPIN('');
+    }).toThrowError('pin is required');
   });
 });

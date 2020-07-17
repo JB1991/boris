@@ -36,6 +36,11 @@ export class StorageService {
    * @param factor Task factor
    */
   public getAccess(pin: string, factor?: string): Observable<Object> {
+    // check data
+    if (!pin) {
+      throw new Error('pin is required');
+    }
+
     // load data from server
     let url = environment.formAPI + 'public/access?pin=' + encodeURIComponent(pin);
     if (factor) {
@@ -49,6 +54,11 @@ export class StorageService {
    * @param id Form id
    */
   public loadForm(id: string): Observable<Object> {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
     // load data from server
     const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id);
     return this.httpClient.get(url);
@@ -61,6 +71,14 @@ export class StorageService {
    * @param submit Submit form
    */
   public saveResults(id: string, data: any, submit: boolean = false): Observable<Object> {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+    if (!data) {
+      throw new Error('no data provided');
+    }
+
     let url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id);
     if (submit) {
       url += '?submit=true';

@@ -4,20 +4,20 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 
-import { MaketaskComponent } from './maketask.component';
+import { PublishComponent } from './publish.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
 
-describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
-  let component: MaketaskComponent;
-  let fixture: ComponentFixture<MaketaskComponent>;
+describe('Fragebogen.Details.Publish.PublishComponent', () => {
+  let component: PublishComponent;
+  let fixture: ComponentFixture<PublishComponent>;
   let storage: StorageService;
   let alerts: jasmine.SpyObj<AlertsService>;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
-  const taskSample = require('../../../../assets/fragebogen/tasks-list.json');
+  const formSample = require('../../../../assets/fragebogen/form-sample.json');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,12 +35,12 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
         },
       ],
       declarations: [
-        MaketaskComponent
+        PublishComponent
       ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MaketaskComponent);
+    fixture = TestBed.createComponent(PublishComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -52,7 +52,6 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.pinList.length).toEqual(0);
   });
 
   it('should open and close', () => {
@@ -62,47 +61,44 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
     expect(component.modal.isShown).toBeFalse();
   });
 
-  it('should generate', () => {
+  it('should publish', () => {
     component.storage.form = {'id': '123'};
-    component.amount = 2;
+    component.pin = 'pin6';
+    component.open();
+    spyOn(window, 'confirm').and.returnValue(true);
 
-    component.Generate();
-    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST', taskSample);
-    expect(component.pinList.length).toEqual(2);
-    expect(component.storage.tasksList.length).toEqual(2);
+    component.Publish();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
+                      'POST', formSample);
+    expect(component.modal.isShown).toBeFalse();
+  });
+
+  it('should not publish', () => {
+    spyOn(window, 'confirm').and.returnValue(false);
+    component.Publish();
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
   it('should error 404', () => {
     component.storage.form = {'id': '123'};
-    component.amount = 2;
+    spyOn(window, 'confirm').and.returnValue(true);
 
-    component.Generate();
-    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST', taskSample,
-                      { status: 404, statusText: 'Not Found' });
+    component.Publish();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
+                      'POST', formSample, { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Not Found');
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Not Found');
   });
 
-  it('should fail to generate', () => {
+  it('should fail to publish', () => {
     component.storage.form = {'id': '123'};
-    component.amount = 1;
+    spyOn(window, 'confirm').and.returnValue(true);
 
-    component.Generate();
-    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=1', 'POST', null);
+    component.Publish();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
+                      'POST', null);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', '123');
-  });
-
-  it('should crash', () => {
-    expect(function () {
-      component.amount = 0;
-      component.Generate();
-    }).toThrowError('Invalid bounds for variable amount');
-
-    expect(function () {
-      component.amount = 200;
-      component.Generate();
-    }).toThrowError('Invalid bounds for variable amount');
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', '123');
   });
 
   /**

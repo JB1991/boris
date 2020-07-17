@@ -34,7 +34,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             snapshot: {
               paramMap: {
                 get: () => {
-                  return 1234;
+                  return '1234';
                 }
               }
             }
@@ -60,7 +60,6 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    expect(component).toBeDefined();
   }));
 
   it('should create', () => {
@@ -178,6 +177,21 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     expect(storage.getUnsavedChanges()).toBeFalse();
     component.changed('data');
     expect(storage.getUnsavedChanges()).toBeTrue();
+  });
+
+  it('should throw error', () => {
+    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+    answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+
+    expect(function () {
+      component.loadData('');
+    }).toThrowError('pin is required');
+    expect(function () {
+      component.submit('');
+    }).toThrowError('no data provided');
+    expect(function () {
+      component.progress(null);
+    }).toThrowError('no data provided');
   });
 
   /**

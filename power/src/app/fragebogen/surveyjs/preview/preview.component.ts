@@ -9,8 +9,10 @@ import { Bootstrap4_CSS } from '../style';
 })
 export class PreviewComponent implements OnInit {
   @Input() public form: any;
+  @Input() public data: any = null;
   public isOpen = false;
   public surveyjs_style = Bootstrap4_CSS;
+  public mode = 'edit';
 
   constructor() {
   }
@@ -19,10 +21,28 @@ export class PreviewComponent implements OnInit {
   }
 
   /**
-   * Toggles full formular preview
+   * Opens full formular preview
+   * @param mode Survey mode [edit, display]
+   * @param data Survey data
    */
-  public Toggle() {
-    this.isOpen = !this.isOpen;
+  public Open(mode = 'edit', data?: any) {
+    if (!(mode === 'edit' || mode === 'display')) {
+      throw new Error('mode is invalid');
+    }
+    if (data && !this.data) {
+      this.data = data;
+    }
+
+    this.mode = mode;
+    this.isOpen = true;
+  }
+
+  /**
+   * Closes full formular preview
+   */
+  public Close() {
+    this.isOpen = false;
+    this.data = null;
   }
 
   /**

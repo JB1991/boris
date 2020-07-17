@@ -8,17 +8,21 @@ import * as Showdown from 'showdown';
   template: `<div #surveyjsDiv></div>`
 })
 export class WrapperComponent implements OnChanges {
-  @ViewChild('surveyjsDiv', {static: true}) surveyjsDiv: ElementRef;
-  @Input() model: {};
-  @Input() mode: string;
-  @Input() theme: string;
-  @Input() css: {};
-  @Input() completedHtml: string;
-  @Input() navigateToURL: string;
-  @Input() showInvisible = false;
+  @ViewChild('surveyjsDiv', {static: true}) public surveyjsDiv: ElementRef;
+  @Input() public model: {};
+  @Input() public data: any = null;
+  @Input() public mode: string;
+  @Input() public theme: string;
+  @Input() public css: {};
+  @Input() public completedHtml: string;
+  @Input() public navigateToURL: string;
+  @Input() public showInvisible = false;
   @Output() public submitResult: EventEmitter<any> = new EventEmitter();
   @Output() public interimResult: EventEmitter<any> = new EventEmitter();
   @Output() public changes: EventEmitter<any> = new EventEmitter();
+
+  public survey: Survey.Survey;
+  public props: any;
 
   ngOnChanges() {
     if (this.theme !== undefined) {
@@ -54,9 +58,9 @@ export class WrapperComponent implements OnChanges {
     converter.setFlavor('github');
 
     init(Survey);
-    const survey = new Survey.Model(this.model);
+    this.survey = new Survey.Model(this.model);
 
-    survey.onTextMarkdown.add((s, options) => {
+    this.survey.onTextMarkdown.add((s, options) => {
       let str = options.text.split('\n\n').join('<br\><br\>');
       str = converter.makeHtml(str);
       if (str.startsWith('<p>') && str.endsWith('</p>')) {
@@ -67,40 +71,42 @@ export class WrapperComponent implements OnChanges {
     });
 
     if (this.mode !== undefined) {
-      survey.mode = this.mode;
+      this.survey.mode = this.mode;
     }
-    survey.showInvisibleElements = this.showInvisible;
+    this.survey.showInvisibleElements = this.showInvisible;
 
     // build property model
-    const props = {model: survey};
+    this.props = {model: this.survey};
     if (this.css) {
-      props['css'] = this.css;
+      this.props['css'] = this.css;
     }
     if (this.model && this.model['data']) {
-      props['data'] = this.model['data'];
+      this.props['data'] = this.model['data'];
+    } else if (this.data) {
+      this.props['data'] = this.data;
     }
     if (this.completedHtml) {
-      props['completedHtml'] = this.completedHtml;
+      this.props['completedHtml'] = this.completedHtml;
     }
     if (this.navigateToURL) {
-      props['navigateToURL'] = this.navigateToURL;
+      this.props['navigateToURL'] = this.navigateToURL;
     }
     if (this.changes) {
-      props['onValueChanged'] = (s, _) => {
+      this.props['onValueChanged'] = (s, _) => {
         this.changes.emit(s.data);
       };
     }
     if (this.interimResult) {
-      props['onCurrentPageChanged'] = (s, _) => {
+      this.props['onCurrentPageChanged'] = (s, _) => {
         this.interimResult.emit(s.data);
       };
     }
     if (this.submitResult) {
-      props['onComplete'] = (s, _) => {
+      this.props['onComplete'] = (s, _) => {
         this.submitResult.emit(s.data);
       };
     }
 
-    Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, props);
+    Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, this.props);
   }
 }
