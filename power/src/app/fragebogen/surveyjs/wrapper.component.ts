@@ -10,6 +10,7 @@ import * as Showdown from 'showdown';
 export class WrapperComponent implements OnChanges {
   @ViewChild('surveyjsDiv', {static: true}) public surveyjsDiv: ElementRef;
   @Input() public model: {};
+  @Input() public data: any = null;
   @Input() public mode: string;
   @Input() public theme: string;
   @Input() public css: {};
@@ -81,6 +82,8 @@ export class WrapperComponent implements OnChanges {
     }
     if (this.model && this.model['data']) {
       this.props['data'] = this.model['data'];
+    } else if (this.data) {
+      this.props['data'] = this.data;
     }
     if (this.completedHtml) {
       this.props['completedHtml'] = this.completedHtml;

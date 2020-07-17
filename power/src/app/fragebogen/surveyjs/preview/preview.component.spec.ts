@@ -23,11 +23,26 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should crash', () => {
+    expect(function () {
+      component.Open('ediet');
+    }).toThrowError('mode is invalid');
+  });
+
   it('should open/close', () => {
     expect(component.isOpen).toBeFalse();
-    component.Toggle();
+    expect(component.mode).toEqual('edit');
+
+    component.Open('edit', 5);
     expect(component.isOpen).toBeTrue();
-    component.Toggle();
+    expect(component.mode).toEqual('edit');
+    expect(component.data).toEqual(5);
+
+    component.Close();
     expect(component.isOpen).toBeFalse();
+    expect(component.data).toBeNull();
+
+    component.Open('display');
+    expect(component.mode).toEqual('display');
   });
 });

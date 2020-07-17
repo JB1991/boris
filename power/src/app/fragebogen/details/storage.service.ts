@@ -102,8 +102,7 @@ export class StorageService {
     }
 
     // load data from server
-    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks' +
-                '?fields=id,pin,created,accessed,submitted,status';
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks';
     return this.httpClient.get(url);
   }
 

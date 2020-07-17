@@ -205,4 +205,17 @@ export class DetailsComponent implements OnInit {
         return;
     });
   }
+
+  /**
+   * Deletes an existing task
+   * @param i Number of task
+   */
+  public openTask(i: number) {
+    // check data
+    if (i < 0 || i >= this.storage.tasksList.length) {
+      throw new Error('invalid i');
+    }
+
+    this.preview.Open('display', this.storage.tasksList[i].content);
+  }
 }
