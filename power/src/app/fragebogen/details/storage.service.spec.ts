@@ -18,6 +18,7 @@ describe('Fragebogen.Details.StorageService', () => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ]
     });
+    spyOn(console, 'log');
     service = TestBed.inject(StorageService);
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);

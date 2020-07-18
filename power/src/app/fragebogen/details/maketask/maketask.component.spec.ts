@@ -44,6 +44,7 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    spyOn(console, 'log');
     storage = TestBed.inject(StorageService);
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);

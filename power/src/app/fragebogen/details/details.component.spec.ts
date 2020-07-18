@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -25,7 +26,9 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([
+          { path: 'forms/dashboard', component: MockDashboardComponent}
+        ])
       ],
       providers: [
         {
@@ -47,7 +50,9 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         StorageService
       ],
       declarations: [
-        DetailsComponent
+        DetailsComponent,
+        MockMaketaskComponent,
+        MockPublishComponent
       ]
     })
     .compileComponents();
@@ -56,6 +61,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    spyOn(console, 'log');
     storage = TestBed.inject(StorageService);
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
@@ -307,3 +313,22 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component = null;
   });
 });
+
+@Component({
+  selector: 'power-formulars-details-maketask',
+  template: ''
+})
+class MockMaketaskComponent {
+}
+@Component({
+  selector: 'power-formulars-details-publish',
+  template: ''
+})
+class MockPublishComponent {
+}
+@Component({
+  selector: 'power-formulars-dashboard',
+  template: ''
+})
+class MockDashboardComponent {
+}

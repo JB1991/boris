@@ -8,6 +8,7 @@ import { FilloutComponent } from './fillout.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
+import { Component } from '@angular/core';
 
 describe('Fragebogen.Fillout.FilloutComponent', () => {
   let component: FilloutComponent;
@@ -25,7 +26,9 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([
+          { path: 'forms', component: MockHomeComponent}
+        ])
       ],
       providers: [
         {
@@ -56,6 +59,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    spyOn(console, 'log');
     storage = TestBed.inject(StorageService);
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
@@ -226,3 +230,10 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     component = null;
   });
 });
+
+@Component({
+  selector: 'power-formulars-home',
+  template: ''
+})
+class MockHomeComponent {
+}
