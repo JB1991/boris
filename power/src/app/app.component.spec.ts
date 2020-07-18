@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { Component } from '@angular/core';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -12,7 +13,9 @@ describe('AppComponent', () => {
         RouterTestingModule,
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MockAlertsComponent,
+        MockLoadingscreenComponent
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
@@ -31,3 +34,16 @@ describe('AppComponent', () => {
     expect(app.appVersion).toContain('.');
   }));
 });
+
+@Component({
+  selector: 'power-alerts',
+  template: ''
+})
+class MockAlertsComponent {
+}
+@Component({
+  selector: 'power-loadingscreen',
+  template: ''
+})
+class MockLoadingscreenComponent {
+}

@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -9,7 +10,6 @@ import { DashboardComponent } from './dashboard.component';
 import { StorageService } from '@app/fragebogen/dashboard/storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
-// TODO Replace StorageService with a test double? (stub, fake, spy or mock)
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
@@ -31,14 +31,17 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([
+          { path: 'forms', component: MockHomeComponent}
+        ])
       ],
       providers: [
         StorageService,
         {provide: AlertsService, useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])}
       ],
       declarations: [
-        DashboardComponent
+        DashboardComponent,
+        MockNewformComponent
       ]
     }).compileComponents();
 
@@ -46,6 +49,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    spyOn(console, 'log');
     storage = TestBed.inject(StorageService);
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
@@ -250,3 +254,16 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     component = null;
   });
 });
+
+@Component({
+  selector: 'power-formulars-dashboard-newform',
+  template: ''
+})
+class MockNewformComponent {
+}
+@Component({
+  selector: 'power-formulars-dashboard',
+  template: ''
+})
+class MockHomeComponent {
+}

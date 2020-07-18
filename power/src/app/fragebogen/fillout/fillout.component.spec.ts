@@ -72,6 +72,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
     expect(storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
     expect(storage.form.id).toEqual('bs63c2os5bcus8t5q0kg');
+    expect(component.canDeactivate()).toBeTrue();
   });
 
   it('should not create', () => {

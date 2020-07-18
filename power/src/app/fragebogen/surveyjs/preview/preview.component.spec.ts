@@ -21,6 +21,8 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    spyOn(console, 'log');
+    component.debugPrint('x');
   });
 
   it('should crash', () => {
