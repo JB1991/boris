@@ -9,5 +9,6 @@ describe('Fragebogen.Shared.LoadingscreenModule', () => {
 
   it('should create an instance', () => {
     expect(loadingscreenModule).toBeTruthy();
+    expect(LoadingscreenModule.forRoot()).toBeTruthy();
   });
 });

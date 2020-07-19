@@ -60,6 +60,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     fixture.detectChanges();
 
     spyOn(console, 'log');
+    spyOn(component.router, 'navigate');
     storage = TestBed.inject(StorageService);
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
@@ -72,7 +73,6 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
     expect(storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
     expect(storage.form.id).toEqual('bs63c2os5bcus8t5q0kg');
-    expect(component.canDeactivate()).toBeTrue();
   });
 
   it('should not create', () => {
@@ -197,6 +197,16 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     expect(function () {
       component.progress(null);
     }).toThrowError('no data provided');
+  });
+
+  it('should not leave page', () => {
+    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+    answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+    expect(component.canDeactivate()).toBeTrue();
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    environment.production = true;
+    expect(component.canDeactivate()).toEqual(!storage.getUnsavedChanges());
   });
 
   /**

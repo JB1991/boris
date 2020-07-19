@@ -14,8 +14,8 @@ export class PublishComponent implements OnInit {
   public pin = 'pin8';
   public accesstime = 60;
 
-  constructor(private modalService: BsModalService,
-              private alerts: AlertsService,
+  constructor(public modalService: BsModalService,
+              public alerts: AlertsService,
               public storage: StorageService) {
   }
 

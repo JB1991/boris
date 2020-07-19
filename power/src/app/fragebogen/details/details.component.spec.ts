@@ -19,6 +19,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
   let httpTestingController: HttpTestingController;
 
   const formSample = require('../../../assets/fragebogen/form-sample.json');
+  const formSample2 = require('../../../assets/fragebogen/form-sample-2.json');
   const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
   const taskSample = require('../../../assets/fragebogen/tasks-list.json');
 
@@ -62,6 +63,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     fixture.detectChanges();
 
     spyOn(console, 'log');
+    spyOn(component.router, 'navigate');
     storage = TestBed.inject(StorageService);
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
@@ -73,6 +75,12 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
     expect(component.storage.tasksList.length).toEqual(2);
+  });
+
+  it('should create 2', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample2);
+    expect(component.storage.form.status).toEqual('created');
+    expect(component.storage.tasksList).toEqual([]);
   });
 
   it('should not create', () => {

@@ -15,8 +15,8 @@ export class MaketaskComponent implements OnInit {
   public amount = 1;
   public pinList = [];
 
-  constructor(private modalService: BsModalService,
-              private alerts: AlertsService,
+  constructor(public modalService: BsModalService,
+              public alerts: AlertsService,
               public storage: StorageService) {
   }
 

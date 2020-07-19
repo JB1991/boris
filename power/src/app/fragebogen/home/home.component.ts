@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private router: Router) {
+  constructor(public titleService: Title, public router: Router) {
     this.titleService.setTitle('Formulare - POWER.NI');
   }
 

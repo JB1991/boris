@@ -7,6 +7,8 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
   let component: WrapperComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 
+  const formSample = require('../../../assets/fragebogen/form-content.json');
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ WrapperComponent ]
@@ -47,5 +49,15 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
     expect(component.props['data']).toEqual(5);
     expect(component.props['model']['mode']).toEqual('edit');
+  });
+
+  it('should do surveyjs 2', () => {
+    component.model = formSample;
+    component.data = {'data': 5};
+
+    component.ngOnChanges();
+    fixture.detectChanges();
+
+    expect(component.data).toEqual({'data': 5});
   });
 });

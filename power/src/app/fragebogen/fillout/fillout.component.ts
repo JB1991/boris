@@ -16,11 +16,11 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 })
 export class FilloutComponent implements OnInit {
 
-  constructor(private titleService: Title,
-              private router: Router,
-              private route: ActivatedRoute,
-              private alerts: AlertsService,
-              private loadingscreen: LoadingscreenService,
+  constructor(public titleService: Title,
+              public router: Router,
+              public route: ActivatedRoute,
+              public alerts: AlertsService,
+              public loadingscreen: LoadingscreenService,
               public storage: StorageService) {
     this.titleService.setTitle('Formulare - POWER.NI');
     this.storage.resetService();

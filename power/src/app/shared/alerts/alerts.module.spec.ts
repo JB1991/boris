@@ -9,5 +9,6 @@ describe('Fragebogen.Shared.AlertsModule', () => {
 
   it('should create an instance', () => {
     expect(alertsModule).toBeTruthy();
+    expect(AlertsModule.forRoot()).toBeTruthy();
   });
 });
