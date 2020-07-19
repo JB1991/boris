@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
-import { type } from 'os';
+import { Observable } from 'rxjs';
 
 /**
  * StorageService handles api requests and data storage
@@ -28,7 +28,7 @@ export class StorageService {
    * Loads form by id.
    * @param id Form id
    */
-  public loadForm(id: string) {
+  public loadForm(id: string): Observable<Object> {
     // check data
     if (!id) {
       throw new Error('id is required');
@@ -45,7 +45,7 @@ export class StorageService {
    * @param pin Pin type
    * @param time Time
    */
-  public publishForm(id: string, pin: string = 'pin6', time: number = 60) {
+  public publishForm(id: string, pin: string = 'pin6', time: number = 60): Observable<Object> {
     // check data
     if (!id) {
       throw new Error('id is required');
@@ -65,7 +65,7 @@ export class StorageService {
    * Archives form by id.
    * @param id Form id
    */
-  public archiveForm(id: string) {
+  public archiveForm(id: string): Observable<Object> {
     // check data
     if (!id) {
       throw new Error('id is required');
@@ -80,7 +80,7 @@ export class StorageService {
    * Deletes formular
    * @param id Formular id
    */
-  public deleteForm(id: string) {
+  public deleteForm(id: string): Observable<Object> {
     // check data
     if (!id) {
       throw new Error('id is required');
@@ -112,7 +112,7 @@ export class StorageService {
    * @param amount Number of tasks
    * @param factor Factor
    */
-  public createTask(id: string, amount: number = 1, factor?: string) {
+  public createTask(id: string, amount: number = 1, factor?: string): Observable<Object> {
     // check data
     if (!id) {
       throw new Error('id is required');
@@ -131,7 +131,7 @@ export class StorageService {
    * Deletes task
    * @param id Task id
    */
-  public deleteTask(id: string) {
+  public deleteTask(id: string): Observable<Object> {
     // check data
     if (!id) {
       throw new Error('id is required');

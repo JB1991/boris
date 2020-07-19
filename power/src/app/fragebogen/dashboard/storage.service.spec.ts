@@ -23,15 +23,10 @@ describe('Fragebogen.Dashboard.StorageService', () => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ]
     });
-
-    // Inject the service, http client and test controller for each test
+    spyOn(console, 'log');
     service = TestBed.inject(StorageService);
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-
-    // Check that the service is defined including the forms list
-    expect(service).toBeDefined();
-    expect(service.formsList.length).toBe(0);
   });
 
   it('loadFormsList() should load a list of forms', () => {
@@ -50,13 +45,25 @@ describe('Fragebogen.Dashboard.StorageService', () => {
   });
 
   it('createForm() should upload a form from JSON', () => {
-    service.createForm(formContent).subscribe(data => expect(data).toEqual(formSample));
-    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample);
+    service.createForm(formContent, 'xxx').subscribe(data => expect(data).toEqual(formSample));
+    answerHTTPRequest(environment.formAPI + 'intern/forms?tags=xxx', 'POST', formSample);
   });
 
   it('deleteForm() should delete a form by id', () => {
     service.deleteForm(formId).subscribe(data => expect(data).toEqual(formDeleted));
     answerHTTPRequest(environment.formAPI + 'intern/forms/' + formId, 'DELETE', formDeleted);
+  });
+
+  it('should fail', () => {
+    expect(function () {
+      service.loadForm('');
+    }).toThrowError('id is required');
+    expect(function () {
+      service.createForm('');
+    }).toThrowError('data is required');
+    expect(function () {
+      service.deleteForm('');
+    }).toThrowError('id is required');
   });
 
   it('resetService() should reset service to empty model', () => {

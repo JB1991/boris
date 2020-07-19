@@ -3,7 +3,6 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
-import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'power-formulars-details-maketask',
