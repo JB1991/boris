@@ -2,15 +2,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { Component } from '@angular/core';
+import { ConfigService } from './config.service';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
+  let config: ConfigService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+      ],
+      providers: [
+        ConfigService
       ],
       declarations: [
         AppComponent,
@@ -20,6 +25,8 @@ describe('AppComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
+
+    config = TestBed.inject(ConfigService);
   }));
 
   it('should create the app', async(() => {
@@ -33,6 +40,13 @@ describe('AppComponent', () => {
   it('should have a version number including a dot', async(() => {
     expect(app.appVersion).toContain('.');
   }));
+
+  it('should load config', () => {
+    app.configService.config = {'modules': ['a', 'b']};
+    app.ngOnInit();
+    expect(app.config).toBeTruthy();
+    expect(app.config.modules.length).toEqual(2);
+  });
 });
 
 @Component({

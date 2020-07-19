@@ -30,11 +30,6 @@
           <td>{{ form.created | date:'dd.MM.yyyy HH:mm' }}</td>
           <td>{{ form.updated | date:'dd.MM.yyyy HH:mm' }}</td>
           <td>
-            <button type="button" class="btn btn-success btn-sm mr-2" id="button-export" title="Formular exportieren"
-                    (click)="exportForm(i)">
-              <i class="far fa-save fa-fw" aria-hidden="true"></i>
-              Export
-            </button>
             <button type="button" class="btn btn-danger btn-sm" id="button-delete" title="Formular löschen"
                     (click)="deleteForm(i)">
               <i class="fa fa-trash fa-fw" aria-hidden="true"></i>
@@ -53,14 +48,6 @@
               (click)="newform.open()">
         <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
         Neues Formular
-      </button>
-      <button type="button"
-              class="btn btn-primary btn-sm"
-              id="button-import"
-              title="Formular importieren"
-              (click)="importForm()">
-        <i class="fas fa-upload fa-fw" aria-hidden="true"></i>
-        Import
       </button>
     </div>
   </div>
