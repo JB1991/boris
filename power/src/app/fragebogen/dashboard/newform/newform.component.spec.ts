@@ -107,6 +107,25 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', '');
   });
 
+  it('should fail new form template', () => {
+    component.title = 'Test';
+    component.template = '123';
+    fixture.detectChanges();
+
+    component.NewForm();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET',
+                      { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+
+    component.NewForm();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST',
+                      { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
+  });
+
   it('should fail new form template 404', () => {
     component.title = 'Test';
     component.template = '123';

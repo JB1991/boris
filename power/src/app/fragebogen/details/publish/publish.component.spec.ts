@@ -80,6 +80,17 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
+  it('should error', () => {
+    component.storage.form = {'id': '123'};
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.Publish();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
+                      'POST', { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Internal Server Error');
+  });
+
   it('should error 404', () => {
     component.storage.form = {'id': '123'};
     spyOn(window, 'confirm').and.returnValue(true);

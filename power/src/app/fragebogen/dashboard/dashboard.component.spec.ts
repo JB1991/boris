@@ -82,6 +82,14 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
   });
 
+  it('should error', () => {
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+  });
+
   it('should error 404', () => {
     answerHTTPRequest(environment.formAPI +
                       'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
@@ -89,6 +97,16 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                       { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+  });
+
+  it('should error 2', () => {
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET',
+                      { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404 2', () => {
@@ -142,6 +160,22 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', null);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
+    expect(component.storage.formsList.length).toEqual(1);
+  });
+
+  it('should fail delete', () => {
+    expect(component).toBeTruthy();
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.deleteForm(0);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE',
+                      { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
     expect(component.storage.formsList.length).toEqual(1);
   });
 

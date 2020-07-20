@@ -19,6 +19,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
   let httpTestingController: HttpTestingController;
 
   const accessSample = require('../../../assets/fragebogen/access.json');
+  const accessemptySample = require('../../../assets/fragebogen/access-empty.json');
   const formSample = require('../../../assets/fragebogen/form-sample.json');
   const submitSample = require('../../../assets/fragebogen/form-submit.json');
 
@@ -91,6 +92,22 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs7v95fp9r1ctg9cbecg');
   });
 
+  it('should not create 3', () => {
+    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET',
+                      { 'error': 'Internal Server Error'});
+    expect(storage.task).toBeNull();
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+
+    component.loadData('1234');
+    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+    answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET',
+                      { 'error': 'Internal Server Error'});
+    expect(storage.form).toBeNull();
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+  });
+
   it('should error 404', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample,
                       { status: 404, statusText: 'Not Found' });
@@ -110,7 +127,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
   });
 
   it('should submit progress', () => {
-    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessemptySample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
     storage.setUnsavedChanges(true);
 
@@ -126,6 +143,11 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     component.progress(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST', null);
+    expect(storage.getUnsavedChanges()).toBeTrue();
+
+    component.progress(submitSample);
+    answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST',
+                      { 'error': 'Internal Server Error'});
     expect(storage.getUnsavedChanges()).toBeTrue();
   });
 
@@ -160,6 +182,11 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     component.submit(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', null);
     expect(storage.getUnsavedChanges()).toBeTrue();
+
+    component.submit(submitSample);
+    answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST',
+                      { 'error': 'Internal Server Error'});
+    expect(storage.getUnsavedChanges()).toBeTrue();
   });
 
   it('should error 404 4', () => {
@@ -189,7 +216,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
 
     expect(function () {
-      component.loadData('');
+      component.loadData('', '123');
     }).toThrowError('pin is required');
     expect(function () {
       component.submit('');

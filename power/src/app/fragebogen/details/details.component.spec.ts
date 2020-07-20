@@ -98,6 +98,23 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
   });
 
+  it('should error', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET',
+                      { 'error': 'Internal Server Error'});
+    expect(storage.form).toBeNull();
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+  });
+
+  it('should error 2', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET',
+                      { 'error': 'Internal Server Error'});
+    expect(storage.tasksList).toEqual([]);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+  });
+
   it('should error 404', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample,
                       { status: 404, statusText: 'Not Found' });
@@ -156,6 +173,18 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
   });
 
+  it('should fail delete form 2', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.deleteForm();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE',
+                      { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
+  });
+
   it('should delete form 404', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
@@ -200,6 +229,18 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
   });
 
+  it('should fail archive form', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.archiveForm();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST',
+                      { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'Internal Server Error');
+  });
+
   it('should archive form 404', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
@@ -242,6 +283,18 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/tasks/bs8t7ifp9r1b3pt5qkr0', 'DELETE', null);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs8t7ifp9r1b3pt5qkr0');
+  });
+
+  it('should fail delete task', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.deleteTask(0);
+    answerHTTPRequest(environment.formAPI + 'intern/tasks/bs8t7ifp9r1b3pt5qkr0', 'DELETE',
+                      { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should delete task 404', () => {

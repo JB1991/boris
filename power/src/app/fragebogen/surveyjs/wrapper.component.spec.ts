@@ -57,7 +57,23 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
     component.ngOnChanges();
     fixture.detectChanges();
+    component.props['onValueChanged']({});
+    component.props['onCurrentPageChanged']({});
+    component.props['onComplete']({});
+    fixture.detectChanges();
 
     expect(component.data).toEqual({'data': 5});
+  });
+
+  it('should do surveyjs 3', () => {
+    component.model = formSample;
+    component.changes = null;
+    component.interimResult = null;
+    component.submitResult = null;
+
+    component.ngOnChanges();
+    fixture.detectChanges();
+
+    expect(component.data).toBeNull();
   });
 });

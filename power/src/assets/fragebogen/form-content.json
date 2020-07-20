@@ -10,14 +10,14 @@
     }
   ],
   "checkErrorsMode": "onValueChanged",
-  "completedHtml": "Vielen Dank für das Abschließen von diesem Formular.",
+  "completedHtml": "Vielen Dank *für* das Abschließen von diesem Formular.",
   "loadingHtml": "Das Formular wird geladen <div class='spinner-border' role='status'></div>",
   "locale": "de",
   "maxOthersLength": 100,
   "maxTextLength": 1000,
   "pages": [
     {
-      "description": "Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.",
+      "description": "Zum Ausfüllen dieses __Online-Formulars__ müssen Sie zuerst einige Bedingungen akzeptieren.",
       "elements": [
         {
           "inputType": "text",
@@ -34,10 +34,10 @@
             }
           ],
           "colCount": 1,
-          "description": "Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).",
+          "description": "Unsere **Datenschutzerklärung** finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).",
           "isRequired": true,
           "name": "e1",
-          "requiredErrorText": "Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.",
+          "requiredErrorText": "Sie müssen die __Datenschutzerklärung__ akzeptieren um fortzufahren.",
           "title": "Datenschutzerklärung",
           "type": "checkbox"
         }

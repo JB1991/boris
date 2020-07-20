@@ -73,6 +73,17 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
     expect(component.storage.tasksList.length).toEqual(2);
   });
 
+  it('should error', () => {
+    component.storage.form = {'id': '123'};
+    component.amount = 2;
+
+    component.Generate();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST',
+                      { 'error': 'Internal Server Error'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
+  });
+
   it('should error 404', () => {
     component.storage.form = {'id': '123'};
     component.amount = 2;
