@@ -9,3 +9,9 @@
     font-size: 2em !important;
   }
 }
+
+@media (max-width: 575px) {
+  .w-mobile {
+    width: 75% !important;
+  }
+}

@@ -7,7 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class LoadingscreenService {
   public visible = false;
 
-  constructor(private router: Router) {
+  constructor(public router: Router) {
     // hide loadingscreen after routing event
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
