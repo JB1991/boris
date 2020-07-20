@@ -3,7 +3,6 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
-import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'power-formulars-details-maketask',
@@ -15,8 +14,8 @@ export class MaketaskComponent implements OnInit {
   public amount = 1;
   public pinList = [];
 
-  constructor(private modalService: BsModalService,
-              private alerts: AlertsService,
+  constructor(public modalService: BsModalService,
+              public alerts: AlertsService,
               public storage: StorageService) {
   }
 

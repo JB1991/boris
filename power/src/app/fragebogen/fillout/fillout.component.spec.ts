@@ -8,6 +8,7 @@ import { FilloutComponent } from './fillout.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
+import { Component } from '@angular/core';
 
 describe('Fragebogen.Fillout.FilloutComponent', () => {
   let component: FilloutComponent;
@@ -25,7 +26,9 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([
+          { path: 'forms', component: MockHomeComponent}
+        ])
       ],
       providers: [
         {
@@ -56,6 +59,8 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    spyOn(console, 'log');
+    spyOn(component.router, 'navigate');
     storage = TestBed.inject(StorageService);
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
@@ -194,6 +199,16 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     }).toThrowError('no data provided');
   });
 
+  it('should not leave page', () => {
+    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+    answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+    expect(component.canDeactivate()).toBeTrue();
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    environment.production = true;
+    expect(component.canDeactivate()).toEqual(!storage.getUnsavedChanges());
+  });
+
   /**
    * Mocks the API by taking HTTP requests form the queue and returning the answer
    * @param url The URL of the HTTP request
@@ -226,3 +241,10 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     component = null;
   });
 });
+
+@Component({
+  selector: 'power-formulars-home',
+  template: ''
+})
+class MockHomeComponent {
+}

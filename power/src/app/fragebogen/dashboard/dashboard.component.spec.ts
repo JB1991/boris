@@ -1,15 +1,14 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { By } from '@angular/platform-browser';
 
-import { environment } from '@env/environment';
 import { DashboardComponent } from './dashboard.component';
-import { StorageService } from '@app/fragebogen/dashboard/storage.service';
+import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { environment } from '@env/environment';
 
-// TODO Replace StorageService with a test double? (stub, fake, spy or mock)
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
@@ -18,27 +17,28 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
-  const formId: String = 'bs63c2os5bcus8t5q0kg';
-  const formsUrl: String = environment.formAPI + 'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title';
-  const tagsUrl: String = environment.formAPI + 'intern/tags';
-  const formsUrlWithId: String = environment.formAPI + 'intern/forms/' + formId;
-
-  const formSample = require('../../../assets/fragebogen/form-sample.json');
   const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
   const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
+  const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([
+          { path: 'forms', component: MockHomeComponent}
+        ])
       ],
       providers: [
         StorageService,
-        {provide: AlertsService, useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])}
+        {
+          provide: AlertsService,
+          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
+        },
       ],
       declarations: [
-        DashboardComponent
+        DashboardComponent,
+        MockNewformComponent
       ]
     }).compileComponents();
 
@@ -46,176 +46,133 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    spyOn(console, 'log');
+    spyOn(component.router, 'navigate');
     storage = TestBed.inject(StorageService);
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-
-    expect(component).toBeDefined();
-    expect(storage.formsList.length).toBe(0);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
   }));
 
-  it('ngOnInit() should fail if no response for forms is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', null);
-    expect(storage.formsList.length).toBe(0);
+  it('should create', () => {
+    expect(component).toBeTruthy();
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+    expect(component.storage.formsList.length).toEqual(1);
+    expect(component.storage.tagList.length).toEqual(3);
+  });
+
+  it('should not create', () => {
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', null);
+    expect(component.storage.formsList.length).toEqual(1);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '');
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tags');
   });
 
-  it('ngOnInit() should fail if no response for tags is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', null);
-    expect(storage.tagList.length).toBe(0);
+  it('should not create 2', () => {
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', null);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '');
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
   });
 
-  it('ngOnInit() should get a list of forms by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-    expect(storage.formsList.length).toBe(1);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
-  });
-
-  it('exportForm() should download the form returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-
-    // Create spy object with methods click() and setAttribute() and spy on document.createElement()
-    const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
-    spyOn(document, 'createElement').and.returnValue(spyObj);
-
-    component.exportForm(0);
-    answerHTTPRequest(formsUrlWithId, 'GET', formSample);
-
-    // Expect that the <a> tag was created
-    expect(document.createElement).toHaveBeenCalledTimes(1);
-    expect(document.createElement).toHaveBeenCalledWith('a');
-
-    // Expect that setAttribute() was called twice
-    expect(spyObj.setAttribute).toHaveBeenCalledTimes(2);
-    expect(spyObj.setAttribute).toHaveBeenCalledWith('download', 'formular.json');
-
-    // Expect that click() was called once without any arguments
-    expect(spyObj.click).toHaveBeenCalledTimes(1);
-    expect(spyObj.click).toHaveBeenCalledWith();
-
-    expect(storage.formsList.length).toBe(1);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
-  });
-
-  it('exportForm() should fail if no response is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-    component.exportForm(0);
-    answerHTTPRequest(formsUrlWithId, 'GET', null);
-    expect(storage.formsList.length).toBe(1);
+  it('should error 404', () => {
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample,
+                      { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
-  it('exportForm() should fail if an error is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-    component.exportForm(0);
-    answerHTTPRequest(formsUrlWithId, 'GET', {'error': 'not found'});
-    expect(storage.formsList.length).toBe(1);
+  it('should error 404 2', () => {
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample,
+                      { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
-  it('importForm() should allow uploading a file', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-
-    // Check the import button
-    const button = fixture.debugElement.query(By.css('#button-import'));
-    expect(button).toBeDefined();
-    expect(button.nativeElement.id).toEqual('button-import');
-    expect(button.nativeElement.textContent).toContain('Import');
-
-    // Spy on FileReader
-    const mockReader = jasmine.createSpyObj('FileReader', ['readAsText']);
-    spyOn(window as any, 'FileReader').and.returnValue(mockReader);
-
-    // Trigger event via event binding
-    button.triggerEventHandler('click', null);
-
-    // Create event
-    const blob = new Blob([JSON.stringify(formSample)], {type: 'application/json'});
-    const file = new File([blob], 'formular.json');
-    const event = new Event('change', {bubbles: true});
-
-    // Overwrite native target property and trigger event directly
-    Object.defineProperty(event, 'target', {value: {files: {0: file}}});
-    const input = document.querySelector('#file-upload');
-    input.dispatchEvent(event);
-
-    expect(mockReader.readAsText).toHaveBeenCalledTimes(1);
-    expect(storage.formsList.length).toBe(1);
-  });
-
-  it('uploadForm() should upload a form to the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-    component.uploadForm(formSample);
-    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample);
-    expect(storage.formsList.length).toBe(2);
-  });
-
-  it('uploadForm() should fail if no response is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-    component.uploadForm(formSample);
-    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', null);
-
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(storage.formsList.length).toBe(1);
-  });
-
-  it('uploadForm() should fail if an error is returned by the API', () => {
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-    component.uploadForm(formSample);
-    answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', {'error': 'not found'});
-
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(storage.formsList.length).toBe(1);
-  });
-
-  it('deleteForm() should delete a form', () => {
-    // Stub out confirm dialog
+  it('should delete', () => {
+    expect(component).toBeTruthy();
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
 
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
     component.deleteForm(0);
-    answerHTTPRequest(formsUrlWithId, 'DELETE', {'data': null});
-    expect(storage.formsList.length).toBe(0);
-  });
-
-  it('deleteForm() should fail if no response is returned by the API', () => {
-    // Stub out confirm dialog
-    spyOn(window, 'confirm').and.returnValue(true);
-
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
-    component.deleteForm(0);
-    answerHTTPRequest(formsUrlWithId, 'DELETE', null);
-
-    expect(storage.formsList.length).toBe(1);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
+                                                 'Das Formular wurde erfolgreich gelöscht.');
+    expect(component.storage.formsList.length).toEqual(0);
   });
 
-  it('deleteForm() should not delete a form if the user does not agree to the deletion', () => {
-    // Stub out confirm dialog
+  it('should not delete', () => {
+    expect(component).toBeTruthy();
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(false);
 
-    answerHTTPRequest(formsUrl, 'GET', formsListSample);
-    answerHTTPRequest(tagsUrl, 'GET', tagsSample);
     component.deleteForm(0);
-
-    expect(storage.formsList.length).toBe(1);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+    expect(component.storage.formsList.length).toEqual(1);
+  });
+
+  it('should fail delete', () => {
+    expect(component).toBeTruthy();
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.deleteForm(0);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', null);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
+    expect(component.storage.formsList.length).toEqual(1);
+  });
+
+  it('should fail delete 404', () => {
+    expect(component).toBeTruthy();
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.deleteForm(0);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample,
+                      { status: 404, statusText: 'Not Found' });
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
+    expect(component.storage.formsList.length).toEqual(1);
+  });
+
+  it('should crash delete', () => {
+    expect(component).toBeTruthy();
+    answerHTTPRequest(environment.formAPI +
+                      'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
+                      'GET', formsListSample);
+    answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    expect(function () {
+      component.deleteForm(1);
+    }).toThrowError('Invalid id');
+    expect(component.storage.formsList.length).toEqual(1);
   });
 
   /**
@@ -250,3 +207,16 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     component = null;
   });
 });
+
+@Component({
+  selector: 'power-formulars-dashboard-newform',
+  template: ''
+})
+class MockNewformComponent {
+}
+@Component({
+  selector: 'power-formulars-dashboard',
+  template: ''
+})
+class MockHomeComponent {
+}

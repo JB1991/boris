@@ -52,10 +52,10 @@
     "label-position": true,
     "max-file-line-count": [
       true,
-      300
+      500
     ],
     "max-func-body-length": [
-      true,
+      false,
       30
     ],
     "max-line-length": [

@@ -25,7 +25,7 @@ export class WrapperComponent implements OnChanges {
   public props: any;
 
   ngOnChanges() {
-    if (this.theme !== undefined) {
+    if (this.theme) {
       Survey.StylesManager.applyTheme(this.theme);
     }
 
@@ -70,7 +70,7 @@ export class WrapperComponent implements OnChanges {
       options.html = converter.makeHtml(str);
     });
 
-    if (this.mode !== undefined) {
+    if (this.mode) {
       this.survey.mode = this.mode;
     }
     this.survey.showInvisibleElements = this.showInvisible;

@@ -19,8 +19,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
-    private cdRef: ChangeDetectorRef,
-    private configService: ConfigService
+    public cdRef: ChangeDetectorRef,
+    public configService: ConfigService
   ) {
   }
 

@@ -16,11 +16,11 @@ import { PreviewComponent } from '../surveyjs/preview/preview.component';
 export class DetailsComponent implements OnInit {
   @ViewChild('preview') public preview: PreviewComponent;
 
-  constructor(private titleService: Title,
-              private router: Router,
-              private route: ActivatedRoute,
-              private alerts: AlertsService,
-              private loadingscreen: LoadingscreenService,
+  constructor(public titleService: Title,
+              public router: Router,
+              public route: ActivatedRoute,
+              public alerts: AlertsService,
+              public loadingscreen: LoadingscreenService,
               public storage: StorageService) {
     this.titleService.setTitle('Formular Details - POWER.NI');
     this.storage.resetService();
