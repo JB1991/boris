@@ -16,7 +16,7 @@ import { LoadingscreenService } from './loadingscreen.service';
   ]
 })
 export class LoadingscreenModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<LoadingscreenModule> {
     return {
         ngModule: LoadingscreenModule,
         providers: [LoadingscreenService]
