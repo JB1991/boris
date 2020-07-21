@@ -1,8 +1,8 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {HttpClient} from '@angular/common/http';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import {BodenrichtwertVerlaufComponent} from './bodenrichtwert-verlauf.component';
+import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
   let component: BodenrichtwertVerlaufComponent;
@@ -13,7 +13,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BodenrichtwertVerlaufComponent],
-      imports: [ HttpClientTestingModule ]
+      imports: [HttpClientTestingModule]
     })
       .compileComponents();
   }));
