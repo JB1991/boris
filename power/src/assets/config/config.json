@@ -4,5 +4,6 @@
     "bodenwerte",
     "immobilien",
     "fragebogen"
-  ]
+  ],
+  "authentication": false
 }

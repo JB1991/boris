@@ -1,6 +1,6 @@
 import { AlertsModule } from './alerts.module';
 
-describe('Fragebogen.Shared.AlertsModule', () => {
+describe('Shared.Alerts.AlertsModule', () => {
   let alertsModule: AlertsModule;
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { LoadingscreenModule } from './loadingscreen.module';
 
-describe('Fragebogen.Shared.LoadingscreenModule', () => {
+describe('Shared.Loadingscreen.LoadingscreenModule', () => {
   let loadingscreenModule: LoadingscreenModule;
 
   beforeEach(() => {

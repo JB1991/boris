@@ -1,9 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { Observable } from 'rxjs';
 
-import { PendingChangesGuard } from './pendingchanges.guard';
-import { Observable, Subject } from 'rxjs';
-
-import { ComponentCanDeactivate } from './pendingchanges.guard';
+import { PendingChangesGuard, ComponentCanDeactivate } from './pendingchanges.guard';
 
 describe('Fragebogen.PendingchangesGuard', () => {
   let mockComponent: MockComponent;

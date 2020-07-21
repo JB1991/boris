@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 @Component({
   selector: 'power-formulars-home',
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public titleService: Title, public router: Router) {
+  constructor(public titleService: Title,
+              public router: Router,
+              public auth: AuthService) {
     this.titleService.setTitle('Formulare - POWER.NI');
   }
 

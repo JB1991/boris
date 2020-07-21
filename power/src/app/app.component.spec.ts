@@ -42,7 +42,7 @@ describe('AppComponent', () => {
   }));
 
   it('should load config', () => {
-    app.configService.config = {'modules': ['a', 'b']};
+    app.configService.config = {'modules': ['a', 'b'], 'authentication': false};
     app.ngOnInit();
     expect(app.config).toBeTruthy();
     expect(app.config.modules.length).toEqual(2);

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailsComponent } from './details.component';
+import { AuthGuard } from '@app/shared/auth/auth.guard';
 
 /**
  * routes contains all known paths
@@ -8,11 +9,13 @@ import { DetailsComponent } from './details.component';
 const routes: Routes = [
   {
     path: 'details',
-    component: DetailsComponent
+    component: DetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'details/:id',
-    component: DetailsComponent
+    component: DetailsComponent,
+    canActivate: [AuthGuard]
   },
 ];
 
