@@ -1,6 +1,6 @@
 {
   "name": "power",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Portal für Wertermittlungsinformationen",
   "author": "Landesamt für Geoinformation und Landesvermessung Niedersachsen",
   "scripts": {
@@ -44,6 +44,7 @@
     "fast-xml-parser": "^3.17.4",
     "geojson": "^0.5.0",
     "http-server": "^0.12.3",
+    "hyphen": "^1.6.2",
     "i": "^0.3.6",
     "knockout": "^3.5.1",
     "mapbox-gl": "0.53.1",
