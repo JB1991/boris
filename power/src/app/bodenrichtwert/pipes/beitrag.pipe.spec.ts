@@ -1,6 +1,6 @@
 import { BeitragPipe } from './beitrag.pipe';
 
-describe('BeitragPipe', () => {
+describe('Bodenrichtwert.Pipes.BeitragPipe', () => {
   it('create an instance', () => {
     const pipe = new BeitragPipe();
     expect(pipe).toBeTruthy();

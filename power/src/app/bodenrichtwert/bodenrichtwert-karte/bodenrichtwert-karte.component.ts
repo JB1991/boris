@@ -52,19 +52,19 @@ export class BodenrichtwertKarteComponent implements OnInit {
   constructor(
     private bodenrichtwertService: BodenrichtwertService,
     private geosearchService: GeosearchService
-    ) {
-      // this.route.fragment.subscribe(f => {
-      //   if (f) {
-      //     this.f = f;
-      //     this.zoom = Number.parseFloat(f.split('/')[0]);
-      //     this.x = Number.parseFloat(f.split('/')[1]);
-      //     this.y = Number.parseFloat(f.split('/')[2]);
-      //     if (this.map) {
-      //       this.map.setZoom(this.zoom);
-      //       this.map.setCenter([this.x, this.y]);
-      //     }
-      //   }
-      // });
+  ) {
+    // this.route.fragment.subscribe(f => {
+    //   if (f) {
+    //     this.f = f;
+    //     this.zoom = Number.parseFloat(f.split('/')[0]);
+    //     this.x = Number.parseFloat(f.split('/')[1]);
+    //     this.y = Number.parseFloat(f.split('/')[2]);
+    //     if (this.map) {
+    //       this.map.setZoom(this.zoom);
+    //       this.map.setCenter([this.x, this.y]);
+    //     }
+    //   }
+    // });
   }
 
   ngOnInit() {

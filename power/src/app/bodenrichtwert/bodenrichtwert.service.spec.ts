@@ -1,8 +1,8 @@
-import {async, TestBed} from '@angular/core/testing';
-import {HttpClient} from '@angular/common/http';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { async, TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import {BodenrichtwertService} from './bodenrichtwert.service';
+import { BodenrichtwertService } from './bodenrichtwert.service';
 
 describe('Bodenrichtwert.BodenrichtwertService', () => {
   let service: BodenrichtwertService;
@@ -11,7 +11,7 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ]
+      imports: [HttpClientTestingModule]
     })
       .compileComponents();
   }));

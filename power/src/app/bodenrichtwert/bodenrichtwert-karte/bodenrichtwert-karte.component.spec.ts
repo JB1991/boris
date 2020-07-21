@@ -1,8 +1,8 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {HttpClient} from '@angular/common/http';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
 
-import {BodenrichtwertKarteComponent} from './bodenrichtwert-karte.component';
+import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
   let component: BodenrichtwertKarteComponent;
@@ -13,7 +13,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BodenrichtwertKarteComponent],
-      imports: [ HttpClientTestingModule ]
+      imports: [HttpClientTestingModule]
     })
       .compileComponents();
   }));
