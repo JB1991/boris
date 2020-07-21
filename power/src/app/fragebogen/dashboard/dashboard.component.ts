@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
         this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
 
         this.loadingscreen.setVisible(false);
-        this.router.navigate(['/forms'], {replaceUrl: true});
+        this.router.navigate(['/forms'], { replaceUrl: true });
         console.log('Could not load forms: ' + alertText);
         return;
       }
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
           this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
 
           this.loadingscreen.setVisible(false);
-          this.router.navigate(['/forms'], {replaceUrl: true});
+          this.router.navigate(['/forms'], { replaceUrl: true });
           console.log('Could not load tags: ' + alertText);
           return;
         }

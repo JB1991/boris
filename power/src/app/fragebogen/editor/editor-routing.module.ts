@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '@app/shared/auth/auth.guard';
 
 import { PendingChangesGuard } from '../pendingchanges.guard';
 import { EditorComponent } from './editor.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     path: 'editor',
     component: EditorComponent,
+    canActivate: [AuthGuard],
     canDeactivate: [
       PendingChangesGuard
     ]
@@ -18,6 +20,7 @@ const routes: Routes = [
   {
     path: 'editor/:id',
     component: EditorComponent,
+    canActivate: [AuthGuard],
     canDeactivate: [
       PendingChangesGuard
     ]

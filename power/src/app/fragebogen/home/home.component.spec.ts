@@ -3,8 +3,10 @@ import { Title } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { HomeComponent } from './home.component';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Home.HomeComponent', () => {
   let component: HomeComponent;
@@ -14,11 +16,13 @@ describe('Fragebogen.Home.HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         FormsModule,
         RouterTestingModule.withRoutes([])
       ],
       providers: [
-        Title
+        Title,
+        AuthService
       ],
       declarations: [
         HomeComponent

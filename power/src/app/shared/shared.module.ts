@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import { AlertsModule } from '@app/shared/alerts/alerts.module';
 import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
+import { AuthModule } from '@app/shared/auth/auth.module';
 
 @NgModule({
   declarations: [GeosearchComponent],
@@ -18,7 +19,8 @@ import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.mod
     NgbCollapseModule,
     CommonModule,
     AlertsModule,
-    LoadingscreenModule
+    LoadingscreenModule,
+    AuthModule
   ],
   imports: [
     NgbModule,
