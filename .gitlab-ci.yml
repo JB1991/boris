@@ -119,7 +119,6 @@ build:
   script:
     - cd power
     - npm run build -- --prod
-    - echo "$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA" > dist/power/assets/config/version
   artifacts:
     expire_in: 1 week
     paths:
@@ -138,6 +137,7 @@ package:
   dependencies:
     - build
   script:
+    - echo "{\"version\":\"$CI_COMMIT_SHORT_SHA\",\"branch\":\"$CI_COMMIT_REF_NAME\"}" > power/dist/power/assets/config/version.json
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
@@ -148,7 +148,8 @@ package:
 deploy:
   stage: deploy
   image: dtzar/helm-kubectl:3.1.2
-  dependencies: []
+  dependencies:
+    - package
   script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
