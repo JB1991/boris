@@ -77,6 +77,21 @@ export class StorageService {
   }
 
   /**
+   * Get form results by id.
+   * @param id Form id
+   */
+  public getCSV(id: string): Observable<Object> {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
+    // load data from server
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks/csv?status=submitted';
+    return this.httpClient.get(url, {responseType: 'text'});
+  }
+
+  /**
    * Deletes formular
    * @param id Formular id
    */

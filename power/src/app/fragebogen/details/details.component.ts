@@ -81,7 +81,6 @@ export class DetailsComponent implements OnInit {
 
           // save data
           this.storage.tasksList = data2['data'];
-          console.log(this.storage.tasksList);
           this.loadingscreen.setVisible(false);
         }, (error2: Error) => {
           // failed to load task list
@@ -163,6 +162,36 @@ export class DetailsComponent implements OnInit {
     }, (error: Error) => {
         // failed to publish form
         this.alerts.NewAlert('danger', 'Archivieren fehlgeschlagen', error['statusText']);
+        console.log(error);
+        return;
+    });
+  }
+
+  /**
+   * Downloads results as csv
+   */
+  public getCSV() {
+    // load csv results
+    this.storage.getCSV(this.storage.form.id).subscribe((data) => {
+      // check for error
+      if (!data) {
+        const alertText = 'Die Antworten konnten nicht geladen werden.';
+        this.alerts.NewAlert('danger', 'Download fehlgeschlagen', alertText);
+
+        console.log('Could not load results: ' + this.storage.form.id);
+        return;
+      }
+
+      // download csv
+      const pom = document.createElement('a');
+      const encodedURIComponent = encodeURIComponent(data.toString());
+      const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
+      pom.setAttribute('href', href);
+      pom.setAttribute('download', 'results.csv');
+      pom.click();
+    }, (error: Error) => {
+        // failed to load results
+        this.alerts.NewAlert('danger', 'Download fehlgeschlagen', error['statusText']);
         console.log(error);
         return;
     });
