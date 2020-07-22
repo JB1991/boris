@@ -253,6 +253,31 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'Not Found');
   });
 
+  it('should fail get csv', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.getCSV();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
+                      'GET', null);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Download fehlgeschlagen', 'Die Antworten konnten nicht geladen werden.');
+  });
+
+  it('should get csv 404', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.getCSV();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
+                      'GET', '666',
+                      { status: 404, statusText: 'Not Found' });
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Download fehlgeschlagen', 'Not Found');
+  });
+
   it('should delete task', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);

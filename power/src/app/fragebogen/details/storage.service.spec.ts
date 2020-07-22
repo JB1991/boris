@@ -116,6 +116,17 @@ describe('Fragebogen.Details.StorageService', () => {
     }).toThrowError('id is required');
   });
 
+  it('should get csv', () => {
+    service.getCSV('1234').subscribe(data => expect(data).toEqual('666'));
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234/tasks/csv?status=submitted', 'GET', '666');
+  });
+
+  it('should fail get csv', () => {
+    expect(function () {
+      service.getCSV(null);
+    }).toThrowError('id is required');
+  });
+
   it('should reset service', () => {
     service.form = {'a': 1};
     service.tasksList = [2, 5];
