@@ -71,7 +71,8 @@ export class AuthService {
       this.router.navigate([redirecturl], { replaceUrl: true });
     }, (error: Error) => {
       // failed to login
-      const alertText = (error['error'] && error['error']['error_description'] ?  error['error']['error_description'] : error['statusText']);
+      const alertText = (error['error'] && error['error']['error_description'] ? error['error']['error_description']
+                        : error['statusText']);
       this.alerts.NewAlert('danger', 'Login fehlgeschlagen', alertText);
       console.log(error);
       return;

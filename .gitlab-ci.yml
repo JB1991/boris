@@ -137,9 +137,8 @@ package:
   dependencies:
     - build
   script:
-    - echo "{\"version\":\"$CI_COMMIT_SHORT_SHA\",\"branch\":\"$CI_COMMIT_REF_NAME\"}" > power/dist/power/assets/config/version.json
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
   only:
     - dev

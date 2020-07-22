@@ -53,7 +53,7 @@ describe('LoginComponent', () => {
   it('should init', () => {
     spyOn(component.auth, 'login');
     spyOn(component.auth, 'getUser').and.returnValue({'username': 'Annegret', 'token': 1});
-    TestBed.get(ActivatedRoute).queryParams = of({ 'redirect': '/forms' });
+    TestBed.inject(ActivatedRoute).queryParams = of({ 'redirect': '/forms' });
     component.email = 'xxx';
     component.password = 'yyy';
 
