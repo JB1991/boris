@@ -253,6 +253,19 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'Not Found');
   });
 
+  it('should get csv', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+    const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
+    spyOn(document, 'createElement').and.returnValue(spyObj);
+
+    component.getCSV();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
+                      'GET', '666');
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+  });
+
   it('should fail get csv', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
