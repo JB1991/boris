@@ -6,7 +6,7 @@ ARG BRANCH="local"
 ARG COMMIT="dev"
 LABEL branch=${BRANCH}
 LABEL commit=${COMMIT}
-RUN echo "{\"version\":\"$COMMIT\",\"branch\":\"$BRANCH\"}" > /usr/share/nginx/html/assets/config/version.json
+RUN echo "{\"version\":\"$COMMIT\",\"branch\":\"$BRANCH\"}" > /usr/share/nginx/html/assets/version.json
 
 COPY nginx-default.conf.template /etc/nginx/conf.d/default.conf.template
 
