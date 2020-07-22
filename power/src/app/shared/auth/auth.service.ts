@@ -21,8 +21,22 @@ export class AuthService {
     this.user = JSON.parse(localStorage.getItem('user'));
   }
 
+  /**
+   * Returns user object
+   */
   public getUser(): User {
     return this.user;
+  }
+
+  /**
+   * Returns auth header
+   */
+  public getBearer(): string {
+    // check token
+    if (!this.user) {
+      return null;
+    }
+    return 'Bearer ' + this.user.token.access_token;
   }
 
   /**

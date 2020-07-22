@@ -76,6 +76,12 @@ describe('Shared.Auth.AlertsService', () => {
                       { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Not Found');
+
+    service.login('Bärbel', 'Manfred');
+    answerHTTPRequest(environment.auth.apiurl, 'POST', {error_description: 'XXX'},
+                      { status: 404, statusText: 'Not Found'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'XXX');
   });
 
   it('should crash login', () => {
@@ -85,6 +91,12 @@ describe('Shared.Auth.AlertsService', () => {
     expect(function () {
       service.login('Ingrit', null);
     }).toThrowError('password is required');
+  });
+
+  it('should get bearer', () => {
+    expect(service.getBearer()).toBeNull();
+    service.user = {'username': 'Klaus', 'token': {'access_token': 'ABC'}};
+    expect(service.getBearer()).toEqual('Bearer ABC');
   });
 
   it('should logout', () => {
