@@ -55,6 +55,7 @@ describe('Shared.Auth.AlertsService', () => {
     service.login('Helmut', 'password', '/forms/dashboard');
     answerHTTPRequest(environment.auth.tokenurl, 'POST', {'x': 7});
     expect(service.user.username).toEqual('Helmut');
+    expect(service.getUser()).toBeTruthy();
   });
 
   it('should fail login', () => {
@@ -97,6 +98,14 @@ describe('Shared.Auth.AlertsService', () => {
     expect(service.getBearer()).toBeNull();
     service.user = {'username': 'Klaus', 'token': {'access_token': 'ABC'}};
     expect(service.getBearer()).toEqual('Bearer ABC');
+  });
+
+  it('should get headers', () => {
+    expect(service.getBearer()).toBeNull();
+    service.user = {'username': 'Klaus', 'token': {'access_token': 'ABC'}};
+
+    let x = service.getHeaders('file/csv');
+    expect(x.headers).toBeTruthy();
   });
 
   it('should logout', () => {
