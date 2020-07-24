@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { ConfigService } from '@app/config.service';
 import { AlertsService } from '../alerts/alerts.service';
@@ -40,6 +40,19 @@ export class AuthService {
   }
 
   /**
+   * Returns http options
+   * @param contenttype Content-Type of file expected
+   */
+  public getHeaders(contenttype = 'application/json'): any {
+    let header = new HttpHeaders().set('Content-Type', contenttype);
+    // check if user is logged in
+    if (this.getUser()) {
+      header = header.set('Authorization', this.getBearer());
+    }
+    return {'headers': header};
+  }
+
+  /**
    * Performs login and requests token
    * @param username Username
    * @param password Password
@@ -68,7 +81,7 @@ export class AuthService {
     body = body.set('response_type', 'id_token');
 
     // post login data
-    this.httpClient.post(environment.auth.apiurl, body).subscribe((data) => {
+    this.httpClient.post(environment.auth.tokenurl, body).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : 'Unknown');
@@ -80,6 +93,19 @@ export class AuthService {
       // save data
       this.user = {'username': username, 'token': data};
       localStorage.setItem('user', JSON.stringify(this.user));
+
+      /*
+      // TODO: Remove code snippet
+      let body2 = new HttpParams();
+      body2 = body2.set('token', this.user.token.access_token);
+      body2 = body2.set('client_id', environment.auth.clientid);
+      body2 = body2.set('client_secret', environment.auth.clientsecret);
+      this.httpClient.post(environment.auth.introspecturl, body2).subscribe((data2) => {
+        console.log(data2);
+      }, (error2: Error) => {
+        console.log(error2);
+      });
+      */
 
       // redirect
       this.router.navigate([redirecturl], { replaceUrl: true });

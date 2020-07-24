@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 /**
  * StorageService handles api requests and data storage
@@ -16,7 +17,7 @@ export class StorageService {
     {value: 'AKS', name: 'Automatische Kaufpreissammlung'}
   ];
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, public auth: AuthService) {
   }
 
   /**
@@ -34,7 +35,7 @@ export class StorageService {
     // Load data from server
     const url = environment.formAPI
                 + 'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title';
-    return this.httpClient.get(url);
+    return this.httpClient.get(url, this.auth.getHeaders());
   }
 
   /**
@@ -48,7 +49,7 @@ export class StorageService {
 
     // load form from server
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-    return this.httpClient.get(url);
+    return this.httpClient.get(url, this.auth.getHeaders());
   }
 
   /**
@@ -57,7 +58,7 @@ export class StorageService {
   public loadTags(): Observable<Object> {
     // Load tags from server
     const url = environment.formAPI + 'intern/tags';
-    return this.httpClient.get(url);
+    return this.httpClient.get(url, this.auth.getHeaders());
   }
 
   /**
@@ -76,11 +77,7 @@ export class StorageService {
     if (tags) {
       url += '?tags=' + encodeURIComponent(tags);
     }
-    return this.httpClient.post(url, data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    return this.httpClient.post(url, data, this.auth.getHeaders());
   }
 
   /**
@@ -95,6 +92,6 @@ export class StorageService {
 
     // Delete form
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-    return this.httpClient.delete(url);
+    return this.httpClient.delete(url, this.auth.getHeaders());
   }
 }

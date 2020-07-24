@@ -2,6 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } fro
 import { Subject } from 'rxjs';
 import { Config, ConfigService } from '@app/config.service';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from './shared/auth/auth.service';
 
 @Component({
   selector: 'power-root',
@@ -11,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   title = 'power';
   isCollapsed = true;
+  isCollapsedAcc = false;
   show = false;
   name: string;
   config: Config;
@@ -21,7 +23,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   constructor(
     public cdRef: ChangeDetectorRef,
     public configService: ConfigService,
-    public httpClient: HttpClient
+    public httpClient: HttpClient,
+    public auth: AuthService
   ) {
   }
 

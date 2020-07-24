@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { StorageService } from './storage.service';
 import { environment } from '@env/environment';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Fragebogen.Dashboard.StorageService', () => {
   let service: StorageService;
@@ -21,7 +22,10 @@ describe('Fragebogen.Dashboard.StorageService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ]
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])
+      ]
     });
     spyOn(console, 'log');
     service = TestBed.inject(StorageService);

@@ -53,32 +53,32 @@ describe('Shared.Auth.AlertsService', () => {
 
   it('should login', () => {
     service.login('Helmut', 'password', '/forms/dashboard');
-    answerHTTPRequest(environment.auth.apiurl, 'POST', {'x': 7});
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'x': 7});
     expect(service.user.username).toEqual('Helmut');
   });
 
   it('should fail login', () => {
     service.login('Gertrud', '123456', '/forms/dashboard');
-    answerHTTPRequest(environment.auth.apiurl, 'POST',
+    answerHTTPRequest(environment.auth.tokenurl, 'POST',
                       {'error': 'Internal Server Error'});
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Internal Server Error');
 
     service.login('Hermann', 'qwertz', '');
-    answerHTTPRequest(environment.auth.apiurl, 'POST', null);
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', null);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Unknown');
   });
 
   it('should fail login 404', () => {
     service.login('Herbert', 'Herbert');
-    answerHTTPRequest(environment.auth.apiurl, 'POST', 5,
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', 5,
                       { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Not Found');
 
     service.login('Bärbel', 'Manfred');
-    answerHTTPRequest(environment.auth.apiurl, 'POST', {error_description: 'XXX'},
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {error_description: 'XXX'},
                       { status: 404, statusText: 'Not Found'});
     expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'XXX');

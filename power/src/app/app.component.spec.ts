@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
 import { ConfigService } from './config.service';
+import { AuthService } from './shared/auth/auth.service';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -17,7 +18,8 @@ describe('AppComponent', () => {
         RouterTestingModule,
       ],
       providers: [
-        ConfigService
+        ConfigService,
+        AuthService
       ],
       declarations: [
         AppComponent,
