@@ -28,12 +28,12 @@ install:
     - cd power
     - npm ci
   only:
-    changes:
-      - package-lock.json
     refs:
       - merge_requests
       - dev
       - staging
+    #changes:
+      #- package-lock.json
 
 test:karma:
   stage: test
