@@ -33,7 +33,7 @@ install:
       - dev
       - staging
     #changes:
-      #- package-lock.json
+      #- power/package-lock.json
 
 test:karma:
   stage: test
