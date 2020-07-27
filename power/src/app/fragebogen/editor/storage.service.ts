@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 
 import * as templates from './data';
 import { Bootstrap4_CSS } from '../surveyjs/style';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 /**
  * StorageService handles loading and saving formulars for the editor component
@@ -22,7 +23,8 @@ export class StorageService {
   public UnsavedChanges = false;
   public AutoSaveEnabled = true;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              public auth: AuthService) {
     // overwrite style class
     this.css_style.container = 'sv_container';
   }
@@ -49,7 +51,7 @@ export class StorageService {
   public loadForm(id: string): Observable<Object> {
     // load data from server
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-    return this.httpClient.get(url);
+    return this.httpClient.get(url, this.auth.getHeaders());
   }
 
   /**
@@ -61,18 +63,10 @@ export class StorageService {
   public saveForm(data: any, id?: string, tags?: string[]): Observable<Object> {
     if (id) {
       const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + (tags ? '?tags=' + tags : '');
-      return this.httpClient.post(url, data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      return this.httpClient.post(url, data, this.auth.getHeaders());
     } else {
       const url = environment.formAPI + 'intern/forms' + (tags ? '?tags=' + tags : '');
-      return this.httpClient.post(url, data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      return this.httpClient.post(url, data, this.auth.getHeaders());
     }
   }
 

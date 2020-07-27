@@ -104,7 +104,7 @@ describe('Shared.Auth.AlertsService', () => {
     expect(service.getBearer()).toBeNull();
     service.user = {'username': 'Klaus', 'token': {'access_token': 'ABC'}};
 
-    let x = service.getHeaders('file/csv');
+    const x = service.getHeaders('file/csv');
     expect(x.headers).toBeTruthy();
   });
 

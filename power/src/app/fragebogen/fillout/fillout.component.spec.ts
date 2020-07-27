@@ -1,14 +1,16 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
+import { environment } from '@env/environment';
 
 import { FilloutComponent } from './fillout.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { environment } from '@env/environment';
-import { Component } from '@angular/core';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 describe('Fragebogen.Fillout.FilloutComponent', () => {
   let component: FilloutComponent;
@@ -32,6 +34,8 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         ])
       ],
       providers: [
+        Title,
+        StorageService,
         {
           provide: ActivatedRoute,
           useValue: {
@@ -48,7 +52,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
           provide: AlertsService,
           useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
         },
-        StorageService
+        LoadingscreenService
       ],
       declarations: [
         FilloutComponent
