@@ -38,7 +38,7 @@ describe('Shared.Auth.AlertsService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(service.router, 'navigate');
-    localStorage.clear();
+    localStorage.removeItem('user');
   });
 
   it('should be created', () => {
@@ -53,7 +53,7 @@ describe('Shared.Auth.AlertsService', () => {
 
   it('should login', () => {
     service.login('Helmut', 'password', '/forms/dashboard');
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'x': 7});
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 900});
     expect(service.user.username).toEqual('Helmut');
     expect(service.getUser()).toBeTruthy();
   });
@@ -122,6 +122,50 @@ describe('Shared.Auth.AlertsService', () => {
     expect(service.IsAuthEnabled()).toBeTrue();
   });
 
+  it('should load localStorage', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 300});
+    expect(service.user.token.expires_in).toEqual(300);
+  });
+
+  it('should fail load localStorage', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', null);
+    expect(service.user).toBeNull();
+
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'error': 'XXX'});
+    expect(service.user).toBeNull();
+  });
+
+  it('should fail load localStorage 404', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', null,
+                      { status: 404, statusText: 'Not Found'});
+    expect(service.user).toBeNull();
+
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {error_description: 'XXX'},
+                      { status: 404, statusText: 'Not Found'});
+    expect(service.user).toBeNull();
+  });
+
   /**
    * Mocks the API by taking HTTP requests form the queue and returning the answer
    * @param url The URL of the HTTP request
@@ -147,7 +191,7 @@ describe('Shared.Auth.AlertsService', () => {
     httpTestingController.verify();
 
     // clear storage
-    localStorage.clear();
+    localStorage.removeItem('user');
     environment.production = false;
   });
 });

@@ -19,6 +19,13 @@ export class AuthService {
               public httpClient: HttpClient,
               public conf: ConfigService,
               public alerts: AlertsService) {
+    this.loadSession();
+  }
+
+  /**
+   * Loads session from localStorage
+   */
+  public loadSession() {
     // parse localstorage
     this.user = JSON.parse(localStorage.getItem('user'));
 
