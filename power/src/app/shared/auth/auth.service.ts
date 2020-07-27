@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
+
 import { ConfigService } from '@app/config.service';
 import { AlertsService } from '../alerts/alerts.service';
 
@@ -18,7 +19,60 @@ export class AuthService {
               public httpClient: HttpClient,
               public conf: ConfigService,
               public alerts: AlertsService) {
+    this.loadSession();
+  }
+
+  /**
+   * Loads session from localStorage
+   */
+  public loadSession() {
+    // parse localstorage
     this.user = JSON.parse(localStorage.getItem('user'));
+
+    // check if session is valid
+    if (this.user && this.user.expires && new Date() < this.user.expires) {
+      return;
+    }
+
+    // session refresh
+    if (this.user) {
+      // craft post object
+      let body = new HttpParams();
+      body = body.set('grant_type', 'refresh_token');
+      body = body.set('client_id', environment.auth.clientid);
+      body = body.set('client_secret', environment.auth.clientsecret);
+      body = body.set('refresh_token', this.user.token.refresh_token);
+      body = body.set('scope', 'openid');
+      body = body.set('response_type', 'id_token');
+
+      // post login data
+      this.httpClient.post(environment.auth.tokenurl, body).subscribe((data) => {
+        // check for error
+        if (!data || data['error']) {
+          const alertText = (data && data['error'] ? data['error'] : 'Unknown');
+          console.log('Could not refresh: ' + alertText);
+          this.logout();
+          return;
+        }
+
+        // save data
+        this.user.expires = new Date();
+        this.user.expires.setSeconds(this.user.expires.getSeconds() + data['expires_in']);
+        this.user.token = data;
+        localStorage.setItem('user', JSON.stringify(this.user));
+      }, (error: Error) => {
+        // failed to refresh
+        const alertText = (error['error'] && error['error']['error_description'] ? error['error']['error_description']
+                          : error['statusText']);
+        console.log(error);
+        this.logout();
+        return;
+      });
+      return;
+    }
+
+    // session empty
+    this.logout();
   }
 
   /**
@@ -91,7 +145,9 @@ export class AuthService {
       }
 
       // save data
-      this.user = {'username': username, 'token': data};
+      const expire = new Date();
+      expire.setSeconds(expire.getSeconds() + data['expires_in']);
+      this.user = {'username': username, 'expires': expire, 'token': data};
       localStorage.setItem('user', JSON.stringify(this.user));
 
       /*
@@ -143,5 +199,6 @@ export class AuthService {
  */
 export class User {
   username: string;
+  expires: Date;
   token: any;
 }

@@ -38,7 +38,7 @@ describe('Shared.Auth.AlertsService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(service.router, 'navigate');
-    localStorage.clear();
+    localStorage.removeItem('user');
   });
 
   it('should be created', () => {
@@ -47,13 +47,13 @@ describe('Shared.Auth.AlertsService', () => {
   });
 
   it('should get user', () => {
-    service.user = {'username': 'Heinrich', 'token': 5};
+    service.user = {'username': 'Heinrich', 'expires': new Date(), 'token': 5};
     expect(service.getUser()).toEqual(service.user);
   });
 
   it('should login', () => {
     service.login('Helmut', 'password', '/forms/dashboard');
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'x': 7});
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 900});
     expect(service.user.username).toEqual('Helmut');
     expect(service.getUser()).toBeTruthy();
   });
@@ -96,20 +96,20 @@ describe('Shared.Auth.AlertsService', () => {
 
   it('should get bearer', () => {
     expect(service.getBearer()).toBeNull();
-    service.user = {'username': 'Klaus', 'token': {'access_token': 'ABC'}};
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
     expect(service.getBearer()).toEqual('Bearer ABC');
   });
 
   it('should get headers', () => {
     expect(service.getBearer()).toBeNull();
-    service.user = {'username': 'Klaus', 'token': {'access_token': 'ABC'}};
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
 
-    let x = service.getHeaders('file/csv');
+    const x = service.getHeaders('file/csv');
     expect(x.headers).toBeTruthy();
   });
 
   it('should logout', () => {
-    service.user = {'username': 'Klaus', 'token': 4};
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': 4};
     service.logout();
     expect(service.getUser()).toBeNull();
   });
@@ -120,6 +120,50 @@ describe('Shared.Auth.AlertsService', () => {
     service.conf.config = {'modules': [], 'authentication': true};
     environment.production = true;
     expect(service.IsAuthEnabled()).toBeTrue();
+  });
+
+  it('should load localStorage', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 300});
+    expect(service.user.token.expires_in).toEqual(300);
+  });
+
+  it('should fail load localStorage', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', null);
+    expect(service.user).toBeNull();
+
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'error': 'XXX'});
+    expect(service.user).toBeNull();
+  });
+
+  it('should fail load localStorage 404', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', null,
+                      { status: 404, statusText: 'Not Found'});
+    expect(service.user).toBeNull();
+
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {error_description: 'XXX'},
+                      { status: 404, statusText: 'Not Found'});
+    expect(service.user).toBeNull();
   });
 
   /**
@@ -147,7 +191,7 @@ describe('Shared.Auth.AlertsService', () => {
     httpTestingController.verify();
 
     // clear storage
-    localStorage.clear();
+    localStorage.removeItem('user');
     environment.production = false;
   });
 });

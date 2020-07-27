@@ -4,11 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
+import { environment } from '@env/environment';
 
 import { DetailsComponent } from './details.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { environment } from '@env/environment';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
   let component: DetailsComponent;
@@ -32,6 +34,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         ])
       ],
       providers: [
+        Title,
+        StorageService,
         {
           provide: ActivatedRoute,
           useValue: {
@@ -48,7 +52,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
           provide: AlertsService,
           useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
         },
-        StorageService
+        LoadingscreenService
       ],
       declarations: [
         DetailsComponent,

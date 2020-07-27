@@ -1,5 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { HistoryService } from './history.service';
 import { StorageService } from './storage.service';
@@ -9,8 +10,13 @@ describe('Fragebogen.Editor.HistoryService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [ StorageService ]
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])
+      ],
+      providers: [
+        StorageService
+      ]
     });
     service = TestBed.inject(HistoryService);
   }));

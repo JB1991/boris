@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { AuthService } from '@app/shared/auth/auth.service';
@@ -17,7 +17,8 @@ export class StorageService {
     {value: 'AKS', name: 'Automatische Kaufpreissammlung'}
   ];
 
-  constructor(private httpClient: HttpClient, public auth: AuthService) {
+  constructor(private httpClient: HttpClient,
+              public auth: AuthService) {
   }
 
   /**
