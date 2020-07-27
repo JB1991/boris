@@ -92,7 +92,7 @@
                 <button type="button"
                     class="btn btn-primary mr-2"
                     title="Formular Einstellugen öffnen"
-                    (click)="modalformular.Open()">
+                    (click)="false">
                     <i class="fas fa-cogs fa-fw" aria-hidden="true"></i>
                     <span class="sr-only">Formular Einstellugen öffnen</span>
                 </button>
@@ -177,12 +177,6 @@
             </smooth-dnd-draggable>
         </smooth-dnd-container>
     </div>
-
-    <!-- configure formular modal -->
-    <power-formulars-editor-modal-formular #modalformular></power-formulars-editor-modal-formular>
-
-    <!-- configure element modal -->
-    <power-formulars-editor-modal-element #modalelement></power-formulars-editor-modal-element>
 </main>
 
 <!-- preview -->

@@ -13,7 +13,7 @@ import { Bootstrap4_CSS } from '../surveyjs/style';
   providedIn: 'root'
 })
 export class StorageService {
-  public model: any = JSON.parse(JSON.stringify(templates.FormularTemplate));
+  public model: any = JSON.parse(JSON.stringify(templates.defaultTemplate));
   public css_style: any = JSON.parse(JSON.stringify(Bootstrap4_CSS));
   public FormularFields = templates.FormularFields;
   public DatabaseMap = templates.DatabaseMap;
@@ -31,7 +31,7 @@ export class StorageService {
    * Resets service to empty model
    */
   public resetService() {
-    this.model = JSON.parse(JSON.stringify(templates.FormularTemplate));
+    this.model = JSON.parse(JSON.stringify(templates.defaultTemplate));
     this.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
     this.css_style.container = 'sv_container';
     this.FormularFields = templates.FormularFields;

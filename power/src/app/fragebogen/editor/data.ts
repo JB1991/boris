@@ -1,7 +1,7 @@
 /**
  * default template for new formulars
  */
-export const FormularTemplate = {
+export const defaultTemplate = {
   locale: 'de',
   title: 'Neues Formular',
   loadingHtml: 'Das Formular wird geladen <div class=\'spinner-border\' role=\'status\'></div>',

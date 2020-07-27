@@ -4,10 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { EditorRoutingModule } from './editor-routing.module';
 import { EditorComponent } from './editor.component';
-import { ModalFormularComponent } from './modal-formular/modal-formular.component';
-import { ModalElementComponent } from './modal-element/modal-element.component';
-import { ConditionsComponent } from './conditions/conditions.component';
-import { ValidatorsComponent } from './validators/validators.component';
 
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
@@ -19,11 +15,7 @@ import { SurveyjsModule } from '../surveyjs/surveyjs.module';
 
 @NgModule({
   declarations: [
-    EditorComponent,
-    ModalFormularComponent,
-    ModalElementComponent,
-    ConditionsComponent,
-    ValidatorsComponent
+    EditorComponent
   ],
   imports: [
     CommonModule,
