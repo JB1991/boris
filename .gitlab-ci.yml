@@ -21,26 +21,21 @@ install:
   image: node:14.5
   dependencies: []
   cache:
-    # load cache
     <<: *global_cache
   script:
     # install node modules
     - cd power
     - npm ci
   only:
-    refs:
-      - merge_requests
-      - dev
-      - staging
-    #changes:
-      #- power/package-lock.json
+    - merge_requests
+    - dev
+    - staging
 
 test:karma:
   stage: test
   image: node:14.5
   dependencies: []
   cache:
-    # load cache
     <<: *global_cache
     policy: pull
   before_script:
@@ -69,7 +64,6 @@ test:e2e:
   image: node:14.5
   dependencies: []
   cache:
-    # load cache
     <<: *global_cache
     policy: pull
   allow_failure: true
@@ -98,7 +92,6 @@ test:audit:
   image: node:14.5
   dependencies: []
   cache:
-    # load cache
     <<: *global_cache
     policy: pull
   allow_failure: true
@@ -115,7 +108,6 @@ test:lint:
   image: node:14.5
   dependencies: []
   cache:
-    # load cache
     <<: *global_cache
     policy: pull
   allow_failure: true
@@ -132,7 +124,6 @@ test:lint:styles:
   image: node:14.5
   dependencies: []
   cache:
-    # load cache
     <<: *global_cache
     policy: pull
   allow_failure: true
@@ -149,7 +140,6 @@ build:
   image: node:14.5
   dependencies: []
   cache:
-    # load cache
     <<: *global_cache
     policy: pull
   script:
