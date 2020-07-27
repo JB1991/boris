@@ -55,7 +55,7 @@ describe('Shared.Auth.AuthGuard', () => {
   it('should allow access', () => {
     guard.conf.config = {'modules': [], 'authentication': true};
     environment.production = true;
-    guard.auth.user = {'username': 'Helga', 'token': 6};
+    guard.auth.user = {'username': 'Helga', 'expires': new Date(), 'token': 6};
 
     expect(guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'})).toBeTrue();
   });

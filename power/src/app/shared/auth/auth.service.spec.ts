@@ -47,7 +47,7 @@ describe('Shared.Auth.AlertsService', () => {
   });
 
   it('should get user', () => {
-    service.user = {'username': 'Heinrich', 'token': 5};
+    service.user = {'username': 'Heinrich', 'expires': new Date(), 'token': 5};
     expect(service.getUser()).toEqual(service.user);
   });
 
@@ -96,20 +96,20 @@ describe('Shared.Auth.AlertsService', () => {
 
   it('should get bearer', () => {
     expect(service.getBearer()).toBeNull();
-    service.user = {'username': 'Klaus', 'token': {'access_token': 'ABC'}};
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
     expect(service.getBearer()).toEqual('Bearer ABC');
   });
 
   it('should get headers', () => {
     expect(service.getBearer()).toBeNull();
-    service.user = {'username': 'Klaus', 'token': {'access_token': 'ABC'}};
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
 
     const x = service.getHeaders('file/csv');
     expect(x.headers).toBeTruthy();
   });
 
   it('should logout', () => {
-    service.user = {'username': 'Klaus', 'token': 4};
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': 4};
     service.logout();
     expect(service.getUser()).toBeNull();
   });
