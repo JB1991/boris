@@ -3,7 +3,6 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
-import {environment} from '../environments/environment';
 import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from '@app/shared/shared.module';
@@ -13,6 +12,7 @@ import {HttpClient} from '@angular/common/http';
 import {Config, ConfigService} from '@app/config.service';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, ObservableInput, of} from 'rxjs';
+import { environment } from '@env/environment';
 
 function load(httpClient: HttpClient, configService: ConfigService) {
   return (): Promise<boolean> => {
