@@ -76,7 +76,8 @@ describe('Shared.Auth.AlertsService', () => {
     answerHTTPRequest(environment.auth.tokenurl, 'POST', 5,
                       { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Not Found');
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen',
+    'Http failure response for https://keycloak.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud/auth/realms/power/protocol/openid-connect/token: 404 Not Found');
 
     service.login('Bärbel', 'Manfred');
     answerHTTPRequest(environment.auth.tokenurl, 'POST', {error_description: 'XXX'},
@@ -104,7 +105,7 @@ describe('Shared.Auth.AlertsService', () => {
     expect(service.getBearer()).toBeNull();
     service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
 
-    const x = service.getHeaders('file/csv');
+    const x = service.getHeaders('text', 'text/csv');
     expect(x.headers).toBeTruthy();
   });
 
@@ -128,13 +129,22 @@ describe('Shared.Auth.AlertsService', () => {
     localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
                                                  'token': {'refresh_token': 'abc'}}));
     service.loadSession();
+    expect(service.user.username).toEqual('Heinrich');
+  });
+
+  it('should load localStorage refresh', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() - 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
     answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 300});
     expect(service.user.token.expires_in).toEqual(300);
   });
 
   it('should fail load localStorage', () => {
     const expire = new Date();
-    expire.setSeconds(expire.getSeconds() + 900);
+    expire.setSeconds(expire.getSeconds() - 900);
     localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
                                                  'token': {'refresh_token': 'abc'}}));
     service.loadSession();
@@ -150,7 +160,7 @@ describe('Shared.Auth.AlertsService', () => {
 
   it('should fail load localStorage 404', () => {
     const expire = new Date();
-    expire.setSeconds(expire.getSeconds() + 900);
+    expire.setSeconds(expire.getSeconds() - 900);
     localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
                                                  'token': {'refresh_token': 'abc'}}));
     service.loadSession();

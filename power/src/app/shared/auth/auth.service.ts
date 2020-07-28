@@ -28,6 +28,9 @@ export class AuthService {
   public loadSession() {
     // parse localstorage
     this.user = JSON.parse(localStorage.getItem('user'));
+    if (this.user && this.user.expires) {
+      this.user.expires = new Date(this.user.expires);
+    }
 
     // check if session is valid
     if (this.user && this.user.expires && new Date() < this.user.expires) {
@@ -49,8 +52,8 @@ export class AuthService {
       this.httpClient.post(environment.auth.tokenurl, body).subscribe((data) => {
         // check for error
         if (!data || data['error']) {
-          const alertText = (data && data['error'] ? data['error'] : 'Unknown');
-          console.log('Could not refresh: ' + alertText);
+          this.alerts.NewAlert('danger', 'Session abgelaufen', 'Sie waren zu lange inaktiv und wurden ausgeloggt.');
+          console.log('Could not refresh: ' + data);
           this.logout();
           return;
         }
@@ -62,8 +65,7 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(this.user));
       }, (error: Error) => {
         // failed to refresh
-        const alertText = (error['error'] && error['error']['error_description'] ? error['error']['error_description']
-                          : error['statusText']);
+        this.alerts.NewAlert('danger', 'Session abgelaufen', 'Sie waren zu lange inaktiv und wurden ausgeloggt.');
         console.log(error);
         this.logout();
         return;
@@ -95,15 +97,16 @@ export class AuthService {
 
   /**
    * Returns http options
+   * @param responsetype How to parse file
    * @param contenttype Content-Type of file expected
    */
-  public getHeaders(contenttype = 'application/json'): any {
+  public getHeaders(responsetype = 'json', contenttype = 'application/json'): any {
     let header = new HttpHeaders().set('Content-Type', contenttype);
     // check if user is logged in
     if (this.getUser()) {
       header = header.set('Authorization', this.getBearer());
     }
-    return {'headers': header};
+    return {'headers': header, 'responseType': responsetype};
   }
 
   /**
@@ -168,7 +171,7 @@ export class AuthService {
     }, (error: Error) => {
       // failed to login
       const alertText = (error['error'] && error['error']['error_description'] ? error['error']['error_description']
-                        : error['statusText']);
+                        : error['message']);
       this.alerts.NewAlert('danger', 'Login fehlgeschlagen', alertText);
       console.log(error);
       return;
