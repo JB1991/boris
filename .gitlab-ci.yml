@@ -144,7 +144,7 @@ build:
     policy: pull
   script:
     - cd power
-    - npm run build -- --prod
+    - npm run build -- --prod --aot=true --output-hashing=all --extract-css=true
   artifacts:
     name: "compiled dist"
     expire_in: 1 week
