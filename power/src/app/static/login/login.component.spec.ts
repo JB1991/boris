@@ -10,7 +10,7 @@ import { LoginComponent } from './login.component';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
-describe('LoginComponent', () => {
+describe('Static.Login.LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let alerts: jasmine.SpyObj<AlertsService>;
