@@ -7,7 +7,7 @@ import { LogoutComponent } from './logout.component';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
-describe('LogoutComponent', () => {
+describe('Static.Logout.LogoutComponent', () => {
   let component: LogoutComponent;
   let fixture: ComponentFixture<LogoutComponent>;
   let alerts: jasmine.SpyObj<AlertsService>;
