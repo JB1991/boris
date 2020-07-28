@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
 
     // check if user is authenticated
     if (this.auth.getUser()) {
-      this.router.navigate(['/'], { replaceUrl: true });
       console.log('User is authenticated');
+      this.router.navigate(['/'], { replaceUrl: true });
     }
   }
 
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
    * Handles login button event
    */
   public login(): boolean {
+    // check parameter
     if (!this.email) {
       this.alerts.NewAlert('danger', 'Loginformular', 'Bitte geben Sie Ihren Benutzernamen an.');
       return false;

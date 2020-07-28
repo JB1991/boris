@@ -1,4 +1,10 @@
-./power/node_modules
+.git/
+chart/
+scripts/
+power/coverage/
+power/e2e/
+power/node_modules/
+power/output/
+power/src/
+power/package-lock.json
 npm-debug.log
-builds
-.git

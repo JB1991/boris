@@ -38,7 +38,7 @@ describe('Shared.Auth.AlertsService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(service.router, 'navigate');
-    localStorage.clear();
+    localStorage.removeItem('user');
   });
 
   it('should be created', () => {
@@ -47,35 +47,43 @@ describe('Shared.Auth.AlertsService', () => {
   });
 
   it('should get user', () => {
-    service.user = {'username': 'Heinrich', 'token': 5};
+    service.user = {'username': 'Heinrich', 'expires': new Date(), 'token': 5};
     expect(service.getUser()).toEqual(service.user);
   });
 
   it('should login', () => {
     service.login('Helmut', 'password', '/forms/dashboard');
-    answerHTTPRequest(environment.auth.apiurl, 'POST', {'x': 7});
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 900});
     expect(service.user.username).toEqual('Helmut');
+    expect(service.getUser()).toBeTruthy();
   });
 
   it('should fail login', () => {
     service.login('Gertrud', '123456', '/forms/dashboard');
-    answerHTTPRequest(environment.auth.apiurl, 'POST',
+    answerHTTPRequest(environment.auth.tokenurl, 'POST',
                       {'error': 'Internal Server Error'});
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Internal Server Error');
 
     service.login('Hermann', 'qwertz', '');
-    answerHTTPRequest(environment.auth.apiurl, 'POST', null);
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', null);
     expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Unknown');
   });
 
   it('should fail login 404', () => {
     service.login('Herbert', 'Herbert');
-    answerHTTPRequest(environment.auth.apiurl, 'POST', 5,
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', 5,
                       { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Not Found');
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen',
+    'Http failure response for https://keycloak.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud/auth/realms/power/protocol/openid-connect/token: 404 Not Found');
+
+    service.login('Bärbel', 'Manfred');
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {error_description: 'XXX'},
+                      { status: 404, statusText: 'Not Found'});
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'XXX');
   });
 
   it('should crash login', () => {
@@ -87,8 +95,22 @@ describe('Shared.Auth.AlertsService', () => {
     }).toThrowError('password is required');
   });
 
+  it('should get bearer', () => {
+    expect(service.getBearer()).toBeNull();
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
+    expect(service.getBearer()).toEqual('Bearer ABC');
+  });
+
+  it('should get headers', () => {
+    expect(service.getBearer()).toBeNull();
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
+
+    const x = service.getHeaders('text', 'text/csv');
+    expect(x.headers).toBeTruthy();
+  });
+
   it('should logout', () => {
-    service.user = {'username': 'Klaus', 'token': 4};
+    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': 4};
     service.logout();
     expect(service.getUser()).toBeNull();
   });
@@ -99,6 +121,59 @@ describe('Shared.Auth.AlertsService', () => {
     service.conf.config = {'modules': [], 'authentication': true};
     environment.production = true;
     expect(service.IsAuthEnabled()).toBeTrue();
+  });
+
+  it('should load localStorage', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    expect(service.user.username).toEqual('Heinrich');
+  });
+
+  it('should load localStorage refresh', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() - 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 300});
+    expect(service.user.token.expires_in).toEqual(300);
+  });
+
+  it('should fail load localStorage', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() - 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', null);
+    expect(service.user).toBeNull();
+
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'error': 'XXX'});
+    expect(service.user).toBeNull();
+  });
+
+  it('should fail load localStorage 404', () => {
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() - 900);
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', null,
+                      { status: 404, statusText: 'Not Found'});
+    expect(service.user).toBeNull();
+
+    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
+                                                 'token': {'refresh_token': 'abc'}}));
+    service.loadSession();
+    answerHTTPRequest(environment.auth.tokenurl, 'POST', {error_description: 'XXX'},
+                      { status: 404, statusText: 'Not Found'});
+    expect(service.user).toBeNull();
   });
 
   /**
@@ -126,7 +201,7 @@ describe('Shared.Auth.AlertsService', () => {
     httpTestingController.verify();
 
     // clear storage
-    localStorage.clear();
+    localStorage.removeItem('user');
     environment.production = false;
   });
 });

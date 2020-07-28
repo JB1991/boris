@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 
 import { Bootstrap4_CSS } from '../surveyjs/style';
-import { Observable } from 'rxjs';
 
 /**
  * StorageService handles api requests and data storage

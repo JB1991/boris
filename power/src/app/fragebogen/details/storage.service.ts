@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 /**
  * StorageService handles api requests and data storage
@@ -13,7 +14,8 @@ export class StorageService {
   public form: any = null;
   public tasksList: any = [];
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              public auth: AuthService) {
   }
 
   /**
@@ -36,7 +38,7 @@ export class StorageService {
 
     // load data from server
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-    return this.httpClient.get(url);
+    return this.httpClient.get(url, this.auth.getHeaders());
   }
 
   /**
@@ -58,7 +60,7 @@ export class StorageService {
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '?publish=true'
               + '&access=' + encodeURIComponent(pin)
               + '&access-minutes=' + encodeURIComponent(time);
-    return this.httpClient.post(url, '');
+    return this.httpClient.post(url, '', this.auth.getHeaders());
   }
 
   /**
@@ -73,7 +75,22 @@ export class StorageService {
 
     // load data from server
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '?cancel=true';
-    return this.httpClient.post(url, '');
+    return this.httpClient.post(url, '', this.auth.getHeaders());
+  }
+
+  /**
+   * Get form results by id.
+   * @param id Form id
+   */
+  public getCSV(id: string): Observable<Object> {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
+    // load data from server
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks/csv?status=submitted';
+    return this.httpClient.get(url, this.auth.getHeaders('text', 'text/csv'));
   }
 
   /**
@@ -88,7 +105,7 @@ export class StorageService {
 
     // delete formular
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-    return this.httpClient.delete(url);
+    return this.httpClient.delete(url, this.auth.getHeaders());
   }
 
   /**
@@ -103,7 +120,7 @@ export class StorageService {
 
     // load data from server
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks';
-    return this.httpClient.get(url);
+    return this.httpClient.get(url, this.auth.getHeaders());
   }
 
   /**
@@ -124,7 +141,7 @@ export class StorageService {
     if (factor) {
       url += '&factor=' + encodeURIComponent(factor);
     }
-    return this.httpClient.post(url, {});
+    return this.httpClient.post(url, {}, this.auth.getHeaders());
   }
 
   /**
@@ -139,6 +156,6 @@ export class StorageService {
 
     // delete task
     const url = environment.formAPI + 'intern/tasks/' + encodeURIComponent(id);
-    return this.httpClient.delete(url);
+    return this.httpClient.delete(url, this.auth.getHeaders());
   }
 }

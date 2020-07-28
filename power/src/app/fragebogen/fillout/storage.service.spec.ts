@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '@env/environment';
 
 import { StorageService } from './storage.service';
-import { environment } from '@env/environment';
 
 describe('Fragebogen.Fillout.StorageService', () => {
   let service: StorageService;
@@ -16,7 +16,9 @@ describe('Fragebogen.Fillout.StorageService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ]
+      imports: [
+        HttpClientTestingModule
+      ]
     });
     service = TestBed.inject(StorageService);
     httpClient = TestBed.inject(HttpClient);

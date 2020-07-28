@@ -10,7 +10,7 @@
 
         <div class="card-body">
             <!-- login formular -->
-            <form #loginForm="ngForm" onsubmit="return false;">
+            <form #loginForm="ngForm" (ngSubmit)="login()" action="#">
                 <div class="form-group">
                     <!-- email -->
                     <label for="useremail">
@@ -47,6 +47,8 @@
                            placeholder="Passwort"
                            required>
                 </div>
+
+                <button type="submit" class="btn btn-success sr-only" title="Einloggen">Einloggen</button>
             </form>
         </div>
 
