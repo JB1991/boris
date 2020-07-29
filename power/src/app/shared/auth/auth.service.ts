@@ -28,7 +28,12 @@ export class AuthService {
    * @param refresh should refresh token if expired
    */
   public async loadSession(refresh = true) {
-    // parse localstorage
+    // check if session is loaded and still valid
+    if (this.IsAuthenticated()) {
+      return;
+    }
+
+    // load session from localstorage
     this.user = JSON.parse(localStorage.getItem('user'));
     // fix wrong timezone after parsing from json
     if (this.user && this.user.expires) {
@@ -49,8 +54,9 @@ export class AuthService {
       body = body.set('client_secret', environment.auth.clientsecret);
       body = body.set('refresh_token', this.user.token.refresh_token);
 
-      // post login data
-      this.httpClient.post(environment.auth.url + 'token', body).subscribe((data) => {
+      try {
+        // post login data
+        const data = await this.httpClient.post(environment.auth.url + 'token', body).toPromise();
         // check for error
         if (!data || data['error']) {
           console.log('Could not refresh: ' + data);
@@ -66,7 +72,8 @@ export class AuthService {
         this.user.expires.setSeconds(this.user.expires.getSeconds() + data['expires_in']);
         this.user.token = data;
         localStorage.setItem('user', JSON.stringify(this.user));
-      }, (error: Error) => {
+        return;
+      } catch (error) {
         // failed to refresh
         console.log(error);
 
@@ -74,11 +81,10 @@ export class AuthService {
         localStorage.removeItem('user');
         this.user = null;
         return;
-      });
-      return;
+      }
     }
 
-    // session empty
+    // delete localStorage
     localStorage.removeItem('user');
     this.user = null;
   }

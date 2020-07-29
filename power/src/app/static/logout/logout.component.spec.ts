@@ -35,17 +35,19 @@ describe('Static.Logout.LogoutComponent', () => {
 
     fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;
+    spyOn(component, 'redirect');
     fixture.detectChanges();
 
+    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
+    localStorage.removeItem('user');
+    component.auth.user = null;
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Sie wurden erfolgreich ausgeloggt', '');
+    expect(component.loadingscreen.isVisible()).toBeTrue();
   });
 });
 

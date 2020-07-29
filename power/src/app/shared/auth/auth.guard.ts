@@ -18,13 +18,14 @@ export class AuthGuard implements CanActivate {
   /**
    * Called before a protected route is loaded to check if user is authenticated
    */
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     // allow access if auth module is not enabled
     if (!this.auth.IsAuthEnabled()) {
       return true;
     }
 
     // check authentication
+    await this.auth.loadSession(true);
     if (this.auth.IsAuthenticated()) {
       return true;
     }
