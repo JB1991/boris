@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'power-login',
@@ -10,52 +10,57 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public email = '';
-  public password = '';
-  public redirect = '/';
 
   constructor(public titleService: Title,
               public activatedRoute: ActivatedRoute,
               public router: Router,
-              public auth: AuthService,
-              public alerts: AlertsService) {
+              public auth: AuthService) {
     this.titleService.setTitle('Login - POWER.NI');
   }
 
-  ngOnInit(): void {
-    // get redirect
-    this.activatedRoute.queryParams.subscribe(params => {
-      if (params.redirect) {
-        this.redirect = params.redirect;
-      }
-    });
-
-    // check if user is authenticated
-    if (this.auth.getUser()) {
-      console.log('User is authenticated');
-      this.router.navigate(['/'], { replaceUrl: true });
-    }
+  async ngOnInit() {
+    await this.authenticate();
   }
 
   /**
-   * Handles login button event
+   * Handles user authentication
    */
-  public login(): boolean {
-    // check parameter
-    if (!this.email) {
-      this.alerts.NewAlert('danger', 'Loginformular', 'Bitte geben Sie Ihren Benutzernamen an.');
-      return false;
-    }
-    if (!this.password) {
-      this.alerts.NewAlert('danger', 'Loginformular', 'Bitte geben Sie Ihr Passwort an.');
-      return false;
-    }
-    if (!this.redirect) {
-      this.redirect = '/';
+  public async authenticate() {
+    // get redirect
+    let redirect = this.activatedRoute.snapshot.queryParamMap.get("redirect");
+    if (!redirect) {
+      redirect = '/';
     }
 
-    // authenticate
-    this.auth.login(this.email, this.password, this.redirect);
-    return true;
+    // check if user is authenticated
+    if (this.auth.IsAuthenticated()) {
+      console.log('User is authenticated');
+      this.router.navigate([redirect], { replaceUrl: true });
+      return;
+    }
+
+    // check if keycloak params are set
+    const session = this.activatedRoute.snapshot.queryParamMap.get("code");
+    if (session) {
+      // get access token
+      await this.auth.KeycloakToken(session);
+
+      // check if user is authenticated
+      if (this.auth.IsAuthenticated()) {
+        console.log('User is authenticated');
+        this.router.navigate([redirect], { replaceUrl: true });
+        return;
+      }
+
+      // failed to authenticate
+      console.log("authentication failed");
+      return;
+    }
+
+    // redirect to auth page
+    document.location.href = environment.auth.url + 'auth' +
+                             '?response_type=code' +
+                             '&client_id=' + encodeURIComponent(environment.auth.clientid) +
+                             '&redirect_uri=' + encodeURIComponent(document.location.href);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Router } from '@angular/router';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'power-logout',
@@ -11,13 +11,16 @@ import { Router } from '@angular/router';
 export class LogoutComponent implements OnInit {
 
   constructor(public auth: AuthService,
-              public router: Router,
-              public alerts: AlertsService) { }
+              public router: Router) { }
 
   ngOnInit(): void {
-    // logout
-    this.auth.logout();
-    this.alerts.NewAlert('success', 'Sie wurden erfolgreich ausgeloggt', '');
-    this.router.navigate(['/'], { replaceUrl: true });
+    // delete localStorage
+    localStorage.removeItem('user');
+    this.auth.user = null;
+
+    // redirect to logout page
+    document.location.href = environment.auth.url + 'logout' +
+                             '?client_id=' + encodeURIComponent(environment.auth.clientid) +
+                             '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host);
   }
 }

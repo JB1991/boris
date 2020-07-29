@@ -7,7 +7,6 @@ import { environment } from '@env/environment';
 
 import { AuthGuard } from './auth.guard';
 import { AlertsService } from '../alerts/alerts.service';
-import { ConfigService } from '@app/config.service';
 import { AuthService } from './auth.service';
 
 describe('Shared.Auth.AuthGuard', () => {
@@ -22,7 +21,6 @@ describe('Shared.Auth.AuthGuard', () => {
         ])
       ],
       providers: [
-        ConfigService,
         AuthService,
         {
           provide: AlertsService,
@@ -33,7 +31,7 @@ describe('Shared.Auth.AuthGuard', () => {
     guard = TestBed.inject(AuthGuard);
     spyOn(console, 'log');
     spyOn(guard.router, 'navigate');
-    localStorage.clear();
+    localStorage.removeItem('user');
   });
 
   it('should be created', () => {
@@ -41,21 +39,21 @@ describe('Shared.Auth.AuthGuard', () => {
   });
 
   it('should open in dev', () => {
-    guard.conf.config = {'modules': [], 'authentication': false};
+    guard.auth.conf.config = {'modules': [], 'authentication': false};
     expect(guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'})).toBeTrue();
   });
 
   it('should deny access', () => {
-    guard.conf.config = {'modules': [], 'authentication': true};
+    guard.auth.conf.config = {'modules': [], 'authentication': true};
     environment.production = true;
 
     expect(guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'})).toBeFalse();
   });
 
   it('should allow access', () => {
-    guard.conf.config = {'modules': [], 'authentication': true};
+    guard.auth.conf.config = {'modules': [], 'authentication': true};
     environment.production = true;
-    guard.auth.user = {'username': 'Helga', 'expires': new Date(), 'token': 6};
+    guard.auth.user = {'expires': new Date(), 'token': 6};
 
     expect(guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'})).toBeTrue();
   });
@@ -64,7 +62,7 @@ describe('Shared.Auth.AuthGuard', () => {
     environment.production = false;
 
     // clear storage
-    localStorage.clear();
+    localStorage.removeItem('user');
   });
 });
 
