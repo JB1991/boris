@@ -13,9 +13,5 @@ export class FeedbackComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Spam protection: Replace ++ with + and @@ with @ in the mail address (only effective for bots without JavaScript)
-    document.body.innerHTML = document.body.innerHTML
-      .replace(/\+\+/g, '+')
-      .replace(/@@/g, '@');
   }
 }
