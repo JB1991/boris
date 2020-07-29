@@ -46,10 +46,11 @@
       <div class="row justify-content-around">
         <div class="col-md-4 text-center">
           <h5>Informationen</h5>
+          <p><a (click)="isCollapsed=!isCollapsed" routerLink="/feedback" routerLinkActive="active">Rückmeldung geben</a></p>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html">Impressum</a></li>
-            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html">Datenschutz</a></li>
-            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html">Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html">Impressum</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html">Datenschutz</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html">Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
           </ul>
           <p class="text-muted">Version: {{ appVersion.branch }}/{{ appVersion.version }}</p>
         </div>
