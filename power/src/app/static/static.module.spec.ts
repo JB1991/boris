@@ -1,4 +1,4 @@
-import {StaticModule} from './static.module';
+import { StaticModule } from './static.module';
 
 describe('Static.StaticModule', () => {
   let staticModule: StaticModule;

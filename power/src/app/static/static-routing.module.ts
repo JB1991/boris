@@ -1,10 +1,11 @@
-import {DatenschutzComponent} from './datenschutz/datenschutz.component';
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {StartComponent} from './start/start.component';
-import {ImpressumComponent} from '@app/static/impressum/impressum.component';
+import { DatenschutzComponent } from './datenschutz/datenschutz.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { StartComponent } from './start/start.component';
+import { ImpressumComponent } from '@app/static/impressum/impressum.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { FeedbackComponent } from '@app/static/feedback/feedback.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
+  },
+  {
+    path: 'feedback',
+    component: FeedbackComponent
   }
 ];
 

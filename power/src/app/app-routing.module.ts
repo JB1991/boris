@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BodenwertKalkulatorModule } from '@app/bodenwert-kalkulator/bodenwert-kalkulator.module';
 import { StaticModule } from '@app/static/static.module';
 
 const routes: Routes = [
