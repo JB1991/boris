@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
@@ -9,13 +9,13 @@ import { AuthService } from './auth.service';
 import { ConfigService } from '@app/config.service';
 import { AlertsService } from '../alerts/alerts.service';
 
-describe('Shared.Auth.AlertsService', () => {
+describe('Shared.Auth.AuthService', () => {
   let service: AuthService;
   let alerts: jasmine.SpyObj<AlertsService>;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
@@ -39,131 +39,195 @@ describe('Shared.Auth.AlertsService', () => {
     spyOn(console, 'log');
     spyOn(service.router, 'navigate');
     localStorage.removeItem('user');
-  });
+  }));
 
   it('should be created', () => {
     expect(service).toBeTruthy();
     expect(service.getUser()).toBeNull();
   });
 
-  it('should get user', () => {
-    service.user = {'username': 'Heinrich', 'expires': new Date(), 'token': 5};
-    expect(service.getUser()).toEqual(service.user);
-  });
+  it('should getBearer correct', () => {
+    // correct bearer
+    service.user = {'expires': new Date(), 'token': {'access_token': 'XXX'}};
+    expect(service.getBearer()).toEqual('Bearer XXX');
 
-  it('should login', () => {
-    service.login('Helmut', 'password', '/forms/dashboard');
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 900});
-    expect(service.user.username).toEqual('Helmut');
-    expect(service.getUser()).toBeTruthy();
-  });
-
-  it('should fail login', () => {
-    service.login('Gertrud', '123456', '/forms/dashboard');
-    answerHTTPRequest(environment.auth.tokenurl, 'POST',
-                      {'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Internal Server Error');
-
-    service.login('Hermann', 'qwertz', '');
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Unknown');
-  });
-
-  it('should fail login 404', () => {
-    service.login('Herbert', 'Herbert');
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', 5,
-                      { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'Not Found');
-
-    service.login('Bärbel', 'Manfred');
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', {error_description: 'XXX'},
-                      { status: 404, statusText: 'Not Found'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Login fehlgeschlagen', 'XXX');
-  });
-
-  it('should crash login', () => {
-    expect(function () {
-      service.login('', '1234');
-    }).toThrowError('username is required');
-    expect(function () {
-      service.login('Ingrit', null);
-    }).toThrowError('password is required');
-  });
-
-  it('should get bearer', () => {
+    // token missing
+    service.user = {'expires': new Date(), 'token': {}};
     expect(service.getBearer()).toBeNull();
-    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
-    expect(service.getBearer()).toEqual('Bearer ABC');
   });
 
-  it('should get headers', () => {
-    expect(service.getBearer()).toBeNull();
-    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': {'access_token': 'ABC'}};
+  it('should getHeaders correct', () => {
+    const expire = new Date();
 
-    const x = service.getHeaders('file/csv');
-    expect(x.headers).toBeTruthy();
+    // check responsetype and content-type
+    expire.setSeconds(expire.getSeconds() + 200);
+    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}};
+    expect(service.getHeaders('text', 'text/csv').responseType).toEqual('text');
+    expect(service.getHeaders('text', 'text/csv').headers.get('Content-Type')).toEqual('text/csv');
+
+    // valid session, auth header set
+    expire.setSeconds(expire.getSeconds() + 200);
+    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}};
+    expect(service.getHeaders().headers.get('Authorization')).toEqual('Bearer XXX');
+
+    // invalid session, no auth header
+    expire.setSeconds(expire.getSeconds() - 800);
+    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}};
+    expect(service.getHeaders().headers.get('Authorization')).toBeNull();
   });
 
-  it('should logout', () => {
-    service.user = {'username': 'Klaus', 'expires': new Date(), 'token': 4};
-    service.logout();
-    expect(service.getUser()).toBeNull();
-  });
-
-  it('should be enabled', () => {
-    expect(service.IsAuthEnabled()).toBeFalse();
-
+  it('should IsAuthEnabled correct', () => {
+    // auth enabled
     service.conf.config = {'modules': [], 'authentication': true};
     environment.production = true;
     expect(service.IsAuthEnabled()).toBeTrue();
+
+    // auth disabled
+    service.conf.config = {'modules': [], 'authentication': false};
+    environment.production = true;
+    expect(service.IsAuthEnabled()).toBeFalse();
+
+    // auth disabled, non-production
+    service.conf.config = {'modules': [], 'authentication': true};
+    environment.production = false;
+    expect(service.IsAuthEnabled()).toBeFalse();
   });
 
-  it('should load localStorage', () => {
+  it('should IsAuthenticated correct', () => {
+    service.conf.config = {'modules': [], 'authentication': true};
+    environment.production = true;
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 900);
-    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
-                                                 'token': {'refresh_token': 'abc'}}));
-    service.loadSession();
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'expires_in': 300});
-    expect(service.user.token.expires_in).toEqual(300);
+
+    // valid session
+    service.user = {'expires': expire, 'token': 6};
+    expect(service.IsAuthenticated()).toBeTrue();
+
+    // expired session
+    service.user = {'expires': new Date(), 'token': 6};
+    expect(service.IsAuthenticated()).toBeFalse();
+
+    // invalid user object
+    service.user = {'expires': null, 'token': null};
+    expect(service.IsAuthenticated()).toBeFalse();
   });
 
-  it('should fail load localStorage', () => {
-    const expire = new Date();
-    expire.setSeconds(expire.getSeconds() + 900);
-    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
-                                                 'token': {'refresh_token': 'abc'}}));
-    service.loadSession();
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', null);
-    expect(service.user).toBeNull();
+  it('should get token', (done) => {
+    // get correct token
+    service.KeycloakToken('abc').then((value) => {
+      expect(service.getBearer()).toEqual('Bearer XXX');
+      done();
+    });
 
-    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
-                                                 'token': {'refresh_token': 'abc'}}));
-    service.loadSession();
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', {'error': 'XXX'});
-    expect(service.user).toBeNull();
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'expires_in': 900, 'access_token': 'XXX'});
   });
 
-  it('should fail load localStorage 404', () => {
-    const expire = new Date();
-    expire.setSeconds(expire.getSeconds() + 900);
-    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
-                                                 'token': {'refresh_token': 'abc'}}));
-    service.loadSession();
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', null,
-                      { status: 404, statusText: 'Not Found'});
-    expect(service.user).toBeNull();
+  it('should not get token', (done) => {
+    // get error
+    service.KeycloakToken('abc').then((value) => {
+      expect(service.getBearer()).toBeNull();
+      done();
+    });
 
-    localStorage.setItem('user', JSON.stringify({'username': 'Heinrich', 'expires': expire,
-                                                 'token': {'refresh_token': 'abc'}}));
-    service.loadSession();
-    answerHTTPRequest(environment.auth.tokenurl, 'POST', {error_description: 'XXX'},
-                      { status: 404, statusText: 'Not Found'});
-    expect(service.user).toBeNull();
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'error': 404});
+  });
+
+  it('should not get token 2', (done) => {
+    // get nothing
+    service.KeycloakToken('abc').then((value) => {
+      expect(service.getBearer()).toBeNull();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', null);
+  });
+
+  it('should not get token 3', (done) => {
+    // get error status code
+    service.KeycloakToken('abc').then((value) => {
+      expect(service.getBearer()).toBeNull();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', 10,
+                      { status: 404, statusText: 'Not Found' });
+  });
+
+  it('should fail get token', (done) => {
+    // throw error
+    service.KeycloakToken('').catch((value) => {
+      expect(value.toString()).toEqual('Error: code is required');
+      done();
+    });
+  });
+
+  it('should load session', (done) => {
+    // load valid session
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 200);
+    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+
+    service.loadSession(false).then((value) => {
+      expect(service.IsAuthenticated()).toBeTrue();
+      done();
+    });
+  });
+
+  it('should refresh session', (done) => {
+    // load expired session
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() - 200);
+    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+
+    service.loadSession().then((value) => {
+      expect(service.IsAuthenticated()).toBeTrue();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'expires_in': 900, 'access_token': 'XXX'});
+  });
+
+  it('should not refresh session', (done) => {
+    // load expired session
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() - 200);
+    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+
+    service.loadSession().then((value) => {
+      expect(service.IsAuthenticated()).toBeFalse();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', null);
+  });
+
+  it('should not refresh session 2', (done) => {
+    // load expired session
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() - 200);
+    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+
+    service.loadSession().then((value) => {
+      expect(service.IsAuthenticated()).toBeFalse();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'error': 403});
+  });
+
+  it('should not refresh session 3', (done) => {
+    // load expired session
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() - 200);
+    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+
+    service.loadSession().then((value) => {
+      expect(service.IsAuthenticated()).toBeFalse();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', 5,
+                      { status: 404, statusText: 'Not Found' });
   });
 
   /**

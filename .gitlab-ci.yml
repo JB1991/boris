@@ -50,6 +50,7 @@ test:karma:
     - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   coverage: '/Lines \W+: (\d+\.\d+)%.*/'
   artifacts:
+    expire_in: 2 weeks
     reports:
       junit: power/output/junit_karma.xml
     paths:
@@ -78,6 +79,7 @@ test:e2e:
     - cd power
     - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   artifacts:
+    expire_in: 2 weeks
     reports:
       junit: power/output/junit_e2e.xml
     paths:
@@ -144,10 +146,10 @@ build:
     policy: pull
   script:
     - cd power
-    - npm run build -- --prod
+    - npm run build -- --prod --aot=true --output-hashing=none --extract-css=true --buildOptimizer=true
   artifacts:
     name: "compiled dist"
-    expire_in: 1 week
+    expire_in: 2 days
     paths:
       - power/dist/power
   only:

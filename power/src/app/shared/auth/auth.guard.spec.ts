@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -7,13 +7,12 @@ import { environment } from '@env/environment';
 
 import { AuthGuard } from './auth.guard';
 import { AlertsService } from '../alerts/alerts.service';
-import { ConfigService } from '@app/config.service';
 import { AuthService } from './auth.service';
 
 describe('Shared.Auth.AuthGuard', () => {
   let guard: AuthGuard;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
@@ -22,7 +21,6 @@ describe('Shared.Auth.AuthGuard', () => {
         ])
       ],
       providers: [
-        ConfigService,
         AuthService,
         {
           provide: AlertsService,
@@ -33,38 +31,63 @@ describe('Shared.Auth.AuthGuard', () => {
     guard = TestBed.inject(AuthGuard);
     spyOn(console, 'log');
     spyOn(guard.router, 'navigate');
-    localStorage.clear();
-  });
+    localStorage.removeItem('user');
+    guard.auth.user = null;
+  }));
 
   it('should be created', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should open in dev', () => {
-    guard.conf.config = {'modules': [], 'authentication': false};
-    expect(guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'})).toBeTrue();
+  it('should open in dev', (done) => {
+    // auth disabled
+    guard.auth.conf.config = {'modules': [], 'authentication': false};
+    environment.production = true;
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
+      expect(value).toBeTrue();
+      done();
+    });
   });
 
-  it('should deny access', () => {
-    guard.conf.config = {'modules': [], 'authentication': true};
-    environment.production = true;
-
-    expect(guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'})).toBeFalse();
+  it('should open in dev 2', (done) => {
+    // not in production
+    guard.auth.conf.config = {'modules': [], 'authentication': true};
+    environment.production = false;
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
+      expect(value).toBeTrue();
+      done();
+    });
   });
 
-  it('should allow access', () => {
-    guard.conf.config = {'modules': [], 'authentication': true};
+  it('should deny access', (done) => {
+    // unauthorized
+    guard.auth.conf.config = {'modules': [], 'authentication': true};
     environment.production = true;
-    guard.auth.user = {'username': 'Helga', 'expires': new Date(), 'token': 6};
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
+      expect(value).toBeFalse();
+      done();
+    });
+  });
 
-    expect(guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'})).toBeTrue();
+  it('should allow access', (done) => {
+    // authorized
+    guard.auth.conf.config = {'modules': [], 'authentication': true};
+    environment.production = true;
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    guard.auth.user = {'expires': expire, 'token': 6};
+
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
+      expect(value).toBeTrue();
+      done();
+    });
   });
 
   afterEach(() => {
-    environment.production = false;
-
     // clear storage
-    localStorage.clear();
+    localStorage.removeItem('user');
+    guard.auth.user = null;
+    environment.production = false;
   });
 });
 

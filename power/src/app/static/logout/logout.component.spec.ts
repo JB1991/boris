@@ -7,7 +7,7 @@ import { LogoutComponent } from './logout.component';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
-describe('LogoutComponent', () => {
+describe('Static.Logout.LogoutComponent', () => {
   let component: LogoutComponent;
   let fixture: ComponentFixture<LogoutComponent>;
   let alerts: jasmine.SpyObj<AlertsService>;
@@ -35,17 +35,19 @@ describe('LogoutComponent', () => {
 
     fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;
+    spyOn(component, 'redirect');
     fixture.detectChanges();
 
+    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
+    localStorage.removeItem('user');
+    component.auth.user = null;
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Sie wurden erfolgreich ausgeloggt', '');
+    expect(component.loadingscreen.isVisible()).toBeTrue();
   });
 });
 

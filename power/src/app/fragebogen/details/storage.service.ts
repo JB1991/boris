@@ -90,7 +90,7 @@ export class StorageService {
 
     // load data from server
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks/csv?status=submitted';
-    return this.httpClient.get(url, this.auth.getHeaders('text'));
+    return this.httpClient.get(url, this.auth.getHeaders('text', 'text/csv'));
   }
 
   /**
