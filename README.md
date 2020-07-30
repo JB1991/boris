@@ -22,6 +22,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 1. Projekt klonen  
     ```
    git clone ... 
+   cd power
    ```
 2. Abhängigkeiten installieren  
     ```
@@ -39,6 +40,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 1. Unit-Tests ausführen
    ```
+   cd power
    ng test --code-coverage --browsers Chrome
    ```
 
