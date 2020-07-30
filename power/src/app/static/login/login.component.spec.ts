@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { of } from 'rxjs';
+import { Title } from '@angular/platform-browser';
+import { environment } from '@env/environment';
 
 import { LoginComponent } from './login.component';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Static.Login.LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let alerts: jasmine.SpyObj<AlertsService>;
+  let httpClient: HttpClient;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,57 +23,94 @@ describe('Static.Login.LoginComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
           { path: '', component: MockHomeComponent}
-        ]),
-        FormsModule
+        ])
       ],
       declarations: [
         LoginComponent
       ],
       providers: [
+        Title,
         AuthService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        }
+        LoadingscreenService,
+        AlertsService
       ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    spyOn(component, 'redirect');
     fixture.detectChanges();
 
+    httpClient = TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
+    localStorage.removeItem('user');
+    component.auth.user = null;
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should init', () => {
-    spyOn(component.auth, 'login');
-    spyOn(component.auth, 'getUser').and.returnValue({'username': 'Annegret', 'expires': new Date(), 'token': 1});
-    TestBed.inject(ActivatedRoute).queryParams = of({ 'redirect': '/forms' });
-    component.email = 'xxx';
-    component.password = 'yyy';
+  it('should redirect authenticated user', (done) => {
+    // valid session, redirect user
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 200);
+    component.auth.user = {'expires': expire, 'token': 5};
 
-    component.ngOnInit();
-    expect(component.login()).toBeTrue();
-    expect(component.redirect).toEqual('/forms');
+    component.authenticate().then((value) => {
+      expect(console.log).toHaveBeenCalledWith('User is authenticated');
+      httpTestingController.verify();
+      done();
+    });
   });
 
-  it('should fail login', () => {
-    spyOn(component.auth, 'login');
+  it('should request token', (done) => {
+    // set code
+    spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
 
-    expect(component.login()).toBeFalse();
-    component.email = 'xxx';
-    expect(component.login()).toBeFalse();
-    component.password = 'yyy';
-    component.redirect = '';
-    expect(component.login()).toBeTrue();
+    component.authenticate().then((value) => {
+      expect(console.log).toHaveBeenCalledWith('User has authenticated');
+      httpTestingController.verify();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'expires_in': 900, 'access_token': 'XXX'});
   });
+
+  it('should fail request token', (done) => {
+    // set code
+    spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
+    spyOn(component.auth, 'KeycloakToken');
+
+    component.authenticate().then((value) => {
+      expect(console.log).toHaveBeenCalledWith('Authentication failed');
+      httpTestingController.verify();
+      done();
+    });
+  });
+
+  /**
+   * Mocks the API by taking HTTP requests form the queue and returning the answer
+   * @param url The URL of the HTTP request
+   * @param method HTTP request method
+   * @param body The body of the answer
+   * @param opts Optional HTTP information of the answer
+   */
+  function answerHTTPRequest(url, method, body, opts?) {
+    // Take HTTP request from queue
+    const request = httpTestingController.expectOne(url);
+    expect(request.request.method).toEqual(method);
+
+    // Return the answer
+    request.flush(deepCopy(body), opts);
+  }
+
+  function deepCopy(data) {
+    return JSON.parse(JSON.stringify(data));
+  }
 });
 
 @Component({
