@@ -114,7 +114,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST',
                       { 'error': 'Internal Server Error'});
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
-    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert)
+    .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should fail new form template 404', () => {
@@ -149,7 +150,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
   it('should fail new form', () => {
     component.NewForm();
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
+    expect(component.alerts.NewAlert)
+    .toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
   });
 
   it('should add tag', () => {

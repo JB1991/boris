@@ -3,10 +3,10 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
+import { StorageService } from './storage.service';
+import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { StorageService } from './storage.service';
-import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
 @Component({
   selector: 'power-formulars-details',

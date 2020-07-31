@@ -3,18 +3,22 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { environment } from '@env/environment';
 
 import { EditorComponent } from './editor.component';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { PreviewPipe } from '../surveyjs/preview.pipe';
+import { PreviewPipe } from '@app/fragebogen/surveyjs/preview.pipe';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 describe('Fragebogen.Editor.EditorComponent', () => {
   let component: EditorComponent;
   let fixture: ComponentFixture<EditorComponent>;
   let httpTestingController: HttpTestingController;
+
+  const formSample = require('../../../assets/fragebogen/form-sample.json');
+  const formContent = require('../../../assets/fragebogen/form-content.json');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -60,6 +64,8 @@ describe('Fragebogen.Editor.EditorComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {data: {content: formContent}});
+    expect(component.storage.model).toEqual(formContent);
   });
 
   /**

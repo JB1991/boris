@@ -7,9 +7,9 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult } from 'ngx-smooth-dnd';
 import { environment } from '@env/environment';
 
-import { ComponentCanDeactivate } from '../pendingchanges.guard';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
+import { ComponentCanDeactivate } from '@app/fragebogen/pendingchanges.guard';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
@@ -66,8 +66,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     this.clearCollapsed();
   }
 
-  @HostListener('window:beforeunload')
-  canDeactivate(): Observable<boolean> | boolean {
+  @HostListener('window:beforeunload') canDeactivate(): Observable<boolean> | boolean {
     // on test environment skip
     if (!environment.production) {
       return true;

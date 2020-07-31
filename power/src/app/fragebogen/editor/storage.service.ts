@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 
 import * as templates from './data';
-import { Bootstrap4_CSS } from '../surveyjs/style';
+import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 import { AuthService } from '@app/shared/auth/auth.service';
 
 /**

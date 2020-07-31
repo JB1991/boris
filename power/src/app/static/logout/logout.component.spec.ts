@@ -5,12 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { LogoutComponent } from './logout.component';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Static.Logout.LogoutComponent', () => {
   let component: LogoutComponent;
   let fixture: ComponentFixture<LogoutComponent>;
-  let alerts: jasmine.SpyObj<AlertsService>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,11 +22,7 @@ describe('Static.Logout.LogoutComponent', () => {
         LogoutComponent
       ],
       providers: [
-        AuthService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        },
+        AuthService
       ]
     })
     .compileComponents();
@@ -38,7 +32,6 @@ describe('Static.Logout.LogoutComponent', () => {
     spyOn(component, 'redirect');
     fixture.detectChanges();
 
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
     localStorage.removeItem('user');

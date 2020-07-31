@@ -2,7 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } fro
 import { Subject } from 'rxjs';
 import { Config, ConfigService } from '@app/config.service';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from './shared/auth/auth.service';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 @Component({
   selector: 'power-root',

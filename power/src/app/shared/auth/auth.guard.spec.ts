@@ -6,8 +6,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { environment } from '@env/environment';
 
 import { AuthGuard } from './auth.guard';
-import { AlertsService } from '../alerts/alerts.service';
 import { AuthService } from './auth.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Shared.Auth.AuthGuard', () => {
   let guard: AuthGuard;
@@ -22,10 +22,7 @@ describe('Shared.Auth.AuthGuard', () => {
       ],
       providers: [
         AuthService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        }
+        AlertsService
       ]
     });
     guard = TestBed.inject(AuthGuard);

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
@@ -14,7 +13,6 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 describe('Static.Login.LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   beforeEach(async(() => {
@@ -42,10 +40,9 @@ describe('Static.Login.LoginComponent', () => {
     spyOn(component, 'redirect');
     fixture.detectChanges();
 
-    httpClient = TestBed.inject(HttpClient);
-    httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
+    httpTestingController = TestBed.inject(HttpTestingController);
     localStorage.removeItem('user');
     component.auth.user = null;
   }));
@@ -67,7 +64,7 @@ describe('Static.Login.LoginComponent', () => {
   });
 
   it('should request token', (done) => {
-    // set code
+    // set keycloak return code
     spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
 
     component.authenticate().then((value) => {
@@ -79,7 +76,7 @@ describe('Static.Login.LoginComponent', () => {
   });
 
   it('should fail request token', (done) => {
-    // set code
+    // set keycloak return code
     spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
     spyOn(component.auth, 'KeycloakToken');
 

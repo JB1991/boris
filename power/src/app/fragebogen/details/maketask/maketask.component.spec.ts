@@ -74,7 +74,8 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST',
                       { 'error': 'Internal Server Error'});
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert)
+    .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {

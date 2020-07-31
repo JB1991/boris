@@ -14,7 +14,7 @@ import { ValidatorsComponent } from './validators/validators.component';
 
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { SurveyjsModule } from '../surveyjs/surveyjs.module';
+import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 @NgModule({
   declarations: [

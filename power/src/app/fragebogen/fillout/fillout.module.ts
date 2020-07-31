@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FilloutRoutingModule } from './fillout-routing.module';
 import { FilloutComponent } from './fillout.component';
 import { StorageService } from './storage.service';
-import { SurveyjsModule } from '../surveyjs/surveyjs.module';
+import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 @NgModule({
   declarations: [

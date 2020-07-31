@@ -4,7 +4,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { ConfigService } from '@app/config.service';
-import { AlertsService } from '../alerts/alerts.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 /**
  * AuthService handles authentication

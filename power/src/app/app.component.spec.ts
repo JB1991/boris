@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
 import { ConfigService } from './config.service';
-import { AuthService } from './shared/auth/auth.service';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('AppComponent', () => {
   let app: AppComponent;
@@ -56,6 +56,7 @@ describe('AppComponent', () => {
   });
 
   it('should fail load config', () => {
+    // load config
     app.configService.config = {'modules': ['a', 'b'], 'authentication': false};
     app.ngOnInit();
     answerHTTPRequest('./assets/version.json', 'GET', {branch: 'prod'});

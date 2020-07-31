@@ -2,17 +2,14 @@ import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { AuthService } from './auth.service';
 import { ConfigService } from '@app/config.service';
-import { AlertsService } from '../alerts/alerts.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Shared.Auth.AuthService', () => {
   let service: AuthService;
-  let alerts: jasmine.SpyObj<AlertsService>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   beforeEach(async(() => {
@@ -26,18 +23,14 @@ describe('Shared.Auth.AuthService', () => {
       ],
       providers: [
         ConfigService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        }
+        AlertsService
       ]
     });
     service = TestBed.inject(AuthService);
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
-    httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(service.router, 'navigate');
+    spyOn(service.alerts, 'NewAlert');
     localStorage.removeItem('user');
     service.user = null;
   }));
