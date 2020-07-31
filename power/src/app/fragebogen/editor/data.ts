@@ -269,11 +269,11 @@ export const FormularFields = [
       labelFalse: 'Falsch',
       items: [
         {
-         name: "e1",
+         name: 'e1',
          isRequired: true,
-         title: "Vorname"
+         title: 'Vorname'
         }, {
-         name: "e2",
+         name: 'e2',
          title: 'Nachname'
         }
       ]

@@ -14,8 +14,6 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-  let storage: StorageService;
-  let alerts: jasmine.SpyObj<AlertsService>;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
@@ -34,10 +32,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
       providers: [
         Title,
         StorageService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        },
+        AlertsService,
         LoadingscreenService
       ],
       declarations: [
@@ -52,8 +47,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
-    storage = TestBed.inject(StorageService);
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
+    spyOn(component.alerts, 'NewAlert');
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
   }));
@@ -74,24 +68,24 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', null);
     expect(component.storage.formsList.length).toEqual(1);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tags');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tags');
   });
 
   it('should not create 2', () => {
     answerHTTPRequest(environment.formAPI +
                       'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
                       'GET', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
   });
 
   it('should error', () => {
     answerHTTPRequest(environment.formAPI +
                       'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
                       'GET', { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {
@@ -99,8 +93,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                       'intern/forms?fields=access,access-minutes,created,id,owners,readers,status,tags,title',
                       'GET', formsListSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should error 2', () => {
@@ -109,8 +103,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET',
                       { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404 2', () => {
@@ -119,8 +113,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should delete', () => {
@@ -133,8 +127,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     component.deleteForm(0);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
                                                  'Das Formular wurde erfolgreich gelöscht.');
     expect(component.storage.formsList.length).toEqual(0);
   });
@@ -148,7 +142,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     spyOn(window, 'confirm').and.returnValue(false);
 
     component.deleteForm(0);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
     expect(component.storage.formsList.length).toEqual(1);
   });
 
@@ -162,8 +156,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     component.deleteForm(0);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
     expect(component.storage.formsList.length).toEqual(1);
   });
 
@@ -178,8 +172,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     component.deleteForm(0);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE',
                       { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
     expect(component.storage.formsList.length).toEqual(1);
   });
 
@@ -194,8 +188,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     component.deleteForm(0);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
     expect(component.storage.formsList.length).toEqual(1);
   });
 
@@ -234,15 +228,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
   }
 
   afterEach(() => {
-    storage.resetService();
-    storage = null;
-
     // Verify that no requests are remaining
     httpTestingController.verify();
-
-    // Destruction
-    fixture.destroy();
-    component = null;
   });
 });
 

@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '@env/environment';
 
@@ -9,7 +8,6 @@ import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Details.StorageService', () => {
   let service: StorageService;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const formSample = require('../../../assets/fragebogen/form-sample.json');
@@ -28,7 +26,6 @@ describe('Fragebogen.Details.StorageService', () => {
     });
     spyOn(console, 'log');
     service = TestBed.inject(StorageService);
-    httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 

@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 
@@ -15,9 +14,6 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 describe('Fragebogen.Fillout.FilloutComponent', () => {
   let component: FilloutComponent;
   let fixture: ComponentFixture<FilloutComponent>;
-  let storage: StorageService;
-  let alerts: jasmine.SpyObj<AlertsService>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const accessSample = require('../../../assets/fragebogen/access.json');
@@ -48,10 +44,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             }
           }
         },
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        },
+        AlertsService,
         LoadingscreenService
       ],
       declarations: [
@@ -66,9 +59,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
-    storage = TestBed.inject(StorageService);
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
-    httpClient = TestBed.inject(HttpClient);
+    spyOn(component.alerts, 'NewAlert');
     httpTestingController = TestBed.inject(HttpTestingController);
   }));
 
@@ -76,143 +67,143 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     expect(component).toBeTruthy();
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-    expect(storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
-    expect(storage.form.id).toEqual('bs63c2os5bcus8t5q0kg');
+    expect(component.storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
+    expect(component.storage.form.id).toEqual('bs63c2os5bcus8t5q0kg');
   });
 
   it('should not create', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', null);
-    expect(storage.task).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '1234 - null');
+    expect(component.storage.task).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '1234 - null');
   });
 
   it('should not create 2', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', null);
-    expect(storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
-    expect(storage.form).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs7v95fp9r1ctg9cbecg');
+    expect(component.storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
+    expect(component.storage.form).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs7v95fp9r1ctg9cbecg');
   });
 
   it('should not create 3', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET',
                       { 'error': 'Internal Server Error'});
-    expect(storage.task).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    expect(component.storage.task).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
 
     component.loadData('1234');
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET',
                       { 'error': 'Internal Server Error'});
-    expect(storage.form).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    expect(component.storage.form).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(storage.task).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    expect(component.storage.task).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should error 404 2', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
-    expect(storage.form).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    expect(component.storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
+    expect(component.storage.form).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should submit progress', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessemptySample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-    storage.setUnsavedChanges(true);
+    component.storage.setUnsavedChanges(true);
 
     component.progress(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST', submitSample);
-    expect(storage.getUnsavedChanges()).toBeFalse();
+    expect(component.storage.getUnsavedChanges()).toBeFalse();
   });
 
   it('should fail submit progress', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-    storage.setUnsavedChanges(true);
+    component.storage.setUnsavedChanges(true);
 
     component.progress(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST', null);
-    expect(storage.getUnsavedChanges()).toBeTrue();
+    expect(component.storage.getUnsavedChanges()).toBeTrue();
 
     component.progress(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST',
                       { 'error': 'Internal Server Error'});
-    expect(storage.getUnsavedChanges()).toBeTrue();
+    expect(component.storage.getUnsavedChanges()).toBeTrue();
   });
 
   it('should error 404 3', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-    storage.setUnsavedChanges(true);
+    component.storage.setUnsavedChanges(true);
 
     component.progress(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST', submitSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(storage.getUnsavedChanges()).toBeTrue();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
+    expect(component.storage.getUnsavedChanges()).toBeTrue();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
   });
 
   it('should submit form', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-    storage.setUnsavedChanges(true);
+    component.storage.setUnsavedChanges(true);
 
     component.submit(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', submitSample);
-    expect(storage.getUnsavedChanges()).toBeFalse();
+    expect(component.storage.getUnsavedChanges()).toBeFalse();
   });
 
   it('should fail submit form', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-    storage.setUnsavedChanges(true);
+    component.storage.setUnsavedChanges(true);
 
     component.submit(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', null);
-    expect(storage.getUnsavedChanges()).toBeTrue();
+    expect(component.storage.getUnsavedChanges()).toBeTrue();
 
     component.submit(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST',
                       { 'error': 'Internal Server Error'});
-    expect(storage.getUnsavedChanges()).toBeTrue();
+    expect(component.storage.getUnsavedChanges()).toBeTrue();
   });
 
   it('should error 404 4', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-    storage.setUnsavedChanges(true);
+    component.storage.setUnsavedChanges(true);
 
     component.submit(submitSample);
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', submitSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(storage.getUnsavedChanges()).toBeTrue();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
+    expect(component.storage.getUnsavedChanges()).toBeTrue();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
   });
 
   it('should set unsavedchanges', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
 
-    expect(storage.getUnsavedChanges()).toBeFalse();
+    expect(component.storage.getUnsavedChanges()).toBeFalse();
     component.changed('data');
-    expect(storage.getUnsavedChanges()).toBeTrue();
+    expect(component.storage.getUnsavedChanges()).toBeTrue();
   });
 
   it('should throw error', () => {
@@ -237,7 +228,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     spyOn(window, 'confirm').and.returnValue(true);
 
     environment.production = true;
-    expect(component.canDeactivate()).toEqual(!storage.getUnsavedChanges());
+    expect(component.canDeactivate()).toEqual(!component.storage.getUnsavedChanges());
   });
 
   /**
@@ -261,15 +252,8 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
   }
 
   afterEach(() => {
-    storage.resetService();
-    storage = null;
-
     // Verify that no requests are remaining
     httpTestingController.verify();
-
-    // Destruction
-    fixture.destroy();
-    component = null;
   });
 });
 

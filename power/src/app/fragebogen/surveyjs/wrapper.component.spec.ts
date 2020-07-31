@@ -14,13 +14,13 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
       declarations: [ WrapperComponent ]
     })
     .compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(WrapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+
+    spyOn(console, 'log');
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

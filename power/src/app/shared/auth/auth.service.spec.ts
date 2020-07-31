@@ -39,6 +39,7 @@ describe('Shared.Auth.AuthService', () => {
     spyOn(console, 'log');
     spyOn(service.router, 'navigate');
     localStorage.removeItem('user');
+    service.user = null;
   }));
 
   it('should be created', () => {
@@ -256,6 +257,7 @@ describe('Shared.Auth.AuthService', () => {
 
     // clear storage
     localStorage.removeItem('user');
+    service.user = null;
     environment.production = false;
   });
 });

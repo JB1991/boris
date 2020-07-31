@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { StorageService } from './storage.service';
@@ -9,7 +8,6 @@ import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Dashboard.StorageService', () => {
   let service: StorageService;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const formId = 'bs63c2os5bcus8t5q0kg';
@@ -33,7 +31,6 @@ describe('Fragebogen.Dashboard.StorageService', () => {
     });
     spyOn(console, 'log');
     service = TestBed.inject(StorageService);
-    httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 

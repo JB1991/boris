@@ -1,13 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { StorageService } from './storage.service';
 
 describe('Fragebogen.Fillout.StorageService', () => {
   let service: StorageService;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const accessSample = require('../../../assets/fragebogen/access.json');
@@ -21,7 +19,6 @@ describe('Fragebogen.Fillout.StorageService', () => {
       ]
     });
     service = TestBed.inject(StorageService);
-    httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 

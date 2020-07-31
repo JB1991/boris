@@ -11,17 +11,16 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
       declarations: [ PreviewComponent ]
     })
     .compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(PreviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+
+    spyOn(console, 'log');
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    spyOn(console, 'log');
     component.debugPrint('x');
   });
 

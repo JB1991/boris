@@ -62,7 +62,6 @@ describe('Static.Login.LoginComponent', () => {
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('User is authenticated');
-      httpTestingController.verify();
       done();
     });
   });
@@ -73,7 +72,6 @@ describe('Static.Login.LoginComponent', () => {
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('User has authenticated');
-      httpTestingController.verify();
       done();
     });
 
@@ -87,7 +85,6 @@ describe('Static.Login.LoginComponent', () => {
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('Authentication failed');
-      httpTestingController.verify();
       done();
     });
   });
@@ -111,6 +108,15 @@ describe('Static.Login.LoginComponent', () => {
   function deepCopy(data) {
     return JSON.parse(JSON.stringify(data));
   }
+
+  afterEach(() => {
+    // Verify that no requests are remaining
+    httpTestingController.verify();
+
+    // clear storage
+    localStorage.removeItem('user');
+    component.auth.user = null;
+  });
 });
 
 @Component({

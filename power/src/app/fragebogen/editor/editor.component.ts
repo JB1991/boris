@@ -23,11 +23,11 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
   public isCollapsed: any = [];
   public elementCopy: any;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private titleService: Title,
-              private alerts: AlertsService,
-              private loadingscreen: LoadingscreenService,
+  constructor(public route: ActivatedRoute,
+              public router: Router,
+              public titleService: Title,
+              public alerts: AlertsService,
+              public loadingscreen: LoadingscreenService,
               public storage: StorageService,
               public history: HistoryService) {
       this.titleService.setTitle('Formular Editor - POWER.NI');
