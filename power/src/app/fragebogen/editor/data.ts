@@ -210,5 +210,73 @@ export const FormularFields = [
       isAllRowRequired: true,
       isRequired: true
     }
+  }, {
+    type: 'file',
+    name: 'Fileupload',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'file',
+      valueName: '',
+      allowMultiple: false,
+      waitForUpload: true,
+      maxSize: 1048576
+    }
+  }, {
+    type: 'signaturepad',
+    name: 'Unterschrift',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'signaturepad',
+      valueName: '',
+      width: 600,
+    }
+  }, {
+    type: 'boolean',
+    name: 'Ja/Nein',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'boolean',
+      valueName: '',
+      labelTrue: 'Wahr',
+      labelFalse: 'Falsch'
+    }
+  }, {
+    type: 'html',
+    name: 'Freitext',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'html',
+      html: 'Hallo Welt!\n\nTest'
+    }
+  }, {
+    type: 'multipletext',
+    name: 'Adresse',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'multipletext',
+      valueName: '',
+      labelTrue: 'Wahr',
+      labelFalse: 'Falsch',
+      items: [
+        {
+         name: "e1",
+         isRequired: true,
+         title: "Vorname"
+        }, {
+         name: "e2",
+         title: 'Nachname'
+        }
+      ]
+    }
   }
 ];

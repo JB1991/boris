@@ -13,14 +13,14 @@
                     behaviour="copy">
                     <li id="{{ item.type }}"
                         *ngFor="let item of storage.FormularFields"
-                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light"
+                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
                         (click)="wsNewElement(item.type)">
                         <i class="{{ item.icon }} fa-fw" aria-hidden="true"></i>
                         <span class="d-none d-sm-inline pl-2">{{ item.name }}</span>
                     </li>
                     <li id="elementcopy"
                         *ngIf="elementCopy"
-                        class="list-group-item clickable smooth-dnd-draggable-wrapper bg-light"
+                        class="list-group-item clickable smooth-dnd-draggable-wrapper bg-light p-2"
                         (click)="wsNewElement('elementcopy')">
                         <i class="fas fa-paste fa-fw" aria-hidden="true"></i>
                         <span class="d-none d-sm-inline pl-2">Zwischenablage</span>
@@ -92,7 +92,7 @@
                 <button type="button"
                     class="btn btn-primary mr-2"
                     title="Formular Einstellugen öffnen"
-                    (click)="false">
+                    (click)="modalformular.Open()">
                     <i class="fas fa-cogs fa-fw" aria-hidden="true"></i>
                     <span class="sr-only">Formular Einstellugen öffnen</span>
                 </button>
@@ -179,5 +179,11 @@
     </div>
 </main>
 
+<!-- configure formular modal -->
+<power-formulars-editor-modal-formular #modalformular></power-formulars-editor-modal-formular>
+
+<!-- configure element modal -->
+<power-formulars-editor-modal-element #modalelement></power-formulars-editor-modal-element>
+	
 <!-- preview -->
 <power-formulars-surveyjs-preview [form]="storage.model" #preview></power-formulars-surveyjs-preview>

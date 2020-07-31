@@ -1,4 +1,5 @@
 .git/
+.gitlab/
 chart/
 scripts/
 power/coverage/

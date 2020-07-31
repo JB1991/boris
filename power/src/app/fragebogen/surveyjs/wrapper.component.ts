@@ -29,21 +29,7 @@ export class WrapperComponent implements OnChanges {
       Survey.StylesManager.applyTheme(this.theme);
     }
 
-    const classMap = {
-      h1: 'd-inline',
-      h2: 'd-inline',
-      p: 'd-inline'
-    };
-
-    const bindings = Object.keys(classMap)
-      .map(key => ({
-        type: 'output',
-        regex: new RegExp(`<${key}(.*)>`, 'g'),
-        replace: `<${key} class="${classMap[key]}" $1>`
-      }));
-
     const converter = new Showdown.Converter({
-      extensions: [...bindings],
       simpleLineBreaks: true,
       simplifiedAutoLink: true,
       excludeTrailingPunctuationFromURLs: true,
@@ -67,7 +53,7 @@ export class WrapperComponent implements OnChanges {
         str = str.substring(3);
         str = str.substring(0, str.length - 4);
       }
-      options.html = converter.makeHtml(str);
+      options.html = str;
     });
 
     if (this.mode) {
