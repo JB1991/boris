@@ -1,16 +1,18 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { environment } from '@env/environment';
 
 import { EditorComponent } from './editor.component';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { PreviewPipe } from '@app/fragebogen/surveyjs/preview.pipe';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 describe('Fragebogen.Editor.EditorComponent', () => {
   let component: EditorComponent;
@@ -24,7 +26,9 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        NgxSmoothDnDModule,
+        SurveyjsModule
       ],
       providers: [
         Title,
@@ -47,7 +51,8 @@ describe('Fragebogen.Editor.EditorComponent', () => {
       ],
       declarations: [
         EditorComponent,
-        PreviewPipe
+        MockElementModalComponent,
+        MockFormularModalComponent
       ]
     })
     .compileComponents();
@@ -66,6 +71,47 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     expect(component).toBeTruthy();
     answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {data: {content: formContent}});
     expect(component.storage.model).toEqual(formContent);
+
+    // expect crash
+    expect(function () {
+      component.loadData(null);
+    }).toThrowError('id is required');
+  });
+
+  it('should create 2', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {data: {content: formContent}});
+    spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
+    component.ngOnInit();
+    expect(component.router.navigate).toHaveBeenCalledTimes(1);
+  });
+
+  it('should fail to load', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', null);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'abc');
+  });
+
+  it('should fail to load 2', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {'error': 'xxx'});
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'xxx');
+  });
+
+  it('should fail to load 3', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', 5,
+                      { status: 404, statusText: 'Not Found' });
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+  });
+
+  it('should not leave page', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {data: {content: formContent}});
+    expect(component.canDeactivate()).toBeTrue();
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    environment.production = true;
+    expect(component.canDeactivate()).toEqual(!component.storage.getUnsavedChanges());
+    environment.production = false;
   });
 
   /**
@@ -93,3 +139,16 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     httpTestingController.verify();
   });
 });
+
+@Component({
+  selector: 'power-formulars-editor-modal-element',
+  template: ''
+})
+class MockElementModalComponent {
+}
+@Component({
+  selector: 'power-formulars-editor-modal-formular',
+  template: ''
+})
+class MockFormularModalComponent {
+}

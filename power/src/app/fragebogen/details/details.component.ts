@@ -28,6 +28,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
     // get id
+    this.loadingscreen.setVisible(true);
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       // load data
@@ -49,7 +50,6 @@ export class DetailsComponent implements OnInit {
     }
 
     // load form form server
-    this.loadingscreen.setVisible(true);
     this.storage.loadForm(id).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {

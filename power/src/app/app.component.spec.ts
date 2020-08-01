@@ -35,6 +35,9 @@ describe('AppComponent', () => {
 
   it('should create the app', async(() => {
     expect(app).toBeTruthy();
+
+    spyOn(app.cdRef, 'detectChanges');
+    app.ngAfterViewChecked();
   }));
 
   it(`should have 'power' as title`, async(() => {

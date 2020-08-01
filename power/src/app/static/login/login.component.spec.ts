@@ -14,13 +14,15 @@ describe('Static.Login.LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let httpTestingController: HttpTestingController;
+  let redirectspy: jasmine.Spy<(url: any) => void>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-          { path: '', component: MockHomeComponent}
+          { path: '', component: MockHomeComponent},
+          { path: 'abc', component: MockHomeComponent}
         ])
       ],
       declarations: [
@@ -37,7 +39,7 @@ describe('Static.Login.LoginComponent', () => {
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    spyOn(component, 'redirect');
+    redirectspy = spyOn(component, 'redirect');
     fixture.detectChanges();
 
     spyOn(console, 'log');
@@ -49,13 +51,16 @@ describe('Static.Login.LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
+    redirectspy.and.callThrough();
+    component.redirect(window.location.href + '#karma');
   });
 
   it('should redirect authenticated user', (done) => {
     // valid session, redirect user
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 200);
-    component.auth.user = {'expires': expire, 'token': 5};
+    component.auth.user = {'expires': expire, 'token': 5, 'data': null};
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('User is authenticated');
@@ -66,6 +71,7 @@ describe('Static.Login.LoginComponent', () => {
   it('should request token', (done) => {
     // set keycloak return code
     spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
+    spyOn(component.auth, 'KeyLoakUserInfo');
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('User has authenticated');
@@ -106,14 +112,14 @@ describe('Static.Login.LoginComponent', () => {
     return JSON.parse(JSON.stringify(data));
   }
 
-  afterEach(() => {
+  afterEach(async(() => {
     // Verify that no requests are remaining
     httpTestingController.verify();
 
     // clear storage
     localStorage.removeItem('user');
     component.auth.user = null;
-  });
+  }));
 });
 
 @Component({

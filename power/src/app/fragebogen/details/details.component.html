@@ -8,6 +8,18 @@
             <path fill-rule="evenodd" d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
         </svg>
         {{ storage.form.title }}
+
+        <button type="button"
+            class="btn btn-secondary btn-sm float-right"
+            title="Zurück zum Dashboard"
+            [routerLink]="['/forms/dashboard']">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-backspace align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill-rule="evenodd" d="M6.603 2h7.08a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-7.08a1 1 0 0 1-.76-.35L1 8l4.844-5.65A1 1 0 0 1 6.603 2zm7.08-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08z"/>
+                <path fill-rule="evenodd" d="M5.83 5.146a.5.5 0 0 0 0 .708l5 5a.5.5 0 0 0 .707-.708l-5-5a.5.5 0 0 0-.708 0z"/>
+                <path fill-rule="evenodd" d="M11.537 5.146a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708l5-5a.5.5 0 0 1 .707 0z"/>
+              </svg>
+            Zurück
+        </button>
     </div>
 
     <!-- form details -->
@@ -117,7 +129,7 @@
                 <thead>
                     <tr>
                         <th scope="col" class="border-top-0">ID</th>
-                        <th scope="col" class="border-top-0">PIN</th>
+                        <th scope="col" class="border-top-0" *ngIf="storage.form.access !== 'public'">PIN</th>
                         <th scope="col" class="border-top-0">Status</th>
                         <th scope="col" class="border-top-0">Zuletzt bearbeitet</th>
                         <th scope="col" class="border-top-0">Erstellt</th>
@@ -127,7 +139,7 @@
                 <tbody>
                     <tr *ngFor="let task of storage.tasksList; index as i">
                         <td>{{ task.id }}</td>
-                        <td>
+                        <td *ngIf="storage.form.access !== 'public'">
                             <a [routerLink]="['/forms/fillout', task.pin]"
                             *ngIf="task.status !== 'submitted'">
                                 {{ task.pin }}
@@ -170,7 +182,7 @@
                 class="btn btn-success btn-sm mr-2"
                 title="Neue PIN erstellen"
                 (click)="maketask.open()"
-                *ngIf="storage.form && storage.form.status === 'published'">
+                *ngIf="storage.form && storage.form.status === 'published' && storage.form.access !== 'public'">
             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus align-top" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
                 <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>

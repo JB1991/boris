@@ -1,5 +1,5 @@
 <div class="container-fluid p-0">
-  <nav class="navbar navbar-light navbar-expand-md border-bottom bg-white fixed-top">
+  <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white fixed-top">
     <a class="navbar-brand" [routerLink]="['/']" style="color: #343a40;">
       <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top" alt="LGLN Logo">
       <strong class="d-none d-md-inline">
@@ -29,14 +29,14 @@
         <li class="nav-item" *ngIf="config.modules.includes('fragebogen')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/forms']" routerLinkActive="active">Formulare</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/feedback']" routerLinkActive="active">Feedback</a>
+        </li>
         <li class="nav-item" *ngIf="!auth.getUser()">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/login']" [queryParams]="{redirect: uri.pathname}" routerLinkActive="active">Einloggen</a>
         </li>
         <li class="nav-item" *ngIf="auth.getUser()">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/logout']" routerLinkActive="active">Ausloggen</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/feedback']" routerLinkActive="active">Rückmeldung</a>
         </li>
       </ul>
     </div>

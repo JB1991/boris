@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import * as Survey from 'survey-angular';
-import { init } from './nouislider/nouislider.js';
+import * as widgets from 'surveyjs-widgets/surveyjs-widgets.js'
 import * as Showdown from 'showdown';
 
 @Component({
@@ -14,8 +14,6 @@ export class WrapperComponent implements OnChanges {
   @Input() public mode: string;
   @Input() public theme: string;
   @Input() public css: {};
-  @Input() public completedHtml: string;
-  @Input() public navigateToURL: string;
   @Input() public showInvisible = false;
   @Output() public submitResult: EventEmitter<any> = new EventEmitter();
   @Output() public interimResult: EventEmitter<any> = new EventEmitter();
@@ -43,16 +41,19 @@ export class WrapperComponent implements OnChanges {
     });
     converter.setFlavor('github');
 
-    init(Survey);
+    widgets['nouislider'](Survey);
+    widgets['sortablejs'](Survey);
+    widgets['emotionsratings'](Survey);
+    widgets['jquerybarrating'](Survey);
+    widgets['select2tagbox'](Survey);
+
     this.survey = new Survey.Model(this.model);
 
     this.survey.onTextMarkdown.add((s, options) => {
       let str = options.text.split('\n\n').join('<br\><br\>');
       str = converter.makeHtml(str);
-      if (str.startsWith('<p>') && str.endsWith('</p>')) {
-        str = str.substring(3);
-        str = str.substring(0, str.length - 4);
-      }
+      str = str.substring(3);
+      str = str.substring(0, str.length - 4);
       options.html = str;
     });
 
@@ -70,12 +71,6 @@ export class WrapperComponent implements OnChanges {
       this.props['data'] = this.model['data'];
     } else if (this.data) {
       this.props['data'] = this.data;
-    }
-    if (this.completedHtml) {
-      this.props['completedHtml'] = this.completedHtml;
-    }
-    if (this.navigateToURL) {
-      this.props['navigateToURL'] = this.navigateToURL;
     }
     if (this.changes) {
       this.props['onValueChanged'] = (s, _) => {

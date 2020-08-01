@@ -10,7 +10,7 @@ export class LoadingscreenComponent implements OnInit {
 
   constructor(public loadingscreen: LoadingscreenService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }

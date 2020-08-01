@@ -71,6 +71,14 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     expect(component.storage.form.id).toEqual('bs63c2os5bcus8t5q0kg');
   });
 
+  it('should create 2', () => {
+    answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+    answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+    spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
+    component.ngOnInit();
+    expect(component.router.navigate).toHaveBeenCalledTimes(1);
+  });
+
   it('should not create', () => {
     answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', null);
     expect(component.storage.task).toBeNull();
@@ -229,6 +237,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     environment.production = true;
     expect(component.canDeactivate()).toEqual(!component.storage.getUnsavedChanges());
+    environment.production = false;
   });
 
   /**

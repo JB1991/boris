@@ -31,8 +31,6 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
     component.mode = 'edit';
     component.theme = 'bootstrap';
     component.css = Bootstrap4_CSS;
-    component.completedHtml = 'Test';
-    component.navigateToURL = 'https://google.com/';
     component.showInvisible = true;
     spyOn(component.changes, 'emit');
     spyOn(component.interimResult, 'emit');
@@ -43,7 +41,6 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
     expect(component.model).toEqual({'title': 'Hallo Welt', 'data': 5});
     expect(component.css).toEqual(Bootstrap4_CSS);
-    expect(component.completedHtml).toEqual('Test');
     expect(component.showInvisible).toBeTrue();
     expect(component.submitResult).toBeTruthy();
 

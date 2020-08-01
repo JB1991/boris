@@ -78,6 +78,13 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     expect(component.storage.tasksList).toEqual([]);
   });
 
+  it('should create 3', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample2);
+    spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
+    component.ngOnInit();
+    expect(component.router.navigate).toHaveBeenCalledTimes(1);
+  });
+
   it('should not create', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', null);
     expect(component.storage.form).toBeNull();

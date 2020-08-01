@@ -9,6 +9,7 @@ import { AuthService } from '@app/shared/auth/auth.service';
 describe('Static.Logout.LogoutComponent', () => {
   let component: LogoutComponent;
   let fixture: ComponentFixture<LogoutComponent>;
+  let redirectspy: jasmine.Spy<(url: any) => void>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,7 +30,7 @@ describe('Static.Logout.LogoutComponent', () => {
 
     fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;
-    spyOn(component, 'redirect');
+    redirectspy = spyOn(component, 'redirect');
     fixture.detectChanges();
 
     spyOn(console, 'log');
@@ -41,6 +42,9 @@ describe('Static.Logout.LogoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     expect(component.loadingscreen.isVisible()).toBeTrue();
+
+    redirectspy.and.callThrough();
+    component.redirect(window.location.href + '#karma');
   });
 });
 

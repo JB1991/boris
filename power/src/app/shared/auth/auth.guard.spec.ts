@@ -72,7 +72,7 @@ describe('Shared.Auth.AuthGuard', () => {
     environment.production = true;
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 900);
-    guard.auth.user = {'expires': expire, 'token': 6};
+    guard.auth.user = {'expires': expire, 'token': 6, 'data': null};
 
     guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
       expect(value).toBeTrue();

@@ -27,6 +27,7 @@ export class StorageService {
               public auth: AuthService) {
     // overwrite style class
     this.css_style.container = 'sv_container';
+    this.css_style.row = 'sv_row';
   }
 
   /**
@@ -36,6 +37,7 @@ export class StorageService {
     this.model = JSON.parse(JSON.stringify(templates.defaultTemplate));
     this.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
     this.css_style.container = 'sv_container';
+    this.css_style.row = 'sv_row';
     this.FormularFields = templates.FormularFields;
     this.DatabaseMap = templates.DatabaseMap;
     this.selectedPageID = 0;
