@@ -1,18 +1,13 @@
-const packageJson = require('../../package.json');
-
 export const environment = {
   production: true,
   test: false,
   appName: 'POWER',
-  versions: {
-    app: packageJson.version,
-  },
   ows: '/geoserver/boris/ows?',
   basemap : 'https://vector-tiles-lgln.s3.ap.cloud-object-storage.appdomain.cloud/basemap.json',
   formAPI: '/formapi/',
   auth: {
-    clientid: 'frontend',
-    clientsecret: '4493f922-9f3e-416f-8891-91bd52300378',
-    apiurl: 'https://keycloak.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud/auth/realms/power/protocol/openid-connect/token'
+    clientid: 'power',
+    clientsecret: 'f53dc4b4-42fa-40bc-8ce3-63760a994b88',
+    url: 'https://keycloak.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud/auth/realms/power/protocol/openid-connect/',
   }
 };

@@ -1,8 +1,10 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
-import { Component } from '@angular/core';
 import { ConfigService } from './config.service';
+import { AuthService } from './shared/auth/auth.service';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -12,10 +14,12 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         RouterTestingModule,
       ],
       providers: [
-        ConfigService
+        ConfigService,
+        AuthService
       ],
       declarations: [
         AppComponent,
@@ -38,7 +42,7 @@ describe('AppComponent', () => {
   }));
 
   it('should have a version number including a dot', async(() => {
-    expect(app.appVersion).toContain('.');
+    expect(app.appVersion.version).toEqual('local');
   }));
 
   it('should load config', () => {

@@ -5,5 +5,5 @@
     "immobilien",
     "fragebogen"
   ],
-  "authentication": false
+  "authentication": true
 }

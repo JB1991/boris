@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ConditionsComponent } from './conditions.component';
 import { StorageService } from '../storage.service';
@@ -10,7 +11,10 @@ describe('Fragebogen.Editor.Conditions.ConditionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])
+      ],
       providers: [ StorageService ],
       declarations: [ ConditionsComponent ]
     })

@@ -4,11 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
+import { environment } from '@env/environment';
 
 import { DetailsComponent } from './details.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { environment } from '@env/environment';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
   let component: DetailsComponent;
@@ -32,6 +34,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         ])
       ],
       providers: [
+        Title,
+        StorageService,
         {
           provide: ActivatedRoute,
           useValue: {
@@ -48,7 +52,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
           provide: AlertsService,
           useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
         },
-        StorageService
+        LoadingscreenService
       ],
       declarations: [
         DetailsComponent,
@@ -251,6 +255,44 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                       { status: 404, statusText: 'Not Found' });
     expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'Not Found');
+  });
+
+  it('should get csv', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+    const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
+    spyOn(document, 'createElement').and.returnValue(spyObj);
+
+    component.getCSV();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
+                      'GET', '666');
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+  });
+
+  it('should fail get csv', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.getCSV();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
+                      'GET', null);
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Download fehlgeschlagen', 'Die Antworten konnten nicht geladen werden.');
+  });
+
+  it('should get csv 404', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+
+    component.getCSV();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
+                      'GET', '666',
+                      { status: 404, statusText: 'Not Found' });
+    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Download fehlgeschlagen', 'Not Found');
   });
 
   it('should delete task', () => {

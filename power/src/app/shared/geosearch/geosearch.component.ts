@@ -1,33 +1,21 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {GeosearchService} from './geosearch.service';
-import {Observable, of} from 'rxjs';
-import {Feature} from 'geojson';
-
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { GeosearchService } from './geosearch.service';
+import { Observable, of } from 'rxjs';
+import { Feature } from 'geojson';
 
 @Component({
   selector: 'power-geosearch',
-  template: `
-    <div class="input-group p-1">
-      <input type="text" placement="bottom" class="form-control" placeholder="Bitte Ort eingeben ..." [(ngModel)]="model"
-             [ngbTypeahead]="search" [class.is-invalid]="searchFailed" [inputFormatter]="formatter" [resultFormatter]="formatter"
-             (selectItem)="selectItem($event.item)">
-    </div>
-
-  `,
-  styles: [`
-    :host {
-      width: 100%;
-    }
-  `]
+  templateUrl: './geosearch.component.html',
+  styleUrls: ['./geosearch.component.scss'],
 })
 export class GeosearchComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private geosearchService: GeosearchService) {
   }
 
-  @Output('selectResult') selectResult = new EventEmitter();
+  @Output() selectResult = new EventEmitter();
 
   public model: any;
 

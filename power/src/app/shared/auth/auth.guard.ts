@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { ConfigService } from '@app/config.service';
-import { environment } from '@env/environment';
 
 import { AuthService } from './auth.service';
 
@@ -14,27 +12,27 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
 
   constructor(public router: Router,
-              public conf: ConfigService,
               public auth: AuthService) {
   }
 
   /**
    * Called before a protected route is loaded to check if user is authenticated
    */
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     // allow access if auth module is not enabled
     if (!this.auth.IsAuthEnabled()) {
       return true;
     }
 
     // check authentication
-    if (this.auth.getUser()) {
+    await this.auth.loadSession(true);
+    if (this.auth.IsAuthenticated()) {
       return true;
     }
 
     // unauthenticated
-    this.router.navigate(['/login'], { replaceUrl: true });
     console.log('User is unauthenticated');
+    this.router.navigate(['/login'], { replaceUrl: true });
     return false;
   }
 }

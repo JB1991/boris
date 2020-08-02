@@ -1,9 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { environment } from '@env/environment';
 
 import { StorageService } from './storage.service';
-import { environment } from '@env/environment';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Details.StorageService', () => {
   let service: StorageService;
@@ -16,7 +18,13 @@ describe('Fragebogen.Details.StorageService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ]
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])
+      ],
+      providers: [
+        AuthService
+      ]
     });
     spyOn(console, 'log');
     service = TestBed.inject(StorageService);
@@ -113,6 +121,17 @@ describe('Fragebogen.Details.StorageService', () => {
   it('should fail delete task', () => {
     expect(function () {
       service.deleteTask('');
+    }).toThrowError('id is required');
+  });
+
+  it('should get csv', () => {
+    service.getCSV('1234').subscribe(data => expect(data).toEqual('666'));
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234/tasks/csv?status=submitted', 'GET', '666');
+  });
+
+  it('should fail get csv', () => {
+    expect(function () {
+      service.getCSV(null);
     }).toThrowError('id is required');
   });
 

@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MaketaskComponent } from './maketask.component';
 import { StorageService } from '../storage.service';
@@ -24,7 +25,8 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
       imports: [
         HttpClientTestingModule,
         FormsModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        RouterTestingModule.withRoutes([])
       ],
       providers: [
         BsModalService,

@@ -1,7 +1,7 @@
-image: docker:19-git
+image: docker:stable-git
 
 services:
-  - docker:19-dind
+  - docker:stable-dind
 
 stages:
   - init
@@ -10,21 +10,22 @@ stages:
   - package
   - deploy
 
+cache: &global_cache
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - power/node_modules/
+  policy: pull-push
+
 install:
   stage: init
-  image: node:13
-  script:
-    # Install node modules
-    - cd power
-    - npm install
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - power/node_modules/
+  image: node:14.5
+  dependencies: []
   cache:
-    key: "$CI_JOB_NAME"
-    paths:
-      - power/node_modules/
+    <<: *global_cache
+  script:
+    # install node modules
+    - cd power
+    - npm ci
   only:
     - merge_requests
     - dev
@@ -32,7 +33,11 @@ install:
 
 test:karma:
   stage: test
-  image: node:13
+  image: node:14.5
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
   before_script:
     # Install chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
@@ -45,6 +50,7 @@ test:karma:
     - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   coverage: '/Lines \W+: (\d+\.\d+)%.*/'
   artifacts:
+    expire_in: 2 weeks
     reports:
       junit: power/output/junit_karma.xml
     paths:
@@ -56,7 +62,12 @@ test:karma:
 
 test:e2e:
   stage: test
-  image: node:13
+  image: node:14.5
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  allow_failure: true
   before_script:
     # Install chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
@@ -68,6 +79,7 @@ test:e2e:
     - cd power
     - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   artifacts:
+    expire_in: 2 weeks
     reports:
       junit: power/output/junit_e2e.xml
     paths:
@@ -79,7 +91,11 @@ test:e2e:
 
 test:audit:
   stage: test
-  image: node:13
+  image: node:14.5
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
   allow_failure: true
   script:
     - cd power
@@ -91,7 +107,11 @@ test:audit:
 
 test:lint:
   stage: test
-  image: node:13
+  image: node:14.5
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
   allow_failure: true
   script:
     - cd power
@@ -103,7 +123,11 @@ test:lint:
 
 test:lint:styles:
   stage: test
-  image: node:13
+  image: node:14.5
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
   allow_failure: true
   script:
     - cd power
@@ -115,31 +139,32 @@ test:lint:styles:
 
 build:
   stage: build
-  image: node:13
+  image: node:14.5
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
   script:
     - cd power
-    - npm run build -- --prod
-    - echo "$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA" > dist/power/assets/config/version
+    - npm run build -- --prod --aot=true --output-hashing=none --extract-css=true --buildOptimizer=true
   artifacts:
-    expire_in: 1 week
+    name: "compiled dist"
+    expire_in: 2 days
     paths:
       - power/dist/power
-  cache:
-    key: "$CI_JOB_NAME"
-    paths:
-      - power/dist/
   only:
     - dev
     - staging
 
 package:
   stage: package
-  image: docker
+  image: docker:stable
   dependencies:
     - build
+  cache: {}
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
   only:
     - dev
@@ -147,8 +172,9 @@ package:
 
 deploy:
   stage: deploy
-  image: dtzar/helm-kubectl:3.1.2
+  image: dtzar/helm-kubectl:latest
   dependencies: []
+  cache: {}
   script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"

@@ -1,0 +1,9 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li::before {
+  content: url("~assets/icons/arrow-right.svg");
+  padding-right: 8px;
+}

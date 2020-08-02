@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ValidatorsComponent } from './validators.component';
 import { StorageService } from '../storage.service';
@@ -10,7 +11,10 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])
+      ],
       providers: [ StorageService ],
       declarations: [ ValidatorsComponent ]
     })

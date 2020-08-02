@@ -1,6 +1,6 @@
 <div class="container-fluid p-0">
   <nav class="navbar navbar-light navbar-expand-md border-bottom bg-white fixed-top">
-    <a class="navbar-brand" href="#" style="color: #343a40;">
+    <a class="navbar-brand" [routerLink]="['/']" style="color: #343a40;">
       <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top" alt="LGLN Logo">
       <strong class="d-none d-md-inline">
         <span>Portal für Wertermittlung</span>
@@ -18,16 +18,25 @@
     <div class="collapse navbar-collapse" style="z-index: 2000;" [ngbCollapse]="isCollapsed">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="config.modules.includes('bodenrichtwerte')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/bodenrichtwerte" routerLinkActive="active">Bodenrichtwerte</a>
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/bodenrichtwerte']" routerLinkActive="active">Bodenrichtwerte</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('bodenwerte')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/bodenwertkalkulator" routerLinkActive="active">Bodenwerte</a>
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/bodenwertkalkulator']" routerLinkActive="active">Bodenwerte</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('immobilien')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/immobilienpreisindex" routerLinkActive="active">Immobilien</a>
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/immobilienpreisindex']" routerLinkActive="active">Immobilien</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('fragebogen')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" routerLink="/forms" routerLinkActive="active">Formulare</a>
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/forms']" routerLinkActive="active">Formulare</a>
+        </li>
+        <li class="nav-item" *ngIf="!auth.getUser()">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/login']" routerLinkActive="active">Einloggen</a>
+        </li>
+        <li class="nav-item" *ngIf="auth.getUser()">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/logout']" routerLinkActive="active">Ausloggen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/feedback']" routerLinkActive="active">Rückmeldung</a>
         </li>
       </ul>
     </div>
@@ -41,11 +50,11 @@
         <div class="col-md-4 text-center">
           <h5>Informationen</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html">Impressum</a></li>
-            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html">Datenschutz</a></li>
-            <li><a class="text-muted" href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html">Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html">Impressum</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html">Datenschutz</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html">Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
           </ul>
-          <p class="text-muted">Version: {{ appVersion }}</p>
+          <p class="text-muted">Version: {{ appVersion.branch }}/{{ appVersion.version }}</p>
         </div>
       </div>
     </footer>
