@@ -14,10 +14,6 @@ import * as ImmobilenNipixRuntime from './immobilien.runtime';
 
 import * as echarts from 'echarts';
 
-import {
-    modifyRegionen
-} from './immobilien.functions.js';
-
 declare const require: any;
 
 @Component({
@@ -654,7 +650,7 @@ export class ImmobilienComponent implements OnInit {
                 this.nipixRuntime.state.selectedChartLine = '';
 
                 this.updateChart();
-                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(modifyRegionen(this.nipixStatic.data.regionen, this.nipixRuntime.drawPresets.filter(drawitem => (drawitem['show'] === true && drawitem['type'] !== 'single'))), null, null, true);
+                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(ImmobilenUtils.modifyRegionen(this.nipixStatic.data.regionen, this.nipixRuntime.drawPresets.filter(drawitem => (drawitem['show'] === true && drawitem['type'] !== 'single'))), null, null, true);
                 if (this.nipixStatic.data.selections[selection_id]['type'] === 'single') {
                     this.setMapOptions();
                 } else {
