@@ -4,8 +4,8 @@ import { BodenrichtwertService } from '../bodenrichtwert.service';
 
 @Component({
   selector: 'power-bodenrichtwert-liste',
-  templateUrl: 'bodenrichtwert-liste.html',
-  styles: []
+  templateUrl: 'bodenrichtwert-liste.component.html',
+  styleUrls: ['./bodenrichtwert-liste.component.scss'],
 })
 export class BodenrichtwertListeComponent implements OnChanges {
 

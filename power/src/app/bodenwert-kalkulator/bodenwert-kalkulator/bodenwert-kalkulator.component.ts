@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-
-import {environment} from '@env/environment';
-import {MapboxGeoJSONFeature, MapMouseEvent, Marker, Point} from 'mapbox-gl';
-import {NgbAccordion} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { environment } from '@env/environment';
+import { MapboxGeoJSONFeature, MapMouseEvent, Marker, Point } from 'mapbox-gl';
+import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'power-bodenwert-kalkulator',
@@ -25,7 +25,8 @@ export class BodenwertKalkulatorComponent implements OnInit {
   searchActive = false;
   @ViewChild('acc') acc: NgbAccordion;
 
-  constructor() {
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Bodenwerte - POWER.NI');
   }
 
   ngOnInit() {
@@ -41,7 +42,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
           this.flurstueckSelection.set(feature.properties.gml_id, feature);
         }
 
-        if (this.flurstueckSelection.size > 0 ) {
+        if (this.flurstueckSelection.size > 0) {
           this.acc.expand('ngb-panel-0');
         } else {
           this.acc.collapse('ngb-panel-0');

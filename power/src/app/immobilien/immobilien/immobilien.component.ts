@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
 import {NgbAccordion, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {merge, Observable, Subject} from 'rxjs';
@@ -43,16 +44,18 @@ export class ImmobilienComponent implements OnInit {
 
 
    /**
-     * Constructor:
-     *
-     * @param http Inject HttpClient
-     */
+    * Constructor:
+    *
+    * @param http Inject HttpClient
+    * @param titleService Service for settings the title of the HTML document
+    */
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private titleService: Title
     ) {
+     this.titleService.setTitle('Immobilienpreisindex - POWER.NI');
     }
 
- 
     title = 'lgln';
 
     // Icon array
@@ -73,7 +76,7 @@ export class ImmobilienComponent implements OnInit {
      * echart_range_series
      */
     chart_range = ImmobilenChartOptions.chartRange();
- 
+
 
     // Find My WomaReg
     search = (text$: Observable<string>) => {
@@ -205,7 +208,7 @@ export class ImmobilienComponent implements OnInit {
             .subscribe(nipix => {
 
                 this.nipixStatic.parseNipix(nipix);
-                this.nipixRuntime.updateAvailableNipixCategories();    
+                this.nipixRuntime.updateAvailableNipixCategories();
 
                 // InitState
                 this.nipixRuntime.state.initState++;

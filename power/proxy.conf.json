@@ -1,5 +1,5 @@
 {
-  "/geocoding/geosearch/" : {
+  "/geocoding/geosearch/": {
     "target": "https://sg.geodatenzentrum.de/gdz_ortssuche__1a415c0d-ddb1-7a7d-27f0-88ef2cfa13d6/geosearch.json",
     "pathRewrite": {
       "^/geocoding/geosearch/": ""
@@ -7,7 +7,7 @@
     "secure": false,
     "debugLevel": "info"
   },
-  "/geocoding/suggestions/" : {
+  "/geocoding/suggestions/": {
     "target": "https://sg.geodatenzentrum.de/gdz_geokodierung__1a415c0d-ddb1-7a7d-27f0-88ef2cfa13d6/suggest",
     "pathRewrite": {
       "^/geocoding/suggestions/": ""
@@ -16,12 +16,12 @@
     "debugLevel": "info"
   },
   "/geoserver/": {
-    "target": "https://dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0000.eu-de.containers.appdomain.cloud",
-    "secure":false,
+    "target": "https://dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud",
+    "secure": false,
     "changeOrigin": true,
     "debugLevel": "info"
   },
-  "/formapi/" : {
+  "/formapi/": {
     "target": "http://localhost:8090/",
     "pathRewrite": {
       "^/forms/": ""

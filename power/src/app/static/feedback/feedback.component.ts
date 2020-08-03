@@ -9,7 +9,7 @@ import { Title } from '@angular/platform-browser';
 export class FeedbackComponent implements OnInit {
 
   constructor(public titleService: Title) {
-    this.titleService.setTitle('Rückmeldung geben - POWER.NI');
+    this.titleService.setTitle('Feedback geben - POWER.NI');
   }
 
   ngOnInit(): void {
