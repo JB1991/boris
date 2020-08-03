@@ -25,7 +25,6 @@ describe('Fragebogen.Editor.HistoryService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
     expect(service.undoBuffer.length).toEqual(0);
-    expect(service.undoIndex).toEqual(0);
   });
 
   it('should make history', () => {
@@ -33,13 +32,11 @@ describe('Fragebogen.Editor.HistoryService', () => {
     service.makeHistory({x: 0});
     expect(service.undoBuffer[0]).toEqual('{"x":0}');
     expect(service.undoBuffer.length).toEqual(1);
-    expect(service.undoIndex).toEqual(1);
 
     // add second element
     service.makeHistory({x: 1}, false);
     expect(service.undoBuffer[1]).toEqual('{"x":1}');
     expect(service.undoBuffer.length).toEqual(2);
-    expect(service.undoIndex).toEqual(2);
 
     // make array full
     service.makeHistory({x: 2});
@@ -52,28 +49,24 @@ describe('Fragebogen.Editor.HistoryService', () => {
     service.makeHistory({x: 9});
     expect(service.undoBuffer[9]).toEqual('{"x":9}');
     expect(service.undoBuffer.length).toEqual(10);
-    expect(service.undoIndex).toEqual(10);
 
     // add one element too much, should delete first
     service.makeHistory({x: 10});
     expect(service.undoBuffer[0]).toEqual('{"x":1}');
     expect(service.undoBuffer[9]).toEqual('{"x":10}');
     expect(service.undoBuffer.length).toEqual(10);
-    expect(service.undoIndex).toEqual(10);
   });
 
   it('should delete future', () => {
     // add future
     service.makeFuture({x: 0});
     expect(service.redoBuffer.length).toEqual(1);
-    expect(service.redoIndex).toEqual(1);
 
     // add history, should delete future
     service.makeHistory({x: 0});
 
     // check future
     expect(service.redoBuffer.length).toEqual(0);
-    expect(service.redoIndex).toEqual(0);
   });
 
   it('should make future', () => {
@@ -91,14 +84,12 @@ describe('Fragebogen.Editor.HistoryService', () => {
     expect(service.redoBuffer[0]).toEqual('{"x":0}');
     expect(service.redoBuffer[9]).toEqual('{"x":9}');
     expect(service.redoBuffer.length).toEqual(10);
-    expect(service.redoIndex).toEqual(10);
 
     // add one element too much, should delete first
     service.makeFuture({x: 10});
     expect(service.redoBuffer[0]).toEqual('{"x":1}');
     expect(service.redoBuffer[9]).toEqual('{"x":10}');
     expect(service.redoBuffer.length).toEqual(10);
-    expect(service.redoIndex).toEqual(10);
   });
 
   it('should not do anything', () => {
@@ -111,14 +102,6 @@ describe('Fragebogen.Editor.HistoryService', () => {
     // no history or future
     expect(service.redoChanges()).toBeFalse();
     expect(service.undoChanges()).toBeFalse();
-
-    // index pointing to non existent history or future
-    service.redoIndex = 1;
-    service.undoIndex = 1;
-    expect(service.redoChanges()).toBeFalse();
-    expect(service.undoChanges()).toBeFalse();
-    expect(service.redoIndex).toEqual(0);
-    expect(service.redoIndex).toEqual(0);
   });
 
   it('should reset service', () => {
@@ -128,8 +111,6 @@ describe('Fragebogen.Editor.HistoryService', () => {
 
     expect(service.redoBuffer.length).toEqual(0);
     expect(service.undoBuffer.length).toEqual(0);
-    expect(service.redoIndex).toEqual(0);
-    expect(service.redoIndex).toEqual(0);
   });
 
   it('should undo change', () => {

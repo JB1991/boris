@@ -20,6 +20,7 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 })
 export class EditorComponent implements OnInit, ComponentCanDeactivate {
   public elementCopy: any;
+  public isCollapsedToolBox = false;
 
   constructor(public route: ActivatedRoute,
               public router: Router,
