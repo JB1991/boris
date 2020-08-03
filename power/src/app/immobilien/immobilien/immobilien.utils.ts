@@ -145,7 +145,7 @@ export function generateSeries(name, data, color, labelFormatter = null, selecte
         }
 
         if (yIndex !== 0) {
-            ret['"yAxisIndex'] = yIndex;
+            ret['yAxisIndex'] = yIndex;
         }
 
         return ret;

@@ -20,12 +20,12 @@ export function chartRange() {
         symbol: 'none',
         data: [[0, 0], [0, -0.2], [50, -1], [100, -1], [100, -0.2], [100, 0]]
     };
-};
+}
 
 /**
  * Configuration Option for the Map
  */
-export function getMapOptions(opt: any = {'text':{}}, selectType: any = 'multiple') : echarts.EChartOption {
+export function getMapOptions(opt: any = {'text': {}}, selectType: any = 'multiple'): echarts.EChartOption {
     return {
         'title': {
             'text': 'Wohnungsmarktregionen in Niedersachsen',
@@ -46,7 +46,8 @@ export function getMapOptions(opt: any = {'text':{}}, selectType: any = 'multipl
                     fill: '#333',
                     textAlign: 'left',
                     fontSize: ImmobilenHelper.convertRemToPixels(opt.text.fontSizeCopy),
-                    text: '© Oberer Gutachterausschusses für\nGrundstückswerte in Niedersachsen, ' + ImmobilenHelper.getDate()
+                    text: '© Oberer Gutachterausschusses für\nGrundstückswerte in Niedersachsen, '
+                    + ImmobilenHelper.getDate()
                 }
             }
         ],
@@ -139,12 +140,12 @@ export function getMapOptions(opt: any = {'text':{}}, selectType: any = 'multipl
 
         ]
     };
-};
+}
 
 /**
  * Configuration Option for the Chart
  */
-export function getChartOptions(opt: any = {'text':{}}) : echarts.EChartOption {
+export function getChartOptions(opt: any = {'text': {}}): echarts.EChartOption {
 
     return {
         'textStyle': {
@@ -189,7 +190,8 @@ export function getChartOptions(opt: any = {'text':{}}) : echarts.EChartOption {
                     fill: '#333',
                     textAlign: 'right',
                     fontSize: ImmobilenHelper.convertRemToPixels(opt.text.fontSizeCopy),
-                    text: '© Oberer Gutachterausschusses für Grundstückswerte in Niedersachsen, ' + ImmobilenHelper.getDate()
+                    text: '© Oberer Gutachterausschusses für Grundstückswerte in Niedersachsen, '
+                    + ImmobilenHelper.getDate()
                 }
             }
         ],
@@ -314,7 +316,7 @@ export function getChartOptions(opt: any = {'text':{}}) : echarts.EChartOption {
             chartRange()
         ],
     };
-};
+}
 
 
 /**

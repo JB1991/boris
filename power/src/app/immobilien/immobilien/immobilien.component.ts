@@ -42,7 +42,7 @@ export class ImmobilienComponent implements OnInit {
     @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
 
 
-   /**
+    /**
      * Constructor:
      *
      * @param http Inject HttpClient
@@ -52,7 +52,7 @@ export class ImmobilienComponent implements OnInit {
     ) {
     }
 
- 
+
     title = 'lgln';
 
     // Icon array
@@ -73,7 +73,6 @@ export class ImmobilienComponent implements OnInit {
      * echart_range_series
      */
     chart_range = ImmobilenChartOptions.chartRange();
- 
 
     // Find My WomaReg
     search = (text$: Observable<string>) => {
@@ -116,7 +115,12 @@ export class ImmobilienComponent implements OnInit {
                 this.nipixRuntime.resetDrawPresets();
 
                 // Map-Regionen
-                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(this.nipixStatic.data.regionen, null, null, true);
+                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(
+                    this.nipixStatic.data.regionen,
+                    null,
+                    null,
+                    true
+                );
 
                 // ChartTitle
                 this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[0]['name'];
@@ -127,13 +131,13 @@ export class ImmobilienComponent implements OnInit {
 
 
                 this.nipixRuntime.chart.options = ImmobilenChartOptions.getChartOptions.bind(this)({
-        'text': this.nipixStatic.textOptions,
-        'date': this.nipixRuntime.availableQuartal,
-        'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
-        'exportAsImage': this.exportAsImage.bind(this),
-        'exportCSV': this.exportCSV.bind(this),
-        'exportNiPixGeoJson': this.exportNiPixGeoJson.bind(this)
-    });
+                    'text': this.nipixStatic.textOptions,
+                    'date': this.nipixRuntime.availableQuartal,
+                    'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
+                    'exportAsImage': this.exportAsImage.bind(this),
+                    'exportCSV': this.exportCSV.bind(this),
+                    'exportNiPixGeoJson': this.exportNiPixGeoJson.bind(this)
+                });
 
                 // Load Gemeinden
                 this.loadGemeinden(json['gemeindenUrl']);
@@ -205,7 +209,7 @@ export class ImmobilienComponent implements OnInit {
             .subscribe(nipix => {
 
                 this.nipixStatic.parseNipix(nipix);
-                this.nipixRuntime.updateAvailableNipixCategories();    
+                this.nipixRuntime.updateAvailableNipixCategories();
 
                 // InitState
                 this.nipixRuntime.state.initState++;
@@ -307,7 +311,12 @@ export class ImmobilienComponent implements OnInit {
                 if (this.nipixRuntime.drawPresets[i].values.includes(name)) {
 
                     const indexToDelete = this.nipixRuntime.drawPresets[i].values.indexOf(name);
-                    const nArr = this.nipixRuntime.drawPresets[i].values.slice(0, indexToDelete).concat(this.nipixRuntime.drawPresets[i].values.slice(indexToDelete + 1, this.nipixRuntime.drawPresets[i].values.length));
+                    const nArr = this.nipixRuntime.drawPresets[i].values.slice(0, indexToDelete).concat(
+                        this.nipixRuntime.drawPresets[i].values.slice(
+                            indexToDelete + 1,
+                            this.nipixRuntime.drawPresets[i].values.length
+                        )
+                    );
                     this.nipixRuntime.drawPresets[i].values = nArr;
 
                     // Update Map if tab selected
@@ -354,7 +363,7 @@ export class ImmobilienComponent implements OnInit {
     onChartInit(ec) {
         this.nipixRuntime.map.obj = ec;
 
-        if (this.nipixRuntime.state.initState == 4) {
+        if (this.nipixRuntime.state.initState === 4) {
             this.updateMapSelect();
         }
     }
@@ -365,7 +374,7 @@ export class ImmobilienComponent implements OnInit {
     onChartChartInit(ec) {
         this.nipixRuntime.chart.obj = ec;
 
-        if (this.nipixRuntime.state.initState == 4) {
+        if (this.nipixRuntime.state.initState === 4) {
             this.updateChart();
         }
     }
