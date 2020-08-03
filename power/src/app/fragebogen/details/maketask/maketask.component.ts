@@ -62,6 +62,7 @@ export class MaketaskComponent implements OnInit {
         this.pinList.push(data['data'][i].pin);
         this.storage.tasksList.push(data['data'][i]);
       }
+      this.close();
     }, (error: Error) => {
         // failed to create task
         this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);

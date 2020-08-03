@@ -12,7 +12,7 @@ import { AuthService } from '@app/shared/auth/auth.service';
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   title = 'power';
   isCollapsed = true;
-  isCollapsedAcc = false;
+  isCollapsedAcc = true;
   show = false;
   name: string;
   public config: Config;
