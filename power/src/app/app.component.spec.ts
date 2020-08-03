@@ -30,6 +30,7 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
 
+    spyOn(console, 'log');
     httpTestingController = TestBed.inject(HttpTestingController);
   }));
 

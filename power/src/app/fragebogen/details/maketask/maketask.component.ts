@@ -43,6 +43,7 @@ export class MaketaskComponent implements OnInit {
   public Generate() {
     // check amount bounds
     if (this.amount < 1 || this.amount > 100) {
+      this.alerts.NewAlert('danger', 'Ungültige Eingabe', 'Bitte generieren Sie nur zwischen 1 und 100 PINs.');
       throw new Error('Invalid bounds for variable amount');
     }
 
