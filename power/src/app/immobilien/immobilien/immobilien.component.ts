@@ -15,10 +15,6 @@ import * as ImmobilenNipixRuntime from './immobilien.runtime';
 
 import * as echarts from 'echarts';
 
-import {
-    modifyRegionen
-} from './immobilien.functions.js';
-
 declare const require: any;
 
 @Component({
@@ -41,7 +37,6 @@ export class ImmobilienComponent implements OnInit {
     model: any;
 
     @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
-
 
    /**
     * Constructor:
@@ -76,7 +71,6 @@ export class ImmobilienComponent implements OnInit {
      * echart_range_series
      */
     chart_range = ImmobilenChartOptions.chartRange();
-
 
     // Find My WomaReg
     search = (text$: Observable<string>) => {
@@ -119,7 +113,12 @@ export class ImmobilienComponent implements OnInit {
                 this.nipixRuntime.resetDrawPresets();
 
                 // Map-Regionen
-                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(this.nipixStatic.data.regionen, null, null, true);
+                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(
+                    this.nipixStatic.data.regionen,
+                    null,
+                    null,
+                    true
+                );
 
                 // ChartTitle
                 this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[0]['name'];
@@ -130,13 +129,13 @@ export class ImmobilienComponent implements OnInit {
 
 
                 this.nipixRuntime.chart.options = ImmobilenChartOptions.getChartOptions.bind(this)({
-        'text': this.nipixStatic.textOptions,
-        'date': this.nipixRuntime.availableQuartal,
-        'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
-        'exportAsImage': this.exportAsImage.bind(this),
-        'exportCSV': this.exportCSV.bind(this),
-        'exportNiPixGeoJson': this.exportNiPixGeoJson.bind(this)
-    });
+                    'text': this.nipixStatic.textOptions,
+                    'date': this.nipixRuntime.availableQuartal,
+                    'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
+                    'exportAsImage': this.exportAsImage.bind(this),
+                    'exportCSV': this.exportCSV.bind(this),
+                    'exportNiPixGeoJson': this.exportNiPixGeoJson.bind(this)
+                });
 
                 // Load Gemeinden
                 this.loadGemeinden(json['gemeindenUrl']);
@@ -310,7 +309,12 @@ export class ImmobilienComponent implements OnInit {
                 if (this.nipixRuntime.drawPresets[i].values.includes(name)) {
 
                     const indexToDelete = this.nipixRuntime.drawPresets[i].values.indexOf(name);
-                    const nArr = this.nipixRuntime.drawPresets[i].values.slice(0, indexToDelete).concat(this.nipixRuntime.drawPresets[i].values.slice(indexToDelete + 1, this.nipixRuntime.drawPresets[i].values.length));
+                    const nArr = this.nipixRuntime.drawPresets[i].values.slice(0, indexToDelete).concat(
+                        this.nipixRuntime.drawPresets[i].values.slice(
+                            indexToDelete + 1,
+                            this.nipixRuntime.drawPresets[i].values.length
+                        )
+                    );
                     this.nipixRuntime.drawPresets[i].values = nArr;
 
                     // Update Map if tab selected
@@ -357,7 +361,7 @@ export class ImmobilienComponent implements OnInit {
     onChartInit(ec) {
         this.nipixRuntime.map.obj = ec;
 
-        if (this.nipixRuntime.state.initState == 4) {
+        if (this.nipixRuntime.state.initState === 4) {
             this.updateMapSelect();
         }
     }
@@ -368,7 +372,7 @@ export class ImmobilienComponent implements OnInit {
     onChartChartInit(ec) {
         this.nipixRuntime.chart.obj = ec;
 
-        if (this.nipixRuntime.state.initState == 4) {
+        if (this.nipixRuntime.state.initState === 4) {
             this.updateChart();
         }
     }
@@ -433,21 +437,27 @@ export class ImmobilienComponent implements OnInit {
      */
     updateChart(start = null, end = null) {
 
-        let range_start = this.chart_range['data'][2][0]; // Math.trunc(100 * this.nipixRuntime.availableQuartal.indexOf(this.nipixStatic.referenceDate.replace("_","/"))/this.nipixRuntime.availableQuartal.length);
+        let range_start = this.chart_range['data'][2][0];
         let range_end = this.chart_range['data'][3][0]; // 100;
         // Additional subtitle
         let subAdd = '';
 
         if (this.nipixRuntime.state.rangeStartIndex === 0) {
-            this.nipixRuntime.state.rangeStartIndex = Math.round((this.nipixRuntime.availableQuartal.length - 1) / 100 * range_start);
-            this.nipixStatic.referenceDate = this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex].replace('/', '_');
+            this.nipixRuntime.state.rangeStartIndex =
+                Math.round((this.nipixRuntime.availableQuartal.length - 1) / 100 * range_start);
+            this.nipixStatic.referenceDate =
+                this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex].replace('/', '_');
         }
 
         if (this.nipixRuntime.state.rangeEndIndex === 0) {
-            this.nipixRuntime.state.rangeEndIndex = Math.round((this.nipixRuntime.availableQuartal.length - 1) / 100 * range_end);
+            this.nipixRuntime.state.rangeEndIndex =
+                Math.round((this.nipixRuntime.availableQuartal.length - 1) / 100 * range_end);
         }
 
-        const range_text = 'Zeitraum von ' + this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex] + ' bis ' + this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeEndIndex];
+        const range_text = 'Zeitraum von ' +
+            this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex] +
+            ' bis ' +
+            this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeEndIndex];
 
         if (start !== null) {
             range_start = start;
@@ -492,17 +502,20 @@ export class ImmobilienComponent implements OnInit {
 
         chartOptionMerge.series.push(this.chart_range);
 
-        let infotext = '';
-        let infoLegend = [];
+        const infotext = '';
+        const infoLegend = [];
 
         let infoLegendPosition = 0;
 
-        if (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== undefined && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== null) {
+        if (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== undefined
+            && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== null) {
             if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'single')) {
 
-                let ccat = this.nipixRuntime.getDrawPreset(this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'][0]);
+                const ccat = this.nipixRuntime.getDrawPreset(
+                    this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'][0]
+                );
                 subAdd = ' (' + ccat['nipixCategory'] + ')';
-                let infoseries = [];
+                const infoseries = [];
 
                 for (let i = 0; i < chartOptionMerge.series.length; i++) {
                     let addText = '';
@@ -513,16 +526,39 @@ export class ImmobilienComponent implements OnInit {
                     }
 
                     if (this.nipixStatic.data.regionen.hasOwnProperty(chartOptionMerge.series[i]['name'])) {
-                        infoLegend.push( ImmobilenUtils.generateTextElement(addText + element['name'] + ' (' + element['short'] + ')', '#000', this.nipixStatic.textOptions.fontSizeBase, infoLegendPosition) );
-                        infoLegend.push( ImmobilenUtils.generateDotElement(4, element['color'], this.nipixStatic.textOptions.fontSizeBase, infoLegendPosition));
+                        infoLegend.push( ImmobilenUtils.generateTextElement(
+                            addText + element['name'] + ' (' + element['short'] + ')',
+                            '#000',
+                            this.nipixStatic.textOptions.fontSizeBase,
+                            infoLegendPosition
+                        ));
+                        infoLegend.push( ImmobilenUtils.generateDotElement(
+                            4,
+                            element['color'],
+                            this.nipixStatic.textOptions.fontSizeBase,
+                            infoLegendPosition
+                        ));
                         infoLegendPosition++;
                     }
                 }
-            } else if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multi') || (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multiIndex')) {
+            } else if (
+                (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multi') ||
+                (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multiIndex')
+            ) {
                 const ccat = this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'];
                 for (let i = 0; i < ccat.length; i++) {
-                    infoLegend.push( ImmobilenUtils.generateTextElement(ccat[i] + ' (' + this.nipixStatic.data.shortNames[ccat[i]] + ')', '#000', this.nipixStatic.textOptions.fontSizeBase, infoLegendPosition) );
-                    infoLegend.push(ImmobilenUtils.generateDotElement(4, this.nipixRuntime.getDrawPreset(ccat[i]).colors, this.nipixStatic.textOptions.fontSizeBase, infoLegendPosition));
+                    infoLegend.push( ImmobilenUtils.generateTextElement(
+                        ccat[i] + ' (' + this.nipixStatic.data.shortNames[ccat[i]] + ')',
+                        '#000',
+                        this.nipixStatic.textOptions.fontSizeBase,
+                        infoLegendPosition
+                    ) );
+                    infoLegend.push(ImmobilenUtils.generateDotElement(
+                        4,
+                        this.nipixRuntime.getDrawPreset(ccat[i]).colors,
+                        this.nipixStatic.textOptions.fontSizeBase,
+                        infoLegendPosition
+                    ));
                     infoLegendPosition++;
 
                 }
@@ -533,11 +569,23 @@ export class ImmobilienComponent implements OnInit {
                         const citem = this.nipixRuntime.getDrawPreset(ccat[d]);
                         if (citem['show'] === true) {
                             if (citem['values'].includes(this.nipixStatic.data.allItems[i])) {
-                                infoLegend.push(ImmobilenUtils.generateDotElement(4, citem['colors'], this.nipixStatic.textOptions.fontSizeBase, infoLegendPosition, d));
+                                infoLegend.push(ImmobilenUtils.generateDotElement(
+                                    4,
+                                    citem['colors'],
+                                    this.nipixStatic.textOptions.fontSizeBase,
+                                    infoLegendPosition,
+                                    d
+                                ));
                             }
                         }
                     }
-                    infoLegend.push( ImmobilenUtils.generateTextElement( this.getSeriesLabel(this.nipixStatic.data.allItems[i]), '#000', this.nipixStatic.textOptions.fontSizeBase, infoLegendPosition, 4 * 4 * 4) );
+                    infoLegend.push( ImmobilenUtils.generateTextElement(
+                        this.getSeriesLabel(this.nipixStatic.data.allItems[i]),
+                        '#000',
+                        this.nipixStatic.textOptions.fontSizeBase,
+                        infoLegendPosition,
+                        4 * 4 * 4
+                    ) );
 
                     infoLegendPosition++;
                 }
@@ -591,7 +639,11 @@ export class ImmobilienComponent implements OnInit {
 
         // Set Options to chart
         if (this.nipixRuntime.chart.obj !== null) {
-            this.nipixRuntime.chart.obj.setOption(Object.assign(this.nipixRuntime.chart.options, chartOptionMerge), true, true);
+            this.nipixRuntime.chart.obj.setOption(
+                Object.assign(this.nipixRuntime.chart.options, chartOptionMerge),
+                true,
+                true
+            );
         }
 
     }
@@ -602,9 +654,12 @@ export class ImmobilienComponent implements OnInit {
     onDataZoom(event) {
         this.chart_range['data'][2] = [event.start, -1];
         this.chart_range['data'][3] = [event.end, -1];
-        this.nipixRuntime.state.rangeStartIndex = Math.round((this.nipixRuntime.availableQuartal.length - 1) / 100 * event.start);
-        this.nipixRuntime.state.rangeEndIndex = Math.round((this.nipixRuntime.availableQuartal.length - 1) / 100 * event.end);
-        this.nipixStatic.referenceDate = this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex].replace('/', '_');
+        this.nipixRuntime.state.rangeStartIndex =
+            Math.round((this.nipixRuntime.availableQuartal.length - 1) / 100 * event.start);
+        this.nipixRuntime.state.rangeEndIndex =
+            Math.round((this.nipixRuntime.availableQuartal.length - 1) / 100 * event.end);
+        this.nipixStatic.referenceDate =
+            this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex].replace('/', '_');
         this.updateChart(event.start, event.end);
     }
 
@@ -635,20 +690,37 @@ export class ImmobilienComponent implements OnInit {
 
                 const selection_id = parseInt( event.panelId.replace('static-', ''), 10);
 
-                if (this.nipixStatic.data.selections[selection_id] !== undefined && this.nipixStatic.data.selections[selection_id] !== null) {
+                if (this.nipixStatic.data.selections[selection_id] !== undefined 
+                    && this.nipixStatic.data.selections[selection_id] !== null
+                ) {
                     if (this.nipixStatic.data.selections[selection_id]['type'] === 'multiSelect') {
-                        this.onSetSpecificDraw(this.nipixStatic.data.selections[selection_id]['preset'], this.nipixStatic.data.selections[selection_id]['selected']);
+                        this.onSetSpecificDraw(
+                            this.nipixStatic.data.selections[selection_id]['preset'],
+                            this.nipixStatic.data.selections[selection_id]['selected']
+                        );
                     } else {
-                        this.onSetSpecificDraw(this.nipixStatic.data.selections[selection_id]['preset'], this.nipixStatic.data.selections[selection_id]['preset'].length);
+                        this.onSetSpecificDraw(
+                            this.nipixStatic.data.selections[selection_id]['preset'],
+                            this.nipixStatic.data.selections[selection_id]['preset'].length
+                        );
                     }
 
-                    this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[selection_id]['name'];
+                    this.nipixRuntime.calculated.chartTitle =
+                        this.nipixStatic.data.selections[selection_id]['name'];
                 }
 
                 this.nipixRuntime.state.selectedChartLine = '';
 
                 this.updateChart();
-                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(modifyRegionen(this.nipixStatic.data.regionen, this.nipixRuntime.drawPresets.filter(drawitem => (drawitem['show'] === true && drawitem['type'] !== 'single'))), null, null, true);
+                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(
+                    ImmobilenUtils.modifyRegionen(
+                        this.nipixStatic.data.regionen,
+                        this.nipixRuntime.drawPresets
+                        .filter(drawitem => (drawitem['show'] === true && drawitem['type'] !== 'single'))),
+                    null,
+                    null,
+                    true
+                );
                 if (this.nipixStatic.data.selections[selection_id]['type'] === 'single') {
                     this.setMapOptions();
                 } else {
@@ -656,7 +728,12 @@ export class ImmobilienComponent implements OnInit {
                 }
                 // this.updateMapSelect();
             } else {
-                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(this.nipixStatic.data.regionen, null, null, true);
+                this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(
+                    this.nipixStatic.data.regionen,
+                    null,
+                    null,
+                    true
+                );
                 this.setMapOptions(false);
                 this.updateMapSelect(this.nipixRuntime.state.selectedMyRegion);
             }
@@ -725,7 +802,10 @@ export class ImmobilienComponent implements OnInit {
      * @return series label (sort)
      */
     getSeriesLabel(series) {
-        return this.nipixStatic.data.regionen[series]['name'] + ' (' + this.nipixStatic.data.regionen[series]['short'] + ')';
+        return this.nipixStatic.data.regionen[series]['name'] +
+            ' (' +
+            this.nipixStatic.data.regionen[series]['short'] +
+            ')';
     }
 
     /**
