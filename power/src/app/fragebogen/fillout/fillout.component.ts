@@ -28,6 +28,7 @@ export class FilloutComponent implements OnInit {
 
   ngOnInit() {
     // get pin
+    this.loadingscreen.setVisible(true);
     const pin = this.route.snapshot.paramMap.get('pin');
     if (pin) {
       // load data
@@ -58,7 +59,6 @@ export class FilloutComponent implements OnInit {
     }
 
     // get access by pin
-    this.loadingscreen.setVisible(true);
     this.storage.getAccess(pin, factor).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {

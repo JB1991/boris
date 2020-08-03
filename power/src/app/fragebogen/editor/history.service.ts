@@ -8,8 +8,8 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class HistoryService {
-  private undoBuffer: any = [];
-  private redoBuffer: any = [];
+  public undoBuffer: any = [];
+  public redoBuffer: any = [];
   public undoIndex = 0;
   public redoIndex = 0;
 
@@ -30,7 +30,11 @@ export class HistoryService {
    * @param data JSON data
    * @param del True to delete future
    */
-  public makeHistory(data: any, del: boolean = true) {
+  public makeHistory(data: any, del = true) {
+    // check data
+    if (!data) {
+      return;
+    }
     this.storage.setUnsavedChanges(true);
     this.undoBuffer[this.undoIndex] = JSON.stringify(data);
     this.undoIndex++;
@@ -38,7 +42,7 @@ export class HistoryService {
     // limit size
     if (this.undoIndex > 10) {
       this.undoIndex--;
-      delete this.undoBuffer[0];
+      this.undoBuffer.splice(0, 1);
     }
 
     // delete future
@@ -53,66 +57,72 @@ export class HistoryService {
    * @param data JSON data
    */
   public makeFuture(data: any) {
+    // check data
+    if (!data) {
+      return;
+    }
     this.storage.setUnsavedChanges(true);
     this.redoBuffer[this.redoIndex] = JSON.stringify(data);
     this.redoIndex++;
 
     // limit size
-    if (this.redoBuffer > 10) {
+    if (this.redoIndex > 10) {
       this.redoIndex--;
-      delete this.redoBuffer[0];
+      this.redoBuffer.splice(0, 1);
     }
   }
 
   /**
    * Undo last change
    */
-  public undoChanges(): any {
+  public undoChanges(): boolean {
     // check if future exists
     if (this.undoIndex < 1) {
-      return;
+      return false;
     }
 
     // reduce index
     this.undoIndex--;
     if (typeof this.undoBuffer[this.undoIndex] === 'undefined') {
-      throw new Error('History does not exists');
+      return false;
     }
 
     // restore
     this.makeFuture(this.storage.model);
-    delete this.undoBuffer[this.undoIndex + 1];
     this.storage.model = JSON.parse(this.undoBuffer[this.undoIndex]);
+    this.undoBuffer.splice(this.undoIndex, 1);
 
     // check if selected page exists
     if (this.storage.selectedPageID >= this.storage.model.pages.length) {
       this.storage.selectedPageID = this.storage.model.pages.length - 1;
     }
+    return true;
   }
 
   /**
    * Redo last change
    */
-  public redoChanges(): any {
+  public redoChanges(): boolean {
     // check if history exists
     if (this.redoIndex < 1) {
-      return;
+      return false;
     }
 
     // reduce index
     this.redoIndex--;
     if (typeof this.redoBuffer[this.redoIndex] === 'undefined') {
-      throw new Error('Future does not exists');
+      return false;
     }
 
     // restore
     this.makeHistory(this.storage.model, false);
-    delete this.redoBuffer[this.redoIndex + 1];
     this.storage.model = JSON.parse(this.redoBuffer[this.redoIndex]);
+    this.redoBuffer.splice(this.redoBuffer, 1);
 
     // check if selected page exists
     if (this.storage.selectedPageID >= this.storage.model.pages.length) {
       this.storage.selectedPageID = this.storage.model.pages.length - 1;
     }
+    return true;
   }
 }

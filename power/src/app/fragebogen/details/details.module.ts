@@ -8,7 +8,7 @@ import { StorageService } from './storage.service';
 import { DetailsComponent } from './details.component';
 import { MaketaskComponent } from './maketask/maketask.component';
 import { PublishComponent } from './publish/publish.component';
-import { SurveyjsModule } from '../surveyjs/surveyjs.module';
+import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 @NgModule({
   declarations: [

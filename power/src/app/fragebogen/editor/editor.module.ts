@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 
 import { EditorRoutingModule } from './editor-routing.module';
 import { EditorComponent } from './editor.component';
@@ -11,11 +14,7 @@ import { ValidatorsComponent } from './validators/validators.component';
 
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
-import { SurveyjsModule } from '../surveyjs/surveyjs.module';
+import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +23,7 @@ import { SurveyjsModule } from '../surveyjs/surveyjs.module';
     ModalElementComponent,
     ConditionsComponent,
     ValidatorsComponent
+
   ],
   imports: [
     CommonModule,

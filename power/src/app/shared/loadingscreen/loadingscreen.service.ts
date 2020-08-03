@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +8,12 @@ export class LoadingscreenService {
   public visible = false;
 
   constructor(public router: Router) {
-    // hide loadingscreen after routing event
     router.events.subscribe((event) => {
+      // enable/disable loadingscreen with navigation
       if (event instanceof NavigationEnd) {
         this.visible = false;
+      } else if (event instanceof NavigationStart) {
+        this.visible = true;
       }
     });
   }

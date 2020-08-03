@@ -20,7 +20,7 @@ export class LogoutComponent implements OnInit {
     this.titleService.setTitle('Logout - POWER.NI');
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadingscreen.setVisible(true);
 
     // delete localStorage
@@ -28,15 +28,16 @@ export class LogoutComponent implements OnInit {
     this.auth.user = null;
 
     // redirect to logout page
-    this.redirect();
+    this.redirect(environment.auth.url + 'logout' +
+                  '?client_id=' + encodeURIComponent(environment.auth.clientid) +
+                  '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host));
   }
 
   /**
    * Redirects to external page. This exists to prevent redirect on karma tests
+   * @param url redirect url
    */
-  public redirect() {
-    document.location.href = environment.auth.url + 'logout' +
-                             '?client_id=' + encodeURIComponent(environment.auth.clientid) +
-                             '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host);
+  public redirect(url) {
+    document.location.href = url;
   }
 }

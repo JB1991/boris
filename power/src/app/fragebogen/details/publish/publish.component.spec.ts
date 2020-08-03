@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,9 +12,6 @@ import { environment } from '@env/environment';
 describe('Fragebogen.Details.Publish.PublishComponent', () => {
   let component: PublishComponent;
   let fixture: ComponentFixture<PublishComponent>;
-  let storage: StorageService;
-  let alerts: jasmine.SpyObj<AlertsService>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const formSample = require('../../../../assets/fragebogen/form-sample.json');
@@ -31,10 +27,7 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
       providers: [
         BsModalService,
         StorageService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        },
+        AlertsService
       ],
       declarations: [
         PublishComponent
@@ -47,9 +40,7 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
     fixture.detectChanges();
 
     spyOn(console, 'log');
-    storage = TestBed.inject(StorageService);
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
-    httpClient = TestBed.inject(HttpClient);
+    spyOn(component.alerts, 'NewAlert');
     httpTestingController = TestBed.inject(HttpTestingController);
   }));
 
@@ -79,7 +70,7 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
   it('should not publish', () => {
     spyOn(window, 'confirm').and.returnValue(false);
     component.Publish();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
   it('should error', () => {
@@ -89,8 +80,8 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
     component.Publish();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
                       'POST', { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {
@@ -100,8 +91,8 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
     component.Publish();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
                       'POST', formSample, { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Not Found');
   });
 
   it('should fail to publish', () => {
@@ -111,8 +102,8 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
     component.Publish();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
                       'POST', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', '123');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', '123');
   });
 
   /**
@@ -136,14 +127,7 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
   }
 
   afterEach(() => {
-    storage.resetService();
-    storage = null;
-
     // Verify that no requests are remaining
     httpTestingController.verify();
-
-    // Destruction
-    fixture.destroy();
-    component = null;
   });
 });

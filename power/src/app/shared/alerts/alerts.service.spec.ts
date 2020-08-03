@@ -34,6 +34,16 @@ describe('Shared.Alerts.AlertsService', () => {
     }).toThrowError('timeout too big or small');
   });
 
+  it('should prevent too much alerts', () => {
+    service.NewAlert('success', 'Test Title', 'Test Body');
+    service.NewAlert('success', 'Test Title', 'Test Body');
+    service.NewAlert('success', 'Test Title', 'Test Body');
+    service.NewAlert('success', 'Test Title', 'Test Body');
+    expect(service.alertslist.length).toEqual(4);
+    service.NewAlert('success', 'Test Title', 'Test Body');
+    expect(service.alertslist.length).toEqual(4);
+  });
+
   it('should reset service', () => {
     service.NewAlert('success', 'Test Title', 'Test Body', 3500);
     expect(service.alertslist[0].timeout).toEqual(3500);

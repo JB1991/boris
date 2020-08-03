@@ -3,10 +3,10 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
+import { StorageService } from './storage.service';
+import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { StorageService } from './storage.service';
-import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
 @Component({
   selector: 'power-formulars-details',
@@ -28,6 +28,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
     // get id
+    this.loadingscreen.setVisible(true);
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       // load data
@@ -49,7 +50,6 @@ export class DetailsComponent implements OnInit {
     }
 
     // load form form server
-    this.loadingscreen.setVisible(true);
     this.storage.loadForm(id).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {

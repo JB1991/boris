@@ -1,5 +1,5 @@
 <div class="container-fluid p-0">
-  <nav class="navbar navbar-light navbar-expand-md border-bottom bg-white fixed-top">
+  <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white fixed-top">
     <a class="navbar-brand" [routerLink]="['/']" style="color: #343a40;">
       <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top" alt="LGLN Logo">
       <strong class="d-none d-md-inline">
@@ -15,28 +15,41 @@
             (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" [class.active]="!isCollapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" style="z-index: 2000;" [ngbCollapse]="isCollapsed">
+    <div class="collapse navbar-collapse" style="z-index: 2000;" [collapse]="isCollapsed" [isAnimated]="true">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="config.modules.includes('bodenrichtwerte')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/bodenrichtwerte']" routerLinkActive="active">Bodenrichtwerte</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/bodenrichtwerte']" routerLinkActive="active">Bodenrichtwerte</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('bodenwerte')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/bodenwertkalkulator']" routerLinkActive="active">Bodenwerte</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/bodenwertkalkulator']" routerLinkActive="active">Bodenwerte</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('immobilien')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/immobilienpreisindex']" routerLinkActive="active">Immobilien</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/immobilienpreisindex']" routerLinkActive="active">Immobilien</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('fragebogen')">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/forms']" routerLinkActive="active">Formulare</a>
-        </li>
-        <li class="nav-item" *ngIf="!auth.getUser()">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/login']" routerLinkActive="active">Einloggen</a>
-        </li>
-        <li class="nav-item" *ngIf="auth.getUser()">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/logout']" routerLinkActive="active">Ausloggen</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/forms']" routerLinkActive="active">Formulare</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/feedback']" routerLinkActive="active">Rückmeldung</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/feedback']" routerLinkActive="active">Feedback</a>
+        </li>
+        <li class="nav-item" *ngIf="!auth.IsAuthenticated()">
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/login']" [queryParams]="{redirect: uri.pathname}" routerLinkActive="active">Einloggen</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">
+          <a class="nav-link dropdown-toggle clickable" [routerLink]="" id="navbarUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+             (click)="isCollapsedAcc = !isCollapsedAcc" [attr.aria-expanded]="!isCollapsedAcc">
+            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-file-person align-top" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
+              <path d="M13.784 14c-.497-1.27-1.988-3-5.784-3s-5.287 1.73-5.784 3h11.568z"/>
+              <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+            <span class="sr-only">Account</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUser" [collapse]="isCollapsedAcc">
+            <a class="dropdown-item" [routerLink]="">{{ auth.user.data.preferred_username }}</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="isCollapsed = true" [routerLink]="['/logout']" routerLinkActive="active">Ausloggen</a>
+          </div>
         </li>
       </ul>
     </div>

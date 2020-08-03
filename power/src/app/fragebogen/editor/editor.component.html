@@ -3,27 +3,28 @@
     <div class="col-12 col-lg-3 col-xl-2 p-0 pr-lg-2 mb-2">
         <!-- toolbox -->
         <div class="card bg-light">
-            <div class="card-header h5 clickable" (click)="isCollapsedToolBox = !isCollapsedToolBox">
-                <i class="fas fa-toolbox fa-fw" aria-hidden="true"></i>
+            <div class="card-header h5">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-tools align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M0 1l1-1 3.081 2.2a1 1 0 0 1 .419.815v.07a1 1 0 0 0 .293.708L10.5 9.5l.914-.305a1 1 0 0 1 1.023.242l3.356 3.356a1 1 0 0 1 0 1.414l-1.586 1.586a1 1 0 0 1-1.414 0l-3.356-3.356a1 1 0 0 1-.242-1.023L9.5 10.5 3.793 4.793a1 1 0 0 0-.707-.293h-.071a1 1 0 0 1-.814-.419L0 1zm11.354 9.646a.5.5 0 0 0-.708.708l3 3a.5.5 0 0 0 .708-.708l-3-3z"/>
+                    <path fill-rule="evenodd" d="M15.898 2.223a3.003 3.003 0 0 1-3.679 3.674L5.878 12.15a3 3 0 1 1-2.027-2.027l6.252-6.341A3 3 0 0 1 13.778.1l-2.142 2.142L12 4l1.757.364 2.141-2.141zm-13.37 9.019L3.001 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+                </svg>
                 Toolbox
             </div>
-            <ul id="toolbox" class="list-group list-group-flush" [collapse]="isCollapsedToolBox" [isAnimated]="true">
+            <ul id="toolbox" class="list-group list-group-flush">
                 <smooth-dnd-container groupName="toolbox"
                     [getChildPayload]="getPayloadToolbox"
                     behaviour="copy">
                     <li id="{{ item.type }}"
                         *ngFor="let item of storage.FormularFields"
-                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light"
+                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
                         (click)="wsNewElement(item.type)">
-                        <i class="{{ item.icon }} fa-fw" aria-hidden="true"></i>
-                        <span class="d-none d-sm-inline pl-2">{{ item.name }}</span>
+                        <span class="pl-2">{{ item.name }}</span>
                     </li>
                     <li id="elementcopy"
                         *ngIf="elementCopy"
-                        class="list-group-item clickable smooth-dnd-draggable-wrapper bg-light"
+                        class="list-group-item clickable smooth-dnd-draggable-wrapper bg-light p-2"
                         (click)="wsNewElement('elementcopy')">
-                        <i class="fas fa-paste fa-fw" aria-hidden="true"></i>
-                        <span class="d-none d-sm-inline pl-2">Zwischenablage</span>
+                        <span class="pl-2">Zwischenablage</span>
                     </li>
                 </smooth-dnd-container>
             </ul>
@@ -57,14 +58,20 @@
 
                         <li class="page-item clickable text-success">
                             <a class="page-link" (click)="wsPageCreate(storage.selectedPageID)" title="Neue Seite hinzufügen">
-                                <i class="fas fa-file-alt fa-fw" aria-hidden="true"></i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus align-bottom" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M9 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5v-1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5v2.5A1.5 1.5 0 0 0 10.5 6H13v2h1V6L9 1z"/>
+                                    <path fill-rule="evenodd" d="M13.5 10a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/>
+                                    <path fill-rule="evenodd" d="M13 12.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
+                                </svg>
                                 <span class="sr-only">Neue Seite hinzufügen</span>
                             </a>
                         </li>
                         <li class="page-item clickable text-danger">
-                            <a class="page-link" (click)="wsPageDelete(storage.selectedPageID)" title="Aktive Seite löschen">
-                                <i class="fas fa-trash-alt fa-fw" aria-hidden="true"></i>
-                                <span class="sr-only">Aktive Seite löschen</span>
+                            <a class="page-link" (click)="wsPageDelete(storage.selectedPageID)" title="Ausgewählte Seite löschen">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill align-bottom" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                </svg>
+                                <span class="sr-only">Ausgewählte Seite löschen</span>
                             </a>
                         </li>
                     </ul>
@@ -76,40 +83,70 @@
                 <button type="button"
                     class="btn btn-secondary mr-2"
                     title="Letzte Änderung wiederholen"
-                    (click)="history.redoChanges(); clearCollapsed()"
+                    (click)="history.redoChanges()"
                     [disabled]="history.redoIndex === 0">
-                    <i class="fas fa-redo" aria-hidden="true"></i>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-clockwise align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M3.17 6.706a5 5 0 0 1 7.103-3.16.5.5 0 1 0 .454-.892A6 6 0 1 0 13.455 5.5a.5.5 0 0 0-.91.417 5 5 0 1 1-9.375.789z"/>
+                        <path fill-rule="evenodd" d="M8.147.146a.5.5 0 0 1 .707 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 1 1-.707-.708L10.293 3 8.147.854a.5.5 0 0 1 0-.708z"/>
+                    </svg>
                     <span class="sr-only">Letzte Änderung wiederholen</span>
                 </button>
                 <button type="button"
                     class="btn btn-secondary mr-2"
                     title="Letzte Änderung rückgängig machen"
-                    (click)="history.undoChanges(); clearCollapsed()"
+                    (click)="history.undoChanges()"
                     [disabled]="history.undoIndex === 0">
-                    <i class="fas fa-undo" aria-hidden="true"></i>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.83 6.706a5 5 0 0 0-7.103-3.16.5.5 0 1 1-.454-.892A6 6 0 1 1 2.545 5.5a.5.5 0 1 1 .91.417 5 5 0 1 0 9.375.789z"/>
+                        <path fill-rule="evenodd" d="M7.854.146a.5.5 0 0 0-.708 0l-2.5 2.5a.5.5 0 0 0 0 .708l2.5 2.5a.5.5 0 1 0 .708-.708L5.707 3 7.854.854a.5.5 0 0 0 0-.708z"/>
+                    </svg>
                     <span class="sr-only">Letzte Änderung rückgängig machen</span>
                 </button>
                 <button type="button"
                     class="btn btn-primary mr-2"
                     title="Formular Einstellugen öffnen"
                     (click)="modalformular.Open()">
-                    <i class="fas fa-cogs fa-fw" aria-hidden="true"></i>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M14 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM11.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM7 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM4.5 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm9.5 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM11.5 15a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                        <path fill-rule="evenodd" d="M9.5 4H0V3h9.5v1zM16 4h-2.5V3H16v1zM9.5 14H0v-1h9.5v1zm6.5 0h-2.5v-1H16v1zM6.5 9H16V8H6.5v1zM0 9h2.5V8H0v1z"/>
+                    </svg>
                     <span class="sr-only">Formular Einstellugen öffnen</span>
                 </button>
                 <button type="button"
                     class="btn btn-secondary mr-2"
                     title="Formular Vorschau öffnen"
                     (click)="preview.Open()">
-                    <i class="fas fa-expand fa-fw" aria-hidden="true"></i>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-fullscreen align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M1.464 10.536a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5a.5.5 0 0 1 .5-.5z"/>
+                        <path fill-rule="evenodd" d="M5.964 10a.5.5 0 0 1 0 .707l-4.146 4.147a.5.5 0 0 1-.707-.708L5.257 10a.5.5 0 0 1 .707 0zm8.854-8.854a.5.5 0 0 1 0 .708L10.672 6a.5.5 0 0 1-.708-.707l4.147-4.147a.5.5 0 0 1 .707 0z"/>
+                        <path fill-rule="evenodd" d="M10.5 1.5A.5.5 0 0 1 11 1h3.5a.5.5 0 0 1 .5.5V5a.5.5 0 0 1-1 0V2h-3a.5.5 0 0 1-.5-.5zm4 9a.5.5 0 0 0-.5.5v3h-3a.5.5 0 0 0 0 1h3.5a.5.5 0 0 0 .5-.5V11a.5.5 0 0 0-.5-.5z"/>
+                        <path fill-rule="evenodd" d="M10 9.964a.5.5 0 0 0 0 .708l4.146 4.146a.5.5 0 0 0 .708-.707l-4.147-4.147a.5.5 0 0 0-.707 0zM1.182 1.146a.5.5 0 0 0 0 .708L5.328 6a.5.5 0 0 0 .708-.707L1.889 1.146a.5.5 0 0 0-.707 0z"/>
+                        <path fill-rule="evenodd" d="M5.5 1.5A.5.5 0 0 0 5 1H1.5a.5.5 0 0 0-.5.5V5a.5.5 0 0 0 1 0V2h3a.5.5 0 0 0 .5-.5z"/>
+                    </svg>
                     <span class="sr-only">Formular Vorschau öffnen</span>
                 </button>
                 <button type="button"
-                    class="btn btn-success"
+                    class="btn btn-success mr-2"
                     title="Formular speichern"
                     (click)="wsSave()"
                     [disabled]="!storage.UnsavedChanges">
-                    <i class="far fa-save fa-fw" aria-hidden="true"></i>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-hdd align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M14 9H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1zM2 8a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2z"/>
+                        <path d="M5 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                        <path fill-rule="evenodd" d="M4.094 4a.5.5 0 0 0-.44.26l-2.47 4.532A1.5 1.5 0 0 0 1 9.51v.99H0v-.99c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198v.99h-1v-.99a1.5 1.5 0 0 0-.183-.718L12.345 4.26a.5.5 0 0 0-.439-.26H4.094z"/>
+                    </svg>
                     <span class="sr-only">Formular speichern</span>
+                </button>
+                <button type="button"
+                    class="btn btn-secondary"
+                    title="Zurück zu den Details"
+                    [routerLink]="['/forms/details', route.snapshot.paramMap.get('id')]">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-backspace align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M6.603 2h7.08a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-7.08a1 1 0 0 1-.76-.35L1 8l4.844-5.65A1 1 0 0 1 6.603 2zm7.08-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08z"/>
+                        <path fill-rule="evenodd" d="M5.83 5.146a.5.5 0 0 0 0 .708l5 5a.5.5 0 0 0 .707-.708l-5-5a.5.5 0 0 0-.708 0z"/>
+                        <path fill-rule="evenodd" d="M11.537 5.146a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708l5-5a.5.5 0 0 1 .707 0z"/>
+                    </svg>
+                    <span class="sr-only">Zurück</span>
                 </button>
             </div>
         </div>
@@ -131,12 +168,9 @@
             nonDragAreaSelector=".btn">
             <smooth-dnd-draggable *ngFor="let container of storage.model.pages[storage.selectedPageID].elements; index as i">
                 <div class="card bg-light mb-2" [attr.data-id]="i">
-                    <div class="card-header h5 clickable"
-                        (click)="isCollapsed[i] = !isCollapsed[i]"
-                        [attr.aria-expanded]="!isCollapsed[i]">
+                    <div class="card-header h5">
                         <!-- element tite -->
                         <div class="float-sm-left text-nowrap overflow-hidden">
-                            <i class="{{ getIcon(container.type) }} fa-fw d-none d-sm-inline" aria-hidden="true"></i>
                             {{ container.title }}
                         </div>
 
@@ -146,29 +180,38 @@
                                 class="btn btn-secondary btn-sm mr-2"
                                 title="In Zwischenablage kopieren"
                                 (click)="wsElementCopy(i)">
-                                <i class="fas fa-clipboard fa-fw" aria-hidden="true"></i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-clipboard align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                    <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                </svg>
                                 <span class="sr-only">In Zwischenablage kopieren</span>
                             </button>
                             <button type="button"
                                 class="btn btn-primary btn-sm mr-2"
                                 title="Element konfigurieren"
                                 (click)="modalelement.Open(i, storage.selectedPageID)">
-                                <i class="fas fa-cog fa-fw" aria-hidden="true"></i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+                                    <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+                                </svg>
                                 <span class="sr-only">Element konfigurieren</span>
                             </button>
                             <button type="button"
                                 class="btn btn-danger btn-sm"
                                 title="Element Löschen"
                                 (click)="wsElementRemove(i)">
-                                <i class="fas fa-times fa-fw" aria-hidden="true"></i>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                </svg>
                                 <span class="sr-only">Element Löschen</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- element preview -->
-                    <div class="card-body p-0" [collapse]="isCollapsed[i]" [isAnimated]="true">
-                        <power-formulars-surveyjs-wrapper [model]="container | preview"
+                    <div class="card-body p-0">
+                        <power-formulars-surveyjs-wrapper
+                            [model]="container | preview"
                             [css]="storage.css_style"
                             [showInvisible]="true">
                         </power-formulars-surveyjs-wrapper>
@@ -177,13 +220,13 @@
             </smooth-dnd-draggable>
         </smooth-dnd-container>
     </div>
-
-    <!-- configure formular modal -->
-    <power-formulars-editor-modal-formular #modalformular></power-formulars-editor-modal-formular>
-
-    <!-- configure element modal -->
-    <power-formulars-editor-modal-element #modalelement></power-formulars-editor-modal-element>
 </main>
+
+<!-- configure formular modal -->
+<power-formulars-editor-modal-formular #modalformular></power-formulars-editor-modal-formular>
+
+<!-- configure element modal -->
+<power-formulars-editor-modal-element #modalelement></power-formulars-editor-modal-element>
 
 <!-- preview -->
 <power-formulars-surveyjs-preview [form]="storage.model" #preview></power-formulars-surveyjs-preview>

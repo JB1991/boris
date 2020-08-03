@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
 import {NgbAccordion, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {merge, Observable, Subject} from 'rxjs';
@@ -37,17 +38,18 @@ export class ImmobilienComponent implements OnInit {
 
     @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
 
-
-    /**
-     * Constructor:
-     *
-     * @param http Inject HttpClient
-     */
+   /**
+    * Constructor:
+    *
+    * @param http Inject HttpClient
+    * @param titleService Service for settings the title of the HTML document
+    */
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private titleService: Title
     ) {
+     this.titleService.setTitle('Immobilienpreisindex - POWER.NI');
     }
-
 
     title = 'lgln';
 
