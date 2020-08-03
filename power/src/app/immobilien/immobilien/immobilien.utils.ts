@@ -233,10 +233,10 @@ export function generateDotElement(radius = 4, color = '#fff', fontSizeBase = 1.
 
 export function modifyRegionen(regionen, modifyArray) {
 
-    let newRegionen = JSON.parse(JSON.stringify(regionen));
+    const newRegionen = JSON.parse(JSON.stringify(regionen));
 
-    for (var i = 0; i < modifyArray.length; i++) {
-        for (var v = 0; v < modifyArray[i]['values'].length; v++) {
+    for (let i = 0; i < modifyArray.length; i++) {
+        for (let v = 0; v < modifyArray[i]['values'].length; v++) {
             newRegionen[modifyArray[i]['values'][v]]['color'] = modifyArray[i]['colors'];
         }
     }
