@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FilloutComponent } from './fillout.component';
 
-import { PendingChangesGuard } from '../pendingchanges.guard';
+import { FilloutComponent } from './fillout.component';
+import { PendingChangesGuard } from '@app/fragebogen/pendingchanges.guard';
 
 /**
  * routes contains all known paths

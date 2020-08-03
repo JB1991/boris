@@ -4,7 +4,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { ConfigService } from '@app/config.service';
-import { AlertsService } from '../alerts/alerts.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 /**
  * AuthService handles authentication
@@ -151,7 +151,30 @@ export class AuthService {
       // save data
       const expire = new Date();
       expire.setSeconds(expire.getSeconds() + data['expires_in']);
-      this.user = {'expires': expire, 'token': data};
+      this.user = {'expires': expire, 'token': data, 'data': null};
+      localStorage.setItem('user', JSON.stringify(this.user));
+    } catch (error) {
+      // failed to login
+      console.log(error);
+      return;
+    }
+  }
+
+  /**
+   * Gets user info from keycloak
+   */
+  public async KeyLoakUserInfo() {
+    // get data
+    try {
+      const data = await this.httpClient.get(environment.auth.url + 'userinfo', this.getHeaders()).toPromise();
+      // check for error
+      if (!data || data['error']) {
+        console.log('Could not get user info: ' + data);
+        return;
+      }
+
+      // save data
+      this.user.data = data;
       localStorage.setItem('user', JSON.stringify(this.user));
     } catch (error) {
       // failed to login
@@ -187,4 +210,5 @@ export class AuthService {
 export class User {
   expires: Date;
   token: any;
+  data: any;
 }

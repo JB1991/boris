@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 
-import { Bootstrap4_CSS } from '../surveyjs/style';
+import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 
 /**
  * StorageService handles api requests and data storage

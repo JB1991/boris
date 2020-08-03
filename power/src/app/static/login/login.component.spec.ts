@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
@@ -14,15 +13,16 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 describe('Static.Login.LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
+  let redirectspy: jasmine.Spy<(url: any) => void>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-          { path: '', component: MockHomeComponent}
+          { path: '', component: MockHomeComponent},
+          { path: 'abc', component: MockHomeComponent}
         ])
       ],
       declarations: [
@@ -39,41 +39,42 @@ describe('Static.Login.LoginComponent', () => {
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    spyOn(component, 'redirect');
+    redirectspy = spyOn(component, 'redirect');
     fixture.detectChanges();
 
-    httpClient = TestBed.inject(HttpClient);
-    httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
+    httpTestingController = TestBed.inject(HttpTestingController);
     localStorage.removeItem('user');
     component.auth.user = null;
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
+    redirectspy.and.callThrough();
+    component.redirect(window.location.href + '#karma');
   });
 
   it('should redirect authenticated user', (done) => {
     // valid session, redirect user
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 200);
-    component.auth.user = {'expires': expire, 'token': 5};
+    component.auth.user = {'expires': expire, 'token': 5, 'data': null};
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('User is authenticated');
-      httpTestingController.verify();
       done();
     });
   });
 
   it('should request token', (done) => {
-    // set code
+    // set keycloak return code
     spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
+    spyOn(component.auth, 'KeyLoakUserInfo');
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('User has authenticated');
-      httpTestingController.verify();
       done();
     });
 
@@ -81,13 +82,12 @@ describe('Static.Login.LoginComponent', () => {
   });
 
   it('should fail request token', (done) => {
-    // set code
+    // set keycloak return code
     spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
     spyOn(component.auth, 'KeycloakToken');
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('Authentication failed');
-      httpTestingController.verify();
       done();
     });
   });
@@ -111,6 +111,15 @@ describe('Static.Login.LoginComponent', () => {
   function deepCopy(data) {
     return JSON.parse(JSON.stringify(data));
   }
+
+  afterEach(async(() => {
+    // Verify that no requests are remaining
+    httpTestingController.verify();
+
+    // clear storage
+    localStorage.removeItem('user');
+    component.auth.user = null;
+  }));
 });
 
 @Component({

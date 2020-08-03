@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     this.storage.resetService();
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     // Load forms from server
     this.loadingscreen.setVisible(true);
     this.storage.loadFormsList().subscribe((data) => {

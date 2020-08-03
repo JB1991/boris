@@ -1,5 +1,4 @@
 import { PreviewPipe } from './preview.pipe';
-import { pipe } from 'rxjs';
 
 const sample = {
   locale: 'de',

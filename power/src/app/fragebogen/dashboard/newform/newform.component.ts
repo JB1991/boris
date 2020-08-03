@@ -5,7 +5,7 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
-import { FormularTemplate } from '../../editor/data';
+import { defaultTemplate } from '@app/fragebogen/editor/data';
 
 @Component({
   selector: 'power-formulars-dashboard-newform',
@@ -77,7 +77,7 @@ export class NewformComponent implements OnInit {
     }
 
     // make new form
-    this.makeForm(JSON.parse(JSON.stringify(FormularTemplate)));
+    this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
   }
 
   /**

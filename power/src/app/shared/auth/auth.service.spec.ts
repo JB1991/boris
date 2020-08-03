@@ -2,17 +2,14 @@ import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { AuthService } from './auth.service';
 import { ConfigService } from '@app/config.service';
-import { AlertsService } from '../alerts/alerts.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Shared.Auth.AuthService', () => {
   let service: AuthService;
-  let alerts: jasmine.SpyObj<AlertsService>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   beforeEach(async(() => {
@@ -26,19 +23,16 @@ describe('Shared.Auth.AuthService', () => {
       ],
       providers: [
         ConfigService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        }
+        AlertsService
       ]
     });
     service = TestBed.inject(AuthService);
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
-    httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(service.router, 'navigate');
+    spyOn(service.alerts, 'NewAlert');
     localStorage.removeItem('user');
+    service.user = null;
   }));
 
   it('should be created', () => {
@@ -48,11 +42,11 @@ describe('Shared.Auth.AuthService', () => {
 
   it('should getBearer correct', () => {
     // correct bearer
-    service.user = {'expires': new Date(), 'token': {'access_token': 'XXX'}};
+    service.user = {'expires': new Date(), 'token': {'access_token': 'XXX'}, 'data': null};
     expect(service.getBearer()).toEqual('Bearer XXX');
 
     // token missing
-    service.user = {'expires': new Date(), 'token': {}};
+    service.user = {'expires': new Date(), 'token': {}, 'data': null};
     expect(service.getBearer()).toBeNull();
   });
 
@@ -61,18 +55,18 @@ describe('Shared.Auth.AuthService', () => {
 
     // check responsetype and content-type
     expire.setSeconds(expire.getSeconds() + 200);
-    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}};
+    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}, 'data': null};
     expect(service.getHeaders('text', 'text/csv').responseType).toEqual('text');
     expect(service.getHeaders('text', 'text/csv').headers.get('Content-Type')).toEqual('text/csv');
 
     // valid session, auth header set
     expire.setSeconds(expire.getSeconds() + 200);
-    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}};
+    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}, 'data': null};
     expect(service.getHeaders().headers.get('Authorization')).toEqual('Bearer XXX');
 
     // invalid session, no auth header
     expire.setSeconds(expire.getSeconds() - 800);
-    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}};
+    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}, 'data': null};
     expect(service.getHeaders().headers.get('Authorization')).toBeNull();
   });
 
@@ -100,15 +94,15 @@ describe('Shared.Auth.AuthService', () => {
     expire.setSeconds(expire.getSeconds() + 900);
 
     // valid session
-    service.user = {'expires': expire, 'token': 6};
+    service.user = {'expires': expire, 'token': 6, 'data': null};
     expect(service.IsAuthenticated()).toBeTrue();
 
     // expired session
-    service.user = {'expires': new Date(), 'token': 6};
+    service.user = {'expires': new Date(), 'token': 6, 'data': null};
     expect(service.IsAuthenticated()).toBeFalse();
 
     // invalid user object
-    service.user = {'expires': null, 'token': null};
+    service.user = {'expires': null, 'token': null, 'data': null};
     expect(service.IsAuthenticated()).toBeFalse();
   });
 
@@ -159,6 +153,59 @@ describe('Shared.Auth.AuthService', () => {
       expect(value.toString()).toEqual('Error: code is required');
       done();
     });
+  });
+
+  it('should get user info', (done) => {
+    // get user info
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    service.user = {'expires': expire, 'token': {'access_token': 'abc'}, 'data': null};
+    service.KeyLoakUserInfo().then((value) => {
+      expect(service.user.data).toEqual({'name': 'Miau'});
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', {'name': 'Miau'});
+  });
+
+  it('should not get user info', (done) => {
+    // get error
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    service.user = {'expires': expire, 'token': {'access_token': 'abc'}, 'data': null};
+    service.KeyLoakUserInfo().then((value) => {
+      expect(service.user.data).toBeNull();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', {'error': 404});
+  });
+
+  it('should not get user info 2', (done) => {
+    // get nothing
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    service.user = {'expires': expire, 'token': {'access_token': 'abc'}, 'data': null};
+    service.KeyLoakUserInfo().then((value) => {
+      expect(service.user.data).toBeNull();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', null);
+  });
+
+  it('should not get user info 3', (done) => {
+    // get error status code
+    const expire = new Date();
+    expire.setSeconds(expire.getSeconds() + 900);
+    service.user = {'expires': expire, 'token': {'access_token': 'abc'}, 'data': null};
+    service.KeyLoakUserInfo().then((value) => {
+      expect(service.user.data).toBeNull();
+      done();
+    });
+
+    answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', 10,
+                      { status: 404, statusText: 'Not Found' });
   });
 
   it('should load session', (done) => {
@@ -256,6 +303,7 @@ describe('Shared.Auth.AuthService', () => {
 
     // clear storage
     localStorage.removeItem('user');
+    service.user = null;
     environment.production = false;
   });
 });

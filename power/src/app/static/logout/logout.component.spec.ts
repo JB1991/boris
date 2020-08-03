@@ -5,12 +5,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { LogoutComponent } from './logout.component';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Static.Logout.LogoutComponent', () => {
   let component: LogoutComponent;
   let fixture: ComponentFixture<LogoutComponent>;
-  let alerts: jasmine.SpyObj<AlertsService>;
+  let redirectspy: jasmine.Spy<(url: any) => void>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,21 +23,16 @@ describe('Static.Logout.LogoutComponent', () => {
         LogoutComponent
       ],
       providers: [
-        AuthService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        },
+        AuthService
       ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;
-    spyOn(component, 'redirect');
+    redirectspy = spyOn(component, 'redirect');
     fixture.detectChanges();
 
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
     localStorage.removeItem('user');
@@ -48,6 +42,9 @@ describe('Static.Logout.LogoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     expect(component.loadingscreen.isVisible()).toBeTrue();
+
+    redirectspy.and.callThrough();
+    component.redirect(window.location.href + '#karma');
   });
 });
 

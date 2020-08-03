@@ -32,10 +32,24 @@ export class LoginComponent implements OnInit {
    * Handles user authentication
    */
   public async authenticate() {
+    // get redirect uri
+    let redirect = this.activatedRoute.snapshot.queryParamMap.get('redirect');
+    if (redirect) {
+      // save uri
+      localStorage.setItem('redirect', redirect);
+    } else {
+      // try load redirect uri
+      redirect = localStorage.getItem('redirect');
+      localStorage.removeItem('redirect');
+      if (!redirect) {
+        redirect = '/';
+      }
+    }
+
     // check if user is authenticated
     if (this.auth.IsAuthenticated()) {
       console.log('User is authenticated');
-      this.router.navigate(['/'], { replaceUrl: true });
+      this.router.navigate([redirect], { replaceUrl: true });
       return;
     }
 
@@ -47,8 +61,11 @@ export class LoginComponent implements OnInit {
 
       // check if user is authenticated
       if (this.auth.IsAuthenticated()) {
+        // get user info
+        await this.auth.KeyLoakUserInfo();
+
         console.log('User has authenticated');
-        this.router.navigate(['/'], { replaceUrl: true });
+        this.router.navigate([redirect], { replaceUrl: true });
         return;
       }
 
@@ -62,16 +79,17 @@ export class LoginComponent implements OnInit {
     }
 
     // redirect to auth page
-    this.redirect();
+    this.redirect(environment.auth.url + 'auth' +
+                  '?response_type=code' +
+                  '&client_id=' + encodeURIComponent(environment.auth.clientid) +
+                  '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host + '/login'));
   }
 
   /**
    * Redirects to external page. This exists to prevent redirect on karma tests
+   * @param url redirect url
    */
-  public redirect() {
-    document.location.href = environment.auth.url + 'auth' +
-                           '?response_type=code' +
-                           '&client_id=' + encodeURIComponent(environment.auth.clientid) +
-                           '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host + '/login');
+  public redirect(url) {
+    document.location.href = url;
   }
 }

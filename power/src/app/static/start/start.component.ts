@@ -8,11 +8,10 @@ import { Title } from '@angular/platform-browser';
 })
 export class StartComponent implements OnInit {
 
-  constructor(private titleService: Title) {
-    this.titleService.setTitle('Portal für Wertermittlung Niedersachsen');
+  constructor(public title: Title) {
+    this.title.setTitle('Portal für Wertermittlung Niedersachsen');
   }
 
   ngOnInit() {
   }
-
 }

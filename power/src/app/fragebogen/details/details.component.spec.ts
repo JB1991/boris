@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 
@@ -15,9 +14,6 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 describe('Fragebogen.Details.DetailsComponent', () => {
   let component: DetailsComponent;
   let fixture: ComponentFixture<DetailsComponent>;
-  let storage: StorageService;
-  let alerts: jasmine.SpyObj<AlertsService>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const formSample = require('../../../assets/fragebogen/form-sample.json');
@@ -48,10 +44,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             }
           }
         },
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        },
+        AlertsService,
         LoadingscreenService
       ],
       declarations: [
@@ -68,9 +61,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
-    storage = TestBed.inject(StorageService);
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
-    httpClient = TestBed.inject(HttpClient);
+    spyOn(component.alerts, 'NewAlert');
     httpTestingController = TestBed.inject(HttpTestingController);
   }));
 
@@ -87,53 +78,60 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     expect(component.storage.tasksList).toEqual([]);
   });
 
+  it('should create 3', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample2);
+    spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
+    component.ngOnInit();
+    expect(component.router.navigate).toHaveBeenCalledTimes(1);
+  });
+
   it('should not create', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', null);
-    expect(storage.form).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '1234');
+    expect(component.storage.form).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '1234');
   });
 
   it('should not create 2', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', null);
-    expect(storage.tasksList).toEqual([]);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
+    expect(component.storage.tasksList).toEqual([]);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
   });
 
   it('should error', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET',
                       { 'error': 'Internal Server Error'});
-    expect(storage.form).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    expect(component.storage.form).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 2', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET',
                       { 'error': 'Internal Server Error'});
-    expect(storage.tasksList).toEqual([]);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    expect(component.storage.tasksList).toEqual([]);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(storage.form).toBeNull();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    expect(component.storage.form).toBeNull();
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should error 404 2', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(storage.tasksList).toEqual([]);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    expect(component.storage.tasksList).toEqual([]);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should crash', () => {
@@ -152,8 +150,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     component.deleteForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
                                                  'Das Formular wurde erfolgreich gelöscht.');
   });
 
@@ -163,7 +161,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     spyOn(window, 'confirm').and.returnValue(false);
 
     component.deleteForm();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
   it('should fail delete form', () => {
@@ -173,8 +171,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     component.deleteForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
   });
 
   it('should fail delete form 2', () => {
@@ -185,8 +183,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component.deleteForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE',
                       { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should delete form 404', () => {
@@ -197,8 +195,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component.deleteForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
   });
 
   it('should archive form', () => {
@@ -208,8 +206,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     component.archiveForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST', formSample);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular archiviert',
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular archiviert',
                                                  'Das Formular wurde erfolgreich archiviert.');
   });
 
@@ -219,7 +217,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     spyOn(window, 'confirm').and.returnValue(false);
 
     component.archiveForm();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
   it('should fail archive form', () => {
@@ -229,8 +227,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     component.archiveForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
   });
 
   it('should fail archive form', () => {
@@ -241,8 +239,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component.archiveForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST',
                       { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should archive form 404', () => {
@@ -253,8 +251,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component.archiveForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST', formSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Archivieren fehlgeschlagen', 'Not Found');
   });
 
   it('should get csv', () => {
@@ -267,7 +265,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component.getCSV();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
                       'GET', '666');
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
   it('should fail get csv', () => {
@@ -278,8 +276,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component.getCSV();
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
                       'GET', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Download fehlgeschlagen', 'Die Antworten konnten nicht geladen werden.');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Download fehlgeschlagen', 'Die Antworten konnten nicht geladen werden.');
   });
 
   it('should get csv 404', () => {
@@ -291,8 +289,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
                       'GET', '666',
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Download fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Download fehlgeschlagen', 'Not Found');
   });
 
   it('should delete task', () => {
@@ -302,8 +300,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     component.deleteTask(0);
     answerHTTPRequest(environment.formAPI + 'intern/tasks/bs8t7ifp9r1b3pt5qkr0', 'DELETE', deleteSample);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort gelöscht',
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort gelöscht',
                                                  'Die Antwort wurde erfolgreich gelöscht.');
   });
 
@@ -313,7 +311,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     spyOn(window, 'confirm').and.returnValue(false);
 
     component.deleteTask(1);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(0);
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
   });
 
   it('should fail delete task', () => {
@@ -323,8 +321,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     component.deleteTask(0);
     answerHTTPRequest(environment.formAPI + 'intern/tasks/bs8t7ifp9r1b3pt5qkr0', 'DELETE', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs8t7ifp9r1b3pt5qkr0');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs8t7ifp9r1b3pt5qkr0');
   });
 
   it('should fail delete task', () => {
@@ -335,8 +333,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component.deleteTask(0);
     answerHTTPRequest(environment.formAPI + 'intern/tasks/bs8t7ifp9r1b3pt5qkr0', 'DELETE',
                       { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should delete task 404', () => {
@@ -347,8 +345,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     component.deleteTask(0);
     answerHTTPRequest(environment.formAPI + 'intern/tasks/bs8t7ifp9r1b3pt5qkr0', 'DELETE', deleteSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
   });
 
   it('should delete task crash', () => {
@@ -405,15 +403,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
   }
 
   afterEach(() => {
-    storage.resetService();
-    storage = null;
-
     // Verify that no requests are remaining
     httpTestingController.verify();
-
-    // Destruction
-    fixture.destroy();
-    component = null;
   });
 });
 

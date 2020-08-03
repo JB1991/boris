@@ -1,5 +1,5 @@
 <div class="container-fluid p-0">
-  <nav class="navbar navbar-light navbar-expand-md border-bottom bg-white fixed-top">
+  <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white fixed-top">
     <a class="navbar-brand" [routerLink]="['/']" style="color: #343a40;">
       <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top" alt="LGLN Logo">
       <strong class="d-none d-md-inline">
@@ -15,7 +15,7 @@
             (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" [class.active]="!isCollapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" style="z-index: 2000;" [ngbCollapse]="isCollapsed">
+    <div class="collapse navbar-collapse" style="z-index: 2000;" [collapse]="isCollapsed" [isAnimated]="true">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="config.modules.includes('bodenrichtwerte')">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/bodenrichtwerte']" routerLinkActive="active">Bodenrichtwerte</a>
@@ -32,11 +32,17 @@
         <li class="nav-item">
           <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/feedback']" routerLinkActive="active">Feedback</a>
         </li>
-        <li class="nav-item" *ngIf="!auth.getUser()">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/login']" routerLinkActive="active">Einloggen</a>
+        <li class="nav-item" *ngIf="!auth.IsAuthenticated()">
+          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/login']" [queryParams]="{redirect: uri.pathname}" routerLinkActive="active">Einloggen</a>
         </li>
-        <li class="nav-item" *ngIf="auth.getUser()">
-          <a class="nav-link" (click)="isCollapsed=!isCollapsed" [routerLink]="['/logout']" routerLinkActive="active">Ausloggen</a>
+        <li class="nav-item dropdown" *ngIf="auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">
+          <a class="nav-link dropdown-toggle clickable" [routerLink]="" id="navbarUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+             (click)="isCollapsedAcc = !isCollapsedAcc" [attr.aria-expanded]="!isCollapsedAcc">
+            {{ auth.user.data.preferred_username }}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUser" [collapse]="isCollapsedAcc">
+            <a class="dropdown-item" [routerLink]="['/logout']">Ausloggen</a>
+          </div>
         </li>
       </ul>
     </div>

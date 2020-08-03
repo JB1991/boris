@@ -13,8 +13,9 @@ import {Config, ConfigService} from '@app/config.service';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, ObservableInput, of} from 'rxjs';
 import { environment } from '@env/environment';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
-function load(httpClient: HttpClient, configService: ConfigService) {
+export function load(httpClient: HttpClient, configService: ConfigService) {
   return (): Promise<boolean> => {
     return new Promise<boolean>((resolve: (a: boolean) => void): void => {
       httpClient.get<Config>('./assets/config/config.json')
@@ -47,6 +48,7 @@ function load(httpClient: HttpClient, configService: ConfigService) {
     SharedModule,
     AppRoutingModule,
     ServiceWorkerModule.register('./ngsw-worker.js', {enabled: environment.production}),
+    CollapseModule.forRoot(),
     RouterModule
   ],
   providers: [
