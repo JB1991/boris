@@ -4,7 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { environment } from '@env/environment';
 
 import { EditorComponent } from './editor.component';
@@ -27,7 +29,9 @@ describe('Fragebogen.Editor.EditorComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
+        BrowserAnimationsModule,
         NgxSmoothDnDModule,
+        CollapseModule.forRoot(),
         SurveyjsModule
       ],
       providers: [
