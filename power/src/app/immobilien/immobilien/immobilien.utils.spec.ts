@@ -172,6 +172,114 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
         expect(res).toEqual([1, 1]);
     });
 
+    it('generateDrawSeriesData with no data works', function() {
+        const data = {};
+        const date = ['2000/1', '2000/2'];
+        const res = ImmobilenUtils.generateDrawSeriesData(data, date, 'value', 80);
+        expect(res).toEqual([undefined, undefined]);
+    });
+
+    it('generateTextElement works', function() {
+
+        spyOn(window, 'getComputedStyle').and.callFake(
+            function(elt: Element, pseudoElt?: string) {
+                const val = Object.create(CSSStyleDeclaration.prototype);
+                val.fontSize = '1';
+                return val;
+            }
+        );
+
+        const res = ImmobilenUtils.generateTextElement('foo');
+        expect(res).toEqual({
+            type: 'text',
+            top: 0,
+            left: undefined,
+            style: {
+                fill: '#000',
+                textAlign: 'left',
+                fontSize: 1.2,
+                text: 'foo'
+            }
+        });
+    });
+
+    it('generateTextElement with parameter works', function() {
+
+        spyOn(window, 'getComputedStyle').and.callFake(
+            function(elt: Element, pseudoElt?: string) {
+                const val = Object.create(CSSStyleDeclaration.prototype);
+                val.fontSize = '1';
+                return val;
+            }
+        );
+
+        const res = ImmobilenUtils.generateTextElement('foo', '#aabbcc', 1, 1, 1);
+        expect(res).toEqual({
+            type: 'text',
+            top: 1.5,
+            left: 1,
+            style: {
+                fill: '#aabbcc',
+                textAlign: 'left',
+                fontSize: 1,
+                text: 'foo'
+            }
+        });
+    });
+
+    it('generateDotElement works', function() {
+
+        spyOn(window, 'getComputedStyle').and.callFake(
+            function(elt: Element, pseudoElt?: string) {
+                const val = Object.create(CSSStyleDeclaration.prototype);
+                val.fontSize = '1';
+                return val;
+            }
+        );
+
+        const res = ImmobilenUtils.generateDotElement();
+        expect(res).toEqual({
+            type: 'circle',
+            cursor: 'normal',
+            shape: {
+                cx: -8,
+                cy: 0.6,
+                r: 4
+            },
+            style: {
+                fill: '#fff',
+                stroke: '#000',
+                lineWidth: 0
+            }
+        });
+    });
+
+    it('generateDotElement with parameter works', function() {
+
+        spyOn(window, 'getComputedStyle').and.callFake(
+            function(elt: Element, pseudoElt?: string) {
+                const val = Object.create(CSSStyleDeclaration.prototype);
+                val.fontSize = '1';
+                return val;
+            }
+        );
+
+        const res = ImmobilenUtils.generateDotElement(1, '#aabbcc', 1, 1, 1, '#ff0000', 1);
+        expect(res).toEqual({
+            type: 'circle',
+            cursor: 'normal',
+            shape: {
+                cx: -2 + 4,
+                cy: 2,
+                r: 1
+            },
+            style: {
+                fill: '#aabbcc',
+                stroke: '#ff0000',
+                lineWidth: 1
+            }
+        });
+    });
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
