@@ -1,7 +1,7 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {NgbAccordion} from '@ng-bootstrap/ng-bootstrap';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 
-import {BodenwertKalkulatorComponent} from './bodenwert-kalkulator.component';
+import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator.component';
 
 describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
   let component: BodenwertKalkulatorComponent;
