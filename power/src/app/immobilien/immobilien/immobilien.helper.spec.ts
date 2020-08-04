@@ -7,6 +7,7 @@ import {
     getDate,
     convertColor,
     modifyColor,
+    downloadFile,
     resolve,
     convertArrayToCSV,
     getSingleFeature,
@@ -94,6 +95,25 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
     it('resolve works', function() {
         const res = resolve('path.to', {'path': {'to': 'value'}}, '.');
         expect(res).toEqual('value');
+    });
+
+    it('downloadFile works', function() {
+        let clicked = false;
+        const anchor =  Object.create(HTMLElement.prototype);
+        anchor.click = function() { clicked = true; };
+
+        const fun = function(elem: string) {
+                            return this;
+                        };
+
+        spyOn(document, 'createElement').and.callFake(fun.bind(anchor));
+
+        const res = downloadFile('foo', 'bar', '', true);
+
+        expect(anchor.href).toEqual('foo');
+        expect(anchor.download).toEqual('bar');
+        expect(clicked).toEqual(true);
+
     });
 
     it('convertArrayToCSV works', function() {

@@ -98,6 +98,12 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         expect(res).toEqual('blub');
     });
 
+    it('formatLabel should not return empty string if no space for legend', function() {
+        component.formatLabel({'dataIndex': 10, seriesIndex: 0, 'seriesName': 'blub'});
+        const res = component.formatLabel({'dataIndex': 10, seriesIndex: 2, 'seriesName': 'blub'});
+        expect(res).toEqual('');
+    });
+
     it('formatLabel should not return region name short', function() {
         const res = component.formatLabel({'dataIndex': 10, seriesIndex: 0, 'seriesName': 'foo'});
         expect(res).toEqual('ba');
