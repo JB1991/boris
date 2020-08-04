@@ -21,7 +21,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
   map;
   features: any;
-  private threedActive = false;
+  threeDActive = false;
   searchActive = false;
   @ViewChild('acc') acc: NgbAccordion;
 
@@ -123,7 +123,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
   }
 
   toggle3dView() {
-    if (!this.threedActive) {
+    if (!this.threeDActive) {
       const layers = this.map.getStyle().layers;
       let firstSymbolId;
       for (let i = 0; i < layers.length; i++) {
@@ -153,7 +153,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
         center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
       });
       this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
-    } else if (this.threedActive) {
+    } else if (this.threeDActive) {
       this.map.easeTo({
         pitch: 0,
         zoom: 14,
@@ -162,7 +162,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
       this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
       this.map.removeLayer('building-extrusion');
     }
-    this.threedActive = !this.threedActive;
+    this.threeDActive = !this.threeDActive;
   }
 
   toggleSearchActive() {
