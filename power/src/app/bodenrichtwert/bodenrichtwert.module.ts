@@ -17,6 +17,9 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
 import { HyphenatePipe } from './pipes/hyphenate.pipe';
+import { NgbAccordionModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -40,11 +43,16 @@ import { HyphenatePipe } from './pipes/hyphenate.pipe';
     HyphenatePipe
   ],
   imports: [
-    SharedModule,
+    BodenrichtwertRoutingModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbAccordionModule,
+    NgbPaginationModule,
     NgxMapboxGLModule,
     NgxEchartsModule,
     AngularResizedEventModule,
-    BodenrichtwertRoutingModule,
+    SharedModule
   ],
   providers: [BodenrichtwertService]
 })

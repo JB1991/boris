@@ -1,8 +1,7 @@
-import { Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { FragebogenRoutingModule } from './fragebogen-routing.module';
 import { HomeComponent } from './home/home.component';
@@ -11,7 +10,9 @@ import { EditorModule } from './editor/editor.module';
 import { DetailsModule } from './details/details.module';
 import { FilloutModule } from './fillout/fillout.module';
 
-import { SharedModule } from '@app/shared/shared.module';
+import { AuthModule } from '@app/shared/auth/auth.module';
+import { AlertsModule } from '@app/shared/alerts/alerts.module';
+import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
 
 @NgModule({
   declarations: [
@@ -19,14 +20,15 @@ import { SharedModule } from '@app/shared/shared.module';
   ],
   imports: [
     FragebogenRoutingModule,
-    HttpClientModule,
+    CommonModule,
     FormsModule,
-    CollapseModule.forRoot(),
     DashboardModule,
-    EditorModule,
     DetailsModule,
     FilloutModule,
-    SharedModule
+    EditorModule,
+    AuthModule,
+    AlertsModule,
+    LoadingscreenModule
   ],
   providers: [
     Title,
