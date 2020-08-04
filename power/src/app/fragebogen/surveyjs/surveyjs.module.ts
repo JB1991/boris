@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ShowdownModule } from 'ngx-showdown';
 
 import { WrapperComponent } from './wrapper.component';
 import { PreviewComponent } from './preview/preview.component';
@@ -13,6 +14,7 @@ import { PreviewPipe } from './preview.pipe';
   ],
   imports: [
     CommonModule,
+    ShowdownModule
   ],
   exports: [
     WrapperComponent,

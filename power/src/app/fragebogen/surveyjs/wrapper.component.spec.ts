@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ShowdownModule } from 'ngx-showdown';
 
 import { WrapperComponent } from './wrapper.component';
 import { Bootstrap4_CSS } from './style';
@@ -11,7 +12,12 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WrapperComponent ]
+      imports: [
+        ShowdownModule
+      ],
+      declarations: [
+        WrapperComponent
+      ]
     })
     .compileComponents();
 

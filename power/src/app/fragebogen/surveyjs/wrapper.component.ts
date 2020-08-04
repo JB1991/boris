@@ -1,7 +1,7 @@
 import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
+import { ShowdownConverter } from 'ngx-showdown';
 import * as Survey from 'survey-angular';
-import * as widgets from 'surveyjs-widgets/surveyjs-widgets.js';
-import * as Showdown from 'showdown';
+import * as widgets from 'surveyjs-widgets';
 
 @Component({
   selector: 'power-formulars-surveyjs-wrapper',
@@ -22,12 +22,9 @@ export class WrapperComponent implements OnChanges {
   public survey: Survey.Survey;
   public props: any;
 
-  ngOnChanges() {
-    if (this.theme) {
-      Survey.StylesManager.applyTheme(this.theme);
-    }
-
-    const converter = new Showdown.Converter({
+  constructor(public showdownConverter: ShowdownConverter) {
+    showdownConverter.setFlavor('github');
+    showdownConverter.setOptions({
       simpleLineBreaks: true,
       simplifiedAutoLink: true,
       excludeTrailingPunctuationFromURLs: true,
@@ -39,7 +36,12 @@ export class WrapperComponent implements OnChanges {
       openLinksInNewWindow: true,
       emoji: true,
     });
-    converter.setFlavor('github');
+  }
+
+  ngOnChanges() {
+    if (this.theme) {
+      Survey.StylesManager.applyTheme(this.theme);
+    }
 
     widgets['nouislider'](Survey);
     widgets['sortablejs'](Survey);
@@ -48,9 +50,11 @@ export class WrapperComponent implements OnChanges {
 
     this.survey.onTextMarkdown.add((s, options) => {
       let str = options.text.split('\n\n').join('<br\><br\>');
-      str = converter.makeHtml(str);
-      str = str.substring(3);
-      str = str.substring(0, str.length - 4);
+      str = this.showdownConverter.makeHtml(str);
+      if (str.startsWith('<p>')) {
+        str = str.substring(3);
+        str = str.substring(0, str.length - 4);
+      }
       options.html = str;
     });
 
