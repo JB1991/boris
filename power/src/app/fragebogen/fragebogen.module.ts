@@ -10,10 +10,6 @@ import { EditorModule } from './editor/editor.module';
 import { DetailsModule } from './details/details.module';
 import { FilloutModule } from './fillout/fillout.module';
 
-import { AuthModule } from '@app/shared/auth/auth.module';
-import { AlertsModule } from '@app/shared/alerts/alerts.module';
-import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
-
 @NgModule({
   declarations: [
     HomeComponent,
@@ -25,13 +21,7 @@ import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.mod
     DashboardModule,
     DetailsModule,
     FilloutModule,
-    EditorModule,
-    AuthModule,
-    AlertsModule,
-    LoadingscreenModule
-  ],
-  providers: [
-    Title,
+    EditorModule
   ]
 })
 

@@ -278,5 +278,16 @@ export const FormularFields = [
         }
       ]
     }
+  }, {
+    type: 'sortablelist',
+    name: 'Ranking',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'sortablelist',
+      valueName: '',
+      choices: ['family', 'work', 'pets', 'travels', 'games']
+    }
   }
 ];

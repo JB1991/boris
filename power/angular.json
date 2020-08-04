@@ -36,10 +36,10 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "showdown",
-			  "surveyjs-widgets/surveyjs-widgets.js",
-			  "nouislider",
-			  "inputmask",
-			  "bootstrap-slider"
+              "surveyjs-widgets/surveyjs-widgets.js",
+              "nouislider",
+              "inputmask",
+              "bootstrap-slider"
             ]
           },
           "configurations": {

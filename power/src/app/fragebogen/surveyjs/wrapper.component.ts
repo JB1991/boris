@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import * as Survey from 'survey-angular';
-import * as widgets from 'surveyjs-widgets/surveyjs-widgets.js'
+import * as widgets from 'surveyjs-widgets/surveyjs-widgets.js';
 import * as Showdown from 'showdown';
 
 @Component({
@@ -43,9 +43,6 @@ export class WrapperComponent implements OnChanges {
 
     widgets['nouislider'](Survey);
     widgets['sortablejs'](Survey);
-    widgets['emotionsratings'](Survey);
-    widgets['jquerybarrating'](Survey);
-    widgets['select2tagbox'](Survey);
 
     this.survey = new Survey.Model(this.model);
 
