@@ -14,7 +14,7 @@ export class ImmobilienFormatter {
         this.nipixRuntime = niRuntime;
     }
 
-    public mapTooltipFormatter(params) {
+    public mapTooltipFormatter = (params) => {
         if (this.nipixStatic.data.regionen.hasOwnProperty(params.name)) {
             return this.nipixStatic.data.regionen[params.name]['name'];
         } else {
@@ -22,7 +22,7 @@ export class ImmobilienFormatter {
         }
     }
 
-    public chartTooltipFormatter (params, ticket, callback) {
+    public chartTooltipFormatter = (params, ticket, callback) => {
 
         let faelle = 0;
 
@@ -54,7 +54,7 @@ export class ImmobilienFormatter {
      *
      * @return Formatted String
      */
-    public formatLabel(params) {
+    public formatLabel = (params) => {
 
         if (params.dataIndex === this.nipixRuntime.state.rangeEndIndex) {
 
@@ -95,7 +95,7 @@ export class ImmobilienFormatter {
         return '';
     }
 
-    public formatLegend(name: string) {
+    public formatLegend = (name: string) => {
         if (this.nipixRuntime.calculated.legendText.hasOwnProperty(name)) {
             return this.nipixRuntime.calculated.legendText[name];
         } else if (this.nipixStatic.data.shortNames.hasOwnProperty(name)) {
