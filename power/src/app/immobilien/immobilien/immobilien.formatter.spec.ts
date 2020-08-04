@@ -67,7 +67,18 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
     });
 
     it('chartTooltipFormatter should return name', function() {
-        const res = component.chartTooltipFormatter({'seriesName': 'blub', 'name': 'foo', 'marker': '', 'data': 100}, null, null);
+
+        const res = component.chartTooltipFormatter(
+            {
+                'seriesName': 'blub',
+                'name': 'foo',
+                'marker': '',
+                'data': 100
+            },
+            null,
+            null
+        );
+
         expect(res).toEqual('<b>blub</b><br>Preisentwicklung seit : 0%<br>Zugrunde liegende Fälle (foo): 0');
     });
 

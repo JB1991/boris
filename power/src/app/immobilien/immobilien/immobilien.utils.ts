@@ -197,7 +197,7 @@ export function generateDrawSeriesData(data, date = [], field = null, offset = 1
 }
 
 
-export function generateTextElement(name, color = '#000', fontSizeBase = 1.2, position = 0, posX = undefined) {
+export function generateTextElement(name, color = '#000', fontSizeBase = 1.2, position = 0, posX?) {
     return  {
         type: 'text',
         top: position * 1.5 * ImmobilenHelper.convertRemToPixels(fontSizeBase),

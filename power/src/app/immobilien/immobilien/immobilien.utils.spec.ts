@@ -280,6 +280,31 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
             }
         });
     });
+
+    it('nodifyRegionen works', function() {
+
+        const regionen = {
+            'foo': {
+                'color': '#000000'
+            }
+        };
+
+        const modifyArray = [
+            {
+                'values': ['foo'],
+                'colors': '#ff0000'
+            }
+        ];
+
+        const res = ImmobilenUtils.modifyRegionen(regionen, modifyArray);
+
+        expect(res).toEqual({
+            'foo': {
+                'color': '#ff0000'
+            }
+        });
+
+    });
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -103,7 +103,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
                 'value': 'value'
             }
         ];
-        const ky = ['key','value'];
+        const ky = ['key', 'value'];
         const res = convertArrayToCSV(data, ky);
         expect(res).toEqual('"key";"value"');
     });
@@ -115,7 +115,7 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
                 'value': 1.2
             }
         ];
-        const ky = ['key','value'];
+        const ky = ['key', 'value'];
         const res = convertArrayToCSV(data, ky, ':', '/');
         expect(res).toEqual('/key/:/1,2/');
     });
