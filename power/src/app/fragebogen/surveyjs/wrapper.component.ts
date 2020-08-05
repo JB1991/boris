@@ -5,7 +5,8 @@ import * as widgets from 'surveyjs-widgets';
 
 @Component({
   selector: 'power-formulars-surveyjs-wrapper',
-  template: `<div #surveyjsDiv></div>`
+  template: `<div #surveyjsDiv></div>`,
+  styleUrls: ['./wrapper.component.scss']
 })
 export class WrapperComponent implements OnChanges {
   @ViewChild('surveyjsDiv', {static: true}) public surveyjsDiv: ElementRef;
@@ -23,6 +24,7 @@ export class WrapperComponent implements OnChanges {
   public props: any;
 
   constructor(public showdownConverter: ShowdownConverter) {
+    // set showdown settings for markdown
     showdownConverter.setFlavor('github');
     showdownConverter.setOptions({
       simpleLineBreaks: true,
@@ -43,11 +45,14 @@ export class WrapperComponent implements OnChanges {
       Survey.StylesManager.applyTheme(this.theme);
     }
 
-    widgets['nouislider'](Survey);
-    widgets['sortablejs'](Survey);
+    // load custom widgets
+    widgets.nouislider(Survey);
+    widgets.sortablejs(Survey);
 
+    // create survey
     this.survey = new Survey.Model(this.model);
 
+    // add markdown renderer
     this.survey.onTextMarkdown.add((s, options) => {
       let str = options.text.split('\n\n').join('<br\><br\>');
       str = this.showdownConverter.makeHtml(str);
@@ -58,6 +63,7 @@ export class WrapperComponent implements OnChanges {
       options.html = str;
     });
 
+    // set options
     if (this.mode) {
       this.survey.mode = this.mode;
     }
@@ -89,6 +95,7 @@ export class WrapperComponent implements OnChanges {
       };
     }
 
+    // render survey
     Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, this.props);
   }
 }
