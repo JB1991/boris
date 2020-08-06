@@ -18,6 +18,7 @@ describe('AppModule', () => {
     });
 
     spyOn(console, 'log');
+    spyOn(console, 'error');
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     appModule = new AppModule();

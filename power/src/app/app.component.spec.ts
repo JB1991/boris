@@ -31,6 +31,7 @@ describe('AppComponent', () => {
     app = fixture.componentInstance;
 
     spyOn(console, 'log');
+    spyOn(console, 'error');
     httpTestingController = TestBed.inject(HttpTestingController);
   }));
 

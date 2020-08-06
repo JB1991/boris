@@ -1,4 +1,4 @@
-import {FlurstueckPipe} from './flurstueck-pipe.pipe';
+import { FlurstueckPipe } from './flurstueck-pipe.pipe';
 
 describe('BodenwertKalkulator.FlurstueckPipe', () => {
   it('create an instance', () => {

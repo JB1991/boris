@@ -9,7 +9,7 @@ Geokodierung) einbindet.
 
 Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesvermessung Niedersachsen (LGLN).
 
-# Voraussetzungen
+## Voraussetzungen
 
 1. git
 2. node
@@ -17,7 +17,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 4. ng
 5. docker
 
-# Getting started
+## Getting started
 
 1. Projekt klonen  
     ```
@@ -36,7 +36,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
     Dies startet einen Webserver, der unter [http://localhost:4200](http://localhost:4200) erreicht werden kann.
     Bei Änderungen am Code werden Änderungen automatisch übertragen. 
  
-# Tests
+## Tests
 
 1. Unit-Tests ausführen
    ```
@@ -60,11 +60,11 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    npm run lint:styles
    ```
 
-# Coding Guideline
+## Coding Guideline
 Die Programmier-Richtlinie für dieses Projekt ist hier zu finden:
 [Coding Guideline - Angular-Frontend](https://gitlab.com/lgln/power.ni/coding-guidelines/frontend)
 
-# CI/CD
+## CI/CD
 Nach dem Commit und Push ins Repository wird automatisch die [CI/CD-Pipeline auf GitLab](https://gitlab.com/lgln/power.ni/power-frontend/pipelines) angestoßen.
 Die Konfiguration dazu befindet sich in der Datei `.gitlab-ci.yml`.
 
@@ -87,14 +87,50 @@ Hier wird ein Docker-Container gebaut und in die Registry hochgeladen.
 Abschließend wird der Container im Kubernetes-Cluster per [Helm](https://helm.sh/) deployt.
 Das Deployment findet nur statt, wenn in der Datei `package.json` die Versionsnummer inkrementiert wurde.
 
-# Konfiguration
+## Konfiguration
 
-## Module (de)aktivieren
-Um bestimmte Module zur Laufzeit zu aktivieren oder deaktivieren, füge die Namen der Module zur Datei [config.json](src/assets/config/config.json) hinzu.
-Die Bezeichner müssen mit den Namen in der Datei [app.component.html](src/app/app.component.html) übereinstimmen.
+### Module (de)aktivieren
+Um bestimmte Module zur Laufzeit zu aktivieren oder deaktivieren, füge die Namen der Module zur Datei [config.json](power/src/assets/config/config.json) hinzu.
+Die Bezeichner müssen mit den Namen in der Datei [app.component.html](power/src/app/app.component.html) übereinstimmen.
 Die Datei `config.json` kann im finalen Artefakt geändert werden.
 
-# Feedback-Funktionalität
+## Module
+
+### Bodenrichtwerte
+* Visualisierung der Bodenrichtwertzonen
+* Funktionen:
+  * Auswahl von Stichtag und Teilmarkt
+  * Adresssuche, Reverse Geocoding
+  * Geolocation Positionsbestimmung
+  * 3D-Gebäude
+* Stichtage 2012 - 2019
+* Informationen zu:
+  * Art der Nutzung
+  * Bodenrichtwert
+  * Beitragsrechtlicher Zustand
+* Entwicklung des BRW als Step-Line-Graph
+* Abhängigkeiten:
+  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
+  * [Bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
+  * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
+  * [ECharts](https://www.npmjs.com/package/echarts)
+  * [GeoJSON](https://www.npmjs.com/package/geojson)
+
+### Bodenwerte
+* Visualisierung von Bodenwerten (Flurstück)
+* Funktionen:
+  * Adresssuche, Reverse Geocoding
+  * Geolocation Positionsbestimmung
+  * 3D-Gebäude
+  * Selektion und Addition von Flurstücken
+* Benötigt Datensatz mit Flurstücken und Werten
+* Derzeit mit offiziellen LGLN Testdaten + zufällig generierten Werten (100.000€ - 1.000.000€)
+* Abhängigkeiten:
+  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
+  * [Bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
+  * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
+
+### Feedback
 Benutzer können uns über den Link "Rückmeldung geben" Feedback senden.
 Dieses wird über die dort stehende E-Mail-Adresse an den [Service Desk](https://gitlab.com/lgln/power.ni/power-frontend/-/issues/service_desk) in diesem Repository weitergeleitet und automatisch in ein Issue konvertiert.
 Wenn wir das Issue kommentieren, erhält der Benutzer die Antwort per Mail, sodass eine beidseitige Kommunikation möglich ist.
