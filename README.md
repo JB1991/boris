@@ -62,7 +62,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 ## Coding Guideline
 Die Programmier-Richtlinie für dieses Projekt ist hier zu finden:
-[Coding Guideline - Angular-Frontend](https://gitlab.com/lgln/power.ni/coding-guidelines/frontend)
+[Coding Guideline - Angular-Frontend](https://gitlab.com/lgln/power.ni/coding-guidelines/angular-frontend)
 
 ## CI/CD
 Nach dem Commit und Push ins Repository wird automatisch die [CI/CD-Pipeline auf GitLab](https://gitlab.com/lgln/power.ni/power-frontend/pipelines) angestoßen.
