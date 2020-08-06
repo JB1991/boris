@@ -183,14 +183,13 @@ export class DetailsComponent implements OnInit {
       }
 
       // download csv
+      const blob = new Blob([data.toString()], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
       if (navigator.msSaveBlob) {
-        var blob = new Blob([data.toString()], { type: 'text/csv;charset=utf-8;' });
         navigator.msSaveBlob(blob, 'results.csv');
       } else {
         const pom = document.createElement('a');
-        const encodedURIComponent = encodeURIComponent(data.toString());
-        const href = 'data:text/csv;charset=utf-8,' + encodedURIComponent;
-        pom.setAttribute('href', href);
+        pom.setAttribute('href', url);
         pom.setAttribute('download', 'results.csv');
         pom.click();
       }

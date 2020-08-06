@@ -30,6 +30,10 @@
 #toolbox li:last-child {
   border-bottom-width: 0 !important;
 }
+#toolbox li:first-child {
+  border-top-width: 0 !important;
+}
+
 
 .drag-ghost {
   opacity: 0.5;
