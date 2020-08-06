@@ -18,7 +18,7 @@ cache: &global_cache
 
 install:
   stage: init
-  image: node:14.5
+  image: node:14.7
   dependencies: []
   cache:
     <<: *global_cache
@@ -33,7 +33,7 @@ install:
 
 test:karma:
   stage: test
-  image: node:14.5
+  image: node:14.7
   dependencies: []
   cache:
     <<: *global_cache
@@ -62,7 +62,7 @@ test:karma:
 
 test:e2e:
   stage: test
-  image: node:14.5
+  image: node:14.7
   dependencies: []
   cache:
     <<: *global_cache
@@ -91,7 +91,7 @@ test:e2e:
 
 test:audit:
   stage: test
-  image: node:14.5
+  image: node:14.7
   dependencies: []
   cache:
     <<: *global_cache
@@ -107,7 +107,7 @@ test:audit:
 
 test:lint:
   stage: test
-  image: node:14.5
+  image: node:14.7
   dependencies: []
   cache:
     <<: *global_cache
@@ -123,7 +123,7 @@ test:lint:
 
 test:lint:styles:
   stage: test
-  image: node:14.5
+  image: node:14.7
   dependencies: []
   cache:
     <<: *global_cache
@@ -139,7 +139,7 @@ test:lint:styles:
 
 build:
   stage: build
-  image: node:14.5
+  image: node:14.7
   dependencies: []
   cache:
     <<: *global_cache
