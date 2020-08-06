@@ -128,7 +128,7 @@
               <th>Wert</th>
             </tr>
             <tr *ngFor="let feature of this.flurstueckSelection | keyvalue">
-              <td>{{feature.value.properties.amtlicheflaeche}} m&#178;</td>
+              <td>{{feature.value.properties.amtlicheflaeche | number }} m&#178;</td>
               <td>{{feature.value.properties.wert | currency:'EUR':"symbol" : '1.2-2'}}</td>
             </tr>
           </table>

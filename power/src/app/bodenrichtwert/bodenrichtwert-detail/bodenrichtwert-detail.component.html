@@ -8,7 +8,7 @@
       <dt class="col-md-5">{{'Art der Nutzung' | hyphenate}}</dt>
       <dd class="col-md-7">{{feature.properties.nutzung | nutzung | hyphenate}}</dd>
       <dt class="col-md-5">{{'Bodenrichtwert' | hyphenate}}</dt>
-      <dd class="col-md-7">{{feature.properties.brw}} &euro; / m&#178;</dd>
+      <dd class="col-md-7">{{feature.properties.brw | number}} &euro; / m&#178;</dd>
       <dt class="col-md-5" *ngIf="feature.properties.beit">{{'Beitragsabgabenrechtlicher Zustand' | hyphenate}}</dt>
       <dd class="col-md-7" *ngIf="feature.properties.beit">{{feature.properties.beit | beitrag | hyphenate}}</dd>
     </dl>
