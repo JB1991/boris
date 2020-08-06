@@ -81,88 +81,59 @@ export class BodenwertKalkulatorComponent implements OnInit {
     });
   }
 
-  toggle3DView(checked: boolean) {
-    if (checked) {
-      const layers = this.map.getStyle().layers;
-      let firstSymbolId;
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol') {
-          firstSymbolId = layers[i].gml_id;
-          break;
-        }
-      }
-      this.map.addLayer({
-        id: 'building-extrusion',
-        type: 'fill-extrusion',
-        source: 'openmaptiles',
-        'source-layer': 'building',
-        paint: {
-          'fill-extrusion-color': 'rgb(219, 219, 218)',
-          'fill-extrusion-height': 0,
-          'fill-extrusion-opacity': 1,
-          'fill-extrusion-height-transition': {
-            duration: 600,
-            delay: 0
-          }
-        }
-      });
-      this.map.easeTo({
-        pitch: 60,
-        zoom: 17,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
-    } else if (!checked) {
-      this.map.easeTo({
-        pitch: 0,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
-      this.map.removeLayer('building-extrusion');
-    }
-  }
-
   toggle3dView() {
     if (!this.threeDActive) {
-      const layers = this.map.getStyle().layers;
-      let firstSymbolId;
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol') {
-          firstSymbolId = layers[i].id;
-          break;
-        }
-      }
-      this.map.addLayer({
-        id: 'building-extrusion',
-        type: 'fill-extrusion',
-        source: 'openmaptiles',
-        'source-layer': 'building',
-        paint: {
-          'fill-extrusion-color': 'rgb(219, 219, 218)',
-          'fill-extrusion-height': 0,
-          'fill-extrusion-opacity': 0.7,
-          'fill-extrusion-height-transition': {
-            duration: 600,
-            delay: 0
-          }
-        }
-      });
-      this.map.easeTo({
-        pitch: 60,
-        zoom: 17,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
-    } else if (this.threeDActive) {
-      this.map.easeTo({
-        pitch: 0,
-        zoom: 14,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
-      this.map.removeLayer('building-extrusion');
+      this.activate3dView();
+    } else {
+      this.deactivate3dView();
     }
     this.threeDActive = !this.threeDActive;
+  }
+
+  activate3dView() {
+    const layers = this.map.getStyle().layers;
+    let firstSymbolId;
+    for (let i = 0; i < layers.length; i++) {
+      if (layers[i].type === 'symbol') {
+        firstSymbolId = layers[i].id;
+        break;
+      }
+    }
+    this.add3dLayer();
+    this.map.easeTo({
+      pitch: 60,
+      zoom: 17,
+      center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+    });
+    this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
+  }
+
+  add3dLayer() {
+    this.map.addLayer({
+      id: 'building-extrusion',
+      type: 'fill-extrusion',
+      source: 'openmaptiles',
+      'source-layer': 'building',
+      paint: {
+        'fill-extrusion-color': 'rgb(219, 219, 218)',
+        'fill-extrusion-height': 0,
+        'fill-extrusion-opacity': 0.7,
+        'fill-extrusion-height-transition': {
+          duration: 600,
+          delay: 0
+        }
+      }
+    });
+  }
+
+  deactivate3dView() {
+    this.map.easeTo({
+      pitch: 0,
+      zoom: 14,
+      center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+    });
+    this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+    this.map.removeLayer('building-extrusion');
   }
 
   toggleSearchActive() {
