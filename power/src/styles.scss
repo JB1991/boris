@@ -42,8 +42,7 @@ $font-family-sans-serif:
     // Emoji fonts
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
-.btn-danger {
-    color: #fff;
-    background-color: #c4153a;
-    border-color: #c4153a;
+a:not([href]), a:not([href]):hover {
+  color: inherit;
+  text-decoration: none;
 }
