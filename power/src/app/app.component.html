@@ -1,14 +1,14 @@
 <div class="container-fluid p-0">
   <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white fixed-top">
     <a class="navbar-brand" [routerLink]="['/']" style="color: #343a40;">
-      <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top" alt="LGLN Logo">
+      <img src="/assets/logos/logo.png" height="20" class="mr-2 align-top" i18n-alt alt="LGLN Logo">
       <strong class="d-none d-md-inline">
-        <span>Portal für Wertermittlung</span>
-        <span style="color: #c4153a;">.niedersachsen</span>
+        <span i18n>Portal für Wertermittlung</span>
+        <span style="color: #c4153a;" i18n>.niedersachsen</span>
       </strong>
       <strong class="d-md-none">
-        <span>POWER</span>
-        <span style="color: #c4153a;">.niedersachsen</span>
+        <span i18n>POWER</span>
+        <span style="color: #c4153a;" i18n>.niedersachsen</span>
       </strong>
     </a>
     <button class="navbar-toggler" style="border: none; padding-right: 0;" type="button"
@@ -18,22 +18,22 @@
     <div class="collapse navbar-collapse" style="z-index: 2000;" [collapse]="isCollapsed" [isAnimated]="true">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="config.modules.includes('bodenrichtwerte')">
-          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/bodenrichtwerte']" routerLinkActive="active">Bodenrichtwerte</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/bodenrichtwerte']" routerLinkActive="active" i18n>Bodenrichtwerte</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('bodenwerte')">
-          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/bodenwertkalkulator']" routerLinkActive="active">Bodenwerte</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/bodenwertkalkulator']" routerLinkActive="active" i18n>Bodenwerte</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('immobilien')">
-          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/immobilienpreisindex']" routerLinkActive="active">Immobilien</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/immobilienpreisindex']" routerLinkActive="active" i18n>Immobilien</a>
         </li>
         <li class="nav-item" *ngIf="config.modules.includes('fragebogen')">
-          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/forms']" routerLinkActive="active">Formulare</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/forms']" routerLinkActive="active" i18n>Formulare</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/feedback']" routerLinkActive="active">Feedback</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/feedback']" routerLinkActive="active" i18n>Feedback</a>
         </li>
         <li class="nav-item" *ngIf="!auth.IsAuthenticated()">
-          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/login']" [queryParams]="{redirect: uri.pathname}" routerLinkActive="active">Einloggen</a>
+          <a class="nav-link" (click)="isCollapsed = true" [routerLink]="['/login']" [queryParams]="{redirect: uri.pathname}" routerLinkActive="active" i18n>Einloggen</a>
         </li>
         <li class="nav-item dropdown" *ngIf="auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">
           <a class="nav-link dropdown-toggle clickable" [routerLink]="" id="navbarUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -43,12 +43,12 @@
               <path d="M13.784 14c-.497-1.27-1.988-3-5.784-3s-5.287 1.73-5.784 3h11.568z"/>
               <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             </svg>
-            <span class="sr-only">Account</span>
+            <span class="sr-only" i18n>Account</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUser" [collapse]="isCollapsedAcc">
             <a class="dropdown-item" [routerLink]="">{{ auth.user.data.preferred_username }}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="isCollapsed = true" [routerLink]="['/logout']" routerLinkActive="active">Ausloggen</a>
+            <a class="dropdown-item" (click)="isCollapsed = true" [routerLink]="['/logout']" routerLinkActive="active" i18n>Ausloggen</a>
           </div>
         </li>
       </ul>
@@ -61,13 +61,13 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top w-100 m-0 overflow-hidden">
       <div class="row justify-content-around">
         <div class="col-md-4 text-center">
-          <h5>Informationen</h5>
+          <h5 i18n>Informationen</h5>
           <ul class="list-unstyled text-small">
-            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html">Impressum</a></li>
-            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html">Datenschutz</a></li>
-            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html">Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html" i18n>Impressum</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html" i18n>Datenschutz</a></li>
+            <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html" i18n>Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
           </ul>
-          <p class="text-muted">Version: {{ appVersion.branch }}/{{ appVersion.version }}</p>
+          <p class="text-muted" i18n>Version: {{ appVersion.branch }}/{{ appVersion.version }}</p>
         </div>
       </div>
     </footer>

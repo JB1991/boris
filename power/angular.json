@@ -13,10 +13,17 @@
           "style": "scss"
         }
       },
+      "i18n": {
+        "sourceLocale": "de",
+        "locales": {
+          "en": "src/locales/messages.en.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": false,
             "aot": true,
             "outputPath": "dist/power",
             "index": "src/index.html",
@@ -56,14 +63,14 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": false,
+              "buildOptimizer": true,
               "serviceWorker": true
             }
           }

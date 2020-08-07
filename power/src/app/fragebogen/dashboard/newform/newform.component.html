@@ -9,11 +9,11 @@
                         <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
                         <path fill-rule="evenodd" d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
                     </svg>
-                    Neues Formular
+                    <span i18n>&nbsp;Neues Formular</span>
                 </div>
 
                 <!-- modal close button -->
-                <button type="button" class="close" title="Schließen" data-dismiss="modal" aria-label="Schließen" (click)="close()">
+                <button type="button" class="close" i18n-title title="Schließen" data-dismiss="modal" i18n-aria-label aria-label="Schließen" (click)="close()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -24,7 +24,7 @@
                 <form #newForm="ngForm" onsubmit="return false;">
                     <!-- title -->
                     <div class="form-group">
-                        <label for="formtitle">Formular Titel*</label>
+                        <label for="formtitle" i18n>Formular Titel*</label>
                         <input type="text"
                             class="form-control"
                             [(ngModel)]="title"
@@ -32,19 +32,19 @@
                             id="formtitle"
                             name="formtitle"
                             maxlength="200"
-                            placeholder="Mein Formular"
+                            i18n-placeholder placeholder="Mein Formular"
                             required>
                     </div>
 
                     <!-- service -->
                     <div class="form-group">
-                        <label for="formservice">Verknüpfter Dienst</label>
+                        <label for="formservice" i18n>Verknüpfter Dienst</label>
                         <select class="custom-select"
                             [(ngModel)]="service"
                             id="formservice"
                             name="formservice"
                             required disabled>
-                            <option value="">Keine Anbindung an andere Dienste</option>
+                            <option value="" i18n>Keine Anbindung an andere Dienste</option>
                             <option *ngFor="let serv of storage.serviceList; index as i"
                                 value="{{ serv.value }}">
                                 {{ serv.name }}
@@ -54,13 +54,13 @@
 
                     <!-- template -->
                     <div class="form-group">
-                        <label for="formtemplate">Template</label>
+                        <label for="formtemplate" i18n>Template</label>
                         <select class="custom-select"
                             [(ngModel)]="template"
                             id="formtemplate"
                             name="formtemplate"
                             required>
-                            <option value="">Standard</option>
+                            <option value="" i18n>Standard</option>
                             <option *ngFor="let templ of storage.formsList; index as i"
                                 value="{{ templ.id }}">
                                 {{ templ.title }}
@@ -70,7 +70,7 @@
 
                     <!-- tags -->
                     <div class="form-group">
-                        <label for="formtag">Formular mit Tags markieren</label>
+                        <label for="formtag" i18n>Formular mit Tags markieren</label>
                         <input type="text"
                             list="tags"
                             class="form-control"
@@ -80,7 +80,7 @@
                             id="formtag"
                             name="formtag"
                             maxlength="50"
-                            placeholder="Tag mit ENTER bestätigen"
+                            i18n-placeholder placeholder="Tag mit ENTER bestätigen"
                             required>
                         <datalist id="tags">
                             <option *ngFor="let tag of storage.tagList; index as i"
@@ -89,6 +89,7 @@
                         <div>
                             <span class="badge badge-pill badge-primary clickable mr-1"
                                   *ngFor="let tag of tagList; index as i"
+                                  i18n-title title="Löschen"
                                   (click)="removeTag(i)">
                                 {{ tag }}
                             </span>
@@ -99,9 +100,9 @@
 
             <!-- modal buttons -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" title="Formular erstellen"
+                <button type="button" class="btn btn-success" i18n-title title="Formular erstellen"
                         (click)="NewForm()">
-                    Erstellen
+                    <span i18n>Erstellen</span>
                 </button>
             </div>
         </div>
