@@ -177,9 +177,9 @@ export const Bootstrap4_CSS = {
   },
   saveData: {
     root: '',
-    saving: 'alert alert-info',
-    error: 'alert alert-danger',
-    success: 'alert alert-success',
-    saveAgainButton: 'btn btn-warning'
+    saving: 'alert alert-info m-4',
+    error: 'alert alert-danger m-4',
+    success: 'alert alert-success m-4',
+    saveAgainButton: 'btn btn-warning mt-2 d-block'
   }
 };

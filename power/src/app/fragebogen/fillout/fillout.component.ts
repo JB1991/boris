@@ -126,10 +126,11 @@ export class FilloutComponent implements OnInit {
     }
 
     // complete
-    this.storage.saveResults(this.storage.task.id, result, true).subscribe((data) => {
+    this.storage.saveResults(this.storage.task.id, result.result, true).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.task.pin);
+        result.options.showDataSavingError('Das Speichern auf dem Server ist fehlgeschlagen: ' + alertText);
         this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', alertText);
 
         console.log('Could not submit results: ' + alertText);
@@ -139,6 +140,7 @@ export class FilloutComponent implements OnInit {
       this.alerts.NewAlert('success', 'Speichern erfolgreich', 'Ihre Daten wurden erfolgreich gespeichert.');
     }, (error: Error) => {
         // failed to complete task
+        result.options.showDataSavingError('Das Speichern auf dem Server ist fehlgeschlagen: ' + error['statusText']);
         this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
         console.log(error);
         return;

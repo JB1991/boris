@@ -172,7 +172,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
     component.storage.setUnsavedChanges(true);
 
-    component.submit(submitSample);
+    component.submit({result: submitSample, options: {showDataSavingError: () => {}}});
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', submitSample);
     expect(component.storage.getUnsavedChanges()).toBeFalse();
   });
@@ -182,11 +182,11 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
     component.storage.setUnsavedChanges(true);
 
-    component.submit(submitSample);
+    component.submit({result: submitSample, options: {showDataSavingError: () => {}}});
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', null);
     expect(component.storage.getUnsavedChanges()).toBeTrue();
 
-    component.submit(submitSample);
+    component.submit({result: submitSample, options: {showDataSavingError: () => {}}});
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST',
                       { 'error': 'Internal Server Error'});
     expect(component.storage.getUnsavedChanges()).toBeTrue();
@@ -197,7 +197,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
     component.storage.setUnsavedChanges(true);
 
-    component.submit(submitSample);
+    component.submit({result: submitSample, options: {showDataSavingError: () => {}}});
     answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', submitSample,
                       { status: 404, statusText: 'Not Found' });
     expect(component.storage.getUnsavedChanges()).toBeTrue();

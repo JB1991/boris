@@ -90,8 +90,8 @@ export class WrapperComponent implements OnChanges {
       };
     }
     if (this.submitResult) {
-      this.props['onComplete'] = (s, _) => {
-        this.submitResult.emit(s.data);
+      this.props['onComplete'] = (s, o) => {
+        this.submitResult.emit({result: s.data, options: o});
       };
     }
 

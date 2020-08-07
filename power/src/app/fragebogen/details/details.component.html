@@ -29,13 +29,13 @@
                 <span i18n>ID</span>: {{ storage.form.id }}
             </p>
             <p class="font-weight-light mb-1">
-                <span i18n>Erstellt</span>: {{ storage.form.created | date:'dd.MM.yyyy HH:mm:ss' }}
+                <span i18n>Erstellt</span>: {{ storage.form.created | date:'short' }}
             </p>
             <p class="font-weight-light mb-1" *ngIf="storage.form.published">
-                <span i18n>Veröffentlicht</span>: {{ storage.form.published | date:'dd.MM.yyyy HH:mm:ss' }}
+                <span i18n>Veröffentlicht</span>: {{ storage.form.published | date:'short' }}
             </p>
             <p class="font-weight-light mb-1" *ngIf="storage.form.cancelled">
-                <span i18n>Archiviert</span>: {{ storage.form.cancelled | date:'dd.MM.yyyy HH:mm:ss' }}
+                <span i18n>Archiviert</span>: {{ storage.form.cancelled | date:'short' }}
             </p>
             <p class="font-weight-light mb-1" *ngIf="storage.form && storage.form.status === 'published'">
                 <span i18n>Zugriff</span>: {{ storage.form.access }}
@@ -152,9 +152,9 @@
                             </a>
                         </td>
                         <td>{task.status, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</td>
-                        <td *ngIf="task.status !== 'submitted'">{{ task.accessed | date:'dd.MM.yyyy HH:mm' }}</td>
-                        <td *ngIf="task.status === 'submitted'">{{ task.submitted | date:'dd.MM.yyyy HH:mm' }}</td>
-                        <td>{{ task.created | date:'dd.MM.yyyy HH:mm' }}</td>
+                        <td *ngIf="task.status !== 'submitted'">{{ task.accessed | date:'short' }}</td>
+                        <td *ngIf="task.status === 'submitted'">{{ task.submitted | date:'short' }}</td>
+                        <td>{{ task.created | date:'short' }}</td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm mr-2"
                                     i18n-title title="Ergebnisse anzeigen"

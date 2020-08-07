@@ -14,9 +14,10 @@
         <tr>
           <th scope="col" class="border-top-0" i18n>ID</th>
           <th scope="col" class="border-top-0 w-50" i18n>Titel</th>
+          <th scope="col" class="border-top-0" i18n>Status</th>
+          <th scope="col" class="border-top-0" i18n>Besitzer</th>
           <th scope="col" class="border-top-0" i18n>Tags</th>
           <th scope="col" class="border-top-0" i18n>Erstellt</th>
-          <th scope="col" class="border-top-0" i18n>Aktualisiert</th>
           <th scope="col" class="border-top-0"></th>
         </tr>
         </thead>
@@ -28,9 +29,10 @@
               {{ form.title }}
             </a>
           </td>
+          <td>{form.status, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</td>
+          <td>{{ form.owners }}</td>
           <td>{{ form.tags }}</td>
-          <td>{{ form.created | date:'dd.MM.yyyy HH:mm' }}</td>
-          <td>{{ form.updated | date:'dd.MM.yyyy HH:mm' }}</td>
+          <td>{{ form.created | date:'short' }}</td>
           <td>
             <button type="button" class="btn btn-danger btn-sm" id="button-delete" i18n-title title="Formular löschen"
                     (click)="deleteForm(i)">
