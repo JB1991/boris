@@ -90,6 +90,7 @@
                             <span class="badge badge-pill badge-primary clickable mr-1"
                                   *ngFor="let tag of tagList; index as i"
                                   i18n-title title="Löschen"
+                                  role="button"
                                   (click)="removeTag(i)">
                                 {{ tag }}
                             </span>
