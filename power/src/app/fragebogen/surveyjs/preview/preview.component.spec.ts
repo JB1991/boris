@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { environment } from '@env/environment';
 
 import { PreviewComponent } from './preview.component';
 
@@ -21,6 +22,9 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    environment.production = true;
+    component.debugPrint('x');
+    environment.production = false;
     component.debugPrint('x');
   });
 

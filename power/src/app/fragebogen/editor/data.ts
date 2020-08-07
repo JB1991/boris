@@ -46,8 +46,8 @@ export const defaultTemplate = {
  * DatabaseMap holds infos for mapping formular elements to database columns
  */
 export const DatabaseMap = [
-    {text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: ''},
-    {text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: ''},
+  {text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: ''},
+  {text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: ''},
 ];
 
 /**
@@ -88,13 +88,13 @@ export const FormularFields = [
       type: 'radiogroup',
       valueName: '',
       choices: [
-          {
-              value: '1',
-              text: 'Ja'
-          }, {
-              value: '0',
-              text: 'Nein'
-          }
+        {
+          value: '1',
+          text: 'Ja'
+        }, {
+          value: '0',
+          text: 'Nein'
+        }
       ],
       colCount: 1,
       isRequired: true
@@ -109,13 +109,13 @@ export const FormularFields = [
       type: 'checkbox',
       valueName: '',
       choices: [
-          {
-              value: '1',
-              text: 'Ja'
-          }, {
-              value: '0',
-              text: 'Nein'
-          }
+        {
+          value: '1',
+          text: 'Ja'
+        }, {
+          value: '0',
+          text: 'Nein'
+        }
       ],
       colCount: 1,
       isRequired: true
@@ -130,15 +130,15 @@ export const FormularFields = [
       type: 'imagepicker',
       valueName: '',
       choices: [
-          {
-              value: 'oldenburg-cloppenburg',
-              text: 'RD Oldenburg-Cloppenburg',
-              imageLink: 'https://www.lgln.niedersachsen.de/assets/image/232/123847'
-          }, {
-              value: 'otterndorf',
-              text: 'RD Otterndorf',
-              imageLink: 'https://www.lgln.niedersachsen.de/assets/image/184052'
-          }
+        {
+          value: 'oldenburg-cloppenburg',
+          text: 'RD Oldenburg-Cloppenburg',
+          imageLink: 'https://www.lgln.niedersachsen.de/assets/image/232/123847'
+        }, {
+          value: 'otterndorf',
+          text: 'RD Otterndorf',
+          imageLink: 'https://www.lgln.niedersachsen.de/assets/image/184052'
+        }
       ],
       colCount: 0,
       showLabel: true,
@@ -184,32 +184,35 @@ export const FormularFields = [
       type: 'matrix',
       valueName: '',
       columns: [
-          {
-              value: 0,
-              text: 'Sehr schlecht'
-          }, {
-              value: 1,
-              text: 'Schlecht'
-          }, {
-              value: 2,
-              text: 'Neutral'
-          }, {
-              value: 3,
-              text: 'Gut'
-          }, {
-              value: 4,
-              text: 'Sehr gut'
-          }
+        {
+          value: 0,
+          text: 'Sehr schlecht'
+        }, {
+          value: 1,
+          text: 'Schlecht'
+        }, {
+          value: 2,
+          text: 'Neutral'
+        }, {
+          value: 3,
+          text: 'Gut'
+        }, {
+          value: 4,
+          text: 'Sehr gut'
+        }
       ],
       rows: [
-          {
-              value: 'q1',
-              text: 'Titel der Frage'
-          }
+        {
+          value: 'q1',
+          text: 'Titel der Frage'
+        }
       ],
       isAllRowRequired: true,
       isRequired: true
     }
+  }
+];
+/*
   }, {
     type: 'file',
     name: 'Fileupload',
@@ -291,3 +294,4 @@ export const FormularFields = [
     }
   }
 ];
+*/

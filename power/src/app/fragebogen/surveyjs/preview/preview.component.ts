@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Bootstrap4_CSS } from '../style';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'power-formulars-surveyjs-preview',
@@ -52,6 +53,8 @@ export class PreviewComponent implements OnInit {
    * @param data Data
    */
   public debugPrint(data: any) {
-    console.log(data);
+    if (!environment.production) {
+      console.log(data);
+    }
   }
 }
