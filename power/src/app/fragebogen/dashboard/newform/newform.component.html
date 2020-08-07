@@ -21,7 +21,7 @@
             <!-- modal body -->
             <div class="modal-body">
                 <!-- generate form -->
-                <form #newForm="ngForm" onsubmit="return false;">
+                <form #newForm="ngForm" i18n-aria-label aria-label="Einstellungen zum neuen Formular" onsubmit="return false;">
                     <!-- title -->
                     <div class="form-group">
                         <label for="formtitle" i18n>Formular Titel*</label>
@@ -91,7 +91,9 @@
                                   *ngFor="let tag of tagList; index as i"
                                   i18n-title title="Löschen"
                                   role="button"
-                                  (click)="removeTag(i)">
+                                  tabindex="0"
+                                  (click)="removeTag(i)"
+                                  (keyup.enter)="removeTag(i)">
                                 {{ tag }}
                             </span>
                         </div>

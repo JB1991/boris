@@ -14,7 +14,7 @@
                 <p class="lead" i18n>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen.</p>
                 <hr class="my-4">
                 <div class="lead">
-                    <form #pinFormular="ngForm" (ngSubmit)="submitPIN(pin.value)" class="form-inline">
+                    <form #pinFormular="ngForm" i18n-aria-label aria-label="Eingabe einer PIN zum Formular ausfüllen" (ngSubmit)="submitPIN(pin.value)" class="form-inline">
                         <label class="control-label sr-only" for="pin" i18n>Formular PIN</label>
                         <input type="text" class="form-control mr-2 w-mobile" id="pin" i18n-placeholder placeholder="Formular PIN" #pin>
                         <button type="submit" class="btn btn-success" i18n-title title="Absenden">

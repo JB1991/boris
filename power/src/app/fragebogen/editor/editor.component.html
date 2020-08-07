@@ -3,7 +3,13 @@
     <div class="col-12 col-lg-3 col-xl-2 p-0 pr-lg-2 mb-2">
         <!-- toolbox -->
         <div class="card bg-light">
-            <div class="card-header h5 clickable" role="button" (click)="isCollapsedToolBox = !isCollapsedToolBox" [attr.aria-expanded]="!isCollapsedToolBox" aria-controls="toolbox">
+            <div class="card-header h5 clickable"
+                role="button"
+                tabindex="0"
+                (click)="isCollapsedToolBox = !isCollapsedToolBox"
+                (keyup.enter)="isCollapsedToolBox = !isCollapsedToolBox"
+                [attr.aria-expanded]="!isCollapsedToolBox"
+                aria-controls="toolbox">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-tools align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path fill-rule="evenodd" d="M0 1l1-1 3.081 2.2a1 1 0 0 1 .419.815v.07a1 1 0 0 0 .293.708L10.5 9.5l.914-.305a1 1 0 0 1 1.023.242l3.356 3.356a1 1 0 0 1 0 1.414l-1.586 1.586a1 1 0 0 1-1.414 0l-3.356-3.356a1 1 0 0 1-.242-1.023L9.5 10.5 3.793 4.793a1 1 0 0 0-.707-.293h-.071a1 1 0 0 1-.814-.419L0 1zm11.354 9.646a.5.5 0 0 0-.708.708l3 3a.5.5 0 0 0 .708-.708l-3-3z"/>
                     <path fill-rule="evenodd" d="M15.898 2.223a3.003 3.003 0 0 1-3.679 3.674L5.878 12.15a3 3 0 1 1-2.027-2.027l6.252-6.341A3 3 0 0 1 13.778.1l-2.142 2.142L12 4l1.757.364 2.141-2.141zm-13.37 9.019L3.001 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
@@ -17,17 +23,21 @@
                     <li id="{{ item.type }}"
                         *ngFor="let item of storage.FormularFields"
                         role="button"
+                        tabindex="0"
                         class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
                         i18n-title title="{{ item.name }}"
-                        (click)="wsNewElement(item.type)">
+                        (click)="wsNewElement(item.type)"
+                        (keyup.enter)="wsNewElement(item.type)">
                         <span class="pl-2">{{ item.name }}</span>
                     </li>
                     <li id="elementcopy"
                         *ngIf="elementCopy"
                         role="button"
+                        tabindex="0"
                         class="list-group-item clickable smooth-dnd-draggable-wrapper bg-light p-2"
                         i18n-title title="Zwischenablage"
-                        (click)="wsNewElement('elementcopy')">
+                        (click)="wsNewElement('elementcopy')"
+                        (keyup.enter)="wsNewElement('elementcopy')">
                         <span class="pl-2" i18n>Zwischenablage</span>
                     </li>
                 </smooth-dnd-container>
@@ -53,7 +63,9 @@
                                 [class.active]="i === storage.selectedPageID">
                                 <a class="page-link"
                                     role="button"
+                                    tabindex="0"
                                     (click)="wsPageSelect(i)"
+                                    (keyup.enter)="wsPageSelect(i)"
                                     i18n-title title="Zeige Seite {{ i + 1 }}"
                                     [attr.data-id]="i">
                                     {{ i + 1 }}
@@ -62,7 +74,12 @@
                         </smooth-dnd-container>
 
                         <li class="page-item clickable">
-                            <a class="page-link text-success" role="button" (click)="wsPageCreate(storage.selectedPageID)" i18n-title title="Neue Seite hinzufügen">
+                            <a class="page-link text-success"
+                                role="button"
+                                tabindex="0"
+                                i18n-title title="Neue Seite hinzufügen"
+                                (click)="wsPageCreate(storage.selectedPageID)"
+                                (keyup.enter)="wsPageCreate(storage.selectedPageID)">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus align-bottom" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path d="M9 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5v-1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5v2.5A1.5 1.5 0 0 0 10.5 6H13v2h1V6L9 1z"/>
                                     <path fill-rule="evenodd" d="M13.5 10a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/>
@@ -72,7 +89,12 @@
                             </a>
                         </li>
                         <li class="page-item clickable">
-                            <a class="page-link text-danger" role="button" (click)="wsPageDelete(storage.selectedPageID)" i18n-title title="Ausgewählte Seite löschen">
+                            <a class="page-link text-danger"
+                                role="button"
+                                tabindex="0"
+                                i18n-title title="Ausgewählte Seite löschen"
+                                (click)="wsPageDelete(storage.selectedPageID)"
+                                (keyup.enter)="wsPageDelete(storage.selectedPageID)">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill align-bottom" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                                 </svg>
