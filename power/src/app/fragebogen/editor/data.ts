@@ -56,7 +56,7 @@ export const DatabaseMap = [
 export const FormularFields = [
   {
     type: 'text',
-    name: 'Eingabefeld',
+    name: $localize`Eingabefeld`,
     icon: 'fas fa-font',
     template : {
       title: 'Titel der Frage',
@@ -68,7 +68,7 @@ export const FormularFields = [
     }
   }, {
     type: 'comment',
-    name: 'Kommentarfeld',
+    name: $localize`Kommentarfeld`,
     icon: 'fas fa-align-left',
     template: {
       title: 'Titel der Frage',
@@ -80,7 +80,7 @@ export const FormularFields = [
     }
   }, {
     type: 'radiogroup',
-    name: 'Einfachauswahl',
+    name: $localize`Einfachauswahl`,
     icon: 'far fa-check-circle',
     template: {
       title: 'Titel der Frage',
@@ -101,7 +101,7 @@ export const FormularFields = [
     }
   }, {
     type: 'checkbox',
-    name: 'Mehrfachauswahl',
+    name: $localize`Mehrfachauswahl`,
     icon: 'far fa-check-square',
     template: {
       title: 'Titel der Frage',
@@ -122,7 +122,7 @@ export const FormularFields = [
     }
   }, {
     type: 'imagepicker',
-    name: 'Bilderauswahl',
+    name: $localize`Bilderauswahl`,
     icon: 'far fa-images',
     template: {
       title: 'Titel der Frage',
@@ -147,7 +147,7 @@ export const FormularFields = [
     }
   }, {
     type: 'rating',
-    name: 'Bewertung',
+    name: $localize`Bewertung`,
     icon: 'fas fa-star-half-alt',
     template: {
       title: 'Titel der Frage',
@@ -162,7 +162,7 @@ export const FormularFields = [
     }
   }, {
     type: 'nouislider',
-    name: 'Slider',
+    name: $localize`Slider`,
     icon: 'fas fa-sliders-h',
     template: {
       title: 'Titel der Frage',
@@ -176,7 +176,7 @@ export const FormularFields = [
     }
   }, {
     type: 'matrix',
-    name: 'Likert Skala',
+    name: $localize`Likert Skala`,
     icon: 'fas fa-table',
     template: {
       title: 'Titel der Frage',

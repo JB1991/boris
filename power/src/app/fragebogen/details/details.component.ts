@@ -22,7 +22,7 @@ export class DetailsComponent implements OnInit {
               public alerts: AlertsService,
               public loadingscreen: LoadingscreenService,
               public storage: StorageService) {
-    this.titleService.setTitle('Formular Details - POWER.NI');
+    this.titleService.setTitle($localize`Formular Details - POWER.NI`);
     this.storage.resetService();
   }
 
@@ -54,7 +54,7 @@ export class DetailsComponent implements OnInit {
       // check for error
       if (!data || data['error'] || !data['data']) {
         const alertText = (data && data['error'] ? data['error'] : id);
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
         this.loadingscreen.setVisible(false);
         this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
@@ -71,7 +71,7 @@ export class DetailsComponent implements OnInit {
           // check for error
           if (!data2 || data2['error'] || !data2['data']) {
             const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.form.id);
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
             this.loadingscreen.setVisible(false);
             this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
@@ -84,7 +84,7 @@ export class DetailsComponent implements OnInit {
           this.loadingscreen.setVisible(false);
         }, (error2: Error) => {
           // failed to load task list
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
+          this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
           this.loadingscreen.setVisible(false);
 
           this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -96,7 +96,7 @@ export class DetailsComponent implements OnInit {
       }
     }, (error: Error) => {
       // failed to load form
-      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
       this.loadingscreen.setVisible(false);
 
       this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -110,7 +110,7 @@ export class DetailsComponent implements OnInit {
    */
   public deleteForm() {
     // Ask user to confirm deletion
-    if (!confirm('Möchten Sie dieses Formular wirklich löschen?')) {
+    if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
       return;
     }
 
@@ -119,18 +119,19 @@ export class DetailsComponent implements OnInit {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, alertText);
 
         console.log('Could not delete form: ' + alertText);
         return;
       }
 
       // success
-      this.alerts.NewAlert('success', 'Formular gelöscht', 'Das Formular wurde erfolgreich gelöscht.');
+      this.alerts.NewAlert('success', $localize`Formular gelöscht`,
+                           $localize`Das Formular wurde erfolgreich gelöscht.`);
       this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
     }, (error: Error) => {
         // failed to delete form
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
     });
@@ -141,7 +142,7 @@ export class DetailsComponent implements OnInit {
    */
   public archiveForm() {
     // Ask user to confirm achivation
-    if (!confirm('Möchten Sie dieses Formular wirklich archivieren?\nDies lässt sich nicht mehr umkehren!')) {
+    if (!confirm($localize`Möchten Sie dieses Formular wirklich archivieren?\nDies lässt sich nicht mehr umkehren!`)) {
       return;
     }
 
@@ -150,7 +151,7 @@ export class DetailsComponent implements OnInit {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-        this.alerts.NewAlert('danger', 'Archivieren fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, alertText);
 
         console.log('Could not archive form: ' + alertText);
         return;
@@ -158,10 +159,11 @@ export class DetailsComponent implements OnInit {
 
       // success
       this.storage.form = data['data'];
-      this.alerts.NewAlert('success', 'Formular archiviert', 'Das Formular wurde erfolgreich archiviert.');
+      this.alerts.NewAlert('success', $localize`Formular archiviert`,
+                           $localize`Das Formular wurde erfolgreich archiviert.`);
     }, (error: Error) => {
         // failed to publish form
-        this.alerts.NewAlert('danger', 'Archivieren fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
     });
@@ -175,8 +177,8 @@ export class DetailsComponent implements OnInit {
     this.storage.getCSV(this.storage.form.id).subscribe((data) => {
       // check for error
       if (!data) {
-        const alertText = 'Die Antworten konnten nicht geladen werden.';
-        this.alerts.NewAlert('danger', 'Download fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`,
+                             $localize`Die Antworten konnten nicht geladen werden.`);
 
         console.log('Could not load results: ' + this.storage.form.id);
         return;
@@ -195,7 +197,7 @@ export class DetailsComponent implements OnInit {
       }
     }, (error: Error) => {
         // failed to load results
-        this.alerts.NewAlert('danger', 'Download fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
     });
@@ -212,7 +214,7 @@ export class DetailsComponent implements OnInit {
     }
 
     // Ask user to confirm deletion
-    if (!confirm('Möchten Sie diese Antwort wirklich löschen?')) {
+    if (!confirm($localize`Möchten Sie diese Antwort wirklich löschen?`)) {
       return;
     }
 
@@ -221,7 +223,7 @@ export class DetailsComponent implements OnInit {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.tasksList[i].id);
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, alertText);
 
         console.log('Could not delete task: ' + alertText);
         return;
@@ -229,10 +231,11 @@ export class DetailsComponent implements OnInit {
 
       // success
       this.storage.tasksList.splice(i, 1);
-      this.alerts.NewAlert('success', 'Antwort gelöscht', 'Die Antwort wurde erfolgreich gelöscht.');
+      this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
+                           $localize`Die Antwort wurde erfolgreich gelöscht.`);
     }, (error: Error) => {
         // failed to delete task
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
     });

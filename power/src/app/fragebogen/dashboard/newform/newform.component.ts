@@ -49,7 +49,8 @@ export class NewformComponent implements OnInit {
   public NewForm() {
     // check if form is filled incorrect
     if (document.getElementsByClassName('is-invalid').length > 0) {
-      this.alerts.NewAlert('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
+      this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`,
+                           $localize`Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.`);
       return;
     }
 
@@ -59,7 +60,7 @@ export class NewformComponent implements OnInit {
         // check for error
         if (!data || data['error'] || !data['data']) {
           const alertText = (data && data['error'] ? data['error'] : this.template);
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+          this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
           console.log('Could not load form: ' + alertText);
           return;
@@ -69,7 +70,7 @@ export class NewformComponent implements OnInit {
         this.makeForm(data['data']['content']);
       }, (error: Error) => {
         // failed to load form
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
       });
@@ -98,7 +99,7 @@ export class NewformComponent implements OnInit {
       // check for error
       if (!data || data['error'] || !data['data']) {
         const alertText = (data && data['error'] ? data['error'] : '');
-        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, alertText);
 
         console.log('Could not create form: ' + alertText);
         return;
@@ -106,11 +107,12 @@ export class NewformComponent implements OnInit {
 
       // Success
       this.storage.formsList.push(data['data']);
-      this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich erstellt.');
+      this.alerts.NewAlert('success', $localize`Erfolgreich erstellt`,
+                           $localize`Das Formular wurde erfolgreich erstellt.`);
       this.router.navigate(['/forms/details', data['data'].id], { replaceUrl: true });
     }, (error: Error) => {
       // failed to create form
-      this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error['statusText']);
       console.log(error);
       return;
     });

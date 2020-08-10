@@ -4,7 +4,6 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 
 import { ConfigService } from '@app/config.service';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 /**
  * AuthService handles authentication
@@ -17,8 +16,7 @@ export class AuthService {
 
   constructor(public router: Router,
               public httpClient: HttpClient,
-              public conf: ConfigService,
-              public alerts: AlertsService) {
+              public conf: ConfigService) {
     // load session
     this.loadSession(true);
   }

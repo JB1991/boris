@@ -29,7 +29,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
               public loadingscreen: LoadingscreenService,
               public storage: StorageService,
               public history: HistoryService) {
-    this.titleService.setTitle('Formular Editor - POWER.NI');
+    this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
     this.storage.resetService();
     this.history.resetService();
   }
@@ -91,7 +91,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       // check for error
       if (!data || data['error'] || !data['data'] || !data['data']['content']) {
         const alertText = (data && data['error'] ? data['error'] : id);
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
         this.loadingscreen.setVisible(false);
         this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
@@ -104,7 +104,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       this.loadingscreen.setVisible(false);
     }, (error: Error) => {
       // failed to load form
-      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
       this.loadingscreen.setVisible(false);
 
       this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -156,7 +156,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     // order of elements changed
     if (dropResult.payload.from === 'workspace') {
       this.history.makeHistory(this.storage.model);
-      moveItemInArray(this.storage.model.pages[this.storage.selectedPageID].elements, dropResult.removedIndex, dropResult.addedIndex);
+      moveItemInArray(this.storage.model.pages[this.storage.selectedPageID].elements,
+                      dropResult.removedIndex, dropResult.addedIndex);
 
     // new element dragged into workspace
     } else if (dropResult.payload.from === 'toolbox') {
@@ -248,7 +249,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
    */
   public wsPageDelete(page: number) {
     // ask user to confirm
-    if (!confirm('Möchten Sie diese Seite wirklich löschen?')) {
+    if (!confirm($localize`Möchten Sie diese Seite wirklich löschen?`)) {
       return;
     }
     this.history.makeHistory(this.storage.model);
@@ -299,13 +300,13 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     this.storage.saveForm(this.storage.model, id).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, (data['error'] ? data['error'] : id));
         throw new Error('Could not save formular: ' + (data['error'] ? data['error'] : id));
       }
 
       // success
       this.storage.setUnsavedChanges(false);
-      this.alerts.NewAlert('success', 'Speichern erfolgreich', '');
+      this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
 
       // redirect to new id
       if (!id) {
@@ -313,7 +314,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       }
     }, (error: Error) => {
       // failed to save
-      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
+      this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`,
+                           (error['error']['error'] ? error['error']['error'] : error['statusText']));
       throw error;
     });
   }
@@ -334,7 +336,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
    */
   public wsElementRemove(element: number, page: number = this.storage.selectedPageID) {
     // ask user to confirm
-    if (!confirm('Möchten Sie das Element wirklich löschen?')) {
+    if (!confirm($localize`Möchten Sie das Element wirklich löschen?`)) {
       return;
     }
     this.history.makeHistory(this.storage.model);

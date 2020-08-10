@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
               public alerts: AlertsService,
               public loadingscreen: LoadingscreenService,
               public storage: StorageService) {
-    this.titleService.setTitle('Dashboard - POWER.NI');
+    this.titleService.setTitle($localize`Dashboard - POWER.NI`);
     this.storage.resetService();
   }
 
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
       // check for error
       if (!data || data['error'] || !data['data']) {
         const alertText = (data && data['error'] ? data['error'] : 'Forms');
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
         this.loadingscreen.setVisible(false);
         this.router.navigate(['/forms'], { replaceUrl: true });
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
         // check for error
         if (!data2 || data2['error'] || !data2['data']) {
           const alertText = (data2 && data2['error'] ? data2['error'] : 'Tags');
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+          this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
           this.loadingscreen.setVisible(false);
           this.router.navigate(['/forms'], { replaceUrl: true });
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
         this.loadingscreen.setVisible(false);
       }, (error2: Error) => {
         // failed to load tags
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
         this.loadingscreen.setVisible(false);
 
         this.router.navigate(['/forms'], { replaceUrl: true });
@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
       });
     }, (error: Error) => {
       // failed to load forms
-      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
       this.loadingscreen.setVisible(false);
 
       this.router.navigate(['/forms'], { replaceUrl: true });
@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
       throw new Error('Invalid id');
     }
     // Ask user to confirm deletion
-    if (!confirm('Möchten Sie dieses Formular wirklich löschen?')) {
+    if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
       return;
     }
 
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.formsList[id].id);
-        this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, alertText);
 
         console.log('Could not delete form: ' + alertText);
         return;
@@ -103,10 +103,11 @@ export class DashboardComponent implements OnInit {
 
       // Success
       this.storage.formsList.splice(id, 1);
-      this.alerts.NewAlert('success', 'Formular gelöscht', 'Das Formular wurde erfolgreich gelöscht.');
+      this.alerts.NewAlert('success', $localize`Formular gelöscht`,
+                           $localize`Das Formular wurde erfolgreich gelöscht.`);
     }, (error: Error) => {
       // failed to delete form
-      this.alerts.NewAlert('danger', 'Löschen fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
       console.log(error);
       return;
     });

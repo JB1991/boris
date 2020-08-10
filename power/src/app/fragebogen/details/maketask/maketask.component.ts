@@ -43,7 +43,8 @@ export class MaketaskComponent implements OnInit {
   public Generate() {
     // check amount bounds
     if (this.amount < 1 || this.amount > 100) {
-      this.alerts.NewAlert('danger', 'Ungültige Eingabe', 'Bitte generieren Sie nur zwischen 1 und 100 PINs.');
+      this.alerts.NewAlert('danger', $localize`Ungültige Eingabe`,
+                           $localize`Bitte generieren Sie nur zwischen 1 und 100 PINs.`);
       throw new Error('Invalid bounds for variable amount');
     }
 
@@ -52,7 +53,7 @@ export class MaketaskComponent implements OnInit {
       // check for error
       if (!data || data['error'] || !data['data']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, alertText);
 
         console.log('Could not create task: ' + alertText);
         return;
@@ -66,7 +67,7 @@ export class MaketaskComponent implements OnInit {
       this.close();
     }, (error: Error) => {
         // failed to create task
-        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
     });

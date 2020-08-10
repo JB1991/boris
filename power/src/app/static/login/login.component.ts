@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
               public auth: AuthService,
               public loadingscreen: LoadingscreenService,
               public alerts: AlertsService) {
-    this.titleService.setTitle('Login - POWER.NI');
+    this.titleService.setTitle($localize`Login - POWER.NI`);
   }
 
   async ngOnInit() {
@@ -73,7 +73,8 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('user');
       this.auth.user = null;
       console.log('Authentication failed');
-      this.alerts.NewAlert('danger', 'Login fehlgeschlagen', 'Es konnte kein Token vom Endpunkt bezogen werden.');
+      this.alerts.NewAlert('danger', $localize`Login fehlgeschlagen`,
+                           $localize`Es konnte kein Token vom Endpunkt bezogen werden.`);
       this.router.navigate(['/'], { replaceUrl: true });
       return;
     }

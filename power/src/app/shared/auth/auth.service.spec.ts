@@ -6,7 +6,6 @@ import { environment } from '@env/environment';
 
 import { AuthService } from './auth.service';
 import { ConfigService } from '@app/config.service';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Shared.Auth.AuthService', () => {
   let service: AuthService;
@@ -22,15 +21,13 @@ describe('Shared.Auth.AuthService', () => {
         ])
       ],
       providers: [
-        ConfigService,
-        AlertsService
+        ConfigService
       ]
     });
     service = TestBed.inject(AuthService);
     httpTestingController = TestBed.inject(HttpTestingController);
     spyOn(console, 'log');
     spyOn(service.router, 'navigate');
-    spyOn(service.alerts, 'NewAlert');
     localStorage.removeItem('user');
     service.user = null;
   }));

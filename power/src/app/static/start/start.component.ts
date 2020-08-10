@@ -9,7 +9,7 @@ import { Title } from '@angular/platform-browser';
 export class StartComponent implements OnInit {
 
   constructor(public title: Title) {
-    this.title.setTitle('Portal für Wertermittlung Niedersachsen');
+    this.title.setTitle($localize`Portal für Wertermittlung Niedersachsen`);
   }
 
   ngOnInit() {
