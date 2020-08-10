@@ -12,7 +12,6 @@ export class BodenrichtwertService {
 
   /**
    * URL where to fetch GeoJSON from
-   * @private
    */
   private url = environment.ows;
 
