@@ -28,15 +28,13 @@
         </div>
         <div class="nav">
           <a class="nav-link" (click)="enableLocationTracking()">
-            <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung">
           </a>
           <a class="nav-link" (click)="toggle3dView()">
-            <img src="/assets/icons/building.svg" width="25" height="25"
-                 style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/building.svg" width="25" height="25"  alt="3D aktivieren/deaktivieren">
           </a>
           <a class="nav-link" (click)="resetMap()">
-            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"
-                 style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen">
           </a>
         </div>
       </nav>
@@ -49,23 +47,21 @@
       <nav class="nav nav-underline">
         <div class="nav mr-auto">
           <a class="nav-link" (click)="toggleFilterActive()">
-            <img src="/assets/icons/filter.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/filter.svg" width="25" height="25"  alt="Filtern">
           </a>
         </div>
         <div class="nav ml-auto">
           <a class="nav-link" (click)="toggleSearchActive()">
-            <img src="/assets/icons/search.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche">
           </a>
           <a class="nav-link">
-            <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung">
           </a>
           <a class="nav-link" (click)="toggle3dView()">
-            <img src="/assets/icons/building.svg" width="25" height="25"
-                 style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren">
           </a>
           <a class="nav-link" (click)="resetMap()">
-            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"
-                 style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25"  alt="Karte zurücksetzen">
           </a>
         </div>
       </nav>
@@ -94,7 +90,7 @@
   <mgl-map
     (click)="onMapClickEvent($event)"
     [style]="MAP_STYLE_URL"
-    [trackResize]="'true'"
+    [trackResize]="true"
     [bounds]="bounds"
     (load)="loadMap($event)">
 

@@ -3,8 +3,8 @@
     <a class="anchor"></a>
     <power-bodenrichtwertkarte [(stichtag)]="stichtag" [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
   </div>
-  <ngb-accordion #acc="ngbAccordion" style="background-color: white !important; border-bottom: 0 !important;">
-    <ngb-panel style="border: 0 !important;">
+  <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel>
       <ng-template ngbPanelHeader>
         <div>
           <div *ngIf="!adresse" class="text-center">
@@ -13,7 +13,7 @@
           <div *ngIf="adresse" class="text-center">
             <h5 class="m-0 mx-center">{{adresse.properties.text}}
               <button (click)="map.classList.toggle('small')" class="btn btn-link p-0">
-                <img src="/assets/icons/chevron-down.svg" width="25" height="25">
+                <img src="/assets/icons/chevron-down.svg" width="25" height="25" alt="Einklappen/ausklappen">
               </button>
             </h5>
           </div>

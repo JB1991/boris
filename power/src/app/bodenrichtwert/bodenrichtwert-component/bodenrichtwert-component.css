@@ -61,6 +61,15 @@ power-bodenrichtwertkarte {
   color: #343a40;
 }
 
+ngb-accordion {
+  background-color: white !important;
+  border-bottom: 0 !important;
+}
+
+ngb-panel {
+  border: 0 !important;
+}
+
 ngb-accordion /deep/ .card /deep/ .card-header {
   background-color: white !important;
 }
