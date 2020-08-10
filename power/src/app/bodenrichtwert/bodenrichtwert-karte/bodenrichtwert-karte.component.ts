@@ -192,10 +192,6 @@ export class BodenrichtwertKarteComponent implements OnInit {
     });
   }
 
-  onResize(event) {
-    this.map.resize();
-  }
-
   enableLocationTracking() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(location => {
