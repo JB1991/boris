@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/shared/auth/auth.guard';
 
-import { PendingChangesGuard } from '../pendingchanges.guard';
 import { EditorComponent } from './editor.component';
+import { PendingChangesGuard } from '@app/fragebogen/pendingchanges.guard';
 
 /**
  * routes contains all known paths

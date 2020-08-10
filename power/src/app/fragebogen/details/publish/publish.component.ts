@@ -41,9 +41,9 @@ export class PublishComponent implements OnInit {
    */
   public Publish() {
     // Ask user to confirm achivation
-    if (!confirm('Möchten Sie dieses Formular wirklich veröffentlichen?\n\
+    if (!confirm($localize`Möchten Sie dieses Formular wirklich veröffentlichen?\n\
 Das Formular lässt sich danach nicht mehr bearbeiten.\n\
-Dies lässt sich nicht mehr umkehren!')) {
+Dies lässt sich nicht mehr umkehren!`)) {
       return;
     }
 
@@ -52,7 +52,7 @@ Dies lässt sich nicht mehr umkehren!')) {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-        this.alerts.NewAlert('danger', 'Veröffentlichen fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, alertText);
 
         console.log('Could not publish form: ' + alertText);
         return;
@@ -60,11 +60,12 @@ Dies lässt sich nicht mehr umkehren!')) {
 
       // success
       this.storage.form = data['data'];
-      this.alerts.NewAlert('success', 'Formular veröffentlicht', 'Das Formular wurde erfolgreich veröffentlicht.');
+      this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,
+                           $localize`Das Formular wurde erfolgreich veröffentlicht.`);
       this.close();
     }, (error: Error) => {
         // failed to publish form
-        this.alerts.NewAlert('danger', 'Veröffentlichen fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
     });

@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
@@ -14,9 +13,6 @@ import { Component } from '@angular/core';
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
   let component: NewformComponent;
   let fixture: ComponentFixture<NewformComponent>;
-  let storage: StorageService;
-  let alerts: jasmine.SpyObj<AlertsService>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const formSample = require('../../../../assets/fragebogen/form-sample.json');
@@ -34,10 +30,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
       providers: [
         BsModalService,
         StorageService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        },
+        AlertsService
       ],
       declarations: [
         NewformComponent
@@ -51,9 +44,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
     spyOn(console, 'log');
     spyOn(component.router, 'navigate');
-    storage = TestBed.inject(StorageService);
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
-    httpClient = TestBed.inject(HttpClient);
+    spyOn(component.alerts, 'NewAlert');
     httpTestingController = TestBed.inject(HttpTestingController);
   }));
 
@@ -74,8 +65,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     component.NewForm();
 
     answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich erstellt.');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich erstellt.');
   });
 
   it('should new form template', () => {
@@ -86,8 +77,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich erstellt.');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich erstellt.');
   });
 
   it('should fail new form template', () => {
@@ -97,14 +88,14 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '123');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '123');
 
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', '');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', '');
   });
 
   it('should fail new form template', () => {
@@ -115,15 +106,16 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET',
                       { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
 
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST',
                       { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
+    expect(component.alerts.NewAlert)
+    .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should fail new form template 404', () => {
@@ -134,15 +126,15 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
 
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(2);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Not Found');
   });
 
   it('should crash make form', () => {
@@ -157,8 +149,9 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
   it('should fail new form', () => {
     component.NewForm();
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert)
+    .toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
   });
 
   it('should add tag', () => {
@@ -207,15 +200,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
   }
 
   afterEach(() => {
-    storage.resetService();
-    storage = null;
-
     // Verify that no requests are remaining
     httpTestingController.verify();
-
-    // Destruction
-    fixture.destroy();
-    component = null;
   });
 });
 

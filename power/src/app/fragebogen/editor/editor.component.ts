@@ -7,9 +7,9 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult } from 'ngx-smooth-dnd';
 import { environment } from '@env/environment';
 
-import { ComponentCanDeactivate } from '../pendingchanges.guard';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
+import { ComponentCanDeactivate } from '@app/fragebogen/pendingchanges.guard';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
@@ -19,60 +19,98 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit, ComponentCanDeactivate {
-  public isCollapsedToolBox = false;
-  public isCollapsed: any = [];
   public elementCopy: any;
+  public isCollapsedToolBox = false;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private titleService: Title,
-              private alerts: AlertsService,
-              private loadingscreen: LoadingscreenService,
+  constructor(public route: ActivatedRoute,
+              public router: Router,
+              public titleService: Title,
+              public alerts: AlertsService,
+              public loadingscreen: LoadingscreenService,
               public storage: StorageService,
               public history: HistoryService) {
-      this.titleService.setTitle('Formular Editor - POWER.NI');
-      this.storage.resetService();
-      this.history.resetService();
+    this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
+    this.storage.resetService();
+    this.history.resetService();
   }
 
   ngOnInit() {
-    // load formular from server
+    // get id
+    this.loadingscreen.setVisible(true);
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.loadingscreen.setVisible(true);
-      this.storage.loadForm(id).subscribe((data) => {
-        // check for error
-        if (!data || data['error'] || !data['data'] || !data['data']['content']) {
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
-          this.loadingscreen.setVisible(false);
-
-          this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-          throw new Error('Could not load formular: ' + (data['error'] ? data['error'] : id));
-        }
-
-        // store formular
-        this.storage.model = data['data']['content'];
-        this.loadingscreen.setVisible(false);
-      }, (error: Error) => {
-        // failed to load
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
-        this.loadingscreen.setVisible(false);
-
-        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        throw error;
-      });
+      // load data
+      this.loadData(id);
+    } else {
+      // missing id
+      this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
     }
-
-    this.clearCollapsed();
   }
 
-  @HostListener('window:beforeunload')
-  canDeactivate(): Observable<boolean> | boolean {
+  @HostListener('window:beforeunload') canDeactivate(): Observable<boolean> | boolean {
     // on test environment skip
     if (!environment.production) {
       return true;
     }
     return !this.storage.getUnsavedChanges();
+  }
+
+  @HostListener('window:scroll', ['$event']) onScroll(event) {
+    // check if not mobile device
+    const div = document.getElementById('toolbox').parentElement;
+    if (window.innerWidth >= 992) {
+      // prevent scrolling too far
+      if (div.parentElement.clientHeight < 378 + event.path[1].pageYOffset) {
+        return;
+      }
+      div.style.margin = event.path[1].pageYOffset + 'px 0 0 0';
+    } else {
+      div.style.margin = '0 0 0 0';
+    }
+  }
+
+  @HostListener('window:resize', ['$event']) onResize(event) {
+    // check if not mobile device
+    const div = document.getElementById('toolbox').parentElement;
+    if (window.innerWidth < 992) {
+      div.style.margin = '0 0 0 0';
+    }
+  }
+
+  /**
+   * Load form data
+   * @param id Form id
+   */
+  public loadData(id: string) {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
+    this.storage.loadForm(id).subscribe((data) => {
+      // check for error
+      if (!data || data['error'] || !data['data'] || !data['data']['content']) {
+        const alertText = (data && data['error'] ? data['error'] : id);
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+        this.loadingscreen.setVisible(false);
+        this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
+        console.log('Could not load form: ' + alertText);
+        return;
+      }
+
+      // store formular
+      this.storage.model = data['data']['content'];
+      this.loadingscreen.setVisible(false);
+    }, (error: Error) => {
+      // failed to load form
+      this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+      this.loadingscreen.setVisible(false);
+
+      this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+      console.log(error);
+      return;
+    });
   }
 
   /**
@@ -98,7 +136,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         return;
       }
       this.history.makeHistory(this.storage.model);
-      this.isCollapsed.splice(dropResult.payload.index, 1);
       transferArrayItem(
         this.storage.model.pages[this.storage.selectedPageID].elements,
         this.storage.model.pages[dropResult.addedIndex].elements,
@@ -119,8 +156,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     // order of elements changed
     if (dropResult.payload.from === 'workspace') {
       this.history.makeHistory(this.storage.model);
-      moveItemInArray(this.isCollapsed, dropResult.removedIndex, dropResult.addedIndex);
-      moveItemInArray(this.storage.model.pages[this.storage.selectedPageID].elements, dropResult.removedIndex, dropResult.addedIndex);
+      moveItemInArray(this.storage.model.pages[this.storage.selectedPageID].elements,
+                      dropResult.removedIndex, dropResult.addedIndex);
 
     // new element dragged into workspace
     } else if (dropResult.payload.from === 'toolbox') {
@@ -135,7 +172,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
 
       this.history.makeHistory(this.storage.model);
       data.name = this.storage.newElementID();
-      this.isCollapsed.splice(dropResult.addedIndex, 0, window.innerWidth <= 767);
       this.storage.model.pages[this.storage.selectedPageID].elements.splice(dropResult.addedIndex, 0, data);
     }
   }
@@ -186,7 +222,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
 
     this.history.makeHistory(this.storage.model);
     data.name = this.storage.newElementID();
-    this.isCollapsed.splice(0, 0, window.innerWidth <= 767);
     this.storage.model.pages[this.storage.selectedPageID].elements.splice(0, 0, data);
   }
 
@@ -206,7 +241,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       }
     );
     this.storage.selectedPageID++;
-    this.clearCollapsed();
   }
 
   /**
@@ -215,7 +249,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
    */
   public wsPageDelete(page: number) {
     // ask user to confirm
-    if (!confirm('Möchten Sie diese Seite wirklich löschen?')) {
+    if (!confirm($localize`Möchten Sie diese Seite wirklich löschen?`)) {
       return;
     }
     this.history.makeHistory(this.storage.model);
@@ -225,7 +259,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     if (this.storage.selectedPageID >= this.storage.model.pages.length && this.storage.selectedPageID > 0) {
       this.storage.selectedPageID--;
     }
-    this.clearCollapsed();
 
     // ensure that at least one page exists
     if (this.storage.model.pages.length < 1) {
@@ -251,7 +284,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       return;
     }
     this.storage.selectedPageID = page;
-    this.clearCollapsed();
   }
 
   /**
@@ -268,13 +300,13 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     this.storage.saveForm(this.storage.model, id).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : id));
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, (data['error'] ? data['error'] : id));
         throw new Error('Could not save formular: ' + (data['error'] ? data['error'] : id));
       }
 
       // success
       this.storage.setUnsavedChanges(false);
-      this.alerts.NewAlert('success', 'Speichern erfolgreich', '');
+      this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
 
       // redirect to new id
       if (!id) {
@@ -282,7 +314,8 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       }
     }, (error: Error) => {
       // failed to save
-      this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', (error['error']['error'] ? error['error']['error'] : error['statusText']));
+      this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`,
+                           (error['error']['error'] ? error['error']['error'] : error['statusText']));
       throw error;
     });
   }
@@ -303,30 +336,10 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
    */
   public wsElementRemove(element: number, page: number = this.storage.selectedPageID) {
     // ask user to confirm
-    if (!confirm('Möchten Sie das Element wirklich löschen?')) {
+    if (!confirm($localize`Möchten Sie das Element wirklich löschen?`)) {
       return;
     }
     this.history.makeHistory(this.storage.model);
-    this.isCollapsed.splice(element, 1);
     this.storage.model.pages[page].elements.splice(element, 1);
-  }
-
-
-  /* HELPER FUNCTIONS */
-
-  /**
-   * Resets isCollapsed
-   */
-  public clearCollapsed() {
-    this.isCollapsed = [];
-
-    // check screen width
-    for (let i = 0; i < this.storage.model.pages[this.storage.selectedPageID].elements.length; i++) {
-      this.isCollapsed[i] = window.innerWidth <= 767;
-    }
-  }
-
-  public getIcon(type: string): string {
-    return this.storage.FormularFields.filter(p => p.type === type)[0].icon;
   }
 }

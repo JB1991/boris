@@ -22,12 +22,13 @@ export class FilloutComponent implements OnInit {
               public alerts: AlertsService,
               public loadingscreen: LoadingscreenService,
               public storage: StorageService) {
-    this.titleService.setTitle('Formulare - POWER.NI');
+    this.titleService.setTitle($localize`Formulare - POWER.NI`);
     this.storage.resetService();
   }
 
   ngOnInit() {
     // get pin
+    this.loadingscreen.setVisible(true);
     const pin = this.route.snapshot.paramMap.get('pin');
     if (pin) {
       // load data
@@ -58,12 +59,11 @@ export class FilloutComponent implements OnInit {
     }
 
     // get access by pin
-    this.loadingscreen.setVisible(true);
     this.storage.getAccess(pin, factor).subscribe((data) => {
       // check for error
       if (!data || data['error'] || !data['data']) {
         const alertText = (data && data['error'] ? data['error'] : pin + ' - ' + factor);
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
         this.loadingscreen.setVisible(false);
         this.router.navigate(['/forms'], {replaceUrl: true});
@@ -79,7 +79,7 @@ export class FilloutComponent implements OnInit {
         // check for error
         if (!data2 || data2['error'] || !data2['data']) {
           const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.task['form-id']);
-          this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', alertText);
+          this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
           this.loadingscreen.setVisible(false);
           this.router.navigate(['/forms'], {replaceUrl: true});
@@ -97,7 +97,7 @@ export class FilloutComponent implements OnInit {
         this.loadingscreen.setVisible(false);
       }, (error2: Error) => {
         // failed to load form
-        this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error2['statusText']);
+        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
         this.loadingscreen.setVisible(false);
 
         this.router.navigate(['/forms'], { replaceUrl: true });
@@ -106,7 +106,7 @@ export class FilloutComponent implements OnInit {
       });
     }, (error: Error) => {
       // failed to load task
-      this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+      this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
       this.loadingscreen.setVisible(false);
 
       this.router.navigate(['/forms'], { replaceUrl: true });
@@ -126,20 +126,22 @@ export class FilloutComponent implements OnInit {
     }
 
     // complete
-    this.storage.saveResults(this.storage.task.id, result, true).subscribe((data) => {
+    this.storage.saveResults(this.storage.task.id, result.result, true).subscribe((data) => {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.task.pin);
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', alertText);
+        result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {alertText}`);
+        this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
 
         console.log('Could not submit results: ' + alertText);
         return;
       }
       this.storage.setUnsavedChanges(false);
-      this.alerts.NewAlert('success', 'Speichern erfolgreich', 'Ihre Daten wurden erfolgreich gespeichert.');
+      this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
     }, (error: Error) => {
         // failed to complete task
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
+        result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}`);
+        this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
     });
@@ -160,7 +162,7 @@ export class FilloutComponent implements OnInit {
       // check for error
       if (!data || data['error']) {
         const alertText = (data && data['error'] ? data['error'] : this.storage.task.pin);
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', alertText);
+        this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
 
         console.log('Could not save results: ' + alertText);
         return;
@@ -168,7 +170,7 @@ export class FilloutComponent implements OnInit {
       this.storage.setUnsavedChanges(false);
     }, (error: Error) => {
         // failed to save task
-        this.alerts.NewAlert('danger', 'Speichern fehlgeschlagen', error['statusText']);
+        this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
         console.log(error);
         return;
     });

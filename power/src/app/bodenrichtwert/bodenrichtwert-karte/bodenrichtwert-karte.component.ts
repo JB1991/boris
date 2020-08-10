@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import { LngLat, LngLatBounds, Map, Marker } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
@@ -15,12 +14,15 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   searchActive = false;
   filterActive = false;
-  threedActive = false;
+  threeDActive = false;
 
   baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
   MAP_STYLE_URL = environment.basemap;
 
   map: Map;
+  bounds = new LngLatBounds([
+    [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
+  ]);
   marker: Marker = new Marker({
     color: '#c4153a',
   });
@@ -43,28 +45,10 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   STICHTAGE = STICHTAGE;
 
-  f;
-
-  bounds = new LngLatBounds([
-    [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
-  ]);
-
   constructor(
     private bodenrichtwertService: BodenrichtwertService,
     private geosearchService: GeosearchService
   ) {
-    // this.route.fragment.subscribe(f => {
-    //   if (f) {
-    //     this.f = f;
-    //     this.zoom = Number.parseFloat(f.split('/')[0]);
-    //     this.x = Number.parseFloat(f.split('/')[1]);
-    //     this.y = Number.parseFloat(f.split('/')[2]);
-    //     if (this.map) {
-    //       this.map.setZoom(this.zoom);
-    //       this.map.setCenter([this.x, this.y]);
-    //     }
-    //   }
-    // });
   }
 
   ngOnInit() {
@@ -76,11 +60,6 @@ export class BodenrichtwertKarteComponent implements OnInit {
       this.map.setZoom(this.zoom);
       this.map.setCenter([this.x, this.y]);
     }
-    // this.map.on('moveend', ev => {
-    //   const locationHash = ev.target.getZoom() + '/' + ev.target.getCenter().lng + '/' + ev.target.getCenter().lat;
-    //   console.log(locationHash);
-    // });
-    // TODO Map Loading Events sollen durch Interceptor laufen, um Animation in Kopfzeile zu zeigen
   }
 
   public toggleSearchActive() {
@@ -107,27 +86,24 @@ export class BodenrichtwertKarteComponent implements OnInit {
   }
 
   getBodenrichtwertzonen(lat: number, lng: number, entw: string) {
-    this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, this.teilmarkt.value).subscribe(res => {
-      console.log(res);
+    this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw).subscribe(res => {
       this.bodenrichtwertService.updateFeatures(res);
     });
-
   }
 
-  getAdressFromLatLng(lat, lng) {
+  getAddressFromLatLng(lat, lng) {
     this.geosearchService.getAdressFromCoordinates(lat, lng)
       .subscribe(res => this.geosearchService.updateFeatures(res.features[0]));
   }
 
   onMapClickEvent(evt: mapboxgl.MapMouseEvent) {
     if (evt.lngLat) {
-
       this.lat = evt.lngLat.lat;
       this.lng = evt.lngLat.lng;
 
       this.marker.setLngLat([this.lng, this.lat]).addTo(this.map);
       this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
-      this.getAdressFromLatLng(this.lat, this.lng);
+      this.getAddressFromLatLng(this.lat, this.lng);
       this.map.flyTo({
         center: [this.lng, this.lat],
         zoom: 14,
@@ -151,16 +127,15 @@ export class BodenrichtwertKarteComponent implements OnInit {
   }
 
   toggle3dView() {
-    if (!this.threedActive) {
-      this.activate3D();
-    } else if (this.threedActive) {
-      this.deactivate3D();
+    if (!this.threeDActive) {
+      this.activate3dView();
+    } else if (this.threeDActive) {
+      this.deactivate3dView();
     }
-    this.threedActive = !this.threedActive;
+    this.threeDActive = !this.threeDActive;
   }
 
-  private activate3D() {
-    const firstSymbolId = this.findFirstLayerWithSymbol();
+  private activate3dView() {
     this.map.addLayer({
       id: 'building-extrusion',
       type: 'fill-extrusion',
@@ -184,7 +159,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
   }
 
-  private deactivate3D() {
+  private deactivate3dView() {
     this.map.easeTo({
       pitch: 0,
       zoom: 14,
@@ -192,22 +167,6 @@ export class BodenrichtwertKarteComponent implements OnInit {
     });
     this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
     this.map.removeLayer('building-extrusion');
-  }
-
-  /**
-   * Returns the first Layer with Symbols
-   * @private
-   */
-  private findFirstLayerWithSymbol() {
-    const layers = this.map.getStyle().layers;
-    let firstSymbolId;
-    for (let i = 0; i < layers.length; i++) {
-      if (layers[i].type === 'symbol') {
-        firstSymbolId = layers[i].id;
-        break;
-      }
-    }
-    return firstSymbolId;
   }
 
   onStichtagChange(stichtag: any) {
@@ -222,20 +181,18 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   resetMap() {
     this.map.resize();
-    const camera = this.map.cameraForBounds([
-      [6.19523325024787, 51.2028429493903],
-      [11.7470832174838, 54.1183357191213]
-    ]);
-    camera.bearing = 0;
-    camera.pitch = 0;
-    this.toggle3dView();
-    this.map.easeTo(
-      camera
-    );
+
+    if (this.threeDActive) {
+      this.deactivate3dView();
+    }
+
+    this.map.fitBounds(this.bounds, {
+      pitch: 0,
+      bearing: 0
+    });
   }
 
   onResize(event) {
-    console.log(event);
     this.map.resize();
   }
 

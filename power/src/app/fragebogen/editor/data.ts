@@ -1,7 +1,7 @@
 /**
  * default template for new formulars
  */
-export const FormularTemplate = {
+export const defaultTemplate = {
   locale: 'de',
   title: 'Neues Formular',
   loadingHtml: 'Das Formular wird geladen <div class=\'spinner-border\' role=\'status\'></div>',
@@ -46,8 +46,8 @@ export const FormularTemplate = {
  * DatabaseMap holds infos for mapping formular elements to database columns
  */
 export const DatabaseMap = [
-    {text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: ''},
-    {text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: ''},
+  {text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: ''},
+  {text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: ''},
 ];
 
 /**
@@ -56,7 +56,7 @@ export const DatabaseMap = [
 export const FormularFields = [
   {
     type: 'text',
-    name: 'Eingabefeld',
+    name: $localize`Eingabefeld`,
     icon: 'fas fa-font',
     template : {
       title: 'Titel der Frage',
@@ -68,7 +68,7 @@ export const FormularFields = [
     }
   }, {
     type: 'comment',
-    name: 'Kommentarfeld',
+    name: $localize`Kommentarfeld`,
     icon: 'fas fa-align-left',
     template: {
       title: 'Titel der Frage',
@@ -80,7 +80,7 @@ export const FormularFields = [
     }
   }, {
     type: 'radiogroup',
-    name: 'Einfachauswahl',
+    name: $localize`Einfachauswahl`,
     icon: 'far fa-check-circle',
     template: {
       title: 'Titel der Frage',
@@ -88,20 +88,20 @@ export const FormularFields = [
       type: 'radiogroup',
       valueName: '',
       choices: [
-          {
-              value: '1',
-              text: 'Ja'
-          }, {
-              value: '0',
-              text: 'Nein'
-          }
+        {
+          value: '1',
+          text: 'Ja'
+        }, {
+          value: '0',
+          text: 'Nein'
+        }
       ],
       colCount: 1,
       isRequired: true
     }
   }, {
     type: 'checkbox',
-    name: 'Mehrfachauswahl',
+    name: $localize`Mehrfachauswahl`,
     icon: 'far fa-check-square',
     template: {
       title: 'Titel der Frage',
@@ -109,20 +109,20 @@ export const FormularFields = [
       type: 'checkbox',
       valueName: '',
       choices: [
-          {
-              value: '1',
-              text: 'Ja'
-          }, {
-              value: '0',
-              text: 'Nein'
-          }
+        {
+          value: '1',
+          text: 'Ja'
+        }, {
+          value: '0',
+          text: 'Nein'
+        }
       ],
       colCount: 1,
       isRequired: true
     }
   }, {
     type: 'imagepicker',
-    name: 'Bilderauswahl',
+    name: $localize`Bilderauswahl`,
     icon: 'far fa-images',
     template: {
       title: 'Titel der Frage',
@@ -130,15 +130,15 @@ export const FormularFields = [
       type: 'imagepicker',
       valueName: '',
       choices: [
-          {
-              value: 'oldenburg-cloppenburg',
-              text: 'RD Oldenburg-Cloppenburg',
-              imageLink: 'https://www.lgln.niedersachsen.de/assets/image/232/123847'
-          }, {
-              value: 'otterndorf',
-              text: 'RD Otterndorf',
-              imageLink: 'https://www.lgln.niedersachsen.de/assets/image/184052'
-          }
+        {
+          value: 'oldenburg-cloppenburg',
+          text: 'RD Oldenburg-Cloppenburg',
+          imageLink: 'https://www.lgln.niedersachsen.de/assets/image/232/123847'
+        }, {
+          value: 'otterndorf',
+          text: 'RD Otterndorf',
+          imageLink: 'https://www.lgln.niedersachsen.de/assets/image/184052'
+        }
       ],
       colCount: 0,
       showLabel: true,
@@ -147,7 +147,7 @@ export const FormularFields = [
     }
   }, {
     type: 'rating',
-    name: 'Bewertung',
+    name: $localize`Bewertung`,
     icon: 'fas fa-star-half-alt',
     template: {
       title: 'Titel der Frage',
@@ -162,7 +162,7 @@ export const FormularFields = [
     }
   }, {
     type: 'nouislider',
-    name: 'Slider',
+    name: $localize`Slider`,
     icon: 'fas fa-sliders-h',
     template: {
       title: 'Titel der Frage',
@@ -176,7 +176,7 @@ export const FormularFields = [
     }
   }, {
     type: 'matrix',
-    name: 'Likert Skala',
+    name: $localize`Likert Skala`,
     icon: 'fas fa-table',
     template: {
       title: 'Titel der Frage',
@@ -184,31 +184,114 @@ export const FormularFields = [
       type: 'matrix',
       valueName: '',
       columns: [
-          {
-              value: 0,
-              text: 'Sehr schlecht'
-          }, {
-              value: 1,
-              text: 'Schlecht'
-          }, {
-              value: 2,
-              text: 'Neutral'
-          }, {
-              value: 3,
-              text: 'Gut'
-          }, {
-              value: 4,
-              text: 'Sehr gut'
-          }
+        {
+          value: 0,
+          text: 'Sehr schlecht'
+        }, {
+          value: 1,
+          text: 'Schlecht'
+        }, {
+          value: 2,
+          text: 'Neutral'
+        }, {
+          value: 3,
+          text: 'Gut'
+        }, {
+          value: 4,
+          text: 'Sehr gut'
+        }
       ],
       rows: [
-          {
-              value: 'q1',
-              text: 'Titel der Frage'
-          }
+        {
+          value: 'q1',
+          text: 'Titel der Frage'
+        }
       ],
       isAllRowRequired: true,
       isRequired: true
     }
   }
 ];
+/*
+  }, {
+    type: 'file',
+    name: 'Fileupload',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'file',
+      valueName: '',
+      allowMultiple: false,
+      waitForUpload: true,
+      maxSize: 1048576
+    }
+  }, {
+    type: 'signaturepad',
+    name: 'Unterschrift',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'signaturepad',
+      valueName: '',
+      width: 600,
+    }
+  }, {
+    type: 'boolean',
+    name: 'Ja/Nein',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'boolean',
+      valueName: '',
+      labelTrue: 'Wahr',
+      labelFalse: 'Falsch'
+    }
+  }, {
+    type: 'html',
+    name: 'Freitext',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'html',
+      html: 'Hallo Welt!\n\nTest'
+    }
+  }, {
+    type: 'multipletext',
+    name: 'Adresse',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'multipletext',
+      valueName: '',
+      labelTrue: 'Wahr',
+      labelFalse: 'Falsch',
+      items: [
+        {
+         name: 'e1',
+         isRequired: true,
+         title: 'Vorname'
+        }, {
+         name: 'e2',
+         title: 'Nachname'
+        }
+      ]
+    }
+  }, {
+    type: 'sortablelist',
+    name: 'Ranking',
+    icon: 'fas fa-table',
+    template: {
+      title: 'Titel der Frage',
+      name: 'question1',
+      type: 'sortablelist',
+      valueName: '',
+      choices: ['family', 'work', 'pets', 'travels', 'games']
+    }
+  }
+];
+*/

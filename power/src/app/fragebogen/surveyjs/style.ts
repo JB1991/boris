@@ -35,13 +35,13 @@ export const Bootstrap4_CSS = {
   },
   pageTitle: 'nolist h4',
   pageDescription: 'font-weight-light hassubtext',
-  row: 'sv_row mb-2',
+  row: 'sv_row mb-3',
   question: {
     mainRoot: 'sv_qstn',
     flowRoot: 'sv_q_flow sv_qstn',
     header: '',
     headerLeft: 'title-left',
-    content: '',
+    content: 'p-1',
     contentLeft: 'content-left',
     titleLeftRoot: 'sv_qstn_left',
     title: 'h5',
@@ -177,9 +177,9 @@ export const Bootstrap4_CSS = {
   },
   saveData: {
     root: '',
-    saving: 'alert alert-info',
-    error: 'alert alert-danger',
-    success: 'alert alert-success',
-    saveAgainButton: 'btn btn-warning'
+    saving: 'alert alert-info m-4',
+    error: 'alert alert-danger m-4',
+    success: 'alert alert-success m-4',
+    saveAgainButton: 'btn btn-warning mt-2 d-block'
   }
 };

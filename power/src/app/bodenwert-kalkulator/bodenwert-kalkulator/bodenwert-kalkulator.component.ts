@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-
-import {environment} from '@env/environment';
-import {MapboxGeoJSONFeature, MapMouseEvent, Marker, Point} from 'mapbox-gl';
-import {NgbAccordion} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { environment } from '@env/environment';
+import { LngLat, LngLatBounds, MapboxGeoJSONFeature, MapMouseEvent, Marker, Point } from 'mapbox-gl';
+import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'power-bodenwert-kalkulator',
@@ -11,21 +11,31 @@ import {NgbAccordion} from '@ng-bootstrap/ng-bootstrap';
 })
 export class BodenwertKalkulatorComponent implements OnInit {
 
+  threeDActive = false;
+  searchActive = false;
+  filterActive = false;
+
+  baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
   MAP_STYLE_URL = environment.basemap;
-  marker: Marker;
+
+  map;
+  bounds = new LngLatBounds([
+    [9.602684462835214, 52.376003466999975], [9.579526408716788, 52.36982114326486]
+  ]);
+  marker: Marker = new Marker({
+    color: '#c4153a',
+  });
+
   data;
   adresse;
   flurstueckSelection = new Map<string, MapboxGeoJSONFeature>();
 
-  baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
-
-  map;
   features: any;
-  private threedActive = false;
-  searchActive = false;
+
   @ViewChild('acc') acc: NgbAccordion;
 
-  constructor() {
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Bodenwerte - POWER.NI');
   }
 
   ngOnInit() {
@@ -41,7 +51,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
           this.flurstueckSelection.set(feature.properties.gml_id, feature);
         }
 
-        if (this.flurstueckSelection.size > 0 ) {
+        if (this.flurstueckSelection.size > 0) {
           this.acc.expand('ngb-panel-0');
         } else {
           this.acc.collapse('ngb-panel-0');
@@ -80,91 +90,93 @@ export class BodenwertKalkulatorComponent implements OnInit {
     });
   }
 
-  toggle3DView(checked: boolean) {
-    if (checked) {
-      const layers = this.map.getStyle().layers;
-      let firstSymbolId;
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol') {
-          firstSymbolId = layers[i].gml_id;
-          break;
-        }
-      }
-      this.map.addLayer({
-        id: 'building-extrusion',
-        type: 'fill-extrusion',
-        source: 'openmaptiles',
-        'source-layer': 'building',
-        paint: {
-          'fill-extrusion-color': 'rgb(219, 219, 218)',
-          'fill-extrusion-height': 0,
-          'fill-extrusion-opacity': 1,
-          'fill-extrusion-height-transition': {
-            duration: 600,
-            delay: 0
-          }
-        }
-      });
-      this.map.easeTo({
-        pitch: 60,
-        zoom: 17,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
-    } else if (!checked) {
-      this.map.easeTo({
-        pitch: 0,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
-      this.map.removeLayer('building-extrusion');
+  toggle3dView() {
+    if (!this.threeDActive) {
+      this.activate3dView();
+    } else {
+      this.deactivate3dView();
     }
+    this.threeDActive = !this.threeDActive;
   }
 
-  toggle3dView() {
-    if (!this.threedActive) {
-      const layers = this.map.getStyle().layers;
-      let firstSymbolId;
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol') {
-          firstSymbolId = layers[i].id;
-          break;
+  activate3dView() {
+    const layers = this.map.getStyle().layers;
+    let firstSymbolId;
+    for (let i = 0; i < layers.length; i++) {
+      if (layers[i].type === 'symbol') {
+        firstSymbolId = layers[i].id;
+        break;
+      }
+    }
+    this.add3dLayer();
+    this.map.easeTo({
+      pitch: 60,
+      zoom: 17,
+      center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+    });
+    this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
+  }
+
+  add3dLayer() {
+    this.map.addLayer({
+      id: 'building-extrusion',
+      type: 'fill-extrusion',
+      source: 'openmaptiles',
+      'source-layer': 'building',
+      paint: {
+        'fill-extrusion-color': 'rgb(219, 219, 218)',
+        'fill-extrusion-height': 0,
+        'fill-extrusion-opacity': 0.7,
+        'fill-extrusion-height-transition': {
+          duration: 600,
+          delay: 0
         }
       }
-      this.map.addLayer({
-        id: 'building-extrusion',
-        type: 'fill-extrusion',
-        source: 'openmaptiles',
-        'source-layer': 'building',
-        paint: {
-          'fill-extrusion-color': 'rgb(219, 219, 218)',
-          'fill-extrusion-height': 0,
-          'fill-extrusion-opacity': 0.7,
-          'fill-extrusion-height-transition': {
-            duration: 600,
-            delay: 0
-          }
-        }
-      });
-      this.map.easeTo({
-        pitch: 60,
-        zoom: 17,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
-    } else if (this.threedActive) {
-      this.map.easeTo({
-        pitch: 0,
-        zoom: 14,
-        center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-      });
-      this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
-      this.map.removeLayer('building-extrusion');
-    }
-    this.threedActive = !this.threedActive;
+    });
+  }
+
+  deactivate3dView() {
+    this.map.easeTo({
+      pitch: 0,
+      zoom: 14,
+      center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+    });
+    this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+    this.map.removeLayer('building-extrusion');
   }
 
   toggleSearchActive() {
     this.searchActive = !this.searchActive;
+  }
+
+  public toggleFilterActive() {
+    this.filterActive = !this.filterActive;
+  }
+
+  resetMap() {
+    this.map.resize();
+
+    if (this.threeDActive) {
+      this.deactivate3dView();
+    }
+
+    this.map.fitBounds(this.bounds, {
+      pitch: 0,
+      bearing: 0
+    });
+  }
+
+  enableLocationTracking() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(location => {
+        const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
+        this.map.easeTo({
+          pitch: 0,
+          zoom: 14,
+          center: lngLat
+        });
+        this.marker.setLngLat(lngLat).addTo(this.map);
+      });
+    }
   }
 }

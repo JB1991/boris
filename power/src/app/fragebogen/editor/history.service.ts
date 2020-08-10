@@ -8,10 +8,8 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class HistoryService {
-  private undoBuffer: any = [];
-  private redoBuffer: any = [];
-  public undoIndex = 0;
-  public redoIndex = 0;
+  public undoBuffer: any = [];
+  public redoBuffer: any = [];
 
   constructor(public storage: StorageService) { }
 
@@ -21,8 +19,6 @@ export class HistoryService {
   public resetService() {
     this.undoBuffer = [];
     this.redoBuffer = [];
-    this.undoIndex = 0;
-    this.redoIndex = 0;
   }
 
   /**
@@ -30,21 +26,22 @@ export class HistoryService {
    * @param data JSON data
    * @param del True to delete future
    */
-  public makeHistory(data: any, del: boolean = true) {
+  public makeHistory(data: any, del = true) {
+    // check data
+    if (!data) {
+      return;
+    }
     this.storage.setUnsavedChanges(true);
-    this.undoBuffer[this.undoIndex] = JSON.stringify(data);
-    this.undoIndex++;
+    this.undoBuffer.push(JSON.stringify(data));
 
     // limit size
-    if (this.undoIndex > 10) {
-      this.undoIndex--;
-      delete this.undoBuffer[0];
+    if (this.undoBuffer.length > 10) {
+      this.undoBuffer.splice(0, 1);
     }
 
     // delete future
     if (del) {
         this.redoBuffer = [];
-        this.redoIndex = 0;
     }
   }
 
@@ -53,66 +50,56 @@ export class HistoryService {
    * @param data JSON data
    */
   public makeFuture(data: any) {
+    // check data
+    if (!data) {
+      return;
+    }
     this.storage.setUnsavedChanges(true);
-    this.redoBuffer[this.redoIndex] = JSON.stringify(data);
-    this.redoIndex++;
+    this.redoBuffer.push(JSON.stringify(data));
 
     // limit size
-    if (this.redoBuffer > 10) {
-      this.redoIndex--;
-      delete this.redoBuffer[0];
+    if (this.redoBuffer.length > 10) {
+      this.redoBuffer.splice(0, 1);
     }
   }
 
   /**
    * Undo last change
    */
-  public undoChanges(): any {
+  public undoChanges(): boolean {
     // check if future exists
-    if (this.undoIndex < 1) {
-      return;
-    }
-
-    // reduce index
-    this.undoIndex--;
-    if (typeof this.undoBuffer[this.undoIndex] === 'undefined') {
-      throw new Error('History does not exists');
+    if (this.undoBuffer.length < 1) {
+      return false;
     }
 
     // restore
     this.makeFuture(this.storage.model);
-    delete this.undoBuffer[this.undoIndex + 1];
-    this.storage.model = JSON.parse(this.undoBuffer[this.undoIndex]);
+    this.storage.model = JSON.parse(this.undoBuffer.pop());
 
     // check if selected page exists
     if (this.storage.selectedPageID >= this.storage.model.pages.length) {
       this.storage.selectedPageID = this.storage.model.pages.length - 1;
     }
+    return true;
   }
 
   /**
    * Redo last change
    */
-  public redoChanges(): any {
+  public redoChanges(): boolean {
     // check if history exists
-    if (this.redoIndex < 1) {
-      return;
-    }
-
-    // reduce index
-    this.redoIndex--;
-    if (typeof this.redoBuffer[this.redoIndex] === 'undefined') {
-      throw new Error('Future does not exists');
+    if (this.redoBuffer.length < 1) {
+      return false;
     }
 
     // restore
     this.makeHistory(this.storage.model, false);
-    delete this.redoBuffer[this.redoIndex + 1];
-    this.storage.model = JSON.parse(this.redoBuffer[this.redoIndex]);
+    this.storage.model = JSON.parse(this.redoBuffer.pop());
 
     // check if selected page exists
     if (this.storage.selectedPageID >= this.storage.model.pages.length) {
       this.storage.selectedPageID = this.storage.model.pages.length - 1;
     }
+    return true;
   }
 }

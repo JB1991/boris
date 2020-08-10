@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(public titleService: Title,
               public router: Router,
               public auth: AuthService) {
-    this.titleService.setTitle('Formulare - POWER.NI');
+    this.titleService.setTitle($localize`Formulare - POWER.NI`);
   }
 
   ngOnInit() {

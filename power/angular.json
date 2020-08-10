@@ -13,10 +13,17 @@
           "style": "scss"
         }
       },
+      "i18n": {
+        "sourceLocale": "de",
+        "locales": {
+          "en": "src/locales/messages.en.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": false,
             "aot": true,
             "outputPath": "dist/power",
             "index": "src/index.html",
@@ -30,10 +37,16 @@
               "src/manifest.json"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "showdown",
+              "surveyjs-widgets",
+              "nouislider",
+              "inputmask",
+              "bootstrap-slider"
+            ]
           },
           "configurations": {
             "production": {
@@ -50,14 +63,14 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": false,
+              "buildOptimizer": true,
               "serviceWorker": true
             }
           }
@@ -91,7 +104,6 @@
             "sourceMap": true,
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": [],

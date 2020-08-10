@@ -19,15 +19,17 @@
     <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
     </ngb-pagination>
 
-    <select class="custom-select" style="width: auto;" [(ngModel)]="pageSize">
-      <option [ngValue]="2">2 items per page</option>
-      <option [ngValue]="4">4 items per page</option>
-      <option [ngValue]="8">8 items per page</option>
-    </select>
+    <label>
+      <select class="custom-select" [(ngModel)]="pageSize">
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="8">8 items per page</option>
+      </select>
+    </label>
   </div>
 </div>
 <div class="row">
-  <div class="col" *ngFor="let ft of filteredFeatures">
+  <div class="col-sm" *ngFor="let ft of filteredFeatures">
     <power-bodenrichtwert-detail [feature]="ft"></power-bodenrichtwert-detail>
   </div>
 </div>

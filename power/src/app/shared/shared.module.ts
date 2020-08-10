@@ -1,35 +1,28 @@
-import {NgModule} from '@angular/core';
-import {GeosearchComponent} from './geosearch/geosearch.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbAccordionModule, NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {HttpClientModule} from '@angular/common/http';
-import {CommonModule} from '@angular/common';
-import { AlertsModule } from '@app/shared/alerts/alerts.module';
-import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
-import { AuthModule } from '@app/shared/auth/auth.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { GeosearchComponent } from './geosearch/geosearch.component';
+import { AuthModule } from './auth/auth.module';
+import { AlertsModule } from './alerts/alerts.module';
+import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 
 @NgModule({
-  declarations: [GeosearchComponent],
+  declarations: [
+    GeosearchComponent
+  ],
   exports: [
-    NgbModule,
-    FormsModule,
-    HttpClientModule,
     GeosearchComponent,
-    NgbAccordionModule,
-    NgbCollapseModule,
-    CommonModule,
+    AuthModule,
     AlertsModule,
-    LoadingscreenModule,
-    AuthModule
+    LoadingscreenModule
   ],
   imports: [
-    NgbModule,
-    HttpClientModule,
+    CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    CommonModule
-  ],
-  providers: [HttpClientModule]
+    NgbTypeaheadModule
+  ]
 })
 export class SharedModule {
 }

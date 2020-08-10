@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularResizedEventModule } from 'angular-resize-event';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
-import { SharedModule } from '../shared/shared.module';
 import { BodenrichtwertListeComponent } from './bodenrichtwert-liste/bodenrichtwert-liste.component';
-import { BodenrichtwertService } from './bodenrichtwert.service';
-
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
-import { AngularResizedEventModule } from 'angular-resize-event';
-
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-
-import { NgxEchartsModule } from 'ngx-echarts';
+import { BodenrichtwertService } from './bodenrichtwert.service';
+import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
 import { HyphenatePipe } from './pipes/hyphenate.pipe';
@@ -40,11 +41,17 @@ import { HyphenatePipe } from './pipes/hyphenate.pipe';
     HyphenatePipe
   ],
   imports: [
-    SharedModule,
+    BodenrichtwertRoutingModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbAccordionModule,
+    NgbPaginationModule,
     NgxMapboxGLModule,
     NgxEchartsModule,
     AngularResizedEventModule,
-    BodenrichtwertRoutingModule,
+    SharedModule,
+    NgbDropdownModule
   ],
   providers: [BodenrichtwertService]
 })

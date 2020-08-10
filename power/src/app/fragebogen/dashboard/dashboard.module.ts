@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-import { StorageService } from './storage.service';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { StorageService } from './storage.service';
 import { DashboardComponent } from './dashboard.component';
 import { NewformComponent } from './newform/newform.component';
 
@@ -14,8 +15,9 @@ import { NewformComponent } from './newform/newform.component';
     NewformComponent,
   ],
   imports: [
-    CommonModule,
     DashboardRoutingModule,
+    CommonModule,
+    HttpClientModule,
     FormsModule,
     ModalModule.forRoot()
   ],

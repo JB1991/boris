@@ -52,11 +52,14 @@
     "label-position": true,
     "max-file-line-count": [
       true,
-      500
+      300
     ],
     "max-func-body-length": [
-      false,
-      30
+      true,
+      30,
+      {
+        "ignore-parameters-to-function-regex": "^describe$"
+      }
     ],
     "max-line-length": [
       true,

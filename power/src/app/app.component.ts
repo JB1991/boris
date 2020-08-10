@@ -2,7 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } fro
 import { Subject } from 'rxjs';
 import { Config, ConfigService } from '@app/config.service';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from './shared/auth/auth.service';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 @Component({
   selector: 'power-root',
@@ -12,11 +12,12 @@ import { AuthService } from './shared/auth/auth.service';
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   title = 'power';
   isCollapsed = true;
-  isCollapsedAcc = false;
+  isCollapsedAcc = true;
   show = false;
   name: string;
-  config: Config;
-  appVersion: any = {version: 'local', branch: 'dev'};
+  public config: Config;
+  public appVersion: any = {version: 'local', branch: 'dev'};
+  public uri = location;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 

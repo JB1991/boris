@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Bootstrap4_CSS } from '../style';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'power-formulars-surveyjs-preview',
@@ -33,6 +34,7 @@ export class PreviewComponent implements OnInit {
       this.data = data;
     }
 
+    document.body.classList.add('overflow-hidden');
     this.mode = mode;
     this.isOpen = true;
   }
@@ -41,6 +43,7 @@ export class PreviewComponent implements OnInit {
    * Closes full formular preview
    */
   public Close() {
+    document.body.classList.remove('overflow-hidden');
     this.isOpen = false;
     this.data = null;
   }
@@ -50,6 +53,8 @@ export class PreviewComponent implements OnInit {
    * @param data Data
    */
   public debugPrint(data: any) {
-    console.log(data);
+    if (!environment.production) {
+      console.log(data);
+    }
   }
 }

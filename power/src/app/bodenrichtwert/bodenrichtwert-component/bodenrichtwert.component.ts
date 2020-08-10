@@ -1,4 +1,5 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { Feature } from 'geojson';
 import { Subscription } from 'rxjs';
@@ -36,8 +37,8 @@ export const TEILMAERKTE = [
  */
 @Component({
   selector: 'power-main',
-  templateUrl: 'bodenrichtwert-component.html',
-  styleUrls: ['bodenrichtwert-component.css']
+  templateUrl: 'bodenrichtwert.component.html',
+  styleUrls: ['bodenrichtwert.component.css']
 })
 export class BodenrichtwertComponent implements OnDestroy {
 
@@ -79,7 +80,9 @@ export class BodenrichtwertComponent implements OnDestroy {
   constructor(
     private geosearchService: GeosearchService,
     private bodenrichtwertService: BodenrichtwertService,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('Bodenrichtwerte - POWER.NI');
     this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
     this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
       this.acc.expandAll();

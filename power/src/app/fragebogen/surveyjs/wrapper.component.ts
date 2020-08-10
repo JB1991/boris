@@ -1,11 +1,12 @@
 import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
+import { ShowdownConverter } from 'ngx-showdown';
 import * as Survey from 'survey-angular';
-import { init } from './nouislider/nouislider.js';
-import * as Showdown from 'showdown';
+import * as widgets from 'surveyjs-widgets';
 
 @Component({
   selector: 'power-formulars-surveyjs-wrapper',
-  template: `<div #surveyjsDiv></div>`
+  template: `<div #surveyjsDiv></div>`,
+  styleUrls: ['./wrapper.component.scss']
 })
 export class WrapperComponent implements OnChanges {
   @ViewChild('surveyjsDiv', {static: true}) public surveyjsDiv: ElementRef;
@@ -14,8 +15,6 @@ export class WrapperComponent implements OnChanges {
   @Input() public mode: string;
   @Input() public theme: string;
   @Input() public css: {};
-  @Input() public completedHtml: string;
-  @Input() public navigateToURL: string;
   @Input() public showInvisible = false;
   @Output() public submitResult: EventEmitter<any> = new EventEmitter();
   @Output() public interimResult: EventEmitter<any> = new EventEmitter();
@@ -24,26 +23,10 @@ export class WrapperComponent implements OnChanges {
   public survey: Survey.Survey;
   public props: any;
 
-  ngOnChanges() {
-    if (this.theme) {
-      Survey.StylesManager.applyTheme(this.theme);
-    }
-
-    const classMap = {
-      h1: 'd-inline',
-      h2: 'd-inline',
-      p: 'd-inline'
-    };
-
-    const bindings = Object.keys(classMap)
-      .map(key => ({
-        type: 'output',
-        regex: new RegExp(`<${key}(.*)>`, 'g'),
-        replace: `<${key} class="${classMap[key]}" $1>`
-      }));
-
-    const converter = new Showdown.Converter({
-      extensions: [...bindings],
+  constructor(public showdownConverter: ShowdownConverter) {
+    // set showdown settings for markdown
+    showdownConverter.setFlavor('github');
+    showdownConverter.setOptions({
       simpleLineBreaks: true,
       simplifiedAutoLink: true,
       excludeTrailingPunctuationFromURLs: true,
@@ -55,21 +38,32 @@ export class WrapperComponent implements OnChanges {
       openLinksInNewWindow: true,
       emoji: true,
     });
-    converter.setFlavor('github');
+  }
 
-    init(Survey);
+  ngOnChanges() {
+    if (this.theme) {
+      Survey.StylesManager.applyTheme(this.theme);
+    }
+
+    // load custom widgets
+    widgets.nouislider(Survey);
+    widgets.sortablejs(Survey);
+
+    // create survey
     this.survey = new Survey.Model(this.model);
 
+    // add markdown renderer
     this.survey.onTextMarkdown.add((s, options) => {
       let str = options.text.split('\n\n').join('<br\><br\>');
-      str = converter.makeHtml(str);
-      if (str.startsWith('<p>') && str.endsWith('</p>')) {
+      str = this.showdownConverter.makeHtml(str);
+      if (str.startsWith('<p>')) {
         str = str.substring(3);
         str = str.substring(0, str.length - 4);
       }
-      options.html = converter.makeHtml(str);
+      options.html = str;
     });
 
+    // set options
     if (this.mode) {
       this.survey.mode = this.mode;
     }
@@ -85,12 +79,6 @@ export class WrapperComponent implements OnChanges {
     } else if (this.data) {
       this.props['data'] = this.data;
     }
-    if (this.completedHtml) {
-      this.props['completedHtml'] = this.completedHtml;
-    }
-    if (this.navigateToURL) {
-      this.props['navigateToURL'] = this.navigateToURL;
-    }
     if (this.changes) {
       this.props['onValueChanged'] = (s, _) => {
         this.changes.emit(s.data);
@@ -102,11 +90,12 @@ export class WrapperComponent implements OnChanges {
       };
     }
     if (this.submitResult) {
-      this.props['onComplete'] = (s, _) => {
-        this.submitResult.emit(s.data);
+      this.props['onComplete'] = (s, o) => {
+        this.submitResult.emit({result: s.data, options: o});
       };
     }
 
+    // render survey
     Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, this.props);
   }
 }

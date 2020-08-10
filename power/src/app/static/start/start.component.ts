@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'power-start',
@@ -7,10 +8,10 @@ import {Component, OnInit} from '@angular/core';
 })
 export class StartComponent implements OnInit {
 
-  constructor() {
+  constructor(public title: Title) {
+    this.title.setTitle($localize`Portal für Wertermittlung Niedersachsen`);
   }
 
   ngOnInit() {
   }
-
 }

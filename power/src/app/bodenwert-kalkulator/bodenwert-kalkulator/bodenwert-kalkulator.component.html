@@ -12,14 +12,14 @@
           <power-geosearch></power-geosearch>
         </div>
         <div class="nav">
-          <a class="nav-link">
-            <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          <a class="nav-link" (click)="enableLocationTracking()">
+            <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung">
           </a>
           <a class="nav-link" (click)="toggle3dView()">
-            <img src="/assets/icons/building.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren">
           </a>
-          <a class="nav-link">
-            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          <a class="nav-link" (click)="resetMap()">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen">
           </a>
         </div>
       </nav>
@@ -31,22 +31,22 @@
     <div class="nav-scroller bg-white shadow-sm border-top">
       <nav class="nav nav-underline">
         <div class="nav mr-auto">
-          <a class="nav-link">
-            <img src="/assets/icons/filter.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          <a class="nav-link" (click)="toggleFilterActive()">
+            <img src="/assets/icons/filter.svg" width="25" height="25" alt="Filtern">
           </a>
         </div>
         <div class="nav ml-auto">
           <a class="nav-link" (click)="toggleSearchActive()">
-            <img src="/assets/icons/search.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche">
           </a>
-          <a class="nav-link">
-            <img src="/assets/icons/geo.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          <a class="nav-link" (click)="enableLocationTracking()">
+            <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung">
           </a>
           <a class="nav-link" (click)="toggle3dView()">
-            <img src="/assets/icons/building.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+            <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren">
           </a>
-          <a class="nav-link">
-            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" style="font-size: 25px; vertical-align: middle;">
+          <a class="nav-link" (click)="resetMap()">
+            <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen">
           </a>
         </div>
       </nav>
@@ -63,8 +63,7 @@
       (click)="onMapClickEvent($event)"
       [style]="MAP_STYLE_URL"
       [trackResize]="true"
-      [zoom]="[15]"
-      [center]="[9.590764, 52.37345]"
+      [bounds]="bounds"
       (load)="loadMap($event)">
 
       <mgl-vector-source id="geoserver" [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=alkis:ax_flurstueck&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
@@ -128,7 +127,7 @@
               <th>Wert</th>
             </tr>
             <tr *ngFor="let feature of this.flurstueckSelection | keyvalue">
-              <td>{{feature.value.properties.amtlicheflaeche}} m&#178;</td>
+              <td>{{feature.value.properties.amtlicheflaeche | number }} m&#178;</td>
               <td>{{feature.value.properties.wert | currency:'EUR':"symbol" : '1.2-2'}}</td>
             </tr>
           </table>

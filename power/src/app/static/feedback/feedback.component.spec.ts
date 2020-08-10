@@ -24,7 +24,7 @@ describe('Static.Feedback.FeedbackComponent', () => {
   });
 
   it('should have a title', () => {
-    expect(component.titleService.getTitle()).toContain('Rückmeldung');
+    expect(component.titleService.getTitle()).toContain('Feedback');
   });
 
   it('should show the mail address', () => {

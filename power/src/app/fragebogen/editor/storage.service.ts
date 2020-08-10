@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 
 import * as templates from './data';
-import { Bootstrap4_CSS } from '../surveyjs/style';
+import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 import { AuthService } from '@app/shared/auth/auth.service';
 
 /**
@@ -14,8 +14,8 @@ import { AuthService } from '@app/shared/auth/auth.service';
   providedIn: 'root'
 })
 export class StorageService {
-  public model: any = JSON.parse(JSON.stringify(templates.FormularTemplate));
-  public css_style: any = JSON.parse(JSON.stringify(Bootstrap4_CSS));
+  public model: any = JSON.parse(JSON.stringify(templates.defaultTemplate));
+  public css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
   public FormularFields = templates.FormularFields;
   public DatabaseMap = templates.DatabaseMap;
   public selectedPageID = 0;
@@ -27,15 +27,17 @@ export class StorageService {
               public auth: AuthService) {
     // overwrite style class
     this.css_style.container = 'sv_container';
+    this.css_style.row = 'sv_row';
   }
 
   /**
    * Resets service to empty model
    */
   public resetService() {
-    this.model = JSON.parse(JSON.stringify(templates.FormularTemplate));
+    this.model = JSON.parse(JSON.stringify(templates.defaultTemplate));
     this.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
     this.css_style.container = 'sv_container';
+    this.css_style.row = 'sv_row';
     this.FormularFields = templates.FormularFields;
     this.DatabaseMap = templates.DatabaseMap;
     this.selectedPageID = 0;
@@ -45,29 +47,37 @@ export class StorageService {
   }
 
   /**
-   * Loads a form by id. If id is empty default template is loaded
-   * @param id Form id
+   * Loads a form by id
    */
   public loadForm(id: string): Observable<Object> {
-    // load data from server
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
+    // load form
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
     return this.httpClient.get(url, this.auth.getHeaders());
   }
 
   /**
-   * Saves form. If id is not specified a new will be created.
+   * Saves form by id
    * @param data Surveyjs model
    * @param id Form id
    * @param tags Form tags
    */
-  public saveForm(data: any, id?: string, tags?: string[]): Observable<Object> {
-    if (id) {
-      const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + (tags ? '?tags=' + tags : '');
-      return this.httpClient.post(url, data, this.auth.getHeaders());
-    } else {
-      const url = environment.formAPI + 'intern/forms' + (tags ? '?tags=' + tags : '');
-      return this.httpClient.post(url, data, this.auth.getHeaders());
+  public saveForm(data: any, id: string, tags?: string[]): Observable<Object> {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
     }
+    if (!data) {
+      throw new Error('data is required');
+    }
+
+    // save form
+    const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + (tags ? '?tags=' + tags : '');
+    return this.httpClient.post(url, data, this.auth.getHeaders());
   }
 
   /**
@@ -99,9 +109,6 @@ export class StorageService {
   public getAutoSaveEnabled(): boolean {
     return this.AutoSaveEnabled;
   }
-
-
-  /* HELPER FUNCTIONS */
 
   /**
    * Get next unique page id

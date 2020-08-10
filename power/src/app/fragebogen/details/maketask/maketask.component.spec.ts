@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,9 +12,6 @@ import { environment } from '@env/environment';
 describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
   let component: MaketaskComponent;
   let fixture: ComponentFixture<MaketaskComponent>;
-  let storage: StorageService;
-  let alerts: jasmine.SpyObj<AlertsService>;
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   const taskSample = require('../../../../assets/fragebogen/tasks-list.json');
@@ -31,10 +27,7 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
       providers: [
         BsModalService,
         StorageService,
-        {
-          provide: AlertsService,
-          useValue: jasmine.createSpyObj('AlertsService', ['NewAlert'])
-        },
+        AlertsService
       ],
       declarations: [
         MaketaskComponent
@@ -47,9 +40,7 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
     fixture.detectChanges();
 
     spyOn(console, 'log');
-    storage = TestBed.inject(StorageService);
-    alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
-    httpClient = TestBed.inject(HttpClient);
+    spyOn(component.alerts, 'NewAlert');
     httpTestingController = TestBed.inject(HttpTestingController);
   }));
 
@@ -82,8 +73,9 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
     component.Generate();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST',
                       { 'error': 'Internal Server Error'});
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert)
+    .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {
@@ -93,8 +85,8 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
     component.Generate();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST', taskSample,
                       { status: 404, statusText: 'Not Found' });
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Not Found');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Not Found');
   });
 
   it('should fail to generate', () => {
@@ -103,8 +95,8 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
 
     component.Generate();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=1', 'POST', null);
-    expect(alerts.NewAlert).toHaveBeenCalledTimes(1);
-    expect(alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', '123');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', '123');
   });
 
   it('should crash', () => {
@@ -140,14 +132,7 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
   }
 
   afterEach(() => {
-    storage.resetService();
-    storage = null;
-
     // Verify that no requests are remaining
     httpTestingController.verify();
-
-    // Destruction
-    fixture.destroy();
-    component = null;
   });
 });
