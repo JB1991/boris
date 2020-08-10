@@ -37,8 +37,8 @@ export const TEILMAERKTE = [
  */
 @Component({
   selector: 'power-main',
-  templateUrl: 'bodenrichtwert-component.html',
-  styleUrls: ['bodenrichtwert-component.css']
+  templateUrl: 'bodenrichtwert.component.html',
+  styleUrls: ['bodenrichtwert.component.css']
 })
 export class BodenrichtwertComponent implements OnDestroy {
 
