@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
-import { MapboxGeoJSONFeature, MapMouseEvent, Marker, Point } from 'mapbox-gl';
+import { LngLat, LngLatBounds, MapboxGeoJSONFeature, MapMouseEvent, Marker, Point } from 'mapbox-gl';
 import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -11,18 +11,27 @@ import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 })
 export class BodenwertKalkulatorComponent implements OnInit {
 
+  threeDActive = false;
+  searchActive = false;
+  filterActive = false;
+
+  baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
   MAP_STYLE_URL = environment.basemap;
-  marker: Marker;
+
+  map;
+  bounds = new LngLatBounds([
+    [9.602684462835214, 52.376003466999975], [9.579526408716788, 52.36982114326486]
+  ]);
+  marker: Marker = new Marker({
+    color: '#c4153a',
+  });
+
   data;
   adresse;
   flurstueckSelection = new Map<string, MapboxGeoJSONFeature>();
 
-  baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
-
-  map;
   features: any;
-  threeDActive = false;
-  searchActive = false;
+
   @ViewChild('acc') acc: NgbAccordion;
 
   constructor(private titleService: Title) {
@@ -138,5 +147,36 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
   toggleSearchActive() {
     this.searchActive = !this.searchActive;
+  }
+
+  public toggleFilterActive() {
+    this.filterActive = !this.filterActive;
+  }
+
+  resetMap() {
+    this.map.resize();
+
+    if (this.threeDActive) {
+      this.deactivate3dView();
+    }
+
+    this.map.fitBounds(this.bounds, {
+      pitch: 0,
+      bearing: 0
+    });
+  }
+
+  enableLocationTracking() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(location => {
+        const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
+        this.map.easeTo({
+          pitch: 0,
+          zoom: 14,
+          center: lngLat
+        });
+        this.marker.setLngLat(lngLat).addTo(this.map);
+      });
+    }
   }
 }
