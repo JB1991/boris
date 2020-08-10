@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import { LngLat, LngLatBounds, Map, Marker } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
@@ -21,6 +20,9 @@ export class BodenrichtwertKarteComponent implements OnInit {
   MAP_STYLE_URL = environment.basemap;
 
   map: Map;
+  bounds = new LngLatBounds([
+    [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
+  ]);
   marker: Marker = new Marker({
     color: '#c4153a',
   });
@@ -42,12 +44,6 @@ export class BodenrichtwertKarteComponent implements OnInit {
   @Output() stichtagChange = new EventEmitter();
 
   STICHTAGE = STICHTAGE;
-
-  f;
-
-  bounds = new LngLatBounds([
-    [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
-  ]);
 
   constructor(
     private bodenrichtwertService: BodenrichtwertService,
@@ -90,8 +86,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
   }
 
   getBodenrichtwertzonen(lat: number, lng: number, entw: string) {
-    this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, this.teilmarkt.value).subscribe(res => {
-      console.log(res);
+    this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw).subscribe(res => {
       this.bodenrichtwertService.updateFeatures(res);
     });
   }
@@ -133,14 +128,14 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   toggle3dView() {
     if (!this.threeDActive) {
-      this.activate3D();
+      this.activate3dView();
     } else if (this.threeDActive) {
-      this.deactivate3D();
+      this.deactivate3dView();
     }
     this.threeDActive = !this.threeDActive;
   }
 
-  private activate3D() {
+  private activate3dView() {
     this.map.addLayer({
       id: 'building-extrusion',
       type: 'fill-extrusion',
@@ -164,7 +159,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
   }
 
-  private deactivate3D() {
+  private deactivate3dView() {
     this.map.easeTo({
       pitch: 0,
       zoom: 14,
@@ -186,18 +181,18 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
   resetMap() {
     this.map.resize();
-    this.deactivate3D();
-    this.map.fitBounds([
-      [6.19523325024787, 51.2028429493903],
-      [11.7470832174838, 54.1183357191213]
-    ], {
+
+    if (this.threeDActive) {
+      this.deactivate3dView();
+    }
+
+    this.map.fitBounds(this.bounds, {
       pitch: 0,
       bearing: 0
     });
   }
 
   onResize(event) {
-    console.log(event);
     this.map.resize();
   }
 

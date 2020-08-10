@@ -155,7 +155,7 @@ export class BodenrichtwertService {
      * Umrechnuntstabellendatei and Umrechnungstabellenwerte are presented as String not JSON,
      * therefore they have to be parsed manually
      */
-    const data = this.http.post<FeatureCollection>(this.url, filter)
+    return this.http.post<FeatureCollection>(this.url, filter)
       .pipe(
         map(response => {
           const ft = response.features.map(f => {
@@ -168,8 +168,6 @@ export class BodenrichtwertService {
           return response;
         }),
         catchError(this.handleError));
-
-    return data;
   }
 
   private handleError(error: HttpErrorResponse) {
