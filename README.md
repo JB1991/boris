@@ -115,7 +115,6 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
     * [nouislider](https://refreshless.com/nouislider/)
   * [ngx-showdown](https://github.com/yisraelx/ngx-showdown)
 
-
 ### Bodenrichtwerte
 * Visualisierung der Bodenrichtwertzonen
 * Funktionen:
@@ -185,6 +184,7 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
   * `NewAlert`: Erstellen neuer Meldung
 * Abhängigkeiten
   * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
+  * [bootstrap-icons](https://icons.getbootstrap.com/)
 
 ### Loadingscreenmodul
 * Anzeige eines Ladebildschirmes
