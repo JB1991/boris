@@ -4,8 +4,8 @@
 [![coverage report](https://gitlab.com/lgln/power.ni/power-frontend/badges/dev/coverage.svg)](https://gitlab.com/lgln/power.ni/power-frontend/-/commits/dev)
 
 In diesem Projekt wird gemeinsam an einer Plattform zur Visualisierung von Wertermittlungsinformationen gearbeitet.
-Diese Plattform wird in Form einer Single-Page-Application (SPA) realisiert, die weitere Dienste (für z.B. Daten oder 
-Geokodierung) einbindet. 
+Diese Plattform wird in Form einer Single-Page-Application (SPA) realisiert, die weitere Dienste (für z.B. Daten oder
+Geokodierung) einbindet.
 
 Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesvermessung Niedersachsen (LGLN).
 
@@ -19,23 +19,23 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 ## Getting started
 
-1. Projekt klonen  
+1. Projekt klonen
     ```
-   git clone ... 
-   cd power
+   git clone ...
    ```
-2. Abhängigkeiten installieren  
+2. Abhängigkeiten installieren
     ```
+    cd power
     npm install
    ```
-    
-3. Lokalen Entwicklungsserver starten  
+
+3. Lokalen Entwicklungsserver starten
     ```
-    ng serve
-   ```  
+    ng serve --open
+   ```
     Dies startet einen Webserver, der unter [http://localhost:4200](http://localhost:4200) erreicht werden kann.
-    Bei Änderungen am Code werden Änderungen automatisch übertragen. 
- 
+    Bei Änderungen am Code werden Änderungen automatisch übertragen.
+
 ## Tests
 
 1. Unit-Tests ausführen
@@ -48,7 +48,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    ```
    ng e2e --port 4201
    ```
- 
+
 3. Audit ausführen
    ```
    npm audit
@@ -94,7 +94,26 @@ Um bestimmte Module zur Laufzeit zu aktivieren oder deaktivieren, füge die Name
 Die Bezeichner müssen mit den Namen in der Datei [app.component.html](power/src/app/app.component.html) übereinstimmen.
 Die Datei `config.json` kann im finalen Artefakt geändert werden.
 
+### Authentifizerung (de)aktivieren
+Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/src/assets/config/config.json) (de)aktivieren. Dies geht auch zur Laufzeit in Kubernetes in der `power-configmap`.
+
 ## Module
+
+### Fragebogenonline
+* Dynamisches erstellen von Fragebogen, welche online ausgefüllt werden können
+* Funktionen
+  * Mächtiger Editor zum erstellen von dynamischen und flexiblen Fragebögen
+  * Universelle Lösung, vielseitig einsetzbar
+  * Öffentliche Fragebögen oder mit PIN geschützte
+  * Ergebnisexport als CSV oder per API
+* Abhängigkeiten
+  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
+  * [bootstrap-icons](https://icons.getbootstrap.com/)
+  * [ngx-smooth-dnd](https://github.com/kutlugsahin/ngx-smooth-dnd)
+  * [SurveyJS - Angular](https://github.com/surveyjs/surveyjs_angular_cli)
+  * [SurveyJS - Widgets](https://github.com/surveyjs/widgets)
+    * [nouislider](https://refreshless.com/nouislider/)
+  * [ngx-showdown](https://github.com/yisraelx/ngx-showdown)
 
 ### Bodenrichtwerte
 * Visualisierung der Bodenrichtwertzonen
@@ -111,7 +130,7 @@ Die Datei `config.json` kann im finalen Artefakt geändert werden.
 * Entwicklung des BRW als Step-Line-Graph
 * Abhängigkeiten:
   * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
-  * [Bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
+  * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
   * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
   * [ECharts](https://www.npmjs.com/package/echarts)
   * [GeoJSON](https://www.npmjs.com/package/geojson)
@@ -127,8 +146,58 @@ Die Datei `config.json` kann im finalen Artefakt geändert werden.
 * Derzeit mit offiziellen LGLN Testdaten + zufällig generierten Werten (100.000€ - 1.000.000€)
 * Abhängigkeiten:
   * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
-  * [Bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
+  * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
   * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
+
+### Authentifizierungsmodul
+* Authentifizierung mittels Keycloak
+* Funktionen
+  * Login über Keycloak
+  * Logout über Keycloak
+  * Beziehen von Benutzerinfos über Keycloak
+  * Schützen von Routen
+  * Autorisierung von API Anfragen
+* Schnittstellen
+  * Route schützen
+    * Importiere `AuthGuard` in die Routendefinition
+    * Füge AuthGuard zur Route hinzu `canActivate: [AuthGuard]`
+  * Authentifizierung prüfen
+    * `AuthService` zum Constructor hinzufügen
+    * `IsAuthEnabled`: True wenn Authentifizierung aktiviert
+    * `IsAuthenticated`: True wenn Benutzer Authentifiziert
+  * Benutzerinfos erhalten
+    * `AuthService` zum Constructor hinzufügen
+    * `getBearer`: HTTP Authorizationheader content
+    * `getHeaders`: Gibt fertigen Anguar `HttpHeaders` zurück mit Responsetype, Content-Type und Authorizationheader gesetzt
+    * `getUser`: Gibt Benutzerobjekt zurück. Attribut `.data` enthält Userinfo von Keycloak
+* Abhängigkeiten
+  * Keycloak
+
+### Alertsmodul
+* Anzeigen von Fehlermeldungen an den Benutzer
+* Funktionen
+  * Unterstützt success, danger, info und warning Meldungen
+  * Timeout frei einstellbar
+  * Maximal 4 Meldungen gleichzeitig zu sehen
+* Schnittstellen
+  * `AlertsService` zum Constructor hinzufügen
+  * `NewAlert`: Erstellen neuer Meldung
+* Abhängigkeiten
+  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
+  * [bootstrap-icons](https://icons.getbootstrap.com/)
+
+### Loadingscreenmodul
+* Anzeige eines Ladebildschirmes
+* Funktionen
+  * Überdecken der gesamten Webseite mit Ladeanimation
+  * Automatische anzeige, während Module laden
+  * Automatisch deaktiviert, nach beendigung vom Routing Event
+* Schnittstellen
+  * `LoadingscreenService` zum Constructor hinzufügen
+  * `isVisible`: True wenn Ladebildschirm angezeigt wird
+  * `setVisible`: Anzeigen oder verstecken des Ladebildschirmes
+* Abhängigkeiten
+  * Keine
 
 ### Feedback
 Benutzer können uns über den Link "Rückmeldung geben" Feedback senden.
@@ -141,4 +210,4 @@ Ein Nachteil ist, dass die Benutzer folgende Auto-Response erhalten: `Thank you 
 Die Auto-Response ist nur mit dem [kostenpflichtigen GitLab-Premium](https://about.gitlab.com/pricing/) über [E-Mail-Templates](https://gitlab.com/help/user/project/service_desk#using-customized-email-templates) änderbar.
 
 Über die Datei `.gitlab/issue_templates/Feedback.md` wird neuen Issues automatisch das Label "Feedback" hinzugefügt.
-Per [GitLab Quick Actions](https://docs.gitlab.com/ee/user/project/quick_actions.html) können bei Bedarf weitere Aktionen automatisch ausgeführt werden. 
+Per [GitLab Quick Actions](https://docs.gitlab.com/ee/user/project/quick_actions.html) können bei Bedarf weitere Aktionen automatisch ausgeführt werden.
