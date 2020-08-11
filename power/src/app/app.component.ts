@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   show = false;
   name: string;
   public config: Config;
-  public appVersion: any = {version: 'local', branch: 'dev'};
+  public appVersion: any = { version: 'local', branch: 'dev' };
   public uri = location;
 
   private unsubscribe$: Subject<void> = new Subject<void>();

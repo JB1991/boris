@@ -32,8 +32,7 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
       declarations: [
         MaketaskComponent
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MaketaskComponent);
     component = fixture.componentInstance;
@@ -57,7 +56,7 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
   });
 
   it('should generate', () => {
-    component.storage.form = {'id': '123'};
+    component.storage.form = { 'id': '123' };
     component.amount = 2;
 
     component.Generate();
@@ -67,30 +66,30 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
   });
 
   it('should error', () => {
-    component.storage.form = {'id': '123'};
+    component.storage.form = { 'id': '123' };
     component.amount = 2;
 
     component.Generate();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST',
-                      { 'error': 'Internal Server Error'});
+      { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert)
-    .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
+      .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {
-    component.storage.form = {'id': '123'};
+    component.storage.form = { 'id': '123' };
     component.amount = 2;
 
     component.Generate();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST', taskSample,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Not Found');
   });
 
   it('should fail to generate', () => {
-    component.storage.form = {'id': '123'};
+    component.storage.form = { 'id': '123' };
     component.amount = 1;
 
     component.Generate();

@@ -16,8 +16,8 @@ describe('Shared.Auth.AuthService', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-          { path: '', component: MockHomeComponent},
-          { path: 'home', component: MockHomeComponent}
+          { path: '', component: MockHomeComponent },
+          { path: 'home', component: MockHomeComponent }
         ])
       ],
       providers: [
@@ -39,11 +39,11 @@ describe('Shared.Auth.AuthService', () => {
 
   it('should getBearer correct', () => {
     // correct bearer
-    service.user = {'expires': new Date(), 'token': {'access_token': 'XXX'}, 'data': null};
+    service.user = { 'expires': new Date(), 'token': { 'access_token': 'XXX' }, 'data': null };
     expect(service.getBearer()).toEqual('Bearer XXX');
 
     // token missing
-    service.user = {'expires': new Date(), 'token': {}, 'data': null};
+    service.user = { 'expires': new Date(), 'token': {}, 'data': null };
     expect(service.getBearer()).toBeNull();
   });
 
@@ -52,54 +52,54 @@ describe('Shared.Auth.AuthService', () => {
 
     // check responsetype and content-type
     expire.setSeconds(expire.getSeconds() + 200);
-    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}, 'data': null};
+    service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' }, 'data': null };
     expect(service.getHeaders('text', 'text/csv').responseType).toEqual('text');
     expect(service.getHeaders('text', 'text/csv').headers.get('Content-Type')).toEqual('text/csv');
 
     // valid session, auth header set
     expire.setSeconds(expire.getSeconds() + 200);
-    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}, 'data': null};
+    service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' }, 'data': null };
     expect(service.getHeaders().headers.get('Authorization')).toEqual('Bearer XXX');
 
     // invalid session, no auth header
     expire.setSeconds(expire.getSeconds() - 800);
-    service.user = {'expires': expire, 'token': {'access_token': 'XXX'}, 'data': null};
+    service.user = { 'expires': expire, 'token': { 'access_token': 'XXX' }, 'data': null };
     expect(service.getHeaders().headers.get('Authorization')).toBeNull();
   });
 
   it('should IsAuthEnabled correct', () => {
     // auth enabled
-    service.conf.config = {'modules': [], 'authentication': true};
+    service.conf.config = { 'modules': [], 'authentication': true };
     environment.production = true;
     expect(service.IsAuthEnabled()).toBeTrue();
 
     // auth disabled
-    service.conf.config = {'modules': [], 'authentication': false};
+    service.conf.config = { 'modules': [], 'authentication': false };
     environment.production = true;
     expect(service.IsAuthEnabled()).toBeFalse();
 
     // auth disabled, non-production
-    service.conf.config = {'modules': [], 'authentication': true};
+    service.conf.config = { 'modules': [], 'authentication': true };
     environment.production = false;
     expect(service.IsAuthEnabled()).toBeFalse();
   });
 
   it('should IsAuthenticated correct', () => {
-    service.conf.config = {'modules': [], 'authentication': true};
+    service.conf.config = { 'modules': [], 'authentication': true };
     environment.production = true;
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 900);
 
     // valid session
-    service.user = {'expires': expire, 'token': 6, 'data': null};
+    service.user = { 'expires': expire, 'token': 6, 'data': null };
     expect(service.IsAuthenticated()).toBeTrue();
 
     // expired session
-    service.user = {'expires': new Date(), 'token': 6, 'data': null};
+    service.user = { 'expires': new Date(), 'token': 6, 'data': null };
     expect(service.IsAuthenticated()).toBeFalse();
 
     // invalid user object
-    service.user = {'expires': null, 'token': null, 'data': null};
+    service.user = { 'expires': null, 'token': null, 'data': null };
     expect(service.IsAuthenticated()).toBeFalse();
   });
 
@@ -110,7 +110,7 @@ describe('Shared.Auth.AuthService', () => {
       done();
     });
 
-    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'expires_in': 900, 'access_token': 'XXX'});
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'XXX' });
   });
 
   it('should not get token', (done) => {
@@ -120,7 +120,7 @@ describe('Shared.Auth.AuthService', () => {
       done();
     });
 
-    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'error': 404});
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'error': 404 });
   });
 
   it('should not get token 2', (done) => {
@@ -141,7 +141,7 @@ describe('Shared.Auth.AuthService', () => {
     });
 
     answerHTTPRequest(environment.auth.url + 'token', 'POST', 10,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
   });
 
   it('should fail get token', (done) => {
@@ -156,33 +156,33 @@ describe('Shared.Auth.AuthService', () => {
     // get user info
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 900);
-    service.user = {'expires': expire, 'token': {'access_token': 'abc'}, 'data': null};
+    service.user = { 'expires': expire, 'token': { 'access_token': 'abc' }, 'data': null };
     service.KeyLoakUserInfo().then((value) => {
-      expect(service.user.data).toEqual({'name': 'Miau'});
+      expect(service.user.data).toEqual({ 'name': 'Miau' });
       done();
     });
 
-    answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', {'name': 'Miau'});
+    answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', { 'name': 'Miau' });
   });
 
   it('should not get user info', (done) => {
     // get error
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 900);
-    service.user = {'expires': expire, 'token': {'access_token': 'abc'}, 'data': null};
+    service.user = { 'expires': expire, 'token': { 'access_token': 'abc' }, 'data': null };
     service.KeyLoakUserInfo().then((value) => {
       expect(service.user.data).toBeNull();
       done();
     });
 
-    answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', {'error': 404});
+    answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', { 'error': 404 });
   });
 
   it('should not get user info 2', (done) => {
     // get nothing
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 900);
-    service.user = {'expires': expire, 'token': {'access_token': 'abc'}, 'data': null};
+    service.user = { 'expires': expire, 'token': { 'access_token': 'abc' }, 'data': null };
     service.KeyLoakUserInfo().then((value) => {
       expect(service.user.data).toBeNull();
       done();
@@ -195,21 +195,21 @@ describe('Shared.Auth.AuthService', () => {
     // get error status code
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 900);
-    service.user = {'expires': expire, 'token': {'access_token': 'abc'}, 'data': null};
+    service.user = { 'expires': expire, 'token': { 'access_token': 'abc' }, 'data': null };
     service.KeyLoakUserInfo().then((value) => {
       expect(service.user.data).toBeNull();
       done();
     });
 
     answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', 10,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
   });
 
   it('should load session', (done) => {
     // load valid session
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 200);
-    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+    localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
     service.loadSession(false).then((value) => {
       expect(service.IsAuthenticated()).toBeTrue();
@@ -221,21 +221,21 @@ describe('Shared.Auth.AuthService', () => {
     // load expired session
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() - 200);
-    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+    localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
     service.loadSession().then((value) => {
       expect(service.IsAuthenticated()).toBeTrue();
       done();
     });
 
-    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'expires_in': 900, 'access_token': 'XXX'});
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'XXX' });
   });
 
   it('should not refresh session', (done) => {
     // load expired session
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() - 200);
-    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+    localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
     service.loadSession().then((value) => {
       expect(service.IsAuthenticated()).toBeFalse();
@@ -249,21 +249,21 @@ describe('Shared.Auth.AuthService', () => {
     // load expired session
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() - 200);
-    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+    localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
     service.loadSession().then((value) => {
       expect(service.IsAuthenticated()).toBeFalse();
       done();
     });
 
-    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'error': 403});
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'error': 403 });
   });
 
   it('should not refresh session 3', (done) => {
     // load expired session
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() - 200);
-    localStorage.setItem('user', JSON.stringify({'expires': expire, 'token': {'refresh_token': 'XXX'}}));
+    localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
     service.loadSession().then((value) => {
       expect(service.IsAuthenticated()).toBeFalse();
@@ -271,7 +271,7 @@ describe('Shared.Auth.AuthService', () => {
     });
 
     answerHTTPRequest(environment.auth.url + 'token', 'POST', 5,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
   });
 
   /**

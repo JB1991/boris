@@ -17,7 +17,7 @@ describe('Shared.Auth.AuthGuard', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-          { path: 'login', component: MockLoginComponent}
+          { path: 'login', component: MockLoginComponent }
         ])
       ],
       providers: [
@@ -38,9 +38,9 @@ describe('Shared.Auth.AuthGuard', () => {
 
   it('should open in dev', (done) => {
     // auth disabled
-    guard.auth.conf.config = {'modules': [], 'authentication': false};
+    guard.auth.conf.config = { 'modules': [], 'authentication': false };
     environment.production = true;
-    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/private' }).then((value) => {
       expect(value).toBeTrue();
       done();
     });
@@ -48,9 +48,9 @@ describe('Shared.Auth.AuthGuard', () => {
 
   it('should open in dev 2', (done) => {
     // not in production
-    guard.auth.conf.config = {'modules': [], 'authentication': true};
+    guard.auth.conf.config = { 'modules': [], 'authentication': true };
     environment.production = false;
-    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/private' }).then((value) => {
       expect(value).toBeTrue();
       done();
     });
@@ -58,9 +58,9 @@ describe('Shared.Auth.AuthGuard', () => {
 
   it('should deny access', (done) => {
     // unauthorized
-    guard.auth.conf.config = {'modules': [], 'authentication': true};
+    guard.auth.conf.config = { 'modules': [], 'authentication': true };
     environment.production = true;
-    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/private' }).then((value) => {
       expect(value).toBeFalse();
       done();
     });
@@ -68,13 +68,13 @@ describe('Shared.Auth.AuthGuard', () => {
 
   it('should allow access', (done) => {
     // authorized
-    guard.auth.conf.config = {'modules': [], 'authentication': true};
+    guard.auth.conf.config = { 'modules': [], 'authentication': true };
     environment.production = true;
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 900);
-    guard.auth.user = {'expires': expire, 'token': 6, 'data': null};
+    guard.auth.user = { 'expires': expire, 'token': 6, 'data': null };
 
-    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{url: '/private'}).then((value) => {
+    guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/private' }).then((value) => {
       expect(value).toBeTrue();
       done();
     });

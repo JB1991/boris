@@ -9,8 +9,8 @@ import { environment } from '@env/environment';
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
-  @Input() public form: any;
-  @Input() public data: any = null;
+  @Input() public form: any;
+  @Input() public data: any = null;
   public isOpen = false;
   public surveyjs_style = Bootstrap4_CSS;
   public mode = 'edit';

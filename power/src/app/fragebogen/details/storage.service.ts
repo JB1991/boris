@@ -15,7 +15,7 @@ export class StorageService {
   public tasksList: any = [];
 
   constructor(private httpClient: HttpClient,
-              public auth: AuthService) {
+    public auth: AuthService) {
   }
 
   /**
@@ -58,8 +58,8 @@ export class StorageService {
 
     // load data from server
     const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '?publish=true'
-              + '&access=' + encodeURIComponent(pin)
-              + '&access-minutes=' + encodeURIComponent(time);
+      + '&access=' + encodeURIComponent(pin)
+      + '&access-minutes=' + encodeURIComponent(time);
     return this.httpClient.post(url, '', this.auth.getHeaders());
   }
 
@@ -137,7 +137,7 @@ export class StorageService {
 
     // create task
     let url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks' +
-                '?number=' + encodeURIComponent(amount);
+      '?number=' + encodeURIComponent(amount);
     if (factor) {
       url += '&factor=' + encodeURIComponent(factor);
     }
@@ -172,7 +172,7 @@ export class StorageService {
 
     // delete task
     const url = environment.formAPI + 'intern/tasks/' + encodeURIComponent(id)
-                + '?description=' + encodeURIComponent(comment);
+      + '?description=' + encodeURIComponent(comment);
     return this.httpClient.post(url, '', this.auth.getHeaders());
   }
 }

@@ -21,9 +21,9 @@ export class NewformComponent implements OnInit {
   public tagList = [];
 
   constructor(public modalService: BsModalService,
-              public router: Router,
-              public alerts: AlertsService,
-              public storage: StorageService) {
+    public router: Router,
+    public alerts: AlertsService,
+    public storage: StorageService) {
   }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class NewformComponent implements OnInit {
     // check if form is filled incorrect
     if (document.getElementsByClassName('is-invalid').length > 0) {
       this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`,
-                           $localize`Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.`);
+        $localize`Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.`);
       return;
     }
 
@@ -108,7 +108,7 @@ export class NewformComponent implements OnInit {
       // Success
       this.storage.formsList.push(data['data']);
       this.alerts.NewAlert('success', $localize`Erfolgreich erstellt`,
-                           $localize`Das Formular wurde erfolgreich erstellt.`);
+        $localize`Das Formular wurde erfolgreich erstellt.`);
       this.router.navigate(['/forms/details', data['data'].id], { replaceUrl: true });
     }, (error: Error) => {
       // failed to create form

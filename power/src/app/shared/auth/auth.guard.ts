@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
 
   constructor(public router: Router,
-              public auth: AuthService) {
+    public auth: AuthService) {
   }
 
   /**
@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
 
     // unauthenticated
     console.log('User is unauthenticated');
-    this.router.navigate(['/login'], { queryParams: {redirect: location.pathname}, replaceUrl: true });
+    this.router.navigate(['/login'], { queryParams: { redirect: location.pathname }, replaceUrl: true });
     return false;
   }
 }

@@ -9,9 +9,8 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PreviewComponent ]
-    })
-    .compileComponents();
+      declarations: [PreviewComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PreviewComponent);
     component = fixture.componentInstance;

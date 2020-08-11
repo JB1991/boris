@@ -54,7 +54,7 @@ describe('Fragebogen.Details.StorageService', () => {
   it('should publish form', () => {
     service.publishForm('123').subscribe(data => expect(data).toEqual(formSample));
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
-                      'POST', formSample);
+      'POST', formSample);
   });
 
   it('should fail publish form', () => {
@@ -145,7 +145,7 @@ describe('Fragebogen.Details.StorageService', () => {
   });
 
   it('should reset service', () => {
-    service.form = {'a': 1};
+    service.form = { 'a': 1 };
     service.tasksList = [2, 5];
     service.resetService();
     expect(service.form).toBeNull();

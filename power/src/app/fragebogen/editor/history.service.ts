@@ -41,7 +41,7 @@ export class HistoryService {
 
     // delete future
     if (del) {
-        this.redoBuffer = [];
+      this.redoBuffer = [];
     }
   }
 

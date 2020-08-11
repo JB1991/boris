@@ -14,9 +14,9 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 export class LogoutComponent implements OnInit {
 
   constructor(public titleService: Title,
-              public router: Router,
-              public auth: AuthService,
-              public loadingscreen: LoadingscreenService) {
+    public router: Router,
+    public auth: AuthService,
+    public loadingscreen: LoadingscreenService) {
     this.titleService.setTitle($localize`Logout - POWER.NI`);
   }
 
@@ -29,8 +29,8 @@ export class LogoutComponent implements OnInit {
 
     // redirect to logout page
     this.redirect(environment.auth.url + 'logout' +
-                  '?client_id=' + encodeURIComponent(environment.auth.clientid) +
-                  '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host));
+      '?client_id=' + encodeURIComponent(environment.auth.clientid) +
+      '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host));
   }
 
   /**

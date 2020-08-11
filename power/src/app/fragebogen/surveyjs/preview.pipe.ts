@@ -25,7 +25,7 @@ export class PreviewPipe implements PipeTransform {
           name: 'p1'
         }
       ],
-      showNavigationButtons : 'none',
+      showNavigationButtons: 'none',
       showQuestionNumbers: 'off',
       showTitle: false,
       showPageTitles: false,

@@ -15,8 +15,8 @@ export class PublishComponent implements OnInit {
   public accesstime = 60;
 
   constructor(public modalService: BsModalService,
-              public alerts: AlertsService,
-              public storage: StorageService) {
+    public alerts: AlertsService,
+    public storage: StorageService) {
   }
 
   ngOnInit() {
@@ -61,13 +61,13 @@ Dies lässt sich nicht mehr umkehren!`)) {
       // success
       this.storage.form = data['data'];
       this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,
-                           $localize`Das Formular wurde erfolgreich veröffentlicht.`);
+        $localize`Das Formular wurde erfolgreich veröffentlicht.`);
       this.close();
     }, (error: Error) => {
-        // failed to publish form
-        this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, error['statusText']);
-        console.log(error);
-        return;
+      // failed to publish form
+      this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, error['statusText']);
+      console.log(error);
+      return;
     });
   }
 }

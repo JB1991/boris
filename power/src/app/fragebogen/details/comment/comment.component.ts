@@ -15,8 +15,8 @@ export class CommentComponent implements OnInit {
   public comment: string;
 
   constructor(public modalService: BsModalService,
-              public alerts: AlertsService,
-              public storage: StorageService) {
+    public alerts: AlertsService,
+    public storage: StorageService) {
   }
 
   ngOnInit() {
@@ -71,10 +71,10 @@ export class CommentComponent implements OnInit {
       this.storage.tasksList[this.tasknr].description = this.comment;
       this.close();
     }, (error: Error) => {
-        // failed to create task
-        this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
-        console.log(error);
-        return;
+      // failed to create task
+      this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+      console.log(error);
+      return;
     });
   }
 }

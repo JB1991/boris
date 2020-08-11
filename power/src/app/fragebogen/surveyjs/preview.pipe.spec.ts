@@ -7,12 +7,12 @@ const sample = {
   pages: [
     {
       elements: [
-        {'x': 3}
+        { 'x': 3 }
       ],
       name: 'p1'
     }
   ],
-  showNavigationButtons : 'none',
+  showNavigationButtons: 'none',
   showQuestionNumbers: 'off',
   showTitle: false,
   showPageTitles: false,
@@ -28,6 +28,6 @@ describe('Fragebogen.Surveyjs.PreviewPipe', () => {
 
   it('transforms data', () => {
     const pip = new PreviewPipe();
-    expect(pip.transform({'x': 3})).toEqual(sample);
+    expect(pip.transform({ 'x': 3 })).toEqual(sample);
   });
 });

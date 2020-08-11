@@ -20,8 +20,8 @@ import { AlertsService } from './alerts.service';
 export class AlertsModule {
   static forRoot(): ModuleWithProviders<AlertsModule> {
     return {
-        ngModule: AlertsModule,
-        providers: [AlertsService]
+      ngModule: AlertsModule,
+      providers: [AlertsService]
     };
   }
 }

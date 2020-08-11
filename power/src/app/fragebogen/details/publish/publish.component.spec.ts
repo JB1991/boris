@@ -32,8 +32,7 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
       declarations: [
         PublishComponent
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PublishComponent);
     component = fixture.componentInstance;
@@ -56,14 +55,14 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
   });
 
   it('should publish', () => {
-    component.storage.form = {'id': '123'};
+    component.storage.form = { 'id': '123' };
     component.pin = 'pin6';
     component.open();
     spyOn(window, 'confirm').and.returnValue(true);
 
     component.Publish();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
-                      'POST', formSample);
+      'POST', formSample);
     expect(component.modal.isShown).toBeFalse();
   });
 
@@ -74,34 +73,34 @@ describe('Fragebogen.Details.Publish.PublishComponent', () => {
   });
 
   it('should error', () => {
-    component.storage.form = {'id': '123'};
+    component.storage.form = { 'id': '123' };
     spyOn(window, 'confirm').and.returnValue(true);
 
     component.Publish();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-                      'POST', { 'error': 'Internal Server Error'});
+      'POST', { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {
-    component.storage.form = {'id': '123'};
+    component.storage.form = { 'id': '123' };
     spyOn(window, 'confirm').and.returnValue(true);
 
     component.Publish();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-                      'POST', formSample, { status: 404, statusText: 'Not Found' });
+      'POST', formSample, { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Not Found');
   });
 
   it('should fail to publish', () => {
-    component.storage.form = {'id': '123'};
+    component.storage.form = { 'id': '123' };
     spyOn(window, 'confirm').and.returnValue(true);
 
     component.Publish();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-                      'POST', null);
+      'POST', null);
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', '123');
   });

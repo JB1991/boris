@@ -24,7 +24,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         FormsModule,
         ModalModule.forRoot(),
         RouterTestingModule.withRoutes([
-          { path: 'forms/details/:id', component: MockDetailsComponent}
+          { path: 'forms/details/:id', component: MockDetailsComponent }
         ])
       ],
       providers: [
@@ -35,8 +35,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
       declarations: [
         NewformComponent
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NewformComponent);
     component = fixture.componentInstance;
@@ -105,17 +104,17 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET',
-                      { 'error': 'Internal Server Error'});
+      { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
 
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST',
-                      { 'error': 'Internal Server Error'});
+      { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
     expect(component.alerts.NewAlert)
-    .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
+      .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should fail new form template 404', () => {
@@ -125,14 +124,14 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
 
     component.NewForm();
     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Not Found');
   });
@@ -143,7 +142,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     }).toThrowError('template is required');
 
     expect(function () {
-      component.makeForm({'x': 5});
+      component.makeForm({ 'x': 5 });
     }).toThrowError('title is required');
   });
 
@@ -151,7 +150,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     component.NewForm();
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert)
-    .toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
+      .toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
   });
 
   it('should add tag', () => {

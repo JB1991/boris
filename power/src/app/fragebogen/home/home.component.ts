@@ -11,8 +11,8 @@ import { AuthService } from '@app/shared/auth/auth.service';
 export class HomeComponent implements OnInit {
 
   constructor(public titleService: Title,
-              public router: Router,
-              public auth: AuthService) {
+    public router: Router,
+    public auth: AuthService) {
     this.titleService.setTitle($localize`Formulare - POWER.NI`);
   }
 

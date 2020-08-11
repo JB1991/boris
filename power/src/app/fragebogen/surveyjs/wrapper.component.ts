@@ -9,12 +9,12 @@ import * as widgets from 'surveyjs-widgets';
   styleUrls: ['./wrapper.component.scss']
 })
 export class WrapperComponent implements OnChanges {
-  @ViewChild('surveyjsDiv', {static: true}) public surveyjsDiv: ElementRef;
-  @Input() public model: {};
-  @Input() public data: any = null;
+  @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv: ElementRef;
+  @Input() public model: {};
+  @Input() public data: any = null;
   @Input() public mode: string;
   @Input() public theme: string;
-  @Input() public css: {};
+  @Input() public css: {};
   @Input() public showInvisible = false;
   @Output() public submitResult: EventEmitter<any> = new EventEmitter();
   @Output() public interimResult: EventEmitter<any> = new EventEmitter();
@@ -70,7 +70,7 @@ export class WrapperComponent implements OnChanges {
     this.survey.showInvisibleElements = this.showInvisible;
 
     // build property model
-    this.props = {model: this.survey};
+    this.props = { model: this.survey };
     if (this.css) {
       this.props['css'] = this.css;
     }
@@ -91,7 +91,7 @@ export class WrapperComponent implements OnChanges {
     }
     if (this.submitResult) {
       this.props['onComplete'] = (s, o) => {
-        this.submitResult.emit({result: s.data, options: o});
+        this.submitResult.emit({ result: s.data, options: o });
       };
     }
 

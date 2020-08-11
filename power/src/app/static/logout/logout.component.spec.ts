@@ -16,7 +16,7 @@ describe('Static.Logout.LogoutComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-          { path: '', component: MockHomeComponent}
+          { path: '', component: MockHomeComponent }
         ])
       ],
       declarations: [
@@ -25,8 +25,7 @@ describe('Static.Logout.LogoutComponent', () => {
       providers: [
         AuthService
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;

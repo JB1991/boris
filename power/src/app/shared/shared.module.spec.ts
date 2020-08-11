@@ -1,4 +1,4 @@
-import {SharedModule} from './shared.module';
+import { SharedModule } from './shared.module';
 
 describe('Shared.SharedModule', () => {
   let sharedModule: SharedModule;

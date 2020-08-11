@@ -19,8 +19,7 @@ describe('Shared.Loadingscreen.LoadingscreenComponent', () => {
       declarations: [
         LoadingscreenComponent
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoadingscreenComponent);
     component = fixture.componentInstance;

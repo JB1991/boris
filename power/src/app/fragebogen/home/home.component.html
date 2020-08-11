@@ -1,87 +1,106 @@
 <!-- landing page -->
 <main class="mainpage" id="content" tabindex="-1">
-    <div class="row m-0 mt-3">
-        <div class="col-12 col-lg-6">
-            <div class="jumbotron">
-                <h1 class="display-4">
-                    <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-file-earmark-medical align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
-                        <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
-                        <path fill-rule="evenodd" d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                    <span i18n>&nbsp;Formular ausfüllen</span>
-                </h1>
-                <p class="lead" i18n>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen.</p>
-                <hr class="my-4">
-                <div class="lead">
-                    <form #pinFormular="ngForm" i18n-aria-label aria-label="Eingabe einer PIN zum Formular ausfüllen" (ngSubmit)="submitPIN(pin.value)" class="form-inline">
-                        <label class="control-label sr-only" for="pin" i18n>Formular PIN</label>
-                        <input type="text" class="form-control mr-2 w-mobile" id="pin" i18n-placeholder placeholder="Formular PIN" #pin>
-                        <button type="submit" class="btn btn-success" i18n-title title="Absenden">
-                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-play-fill align-top" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-                            </svg>
-                            <span class="sr-only" i18n>Absenden</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
+  <div class="row m-0 mt-3">
+    <div class="col-12 col-lg-6">
+      <div class="jumbotron">
+        <h1 class="display-4">
+          <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-file-earmark-medical align-baseline"
+            fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path
+              d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
+            <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z" />
+            <path fill-rule="evenodd"
+              d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+          </svg>
+          <span i18n>&nbsp;Formular ausfüllen</span>
+        </h1>
+        <p class="lead" i18n>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu
+          gelangen.</p>
+        <hr class="my-4">
+        <div class="lead">
+          <form #pinFormular="ngForm" i18n-aria-label aria-label="Eingabe einer PIN zum Formular ausfüllen"
+            (ngSubmit)="submitPIN(pin.value)" class="form-inline">
+            <label class="control-label sr-only" for="pin" i18n>Formular PIN</label>
+            <input type="text" class="form-control mr-2 w-mobile" id="pin" i18n-placeholder placeholder="Formular PIN"
+              #pin>
+            <button type="submit" class="btn btn-success" i18n-title title="Absenden">
+              <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-play-fill align-top"
+                fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+              </svg>
+              <span class="sr-only" i18n>Absenden</span>
+            </button>
+          </form>
         </div>
-        <div class="col-12 col-lg-6">
-            <div class="jumbotron">
-                <h1 class="display-4">
-                    <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-search align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                    </svg>
-                    <span i18n>&nbsp;Formular finden</span>
-                </h1>
-                <p class="lead" i18n>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare.</p>
-                <hr class="my-4">
-                <div class="lead">
-                    Coming Soon&trade;
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6" *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
-            <div class="jumbotron">
-                <h1 class="display-4">
-                    <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-person-circle align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-                        <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-                    </svg>
-                    <span i18n>&nbsp;Notarportal</span>
-                </h1>
-                <p class="lead" i18n>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen.</p>
-                <hr class="my-4">
-                <div class="lead">
-                    Coming Soon&trade;
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6" *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
-            <div class="jumbotron">
-                <h1 class="display-4">
-                    <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-person-bounding-box align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
-                        <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                    </svg>
-                    <span i18n>&nbsp;Mitarbeiter</span>
-                </h1>
-                <p class="lead" i18n>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</p>
-                <hr class="my-4">
-                <div class="lead">
-                    <a [routerLink]="['/forms/dashboard']">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-right align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
-                            <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
-                            <path fill-rule="evenodd" d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z"/>
-                        </svg>
-                        <span i18n>&nbsp;Zum Mitarbeiterportal</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="col-12 col-lg-6">
+      <div class="jumbotron">
+        <h1 class="display-4">
+          <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-search align-baseline" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+            <path fill-rule="evenodd"
+              d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+          </svg>
+          <span i18n>&nbsp;Formular finden</span>
+        </h1>
+        <p class="lead" i18n>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare.</p>
+        <hr class="my-4">
+        <div class="lead">
+          Coming Soon&trade;
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6" *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
+      <div class="jumbotron">
+        <h1 class="display-4">
+          <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-person-circle align-baseline"
+            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />
+            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+          </svg>
+          <span i18n>&nbsp;Notarportal</span>
+        </h1>
+        <p class="lead" i18n>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen
+          Datenaustausch vorzunehmen.</p>
+        <hr class="my-4">
+        <div class="lead">
+          Coming Soon&trade;
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6" *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
+      <div class="jumbotron">
+        <h1 class="display-4">
+          <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="bi bi-person-bounding-box align-baseline"
+            fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+          </svg>
+          <span i18n>&nbsp;Mitarbeiter</span>
+        </h1>
+        <p class="lead" i18n>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</p>
+        <hr class="my-4">
+        <div class="lead">
+          <a [routerLink]="['/forms/dashboard']">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-right align-baseline"
+              fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z" />
+              <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z" />
+              <path fill-rule="evenodd"
+                d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z" />
+            </svg>
+            <span i18n>&nbsp;Zum Mitarbeiterportal</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>

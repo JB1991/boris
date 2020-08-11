@@ -15,8 +15,8 @@ export class AuthService {
   public user: User;
 
   constructor(public router: Router,
-              public httpClient: HttpClient,
-              public conf: ConfigService) {
+    public httpClient: HttpClient,
+    public conf: ConfigService) {
     // load session
     this.loadSession(true);
   }
@@ -116,7 +116,7 @@ export class AuthService {
     if (this.IsAuthenticated()) {
       header = header.set('Authorization', this.getBearer());
     }
-    return {'headers': header, 'responseType': responsetype};
+    return { 'headers': header, 'responseType': responsetype };
   }
 
   /**
@@ -149,7 +149,7 @@ export class AuthService {
       // save data
       const expire = new Date();
       expire.setSeconds(expire.getSeconds() + data['expires_in']);
-      this.user = {'expires': expire, 'token': data, 'data': null};
+      this.user = { 'expires': expire, 'token': data, 'data': null };
       localStorage.setItem('user', JSON.stringify(this.user));
     } catch (error) {
       // failed to login

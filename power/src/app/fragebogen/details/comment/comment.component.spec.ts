@@ -32,8 +32,7 @@ describe('Fragebogen.Details.Comment.CommentComponent', () => {
       declarations: [
         CommentComponent
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CommentComponent);
     component = fixture.componentInstance;
@@ -49,7 +48,7 @@ describe('Fragebogen.Details.Comment.CommentComponent', () => {
   });
 
   it('should open and close', () => {
-    component.storage.tasksList.push({id: '123', description: ''});
+    component.storage.tasksList.push({ id: '123', description: '' });
     component.open(0);
     expect(component.modal.isShown).toBeTrue();
     component.close();
@@ -77,7 +76,7 @@ describe('Fragebogen.Details.Comment.CommentComponent', () => {
   });
 
   it('should save', () => {
-    component.storage.tasksList.push({id: '123', description: ''});
+    component.storage.tasksList.push({ id: '123', description: '' });
     component.tasknr = 0;
     component.comment = 'Toast';
 
@@ -88,20 +87,20 @@ describe('Fragebogen.Details.Comment.CommentComponent', () => {
   });
 
   it('should error', () => {
-    component.storage.tasksList.push({id: '123', description: ''});
+    component.storage.tasksList.push({ id: '123', description: '' });
     component.tasknr = 0;
     component.comment = 'Toast';
 
     component.save();
     answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST',
-                      { 'error': 'Internal Server Error'});
+      { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert)
-    .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Internal Server Error');
+      .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 2', () => {
-    component.storage.tasksList.push({id: '123', description: ''});
+    component.storage.tasksList.push({ id: '123', description: '' });
     component.tasknr = 0;
     component.comment = 'Toast';
 
@@ -109,17 +108,17 @@ describe('Fragebogen.Details.Comment.CommentComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST', '');
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert)
-    .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', '0');
+      .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', '0');
   });
 
   it('should error 404', () => {
-    component.storage.tasksList.push({id: '123', description: ''});
+    component.storage.tasksList.push({ id: '123', description: '' });
     component.tasknr = 0;
     component.comment = 'Toast';
 
     component.save();
     answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST', taskSample,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
   });

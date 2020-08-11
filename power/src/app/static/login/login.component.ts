@@ -15,11 +15,11 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 export class LoginComponent implements OnInit {
 
   constructor(public titleService: Title,
-              public activatedRoute: ActivatedRoute,
-              public router: Router,
-              public auth: AuthService,
-              public loadingscreen: LoadingscreenService,
-              public alerts: AlertsService) {
+    public activatedRoute: ActivatedRoute,
+    public router: Router,
+    public auth: AuthService,
+    public loadingscreen: LoadingscreenService,
+    public alerts: AlertsService) {
     this.titleService.setTitle($localize`Login - POWER.NI`);
   }
 
@@ -74,16 +74,16 @@ export class LoginComponent implements OnInit {
       this.auth.user = null;
       console.log('Authentication failed');
       this.alerts.NewAlert('danger', $localize`Login fehlgeschlagen`,
-                           $localize`Es konnte kein Token vom Endpunkt bezogen werden.`);
+        $localize`Es konnte kein Token vom Endpunkt bezogen werden.`);
       this.router.navigate(['/'], { replaceUrl: true });
       return;
     }
 
     // redirect to auth page
     this.redirect(environment.auth.url + 'auth' +
-                  '?response_type=code' +
-                  '&client_id=' + encodeURIComponent(environment.auth.clientid) +
-                  '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host + '/login'));
+      '?response_type=code' +
+      '&client_id=' + encodeURIComponent(environment.auth.clientid) +
+      '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host + '/login'));
   }
 
   /**

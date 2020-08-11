@@ -18,8 +18,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
       declarations: [
         WrapperComponent
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(WrapperComponent);
     component = fixture.componentInstance;
@@ -33,7 +32,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
   });
 
   it('should do surveyjs', () => {
-    component.model = {'title': 'Hallo Welt', 'data': 5};
+    component.model = { 'title': 'Hallo Welt', 'data': 5 };
     component.mode = 'edit';
     component.theme = 'bootstrap';
     component.css = Bootstrap4_CSS;
@@ -45,7 +44,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
     component.ngOnChanges();
     fixture.detectChanges();
 
-    expect(component.model).toEqual({'title': 'Hallo Welt', 'data': 5});
+    expect(component.model).toEqual({ 'title': 'Hallo Welt', 'data': 5 });
     expect(component.css).toEqual(Bootstrap4_CSS);
     expect(component.showInvisible).toBeTrue();
     expect(component.submitResult).toBeTruthy();
@@ -56,7 +55,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
   it('should do surveyjs 2', () => {
     component.model = formSample;
-    component.data = {'data': 5};
+    component.data = { 'data': 5 };
 
     component.ngOnChanges();
     fixture.detectChanges();
@@ -65,7 +64,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
     component.props['onComplete']({});
     fixture.detectChanges();
 
-    expect(component.data).toEqual({'data': 5});
+    expect(component.data).toEqual({ 'data': 5 });
   });
 
   it('should do surveyjs 3', () => {

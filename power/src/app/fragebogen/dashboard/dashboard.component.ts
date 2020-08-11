@@ -14,16 +14,16 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 export class DashboardComponent implements OnInit {
 
   constructor(public titleService: Title,
-              public router: Router,
-              public alerts: AlertsService,
-              public loadingscreen: LoadingscreenService,
-              public storage: StorageService) {
+    public router: Router,
+    public alerts: AlertsService,
+    public loadingscreen: LoadingscreenService,
+    public storage: StorageService) {
     this.titleService.setTitle($localize`Dashboard - POWER.NI`);
     this.storage.resetService();
   }
 
   ngOnInit() {
-    // Load forms from server
+    // load forms from server
     this.loadingscreen.setVisible(true);
     this.storage.loadFormsList().subscribe((data) => {
       // check for error
@@ -37,10 +37,10 @@ export class DashboardComponent implements OnInit {
         return;
       }
 
-      // Save data
+      // save data
       this.storage.formsList = data['data'];
 
-      // Load tags from server
+      // load tags from server
       this.storage.loadTags().subscribe((data2) => {
         // check for error
         if (!data2 || data2['error'] || !data2['data']) {
@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
           return;
         }
 
-        // Save data
+        // save data
         this.storage.tagList = data2['data'];
         this.loadingscreen.setVisible(false);
       }, (error2: Error) => {
@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
       // Success
       this.storage.formsList.splice(id, 1);
       this.alerts.NewAlert('success', $localize`Formular gelöscht`,
-                           $localize`Das Formular wurde erfolgreich gelöscht.`);
+        $localize`Das Formular wurde erfolgreich gelöscht.`);
     }, (error: Error) => {
       // failed to delete form
       this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
