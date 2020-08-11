@@ -55,7 +55,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     expect(component.storage.formsList.length).toEqual(1);
@@ -64,7 +64,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should not create', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', null);
     expect(component.storage.formsList.length).toEqual(1);
@@ -74,7 +74,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should not create 2', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', null);
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
@@ -82,7 +82,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should error', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
@@ -90,7 +90,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should error 404', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample,
       { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -99,7 +99,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should error 2', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET',
       { 'error': 'Internal Server Error' });
@@ -109,7 +109,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should error 404 2', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample,
       { status: 404, statusText: 'Not Found' });
@@ -119,7 +119,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should delete', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
@@ -134,7 +134,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should not delete', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(false);
@@ -146,7 +146,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should fail delete', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
@@ -160,7 +160,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should fail delete', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
@@ -175,7 +175,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should fail delete 404', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
@@ -190,7 +190,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should crash delete', () => {
     answerHTTPRequest(environment.formAPI +
-      'intern/forms?fields=created,id,owners,status,tags,title',
+      'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
       'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);

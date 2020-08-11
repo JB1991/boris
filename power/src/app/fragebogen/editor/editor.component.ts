@@ -61,10 +61,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
 
     // check if not mobile device
     if (window.innerWidth >= 992) {
-      console.log(tb.parentElement.clientHeight);
-      console.log(tb.clientHeight + fr.clientHeight + window.pageYOffset + 12);
-
-
       // prevent scrolling too far
       if (tb.parentElement.clientHeight < (tb.clientHeight + fr.clientHeight + window.pageYOffset + 12)) {
         return;

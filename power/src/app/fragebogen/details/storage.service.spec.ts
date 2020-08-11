@@ -91,7 +91,7 @@ describe('Fragebogen.Details.StorageService', () => {
 
   it('should load tasks', () => {
     service.loadTasks('123').subscribe(data => expect(data).toEqual(taskList));
-    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks', 'GET', taskList);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?sort=submitted,created', 'GET', taskList);
   });
 
   it('should fail load tasks', () => {

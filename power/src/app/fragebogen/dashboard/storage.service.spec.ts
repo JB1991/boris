@@ -11,7 +11,7 @@ describe('Fragebogen.Dashboard.StorageService', () => {
   let httpTestingController: HttpTestingController;
 
   const formId = 'bs63c2os5bcus8t5q0kg';
-  const formsURL = environment.formAPI + 'intern/forms?fields=created,id,owners,status,tags,title';
+  const formsURL = environment.formAPI + 'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created';
 
   const formContent = require('../../../assets/fragebogen/form-content.json');
   const formDeleted = require('../../../assets/fragebogen/form-deleted.json');
