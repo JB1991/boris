@@ -92,7 +92,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
   }
 
   getAddressFromLatLng(lat, lng) {
-    this.geosearchService.getAdressFromCoordinates(lat, lng)
+    this.geosearchService.getAddressFromCoordinates(lat, lng)
       .subscribe(res => this.geosearchService.updateFeatures(res.features[0]));
   }
 

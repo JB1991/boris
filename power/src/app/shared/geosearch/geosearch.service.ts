@@ -32,7 +32,7 @@ export class GeosearchService {
     );
   }
 
-  getAdressFromCoordinates(lat, lng): Observable<FeatureCollection> {
+  getAddressFromCoordinates(lat, lng): Observable<FeatureCollection> {
     return this.http.get<FeatureCollection>(this.url, {
       params: new HttpParams().set('query', 'typ: haus').append('lat', lat).append('lon', lng)
     }).pipe(
