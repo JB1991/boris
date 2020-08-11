@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { FragebogenRoutingModule } from './fragebogen-routing.module';

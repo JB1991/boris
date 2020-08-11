@@ -51,24 +51,24 @@ describe('AppComponent', () => {
   }));
 
   it('should load config', () => {
-    app.configService.config = {'modules': ['a', 'b'], 'authentication': false};
+    app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
     app.ngOnInit();
-    answerHTTPRequest('./assets/version.json', 'GET', {version: '123456', branch: 'prod'});
+    answerHTTPRequest('./assets/version.json', 'GET', { version: '123456', branch: 'prod' });
 
     expect(app.config).toBeTruthy();
     expect(app.config.modules.length).toEqual(2);
-    expect(app.appVersion).toEqual({version: '123456', branch: 'prod'});
+    expect(app.appVersion).toEqual({ version: '123456', branch: 'prod' });
   });
 
   it('should fail load config', () => {
     // load config
-    app.configService.config = {'modules': ['a', 'b'], 'authentication': false};
+    app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
     app.ngOnInit();
-    answerHTTPRequest('./assets/version.json', 'GET', {branch: 'prod'});
+    answerHTTPRequest('./assets/version.json', 'GET', { branch: 'prod' });
 
     expect(app.config).toBeTruthy();
     expect(app.config.modules.length).toEqual(2);
-    expect(app.appVersion).toEqual({version: 'local', branch: 'dev'});
+    expect(app.appVersion).toEqual({ version: 'local', branch: 'dev' });
   });
 
   /**

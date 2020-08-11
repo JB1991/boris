@@ -23,12 +23,12 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
   public isCollapsedToolBox = false;
 
   constructor(public route: ActivatedRoute,
-              public router: Router,
-              public titleService: Title,
-              public alerts: AlertsService,
-              public loadingscreen: LoadingscreenService,
-              public storage: StorageService,
-              public history: HistoryService) {
+    public router: Router,
+    public titleService: Title,
+    public alerts: AlertsService,
+    public loadingscreen: LoadingscreenService,
+    public storage: StorageService,
+    public history: HistoryService) {
     this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
     this.storage.resetService();
     this.history.resetService();
@@ -56,24 +56,31 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
   }
 
   @HostListener('window:scroll', ['$event']) onScroll(event) {
+    const tb = document.getElementById('toolbox').parentElement;
+    const fr = document.getElementById('favorites').parentElement;
+
     // check if not mobile device
-    const div = document.getElementById('toolbox').parentElement;
     if (window.innerWidth >= 992) {
+      console.log(tb.parentElement.clientHeight);
+      console.log(tb.clientHeight + fr.clientHeight + window.pageYOffset + 12);
+
+
       // prevent scrolling too far
-      if (div.parentElement.clientHeight < 378 + event.path[1].pageYOffset) {
+      if (tb.parentElement.clientHeight < (tb.clientHeight + fr.clientHeight + window.pageYOffset + 12)) {
         return;
       }
-      div.style.margin = event.path[1].pageYOffset + 'px 0 0 0';
+      tb.style.marginTop = window.pageYOffset + 'px';
     } else {
-      div.style.margin = '0 0 0 0';
+      tb.style.marginTop = '0px';
     }
+    document.body.focus();
   }
 
   @HostListener('window:resize', ['$event']) onResize(event) {
     // check if not mobile device
     const div = document.getElementById('toolbox').parentElement;
     if (window.innerWidth < 992) {
-      div.style.margin = '0 0 0 0';
+      div.style.marginTop = '0px';
     }
   }
 
@@ -94,7 +101,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
         this.loadingscreen.setVisible(false);
-        this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
+        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         console.log('Could not load form: ' + alertText);
         return;
       }
@@ -127,7 +134,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
       moveItemInArray(this.storage.model.pages, dropResult.removedIndex, dropResult.addedIndex);
       this.storage.selectedPageID = dropResult.addedIndex;
 
-    // moved element to other page
+      // moved element to other page
     } else if (dropResult.payload.from === 'workspace') {
       if (dropResult.addedIndex >= this.storage.model.pages.length) {
         dropResult.addedIndex = this.storage.model.pages.length - 1;
@@ -157,9 +164,9 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     if (dropResult.payload.from === 'workspace') {
       this.history.makeHistory(this.storage.model);
       moveItemInArray(this.storage.model.pages[this.storage.selectedPageID].elements,
-                      dropResult.removedIndex, dropResult.addedIndex);
+        dropResult.removedIndex, dropResult.addedIndex);
 
-    // new element dragged into workspace
+      // new element dragged into workspace
     } else if (dropResult.payload.from === 'toolbox') {
       let data;
       if (this.storage.FormularFields[dropResult.payload.index]) {
@@ -197,13 +204,13 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
   }
 
   public getPayloadToolbox(index: number) {
-    return {from: 'toolbox', index};
+    return { from: 'toolbox', index };
   }
   public getPayloadPagination(index: number) {
-    return {from: 'pagination', index};
+    return { from: 'pagination', index };
   }
   public getPayloadWorkspace(index: number) {
-    return {from: 'workspace', index};
+    return { from: 'workspace', index };
   }
 
   /**
@@ -315,7 +322,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     }, (error: Error) => {
       // failed to save
       this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`,
-                           (error['error']['error'] ? error['error']['error'] : error['statusText']));
+        (error['error']['error'] ? error['error']['error'] : error['statusText']));
       throw error;
     });
   }

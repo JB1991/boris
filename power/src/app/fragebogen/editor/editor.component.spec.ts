@@ -58,8 +58,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         MockElementModalComponent,
         MockFormularModalComponent
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditorComponent);
     component = fixture.componentInstance;
@@ -73,7 +72,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {data: {content: formContent}});
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
     expect(component.storage.model).toEqual(formContent);
 
     // expect crash
@@ -83,7 +82,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
   });
 
   it('should create 2', () => {
-    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {data: {content: formContent}});
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
     spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
     component.ngOnInit();
     expect(component.router.navigate).toHaveBeenCalledTimes(1);
@@ -96,20 +95,20 @@ describe('Fragebogen.Editor.EditorComponent', () => {
   });
 
   it('should fail to load 2', () => {
-    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {'error': 'xxx'});
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { 'error': 'xxx' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'xxx');
   });
 
   it('should fail to load 3', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', 5,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should not leave page', () => {
-    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', {data: {content: formContent}});
+    answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
     expect(component.canDeactivate()).toBeTrue();
     spyOn(window, 'confirm').and.returnValue(true);
 

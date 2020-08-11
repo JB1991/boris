@@ -17,11 +17,11 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 export class FilloutComponent implements OnInit {
 
   constructor(public titleService: Title,
-              public router: Router,
-              public route: ActivatedRoute,
-              public alerts: AlertsService,
-              public loadingscreen: LoadingscreenService,
-              public storage: StorageService) {
+    public router: Router,
+    public route: ActivatedRoute,
+    public alerts: AlertsService,
+    public loadingscreen: LoadingscreenService,
+    public storage: StorageService) {
     this.titleService.setTitle($localize`Formulare - POWER.NI`);
     this.storage.resetService();
   }
@@ -66,7 +66,7 @@ export class FilloutComponent implements OnInit {
         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
         this.loadingscreen.setVisible(false);
-        this.router.navigate(['/forms'], {replaceUrl: true});
+        this.router.navigate(['/forms'], { replaceUrl: true });
         console.log('Could not load access: ' + alertText);
         return;
       }
@@ -82,7 +82,7 @@ export class FilloutComponent implements OnInit {
           this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
           this.loadingscreen.setVisible(false);
-          this.router.navigate(['/forms'], {replaceUrl: true});
+          this.router.navigate(['/forms'], { replaceUrl: true });
           console.log('Could not load form: ' + alertText);
           return;
         }
@@ -139,11 +139,11 @@ export class FilloutComponent implements OnInit {
       this.storage.setUnsavedChanges(false);
       this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
     }, (error: Error) => {
-        // failed to complete task
-        result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}`);
-        this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
-        console.log(error);
-        return;
+      // failed to complete task
+      result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}`);
+      this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+      console.log(error);
+      return;
     });
   }
 
@@ -169,10 +169,10 @@ export class FilloutComponent implements OnInit {
       }
       this.storage.setUnsavedChanges(false);
     }, (error: Error) => {
-        // failed to save task
-        this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
-        console.log(error);
-        return;
+      // failed to save task
+      this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+      console.log(error);
+      return;
     });
   }
 

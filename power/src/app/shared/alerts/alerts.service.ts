@@ -29,7 +29,7 @@ export class AlertsService {
     if (timeout < 1000 || timeout > 60000) {
       throw new Error('timeout too big or small');
     }
-    this.alertslist.push({type, title, text, timeout});
+    this.alertslist.push({ type, title, text, timeout });
 
     // prevent too much alerts
     if (this.alertslist.length > 4) {

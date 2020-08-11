@@ -17,11 +17,11 @@ export class DetailsComponent implements OnInit {
   @ViewChild('preview') public preview: PreviewComponent;
 
   constructor(public titleService: Title,
-              public router: Router,
-              public route: ActivatedRoute,
-              public alerts: AlertsService,
-              public loadingscreen: LoadingscreenService,
-              public storage: StorageService) {
+    public router: Router,
+    public route: ActivatedRoute,
+    public alerts: AlertsService,
+    public loadingscreen: LoadingscreenService,
+    public storage: StorageService) {
     this.titleService.setTitle($localize`Formular Details - POWER.NI`);
     this.storage.resetService();
   }
@@ -57,7 +57,7 @@ export class DetailsComponent implements OnInit {
         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
         this.loadingscreen.setVisible(false);
-        this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
+        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         console.log('Could not load form: ' + alertText);
         return;
       }
@@ -74,7 +74,7 @@ export class DetailsComponent implements OnInit {
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
             this.loadingscreen.setVisible(false);
-            this.router.navigate(['/forms/dashboard'], {replaceUrl: true});
+            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             console.log('Could not load task: ' + alertText);
             return;
           }
@@ -127,13 +127,13 @@ export class DetailsComponent implements OnInit {
 
       // success
       this.alerts.NewAlert('success', $localize`Formular gelöscht`,
-                           $localize`Das Formular wurde erfolgreich gelöscht.`);
+        $localize`Das Formular wurde erfolgreich gelöscht.`);
       this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
     }, (error: Error) => {
-        // failed to delete form
-        this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
-        console.log(error);
-        return;
+      // failed to delete form
+      this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
+      console.log(error);
+      return;
     });
   }
 
@@ -160,12 +160,12 @@ export class DetailsComponent implements OnInit {
       // success
       this.storage.form = data['data'];
       this.alerts.NewAlert('success', $localize`Formular archiviert`,
-                           $localize`Das Formular wurde erfolgreich archiviert.`);
+        $localize`Das Formular wurde erfolgreich archiviert.`);
     }, (error: Error) => {
-        // failed to publish form
-        this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error['statusText']);
-        console.log(error);
-        return;
+      // failed to publish form
+      this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error['statusText']);
+      console.log(error);
+      return;
     });
   }
 
@@ -178,7 +178,7 @@ export class DetailsComponent implements OnInit {
       // check for error
       if (!data) {
         this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`,
-                             $localize`Die Antworten konnten nicht geladen werden.`);
+          $localize`Die Antworten konnten nicht geladen werden.`);
 
         console.log('Could not load results: ' + this.storage.form.id);
         return;
@@ -196,10 +196,10 @@ export class DetailsComponent implements OnInit {
         pom.click();
       }
     }, (error: Error) => {
-        // failed to load results
-        this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error['statusText']);
-        console.log(error);
-        return;
+      // failed to load results
+      this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error['statusText']);
+      console.log(error);
+      return;
     });
   }
 
@@ -232,12 +232,12 @@ export class DetailsComponent implements OnInit {
       // success
       this.storage.tasksList.splice(i, 1);
       this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
-                           $localize`Die Antwort wurde erfolgreich gelöscht.`);
+        $localize`Die Antwort wurde erfolgreich gelöscht.`);
     }, (error: Error) => {
-        // failed to delete task
-        this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
-        console.log(error);
-        return;
+      // failed to delete task
+      this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
+      console.log(error);
+      return;
     });
   }
 

@@ -46,8 +46,8 @@ export const defaultTemplate = {
  * DatabaseMap holds infos for mapping formular elements to database columns
  */
 export const DatabaseMap = [
-  {text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: ''},
-  {text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: ''},
+  { text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: '' },
+  { text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: '' },
 ];
 
 /**
@@ -58,7 +58,7 @@ export const FormularFields = [
     type: 'text',
     name: $localize`Eingabefeld`,
     icon: 'fas fa-font',
-    template : {
+    template: {
       title: 'Titel der Frage',
       name: '',
       type: 'text',

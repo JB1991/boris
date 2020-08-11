@@ -15,8 +15,7 @@ describe('Shared.Alerts.AlertsComponent', () => {
       declarations: [
         AlertsComponent
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AlertsComponent);
     component = fixture.componentInstance;
@@ -42,10 +41,10 @@ describe('Shared.Alerts.AlertsComponent', () => {
   it('should crash', () => {
     component.alerts.NewAlert('success', 'Test Title 1', 'Test Body');
 
-    expect(function() {
+    expect(function () {
       component.onClosed(1);
     }).toThrowError('Invalid id');
-    expect(function() {
+    expect(function () {
       component.onClosed(-1);
     }).toThrowError('Invalid id');
   });

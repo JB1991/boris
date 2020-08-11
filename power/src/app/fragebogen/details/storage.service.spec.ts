@@ -12,7 +12,8 @@ describe('Fragebogen.Details.StorageService', () => {
 
   const formSample = require('../../../assets/fragebogen/form-sample.json');
   const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
-  const taskSample = require('../../../assets/fragebogen/tasks-list.json');
+  const taskList = require('../../../assets/fragebogen/tasks-list.json');
+  const taskSample = require('../../../assets/fragebogen/task-sample.json');
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -53,7 +54,7 @@ describe('Fragebogen.Details.StorageService', () => {
   it('should publish form', () => {
     service.publishForm('123').subscribe(data => expect(data).toEqual(formSample));
     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
-                      'POST', formSample);
+      'POST', formSample);
   });
 
   it('should fail publish form', () => {
@@ -89,8 +90,8 @@ describe('Fragebogen.Details.StorageService', () => {
   });
 
   it('should load tasks', () => {
-    service.loadTasks('123').subscribe(data => expect(data).toEqual(taskSample));
-    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks', 'GET', taskSample);
+    service.loadTasks('123').subscribe(data => expect(data).toEqual(taskList));
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks', 'GET', taskList);
   });
 
   it('should fail load tasks', () => {
@@ -100,13 +101,24 @@ describe('Fragebogen.Details.StorageService', () => {
   });
 
   it('should create tasks', () => {
-    service.createTask('123', 2, '123456').subscribe(data => expect(data).toEqual(taskSample));
-    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2&factor=123456', 'POST', taskSample);
+    service.createTask('123', 2, '123456').subscribe(data => expect(data).toEqual(taskList));
+    answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2&factor=123456', 'POST', taskList);
   });
 
   it('should fail create tasks', () => {
     expect(function () {
       service.createTask('');
+    }).toThrowError('id is required');
+  });
+
+  it('should update task comment', () => {
+    service.updateTaskComment('123', 'Test').subscribe(data => expect(data).toEqual(taskSample));
+    answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Test', 'POST', taskSample);
+  });
+
+  it('should fail update task comment', () => {
+    expect(function () {
+      service.updateTaskComment('', '');
     }).toThrowError('id is required');
   });
 
@@ -133,7 +145,7 @@ describe('Fragebogen.Details.StorageService', () => {
   });
 
   it('should reset service', () => {
-    service.form = {'a': 1};
+    service.form = { 'a': 1 };
     service.tasksList = [2, 5];
     service.resetService();
     expect(service.form).toBeNull();

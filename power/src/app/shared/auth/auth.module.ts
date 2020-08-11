@@ -15,8 +15,8 @@ import { AuthGuard } from './auth.guard';
 export class AuthModule {
   static forRoot(): ModuleWithProviders<AuthModule> {
     return {
-        ngModule: AuthModule,
-        providers: [AuthService, AuthGuard]
+      ngModule: AuthModule,
+      providers: [AuthService, AuthGuard]
     };
   }
 }

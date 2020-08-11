@@ -21,8 +21,8 @@ describe('Static.Login.LoginComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-          { path: '', component: MockHomeComponent},
-          { path: 'abc', component: MockHomeComponent}
+          { path: '', component: MockHomeComponent },
+          { path: 'abc', component: MockHomeComponent }
         ])
       ],
       declarations: [
@@ -34,8 +34,7 @@ describe('Static.Login.LoginComponent', () => {
         LoadingscreenService,
         AlertsService
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -60,7 +59,7 @@ describe('Static.Login.LoginComponent', () => {
     // valid session, redirect user
     const expire = new Date();
     expire.setSeconds(expire.getSeconds() + 200);
-    component.auth.user = {'expires': expire, 'token': 5, 'data': null};
+    component.auth.user = { 'expires': expire, 'token': 5, 'data': null };
 
     component.authenticate().then((value) => {
       expect(console.log).toHaveBeenCalledWith('User is authenticated');
@@ -78,7 +77,7 @@ describe('Static.Login.LoginComponent', () => {
       done();
     });
 
-    answerHTTPRequest(environment.auth.url + 'token', 'POST', {'expires_in': 900, 'access_token': 'XXX'});
+    answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'XXX' });
   });
 
   it('should fail request token', (done) => {

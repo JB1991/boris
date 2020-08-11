@@ -24,7 +24,7 @@ export class StorageService {
   public AutoSaveEnabled = true;
 
   constructor(private httpClient: HttpClient,
-              public auth: AuthService) {
+    public auth: AuthService) {
     // overwrite style class
     this.css_style.container = 'sv_container';
     this.css_style.row = 'sv_row';

@@ -11,14 +11,15 @@ import { AuthService } from '@app/shared/auth/auth.service';
   providedIn: 'root'
 })
 export class StorageService {
-  public formsList = [];
-  public tagList = [];
-  public serviceList = [
-    {value: 'AKS', name: 'Automatische Kaufpreissammlung'}
+  public formsList: any = [];
+  public tasksList: any = [];
+  public tagList: any = [];
+  public serviceList: any = [
+    { value: 'AKS', name: 'Automatische Kaufpreissammlung' }
   ];
 
   constructor(private httpClient: HttpClient,
-              public auth: AuthService) {
+    public auth: AuthService) {
   }
 
   /**
@@ -35,7 +36,7 @@ export class StorageService {
   public loadFormsList(): Observable<Object> {
     // Load data from server
     const url = environment.formAPI
-                + 'intern/forms?fields=created,id,owners,status,tags,title';
+      + 'intern/forms?fields=created,id,owners,status,tags,title';
     return this.httpClient.get(url, this.auth.getHeaders());
   }
 

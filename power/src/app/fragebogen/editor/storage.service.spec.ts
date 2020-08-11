@@ -97,13 +97,13 @@ describe('Fragebogen.Editor.StorageService', () => {
       pages: [
         {
           elements: [
-            {name: 'e1'},
-            {name: 'e2'}
+            { name: 'e1' },
+            { name: 'e2' }
           ]
         }, {
           elements: [
-            {name: 'e3'},
-            {name: 'e5'},
+            { name: 'e3' },
+            { name: 'e5' },
           ]
         }
       ]

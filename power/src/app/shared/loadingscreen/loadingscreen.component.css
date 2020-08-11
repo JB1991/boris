@@ -7,4 +7,5 @@
   overflow: auto;
   z-index: 999;
   background-color: white;
+  pointer-events: auto !important;
 }

@@ -26,7 +26,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([
-          { path: 'forms', component: MockHomeComponent}
+          { path: 'forms', component: MockHomeComponent }
         ])
       ],
       providers: [
@@ -55,8 +55,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     expect(component.storage.formsList.length).toEqual(1);
     expect(component.storage.tagList.length).toEqual(3);
@@ -64,8 +64,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should not create', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', null);
     expect(component.storage.formsList.length).toEqual(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -74,53 +74,53 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should not create 2', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', null);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', null);
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
   });
 
   it('should error', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', { 'error': 'Internal Server Error'});
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample,
-                      { status: 404, statusText: 'Not Found' });
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample,
+      { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should error 2', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET',
-                      { 'error': 'Internal Server Error'});
+      { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
   });
 
   it('should error 404 2', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
   });
 
   it('should delete', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
 
@@ -128,14 +128,14 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample);
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
-                                                 'Das Formular wurde erfolgreich gelöscht.');
+      'Das Formular wurde erfolgreich gelöscht.');
     expect(component.storage.formsList.length).toEqual(0);
   });
 
   it('should not delete', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(false);
 
@@ -146,8 +146,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should fail delete', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
 
@@ -160,14 +160,14 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should fail delete', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
 
     component.deleteForm(0);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE',
-                      { 'error': 'Internal Server Error'});
+      { 'error': 'Internal Server Error' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
     expect(component.storage.formsList.length).toEqual(1);
@@ -175,14 +175,14 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should fail delete 404', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
 
     component.deleteForm(0);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample,
-                      { status: 404, statusText: 'Not Found' });
+      { status: 404, statusText: 'Not Found' });
     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
     expect(component.storage.formsList.length).toEqual(1);
@@ -190,8 +190,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
   it('should crash delete', () => {
     answerHTTPRequest(environment.formAPI +
-                      'intern/forms?fields=created,id,owners,status,tags,title',
-                      'GET', formsListSample);
+      'intern/forms?fields=created,id,owners,status,tags,title',
+      'GET', formsListSample);
     answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
     spyOn(window, 'confirm').and.returnValue(true);
 

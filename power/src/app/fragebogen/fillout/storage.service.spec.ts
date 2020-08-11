@@ -72,8 +72,8 @@ describe('Fragebogen.Fillout.StorageService', () => {
   });
 
   it('should reset service', () => {
-    service.form = {'a': 1};
-    service.task = {'b': 2};
+    service.form = { 'a': 1 };
+    service.task = { 'b': 2 };
     service.resetService();
     expect(service.task).toBeNull();
     expect(service.form).toBeNull();
