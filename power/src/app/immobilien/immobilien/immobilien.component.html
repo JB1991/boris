@@ -21,7 +21,7 @@
                             {{nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories" (click)="onChangeCat(select['preset'],f)">
+                            <button class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories" (click)="onChangeCat(select['preset'], f)">
                                 <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i>
                                 {{f}}
                             </button>
@@ -34,7 +34,7 @@
                             {{ (select['selected']) }} Vergleiche
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of select['preset']" (click)="onSetNumber(select['name'],f)">
+                            <button class="dropdown-item" *ngFor="let f of select['preset']" (click)="onSetNumber(select['name'], f)">
                                 {{f}} Vergleiche
                             </button>
                         </div>
