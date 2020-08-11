@@ -3,11 +3,11 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
+import { environment } from '@env/environment';
 
 import { MaketaskComponent } from './maketask.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { environment } from '@env/environment';
 
 describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
   let component: MaketaskComponent;

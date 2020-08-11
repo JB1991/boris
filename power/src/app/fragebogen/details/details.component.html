@@ -131,6 +131,7 @@
                         <th scope="col" class="border-top-0" i18n>ID</th>
                         <th scope="col" class="border-top-0" *ngIf="storage.form.access !== 'public'" i18n>PIN</th>
                         <th scope="col" class="border-top-0" i18n>Status</th>
+                        <th scope="col" class="border-top-0" i18n>Kommentar</th>
                         <th scope="col" class="border-top-0" i18n>Zuletzt bearbeitet</th>
                         <th scope="col" class="border-top-0" i18n>Erstellt</th>
                         <th scope="col" class="border-top-0 w-75"></th>
@@ -152,6 +153,22 @@
                             </a>
                         </td>
                         <td>{task.status, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</td>
+                        <td>
+                            {{ task.description }}
+                            <span class="ml-1 text-primary clickable"
+                                  i18n-title title="Bearbeiten"
+                                  role="button"
+                                  tabindex="0"
+                                  *ngIf="task.status !== 'submitted'"
+                                  (click)="comment.open(i)"
+                                  (keyup.enter)="comment.open(i)">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg>
+                                <span class="sr-only" i18n>Bearbeiten</span>
+                            </span>
+                        </td>
                         <td *ngIf="task.status !== 'submitted'">{{ task.accessed | date:'short' }}</td>
                         <td *ngIf="task.status === 'submitted'">{{ task.submitted | date:'short' }}</td>
                         <td>{{ task.created | date:'short' }}</td>
@@ -211,6 +228,9 @@
 
 <!-- publish modal -->
 <power-formulars-details-publish #publish></power-formulars-details-publish>
+
+<!-- comment modal -->
+<power-formulars-details-comment #comment></power-formulars-details-comment>
 
 <!-- preview modal -->
 <power-formulars-surveyjs-preview *ngIf="storage.form" [form]="storage.form.content" #preview></power-formulars-surveyjs-preview>

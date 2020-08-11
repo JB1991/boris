@@ -50,7 +50,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
       declarations: [
         DetailsComponent,
         MockMaketaskComponent,
-        MockPublishComponent
+        MockPublishComponent,
+        MockCommentComponent
       ]
     })
     .compileComponents();
@@ -259,6 +260,21 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
     answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
     spyOn(window, 'confirm').and.returnValue(true);
+    navigator.msSaveBlob = null;
+    const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
+    spyOn(document, 'createElement').and.returnValue(spyObj);
+
+    component.getCSV();
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks/csv?status=submitted',
+                      'GET', '666');
+    expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+  });
+
+  it('should get csv 2', () => {
+    answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+    spyOn(window, 'confirm').and.returnValue(true);
+    navigator.msSaveBlob = () => true;
     const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
     spyOn(document, 'createElement').and.returnValue(spyObj);
 
@@ -419,6 +435,12 @@ class MockMaketaskComponent {
   template: ''
 })
 class MockPublishComponent {
+}
+@Component({
+  selector: 'power-formulars-details-comment',
+  template: ''
+})
+class MockCommentComponent {
 }
 @Component({
   selector: 'power-formulars-dashboard',

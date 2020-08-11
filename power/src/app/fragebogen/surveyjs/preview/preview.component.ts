@@ -35,6 +35,7 @@ export class PreviewComponent implements OnInit {
     }
 
     document.body.classList.add('overflow-hidden');
+    document.body.style.pointerEvents = 'none';
     this.mode = mode;
     this.isOpen = true;
   }
@@ -44,6 +45,7 @@ export class PreviewComponent implements OnInit {
    */
   public Close() {
     document.body.classList.remove('overflow-hidden');
+    document.body.style.pointerEvents = 'auto';
     this.isOpen = false;
     this.data = null;
   }

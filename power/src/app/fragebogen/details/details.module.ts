@@ -9,6 +9,7 @@ import { StorageService } from './storage.service';
 import { DetailsComponent } from './details.component';
 import { MaketaskComponent } from './maketask/maketask.component';
 import { PublishComponent } from './publish/publish.component';
+import { CommentComponent } from './comment/comment.component';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
@@ -16,7 +17,8 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
   declarations: [
     DetailsComponent,
     MaketaskComponent,
-    PublishComponent
+    PublishComponent,
+    CommentComponent,
   ],
   imports: [
     DetailsRoutingModule,

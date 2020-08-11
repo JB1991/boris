@@ -27,7 +27,7 @@
               "inputType": "text",
               "isRequired": true,
               "name": "e2",
-              "title": "Titel der Frage",
+              "title": "# Titel der Frage",
               "type": "text"
             },
             {

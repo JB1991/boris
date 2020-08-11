@@ -56,24 +56,31 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
   }
 
   @HostListener('window:scroll', ['$event']) onScroll(event) {
+    const tb = document.getElementById('toolbox').parentElement;
+    const fr = document.getElementById('favorites').parentElement;
+
     // check if not mobile device
-    const div = document.getElementById('toolbox').parentElement;
     if (window.innerWidth >= 992) {
+      console.log(tb.parentElement.clientHeight);
+      console.log(tb.clientHeight + fr.clientHeight + window.pageYOffset + 12);
+
+
       // prevent scrolling too far
-      if (div.parentElement.clientHeight < 378 + event.path[1].pageYOffset) {
+      if (tb.parentElement.clientHeight < (tb.clientHeight + fr.clientHeight + window.pageYOffset + 12)) {
         return;
       }
-      div.style.margin = event.path[1].pageYOffset + 'px 0 0 0';
+      tb.style.marginTop = window.pageYOffset + 'px';
     } else {
-      div.style.margin = '0 0 0 0';
+      tb.style.marginTop = '0px';
     }
+    document.body.focus();
   }
 
   @HostListener('window:resize', ['$event']) onResize(event) {
     // check if not mobile device
     const div = document.getElementById('toolbox').parentElement;
     if (window.innerWidth < 992) {
-      div.style.margin = '0 0 0 0';
+      div.style.marginTop = '0px';
     }
   }
 

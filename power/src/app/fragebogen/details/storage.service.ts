@@ -158,4 +158,21 @@ export class StorageService {
     const url = environment.formAPI + 'intern/tasks/' + encodeURIComponent(id);
     return this.httpClient.delete(url, this.auth.getHeaders());
   }
+
+  /**
+   * Updates comment
+   * @param id Task id
+   * @param comment Comment
+   */
+  public updateTaskComment(id: string, comment: string): Observable<Object> {
+    // check data
+    if (!id) {
+      throw new Error('id is required');
+    }
+
+    // delete task
+    const url = environment.formAPI + 'intern/tasks/' + encodeURIComponent(id)
+                + '?description=' + encodeURIComponent(comment);
+    return this.httpClient.post(url, '', this.auth.getHeaders());
+  }
 }
