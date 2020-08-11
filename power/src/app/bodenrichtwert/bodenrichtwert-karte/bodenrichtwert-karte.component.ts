@@ -62,26 +62,26 @@ export class BodenrichtwertKarteComponent implements OnInit {
     }
   }
 
-  public toggleSearchActive() {
+  toggleSearchActive() {
     this.searchActive = !this.searchActive;
   }
 
-  public toggleFilterActive() {
+  toggleFilterActive() {
     this.filterActive = !this.filterActive;
   }
 
-  flyTo(evt: any) {
-    this.marker.setLngLat(evt.geometry.coordinates).addTo(this.map);
+  flyTo(event: any) {
+    this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
     this.map.flyTo({
-      center: evt.geometry.coordinates,
+      center: event.geometry.coordinates,
       zoom: 14,
       speed: 1,
       curve: 1,
       bearing: 0
     });
     this.getBodenrichtwertzonen(
-      evt.geometry.coordinates[1],
-      evt.geometry.coordinates[0],
+      event.geometry.coordinates[1],
+      event.geometry.coordinates[0],
       this.teilmarkt.value);
   }
 
@@ -96,10 +96,10 @@ export class BodenrichtwertKarteComponent implements OnInit {
       .subscribe(res => this.geosearchService.updateFeatures(res.features[0]));
   }
 
-  onMapClickEvent(evt: mapboxgl.MapMouseEvent) {
-    if (evt.lngLat) {
-      this.lat = evt.lngLat.lat;
-      this.lng = evt.lngLat.lng;
+  onMapClickEvent(event: mapboxgl.MapMouseEvent) {
+    if (event.lngLat) {
+      this.lat = event.lngLat.lat;
+      this.lng = event.lngLat.lng;
 
       this.marker.setLngLat([this.lng, this.lat]).addTo(this.map);
       this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
@@ -114,16 +114,16 @@ export class BodenrichtwertKarteComponent implements OnInit {
     }
   }
 
-  onSearchSelect(evt: any) {
-    this.marker.setLngLat(evt.geometry.coordinates).addTo(this.map);
+  onSearchSelect(event: any) {
+    this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
     this.map.flyTo({
-      center: evt.geometry.coordinates,
+      center: event.geometry.coordinates,
       zoom: 14,
       speed: 1,
       curve: 1,
       bearing: 0
     });
-    this.getBodenrichtwertzonen(evt.geometry.coordinates[1], evt.geometry.coordinates[0], 'B');
+    this.getBodenrichtwertzonen(event.geometry.coordinates[1], event.geometry.coordinates[0], 'B');
   }
 
   toggle3dView() {
