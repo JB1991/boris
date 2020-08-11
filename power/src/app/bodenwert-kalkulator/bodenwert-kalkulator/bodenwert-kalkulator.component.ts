@@ -43,28 +43,40 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
   onMapClickEvent(e: MapMouseEvent) {
     if (e.point) {
-      const features = this.map.queryRenderedFeatures(new Point(e.point.x, e.point.y), {layers: ['flurstuecke-fill']});
+      const point: Point = new Point(e.point.x, e.point.y);
+      const features: MapboxGeoJSONFeature[] = this.map.queryRenderedFeatures(point, {layers: ['flurstuecke-fill']});
       for (const feature of features) {
-        if (this.flurstueckSelection.has(feature.properties.gml_id)) {
-          this.flurstueckSelection.delete(feature.properties.gml_id);
-        } else {
-          this.flurstueckSelection.set(feature.properties.gml_id, feature);
-        }
-
-        if (this.flurstueckSelection.size > 0) {
-          this.acc.expand('ngb-panel-0');
-        } else {
-          this.acc.collapse('ngb-panel-0');
-        }
+        this.updateFlurstueckSelection(feature);
       }
-      this.map.setFilter('flurstuecke-highlighted', null);
-
-      const filter = ['in', 'gml_id'];
-      for (const l of Array.from(this.flurstueckSelection.values())) {
-        filter.push(l.properties.gml_id);
-      }
-      this.map.setFilter('flurstuecke-highlighted', filter);
+      this.showOrHideFlurstueckPanel();
+      this.updateFlurstueckHighlighting();
     }
+  }
+
+  updateFlurstueckSelection(feature: MapboxGeoJSONFeature) {
+    if (this.flurstueckSelection.has(feature.properties.gml_id)) {
+      this.flurstueckSelection.delete(feature.properties.gml_id);
+    } else {
+      this.flurstueckSelection.set(feature.properties.gml_id, feature);
+    }
+  }
+
+  showOrHideFlurstueckPanel() {
+    if (this.flurstueckSelection.size > 0) {
+      this.acc.expand('ngb-panel-0');
+    } else {
+      this.acc.collapse('ngb-panel-0');
+    }
+  }
+
+  updateFlurstueckHighlighting() {
+    this.map.setFilter('flurstuecke-highlighted', null);
+
+    const filter = ['in', 'gml_id'];
+    for (const l of Array.from(this.flurstueckSelection.values())) {
+      filter.push(l.properties.gml_id);
+    }
+    this.map.setFilter('flurstuecke-highlighted', filter);
   }
 
   loadMap($event: any) {
@@ -87,6 +99,16 @@ export class BodenwertKalkulatorComponent implements OnInit {
       zoom: 15,
       speed: 1,
       curve: 1,
+    });
+  }
+
+  onSearchSelect(evt: any) {
+    this.map.flyTo({
+      center: evt.geometry.coordinates,
+      zoom: 17,
+      speed: 1,
+      curve: 1,
+      bearing: 0
     });
   }
 
