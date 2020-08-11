@@ -96,15 +96,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
     this.marker.togglePopup();
     this.map.flyTo({
       center: event.geometry.coordinates,
-      zoom: 15,
-      speed: 1,
-      curve: 1,
-    });
-  }
-
-  onSearchSelect(event: any) {
-    this.map.flyTo({
-      center: event.geometry.coordinates,
       zoom: 17,
       speed: 1,
       curve: 1,
