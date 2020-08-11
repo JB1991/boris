@@ -43,17 +43,22 @@
                     <!-- Select DrawValues-->
                     <ul *ngIf="select['type'] == 'single' || select['type'] == 'multiSelect'">
 
-                        <li *ngIf="select['type'] == 'multiSelect'">
-                            <ng-container *ngFor="let itm of select['preset']; let i = index">
-                                <span class="check" [style.background-color]="getCustomColor(itm)" style="padding-bottom: 0.5rem;" (click)="toggleNipixCategory(itm)" *ngIf="nipixRuntime.getDrawPreset(itm).show">
-                                    <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true" *ngIf="nipixRuntime.getDrawPreset(itm)['nipixCategory'] == 'gebrauchte Eigenheime'"></i>
-                                    <i class="fa fa-building" [ngClass]="fa-home" aria-hidden="true" *ngIf="nipixRuntime.getDrawPreset(itm)['nipixCategory'] == 'gebrauchte Eigentumswohnungen'"></i>
+                        <ng-container *ngIf="select['type'] == 'multiSelect'">
+                            <li *ngFor="let f of nipixRuntime.availableNipixCategories; let x = index">
+                                <ng-container *ngFor="let itm of select['preset']; let i = index">
+
+                                    <span class="check custom-radio" [style.background-color]="getCustomColor(itm)" (click)="toggleNipixCategory(itm)" *ngIf="nipixRuntime.getDrawPreset(itm).show">
+                                        <input type="radio" id="npx{{i}}_{{x}}" name="npx{{i}}" class="custom-control-input" [checked]="nipixRuntime.getDrawPreset(itm)['nipixCategory'] == f" (click)="toggleNipixCategory(itm)">
+                                        <label class="custom-control-label" for="npx{{i}}_{{x}}"></label>
+
+                                    </span>
+                                </ng-container>
+
+                                <span>
+                                    <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i> {{f}}
                                 </span>
-                            </ng-container>
-                            <span *ngFor="let f of nipixRuntime.availableNipixCategories">
-                                <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i> {{f}}
-                            </span>
-                        </li>
+                            </li>
+                        </ng-container>
 
                         <li>
                             <ng-container *ngFor="let itm of select['preset']; let i = index">
