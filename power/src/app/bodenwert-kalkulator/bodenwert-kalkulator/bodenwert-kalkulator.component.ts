@@ -41,9 +41,9 @@ export class BodenwertKalkulatorComponent implements OnInit {
   ngOnInit() {
   }
 
-  onMapClickEvent(e: MapMouseEvent) {
-    if (e.point) {
-      const point: Point = new Point(e.point.x, e.point.y);
+  onMapClickEvent(event: MapMouseEvent) {
+    if (event.point) {
+      const point: Point = new Point(event.point.x, event.point.y);
       const features: MapboxGeoJSONFeature[] = this.map.queryRenderedFeatures(point, {layers: ['flurstuecke-fill']});
       for (const feature of features) {
         this.updateFlurstueckSelection(feature);
@@ -63,9 +63,9 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
   showOrHideFlurstueckPanel() {
     if (this.flurstueckSelection.size > 0) {
-      this.acc.expand('ngb-panel-0');
+      this.acc.expandAll();
     } else {
-      this.acc.collapse('ngb-panel-0');
+      this.acc.collapseAll();
     }
   }
 
@@ -83,28 +83,28 @@ export class BodenwertKalkulatorComponent implements OnInit {
     this.map = $event;
   }
 
-  flyTo(evt: any) {
-    this.adresse = evt.properties.text;
+  flyTo(event: any) {
+    this.adresse = event.properties.text;
     if (this.marker) {
       this.marker.remove();
     }
     this.marker = new Marker({
       color: '#c4153a'
     })
-      .setLngLat(evt.geometry.coordinates)
+      .setLngLat(event.geometry.coordinates)
       .addTo(this.map);
     this.marker.togglePopup();
     this.map.flyTo({
-      center: evt.geometry.coordinates,
+      center: event.geometry.coordinates,
       zoom: 15,
       speed: 1,
       curve: 1,
     });
   }
 
-  onSearchSelect(evt: any) {
+  onSearchSelect(event: any) {
     this.map.flyTo({
-      center: evt.geometry.coordinates,
+      center: event.geometry.coordinates,
       zoom: 17,
       speed: 1,
       curve: 1,
@@ -171,7 +171,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     this.searchActive = !this.searchActive;
   }
 
-  public toggleFilterActive() {
+  toggleFilterActive() {
     this.filterActive = !this.filterActive;
   }
 
