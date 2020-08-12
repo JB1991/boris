@@ -119,9 +119,9 @@ export class ImmobilienComponent implements OnInit {
                     'text': this.nipixStatic.textOptions,
                     'date': this.nipixRuntime.availableQuartal,
                     'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
-                    'exportAsImage': this.exportAsImage.bind(this),
-                    'exportCSV': this.exportCSV.bind(this),
-                    'exportNiPixGeoJson': this.exportNiPixGeoJson.bind(this)
+                    'exportAsImage': function() { this.nipixRuntime.export.exportAsImage(); }.bind(this),
+                    'exportCSV': function() { this.nipixRuntime.export.exportNiPixGeoJson(false); }.bind(this),
+                    'exportNiPixGeoJson': function() { this.nipixRuntime.export.exportNiPixGeoJson(true); }.bind(this)
                 });
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(json['mapUrl']);
@@ -196,34 +196,14 @@ export class ImmobilienComponent implements OnInit {
             });
     }
 
-    /**
-     * Download current Diagram Data as csv
-     */
-    exportAsImage() {
-        this.nipixRuntime.export.exportAsImage();
-    }
-
-    /**
-     * Download current Diagram Data as csv
-     */
-    exportCSV() {
-        this.exportNiPixGeoJson(false);
-    }
 
 
-    /*
-     * Download GeoJSON fronm Map
-     */
-    exportGeoJSON() {
-        this.nipixRuntime.export.exportGeoJSON();
-    }
 
-    /**
-     * Export GeoJSON with Nipix
-     */
-    exportNiPixGeoJson(geoJSON = true) {
-        this.nipixRuntime.export.exportNiPixGeoJson(geoJSON);
-    }
+
+
+
+
+
 
     /**
      * Set Map Options
@@ -233,7 +213,7 @@ export class ImmobilienComponent implements OnInit {
         this.nipixRuntime.map.options = ImmobilenChartOptions.getMapOptions.bind(this)({
             'text': this.nipixStatic.textOptions,
             'tooltipFormatter': this.nipixRuntime.formatter.mapTooltipFormatter,
-            'exportGeoJSON': this.exportGeoJSON.bind(this),
+            'exportGeoJSON': function() { this.nipixRuntime.export.exportGeoJSON(); }.bind(this),
             'mapRegionen': this.nipixRuntime.calculated.mapRegionen,
             'geoCoordMap': this.nipixStatic.data.geoCoordMap
         }, selectType);
@@ -278,7 +258,7 @@ export class ImmobilienComponent implements OnInit {
      * Toggle the Selection of an Subitem
      */
     toggleMapSelect(category, name, typ = 'undefined') {
-        this.resetHighlight();
+        this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if (this.nipixRuntime.drawPresets[i].name === category) {
 
@@ -547,7 +527,7 @@ export class ImmobilienComponent implements OnInit {
      * @param drawname Name of the draw Object
      */
     toggleAllSelect(drawname) {
-        this.resetHighlight();
+        this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if (this.nipixRuntime.drawPresets[i]['name'] === drawname) {
                 if (this.nipixRuntime.drawPresets[i].values.length > 0) {
@@ -678,22 +658,6 @@ export class ImmobilienComponent implements OnInit {
     toggleNipixCategory(drawname) {
         this.nipixRuntime.toggleNipixCategory(drawname);
         this.updateChart();
-    }
-
-    /**
-     * Highlight one Series (while mouse over)
-     *
-     * @param seriesName name of the series to highlight
-     */
-    highlightSeries(seriesName) {
-        this.nipixRuntime.highlightSeries(seriesName);
-    }
-
-    /**
-     * Reset the highlighted Map (before) timeout
-     */
-    resetHighlight() {
-        this.nipixRuntime.resetHighlight();
     }
 
     /**
