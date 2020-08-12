@@ -88,6 +88,7 @@ test:e2e:
     - merge_requests
     - dev
     - staging
+  when: manual
 
 test:audit:
   stage: test
