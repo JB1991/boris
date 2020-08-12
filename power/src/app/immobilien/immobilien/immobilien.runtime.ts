@@ -1,5 +1,6 @@
 import * as echarts from 'echarts';
 import * as ImmobilenNipixStatic from './immobilien.static';
+import * as ImmobilienNipixRuntimeCalculator from './immobilien.runtime-calculator';
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienExport from './immobilien.export';
 import * as ImmobilienUtils from './immobilien.utils';
@@ -37,6 +38,7 @@ export class NipixRuntime {
 
     public formatter: ImmobilienFormatter.ImmobilienFormatter;
     public export: ImmobilienExport.ImmobilienExport;
+    private calculator: ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator;
 
     public map: NipixRuntimeMap = {
         'obj': null,
@@ -78,6 +80,7 @@ export class NipixRuntime {
         this.nipixStatic = niStatic;
         this.formatter = new ImmobilienFormatter.ImmobilienFormatter(this.nipixStatic, this);
         this.export = new ImmobilienExport.ImmobilienExport(this.nipixStatic, this);
+        this.calculator = new ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator(this.nipixStatic, this);
     }
 
     public logStatic() {
@@ -142,7 +145,6 @@ export class NipixRuntime {
         }
     }
 
-
     /**
      * timeout handler for diable highlight
      */
@@ -187,168 +189,24 @@ export class NipixRuntime {
         this.highlightedTimeout = setTimeout(this.highlightTimeout.bind(this), 10000);
     }
 
-    private calculateDrawDataSingle(drawitem: any) {
-
-        // Iterate over all Regions
-        // let reg = Object.keys(this.nipixStatic.data.regionen);
-        for (let i = 0; i < this.nipixStatic.data.allItems.length; i++) {
-
-            const value = this.nipixStatic.data.allItems[i]; // drawitem["values"][i];
-            const nipix = this.nipixStatic.data.nipix[drawitem.nipixCategory];
-
-            // Region included, drawitem show and data available
-            if (
-                drawitem['values'].includes(value) &&
-                (this.nipixStatic.data.nipix.hasOwnProperty(drawitem.nipixCategory)) &&
-                (this.nipixStatic.data.nipix[drawitem.nipixCategory].hasOwnProperty(value)) &&
-                (drawitem['show'] === true) &&
-                (Object.getOwnPropertyNames(
-                    this.nipixStatic.data.nipix[drawitem.nipixCategory][value]).length > 0)
-            ) {
-
-                // Calc reference value on referenceDate
-                let reference = 100;
-                if (this.nipixStatic.data.nipix[drawitem.nipixCategory][value].hasOwnProperty(
-                    this.nipixStatic.referenceDate)) {
-                    reference = parseFloat(
-                        this.nipixStatic.data.nipix[drawitem.nipixCategory][value][this.nipixStatic.referenceDate]
-                        .index.replace(',', '.')
-                    );
-                }
-
-                // Add Series
-                this.calculated.drawData.push(
-                    ImmobilienUtils.generateSeries(
-                        value,
-                        ImmobilienUtils.generateDrawSeriesData(
-                            this.nipixStatic.data.nipix[drawitem.nipixCategory][value],
-                            this.availableQuartal, 'index', reference
-                        ),
-                        this.nipixStatic.data.regionen[value]['color'],
-                        this.formatter.formatLabel,
-                        this.state.selectedChartLine
-                    )
-                );
-                this.calculated.hiddenData[value] = ImmobilienUtils.generateDrawSeriesData(
-                    this.nipixStatic.data.nipix[drawitem.nipixCategory][value],
-                    this.availableQuartal,
-                    'faelle'
-                );
-            } else if (
-                drawitem['values'].includes(value) &&
-                (drawitem['show'] === true)
-            ) {
-                this.calculated.drawData.push(
-                    ImmobilienUtils.generateSeries(
-                        value,
-                        [],
-                        this.nipixStatic.data.regionen[value]['color'],
-                        this.formatter.formatLabel,
-                        this.state.selectedChartLine
-                    )
-                );
-
-            }
-
-        }
-    }
-
-    private calculateDrawDataAggr(drawitem: any) {
-
-        const a_val = [];
-        const a_faelle = [];
-
-        let reference = 100;
-
-        // Display?
-        if ((drawitem['show'] === true) && (drawitem['values'].length > 0)) {
-            for (let d = 0; d < this.availableQuartal.length; d++) {
-
-                let aggr_val = 0;
-                let aggr_faelle = 0;
-
-                // Iterate over all values for this aggregation
-                for (let i = 0; i < drawitem['values'].length; i++) {
-
-                    const value = drawitem['values'][i];
-                    const data = this.nipixStatic.data.nipix[drawitem.nipixCategory][value];
-
-                    // Data available?
-                    if (data !== undefined) {
-
-                        // Calculate reference for referenceDate
-                        reference = 100;
-                        if (data.hasOwnProperty(this.nipixStatic.referenceDate)) {
-                            reference = parseFloat(data[this.nipixStatic.referenceDate].index.replace(',', '.'));
-                        }
-
-                        // Add Value to aggregation Var
-                        if (data.hasOwnProperty(this.availableQuartal[d].replace('/', '_'))) {
-                            let val = ImmobilienHelper.parseStringAsFloat(
-                                data[this.availableQuartal[d].replace('/', '_')].index
-                            );
-                            const fal = ImmobilienHelper.parseStringAsFloat(
-                                data[this.availableQuartal[d].replace('/', '_')].faelle
-                            );
-
-                            val += (100 - reference);
-
-                            if (!isNaN(val)) {
-                                aggr_val += val * fal;
-                                aggr_faelle += fal;
-                            }
-                        }
-                    }
-                }
-
-
-                // Calc aggregated Value for a specific date
-                const pval = parseFloat((aggr_val / aggr_faelle).toFixed(2));
-
-                a_val.push(pval);
-                a_faelle.push(aggr_faelle);
-
-                if (this.availableQuartal[d].replace('/', '_') === this.nipixStatic.referenceDate) {
-                    reference = pval;
-                }
-            }
-
-            // Add Series to Output
-            this.calculated.drawData.push(
-                ImmobilienUtils.generateSeries(
-                    drawitem['name'],
-                    ImmobilienUtils.generateDrawSeriesData(a_val, this.availableQuartal, null, 100), // reference),
-                    drawitem['colors'],
-                    this.formatter.formatLabel,
-                    this.state.selectedChartLine
-                )
-            );
-            this.calculated.hiddenData[drawitem['name']] =
-                ImmobilienUtils.generateDrawSeriesData(a_faelle, this.availableQuartal);
-        }
-    }
-
     /**
      * Generates the drawdata from the given draw array
      */
     public calculateDrawData() {
+        this.calculator.calculateDrawData();
+    }
 
-        // Empty result
-        this.calculated.drawData = [];
 
-        // Iterate over all draw items
-        for (let d = 0; d < this.drawPresets.length; d++) {
-            const drawitem = this.drawPresets[d];
+    public updateRange(range_start, range_end) {
+        if (this.state.rangeStartIndex === 0) {
+            this.state.rangeStartIndex =
+                Math.round((this.availableQuartal.length - 1) / 100 * range_start);
+            this.nipixStatic.referenceDate = this.availableQuartal[this.state.rangeStartIndex].replace('/', '_');
+        }
 
-            // Type Single: display all values as an individual series
-            if (drawitem['type'] === 'single') {
-                this.calculateDrawDataSingle(drawitem);
-
-                // Type Aggr: display all values as an aggregated series
-            } else if (drawitem['type'] === 'aggr') {
-                this.calculateDrawDataAggr(drawitem);
-            }
-
+        if (this.state.rangeEndIndex === 0) {
+            this.state.rangeEndIndex =
+                Math.round((this.availableQuartal.length - 1) / 100 * range_end);
         }
     }
 
