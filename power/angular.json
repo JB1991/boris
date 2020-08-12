@@ -41,11 +41,18 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "showdown",
-              "surveyjs-widgets",
-              "nouislider",
+              "bootstrap-slider",
+              "css-element-queries",
+              "echarts",
+              "hyphen",
               "inputmask",
-              "bootstrap-slider"
+              "nouislider",
+              "showdown",
+              "suggestions",
+              "surveyjs-widgets",
+              "zrender",
+              "@mapbox/mapbox-gl-geocoder",
+              "@mapbox/mapbox-sdk"
             ]
           },
           "configurations": {
