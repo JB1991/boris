@@ -3,6 +3,7 @@
 server {
   listen  80;
   gzip on;
+  gzip_types application/javascript application/json text/css text/html;
   server_tokens off;
 
   # security headers
@@ -23,7 +24,6 @@ server {
   etag off;
 
   location / {
-    gzip on;
     root  /usr/share/nginx/html;
     try_files $uri $uri/ /index.html;
   }
