@@ -21,7 +21,7 @@
                             {{nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories" (click)="onChangeCat(select['preset'],f)">
+                            <button class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories" (click)="onChangeCat(select['preset'], f)">
                                 <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i>
                                 {{f}}
                             </button>
@@ -34,7 +34,7 @@
                             {{ (select['selected']) }} Vergleiche
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of select['preset']" (click)="onSetNumber(select['name'],f)">
+                            <button class="dropdown-item" *ngFor="let f of select['preset']" (click)="onSetNumber(select['name'], f)">
                                 {{f}} Vergleiche
                             </button>
                         </div>
@@ -43,24 +43,29 @@
                     <!-- Select DrawValues-->
                     <ul *ngIf="select['type'] == 'single' || select['type'] == 'multiSelect'">
 
-                        <li *ngIf="select['type'] == 'multiSelect'">
-                            <ng-container *ngFor="let itm of select['preset']; let i = index">
-                                <span class="check" [style.background-color]="getCustomColor(itm)" style="padding-bottom: 0.5rem;" (click)="toggleNipixCategory(itm)" *ngIf="nipixRuntime.getDrawPreset(itm).show">
-                                    <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true" *ngIf="nipixRuntime.getDrawPreset(itm)['nipixCategory'] == 'gebrauchte Eigenheime'"></i>
-                                    <i class="fa fa-building" [ngClass]="fa-home" aria-hidden="true" *ngIf="nipixRuntime.getDrawPreset(itm)['nipixCategory'] == 'gebrauchte Eigentumswohnungen'"></i>
+                        <ng-container *ngIf="select['type'] == 'multiSelect'">
+                            <li *ngFor="let f of nipixRuntime.availableNipixCategories; let x = index">
+                                <ng-container *ngFor="let itm of select['preset']; let i = index">
+
+                                    <span class="check custom-radio" [style.background-color]="getCustomColor(itm)" (click)="toggleNipixCategory(itm)" *ngIf="nipixRuntime.getDrawPreset(itm).show">
+                                        <input type="radio" id="npx{{i}}_{{x}}" name="npx{{i}}" class="custom-control-input" [checked]="nipixRuntime.getDrawPreset(itm)['nipixCategory'] == f" (click)="toggleNipixCategory(itm)">
+                                        <label class="custom-control-label" for="npx{{i}}_{{x}}"></label>
+
+                                    </span>
+                                </ng-container>
+
+                                <span>
+                                    <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i> {{f}}
                                 </span>
-                            </ng-container>
-                            <span *ngFor="let f of nipixRuntime.availableNipixCategories">
-                                <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i> {{f}}
-                            </span>
-                        </li>
+                            </li>
+                        </ng-container>
 
                         <li>
                             <ng-container *ngFor="let itm of select['preset']; let i = index">
                                 <ng-container *ngIf="nipixRuntime.getDrawPreset(itm).show">
-                                    <span class="check" [style.background-color]="getCustomColor(itm)" style="padding-bottom: 0.5rem;">
-                                        <input id="{{i}}vall" [checked]="nipixRuntime.getDrawPreset(itm).values.length == 0" type="checkbox" (click)="toggleAllSelect(itm)">
-                                        <label for="{{i}}vall" style="margin-bottom: 0;">
+                                    <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)" style="padding-bottom: 0.5rem; padding-top: 0.5rem;">
+                                        <input id="{{i}}vall" [checked]="nipixRuntime.getDrawPreset(itm).values.length == 0" type="checkbox" class="custom-control-input" (click)="toggleAllSelect(itm)">
+                                        <label for="{{i}}vall" style="margin-bottom: 0;" class="custom-control-label">
                                         </label>
                                     </span>
                                     <span *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length == 0">alle auswählen</span>
@@ -76,9 +81,9 @@
                         <li *ngFor="let subitem of nipixStatic.data.allItems">
                             <ng-container *ngFor="let itm of select['preset']; let i = index">
 
-                                <span class="check" [style.background-color]="getCustomColor(itm)" *ngIf="nipixRuntime.getDrawPreset(itm).show">
-                                    <input id="{{i}}v1{{subitem}}" [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)" type="checkbox" (click)="toggleMapSelect(itm, subitem, select['type'])">
-                                    <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0;"></label>
+                                <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)" *ngIf="nipixRuntime.getDrawPreset(itm).show">
+                                    <input id="{{i}}v1{{subitem}}" [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)" type="checkbox" class="custom-control-input" (click)="toggleMapSelect(itm, subitem, select['type'])">
+                                    <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0;" class="custom-control-label"></label>
                                 </span>
                             </ng-container>
                             <span style="display: inline-block; margin-right: 5px; border-radius: 10px; width: 10px; height: 10px;" [style.background-color]="getSeriesColor(subitem)" *ngIf="select['type'] == 'single'"></span>
@@ -89,8 +94,10 @@
                     <!-- Select DrawShow -->
                     <ul *ngIf="select['type'] == 'multi' || select['type'] == 'multiIndex'">
                         <li *ngFor="let itm of select['preset']">
-                            <input id="{{itm}}" type="checkbox" [checked]="nipixRuntime.getDrawPreset(itm).show" (change)="onToggleDrawRoot(itm)">
-                            <label for="{{itm}}"></label>
+                            <span class="check custom-checkbox">
+                                <input id="{{itm}}" type="checkbox" class="custom-control-input" [checked]="nipixRuntime.getDrawPreset(itm).show" (change)="onToggleDrawRoot(itm)">
+                                <label for="{{itm}}" class="custom-control-label"></label>
+                            </span>
                             <span (click)="onClickDrawRoot(itm)">
                                 <span style="display: inline-block; margin-right: 5px; border-radius: 10px; width: 10px; height: 10px;" [style.background-color]="nipixRuntime.getDrawPreset(itm).colors"></span>
                                 {{ itm }}

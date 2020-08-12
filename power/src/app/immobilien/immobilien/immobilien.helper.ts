@@ -153,7 +153,7 @@ export function downloadFile(data, filename, filetype = 'text/csv', isurl = fals
  *
  * @return Resolved Property
  */
-function resolve(path, obj = self, separator = '.') {
+export function resolve(path, obj: any = self, separator = '.') {
     const properties = Array.isArray(path) ? path : path.split(separator);
     return properties.reduce((prev, curr) => prev && prev[curr], obj);
 }

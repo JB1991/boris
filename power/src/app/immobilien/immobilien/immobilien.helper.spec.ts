@@ -6,7 +6,12 @@ import {
     appendLeadingZeroes,
     getDate,
     convertColor,
-    modifyColor
+    modifyColor,
+    downloadFile,
+    resolve,
+    convertArrayToCSV,
+    getSingleFeature,
+    getGeometryArray
 } from './immobilien.helper';
 
 
@@ -87,7 +92,101 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
         expect(res).toEqual('#cc0078');
     });
 
+    it('resolve works', function() {
+        const res = resolve('path.to', {'path': {'to': 'value'}}, '.');
+        expect(res).toEqual('value');
+    });
 
+    it('downloadFile works', function() {
+        let clicked = false;
+        const anchor =  Object.create(HTMLElement.prototype);
+        anchor.click = function() { clicked = true; };
+
+        const fun = function(elem: string) {
+                            return this;
+                        };
+
+        spyOn(document, 'createElement').and.callFake(fun.bind(anchor));
+
+        const res = downloadFile('foo', 'bar', '', true);
+
+        expect(anchor.href).toEqual('foo');
+        expect(anchor.download).toEqual('bar');
+        expect(clicked).toEqual(true);
+
+    });
+
+    it('convertArrayToCSV works', function() {
+        const data = [
+            {
+                'key': 'key',
+                'value': 'value'
+            }
+        ];
+        const ky = ['key', 'value'];
+        const res = convertArrayToCSV(data, ky);
+        expect(res).toEqual('"key";"value"');
+    });
+
+    it('convertArrayToCSV works with parameter', function() {
+        const data = [
+            {
+                'key': 'key',
+                'value': 1.2
+            }
+        ];
+        const ky = ['key', 'value'];
+        const res = convertArrayToCSV(data, ky, ':', '/');
+        expect(res).toEqual('/key/:/1,2/');
+    });
+
+    it('getSingleFeature works', function() {
+        const data = {
+            'features': [
+                {
+                    'properties': {
+                        'name': 'foo'
+                    }
+                }
+            ]};
+        const res = getSingleFeature(data, 'foo');
+        expect(res).toEqual({
+            'properties': {
+                'name': 'foo'
+            }
+        });
+    });
+
+    it('getSingleFeature not found works', function() {
+        const data = {
+            'features': [
+                {
+                    'properties': {
+                        'name': 'foo'
+                    }
+                }
+            ]};
+        const res = getSingleFeature(data, 'bar');
+        expect(res).toEqual({});
+    });
+
+
+    it('getGeometryArray works', function() {
+        const data = {
+            'features': [
+                {
+                    'properties': {
+                        'name': 'foo'
+                    },
+                    'geometry': 'geometry'
+                }
+            ]};
+        const res = getGeometryArray(data, 'foo');
+        expect(res).toEqual({
+            'type': 'GeometryCollection',
+            'geometries': ['geometry']
+        });
+    });
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

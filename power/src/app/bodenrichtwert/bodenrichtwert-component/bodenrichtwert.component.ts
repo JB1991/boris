@@ -94,11 +94,9 @@ export class BodenrichtwertComponent implements OnDestroy {
 
   /**
    * Destroys all active subscriptions
-   *
    */
   ngOnDestroy(): void {
     this.adresseSubscription.unsubscribe();
     this.featureSubscription.unsubscribe();
   }
-
 }

@@ -8,7 +8,7 @@
           </div>
         </div>
         <div class="nav px-auto" style="position: relative;">
-          <power-geosearch (selectResult)="onSearchSelect($event)"></power-geosearch>
+          <power-geosearch (selectResult)="flyTo($event)"></power-geosearch>
         </div>
         <div class="nav">
           <a class="nav-link" (click)="enableLocationTracking()">
@@ -29,11 +29,6 @@
   <div class="d-md-none">
     <div class="nav-scroller bg-white shadow-sm border-top">
       <nav class="nav nav-underline">
-        <div class="nav mr-auto">
-          <a class="nav-link" (click)="toggleFilterActive()">
-            <img src="/assets/icons/filter.svg" width="25" height="25" alt="Filtern">
-          </a>
-        </div>
         <div class="nav ml-auto">
           <a class="nav-link" (click)="toggleSearchActive()">
             <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche">
