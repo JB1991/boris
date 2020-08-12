@@ -2,7 +2,8 @@ import * as echarts from 'echarts';
 import * as ImmobilenNipixStatic from './immobilien.static';
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienExport from './immobilien.export';
-import * as ImmobilenUtils from './immobilien.utils';
+import * as ImmobilienUtils from './immobilien.utils';
+import * as ImmobilienHelper from './immobilien.helper';
 
 interface NipixRuntimeMap {
     obj?: any;
@@ -178,7 +179,7 @@ export class NipixRuntime {
             }
 
             for (let i = 0; i < rkey.length; i++) {
-                ImmobilenUtils.dispatchMapSelect(this.map.obj, rkey[i], rname.includes(rkey[i]));
+                ImmobilienUtils.dispatchMapSelect(this.map.obj, rkey[i], rname.includes(rkey[i]));
             }
 
         }
@@ -217,9 +218,9 @@ export class NipixRuntime {
 
                 // Add Series
                 this.calculated.drawData.push(
-                    ImmobilenUtils.generateSeries(
+                    ImmobilienUtils.generateSeries(
                         value,
-                        ImmobilenUtils.generateDrawSeriesData(
+                        ImmobilienUtils.generateDrawSeriesData(
                             this.nipixStatic.data.nipix[drawitem.nipixCategory][value],
                             this.availableQuartal, 'index', reference
                         ),
@@ -228,7 +229,7 @@ export class NipixRuntime {
                         this.state.selectedChartLine
                     )
                 );
-                this.calculated.hiddenData[value] = ImmobilenUtils.generateDrawSeriesData(
+                this.calculated.hiddenData[value] = ImmobilienUtils.generateDrawSeriesData(
                     this.nipixStatic.data.nipix[drawitem.nipixCategory][value],
                     this.availableQuartal,
                     'faelle'
@@ -238,7 +239,7 @@ export class NipixRuntime {
                 (drawitem['show'] === true)
             ) {
                 this.calculated.drawData.push(
-                    ImmobilenUtils.generateSeries(
+                    ImmobilienUtils.generateSeries(
                         value,
                         [],
                         this.nipixStatic.data.regionen[value]['color'],
@@ -249,14 +250,6 @@ export class NipixRuntime {
 
             }
 
-        }
-    }
-
-    private parseStringAsFloat(value: any) {
-        if (typeof value === 'string') {
-            return parseFloat(value.replace(',', '.'));
-        } else {
-            return value;
         }
     }
 
@@ -291,10 +284,10 @@ export class NipixRuntime {
 
                         // Add Value to aggregation Var
                         if (data.hasOwnProperty(this.availableQuartal[d].replace('/', '_'))) {
-                            let val = this.parseStringAsFloat(
+                            let val = ImmobilienHelper.parseStringAsFloat(
                                 data[this.availableQuartal[d].replace('/', '_')].index
                             );
-                            const fal = this.parseStringAsFloat(
+                            const fal = ImmobilienHelper.parseStringAsFloat(
                                 data[this.availableQuartal[d].replace('/', '_')].faelle
                             );
 
@@ -322,16 +315,16 @@ export class NipixRuntime {
 
             // Add Series to Output
             this.calculated.drawData.push(
-                ImmobilenUtils.generateSeries(
+                ImmobilienUtils.generateSeries(
                     drawitem['name'],
-                    ImmobilenUtils.generateDrawSeriesData(a_val, this.availableQuartal, null, 100), // reference),
+                    ImmobilienUtils.generateDrawSeriesData(a_val, this.availableQuartal, null, 100), // reference),
                     drawitem['colors'],
                     this.formatter.formatLabel,
                     this.state.selectedChartLine
                 )
             );
             this.calculated.hiddenData[drawitem['name']] =
-                ImmobilenUtils.generateDrawSeriesData(a_faelle, this.availableQuartal);
+                ImmobilienUtils.generateDrawSeriesData(a_faelle, this.availableQuartal);
         }
     }
 
@@ -374,19 +367,19 @@ export class NipixRuntime {
                 );
                 const reg = Object.keys(this.nipixStatic.data.regionen);
                 for (let s = 0; s < reg.length; s++) {
-                    ImmobilenUtils.dispatchMapSelect(this.map.obj, reg[s], draw.values.includes(reg[s]));
+                    ImmobilienUtils.dispatchMapSelect(this.map.obj, reg[s], draw.values.includes(reg[s]));
                 }
             } else { // All other drawing types; unselect
                 const reg = Object.keys(this.nipixStatic.data.regionen);
                 for (let s = 0; s < reg.length; s++) {
-                    ImmobilenUtils.dispatchMapSelect(this.map.obj, reg[s], false);
+                    ImmobilienUtils.dispatchMapSelect(this.map.obj, reg[s], false);
                 }
             }
         } else { // Update MyWoMaReg
             if (id !== null) {
                 const reg = Object.keys(this.nipixStatic.data.regionen);
                 for (let s = 0; s < reg.length; s++) {
-                    ImmobilenUtils.dispatchMapSelect(this.map.obj, reg[s], (reg[s] === id));
+                    ImmobilienUtils.dispatchMapSelect(this.map.obj, reg[s], (reg[s] === id));
                 }
             }
         }
