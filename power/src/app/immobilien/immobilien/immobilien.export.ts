@@ -155,7 +155,6 @@ export class ImmobilienExport {
                     'type': drawitem['nipixCategory'],
                     'data': this.getNiPixTimeslot(date, series, drawitem['values'][s], istart, iend)
                 };
-
                 tmp.push(feature);
             }
         } else if (drawitem['type'] === 'aggr') {
@@ -170,9 +169,7 @@ export class ImmobilienExport {
                 },
                 'geometry': getGeometryArray(geoData, drawitem['values'])
             };
-
             tmp.push(feature);
-
         }
         return tmp;
     }
@@ -232,15 +229,11 @@ export class ImmobilienExport {
                 }
             }
         }
-
         if (this.nipixRuntime.calculated.hiddenData.hasOwnProperty(region)) {
             datafaelle = this.nipixRuntime.calculated.hiddenData[region];
         }
-
         if (data !== null && datafaelle !== null) {
-
             const res = [];
-
             for (let i: number = tstart; i < tend; i++) {
                 res.push({
                     'date': date[i].replace('/', '_'),
@@ -248,9 +241,7 @@ export class ImmobilienExport {
                     'sales': datafaelle[i]
                 });
             }
-
             return res;
-
         } else {
             return [];
         }

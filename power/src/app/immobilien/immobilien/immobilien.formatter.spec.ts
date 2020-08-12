@@ -10,10 +10,7 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
     let niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
     let niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
 
-
-    beforeEach(() => {
-        niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
-        niStatic.data = {
+    const niStaticData = {
             'regionen': {
                 'foo': {
                     'name': 'bar',
@@ -24,6 +21,20 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
                 'shortName': 'short'
             }
         };
+
+    const niRuntimeCalculated = {
+            'legendText': {
+                'bar': 'foo'
+            },
+            'hiddenData': {
+                'foo': [100]
+            }
+        };
+
+
+    beforeEach(() => {
+        niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
+        niStatic.data = JSON.parse(JSON.stringify(niStaticData));
         niStatic.referenceDate = '';
         niStatic.textOptions = {
             'fontSizePage': 1
@@ -34,21 +45,13 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
             'rangeEndIndex': 10,
             'selectedChartLine': ''
         };
-        niRuntime.calculated = {
-            'legendText': {
-                'bar': 'foo'
-            },
-            'hiddenData': {
-                'foo': [100]
-            }
-        };
+        niRuntime.calculated = JSON.parse(JSON.stringify(niRuntimeCalculated));
         niRuntime.highlightSeries = function(seriesName) {};
         niRuntime.chart = {
             'obj': {
                 'convertToPixel': function(par1, par2) { return 1; }
             }
         };
-
 
         component = new ImmobilienFormatter.ImmobilienFormatter(niStatic, niRuntime);
     });

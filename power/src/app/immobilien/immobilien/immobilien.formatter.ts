@@ -55,9 +55,7 @@ export class ImmobilienFormatter {
      * @return Formatted String
      */
     public formatLabel = (params) => {
-
         if (params.dataIndex === this.nipixRuntime.state.rangeEndIndex) {
-
             if (this.legendposition.length >= params.seriesIndex) {
                 this.legendposition = [];
             }
@@ -69,7 +67,6 @@ export class ImmobilienFormatter {
                 / 2 );
 
             for (let i = 0; i < this.legendposition.length; i++) {
-                // Default fontSize: 18px
                 if ((pixel > this.legendposition[i] - clearance) && (pixel < this.legendposition[i] + clearance)) {
                     printlegend = false;
                 }
@@ -85,7 +82,6 @@ export class ImmobilienFormatter {
                 return this.findName(params.seriesName, false, true);
             }
         }
-
         return '';
     }
 

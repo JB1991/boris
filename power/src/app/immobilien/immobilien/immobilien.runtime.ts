@@ -178,20 +178,7 @@ export class NipixRuntime {
             }
 
             for (let i = 0; i < rkey.length; i++) {
-                if (rname.includes(rkey[i])) {
-                    // Select
-                    this.map.obj.dispatchAction({
-                        type: 'mapSelect',
-                        name: rkey[i]
-                    });
-                } else {
-                    // Unselect
-                    this.map.obj.dispatchAction({
-                        type: 'mapUnSelect',
-                        name: rkey[i]
-                    });
-
-                }
+                ImmobilenUtils.dispatchMapSelect(this.map.obj, rkey[i], rname.includes(rkey[i]));
             }
 
         }
@@ -376,7 +363,6 @@ export class NipixRuntime {
      * Update the Selectiopn of the Map aware of the activer Draw Item
      */
     public updateMapSelect(id = null) {
-
         if (this.map.obj === null) {
             return;
         }
@@ -388,53 +374,20 @@ export class NipixRuntime {
                 );
                 const reg = Object.keys(this.nipixStatic.data.regionen);
                 for (let s = 0; s < reg.length; s++) {
-                    if (draw.values.includes(reg[s])) {
-                        // Select
-                        this.map.obj.dispatchAction({
-                            type: 'mapSelect',
-                            name: reg[s]
-                        });
-                    } else {
-                        // Unselect
-                        this.map.obj.dispatchAction({
-                            type: 'mapUnSelect',
-                            name: reg[s]
-                        });
-
-                    }
+                    ImmobilenUtils.dispatchMapSelect(this.map.obj, reg[s], draw.values.includes(reg[s]));
                 }
-            } else {
-                // All other drawing types; unselect
+            } else { // All other drawing types; unselect
                 const reg = Object.keys(this.nipixStatic.data.regionen);
                 for (let s = 0; s < reg.length; s++) {
-                    // Unselect
-                    this.map.obj.dispatchAction({
-                        type: 'mapUnSelect',
-                        name: reg[s]
-                    });
+                    ImmobilenUtils.dispatchMapSelect(this.map.obj, reg[s], false);
                 }
             }
-        } else {
-            // Update MyWoMaReg
+        } else { // Update MyWoMaReg
             if (id !== null) {
                 const reg = Object.keys(this.nipixStatic.data.regionen);
                 for (let s = 0; s < reg.length; s++) {
-                    if (reg[s] === id) {
-                        // Select
-                        this.map.obj.dispatchAction({
-                            type: 'mapSelect',
-                            name: reg[s]
-                        });
-                    } else {
-                        // Unselect
-                        this.map.obj.dispatchAction({
-                            type: 'mapUnSelect',
-                            name: reg[s]
-                        });
-
-                    }
+                    ImmobilenUtils.dispatchMapSelect(this.map.obj, reg[s], (reg[s] === id));
                 }
-
             }
         }
     }

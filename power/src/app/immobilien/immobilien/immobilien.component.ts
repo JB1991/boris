@@ -103,31 +103,20 @@ export class ImmobilienComponent implements OnInit {
      * @param {string} url Url to Configuration
      */
     loadConfig(url) {
-
         this.http.get(url)
             .subscribe(json => {
-                // Reset initState
                 this.nipixRuntime.state.initState = 1;
-
                 this.nipixStatic.loadConfig(json);
                 this.nipixRuntime.resetDrawPresets();
-
-                // Map-Regionen
                 this.nipixRuntime.calculated.mapRegionen = ImmobilenUtils.getMyMapRegionen(
                     this.nipixStatic.data.regionen,
                     null,
                     null,
                     true
                 );
-
-                // ChartTitle
                 this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[0]['name'];
-
-                // LoadData
                 this.nipixRuntime.availableQuartal = ImmobilenUtils.getDateArray(json['lastYear'], json['lastPeriod']);
                 this.nipixRuntime.updateAvailableQuartal(json['lastYear'], json['lastPeriod']);
-
-
                 this.nipixRuntime.chart.options = ImmobilenChartOptions.getChartOptions.bind(this)({
                     'text': this.nipixStatic.textOptions,
                     'date': this.nipixRuntime.availableQuartal,
@@ -136,16 +125,9 @@ export class ImmobilienComponent implements OnInit {
                     'exportCSV': this.exportCSV.bind(this),
                     'exportNiPixGeoJson': this.exportNiPixGeoJson.bind(this)
                 });
-
-                // Load Gemeinden
                 this.loadGemeinden(json['gemeindenUrl']);
-
-                // Laod Map from asset
                 this.loadGeoMap(json['mapUrl']);
-
-                // Load NiPix from asset
                 this.loadNiPix(json['nipixUrl']);
-
             });
     }
 

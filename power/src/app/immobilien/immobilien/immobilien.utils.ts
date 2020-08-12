@@ -28,6 +28,24 @@ export function getDateArray(lastYear: number, lastPeriod: number) {
     return date;
 }
 
+function getMyMapRegionenGR(name: string, bc: string, bw: number, area: string) {
+    return {
+        'name': name,
+        'itemStyle': {
+            'areaColor': '#dddddd',
+            'borderColor': bc,
+            'borderWidth': bw
+        },
+        'emphasis': {
+            'itemStyle': {
+                'areaColor': area,
+                'borderColor': bc,
+                'borderWidth': bw
+            }
+        }
+    };
+}
+
 /**
  * Convert myRegion list to MapRegionen array.
  *
@@ -50,21 +68,7 @@ export function getMyMapRegionen(regionen, myregion = null, selectionList = null
             bc = '#ffffff';
         }
 
-        const region = {
-            'name': keys[i],
-            'itemStyle': {
-                'areaColor': '#dddddd',
-                'borderColor': bc,
-                'borderWidth': bw
-            },
-            'emphasis': {
-                'itemStyle': {
-                    'areaColor': ImmobilenHelper.convertColor(regionen[keys[i]].color),
-                    'borderColor': bc,
-                    'borderWidth': bw
-                }
-            }
-        };
+        const region = getMyMapRegionenGR(keys[i], bc, bw, ImmobilenHelper.convertColor(regionen[keys[i]].color));
 
         if (lighten === true) {
             region['itemStyle']['areaColor'] = ImmobilenHelper.modifyColor( regionen[keys[i]].color, 0.85 );
@@ -78,10 +82,39 @@ export function getMyMapRegionen(regionen, myregion = null, selectionList = null
 
         res.push(region);
     }
-
     return res;
 }
 
+
+function generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data) {
+    return {
+        'name': name,
+        'type': seriesType,
+        'smooth': false,
+        'symbol': 'circle',
+        'symbolSize': 4,
+        'sampling': 'average',
+        'zlevel': zindex,
+        'itemStyle': {
+            'color': seriesColor,
+            'borderWidth': 16,
+            'borderColor': 'rgba(255,255,255,0)'
+        },
+        'emphasis': {
+            'itemStyle': {
+                'color': seriesColor
+            }
+        },
+        label: {
+            normal: {
+                show: true,
+                position: 'right',
+                formatter: labelFormatter
+            },
+        },
+        'data': data
+    };
+}
 
 /**
  * Generate a Series object
@@ -110,34 +143,7 @@ export function generateSeries(name, data, color, labelFormatter = null, selecte
         }
 
         // Series Object
-        const ret = {
-            'name': name,
-            'type': seriesType,
-            'smooth': false,
-            'symbol': 'circle',
-            'symbolSize': 4,
-            'sampling': 'average',
-            'zlevel': zindex,
-            'itemStyle': {
-                'color': seriesColor,
-                'borderWidth': 16,
-                'borderColor': 'rgba(255,255,255,0)'
-            },
-            'emphasis': {
-                'itemStyle': {
-                    'color': seriesColor
-                }
-            },
-            label: {
-                normal: {
-                    show: true,
-                    position: 'right',
-                    formatter: labelFormatter
-                },
-            },
-            'data': data
-        };
-
+        const ret = generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data);
 
         // Set the corresponding Grid/Axis id
         if (xIndex !== 0) {
@@ -180,14 +186,8 @@ export function generateDrawSeriesData(data, date = [], field = null, offset = 1
                 val = data[date[d].replace('/', '_')][field];
             }
 
-            if (typeof val === 'string') {
-                fval = parseFloat(val.replace(',', '.'));
-            } else {
-                fval = val;
-            }
-
+            fval = ImmobilenHelper.parseStringAsFloat(val);
             fval = parseFloat( ( fval + (100 - offset) ).toFixed(2) );
-
             ret.push(fval);
         } else {
             ret.push(undefined);
@@ -242,5 +242,22 @@ export function modifyRegionen(regionen, modifyArray) {
     }
 
     return newRegionen;
+}
+
+export function dispatchMapSelect(obj: any, name: string, select: boolean) {
+    if (select) {
+        // Select
+        obj.dispatchAction({
+            type: 'mapSelect',
+            name: name
+        });
+    } else {
+        // Unselect
+        obj.dispatchAction({
+            type: 'mapUnSelect',
+            name: name
+        });
+
+    }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */
