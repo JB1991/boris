@@ -43,7 +43,7 @@
                       i18n-aria-label
                       aria-label="Angabe wie viele PINs erstellt werden"
                       onsubmit="return false;">
-                    <div class="form-group row">
+                    <div class="form-group row mb-0">
                         <label for="inputAmount"
                                class="col-sm-4 col-form-label"
                                i18n>Anzahl PINs</label>
@@ -66,7 +66,8 @@
                 </form>
 
                 <!-- results -->
-                <div class="scrolllist">
+                <div class="scrolllist mt-2"
+                     *ngIf="pinList.length !== 0">
                     <pre class="m-0"
                          *ngFor="let pin of pinList; index as i">
                         <code>{{ pin }}</code>
