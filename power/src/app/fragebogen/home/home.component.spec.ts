@@ -8,47 +8,48 @@ import { HomeComponent } from './home.component';
 import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Home.HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+    let component: HomeComponent;
+    let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        FormsModule,
-        RouterTestingModule.withRoutes([])
-      ],
-      providers: [
-        Title,
-        AuthService
-      ],
-      declarations: [
-        HomeComponent
-      ]
-    }).compileComponents();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpClientTestingModule,
+                FormsModule,
+                RouterTestingModule.withRoutes([])
+            ],
+            providers: [
+                Title,
+                AuthService
+            ],
+            declarations: [
+                HomeComponent
+            ]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(HomeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+        fixture = TestBed.createComponent(HomeComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
 
-    spyOn(console, 'log');
-    spyOn(component.router, 'navigate');
-  }));
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should redirect', () => {
-    component.submitPIN('123');
-    expect(component.router.navigate).toHaveBeenCalledTimes(1);
-    expect(component.router.navigate).toHaveBeenCalledWith(['/forms', 'fillout', encodeURIComponent('123')],
-      { replaceUrl: true });
-  });
+    it('should redirect', () => {
+        component.submitPIN('123');
+        expect(component.router.navigate).toHaveBeenCalledTimes(1);
+        expect(component.router.navigate).toHaveBeenCalledWith(['/forms', 'fillout', encodeURIComponent('123')],
+            { replaceUrl: true });
+    });
 
-  it('should not redirect', () => {
-    expect(function () {
-      component.submitPIN('');
-    }).toThrowError('pin is required');
-  });
+    it('should not redirect', () => {
+        expect(function () {
+            component.submitPIN('');
+        }).toThrowError('pin is required');
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -18,27 +18,28 @@ import { ValidatorsComponent } from './validators/validators.component';
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 @NgModule({
-  declarations: [
-    EditorComponent,
-    ModalFormularComponent,
-    ModalElementComponent,
-    ConditionsComponent,
-    ValidatorsComponent
+    declarations: [
+        EditorComponent,
+        ModalFormularComponent,
+        ModalElementComponent,
+        ConditionsComponent,
+        ValidatorsComponent
 
-  ],
-  imports: [
-    EditorRoutingModule,
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ModalModule.forRoot(),
-    CollapseModule.forRoot(),
-    NgxSmoothDnDModule,
-    SurveyjsModule
-  ],
-  providers: [
-    StorageService,
-    HistoryService,
-  ]
+    ],
+    imports: [
+        EditorRoutingModule,
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        ModalModule.forRoot(),
+        CollapseModule.forRoot(),
+        NgxSmoothDnDModule,
+        SurveyjsModule
+    ],
+    providers: [
+        StorageService,
+        HistoryService,
+    ]
 })
 export class EditorModule { }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

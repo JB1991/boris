@@ -5,21 +5,22 @@ import { LoadingscreenComponent } from './loadingscreen.component';
 import { LoadingscreenService } from './loadingscreen.service';
 
 @NgModule({
-  declarations: [
-    LoadingscreenComponent
-  ],
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    LoadingscreenComponent
-  ]
+    declarations: [
+        LoadingscreenComponent
+    ],
+    imports: [
+        CommonModule,
+    ],
+    exports: [
+        LoadingscreenComponent
+    ]
 })
 export class LoadingscreenModule {
-  static forRoot(): ModuleWithProviders<LoadingscreenModule> {
-    return {
-      ngModule: LoadingscreenModule,
-      providers: [LoadingscreenService]
-    };
-  }
+    static forRoot(): ModuleWithProviders<LoadingscreenModule> {
+        return {
+            ngModule: LoadingscreenModule,
+            providers: [LoadingscreenService]
+        };
+    }
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

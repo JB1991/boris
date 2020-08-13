@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "htmlvalidate:recommended"
+    ],
+    "rules": {
+        "attr-case": "off",
+        "no-inline-style": "off",
+        "svg-focusable": "off"
+    }
+}

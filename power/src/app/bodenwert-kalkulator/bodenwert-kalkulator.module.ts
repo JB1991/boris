@@ -10,20 +10,21 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    FlurstueckPipe,
-    BodenwertKalkulatorComponent,
-  ],
-  imports: [
-    BodenwertKalkulatorRoutingModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbAccordionModule,
-    NgxMapboxGLModule,
-    SharedModule
-  ],
-  exports: []
+    declarations: [
+        FlurstueckPipe,
+        BodenwertKalkulatorComponent,
+    ],
+    imports: [
+        BodenwertKalkulatorRoutingModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgbAccordionModule,
+        NgxMapboxGLModule,
+        SharedModule
+    ],
+    exports: []
 })
 export class BodenwertKalkulatorModule {
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

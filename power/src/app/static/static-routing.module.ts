@@ -8,35 +8,36 @@ import { LogoutComponent } from './logout/logout.component';
 import { FeedbackComponent } from '@app/static/feedback/feedback.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: StartComponent
-  },
-  {
-    path: 'impressum',
-    component: ImpressumComponent
-  },
-  {
-    path: 'datenschutz',
-    component: DatenschutzComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'logout',
-    component: LogoutComponent
-  },
-  {
-    path: 'feedback',
-    component: FeedbackComponent
-  }
+    {
+        path: '',
+        component: StartComponent
+    },
+    {
+        path: 'impressum',
+        component: ImpressumComponent
+    },
+    {
+        path: 'datenschutz',
+        component: DatenschutzComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'logout',
+        component: LogoutComponent
+    },
+    {
+        path: 'feedback',
+        component: FeedbackComponent
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class StaticRoutingModule {
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

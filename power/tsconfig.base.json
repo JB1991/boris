@@ -1,34 +1,42 @@
 {
-	"compileOnSave": false,
-	"compilerOptions": {
-		"baseUrl": "./src",
-		"outDir": "./dist/out-tsc",
-		"sourceMap": true,
-		"allowJs": true,
-		"declaration": false,
-		"downlevelIteration": true,
-		"module": "es2020",
-		"moduleResolution": "node",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"target": "es2015",
-		"types": ["node"],
-		"typeRoots": [
-			"node_modules/@types"
-		],
-		"paths": {
-			"@app/*": ["app/*"],
-			"@env/*": ["environments/*"],
-			"echarts": ["node_modules/echarts/dist/echarts.min.js"]
-		},
-		"lib": [
-			"es2017",
-			"dom"
-		],
-    "resolveJsonModule": true
-	},
-  "angularCompilerOptions": {
-    "enableIvy": true,
-    "allowEmptyCodegenFiles": true
-  }
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "allowJs": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "module": "es2020",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es2015",
+        "types": [
+            "node"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "paths": {
+            "@app/*": [
+                "app/*"
+            ],
+            "@env/*": [
+                "environments/*"
+            ],
+            "echarts": [
+                "node_modules/echarts/dist/echarts.min.js"
+            ]
+        },
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "resolveJsonModule": true
+    },
+    "angularCompilerOptions": {
+        "enableIvy": true,
+        "allowEmptyCodegenFiles": true
+    }
 }

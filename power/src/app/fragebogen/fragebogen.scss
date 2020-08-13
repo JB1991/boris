@@ -1,83 +1,83 @@
 .mainpage {
-  outline: none;
+    outline: none;
 }
 
 /* remove blue outline */
 [tabindex="-1"] {
-  outline: none;
+    outline: none;
 }
 
 /* change cursor for clickable areas */
 .clickable {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /* LGLN colors */
 .bg-lgln {
-  background-color: #d3d3d3 !important;
+    background-color: #d3d3d3 !important;
 }
 
 .bg-niedersachsen {
-  background-color: #c4153a !important;
+    background-color: #c4153a !important;
 }
 
 /* SurveyJS CSS */
 
 /* remove page title list intent */
 .nolist ol {
-  margin: 0;
-  padding: 0;
-  list-style-position: inside;
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
 }
 
 /* style formular description */
 .formular-description p {
-  display: block !important;
-  margin: 20px;
+    display: block !important;
+    margin: 20px;
 }
 
 .hassubtext p {
-  display: block !important;
-  margin-bottom: 20px;
+    display: block !important;
+    margin-bottom: 20px;
 }
 
 /* disable padding around questions */
 .sv_qstn {
-  padding: 0 !important;
+    padding: 0 !important;
 }
 
 /* matrix: remove word wrap */
 th,
 td {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 /* imagepicker: checked color */
 .imagepicker-checked div {
-  background-color: #ccc;
+    background-color: #ccc;
 }
 
 @media (max-width: 576px) {
-  /* single/multiple choices element: one answer per line on mobile */
-  .sv_q_select_column {
-    max-width: 100% !important;
-    min-width: 100% !important;
-  }
+    /* single/multiple choices element: one answer per line on mobile */
+    .sv_q_select_column {
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
 
-  /* rating element: hide min/max text on mobile */
-  .sv_q_rating_max_text,
-  .sv_q_rating_min_text {
-    display: none !important;
-  }
+    /* rating element: hide min/max text on mobile */
+    .sv_q_rating_max_text,
+    .sv_q_rating_min_text {
+        display: none !important;
+    }
 }
 
 /* slider: remove too much margin */
 .noUi-target {
-  margin-left: 10px !important;
-  margin-right: 10px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
 }
 
 .smooth-dnd-container {
-  height: 100% !important;
-  min-height: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
 }

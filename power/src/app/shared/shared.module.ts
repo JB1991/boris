@@ -9,20 +9,21 @@ import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 
 @NgModule({
-  declarations: [
-    GeosearchComponent
-  ],
-  exports: [
-    GeosearchComponent,
-    AuthModule,
-    AlertsModule,
-    LoadingscreenModule
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    NgbTypeaheadModule
-  ]
+    declarations: [
+        GeosearchComponent
+    ],
+    exports: [
+        GeosearchComponent,
+        AuthModule,
+        AlertsModule,
+        LoadingscreenModule
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgbTypeaheadModule
+    ]
 })
 export class SharedModule {
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

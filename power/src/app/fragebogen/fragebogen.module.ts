@@ -10,21 +10,22 @@ import { DetailsModule } from './details/details.module';
 import { FilloutModule } from './fillout/fillout.module';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-  ],
-  imports: [
-    FragebogenRoutingModule,
-    CommonModule,
-    FormsModule,
-    DashboardModule,
-    DetailsModule,
-    FilloutModule,
-    EditorModule
-  ]
+    declarations: [
+        HomeComponent,
+    ],
+    imports: [
+        FragebogenRoutingModule,
+        CommonModule,
+        FormsModule,
+        DashboardModule,
+        DetailsModule,
+        FilloutModule,
+        EditorModule
+    ]
 })
 
 export class FragebogenModule {
-  constructor() {
-  }
+    constructor() {
+    }
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -1,27 +1,40 @@
 <div class="row mh-100" [ngClass]="{'rowrtl': nipixStatic.layoutRtl == true}">
     <div class="col-sm-8">
-        <div echarts [options]="this.nipixRuntime.map.options" [loading]="!mapLoaded" (chartInit)="onChartInit($event)" (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
-        <div echarts [options]="this.nipixRuntime.chart.options" (chartInit)="onChartChartInit($event)" (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)" (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>
-        <div style="text-align: center;" [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}">HINWEIS: Das Basisjahr der Indexreihenberechung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </div>
+        <div echarts [options]="this.nipixRuntime.map.options" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
+             (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
+        <div echarts [options]="this.nipixRuntime.chart.options" (chartInit)="onChartChartInit($event)"
+             (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)"
+             (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>
+        <div style="text-align: center;" [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}">HINWEIS:
+            Das Basisjahr der Indexreihenberechung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern
+            dynamisch anpassen.
+        </div>
     </div>
     <div class="col-sm-4">
-        <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)" #acc="ngbAccordion">
+        <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)"
+                       #acc="ngbAccordion">
 
             <ngb-panel *ngFor="let select of nipixStatic.data.selections; let p = index" id="static-{{p}}">
                 <ng-template ngbPanelTitle>
-                    <i class="fa" [ngClass]="{'fa-plus-circle': staticExpand(p) == false, 'fa-minus-circle': staticExpand(p) == true}" aria-hidden="true"></i>
+                    <i class="fa"
+                       [ngClass]="{'fa-plus-circle': staticExpand(p) == false, 'fa-minus-circle': staticExpand(p) == true}"
+                       aria-hidden="true"></i>
                     {{select['name']}}
                 </ng-template>
                 <ng-template ngbPanelContent>
 
                     <!-- NiPix Category Selection -->
-                    <div ngbDropdown *ngIf="select['type'] == 'single' || select['type'] == 'multiIndex'" class="d-inline-block btn-block ">
+                    <div ngbDropdown *ngIf="select['type'] == 'single' || select['type'] == 'multiIndex'"
+                         class="d-inline-block btn-block ">
                         <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" ngbDropdownToggle>
-                            <i class="fa" [ngClass]="iconFor[nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory]" aria-hidden="true"></i>
+                            <i class="fa"
+                               [ngClass]="iconFor[nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory]"
+                               aria-hidden="true"></i>
                             {{nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories" (click)="onChangeCat(select['preset'], f)">
+                            <button class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories"
+                                    (click)="onChangeCat(select['preset'], f)">
                                 <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i>
                                 {{f}}
                             </button>
@@ -30,11 +43,13 @@
 
                     <!-- MultiSelect -->
                     <div ngbDropdown class="d-inline-block btn-block " *ngIf="select['type'] == 'multiSelect'">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}" ngbDropdownToggle>
+                        <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}"
+                                ngbDropdownToggle>
                             {{ (select['selected']) }} Vergleiche
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of select['preset']" (click)="onSetNumber(select['name'], f)">
+                            <button class="dropdown-item" *ngFor="let f of select['preset']"
+                                    (click)="onSetNumber(select['name'], f)">
                                 {{f}} Vergleiche
                             </button>
                         </div>
@@ -47,8 +62,13 @@
                             <li *ngFor="let f of nipixRuntime.availableNipixCategories; let x = index">
                                 <ng-container *ngFor="let itm of select['preset']; let i = index">
 
-                                    <span class="check custom-radio" [style.background-color]="getCustomColor(itm)" (click)="toggleNipixCategory(itm)" *ngIf="nipixRuntime.getDrawPreset(itm).show">
-                                        <input type="radio" id="npx{{i}}_{{x}}" name="npx{{i}}" class="custom-control-input" [checked]="nipixRuntime.getDrawPreset(itm)['nipixCategory'] == f" (click)="toggleNipixCategory(itm)">
+                                    <span class="check custom-radio" [style.background-color]="getCustomColor(itm)"
+                                          (click)="toggleNipixCategory(itm)"
+                                          *ngIf="nipixRuntime.getDrawPreset(itm).show">
+                                        <input type="radio" id="npx{{i}}_{{x}}" name="npx{{i}}"
+                                               class="custom-control-input"
+                                               [checked]="nipixRuntime.getDrawPreset(itm)['nipixCategory'] == f"
+                                               (click)="toggleNipixCategory(itm)">
                                         <label class="custom-control-label" for="npx{{i}}_{{x}}"></label>
 
                                     </span>
@@ -63,13 +83,19 @@
                         <li>
                             <ng-container *ngFor="let itm of select['preset']; let i = index">
                                 <ng-container *ngIf="nipixRuntime.getDrawPreset(itm).show">
-                                    <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)" style="padding-bottom: 0.5rem; padding-top: 0.5rem;">
-                                        <input id="{{i}}vall" [checked]="nipixRuntime.getDrawPreset(itm).values.length == 0" type="checkbox" class="custom-control-input" (click)="toggleAllSelect(itm)">
+                                    <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)"
+                                          style="padding-bottom: 0.5rem; padding-top: 0.5rem;">
+                                        <input id="{{i}}vall"
+                                               [checked]="nipixRuntime.getDrawPreset(itm).values.length == 0"
+                                               type="checkbox" class="custom-control-input"
+                                               (click)="toggleAllSelect(itm)">
                                         <label for="{{i}}vall" style="margin-bottom: 0;" class="custom-control-label">
                                         </label>
                                     </span>
-                                    <span *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length == 0">alle auswählen</span>
-                                    <span *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length > 0">Auswahl aufheben</span>
+                                    <span
+                                        *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length == 0">alle auswählen</span>
+                                    <span
+                                        *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length > 0">Auswahl aufheben</span>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="select['type'] == 'multiSelect'">
@@ -81,12 +107,20 @@
                         <li *ngFor="let subitem of nipixStatic.data.allItems">
                             <ng-container *ngFor="let itm of select['preset']; let i = index">
 
-                                <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)" *ngIf="nipixRuntime.getDrawPreset(itm).show">
-                                    <input id="{{i}}v1{{subitem}}" [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)" type="checkbox" class="custom-control-input" (click)="toggleMapSelect(itm, subitem, select['type'])">
-                                    <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0;" class="custom-control-label"></label>
+                                <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)"
+                                      *ngIf="nipixRuntime.getDrawPreset(itm).show">
+                                    <input id="{{i}}v1{{subitem}}"
+                                           [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)"
+                                           type="checkbox" class="custom-control-input"
+                                           (click)="toggleMapSelect(itm, subitem, select['type'])">
+                                    <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0;"
+                                           class="custom-control-label"></label>
                                 </span>
                             </ng-container>
-                            <span style="display: inline-block; margin-right: 5px; border-radius: 10px; width: 10px; height: 10px;" [style.background-color]="getSeriesColor(subitem)" *ngIf="select['type'] == 'single'"></span>
+                            <span
+                                style="display: inline-block; margin-right: 5px; border-radius: 10px; width: 10px; height: 10px;"
+                                [style.background-color]="getSeriesColor(subitem)"
+                                *ngIf="select['type'] == 'single'"></span>
                             {{ getSeriesLabel(subitem) }}
                         </li>
                     </ul>
@@ -95,14 +129,20 @@
                     <ul *ngIf="select['type'] == 'multi' || select['type'] == 'multiIndex'">
                         <li *ngFor="let itm of select['preset']">
                             <span class="check custom-checkbox">
-                                <input id="{{itm}}" type="checkbox" class="custom-control-input" [checked]="nipixRuntime.getDrawPreset(itm).show" (change)="onToggleDrawRoot(itm)">
+                                <input id="{{itm}}" type="checkbox" class="custom-control-input"
+                                       [checked]="nipixRuntime.getDrawPreset(itm).show"
+                                       (change)="onToggleDrawRoot(itm)">
                                 <label for="{{itm}}" class="custom-control-label"></label>
                             </span>
                             <span (click)="onClickDrawRoot(itm)">
-                                <span style="display: inline-block; margin-right: 5px; border-radius: 10px; width: 10px; height: 10px;" [style.background-color]="nipixRuntime.getDrawPreset(itm).colors"></span>
+                                <span
+                                    style="display: inline-block; margin-right: 5px; border-radius: 10px; width: 10px; height: 10px;"
+                                    [style.background-color]="nipixRuntime.getDrawPreset(itm).colors"></span>
                                 {{ itm }}
-                                <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true" *ngIf="itm == 'Eigenheime'"></i>
-                                <i class="fa fa-building" [ngClass]="fa-home" aria-hidden="true" *ngIf="itm == 'Eigentumswohnungen'"></i>
+                                <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true"
+                                   *ngIf="itm == 'Eigenheime'"></i>
+                                <i class="fa fa-building" [ngClass]="fa-home" aria-hidden="true"
+                                   *ngIf="itm == 'Eigentumswohnungen'"></i>
                                 ({{ nipixStatic.data.shortNames[itm] }})</span>
                         </li>
                     </ul>
@@ -113,21 +153,23 @@
             <!-- Find Woma-Region -->
             <ngb-panel id="static-99">
                 <ng-template ngbPanelTitle>
-                    <i class="fa" [ngClass]="{'fa-plus-circle': accordionComponent.isExpanded('static-99') == false, 'fa-minus-circle': accordionComponent.isExpanded('static-99') == true}" aria-hidden="true"></i>
+                    <i class="fa"
+                       [ngClass]="{'fa-plus-circle': accordionComponent.isExpanded('static-99') == false, 'fa-minus-circle': accordionComponent.isExpanded('static-99') == true}"
+                       aria-hidden="true"></i>
                     Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <label for="typeahead-focus">Suchen Sie Ihre Gemeinde:</label>
                     <input
-                           id="typeahead-focus"
-                           type="text"
-                           class="form-control"
-                           [(ngModel)]="model"
-                           [ngbTypeahead]="search"
-                           (focus)="focus$.next($event.target.value)"
-                           (click)="click$.next($event.target.value)"
-                           #searchWoMaReg="ngbTypeahead"
-                           />
+                        id="typeahead-focus"
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="model"
+                        [ngbTypeahead]="search"
+                        (focus)="focus$.next($event.target.value)"
+                        (click)="click$.next($event.target.value)"
+                        #searchWoMaReg="ngbTypeahead"
+                    />
                     <hr>
                     Ihre Wohnungsmarkregion: {{ regionName(nipixStatic.data.gemeinden[model]) | json }}
 
@@ -136,7 +178,8 @@
 
         </ngb-accordion>
         <div style="text-align: center; margin-top: 1rem;">
-            Es gelten die <a href="{{nipixStatic.agnbUrl}}" target="_blank">Allgemeine Geschäfts- und Nutzungsbedingungen (AGNB)</a>
+            Es gelten die <a href="{{nipixStatic.agnbUrl}}" target="_blank">Allgemeine Geschäfts- und
+            Nutzungsbedingungen (AGNB)</a>
         </div>
     </div>
 </div>

@@ -48,7 +48,7 @@ export class ImmobilienComponent implements OnInit {
         private http: HttpClient,
         private titleService: Title
     ) {
-     this.titleService.setTitle('Immobilienpreisindex - POWER.NI');
+        this.titleService.setTitle('Immobilienpreisindex - POWER.NI');
     }
 
     title = 'lgln';

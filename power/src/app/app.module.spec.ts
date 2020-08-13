@@ -6,85 +6,86 @@ import { AppModule, load } from './app.module';
 import { ConfigService } from '@app/config.service';
 
 describe('AppModule', () => {
-  let appModule: AppModule;
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
+    let appModule: AppModule;
+    let httpClient: HttpClient;
+    let httpTestingController: HttpTestingController;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ]
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpClientTestingModule
+            ]
+        });
+
+        spyOn(console, 'log');
+        spyOn(console, 'error');
+        httpClient = TestBed.inject(HttpClient);
+        httpTestingController = TestBed.inject(HttpTestingController);
+        appModule = new AppModule();
+    }));
+
+    it('should create an instance', () => {
+        expect(appModule).toBeTruthy();
     });
 
-    spyOn(console, 'log');
-    spyOn(console, 'error');
-    httpClient = TestBed.inject(HttpClient);
-    httpTestingController = TestBed.inject(HttpTestingController);
-    appModule = new AppModule();
-  }));
+    it('should load config', (done) => {
+        // create request
+        const confsrv = new ConfigService();
+        load(httpClient, confsrv)().then((value) => {
+            expect(value.valueOf()).toBeTrue();
+            done();
+        });
 
-  it('should create an instance', () => {
-    expect(appModule).toBeTruthy();
-  });
-
-  it('should load config', (done) => {
-    // create request
-    const confsrv = new ConfigService();
-    load(httpClient, confsrv)().then((value) => {
-      expect(value.valueOf()).toBeTrue();
-      done();
+        // answer http request
+        const req = httpTestingController.expectOne('./assets/config/config.json');
+        expect(req.request.method).toEqual('GET');
+        req.flush({});
+        httpTestingController.verify();
     });
 
-    // answer http request
-    const req = httpTestingController.expectOne('./assets/config/config.json');
-    expect(req.request.method).toEqual('GET');
-    req.flush({});
-    httpTestingController.verify();
-  });
+    it('should load config', (done) => {
+        // create request
+        const confsrv = new ConfigService();
+        load(httpClient, confsrv)().then((value) => {
+            expect(value.valueOf()).toBeTrue();
+            done();
+        });
 
-  it('should load config', (done) => {
-    // create request
-    const confsrv = new ConfigService();
-    load(httpClient, confsrv)().then((value) => {
-      expect(value.valueOf()).toBeTrue();
-      done();
+        // answer http request
+        const req = httpTestingController.expectOne('./assets/config/config.json');
+        expect(req.request.method).toEqual('GET');
+        req.flush({});
+        httpTestingController.verify();
     });
 
-    // answer http request
-    const req = httpTestingController.expectOne('./assets/config/config.json');
-    expect(req.request.method).toEqual('GET');
-    req.flush({});
-    httpTestingController.verify();
-  });
+    it('should fail load config', (done) => {
+        // create request
+        const confsrv = new ConfigService();
+        load(httpClient, confsrv)().then((value) => {
+            expect(value.valueOf()).toBeTrue();
+            done();
+        });
 
-  it('should fail load config', (done) => {
-    // create request
-    const confsrv = new ConfigService();
-    load(httpClient, confsrv)().then((value) => {
-      expect(value.valueOf()).toBeTrue();
-      done();
+        // answer http request
+        const req = httpTestingController.expectOne('./assets/config/config.json');
+        expect(req.request.method).toEqual('GET');
+        req.flush({}, { status: 404, statusText: 'Not Found' });
+        httpTestingController.verify();
     });
 
-    // answer http request
-    const req = httpTestingController.expectOne('./assets/config/config.json');
-    expect(req.request.method).toEqual('GET');
-    req.flush({}, { status: 404, statusText: 'Not Found' });
-    httpTestingController.verify();
-  });
+    it('should fail load config 2', (done) => {
+        // create request
+        const confsrv = new ConfigService();
+        load(httpClient, confsrv)().then((value) => {
+            expect(value.valueOf()).toBeFalse();
+            done();
+        });
 
-  it('should fail load config 2', (done) => {
-    // create request
-    const confsrv = new ConfigService();
-    load(httpClient, confsrv)().then((value) => {
-      expect(value.valueOf()).toBeFalse();
-      done();
+        // answer http request
+        const req = httpTestingController.expectOne('./assets/config/config.json');
+        expect(req.request.method).toEqual('GET');
+        req.flush({}, { status: 500, statusText: 'Internal Server Error' });
+        httpTestingController.verify();
     });
-
-    // answer http request
-    const req = httpTestingController.expectOne('./assets/config/config.json');
-    expect(req.request.method).toEqual('GET');
-    req.flush({}, { status: 500, statusText: 'Internal Server Error' });
-    httpTestingController.verify();
-  });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

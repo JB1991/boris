@@ -102,9 +102,9 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
         const anchor =  Object.create(HTMLElement.prototype);
         anchor.click = function() { clicked = true; };
 
-        const fun = function(elem: string) {
-                            return this;
-                        };
+        const fun = function (elem: string) {
+            return this;
+        };
 
         spyOn(document, 'createElement').and.callFake(fun.bind(anchor));
 

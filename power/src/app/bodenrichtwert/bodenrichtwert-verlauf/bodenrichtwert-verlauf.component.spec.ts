@@ -5,29 +5,30 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
-  let component: BodenrichtwertVerlaufComponent;
-  let fixture: ComponentFixture<BodenrichtwertVerlaufComponent>;
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
+    let component: BodenrichtwertVerlaufComponent;
+    let fixture: ComponentFixture<BodenrichtwertVerlaufComponent>;
+    let httpClient: HttpClient;
+    let httpTestingController: HttpTestingController;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [BodenrichtwertVerlaufComponent],
-      imports: [HttpClientTestingModule]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [BodenrichtwertVerlaufComponent],
+            imports: [HttpClientTestingModule]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BodenrichtwertVerlaufComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    beforeEach(() => {
+        fixture = TestBed.createComponent(BodenrichtwertVerlaufComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
 
-    httpClient = TestBed.inject(HttpClient);
-    httpTestingController = TestBed.inject(HttpTestingController);
-  });
+        httpClient = TestBed.inject(HttpClient);
+        httpTestingController = TestBed.inject(HttpTestingController);
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */
