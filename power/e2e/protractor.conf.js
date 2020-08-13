@@ -4,36 +4,36 @@
 const {SpecReporter} = require('jasmine-spec-reporter');
 
 exports.config = {
-  allScriptsTimeout: 11000,
-  specs: [
-    './src/**/*.e2e-spec.ts'
-  ],
-  capabilities: {
-    'browserName': 'chrome'
-  },
-  directConnect: true,
-  baseUrl: 'http://localhost:4200/',
-  framework: 'jasmine',
-  jasmineNodeOpts: {
-    showColors: true,
-    defaultTimeoutInterval: 30000
-  },
-  onPrepare() {
-    require('ts-node').register({
-      project: require('path').join(__dirname, './tsconfig.e2e.json')
-    });
-    let jasmineReporters = require('jasmine-reporters');
-    const specReporter = new SpecReporter({
-      spec: {
-        displayStacktrace: true
-      }
-    });
-    const junitReporter = new jasmineReporters.JUnitXmlReporter({
-      savePath: 'output',
-      filePrefix: 'junit_e2e',
-      consolidateAll: true
-    });
-    jasmine.getEnv().addReporter(specReporter);
-    jasmine.getEnv().addReporter(junitReporter);
-  }
+    allScriptsTimeout: 11000,
+    specs: [
+        './src/**/*.e2e-spec.ts'
+    ],
+    capabilities: {
+        'browserName': 'chrome'
+    },
+    directConnect: true,
+    baseUrl: 'http://localhost:4200/',
+    framework: 'jasmine',
+    jasmineNodeOpts: {
+        showColors: true,
+        defaultTimeoutInterval: 30000
+    },
+    onPrepare() {
+        require('ts-node').register({
+            project: require('path').join(__dirname, './tsconfig.e2e.json')
+        });
+        let jasmineReporters = require('jasmine-reporters');
+        const specReporter = new SpecReporter({
+            spec: {
+                displayStacktrace: true
+            }
+        });
+        const junitReporter = new jasmineReporters.JUnitXmlReporter({
+            savePath: 'output',
+            filePrefix: 'junit_e2e',
+            consolidateAll: true
+        });
+        jasmine.getEnv().addReporter(specReporter);
+        jasmine.getEnv().addReporter(junitReporter);
+    }
 };
