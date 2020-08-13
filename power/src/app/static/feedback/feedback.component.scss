@@ -4,6 +4,6 @@ ul {
 }
 
 ul li::before {
-    content: url("~assets/icons/arrow-right.svg");
+    content: url('~assets/icons/arrow-right.svg');
     padding-right: 8px;
 }
