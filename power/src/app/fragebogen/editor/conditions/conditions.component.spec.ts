@@ -15,8 +15,8 @@ describe('Fragebogen.Editor.Conditions.ConditionsComponent', () => {
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([])
             ],
-            providers: [ StorageService ],
-            declarations: [ ConditionsComponent ]
+            providers: [StorageService],
+            declarations: [ConditionsComponent]
         })
             .compileComponents();
     }));

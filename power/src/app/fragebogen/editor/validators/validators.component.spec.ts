@@ -15,8 +15,8 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([])
             ],
-            providers: [ StorageService ],
-            declarations: [ ValidatorsComponent ]
+            providers: [StorageService],
+            declarations: [ValidatorsComponent]
         })
             .compileComponents();
     }));
