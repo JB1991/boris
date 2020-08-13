@@ -13,19 +13,19 @@ export const defaultTemplate = {
                     title: 'Datenschutzerklärung',
                     description: 'Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de]\
                     (https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).',
-                        name: 'e1',
-                        type: 'checkbox',
-                        valueName: '',
-                        choices: [
-                            {
-                                value: '1',
-                                text: 'Ich habe diese gelesen und akzeptiert'
-                            }
-                        ],
-                        requiredErrorText: 'Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.',
-                        colCount: 1,
-                        isRequired: true
-                    }
+                    name: 'e1',
+                    type: 'checkbox',
+                    valueName: '',
+                    choices: [
+                        {
+                            value: '1',
+                            text: 'Ich habe diese gelesen und akzeptiert'
+                        }
+                    ],
+                    requiredErrorText: 'Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.',
+                    colCount: 1,
+                    isRequired: true
+                }
             ],
             title: 'Startseite',
             description: 'Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.',
@@ -46,8 +46,8 @@ export const defaultTemplate = {
  * DatabaseMap holds infos for mapping formular elements to database columns
  */
 export const DatabaseMap = [
-    { text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: '' },
-    { text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: '' },
+    {text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: ''},
+    {text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: ''},
 ];
 
 /**

@@ -67,7 +67,7 @@ export function getMyMapRegionen(regionen, myregion = null, selectionList = null
         };
 
         if (lighten === true) {
-            region['itemStyle']['areaColor'] = ImmobilenHelper.modifyColor( regionen[keys[i]].color, 0.85 );
+            region['itemStyle']['areaColor'] = ImmobilenHelper.modifyColor(regionen[keys[i]].color, 0.85);
         }
 
         if (selectionList !== null && selectionList !== undefined && Array.isArray(selectionList)) {
@@ -98,58 +98,58 @@ export function getMyMapRegionen(regionen, myregion = null, selectionList = null
  * @return echarts Series Object
  */
 export function generateSeries(name, data, color, labelFormatter = null, selectedChartLine = '',
-    xIndex = 0, yIndex = 0, seriesType = 'line'): echarts.EChartOption.SeriesLine {
+                               xIndex = 0, yIndex = 0, seriesType = 'line'): echarts.EChartOption.SeriesLine {
 
-        let seriesColor = ImmobilenHelper.convertColor(color);
-        let zindex = 0;
+    let seriesColor = ImmobilenHelper.convertColor(color);
+    let zindex = 0;
 
-        if ((selectedChartLine !== '') && (selectedChartLine !== name)) {
-            seriesColor = ImmobilenHelper.modifyColor(color, 0.9);
-        } else {
-            zindex = 1;
-        }
-
-        // Series Object
-        const ret = {
-            'name': name,
-            'type': seriesType,
-            'smooth': false,
-            'symbol': 'circle',
-            'symbolSize': 4,
-            'sampling': 'average',
-            'zlevel': zindex,
-            'itemStyle': {
-                'color': seriesColor,
-                'borderWidth': 16,
-                'borderColor': 'rgba(255,255,255,0)'
-            },
-            'emphasis': {
-                'itemStyle': {
-                    'color': seriesColor
-                }
-            },
-            label: {
-                normal: {
-                    show: true,
-                    position: 'right',
-                    formatter: labelFormatter
-                },
-            },
-            'data': data
-        };
-
-
-        // Set the corresponding Grid/Axis id
-        if (xIndex !== 0) {
-            ret['xAxisIndex'] = xIndex;
-        }
-
-        if (yIndex !== 0) {
-            ret['yAxisIndex'] = yIndex;
-        }
-
-        return ret;
+    if ((selectedChartLine !== '') && (selectedChartLine !== name)) {
+        seriesColor = ImmobilenHelper.modifyColor(color, 0.9);
+    } else {
+        zindex = 1;
     }
+
+    // Series Object
+    const ret = {
+        'name': name,
+        'type': seriesType,
+        'smooth': false,
+        'symbol': 'circle',
+        'symbolSize': 4,
+        'sampling': 'average',
+        'zlevel': zindex,
+        'itemStyle': {
+            'color': seriesColor,
+            'borderWidth': 16,
+            'borderColor': 'rgba(255,255,255,0)'
+        },
+        'emphasis': {
+            'itemStyle': {
+                'color': seriesColor
+            }
+        },
+        label: {
+            normal: {
+                show: true,
+                position: 'right',
+                formatter: labelFormatter
+            },
+        },
+        'data': data
+    };
+
+
+    // Set the corresponding Grid/Axis id
+    if (xIndex !== 0) {
+        ret['xAxisIndex'] = xIndex;
+    }
+
+    if (yIndex !== 0) {
+        ret['yAxisIndex'] = yIndex;
+    }
+
+    return ret;
+}
 
 
 /**
@@ -186,7 +186,7 @@ export function generateDrawSeriesData(data, date = [], field = null, offset = 1
                 fval = val;
             }
 
-            fval = parseFloat( ( fval + (100 - offset) ).toFixed(2) );
+            fval = parseFloat((fval + (100 - offset)).toFixed(2));
 
             ret.push(fval);
         } else {
@@ -198,7 +198,7 @@ export function generateDrawSeriesData(data, date = [], field = null, offset = 1
 
 
 export function generateTextElement(name, color = '#000', fontSizeBase = 1.2, position = 0, posX?) {
-    return  {
+    return {
         type: 'text',
         top: position * 1.5 * ImmobilenHelper.convertRemToPixels(fontSizeBase),
         left: posX,
@@ -212,14 +212,14 @@ export function generateTextElement(name, color = '#000', fontSizeBase = 1.2, po
 }
 
 export function generateDotElement(radius = 4, color = '#fff', fontSizeBase = 1.2, position = 0,
-    posX = 0, bordercolor = '#000', border = 0) {
+                                   posX = 0, bordercolor = '#000', border = 0) {
     return {
         type: 'circle',
         cursor: 'normal',
         shape: {
             cx: -2 * radius + posX * radius * 4,
             cy: position * 1.5 * ImmobilenHelper.convertRemToPixels(fontSizeBase)
-            + ImmobilenHelper.convertRemToPixels(fontSizeBase) / 2,
+                + ImmobilenHelper.convertRemToPixels(fontSizeBase) / 2,
             r: radius
         },
         style: {
