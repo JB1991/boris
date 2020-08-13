@@ -1,9 +1,9 @@
 {
-  "modules": [
-    "bodenrichtwerte",
-    "bodenwerte",
-    "immobilien",
-    "fragebogen"
-  ],
-  "authentication": true
+    "modules": [
+        "bodenrichtwerte",
+        "bodenwerte",
+        "immobilien",
+        "fragebogen"
+    ],
+    "authentication": true
 }
