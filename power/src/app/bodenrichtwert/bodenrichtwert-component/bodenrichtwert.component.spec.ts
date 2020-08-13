@@ -4,32 +4,33 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { BodenrichtwertComponent } from './bodenrichtwert.component';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
-  let component: BodenrichtwertComponent;
-  let fixture: ComponentFixture<BodenrichtwertComponent>;
-  let httpTestingController: HttpTestingController;
+    let component: BodenrichtwertComponent;
+    let fixture: ComponentFixture<BodenrichtwertComponent>;
+    let httpTestingController: HttpTestingController;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        BodenrichtwertComponent
-      ],
-      imports: [
-        HttpClientTestingModule,
-        NgbAccordionModule
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                BodenrichtwertComponent
+            ],
+            imports: [
+                HttpClientTestingModule,
+                NgbAccordionModule
+            ]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BodenrichtwertComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    beforeEach(() => {
+        fixture = TestBed.createComponent(BodenrichtwertComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
 
-    httpTestingController = TestBed.inject(HttpTestingController);
-  });
+        httpTestingController = TestBed.inject(HttpTestingController);
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

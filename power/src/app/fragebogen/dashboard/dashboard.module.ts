@@ -10,19 +10,20 @@ import { DashboardComponent } from './dashboard.component';
 import { NewformComponent } from './newform/newform.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    NewformComponent,
-  ],
-  imports: [
-    DashboardRoutingModule,
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ModalModule.forRoot()
-  ],
-  providers: [
-    StorageService
-  ]
+    declarations: [
+        DashboardComponent,
+        NewformComponent,
+    ],
+    imports: [
+        DashboardRoutingModule,
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        ModalModule.forRoot()
+    ],
+    providers: [
+        StorageService
+    ]
 })
 export class DashboardModule { }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

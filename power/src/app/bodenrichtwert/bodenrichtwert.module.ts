@@ -30,30 +30,31 @@ import { HyphenatePipe } from './pipes/hyphenate.pipe';
  * All data is loaded via Bodenrichtwert-Service.
  */
 @NgModule({
-  declarations: [
-    BodenrichtwertKarteComponent,
-    BodenrichtwertComponent,
-    BodenrichtwertDetailComponent,
-    BodenrichtwertVerlaufComponent,
-    BodenrichtwertListeComponent,
-    NutzungPipe,
-    BeitragPipe,
-    HyphenatePipe
-  ],
-  imports: [
-    BodenrichtwertRoutingModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbAccordionModule,
-    NgbPaginationModule,
-    NgxMapboxGLModule,
-    NgxEchartsModule,
-    AngularResizedEventModule,
-    SharedModule,
-    NgbDropdownModule
-  ],
-  providers: [BodenrichtwertService]
+    declarations: [
+        BodenrichtwertKarteComponent,
+        BodenrichtwertComponent,
+        BodenrichtwertDetailComponent,
+        BodenrichtwertVerlaufComponent,
+        BodenrichtwertListeComponent,
+        NutzungPipe,
+        BeitragPipe,
+        HyphenatePipe
+    ],
+    imports: [
+        BodenrichtwertRoutingModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgbAccordionModule,
+        NgbPaginationModule,
+        NgxMapboxGLModule,
+        NgxEchartsModule,
+        AngularResizedEventModule,
+        SharedModule,
+        NgbDropdownModule
+    ],
+    providers: [BodenrichtwertService]
 })
 export class BodenrichtwertModule {
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

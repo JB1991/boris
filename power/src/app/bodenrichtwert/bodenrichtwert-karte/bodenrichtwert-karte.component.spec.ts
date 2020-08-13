@@ -5,30 +5,31 @@ import { HttpClient } from '@angular/common/http';
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
-  let component: BodenrichtwertKarteComponent;
-  let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
-  let httpClient: HttpClient;
-  let httpTestingController: HttpTestingController;
+    let component: BodenrichtwertKarteComponent;
+    let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
+    let httpClient: HttpClient;
+    let httpTestingController: HttpTestingController;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [BodenrichtwertKarteComponent],
-      imports: [HttpClientTestingModule]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [BodenrichtwertKarteComponent],
+            imports: [HttpClientTestingModule]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
-    component = fixture.componentInstance;
-    component.teilmarkt = '';
-    fixture.detectChanges();
+    beforeEach(() => {
+        fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
+        component = fixture.componentInstance;
+        component.teilmarkt = '';
+        fixture.detectChanges();
 
-    httpClient = TestBed.inject(HttpClient);
-    httpTestingController = TestBed.inject(HttpTestingController);
-  });
+        httpClient = TestBed.inject(HttpClient);
+        httpTestingController = TestBed.inject(HttpTestingController);
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

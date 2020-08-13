@@ -4,33 +4,34 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GeosearchComponent } from './geosearch.component';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
-  let component: GeosearchComponent;
-  let fixture: ComponentFixture<GeosearchComponent>;
-  let httpTestingController: HttpTestingController;
+    let component: GeosearchComponent;
+    let fixture: ComponentFixture<GeosearchComponent>;
+    let httpTestingController: HttpTestingController;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        GeosearchComponent
-      ],
-      imports: [
-        HttpClientTestingModule,
-        FormsModule,
-        ReactiveFormsModule
-      ]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                GeosearchComponent
+            ],
+            imports: [
+                HttpClientTestingModule,
+                FormsModule,
+                ReactiveFormsModule
+            ]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(GeosearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    beforeEach(() => {
+        fixture = TestBed.createComponent(GeosearchComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
 
-    httpTestingController = TestBed.inject(HttpTestingController);
-  });
+        httpTestingController = TestBed.inject(HttpTestingController);
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

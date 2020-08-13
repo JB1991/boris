@@ -7,49 +7,50 @@ import { LogoutComponent } from './logout.component';
 import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Static.Logout.LogoutComponent', () => {
-  let component: LogoutComponent;
-  let fixture: ComponentFixture<LogoutComponent>;
-  let redirectspy: jasmine.Spy<(url: any) => void>;
+    let component: LogoutComponent;
+    let fixture: ComponentFixture<LogoutComponent>;
+    let redirectspy: jasmine.Spy<(url: any) => void>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([
-          { path: '', component: MockHomeComponent }
-        ])
-      ],
-      declarations: [
-        LogoutComponent
-      ],
-      providers: [
-        AuthService
-      ]
-    }).compileComponents();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpClientTestingModule,
+                RouterTestingModule.withRoutes([
+                    { path: '', component: MockHomeComponent }
+                ])
+            ],
+            declarations: [
+                LogoutComponent
+            ],
+            providers: [
+                AuthService
+            ]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(LogoutComponent);
-    component = fixture.componentInstance;
-    redirectspy = spyOn(component, 'redirect');
-    fixture.detectChanges();
+        fixture = TestBed.createComponent(LogoutComponent);
+        component = fixture.componentInstance;
+        redirectspy = spyOn(component, 'redirect');
+        fixture.detectChanges();
 
-    spyOn(console, 'log');
-    spyOn(component.router, 'navigate');
-    localStorage.removeItem('user');
-    component.auth.user = null;
-  }));
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+        localStorage.removeItem('user');
+        component.auth.user = null;
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-    expect(component.loadingscreen.isVisible()).toBeTrue();
+    it('should create', () => {
+        expect(component).toBeTruthy();
+        expect(component.loadingscreen.isVisible()).toBeTrue();
 
-    redirectspy.and.callThrough();
-    component.redirect(window.location.href + '#karma');
-  });
+        redirectspy.and.callThrough();
+        component.redirect(window.location.href + '#karma');
+    });
 });
 
 @Component({
-  selector: 'power-home',
-  template: ''
+    selector: 'power-home',
+    template: ''
 })
 class MockHomeComponent {
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

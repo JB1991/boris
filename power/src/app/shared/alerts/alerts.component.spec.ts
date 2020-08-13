@@ -4,48 +4,49 @@ import { AlertsComponent } from './alerts.component';
 import { AlertsService } from './alerts.service';
 
 describe('Shared.Alerts.AlertsComponent', () => {
-  let component: AlertsComponent;
-  let fixture: ComponentFixture<AlertsComponent>;
+    let component: AlertsComponent;
+    let fixture: ComponentFixture<AlertsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        AlertsService
-      ],
-      declarations: [
-        AlertsComponent
-      ]
-    }).compileComponents();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                AlertsService
+            ],
+            declarations: [
+                AlertsComponent
+            ]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(AlertsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(AlertsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-    expect(component.alerts.alertslist).toEqual([]);
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+        expect(component.alerts.alertslist).toEqual([]);
+    });
 
-  it('should close one alert', () => {
-    component.alerts.NewAlert('success', 'Test Title 1', 'Test Body');
-    component.alerts.NewAlert('danger', 'Test Title 2', 'Test Body', 3500);
-    component.alerts.NewAlert('info', 'Test Title 3', 'Test Body', 4000);
+    it('should close one alert', () => {
+        component.alerts.NewAlert('success', 'Test Title 1', 'Test Body');
+        component.alerts.NewAlert('danger', 'Test Title 2', 'Test Body', 3500);
+        component.alerts.NewAlert('info', 'Test Title 3', 'Test Body', 4000);
 
-    component.onClosed(1); // delete danger alert
-    expect(component.alerts.alertslist.length).toEqual(2);
-    expect(component.alerts.alertslist[0].type).toEqual('success');
-    expect(component.alerts.alertslist[1].type).toEqual('info');
-  });
+        component.onClosed(1); // delete danger alert
+        expect(component.alerts.alertslist.length).toEqual(2);
+        expect(component.alerts.alertslist[0].type).toEqual('success');
+        expect(component.alerts.alertslist[1].type).toEqual('info');
+    });
 
-  it('should crash', () => {
-    component.alerts.NewAlert('success', 'Test Title 1', 'Test Body');
+    it('should crash', () => {
+        component.alerts.NewAlert('success', 'Test Title 1', 'Test Body');
 
-    expect(function () {
-      component.onClosed(1);
-    }).toThrowError('Invalid id');
-    expect(function () {
-      component.onClosed(-1);
-    }).toThrowError('Invalid id');
-  });
+        expect(function () {
+            component.onClosed(1);
+        }).toThrowError('Invalid id');
+        expect(function () {
+            component.onClosed(-1);
+        }).toThrowError('Invalid id');
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

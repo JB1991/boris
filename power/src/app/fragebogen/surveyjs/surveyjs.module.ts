@@ -7,19 +7,20 @@ import { PreviewComponent } from './preview/preview.component';
 import { PreviewPipe } from './preview.pipe';
 
 @NgModule({
-  declarations: [
-    WrapperComponent,
-    PreviewComponent,
-    PreviewPipe
-  ],
-  imports: [
-    CommonModule,
-    ShowdownModule
-  ],
-  exports: [
-    WrapperComponent,
-    PreviewComponent,
-    PreviewPipe
-  ]
+    declarations: [
+        WrapperComponent,
+        PreviewComponent,
+        PreviewPipe
+    ],
+    imports: [
+        CommonModule,
+        ShowdownModule
+    ],
+    exports: [
+        WrapperComponent,
+        PreviewComponent,
+        PreviewPipe
+    ]
 })
 export class SurveyjsModule { }
+/* vim: set expandtab ts=4 sw=4 sts=4: */
