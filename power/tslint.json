@@ -3,6 +3,9 @@
     "node_modules/codelyzer",
     "node_modules/tslint-microsoft-contrib"
   ],
+  "extends": [
+    "tslint-eslint-rules"
+  ],
   "rules": {
     "arrow-return-shorthand": true,
     "callable-types": true,
@@ -45,7 +48,7 @@
     "indent": [
       true,
       "spaces",
-      2
+      4
     ],
     "interface-over-type-literal": true,
     "jsdoc-format": true,
@@ -129,6 +132,10 @@
     ],
     "template-banana-in-box": true,
     "template-no-negated-async": true,
+    "ter-indent": [
+      true,
+      4
+    ],
     "triple-equals": [
       true,
       "allow-null-check"
