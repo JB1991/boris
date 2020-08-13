@@ -1,17 +1,17 @@
 @media (max-width: 1199px) {
-  .display-4 {
-    font-size: 2.8em !important;
-  }
+    .display-4 {
+        font-size: 2.8em !important;
+    }
 }
 
 @media (max-width: 991px) {
-  .display-4 {
-    font-size: 2em !important;
-  }
+    .display-4 {
+        font-size: 2em !important;
+    }
 }
 
 @media (max-width: 575px) {
-  .w-mobile {
-    width: 75% !important;
-  }
+    .w-mobile {
+        width: 75% !important;
+    }
 }

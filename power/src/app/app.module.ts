@@ -20,58 +20,59 @@ import { AlertsModule } from '@app/shared/alerts/alerts.module';
 import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
 
 export function load(httpClient: HttpClient, configService: ConfigService) {
-  return (): Promise<boolean> => {
-    return new Promise<boolean>((resolve: (a: boolean) => void): void => {
-      httpClient.get<Config>('./assets/config/config.json')
-        .pipe(
-          map((x: Config) => {
-            configService.config = x;
-            resolve(true);
-          }),
-          catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
-            console.error('could not load config.json');
-            if (x.status !== 404) {
-              resolve(false);
-            }
-            resolve(true);
-            return of({});
-          })
-        ).subscribe();
-    });
-  };
+    return (): Promise<boolean> => {
+        return new Promise<boolean>((resolve: (a: boolean) => void): void => {
+            httpClient.get<Config>('./assets/config/config.json')
+                .pipe(
+                    map((x: Config) => {
+                        configService.config = x;
+                        resolve(true);
+                    }),
+                    catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
+                        console.error('could not load config.json');
+                        if (x.status !== 404) {
+                            resolve(false);
+                        }
+                        resolve(true);
+                        return of({});
+                    })
+                ).subscribe();
+        });
+    };
 }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    AppRoutingModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    CollapseModule.forRoot(),
-    AuthModule,
-    AlertsModule,
-    LoadingscreenModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', {enabled: environment.production})
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: load,
-      multi: true,
-      deps: [
-        HttpClient,
-        ConfigService
-      ]
-    },
-    {
-      provide: LOCALE_ID,
-      useValue: 'de-DE'
-    },
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        AppRoutingModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        CollapseModule.forRoot(),
+        AuthModule,
+        AlertsModule,
+        LoadingscreenModule,
+        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
+    ],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            useFactory: load,
+            multi: true,
+            deps: [
+                HttpClient,
+                ConfigService
+            ]
+        },
+        {
+            provide: LOCALE_ID,
+            useValue: 'de-DE'
+        },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

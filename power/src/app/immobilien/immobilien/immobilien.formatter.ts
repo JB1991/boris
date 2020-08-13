@@ -82,29 +82,29 @@ export class ImmobilienFormatter {
 
             if (printlegend) {
                 this.legendposition.push(pixel);
-                if (this.nipixStatic.data.shortNames.hasOwnProperty(params.seriesName)) {
-                    return this.nipixStatic.data.shortNames[params.seriesName];
-                } else if (this.nipixStatic.data.regionen.hasOwnProperty(params.seriesName)) {
-                    return this.nipixStatic.data.regionen[params.seriesName]['short'];
-                } else {
-                    return params.seriesName;
-                }
+                return this.findName(params.seriesName, false, true);
             }
         }
 
         return '';
     }
 
-    public formatLegend = (name: string) => {
-        if (this.nipixRuntime.calculated.legendText.hasOwnProperty(name)) {
+    private findName = (name: string, legend = false, shortregion = false): string => {
+        if (legend && this.nipixRuntime.calculated.legendText.hasOwnProperty(name)) {
             return this.nipixRuntime.calculated.legendText[name];
         } else if (this.nipixStatic.data.shortNames.hasOwnProperty(name)) {
             return this.nipixStatic.data.shortNames[name];
-        } else if (this.nipixStatic.data.regionen.hasOwnProperty(name)) {
+        } else if (!shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
             return this.nipixStatic.data.regionen[name]['name'];
+        } else if (shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
+            return this.nipixStatic.data.regionen[name]['short'];
         } else {
             return name;
         }
+    }
+
+    public formatLegend = (name: string) => {
+        return this.findName(name, true);
     }
 
 }

@@ -8,33 +8,34 @@ import { ModalFormularComponent } from './modal-formular.component';
 import { StorageService } from '../storage.service';
 
 describe('Fragebogen.Editor.ModalFormular.ModalFormularComponent', () => {
-  let component: ModalFormularComponent;
-  let fixture: ComponentFixture<ModalFormularComponent>;
+    let component: ModalFormularComponent;
+    let fixture: ComponentFixture<ModalFormularComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule.withRoutes([]),
-        FormsModule,
-        ModalModule.forRoot()
-      ],
-      providers: [
-        StorageService,
-        BsModalService
-      ],
-      declarations: [ ModalFormularComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpClientTestingModule,
+                RouterTestingModule.withRoutes([]),
+                FormsModule,
+                ModalModule.forRoot()
+            ],
+            providers: [
+                StorageService,
+                BsModalService
+            ],
+            declarations: [ModalFormularComponent]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ModalFormularComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ModalFormularComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

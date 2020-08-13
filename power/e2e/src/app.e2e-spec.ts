@@ -1,14 +1,14 @@
-import {AppPage} from './app.po';
+import { AppPage } from './app.po';
 
 describe('POWER-Frontend', () => {
-  let page: AppPage;
+    let page: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+    beforeEach(() => {
+        page = new AppPage();
+    });
 
-  it('should display headline', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toContain('Portal für Wertermittlung');
-  });
+    it('should display headline', () => {
+        page.navigateTo();
+        expect(page.getParagraphText()).toContain('Portal für Wertermittlung');
+    });
 });

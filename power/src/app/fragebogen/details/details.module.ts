@@ -9,25 +9,28 @@ import { StorageService } from './storage.service';
 import { DetailsComponent } from './details.component';
 import { MaketaskComponent } from './maketask/maketask.component';
 import { PublishComponent } from './publish/publish.component';
+import { CommentComponent } from './comment/comment.component';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 @NgModule({
-  declarations: [
-    DetailsComponent,
-    MaketaskComponent,
-    PublishComponent
-  ],
-  imports: [
-    DetailsRoutingModule,
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ModalModule.forRoot(),
-    SurveyjsModule,
-  ],
-  providers: [
-    StorageService
-  ]
+    declarations: [
+        DetailsComponent,
+        MaketaskComponent,
+        PublishComponent,
+        CommentComponent,
+    ],
+    imports: [
+        DetailsRoutingModule,
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        ModalModule.forRoot(),
+        SurveyjsModule,
+    ],
+    providers: [
+        StorageService
+    ]
 })
 export class DetailsModule { }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

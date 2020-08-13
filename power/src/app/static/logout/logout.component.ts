@@ -7,37 +7,38 @@ import { environment } from '@env/environment';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
-  selector: 'power-logout',
-  templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.scss']
+    selector: 'power-logout',
+    templateUrl: './logout.component.html',
+    styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(public titleService: Title,
-              public router: Router,
-              public auth: AuthService,
-              public loadingscreen: LoadingscreenService) {
-    this.titleService.setTitle($localize`Logout - POWER.NI`);
-  }
+    constructor(public titleService: Title,
+        public router: Router,
+        public auth: AuthService,
+        public loadingscreen: LoadingscreenService) {
+        this.titleService.setTitle($localize`Logout - POWER.NI`);
+    }
 
-  ngOnInit() {
-    this.loadingscreen.setVisible(true);
+    ngOnInit() {
+        this.loadingscreen.setVisible(true);
 
-    // delete localStorage
-    localStorage.removeItem('user');
-    this.auth.user = null;
+        // delete localStorage
+        localStorage.removeItem('user');
+        this.auth.user = null;
 
-    // redirect to logout page
-    this.redirect(environment.auth.url + 'logout' +
-                  '?client_id=' + encodeURIComponent(environment.auth.clientid) +
-                  '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host));
-  }
+        // redirect to logout page
+        this.redirect(environment.auth.url + 'logout' +
+            '?client_id=' + encodeURIComponent(environment.auth.clientid) +
+            '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host));
+    }
 
-  /**
-   * Redirects to external page. This exists to prevent redirect on karma tests
-   * @param url redirect url
-   */
-  public redirect(url) {
-    document.location.href = url;
-  }
+    /**
+     * Redirects to external page. This exists to prevent redirect on karma tests
+     * @param url redirect url
+     */
+    public redirect(url) {
+        document.location.href = url;
+    }
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

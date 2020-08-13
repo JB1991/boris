@@ -1,50 +1,68 @@
 @media (max-width: 767px) {
-  .textpos {
-    text-align: left !important;
-  }
+    .textpos {
+        text-align: left !important;
+    }
 }
 
 @media (max-width: 991px) {
-  #toolbox ul,
-  #toolbox li {
-    display: inline-block;
-    vertical-align: top;
-    border-width: 0 !important;
-  }
+    #toolbox ul,
+    #toolbox li {
+        display: inline-block;
+        vertical-align: top;
+        border-width: 0 !important;
+    }
+
+    #toolbox {
+        overflow-y: hidden !important;
+    }
+
+    .stick-right {
+        position: relative !important;
+    }
 }
 
 #toolbox {
-  border-width: 0 !important;
-  max-height: 327px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+    border-width: 0 !important;
+    max-height: 327px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
 }
 
 #toolbox li {
-  border-left-width: 0 !important;
-  border-right-width: 0 !important;
-  scroll-snap-align: start;
+    border-left-width: 0 !important;
+    border-right-width: 0 !important;
+    scroll-snap-align: start;
 }
 
 #toolbox li:last-child {
-  border-bottom-width: 0 !important;
+    border-bottom-width: 0 !important;
 }
 
 #toolbox li:first-child {
-  border-top-width: 0 !important;
+    border-top-width: 0 !important;
+}
+
+.stick-right {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .drag-ghost {
-  opacity: 0.5;
+    opacity: 0.5;
+}
+
+.drag-mouse {
+    cursor: move !important;
 }
 
 li.smooth-dnd-draggable-wrapper:last-child .page-link {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .scrolllist {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }

@@ -1,77 +1,74 @@
 #map {
-  flex-grow: 1;
-  height: 100%;
-  width: 100%;
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
 }
 
 .height-minus-header {
-  min-height: calc(100vh - 56px);
+    min-height: calc(100vh - 56px);
 }
 
 .height-minus-header-map {
-  height: calc(100vh - 106px);
-  -moz-transition: height 0.6s ease;
-  -webkit-transition: height 0.6s ease;
-  -o-transition: height 0.6s ease;
-  transition: height 0.6s ease;
+    height: calc(100vh - 106px);
+    -moz-transition: height 0.6s ease;
+    -webkit-transition: height 0.6s ease;
+    -o-transition: height 0.6s ease;
+    transition: height 0.6s ease;
 }
 
 .small {
-  height: 50vh;
-  -moz-transition: height 0.6s ease;
-  -webkit-transition: height 0.6s ease;
-  -o-transition: height 0.6s ease;
-  transition: height 0.6s ease;
+    height: 50vh;
+    -moz-transition: height 0.6s ease;
+    -webkit-transition: height 0.6s ease;
+    -o-transition: height 0.6s ease;
+    transition: height 0.6s ease;
 }
 
 .anchor {
-  position: relative;
-  top: -100px;
+    position: relative;
+    top: -100px;
 }
 
 .nav-scroller {
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
-  height: 2.75rem;
-  overflow-y: hidden;
+    width: 100%;
+    z-index: 1000;
+    height: 2.75rem;
 }
 
 .nav-scroller .nav {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  padding-bottom: 1rem;
-  margin-top: -1px;
-  overflow-x: auto;
-  color: rgba(255, 255, 255, 0.75);
-  text-align: center;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
 }
 
 .nav-underline .nav-link {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  font-size: 0.875rem;
-  color: #6c757d;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 0.875rem;
+    color: #6c757d;
 }
 
 .nav-underline .nav-link:hover {
-  color: #007bff;
+    color: #007bff;
 }
 
 .nav-underline .active {
-  font-weight: 500;
-  color: #343a40;
+    font-weight: 500;
+    color: #343a40;
 }
 
 ngb-accordion /deep/ .card /deep/ .card-header {
-  background-color: white !important;
+    background-color: white !important;
 }
 
 a.nav-link img {
-  font-size: 25px;
-  vertical-align: middle;
+    font-size: 25px;
+    vertical-align: middle;
 }

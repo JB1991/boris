@@ -1,13 +1,14 @@
 <div *ngFor="let item of struct; index as i">
     <div class="form-row m-0 mb-2">
         <div class="form-group col-3 m-0 pl-0">
-            <label for="validatorType{{ i }}" class="sr-only">Typ*</label>
+            <label for="validatorType{{ i }}"
+                   class="sr-only">Typ*</label>
             <select class="custom-select"
-                [(ngModel)]="item.type"
-                (change)="switchType($event, i); modelChanged($event)"
-                [class.is-invalid]="!item.type"
-                name="validatorType{{ i }}"
-                required>
+                    [(ngModel)]="item.type"
+                    (change)="switchType($event, i); modelChanged($event)"
+                    [class.is-invalid]="!item.type"
+                    name="validatorType{{ i }}"
+                    required>
                 <option value="numeric">Numerisch</option>
                 <option value="text">Text</option>
                 <option value="regex">Regex</option>
@@ -15,80 +16,91 @@
             </select>
         </div>
 
-        <div class="form-group col-4 m-0" *ngIf="item.type === 'numeric' || item.type === 'text'">
-            <label for="validatorMin{{ i }}" class="sr-only">Minimaler Wert/Länge*</label>
+        <div class="form-group col-4 m-0"
+             *ngIf="item.type === 'numeric' || item.type === 'text'">
+            <label for="validatorMin{{ i }}"
+                   class="sr-only">Minimaler Wert/Länge*</label>
             <input type="number"
-                class="form-control"
-                [(ngModel)]="item.min"
-                (change)="modelChanged($event)"
-                [class.is-invalid]="!item.min && item.min !== 0 || item.min < 0"
-                id="validatorMin{{ i }}"
-                name="validatorMin{{ i }}"
-                placeholder="Minimaler Wert/Länge"
-                min="0"
-                max="10000"
-                required>
+                   class="form-control"
+                   [(ngModel)]="item.min"
+                   (change)="modelChanged($event)"
+                   [class.is-invalid]="!item.min && item.min !== 0 || item.min < 0"
+                   id="validatorMin{{ i }}"
+                   name="validatorMin{{ i }}"
+                   placeholder="Minimaler Wert/Länge"
+                   min="0"
+                   max="10000"
+                   required>
         </div>
 
-        <div class="form-group col-4 m-0 pr-0" *ngIf="item.type === 'numeric' || item.type === 'text'">
-            <label for="validatorMax{{ i }}" class="sr-only">Maximaler Wert/Länge*</label>
+        <div class="form-group col-4 m-0 pr-0"
+             *ngIf="item.type === 'numeric' || item.type === 'text'">
+            <label for="validatorMax{{ i }}"
+                   class="sr-only">Maximaler Wert/Länge*</label>
             <input type="number"
-                class="form-control"
-                [(ngModel)]="item.max"
-                (change)="modelChanged($event)"
-                [class.is-invalid]="!item.max && item.max !== 0 || item.max < 0 || item.min > item.max"
-                id="validatorMax{{ i }}"
-                name="validatorMax{{ i }}"
-                placeholder="Maximaler Wert/Länge"
-                min="0"
-                max="10000"
-                required>
+                   class="form-control"
+                   [(ngModel)]="item.max"
+                   (change)="modelChanged($event)"
+                   [class.is-invalid]="!item.max && item.max !== 0 || item.max < 0 || item.min > item.max"
+                   id="validatorMax{{ i }}"
+                   name="validatorMax{{ i }}"
+                   placeholder="Maximaler Wert/Länge"
+                   min="0"
+                   max="10000"
+                   required>
         </div>
 
-        <div class="form-group col-9 m-0 pr-0" *ngIf="item.type === 'regex'">
-            <label for="validatorData{{ i }}" class="sr-only">Regulärerausdruck*</label>
+        <div class="form-group col-9 m-0 pr-0"
+             *ngIf="item.type === 'regex'">
+            <label for="validatorData{{ i }}"
+                   class="sr-only">Regulärerausdruck*</label>
             <input type="text"
-                class="form-control"
-                [(ngModel)]="item.regex"
-                (change)="modelChanged($event)"
-                [class.is-invalid]="!item.regex"
-                id="validatorData{{ i }}"
-                name="validatorData{{ i }}"
-                placeholder="Regulärerausdruck z.B.: ^\d*$"
-                maxlength="200"
-                required>
+                   class="form-control"
+                   [(ngModel)]="item.regex"
+                   (change)="modelChanged($event)"
+                   [class.is-invalid]="!item.regex"
+                   id="validatorData{{ i }}"
+                   name="validatorData{{ i }}"
+                   placeholder="Regulärerausdruck z.B.: ^\d*$"
+                   maxlength="200"
+                   required>
         </div>
 
-        <div class="form-group col-4 m-0" *ngIf="item.type === 'expression'">
-            <label for="validatorExpQuestion{{ i }}" class="sr-only">Formularfeld*</label>
+        <div class="form-group col-4 m-0"
+             *ngIf="item.type === 'expression'">
+            <label for="validatorExpQuestion{{ i }}"
+                   class="sr-only">Formularfeld*</label>
             <select class="custom-select"
-                [(ngModel)]="item.question"
-                (change)="modelChanged($event)"
-                [class.is-invalid]="!item.question"
-                id="validatorExpQuestion{{ i }}"
-                name="validatorExpQuestion{{ i }}"
-                required>
-                <option value="" disabled>Formularfeld auswählen</option>
+                    [(ngModel)]="item.question"
+                    (change)="modelChanged($event)"
+                    [class.is-invalid]="!item.question"
+                    id="validatorExpQuestion{{ i }}"
+                    name="validatorExpQuestion{{ i }}"
+                    required>
+                <option value=""
+                        disabled>Formularfeld auswählen</option>
                 <option *ngFor="let question of questions; index as j"
-                    value="{{ question.name }}">
+                        value="{{ question.name }}">
                     {{ question.title }}
                 </option>
                 <option *ngFor="let variable of storage.model.calculatedValues; index as j"
-                    value="{{ variable.name }}">
+                        value="{{ variable.name }}">
                     {{ '&#123;' + variable.name + '&#125;' }}
                 </option>
             </select>
         </div>
 
-        <div class="form-group col-2 m-0" *ngIf="item.type === 'expression'">
-            <label for="validatorExpOperator{{ i }}" class="sr-only">Operator*</label>
+        <div class="form-group col-2 m-0"
+             *ngIf="item.type === 'expression'">
+            <label for="validatorExpOperator{{ i }}"
+                   class="sr-only">Operator*</label>
             <select class="custom-select"
-                [(ngModel)]="item.operator"
-                (change)="switchValueType($event, i); modelChanged($event)"
-                [class.is-invalid]="!item.operator"
-                id="validatorExpOperator{{ i }}"
-                name="validatorExpOperator{{ i }}"
-                required>
+                    [(ngModel)]="item.operator"
+                    (change)="switchValueType($event, i); modelChanged($event)"
+                    [class.is-invalid]="!item.operator"
+                    id="validatorExpOperator{{ i }}"
+                    name="validatorExpOperator{{ i }}"
+                    required>
                 <option value="empty">Leer</option>
                 <option value="notempty">Nicht leer</option>
                 <option value="contains">Enthält</option>
@@ -99,36 +111,40 @@
                 <option value="less">&lt;</option>
                 <option value="greaterorequal">&gt;=</option>
                 <option value="lessorequal">&lt;=</option>
-                <option value="anyof" *ngIf="item.choices">Enthält mindestens eines</option>
-                <option value="allof" *ngIf="item.choices">Enthält alle</option>
+                <option value="anyof"
+                        *ngIf="item.choices">Enthält mindestens eines</option>
+                <option value="allof"
+                        *ngIf="item.choices">Enthält alle</option>
             </select>
         </div>
 
-        <div class="form-group col-3 m-0 pr-0" *ngIf="item.type === 'expression' && !(item.operator === 'empty' || item.operator === 'notempty')">
-            <label for="validatorExpValue{{ i }}" class="sr-only">Wert oder Variabel %7Be1%7D</label>
+        <div class="form-group col-3 m-0 pr-0"
+             *ngIf="item.type === 'expression' && !(item.operator === 'empty' || item.operator === 'notempty')">
+            <label for="validatorExpValue{{ i }}"
+                   class="sr-only">Wert oder Variabel %7Be1%7D</label>
             <input type="text"
-                class="form-control"
-                [(ngModel)]="item.value"
-                (change)="modelChanged($event)"
-                *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
-                [class.is-invalid]="!item.value"
-                id="validatorExpValue{{ i }}"
-                name="validatorExpValue{{ i }}"
-                placeholder="Wert oder Variabel {e1}"
-                maxlength="200"
-                required>
+                   class="form-control"
+                   [(ngModel)]="item.value"
+                   (change)="modelChanged($event)"
+                   *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
+                   [class.is-invalid]="!item.value"
+                   id="validatorExpValue{{ i }}"
+                   name="validatorExpValue{{ i }}"
+                   placeholder="Wert oder Variabel {e1}"
+                   maxlength="200"
+                   required>
 
             <select multiple
-                class="custom-select"
-                *ngIf="item.operator === 'anyof' || item.operator === 'allof'"
-                [class.is-invalid]="!item.value"
-                id="validatorExpValue{{ i }}"
-                name="validatorExpValue{{ i }}"
-                required>
+                    class="custom-select"
+                    *ngIf="item.operator === 'anyof' || item.operator === 'allof'"
+                    [class.is-invalid]="!item.value"
+                    id="validatorExpValue{{ i }}"
+                    name="validatorExpValue{{ i }}"
+                    required>
                 <option *ngFor="let choice of item.choices; index as j"
-                    (click)="selectedItems($event, i, j)"
-                    value="{{ choice.value }}"
-                    [selected]="item.value.indexOf(choice.value) !== -1">
+                        (click)="selectedItems($event, i, j)"
+                        value="{{ choice.value }}"
+                        [selected]="item.value.indexOf(choice.value) !== -1">
                     {{ choice.text ? choice.text : choice.value }}
                 </option>
             </select>
@@ -137,12 +153,20 @@
 </div>
 
 <div class="mb-2">
-    <button type="button" class="btn btn-danger btn-sm mr-2" title="Validator entfernen" (click)="ValidatorDel()">
-        <i class="fas fa-minus fa-fw" aria-hidden="true"></i>
+    <button type="button"
+            class="btn btn-danger btn-sm mr-2"
+            title="Validator entfernen"
+            (click)="ValidatorDel()">
+        <i class="fas fa-minus fa-fw"
+           aria-hidden="true"></i>
         <span class="sr-only">Validator entfernen</span>
     </button>
-    <button type="button" class="btn btn-success btn-sm" title="Validator hinzufügen" (click)="ValidatorAdd()">
-        <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+    <button type="button"
+            class="btn btn-success btn-sm"
+            title="Validator hinzufügen"
+            (click)="ValidatorAdd()">
+        <i class="fas fa-plus fa-fw"
+           aria-hidden="true"></i>
         <span class="sr-only">Validator hinzufügen</span>
     </button>
 </div>
@@ -150,13 +174,16 @@
 <hr>
 
 <div class="form-group row m-0 mb-3">
-    <label for="validatorDefault" class="col-12 col-lg-4 col-form-label px-0">Standard Validator hinzufügen</label>
+    <label for="validatorDefault"
+           class="col-12 col-lg-4 col-form-label px-0">Standard Validator hinzufügen</label>
     <div class="col-12 col-lg-8 p-0">
         <select class="custom-select"
-            (change)="selectDefaultValidator($event)"
-            name="validatorDefault"
-            required>
-            <option value="" selected disabled>Validator Auswählen</option>
+                (change)="selectDefaultValidator($event)"
+                name="validatorDefault"
+                required>
+            <option value=""
+                    selected
+                    disabled>Validator Auswählen</option>
             <option value="date2">Datum (yyyy-mm-dd)</option>
             <option value="date1">Datum (dd.mm.yyyy)</option>
         </select>

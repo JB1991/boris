@@ -4,23 +4,24 @@ import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator.component';
 
 describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
-  let component: BodenwertKalkulatorComponent;
-  let fixture: ComponentFixture<BodenwertKalkulatorComponent>;
+    let component: BodenwertKalkulatorComponent;
+    let fixture: ComponentFixture<BodenwertKalkulatorComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [BodenwertKalkulatorComponent, NgbAccordion]
-    })
-      .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [BodenwertKalkulatorComponent, NgbAccordion]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BodenwertKalkulatorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(BodenwertKalkulatorComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

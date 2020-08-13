@@ -265,6 +265,14 @@ export class NipixRuntime {
         }
     }
 
+    private parseStringAsFloat(value: any) {
+        if (typeof value === 'string') {
+            return parseFloat(value.replace(',', '.'));
+        } else {
+            return value;
+        }
+    }
+
     private calculateDrawDataAggr(drawitem: any) {
 
         const a_val = [];
@@ -296,18 +304,14 @@ export class NipixRuntime {
 
                         // Add Value to aggregation Var
                         if (data.hasOwnProperty(this.availableQuartal[d].replace('/', '_'))) {
-                            let val = data[this.availableQuartal[d].replace('/', '_')].index;
-                            let fal = data[this.availableQuartal[d].replace('/', '_')].faelle;
-
-                            if (typeof val === 'string') {
-                                val = parseFloat(val.replace(',', '.'));
-                            }
+                            let val = this.parseStringAsFloat(
+                                data[this.availableQuartal[d].replace('/', '_')].index
+                            );
+                            const fal = this.parseStringAsFloat(
+                                data[this.availableQuartal[d].replace('/', '_')].faelle
+                            );
 
                             val += (100 - reference);
-
-                            if (typeof fal === 'string') {
-                                fal = parseFloat(fal.replace(',', '.'));
-                            }
 
                             if (!isNaN(val)) {
                                 aggr_val += val * fal;

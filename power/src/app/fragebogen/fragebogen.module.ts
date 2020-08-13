@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { FragebogenRoutingModule } from './fragebogen-routing.module';
@@ -11,21 +10,22 @@ import { DetailsModule } from './details/details.module';
 import { FilloutModule } from './fillout/fillout.module';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-  ],
-  imports: [
-    FragebogenRoutingModule,
-    CommonModule,
-    FormsModule,
-    DashboardModule,
-    DetailsModule,
-    FilloutModule,
-    EditorModule
-  ]
+    declarations: [
+        HomeComponent,
+    ],
+    imports: [
+        FragebogenRoutingModule,
+        CommonModule,
+        FormsModule,
+        DashboardModule,
+        DetailsModule,
+        FilloutModule,
+        EditorModule
+    ]
 })
 
 export class FragebogenModule {
-  constructor() {
-  }
+    constructor() {
+    }
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

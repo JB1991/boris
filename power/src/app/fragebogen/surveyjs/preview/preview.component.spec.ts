@@ -4,50 +4,50 @@ import { environment } from '@env/environment';
 import { PreviewComponent } from './preview.component';
 
 describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
-  let component: PreviewComponent;
-  let fixture: ComponentFixture<PreviewComponent>;
+    let component: PreviewComponent;
+    let fixture: ComponentFixture<PreviewComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PreviewComponent ]
-    })
-    .compileComponents();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [PreviewComponent]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(PreviewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+        fixture = TestBed.createComponent(PreviewComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
 
-    spyOn(console, 'log');
-  }));
+        spyOn(console, 'log');
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-    environment.production = true;
-    component.debugPrint('x');
-    environment.production = false;
-    component.debugPrint('x');
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+        environment.production = true;
+        component.debugPrint('x');
+        environment.production = false;
+        component.debugPrint('x');
+    });
 
-  it('should crash', () => {
-    expect(function () {
-      component.Open('ediet');
-    }).toThrowError('mode is invalid');
-  });
+    it('should crash', () => {
+        expect(function () {
+            component.Open('ediet');
+        }).toThrowError('mode is invalid');
+    });
 
-  it('should open/close', () => {
-    expect(component.isOpen).toBeFalse();
-    expect(component.mode).toEqual('edit');
+    it('should open/close', () => {
+        expect(component.isOpen).toBeFalse();
+        expect(component.mode).toEqual('edit');
 
-    component.Open();
-    expect(component.isOpen).toBeTrue();
-    expect(component.mode).toEqual('edit');
+        component.Open();
+        expect(component.isOpen).toBeTrue();
+        expect(component.mode).toEqual('edit');
 
-    component.Close();
-    expect(component.isOpen).toBeFalse();
-    expect(component.data).toBeNull();
+        component.Close();
+        expect(component.isOpen).toBeFalse();
+        expect(component.data).toBeNull();
 
-    component.Open('display', 5);
-    expect(component.mode).toEqual('display');
-    expect(component.data).toEqual(5);
-  });
+        component.Open('display', 5);
+        expect(component.mode).toEqual('display');
+        expect(component.data).toEqual(5);
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

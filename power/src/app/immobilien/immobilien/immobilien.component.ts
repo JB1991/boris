@@ -48,7 +48,7 @@ export class ImmobilienComponent implements OnInit {
         private http: HttpClient,
         private titleService: Title
     ) {
-     this.titleService.setTitle('Immobilienpreisindex - POWER.NI');
+        this.titleService.setTitle('Immobilienpreisindex - POWER.NI');
     }
 
     title = 'lgln';
@@ -468,7 +468,6 @@ export class ImmobilienComponent implements OnInit {
         }
 
         // Regenerate Drawdata
-        //this.drawdata = this.generateDrawData(this.nipixRuntime.drawPresets);
         this.nipixRuntime.calculateDrawData();
 
         // Regenerate Series
@@ -690,7 +689,7 @@ export class ImmobilienComponent implements OnInit {
 
                 const selection_id = parseInt( event.panelId.replace('static-', ''), 10);
 
-                if (this.nipixStatic.data.selections[selection_id] !== undefined 
+                if (this.nipixStatic.data.selections[selection_id] !== undefined
                     && this.nipixStatic.data.selections[selection_id] !== null
                 ) {
                     if (this.nipixStatic.data.selections[selection_id]['type'] === 'multiSelect') {
