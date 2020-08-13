@@ -1,7 +1,7 @@
 <div class="input-group p-1">
-  <input type="text" placement="bottom" class="form-control" placeholder="Bitte Ort eingeben ..."
-         [(ngModel)]="model"
-         [ngbTypeahead]="search" [class.is-invalid]="searchFailed" [inputFormatter]="formatter"
-         [resultFormatter]="formatter"
-         (selectItem)="selectItem($event.item)">
+    <input type="text" placement="bottom" class="form-control" placeholder="Bitte Ort eingeben ..."
+           [(ngModel)]="model"
+           [ngbTypeahead]="search" [class.is-invalid]="searchFailed" [inputFormatter]="formatter"
+           [resultFormatter]="formatter"
+           (selectItem)="selectItem($event.item)">
 </div>

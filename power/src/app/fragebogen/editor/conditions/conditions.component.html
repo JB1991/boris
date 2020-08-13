@@ -3,13 +3,13 @@
         <div class="form-group col-2 m-0 pl-0">
             <label for="conditionCondition{{ i }}" class="sr-only">Verknüpfung*</label>
             <select class="custom-select"
-                [(ngModel)]="item.condition"
-                (change)="modelChanged($event)"
-                [class.is-invalid]="!item.condition && i !== 0"
-                [disabled]="i === 0"
-                id="conditionCondition{{ i }}"
-                name="conditionCondition{{ i }}"
-                required>
+                    [(ngModel)]="item.condition"
+                    (change)="modelChanged($event)"
+                    [class.is-invalid]="!item.condition && i !== 0"
+                    [disabled]="i === 0"
+                    id="conditionCondition{{ i }}"
+                    name="conditionCondition{{ i }}"
+                    required>
                 <option value="and">Und</option>
                 <option value="or">Oder</option>
             </select>
@@ -18,19 +18,19 @@
         <div class="form-group col-4 m-0">
             <label for="conditionQuestion{{ i }}" class="sr-only">Formularfeld*</label>
             <select class="custom-select"
-                [(ngModel)]="item.question"
-                (change)="modelChanged($event)"
-                [class.is-invalid]="!item.question"
-                id="conditionQuestion{{ i }}"
-                name="conditionQuestion{{ i }}"
-                required>
+                    [(ngModel)]="item.question"
+                    (change)="modelChanged($event)"
+                    [class.is-invalid]="!item.question"
+                    id="conditionQuestion{{ i }}"
+                    name="conditionQuestion{{ i }}"
+                    required>
                 <option value="" disabled>Formularfeld auswählen</option>
                 <option *ngFor="let question of questions; index as j"
-                    value="{{ question.name }}">
+                        value="{{ question.name }}">
                     {{ question.title }}
                 </option>
                 <option *ngFor="let variable of storage.model.calculatedValues; index as j"
-                    value="{{ variable.name }}">
+                        value="{{ variable.name }}">
                     {{ '&#123;' + variable.name + '&#125;' }}
                 </option>
             </select>
@@ -39,12 +39,12 @@
         <div class="form-group col-2 m-0">
             <label for="conditionOperator{{ i }}" class="sr-only">Operator*</label>
             <select class="custom-select"
-                [(ngModel)]="item.operator"
-                (change)="switchValueType($event, i); modelChanged($event)"
-                [class.is-invalid]="!item.operator"
-                id="conditionOperator{{ i }}"
-                name="conditionOperator{{ i }}"
-                required>
+                    [(ngModel)]="item.operator"
+                    (change)="switchValueType($event, i); modelChanged($event)"
+                    [class.is-invalid]="!item.operator"
+                    id="conditionOperator{{ i }}"
+                    name="conditionOperator{{ i }}"
+                    required>
                 <option value="empty">Leer</option>
                 <option value="notempty">Nicht leer</option>
                 <option value="contains">Enthält</option>
@@ -63,28 +63,28 @@
         <div class="form-group col-4 m-0 pr-0" *ngIf="!(item.operator === 'empty' || item.operator === 'notempty')">
             <label for="conditionValue{{ i }}" class="sr-only">Wert oder Variabel %7Be1%7D</label>
             <input type="text"
-                class="form-control"
-                [(ngModel)]="item.value"
-                (change)="modelChanged($event)"
-                *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
-                [class.is-invalid]="!item.value"
-                id="conditionValue{{ i }}"
-                name="conditionValue{{ i }}"
-                placeholder="Wert oder Variabel {e1}"
-                maxlength="200"
-                required>
+                   class="form-control"
+                   [(ngModel)]="item.value"
+                   (change)="modelChanged($event)"
+                   *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
+                   [class.is-invalid]="!item.value"
+                   id="conditionValue{{ i }}"
+                   name="conditionValue{{ i }}"
+                   placeholder="Wert oder Variabel {e1}"
+                   maxlength="200"
+                   required>
 
             <select multiple
-                class="custom-select"
-                *ngIf="item.operator === 'anyof' || item.operator === 'allof'"
-                [class.is-invalid]="!item.value"
-                id="conditionValue{{ i }}"
-                name="conditionValue{{ i }}"
-                required>
+                    class="custom-select"
+                    *ngIf="item.operator === 'anyof' || item.operator === 'allof'"
+                    [class.is-invalid]="!item.value"
+                    id="conditionValue{{ i }}"
+                    name="conditionValue{{ i }}"
+                    required>
                 <option *ngFor="let choice of item.choices; index as j"
-                    (click)="selectedItems($event, i, j)"
-                    value="{{ choice.value }}"
-                    [selected]="item.value.indexOf(choice.value) !== -1">
+                        (click)="selectedItems($event, i, j)"
+                        value="{{ choice.value }}"
+                        [selected]="item.value.indexOf(choice.value) !== -1">
                     {{ choice.text ? choice.text : choice.value }}
                 </option>
             </select>

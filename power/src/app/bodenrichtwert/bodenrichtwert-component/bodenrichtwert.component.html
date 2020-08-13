@@ -1,34 +1,35 @@
 <div class="wrapper">
-  <div class="height-minus-header-map" #map [class.small]="features">
-    <a class="anchor"></a>
-    <power-bodenrichtwertkarte [(stichtag)]="stichtag" [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
-  </div>
-  <ngb-accordion #acc="ngbAccordion">
-    <ngb-panel>
-      <ng-template ngbPanelHeader>
-        <div>
-          <div *ngIf="!adresse" class="text-center">
-            <h5 class="m-0 mx-center">Wählen Sie eine Position</h5>
-          </div>
-          <div *ngIf="adresse" class="text-center">
-            <h5 class="m-0 mx-center">{{adresse.properties.text}}
-              <button (click)="map.classList.toggle('small')" class="btn btn-link p-0">
-                <img src="/assets/icons/chevron-down.svg" width="25" height="25" alt="Einklappen/ausklappen">
-              </button>
-            </h5>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        <power-bodenrichtwert-liste [stichtag]="stichtag"
-                                    [teilmarkt]="teilmarkt"
-                                    [features]="features">
-        </power-bodenrichtwert-liste>
-      </ng-template>
-    </ngb-panel>
-  </ngb-accordion>
-  <div class="row m-1 pt-3" [class.d-none]="!features">
-    <a class="anchor" #verlauf></a>
-    <power-bodenrichtwert-verlauf class="col-md-12" [features]="features"></power-bodenrichtwert-verlauf>
-  </div>
+    <div class="height-minus-header-map" #map [class.small]="features">
+        <a class="anchor"></a>
+        <power-bodenrichtwertkarte [(stichtag)]="stichtag" [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
+    </div>
+    <ngb-accordion #acc="ngbAccordion">
+        <ngb-panel>
+            <ng-template ngbPanelHeader>
+                <div>
+                    <div *ngIf="!adresse" class="text-center">
+                        <h5 class="m-0 mx-center">Wählen Sie eine Position</h5>
+                    </div>
+                    <div *ngIf="adresse" class="text-center">
+                        <h5 class="m-0 mx-center">{{adresse.properties.text}}
+                            <button (click)="map.classList.toggle('small')" class="btn btn-link p-0">
+                                <img src="/assets/icons/chevron-down.svg" width="25" height="25"
+                                     alt="Einklappen/ausklappen">
+                            </button>
+                        </h5>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <power-bodenrichtwert-liste [stichtag]="stichtag"
+                                            [teilmarkt]="teilmarkt"
+                                            [features]="features">
+                </power-bodenrichtwert-liste>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+    <div class="row m-1 pt-3" [class.d-none]="!features">
+        <a class="anchor" #verlauf></a>
+        <power-bodenrichtwert-verlauf class="col-md-12" [features]="features"></power-bodenrichtwert-verlauf>
+    </div>
 </div>
