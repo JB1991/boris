@@ -202,6 +202,8 @@ export class BodenrichtwertKarteComponent implements OnInit {
           center: lngLat
         });
         this.marker.setLngLat(lngLat).addTo(this.map);
+        this.getAddressFromLatLng(lngLat.lat, lngLat.lng);
+        this.getBodenrichtwertzonen(lngLat.lat, lngLat.lng, 'B');
       });
     }
   }
