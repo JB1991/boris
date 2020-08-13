@@ -106,7 +106,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET',
             { 'error': 'Internal Server Error' });
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
 
         component.NewForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);

@@ -203,7 +203,7 @@ export class ModalElementComponent implements OnInit {
                 .elements[this.storage.selectedElementID]
                 .choices.splice(this.storage.model.pages[this.storage.selectedPageID]
                     .elements[this.storage.selectedElementID]
-                    .choices.length, 0, {value: '', text: ''});
+                    .choices.length, 0, { value: '', text: '' });
         } else {
             this.storage.model
                 .pages[this.storage.selectedPageID]
@@ -211,7 +211,7 @@ export class ModalElementComponent implements OnInit {
                 .choices.splice(this.storage.model
                     .pages[this.storage.selectedPageID]
                     .elements[this.storage.selectedElementID]
-                    .choices.length, 0, {value: '', text: '', imageLink: ''});
+                    .choices.length, 0, { value: '', text: '', imageLink: '' });
         }
     }
 
@@ -242,7 +242,7 @@ export class ModalElementComponent implements OnInit {
             .columns.splice(this.storage.model
                 .pages[this.storage.selectedPageID]
                 .elements[this.storage.selectedElementID]
-                .columns.length, 0, {value: '', text: ''});
+                .columns.length, 0, { value: '', text: '' });
     }
 
     /**
@@ -272,7 +272,7 @@ export class ModalElementComponent implements OnInit {
             .rows.splice(this.storage.model
                 .pages[this.storage.selectedPageID]
                 .elements[this.storage.selectedElementID]
-                .rows.length, 0, {value: '', text: ''});
+                .rows.length, 0, { value: '', text: '' });
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

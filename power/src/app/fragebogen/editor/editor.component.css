@@ -11,6 +11,14 @@
         vertical-align: top;
         border-width: 0 !important;
     }
+
+    #toolbox {
+        overflow-y: hidden !important;
+    }
+
+    .stick-right {
+        position: relative !important;
+    }
 }
 
 #toolbox {
@@ -35,8 +43,18 @@
     border-top-width: 0 !important;
 }
 
+.stick-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .drag-ghost {
     opacity: 0.5;
+}
+
+.drag-mouse {
+    cursor: move !important;
 }
 
 li.smooth-dnd-draggable-wrapper:last-child .page-link {

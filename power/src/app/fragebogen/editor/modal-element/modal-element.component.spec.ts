@@ -23,7 +23,7 @@ describe('Fragebogen.Editor.ModelElement.ModalElementComponent', () => {
                 StorageService,
                 BsModalService
             ],
-            declarations: [ ModalElementComponent ]
+            declarations: [ModalElementComponent]
         })
             .compileComponents();
     }));

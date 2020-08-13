@@ -36,7 +36,7 @@ export class StorageService {
     public loadFormsList(): Observable<Object> {
         // Load data from server
         const url = environment.formAPI
-        + 'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created';
+            + 'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created';
         return this.httpClient.get(url, this.auth.getHeaders());
     }
 

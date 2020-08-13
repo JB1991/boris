@@ -142,7 +142,8 @@ export class DetailsComponent implements OnInit {
      */
     public archiveForm() {
         // Ask user to confirm achivation
-        if (!confirm($localize`Möchten Sie dieses Formular wirklich archivieren?\nDies lässt sich nicht mehr umkehren!`)) {
+        if (!confirm($localize`Möchten Sie dieses Formular wirklich archivieren?\n\
+Dies lässt sich nicht mehr umkehren!`)) {
             return;
         }
 

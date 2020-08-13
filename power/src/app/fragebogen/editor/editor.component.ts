@@ -2,9 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { DropResult } from 'ngx-smooth-dnd';
+import { DropResult, ContainerOptions } from 'ngx-smooth-dnd';
 import { environment } from '@env/environment';
 
 import { StorageService } from './storage.service';
@@ -47,7 +46,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
-    @HostListener('window:beforeunload') canDeactivate(): Observable<boolean> | boolean {
+    @HostListener('window:beforeunload') canDeactivate(): boolean {
         // on test environment skip
         if (!environment.production) {
             return true;
@@ -69,7 +68,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         } else {
             tb.style.marginTop = '0px';
         }
-        document.body.focus();
     }
 
     @HostListener('window:resize', ['$event']) onResize(event) {
@@ -121,6 +119,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param dropResult Event
      */
     public onDropPagination(dropResult: DropResult) {
+        if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }
         if (dropResult.addedIndex === dropResult.removedIndex) { return; }
 
@@ -153,6 +152,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param dropResult Event
      */
     public onDropWorkspace(dropResult: DropResult) {
+        if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }
         if (dropResult.addedIndex === dropResult.removedIndex) { return; }
 
@@ -179,7 +179,12 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
-    public shouldAcceptDropPagination(sourceContainerOptions, payload) {
+    /**
+     * Returns true if drop down is enabled
+     * @param sourceContainerOptions
+     * @param payload
+     */
+    public shouldAcceptDropPagination(sourceContainerOptions: ContainerOptions, payload): boolean {
         // enable drag from pagination and workspace
         if (sourceContainerOptions.groupName === 'pagination') {
             return true;
@@ -189,7 +194,12 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         return false;
     }
 
-    public shouldAcceptDropWorkspace(sourceContainerOptions, payload) {
+    /**
+     * Returns true if drop down is enabled
+     * @param sourceContainerOptions
+     * @param payload
+     */
+    public shouldAcceptDropWorkspace(sourceContainerOptions: ContainerOptions, payload): boolean {
         // enable drag from toolbox and workspace
         if (sourceContainerOptions.groupName === 'toolbox') {
             return true;
@@ -199,14 +209,28 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         return false;
     }
 
-    public getPayloadToolbox(index: number) {
-        return { from: 'toolbox', index };
+    /**
+     * Sets drop from infos
+     * @param index id
+     */
+    public getPayloadToolbox(index: number): Object {
+        return { from: 'toolbox', index: index };
     }
-    public getPayloadPagination(index: number) {
-        return { from: 'pagination', index };
+
+    /**
+     * Sets drop from infos
+     * @param index id
+     */
+    public getPayloadPagination(index: number): Object {
+        return { from: 'pagination', index: index };
     }
-    public getPayloadWorkspace(index: number) {
-        return { from: 'workspace', index };
+
+    /**
+     * Sets drop from infos
+     * @param index id
+     */
+    public getPayloadWorkspace(index: number): Object {
+        return { from: 'workspace', index: index };
     }
 
     /**
@@ -214,15 +238,25 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param type Element identifier
      */
     public wsNewElement(type: string) {
-        let data = this.storage.FormularFields.filter(p => p.type === type)[0];
-        if (data) {
-            data = JSON.parse(JSON.stringify(data.template));
-        } else if (this.elementCopy) {
-            data = JSON.parse(this.elementCopy);
-        } else {
-            throw new Error('Could not create new Element');
+        // check data
+        if (!type) {
+            throw new Error('type is required');
         }
 
+        // get template
+        let data = this.storage.FormularFields.filter(p => p.type === type)[0];
+        if (data) {
+            // toolbox element
+            data = JSON.parse(JSON.stringify(data.template));
+        } else if (type === 'elementcopy' && this.elementCopy) {
+            // copied element
+            data = JSON.parse(this.elementCopy);
+        } else {
+            // unkown element
+            throw new Error('type is not a known element');
+        }
+
+        // create element
         this.history.makeHistory(this.storage.model);
         data.name = this.storage.newElementID();
         this.storage.model.pages[this.storage.selectedPageID].elements.splice(0, 0, data);
@@ -232,18 +266,22 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * Adds new page to the end or after given page
      * @param page Page number
      */
-    public wsPageCreate(page: number = this.storage.model.pages.length - 1) {
+    public wsPageCreate(page: number = this.storage.model.pages.length) {
+        // check data
+        if (page < 0 || page > this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+
+        // add
         this.history.makeHistory(this.storage.model);
-        this.storage.model.pages.splice(page + 1, 0,
-            {
-                title: '',
-                description: '',
-                elements: [],
-                questionsOrder: 'default',
-                name: this.storage.newPageID()
-            }
-        );
-        this.storage.selectedPageID++;
+        this.storage.model.pages.splice(page, 0, {
+            title: '',
+            description: '',
+            elements: [],
+            questionsOrder: 'default',
+            name: this.storage.newPageID()
+        });
+        this.storage.selectedPageID = page;
     }
 
     /**
@@ -251,29 +289,34 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param page Page number
      */
     public wsPageDelete(page: number) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+
         // ask user to confirm
         if (!confirm($localize`Möchten Sie diese Seite wirklich löschen?`)) {
             return;
         }
+
+        // delete
         this.history.makeHistory(this.storage.model);
         this.storage.model.pages.splice(page, 1);
 
-        // check if selected page is out of bounds
-        if (this.storage.selectedPageID >= this.storage.model.pages.length && this.storage.selectedPageID > 0) {
-            this.storage.selectedPageID--;
-        }
-
         // ensure that at least one page exists
         if (this.storage.model.pages.length < 1) {
-            this.storage.model.pages.splice(0, 0,
-                {
-                    title: '',
-                    description: '',
-                    elements: [],
-                    questionsOrder: 'default',
-                    name: 'p1'
-                }
-            );
+            this.storage.model.pages.splice(0, 0, {
+                title: '',
+                description: '',
+                elements: [],
+                questionsOrder: 'default',
+                name: 'p1'
+            });
+        }
+
+        // check if selected page is out of bounds
+        if (this.storage.selectedPageID >= this.storage.model.pages.length) {
+            this.storage.selectedPageID = this.storage.model.pages.length - 1;
         }
     }
 
@@ -282,6 +325,10 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param page Page number
      */
     public wsPageSelect(page: number) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
         // check if page is already selected
         if (page === this.storage.selectedPageID) {
             return;
@@ -303,23 +350,23 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         this.storage.saveForm(this.storage.model, id).subscribe((data) => {
             // check for error
             if (!data || data['error']) {
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, (data['error'] ? data['error'] : id));
-                throw new Error('Could not save formular: ' + (data['error'] ? data['error'] : id));
+                const alertText = (data && data['error'] ? data['error'] : id);
+                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
+
+                console.log('Could not save form: ' + alertText);
+                return;
             }
 
             // success
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
-
-            // redirect to new id
-            if (!id) {
-                this.router.navigate(['forms', 'editor', encodeURIComponent(data['data']['id'])], { replaceUrl: true });
-            }
         }, (error: Error) => {
             // failed to save
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`,
-                (error['error']['error'] ? error['error']['error'] : error['statusText']));
-            throw error;
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            this.loadingscreen.setVisible(false);
+
+            console.log(error);
+            return;
         });
     }
 
@@ -329,6 +376,15 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param page Page number
      */
     public wsElementCopy(element: number, page: number = this.storage.selectedPageID) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+        if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
+            throw new Error('element is invalid');
+        }
+
+        // copy
         this.elementCopy = JSON.stringify(this.storage.model.pages[page].elements[element]);
     }
 
@@ -338,12 +394,65 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param page Page number
      */
     public wsElementRemove(element: number, page: number = this.storage.selectedPageID) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+        if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
+            throw new Error('element is invalid');
+        }
+
         // ask user to confirm
         if (!confirm($localize`Möchten Sie das Element wirklich löschen?`)) {
             return;
         }
+
+        // delete
         this.history.makeHistory(this.storage.model);
         this.storage.model.pages[page].elements.splice(element, 1);
     }
+
+    /**
+     * Moves element up
+     * @param element Element number
+     * @param page Page number
+     */
+    public wsElementMoveup(element: number, page: number = this.storage.selectedPageID) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+        if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
+            throw new Error('element is invalid');
+        }
+        // check if element can move up
+        if (element === 0) {
+            return;
+        }
+
+        // move up
+        moveItemInArray(this.storage.model.pages[page].elements, element, element - 1);
+    }
+
+    /**
+     * Moves element down
+     * @param element Element number
+     * @param page Page number
+     */
+    public wsElementMovedown(element: number, page: number = this.storage.selectedPageID) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+        if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
+            throw new Error('element is invalid');
+        }
+        // check if element can move down
+        if (element === this.storage.model.pages[page].elements.length - 1) {
+            return;
+        }
+
+        // move down
+        moveItemInArray(this.storage.model.pages[page].elements, element, element + 1);
+    }
 }
-/* vim: set expandtab ts=4 sw=4 sts=4: */

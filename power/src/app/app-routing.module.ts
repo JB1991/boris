@@ -10,22 +10,22 @@ const routes: Routes = [
     {
         path: 'immobilienpreisindex',
         loadChildren: () => import('./immobilien/immobilien.module')
-        .then(m => m.ImmobilienModule)
+            .then(m => m.ImmobilienModule)
     },
     {
         path: 'bodenrichtwerte',
         loadChildren: () => import('./bodenrichtwert/bodenrichtwert.module')
-        .then(m => m.BodenrichtwertModule)
+            .then(m => m.BodenrichtwertModule)
     },
     {
         path: 'bodenwertkalkulator',
         loadChildren: () => import('./bodenwert-kalkulator/bodenwert-kalkulator.module')
-        .then(m => m.BodenwertKalkulatorModule)
+            .then(m => m.BodenwertKalkulatorModule)
     },
     {
         path: 'forms',
         loadChildren: () => import('./fragebogen/fragebogen.module')
-        .then(m => m.FragebogenModule)
+            .then(m => m.FragebogenModule)
     },
     {
         path: '**',

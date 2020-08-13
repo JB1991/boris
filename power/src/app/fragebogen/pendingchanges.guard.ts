@@ -19,8 +19,8 @@ export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate
      */
     canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> {
         return component.canDeactivate() ?
-        true :
-        confirm($localize`ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.`);
+            true :
+            confirm($localize`ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.`);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

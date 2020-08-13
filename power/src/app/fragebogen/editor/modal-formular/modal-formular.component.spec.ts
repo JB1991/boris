@@ -23,7 +23,7 @@ describe('Fragebogen.Editor.ModalFormular.ModalFormularComponent', () => {
                 StorageService,
                 BsModalService
             ],
-            declarations: [ ModalFormularComponent ]
+            declarations: [ModalFormularComponent]
         })
             .compileComponents();
     }));

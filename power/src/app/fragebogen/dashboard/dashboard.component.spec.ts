@@ -85,7 +85,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
             'GET', { 'error': 'Internal Server Error' });
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 404', () => {
@@ -104,7 +105,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET',
             { 'error': 'Internal Server Error' });
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 404 2', () => {
