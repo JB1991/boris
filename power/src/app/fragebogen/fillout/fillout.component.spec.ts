@@ -91,7 +91,8 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         expect(component.storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
         expect(component.storage.form).toBeNull();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs7v95fp9r1ctg9cbecg');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs7v95fp9r1ctg9cbecg');
     });
 
     it('should not create 3', () => {
@@ -99,7 +100,8 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             { 'error': 'Internal Server Error' });
         expect(component.storage.task).toBeNull();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
 
         component.loadData('1234');
         answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
@@ -107,7 +109,8 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             { 'error': 'Internal Server Error' });
         expect(component.storage.form).toBeNull();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 404', () => {

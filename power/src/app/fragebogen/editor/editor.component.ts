@@ -119,7 +119,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param dropResult Event
      */
     public onDropPagination(dropResult: DropResult) {
-        if (!dropResult) return;
+        if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }
         if (dropResult.addedIndex === dropResult.removedIndex) { return; }
 
@@ -152,7 +152,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
      * @param dropResult Event
      */
     public onDropWorkspace(dropResult: DropResult) {
-        if (!dropResult) return;
+        if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }
         if (dropResult.addedIndex === dropResult.removedIndex) { return; }
 

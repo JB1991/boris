@@ -440,7 +440,6 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
         expect(component.storage.model.pages[0].elements.length).toEqual(2);
         expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
-        //component.onDropPagination({removedIndex: 0, addedIndex: 0, payload: component.getPayloadPagination(0)});
 
         // do nothing
         component.onDropWorkspace({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadPagination(0) });

@@ -99,7 +99,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', null);
         expect(component.storage.tasksList).toEqual([]);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
     });
 
     it('should error', () => {
@@ -107,7 +108,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             { 'error': 'Internal Server Error' });
         expect(component.storage.form).toBeNull();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 2', () => {
@@ -116,7 +118,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             { 'error': 'Internal Server Error' });
         expect(component.storage.tasksList).toEqual([]);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 404', () => {

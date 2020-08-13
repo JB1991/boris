@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser'
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 
 import { SvgPipe } from './svg.pipe';
 
