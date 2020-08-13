@@ -14,6 +14,7 @@ import { ModalFormularComponent } from './modal-formular/modal-formular.componen
 import { ModalElementComponent } from './modal-element/modal-element.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { ValidatorsComponent } from './validators/validators.component';
+import { SvgPipe } from './svg.pipe';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
@@ -23,8 +24,8 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
         ModalFormularComponent,
         ModalElementComponent,
         ConditionsComponent,
-        ValidatorsComponent
-
+        ValidatorsComponent,
+        SvgPipe
     ],
     imports: [
         EditorRoutingModule,
@@ -42,4 +43,3 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
     ]
 })
 export class EditorModule { }
-/* vim: set expandtab ts=4 sw=4 sts=4: */

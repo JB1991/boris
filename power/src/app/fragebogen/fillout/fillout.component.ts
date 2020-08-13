@@ -2,7 +2,6 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
 
 import { StorageService } from './storage.service';
@@ -39,7 +38,7 @@ export class FilloutComponent implements OnInit {
         }
     }
 
-    @HostListener('window:beforeunload') canDeactivate(): Observable<boolean> | boolean {
+    @HostListener('window:beforeunload') canDeactivate(): boolean {
         // on test environment skip
         if (!environment.production) {
             return true;

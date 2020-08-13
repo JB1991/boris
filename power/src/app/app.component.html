@@ -58,7 +58,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUser"
                          [collapse]="isCollapsedAcc">
-                        <a class="dropdown-item" [routerLink]="">{{ auth.user.data.preferred_username }}</a>
+                        <a class="dropdown-item" [routerLink]="">{{ auth.user.data.email }}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" (click)="isCollapsed = true" [routerLink]="['/logout']"
                            routerLinkActive="active"
