@@ -4,6 +4,7 @@
     <div *ngFor="let alert of alerts.alertslist; index as i">
         <alert [type]="alert.type"
                [dismissOnTimeout]="alert.timeout"
+               role="alert"
                (onClosed)="onClosed(i)">
             <button i18n-aria-label
                     aria-label="Schließen"
