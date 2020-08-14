@@ -40,6 +40,32 @@ export class DashboardComponent implements OnInit {
             // save data
             this.storage.formsList = data['data'];
 
+            // load tasks from server
+            this.storage.loadTasksList().subscribe((data2) => {
+                // check for error
+                if (!data2 || data2['error'] || !data2['data']) {
+                    const alertText = (data2 && data2['error'] ? data2['error'] : 'Tasks');
+                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+                    this.loadingscreen.setVisible(false);
+                    this.router.navigate(['/forms'], { replaceUrl: true });
+                    console.log('Could not load tasks: ' + alertText);
+                    return;
+                }
+
+                // save data
+                this.storage.tasksList = data2['data'];
+                this.loadingscreen.setVisible(false);
+            }, (error2: Error) => {
+                // failed to load tags
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
+                this.loadingscreen.setVisible(false);
+
+                this.router.navigate(['/forms'], { replaceUrl: true });
+                console.log(error2);
+                return;
+            });
+
             // load tags from server
             this.storage.loadTags().subscribe((data2) => {
                 // check for error
@@ -47,7 +73,6 @@ export class DashboardComponent implements OnInit {
                     const alertText = (data2 && data2['error'] ? data2['error'] : 'Tags');
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
 
-                    this.loadingscreen.setVisible(false);
                     this.router.navigate(['/forms'], { replaceUrl: true });
                     console.log('Could not load tags: ' + alertText);
                     return;
@@ -55,11 +80,9 @@ export class DashboardComponent implements OnInit {
 
                 // save data
                 this.storage.tagList = data2['data'];
-                this.loadingscreen.setVisible(false);
             }, (error2: Error) => {
                 // failed to load tags
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
-                this.loadingscreen.setVisible(false);
 
                 this.router.navigate(['/forms'], { replaceUrl: true });
                 console.log(error2);
