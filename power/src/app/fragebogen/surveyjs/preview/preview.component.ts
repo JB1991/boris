@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Bootstrap4_CSS } from '../style';
 import { environment } from '@env/environment';
@@ -8,7 +8,7 @@ import { environment } from '@env/environment';
     templateUrl: './preview.component.html',
     styleUrls: ['./preview.component.css']
 })
-export class PreviewComponent implements OnInit {
+export class PreviewComponent implements OnInit, OnDestroy {
     @Input() public form: any;
     @Input() public data: any = null;
     public isOpen = false;
@@ -19,6 +19,10 @@ export class PreviewComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    ngOnDestroy() {
+        document.body.classList.remove('overflow-hidden');
     }
 
     /**
@@ -35,7 +39,6 @@ export class PreviewComponent implements OnInit {
         }
 
         document.body.classList.add('overflow-hidden');
-        document.body.style.pointerEvents = 'none';
         this.mode = mode;
         this.isOpen = true;
     }
@@ -45,7 +48,6 @@ export class PreviewComponent implements OnInit {
      */
     public Close() {
         document.body.classList.remove('overflow-hidden');
-        document.body.style.pointerEvents = 'auto';
         this.isOpen = false;
         this.data = null;
     }

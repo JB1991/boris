@@ -38,7 +38,6 @@
                         *ngFor="let item of storage.FormularFields"
                         role="button"
                         tabindex="0"
-                        draggable="true"
                         class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
                         title="{{ item.name }}"
                         (click)="wsNewElement(item.type)"
@@ -52,7 +51,6 @@
                         *ngIf="elementCopy"
                         role="button"
                         tabindex="0"
-                        draggable="true"
                         class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
                         i18n-title
                         title="Zwischenablage"
@@ -361,8 +359,7 @@
                                     class="btn btn-light btn-sm mr-2 drag-handle drag-mouse"
                                     aria-hidden="true"
                                     i18n-title
-                                    title="Verschieben"
-                                    draggable="true">
+                                    title="Verschieben">
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"

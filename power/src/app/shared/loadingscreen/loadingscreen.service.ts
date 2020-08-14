@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart, NavigationCancel } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +14,8 @@ export class LoadingscreenService {
                 this.visible = false;
             } else if (event instanceof NavigationStart) {
                 this.visible = true;
+            } else if (event instanceof NavigationCancel) {
+                this.visible = false;
             }
         });
     }
