@@ -10,18 +10,19 @@ import { LogoutComponent } from './logout/logout.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
-  imports: [
-    StaticRoutingModule,
-    CommonModule
-  ],
-  declarations: [
-    StartComponent,
-    ImpressumComponent,
-    DatenschutzComponent,
-    LoginComponent,
-    LogoutComponent,
-    FeedbackComponent
-  ]
+    imports: [
+        StaticRoutingModule,
+        CommonModule
+    ],
+    declarations: [
+        StartComponent,
+        ImpressumComponent,
+        DatenschutzComponent,
+        LoginComponent,
+        LogoutComponent,
+        FeedbackComponent
+    ]
 })
 export class StaticModule {
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

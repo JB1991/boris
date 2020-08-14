@@ -3,22 +3,23 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { GeosearchService } from './geosearch.service';
 
 describe('Shared.Geosearch.GeosearchService', () => {
-  let httpTestingController: HttpTestingController;
+    let httpTestingController: HttpTestingController;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        GeosearchService
-      ],
-      imports: [
-        HttpClientTestingModule
-      ]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                GeosearchService
+            ],
+            imports: [
+                HttpClientTestingModule
+            ]
+        });
+
+        httpTestingController = TestBed.inject(HttpTestingController);
     });
 
-    httpTestingController = TestBed.inject(HttpTestingController);
-  });
-
-  it('should be created', inject([GeosearchService], (service: GeosearchService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should be created', inject([GeosearchService], (service: GeosearchService) => {
+        expect(service).toBeTruthy();
+    }));
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

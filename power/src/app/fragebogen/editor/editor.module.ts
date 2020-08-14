@@ -14,31 +14,32 @@ import { ModalFormularComponent } from './modal-formular/modal-formular.componen
 import { ModalElementComponent } from './modal-element/modal-element.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { ValidatorsComponent } from './validators/validators.component';
+import { SvgPipe } from './svg.pipe';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 @NgModule({
-  declarations: [
-    EditorComponent,
-    ModalFormularComponent,
-    ModalElementComponent,
-    ConditionsComponent,
-    ValidatorsComponent
-
-  ],
-  imports: [
-    EditorRoutingModule,
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ModalModule.forRoot(),
-    CollapseModule.forRoot(),
-    NgxSmoothDnDModule,
-    SurveyjsModule
-  ],
-  providers: [
-    StorageService,
-    HistoryService,
-  ]
+    declarations: [
+        EditorComponent,
+        ModalFormularComponent,
+        ModalElementComponent,
+        ConditionsComponent,
+        ValidatorsComponent,
+        SvgPipe
+    ],
+    imports: [
+        EditorRoutingModule,
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        ModalModule.forRoot(),
+        CollapseModule.forRoot(),
+        NgxSmoothDnDModule,
+        SurveyjsModule
+    ],
+    providers: [
+        StorageService,
+        HistoryService,
+    ]
 })
 export class EditorModule { }

@@ -122,6 +122,22 @@ test:lint:
     - dev
     - staging
 
+test:lint:html:
+  stage: test
+  image: node:14.7
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  allow_failure: true
+  script:
+    - cd power
+    - npm run lint:html
+  only:
+    - merge_requests
+    - dev
+    - staging
+
 test:lint:styles:
   stage: test
   image: node:14.7

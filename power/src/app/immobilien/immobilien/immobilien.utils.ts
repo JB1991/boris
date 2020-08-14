@@ -71,7 +71,7 @@ export function getMyMapRegionen(regionen, myregion = null, selectionList = null
         const region = getMyMapRegionenGR(keys[i], bc, bw, ImmobilenHelper.convertColor(regionen[keys[i]].color));
 
         if (lighten === true) {
-            region['itemStyle']['areaColor'] = ImmobilenHelper.modifyColor( regionen[keys[i]].color, 0.85 );
+            region['itemStyle']['areaColor'] = ImmobilenHelper.modifyColor(regionen[keys[i]].color, 0.85);
         }
 
         if (selectionList !== null && selectionList !== undefined && Array.isArray(selectionList)) {
@@ -187,7 +187,7 @@ export function generateDrawSeriesData(data, date = [], field = null, offset = 1
             }
 
             fval = ImmobilenHelper.parseStringAsFloat(val);
-            fval = parseFloat( ( fval + (100 - offset) ).toFixed(2) );
+            fval = parseFloat((fval + (100 - offset)).toFixed(2));
             ret.push(fval);
         } else {
             ret.push(undefined);
@@ -198,7 +198,7 @@ export function generateDrawSeriesData(data, date = [], field = null, offset = 1
 
 
 export function generateTextElement(name, color = '#000', fontSizeBase = 1.2, position = 0, posX?) {
-    return  {
+    return {
         type: 'text',
         top: position * 1.5 * ImmobilenHelper.convertRemToPixels(fontSizeBase),
         left: posX,

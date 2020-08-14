@@ -1,22 +1,27 @@
 {
-  "extends": "stylelint-config-standard",
-  "rules": {
-    "no-empty-source": null,
-    "selector-pseudo-element-no-unknown": [
-      true,
-      {
-        "ignorePseudoElements": [
-          "ng-deep"
-        ]
-      }
-    ],
-    "selector-type-no-unknown": [
-      true,
-      {
-        "ignore": [
-          "custom-elements"
-        ]
-      }
-    ]
-  }
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "function-comma-space-after": "always",
+        "function-comma-space-before": "never",
+        "indentation": 4,
+        "max-line-length": 120,
+        "no-empty-source": null,
+        "selector-pseudo-element-no-unknown": [
+            true,
+            {
+                "ignorePseudoElements": [
+                    "ng-deep"
+                ]
+            }
+        ],
+        "selector-type-no-unknown": [
+            true,
+            {
+                "ignore": [
+                    "custom-elements"
+                ]
+            }
+        ],
+        "string-quotes": "single"
+    }
 }

@@ -1,48 +1,49 @@
 /*!* You can add global styles to this file, and also import other style files *!*/
-/*// @import "theme.scss";*/
-@import "~bootstrap/scss/bootstrap.scss";
-@import "~nouislider/distribute/nouislider.css";
-@import "~mapbox-gl/dist/mapbox-gl.css";
-@import "webfonts/fontawesome.css";
-@import "app/fragebogen/fragebogen.scss";
+/*// @import 'theme.scss';*/
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~nouislider/distribute/nouislider.css';
+@import '~mapbox-gl/dist/mapbox-gl.css';
+@import 'webfonts/fontawesome.css';
+@import 'app/fragebogen/fragebogen.scss';
 
 @mixin font($font-family, $font-file) {
-  @font-face {
-    font-family: $font-family;
-    src: url($font-file + '.TTF') format('truetype');
-  };
+    @font-face {
+        font-family: $font-family;
+        src: url($font-file + '.TTF') format('truetype');
+    }
 }
 
 @include font('Frutiger', '/assets/fonts/FTR____');
 
-html, body {
-  height: 100%;
-  // Frutiger Schrift wie im Corporate Design?
-  // font-family: 'Frutiger', 'arial';
-  // font-weight: 400;
-  // font-style: normal;
+html,
+body {
+    height: 100%;
+    // Frutiger Schrift wie im Corporate Design?
+    // font-family: 'Frutiger', 'arial';
+    // font-weight: 400;
+    // font-style: normal;
 }
 
 body {
-  margin: 0;
-  padding-top: 56px;
+    margin: 0;
+    padding-top: 56px;
 }
 
-$font-family-sans-serif:
-  // Safari for macOS and iOS (San Francisco)
-  -apple-system,
+$font-family-sans-serif: // Safari for macOS and iOS (San Francisco)
+    -apple-system,
     // Chrome < 56 for macOS (San Francisco)
-  BlinkMacSystemFont,
+    BlinkMacSystemFont,
     // Windows
-  "Segoe UI",
+    'Segoe UI',
     // Android
-  "Roboto",
+    'Roboto',
     // Basic web fallback
-  "Helvetica Neue", Arial, sans-serif,
+    'Helvetica Neue', Arial, sans-serif,
     // Emoji fonts
-  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !default;
 
-a:not([href]), a:not([href]):hover {
-  color: inherit;
-  text-decoration: none;
+a:not([href]),
+a:not([href]):hover {
+    color: inherit;
+    text-decoration: none;
 }

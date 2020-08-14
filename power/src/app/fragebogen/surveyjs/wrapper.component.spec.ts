@@ -5,77 +5,78 @@ import { WrapperComponent } from './wrapper.component';
 import { Bootstrap4_CSS } from './style';
 
 describe('Fragebogen.Surveyjs.WrapperComponent', () => {
-  let component: WrapperComponent;
-  let fixture: ComponentFixture<WrapperComponent>;
+    let component: WrapperComponent;
+    let fixture: ComponentFixture<WrapperComponent>;
 
-  const formSample = require('../../../assets/fragebogen/form-content.json');
+    const formSample = require('../../../assets/fragebogen/form-content.json');
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        ShowdownModule
-      ],
-      declarations: [
-        WrapperComponent
-      ]
-    }).compileComponents();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                ShowdownModule
+            ],
+            declarations: [
+                WrapperComponent
+            ]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(WrapperComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+        fixture = TestBed.createComponent(WrapperComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
 
-    spyOn(console, 'log');
-  }));
+        spyOn(console, 'log');
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should do surveyjs', () => {
-    component.model = { 'title': 'Hallo Welt', 'data': 5 };
-    component.mode = 'edit';
-    component.theme = 'bootstrap';
-    component.css = Bootstrap4_CSS;
-    component.showInvisible = true;
-    spyOn(component.changes, 'emit');
-    spyOn(component.interimResult, 'emit');
-    spyOn(component.submitResult, 'emit');
+    it('should do surveyjs', () => {
+        component.model = { 'title': 'Hallo Welt', 'data': 5 };
+        component.mode = 'edit';
+        component.theme = 'bootstrap';
+        component.css = Bootstrap4_CSS;
+        component.showInvisible = true;
+        spyOn(component.changes, 'emit');
+        spyOn(component.interimResult, 'emit');
+        spyOn(component.submitResult, 'emit');
 
-    component.ngOnChanges();
-    fixture.detectChanges();
+        component.ngOnChanges();
+        fixture.detectChanges();
 
-    expect(component.model).toEqual({ 'title': 'Hallo Welt', 'data': 5 });
-    expect(component.css).toEqual(Bootstrap4_CSS);
-    expect(component.showInvisible).toBeTrue();
-    expect(component.submitResult).toBeTruthy();
+        expect(component.model).toEqual({ 'title': 'Hallo Welt', 'data': 5 });
+        expect(component.css).toEqual(Bootstrap4_CSS);
+        expect(component.showInvisible).toBeTrue();
+        expect(component.submitResult).toBeTruthy();
 
-    expect(component.props['data']).toEqual(5);
-    expect(component.props['model']['mode']).toEqual('edit');
-  });
+        expect(component.props['data']).toEqual(5);
+        expect(component.props['model']['mode']).toEqual('edit');
+    });
 
-  it('should do surveyjs 2', () => {
-    component.model = formSample;
-    component.data = { 'data': 5 };
+    it('should do surveyjs 2', () => {
+        component.model = formSample;
+        component.data = { 'data': 5 };
 
-    component.ngOnChanges();
-    fixture.detectChanges();
-    component.props['onValueChanged']({});
-    component.props['onCurrentPageChanged']({});
-    component.props['onComplete']({});
-    fixture.detectChanges();
+        component.ngOnChanges();
+        fixture.detectChanges();
+        component.props['onValueChanged']({});
+        component.props['onCurrentPageChanged']({});
+        component.props['onComplete']({});
+        fixture.detectChanges();
 
-    expect(component.data).toEqual({ 'data': 5 });
-  });
+        expect(component.data).toEqual({ 'data': 5 });
+    });
 
-  it('should do surveyjs 3', () => {
-    component.model = formSample;
-    component.changes = null;
-    component.interimResult = null;
-    component.submitResult = null;
+    it('should do surveyjs 3', () => {
+        component.model = formSample;
+        component.changes = null;
+        component.interimResult = null;
+        component.submitResult = null;
 
-    component.ngOnChanges();
-    fixture.detectChanges();
+        component.ngOnChanges();
+        fixture.detectChanges();
 
-    expect(component.data).toBeNull();
-  });
+        expect(component.data).toBeNull();
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */

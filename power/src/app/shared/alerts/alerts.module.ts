@@ -6,22 +6,23 @@ import { AlertsComponent } from './alerts.component';
 import { AlertsService } from './alerts.service';
 
 @NgModule({
-  declarations: [
-    AlertsComponent
-  ],
-  imports: [
-    CommonModule,
-    AlertModule.forRoot()
-  ],
-  exports: [
-    AlertsComponent
-  ]
+    declarations: [
+        AlertsComponent
+    ],
+    imports: [
+        CommonModule,
+        AlertModule.forRoot()
+    ],
+    exports: [
+        AlertsComponent
+    ]
 })
 export class AlertsModule {
-  static forRoot(): ModuleWithProviders<AlertsModule> {
-    return {
-      ngModule: AlertsModule,
-      providers: [AlertsService]
-    };
-  }
+    static forRoot(): ModuleWithProviders<AlertsModule> {
+        return {
+            ngModule: AlertsModule,
+            providers: [AlertsService]
+        };
+    }
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

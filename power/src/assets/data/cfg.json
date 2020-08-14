@@ -1,382 +1,382 @@
 {
-  "layoutRtl": false,
-  "mapUrl": "assets/data/womareg_neu.geojson",
-  "nipixUrl": "assets/data/00-_NIPX_Final_bis_2019_1_mit_gewichtung.csv",
-  "gemeindenUrl": "assets/data/gemeinden.csv",
-  "agnbUrl": "https://www.lgln.niedersachsen.de/wir_ueber_uns/verwendungs_und_geschaeftsbedingungen/--97401.html",
-  "lastYear": 2018,
-  "lastPeriod": 4,
-  "map": {
-    "geoCoordMap": [
-      {
-        "name": "Hannover",
-        "value": [
-          553508,
-          5805402
+    "layoutRtl": false,
+    "mapUrl": "assets/data/womareg_neu.geojson",
+    "nipixUrl": "assets/data/00-_NIPX_Final_bis_2019_1_mit_gewichtung.csv",
+    "gemeindenUrl": "assets/data/gemeinden.csv",
+    "agnbUrl": "https://www.lgln.niedersachsen.de/wir_ueber_uns/verwendungs_und_geschaeftsbedingungen/--97401.html",
+    "lastYear": 2018,
+    "lastPeriod": 4,
+    "map": {
+        "geoCoordMap": [
+            {
+                "name": "Hannover",
+                "value": [
+                    553508,
+                    5805402
+                ]
+            },
+            {
+                "name": "Braunschweig",
+                "value": [
+                    604181,
+                    5792042
+                ]
+            },
+            {
+                "name": "Osnabrück",
+                "value": [
+                    435154,
+                    5791143
+                ]
+            },
+            {
+                "name": "Oldenburg",
+                "value": [
+                    447464,
+                    5888516
+                ]
+            },
+            {
+                "name": "Lüneburg",
+                "value": [
+                    593935,
+                    5900862
+                ]
+            },
+            {
+                "name": "Göttingen",
+                "value": [
+                    564868,
+                    5709487
+                ]
+            },
+            {
+                "name": "Aurich",
+                "value": [
+                    399429,
+                    5925718
+                ]
+            },
+            {
+                "name": "Wolfsburg",
+                "value": [
+                    621464,
+                    5809316
+                ]
+            }
         ]
-      },
-      {
-        "name": "Braunschweig",
-        "value": [
-          604181,
-          5792042
-        ]
-      },
-      {
-        "name": "Osnabrück",
-        "value": [
-          435154,
-          5791143
-        ]
-      },
-      {
-        "name": "Oldenburg",
-        "value": [
-          447464,
-          5888516
-        ]
-      },
-      {
-        "name": "Lüneburg",
-        "value": [
-          593935,
-          5900862
-        ]
-      },
-      {
-        "name": "Göttingen",
-        "value": [
-          564868,
-          5709487
-        ]
-      },
-      {
-        "name": "Aurich",
-        "value": [
-          399429,
-          5925718
-        ]
-      },
-      {
-        "name": "Wolfsburg",
-        "value": [
-          621464,
-          5809316
-        ]
-      }
+    },
+    "shortNames": {
+        "Eigenheime": "EH",
+        "Eigentumswohnungen": "EW",
+        "städtische Regionen": "SR",
+        "ländliche Regionen": "LR"
+    },
+    "regionen": {
+        "4101": {
+            "name": "Küste u. weiteres Umland",
+            "short": "KÜ",
+            "color": "#ffcb96",
+            "colorh": "#f8eee4"
+        },
+        "4110": {
+            "name": "Ostfriesische Inseln",
+            "short": "IN",
+            "color": [
+                23,
+                190,
+                207
+            ]
+        },
+        "4104": {
+            "name": "Bremer Umland",
+            "short": "HB",
+            "color": "#7193b8",
+            "colorh": "#dde4ea"
+        },
+        "4103": {
+            "name": "Oldenburg - Münsterland - Osnabrück",
+            "short": "OL-MÜ-OS",
+            "color": "#a3da96",
+            "colorh": "#e6f1e4"
+        },
+        "4203": {
+            "name": "Stadt Osnabrück u. städt. Gemeinden",
+            "short": "OS",
+            "color": "#ffb0ae",
+            "colorh": "#f8e9e8"
+        },
+        "4102": {
+            "name": "Westliches Niedersachsen",
+            "short": "West",
+            "color": "#dc8eaa",
+            "colorh": "#f1e3e8"
+        },
+        "4201": {
+            "name": "Stadt Oldenburg",
+            "short": "OL",
+            "color": "#e7787a",
+            "colorh": "#f3dfdf"
+        },
+        "4105": {
+            "name": "Mittleres Niedersachsen",
+            "short": "Mitte",
+            "color": "#7ab372",
+            "colorh": "#dfe9dd"
+        },
+        "4107": {
+            "name": "Östliches Niedersachsen",
+            "short": "Ost",
+            "color": "#c4ad56",
+            "colorh": "#ede8d8"
+        },
+        "4106": {
+            "name": "Hamburger Umland",
+            "short": "HH",
+            "color": "#b3d5ed",
+            "colorh": "#e9f0f4"
+        },
+        "4108": {
+            "name": "Hannover - Braunschweig - Wolfsburg",
+            "short": "H-BS-WOB",
+            "color": "#f5a455",
+            "colorh": "#f5e7d8"
+        },
+        "4109": {
+            "name": "Südliches Niedersachsen",
+            "short": "Süd",
+            "color": "#c8bfbc",
+            "colorh": "#edeceb"
+        },
+        "4205": {
+            "name": "Stadt Hannover",
+            "short": "H",
+            "color": "#9ec9c4",
+            "colorh": "#e5eded"
+        },
+        "4208": {
+            "name": "Stadt Göttingen u. städt. Gemeinden",
+            "short": "GÖ",
+            "color": "#6daca9",
+            "colorh": "#dce8e8"
+        },
+        "4204": {
+            "name": "Stadt Wolfsburg",
+            "short": "WOB",
+            "color": "#938c8a",
+            "colorh": "#e4e2e2"
+        },
+        "4206": {
+            "name": "Stadt Braunschweig",
+            "short": "BS",
+            "color": "#f4d882",
+            "colorh": "#f5f1e0"
+        }
+    },
+    "items": [
+        "4205",
+        "4206",
+        "4201",
+        "4203",
+        "4204",
+        "4208",
+        "4106",
+        "4104",
+        "4108",
+        "4105",
+        "4109",
+        "4103",
+        "4102",
+        "4107",
+        "4101",
+        "4110"
+    ],
+    "presets": [
+        {
+            "name": "Einzeldarstellung",
+            "type": "single",
+            "nipixCategory": "gebrauchte Eigenheime",
+            "show": true,
+            "values": [
+                "4205",
+                "4206",
+                "4201",
+                "4203",
+                "4204",
+                "4208",
+                "4106",
+                "4104",
+                "4108",
+                "4105",
+                "4109",
+                "4103",
+                "4102",
+                "4107",
+                "4101",
+                "4110"
+            ],
+            "colors": []
+        },
+        {
+            "name": "Eigenheime",
+            "type": "aggr",
+            "nipixCategory": "gebrauchte Eigenheime",
+            "show": false,
+            "values": [
+                "4205",
+                "4206",
+                "4201",
+                "4203",
+                "4204",
+                "4208",
+                "4106",
+                "4104",
+                "4108",
+                "4105",
+                "4109",
+                "4103",
+                "4102",
+                "4107",
+                "4101",
+                "4110"
+            ],
+            "colors": "rgb(214,39,40)"
+        },
+        {
+            "name": "Eigentumswohnungen",
+            "type": "aggr",
+            "nipixCategory": "gebrauchte Eigentumswohnungen",
+            "show": false,
+            "values": [
+                "4205",
+                "4206",
+                "4201",
+                "4203",
+                "4204",
+                "4208",
+                "4106",
+                "4104",
+                "4108",
+                "4105",
+                "4109",
+                "4103",
+                "4102",
+                "4107",
+                "4101",
+                "4110"
+            ],
+            "colors": "rgb(255,127,14)"
+        },
+        {
+            "name": "städtische Regionen",
+            "type": "aggr",
+            "nipixCategory": "gebrauchte Eigenheime",
+            "show": false,
+            "values": [
+                "4205",
+                "4206",
+                "4201",
+                "4203",
+                "4204",
+                "4208",
+                "4106",
+                "4104"
+            ],
+            "colors": "rgb(214,39,40)"
+        },
+        {
+            "name": "ländliche Regionen",
+            "type": "aggr",
+            "show": false,
+            "nipixCategory": "gebrauchte Eigenheime",
+            "values": [
+                "4108",
+                "4105",
+                "4109",
+                "4103",
+                "4102",
+                "4107",
+                "4101",
+                "4110"
+            ],
+            "colors": "rgb(44,160,44)"
+        },
+        {
+            "name": "1",
+            "type": "aggr",
+            "show": false,
+            "nipixCategory": "gebrauchte Eigenheime",
+            "values": [],
+            "colors": "rgb(214,39,40)"
+        },
+        {
+            "name": "2",
+            "type": "aggr",
+            "show": false,
+            "nipixCategory": "gebrauchte Eigenheime",
+            "values": [],
+            "colors": "rgb(170,135,128)"
+        },
+        {
+            "name": "3",
+            "type": "aggr",
+            "show": false,
+            "nipixCategory": "gebrauchte Eigenheime",
+            "values": [],
+            "colors": "rgb(225,127,14)"
+        },
+        {
+            "name": "4",
+            "type": "aggr",
+            "show": false,
+            "nipixCategory": "gebrauchte Eigenheime",
+            "values": [],
+            "colors": "rgb(107,107,107)"
+        },
+        {
+            "name": "5",
+            "type": "aggr",
+            "show": false,
+            "nipixCategory": "gebrauchte Eigenheime",
+            "values": [],
+            "colors": "rgb(219,219,141)"
+        }
+    ],
+    "selections": [
+        {
+            "name": "Preisentwicklung Niedersachsen, gesamt",
+            "type": "multi",
+            "preset": [
+                "Eigenheime",
+                "Eigentumswohnungen"
+            ]
+        },
+        {
+            "name": "Vergleich Preisentwicklung von städtischen und ländlichen Regionen",
+            "type": "multiIndex",
+            "preset": [
+                "städtische Regionen",
+                "ländliche Regionen"
+            ]
+        },
+        {
+            "name": "Preisentwicklung nach städtischen und ländlichen Regionen",
+            "type": "single",
+            "preset": [
+                "Einzeldarstellung"
+            ]
+        },
+        {
+            "name": "Vergleich zusammengefasster Regionen",
+            "type": "multiSelect",
+            "preset": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "selected": 1
+        }
     ]
-  },
-  "shortNames": {
-    "Eigenheime": "EH",
-    "Eigentumswohnungen": "EW",
-    "städtische Regionen": "SR",
-    "ländliche Regionen": "LR"
-  },
-  "regionen": {
-    "4101": {
-      "name": "Küste u. weiteres Umland",
-      "short": "KÜ",
-      "color": "#ffcb96",
-      "colorh": "#f8eee4"
-    },
-    "4110": {
-      "name": "Ostfriesische Inseln",
-      "short": "IN",
-      "color": [
-        23,
-        190,
-        207
-      ]
-    },
-    "4104": {
-      "name": "Bremer Umland",
-      "short": "HB",
-      "color": "#7193b8",
-      "colorh": "#dde4ea"
-    },
-    "4103": {
-      "name": "Oldenburg - Münsterland - Osnabrück",
-      "short": "OL-MÜ-OS",
-      "color": "#a3da96",
-      "colorh": "#e6f1e4"
-    },
-    "4203": {
-      "name": "Stadt Osnabrück u. städt. Gemeinden",
-      "short": "OS",
-      "color": "#ffb0ae",
-      "colorh": "#f8e9e8"
-    },
-    "4102": {
-      "name": "Westliches Niedersachsen",
-      "short": "West",
-      "color": "#dc8eaa",
-      "colorh": "#f1e3e8"
-    },
-    "4201": {
-      "name": "Stadt Oldenburg",
-      "short": "OL",
-      "color": "#e7787a",
-      "colorh": "#f3dfdf"
-    },
-    "4105": {
-      "name": "Mittleres Niedersachsen",
-      "short": "Mitte",
-      "color": "#7ab372",
-      "colorh": "#dfe9dd"
-    },
-    "4107": {
-      "name": "Östliches Niedersachsen",
-      "short": "Ost",
-      "color": "#c4ad56",
-      "colorh": "#ede8d8"
-    },
-    "4106": {
-      "name": "Hamburger Umland",
-      "short": "HH",
-      "color": "#b3d5ed",
-      "colorh": "#e9f0f4"
-    },
-    "4108": {
-      "name": "Hannover - Braunschweig - Wolfsburg",
-      "short": "H-BS-WOB",
-      "color": "#f5a455",
-      "colorh": "#f5e7d8"
-    },
-    "4109": {
-      "name": "Südliches Niedersachsen",
-      "short": "Süd",
-      "color": "#c8bfbc",
-      "colorh": "#edeceb"
-    },
-    "4205": {
-      "name": "Stadt Hannover",
-      "short": "H",
-      "color": "#9ec9c4",
-      "colorh": "#e5eded"
-    },
-    "4208": {
-      "name": "Stadt Göttingen u. städt. Gemeinden",
-      "short": "GÖ",
-      "color": "#6daca9",
-      "colorh": "#dce8e8"
-    },
-    "4204": {
-      "name": "Stadt Wolfsburg",
-      "short": "WOB",
-      "color": "#938c8a",
-      "colorh": "#e4e2e2"
-    },
-    "4206": {
-      "name": "Stadt Braunschweig",
-      "short": "BS",
-      "color": "#f4d882",
-      "colorh": "#f5f1e0"
-    }
-  },
-  "items": [
-    "4205",
-    "4206",
-    "4201",
-    "4203",
-    "4204",
-    "4208",
-    "4106",
-    "4104",
-    "4108",
-    "4105",
-    "4109",
-    "4103",
-    "4102",
-    "4107",
-    "4101",
-    "4110"
-  ],
-  "presets": [
-    {
-      "name": "Einzeldarstellung",
-      "type": "single",
-      "nipixCategory": "gebrauchte Eigenheime",
-      "show": true,
-      "values": [
-        "4205",
-        "4206",
-        "4201",
-        "4203",
-        "4204",
-        "4208",
-        "4106",
-        "4104",
-        "4108",
-        "4105",
-        "4109",
-        "4103",
-        "4102",
-        "4107",
-        "4101",
-        "4110"
-      ],
-      "colors": []
-    },
-    {
-      "name": "Eigenheime",
-      "type": "aggr",
-      "nipixCategory": "gebrauchte Eigenheime",
-      "show": false,
-      "values": [
-        "4205",
-        "4206",
-        "4201",
-        "4203",
-        "4204",
-        "4208",
-        "4106",
-        "4104",
-        "4108",
-        "4105",
-        "4109",
-        "4103",
-        "4102",
-        "4107",
-        "4101",
-        "4110"
-      ],
-      "colors": "rgb(214,39,40)"
-    },
-    {
-      "name": "Eigentumswohnungen",
-      "type": "aggr",
-      "nipixCategory": "gebrauchte Eigentumswohnungen",
-      "show": false,
-      "values": [
-        "4205",
-        "4206",
-        "4201",
-        "4203",
-        "4204",
-        "4208",
-        "4106",
-        "4104",
-        "4108",
-        "4105",
-        "4109",
-        "4103",
-        "4102",
-        "4107",
-        "4101",
-        "4110"
-      ],
-      "colors": "rgb(255,127,14)"
-    },
-    {
-      "name": "städtische Regionen",
-      "type": "aggr",
-      "nipixCategory": "gebrauchte Eigenheime",
-      "show": false,
-      "values": [
-        "4205",
-        "4206",
-        "4201",
-        "4203",
-        "4204",
-        "4208",
-        "4106",
-        "4104"
-      ],
-      "colors": "rgb(214,39,40)"
-    },
-    {
-      "name": "ländliche Regionen",
-      "type": "aggr",
-      "show": false,
-      "nipixCategory": "gebrauchte Eigenheime",
-      "values": [
-        "4108",
-        "4105",
-        "4109",
-        "4103",
-        "4102",
-        "4107",
-        "4101",
-        "4110"
-      ],
-      "colors": "rgb(44,160,44)"
-    },
-    {
-      "name": "1",
-      "type": "aggr",
-      "show": false,
-      "nipixCategory": "gebrauchte Eigenheime",
-      "values": [],
-      "colors": "rgb(214,39,40)"
-    },
-    {
-      "name": "2",
-      "type": "aggr",
-      "show": false,
-      "nipixCategory": "gebrauchte Eigenheime",
-      "values": [],
-      "colors": "rgb(170,135,128)"
-    },
-    {
-      "name": "3",
-      "type": "aggr",
-      "show": false,
-      "nipixCategory": "gebrauchte Eigenheime",
-      "values": [],
-      "colors": "rgb(225,127,14)"
-    },
-    {
-      "name": "4",
-      "type": "aggr",
-      "show": false,
-      "nipixCategory": "gebrauchte Eigenheime",
-      "values": [],
-      "colors": "rgb(107,107,107)"
-    },
-    {
-      "name": "5",
-      "type": "aggr",
-      "show": false,
-      "nipixCategory": "gebrauchte Eigenheime",
-      "values": [],
-      "colors": "rgb(219,219,141)"
-    }
-  ],
-  "selections": [
-    {
-      "name": "Preisentwicklung Niedersachsen, gesamt",
-      "type": "multi",
-      "preset": [
-        "Eigenheime",
-        "Eigentumswohnungen"
-      ]
-    },
-    {
-      "name": "Vergleich Preisentwicklung von städtischen und ländlichen Regionen",
-      "type": "multiIndex",
-      "preset": [
-        "städtische Regionen",
-        "ländliche Regionen"
-      ]
-    },
-    {
-      "name": "Preisentwicklung nach städtischen und ländlichen Regionen",
-      "type": "single",
-      "preset": [
-        "Einzeldarstellung"
-      ]
-    },
-    {
-      "name": "Vergleich zusammengefasster Regionen",
-      "type": "multiSelect",
-      "preset": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5"
-      ],
-      "selected": 1
-    }
-  ]
 }

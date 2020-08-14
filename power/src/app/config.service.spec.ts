@@ -3,14 +3,15 @@ import { TestBed } from '@angular/core/testing';
 import { ConfigService } from './config.service';
 
 describe('ConfigService', () => {
-  let service: ConfigService;
+    let service: ConfigService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ConfigService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.inject(ConfigService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });
+/* vim: set expandtab ts=4 sw=4 sts=4: */
