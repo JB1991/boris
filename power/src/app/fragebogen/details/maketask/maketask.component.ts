@@ -5,7 +5,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
 @Component({
-    selector: 'power-formulars-details-maketask',
+    selector: 'power-forms-details-maketask',
     templateUrl: './maketask.component.html',
     styleUrls: ['./maketask.component.css']
 })

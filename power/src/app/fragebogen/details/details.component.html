@@ -111,7 +111,7 @@
                     class="btn btn-primary btn-sm mr-2"
                     i18n-title
                     title="Formular Vorschau"
-                    (click)="preview.Open()">
+                    (click)="preview.open()">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -388,16 +388,16 @@
 </main>
 
 <!-- new task modal -->
-<power-formulars-details-maketask #maketask></power-formulars-details-maketask>
+<power-forms-details-maketask #maketask></power-forms-details-maketask>
 
 <!-- publish modal -->
-<power-formulars-details-publish #publish></power-formulars-details-publish>
+<power-forms-details-publish #publish></power-forms-details-publish>
 
 <!-- comment modal -->
-<power-formulars-details-comment #comment></power-formulars-details-comment>
+<power-forms-details-comment #comment></power-forms-details-comment>
 
 <!-- preview modal -->
-<power-formulars-surveyjs-preview *ngIf="storage.form"
+<power-forms-surveyjs-preview *ngIf="storage.form"
                                   [form]="storage.form.content"
                                   #preview>
-</power-formulars-surveyjs-preview>
+</power-forms-surveyjs-preview>

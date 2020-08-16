@@ -540,7 +540,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
 class MockElementModalComponent {
 }
 @Component({
-    selector: 'power-formulars-editor-modal-formular',
+    selector: 'power-forms-editor-formular-settings',
     template: ''
 })
 class MockFormularModalComponent {

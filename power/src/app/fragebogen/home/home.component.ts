@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '@app/shared/auth/auth.service';
 
 @Component({
-    selector: 'power-formulars-home',
+    selector: 'power-forms-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })

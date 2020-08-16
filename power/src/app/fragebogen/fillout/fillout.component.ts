@@ -9,7 +9,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
-    selector: 'power-formulars-fillout',
+    selector: 'power-forms-fillout',
     templateUrl: './fillout.component.html',
     styleUrls: ['./fillout.component.css']
 })

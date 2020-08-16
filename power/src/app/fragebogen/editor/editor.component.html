@@ -241,7 +241,7 @@
                         class="btn btn-primary mr-2"
                         i18n-title
                         title="Formular Einstellungen öffnen"
-                        (click)="modalformular.Open()">
+                        (click)="formularsettings.open()">
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
@@ -497,10 +497,10 @@
                         </div>
 
                         <!-- element preview -->
-                        <power-formulars-surveyjs-wrapper [model]="container | preview"
-                                                          [css]="storage.css_style"
-                                                          [showInvisible]="true">
-                        </power-formulars-surveyjs-wrapper>
+                        <power-forms-surveyjs-wrapper [model]="container | preview"
+                                                      [css]="storage.css_style"
+                                                      [showInvisible]="true">
+                        </power-forms-surveyjs-wrapper>
                     </div>
                 </div>
             </smooth-dnd-draggable>
@@ -509,11 +509,12 @@
 </main>
 
 <!-- configure formular modal -->
-<power-formulars-editor-modal-formular #modalformular></power-formulars-editor-modal-formular>
+<power-forms-editor-formular-settings #formularsettings></power-forms-editor-formular-settings>
 
 <!-- configure element modal -->
 <power-formulars-editor-modal-element #modalelement></power-formulars-editor-modal-element>
 
 <!-- preview -->
-<power-formulars-surveyjs-preview [form]="storage.model"
-                                  #preview></power-formulars-surveyjs-preview>
+<power-forms-surveyjs-preview [form]="storage.model"
+                              #preview>
+</power-forms-surveyjs-preview>

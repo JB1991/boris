@@ -417,7 +417,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
         expect(function () {
             component.openTask(0);
-        }).toThrowError('Cannot read property \'Open\' of undefined');
+        }).toThrowError('Cannot read property \'open\' of undefined');
     });
 
     it('should open task crash', () => {
@@ -460,25 +460,25 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 });
 
 @Component({
-    selector: 'power-formulars-details-maketask',
+    selector: 'power-forms-details-maketask',
     template: ''
 })
 class MockMaketaskComponent {
 }
 @Component({
-    selector: 'power-formulars-details-publish',
+    selector: 'power-forms-details-publish',
     template: ''
 })
 class MockPublishComponent {
 }
 @Component({
-    selector: 'power-formulars-details-comment',
+    selector: 'power-forms-details-comment',
     template: ''
 })
 class MockCommentComponent {
 }
 @Component({
-    selector: 'power-formulars-dashboard',
+    selector: 'power-forms-dashboard',
     template: ''
 })
 class MockDashboardComponent {

@@ -2,18 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { A11yModule } from '@angular/cdk/a11y';
 
 import { GeosearchComponent } from './geosearch/geosearch.component';
+import { ModalComponent } from './modal/modal.component';
 import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 
 @NgModule({
     declarations: [
-        GeosearchComponent
+        GeosearchComponent,
+        ModalComponent
     ],
     exports: [
         GeosearchComponent,
+        ModalComponent,
         AuthModule,
         AlertsModule,
         LoadingscreenModule
@@ -21,7 +25,8 @@ import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
     imports: [
         CommonModule,
         FormsModule,
-        NgbTypeaheadModule
+        NgbTypeaheadModule,
+        A11yModule
     ]
 })
 export class SharedModule {

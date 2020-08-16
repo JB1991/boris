@@ -5,6 +5,7 @@ import { ShowdownModule } from 'ngx-showdown';
 import { WrapperComponent } from './wrapper.component';
 import { PreviewComponent } from './preview/preview.component';
 import { PreviewPipe } from './preview.pipe';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,8 @@ import { PreviewPipe } from './preview.pipe';
     ],
     imports: [
         CommonModule,
-        ShowdownModule
+        ShowdownModule,
+        SharedModule
     ],
     exports: [
         WrapperComponent,

@@ -1,0 +1,574 @@
+<power-modal #formsettingsmodal
+             (onClose)="close()">
+    <div class="container px-1 px-lg-3">
+        <accordion [isAnimated]="true"
+                   [closeOthers]="true">
+            <!-- common -->
+            <accordion-group i18n-heading
+                             heading="Allgemein"
+                             class="mb-1 mb-lg-3">
+                <form #commonForm="ngForm"
+                      i18n-aria-label
+                      aria-label="Allgemeine Einstellungen zum Formular"
+                      onsubmit="return false;">
+                    <!-- form-title -->
+                    <div class="form-group">
+                        <label for="form-title"
+                               i18n>Formular Titel*</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="storage.model.title"
+                               [class.is-invalid]="!storage.model.title"
+                               maxlength="200"
+                               name="form-title"
+                               id="form-title"
+                               i18n-placeholder
+                               placeholder="Formular Titel"
+                               required>
+                    </div>
+
+                    <!-- form-showTitle -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.showTitle"
+                               name="form-showTitle"
+                               id="form-showTitle">
+                        <label class="custom-control-label"
+                               for="form-showTitle"
+                               i18n>Titel anzeigen</label>
+                    </div>
+
+                    <!-- form-description -->
+                    <div class="form-group">
+                        <label for="form-description"
+                               i18n>Formular Beschreibung</label>
+                        <textarea class="form-control"
+                                  [(ngModel)]="storage.model.description"
+                                  id="form-description"
+                                  name="form-description"
+                                  rows="5"
+                                  aria-describedby="form-descriptionHelp"
+                                  maxlength="5000">
+                        </textarea>
+                        <small id="form-descriptionHelp"
+                               class="form-text text-muted"
+                               i18n>Dieser Text wird auf jeder Seite vom Formular angezeigt
+                            werden.</small>
+                    </div>
+
+                    <!-- form-locale-->
+                    <div class="form-group">
+                        <label for="form-locale"
+                               i18n>Standardsprache</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.locale"
+                                id="form-locale"
+                                name="form-locale"
+                                aria-describedby="form-localeHelp">
+                            <option value="de"
+                                    i18n>Deutsch</option>
+                            <option value="en"
+                                    i18n>Englisch</option>
+                        </select>
+                        <small id="form-localeHelp"
+                               class="form-text text-muted"
+                               i18n>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die
+                            Möglichkeit die Sprache zu wechseln.</small>
+                    </div>
+
+                    <!-- form-showQuestionNumbers-->
+                    <div class="form-group">
+                        <label for="form-showQuestionNumbers"
+                               i18n>Fragen Nummerierung</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.showQuestionNumbers"
+                                id="form-showQuestionNumbers"
+                                name="form-showQuestionNumbers">
+                            <option value=""
+                                    i18n>Durchgängig nummerieren</option>
+                            <option value="onpage"
+                                    i18n>Seitenweise nummerieren</option>
+                            <option value="off"
+                                    i18n>Keine Nummern anzeigen</option>
+                        </select>
+                    </div>
+
+                    <!-- form-loadingHtml -->
+                    <div class="form-group">
+                        <label for="form-loadingHtml"
+                               i18n>Ladetext*</label>
+                        <textarea class="form-control"
+                                  [(ngModel)]="storage.model.loadingHtml"
+                                  [class.is-invalid]="!storage.model.loadingHtml"
+                                  id="form-loadingHtml"
+                                  name="form-loadingHtml"
+                                  rows="5"
+                                  maxlength="5000"
+                                  required>
+                        </textarea>
+                    </div>
+
+                    <!-- form-completedHtml -->
+                    <div class="form-group">
+                        <label for="form-completedHtml"
+                               i18n>Abschlusstext*</label>
+                        <textarea class="form-control"
+                                  [(ngModel)]="storage.model.completedHtml"
+                                  [class.is-invalid]="!storage.model.completedHtml"
+                                  id="form-completedHtml"
+                                  name="form-completedHtml"
+                                  rows="5"
+                                  maxlength="5000"
+                                  required>
+                        </textarea>
+                    </div>
+
+                    <!-- form-navigateToUrl -->
+                    <div class="form-group">
+                        <label for="form-navigateToUrl"
+                               i18n>Umleitungs URL</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="storage.model.navigateToUrl"
+                               name="form-navigateToUrl"
+                               id="form-navigateToUrl"
+                               placeholder="https://..."
+                               aria-describedby="form-navigateToUrlHelp"
+                               autocomplete="off">
+                        <small id="form-navigateToUrlHelp"
+                               class="form-text text-muted"
+                               i18n>Der Benutzer wird nach Abschluss des Formulares an diese Adresse
+                            weitergeleitet.</small>
+                    </div>
+
+                    <button type="submit"
+                            class="d-none"
+                            aria-hidden="true"
+                            disabled
+                            i18n>Absenden</button>
+                </form>
+                Question Numbers, navigate to url
+            </accordion-group>
+
+            <!-- logo -->
+            <accordion-group i18n-heading
+                             heading="Logo"
+                             class="mb-1 mb-lg-3">
+                <form #logoForm="ngForm"
+                      i18n-aria-label
+                      aria-label="Logo für das Formular festlegen"
+                      onsubmit="return false;">
+                    <!-- form-logo -->
+                    <div class="form-group">
+                        <label for="form-logo"
+                               i18n>Formular Logo</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="storage.model.logo"
+                               name="form-logo"
+                               id="form-logo"
+                               placeholder="https://..."
+                               aria-describedby="form-logoHelp"
+                               autocomplete="off">
+                        <small id="form-logoHelp"
+                               class="form-text text-muted"
+                               i18n>Eine URL zu einem Logo angeben.</small>
+                    </div>
+
+                    <!-- form-logoPosition-->
+                    <div class="form-group">
+                        <label for="form-logoPosition"
+                               i18n>Position</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.logoPosition"
+                                id="form-logoPosition"
+                                name="form-logoPosition">
+                            <option value="none"
+                                    i18n>Nicht anzeigen</option>
+                            <option value="left"
+                                    i18n>Links</option>
+                            <option value="right"
+                                    i18n>Rechts</option>
+                            <option value="top"
+                                    i18n>Oben</option>
+                            <option value="bottom"
+                                    i18n>Unten</option>
+                        </select>
+                    </div>
+
+                    <!-- form-logoWidth -->
+                    <div class="form-group">
+                        <label for="form-logoWidth"
+                               i18n>Breite in Pixel</label>
+                        <input type="number"
+                               class="form-control"
+                               [(ngModel)]="storage.model.logoWidth"
+                               min="0"
+                               max="512"
+                               name="form-logoWidth"
+                               id="form-logoWidth">
+                    </div>
+
+                    <!-- form-logoHeight -->
+                    <div class="form-group">
+                        <label for="form-logoHeight"
+                               i18n>Höhe in Pixel</label>
+                        <input type="number"
+                               class="form-control"
+                               [(ngModel)]="storage.model.logoHeight"
+                               min="0"
+                               max="512"
+                               name="form-logoHeight"
+                               id="form-logoHeight">
+                    </div>
+
+                    <!-- form-logoFit-->
+                    <div class="form-group">
+                        <label for="form-logoFit"
+                               i18n>Größenanpassung</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.logoFit"
+                                id="form-logoFit"
+                                name="form-logoFit">
+                            <option value="none"
+                                    i18n>Keine Anpassung</option>
+                            <option value="contain"
+                                    i18n>Verkleinern</option>
+                            <option value="cover"
+                                    i18n>Abschneiden</option>
+                            <option value="fill"
+                                    i18n>Füllen</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                            class="d-none"
+                            aria-hidden="true"
+                            disabled
+                            i18n>Absenden</button>
+                </form>
+            </accordion-group>
+
+            <!-- navigation -->
+            <accordion-group i18n-heading
+                             heading="Navigation"
+                             class="mb-1 mb-lg-3">
+                <form #navigationForm="ngForm"
+                      i18n-aria-label
+                      aria-label="Einstellungen für die Navigation durch das Formular"
+                      onsubmit="return false;">
+                    <!-- form-firstPageIsStarted -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.firstPageIsStarted"
+                               name="form-firstPageIsStarted"
+                               id="form-firstPageIsStarted"
+                               aria-describedby="form-firstPageIsStartedHelp">
+                        <label class="custom-control-label"
+                               for="form-firstPageIsStarted"
+                               i18n>Erste Seite ist Startseite</label>
+                        <small id="form-firstPageIsStartedHelp"
+                               class="form-text text-muted"
+                               i18n>Die erste Seite erhält einen Start Button für das Formular.</small>
+                    </div>
+
+                    <!-- form-showPrevButton -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.showPrevButton"
+                               name="form-showPrevButton"
+                               id="form-showPrevButton">
+                        <label class="custom-control-label"
+                               for="form-showPrevButton"
+                               i18n>Zurück Button erlauben</label>
+                    </div>
+
+                    <!-- form-goNextPageAutomatic -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.goNextPageAutomatic"
+                               name="form-goNextPageAutomatic"
+                               id="form-goNextPageAutomatic"
+                               aria-describedby="form-goNextPageAutomaticHelp">
+                        <label class="custom-control-label"
+                               for="form-goNextPageAutomatic"
+                               i18n>Nächste Seite automatisch öffnen</label>
+                        <small id="form-goNextPageAutomaticHelp"
+                               class="form-text text-muted"
+                               i18n>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</small>
+                    </div>
+
+                    <!-- form-showPreviewBeforeComplete-->
+                    <div class="form-group">
+                        <label for="form-showPreviewBeforeComplete"
+                               i18n>Vorschau vor dem absenden</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.showPreviewBeforeComplete"
+                                id="form-showPreviewBeforeComplete"
+                                name="form-showPreviewBeforeComplete"
+                                aria-describedby="form-showPreviewBeforeCompleteHelp">
+                            <option value="noPreview"
+                                    i18n>Keine Vorschau</option>
+                            <option value="showAllQuestions"
+                                    i18n>Alle Fragen</option>
+                            <option value="showAnsweredQuestions"
+                                    i18n>Alle ausgefüllten Fragen</option>
+                        </select>
+                        <small id="form-showPreviewBeforeCompleteHelp"
+                               class="form-text text-muted"
+                               i18n>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das
+                            Formular final absendet.</small>
+                    </div>
+
+                    <!-- form-showProgressBar-->
+                    <div class="form-group">
+                        <label for="form-showProgressBar"
+                               i18n>Fortschrittsbalken Anzeigen</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.showProgressBar"
+                                id="form-showProgressBar"
+                                name="form-showProgressBar">
+                            <option value="off"
+                                    i18n>Nicht anzeigen</option>
+                            <option value="top"
+                                    i18n>Oben</option>
+                            <option value="bottom"
+                                    i18n>Unten</option>
+                            <option value="both"
+                                    i18n>Oben und unten</option>
+                        </select>
+                    </div>
+
+                    <!-- form-progressBarType-->
+                    <div class="form-group">
+                        <label for="form-progressBarType"
+                               i18n>Fortschrittsbalken Berechnung</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.progressBarType"
+                                id="form-progressBarType"
+                                name="form-progressBarType">
+                            <option value="pages"
+                                    i18n>Seitenanzahl</option>
+                            <option value="questions"
+                                    i18n>Fragenanzahl</option>
+                            <option value="correctQuestions"
+                                    i18n>Korrekt beantwortete Fragen (Quiz)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                            class="d-none"
+                            aria-hidden="true"
+                            disabled
+                            i18n>Absenden</button>
+                </form>
+            </accordion-group>
+
+            <!-- pages -->
+            <accordion-group i18n-heading
+                             heading="Seiten"
+                             class="mb-1 mb-lg-3">
+                <form #navigationForm="ngForm"
+                      i18n-aria-label
+                      aria-label="Einstellungen für die Seiten des Formulares"
+                      onsubmit="return false;">
+
+                    <!-- render pages -->
+                    <accordion [isAnimated]="true">
+                        <accordion-group *ngFor="let page of storage.model.pages; index as i"
+                                         class="mb-1 mb-lg-3">
+                            <!-- card head -->
+                            <button accordion-heading
+                                    class="btn btn-link btn-block p-0 clearfix"
+                                    type="button">
+                                <span class="pull-left float-left"
+                                      i18n>Seite {{ i + 1 }}</span>
+                                <span class="float-right pull-right"
+                                      (click)="$event.stopPropagation()">
+                                    <button type="button"
+                                            class="btn btn-sm btn-light mr-2"
+                                            i18n-title
+                                            title="Nach oben verschieben"
+                                            (click)="moveUp(i)"
+                                            [disabled]="i === 0">
+                                        <svg width="1em"
+                                             height="1em"
+                                             viewBox="0 0 16 16"
+                                             class="bi bi-caret-up align-baseline"
+                                             fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                  d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
+                                        </svg>
+                                        <span class="sr-only"
+                                              i18n>Nach oben verschieben</span>
+                                    </button>
+
+                                    <button type="button"
+                                            class="btn btn-sm btn-light"
+                                            i18n-title
+                                            title="Nach unten verschieben"
+                                            (click)="moveDown(i)"
+                                            [disabled]="i === storage.model.pages.length - 1">
+                                        <svg width="1em"
+                                             height="1em"
+                                             viewBox="0 0 16 16"
+                                             class="bi bi-caret-down align-baseline"
+                                             fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                  d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                                        </svg>
+                                        <span class="sr-only"
+                                              i18n>Nach unten verschieben</span>
+                                    </button>
+                                </span>
+                            </button>
+
+                            <!-- page-title -->
+                            <div class="form-group">
+                                <label for="page-title-{{ i }}"
+                                       i18n>Seiten Titel</label>
+                                <input type="text"
+                                       class="form-control"
+                                       [(ngModel)]="page.title"
+                                       maxlength="200"
+                                       name="page-title-{{ i }}"
+                                       id="page-title-{{ i }}"
+                                       i18n-placeholder
+                                       placeholder="Seiten Titel"
+                                       required>
+                            </div>
+
+                            <!-- page-description -->
+                            <div class="form-group">
+                                <label for="page-description-{{ i }}"
+                                       i18n>Seiten Beschreibung</label>
+                                <textarea class="form-control"
+                                          [(ngModel)]="page.description"
+                                          id="page-description-{{ i }}"
+                                          name="page-description-{{ i }}"
+                                          rows="5"
+                                          maxlength="5000">
+                                </textarea>
+                            </div>
+
+                            <!-- page-questionsOrder-->
+                            <div class="form-group">
+                                <label for="page-questionsOrder-{{ i }}"
+                                       i18n>Fragen Reihenfolge</label>
+                                <select class="custom-select"
+                                        [(ngModel)]="page.questionsOrder"
+                                        id="page-questionsOrder-{{ i }}"
+                                        name="page-questionsOrder-{{ i }}">
+                                    <option value="default"
+                                            i18n>Wie definiert</option>
+                                    <option value="random"
+                                            i18n>Zufällig</option>
+                                </select>
+                            </div>
+
+                            Sichtbarkeitsbedingung
+                            <br>
+                            <power-formulars-editor-conditions [(data)]="page.visibleIf">
+                            </power-formulars-editor-conditions>
+                        </accordion-group>
+                    </accordion>
+
+                    <button type="submit"
+                            class="d-none"
+                            aria-hidden="true"
+                            disabled
+                            i18n>Absenden</button>
+                </form>
+            </accordion-group>
+
+            <!-- calculated values -->
+            <!--<accordion-group i18n-heading
+                             heading="Variabeln"
+                             class="mb-1 mb-lg-3">
+                This content is straight in the template.
+            </accordion-group>-->
+
+            <!-- timer/quiz -->
+            <accordion-group i18n-heading
+                             heading="Timer/Quiz"
+                             class="mb-1 mb-lg-3">
+                <form #navigationForm="ngForm"
+                      i18n-aria-label
+                      aria-label="Einstellungen für Timer und Quiz"
+                      onsubmit="return false;">
+                    <!-- form-maxTimeToFinish -->
+                    <div class="form-group">
+                        <label for="form-maxTimeToFinish"
+                               i18n>Zeitlimit in Sekunden für das Formular</label>
+                        <input type="number"
+                               class="form-control"
+                               [(ngModel)]="storage.model.maxTimeToFinish"
+                               min="0"
+                               name="form-maxTimeToFinish"
+                               id="form-maxTimeToFinish">
+                    </div>
+
+                    <!-- form-maxTimeToFinishPage -->
+                    <div class="form-group">
+                        <label for="form-maxTimeToFinishPage"
+                               i18n>Zeitlimit in Sekunden pro Seite</label>
+                        <input type="number"
+                               class="form-control"
+                               [(ngModel)]="storage.model.maxTimeToFinishPage"
+                               min="0"
+                               name="form-maxTimeToFinishPage"
+                               id="form-maxTimeToFinishPage">
+                    </div>
+
+                    <!-- form-showTimerPanel-->
+                    <div class="form-group">
+                        <label for="form-showTimerPanel"
+                               i18n>Zeitlimit anzeigen</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.showTimerPanel"
+                                id="form-showTimerPanel"
+                                name="form-showTimerPanel">
+                            <option value="none"
+                                    i18n>Nicht anzeigen</option>
+                            <option value="top"
+                                    i18n>Oben</option>
+                            <option value="bottom"
+                                    i18n>Unten</option>
+                        </select>
+                    </div>
+
+                    <!-- form-showTimerPanelMode-->
+                    <div class="form-group">
+                        <label for="form-showTimerPanelMode"
+                               i18n>Timer anzeigen</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.showTimerPanelMode"
+                                id="form-showTimerPanelMode"
+                                name="form-showTimerPanelMode">
+                            <option value="all"
+                                    i18n>Zeit auf dieser Seite und das gesamte Formular</option>
+                            <option value="page"
+                                    i18n>Zeit auf dieser Seite</option>
+                            <option value="survey"
+                                    i18n>Zeit für das gesamte Formular</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                            class="d-none"
+                            aria-hidden="true"
+                            disabled
+                            i18n>Absenden</button>
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+</power-modal>

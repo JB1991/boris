@@ -431,6 +431,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
 
         // move up
+        this.history.makeHistory(this.storage.model);
         moveItemInArray(this.storage.model.pages[page].elements, element, element - 1);
     }
 
@@ -453,6 +454,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
 
         // move down
+        this.history.makeHistory(this.storage.model);
         moveItemInArray(this.storage.model.pages[page].elements, element, element + 1);
     }
 }

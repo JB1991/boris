@@ -9,7 +9,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 @Component({
-    selector: 'power-formulars-details',
+    selector: 'power-forms-details',
     templateUrl: './details.component.html',
     styleUrls: ['./details.component.css']
 })
@@ -243,7 +243,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
     }
 
     /**
-     * Deletes an existing task
+     * Opens preview of task results
      * @param i Number of task
      */
     public openTask(i: number) {
@@ -252,7 +252,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
             throw new Error('invalid i');
         }
 
-        this.preview.Open('display', this.storage.tasksList[i].content);
+        this.preview.open('display', this.storage.tasksList[i].content);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

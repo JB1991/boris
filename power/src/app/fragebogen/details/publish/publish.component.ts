@@ -5,7 +5,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
 @Component({
-    selector: 'power-formulars-details-publish',
+    selector: 'power-forms-details-publish',
     templateUrl: './publish.component.html',
     styleUrls: ['./publish.component.css']
 })

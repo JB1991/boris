@@ -5,7 +5,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
 @Component({
-    selector: 'power-formulars-details-comment',
+    selector: 'power-forms-details-comment',
     templateUrl: './comment.component.html',
     styleUrls: ['./comment.component.css']
 })

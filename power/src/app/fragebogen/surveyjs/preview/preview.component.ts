@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-
-import { Bootstrap4_CSS } from '../style';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { environment } from '@env/environment';
 
+import { ModalComponent } from '@app/shared/modal/modal.component';
+import { Bootstrap4_CSS } from '../style';
+
 @Component({
-    selector: 'power-formulars-surveyjs-preview',
+    selector: 'power-forms-surveyjs-preview',
     templateUrl: './preview.component.html',
     styleUrls: ['./preview.component.css']
 })
-export class PreviewComponent implements OnInit, OnDestroy {
+export class PreviewComponent implements OnInit {
+    @ViewChild('previewmodal') public modal: ModalComponent;
     @Input() public form: any;
     @Input() public data: any = null;
-    public isOpen = false;
     public surveyjs_style = Bootstrap4_CSS;
     public mode = 'edit';
 
@@ -21,16 +22,12 @@ export class PreviewComponent implements OnInit, OnDestroy {
     ngOnInit() {
     }
 
-    ngOnDestroy() {
-        document.body.classList.remove('overflow-hidden');
-    }
-
     /**
      * Opens full formular preview
      * @param mode Survey mode [edit, display]
      * @param data Survey data
      */
-    public Open(mode = 'edit', data?: any) {
+    public open(mode = 'edit', data?: any) {
         if (!(mode === 'edit' || mode === 'display')) {
             throw new Error('mode is invalid');
         }
@@ -38,19 +35,21 @@ export class PreviewComponent implements OnInit, OnDestroy {
             this.data = data;
         }
 
-        document.body.classList.add('overflow-hidden');
         this.mode = mode;
-        this.isOpen = true;
+        if (this.data) {
+            this.modal.open('Ergebnisvorschau');
+        } else {
+            this.modal.open('Formularvorschau');
+        }
     }
 
     /**
      * Closes full formular preview
      */
-    public Close() {
-        document.body.classList.remove('overflow-hidden');
-        this.isOpen = false;
+    public close() {
         this.data = null;
     }
+
 
     /**
      * Debug prints result in console

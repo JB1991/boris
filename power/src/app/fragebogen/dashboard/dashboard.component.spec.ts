@@ -275,13 +275,13 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 });
 
 @Component({
-    selector: 'power-formulars-dashboard-newform',
+    selector: 'power-forms-dashboard-newform',
     template: ''
 })
 class MockNewformComponent {
 }
 @Component({
-    selector: 'power-formulars-dashboard',
+    selector: 'power-forms-home',
     template: ''
 })
 class MockHomeComponent {

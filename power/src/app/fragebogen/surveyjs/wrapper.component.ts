@@ -4,7 +4,7 @@ import * as Survey from 'survey-angular';
 import * as widgets from 'surveyjs-widgets';
 
 @Component({
-    selector: 'power-formulars-surveyjs-wrapper',
+    selector: 'power-forms-surveyjs-wrapper',
     template: `<div #surveyjsDiv></div>`,
     styleUrls: ['./wrapper.component.scss']
 })
@@ -68,6 +68,10 @@ export class WrapperComponent implements OnChanges {
             this.survey.mode = this.mode;
         }
         this.survey.showInvisibleElements = this.showInvisible;
+        this.survey.sendResultOnPageNext = true;
+        this.survey.checkErrorsMode = 'onNextPage';
+        this.survey.maxTextLength = 5000;
+        this.survey.maxOthersLength = 200;
 
         // build property model
         this.props = { model: this.survey };

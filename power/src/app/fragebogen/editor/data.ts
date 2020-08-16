@@ -2,10 +2,21 @@
  * default template for new formulars
  */
 export const defaultTemplate = {
-    locale: 'de',
     title: 'Neues Formular',
-    loadingHtml: 'Das Formular wird geladen <div class=\'spinner-border\' role=\'status\'></div>',
+    showTitle: true,
+    locale: 'de',
+    showQuestionNumbers: 'on',
+    logoPosition: 'left',
+    logoFit: 'contain',
+    firstPageIsStarted: true,
+    showPrevButton: true,
+    showPreviewBeforeComplete: 'showAllQuestions',
+    showProgressBar: 'bottom',
+    progressBarType: 'pages',
+    loadingHtml: 'Das Formular wird geladen...',
     completedHtml: 'Vielen Dank für das Abschließen von diesem Formular.',
+    showTimerPanel: 'none',
+    showTimerPanelMode: 'all',
     pages: [
         {
             elements: [
@@ -29,17 +40,11 @@ export const defaultTemplate = {
             ],
             title: 'Startseite',
             description: 'Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.',
+            questionsOrder: 'default',
             name: 'p1'
         }
     ],
-    calculatedValues: [],
-    sendResultOnPageNext: true,
-    showQuestionNumbers: 'onPage',
-    showProgressBar: 'bottom',
-    maxTextLength: 1000,
-    maxOthersLength: 100,
-    storeOthersAsComment: false,
-    checkErrorsMode: 'onValueChanged'
+    calculatedValues: []
 };
 
 /**

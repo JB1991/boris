@@ -8,7 +8,7 @@ import { StorageService } from '../storage.service';
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 
 @Component({
-    selector: 'power-formulars-dashboard-newform',
+    selector: 'power-forms-dashboard-newform',
     templateUrl: './newform.component.html',
     styleUrls: ['./newform.component.css']
 })

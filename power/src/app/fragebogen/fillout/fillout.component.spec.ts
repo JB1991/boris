@@ -269,7 +269,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 });
 
 @Component({
-    selector: 'power-formulars-home',
+    selector: 'power-forms-home',
     template: ''
 })
 class MockHomeComponent {
