@@ -141,6 +141,15 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         expect(component.storage.getUnsavedChanges()).toBeFalse();
     });
 
+    it('should not submit progress', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessemptySample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        component.storage.setUnsavedChanges(true);
+
+        component.submitted = true;
+        component.progress(submitSample);
+    });
+
     it('should fail submit progress', () => {
         answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
         answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
