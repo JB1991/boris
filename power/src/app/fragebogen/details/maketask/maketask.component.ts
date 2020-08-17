@@ -35,8 +35,6 @@ export class MaketaskComponent implements OnInit {
      * Closes make task modal
      */
     public close() {
-        this.amount = 1;
-        this.pinList = [];
         this.modal.hide();
     }
 
