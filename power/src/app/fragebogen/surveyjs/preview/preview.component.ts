@@ -37,9 +37,9 @@ export class PreviewComponent implements OnInit {
 
         this.mode = mode;
         if (this.data) {
-            this.modal.open('Ergebnisvorschau');
+            this.modal.open($localize`Ergebnisvorschau`);
         } else {
-            this.modal.open('Formularvorschau');
+            this.modal.open($localize`Formularvorschau`);
         }
     }
 

@@ -275,8 +275,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         // add
         this.history.makeHistory(this.storage.model);
         this.storage.model.pages.splice(page, 0, {
-            title: '',
-            description: '',
             elements: [],
             questionsOrder: 'default',
             name: this.storage.newPageID()
@@ -306,8 +304,6 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         // ensure that at least one page exists
         if (this.storage.model.pages.length < 1) {
             this.storage.model.pages.splice(0, 0, {
-                title: '',
-                description: '',
                 elements: [],
                 questionsOrder: 'default',
                 name: 'p1'

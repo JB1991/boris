@@ -29,7 +29,7 @@ export class FormularSettingsComponent implements OnInit {
     public open() {
         this.copy = JSON.stringify(this.storage.model);
         this.storage.setAutoSaveEnabled(false);
-        this.modal.open('Formular Einstellungen');
+        this.modal.open($localize`Formular Einstellungen`);
     }
 
     /**
