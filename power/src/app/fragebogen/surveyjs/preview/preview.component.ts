@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { environment } from '@env/environment';
 
-import { ModalComponent } from '@app/shared/modal/modal.component';
+import { WrapperComponent } from '../wrapper.component';
 import { Bootstrap4_CSS } from '../style';
+import { ModalComponent } from '@app/shared/modal/modal.component';
 
 @Component({
     selector: 'power-forms-surveyjs-preview',
@@ -11,10 +12,13 @@ import { Bootstrap4_CSS } from '../style';
 })
 export class PreviewComponent implements OnInit {
     @ViewChild('previewmodal') public modal: ModalComponent;
+    @ViewChild('wrapper') public wrapper: WrapperComponent;
     @Input() public form: any;
     @Input() public data: any = null;
     public surveyjs_style = Bootstrap4_CSS;
     public mode = 'edit';
+    public language = 'de';
+    public showInvisible = false;
     public isVisible = false;
 
     constructor() {
@@ -53,7 +57,6 @@ export class PreviewComponent implements OnInit {
         this.isVisible = false;
     }
 
-
     /**
      * Debug prints result in console
      * @param data Data
@@ -62,6 +65,13 @@ export class PreviewComponent implements OnInit {
         if (!environment.production) {
             console.log(data);
         }
+    }
+
+    /**
+     * Set language
+     */
+    public setLanguage() {
+        this.wrapper.survey.locale = this.language;
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

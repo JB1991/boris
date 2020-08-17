@@ -44,6 +44,7 @@ export class WrapperComponent implements OnChanges {
         if (this.theme) {
             Survey.StylesManager.applyTheme(this.theme);
         }
+        Survey.surveyLocalization.defaultLocale = 'de';
 
         // load custom widgets
         widgets.nouislider(Survey);

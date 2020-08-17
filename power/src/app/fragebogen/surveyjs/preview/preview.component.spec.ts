@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShowdownModule } from 'ngx-showdown';
+import { FormsModule } from '@angular/forms';
 import { environment } from '@env/environment';
 
 import { PreviewComponent } from './preview.component';
@@ -14,7 +15,8 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 SharedModule,
-                ShowdownModule
+                ShowdownModule,
+                FormsModule
             ],
             declarations: [
                 PreviewComponent,

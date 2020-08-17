@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShowdownModule } from 'ngx-showdown';
+import { FormsModule } from '@angular/forms';
 
 import { WrapperComponent } from './wrapper.component';
 import { PreviewComponent } from './preview/preview.component';
@@ -15,8 +16,9 @@ import { SharedModule } from '@app/shared/shared.module';
     ],
     imports: [
         CommonModule,
+        SharedModule,
         ShowdownModule,
-        SharedModule
+        FormsModule
     ],
     exports: [
         WrapperComponent,
