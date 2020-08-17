@@ -26,6 +26,7 @@ describe('Shared.Loadingscreen.LoadingscreenService', () => {
     it('should be created', () => {
         expect(service).toBeTruthy();
         expect(service.isVisible()).toBeFalse();
+        service.ngOnDestroy();
     });
 
     it('should change visibility', () => {
