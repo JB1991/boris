@@ -14,6 +14,7 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
     styleUrls: ['./fillout.component.css']
 })
 export class FilloutComponent implements OnInit {
+    public submitted = false;
 
     constructor(public titleService: Title,
         public router: Router,
@@ -123,6 +124,7 @@ export class FilloutComponent implements OnInit {
         if (!result) {
             throw new Error('no data provided');
         }
+        this.submitted = true;
 
         // complete
         this.storage.saveResults(this.storage.task.id, result.result, true).subscribe((data) => {
@@ -154,6 +156,9 @@ export class FilloutComponent implements OnInit {
         // check data
         if (!result) {
             throw new Error('no data provided');
+        }
+        if (this.submitted) {
+            return;
         }
 
         // interim results
