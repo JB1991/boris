@@ -15,6 +15,7 @@ export class PreviewComponent implements OnInit {
     @Input() public data: any = null;
     public surveyjs_style = Bootstrap4_CSS;
     public mode = 'edit';
+    public isVisible = false;
 
     constructor() {
     }
@@ -36,6 +37,7 @@ export class PreviewComponent implements OnInit {
         }
 
         this.mode = mode;
+        this.isVisible = true;
         if (this.data) {
             this.modal.open($localize`Ergebnisvorschau`);
         } else {
@@ -48,6 +50,7 @@ export class PreviewComponent implements OnInit {
      */
     public close() {
         this.data = null;
+        this.isVisible = false;
     }
 
 

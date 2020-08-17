@@ -1,6 +1,7 @@
 <power-modal #previewmodal
              (onClose)="close()">
-    <div class="container px-1 px-lg-3">
+    <div class="container px-1 px-lg-3"
+         *ngIf="isVisible">
         <power-forms-surveyjs-wrapper [model]="form"
                                       [css]="surveyjs_style"
                                       [mode]="mode"
