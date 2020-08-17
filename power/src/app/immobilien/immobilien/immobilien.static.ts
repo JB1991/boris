@@ -99,41 +99,30 @@ export class NipixStatic {
     public parseNipix(nipix: string): boolean {
         const npx = {};
         this.data.nipix = {};
-
         const lines = nipix.split(/\r\n|\r|\n/g);
 
-        // Iterate over all lines
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].split(';');
 
-            // If line is valid
-            if (line[0].length > 10) {
-
+            if (line[0].length > 10) { // If line is valid
                 if (!this.data.nipix.hasOwnProperty(line[0])) {
                     this.data.nipix[line[0]] = {};
                 }
-
-
                 if ((typeof line[1] === 'string') && (line[1].indexOf('_') !== -1)) {
                     line[1] = line[1].substr(0, line[1].indexOf('_'));
                 }
-
                 if (!this.data.nipix[line[0]].hasOwnProperty(line[1])) {
                     this.data.nipix[line[0]][line[1]] = {};
                 }
 
                 const nval = {};
-
                 nval['index'] = line[4];
                 nval['faelle'] = Math.round(Number(line[3].replace(',', '.')));
-
                 if (nval['index'] !== '') {
                     this.data.nipix[line[0]][line[1]][line[2]] = nval;
                 }
-
             }
         }
-
         return true;
     }
 

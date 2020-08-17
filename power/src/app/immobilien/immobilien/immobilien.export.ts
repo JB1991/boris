@@ -22,6 +22,13 @@ export class ImmobilienExport {
 
     public exportChart = false;
 
+    static geoJsonHeader = {
+        'type': 'FeatureCollection',
+        'name': 'womareg',
+        'crs': {'type': 'name', 'properties': {'name': 'urn:ogc:def:crs:EPSG::3044'}},
+        'features': []
+    };
+
     public constructor(niStatic: ImmobilenNipixStatic.NipixStatic, niRuntime: ImmobilenNipixRuntime.NipixRuntime) {
         this.nipixStatic = niStatic;
         this.nipixRuntime = niRuntime;
@@ -91,27 +98,17 @@ export class ImmobilienExport {
      * Export GeoJSON with Nipix
      */
     public exportNiPixGeoJson(geoJSON = true) {
-
         if (this.nipixRuntime.chart.obj === null) {
             return;
         }
-
         const chartoptions = this.nipixRuntime.chart.obj.getOption();
-        const tstart = chartoptions['dataZoom'][0]['start'];
-        const tend = chartoptions['dataZoom'][0]['end'];
-        const date = chartoptions['xAxis'][0]['data'];
-        const series = chartoptions['series'];
-        const istart = Math.trunc(date.length * tstart / 100);
-        const iend = Math.trunc(date.length * tend / 100);
-
+        const date = chartoptions['xAxis'][0]['data'], series = chartoptions['series'];
+        const istart = Math.trunc(date.length * chartoptions['dataZoom'][0]['start'] / 100);
+        const iend = Math.trunc(date.length * chartoptions['dataZoom'][0]['end'] / 100);
         let tmp = [];
-
         const geoData = echarts.getMap('NDS').geoJson;
-
-        // Iterate over all draw items
         for (let d = 0; d < this.nipixRuntime.drawPresets.length; d++) {
             const drawitem = this.nipixRuntime.drawPresets[d];
-
             if (drawitem['show']) {
                 if (geoJSON) {
                     tmp = this.exportNiPixGeoJsonGeoJson(drawitem, geoData, date, series, istart, iend);
@@ -119,25 +116,14 @@ export class ImmobilienExport {
                     tmp = this.exportNiPixGeoJsonCSV(drawitem, date, series, istart, iend);
                 }
             }
-
-
         }
-
         if (geoJSON) {
-            const geoJson = {
-                'type': 'FeatureCollection',
-                'name': 'womareg',
-                'crs': {'type': 'name', 'properties': {'name': 'urn:ogc:def:crs:EPSG::3044'}},
-                'features': tmp
-            };
-
+            const geoJson = JSON.parse(JSON.stringify(ImmobilienExport.geoJsonHeader));
+            geoJson.features = tmp;
             downloadFile(JSON.stringify(geoJson), 'Immobilienpreisindex.geojson');
-
-
         } else {  // CSV
             let csv = '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n';
             csv += convertArrayToCSV(tmp, ['type', 'region', 'nipix.date', 'nipix.index', 'nipix.sales']);
-
             downloadFile(csv, 'Immobilienpreisindex.csv');
         }
     }
@@ -155,7 +141,6 @@ export class ImmobilienExport {
                     'type': drawitem['nipixCategory'],
                     'data': this.getNiPixTimeslot(date, series, drawitem['values'][s], istart, iend)
                 };
-
                 tmp.push(feature);
             }
         } else if (drawitem['type'] === 'aggr') {
@@ -170,9 +155,7 @@ export class ImmobilienExport {
                 },
                 'geometry': getGeometryArray(geoData, drawitem['values'])
             };
-
             tmp.push(feature);
-
         }
         return tmp;
     }
@@ -232,15 +215,11 @@ export class ImmobilienExport {
                 }
             }
         }
-
         if (this.nipixRuntime.calculated.hiddenData.hasOwnProperty(region)) {
             datafaelle = this.nipixRuntime.calculated.hiddenData[region];
         }
-
         if (data !== null && datafaelle !== null) {
-
             const res = [];
-
             for (let i: number = tstart; i < tend; i++) {
                 res.push({
                     'date': date[i].replace('/', '_'),
@@ -248,9 +227,7 @@ export class ImmobilienExport {
                     'sales': datafaelle[i]
                 });
             }
-
             return res;
-
         } else {
             return [];
         }

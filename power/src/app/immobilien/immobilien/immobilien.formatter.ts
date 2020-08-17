@@ -1,6 +1,7 @@
 import * as ImmobilenHelper from './immobilien.helper';
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
 import * as ImmobilenNipixStatic from './immobilien.static';
+import * as ImmobilienUtils from './immobilien.utils';
 
 export class ImmobilienFormatter {
 
@@ -55,9 +56,7 @@ export class ImmobilienFormatter {
      * @return Formatted String
      */
     public formatLabel = (params) => {
-
         if (params.dataIndex === this.nipixRuntime.state.rangeEndIndex) {
-
             if (this.legendposition.length >= params.seriesIndex) {
                 this.legendposition = [];
             }
@@ -69,7 +68,6 @@ export class ImmobilienFormatter {
                 / 2 );
 
             for (let i = 0; i < this.legendposition.length; i++) {
-                // Default fontSize: 18px
                 if ((pixel > this.legendposition[i] - clearance) && (pixel < this.legendposition[i] + clearance)) {
                     printlegend = false;
                 }
@@ -85,7 +83,6 @@ export class ImmobilienFormatter {
                 return this.findName(params.seriesName, false, true);
             }
         }
-
         return '';
     }
 
@@ -105,6 +102,132 @@ export class ImmobilienFormatter {
 
     public formatLegend = (name: string) => {
         return this.findName(name, true);
+    }
+
+    /**
+     * Get Label for a specific Series
+     *
+     * @param series series Id
+     *
+     * @return series label (sort)
+     */
+    private getSeriesLabel(series) {
+        return this.nipixStatic.data.regionen[series]['name'] +
+            ' (' +
+            this.nipixStatic.data.regionen[series]['short'] +
+            ')';
+    }
+
+    public simpleLegend() {
+        const legend = [];
+        for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
+            if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
+                legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + ' (ohne Daten)');
+            } else {
+                legend.push(this.nipixRuntime.calculated.drawData[i]['name']);
+            }
+        }
+        return legend;
+    }
+
+
+    private graphicLegendSingle(obj: any) {
+        for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
+            let addText = '';
+            const element = this.nipixStatic.data.regionen[this.nipixRuntime.calculated.drawData[i]['name']];
+
+            if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
+                addText = '[ohne Daten] ';
+            }
+
+            if (this.nipixStatic.data.regionen.hasOwnProperty(this.nipixRuntime.calculated.drawData[i]['name'])) {
+                obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+                    addText + element['name'] + ' (' + element['short'] + ')',
+                    '#000',
+                    this.nipixStatic.textOptions.fontSizeBase,
+                    obj.infoLegendPosition
+                ));
+                obj.infoLegend.push( ImmobilienUtils.generateDotElement(
+                    4,
+                    element['color'],
+                    this.nipixStatic.textOptions.fontSizeBase,
+                    obj.infoLegendPosition
+                ));
+                obj.infoLegendPosition++;
+            }
+        }
+    }
+
+    private graphicLegendMulti(obj: any) {
+        const ccat = this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'];
+        for (let i = 0; i < ccat.length; i++) {
+            obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+                ccat[i] + ' (' + this.nipixStatic.data.shortNames[ccat[i]] + ')',
+                '#000',
+                this.nipixStatic.textOptions.fontSizeBase,
+                obj.infoLegendPosition
+            ) );
+            obj.infoLegend.push(ImmobilienUtils.generateDotElement(
+                4,
+                this.nipixRuntime.getDrawPreset(ccat[i]).colors,
+                this.nipixStatic.textOptions.fontSizeBase,
+                obj.infoLegendPosition
+            ));
+            obj.infoLegendPosition++;
+
+        }
+    }
+
+    private graphicLegendMultiSelect(obj: any) {
+        const ccat = this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'];
+        for (let i = 0; i < this.nipixStatic.data.allItems.length; i++) {
+            for (let d = 0; d < ccat.length; d++) {
+                const citem = this.nipixRuntime.getDrawPreset(ccat[d]);
+                if (citem['show'] === true) {
+                    if (citem['values'].includes(this.nipixStatic.data.allItems[i])) {
+                        obj.infoLegend.push(ImmobilienUtils.generateDotElement(
+                            4,
+                            citem['colors'],
+                            this.nipixStatic.textOptions.fontSizeBase,
+                            obj.infoLegendPosition,
+                            d
+                        ));
+                    }
+                }
+            }
+            obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+                this.getSeriesLabel(this.nipixStatic.data.allItems[i]),
+                '#000',
+                this.nipixStatic.textOptions.fontSizeBase,
+                obj.infoLegendPosition,
+                4 * 4 * 4
+            ) );
+
+            obj.infoLegendPosition++;
+        }
+    }
+
+    public graphicLegend() {
+        const workdata = {
+            'infoLegend': [],
+            'infoLegendPosition': 0
+        };
+
+        if (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== undefined
+            && this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection] !== null) {
+            if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'single')) {
+                this.graphicLegendSingle(workdata);
+            } else if (
+                (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multi') ||
+                (this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multiIndex')
+            ) {
+                this.graphicLegendMulti(workdata);
+            } else if ((this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['type'] === 'multiSelect')) {
+                this.graphicLegendMultiSelect(workdata);
+            }
+        }
+
+        return workdata['infoLegend'];
     }
 
 }

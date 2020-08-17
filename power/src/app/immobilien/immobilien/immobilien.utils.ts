@@ -28,6 +28,24 @@ export function getDateArray(lastYear: number, lastPeriod: number) {
     return date;
 }
 
+function getMyMapRegionenGR(name: string, bc: string, bw: number, area: string) {
+    return {
+        'name': name,
+        'itemStyle': {
+            'areaColor': '#dddddd',
+            'borderColor': bc,
+            'borderWidth': bw
+        },
+        'emphasis': {
+            'itemStyle': {
+                'areaColor': area,
+                'borderColor': bc,
+                'borderWidth': bw
+            }
+        }
+    };
+}
+
 /**
  * Convert myRegion list to MapRegionen array.
  *
@@ -50,21 +68,7 @@ export function getMyMapRegionen(regionen, myregion = null, selectionList = null
             bc = '#ffffff';
         }
 
-        const region = {
-            'name': keys[i],
-            'itemStyle': {
-                'areaColor': '#dddddd',
-                'borderColor': bc,
-                'borderWidth': bw
-            },
-            'emphasis': {
-                'itemStyle': {
-                    'areaColor': ImmobilenHelper.convertColor(regionen[keys[i]].color),
-                    'borderColor': bc,
-                    'borderWidth': bw
-                }
-            }
-        };
+        const region = getMyMapRegionenGR(keys[i], bc, bw, ImmobilenHelper.convertColor(regionen[keys[i]].color));
 
         if (lighten === true) {
             region['itemStyle']['areaColor'] = ImmobilenHelper.modifyColor(regionen[keys[i]].color, 0.85);
@@ -78,39 +82,12 @@ export function getMyMapRegionen(regionen, myregion = null, selectionList = null
 
         res.push(region);
     }
-
     return res;
 }
 
 
-/**
- * Generate a Series object
- *
- * @param name Series Name
- * @param data Series data array
- * @param color Series color (Must be valid for convertColor)
- * @param labelFormatter Custom labelFormatter function
- * @param selectedChartLine Name of the selected chart line (for highlghting)
- * @param zIndex xAxisIndex (degfault 0) (see echarts api)
- * @param yIndex yAxisIndex (Default 0) (see echarts api)
- * @param seriesType SeriesTyp (default line) (see echarts api)
- *
- * @return echarts Series Object
- */
-export function generateSeries(name, data, color, labelFormatter = null, selectedChartLine = '',
-                               xIndex = 0, yIndex = 0, seriesType = 'line'): echarts.EChartOption.SeriesLine {
-
-    let seriesColor = ImmobilenHelper.convertColor(color);
-    let zindex = 0;
-
-    if ((selectedChartLine !== '') && (selectedChartLine !== name)) {
-        seriesColor = ImmobilenHelper.modifyColor(color, 0.9);
-    } else {
-        zindex = 1;
-    }
-
-    // Series Object
-    const ret = {
+function generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data) {
+    return {
         'name': name,
         'type': seriesType,
         'smooth': false,
@@ -137,7 +114,44 @@ export function generateSeries(name, data, color, labelFormatter = null, selecte
         },
         'data': data
     };
+}
 
+/**
+ * Generate a Series object
+ *
+ * @param name Series Name
+ * @param data Series data array
+ * @param color Series color (Must be valid for convertColor)
+ * @param labelFormatter Custom labelFormatter function
+ * @param selectedChartLine Name of the selected chart line (for highlghting)
+ * @param zIndex xAxisIndex (degfault 0) (see echarts api)
+ * @param yIndex yAxisIndex (Default 0) (see echarts api)
+ * @param seriesType SeriesTyp (default line) (see echarts api)
+ *
+ * @return echarts Series Object
+ */
+export function generateSeries(
+    name,
+    data,
+    color,
+    labelFormatter = null,
+    selectedChartLine = '',
+    xIndex = 0,
+    yIndex = 0,
+    seriesType = 'line'
+): echarts.EChartOption.SeriesLine {
+
+    let seriesColor = ImmobilenHelper.convertColor(color);
+    let zindex = 0;
+
+    if ((selectedChartLine !== '') && (selectedChartLine !== name)) {
+        seriesColor = ImmobilenHelper.modifyColor(color, 0.9);
+    } else {
+        zindex = 1;
+    }
+
+    // Series Object
+    const ret = generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data);
 
     // Set the corresponding Grid/Axis id
     if (xIndex !== 0) {
@@ -180,14 +194,8 @@ export function generateDrawSeriesData(data, date = [], field = null, offset = 1
                 val = data[date[d].replace('/', '_')][field];
             }
 
-            if (typeof val === 'string') {
-                fval = parseFloat(val.replace(',', '.'));
-            } else {
-                fval = val;
-            }
-
+            fval = ImmobilenHelper.parseStringAsFloat(val);
             fval = parseFloat((fval + (100 - offset)).toFixed(2));
-
             ret.push(fval);
         } else {
             ret.push(undefined);
@@ -212,14 +220,14 @@ export function generateTextElement(name, color = '#000', fontSizeBase = 1.2, po
 }
 
 export function generateDotElement(radius = 4, color = '#fff', fontSizeBase = 1.2, position = 0,
-                                   posX = 0, bordercolor = '#000', border = 0) {
+    posX = 0, bordercolor = '#000', border = 0) {
     return {
         type: 'circle',
         cursor: 'normal',
         shape: {
             cx: -2 * radius + posX * radius * 4,
             cy: position * 1.5 * ImmobilenHelper.convertRemToPixels(fontSizeBase)
-                + ImmobilenHelper.convertRemToPixels(fontSizeBase) / 2,
+            + ImmobilenHelper.convertRemToPixels(fontSizeBase) / 2,
             r: radius
         },
         style: {
@@ -242,5 +250,22 @@ export function modifyRegionen(regionen, modifyArray) {
     }
 
     return newRegionen;
+}
+
+export function dispatchMapSelect(obj: any, name: string, select: boolean) {
+    if (select) {
+        // Select
+        obj.dispatchAction({
+            type: 'mapSelect',
+            name: name
+        });
+    } else {
+        // Unselect
+        obj.dispatchAction({
+            type: 'mapUnSelect',
+            name: name
+        });
+
+    }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */
