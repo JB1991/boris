@@ -32,15 +32,22 @@ export class PreviewComponent implements OnInit {
      * @param mode Survey mode [edit, display]
      * @param data Survey data
      */
-    public open(mode = 'edit', data?: any) {
-        if (!(mode === 'edit' || mode === 'display')) {
-            throw new Error('mode is invalid');
+    public open(mode?: string, data?: any) {
+        // set mode
+        if (mode) {
+            if (!(mode === 'edit' || mode === 'display')) {
+                throw new Error('mode is invalid');
+            }
+            this.mode = mode;
+            this.showInvisible = false;
+            this.language = 'de';
         }
+        // set data to display
         if (data && !this.data) {
             this.data = data;
         }
 
-        this.mode = mode;
+        // show modal
         this.isVisible = true;
         if (this.data) {
             this.modal.open($localize`Ergebnisvorschau`);

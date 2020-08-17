@@ -61,5 +61,14 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
         expect(component.mode).toEqual('display');
         expect(component.data).toEqual(5);
     });
+
+    it('should set language', () => {
+        component.open();
+        fixture.detectChanges();
+        component.language = 'en';
+        component.setLanguage();
+
+        expect(component.wrapper.survey.locale).toEqual('en');
+    });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
