@@ -27,6 +27,7 @@ export class MaketaskComponent implements OnInit {
      */
     public open() {
         this.amount = 1;
+        this.pinList = [];
         this.modal.show();
     }
 
@@ -34,6 +35,8 @@ export class MaketaskComponent implements OnInit {
      * Closes make task modal
      */
     public close() {
+        this.amount = 1;
+        this.pinList = [];
         this.modal.hide();
     }
 
@@ -62,7 +65,7 @@ export class MaketaskComponent implements OnInit {
             // success
             for (let i = 0; i < data['data'].length; i++) {
                 this.pinList.push(data['data'][i].pin);
-                this.storage.tasksList.push(data['data'][i]);
+                this.storage.tasksList.splice(0, 0, data['data'][i]);
             }
             this.close();
         }, (error: Error) => {

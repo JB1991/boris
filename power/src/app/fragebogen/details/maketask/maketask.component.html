@@ -68,10 +68,10 @@
                 <!-- results -->
                 <div class="scrolllist mt-2"
                      *ngIf="pinList.length !== 0">
-                    <pre class="m-0"
-                         *ngFor="let pin of pinList; index as i">
+                    <span *ngFor="let pin of pinList; index as i">
                         <code>{{ pin }}</code>
-                    </pre>
+                        <br>
+                    </span>
                 </div>
             </div>
 
