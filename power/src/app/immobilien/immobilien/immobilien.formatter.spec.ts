@@ -11,25 +11,25 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
     let niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
 
     const niStaticData = {
-            'regionen': {
-                'foo': {
-                    'name': 'bar',
-                    'short': 'ba'
-                }
-            },
-            'shortNames': {
-                'shortName': 'short'
+        'regionen': {
+            'foo': {
+                'name': 'bar',
+                'short': 'ba'
             }
-        };
+        },
+        'shortNames': {
+            'shortName': 'short'
+        }
+    };
 
     const niRuntimeCalculated = {
-            'legendText': {
-                'bar': 'foo'
-            },
-            'hiddenData': {
-                'foo': [100]
-            }
-        };
+        'legendText': {
+            'bar': 'foo'
+        },
+        'hiddenData': {
+            'foo': [100]
+        }
+    };
 
 
     beforeEach(() => {

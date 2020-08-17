@@ -130,32 +130,40 @@ function generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter,
  *
  * @return echarts Series Object
  */
-export function generateSeries(name, data, color, labelFormatter = null, selectedChartLine = '',
-    xIndex = 0, yIndex = 0, seriesType = 'line'): echarts.EChartOption.SeriesLine {
+export function generateSeries(
+    name,
+    data,
+    color,
+    labelFormatter = null,
+    selectedChartLine = '',
+    xIndex = 0,
+    yIndex = 0,
+    seriesType = 'line'
+): echarts.EChartOption.SeriesLine {
 
-        let seriesColor = ImmobilenHelper.convertColor(color);
-        let zindex = 0;
+    let seriesColor = ImmobilenHelper.convertColor(color);
+    let zindex = 0;
 
-        if ((selectedChartLine !== '') && (selectedChartLine !== name)) {
-            seriesColor = ImmobilenHelper.modifyColor(color, 0.9);
-        } else {
-            zindex = 1;
-        }
-
-        // Series Object
-        const ret = generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data);
-
-        // Set the corresponding Grid/Axis id
-        if (xIndex !== 0) {
-            ret['xAxisIndex'] = xIndex;
-        }
-
-        if (yIndex !== 0) {
-            ret['yAxisIndex'] = yIndex;
-        }
-
-        return ret;
+    if ((selectedChartLine !== '') && (selectedChartLine !== name)) {
+        seriesColor = ImmobilenHelper.modifyColor(color, 0.9);
+    } else {
+        zindex = 1;
     }
+
+    // Series Object
+    const ret = generateSeriesGS(name, seriesType, zindex, seriesColor, labelFormatter, data);
+
+    // Set the corresponding Grid/Axis id
+    if (xIndex !== 0) {
+        ret['xAxisIndex'] = xIndex;
+    }
+
+    if (yIndex !== 0) {
+        ret['yAxisIndex'] = yIndex;
+    }
+
+    return ret;
+}
 
 
 /**
