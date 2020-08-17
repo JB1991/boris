@@ -137,9 +137,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 'borderColor': 'rgba(255,255,255,0)'
             },
             'emphasis': {
-                'itemStyle': {
-                    'color': '#ffffff'
-                }
+                'itemStyle': { 'color': '#ffffff' }
             },
             label: {
                 normal: {
@@ -180,7 +178,6 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('generateTextElement works', function() {
-
         spyOn(window, 'getComputedStyle').and.callFake(
             function(elt: Element, pseudoElt?: string) {
                 const val = Object.create(CSSStyleDeclaration.prototype);
@@ -188,7 +185,6 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 return val;
             }
         );
-
         const res = ImmobilenUtils.generateTextElement('foo');
         expect(res).toEqual({
             type: 'text',
@@ -204,7 +200,6 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('generateTextElement with parameter works', function() {
-
         spyOn(window, 'getComputedStyle').and.callFake(
             function(elt: Element, pseudoElt?: string) {
                 const val = Object.create(CSSStyleDeclaration.prototype);
@@ -212,7 +207,6 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 return val;
             }
         );
-
         const res = ImmobilenUtils.generateTextElement('foo', '#aabbcc', 1, 1, 1);
         expect(res).toEqual({
             type: 'text',
@@ -228,7 +222,6 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('generateDotElement works', function() {
-
         spyOn(window, 'getComputedStyle').and.callFake(
             function(elt: Element, pseudoElt?: string) {
                 const val = Object.create(CSSStyleDeclaration.prototype);
@@ -236,7 +229,6 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 return val;
             }
         );
-
         const res = ImmobilenUtils.generateDotElement();
         expect(res).toEqual({
             type: 'circle',
@@ -255,7 +247,6 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('generateDotElement with parameter works', function() {
-
         spyOn(window, 'getComputedStyle').and.callFake(
             function(elt: Element, pseudoElt?: string) {
                 const val = Object.create(CSSStyleDeclaration.prototype);
@@ -263,7 +254,6 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 return val;
             }
         );
-
         const res = ImmobilenUtils.generateDotElement(1, '#aabbcc', 1, 1, 1, '#ff0000', 1);
         expect(res).toEqual({
             type: 'circle',
@@ -282,28 +272,23 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('nodifyRegionen works', function() {
-
         const regionen = {
             'foo': {
                 'color': '#000000'
             }
         };
-
         const modifyArray = [
             {
                 'values': ['foo'],
                 'colors': '#ff0000'
             }
         ];
-
         const res = ImmobilenUtils.modifyRegionen(regionen, modifyArray);
-
         expect(res).toEqual({
             'foo': {
                 'color': '#ff0000'
             }
         });
-
     });
 });
 

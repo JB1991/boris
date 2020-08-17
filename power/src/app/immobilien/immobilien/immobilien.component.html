@@ -26,14 +26,14 @@
                     <!-- NiPix Category Selection -->
                     <div ngbDropdown *ngIf="select['type'] == 'single' || select['type'] == 'multiIndex'"
                          class="d-inline-block btn-block ">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" ngbDropdownToggle>
+                        <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" type="button" ngbDropdownToggle>
                             <i class="fa"
                                [ngClass]="iconFor[nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory]"
                                aria-hidden="true"></i>
                             {{nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories"
+                            <button type="button" class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories"
                                     (click)="onChangeCat(select['preset'], f)">
                                 <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i>
                                 {{f}}
@@ -44,11 +44,11 @@
                     <!-- MultiSelect -->
                     <div ngbDropdown class="d-inline-block btn-block " *ngIf="select['type'] == 'multiSelect'">
                         <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}"
-                                ngbDropdownToggle>
+                                type="button" ngbDropdownToggle>
                             {{ (select['selected']) }} Vergleiche
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of select['preset']"
+                            <button type="button" class="dropdown-item" *ngFor="let f of select['preset']"
                                     (click)="onSetNumber(select['name'], f)">
                                 {{f}} Vergleiche
                             </button>
@@ -169,7 +169,7 @@
                         (focus)="focus$.next($event.target.value)"
                         (click)="click$.next($event.target.value)"
                         #searchWoMaReg="ngbTypeahead"
-                    />
+                        >
                     <hr>
                     Ihre Wohnungsmarkregion: {{ regionName(nipixStatic.data.gemeinden[model]) | json }}
 
