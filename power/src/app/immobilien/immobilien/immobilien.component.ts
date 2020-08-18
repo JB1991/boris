@@ -51,12 +51,6 @@ export class ImmobilienComponent implements OnInit {
 
     title = 'lgln';
 
-    // Icon array
-    iconFor = {
-        'gebrauchte Eigenheime': 'fa-home',
-        'gebrauchte Eigentumswohnungen': 'fa-building',
-    };
-
     // show loading spinner:
     mapLoaded = false;
 

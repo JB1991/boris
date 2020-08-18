@@ -44,4 +44,8 @@ ul {
     direction: rtl;
 }
 
+::ng-deep svg.bi {
+    margin-bottom: 3px;
+}
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

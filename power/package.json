@@ -42,6 +42,7 @@
         "knockout": "^3.5.1",
         "mapbox-gl": "^1.12.0",
         "ngx-bootstrap": "^5.6.1",
+        "ngx-bootstrap-icons": "0.0.23",
         "ngx-echarts": "^4.2.2",
         "ngx-mapbox-gl": "^4.8.1",
         "ngx-showdown": "^6.0.0",
