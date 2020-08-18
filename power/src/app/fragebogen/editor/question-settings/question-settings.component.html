@@ -1,5 +1,5 @@
 <power-modal #questionsettingsmodal
-             (onClose)="close()">
+             (closing)="close()">
     <div class="container px-1 px-lg-3"
          *ngIf="question !== null">
         <accordion [isAnimated]="true"
