@@ -9,6 +9,8 @@ import { StorageService } from './storage.service';
 import { DashboardComponent } from './dashboard.component';
 import { NewformComponent } from './newform/newform.component';
 
+import { SharedModule } from '@app/shared/shared.module';
+
 @NgModule({
     declarations: [
         DashboardComponent,
@@ -19,7 +21,8 @@ import { NewformComponent } from './newform/newform.component';
         CommonModule,
         HttpClientModule,
         FormsModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        SharedModule
     ],
     providers: [
         StorageService

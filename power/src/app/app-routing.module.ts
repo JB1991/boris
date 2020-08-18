@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StaticModule } from '@app/static/static.module';
 
+/* istanbul ignore next */
 const routes: Routes = [
     {
         path: '',

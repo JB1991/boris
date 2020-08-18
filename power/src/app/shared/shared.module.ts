@@ -6,6 +6,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 
 import { GeosearchComponent } from './geosearch/geosearch.component';
 import { ModalComponent } from './modal/modal.component';
+import { TagboxComponent } from './tagbox/tagbox.component';
 import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
@@ -13,11 +14,13 @@ import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 @NgModule({
     declarations: [
         GeosearchComponent,
-        ModalComponent
+        ModalComponent,
+        TagboxComponent
     ],
     exports: [
         GeosearchComponent,
         ModalComponent,
+        TagboxComponent,
         AuthModule,
         AlertsModule,
         LoadingscreenModule

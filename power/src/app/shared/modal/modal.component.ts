@@ -7,7 +7,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitt
 })
 export class ModalComponent implements OnInit, OnDestroy {
     @ViewChild('mymodal') public div: ElementRef;
-    @Output() public onClose: EventEmitter<void> = new EventEmitter();
+    @Output() public onClose: EventEmitter<void> = new EventEmitter(); // eslint-disable-line no-output-on-prefix
     public focusedElement: any;
     public isOpen = false;
     public title = '';

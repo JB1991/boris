@@ -74,6 +74,17 @@ export class WrapperComponent implements OnChanges {
         this.survey.maxTextLength = 5000;
         this.survey.maxOthersLength = 200;
 
+        // fix links
+        this.survey.onAfterRenderQuestion.add(function (_, options) {
+            const linkEl = options.htmlElement.querySelector('a');
+            if (linkEl) {
+                /* istanbul ignore next */
+                linkEl.onclick = function (e) {
+                    e.stopPropagation();
+                };
+            }
+        });
+
         // build property model
         this.props = { model: this.survey };
         if (this.css) {

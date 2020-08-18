@@ -1,0 +1,37 @@
+<!-- tags -->
+<div class="form-group mb-0">
+    <label for="formtag"
+           i18n>Tags</label>
+    <input type="text"
+           list="tags"
+           class="form-control"
+           [(ngModel)]="tagInput"
+           (keyup.enter)="addTag()"
+           (change)="addTag()"
+           id="formtag"
+           name="formtag"
+           maxlength="50"
+           i18n-placeholder
+           placeholder="Tag mit ENTER bestätigen">
+
+    <datalist id="tags">
+        <option *ngFor="let tag of dataList; index as i"
+                value="{{ tag }}"></option>
+    </datalist>
+
+    <div>
+        <span class="badge badge-primary mr-1"
+              *ngFor="let tag of tagList; index as i"
+              title="{{ tag }}">
+            {{ tag }}
+
+            <button type="button"
+                    class="close ml-1"
+                    i18n-title
+                    title="Löschen"
+                    (click)="removeTag(i)">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </span>
+    </div>
+</div>

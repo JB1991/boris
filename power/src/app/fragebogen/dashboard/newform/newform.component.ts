@@ -17,7 +17,6 @@ export class NewformComponent implements OnInit {
     public title: string;
     public service = '';
     public template = '';
-    public tagInput: string;
     public tagList = [];
 
     constructor(public modalService: BsModalService,
@@ -116,28 +115,6 @@ export class NewformComponent implements OnInit {
             console.log(error);
             return;
         });
-    }
-
-    /**
-     * Adds tag to list
-     */
-    public addTag() {
-        if (!this.tagInput || !this.tagInput.trim()) {
-            return;
-        }
-        this.tagList.push(this.tagInput);
-        this.tagInput = '';
-    }
-
-    /**
-     * Removes tag from list
-     * @param i Tag number
-     */
-    public removeTag(i: number) {
-        if (i < 0 || i >= this.tagList.length) {
-            throw new Error('Invalid i');
-        }
-        this.tagList.splice(i, 1);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

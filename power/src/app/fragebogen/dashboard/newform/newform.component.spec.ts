@@ -154,31 +154,6 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             .toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
     });
 
-    it('should add tag', () => {
-        component.tagInput = 'MyTag';
-        component.addTag();
-        expect(component.tagList.length).toEqual(1);
-        expect(component.tagList[0]).toEqual('MyTag');
-
-        component.removeTag(0);
-        expect(component.tagList.length).toEqual(0);
-    });
-
-    it('should fail tag', () => {
-        component.tagInput = '';
-        component.addTag();
-        expect(component.tagList.length).toEqual(0);
-
-        component.tagInput = 'MyTag';
-        component.addTag();
-        expect(function () {
-            component.removeTag(-1);
-        }).toThrowError('Invalid i');
-        expect(function () {
-            component.removeTag(1);
-        }).toThrowError('Invalid i');
-    });
-
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer
      * @param url The URL of the HTTP request
