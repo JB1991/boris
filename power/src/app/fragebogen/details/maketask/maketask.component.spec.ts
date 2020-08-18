@@ -58,11 +58,21 @@ describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
     it('should generate', () => {
         component.storage.form = { 'id': '123' };
         component.amount = 2;
+        component.copy = false;
 
         component.Generate();
         answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST', taskSample);
         expect(component.pinList.length).toEqual(2);
         expect(component.storage.tasksList.length).toEqual(2);
+
+        // copy to clipboard
+        component.open();
+        component.amount = 2;
+        component.copy = true;
+        component.Generate();
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2', 'POST', taskSample);
+        expect(component.pinList.length).toEqual(2);
+        expect(component.storage.tasksList.length).toEqual(4);
     });
 
     it('should error', () => {
