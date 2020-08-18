@@ -17,8 +17,8 @@
                                i18n>Formular Titel*</label>
                         <input type="text"
                                class="form-control"
-                               [(ngModel)]="storage.model.title"
-                               [class.is-invalid]="!storage.model.title"
+                               [(ngModel)]="storage.model.title.default"
+                               [class.is-invalid]="!storage.model.title.default"
                                maxlength="200"
                                name="form-title"
                                id="form-title"
@@ -44,7 +44,7 @@
                         <label for="form-description"
                                i18n>Formular Beschreibung</label>
                         <textarea class="form-control"
-                                  [(ngModel)]="storage.model.description"
+                                  [(ngModel)]="storage.model.description.default"
                                   id="form-description"
                                   name="form-description"
                                   rows="5"
@@ -73,7 +73,8 @@
                         </select>
                         <small id="form-localeHelp"
                                class="form-text text-muted"
-                               i18n>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die
+                               i18n>Die Standardsprache welche dem Benutzer angezeigt wird. Der
+                            Benutzer hat die
                             Möglichkeit die Sprache zu wechseln.</small>
                     </div>
 
@@ -94,19 +95,19 @@
                         </select>
                     </div>
 
-                    <!-- form-loadingHtml -->
+                    <!-- form-questionsOrder-->
                     <div class="form-group">
-                        <label for="form-loadingHtml"
-                               i18n>Ladetext*</label>
-                        <textarea class="form-control"
-                                  [(ngModel)]="storage.model.loadingHtml"
-                                  [class.is-invalid]="!storage.model.loadingHtml"
-                                  id="form-loadingHtml"
-                                  name="form-loadingHtml"
-                                  rows="5"
-                                  maxlength="5000"
-                                  required>
-                        </textarea>
+                        <label for="form-questionsOrder"
+                               i18n>Fragen Reihenfolge</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.questionsOrder"
+                                id="form-questionsOrder"
+                                name="form-questionsOrder">
+                            <option value="initial"
+                                    i18n>Wie definiert</option>
+                            <option value="random"
+                                    i18n>Zufällig</option>
+                        </select>
                     </div>
 
                     <!-- form-completedHtml -->
@@ -114,13 +115,11 @@
                         <label for="form-completedHtml"
                                i18n>Abschlusstext*</label>
                         <textarea class="form-control"
-                                  [(ngModel)]="storage.model.completedHtml"
-                                  [class.is-invalid]="!storage.model.completedHtml"
+                                  [(ngModel)]="storage.model.completedHtml.default"
                                   id="form-completedHtml"
                                   name="form-completedHtml"
                                   rows="5"
-                                  maxlength="5000"
-                                  required>
+                                  maxlength="5000">
                         </textarea>
                     </div>
 
@@ -270,7 +269,8 @@
                                i18n>Erste Seite ist Startseite</label>
                         <small id="form-firstPageIsStartedHelp"
                                class="form-text text-muted"
-                               i18n>Die erste Seite erhält einen Start Button für das Formular.</small>
+                               i18n>Die erste Seite erhält einen Start Button für das
+                            Formular.</small>
                     </div>
 
                     <!-- form-showPrevButton -->
@@ -298,7 +298,8 @@
                                i18n>Nächste Seite automatisch öffnen</label>
                         <small id="form-goNextPageAutomaticHelp"
                                class="form-text text-muted"
-                               i18n>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</small>
+                               i18n>Nach abschließen einer Seite wird automatisch die nächste
+                            geöffnet.</small>
                     </div>
 
                     <!-- form-showPreviewBeforeComplete-->
@@ -319,7 +320,8 @@
                         </select>
                         <small id="form-showPreviewBeforeCompleteHelp"
                                class="form-text text-muted"
-                               i18n>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das
+                               i18n>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten,
+                            bevor er das
                             Formular final absendet.</small>
                     </div>
 
@@ -436,7 +438,7 @@
                                        i18n>Seiten Titel</label>
                                 <input type="text"
                                        class="form-control"
-                                       [(ngModel)]="page.title"
+                                       [(ngModel)]="page.title.default"
                                        maxlength="200"
                                        name="page-title-{{ i }}"
                                        id="page-title-{{ i }}"
@@ -450,7 +452,7 @@
                                 <label for="page-description-{{ i }}"
                                        i18n>Seiten Beschreibung</label>
                                 <textarea class="form-control"
-                                          [(ngModel)]="page.description"
+                                          [(ngModel)]="page.description.default"
                                           id="page-description-{{ i }}"
                                           name="page-description-{{ i }}"
                                           rows="5"
@@ -465,18 +467,83 @@
                                 <select class="custom-select"
                                         [(ngModel)]="page.questionsOrder"
                                         id="page-questionsOrder-{{ i }}"
-                                        name="page-questionsOrder-{{ i }}">
+                                        name="page-questionsOrder-{{ i }}"
+                                        attr.aria-describedby="page-questionsOrderHelp-{{ i }}">
                                     <option value="default"
+                                            i18n>Standard</option>
+                                    <option value="initial"
                                             i18n>Wie definiert</option>
                                     <option value="random"
                                             i18n>Zufällig</option>
                                 </select>
+                                <small id="page-questionsOrderHelp-{{ i }}"
+                                       class="form-text text-muted"
+                                       i18n>Diese Option überschreibt den Standartwert aus dem Reiter Allgemein.</small>
                             </div>
 
-                            Sichtbarkeitsbedingung
+                            <!-- page-visible -->
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox"
+                                       class="custom-control-input"
+                                       [(ngModel)]="page.visible"
+                                       name="page-visible-{{ i }}"
+                                       id="page-visible-{{ i }}"
+                                       attr.aria-describedby="page-visibleHelp-{{ i }}">
+                                <label class="custom-control-label"
+                                       for="page-visible-{{ i }}"
+                                       i18n>Sichtbar</label>
+                                <small id="page-visibleHelp-{{ i }}"
+                                       class="form-text text-muted"
+                                       i18n>Diese Option stellt ein, ob die Seite standartmäßig
+                                    sichtbar ist.</small>
+                            </div>
+
+                            <!-- page-readOnly -->
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox"
+                                       class="custom-control-input"
+                                       [(ngModel)]="page.readOnly"
+                                       name="page-readOnly-{{ i }}"
+                                       id="page-readOnly-{{ i }}"
+                                       attr.aria-describedby="page-readOnlyHelp-{{ i }}">
+                                <label class="custom-control-label"
+                                       for="page-readOnly-{{ i }}"
+                                       i18n>Deaktiviert</label>
+                                <small id="page-readOnlyHelp-{{ i }}"
+                                       class="form-text text-muted"
+                                       i18n>Diese Option stellt ein, ob die Seite standartmäßig
+                                    ausfüllbar ist.</small>
+                            </div>
+
+                            <!-- page-maxTimeToFinish -->
+                            <div class="form-group">
+                                <label for="page-maxTimeToFinish-{{ i }}"
+                                       i18n>Zeitlimit in Sekunden für die Seite</label>
+                                <input type="number"
+                                       class="form-control"
+                                       [(ngModel)]="page.maxTimeToFinish"
+                                       min="0"
+                                       name="page-maxTimeToFinish-{{ i }}"
+                                       id="page-maxTimeToFinish-{{ i }}"
+                                       attr.aria-describedby="page-maxTimeToFinishHelp-{{ i }}">
+                                <small id="page-maxTimeToFinishHelp-{{ i }}"
+                                       class="form-text text-muted"
+                                       i18n>Diese Option überschreibt den Standartwert pro Seite
+                                    aus dem Reiter
+                                    Timer/Quiz.</small>
+                            </div>
+
+                            <hr>
+                            <span i18n>Sichtbarkeitsbedingung</span>
                             <br>
-                            <power-formulars-editor-conditions [(data)]="page.visibleIf">
-                            </power-formulars-editor-conditions>
+                            <power-forms-editor-conditions [(data)]="page.visibleIf">
+                            </power-forms-editor-conditions>
+
+                            <hr>
+                            <span i18n>Aktivierungsbedingung</span>
+                            <br>
+                            <power-forms-editor-conditions [(data)]="page.enableIf">
+                            </power-forms-editor-conditions>
                         </accordion-group>
                     </accordion>
 

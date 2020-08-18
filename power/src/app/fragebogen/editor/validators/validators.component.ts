@@ -3,7 +3,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChange
 import { StorageService } from '../storage.service';
 
 @Component({
-    selector: 'power-formulars-editor-validators',
+    selector: 'power-forms-editor-validators',
     templateUrl: './validators.component.html',
     styleUrls: ['./validators.component.css']
 })

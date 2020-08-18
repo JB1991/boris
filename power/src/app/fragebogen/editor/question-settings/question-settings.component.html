@@ -1,0 +1,194 @@
+<power-modal #questionsettingsmodal
+             (onClose)="close()">
+    <div class="container px-1 px-lg-3"
+         *ngIf="question !== null">
+        <accordion [isAnimated]="true"
+                   [closeOthers]="true">
+            <!-- common -->
+            <accordion-group i18n-heading
+                             heading="Allgemein"
+                             class="mb-1 mb-lg-3">
+                <form #commonForm="ngForm"
+                      i18n-aria-label
+                      aria-label="Allgemeine Einstellungen zur Frage"
+                      onsubmit="return false;">
+                    <!-- question-name -->
+                    <div class="form-group">
+                        <label for="question-name"
+                               i18n>Fragen ID*</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="storage.model.pages[page].elements[question].name"
+                               [class.is-invalid]="!storage.model.pages[page].elements[question].name"
+                               maxlength="200"
+                               name="question-name"
+                               id="question-name"
+                               aria-describedby="question-nameHelp"
+                               required
+                               disabled>
+                        <small id="question-nameHelp"
+                               class="form-text text-muted">
+                            <span i18n>Dieser Wert muss im Formular einmalig sein. Die ID lässt sich als Variable nutzen
+                                enthält die Antwort einer Frage:</span>
+                            <code>{{ ' &#123;' + storage.model.pages[page].elements[question].name + '&#125;' }}</code></small>
+                    </div>
+
+                    <!-- question-title -->
+                    <div class="form-group">
+                        <label for="question-title"
+                               i18n>Fragen Titel*</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="storage.model.pages[page].elements[question].title.default"
+                               [class.is-invalid]="!storage.model.pages[page].elements[question].title.default"
+                               maxlength="200"
+                               name="question-title"
+                               id="question-title"
+                               required>
+                    </div>
+
+                    <!-- question-description -->
+                    <div class="form-group">
+                        <label for="question-description"
+                               i18n>Fragen Beschreibung</label>
+                        <textarea class="form-control"
+                                  [(ngModel)]="storage.model.pages[page].elements[question].description.default"
+                                  id="question-description"
+                                  name="question-description"
+                                  rows="5"
+                                  aria-describedby="question-descriptionHelp"
+                                  maxlength="5000">
+                        </textarea>
+                        <small id="question-descriptionHelp"
+                               class="form-text text-muted"
+                               i18n>Dieser Text wird unter der Frage angezeigt. Markdown zur formatierung wird
+                            unterstützt.</small>
+                    </div>
+
+                    <!-- question-isRequired -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].isRequired"
+                               name="question-isRequired"
+                               id="question-isRequired">
+                        <label class="custom-control-label"
+                               for="question-isRequired"
+                               i18n>Pflichtfeld</label>
+                    </div>
+
+                    <!-- question-requiredErrorText -->
+                    <div class="form-group">
+                        <label for="question-requiredErrorText"
+                               i18n>Pflichtfeld Fehlertext</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="storage.model.pages[page].elements[question].requiredErrorText.default"
+                               maxlength="200"
+                               name="question-requiredErrorText"
+                               id="question-requiredErrorText">
+                    </div>
+
+                    <!-- question-visible -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].visible"
+                               name="question-visible"
+                               id="question-visible"
+                               aria-describedby="question-visibleHelp">
+                        <label class="custom-control-label"
+                               for="question-visible"
+                               i18n>Sichtbar</label>
+                        <small id="question-visibleHelp"
+                               class="form-text text-muted"
+                               i18n>Diese Option stellt ein, ob das Feld standartmäßig sichtbar ist.</small>
+                    </div>
+
+                    <!-- question-readOnly -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].readOnly"
+                               name="question-readOnly"
+                               id="question-readOnly"
+                               aria-describedby="question-readOnlyHelp">
+                        <label class="custom-control-label"
+                               for="question-readOnly"
+                               i18n>Deaktiviert</label>
+                        <small id="question-readOnlyHelp"
+                               class="form-text text-muted"
+                               i18n>Diese Option stellt ein, ob das Feld standartmäßig ausfüllbar ist.</small>
+                    </div>
+
+                    <!-- question-hideNumber -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].hideNumber"
+                               name="question-hideNumber"
+                               id="question-hideNumber">
+                        <label class="custom-control-label"
+                               for="question-hideNumber"
+                               i18n>Fragennummer verstecken</label>
+                    </div>
+
+                    <button type="submit"
+                            class="d-none"
+                            aria-hidden="true"
+                            disabled
+                            i18n>Absenden</button>
+                </form>
+            </accordion-group>
+
+            <!-- default value -->
+            <accordion-group i18n-heading
+                             heading="Standardwert"
+                             class="mb-1 mb-lg-3">
+                <span i18n>Standardwert</span>
+                <power-forms-editor-value [question]="storage.model.pages[page].elements[question]"
+                                          [(value)]="storage.model.pages[page].elements[question].defaultValue">
+                </power-forms-editor-value>
+
+                <hr>
+                <span i18n>Korrekte Antwort (Quiz)</span>
+                <power-forms-editor-value [question]="storage.model.pages[page].elements[question]"
+                                          [(value)]="storage.model.pages[page].elements[question].correctAnswer">
+                </power-forms-editor-value>
+            </accordion-group>
+
+            <!-- conditions -->
+            <accordion-group i18n-heading
+                             heading="Bedingungen"
+                             class="mb-1 mb-lg-3">
+                <span i18n>Sichtbarkeitsbedingung</span>
+                <br>
+                <power-forms-editor-conditions [(data)]="storage.model.pages[page].elements[question].visibleIf">
+                </power-forms-editor-conditions>
+
+                <hr>
+                <span i18n>Aktivierungsbedingung</span>
+                <br>
+                <power-forms-editor-conditions [(data)]="storage.model.pages[page].elements[question].enableIf">
+                </power-forms-editor-conditions>
+
+                <hr>
+                <span i18n>Pflichtbedingung</span>
+                <br>
+                <power-forms-editor-conditions [(data)]="storage.model.pages[page].elements[question].requiredIf">
+                </power-forms-editor-conditions>
+            </accordion-group>
+
+            <!-- validators -->
+            <accordion-group i18n-heading
+                             heading="Validatoren"
+                             class="mb-1 mb-lg-3">
+                Validatoren
+                <br>
+                <power-forms-editor-validators [(data)]="storage.model.pages[page].elements[question]">
+                </power-forms-editor-validators>
+
+            </accordion-group>
+        </accordion>
+    </div>
+</power-modal>

@@ -12,9 +12,10 @@ import { HistoryService } from './history.service';
 import { StorageService } from './storage.service';
 import { EditorComponent } from './editor.component';
 import { FormularSettingsComponent } from './formular-settings/formular-settings.component';
-import { ModalElementComponent } from './modal-element/modal-element.component';
+import { QuestionSettingsComponent } from './question-settings/question-settings.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { ValidatorsComponent } from './validators/validators.component';
+import { ValueComponent } from './value/value.component';
 import { SvgPipe } from './svg.pipe';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
@@ -24,9 +25,10 @@ import { SharedModule } from '@app/shared/shared.module';
     declarations: [
         EditorComponent,
         FormularSettingsComponent,
-        ModalElementComponent,
+        QuestionSettingsComponent,
         ConditionsComponent,
         ValidatorsComponent,
+        ValueComponent,
         SvgPipe
     ],
     imports: [

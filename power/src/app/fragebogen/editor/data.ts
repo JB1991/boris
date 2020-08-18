@@ -2,10 +2,15 @@
  * default template for new formulars
  */
 export const defaultTemplate = {
-    title: 'Neues Formular',
+    title: {
+        default: 'Neues Formular'
+    },
+    description: {},
     showTitle: true,
     locale: 'de',
     showQuestionNumbers: 'on',
+    questionsOrder: 'initial',
+    completedHtml: {},
     logoPosition: 'left',
     logoFit: 'contain',
     firstPageIsStarted: true,
@@ -13,47 +18,50 @@ export const defaultTemplate = {
     showPreviewBeforeComplete: 'showAllQuestions',
     showProgressBar: 'bottom',
     progressBarType: 'pages',
-    loadingHtml: 'Das Formular wird geladen...',
-    completedHtml: 'Vielen Dank für das Abschließen von diesem Formular.',
     showTimerPanel: 'none',
     showTimerPanelMode: 'all',
     pages: [
         {
             elements: [
                 {
-                    title: 'Datenschutzerklärung',
-                    description: 'Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de]\
-(https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).',
+                    title: {
+                        default: 'Datenschutzerklärung'
+                    },
+                    description: {
+                        default: 'Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).'
+                    },
                     name: 'e1',
                     type: 'checkbox',
                     valueName: '',
                     choices: [
                         {
                             value: '1',
-                            text: 'Ich habe diese gelesen und akzeptiert'
+                            text: {
+                                default: 'Ich habe diese gelesen und akzeptiert'
+                            }
                         }
                     ],
-                    requiredErrorText: 'Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.',
+                    requiredErrorText: {
+                        default: 'Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.'
+                    },
                     colCount: 1,
+                    visible: true,
                     isRequired: true
                 }
             ],
-            title: 'Startseite',
-            description: 'Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.',
+            title: {
+                default: 'Startseite'
+            },
+            description: {
+                default: 'Zum Ausfüllen dieses Online-Formulars müssen Sie zuerst einige Bedingungen akzeptieren.'
+            },
             questionsOrder: 'default',
+            visible: true,
             name: 'p1'
         }
     ],
     calculatedValues: []
 };
-
-/**
- * DatabaseMap holds infos for mapping formular elements to database columns
- */
-export const DatabaseMap = [
-    { text: 'Baujahr', dbvalue: 'baujahr', dbtype: 'int', commentvalue: '', commenttype: '' },
-    { text: 'Gebäudeart', dbvalue: 'gebaeudeart', dbtype: 'string', commentvalue: '', commenttype: '' },
-];
 
 /**
  * List of all formular field with icons and template
@@ -66,12 +74,15 @@ export const FormularFields = [
     <path d="M12.258 3H3.747l-.082 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.43.013c1.935.062 2.434.301 2.694 1.846h.479L12.258 3z"/>\
   </svg>',
         template: {
-            title: 'Titel der Frage',
+            title: {},
+            description: {},
             name: '',
             type: 'text',
             valueName: '',
             inputType: 'text',
-            isRequired: true
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
         }
     }, {
         type: 'comment',
@@ -81,12 +92,15 @@ export const FormularFields = [
     <path fill-rule="evenodd" d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>\
   </svg>',
         template: {
-            title: 'Titel der Frage',
+            title: {},
+            description: {},
             name: '',
             type: 'comment',
             valueName: '',
             rows: 4,
-            isRequired: true
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
         }
     }, {
         type: 'radiogroup',
@@ -96,21 +110,28 @@ export const FormularFields = [
     <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>\
   </svg>',
         template: {
-            title: 'Titel der Frage',
+            title: {},
+            description: {},
             name: '',
             type: 'radiogroup',
             valueName: '',
             choices: [
                 {
                     value: '1',
-                    text: 'Ja'
+                    text: {
+                        default: 'Ja'
+                    }
                 }, {
                     value: '0',
-                    text: 'Nein'
+                    text: {
+                        default: 'Nein'
+                    }
                 }
             ],
             colCount: 1,
-            isRequired: true
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
         }
     }, {
         type: 'checkbox',
@@ -120,21 +141,28 @@ export const FormularFields = [
     <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 0 0 3 14.5h10a1.5 1.5 0 0 0 1.5-1.5V8a.5.5 0 0 0-1 0v5a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 0 0-1H3A1.5 1.5 0 0 0 1.5 3v10z"/>\
   </svg>',
         template: {
-            title: 'Titel der Frage',
+            title: {},
+            description: {},
             name: '',
             type: 'checkbox',
             valueName: '',
             choices: [
                 {
                     value: '1',
-                    text: 'Ja'
+                    text: {
+                        default: 'Ja'
+                    }
                 }, {
                     value: '0',
-                    text: 'Nein'
+                    text: {
+                        default: 'Nein'
+                    }
                 }
             ],
             colCount: 1,
-            isRequired: true
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
         }
     }, {
         type: 'imagepicker',
@@ -145,25 +173,32 @@ export const FormularFields = [
     <path fill-rule="evenodd" d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM4 2h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1v1a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2h1a1 1 0 0 1 1-1z"/>\
   </svg>',
         template: {
-            title: 'Titel der Frage',
+            title: {},
+            description: {},
             name: '',
             type: 'imagepicker',
             valueName: '',
             choices: [
                 {
                     value: 'oldenburg-cloppenburg',
-                    text: 'RD Oldenburg-Cloppenburg',
+                    text: {
+                        default: 'RD Oldenburg-Cloppenburg'
+                    },
                     imageLink: 'https://www.lgln.niedersachsen.de/assets/image/232/123847'
                 }, {
                     value: 'otterndorf',
-                    text: 'RD Otterndorf',
+                    text: {
+                        default: 'RD Otterndorf'
+                    },
                     imageLink: 'https://www.lgln.niedersachsen.de/assets/image/184052'
                 }
             ],
             colCount: 0,
             showLabel: true,
             imageFit: 'fill',
-            isRequired: true
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
         }
     }, {
         type: 'rating',
@@ -172,15 +207,22 @@ export const FormularFields = [
     <path fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z"/>\
   </svg>',
         template: {
-            title: 'Titel der Frage',
+            title: {},
+            description: {},
             name: '',
             type: 'rating',
             valueName: '',
             rateMax: 5,
-            maxRateDescription: 'Sehr gut',
+            maxRateDescription: {
+                default: 'Sehr gut'
+            },
             rateMin: 1,
-            minRateDescription: 'Sehr schlecht',
-            isRequired: true
+            minRateDescription: {
+                default: 'Sehr schlecht'
+            },
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
         }
     }, {
         type: 'nouislider',
@@ -190,14 +232,17 @@ export const FormularFields = [
     <path fill-rule="evenodd" d="M9.5 4H0V3h9.5v1zM16 4h-2.5V3H16v1zM9.5 14H0v-1h9.5v1zm6.5 0h-2.5v-1H16v1zM6.5 9H16V8H6.5v1zM0 9h2.5V8H0v1z"/>\
   </svg>',
         template: {
-            title: 'Titel der Frage',
+            title: {},
+            description: {},
             name: '',
             type: 'nouislider',
             valueName: '',
             step: 1,
             rangeMin: 0,
             rangeMax: 1000,
-            isRequired: true
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
         }
     }, {
         type: 'matrix',
@@ -206,36 +251,51 @@ export const FormularFields = [
     <path fill-rule="evenodd" d="M4 4H2v2h2V4zm1 7V9a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 5V9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 4H7v2h2V4zm5 0h-2v2h2V4zM4 9H2v2h2V9zm5 0H7v2h2V9zm5 0h-2v2h2V9zm-3-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2z"/>\
   </svg>',
         template: {
-            title: 'Titel der Frage',
+            title: {},
+            description: {},
             name: '',
             type: 'matrix',
             valueName: '',
             columns: [
                 {
                     value: 0,
-                    text: 'Sehr schlecht'
+                    text: {
+                        default: 'Sehr schlecht'
+                    }
                 }, {
                     value: 1,
-                    text: 'Schlecht'
+                    text: {
+                        default: 'Schlecht'
+                    }
                 }, {
                     value: 2,
-                    text: 'Neutral'
+                    text: {
+                        default: 'Neutral'
+                    }
                 }, {
                     value: 3,
-                    text: 'Gut'
+                    text: {
+                        default: 'Gut'
+                    }
                 }, {
                     value: 4,
-                    text: 'Sehr gut'
+                    text: {
+                        default: 'Sehr gut'
+                    }
                 }
             ],
             rows: [
                 {
                     value: 'q1',
-                    text: 'Titel der Frage'
+                    text: {
+                        default: 'Titel der Frage'
+                    }
                 }
             ],
             isAllRowRequired: true,
-            isRequired: true
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
         }
     }
 ];

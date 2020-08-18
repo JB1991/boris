@@ -459,7 +459,7 @@
                                     class="btn btn-light btn-sm mr-2"
                                     i18n-title
                                     title="Bearbeiten"
-                                    (click)="modalelement.Open(i, storage.selectedPageID)">
+                                    (click)="questionsettings.open(i, storage.selectedPageID)">
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
@@ -512,7 +512,7 @@
 <power-forms-editor-formular-settings #formularsettings></power-forms-editor-formular-settings>
 
 <!-- configure element modal -->
-<power-formulars-editor-modal-element #modalelement></power-formulars-editor-modal-element>
+<power-forms-editor-question-settings #questionsettings></power-forms-editor-question-settings>
 
 <!-- preview -->
 <power-forms-surveyjs-preview [form]="storage.model"

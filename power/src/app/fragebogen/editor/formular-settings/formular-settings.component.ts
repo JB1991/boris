@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
 
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalComponent } from '@app/shared/modal/modal.component';
 
 @Component({
@@ -37,10 +37,11 @@ export class FormularSettingsComponent implements OnInit {
      */
     public close() {
         // changed something
-        if (this.copy !== JSON.stringify(this.storage.model)) {
+        if (this.copy && this.copy !== JSON.stringify(this.storage.model)) {
             this.history.makeHistory(JSON.parse(this.copy));
             this.storage.setUnsavedChanges(true);
         }
+        this.copy = '';
         this.storage.setAutoSaveEnabled(true);
     }
 

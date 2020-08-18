@@ -1,0 +1,9 @@
+<!-- element preview -->
+<div *ngIf="question">
+    <power-forms-surveyjs-wrapper [model]="question | preview"
+                                  [css]="css_style"
+                                  [showInvisible]="true"
+                                  [data]="data"
+                                  (changes)="updateValue($event)">
+    </power-forms-surveyjs-wrapper>
+</div>

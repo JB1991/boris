@@ -93,7 +93,7 @@ export class NewformComponent implements OnInit {
         if (!this.title) {
             throw new Error('title is required');
         }
-        template.title = this.title;
+        template.title.default = this.title;
 
         this.storage.createForm(template, this.tagList.join(',')).subscribe((data) => {
             // check for error

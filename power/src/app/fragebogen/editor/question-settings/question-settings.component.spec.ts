@@ -5,16 +5,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
-import { FormularSettingsComponent } from './formular-settings.component';
+import { QuestionSettingsComponent } from './question-settings.component';
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
 import { ConditionsComponent } from '../conditions/conditions.component';
+import { ValidatorsComponent } from '../validators/validators.component';
+import { ValueComponent } from '../value/value.component';
 
 import { SharedModule } from '@app/shared/shared.module';
 
-describe('Fragebogen.Editor.FormularSettingsComponent', () => {
-    let component: FormularSettingsComponent;
-    let fixture: ComponentFixture<FormularSettingsComponent>;
+describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
+    let component: QuestionSettingsComponent;
+    let fixture: ComponentFixture<QuestionSettingsComponent>;
+
+    const formSample = require('../../../../assets/fragebogen/form-content.json');
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -31,12 +35,14 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
                 HistoryService
             ],
             declarations: [
-                FormularSettingsComponent,
-                ConditionsComponent
+                QuestionSettingsComponent,
+                ConditionsComponent,
+                ValidatorsComponent,
+                ValueComponent
             ]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(FormularSettingsComponent);
+        fixture = TestBed.createComponent(QuestionSettingsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
 
@@ -49,50 +55,36 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
     });
 
     it('should open modal', () => {
-        component.storage.model = { pages: [0, 1, 2] };
-        component.open();
+        component.storage.model = formSample;
+        component.open(0, 0);
         expect(component.modal.isVisible()).toBeTrue();
         component.modal.close();
         expect(component.modal.isVisible()).toBeFalse();
     });
 
-    it('should move pages', () => {
-        component.storage.model = { pages: [0, 1, 2] };
-        component.open();
-
-        // move up
-        component.moveUp(1);
-        expect(component.storage.model.pages).toEqual([1, 0, 2]);
-
-        // move down
-        component.moveDown(1);
-        expect(component.storage.model.pages).toEqual([1, 2, 0]);
-        component.close();
+    it('should update model', () => {
+        component.storage.model = formSample;
+        component.open(0, 0);
+        expect(component.storage.getUnsavedChanges()).toBeFalse();
+        component.storage.model.title.default = 'xxx';
+        component.modal.close();
+        expect(component.storage.getUnsavedChanges()).toBeTrue();
     });
 
-    it('should not move pages', () => {
-        component.storage.model = { pages: [0, 1, 2] };
+    it('should crash open', () => {
+        component.storage.model = formSample;
 
-        // move up
-        component.moveUp(0);
-        expect(component.storage.model.pages).toEqual([0, 1, 2]);
-
-        // move down
-        component.moveDown(2);
-        expect(component.storage.model.pages).toEqual([0, 1, 2]);
-
-        // test out of bounds
         expect(() => {
-            component.moveUp(-1);
+            component.open(0, -1);
         }).toThrowError('page is invalid');
         expect(() => {
-            component.moveUp(3);
+            component.open(0, 1);
         }).toThrowError('page is invalid');
         expect(() => {
-            component.moveDown(-1);
-        }).toThrowError('page is invalid');
+            component.open(-1, 0);
+        }).toThrowError('question is invalid');
         expect(() => {
-            component.moveDown(3);
-        }).toThrowError('page is invalid');
+            component.open(2, 0);
+        }).toThrowError('question is invalid');
     });
 });

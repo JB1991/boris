@@ -3,7 +3,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChange
 import { StorageService } from '../storage.service';
 
 @Component({
-    selector: 'power-formulars-editor-conditions',
+    selector: 'power-forms-editor-conditions',
     templateUrl: './conditions.component.html',
     styleUrls: ['./conditions.component.css']
 })
