@@ -10,6 +10,7 @@ describe('Fragebogen.Fillout.StorageService', () => {
 
     const accessSample = require('../../../assets/fragebogen/access.json');
     const formSample = require('../../../assets/fragebogen/form-sample.json');
+    const taskSample = require('../../../assets/fragebogen/public-task-sample.json');
     const submitSample = require('../../../assets/fragebogen/form-submit.json');
 
     beforeEach(() => {
@@ -39,6 +40,11 @@ describe('Fragebogen.Fillout.StorageService', () => {
             service.getAccess('');
         }).toThrowError('pin is required');
     });
+
+    it('should create task', () => {
+        service.createTask('123').subscribe(data => expect(data).toEqual(taskSample))
+        answerHTTPRequest(environment.formAPI + 'public/forms/123/tasks', 'POST', taskSample);
+    })
 
     it('should load form', () => {
         service.loadForm('123').subscribe(data => expect(data).toEqual(formSample));

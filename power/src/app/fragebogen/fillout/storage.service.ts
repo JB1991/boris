@@ -49,6 +49,16 @@ export class StorageService {
         return this.httpClient.get(url);
     }
 
+    public createTask(id: string): Observable<Object> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+        // load data from server
+        const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id) + '/tasks';
+        return this.httpClient.post(url, {});
+    }
+
     /**
      * Loads form by id.
      * @param id Form id

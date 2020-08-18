@@ -19,6 +19,13 @@ const routes: Routes = [
             PendingChangesGuard
         ]
     },
+    {
+        path: 'fillout/form/:id',
+        component: FilloutComponent,
+        canDeactivate: [
+            PendingChangesGuard
+        ]
+    }
 ];
 
 @NgModule({

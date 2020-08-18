@@ -34,8 +34,12 @@ export class FilloutComponent implements OnInit {
             // load data
             this.loadData(pin);
         } else {
-            // missing pin
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            const id = this.route.snapshot.paramMap.get('id');
+            if (id) {
+                this.createTask(id)
+            } else {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
         }
     }
 
@@ -45,6 +49,67 @@ export class FilloutComponent implements OnInit {
             return true;
         }
         return !this.storage.getUnsavedChanges();
+    }
+
+    public createTask(id: string) {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+
+        this.storage.createTask(id).subscribe((data) => {
+            // check for error
+            if (!data || data['error'] || !data['data']) {
+                const alertText = (data && data['error'] ? data['error'] : id);
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+                this.loadingscreen.setVisible(false);
+                this.router.navigate(['/forms'], { replaceUrl: true });
+                console.log('Could not load form: ' + alertText);
+                return;
+            }
+            // store task data
+            this.storage.task = data['data'];
+
+            // load form by id
+            this.storage.loadForm(this.storage.task['form-id']).subscribe((data2) => {
+                // check for error
+                if (!data2 || data2['error'] || !data2['data']) {
+                    const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.task['form-id']);
+                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+                    this.loadingscreen.setVisible(false);
+                    this.router.navigate(['/forms'], { replaceUrl: true });
+                    console.log('Could not load form: ' + alertText);
+                    return;
+                }
+
+                // store form
+                this.storage.form = data2['data'];
+                if (this.storage.task.content) {
+                    this.storage.form.content.data = this.storage.task.content;
+                }
+
+                // display form
+                this.loadingscreen.setVisible(false);
+            }, (error2: Error) => {
+                // failed to load form
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
+                this.loadingscreen.setVisible(false);
+
+                this.router.navigate(['/forms'], { replaceUrl: true });
+                console.log(error2);
+                return;
+            });
+        }, (error: Error) => {
+            // failed to load task
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.loadingscreen.setVisible(false);
+
+            this.router.navigate(['/forms'], { replaceUrl: true });
+            console.log(error);
+            return;
+        })
     }
 
     /**
