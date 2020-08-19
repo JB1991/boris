@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -6,13 +6,10 @@ import { Title } from '@angular/platform-browser';
     templateUrl: './start.component.html',
     styleUrls: ['./start.component.scss']
 })
-export class StartComponent implements OnInit {
+export class StartComponent {
 
     constructor(public title: Title) {
         this.title.setTitle($localize`Portal für Wertermittlung Niedersachsen`);
-    }
-
-    ngOnInit() {
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

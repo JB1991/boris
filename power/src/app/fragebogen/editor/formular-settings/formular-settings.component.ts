@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { StorageService } from '../storage.service';
@@ -12,16 +12,13 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
     templateUrl: './formular-settings.component.html',
     styleUrls: ['./formular-settings.component.scss']
 })
-export class FormularSettingsComponent implements OnInit {
+export class FormularSettingsComponent {
     @ViewChild('formsettingsmodal') public modal: ModalComponent;
     public copy = '';
 
     constructor(public alerts: AlertsService,
         public storage: StorageService,
         public history: HistoryService) { }
-
-    ngOnInit(): void {
-    }
 
     /**
      * Opens modal

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { environment } from '@env/environment';
 
 import { WrapperComponent } from '../wrapper.component';
@@ -10,7 +10,7 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
     templateUrl: './preview.component.html',
     styleUrls: ['./preview.component.css']
 })
-export class PreviewComponent implements OnInit {
+export class PreviewComponent {
     @ViewChild('previewmodal') public modal: ModalComponent;
     @ViewChild('wrapper') public wrapper: WrapperComponent;
     @Input() public form: any;
@@ -21,11 +21,7 @@ export class PreviewComponent implements OnInit {
     public showInvisible = false;
     public isVisible = false;
 
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
+    constructor() { }
 
     /**
      * Opens full formular preview
