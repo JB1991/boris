@@ -185,7 +185,7 @@ export class DashboardComponent implements OnInit {
         input.click();
     }
     
-     * Triggered by the pagination event, when the user changes the page
+    /** Triggered by the pagination event, when the user changes the page
      * @param event Contains the page number and the number of items per page
      */
     public formsPageChanged(event: PageChangedEvent): void {
