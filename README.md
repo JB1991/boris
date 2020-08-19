@@ -54,10 +54,11 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    npm audit
    ```
 
-4. Linter ausführen (TypeScript und CSS)
+4. Linter ausführen (TypeScript, CSS/SCSS und HTML)
    ```
    npm run lint
    npm run lint:styles
+   npm run lint:html
    ```
 
 ## Coding Guideline
