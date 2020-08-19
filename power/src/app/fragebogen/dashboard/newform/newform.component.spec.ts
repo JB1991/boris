@@ -1,14 +1,15 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { environment } from '@env/environment';
 
 import { NewformComponent } from './newform.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { environment } from '@env/environment';
-import { Component } from '@angular/core';
+import { TagboxComponent } from '@app/shared/tagbox/tagbox.component';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
@@ -33,7 +34,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 AlertsService
             ],
             declarations: [
-                NewformComponent
+                NewformComponent,
+                TagboxComponent
             ]
         }).compileComponents();
 

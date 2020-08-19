@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
 import { environment } from '@env/environment';
 
 import { DashboardComponent } from './dashboard.component';
@@ -35,7 +35,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([
                     { path: 'forms', component: MockHomeComponent }
-                ])
+                ]),
+                PaginationModule.forRoot()
             ],
             providers: [
                 Title,
@@ -207,7 +208,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should change forms page', () => {
         answerInitialRequests();
-        const event: PageChangedEvent = {page: 2, itemsPerPage: 5};
+        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
         component.formsPageChanged(event);
         answerHTTPRequest(environment.formAPI +
             'intern/forms?fields=created,id,owners,status,tags,title&limit=5&offset=5&sort=title',
@@ -218,7 +219,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should change tasks page', () => {
         answerInitialRequests();
-        const event: PageChangedEvent = {page: 2, itemsPerPage: 5};
+        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
         component.tasksPageChanged(event);
         answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=5&offset=5',
             'GET', emptyResponse);

@@ -66,7 +66,9 @@ describe('Fragebogen.Editor.AnswersComponent', () => {
 
     it('should upload image', () => {
         component.data = [{ imageLink: '' }];
+        spyOn(document, 'createElement').and.callThrough();
         component.uploadImage(0);
+        expect(document.createElement).toHaveBeenCalled();
     });
 
     it('should throw error', () => {

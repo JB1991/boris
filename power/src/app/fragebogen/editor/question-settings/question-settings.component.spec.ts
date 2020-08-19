@@ -13,6 +13,7 @@ import { ValidatorsComponent } from '../validators/validators.component';
 import { ValueComponent } from '../value/value.component';
 
 import { SharedModule } from '@app/shared/shared.module';
+import { AnswersComponent } from '../answers/answers.component';
 
 describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     let component: QuestionSettingsComponent;
@@ -38,7 +39,8 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
                 QuestionSettingsComponent,
                 ConditionsComponent,
                 ValidatorsComponent,
-                ValueComponent
+                ValueComponent,
+                AnswersComponent
             ]
         }).compileComponents();
 
