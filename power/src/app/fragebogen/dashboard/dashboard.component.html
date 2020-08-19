@@ -71,16 +71,18 @@
 
         <div class="card-footer">
             <!-- Tasks Pagination -->
-            <pagination [boundaryLinks]="true"
-                        [itemsPerPage]="storage.tasksPerPage"
-                        [maxSize]="10"
-                        [totalItems]="storage.tasksCount"
-                        (pageChanged)="tasksPageChanged($event)"
-                        previousText="&lsaquo;"
-                        nextText="&rsaquo;"
-                        firstText="&laquo;"
-                        lastText="&raquo;">
-            </pagination>
+            <div class="navigation">
+                <pagination [boundaryLinks]="true"
+                            [itemsPerPage]="storage.tasksPerPage"
+                            [maxSize]="10"
+                            [totalItems]="storage.tasksCount"
+                            (pageChanged)="tasksPageChanged($event)"
+                            previousText="&lsaquo;"
+                            nextText="&rsaquo;"
+                            firstText="&laquo;"
+                            lastText="&raquo;">
+                </pagination>
+            </div>
         </div>
     </div>
 
@@ -195,16 +197,18 @@
             </button>
 
             <!-- Forms Pagination -->
-            <pagination [boundaryLinks]="true"
-                        [itemsPerPage]="storage.formsPerPage"
-                        [maxSize]="10"
-                        [totalItems]="storage.formsCount"
-                        (pageChanged)="formsPageChanged($event)"
-                        previousText="&lsaquo;"
-                        nextText="&rsaquo;"
-                        firstText="&laquo;"
-                        lastText="&raquo;">
-            </pagination>
+            <div class="navigation">
+                <pagination [boundaryLinks]="true"
+                            [itemsPerPage]="storage.formsPerPage"
+                            [maxSize]="10"
+                            [totalItems]="storage.formsCount"
+                            (pageChanged)="formsPageChanged($event)"
+                            previousText="&lsaquo;"
+                            nextText="&rsaquo;"
+                            firstText="&laquo;"
+                            lastText="&raquo;">
+                </pagination>
+            </div>
 
         </div>
     </div>
