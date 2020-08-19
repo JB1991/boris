@@ -50,6 +50,21 @@ export class StorageService {
     }
 
     /**
+     * Submit Task.
+     * @param id Form id
+     * @param content Form content
+     */
+    public submitTask(id: string, content: any): Observable<Object> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+        // load data from server
+        const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id) + '/tasks?submit=true';
+        return this.httpClient.post(url, content);
+    }
+
+    /**
      * Loads form by id.
      * @param id Form id
      */
