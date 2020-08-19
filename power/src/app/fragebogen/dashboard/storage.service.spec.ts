@@ -43,7 +43,7 @@ describe('Fragebogen.Dashboard.StorageService', () => {
 
     it('loadTasksList() should load a list of tasks', () => {
         service.loadTasksList().subscribe(data => expect(data).toEqual(taskList));
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
+        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=9007199254740991&offset=0', 'GET', taskList);
     });
 
     it('loadForm() should load a form by id', () => {

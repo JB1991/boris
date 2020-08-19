@@ -20,6 +20,8 @@ export class StorageService {
 
     public formsCount = 0;
     public formsPerPage = 5;
+    public tasksCount = 0;
+    public tasksPerPage = 5;
 
     constructor(private httpClient: HttpClient,
                 public auth: AuthService) {
@@ -46,10 +48,10 @@ export class StorageService {
     /**
      * Loads list of tasks
      */
-    public loadTasksList(): Observable<Object> {
+    public loadTasksList(limit = Number.MAX_SAFE_INTEGER, offset = 0): Observable<Object> {
         // Load data from server
         const url = environment.formAPI
-            + 'intern/tasks?status=submitted&sort=submitted';
+            + 'intern/tasks?status=submitted&sort=submitted&limit=' + limit + '&offset=' + offset;
         return this.httpClient.get(url, this.auth.getHeaders());
     }
 

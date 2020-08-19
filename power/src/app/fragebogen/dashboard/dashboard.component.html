@@ -68,6 +68,20 @@
                   *ngIf="!storage.tasksList.length"
                   i18n>Keine Antworten vorhanden</span>
         </div>
+
+        <div class="card-footer">
+            <!-- Tasks Pagination -->
+            <pagination [boundaryLinks]="true"
+                        [itemsPerPage]="storage.tasksPerPage"
+                        [maxSize]="10"
+                        [totalItems]="storage.tasksCount"
+                        (pageChanged)="tasksPageChanged($event)"
+                        previousText="&lsaquo;"
+                        nextText="&rsaquo;"
+                        firstText="&laquo;"
+                        lastText="&raquo;">
+            </pagination>
+        </div>
     </div>
 
     <!-- forms list -->
@@ -180,7 +194,7 @@
                       i18n>&nbsp;Neues Formular</span>
             </button>
 
-            <!-- Pagination -->
+            <!-- Forms Pagination -->
             <pagination [boundaryLinks]="true"
                         [itemsPerPage]="storage.formsPerPage"
                         [maxSize]="10"

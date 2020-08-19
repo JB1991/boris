@@ -24,7 +24,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     const formsURL = environment.formAPI
         + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
-    const tasksURL = environment.formAPI + 'intern/tasks?status=submitted&sort=submitted';
+    const tasksURL = environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=9007199254740991&offset=0';
     const tagsURL = environment.formAPI + 'intern/tags';
 
     beforeEach(async(() => {

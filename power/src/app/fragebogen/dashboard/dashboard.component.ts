@@ -58,6 +58,9 @@ export class DashboardComponent implements OnInit {
 
                 // save data
                 this.storage.tasksList = data2['data'];
+                this.storage.tasksCount = this.storage.tasksList.length;
+                this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
+
                 this.loadingscreen.setVisible(false);
             }, (error2: Error) => {
                 // failed to load tags
@@ -148,6 +151,16 @@ export class DashboardComponent implements OnInit {
     }
 
     /**
+     * Triggered by the pagination event, when the user changes the page
+     * @param event Contains the page number and the number of items per page
+     */
+    public tasksPageChanged(event: PageChangedEvent): void {
+        const limit = event.itemsPerPage;
+        const offset = (event.page - 1) * event.itemsPerPage;
+        this.loadTasksFromAPI(limit, offset);
+    }
+
+    /**
      * Load the list of forms from the Form-API
      * @param limit The maximum number of forms to be loaded
      * @param offset The number of the first form to be loaded
@@ -171,6 +184,38 @@ export class DashboardComponent implements OnInit {
             // failed to load forms
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
             this.loadingscreen.setVisible(false);
+            this.router.navigate(['/forms'], { replaceUrl: true });
+            console.log(error);
+            return;
+        });
+    }
+
+    /**
+     * Load the list of tasks from the Form-API
+     * @param limit The maximum number of forms to be loaded
+     * @param offset The number of the first form to be loaded
+     */
+    private loadTasksFromAPI(limit?: number, offset?: number) {
+        this.storage.loadTasksList(limit, offset).subscribe((data) => {
+            // check for error
+            if (!data || data['error'] || !data['data']) {
+                const alertText = (data && data['error'] ? data['error'] : 'Tasks');
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+                this.loadingscreen.setVisible(false);
+                this.router.navigate(['/forms'], { replaceUrl: true });
+                console.log('Could not load tasks: ' + alertText);
+                return;
+            }
+
+            // save data
+            this.storage.tasksList = data['data'];
+            this.loadingscreen.setVisible(false);
+        }, (error: Error) => {
+            // failed to load tags
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.loadingscreen.setVisible(false);
+
             this.router.navigate(['/forms'], { replaceUrl: true });
             console.log(error);
             return;
