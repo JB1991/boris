@@ -210,11 +210,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('importForm() should allow uploading a file', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerInitialRequests();
 
         // Check the import button
         const button = debugElement.query(By.css('#button-import'));
