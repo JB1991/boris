@@ -16,6 +16,7 @@ export class QuestionSettingsComponent {
     public copy = '';
     public page: number = null;
     public question: number = null;
+    public showDefault = false;
 
     constructor(public alerts: AlertsService,
         public storage: StorageService,

@@ -1,121 +1,197 @@
-<div *ngFor="let item of data; index as i">
-    <div class="form-row">
-        <!-- value -->
-        <div class="form-group col-lg-4 mb-1 mb-lg-0">
-            <label for="answer-value-{{ i }}"
-                   class="sr-only"
-                   i18n>Datenwert</label>
-            <input type="text"
-                   class="form-control"
-                   [(ngModel)]="item.value"
-                   [class.is-invalid]="!item.value && item.value !== 0"
-                   id="answer-value-{{ i }}"
-                   name="answer-value-{{ i }}"
-                   i18n-placeholder
-                   placeholder="Datenwert"
-                   maxlength="200"
-                   required>
+<form #answersForm="ngForm"
+      i18n-aria-label
+      aria-label="Antworten konfigurieren"
+      (change)="changed()"
+      onsubmit="return false;">
+    <div *ngFor="let item of data; index as i">
+
+        <div class="form-row">
+            <!-- value -->
+            <div class="form-group col-lg-4 mb-1 mb-lg-0">
+                <label for="answer-value-{{ i }}"
+                       class="sr-only"
+                       i18n>Datenwert</label>
+                <input type="text"
+                       class="form-control"
+                       [(ngModel)]="item.value"
+                       [class.is-invalid]="!item.value && item.value !== 0"
+                       id="answer-value-{{ i }}"
+                       name="answer-value-{{ i }}"
+                       i18n-placeholder
+                       placeholder="Datenwert"
+                       maxlength="200"
+                       required>
+            </div>
+
+            <!-- text -->
+            <div class="form-group col-lg-5 mb-1 mb-lg-0">
+                <label for="answer-text-{{ i }}"
+                       class="sr-only"
+                       i18n>Anzeigetext</label>
+                <input type="text"
+                       class="form-control m-0"
+                       [(ngModel)]="item.text.default"
+                       id="answer-text-{{ i }}"
+                       name="answer-text-{{ i }}"
+                       i18n-placeholder
+                       placeholder="Anzeigetext"
+                       maxlength="200">
+            </div>
+
+            <!-- buttons -->
+            <div class="col-lg-3">
+                <button type="button"
+                        class="btn btn-light mr-2"
+                        i18n-title
+                        title="Nach oben verschieben"
+                        (click)="moveUp(i)"
+                        [disabled]="i === 0">
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-caret-up align-baseline"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
+                    </svg>
+                    <span class="sr-only"
+                          i18n>Nach oben verschieben</span>
+                </button>
+
+                <button type="button"
+                        class="btn btn-light mr-2"
+                        i18n-title
+                        title="Nach unten verschieben"
+                        (click)="moveDown(i)"
+                        [disabled]="i === data.length - 1">
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-caret-down align-baseline"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                    </svg>
+                    <span class="sr-only"
+                          i18n>Nach unten verschieben</span>
+                </button>
+
+                <button type="button"
+                        class="btn btn-light text-primary mr-2"
+                        i18n-title
+                        title="Sichtbarkeitsbedingung"
+                        disabled>
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-eye-fill"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                        <path fill-rule="evenodd"
+                              d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                    </svg>
+                    <span class="sr-only"
+                          i18n>Sichtbarkeitsbedingung</span>
+                </button>
+
+                <button type="button"
+                        class="btn btn-light text-danger"
+                        i18n-title
+                        title="Löschen"
+                        (click)="delAnswer(i)">
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-trash-fill align-baseline"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                    </svg>
+                    <span class="sr-only"
+                          i18n>Löschen</span>
+                </button>
+            </div>
+
+            <div class="form-group col-10 mb-1 mb-lg-0 mt-1"
+                 *ngIf="hasImg">
+                <label for="answer-image-{{ i }}"
+                       class="sr-only">Bild URL*</label>
+                <input type="url"
+                       class="form-control"
+                       [(ngModel)]="item.imageLink"
+                       [class.is-invalid]="!item.imageLink"
+                       *ngIf="!item.imageLink.startsWith('data:image')"
+                       id="answer-image-{{ i }}"
+                       name="answer-image-{{ i }}"
+                       placeholder="https://..."
+                       required>
+                <div *ngIf="item.imageLink.startsWith('data:image')">
+                    <img class="img-thumbnail"
+                         style="height: 80px;"
+                         [src]="item.imageLink"
+                         [title]="(item.text.default ? item.text.default : item.value)"
+                         [alt]="(item.text.default ? item.text.default : item.value)">
+                    <button type="button"
+                            class="btn btn-danger btn-sm ml-2"
+                            i18n-title
+                            title="Bild löschen"
+                            (click)="delImage(i)">
+                        <svg width="1em"
+                             height="1em"
+                             viewBox="0 0 16 16"
+                             class="bi bi-trash-fill align-baseline"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg"
+                             aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                  d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                        </svg>
+                        <span class="sr-only"
+                              i18n>Bild löschen</span>
+                    </button>
+                </div>
+            </div>
+            <div class="form-group col-2 mb-1 mb-lg-0 mt-1 text-right"
+                 *ngIf="hasImg">
+                <button type="button"
+                        class="btn btn-primary"
+                        i18n-title
+                        title="Bild Hochladen"
+                        (click)="uploadImage(i)">
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-cloud-arrow-up align-baseline"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                        <path fill-rule="evenodd"
+                              d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2z" />
+                    </svg>
+                    <span class="sr-only"
+                          i18n>Bild Hochladen</span>
+                </button>
+            </div>
         </div>
-
-        <!-- text -->
-        <div class="form-group col-lg-5 mb-1 mb-lg-0">
-            <label for="answer-text-{{ i }}"
-                   class="sr-only"
-                   i18n>Anzeigetext</label>
-            <input type="text"
-                   class="form-control m-0"
-                   [(ngModel)]="item.text.default"
-                   id="answer-text-{{ i }}"
-                   name="answer-text-{{ i }}"
-                   i18n-placeholder
-                   placeholder="Anzeigetext"
-                   maxlength="200">
-        </div>
-
-        <!-- buttons -->
-        <div class="col-lg-3">
-            <button type="button"
-                    class="btn btn-light mr-2"
-                    i18n-title
-                    title="Nach oben verschieben"
-                    (click)="moveUp(i)"
-                    [disabled]="i === 0">
-                <svg width="1em"
-                     height="1em"
-                     viewBox="0 0 16 16"
-                     class="bi bi-caret-up align-baseline"
-                     fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true">
-                    <path fill-rule="evenodd"
-                          d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
-                </svg>
-                <span class="sr-only"
-                      i18n>Nach oben verschieben</span>
-            </button>
-
-            <button type="button"
-                    class="btn btn-light mr-2"
-                    i18n-title
-                    title="Nach unten verschieben"
-                    (click)="moveDown(i)"
-                    [disabled]="i === data.length - 1">
-                <svg width="1em"
-                     height="1em"
-                     viewBox="0 0 16 16"
-                     class="bi bi-caret-down align-baseline"
-                     fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true">
-                    <path fill-rule="evenodd"
-                          d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
-                </svg>
-                <span class="sr-only"
-                      i18n>Nach unten verschieben</span>
-            </button>
-
-            <button type="button"
-                    class="btn btn-light text-primary mr-2"
-                    i18n-title
-                    title="Sichtbarkeitsbedingung"
-                    disabled>
-                <svg width="1em"
-                     height="1em"
-                     viewBox="0 0 16 16"
-                     class="bi bi-eye-fill"
-                     fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true">
-                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                    <path fill-rule="evenodd"
-                          d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                </svg>
-                <span class="sr-only"
-                      i18n>Sichtbarkeitsbedingung</span>
-            </button>
-
-            <button type="button"
-                    class="btn btn-light text-danger"
-                    i18n-title
-                    title="Löschen"
-                    (click)="delAnswer(i)">
-                <svg width="1em"
-                     height="1em"
-                     viewBox="0 0 16 16"
-                     class="bi bi-trash-fill align-baseline"
-                     fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true">
-                    <path fill-rule="evenodd"
-                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
-                </svg>
-                <span class="sr-only"
-                      i18n>Löschen</span>
-            </button>
-        </div>
+        <hr>
     </div>
-    <hr>
-</div>
+
+    <button type="submit"
+            class="d-none"
+            aria-hidden="true"
+            disabled
+            i18n>Absenden</button>
+</form>
 
 <button type="button"
         class="btn btn-success btn-sm"
@@ -125,7 +201,7 @@
     <svg width="1em"
          height="1em"
          viewBox="0 0 16 16"
-         class="bi bi-plus"
+         class="bi bi-plus align-baseline"
          fill="currentColor"
          xmlns="http://www.w3.org/2000/svg"
          aria-hidden="true">
