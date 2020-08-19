@@ -83,7 +83,10 @@ describe('Fragebogen.Dashboard.StorageService', () => {
         expect(service.formsList).toEqual(formsListSample);
         service.resetService();
         expect(service.formsList).toEqual([]);
+        expect(service.tasksList).toEqual([]);
         expect(service.tagList).toEqual([]);
+        expect(service.formsCountTotal).toEqual(0);
+        expect(service.tasksCountTotal).toEqual(0);
     });
 
     /**

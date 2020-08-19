@@ -18,9 +18,9 @@ export class StorageService {
         { value: 'AKS', name: 'Automatische Kaufpreissammlung' }
     ];
 
-    public formsCount = 0;
+    public formsCountTotal = 0;
     public formsPerPage = 5;
-    public tasksCount = 0;
+    public tasksCountTotal = 0;
     public tasksPerPage = 5;
 
     constructor(private httpClient: HttpClient,
@@ -32,7 +32,10 @@ export class StorageService {
      */
     public resetService() {
         this.formsList = [];
+        this.tasksList = [];
         this.tagList = [];
+        this.formsCountTotal = 0;
+        this.tasksCountTotal = 0;
     }
 
     /**

@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
 
             // save data
             this.storage.formsList = data['data'];
-            this.storage.formsCount = this.storage.formsList.length;
+            this.storage.formsCountTotal = this.storage.formsList.length;
             this.storage.formsList = this.storage.formsList.slice(0, this.storage.formsPerPage);
 
             // load tasks from server
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
 
                 // save data
                 this.storage.tasksList = data2['data'];
-                this.storage.tasksCount = this.storage.tasksList.length;
+                this.storage.tasksCountTotal = this.storage.tasksList.length;
                 this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
 
                 this.loadingscreen.setVisible(false);
