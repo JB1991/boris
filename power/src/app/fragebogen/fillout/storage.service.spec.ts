@@ -41,11 +41,6 @@ describe('Fragebogen.Fillout.StorageService', () => {
         }).toThrowError('pin is required');
     });
 
-    it('should create task', () => {
-        service.createTask('123').subscribe(data => expect(data).toEqual(taskSample))
-        answerHTTPRequest(environment.formAPI + 'public/forms/123/tasks', 'POST', taskSample);
-    })
-
     it('should load form', () => {
         service.loadForm('123').subscribe(data => expect(data).toEqual(formSample));
         answerHTTPRequest(environment.formAPI + 'public/forms/123', 'GET', formSample);
@@ -68,6 +63,9 @@ describe('Fragebogen.Fillout.StorageService', () => {
         }).toThrowError('no data provided');
         expect(function () {
             service.saveResults('', submitSample);
+        }).toThrowError('id is required');
+        expect(function () {
+            service.submitTask(null, {});
         }).toThrowError('id is required');
     });
 

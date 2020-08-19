@@ -39,7 +39,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
                         snapshot: {
                             paramMap: {
                                 get: () => {
-                                    return '1234'
+                                    return '1234';
                                 }
                             }
                         }
@@ -83,67 +83,67 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
         answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
         spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function(arg) {
-            if (arg === 'id'){
+            if (arg === 'id') {
                 return 'bs8t7ifp9r1b3pt5qkr0';
             }
             return null;
         });
         component.ngOnInit();
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks', 'POST', taskSample);
         answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0', 'GET', formSample);
-        expect(component.storage.form.id).toEqual('bs63c2os5bcus8t5q0kg');
-        expect(component.storage.task.id).toEqual('bs8t7ifp9r1b3pt5qkr1');
     });
 
-    it('should not create public', () => {
+    it('should create public 2', () => {
         answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
         answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
         spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function(arg) {
-            if (arg === 'id'){
+            if (arg === 'id') {
                 return 'bs8t7ifp9r1b3pt5qkr0';
             }
             return null;
         });
-        component.storage.form = null;
-        component.ngOnInit();
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks', 'POST', taskSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0', 'GET', null);
-        expect(component.storage.form).toBeNull();
-        expect(component.storage.task.id).toEqual('bs8t7ifp9r1b3pt5qkr1');
+        component.submitTask('bs8t7ifp9r1b3pt5qkr0', taskSample.data.content);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true',
+            'POST', taskSample);
     });
 
     it('should not create public 2', () => {
         answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
         answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
         spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function(arg) {
-            if (arg === 'id'){
+            if (arg === 'id') {
                 return 'bs8t7ifp9r1b3pt5qkr0';
             }
             return null;
         });
-        component.storage.form = null;
-        component.ngOnInit();
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks', 'POST', taskSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0', 'GET', {error: true});
-        expect(component.storage.form).toBeNull();
-        expect(component.storage.task.id).toEqual('bs8t7ifp9r1b3pt5qkr1');
+        component.submitTask('bs8t7ifp9r1b3pt5qkr0', taskSample.data.content);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true', 'POST', null);
     });
 
     it('should not create public 3', () => {
         answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
         answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
         spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function(arg) {
-            if (arg === 'id'){
+            if (arg === 'id') {
                 return 'bs8t7ifp9r1b3pt5qkr0';
             }
             return null;
         });
-        component.storage.form = null;
-        component.ngOnInit();
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks', 'POST', taskSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0', 'GET', null, { status: 404, statusText: 'Not Found' });
-        expect(component.storage.form).toBeNull();
-        expect(component.storage.task.id).toEqual('bs8t7ifp9r1b3pt5qkr1');
+        component.submitTask('bs8t7ifp9r1b3pt5qkr0', { result: taskSample.data.content, options: { showDataSavingError: () => { } } });
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true', 'POST', {'error': 'failed'});
+    });
+
+    it('should not create public 4', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function(arg) {
+            if (arg === 'id') {
+                return 'bs8t7ifp9r1b3pt5qkr0';
+            }
+            return null;
+        });
+        component.submitTask('bs8t7ifp9r1b3pt5qkr0', { result: taskSample.data.content, options: { showDataSavingError: () => { } } });
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true',
+            'POST', {}, { status: 404, statusText: 'Not Found' });
     });
 
     it('should not create', () => {
@@ -301,8 +301,11 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             component.loadData('', '123');
         }).toThrowError('pin is required');
         expect(function () {
-            component.createTask('');
+            component.submitTask(null, {});
         }).toThrowError('id is required');
+        expect(function () {
+            component.submitTask('123', null);
+        }).toThrowError('no data provided');
         expect(function () {
             component.submit('');
         }).toThrowError('no data provided');

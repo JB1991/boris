@@ -1,12 +1,10 @@
 <!-- fillout page -->
-<main class="container p-1 p-lg-3"
-      id="content"
-      tabindex="-1"
-      *ngIf="storage.form">
-    <power-forms-surveyjs-wrapper [model]="storage.form.content"
-                                  [css]="storage.css_style"
-                                  (submitResult)="submit($event)"
-                                  (interimResult)="progress($event)"
-                                  (changes)="changed($event)">
+<main class="container p-1 p-lg-3" id="content" tabindex="-1" *ngIf="storage.form">
+    <power-forms-surveyjs-wrapper *ngIf="storage.form.access != 'public'" [model]="storage.form.content"
+        [css]="storage.css_style" (submitResult)="submit($event)" (interimResult)="progress($event)"
+        (changes)="changed($event)">
+    </power-forms-surveyjs-wrapper>
+    <power-forms-surveyjs-wrapper *ngIf="storage.form.access == 'public'" [model]="storage.form.content"
+        [css]="storage.css_style" (submitResult)="submitTask(storage.form.id, $event)">
     </power-forms-surveyjs-wrapper>
 </main>

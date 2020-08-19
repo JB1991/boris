@@ -9,18 +9,18 @@ import { StorageService } from './storage.service';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    PublicDashboardComponent
-  ],
-  imports: [
-    CommonModule,
-    PublicDashboardRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ModalModule.forRoot()
-  ],
-  providers: [
-      StorageService
-  ]
+    declarations: [
+        PublicDashboardComponent
+    ],
+    imports: [
+        CommonModule,
+        PublicDashboardRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ModalModule.forRoot()
+    ],
+    providers: [
+        StorageService
+    ]
 })
 export class PublicDashboardModule { }
