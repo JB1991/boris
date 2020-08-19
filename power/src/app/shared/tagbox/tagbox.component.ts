@@ -1,20 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'power-tagbox',
     templateUrl: './tagbox.component.html',
     styleUrls: ['./tagbox.component.scss']
 })
-export class TagboxComponent implements OnInit {
+export class TagboxComponent {
     @Input() public dataList: string[] = [];
     @Input() public tagList: string[] = [];
     @Output() public tagListChange = new EventEmitter<string[]>();
     public tagInput: string;
 
     constructor() { }
-
-    ngOnInit(): void {
-    }
 
     /**
      * Adds tag to list

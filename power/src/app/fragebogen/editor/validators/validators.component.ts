@@ -16,7 +16,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
 
     constructor(public storage: StorageService) { }
 
-    ngOnInit(): void {
+    ngOnInit() {
         // make question list
         this.questions = [];
         for (let i = 0; i < this.storage.model.pages.length; i++) {
@@ -44,7 +44,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         this.loadChoices(null);
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
+    ngOnChanges(changes: SimpleChanges) {
         // check if data exists
         if (!this.data || !this.data.validators) {
             return;

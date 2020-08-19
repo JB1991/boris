@@ -1,53 +1,69 @@
 {
-  "calculatedValues": [
-    {
-      "expression": "50000",
-      "name": "preis"
-    },
-    {
-      "expression": "2019",
-      "name": "kaufjahr"
-    }
-  ],
-  "checkErrorsMode": "onValueChanged",
-  "completedHtml": {"default": "Vielen Dank *für* das Abschließen von diesem Formular."},
-  "locale": "de",
-  "maxOthersLength": 100,
-  "maxTextLength": 1000,
-  "pages": [
-    {
-      "description": {"default": "Zum Ausfüllen dieses __Online-Formulars__ müssen Sie zuerst einige Bedingungen akzeptieren."},
-      "elements": [
+    "calculatedValues": [
         {
-          "inputType": "text",
-          "isRequired": true,
-          "name": "e2",
-          "title": {"default": "# Titel der Frage"},
-          "type": "text"
+            "expression": "50000",
+            "name": "preis"
         },
         {
-          "choices": [
-            {
-              "text": {"default": "Ich habe diese gelesen und akzeptiert"},
-              "value": "1"
-            }
-          ],
-          "colCount": 1,
-          "description": {"default": "Unsere **Datenschutzerklärung** finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html)."},
-          "isRequired": true,
-          "name": "e1",
-          "requiredErrorText": {"default": "Sie müssen die __Datenschutzerklärung__ akzeptieren um fortzufahren."},
-          "title": {"default": "Datenschutzerklärung"},
-          "type": "checkbox"
+            "expression": "2019",
+            "name": "kaufjahr"
         }
-      ],
-      "name": "p1",
-      "title": "Startseite"
+    ],
+    "checkErrorsMode": "onValueChanged",
+    "completedHtml": {
+        "default": "Vielen Dank *für* das Abschließen von diesem Formular."
+    },
+    "locale": "de",
+    "maxOthersLength": 100,
+    "maxTextLength": 1000,
+    "pages": [
+        {
+            "description": {
+                "default": "Zum Ausfüllen dieses __Online-Formulars__ müssen Sie zuerst einige Bedingungen akzeptieren."
+            },
+            "elements": [
+                {
+                    "inputType": "text",
+                    "isRequired": true,
+                    "name": "e2",
+                    "title": {
+                        "default": "# Titel der Frage"
+                    },
+                    "type": "text"
+                },
+                {
+                    "choices": [
+                        {
+                            "text": {
+                                "default": "Ich habe diese gelesen und akzeptiert"
+                            },
+                            "value": "1"
+                        }
+                    ],
+                    "colCount": 1,
+                    "description": {
+                        "default": "Unsere **Datenschutzerklärung** finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html)."
+                    },
+                    "isRequired": true,
+                    "name": "e1",
+                    "requiredErrorText": {
+                        "default": "Sie müssen die __Datenschutzerklärung__ akzeptieren um fortzufahren."
+                    },
+                    "title": {
+                        "default": "Datenschutzerklärung"
+                    },
+                    "type": "checkbox"
+                }
+            ],
+            "name": "p1",
+            "title": "Startseite"
+        }
+    ],
+    "sendResultOnPageNext": true,
+    "showProgressBar": "bottom",
+    "showQuestionNumbers": "onPage",
+    "storeOthersAsComment": false,
+    "title": {
+        "default": "Minimal"
     }
-  ],
-  "sendResultOnPageNext": true,
-  "showProgressBar": "bottom",
-  "showQuestionNumbers": "onPage",
-  "storeOthersAsComment": false,
-  "title": {"default": "Minimal"}
 }

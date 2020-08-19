@@ -1,17 +1,17 @@
 {
-  "data": [
-    {
-      "access": "public",
-      "access-minutes": 60,
-      "created": "2020-07-13T10:23:07.259574Z",
-      "id": "bs63c2os5bcus8t5q0kg",
-      "owners": [
-        "Public"
-      ],
-      "readers": null,
-      "status": "created",
-      "tags": null,
-      "title": "Minimal"
-    }
-  ]
+    "data": [
+        {
+            "access": "public",
+            "access-minutes": 60,
+            "created": "2020-07-13T10:23:07.259574Z",
+            "id": "bs63c2os5bcus8t5q0kg",
+            "owners": [
+                "Public"
+            ],
+            "readers": null,
+            "status": "created",
+            "tags": null,
+            "title": "Minimal"
+        }
+    ]
 }

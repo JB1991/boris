@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
@@ -11,7 +11,7 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
     templateUrl: './question-settings.component.html',
     styleUrls: ['./question-settings.component.scss']
 })
-export class QuestionSettingsComponent implements OnInit {
+export class QuestionSettingsComponent {
     @ViewChild('questionsettingsmodal') public modal: ModalComponent;
     public copy = '';
     public page: number = null;
@@ -20,9 +20,6 @@ export class QuestionSettingsComponent implements OnInit {
     constructor(public alerts: AlertsService,
         public storage: StorageService,
         public history: HistoryService) { }
-
-    ngOnInit(): void {
-    }
 
     /**
      * Opens modal

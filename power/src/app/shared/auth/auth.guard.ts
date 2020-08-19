@@ -12,8 +12,7 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
 
     constructor(public router: Router,
-        public auth: AuthService) {
-    }
+        public auth: AuthService) { }
 
     /**
      * Called before a protected route is loaded to check if user is authenticated

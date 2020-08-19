@@ -77,7 +77,6 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'text',
-            valueName: '',
             inputType: 'text',
             visible: true,
             isRequired: true,
@@ -95,7 +94,6 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'comment',
-            valueName: '',
             rows: 4,
             visible: true,
             isRequired: true,
@@ -113,7 +111,6 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'radiogroup',
-            valueName: '',
             choices: [
                 {
                     value: '1',
@@ -144,7 +141,6 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'checkbox',
-            valueName: '',
             choices: [
                 {
                     value: '1',
@@ -176,7 +172,6 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'imagepicker',
-            valueName: '',
             choices: [
                 {
                     value: 'oldenburg-cloppenburg',
@@ -210,7 +205,6 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'rating',
-            valueName: '',
             rateMax: 5,
             maxRateDescription: {
                 default: 'Sehr gut'
@@ -235,7 +229,6 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'nouislider',
-            valueName: '',
             step: 1,
             rangeMin: 0,
             rangeMax: 1000,
@@ -254,7 +247,6 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'matrix',
-            valueName: '',
             columns: [
                 {
                     value: 0,

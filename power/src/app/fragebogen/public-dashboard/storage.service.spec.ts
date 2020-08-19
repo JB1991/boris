@@ -6,20 +6,15 @@ import { StorageService } from './storage.service';
 import { environment } from '@env/environment';
 import { AuthService } from '@app/shared/auth/auth.service';
 
-describe('Fragebogen.Dashboard.StorageService', () => {
+describe('Fragebogen.Public-Dashboard.StorageService', () => {
     let service: StorageService;
     let httpTestingController: HttpTestingController;
 
     const formId = 'bs63c2os5bcus8t5q0kg';
-    const formsURL = environment.formAPI
-        + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
+    const formsURL = environment.formAPI + 'public/forms?fields=id,title,published';
 
-    const formContent = require('../../../assets/fragebogen/form-content.json');
-    const formDeleted = require('../../../assets/fragebogen/form-deleted.json');
     const formSample = require('../../../assets/fragebogen/form-sample.json');
     const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
-    const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
-    const taskList = require('../../../assets/fragebogen/tasks-list.json');
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -41,40 +36,14 @@ describe('Fragebogen.Dashboard.StorageService', () => {
         answerHTTPRequest(formsURL, 'GET', formsListSample);
     });
 
-    it('loadTasksList() should load a list of tasks', () => {
-        service.loadTasksList().subscribe(data => expect(data).toEqual(taskList));
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=9007199254740991&offset=0', 'GET', taskList);
-    });
-
     it('loadForm() should load a form by id', () => {
         service.loadForm(formId).subscribe(data => expect(data).toEqual(formSample));
-        answerHTTPRequest(environment.formAPI + 'intern/forms/' + formId, 'GET', formSample);
-    });
-
-    it('loadTags() should load the tags', () => {
-        service.loadTags().subscribe(data => expect(data).toEqual(tagsSample));
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
-    });
-
-    it('createForm() should upload a form from JSON', () => {
-        service.createForm(formContent, 'xxx').subscribe(data => expect(data).toEqual(formSample));
-        answerHTTPRequest(environment.formAPI + 'intern/forms?tags=xxx', 'POST', formSample);
-    });
-
-    it('deleteForm() should delete a form by id', () => {
-        service.deleteForm(formId).subscribe(data => expect(data).toEqual(formDeleted));
-        answerHTTPRequest(environment.formAPI + 'intern/forms/' + formId, 'DELETE', formDeleted);
+        answerHTTPRequest(environment.formAPI + 'public/forms/' + formId, 'GET', formSample);
     });
 
     it('should fail', () => {
         expect(function () {
             service.loadForm('');
-        }).toThrowError('id is required');
-        expect(function () {
-            service.createForm('');
-        }).toThrowError('data is required');
-        expect(function () {
-            service.deleteForm('');
         }).toThrowError('id is required');
     });
 
@@ -83,10 +52,6 @@ describe('Fragebogen.Dashboard.StorageService', () => {
         expect(service.formsList).toEqual(formsListSample);
         service.resetService();
         expect(service.formsList).toEqual([]);
-        expect(service.tasksList).toEqual([]);
-        expect(service.tagList).toEqual([]);
-        expect(service.formsCountTotal).toEqual(0);
-        expect(service.tasksCountTotal).toEqual(0);
     });
 
     /**

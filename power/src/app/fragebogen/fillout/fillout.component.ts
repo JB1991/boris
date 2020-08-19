@@ -34,8 +34,12 @@ export class FilloutComponent implements OnInit {
             // load data
             this.loadData(pin);
         } else {
-            // missing pin
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            const id = this.route.snapshot.paramMap.get('id');
+            if (id) {
+                this.loadForm(id);
+            } else {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
         }
     }
 
@@ -45,6 +49,69 @@ export class FilloutComponent implements OnInit {
             return true;
         }
         return !this.storage.getUnsavedChanges();
+    }
+
+    public loadForm(id: string) {
+        // load form by id
+        this.storage.loadForm(id).subscribe((data2) => {
+            // check for error
+            if (!data2 || data2['error'] || !data2['data']) {
+                const alertText = (data2 && data2['error'] ? data2['error'] : id);
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+                this.loadingscreen.setVisible(false);
+                this.router.navigate(['/forms'], { replaceUrl: true });
+                console.log('Could not load form: ' + alertText);
+                return;
+            }
+
+            // store form
+            this.storage.form = data2['data'];
+
+            // display form
+            this.loadingscreen.setVisible(false);
+        }, (error2: Error) => {
+            // failed to load form
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
+            this.loadingscreen.setVisible(false);
+
+            this.router.navigate(['/forms'], { replaceUrl: true });
+            console.log(error2);
+            return;
+        });
+    }
+
+    /**
+     * submit Task
+     * @param id Form pin
+     * @param result Task result
+     */
+    public submitTask(id: string, result: any) {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+        if (!result) {
+            throw new Error('no data provided');
+        }
+
+        this.storage.submitTask(id, result.result).subscribe((data) => {
+            // check for error
+            if (!data || data['error'] || !data['data']) {
+                const alertText = (data && data['error'] ? data['error'] : id);
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+                this.router.navigate(['/forms'], { replaceUrl: true });
+                console.log('Could not load form: ' + alertText);
+                return;
+            }
+            this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
+        }, (error: Error) => {
+            // failed to complete task
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}`);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            return;
+        });
     }
 
     /**
@@ -75,35 +142,7 @@ export class FilloutComponent implements OnInit {
             this.storage.task = data['data'];
 
             // load form by id
-            this.storage.loadForm(this.storage.task['form-id']).subscribe((data2) => {
-                // check for error
-                if (!data2 || data2['error'] || !data2['data']) {
-                    const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.task['form-id']);
-                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                    this.loadingscreen.setVisible(false);
-                    this.router.navigate(['/forms'], { replaceUrl: true });
-                    console.log('Could not load form: ' + alertText);
-                    return;
-                }
-
-                // store form
-                this.storage.form = data2['data'];
-                if (this.storage.task.content) {
-                    this.storage.form.content.data = this.storage.task.content;
-                }
-
-                // display form
-                this.loadingscreen.setVisible(false);
-            }, (error2: Error) => {
-                // failed to load form
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
-                this.loadingscreen.setVisible(false);
-
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log(error2);
-                return;
-            });
+            this.loadForm(this.storage.task['form-id']);
         }, (error: Error) => {
             // failed to load task
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);

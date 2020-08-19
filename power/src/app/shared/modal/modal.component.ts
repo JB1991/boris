@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Component({
     selector: 'power-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit, OnDestroy {
+export class ModalComponent implements OnDestroy {
     @ViewChild('mymodal') public div: ElementRef;
     @Output() public closing: EventEmitter<void> = new EventEmitter();
     public focusedElement: any;
@@ -13,9 +13,6 @@ export class ModalComponent implements OnInit, OnDestroy {
     public title = '';
 
     constructor() { }
-
-    ngOnInit() {
-    }
 
     ngOnDestroy() {
         if (this.isOpen) {

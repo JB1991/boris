@@ -20,12 +20,14 @@ import { SvgPipe } from './svg.pipe';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { AnswersComponent } from './answers/answers.component';
 
 @NgModule({
     declarations: [
         EditorComponent,
         FormularSettingsComponent,
         QuestionSettingsComponent,
+        AnswersComponent,
         ConditionsComponent,
         ValidatorsComponent,
         ValueComponent,
