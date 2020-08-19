@@ -135,5 +135,50 @@ export class DashboardComponent implements OnInit {
             return;
         });
     }
+
+    /**
+     * Imports form from JSON
+     */
+    public importForm() {
+        // create input
+        const input = document.createElement('input');
+        input.id = 'file-upload';
+        input.type = 'file';
+        input.accept = 'application/JSON';
+        input.hidden = true;
+
+        // Add the input element to the DOM so that it can be accessed from the tests
+        const importButton = document.getElementById('button-import');
+        importButton.parentNode.insertBefore(input, importButton);
+
+        // File selected
+        input.onchange = (event: Event) => {
+            const file = event.target['files'][0];
+            const reader = new FileReader();
+
+            // Upload success
+            reader.onload = () => {
+                this.storage.createForm(reader.result).subscribe((data) => {
+                // check for error
+                if (!data || data['error']) {
+                    this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (data['error'] ? data['error'] : ''));
+                    throw new Error('Could not load form: ' + (data['error'] ? data['error'] : ''));
+                }
+
+                // success
+                this.storage.formsList.push(data['data']);
+                this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
+                }, (error) => {
+                    // failed to create form
+                    this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
+                    throw error;
+                });
+            };
+
+            // FileReader is async -> call readAsText() after declaring the onload handler
+            reader.readAsText(file);
+        };
+        input.click();
+    }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */
