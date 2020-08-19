@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { StorageService } from './storage.service';
@@ -22,11 +23,14 @@ import { SharedModule } from '@app/shared/shared.module';
         HttpClientModule,
         FormsModule,
         ModalModule.forRoot(),
-        SharedModule
+        SharedModule,
+        PaginationModule.forRoot()
     ],
     providers: [
         StorageService
     ]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

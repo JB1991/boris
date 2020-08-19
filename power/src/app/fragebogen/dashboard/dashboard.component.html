@@ -179,6 +179,19 @@
                 <span class="d-none d-sm-inline"
                       i18n>&nbsp;Neues Formular</span>
             </button>
+
+            <!-- Pagination -->
+            <pagination [boundaryLinks]="true"
+                        [itemsPerPage]="storage.formsPerPage"
+                        [maxSize]="10"
+                        [totalItems]="storage.formsCount"
+                        (pageChanged)="formsPageChanged($event)"
+                        previousText="&lsaquo;"
+                        nextText="&rsaquo;"
+                        firstText="&laquo;"
+                        lastText="&raquo;">
+            </pagination>
+
         </div>
     </div>
 </main>

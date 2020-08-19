@@ -18,8 +18,11 @@ export class StorageService {
         { value: 'AKS', name: 'Automatische Kaufpreissammlung' }
     ];
 
+    public formsCount = 0;
+    public formsPerPage = 5;
+
     constructor(private httpClient: HttpClient,
-        public auth: AuthService) {
+                public auth: AuthService) {
     }
 
     /**
@@ -33,10 +36,10 @@ export class StorageService {
     /**
      * Loads list of forms
      */
-    public loadFormsList(): Observable<Object> {
+    public loadFormsList(limit = Number.MAX_SAFE_INTEGER, offset = 0): Observable<Object> {
         // Load data from server
         const url = environment.formAPI
-            + 'intern/forms?fields=created,id,owners,status,tags,title';
+            + 'intern/forms?fields=created,id,owners,status,tags,title&limit=' + limit + '&offset=' + offset + '&sort=title';
         return this.httpClient.get(url, this.auth.getHeaders());
     }
 
@@ -107,4 +110,5 @@ export class StorageService {
         return this.httpClient.delete(url, this.auth.getHeaders());
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

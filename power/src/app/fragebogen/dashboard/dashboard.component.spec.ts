@@ -22,6 +22,11 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
     const taskList = require('../../../assets/fragebogen/tasks-list.json');
 
+    const formsURL = environment.formAPI
+        + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
+    const tasksURL = environment.formAPI + 'intern/tasks?status=submitted&sort=submitted';
+    const tagsURL = environment.formAPI + 'intern/tags';
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -55,69 +60,56 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
+        console.log('formsList', component.storage.formsList);
         expect(component.storage.formsList.length).toEqual(1);
         expect(component.storage.tagList.length).toEqual(3);
     });
 
     it('should not create', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', null);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', null);
         expect(component.storage.formsList.length).toEqual(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tags');
     });
 
     it('should not create 2', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', null);
+        answerHTTPRequest(formsURL, 'GET', null);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
     });
 
     it('should not create 3', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', null);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', null);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         expect(component.storage.formsList.length).toEqual(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tasks');
     });
 
     it('should error', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', { 'error': 'Internal Server Error' });
+        answerHTTPRequest(formsURL, 'GET', { 'error': 'Internal Server Error' });
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
             .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 404', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample,
+        answerHTTPRequest(formsURL, 'GET', formsListSample,
             { status: 404, statusText: 'Not Found' });
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
     });
 
     it('should error 2', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET',
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET',
             { 'error': 'Internal Server Error' });
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
@@ -125,45 +117,37 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should error 3', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET',
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET',
             { 'error': 'Internal Server Error' });
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
             .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 404 2', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample,
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample,
             { status: 404, statusText: 'Not Found' });
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
     });
 
     it('should error 404 3', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList,
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList,
             { status: 404, statusText: 'Not Found' });
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
     });
 
     it('should delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteForm(0);
@@ -175,11 +159,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should not delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         spyOn(window, 'confirm').and.returnValue(false);
 
         component.deleteForm(0);
@@ -188,11 +170,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should fail delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteForm(0);
@@ -202,12 +182,10 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         expect(component.storage.formsList.length).toEqual(1);
     });
 
-    it('should fail delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+    it('should fail delete 2', () => {
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteForm(0);
@@ -219,11 +197,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should fail delete 404', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteForm(0);
@@ -235,11 +211,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should crash delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted', 'GET', taskList);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
         spyOn(window, 'confirm').and.returnValue(true);
 
         expect(function () {

@@ -1,0 +1,8 @@
+pagination {
+    display: inline-block;
+    float: right;
+}
+
+ul.pagination {
+    margin-bottom: 0 !important;
+}
