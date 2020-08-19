@@ -254,5 +254,31 @@ Dies lässt sich nicht mehr umkehren!`)) {
 
         this.preview.open('display', this.storage.tasksList[i].content);
     }
+
+    /**
+     * Exports form to json
+     */
+    public exportForm() {
+        // load form
+        this.storage.loadForm(this.storage.form.id).subscribe((data) => {
+        // check for error
+        if (!data || data['error']) {
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : this.storage.form.id));
+            throw new Error('Could not load form: ' + (data['error'] ? data['error'] : this.storage.form.id));
+        }
+
+        // download json
+        const pom = document.createElement('a');
+        const encodedURIComponent = encodeURIComponent(JSON.stringify(data['data']['content']));
+        const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
+        pom.setAttribute('href', href);
+        pom.setAttribute('download', 'formular.json');
+        pom.click();
+        }, (error) => {
+            // failed to load form
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+            throw error;
+        });
+    }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

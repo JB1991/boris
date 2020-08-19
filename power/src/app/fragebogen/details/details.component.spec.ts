@@ -432,6 +432,77 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             component.openTask(2);
         }).toThrowError('invalid i');
     });
+    
+    // it('exportForm() should download the form returned by the API', () => {
+    //     component.exportForm();
+
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
+    //     answerHTTPRequest(environment.formAPI
+    //         + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks', 'GET', taskSample);
+
+    //     // Create spy object with methods click() and setAttribute() and spy on document.createElement()
+    //     const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
+    //     spyOn(document, 'createElement').and.returnValue(spyObj);
+    
+
+    //     // Expect that the <a> tag was created
+    //     expect(document.createElement).toHaveBeenCalledTimes(1);
+    //     expect(document.createElement).toHaveBeenCalledWith('a');
+    
+    //     // Expect that setAttribute() was called twice
+    //     expect(spyObj.setAttribute).toHaveBeenCalledTimes(2);
+    //     expect(spyObj.setAttribute).toHaveBeenCalledWith('download', 'formular.json');
+    
+    //     // Expect that click() was called once without any arguments
+    //     expect(spyObj.click).toHaveBeenCalledTimes(1);
+    //     expect(spyObj.click).toHaveBeenCalledWith();
+    
+    //     expect(component.form.length).toBe(1);
+    //     expect(component.error).toBe('');
+    //   });
+    
+    //   it('exportForm() should fail if no response is returned by the API', () => {
+    //     answerHTTPRequest(formsUrl, 'GET', answer);
+    //     component.exportForm(formId);
+    //     answerHTTPRequest(formsUrlWithId, 'GET', null);
+    
+    //     expect(component.formsList.length).toBe(1);
+    //     expect(component.error).toBe('Export fehlgeschlagen (Keine Antwort)');
+    //   });
+    
+    //   it('exportForm() should fail if an error is returned by the API', () => {
+    //     answerHTTPRequest(formsUrl, 'GET', answer);
+    //     component.exportForm(formId);
+    //     answerHTTPRequest(formsUrlWithId, 'GET', {Form: null, Error: 'not found'});
+    
+    //     expect(component.formsList.length).toBe(1);
+    //     expect(component.error).toBe('Export fehlgeschlagen (Fehler)');
+    //   });
+    
+    //   it('exportForm() should fail if a 404 is returned by the API', () => {
+    //     answerHTTPRequest(formsUrl, 'GET', answer);
+    //     component.exportForm(formId);
+    //     answerHTTPRequest(formsUrlWithId, 'GET', '', {status: 404, statusText: 'Not found'});
+    
+    //     expect(component.formsList.length).toBe(1);
+    //     expect(component.error).toBe('Not found');
+    //   });
+    
+    //   it('exportForm() should fail if null is passed as form id', () => {
+    //     answerHTTPRequest(formsUrl, 'GET', answer);
+    //     component.exportForm(null);
+    
+    //     expect(component.formsList.length).toBe(1);
+    //     expect(component.error).toBe('Export: Invalid UUID');
+    //   });
+    
+    //   it('exportForm() should fail if an invalid UUID is passed as form id', () => {
+    //     answerHTTPRequest(formsUrl, 'GET', answer);
+    //     component.exportForm('foobar');
+    
+    //     expect(component.formsList.length).toBe(1);
+    //     expect(component.error).toBe('Export: Invalid UUID');
+    //   });    
 
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer

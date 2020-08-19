@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
+import { fakeAsync, async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
 import { environment } from '@env/environment';
+import {By} from '@angular/platform-browser';
 
 import { DashboardComponent } from './dashboard.component';
 import { StorageService } from './storage.service';
@@ -17,11 +18,13 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let fixture: ComponentFixture<DashboardComponent>;
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
+    let debugElement: DebugElement;
 
     const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
     const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
     const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
     const taskList = require('../../../assets/fragebogen/tasks-list.json');
+    const formSample = require('../../../assets/fragebogen/form-sample.json');
     const emptyResponse = require('../../../assets/fragebogen/empty-response.json');
 
     const formsURL = environment.formAPI
@@ -52,6 +55,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
         fixture = TestBed.createComponent(DashboardComponent);
         component = fixture.componentInstance;
+        debugElement = fixture.debugElement;
         fixture.detectChanges();
 
         spyOn(console, 'log');
@@ -204,6 +208,38 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             component.deleteForm(1);
         }).toThrowError('Invalid id');
         expect(component.storage.formsList.length).toEqual(1);
+    });
+
+    it('importForm() should allow uploading a file', () => {
+        answerInitialRequests();
+
+        // Check the import button
+        const button = debugElement.query(By.css('#button-import'));
+        expect(button).toBeDefined();
+        expect(button.nativeElement.id).toEqual('button-import');
+        expect(button.nativeElement.textContent).toContain('Formular importieren');
+
+        // Spy on FileReader
+        const mockReader = jasmine.createSpyObj('FileReader', ['readAsText']);
+        spyOn(window as any, 'FileReader').and.returnValue(mockReader);
+
+        // Trigger event via event binding
+        button.triggerEventHandler('click', null);
+
+        // Create event
+        const blob = new Blob([JSON.stringify(formSample)], {type: 'application/json'});
+        const file = new File([blob], 'formular.json');
+        const event = new Event('change', {bubbles: true});
+
+        // Overwrite native target property
+        Object.defineProperty(event, 'target', {value: {files: {0: file}}});
+
+        // Trigger event directly
+        const input = document.querySelector('#file-upload');
+        input.dispatchEvent(event);
+
+        expect(mockReader.readAsText).toHaveBeenCalledTimes(1);
+        expect(component.storage.formsList.length).toBe(1);
     });
 
     it('should change forms page', () => {
