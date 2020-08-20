@@ -1,0 +1,39 @@
+<div bsModal
+     #modalmini="bs-modal"
+     #mymodal
+     class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     aria-modal="true"
+     [attr.aria-hidden]="!isOpen"
+     [attr.aria-label]="title"
+     (onHide)="close()">
+    <div class="modal-dialog"
+         role="document"
+         cdkTrapFocus>
+        <div class="modal-content">
+            <!-- modal head -->
+            <div class="modal-header">
+                <div class="modal-title h4 pull-left">
+                    {{ title }}
+                </div>
+
+                <!-- modal close button -->
+                <button type="button"
+                        class="close pull-right"
+                        i18n-title
+                        title="Schließen"
+                        i18n-aria-label
+                        aria-label="Schließen"
+                        (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- modal body -->
+            <div class="modal-body">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

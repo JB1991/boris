@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { A11yModule } from '@angular/cdk/a11y';
 
 import { GeosearchComponent } from './geosearch/geosearch.component';
 import { ModalComponent } from './modal/modal.component';
+import { ModalminiComponent } from './modalmini/modalmini.component';
 import { TagboxComponent } from './tagbox/tagbox.component';
 import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
@@ -15,11 +17,13 @@ import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
     declarations: [
         GeosearchComponent,
         ModalComponent,
-        TagboxComponent
+        TagboxComponent,
+        ModalminiComponent
     ],
     exports: [
         GeosearchComponent,
         ModalComponent,
+        ModalminiComponent,
         TagboxComponent,
         AuthModule,
         AlertsModule,
@@ -29,6 +33,7 @@ import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
         CommonModule,
         FormsModule,
         NgbTypeaheadModule,
+        ModalModule.forRoot(),
         A11yModule
     ]
 })

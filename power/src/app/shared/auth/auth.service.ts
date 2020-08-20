@@ -69,6 +69,7 @@ export class AuthService {
                 this.user.expires = new Date();
                 this.user.expires.setSeconds(this.user.expires.getSeconds() + data['expires_in']);
                 this.user.token = data;
+                this.user.data = this.parseUserinfo();
                 localStorage.setItem('user', JSON.stringify(this.user));
                 return;
             } catch (error) {
@@ -150,6 +151,7 @@ export class AuthService {
             const expire = new Date();
             expire.setSeconds(expire.getSeconds() + data['expires_in']);
             this.user = { 'expires': expire, 'token': data, 'data': null };
+            this.user.data = this.parseUserinfo();
             localStorage.setItem('user', JSON.stringify(this.user));
         } catch (error) {
             // failed to login
@@ -161,24 +163,9 @@ export class AuthService {
     /**
      * Gets user info from keycloak
      */
-    public async KeyLoakUserInfo() {
-        // get data
-        try {
-            const data = await this.httpClient.get(environment.auth.url + 'userinfo', this.getHeaders()).toPromise();
-            // check for error
-            if (!data || data['error']) {
-                console.log('Could not get user info: ' + data);
-                return;
-            }
-
-            // save data
-            this.user.data = data;
-            localStorage.setItem('user', JSON.stringify(this.user));
-        } catch (error) {
-            // failed to login
-            console.log(error);
-            return;
-        }
+    public parseUserinfo(): any {
+        const b64 = this.user.token.access_token.split('.')[1];
+        return JSON.parse(atob(b64));
     }
 
     /**

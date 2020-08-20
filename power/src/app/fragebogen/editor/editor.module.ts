@@ -13,14 +13,15 @@ import { StorageService } from './storage.service';
 import { EditorComponent } from './editor.component';
 import { FormularSettingsComponent } from './formular-settings/formular-settings.component';
 import { QuestionSettingsComponent } from './question-settings/question-settings.component';
-import { ConditionsComponent } from './conditions/conditions.component';
-import { ValidatorsComponent } from './validators/validators.component';
+import { AnswersComponent } from './answers/answers.component';
 import { ValueComponent } from './value/value.component';
+import { ConditionsComponent } from './conditions/conditions.component';
+import { ConditionModalComponent } from './condition-modal/condition-modal.component';
+import { ValidatorsComponent } from './validators/validators.component';
 import { SvgPipe } from './svg.pipe';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { AnswersComponent } from './answers/answers.component';
 
 @NgModule({
     declarations: [
@@ -28,10 +29,11 @@ import { AnswersComponent } from './answers/answers.component';
         FormularSettingsComponent,
         QuestionSettingsComponent,
         AnswersComponent,
-        ConditionsComponent,
-        ValidatorsComponent,
         ValueComponent,
-        SvgPipe
+        ConditionsComponent,
+        ConditionModalComponent,
+        ValidatorsComponent,
+        SvgPipe,
     ],
     imports: [
         EditorRoutingModule,

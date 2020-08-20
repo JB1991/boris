@@ -1,33 +1,26 @@
-import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
-    selector: 'power-modal',
-    templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss']
+    selector: 'power-modalmini',
+    templateUrl: './modalmini.component.html',
+    styleUrls: ['./modalmini.component.scss']
 })
-export class ModalComponent implements OnDestroy {
+export class ModalminiComponent implements OnDestroy {
+    @ViewChild('modalmini') public modal: ModalDirective;
     @ViewChild('mymodal') public div: ElementRef;
     @Output() public closing: EventEmitter<void> = new EventEmitter();
     public focusedElement: any;
     public isOpen = false;
     public title = '';
 
-    constructor() { }
+    constructor(public modalService: BsModalService) { }
 
     ngOnDestroy() {
         if (this.isOpen) {
             this.close();
         }
-    }
-
-    @HostListener('document:keyup.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-        if (document.getElementsByClassName('modal-backdrop').length !== 0) {
-            return;
-        }
-        if (this.isOpen) {
-            event.stopPropagation();
-            this.close();
-        }
+        this.div.nativeElement.remove();
     }
 
     /**
@@ -38,8 +31,8 @@ export class ModalComponent implements OnDestroy {
         // open modal
         this.title = title;
         this.isOpen = true;
-        document.body.classList.add('overflow-hidden');
-        this.div.nativeElement.style.display = 'block';
+        this.modal.show();
+        document.body.appendChild(this.div.nativeElement);
 
         // focus
         this.focusedElement = document.activeElement;
@@ -59,8 +52,7 @@ export class ModalComponent implements OnDestroy {
 
         // close modal
         this.isOpen = false;
-        document.body.classList.remove('overflow-hidden');
-        this.div.nativeElement.style.display = 'none';
+        this.modal.hide();
 
         // focus
         if (this.focusedElement) {

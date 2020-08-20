@@ -70,14 +70,13 @@ describe('Static.Login.LoginComponent', () => {
     it('should request token', (done) => {
         // set keycloak return code
         spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
-        spyOn(component.auth, 'KeyLoakUserInfo');
 
         component.authenticate().then((value) => {
             expect(console.log).toHaveBeenCalledWith('User has authenticated');
             done();
         });
 
-        answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'XXX' });
+        answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'abc.e30=.123' });
     });
 
     it('should fail request token', (done) => {
