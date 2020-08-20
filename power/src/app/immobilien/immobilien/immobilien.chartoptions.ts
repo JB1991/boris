@@ -66,8 +66,8 @@ export function getChartOptionsMerge(opt: any = {'text': {}}): echarts.EChartOpt
     ret.legend.formatter =  opt.legendformatter;
     ret.title.subtext = opt.subtitle;
     ret.series = opt.series;
-    ret.dataZoom.start = opt.datastart;
-    ret.dataZoom.end = opt.dataend;
+    ret.dataZoom[0].start = opt.datastart;
+    ret.dataZoom[0].end = opt.dataend;
 
     return ret;
 }
