@@ -7,7 +7,7 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
     styleUrls: ['./answers.component.scss']
 })
 export class AnswersComponent {
-    @ViewChild('answersForm') myForm;
+    @ViewChild('answersForm') public myForm;
     @Input() public hasImg = false;
     @Input() public data: any = [];
     @Output() public dataChange = new EventEmitter<any>();
