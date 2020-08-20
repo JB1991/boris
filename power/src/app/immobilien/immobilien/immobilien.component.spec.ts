@@ -4,6 +4,17 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { ImmobilienComponent } from './immobilien.component';
 
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
+
+// Select some icons (use an object, not an array)
+const icons = {
+    Building,
+    HouseFill,
+    PlusCircle,
+    DashCircle
+};
+
 describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     let component: ImmobilienComponent;
     let fixture: ComponentFixture<ImmobilienComponent>;
@@ -12,7 +23,10 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule]
+            imports: [
+                HttpClientTestingModule,
+                NgxBootstrapIconsModule.pick(icons)
+            ]
         })
             .compileComponents();
     }));
