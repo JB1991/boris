@@ -65,6 +65,8 @@ export class MaketaskComponent implements OnInit {
             for (let i = 0; i < data['data'].length; i++) {
                 this.pinList.push(data['data'][i].pin);
                 this.storage.tasksList.splice(0, 0, data['data'][i]);
+                this.storage.tasksCountTotal++;
+                this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
             }
 
             // copy to clipboard

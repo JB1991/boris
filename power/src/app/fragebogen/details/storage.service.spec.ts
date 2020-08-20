@@ -91,7 +91,8 @@ describe('Fragebogen.Details.StorageService', () => {
 
     it('should load tasks', () => {
         service.loadTasks('123').subscribe(data => expect(data).toEqual(taskList));
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks', 'GET', taskList);
+        answerHTTPRequest(environment.formAPI
+            + 'intern/forms/123/tasks?limit=9007199254740991&offset=0&sort=created&order=desc', 'GET', taskList);
     });
 
     it('should fail load tasks', () => {
@@ -147,9 +148,11 @@ describe('Fragebogen.Details.StorageService', () => {
     it('should reset service', () => {
         service.form = { 'a': 1 };
         service.tasksList = [2, 5];
+        service.tasksCountTotal = 2;
         service.resetService();
         expect(service.form).toBeNull();
         expect(service.tasksList.length).toEqual(0);
+        expect(service.tasksCountTotal).toEqual(0);
     });
 
     /**

@@ -7,6 +7,7 @@ import { StorageService } from './storage.service';
 import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
     selector: 'power-forms-details',
@@ -81,6 +82,9 @@ export class DetailsComponent implements OnInit {
 
                     // save data
                     this.storage.tasksList = data2['data'];
+                    this.storage.tasksCountTotal = this.storage.tasksList.length;
+                    this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
+
                     this.loadingscreen.setVisible(false);
                 }, (error2: Error) => {
                     // failed to load task list
@@ -261,24 +265,68 @@ Dies lässt sich nicht mehr umkehren!`)) {
     public exportForm() {
         // load form
         this.storage.loadForm(this.storage.form.id).subscribe((data) => {
-        // check for error
-        if (!data || data['error']) {
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (data['error'] ? data['error'] : this.storage.form.id));
-            throw new Error('Could not load form: ' + (data['error'] ? data['error'] : this.storage.form.id));
-        }
+            // check for error
+            if (!data || data['error']) {
+                this.alerts.NewAlert('danger', 'Laden fehlgeschlagen',
+                    (data['error'] ? data['error'] : this.storage.form.id));
+                throw new Error('Could not load form: ' + (data['error'] ? data['error'] : this.storage.form.id));
+            }
 
-        // download json
-        const pom = document.createElement('a');
-        const encodedURIComponent = encodeURIComponent(JSON.stringify(data['data']['content']));
-        const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
-        pom.setAttribute('href', href);
-        pom.setAttribute('download', 'formular.json');
-        pom.click();
+            // download json
+            const pom = document.createElement('a');
+            const encodedURIComponent = encodeURIComponent(JSON.stringify(data['data']['content']));
+            const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
+            pom.setAttribute('href', href);
+            pom.setAttribute('download', 'formular.json');
+            pom.click();
         }, (error) => {
             // failed to load form
             this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
             throw error;
         });
     }
+
+    /**
+     * Triggered by the pagination event, when the user changes the page
+     * @param event Contains the page number and the number of items per page
+     */
+    public tasksPageChanged(event: PageChangedEvent): void {
+        const limit = event.itemsPerPage;
+        const offset = (event.page - 1) * event.itemsPerPage;
+        this.loadTasksFromAPI(limit, offset);
+    }
+
+    /**
+     * Load the list of tasks from the Form-API
+     * @param limit The maximum number of forms to be loaded
+     * @param offset The number of the first form to be loaded
+     */
+    private loadTasksFromAPI(limit?: number, offset?: number) {
+        this.storage.loadTasks(this.storage.form.id, limit, offset).subscribe((data) => {
+            // check for error
+            if (!data || data['error'] || !data['data']) {
+                const alertText = (data && data['error'] ? data['error'] : 'Tasks');
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+                this.loadingscreen.setVisible(false);
+                this.router.navigate(['/forms'], { replaceUrl: true });
+                console.log('Could not load tasks: ' + alertText);
+                return;
+            }
+
+            // save data
+            this.storage.tasksList = data['data'];
+            this.loadingscreen.setVisible(false);
+        }, (error: Error) => {
+            // failed to load tags
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.loadingscreen.setVisible(false);
+
+            this.router.navigate(['/forms'], { replaceUrl: true });
+            console.log(error);
+            return;
+        });
+    }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

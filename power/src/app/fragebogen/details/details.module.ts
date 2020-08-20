@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { DetailsRoutingModule } from './details-routing.module';
 import { StorageService } from './storage.service';
@@ -27,6 +28,7 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
         FormsModule,
         ModalModule.forRoot(),
         SurveyjsModule,
+        PaginationModule,
     ],
     providers: [
         StorageService
