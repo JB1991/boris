@@ -37,15 +37,17 @@ describe('Shared.ModalComponent', () => {
     });
 
     it('should close', () => {
+        // esc key
+        component.isOpen = true;
+        spyOn(document, 'getElementsByClassName').and.returnValue(document.getElementsByTagName('fergfegrehewg'));
+        component.onKeydownHandler(new KeyboardEvent('a'));
+        expect(component.isVisible()).toBeFalse();
+
         // ngOnDestroy
         component.isOpen = true;
         component.ngOnDestroy();
         expect(component.isVisible()).toBeFalse();
 
-        // esc key
-        component.isOpen = true;
-        component.onKeydownHandler(null);
-        expect(component.isVisible()).toBeFalse();
     });
 
     it('should do nothing', () => {
@@ -58,6 +60,7 @@ describe('Shared.ModalComponent', () => {
         expect(component.isVisible()).toBeFalse();
 
         // esc key
+        spyOn(document, 'getElementsByClassName').and.returnValue(document.getElementsByTagName('fergfegrehewg'));
         component.onKeydownHandler(null);
         expect(component.isVisible()).toBeFalse();
     });

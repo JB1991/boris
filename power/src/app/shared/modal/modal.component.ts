@@ -21,6 +21,7 @@ export class ModalComponent implements OnDestroy {
     }
 
     @HostListener('document:keyup.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        /* istanbul ignore next */
         if (document.getElementsByClassName('modal-backdrop').length !== 0) {
             return;
         }
