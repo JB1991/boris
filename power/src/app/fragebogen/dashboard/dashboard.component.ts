@@ -15,10 +15,10 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 export class DashboardComponent implements OnInit {
 
     constructor(public titleService: Title,
-        public router: Router,
-        public alerts: AlertsService,
-        public loadingscreen: LoadingscreenService,
-        public storage: StorageService) {
+                public router: Router,
+                public alerts: AlertsService,
+                public loadingscreen: LoadingscreenService,
+                public storage: StorageService) {
         this.titleService.setTitle($localize`Dashboard - POWER.NI`);
         this.storage.resetService();
     }
@@ -163,15 +163,16 @@ export class DashboardComponent implements OnInit {
             // Upload success
             reader.onload = () => {
                 this.storage.createForm(reader.result).subscribe((data) => {
-                // check for error
-                if (!data || data['error']) {
-                    this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', (data['error'] ? data['error'] : ''));
-                    throw new Error('Could not load form: ' + (data['error'] ? data['error'] : ''));
-                }
+                    // check for error
+                    if (!data || data['error']) {
+                        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen',
+                            (data['error'] ? data['error'] : ''));
+                        throw new Error('Could not load form: ' + (data['error'] ? data['error'] : ''));
+                    }
 
-                // success
-                this.storage.formsList.push(data['data']);
-                this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
+                    // success
+                    this.storage.formsList.push(data['data']);
+                    this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
                 }, (error) => {
                     // failed to create form
                     this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
@@ -184,7 +185,7 @@ export class DashboardComponent implements OnInit {
         };
         input.click();
     }
-    
+
     /** Triggered by the pagination event, when the user changes the page
      * @param event Contains the page number and the number of items per page
      */
