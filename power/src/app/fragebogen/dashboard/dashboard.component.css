@@ -3,6 +3,6 @@
     float: right;
 }
 
-ul.pagination {
+/deep/ ul.pagination {
     margin-bottom: 0 !important;
 }
