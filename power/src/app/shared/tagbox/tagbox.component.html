@@ -1,20 +1,19 @@
 <!-- tags -->
 <div class="form-group mb-0">
-    <label for="formtag"
-           i18n>{{ label }}</label>
+    <label for="formtag-{{ uniqId }}">{{ tagboxLabel }}</label>
     <input type="text"
-           list="tags"
+           [attr.list]="'datalist-' + uniqId"
            class="form-control"
            [(ngModel)]="tagInput"
            (keyup.enter)="addTag()"
            (change)="addTag()"
-           id="formtag"
-           name="formtag"
+           id="formtag-{{ uniqId }}"
+           name="formtag-{{ uniqId }}"
            maxlength="50"
            i18n-placeholder
-           placeholder="{{ label }} mit ENTER bestätigen">
+           placeholder="{{ tagboxLabel }} mit ENTER bestätigen">
 
-    <datalist id="tags">
+    <datalist id="{{ 'datalist-' + uniqId }}">
         <option *ngFor="let tag of dataList; index as i"
                 value="{{ tag }}"></option>
     </datalist>

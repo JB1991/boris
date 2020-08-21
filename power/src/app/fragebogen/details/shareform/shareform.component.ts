@@ -20,30 +20,55 @@ export class ShareformComponent implements OnInit {
     public readerList = [];
 
 	constructor(public modalService: BsModalService,
-        public router: Router,
-        public alerts: AlertsService,
-        public storage: StorageService) {
+                public router: Router,
+                public alerts: AlertsService,
+                public storage: StorageService) {
 	}
 
 	ngOnInit() {
 	}
 
     /**
-     * Opens new form modal
+     * Opens settings modal
      */
     public open() {
         this.modal.show();
     }
 
     /**
-     * Closes new form modal
+     * Closes settings modal
      */
     public close() {
         this.modal.hide();
     }
 
-	public saveSettings() {
-		console.log("save");
+    /**
+     * Update Form with tags, owners and readers
+     */
+	public updateForm() {
+        let form = this.storage.form;
+
+        this.storage.updateForm(form.id, form.tags, form.owners, form.readers).subscribe((data) => {
+            // check for error
+            if (!data || data['error']) {
+                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
+                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
+
+                console.log('Could not update form: ' + alertText);
+                return;
+            }
+
+            // success
+            this.storage.form = data['data'];
+            this.alerts.NewAlert('success', $localize`Formular gespeichert`,
+                $localize`Das Formular wurde erfolgreich gespeichert.`);
+            this.close();
+        }, (error: Error) => {
+            // failed to update form
+            this.alerts.NewAlert('danger', $localize`speichern fehlgeschlagen`, error['statusText']);
+            console.log(error);
+            return;
+        });
 	}
 
 }

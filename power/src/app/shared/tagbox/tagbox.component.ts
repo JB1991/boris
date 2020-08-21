@@ -1,19 +1,32 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, InjectionToken, Inject } from '@angular/core';
+import { identifierModuleUrl } from '@angular/compiler';
+
+
+const UNIQ_ID_TOKEN = new InjectionToken('ID');
+let id = 0;
 
 @Component({
     selector: 'power-tagbox',
     templateUrl: './tagbox.component.html',
-    styleUrls: ['./tagbox.component.scss']
+    styleUrls: ['./tagbox.component.scss'],
+    providers: [
+        {
+            provide: UNIQ_ID_TOKEN,
+            useFactory: () => id++
+        }
+    ]
 })
 export class TagboxComponent {
-    @Input() public label: string;
-    @Input() public list: string;
+    @Input() public tagboxLabel: string;
     @Input() public dataList: string[] = [];
     @Input() public tagList: string[] = [];
     @Output() public tagListChange = new EventEmitter<string[]>();
     public tagInput: string;
 
-    constructor() { }
+    constructor(
+        @Inject(UNIQ_ID_TOKEN)
+        public uniqId: number
+    ) { }
 
     /**
      * Adds tag to list
