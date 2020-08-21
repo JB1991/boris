@@ -6,6 +6,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./tagbox.component.scss']
 })
 export class TagboxComponent {
+    @Input() public label: string;
+    @Input() public list: string;
     @Input() public dataList: string[] = [];
     @Input() public tagList: string[] = [];
     @Output() public tagListChange = new EventEmitter<string[]>();

@@ -1,7 +1,7 @@
 <!-- tags -->
 <div class="form-group mb-0">
     <label for="formtag"
-           i18n>Tags</label>
+           i18n>{{ label }}</label>
     <input type="text"
            list="tags"
            class="form-control"
@@ -12,7 +12,7 @@
            name="formtag"
            maxlength="50"
            i18n-placeholder
-           placeholder="Tag mit ENTER bestätigen">
+           placeholder="{{ label }} mit ENTER bestätigen">
 
     <datalist id="tags">
         <option *ngFor="let tag of dataList; index as i"
