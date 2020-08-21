@@ -1,6 +1,7 @@
 <!-- alerts container -->
 <div id="alert-root"
-     class="container fixed-bottom">
+     class="container fixed-bottom"
+     aria-live="assertive">
     <div *ngFor="let alert of alerts.alertslist; index as i">
         <alert [type]="alert.type"
                [dismissOnTimeout]="alert.timeout"
