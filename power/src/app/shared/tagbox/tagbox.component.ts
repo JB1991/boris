@@ -35,6 +35,9 @@ export class TagboxComponent {
         if (!this.tagInput || !this.tagInput.trim()) {
             return;
         }
+        if (!this.tagList) {
+            this.tagList = [];
+        }
         this.tagList.push(this.tagInput);
         this.tagListChange.emit(this.tagList);
         this.tagInput = '';

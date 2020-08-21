@@ -47,7 +47,7 @@ export class ShareformComponent implements OnInit {
      */
 	public updateForm() {
         let form = this.storage.form;
-
+        
         this.storage.updateForm(form.id, form.tags, form.owners, form.readers).subscribe((data) => {
             // check for error
             if (!data || data['error']) {
