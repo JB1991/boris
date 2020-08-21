@@ -17,8 +17,8 @@ import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
     declarations: [
         GeosearchComponent,
         ModalComponent,
-        TagboxComponent,
-        ModalminiComponent
+        ModalminiComponent,
+        TagboxComponent
     ],
     exports: [
         GeosearchComponent,

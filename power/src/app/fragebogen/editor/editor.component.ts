@@ -49,51 +49,69 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
     }
 
     @HostListener('document:keydown.control.z', ['$event']) onUndoHandler(event: KeyboardEvent) {
-        this.history.undoChanges();
+        if (this.storage.getAutoSaveEnabled()) {
+            this.history.undoChanges();
+        }
     }
 
     @HostListener('document:keydown.control.y', ['$event']) onRedoHandler(event: KeyboardEvent) {
-        this.history.redoChanges();
+        if (this.storage.getAutoSaveEnabled()) {
+            this.history.redoChanges();
+        }
     }
 
     @HostListener('document:keydown.control.s', ['$event']) onSaveHandler(event: KeyboardEvent) {
-        event.preventDefault();
-        this.wsSave();
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            this.wsSave();
+        }
     }
 
     @HostListener('document:keydown.control.v', ['$event']) onPasteHandler(event: KeyboardEvent) {
-        event.preventDefault();
-        this.wsNewElement('elementcopy');
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            this.wsNewElement('elementcopy');
+        }
     }
 
     @HostListener('document:keydown.control.p', ['$event']) onAddPageHandler(event: KeyboardEvent) {
-        event.preventDefault();
-        this.wsPageCreate(this.storage.selectedPageID + 1);
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            this.wsPageCreate(this.storage.selectedPageID + 1);
+        }
     }
 
     @HostListener('document:keydown.control.d', ['$event']) onDelPageHandler(event: KeyboardEvent) {
-        event.preventDefault();
-        this.wsPageDelete(this.storage.selectedPageID);
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            this.wsPageDelete(this.storage.selectedPageID);
+        }
     }
 
     @HostListener('document:keydown.control.arrowleft', ['$event']) onLeftPageHandler(event: KeyboardEvent) {
-        if (this.storage.selectedPageID !== 0) {
-            this.wsPageSelect(this.storage.selectedPageID - 1);
+        if (this.storage.getAutoSaveEnabled()) {
+            if (this.storage.selectedPageID !== 0) {
+                this.wsPageSelect(this.storage.selectedPageID - 1);
+            }
         }
     }
 
     @HostListener('document:keydown.control.arrowright', ['$event']) onRightPageHandler(event: KeyboardEvent) {
-        if (this.storage.selectedPageID < this.storage.model.pages.length - 1) {
-            this.wsPageSelect(this.storage.selectedPageID + 1);
+        if (this.storage.getAutoSaveEnabled()) {
+            if (this.storage.selectedPageID < this.storage.model.pages.length - 1) {
+                this.wsPageSelect(this.storage.selectedPageID + 1);
+            }
         }
     }
 
     @HostListener('document:keydown.f11', ['$event']) onPreviewHandler(event: KeyboardEvent) {
-        event.preventDefault();
-        if (this.preview.isVisible) {
-            this.preview.modal.close();
-        } else {
-            this.preview.open();
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            if (this.preview.isVisible) {
+                this.preview.modal.close();
+            } else {
+                this.preview.open();
+            }
         }
     }
 

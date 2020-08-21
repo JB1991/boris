@@ -5,6 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ConditionModalComponent } from './condition-modal.component';
 import { ConditionsComponent } from '../conditions/conditions.component';
 
+import { SharedModule } from '@app/shared/shared.module';
+
 describe('Fragebogen.Editor.ConditionModalComponent', () => {
     let component: ConditionModalComponent;
     let fixture: ComponentFixture<ConditionModalComponent>;
@@ -13,7 +15,8 @@ describe('Fragebogen.Editor.ConditionModalComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                SharedModule
             ],
             declarations: [
                 ConditionModalComponent,

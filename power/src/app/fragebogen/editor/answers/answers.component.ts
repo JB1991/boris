@@ -1,7 +1,15 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, InjectionToken, Inject } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
+const UNIQ_ID_TOKEN = new InjectionToken('ID');
+let id = 0;
 @Component({
+    providers: [
+        {
+            provide: UNIQ_ID_TOKEN,
+            useFactory: () => id++
+        }
+    ],
     selector: 'power-forms-editor-answers',
     templateUrl: './answers.component.html',
     styleUrls: ['./answers.component.scss']
@@ -12,7 +20,7 @@ export class AnswersComponent {
     @Input() public data: any = [];
     @Output() public dataChange = new EventEmitter<any>();
 
-    constructor() { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
     /**
      * Emit change if formular has changed

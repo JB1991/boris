@@ -161,6 +161,7 @@ export class DashboardComponent implements OnInit {
             const reader = new FileReader();
 
             // Upload success
+            /* istanbul ignore next */
             reader.onload = () => {
                 this.storage.createForm(reader.result).subscribe((data) => {
                     // check for error

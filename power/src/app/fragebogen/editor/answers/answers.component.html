@@ -8,15 +8,15 @@
         <div class="form-row">
             <!-- value -->
             <div class="form-group col-lg-4 mb-1 mb-lg-0">
-                <label for="answer-value-{{ i }}"
+                <label for="answer-value-{{ i }}{{ uniqId }}"
                        class="sr-only"
                        i18n>Datenwert</label>
                 <input type="text"
                        class="form-control"
                        [(ngModel)]="item.value"
                        [class.is-invalid]="!item.value && item.value !== 0"
-                       id="answer-value-{{ i }}"
-                       name="answer-value-{{ i }}"
+                       id="answer-value-{{ i }}{{ uniqId }}"
+                       name="answer-value-{{ i }}{{ uniqId }}"
                        i18n-placeholder
                        placeholder="Datenwert"
                        maxlength="200"
@@ -25,14 +25,14 @@
 
             <!-- text -->
             <div class="form-group col-lg-5 mb-1 mb-lg-0">
-                <label for="answer-text-{{ i }}"
+                <label for="answer-text-{{ i }}{{ uniqId }}"
                        class="sr-only"
                        i18n>Anzeigetext</label>
                 <input type="text"
                        class="form-control m-0"
                        [(ngModel)]="item.text.default"
-                       id="answer-text-{{ i }}"
-                       name="answer-text-{{ i }}"
+                       id="answer-text-{{ i }}{{ uniqId }}"
+                       name="answer-text-{{ i }}{{ uniqId }}"
                        i18n-placeholder
                        placeholder="Anzeigetext"
                        maxlength="200">
@@ -104,15 +104,15 @@
 
             <div class="form-group col-10 mb-1 mb-lg-0 mt-1"
                  *ngIf="hasImg">
-                <label for="answer-image-{{ i }}"
+                <label for="answer-image-{{ i }}{{ uniqId }}"
                        class="sr-only">Bild URL*</label>
                 <input type="url"
                        class="form-control"
                        [(ngModel)]="item.imageLink"
                        [class.is-invalid]="!item.imageLink"
                        *ngIf="!item.imageLink.startsWith('data:image')"
-                       id="answer-image-{{ i }}"
-                       name="answer-image-{{ i }}"
+                       id="answer-image-{{ i }}{{ uniqId }}"
+                       name="answer-image-{{ i }}{{ uniqId }}"
                        placeholder="https://..."
                        required>
                 <div *ngIf="item.imageLink.startsWith('data:image')">
