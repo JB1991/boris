@@ -9,12 +9,12 @@ import { defaultTemplate } from '@app/fragebogen/editor/data';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'power-forms-details-shareform',
-	templateUrl: './shareform.component.html',
-    styleUrls: ['./shareform.component.scss']
+	selector: 'power-forms-details-settings',
+	templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss']
 })
-export class ShareformComponent implements OnInit {
-	@ViewChild('modalshareform') public modal: ModalDirective;
+export class SettingsComponent implements OnInit {
+	@ViewChild('modalsettings') public modal: ModalDirective;
 
     public tagList = [];
     public ownerList = [];

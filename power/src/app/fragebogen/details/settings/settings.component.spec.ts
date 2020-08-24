@@ -5,13 +5,13 @@ import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '@env/environment';
 
-import { ShareformComponent } from './shareform.component';
+import { SettingsComponent } from './settings.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
-describe('ShareformComponent', () => {
-  let component: ShareformComponent;
-  let fixture: ComponentFixture<ShareformComponent>;
+describe('SettingsComponent', () => {
+  let component: SettingsComponent;
+  let fixture: ComponentFixture<SettingsComponent>;
   let httpTestingController: HttpTestingController;
 
   const formSample = require('../../../../assets/fragebogen/form-sample.json');
@@ -30,11 +30,11 @@ describe('ShareformComponent', () => {
               AlertsService
           ],
           declarations: [
-              ShareformComponent
+            SettingsComponent
           ]
       }).compileComponents();
 
-      fixture = TestBed.createComponent(ShareformComponent);
+      fixture = TestBed.createComponent(SettingsComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
 
