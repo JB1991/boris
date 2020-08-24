@@ -53,11 +53,13 @@
                     <!-- owners -->
                     <power-tagbox [(tagList)]="ownerList"
                                     [dataList]="ownerList"
-                                    i18n-tagboxLabel tagboxLabel="Besitzer"></power-tagbox>
+                                    i18n-tagboxLabel tagboxLabel="Besitzer"
+                                    [displayBlock]="true"></power-tagbox>
                     <!-- readers -->
                     <power-tagbox [(tagList)]="readerList"
                                     [dataList]="readerList"
-                                    i18n-tagboxLabel tagboxLabel="Leseberechtigte"></power-tagbox>
+                                    i18n-tagboxLabel tagboxLabel="Leseberechtigte"
+                                    [displayBlock]="true"></power-tagbox>
                     
                     <button type="submit"
                             class="d-none"

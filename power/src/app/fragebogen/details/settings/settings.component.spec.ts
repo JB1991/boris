@@ -47,7 +47,7 @@ describe('SettingsComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should close', () => {
+    it('should open and close', () => {
         component.storage.form = { 'id': '123' };
         component.open();
         expect(component.modal.isShown).toBeTrue();

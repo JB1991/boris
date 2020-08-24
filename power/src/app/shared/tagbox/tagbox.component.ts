@@ -16,6 +16,7 @@ let id = 0;
 })
 export class TagboxComponent {
     @Input() public tagboxLabel: string;
+    @Input() public displayBlock: boolean = false;
     @Input() public dataList: string[] = [];
     @Input() public tagList: string[] = [];
     @Output() public tagListChange = new EventEmitter<string[]>();
@@ -36,6 +37,7 @@ export class TagboxComponent {
         this.tagList.push(this.tagInput);
         this.tagListChange.emit(this.tagList);
         this.tagInput = '';
+        console.log(this.displayBlock);
     }
 
     /**
