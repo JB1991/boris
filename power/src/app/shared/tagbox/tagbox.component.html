@@ -1,37 +1,37 @@
 <!-- tags -->
-<div class="form-group mb-0">
-    <label for="formtag"
-           i18n>Tags</label>
+<div class="form-group">
+    <label for="formtag-{{ uniqId }}">{{ tagboxLabel }}</label>
     <input type="text"
-           list="tags"
+           [attr.list]="'datalist-' + uniqId"
            class="form-control"
            [(ngModel)]="tagInput"
            (keyup.enter)="addTag()"
            (change)="addTag()"
-           id="formtag"
-           name="formtag"
+           id="formtag-{{ uniqId }}"
+           name="formtag-{{ uniqId }}"
            maxlength="50"
            i18n-placeholder
-           placeholder="Tag mit ENTER bestätigen">
+           placeholder="{{ tagboxLabel }} mit ENTER bestätigen">
 
-    <datalist id="tags">
+    <datalist id="{{ 'datalist-' + uniqId }}">
         <option *ngFor="let tag of dataList; index as i"
                 value="{{ tag }}"></option>
     </datalist>
 
     <div>
-        <span class="badge badge-primary mr-1"
-              *ngFor="let tag of tagList; index as i"
-              title="{{ tag }}">
-            {{ tag }}
-
-            <button type="button"
-                    class="close ml-1"
-                    i18n-title
-                    title="Löschen"
-                    (click)="removeTag(i)">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </span>
+        <div [attr.class]="displayBlock ? 'd-block' : 'd-inline'"
+            *ngFor="let tag of tagList; index as i" title="{{ tag }}">
+            <span class="badge badge-primary mr-1">
+                {{ tag }}
+    
+                <button type="button"
+                        class="close ml-1"
+                        i18n-title
+                        title="Löschen"
+                        (click)="removeTag(i)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </span>
+        </div>
     </div>
 </div>

@@ -45,6 +45,42 @@ export class StorageService {
     }
 
     /**
+     * Update Form by id
+     * @param id Form id
+     * @param tags tags
+     * @param owners owners
+     * @param readers readers
+     */
+    public updateForm(id: string, tags?: string, owners?: string, readers?: string): Observable<Object> {
+        if(!id) {
+            throw new Error('id is required');
+        }
+
+        // build url
+        let params = [];
+        if (tags) {
+            params.push('tags=' + encodeURIComponent(tags));
+        }
+        if (owners) {
+            params.push('owners=' + encodeURIComponent(owners));
+        }
+        if (readers) {
+            params.push('readers=' + encodeURIComponent(readers));
+        }
+        let url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
+        if (params) {
+            url += '?';
+            params.forEach(element => {
+                url += element + '&';
+            });
+            url = url.substring(0, url.length - 1);
+        }
+        
+        // load data from server
+        return this.httpClient.post(url, '', this.auth.getHeaders());
+    }
+
+    /**
      * Publish form by id.
      * @param id Form id
      * @param pin Pin type

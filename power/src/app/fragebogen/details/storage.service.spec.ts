@@ -12,6 +12,7 @@ describe('Fragebogen.Details.StorageService', () => {
 
     const formSample = require('../../../assets/fragebogen/form-sample.json');
     const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
+    const updateSample = require('../../../assets/fragebogen/form-sample-update.json');
     const taskList = require('../../../assets/fragebogen/tasks-list.json');
     const taskSample = require('../../../assets/fragebogen/task-sample.json');
 
@@ -153,6 +154,17 @@ describe('Fragebogen.Details.StorageService', () => {
         expect(service.form).toBeNull();
         expect(service.tasksList.length).toEqual(0);
         expect(service.tasksCountTotal).toEqual(0);
+    });
+
+    it('should update form', () => {
+        service.updateForm('123', 'Tags', 'Owners', 'Readers').subscribe(data => expect(data).toEqual(updateSample));
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123?tags=Tags&owners=Owners&readers=Readers', 'POST', updateSample);
+    });
+
+    it('should fail update form', () => {
+        expect(function () {
+            service.updateForm('', '');
+        }).toThrowError('id is required');
     });
 
     /**

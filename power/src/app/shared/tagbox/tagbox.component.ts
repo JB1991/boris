@@ -1,17 +1,31 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, InjectionToken, Inject } from '@angular/core';
+
+const UNIQ_ID_TOKEN = new InjectionToken('ID');
+let id = 0;
 
 @Component({
     selector: 'power-tagbox',
     templateUrl: './tagbox.component.html',
-    styleUrls: ['./tagbox.component.scss']
+    styleUrls: ['./tagbox.component.scss'],
+    providers: [
+        {
+            provide: UNIQ_ID_TOKEN,
+            useFactory: () => id++
+        }
+    ]
 })
 export class TagboxComponent {
+    @Input() public tagboxLabel: string;
+    @Input() public displayBlock: boolean = false;
     @Input() public dataList: string[] = [];
     @Input() public tagList: string[] = [];
     @Output() public tagListChange = new EventEmitter<string[]>();
     public tagInput: string;
 
-    constructor() { }
+    constructor(
+        @Inject(UNIQ_ID_TOKEN)
+        public uniqId: number
+    ) { }
 
     /**
      * Adds tag to list
@@ -23,6 +37,7 @@ export class TagboxComponent {
         this.tagList.push(this.tagInput);
         this.tagListChange.emit(this.tagList);
         this.tagInput = '';
+        console.log(this.displayBlock);
     }
 
     /**
