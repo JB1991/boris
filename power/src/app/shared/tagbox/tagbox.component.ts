@@ -1,6 +1,4 @@
 import { Component, Input, Output, EventEmitter, InjectionToken, Inject } from '@angular/core';
-import { identifierModuleUrl } from '@angular/compiler';
-
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
@@ -34,9 +32,6 @@ export class TagboxComponent {
     public addTag() {
         if (!this.tagInput || !this.tagInput.trim()) {
             return;
-        }
-        if (!this.tagList) {
-            this.tagList = [];
         }
         this.tagList.push(this.tagInput);
         this.tagListChange.emit(this.tagList);

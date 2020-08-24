@@ -5,9 +5,6 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
-import { defaultTemplate } from '@app/fragebogen/editor/data';
-import { Observable } from 'rxjs';
-
 @Component({
 	selector: 'power-forms-details-settings',
 	templateUrl: './settings.component.html',
@@ -51,7 +48,12 @@ export class SettingsComponent implements OnInit {
      */
 	public updateForm() {
 
-        this.storage.updateForm(this.storage.form.id, this.tagList.toString(), this.ownerList.toString(), this.readerList.toString()).subscribe((data) => {
+        this.storage.updateForm(
+            this.storage.form.id,
+            this.tagList.toString(),
+            this.ownerList.toString(),
+            this.readerList.toString()
+        ).subscribe((data) => {
             // check for error
             if (!data || data['error']) {
                 const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
@@ -68,7 +70,7 @@ export class SettingsComponent implements OnInit {
             this.close();
         }, (error: Error) => {
             // failed to update form
-            this.alerts.NewAlert('danger', $localize`speichern fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
             console.log(error);
             return;
         });

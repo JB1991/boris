@@ -77,7 +77,6 @@ export class StorageService {
         }
         
         // load data from server
-        console.log(url);
         return this.httpClient.post(url, '', this.auth.getHeaders());
     }
 

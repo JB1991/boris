@@ -32,6 +32,7 @@ export class NewformComponent implements OnInit {
      * Opens new form modal
      */
     public open() {
+        this.tagList = [];
         this.modal.show();
     }
 
