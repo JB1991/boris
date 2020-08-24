@@ -47,19 +47,16 @@
                       onsubmit="return false;">
 
                     <!-- tags -->
-                    <power-tagbox [tagList]="storage.form?.tags"
-                                    (tagListChange)="storage.form.tags = $event"
-                                    [dataList]="storage.form?.tags"
+                    <power-tagbox [(tagList)]="tagList"
+                                    [dataList]="tagList"
                                     i18n-tagboxLabel tagboxLabel="Tags"></power-tagbox>
                     <!-- owners -->
-                    <power-tagbox [tagList]="storage.form?.owners"
-                                    (tagListChange)="storage.form.owners = $event"
-                                    [dataList]="storage.form?.owners"
+                    <power-tagbox [(tagList)]="ownerList"
+                                    [dataList]="ownerList"
                                     i18n-tagboxLabel tagboxLabel="Besitzer"></power-tagbox>
                     <!-- readers -->
-                    <power-tagbox [tagList]="storage.form?.readers"
-                                    (tagListChange)="storage.form.tags = $event"
-                                    [dataList]="storage.form?.readers"
+                    <power-tagbox [(tagList)]="readerList"
+                                    [dataList]="readerList"
                                     i18n-tagboxLabel tagboxLabel="Leseberechtigte"></power-tagbox>
                     
                     <button type="submit"

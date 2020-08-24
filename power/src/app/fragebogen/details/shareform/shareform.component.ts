@@ -6,11 +6,12 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'power-forms-details-shareform',
 	templateUrl: './shareform.component.html',
-	styleUrls: ['./shareform.component.scss']
+    styleUrls: ['./shareform.component.scss']
 })
 export class ShareformComponent implements OnInit {
 	@ViewChild('modalshareform') public modal: ModalDirective;
@@ -32,6 +33,9 @@ export class ShareformComponent implements OnInit {
      * Opens settings modal
      */
     public open() {
+        this.tagList = Object.assign([], this.storage.form.tags);
+        this.ownerList = Object.assign([], this.storage.form.owners);
+        this.readerList = Object.assign([], this.storage.form.readers);
         this.modal.show();
     }
 
@@ -46,9 +50,8 @@ export class ShareformComponent implements OnInit {
      * Update Form with tags, owners and readers
      */
 	public updateForm() {
-        let form = this.storage.form;
-        
-        this.storage.updateForm(form.id, form.tags, form.owners, form.readers).subscribe((data) => {
+
+        this.storage.updateForm(this.storage.form.id, this.tagList.toString(), this.ownerList.toString(), this.readerList.toString()).subscribe((data) => {
             // check for error
             if (!data || data['error']) {
                 const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
