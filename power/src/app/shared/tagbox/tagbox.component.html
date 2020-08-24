@@ -19,7 +19,8 @@
     </datalist>
 
     <div>
-        <div [attr.class]="displayBlock ? 'd-block' : 'd-inline'" *ngFor="let tag of tagList; index as i" title="{{ tag }}">
+        <div [attr.class]="displayBlock ? 'd-block' : 'd-inline'"
+            *ngFor="let tag of tagList; index as i" title="{{ tag }}">
             <span class="badge badge-primary mr-1">
                 {{ tag }}
     
