@@ -50,4 +50,11 @@ describe('Shared.TagboxComponent', () => {
             component.removeTag(1);
         }).toThrowError('Invalid i');
     });
+
+    it('should not add same tag', () => {
+        component.tagList = ['MyTag'];
+        component.tagInput = 'MyTag';
+        component.addTag();
+        expect(component.tagList.length).toEqual(1);
+    });
 });

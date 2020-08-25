@@ -34,10 +34,13 @@ export class TagboxComponent {
         if (!this.tagInput || !this.tagInput.trim()) {
             return;
         }
-        this.tagList.push(this.tagInput);
-        this.tagListChange.emit(this.tagList);
-        this.tagInput = '';
-        console.log(this.displayBlock);
+        if (!this.tagList.includes(this.tagInput)) {
+            this.tagList.push(this.tagInput);
+            this.tagListChange.emit(this.tagList);
+            this.tagInput = '';
+        } else {
+            this.tagInput = '';
+        }
     }
 
     /**
