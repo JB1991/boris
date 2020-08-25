@@ -111,11 +111,22 @@ export class ImmobilienFormatter {
      *
      * @return series label (sort)
      */
-    private getSeriesLabel(series) {
+    public getSeriesLabel(series) {
         return this.nipixStatic.data.regionen[series]['name'] +
             ' (' +
             this.nipixStatic.data.regionen[series]['short'] +
             ')';
+    }
+
+    /**
+     * Gets the color for a specific series
+     *
+     * @param series series id
+     *
+     * @return Series Color
+     */
+    public getSeriesColor(series) {
+        return ImmobilenHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
     }
 
     public simpleLegend() {
