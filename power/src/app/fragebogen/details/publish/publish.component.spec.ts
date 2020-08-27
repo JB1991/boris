@@ -9,7 +9,7 @@ import { PublishComponent } from './publish.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
-describe('Fragebogen.Details.Publish.PublishComponent', () => {
+describe('Fragebogen.Details.PublishComponent', () => {
     let component: PublishComponent;
     let fixture: ComponentFixture<PublishComponent>;
     let httpTestingController: HttpTestingController;

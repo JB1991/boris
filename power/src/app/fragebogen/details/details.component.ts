@@ -65,7 +65,7 @@ export class DetailsComponent implements OnInit {
 
             // save data
             this.storage.form = data['data'];
-            
+
             if (this.storage.form.status !== 'created') {
                 // load tasks from server
                 this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {

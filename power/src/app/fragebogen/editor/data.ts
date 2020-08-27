@@ -27,7 +27,7 @@ export const defaultTemplate = {
                         default: 'Datenschutzerklärung'
                     },
                     description: {
-                        default: 'Unsere Datenschutzerklärung finden sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).'
+                        default: 'Unsere Datenschutzerklärung finden Sie unter [lgln.niedersachsen.de](https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html).'
                     },
                     name: 'e1',
                     type: 'checkbox',
@@ -36,7 +36,7 @@ export const defaultTemplate = {
                         {
                             value: '1',
                             text: {
-                                default: 'Ich habe diese gelesen und akzeptiert'
+                                default: 'Ich habe diese gelesen und akzeptiert.'
                             }
                         }
                     ],

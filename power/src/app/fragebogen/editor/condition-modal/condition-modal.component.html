@@ -2,7 +2,7 @@
         class="btn btn-light text-primary mr-2"
         i18n-title
         title="Sichtbarkeitsbedingung"
-        (click)="conditionmodal.open('XXX')">
+        (click)="conditionmodal.open('Sichtbarkeitsbedingung')">
     <svg width="1em"
          height="1em"
          viewBox="0 0 16 16"
@@ -20,8 +20,6 @@
 
 <power-modalmini #conditionmodal
                  (closing)="close()">
-    <span i18n>Sichtbarkeitsbedingung</span>
-    <br>
     <power-forms-editor-conditions [(data)]="data">
     </power-forms-editor-conditions>
 </power-modalmini>

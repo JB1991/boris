@@ -8,8 +8,9 @@ import { environment } from '@env/environment';
 import { SettingsComponent } from './settings.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { SharedModule } from '@app/shared/shared.module';
 
-describe('SettingsComponent', () => {
+describe('Fragebogen.Details.SettingsComponent', () => {
     let component: SettingsComponent;
     let fixture: ComponentFixture<SettingsComponent>;
     let httpTestingController: HttpTestingController;
@@ -22,7 +23,8 @@ describe('SettingsComponent', () => {
                 HttpClientTestingModule,
                 FormsModule,
                 ModalModule.forRoot(),
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                SharedModule
             ],
             providers: [
                 BsModalService,
@@ -56,7 +58,7 @@ describe('SettingsComponent', () => {
     });
 
     it('should update form', () => {
-        component.storage.form = { 'id': '123'};
+        component.storage.form = { 'id': '123' };
         component.tagList = [];
         component.ownerList = [];
         component.readerList = [];
@@ -69,7 +71,7 @@ describe('SettingsComponent', () => {
     });
 
     it('should fail update form - data', () => {
-        component.storage.form = { 'id': '123'};
+        component.storage.form = { 'id': '123' };
         component.tagList = [];
         component.ownerList = [];
         component.readerList = [];
@@ -84,7 +86,7 @@ describe('SettingsComponent', () => {
 
 
     it('should fail update form - null', () => {
-        component.storage.form = { 'id': '123'};
+        component.storage.form = { 'id': '123' };
         component.tagList = [];
         component.ownerList = [];
         component.readerList = [];
@@ -98,7 +100,7 @@ describe('SettingsComponent', () => {
     });
 
     it('should fail update form - not found', () => {
-        component.storage.form = { 'id': '123'};
+        component.storage.form = { 'id': '123' };
         component.tagList = [];
         component.ownerList = [];
         component.readerList = [];

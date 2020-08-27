@@ -158,7 +158,8 @@ describe('Fragebogen.Details.StorageService', () => {
 
     it('should update form', () => {
         service.updateForm('123', 'Tags', 'Owners', 'Readers').subscribe(data => expect(data).toEqual(updateSample));
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?tags=Tags&owners=Owners&readers=Readers', 'POST', updateSample);
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123?tags=Tags&owners=Owners&readers=Readers',
+            'POST', updateSample);
     });
 
     it('should fail update form', () => {

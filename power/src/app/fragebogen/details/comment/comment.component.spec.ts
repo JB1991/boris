@@ -9,7 +9,7 @@ import { CommentComponent } from './comment.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
-describe('Fragebogen.Details.Comment.CommentComponent', () => {
+describe('Fragebogen.Details.CommentComponent', () => {
     let component: CommentComponent;
     let fixture: ComponentFixture<CommentComponent>;
     let httpTestingController: HttpTestingController;
