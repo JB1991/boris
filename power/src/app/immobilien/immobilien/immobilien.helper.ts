@@ -142,7 +142,7 @@ export function parseStringAsFloat(value: any) {
  * @param data Data for Download
  * @param filename Filename for the Data to download
  */
-export function downloadFile(data, filename, filetype = 'text/csv', isurl = false) {
+export function downloadFile(data, filename, filetype = 'text/csv', isurl = false): any {
     let url = data;
 
     if (!isurl) {

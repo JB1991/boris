@@ -298,8 +298,8 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
 
         ImmobilenUtils.dispatchMapSelect(obj, 'foo', true);
         expect(obj.dispatchAction).toHaveBeenCalledWith({
-                        type: 'mapSelect',
-                        name: 'foo'
+            type: 'mapSelect',
+            name: 'foo'
         });
 
         ImmobilenUtils.dispatchMapSelect(obj, 'foo', false);

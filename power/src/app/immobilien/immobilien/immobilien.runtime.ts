@@ -83,10 +83,6 @@ export class NipixRuntime {
         this.calculator = new ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator(this.nipixStatic, this);
     }
 
-    public logStatic() {
-        console.log('logStatic', this.nipixStatic);
-    }
-
     public resetDrawPresets() {
         this.drawPresets = JSON.parse(JSON.stringify(this.nipixStatic.data.presets));
     }
