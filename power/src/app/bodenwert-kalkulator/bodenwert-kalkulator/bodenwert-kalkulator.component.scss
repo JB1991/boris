@@ -64,7 +64,7 @@
     color: #343a40;
 }
 
-ngb-accordion /deep/ .card /deep/ .card-header {
+:host ::ng-deep .card-header {
     background-color: white !important;
 }
 
