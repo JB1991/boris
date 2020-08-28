@@ -4,28 +4,36 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 
 import { EditorRoutingModule } from './editor-routing.module';
 import { HistoryService } from './history.service';
 import { StorageService } from './storage.service';
 import { EditorComponent } from './editor.component';
-import { ModalFormularComponent } from './modal-formular/modal-formular.component';
-import { ModalElementComponent } from './modal-element/modal-element.component';
+import { FormularSettingsComponent } from './formular-settings/formular-settings.component';
+import { QuestionSettingsComponent } from './question-settings/question-settings.component';
+import { AnswersComponent } from './answers/answers.component';
+import { ValueComponent } from './value/value.component';
 import { ConditionsComponent } from './conditions/conditions.component';
+import { ConditionModalComponent } from './condition-modal/condition-modal.component';
 import { ValidatorsComponent } from './validators/validators.component';
 import { SvgPipe } from './svg.pipe';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
     declarations: [
         EditorComponent,
-        ModalFormularComponent,
-        ModalElementComponent,
+        FormularSettingsComponent,
+        QuestionSettingsComponent,
+        AnswersComponent,
+        ValueComponent,
         ConditionsComponent,
+        ConditionModalComponent,
         ValidatorsComponent,
-        SvgPipe
+        SvgPipe,
     ],
     imports: [
         EditorRoutingModule,
@@ -34,8 +42,10 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
         FormsModule,
         ModalModule.forRoot(),
         CollapseModule.forRoot(),
+        AccordionModule.forRoot(),
         NgxSmoothDnDModule,
-        SurveyjsModule
+        SurveyjsModule,
+        SharedModule
     ],
     providers: [
         StorageService,

@@ -15,8 +15,6 @@ export class PreviewPipe implements PipeTransform {
     transform(value: any): any {
         return {
             locale: 'de',
-            loadingHtml: 'Das Formular wird geladen <div class=\'spinner-border\' role=\'status\'></div>',
-            completedHtml: 'Vielen Dank für das Abschließen von diesem Formular.',
             pages: [
                 {
                     elements: [
@@ -28,9 +26,7 @@ export class PreviewPipe implements PipeTransform {
             showNavigationButtons: 'none',
             showQuestionNumbers: 'off',
             showTitle: false,
-            showPageTitles: false,
-            maxTextLength: 1000,
-            maxOthersLength: 100,
+            showPageTitles: false
         };
     }
 }

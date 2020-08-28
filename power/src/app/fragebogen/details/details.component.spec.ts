@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { environment } from '@env/environment';
 
 import { DetailsComponent } from './details.component';
@@ -20,6 +21,10 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     const formSample2 = require('../../../assets/fragebogen/form-sample-2.json');
     const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
     const taskSample = require('../../../assets/fragebogen/tasks-list.json');
+    const emptyResponse = require('../../../assets/fragebogen/empty-response.json');
+
+    const formURL = environment.formAPI + 'intern/forms/1234';
+    const tasksURL = environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?limit=9007199254740991&offset=0&sort=created&order=desc';
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -51,7 +56,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 DetailsComponent,
                 MockMaketaskComponent,
                 MockPublishComponent,
-                MockCommentComponent
+                MockCommentComponent,
+                MockSettingsComponent
             ]
         }).compileComponents();
 
@@ -67,36 +73,33 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         expect(component.storage.tasksList.length).toEqual(2);
     });
 
     it('should create 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample2);
+        answerHTTPRequest(formURL, 'GET', formSample2);
         expect(component.storage.form.status).toEqual('created');
         expect(component.storage.tasksList).toEqual([]);
     });
 
     it('should create 3', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample2);
+        answerHTTPRequest(formURL, 'GET', formSample2);
         spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
         component.ngOnInit();
         expect(component.router.navigate).toHaveBeenCalledTimes(1);
     });
 
     it('should not create', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', null);
+        answerHTTPRequest(formURL, 'GET', null);
         expect(component.storage.form).toBeNull();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '1234');
     });
 
     it('should not create 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', null);
+        answerHTTPRequest(formURL, 'GET', formSample);
+        answerHTTPRequest(tasksURL, 'GET', null);
         expect(component.storage.tasksList).toEqual([]);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
@@ -104,8 +107,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should error', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET',
-            { 'error': 'Internal Server Error' });
+        answerHTTPRequest(formURL, 'GET', { 'error': 'Internal Server Error' });
         expect(component.storage.form).toBeNull();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
@@ -113,9 +115,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should error 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET',
-            { 'error': 'Internal Server Error' });
+        answerHTTPRequest(formURL, 'GET', formSample);
+        answerHTTPRequest(tasksURL, 'GET', { 'error': 'Internal Server Error' });
         expect(component.storage.tasksList).toEqual([]);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
@@ -123,39 +124,30 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should error 404', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample,
-            { status: 404, statusText: 'Not Found' });
+        answerHTTPRequest(formURL, 'GET', formSample, { status: 404, statusText: 'Not Found' });
         expect(component.storage.form).toBeNull();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
     });
 
     it('should error 404 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample,
-            { status: 404, statusText: 'Not Found' });
+        answerHTTPRequest(formURL, 'GET', formSample);
+        answerHTTPRequest(tasksURL, 'GET', taskSample, { status: 404, statusText: 'Not Found' });
         expect(component.storage.tasksList).toEqual([]);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
     });
 
     it('should crash', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
-
+        answerInitialRequests();
         expect(function () {
             component.loadData(null);
         }).toThrowError('id is required');
     });
 
     it('should delete form', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.deleteForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -164,21 +156,15 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should not delete form', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(false);
-
         component.deleteForm();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
     });
 
     it('should fail delete form', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.deleteForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', null);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -187,11 +173,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail delete form 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.deleteForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE',
             { 'error': 'Internal Server Error' });
@@ -201,11 +184,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should delete form 404', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.deleteForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample,
             { status: 404, statusText: 'Not Found' });
@@ -214,11 +194,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should archive form', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.archiveForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST', formSample);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -227,21 +204,15 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should not archive form', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(false);
-
         component.archiveForm();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
     });
 
     it('should fail archive form', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.archiveForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST', null);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -250,11 +221,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail archive form', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.archiveForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST',
             { 'error': 'Internal Server Error' });
@@ -264,11 +232,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should archive form 404', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.archiveForm();
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg?cancel=true', 'POST', formSample,
             { status: 404, statusText: 'Not Found' });
@@ -277,9 +242,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should get csv', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
         navigator.msSaveBlob = null;
         const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
@@ -292,9 +255,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should get csv 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
         navigator.msSaveBlob = () => true;
         const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
@@ -307,9 +268,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail get csv', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.getCSV();
@@ -321,9 +280,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should get csv 404', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.getCSV();
@@ -335,9 +292,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should delete task', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteTask(0);
@@ -348,9 +303,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should not delete task', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(false);
 
         component.deleteTask(1);
@@ -358,9 +311,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail delete task', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteTask(0);
@@ -371,9 +322,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail delete task', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteTask(0);
@@ -385,9 +334,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should delete task 404', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteTask(0);
@@ -398,9 +345,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should delete task crash', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
 
         expect(function () {
             component.deleteTask(-1);
@@ -411,19 +356,15 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should open task', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
 
         expect(function () {
             component.openTask(0);
-        }).toThrowError('Cannot read property \'Open\' of undefined');
+        }).toThrowError('Cannot read property \'open\' of undefined');
     });
 
     it('should open task crash', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/1234', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI
-            + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?sort=submitted,created', 'GET', taskSample);
+        answerInitialRequests();
 
         expect(function () {
             component.openTask(-1);
@@ -432,6 +373,21 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             component.openTask(2);
         }).toThrowError('invalid i');
     });
+
+    it('should change tasks page', () => {
+        answerInitialRequests();
+        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
+        component.tasksPageChanged(event);
+        answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?limit=5&offset=5&sort=created&order=desc',
+            'GET', emptyResponse);
+        expect(component.storage.tasksList.length).toEqual(0);
+        expect(component.storage.tasksCountTotal).toEqual(2);
+    });
+
+    function answerInitialRequests() {
+        answerHTTPRequest(formURL, 'GET', formSample);
+        answerHTTPRequest(tasksURL, 'GET', taskSample);
+    }
 
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer
@@ -460,27 +416,29 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 });
 
 @Component({
-    selector: 'power-formulars-details-maketask',
+    selector: 'power-forms-details-comment',
     template: ''
 })
-class MockMaketaskComponent {
-}
+class MockCommentComponent { }
 @Component({
-    selector: 'power-formulars-details-publish',
+    selector: 'power-forms-details-maketask',
     template: ''
 })
-class MockPublishComponent {
-}
+class MockMaketaskComponent { }
 @Component({
-    selector: 'power-formulars-details-comment',
+    selector: 'power-forms-details-publish',
     template: ''
 })
-class MockCommentComponent {
-}
+class MockPublishComponent { }
 @Component({
-    selector: 'power-formulars-dashboard',
+    selector: 'power-forms-details-settings',
     template: ''
 })
-class MockDashboardComponent {
-}
+class MockSettingsComponent { }
+@Component({
+    selector: 'power-forms-dashboard',
+    template: ''
+})
+class MockDashboardComponent { }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

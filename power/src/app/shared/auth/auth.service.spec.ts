@@ -106,11 +106,12 @@ describe('Shared.Auth.AuthService', () => {
     it('should get token', (done) => {
         // get correct token
         service.KeycloakToken('abc').then((value) => {
-            expect(service.getBearer()).toEqual('Bearer XXX');
+            expect(service.getBearer()).toEqual('Bearer abc.e30=.123');
             done();
         });
 
-        answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'XXX' });
+        answerHTTPRequest(environment.auth.url + 'token', 'POST',
+            { 'expires_in': 900, 'access_token': 'abc.e30=.123' });
     });
 
     it('should not get token', (done) => {
@@ -152,59 +153,6 @@ describe('Shared.Auth.AuthService', () => {
         });
     });
 
-    it('should get user info', (done) => {
-        // get user info
-        const expire = new Date();
-        expire.setSeconds(expire.getSeconds() + 900);
-        service.user = { 'expires': expire, 'token': { 'access_token': 'abc' }, 'data': null };
-        service.KeyLoakUserInfo().then((value) => {
-            expect(service.user.data).toEqual({ 'name': 'Miau' });
-            done();
-        });
-
-        answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', { 'name': 'Miau' });
-    });
-
-    it('should not get user info', (done) => {
-        // get error
-        const expire = new Date();
-        expire.setSeconds(expire.getSeconds() + 900);
-        service.user = { 'expires': expire, 'token': { 'access_token': 'abc' }, 'data': null };
-        service.KeyLoakUserInfo().then((value) => {
-            expect(service.user.data).toBeNull();
-            done();
-        });
-
-        answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', { 'error': 404 });
-    });
-
-    it('should not get user info 2', (done) => {
-        // get nothing
-        const expire = new Date();
-        expire.setSeconds(expire.getSeconds() + 900);
-        service.user = { 'expires': expire, 'token': { 'access_token': 'abc' }, 'data': null };
-        service.KeyLoakUserInfo().then((value) => {
-            expect(service.user.data).toBeNull();
-            done();
-        });
-
-        answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', null);
-    });
-
-    it('should not get user info 3', (done) => {
-        // get error status code
-        const expire = new Date();
-        expire.setSeconds(expire.getSeconds() + 900);
-        service.user = { 'expires': expire, 'token': { 'access_token': 'abc' }, 'data': null };
-        service.KeyLoakUserInfo().then((value) => {
-            expect(service.user.data).toBeNull();
-            done();
-        });
-
-        answerHTTPRequest(environment.auth.url + 'userinfo', 'GET', 10,
-            { status: 404, statusText: 'Not Found' });
-    });
-
     it('should load session', (done) => {
         // load valid session
         const expire = new Date();
@@ -228,7 +176,8 @@ describe('Shared.Auth.AuthService', () => {
             done();
         });
 
-        answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'XXX' });
+        answerHTTPRequest(environment.auth.url + 'token', 'POST',
+            { 'expires_in': 900, 'access_token': 'abc.e30=.123' });
     });
 
     it('should not refresh session', (done) => {

@@ -4,8 +4,9 @@
            [routerLink]="['/']"
            style="color: #343a40;">
             <img src="/assets/logos/logo.png"
-                 height="20"
                  class="mr-2 align-top"
+                 aria-hidden="true"
+                 height="25px"
                  i18n-alt
                  alt="LGLN Logo">
             <strong class="d-none d-md-inline">
@@ -24,11 +25,18 @@
                 type="button"
                 (click)="isCollapsed = !isCollapsed"
                 [attr.aria-expanded]="!isCollapsed"
-                [class.active]="!isCollapsed">
-            <span class="navbar-toggler-icon"></span>
+                [class.active]="!isCollapsed"
+                aria-controls="navbarToggler"
+                i18n-aria-label
+                aria-label="Navigation umschalten">
+            <span class="navbar-toggler-icon"
+                  aria-hidden="true"></span>
+            <span class="sr-only"
+                  i18n>Navigation umschalten</span>
         </button>
         <div class="collapse navbar-collapse"
              style="z-index: 2000;"
+             id="navbarToggler"
              [collapse]="isCollapsed"
              [isAnimated]="true">
             <ul class="navbar-nav ml-auto">
@@ -88,9 +96,7 @@
                        role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true"
-                       aria-expanded="false"
-                       (click)="isCollapsedAcc = !isCollapsedAcc"
-                       [attr.aria-expanded]="!isCollapsedAcc">
+                       (click)="isCollapsedAcc = !isCollapsedAcc">
                         <svg width="1.5em"
                              height="1.5em"
                              viewBox="0 0 16 16"
@@ -130,13 +136,17 @@
         <footer class="pt-4 my-md-5 pt-md-5 border-top w-100 m-0 overflow-hidden">
             <div class="row justify-content-around">
                 <div class="col-md-4 text-center">
-                    <h5 i18n>Informationen</h5>
+                    <div class="h5"
+                         i18n>Informationen</div>
                     <ul class="list-unstyled text-small">
-                        <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
+                        <li class="m-2"><a
+                               href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
                                i18n>Impressum</a></li>
-                        <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html"
+                        <li class="m-2"><a
+                               href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html"
                                i18n>Datenschutz</a></li>
-                        <li><a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html"
+                        <li class="m-2"><a
+                               href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html"
                                i18n>Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
                     </ul>
                     <p class="text-muted"

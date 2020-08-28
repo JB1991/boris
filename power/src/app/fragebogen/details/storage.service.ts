@@ -13,6 +13,8 @@ import { AuthService } from '@app/shared/auth/auth.service';
 export class StorageService {
     public form: any = null;
     public tasksList: any = [];
+    public tasksCountTotal = 0;
+    public tasksPerPage = 5;
 
     constructor(private httpClient: HttpClient,
         public auth: AuthService) {
@@ -24,6 +26,7 @@ export class StorageService {
     public resetService() {
         this.form = null;
         this.tasksList = [];
+        this.tasksCountTotal = 0;
     }
 
     /**
@@ -39,6 +42,42 @@ export class StorageService {
         // load data from server
         const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
         return this.httpClient.get(url, this.auth.getHeaders());
+    }
+
+    /**
+     * Update Form by id
+     * @param id Form id
+     * @param tags tags
+     * @param owners owners
+     * @param readers readers
+     */
+    public updateForm(id: string, tags?: string, owners?: string, readers?: string): Observable<Object> {
+        if (!id) {
+            throw new Error('id is required');
+        }
+
+        // build url
+        const params = [];
+        if (tags) {
+            params.push('tags=' + encodeURIComponent(tags));
+        }
+        if (owners) {
+            params.push('owners=' + encodeURIComponent(owners));
+        }
+        if (readers) {
+            params.push('readers=' + encodeURIComponent(readers));
+        }
+        let url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
+        if (params) {
+            url += '?';
+            params.forEach(element => {
+                url += element + '&';
+            });
+            url = url.substring(0, url.length - 1);
+        }
+
+        // load data from server
+        return this.httpClient.post(url, '', this.auth.getHeaders());
     }
 
     /**
@@ -111,15 +150,18 @@ export class StorageService {
     /**
      * Loads tasks for form.
      * @param id Form id
+     * @param limit Maximum number of tasks to load
+     * @param offset Number of first form to load
      */
-    public loadTasks(id: string) {
+    public loadTasks(id: string, limit = Number.MAX_SAFE_INTEGER, offset = 0) {
         // check data
         if (!id) {
             throw new Error('id is required');
         }
 
         // load data from server
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks?sort=submitted,created';
+        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks?limit=' + limit
+            + '&offset=' + offset + '&sort=created&order=desc';
         return this.httpClient.get(url, this.auth.getHeaders());
     }
 

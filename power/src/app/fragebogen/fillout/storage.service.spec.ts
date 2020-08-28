@@ -10,6 +10,7 @@ describe('Fragebogen.Fillout.StorageService', () => {
 
     const accessSample = require('../../../assets/fragebogen/access.json');
     const formSample = require('../../../assets/fragebogen/form-sample.json');
+    const taskSample = require('../../../assets/fragebogen/public-task-sample.json');
     const submitSample = require('../../../assets/fragebogen/form-submit.json');
 
     beforeEach(() => {
@@ -62,6 +63,9 @@ describe('Fragebogen.Fillout.StorageService', () => {
         }).toThrowError('no data provided');
         expect(function () {
             service.saveResults('', submitSample);
+        }).toThrowError('id is required');
+        expect(function () {
+            service.submitTask(null, {});
         }).toThrowError('id is required');
     });
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertsService } from './alerts.service';
 
 @Component({
@@ -6,12 +6,9 @@ import { AlertsService } from './alerts.service';
     templateUrl: './alerts.component.html',
     styleUrls: ['./alerts.component.css']
 })
-export class AlertsComponent implements OnInit {
+export class AlertsComponent {
 
     constructor(public alerts: AlertsService) { }
-
-    ngOnInit() {
-    }
 
     /**
      * Removes alert from list

@@ -16,9 +16,8 @@
 
             <ngb-panel *ngFor="let select of nipixStatic.data.selections; let p = index" id="static-{{p}}">
                 <ng-template ngbPanelTitle>
-                    <i class="fa"
-                       [ngClass]="{'fa-plus-circle': staticExpand(p) == false, 'fa-minus-circle': staticExpand(p) == true}"
-                       aria-hidden="true"></i>
+                    <i-bs name="plus-circle" *ngIf="staticExpand(p) == false" aria-hidden="true"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticExpand(p) == true" aria-hidden="true"></i-bs>
                     {{select['name']}}
                 </ng-template>
                 <ng-template ngbPanelContent>
@@ -26,16 +25,28 @@
                     <!-- NiPix Category Selection -->
                     <div ngbDropdown *ngIf="select['type'] == 'single' || select['type'] == 'multiIndex'"
                          class="d-inline-block btn-block ">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" ngbDropdownToggle>
-                            <i class="fa"
-                               [ngClass]="iconFor[nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory]"
-                               aria-hidden="true"></i>
+                        <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" type="button" ngbDropdownToggle>
+                            <i-bs name="house-fill"
+                                  *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory == 'gebrauchte Eigenheime'"
+                                  aria-hidden="true">
+                            </i-bs>
+                            <i-bs name="building"
+                                  *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory == 'gebrauchte Eigentumswohnungen'"
+                                  aria-hidden="true">
+                            </i-bs>
                             {{nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories"
+                            <button type="button" class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories"
                                     (click)="onChangeCat(select['preset'], f)">
-                                <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i>
+                                <i-bs name="house-fill"
+                                      *ngIf="f == 'gebrauchte Eigenheime'"
+                                      aria-hidden="true">
+                                </i-bs>
+                                <i-bs name="building"
+                                      *ngIf="f == 'gebrauchte Eigentumswohnungen'"
+                                      aria-hidden="true">
+                                </i-bs>
                                 {{f}}
                             </button>
                         </div>
@@ -44,11 +55,11 @@
                     <!-- MultiSelect -->
                     <div ngbDropdown class="d-inline-block btn-block " *ngIf="select['type'] == 'multiSelect'">
                         <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}"
-                                ngbDropdownToggle>
+                                type="button" ngbDropdownToggle>
                             {{ (select['selected']) }} Vergleiche
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
-                            <button class="dropdown-item" *ngFor="let f of select['preset']"
+                            <button type="button" class="dropdown-item" *ngFor="let f of select['preset']"
                                     (click)="onSetNumber(select['name'], f)">
                                 {{f}} Vergleiche
                             </button>
@@ -75,7 +86,15 @@
                                 </ng-container>
 
                                 <span>
-                                    <i class="fa" [ngClass]="iconFor[f]" aria-hidden="true"></i> {{f}}
+                                    <i-bs name="house-fill"
+                                          *ngIf="f == 'gebrauchte Eigenheime'"
+                                          aria-hidden="true">
+                                    </i-bs>
+                                    <i-bs name="building"
+                                          *ngIf="f == 'gebrauchte Eigentumswohnungen'"
+                                          aria-hidden="true">
+                                    </i-bs>
+                                    {{f}}
                                 </span>
                             </li>
                         </ng-container>
@@ -139,10 +158,8 @@
                                     style="display: inline-block; margin-right: 5px; border-radius: 10px; width: 10px; height: 10px;"
                                     [style.background-color]="nipixRuntime.getDrawPreset(itm).colors"></span>
                                 {{ itm }}
-                                <i class="fa fa-home" [ngClass]="fa-home" aria-hidden="true"
-                                   *ngIf="itm == 'Eigenheime'"></i>
-                                <i class="fa fa-building" [ngClass]="fa-home" aria-hidden="true"
-                                   *ngIf="itm == 'Eigentumswohnungen'"></i>
+                                <i-bs name="house-fill" *ngIf="itm == 'Eigenheime'" aria-hidden="true"></i-bs>
+                                <i-bs name="building" *ngIf="itm == 'Eigentumswohnungen'" aria-hidden="true"></i-bs>
                                 ({{ nipixStatic.data.shortNames[itm] }})</span>
                         </li>
                     </ul>
@@ -153,9 +170,8 @@
             <!-- Find Woma-Region -->
             <ngb-panel id="static-99">
                 <ng-template ngbPanelTitle>
-                    <i class="fa"
-                       [ngClass]="{'fa-plus-circle': accordionComponent.isExpanded('static-99') == false, 'fa-minus-circle': accordionComponent.isExpanded('static-99') == true}"
-                       aria-hidden="true"></i>
+                    <i-bs name="plus-circle" *ngIf="staticExpand(99) == false" aria-hidden="true"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticExpand(99) == true" aria-hidden="true"></i-bs>
                     Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
                 </ng-template>
                 <ng-template ngbPanelContent>
@@ -169,7 +185,7 @@
                         (focus)="focus$.next($event.target.value)"
                         (click)="click$.next($event.target.value)"
                         #searchWoMaReg="ngbTypeahead"
-                    />
+                        >
                     <hr>
                     Ihre Wohnungsmarkregion: {{ regionName(nipixStatic.data.gemeinden[model]) | json }}
 

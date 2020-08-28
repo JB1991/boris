@@ -5,7 +5,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
 @Component({
-    selector: 'power-formulars-details-maketask',
+    selector: 'power-forms-details-maketask',
     templateUrl: './maketask.component.html',
     styleUrls: ['./maketask.component.css']
 })
@@ -13,6 +13,7 @@ export class MaketaskComponent implements OnInit {
     @ViewChild('modalmaketask') public modal: ModalDirective;
     public amount = 1;
     public pinList = [];
+    public copy = false;
 
     constructor(public modalService: BsModalService,
         public alerts: AlertsService,
@@ -27,6 +28,7 @@ export class MaketaskComponent implements OnInit {
      */
     public open() {
         this.amount = 1;
+        this.pinList = [];
         this.modal.show();
     }
 
@@ -62,8 +64,27 @@ export class MaketaskComponent implements OnInit {
             // success
             for (let i = 0; i < data['data'].length; i++) {
                 this.pinList.push(data['data'][i].pin);
-                this.storage.tasksList.push(data['data'][i]);
+                this.storage.tasksList.splice(0, 0, data['data'][i]);
+                this.storage.tasksCountTotal++;
+                this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
             }
+
+            // copy to clipboard
+            if (this.copy) {
+                const selBox = document.createElement('textarea');
+                selBox.style.position = 'fixed';
+                selBox.style.left = '0';
+                selBox.style.top = '0';
+                selBox.style.opacity = '0';
+                selBox.value = this.pinList.join('\n');
+                document.body.appendChild(selBox);
+                selBox.focus();
+                selBox.select();
+                document.execCommand('copy');
+                document.body.removeChild(selBox);
+            }
+
+            // close modal
             this.close();
         }, (error: Error) => {
             // failed to create task

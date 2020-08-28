@@ -17,7 +17,6 @@ export class StorageService {
     public model: any = JSON.parse(JSON.stringify(templates.defaultTemplate));
     public css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
     public FormularFields = templates.FormularFields;
-    public DatabaseMap = templates.DatabaseMap;
     public selectedPageID = 0;
     public selectedElementID: number = null;
     public UnsavedChanges = false;
@@ -39,7 +38,6 @@ export class StorageService {
         this.css_style.container = 'sv_container';
         this.css_style.row = 'sv_row';
         this.FormularFields = templates.FormularFields;
-        this.DatabaseMap = templates.DatabaseMap;
         this.selectedPageID = 0;
         this.selectedElementID = null;
         this.UnsavedChanges = false;

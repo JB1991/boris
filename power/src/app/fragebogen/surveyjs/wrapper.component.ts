@@ -4,7 +4,7 @@ import * as Survey from 'survey-angular';
 import * as widgets from 'surveyjs-widgets';
 
 @Component({
-    selector: 'power-formulars-surveyjs-wrapper',
+    selector: 'power-forms-surveyjs-wrapper',
     template: `<div #surveyjsDiv></div>`,
     styleUrls: ['./wrapper.component.scss']
 })
@@ -44,6 +44,7 @@ export class WrapperComponent implements OnChanges {
         if (this.theme) {
             Survey.StylesManager.applyTheme(this.theme);
         }
+        Survey.surveyLocalization.defaultLocale = 'de';
 
         // load custom widgets
         widgets.nouislider(Survey);
@@ -68,6 +69,21 @@ export class WrapperComponent implements OnChanges {
             this.survey.mode = this.mode;
         }
         this.survey.showInvisibleElements = this.showInvisible;
+        this.survey.sendResultOnPageNext = true;
+        this.survey.checkErrorsMode = 'onNextPage';
+        this.survey.maxTextLength = 5000;
+        this.survey.maxOthersLength = 200;
+
+        // fix links
+        this.survey.onAfterRenderQuestion.add(function (_, options) {
+            const linkEl = options.htmlElement.querySelector('a');
+            if (linkEl) {
+                /* istanbul ignore next */
+                linkEl.onclick = function (e) {
+                    e.stopPropagation();
+                };
+            }
+        });
 
         // build property model
         this.props = { model: this.survey };

@@ -19,6 +19,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     const accessSample = require('../../../assets/fragebogen/access.json');
     const accessemptySample = require('../../../assets/fragebogen/access-empty.json');
     const formSample = require('../../../assets/fragebogen/form-sample.json');
+    const taskSample = require('../../../assets/fragebogen/public-task-sample.json');
     const submitSample = require('../../../assets/fragebogen/form-submit.json');
 
     beforeEach(async(() => {
@@ -76,6 +77,76 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
         component.ngOnInit();
         expect(component.router.navigate).toHaveBeenCalledTimes(1);
+    });
+
+    it('should create public', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
+            if (arg === 'id') {
+                return 'bs8t7ifp9r1b3pt5qkr0';
+            }
+            return null;
+        });
+        component.ngOnInit();
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0', 'GET', formSample);
+    });
+
+    it('should create public 2', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
+            if (arg === 'id') {
+                return 'bs8t7ifp9r1b3pt5qkr0';
+            }
+            return null;
+        });
+        component.submitTask('bs8t7ifp9r1b3pt5qkr0', taskSample.data.content);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true',
+            'POST', taskSample);
+    });
+
+    it('should not create public 2', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
+            if (arg === 'id') {
+                return 'bs8t7ifp9r1b3pt5qkr0';
+            }
+            return null;
+        });
+        component.submitTask('bs8t7ifp9r1b3pt5qkr0', taskSample.data.content);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true', 'POST', null);
+    });
+
+    it('should not create public 3', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
+            if (arg === 'id') {
+                return 'bs8t7ifp9r1b3pt5qkr0';
+            }
+            return null;
+        });
+        component.submitTask('bs8t7ifp9r1b3pt5qkr0',
+            { result: taskSample.data.content, options: { showDataSavingError: () => { } } });
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true',
+            'POST', { 'error': 'failed' });
+    });
+
+    it('should not create public 4', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
+            if (arg === 'id') {
+                return 'bs8t7ifp9r1b3pt5qkr0';
+            }
+            return null;
+        });
+        component.submitTask('bs8t7ifp9r1b3pt5qkr0',
+            { result: taskSample.data.content, options: { showDataSavingError: () => { } } });
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true',
+            'POST', {}, { status: 404, statusText: 'Not Found' });
     });
 
     it('should not create', () => {
@@ -139,6 +210,15 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         component.progress(submitSample);
         answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST', submitSample);
         expect(component.storage.getUnsavedChanges()).toBeFalse();
+    });
+
+    it('should not submit progress', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessemptySample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        component.storage.setUnsavedChanges(true);
+
+        component.submitted = true;
+        component.progress(submitSample);
     });
 
     it('should fail submit progress', () => {
@@ -224,6 +304,12 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             component.loadData('', '123');
         }).toThrowError('pin is required');
         expect(function () {
+            component.submitTask(null, {});
+        }).toThrowError('id is required');
+        expect(function () {
+            component.submitTask('123', null);
+        }).toThrowError('no data provided');
+        expect(function () {
             component.submit('');
         }).toThrowError('no data provided');
         expect(function () {
@@ -269,7 +355,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 });
 
 @Component({
-    selector: 'power-formulars-home',
+    selector: 'power-forms-home',
     template: ''
 })
 class MockHomeComponent {

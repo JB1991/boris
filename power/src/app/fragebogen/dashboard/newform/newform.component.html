@@ -3,7 +3,7 @@
      class="modal fade"
      tabindex="-1"
      role="dialog"
-     aria-hidden="true">
+     aria-modal="true">
     <div class="modal-dialog"
          role="document">
         <div class="modal-content">
@@ -97,38 +97,9 @@
                     </div>
 
                     <!-- tags -->
-                    <div class="form-group mb-0">
-                        <label for="formtag"
-                               i18n>Formular mit Tags markieren</label>
-                        <input type="text"
-                               list="tags"
-                               class="form-control"
-                               [(ngModel)]="tagInput"
-                               (keyup.enter)="addTag()"
-                               (change)="addTag()"
-                               id="formtag"
-                               name="formtag"
-                               maxlength="50"
-                               i18n-placeholder
-                               placeholder="Tag mit ENTER bestätigen"
-                               required>
-                        <datalist id="tags">
-                            <option *ngFor="let tag of storage.tagList; index as i"
-                                    value="{{ tag }}"></option>
-                        </datalist>
-                        <div>
-                            <span class="badge badge-pill badge-primary clickable mr-1"
-                                  *ngFor="let tag of tagList; index as i"
-                                  i18n-title
-                                  title="Löschen"
-                                  role="button"
-                                  tabindex="0"
-                                  (click)="removeTag(i)"
-                                  (keyup.enter)="removeTag(i)">
-                                {{ tag }}
-                            </span>
-                        </div>
-                    </div>
+                    <power-tagbox [(tagList)]="tagList"
+                                  [dataList]="storage.tagList"
+                                  tagboxLabel="Tags"></power-tagbox>
 
                     <button type="submit"
                             class="d-none"

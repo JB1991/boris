@@ -11,13 +11,15 @@ describe('Fragebogen.Dashboard.StorageService', () => {
     let httpTestingController: HttpTestingController;
 
     const formId = 'bs63c2os5bcus8t5q0kg';
-    const formsURL = environment.formAPI + 'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created';
+    const formsURL = environment.formAPI
+        + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
 
     const formContent = require('../../../assets/fragebogen/form-content.json');
     const formDeleted = require('../../../assets/fragebogen/form-deleted.json');
     const formSample = require('../../../assets/fragebogen/form-sample.json');
     const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
     const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
+    const taskList = require('../../../assets/fragebogen/tasks-list.json');
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -37,6 +39,11 @@ describe('Fragebogen.Dashboard.StorageService', () => {
     it('loadFormsList() should load a list of forms', () => {
         service.loadFormsList().subscribe(data => expect(data).toEqual(formsListSample));
         answerHTTPRequest(formsURL, 'GET', formsListSample);
+    });
+
+    it('loadTasksList() should load a list of tasks', () => {
+        service.loadTasksList().subscribe(data => expect(data).toEqual(taskList));
+        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=9007199254740991&offset=0', 'GET', taskList);
     });
 
     it('loadForm() should load a form by id', () => {
@@ -76,7 +83,10 @@ describe('Fragebogen.Dashboard.StorageService', () => {
         expect(service.formsList).toEqual(formsListSample);
         service.resetService();
         expect(service.formsList).toEqual([]);
+        expect(service.tasksList).toEqual([]);
         expect(service.tagList).toEqual([]);
+        expect(service.formsCountTotal).toEqual(0);
+        expect(service.tasksCountTotal).toEqual(0);
     });
 
     /**

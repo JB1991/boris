@@ -2,8 +2,6 @@ import { PreviewPipe } from './preview.pipe';
 
 const sample = {
     locale: 'de',
-    loadingHtml: 'Das Formular wird geladen <div class=\'spinner-border\' role=\'status\'></div>',
-    completedHtml: 'Vielen Dank für das Abschließen von diesem Formular.',
     pages: [
         {
             elements: [
@@ -15,9 +13,7 @@ const sample = {
     showNavigationButtons: 'none',
     showQuestionNumbers: 'off',
     showTitle: false,
-    showPageTitles: false,
-    maxTextLength: 1000,
-    maxOthersLength: 100,
+    showPageTitles: false
 };
 
 describe('Fragebogen.Surveyjs.PreviewPipe', () => {

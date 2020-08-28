@@ -1,53 +1,63 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { Bootstrap4_CSS } from '../style';
+import { Component, Input, ViewChild } from '@angular/core';
 import { environment } from '@env/environment';
 
+import { WrapperComponent } from '../wrapper.component';
+import { Bootstrap4_CSS } from '../style';
+import { ModalComponent } from '@app/shared/modal/modal.component';
+
 @Component({
-    selector: 'power-formulars-surveyjs-preview',
+    selector: 'power-forms-surveyjs-preview',
     templateUrl: './preview.component.html',
     styleUrls: ['./preview.component.css']
 })
-export class PreviewComponent implements OnInit {
+export class PreviewComponent {
+    @ViewChild('previewmodal') public modal: ModalComponent;
+    @ViewChild('wrapper') public wrapper: WrapperComponent;
     @Input() public form: any;
     @Input() public data: any = null;
-    public isOpen = false;
     public surveyjs_style = Bootstrap4_CSS;
     public mode = 'edit';
+    public language = 'de';
+    public showInvisible = false;
+    public isVisible = false;
 
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
+    constructor() { }
 
     /**
      * Opens full formular preview
      * @param mode Survey mode [edit, display]
      * @param data Survey data
      */
-    public Open(mode = 'edit', data?: any) {
-        if (!(mode === 'edit' || mode === 'display')) {
-            throw new Error('mode is invalid');
+    public open(mode?: string, data?: any) {
+        // set mode
+        if (mode) {
+            if (!(mode === 'edit' || mode === 'display')) {
+                throw new Error('mode is invalid');
+            }
+            this.mode = mode;
+            this.showInvisible = false;
+            this.language = 'de';
         }
+        // set data to display
         if (data && !this.data) {
             this.data = data;
         }
 
-        document.body.classList.add('overflow-hidden');
-        document.body.style.pointerEvents = 'none';
-        this.mode = mode;
-        this.isOpen = true;
+        // show modal
+        this.isVisible = true;
+        if (this.data) {
+            this.modal.open($localize`Ergebnisvorschau`);
+        } else {
+            this.modal.open($localize`Formularvorschau`);
+        }
     }
 
     /**
      * Closes full formular preview
      */
-    public Close() {
-        document.body.classList.remove('overflow-hidden');
-        document.body.style.pointerEvents = 'auto';
-        this.isOpen = false;
+    public close() {
         this.data = null;
+        this.isVisible = false;
     }
 
     /**
@@ -58,6 +68,13 @@ export class PreviewComponent implements OnInit {
         if (!environment.production) {
             console.log(data);
         }
+    }
+
+    /**
+     * Set language
+     */
+    public setLanguage() {
+        this.wrapper.survey.locale = this.language;
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

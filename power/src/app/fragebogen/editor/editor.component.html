@@ -38,7 +38,6 @@
                         *ngFor="let item of storage.FormularFields"
                         role="button"
                         tabindex="0"
-                        draggable="true"
                         class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
                         title="{{ item.name }}"
                         (click)="wsNewElement(item.type)"
@@ -52,7 +51,6 @@
                         *ngIf="elementCopy"
                         role="button"
                         tabindex="0"
-                        draggable="true"
                         class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
                         i18n-title
                         title="Zwischenablage"
@@ -243,7 +241,7 @@
                         class="btn btn-primary mr-2"
                         i18n-title
                         title="Formular Einstellungen öffnen"
-                        (click)="modalformular.Open()">
+                        (click)="formularsettings.open()">
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
@@ -264,7 +262,7 @@
                         class="btn btn-secondary mr-2"
                         i18n-title
                         title="Formular Vorschau öffnen"
-                        (click)="preview.Open()">
+                        (click)="preview.open()">
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
@@ -359,10 +357,10 @@
                         <div class="float-lg-right stick-right m-1 m-lg-2">
                             <button type="button"
                                     class="btn btn-light btn-sm mr-2 drag-handle drag-mouse"
+                                    tabindex="-1"
                                     aria-hidden="true"
                                     i18n-title
-                                    title="Verschieben"
-                                    draggable="true">
+                                    title="Verschieben">
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
@@ -461,7 +459,7 @@
                                     class="btn btn-light btn-sm mr-2"
                                     i18n-title
                                     title="Bearbeiten"
-                                    (click)="modalelement.Open(i, storage.selectedPageID)">
+                                    (click)="questionsettings.open(i, storage.selectedPageID)">
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
@@ -499,10 +497,10 @@
                         </div>
 
                         <!-- element preview -->
-                        <power-formulars-surveyjs-wrapper [model]="container | preview"
-                                                          [css]="storage.css_style"
-                                                          [showInvisible]="true">
-                        </power-formulars-surveyjs-wrapper>
+                        <power-forms-surveyjs-wrapper [model]="container | preview"
+                                                      [css]="storage.css_style"
+                                                      [showInvisible]="true">
+                        </power-forms-surveyjs-wrapper>
                     </div>
                 </div>
             </smooth-dnd-draggable>
@@ -511,11 +509,12 @@
 </main>
 
 <!-- configure formular modal -->
-<power-formulars-editor-modal-formular #modalformular></power-formulars-editor-modal-formular>
+<power-forms-editor-formular-settings #formularsettings></power-forms-editor-formular-settings>
 
 <!-- configure element modal -->
-<power-formulars-editor-modal-element #modalelement></power-formulars-editor-modal-element>
+<power-forms-editor-question-settings #questionsettings></power-forms-editor-question-settings>
 
 <!-- preview -->
-<power-formulars-surveyjs-preview [form]="storage.model"
-                                  #preview></power-formulars-surveyjs-preview>
+<power-forms-surveyjs-preview [form]="storage.model"
+                              #preview>
+</power-forms-surveyjs-preview>

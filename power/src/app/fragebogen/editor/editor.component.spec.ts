@@ -264,9 +264,9 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
         component.wsNewElement('text');
         component.wsElementCopy(0, 0);
-        expect(component.elementCopy).toEqual('{"title":"Titel der Frage","name":"e3","type":"text","valueName":"","inputType":"text","isRequired":true}');
+        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e3","type":"text","inputType":"text","visible":true,"isRequired":true,"requiredErrorText":{}}');
         component.wsElementCopy(0);
-        expect(component.elementCopy).toEqual('{"title":"Titel der Frage","name":"e3","type":"text","valueName":"","inputType":"text","isRequired":true}');
+        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e3","type":"text","inputType":"text","visible":true,"isRequired":true,"requiredErrorText":{}}');
     });
 
     it('should crash copy element', () => {
@@ -534,13 +534,13 @@ describe('Fragebogen.Editor.EditorComponent', () => {
 });
 
 @Component({
-    selector: 'power-formulars-editor-modal-element',
+    selector: 'power-forms-editor-question-settings',
     template: ''
 })
 class MockElementModalComponent {
 }
 @Component({
-    selector: 'power-formulars-editor-modal-formular',
+    selector: 'power-forms-editor-formular-settings',
     template: ''
 })
 class MockFormularModalComponent {

@@ -1,21 +1,29 @@
-import { Injectable } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd, NavigationStart, NavigationCancel } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
-export class LoadingscreenService {
+export class LoadingscreenService implements OnDestroy {
     public visible = false;
+    private _subscription: Subscription;
 
     constructor(public router: Router) {
-        router.events.subscribe((event) => {
+        this._subscription = router.events.subscribe((event) => {
             // enable/disable loadingscreen with navigation
             if (event instanceof NavigationEnd) {
                 this.visible = false;
             } else if (event instanceof NavigationStart) {
                 this.visible = true;
+            } else if (event instanceof NavigationCancel) {
+                this.visible = false;
             }
         });
+    }
+
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
     }
 
     /**

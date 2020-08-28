@@ -121,6 +121,20 @@ export function getDate() {
     return dt.getFullYear();
 }
 
+/**
+ * parse String as Flaot
+ *
+ * @param value String or float
+ *
+ * @return float
+ */
+export function parseStringAsFloat(value: any) {
+    if (typeof value === 'string') {
+        return parseFloat(value.replace(',', '.'));
+    } else {
+        return value;
+    }
+}
 
 /**
  * Dowload Binary Data as file

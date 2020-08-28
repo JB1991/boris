@@ -61,9 +61,6 @@ export class LoginComponent implements OnInit {
 
             // check if user is authenticated
             if (this.auth.IsAuthenticated()) {
-                // get user info
-                await this.auth.KeyLoakUserInfo();
-
                 console.log('User has authenticated');
                 this.router.navigate([redirect], { replaceUrl: true });
                 return;

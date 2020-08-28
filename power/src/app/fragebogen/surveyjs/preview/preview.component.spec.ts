@@ -1,7 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ShowdownModule } from 'ngx-showdown';
+import { FormsModule } from '@angular/forms';
 import { environment } from '@env/environment';
 
 import { PreviewComponent } from './preview.component';
+import { WrapperComponent } from '../wrapper.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
     let component: PreviewComponent;
@@ -9,7 +13,15 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [PreviewComponent]
+            imports: [
+                SharedModule,
+                ShowdownModule,
+                FormsModule
+            ],
+            declarations: [
+                PreviewComponent,
+                WrapperComponent
+            ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(PreviewComponent);
@@ -29,25 +41,34 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
 
     it('should crash', () => {
         expect(function () {
-            component.Open('ediet');
+            component.open('ediet');
         }).toThrowError('mode is invalid');
     });
 
     it('should open/close', () => {
-        expect(component.isOpen).toBeFalse();
+        expect(component.modal.isVisible()).toBeFalse();
         expect(component.mode).toEqual('edit');
 
-        component.Open();
-        expect(component.isOpen).toBeTrue();
+        component.open();
+        expect(component.modal.isVisible()).toBeTrue();
         expect(component.mode).toEqual('edit');
 
-        component.Close();
-        expect(component.isOpen).toBeFalse();
+        component.modal.close();
+        expect(component.modal.isVisible()).toBeFalse();
         expect(component.data).toBeNull();
 
-        component.Open('display', 5);
+        component.open('display', 5);
         expect(component.mode).toEqual('display');
         expect(component.data).toEqual(5);
+    });
+
+    it('should set language', () => {
+        component.open();
+        fixture.detectChanges();
+        component.language = 'en';
+        component.setLanguage();
+
+        expect(component.wrapper.survey.locale).toEqual('en');
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -3,7 +3,7 @@
      class="modal fade"
      tabindex="-1"
      role="dialog"
-     aria-hidden="true">
+     aria-modal="true">
     <div class="modal-dialog"
          role="document">
         <div class="modal-content">
@@ -43,7 +43,8 @@
                       i18n-aria-label
                       aria-label="Angabe wie viele PINs erstellt werden"
                       onsubmit="return false;">
-                    <div class="form-group row mb-0">
+                    <!-- amount -->
+                    <div class="form-group row">
                         <label for="inputAmount"
                                class="col-sm-4 col-form-label"
                                i18n>Anzahl PINs</label>
@@ -58,6 +59,18 @@
                         </div>
                     </div>
 
+                    <!-- copy -->
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="copy"
+                               name="copy"
+                               id="copy">
+                        <label class="custom-control-label"
+                               for="copy"
+                               i18n>Kopiere PIN(s) in die Zwischenablage</label>
+                    </div>
+
                     <button type="submit"
                             class="d-none"
                             aria-hidden="true"
@@ -68,10 +81,10 @@
                 <!-- results -->
                 <div class="scrolllist mt-2"
                      *ngIf="pinList.length !== 0">
-                    <pre class="m-0"
-                         *ngFor="let pin of pinList; index as i">
+                    <span *ngFor="let pin of pinList; index as i">
                         <code>{{ pin }}</code>
-                    </pre>
+                        <br>
+                    </span>
                 </div>
             </div>
 

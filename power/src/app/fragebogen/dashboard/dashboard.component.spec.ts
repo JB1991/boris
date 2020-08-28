@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
+import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
 import { environment } from '@env/environment';
+import {By} from '@angular/platform-browser';
 
 import { DashboardComponent } from './dashboard.component';
 import { StorageService } from './storage.service';
@@ -16,10 +18,19 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let fixture: ComponentFixture<DashboardComponent>;
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
+    let debugElement: DebugElement;
 
     const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
     const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
     const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
+    const taskList = require('../../../assets/fragebogen/tasks-list.json');
+    const formSample = require('../../../assets/fragebogen/form-sample.json');
+    const emptyResponse = require('../../../assets/fragebogen/empty-response.json');
+
+    const formsURL = environment.formAPI
+        + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
+    const tasksURL = environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=9007199254740991&offset=0';
+    const tagsURL = environment.formAPI + 'intern/tags';
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -27,7 +38,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([
                     { path: 'forms', component: MockHomeComponent }
-                ])
+                ]),
+                PaginationModule.forRoot()
             ],
             providers: [
                 Title,
@@ -43,6 +55,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
         fixture = TestBed.createComponent(DashboardComponent);
         component = fixture.componentInstance;
+        debugElement = fixture.debugElement;
         fixture.detectChanges();
 
         spyOn(console, 'log');
@@ -54,78 +67,92 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
-        expect(component.storage.formsList.length).toEqual(1);
-        expect(component.storage.tagList.length).toEqual(3);
+        answerInitialRequests();
+        checkStorageVariables(1, 2, 3, 1, 2);
     });
 
     it('should not create', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', null);
-        expect(component.storage.formsList.length).toEqual(1);
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', null);
+        checkStorageVariables(1, 2, 0, 1, 2);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tags');
     });
 
     it('should not create 2', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', null);
+        answerHTTPRequest(formsURL, 'GET', null);
+        checkStorageVariables(0, 0, 0, 0, 0);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
     });
 
+    it('should not create 3', () => {
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', null);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
+        checkStorageVariables(1, 0, 3, 1, 0);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tasks');
+    });
+
     it('should error', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', { 'error': 'Internal Server Error' });
+        answerHTTPRequest(formsURL, 'GET', { 'error': 'Internal Server Error' });
+        checkStorageVariables(0, 0, 0, 0, 0);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
             .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 404', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample,
-            { status: 404, statusText: 'Not Found' });
+        answerHTTPRequest(formsURL, 'GET', formsListSample, { status: 404, statusText: 'Not Found' });
+        checkStorageVariables(0, 0, 0, 0, 0);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
     });
 
     it('should error 2', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET',
-            { 'error': 'Internal Server Error' });
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', { 'error': 'Internal Server Error' });
+        checkStorageVariables(1, 2, 0, 1, 2);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert)
+            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    });
+
+    it('should error 3', () => {
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', { 'error': 'Internal Server Error' });
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
+        checkStorageVariables(1, 0, 3, 1, 0);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
             .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
     });
 
     it('should error 404 2', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample,
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample, { status: 404, statusText: 'Not Found' });
+        checkStorageVariables(1, 2, 0, 1, 2);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    });
+
+    it('should error 404 3', () => {
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList,
             { status: 404, statusText: 'Not Found' });
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
+        checkStorageVariables(1, 0, 3, 1, 0);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
     });
 
     it('should delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.deleteForm(0);
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -135,24 +162,16 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should not delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(false);
-
         component.deleteForm(0);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
         expect(component.storage.formsList.length).toEqual(1);
     });
 
     it('should fail delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.deleteForm(0);
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', null);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -160,13 +179,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         expect(component.storage.formsList.length).toEqual(1);
     });
 
-    it('should fail delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+    it('should fail delete 2', () => {
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.deleteForm(0);
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE',
             { 'error': 'Internal Server Error' });
@@ -176,12 +191,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should fail delete 404', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         component.deleteForm(0);
         answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample,
             { status: 404, statusText: 'Not Found' });
@@ -191,17 +202,80 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should crash delete', () => {
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&sort=cancelled,published,created',
-            'GET', formsListSample);
-        answerHTTPRequest(environment.formAPI + 'intern/tags', 'GET', tagsSample);
+        answerInitialRequests();
         spyOn(window, 'confirm').and.returnValue(true);
-
         expect(function () {
             component.deleteForm(1);
         }).toThrowError('Invalid id');
         expect(component.storage.formsList.length).toEqual(1);
     });
+
+    it('importForm() should allow uploading a file', () => {
+        answerInitialRequests();
+
+        // Check the import button
+        const button = debugElement.query(By.css('#button-import'));
+        expect(button).toBeDefined();
+        expect(button.nativeElement.id).toEqual('button-import');
+        expect(button.nativeElement.textContent).toContain('Formular importieren');
+
+        // Spy on FileReader
+        const mockReader = jasmine.createSpyObj('FileReader', ['readAsText']);
+        spyOn(window as any, 'FileReader').and.returnValue(mockReader);
+
+        // Trigger event via event binding
+        button.triggerEventHandler('click', null);
+
+        // Create event
+        const blob = new Blob([JSON.stringify(formSample)], {type: 'application/json'});
+        const file = new File([blob], 'formular.json');
+        const event = new Event('change', {bubbles: true});
+
+        // Overwrite native target property
+        Object.defineProperty(event, 'target', {value: {files: {0: file}}});
+
+        // Trigger event directly
+        const input = document.querySelector('#file-upload');
+        input.dispatchEvent(event);
+
+        expect(mockReader.readAsText).toHaveBeenCalledTimes(1);
+        expect(component.storage.formsList.length).toBe(1);
+    });
+
+    it('should change forms page', () => {
+        answerInitialRequests();
+        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
+        component.formsPageChanged(event);
+        answerHTTPRequest(environment.formAPI +
+            'intern/forms?fields=created,id,owners,status,tags,title&limit=5&offset=5&sort=title',
+            'GET', emptyResponse);
+        expect(component.storage.formsList.length).toEqual(0);
+        expect(component.storage.formsCountTotal).toEqual(1);
+    });
+
+    it('should change tasks page', () => {
+        answerInitialRequests();
+        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
+        component.tasksPageChanged(event);
+        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=5&offset=5',
+            'GET', emptyResponse);
+        expect(component.storage.tasksList.length).toEqual(0);
+        expect(component.storage.tasksCountTotal).toEqual(2);
+    });
+
+    function checkStorageVariables(formsListLength, tasksListLength, tagListLength, formsCountTotal, tasksCountTotal) {
+        expect(component.storage.formsList.length).toEqual(formsListLength);
+        expect(component.storage.tasksList.length).toEqual(tasksListLength);
+        expect(component.storage.tagList.length).toEqual(tagListLength);
+        expect(component.storage.formsCountTotal).toEqual(formsCountTotal);
+        expect(component.storage.tasksCountTotal).toEqual(tasksCountTotal);
+    }
+
+    function answerInitialRequests() {
+        answerHTTPRequest(formsURL, 'GET', formsListSample);
+        answerHTTPRequest(tasksURL, 'GET', taskList);
+        answerHTTPRequest(tagsURL, 'GET', tagsSample);
+    }
 
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer
@@ -230,13 +304,13 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 });
 
 @Component({
-    selector: 'power-formulars-dashboard-newform',
+    selector: 'power-forms-dashboard-newform',
     template: ''
 })
 class MockNewformComponent {
 }
 @Component({
-    selector: 'power-formulars-dashboard',
+    selector: 'power-forms-home',
     template: ''
 })
 class MockHomeComponent {

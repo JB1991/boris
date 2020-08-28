@@ -54,10 +54,11 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    npm audit
    ```
 
-4. Linter ausführen (TypeScript und CSS)
+4. Linter ausführen (TypeScript, CSS/SCSS und HTML)
    ```
    npm run lint
    npm run lint:styles
+   npm run lint:html
    ```
 
 ## Coding Guideline
@@ -148,6 +149,17 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
   * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
   * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
+
+### Geosearch
+* Funktionen
+  * Adresssuche (Von Adresse zu Geokoordinaten)
+  * Reverse Geocoding (Von Geokoordinaten zu Adresse)
+* Verwendung in den Modulen Bodenrichtwerte und Bodenwerte
+* Weiterleitung der Anfragen per nginx Reverse Proxy an den BKG Geocoder (siehe Abhängigkeiten)
+* Abhängigkeiten:
+  * [BKG GeoCoder](https://www.bkg.bund.de/SharedDocs/Produktinformationen/BKG/DE/P-2015/150119-Geokodierung.html)
+  * [RxJS](https://angular.io/guide/rx-library)
+  * [GeoJSON](https://www.npmjs.com/package/geojson)
 
 ### Authentifizierungsmodul
 * Authentifizierung mittels Keycloak

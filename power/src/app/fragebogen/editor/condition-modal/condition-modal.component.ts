@@ -1,0 +1,19 @@
+import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+
+@Component({
+    selector: 'power-forms-editor-condition-modal',
+    templateUrl: './condition-modal.component.html',
+    styleUrls: ['./condition-modal.component.scss']
+})
+export class ConditionModalComponent {
+    @ViewChild('conditionmodal') public modal: ModalminiComponent;
+    @Input() data: any;
+    @Output() dataChange = new EventEmitter<any>();
+
+    constructor() { }
+
+    public close() {
+        this.dataChange.emit(this.data);
+    }
+}

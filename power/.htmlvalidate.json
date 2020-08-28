@@ -5,6 +5,7 @@
     "rules": {
         "attr-case": "off",
         "no-inline-style": "off",
-        "svg-focusable": "off"
+        "svg-focusable": "off",
+		"element-name": "off"
     }
 }

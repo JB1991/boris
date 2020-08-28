@@ -1,14 +1,15 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { environment } from '@env/environment';
 
 import { NewformComponent } from './newform.component';
 import { StorageService } from '../storage.service';
+import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { environment } from '@env/environment';
-import { Component } from '@angular/core';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
@@ -25,7 +26,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 ModalModule.forRoot(),
                 RouterTestingModule.withRoutes([
                     { path: 'forms/details/:id', component: MockDetailsComponent }
-                ])
+                ]),
+                SharedModule
             ],
             providers: [
                 BsModalService,
@@ -152,31 +154,6 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
             .toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
-    });
-
-    it('should add tag', () => {
-        component.tagInput = 'MyTag';
-        component.addTag();
-        expect(component.tagList.length).toEqual(1);
-        expect(component.tagList[0]).toEqual('MyTag');
-
-        component.removeTag(0);
-        expect(component.tagList.length).toEqual(0);
-    });
-
-    it('should fail tag', () => {
-        component.tagInput = '';
-        component.addTag();
-        expect(component.tagList.length).toEqual(0);
-
-        component.tagInput = 'MyTag';
-        component.addTag();
-        expect(function () {
-            component.removeTag(-1);
-        }).toThrowError('Invalid i');
-        expect(function () {
-            component.removeTag(1);
-        }).toThrowError('Invalid i');
     });
 
     /**

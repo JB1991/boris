@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShowdownModule } from 'ngx-showdown';
+import { FormsModule } from '@angular/forms';
 
 import { WrapperComponent } from './wrapper.component';
 import { PreviewComponent } from './preview/preview.component';
 import { PreviewPipe } from './preview.pipe';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -14,7 +16,9 @@ import { PreviewPipe } from './preview.pipe';
     ],
     imports: [
         CommonModule,
-        ShowdownModule
+        SharedModule,
+        ShowdownModule,
+        FormsModule
     ],
     exports: [
         WrapperComponent,

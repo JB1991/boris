@@ -8,7 +8,7 @@ import { StorageService } from '../storage.service';
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 
 @Component({
-    selector: 'power-formulars-dashboard-newform',
+    selector: 'power-forms-dashboard-newform',
     templateUrl: './newform.component.html',
     styleUrls: ['./newform.component.css']
 })
@@ -17,7 +17,6 @@ export class NewformComponent implements OnInit {
     public title: string;
     public service = '';
     public template = '';
-    public tagInput: string;
     public tagList = [];
 
     constructor(public modalService: BsModalService,
@@ -33,6 +32,7 @@ export class NewformComponent implements OnInit {
      * Opens new form modal
      */
     public open() {
+        this.tagList = [];
         this.modal.show();
     }
 
@@ -93,7 +93,7 @@ export class NewformComponent implements OnInit {
         if (!this.title) {
             throw new Error('title is required');
         }
-        template.title = this.title;
+        template.title.default = this.title;
 
         this.storage.createForm(template, this.tagList.join(',')).subscribe((data) => {
             // check for error
@@ -116,28 +116,6 @@ export class NewformComponent implements OnInit {
             console.log(error);
             return;
         });
-    }
-
-    /**
-     * Adds tag to list
-     */
-    public addTag() {
-        if (!this.tagInput || !this.tagInput.trim()) {
-            return;
-        }
-        this.tagList.push(this.tagInput);
-        this.tagInput = '';
-    }
-
-    /**
-     * Removes tag from list
-     * @param i Tag number
-     */
-    public removeTag(i: number) {
-        if (i < 0 || i >= this.tagList.length) {
-            throw new Error('Invalid i');
-        }
-        this.tagList.splice(i, 1);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

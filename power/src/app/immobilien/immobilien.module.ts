@@ -1,21 +1,37 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {NgxEchartsModule} from 'ngx-echarts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgxEchartsModule } from 'ngx-echarts';
 
-import {ImmobilienRoutingModule} from './immobilien-routing.module';
-import {ImmobilienComponent} from './immobilien/immobilien.component';
+import { ImmobilienRoutingModule } from './immobilien-routing.module';
+import { ImmobilienComponent } from './immobilien/immobilien.component';
 
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
+
+// Select some icons (use an object, not an array)
+const icons = {
+    Building,
+    HouseFill,
+    PlusCircle,
+    DashCircle
+};
 
 @NgModule({
     imports: [
         CommonModule,
         ImmobilienRoutingModule,
         NgbModule,
+        AccordionModule.forRoot(),
+        BsDropdownModule.forRoot(),
         NgxEchartsModule,
-        FormsModule
+        FormsModule,
+        NgxBootstrapIconsModule.pick(icons)
     ],
     declarations: [ImmobilienComponent]
 })

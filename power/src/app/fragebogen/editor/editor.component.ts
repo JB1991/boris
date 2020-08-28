@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -11,6 +11,7 @@ import { HistoryService } from './history.service';
 import { ComponentCanDeactivate } from '@app/fragebogen/pendingchanges.guard';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
 @Component({
     selector: 'power-formulars-editor',
@@ -18,6 +19,7 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
     styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit, ComponentCanDeactivate {
+    @ViewChild('preview') public preview: PreviewComponent;
     public elementCopy: any;
     public isCollapsedToolBox = false;
 
@@ -43,6 +45,73 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         } else {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        }
+    }
+
+    @HostListener('document:keydown.control.z', ['$event']) onUndoHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            this.history.undoChanges();
+        }
+    }
+
+    @HostListener('document:keydown.control.y', ['$event']) onRedoHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            this.history.redoChanges();
+        }
+    }
+
+    @HostListener('document:keydown.control.s', ['$event']) onSaveHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            this.wsSave();
+        }
+    }
+
+    @HostListener('document:keydown.control.v', ['$event']) onPasteHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            this.wsNewElement('elementcopy');
+        }
+    }
+
+    @HostListener('document:keydown.control.p', ['$event']) onAddPageHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            this.wsPageCreate(this.storage.selectedPageID + 1);
+        }
+    }
+
+    @HostListener('document:keydown.control.d', ['$event']) onDelPageHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            this.wsPageDelete(this.storage.selectedPageID);
+        }
+    }
+
+    @HostListener('document:keydown.control.arrowleft', ['$event']) onLeftPageHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            if (this.storage.selectedPageID !== 0) {
+                this.wsPageSelect(this.storage.selectedPageID - 1);
+            }
+        }
+    }
+
+    @HostListener('document:keydown.control.arrowright', ['$event']) onRightPageHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            if (this.storage.selectedPageID < this.storage.model.pages.length - 1) {
+                this.wsPageSelect(this.storage.selectedPageID + 1);
+            }
+        }
+    }
+
+    @HostListener('document:keydown.f11', ['$event']) onPreviewHandler(event: KeyboardEvent) {
+        if (this.storage.getAutoSaveEnabled()) {
+            event.preventDefault();
+            if (this.preview.isVisible) {
+                this.preview.modal.close();
+            } else {
+                this.preview.open();
+            }
         }
     }
 
@@ -275,10 +344,11 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         // add
         this.history.makeHistory(this.storage.model);
         this.storage.model.pages.splice(page, 0, {
-            title: '',
-            description: '',
+            title: {},
+            description: {},
             elements: [],
             questionsOrder: 'default',
+            visible: true,
             name: this.storage.newPageID()
         });
         this.storage.selectedPageID = page;
@@ -306,10 +376,11 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         // ensure that at least one page exists
         if (this.storage.model.pages.length < 1) {
             this.storage.model.pages.splice(0, 0, {
-                title: '',
-                description: '',
+                title: {},
+                description: {},
                 elements: [],
                 questionsOrder: 'default',
+                visible: true,
                 name: 'p1'
             });
         }
@@ -431,6 +502,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
 
         // move up
+        this.history.makeHistory(this.storage.model);
         moveItemInArray(this.storage.model.pages[page].elements, element, element - 1);
     }
 
@@ -453,6 +525,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
 
         // move down
+        this.history.makeHistory(this.storage.model);
         moveItemInArray(this.storage.model.pages[page].elements, element, element + 1);
     }
 }

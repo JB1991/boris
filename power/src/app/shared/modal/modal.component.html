@@ -1,0 +1,26 @@
+<div class="fullscreen bg-white"
+     tabindex="-1"
+     role="dialog"
+     aria-modal="true"
+     [attr.aria-hidden]="!isOpen"
+     [attr.aria-label]="title"
+     #mymodal>
+    <div cdkTrapFocus>
+        <!-- modal headbar -->
+        <nav class="navbar navbar-light bg-light mb-1 mb-lg-3">
+            <span class="navbar-brand mb-0 h1"
+                  #mymodaltitle>{{ title }}</span>
+
+            <button type="button"
+                    class="close"
+                    i18n-title
+                    title="Schließen"
+                    (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </nav>
+
+        <!-- modal body -->
+        <ng-content></ng-content>
+    </div>
+</div>

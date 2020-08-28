@@ -1,9 +1,17 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, InjectionToken, Inject } from '@angular/core';
 
 import { StorageService } from '../storage.service';
 
+const UNIQ_ID_TOKEN = new InjectionToken('ID');
+let id = 0;
 @Component({
-    selector: 'power-formulars-editor-conditions',
+    providers: [
+        {
+            provide: UNIQ_ID_TOKEN,
+            useFactory: () => id++
+        }
+    ],
+    selector: 'power-forms-editor-conditions',
     templateUrl: './conditions.component.html',
     styleUrls: ['./conditions.component.css']
 })
@@ -14,7 +22,8 @@ export class ConditionsComponent implements OnInit, OnChanges {
     public struct: any = [];
     public questions: any = [];
 
-    constructor(public storage: StorageService) { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
+        public storage: StorageService) { }
 
     ngOnInit() {
         // make question list
@@ -25,7 +34,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 if (element.type !== 'matrix') {
                     this.questions.push({
                         name: element.name,
-                        title: element.name + ': ' + element.title,
+                        title: element.name + ': ' + element.title.default,
                         type: element.type,
                         choices: (element.choices ? element.choices : null)
                     });
@@ -33,7 +42,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
                     for (const q of element.rows) {
                         this.questions.push({
                             name: element.name + '.' + q.value,
-                            title: element.name + ': ' + (q.text ? q.text : q.value),
+                            title: element.name + ': ' + (q.text.default ? q.text.default : q.value),
                             type: element.type,
                             choices: element.columns
                         });

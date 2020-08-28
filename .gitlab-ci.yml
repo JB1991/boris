@@ -18,7 +18,7 @@ cache: &global_cache
 
 install:
   stage: init
-  image: node:14.7
+  image: node:14
   dependencies: []
   cache:
     <<: *global_cache
@@ -33,17 +33,11 @@ install:
 
 test:karma:
   stage: test
-  image: node:14.7
+  image: trion/ng-cli-karma:latest
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  before_script:
-    # Install chrome
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
-    - echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |  tee /etc/apt/sources.list.d/google-chrome.list
-    - apt-get update
-    - apt-get install google-chrome-stable -y
   script:
     # Run Karma tests
     - cd power
@@ -62,18 +56,11 @@ test:karma:
 
 test:e2e:
   stage: test
-  image: node:14.7
+  image: trion/ng-cli-e2e:latest
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
-  before_script:
-    # Install chrome
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
-    - echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |  tee /etc/apt/sources.list.d/google-chrome.list
-    - apt-get update
-    - apt-get install google-chrome-stable -y
   script:
     # Run E2E tests
     - cd power
@@ -88,11 +75,10 @@ test:e2e:
     - merge_requests
     - dev
     - staging
-  when: manual
 
 test:audit:
   stage: test
-  image: node:14.7
+  image: node:14
   dependencies: []
   cache:
     <<: *global_cache
@@ -108,7 +94,7 @@ test:audit:
 
 test:lint:
   stage: test
-  image: node:14.7
+  image: node:14
   dependencies: []
   cache:
     <<: *global_cache
@@ -124,7 +110,7 @@ test:lint:
 
 test:lint:html:
   stage: test
-  image: node:14.7
+  image: node:14
   dependencies: []
   cache:
     <<: *global_cache
@@ -140,7 +126,7 @@ test:lint:html:
 
 test:lint:styles:
   stage: test
-  image: node:14.7
+  image: node:14
   dependencies: []
   cache:
     <<: *global_cache
@@ -156,7 +142,7 @@ test:lint:styles:
 
 build:
   stage: build
-  image: node:14.7
+  image: node:14
   dependencies: []
   cache:
     <<: *global_cache
@@ -198,6 +184,7 @@ deploy:
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
     - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
+    - bash scripts/slack.sh
   only:
     - dev
     - staging

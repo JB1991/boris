@@ -8,10 +8,12 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { EditorModule } from './editor/editor.module';
 import { DetailsModule } from './details/details.module';
 import { FilloutModule } from './fillout/fillout.module';
+import { PublicDashboardModule } from './public-dashboard/public-dashboard.module';
+import { FormAPIService } from './formapi.service';
 
 @NgModule({
     declarations: [
-        HomeComponent,
+        HomeComponent
     ],
     imports: [
         FragebogenRoutingModule,
@@ -20,7 +22,11 @@ import { FilloutModule } from './fillout/fillout.module';
         DashboardModule,
         DetailsModule,
         FilloutModule,
-        EditorModule
+        EditorModule,
+        PublicDashboardModule
+    ],
+    providers: [
+        FormAPIService
     ]
 })
 
