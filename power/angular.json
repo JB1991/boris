@@ -33,7 +33,6 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/webfonts",
                             "src/manifest.json",
                             "src/robots.txt"
                         ],
@@ -118,7 +117,6 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/webfonts",
                             "src/manifest.json"
                         ]
                     }
