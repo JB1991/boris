@@ -137,6 +137,129 @@
                                i18n>Fragennummer verstecken</label>
                     </div>
 
+                    <div *ngIf="storage.model.pages[page].elements[question].type === 'text'">
+                        <!-- question-inputType-->
+                        <div class="form-group">
+                            <label for="question-inputType"
+                                   i18n>Eingabetyp</label>
+                            <select class="custom-select"
+                                    [(ngModel)]="storage.model.pages[page].elements[question].inputType"
+                                    id="question-inputType"
+                                    name="question-inputType"
+                                    aria-describedby="question-inputTypeHelp">
+                                <option value="color"
+                                        i18n>Farbe</option>
+                                <option value="date"
+                                        i18n>Datum</option>
+                                <option value="datetime-local"
+                                        i18n>Datum & Uhrzeit</option>
+                                <option value="email"
+                                        i18n>E-Mail</option>
+                                <option value="month"
+                                        i18n>Monat</option>
+                                <option value="number"
+                                        i18n>Ganzzahl</option>
+                                <option value="tel"
+                                        i18n>Telefonnummer</option>
+                                <option value="text"
+                                        i18n>Text</option>
+                                <option value="time"
+                                        i18n>Uhrzeit</option>
+                                <option value="url"
+                                        i18n>URL</option>
+                                <option value="week"
+                                        i18n>Woche</option>
+                            </select>
+                            <small id="question-inputTypeHelp"
+                                   class="form-text text-muted"
+                                   i18n>Nicht jede Option wird von allen Webbrowsern unterstützt.</small>
+                        </div>
+
+                        <!--<span i18n>Minimaler Wert</span>
+                        <power-forms-editor-value [question]="storage.model.pages[page].elements[question]"
+                                                  [(value)]="storage.model.pages[page].elements[question].min">
+                        </power-forms-editor-value>
+
+                        <hr>
+                        <span i18n>Maximaler Wert</span>
+                        <power-forms-editor-value [question]="storage.model.pages[page].elements[question]"
+                                                  [(value)]="storage.model.pages[page].elements[question].max">
+                        </power-forms-editor-value>-->
+                    </div>
+
+                    <!-- question-rows -->
+                    <div class="form-group"
+                         *ngIf="storage.model.pages[page].elements[question].type === 'comment'">
+                        <label for="question-rows"
+                               i18n>Zeilen des Eingabefeldes</label>
+                        <input type="number"
+                               class="form-control"
+                               [(ngModel)]="storage.model.pages[page].elements[question].rows"
+                               min="1"
+                               name="question-rows"
+                               id="question-rows">
+                    </div>
+
+                    <div *ngIf="storage.model.pages[page].elements[question].type === 'rating'">
+                        <!-- question-rateStep -->
+                        <div class="form-group">
+                            <label for="question-rateStep"
+                                   i18n>Wert Schritte</label>
+                            <input type="number"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].rateStep"
+                                   min="1"
+                                   name="question-rateStep"
+                                   id="question-rateStep">
+                        </div>
+
+                        <!-- question-minRateDescription -->
+                        <div class="form-group">
+                            <label for="question-minRateDescription"
+                                   i18n>Anzeigetext Minimum</label>
+                            <input type="text"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].minRateDescription.default"
+                                   maxlength="200"
+                                   name="question-minRateDescription"
+                                   id="question-minRateDescription">
+                        </div>
+
+                        <!-- question-rateMin -->
+                        <div class="form-group">
+                            <label for="question-rateMin"
+                                   i18n>Minimaler Wert</label>
+                            <input type="number"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].rateMin"
+                                   name="question-rateMin"
+                                   id="question-rateMin">
+                        </div>
+
+                        <!-- question-maxRateDescription -->
+                        <div class="form-group">
+                            <label for="question-maxRateDescription"
+                                   i18n>Anzeigetext Maximum</label>
+                            <input type="text"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].maxRateDescription.default"
+                                   maxlength="200"
+                                   name="question-maxRateDescription"
+                                   id="question-maxRateDescription">
+                        </div>
+
+                        <!-- question-rateMax -->
+                        <div class="form-group">
+                            <label for="question-rateMax"
+                                   i18n>Maximaler Wert</label>
+                            <input type="number"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].rateMax"
+                                   name="question-rateMax"
+                                   id="question-rateMax">
+                        </div>
+                    </div>
+
                     <button type="submit"
                             class="d-none"
                             aria-hidden="true"
@@ -166,13 +289,78 @@
 
             <!-- questions -->
             <accordion-group i18n-heading
-                             heading="Fragen"
+                             heading="Unterfragen"
                              class="mb-1 mb-lg-3"
                              *ngIf="storage.model.pages[page].elements[question].type !== 'comment' && storage.model.pages[page].elements[question].rows">
-                <span i18n>Antworten</span>
+                <span i18n>Unterfragen</span>
                 <hr>
                 <power-forms-editor-answers [(data)]="storage.model.pages[page].elements[question].rows">
                 </power-forms-editor-answers>
+                <hr>
+
+                <form #questionsForm="ngForm"
+                      i18n-aria-label
+                      aria-label="Einstellungen zu Unterfragen"
+                      onsubmit="return false;">
+                    <!-- question-isAllRowRequired -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].isAllRowRequired"
+                               name="question-isAllRowRequired"
+                               id="question-isAllRowRequired"
+                               aria-describedby="question-isAllRowRequiredHelp">
+                        <label class="custom-control-label"
+                               for="question-isAllRowRequired"
+                               i18n>Jede Unterfrage ist Pflichtfeld</label>
+                        <small id="question-isAllRowRequiredHelp"
+                               class="form-text text-muted"
+                               i18n>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</small>
+                    </div>
+
+                    <!-- question-hideIfRowsEmpty -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].hideIfRowsEmpty"
+                               name="question-hideIfRowsEmpty"
+                               id="question-hideIfRowsEmpty"
+                               aria-describedby="question-hideIfRowsEmptyHelp">
+                        <label class="custom-control-label"
+                               for="question-hideIfRowsEmpty"
+                               i18n>Unsichtbar ohne sichtbare Fragen</label>
+                        <small id="question-hideIfRowsEmptyHelp"
+                               class="form-text text-muted"
+                               i18n>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgbelendet.</small>
+                    </div>
+
+                    <!-- question-rowsOrder-->
+                    <div class="form-group">
+                        <label for="form-rowsOrder"
+                               i18n>Unterfragen Reihenfolge</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.pages[page].elements[question].rowsOrder"
+                                id="form-rowsOrder"
+                                name="form-rowsOrder">
+                            <option value="initial"
+                                    i18n>Wie definiert</option>
+                            <option value="random"
+                                    i18n>Zufällig</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                            class="d-none"
+                            aria-hidden="true"
+                            disabled
+                            i18n>Absenden</button>
+                </form>
+
+                <hr>
+                <span i18n>Unterfrage Sichtbarkeitsbedingung</span>
+                <br>
+                <power-forms-editor-conditions [(data)]="storage.model.pages[page].elements[question].rowsVisibleIf">
+                </power-forms-editor-conditions>
             </accordion-group>
 
             <!-- answers -->
@@ -185,6 +373,182 @@
                 <power-forms-editor-answers [(data)]="storage.model.pages[page].elements[question].choices"
                                             [hasImg]="storage.model.pages[page].elements[question].type === 'imagepicker'">
                 </power-forms-editor-answers>
+                <hr>
+
+                <form #answersForm="ngForm"
+                      i18n-aria-label
+                      aria-label="Einstellungen zu Antwortmöglichkeiten"
+                      onsubmit="return false;">
+                    <!-- question-hasOther -->
+                    <div class="custom-control custom-checkbox mb-3"
+                         *ngIf="storage.model.pages[page].elements[question].type !== 'imagepicker'">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].hasOther"
+                               name="question-hasOther"
+                               id="question-hasOther">
+                        <label class="custom-control-label"
+                               for="question-hasOther"
+                               i18n>Anderes Eingabefeld aktivieren</label>
+                    </div>
+
+                    <!-- question-showClearButton -->
+                    <div class="custom-control custom-checkbox mb-3"
+                         *ngIf="storage.model.pages[page].elements[question].type === 'radiogroup'">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].showClearButton"
+                               name="question-showClearButton"
+                               id="question-showClearButton">
+                        <label class="custom-control-label"
+                               for="question-showClearButton"
+                               i18n>Zeige Knopf um Auswahl rückgängig zu machen</label>
+                    </div>
+
+                    <div *ngIf="storage.model.pages[page].elements[question].type === 'checkbox'">
+                        <!-- question-hasSelectAll -->
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].hasSelectAll"
+                                   name="question-hasSelectAll"
+                                   id="question-hasSelectAll">
+                            <label class="custom-control-label"
+                                   for="question-hasSelectAll"
+                                   i18n>Zeige Knopf um alles auszuwählen</label>
+                        </div>
+
+                        <!-- question-hasNone -->
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].hasNone"
+                                   name="question-hasNone"
+                                   id="question-hasNone">
+                            <label class="custom-control-label"
+                                   for="question-hasNone"
+                                   i18n>Zeige Knopf für nichts trifft zu</label>
+                        </div>
+                    </div>
+
+                    <div *ngIf="storage.model.pages[page].elements[question].type === 'imagepicker'">
+                        <!-- question-multiSelect -->
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].multiSelect"
+                                   name="question-multiSelect"
+                                   id="question-multiSelect">
+                            <label class="custom-control-label"
+                                   for="question-multiSelect"
+                                   i18n>Mehrfachauswahl erlauben</label>
+                        </div>
+
+                        <!-- question-imageWidth -->
+                        <div class="form-group">
+                            <label for="question-imageWidth"
+                                   i18n>Breite in Pixel</label>
+                            <input type="number"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].imageWidth"
+                                   min="0"
+                                   max="512"
+                                   name="question-imageWidth"
+                                   id="question-imageWidth">
+                        </div>
+
+                        <!-- question-imageHeight -->
+                        <div class="form-group">
+                            <label for="question-imageHeight"
+                                   i18n>Höhe in Pixel</label>
+                            <input type="number"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].imageHeight"
+                                   min="0"
+                                   max="512"
+                                   name="question-imageHeight"
+                                   id="question-imageHeight">
+                        </div>
+
+                        <!-- question-imageFit-->
+                        <div class="form-group">
+                            <label for="form-imageFit"
+                                   i18n>Größenanpassung</label>
+                            <select class="custom-select"
+                                    [(ngModel)]="storage.model.pages[page].elements[question].imageFit"
+                                    id="form-imageFit"
+                                    name="form-imageFit">
+                                <option value="none"
+                                        i18n>Keine Anpassung</option>
+                                <option value="contain"
+                                        i18n>Verkleinern</option>
+                                <option value="cover"
+                                        i18n>Abschneiden</option>
+                                <option value="fill"
+                                        i18n>Füllen</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- question-hideIfChoicesEmpty -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].hideIfChoicesEmpty"
+                               name="question-hideIfChoicesEmpty"
+                               id="question-hideIfChoicesEmpty"
+                               aria-describedby="question-hideIfChoicesEmptyHelp">
+                        <label class="custom-control-label"
+                               for="question-hideIfChoicesEmpty"
+                               i18n>Unsichtbar ohne sichtbare Antworten</label>
+                        <small id="question-hideIfChoicesEmptyHelp"
+                               class="form-text text-muted"
+                               i18n>Sind alle Antworten unsichtbar, dann wird die Frage ausgbelendet.</small>
+                    </div>
+
+                    <!-- question-colCount -->
+                    <div class="form-group">
+                        <label for="question-colCount"
+                               i18n>Darstellung in Spalten</label>
+                        <input type="number"
+                               class="form-control"
+                               [(ngModel)]="storage.model.pages[page].elements[question].colCount"
+                               min="0"
+                               name="question-colCount"
+                               id="question-colCount">
+                    </div>
+
+                    <!-- question-choicesOrder-->
+                    <div class="form-group">
+                        <label for="form-choicesOrder"
+                               i18n>Antworten Reihenfolge</label>
+                        <select class="custom-select"
+                                [(ngModel)]="storage.model.pages[page].elements[question].choicesOrder"
+                                id="form-choicesOrder"
+                                name="form-choicesOrder">
+                            <option value="none"
+                                    i18n>Wie definiert</option>
+                            <option value="asc"
+                                    i18n>Aufsteigend sortiert</option>
+                            <option value="desc"
+                                    i18n>Absteigend sortiert</option>
+                            <option value="random"
+                                    i18n>Zufällig</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                            class="d-none"
+                            aria-hidden="true"
+                            disabled
+                            i18n>Absenden</button>
+                </form>
+
+                <hr>
+                <span i18n>Antwort Sichtbarkeitsbedingung</span>
+                <br>
+                <power-forms-editor-conditions [(data)]="storage.model.pages[page].elements[question].choicesVisibleIf">
+                </power-forms-editor-conditions>
             </accordion-group>
 
             <!-- answers/matrix -->
@@ -196,6 +560,12 @@
                 <hr>
                 <power-forms-editor-answers [(data)]="storage.model.pages[page].elements[question].columns">
                 </power-forms-editor-answers>
+
+                <hr>
+                <span i18n>Antwort Sichtbarkeitsbedingung</span>
+                <br>
+                <power-forms-editor-conditions [(data)]="storage.model.pages[page].elements[question].columnsVisibleIf">
+                </power-forms-editor-conditions>
             </accordion-group>
 
             <!-- conditions -->

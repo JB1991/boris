@@ -125,6 +125,7 @@ export const FormularFields = [
                 }
             ],
             colCount: 1,
+            choicesOrder: 'none',
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -155,6 +156,7 @@ export const FormularFields = [
                 }
             ],
             colCount: 1,
+            choicesOrder: 'none',
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -188,8 +190,11 @@ export const FormularFields = [
                 }
             ],
             colCount: 0,
+            choicesOrder: 'none',
             showLabel: true,
             imageFit: 'fill',
+            imageWidth: 200,
+            imageHeight: 150,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -205,6 +210,7 @@ export const FormularFields = [
             description: {},
             name: '',
             type: 'rating',
+            rateStep: 1,
             rateMax: 5,
             maxRateDescription: {
                 default: 'Sehr gut'
@@ -284,6 +290,8 @@ export const FormularFields = [
                 }
             ],
             isAllRowRequired: true,
+            hideIfRowsEmpty: true,
+            rowsOrder: 'initial',
             visible: true,
             isRequired: true,
             requiredErrorText: {}

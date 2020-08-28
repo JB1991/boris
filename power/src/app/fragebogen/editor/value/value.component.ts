@@ -1,8 +1,16 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter, InjectionToken, Inject } from '@angular/core';
 
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 
+const UNIQ_ID_TOKEN = new InjectionToken('ID');
+let id = 0;
 @Component({
+    providers: [
+        {
+            provide: UNIQ_ID_TOKEN,
+            useFactory: () => id++
+        }
+    ],
     selector: 'power-forms-editor-value',
     templateUrl: './value.component.html',
     styleUrls: ['./value.component.scss']
@@ -14,7 +22,7 @@ export class ValueComponent implements OnChanges {
     public data = {};
     public css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
 
-    constructor() {
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) {
         // overwrite style class
         this.css_style.container = 'sv_container';
         this.css_style.row = 'sv_row';

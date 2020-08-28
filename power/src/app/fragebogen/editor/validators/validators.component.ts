@@ -1,8 +1,16 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, InjectionToken, Inject } from '@angular/core';
 
 import { StorageService } from '../storage.service';
 
+const UNIQ_ID_TOKEN = new InjectionToken('ID');
+let id = 0;
 @Component({
+    providers: [
+        {
+            provide: UNIQ_ID_TOKEN,
+            useFactory: () => id++
+        }
+    ],
     selector: 'power-forms-editor-validators',
     templateUrl: './validators.component.html',
     styleUrls: ['./validators.component.css']
@@ -14,7 +22,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
     public struct: any = [];
     public questions: any = [];
 
-    constructor(public storage: StorageService) { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
+        public storage: StorageService) { }
 
     ngOnInit() {
         // make question list
