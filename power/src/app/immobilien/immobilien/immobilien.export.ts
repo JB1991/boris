@@ -111,9 +111,9 @@ export class ImmobilienExport {
             const drawitem = this.nipixRuntime.drawPresets[d];
             if (drawitem['show']) {
                 if (geoJSON) {
-                    tmp = this.exportNiPixGeoJsonGeoJson(drawitem, geoData, date, series, istart, iend);
+                    tmp = tmp.concat(this.exportNiPixGeoJsonGeoJson(drawitem, geoData, date, series, istart, iend));
                 } else {
-                    tmp = this.exportNiPixGeoJsonCSV(drawitem, date, series, istart, iend);
+                    tmp = tmp.concat(this.exportNiPixGeoJsonCSV(drawitem, date, series, istart, iend));
                 }
             }
         }
