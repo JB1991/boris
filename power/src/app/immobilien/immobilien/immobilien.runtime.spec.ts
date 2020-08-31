@@ -99,7 +99,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
         component.state.highlightedSeries = 'foo';
         component.highlightSeries('foo');
-        
+
         spyOn(ImmobilienUtils, 'dispatchMapSelect').and.callFake(
             function(mapobj, key, select) {
             }
@@ -123,7 +123,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
 
     it('updateRange works', function() {
-        component.updateAvailableQuartal(2000,4);
+        component.updateAvailableQuartal(2000, 4);
 
         component.updateRange(100 / 3 * 2, 100);
         expect(component.state.rangeStartIndex).toEqual(1);

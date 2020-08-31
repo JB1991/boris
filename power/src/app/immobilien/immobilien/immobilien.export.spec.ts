@@ -13,9 +13,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
     let niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
     let niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
 
-    let downloadSpy;
-
-    beforeEach(() => {
+    const prepareNiStatic = function() {
         niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
         niStatic.data = {
             'regionen': {
@@ -24,56 +22,20 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                 }
             }
         };
-        //JSON.parse(JSON.stringify(niStaticData));
-        //niStatic.referenceDate = '';
-        //niStatic.textOptions = {
-        //    'fontSizePage': 1
-        //};
+    };
 
+    const prepareNiRuntime = function() {
         niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
         niRuntime.state = {
-        //    'rangeEndIndex': 10,
-        //    'selectedChartLine': '',
             'activeSelection': 'na',
             'selectedMyRegion': '4102'
         };
         niRuntime.calculated = {
             'hiddenData': {}
         };
-        //JSON.parse(JSON.stringify(niRuntimeCalculated));
-        //niRuntime.highlightSeries = function(seriesName) {};
-        niRuntime.chart = {
-            'obj': {
-                'convertToPixel': function(par1, par2) { return 1; },
-                'resize': jasmine.createSpy(),
-                'setOption': jasmine.createSpy(),
-                'getOption': function() { 
-                    return {
-                        'series': [
-                            {
-                                'name': '4102',
-                                'data': [1, 42, 100]
-                            }
-                        ],
-                        'dataZoom': [
-                            {
-                                'start': 0,
-                                'end': 100
-                            }
-                        ],
-                        'xAxis': [
-                            { 'data': ['2000/2', '2000/3', '2000/4'] }
-                        ]
-                    };
-                },
-                'getDataURL': function(par1) {
-                    return 'data';
-                }
-            }
-        };
 
         niRuntime.drawPresets = [
-            { 
+            {
                 'show': true,
                 'name': '4102',
                 'values': ['4102']
@@ -84,13 +46,44 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
             }
         ];
 
-        //niRuntime.getDrawPreset = function(name) {
-        //    return {
-        //        'show': true,
-        //        'values': ['foo'],
-        //        'colors': '#aabbcc'
-        //    };
-        //};
+    };
+
+    const prepareNiRuntimeChart = function() {
+        niRuntime.chart = {
+            'obj': {
+                'convertToPixel': function(par1, par2) { return 1; },
+                'resize': jasmine.createSpy(),
+                'setOption': jasmine.createSpy(),
+                'getOption': function() { return {
+                    'series': [
+                        {
+                            'name': '4102',
+                            'data': [1, 42, 100]
+                        }
+                    ],
+                    'dataZoom': [
+                        {
+                            'start': 0,
+                            'end': 100
+                        }
+                    ],
+                    'xAxis': [
+                        { 'data': ['2000/2', '2000/3', '2000/4'] }
+                    ]
+                }; },
+                'getDataURL': function(par1) {
+                    return 'data';
+                }
+            }
+        };
+    };
+
+    beforeEach(() => {
+
+        prepareNiStatic();
+
+        prepareNiRuntime();
+        prepareNiRuntimeChart();
 
         component = new ImmobilienExport.ImmobilienExport(niStatic, niRuntime);
 
@@ -100,7 +93,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                     'geoJson': {
                         'features': [
 
-                            { "type": "Feature", "properties": { "WOMAREGIO": "Nds_West", "WOMA_NAME": "Westliches Niedersachsen", "WMRE": 2, "WMRS": 0, "name": "4102" }, "geometry": {  } }
+                            { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {  } }
 
                         ]
                     }
@@ -114,15 +107,9 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
             }
         );
 
-        /*spyOn(Helper, 'convertArrayToCSV').and.callFake(
-            function(raw, items) {
-                return raw;
-            }
-        );*/
-
     });
 
-    
+
     it('exportAsImage works', function() {
         component.exportAsImage();
         expect(component.exportChart).toEqual(true);
@@ -144,14 +131,14 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                     'crs': {'type': 'name', 'properties': {'name': 'urn:ogc:def:crs:EPSG::3044'}},
                     'features': [
                         {
-                            "type": "Feature",
-                            "properties": {
-                                "WOMAREGIO": "Nds_West",
-                                "WOMA_NAME": "Westliches Niedersachsen",
-                                "WMRE": 2,
-                                "WMRS": 0,
-                                "name": "4102",
-                                "nipix": {
+                            'type': 'Feature',
+                            'properties': {
+                                'WOMAREGIO': 'Nds_West',
+                                'WOMA_NAME': 'Westliches Niedersachsen',
+                                'WMRE': 2,
+                                'WMRS': 0,
+                                'name': '4102',
+                                'nipix': {
                                     'type': undefined,
                                     'data': [
                                         {
@@ -172,7 +159,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                                     ]
                                 }
                             },
-                            "geometry": {  }
+                            'geometry': {  }
                         }
                     ]
                 }
@@ -198,10 +185,10 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                     'crs': {'type': 'name', 'properties': {'name': 'urn:ogc:def:crs:EPSG::3044'}},
                     'features': [
                         {
-                            "type": "Feature",
-                            "properties": {
-                                "name": "4102",
-                                "nipix": {
+                            'type': 'Feature',
+                            'properties': {
+                                'name': '4102',
+                                'nipix': {
                                     'type': undefined,
                                     'data': [
                                         {
@@ -222,7 +209,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                                     ]
                                 }
                             },
-                            "geometry":  { 'type': 'foo', 'geometries': ['bar'] }
+                            'geometry':  { 'type': 'foo', 'geometries': ['bar'] }
                         }
                     ]
                 }
@@ -236,7 +223,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         component.exportNiPixGeoJson(false);
         expect(Helper.downloadFile).toHaveBeenCalledWith(
             '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n' +
-            '"undefined";"foo";"2000_2";"1";"undefined"\r\n' + 
+            '"undefined";"foo";"2000_2";"1";"undefined"\r\n' +
             '"undefined";"foo";"2000_3";"42";"undefined"\r\n' +
             '"undefined";"foo";"2000_4";"100";"undefined"',
             'Immobilienpreisindex.csv'
@@ -248,7 +235,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         component.exportNiPixGeoJson(false);
         expect(Helper.downloadFile).toHaveBeenCalledWith(
             '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n' +
-            '"undefined";"4102";"2000_2";"1";"undefined"\r\n' + 
+            '"undefined";"4102";"2000_2";"1";"undefined"\r\n' +
             '"undefined";"4102";"2000_3";"42";"undefined"\r\n' +
             '"undefined";"4102";"2000_4";"100";"undefined"',
             'Immobilienpreisindex.csv'
@@ -259,32 +246,16 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         niRuntime.state.activeSelection = 99;
         niRuntime.state.selectedMyRegion = 'foo';
         component.exportGeoJSON();
-         expect(Helper.downloadFile).toHaveBeenCalledWith(JSON.stringify({'features': [ ] }), 'Wohnungsmarktregionen.geojson');
-
-        //expect(component.exportChart).toEqual(true);
-    });
-            
-
-    /*
-    it('mapTooltipFormatter should return myregionname', function() {
-        let ths = { myRegionen: {'test': {'name': 'foo'}} };
-        let fun = ImmobilenFormatter.mapTooltipFormatter.bind(ths);
-        let res = fun({'name': 'test'});
-        expect(res).toEqual('foo');
+        expect(Helper.downloadFile).toHaveBeenCalledWith(JSON.stringify({'features': [ ] }), 'Wohnungsmarktregionen.geojson');
     });
 
-     */
     it('exportGeoJSON works', function() {
-        let res = component.exportGeoJSON();
+        const res = component.exportGeoJSON();
         expect(Helper.downloadFile).toHaveBeenCalledWith(JSON.stringify({
-                                'features': [
-        
-                                    { "type": "Feature", "properties": { "WOMAREGIO": "Nds_West", "WOMA_NAME": "Westliches Niedersachsen", "WMRE": 2, "WMRS": 0, "name": "4102" }, "geometry": {  } }
-        
-                                ]
+            'features': [
+                { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {  } }
+            ]
         }), 'Wohnungsmarktregionen.geojson');
-
-        //expect(res).not.toBe(undefined);
     });
 
     it('exportChartImage finish works', function() {
@@ -294,12 +265,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         expect(niRuntime.chart.obj.setOption).toHaveBeenCalled();
         expect(Helper.downloadFile).toHaveBeenCalledWith('data', 'nipix.png', '', true);
     });
-    /*
-    it('getChartOptions return Object', function() {
-        let res = ImmobilenChartOptions.getChartOptions();
-        expect(res).not.toBe(undefined);
-    });
-     */
+
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -214,7 +214,7 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
 
     it('simpleLEgend work', function() {
         const res = component.simpleLegend();
-        expect(res).toEqual(['dd (ohne Daten)','draw']);
+        expect(res).toEqual(['dd (ohne Daten)', 'draw']);
     });
 
     it('grapicLegend undefined work', function() {

@@ -115,7 +115,7 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
 
         niRuntime.formatter = {
             'formatLabel': function() {}
-        }
+        };
 
         niRuntime.getDrawPreset = function(name) {
             return {
