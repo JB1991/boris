@@ -80,9 +80,16 @@ export class ImmobilienComponent implements OnInit {
 
     /**
      * Init the Application.
-     * Load external Config File
      */
     ngOnInit() {
+        this.initNipix();
+    }
+
+    /**
+     * Init the Application.
+     * Load external Config File
+     */
+    initNipix() {
         // LoadConfig
         this.loadConfig(this.configUrl);
     }
