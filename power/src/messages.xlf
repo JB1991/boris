@@ -1,0 +1,2787 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="de" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="29f2fdd7413acc8e2a4347fd84848104111d21ed" datatype="html">
+        <source>Alert schließen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/alerts/alerts.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1ead0ad1063d0c9e005fe56c9529aef4c1ef9d21" datatype="html">
+        <source>Schließen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/alerts/alerts.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/alerts/alerts.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/modal/modal.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/modalmini/modalmini.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/modalmini/modalmini.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/comment/comment.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/comment/comment.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dddac466cd5f7d2aa269cf20548cd041622b89e0" datatype="html">
+        <source>Wird geladen...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/loadingscreen/loadingscreen.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="964597ce8ba24558e58c5c59314f11273e661fb5" datatype="html">
+        <source>LGLN Logo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2fc7d9c292536bc81ce6fcb56f6e2884c7308ab8" datatype="html">
+        <source>Portal für Wertermittlung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d8bca71e10b9fc21aebf9588c70d2d22d4efeea1" datatype="html">
+        <source>.niedersachsen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a8a1e3aaeaf23fb8bd01d359ef43859b3b43304" datatype="html">
+        <source>POWER</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f9999fa085f35ec39774ce255d67a8c905c733e8" datatype="html">
+        <source>Navigation umschalten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f235ac37df52b73b3f355b2698a3b46abebb551c" datatype="html">
+        <source>Bodenrichtwerte</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/start/start.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c2e8a9c3cb3ca59b34c38f8ce9a985af6e8074c6" datatype="html">
+        <source>Bodenwerte</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="86f2a092ffad19d5493a956025d22d6c599b3297" datatype="html">
+        <source>Immobilien</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bbcff546070dfeed0c02351f06f8f05e8dc0f3e7" datatype="html">
+        <source>Formulare</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e9b20820eab2b7caad859fd12f5e211cdb4eae88" datatype="html">
+        <source>Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fa4e4194f0399e23e916635523e524ac9042468d" datatype="html">
+        <source>Einloggen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="29881a45dafbe5aa05cd9d0441a4c0c2fb06df92" datatype="html">
+        <source>Account</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6c80e465ddb54ece7d4a349bce19e786060ae780" datatype="html">
+        <source>Ausloggen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0e21cb4f5aac2cde58a42116fbf181de57e4cba9" datatype="html">
+        <source>Informationen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="140d9a7d0795beace6491c45566f6dd295e94999" datatype="html">
+        <source>Impressum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c47b6066a02b6434f0cd861e792d9ceebbe59235" datatype="html">
+        <source>Datenschutz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">147</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="32665b736aad179d6ffae32a9350a9c5a33c500d" datatype="html">
+        <source>Allgemeine Geschäfts- <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>und Nutzungsbedingungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ded3b9020dd2b2187fc80cef754711d4e734cf19" datatype="html">
+        <source>Version: <x id="INTERPOLATION" equiv-text="{{ appVersion.branch }}"/>/<x id="INTERPOLATION_1" equiv-text="{{ appVersion.version }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="84b82483696456a06af8c33b68e56816c2825cde" datatype="html">
+        <source>für Bauland und landwirtschaftliche Nutzflächen für das gesamte Land Niedersachsen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/start/start.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="06aa2489152d17888c4100a1163cb599283327a2" datatype="html">
+        <source>Zur Anwendung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/start/start.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/start/start.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/start/start.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52c8ad47dfa061d7e0752b1b2932b0e85c6b796a" datatype="html">
+        <source>Immobilienpreis-Index</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/start/start.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2ee7144bd2cca0f065819a11a6db0bdeb221e107" datatype="html">
+        <source>Fragebogen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/start/start.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d384813fec9d7bd2b033d4a0b37fb4a32c339c53" datatype="html">
+        <source>Sie werden in kürze weitergeleitet...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/login/login.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cac3c8f93ff4fb7e3155e0be75154406de578919" datatype="html">
+        <source>Sie wurden ausgeloggt.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/static/logout/logout.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.alert.close" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.d.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.previous" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.next" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.previous-month" datatype="html">
+        <source>Previous month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.next-month" datatype="html">
+        <source>Next month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-month" datatype="html">
+        <source>Select month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-year" datatype="html">
+        <source>Select year</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first" datatype="html">
+        <source>««</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous" datatype="html">
+        <source>«</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next" datatype="html">
+        <source>»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last" datatype="html">
+        <source>»»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first-aria" datatype="html">
+        <source>First</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous-aria" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next-aria" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last-aria" datatype="html">
+        <source>Last</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.progressbar.value" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{getValue() / max | percent}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.d.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
+        <source>Increment hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.HH" datatype="html">
+        <source>HH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.hours" datatype="html">
+        <source>Hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
+        <source>Decrement hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
+        <source>Increment minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.MM" datatype="html">
+        <source>MM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.minutes" datatype="html">
+        <source>Minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
+        <source>Decrement minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
+        <source>Increment seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.SS" datatype="html">
+        <source>SS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.seconds" datatype="html">
+        <source>Seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
+        <source>Decrement seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.PM" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ i18n.getAfternoonPeriod() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.AM" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ i18n.getMorningPeriod() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.toast.close-aria" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/toast/toast.d.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="40c5cf30b22c758e3c36f597c6abcff223d87f4b" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ tagboxLabel }}"/> mit ENTER bestätigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/tagbox/tagbox.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a813fd43c9a1b211fe541045d263d2c500c80f0f" datatype="html">
+        <source>Löschen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/shared/tagbox/tagbox.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">495</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">482</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="41d85c0dfbf10c9df2f8bdd48b9b73466249453d" datatype="html">
+        <source> Formular ausfüllen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="25232b0f9539830f79fb3d1d47b5c0962b7f7a8d" datatype="html">
+        <source>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular
+                    zu gelangen.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="44c14bc54c45717a56e919d57b7480981280d4e9" datatype="html">
+        <source>Formular PIN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f504721f06d60b5f234278f84ffeb23086f292ba" datatype="html">
+        <source>Absenden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/surveyjs/preview/preview.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/comment/comment.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">247</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">368</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">554</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">635</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">267</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">356</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">544</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">175</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="15c9f53d94729ca1e8510fe7613b4850bfe1b0ef" datatype="html">
+        <source>Eingabe einer PIN zum Formular ausfüllen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="31787be1ac233f05e3f588c159ceb3dcacf2e94d" datatype="html">
+        <source> Formular finden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="90fe665d4b973dc0d015d52a9cbef18e03976227" datatype="html">
+        <source>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen
+                    Formulare.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aee2a9cd87c2f72e0d85ce725b637e833321382c" datatype="html">
+        <source> Zu den öffentlichen Formularen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5e641637ff92e723e3d913c361586a524e9e103e" datatype="html">
+        <source> Notarportal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="012fd9129d7165189e6a07e71ca69e7341bae154" datatype="html">
+        <source>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen
+                    Datenaustausch vorzunehmen.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="06c0546a265c1809d2062edcf76efaf085109700" datatype="html">
+        <source> Mitarbeiter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6d77900e3bff9e3313e5502809de6e55726a52a6" datatype="html">
+        <source>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7b9a84aab319ff7ab0aa604b95bdf4ca8560ea89" datatype="html">
+        <source> Zum Mitarbeiterportal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/home/home.component.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d9d90fb0dadef12e1f6c11b5de193b657e1b79a2" datatype="html">
+        <source> Antworten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">250</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="45cc8ca94b5a50842a9a8ef804a5ab089a38ae5c" datatype="html">
+        <source>ID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">259</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d224dd55e15d0ef4660d1ca32986875df8f57a7d" datatype="html">
+        <source>Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
+        <source>Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">266</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a3356824bb85b9c792346cf70d13bd13c94ff74" datatype="html">
+        <source>Kommentar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">269</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/comment/comment.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a3e150dae6c839065debcb1f81dc223d0947cb0" datatype="html">
+        <source>Zuletzt bearbeitet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6727ee2788073a3b269f5e6052b1382391a85b60" datatype="html">
+        <source>Erstellt</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">275</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c5113594a9f3c9f19a957f62df29772fd8757e9d" datatype="html">
+        <source>
+                                Formular öffnen
+                            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="75150d45c351506a5ede2883884e5bf6e4686f53" datatype="html">
+        <source>Formular öffnen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5129a4fbdabea8e8d59af503da489ddca3ba1e6a" datatype="html">
+        <source>Keine Antworten vorhanden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">380</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="88df9c0016e37501184724158f3cc1a5d9e7308a" datatype="html">
+        <source> Formulare</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/public-dashboard/public-dashboard.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b7f6cd735e8b660a6ec3d3dfb09de14ab32a10c8" datatype="html">
+        <source>Titel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/public-dashboard/public-dashboard.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d77be7b4064bb2b2aa2d399f7fa8b60346d0cfec" datatype="html">
+        <source>Besitzer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cafc87479686947e2590b9f588a88040aeaf660b" datatype="html">
+        <source>Tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="62f0c927f090dcb75095cf5e44a2de86cd3593be" datatype="html">
+        <source> Löschen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">231</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">372</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ac031e64032528404a095783f863dddce508d562" datatype="html">
+        <source>Formular löschen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">217</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5ce193deeac1a7e7d2ec78544a664a1c1e774211" datatype="html">
+        <source>Keine Formulare gefunden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/public-dashboard/public-dashboard.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e55a2bcde4dd572dffd6068ecc75af504fb1d0c4" datatype="html">
+        <source> Neues Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">196</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2c81f983879212452af334a148e38770f1e35ae7" datatype="html">
+        <source>Neues Formular erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">181</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="50b522bb0676dc5c60335ab35f8a61b9a497a037" datatype="html">
+        <source> Formular importieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">217</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bf3e9c8a0011a94ab85ff8bceaaed8a08114b762" datatype="html">
+        <source>Formular importieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/dashboard.component.html</context>
+          <context context-type="linenumber">202</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="de51ca703cf0d1bacc6e1762eb3075a3dcdfe55e" datatype="html">
+        <source>Formular Titel*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7c90b55fef229217660d9d258e55a7f091c61b4c" datatype="html">
+        <source>Mein Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="467bff8643ae9525e0477374f132a6b19bedbfd5" datatype="html">
+        <source>Template</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="55d2c659d583048ef273f0d8b69fd38e2c09a500" datatype="html">
+        <source>Standard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">473</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a5ea313ee8ca645c91f45590879b4a628f7a6285" datatype="html">
+        <source>Einstellungen zum neuen Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="85a54edae4a17095fe016b4440898b9235586524" datatype="html">
+        <source> Erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="32ba42e87322de983b28736110b3530431d888d7" datatype="html">
+        <source>Formular erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/dashboard/newform/newform.component.html</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6b1bba8936a6badba1eeaa06722b86cd815bc0bb" datatype="html">
+        <source>Anzeigemodus</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/surveyjs/preview/preview.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7bab7496a9a8d922b3e13dd9b5ce0c089b38781a" datatype="html">
+        <source>Editiermodus</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/surveyjs/preview/preview.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8235005fb8581058ad45e574d404e2a60be1ea72" datatype="html">
+        <source>Vorschaumodus</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/surveyjs/preview/preview.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1451a321cb66a6785cf15b8d0ada9a620071c6d9" datatype="html">
+        <source>Sprache</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/surveyjs/preview/preview.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b9e0642b9fb50b17b5b601ef181a10b2c96e4bc2" datatype="html">
+        <source>Unsichtbare Elemente anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/surveyjs/preview/preview.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c85e1a66029f462c8d77edbf0dc251aa7deb7af2" datatype="html">
+        <source>Einstellungen für die Vorschau</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/surveyjs/preview/preview.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="46d051bd3ad041d685ee8a38928ccf503bba5313" datatype="html">
+        <source> Zurück</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aa1c103875d1ea5f1a599758e8f668edcaadc7ff" datatype="html">
+        <source>Zurück zum Dashboard</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0f296a173a22e33c172d2a96c56e4ee3e63c439f" datatype="html">
+        <source>Veröffentlicht</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/public-dashboard/public-dashboard.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1956274d4a3b33e6b20306456baa9581140b0245" datatype="html">
+        <source>Archiviert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ca55ed4fc9173cd2ccc69af0beb14f0a0139a4e1" datatype="html">
+        <source>Zugriff</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="963402c1938e4846cec2b84cbddec223c495100b" datatype="html">
+        <source>Leser</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b520197049b1d4d59b9a37bc7c4346ff03f4d78d" datatype="html">
+        <source> Bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ea03adb6273e40e2494f6d1be46579f88ad1d3ae" datatype="html">
+        <source>Formular bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0dec7a136effd34ad47b82e24593b8aa9f2355ae" datatype="html">
+        <source> Vorschau</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">134</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="09f099603051a6c44fadd0cb0433fcf97e0a638f" datatype="html">
+        <source>Formular Vorschau</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e4c4627c55bd1b872c6036aef6806f048d578f6d" datatype="html">
+        <source> Formular exportieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="475e4b8aabd7eea902be2a0fff92be4f60f4636a" datatype="html">
+        <source>Formular exportieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e59c233526f15a67379857cab38ca2a1bfff8892" datatype="html">
+        <source> Einstellungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c6343bb719b641adf4c1b9a878ef11565af08553" datatype="html">
+        <source>Formular teilen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">159</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f8dfca1bb95790b3ca7e5bd50882a7e784ac681e" datatype="html">
+        <source> Veröffentlichen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">193</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="26696958b0a568968716a991f44fcfb7dc5be9a0" datatype="html">
+        <source>Formular veröffentlichen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">179</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6ac3ee70a14b47beb772a66a01a499a907eade93" datatype="html">
+        <source> Archivieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="adf8f024916948a2d37f13e4d2448304335e679d" datatype="html">
+        <source>Formular archivieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c1cad693933aa5f45a0d63b644ae467a3a315863" datatype="html">
+        <source>PIN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="03b870eddca16101be4dccda9cbfc79cccab94f2" datatype="html">
+        <source>Bearbeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">330</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">311</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">476</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">461</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e09791c73ed3b7e089376b27cad0920a0a7cb2a4" datatype="html">
+        <source> Ergebnisse</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">354</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ff241e42b36276698035da4a046a4ab2dd3f06eb" datatype="html">
+        <source>Ergebnisse anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">340</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1283e656c5ab8c2200ef70cd2359d979388fcfa7" datatype="html">
+        <source>Antwort löschen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">359</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="14365f1393a824a5e4ce092ddd30a8be8fdd7d32" datatype="html">
+        <source> Neue PIN erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">403</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a382abc7ca4e70f8027c6d11bade2954e2c78243" datatype="html">
+        <source>Neue PIN erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">387</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7e8cc64f84da227d13452a2e8239690ba2afb93c" datatype="html">
+        <source> Ergebnisse (CSV)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">424</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a1f272c594eb4bac1f84079a7a4d8233f469caf" datatype="html">
+        <source>Ergebnisse als CSV herunterladen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/details.component.html</context>
+          <context context-type="linenumber">409</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c7278fc72f95df36029ee398a71fb690e2bac12c" datatype="html">
+        <source> PIN Generator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c6345ec23ec49ab36dba6a9d0fe62230ea20a219" datatype="html">
+        <source>Anzahl PINs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="61a221040edcd0db1568c524c1d5be73159281a7" datatype="html">
+        <source>Kopiere PIN(s) in die Zwischenablage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8be675263802bf2dbaa726611e8f7410d22c6df6" datatype="html">
+        <source>Angabe wie viele PINs erstellt werden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e056817147648eff1c71db7b1d9c7d9b91a12dbb" datatype="html">
+        <source> PINs erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4596f98d700dd32f697d31d9a593fba8cc2829ca" datatype="html">
+        <source>PINs erstellen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/maketask/maketask.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="724157e31bcf68783138ed9fbfb9b91ca0882d4c" datatype="html">
+        <source>Zugangsschutz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="46c08b92551654654affba543aee755ee616d310" datatype="html">
+        <source>Öffentlich</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e4c3fa70af1cd758fac54904e3f55966741b21a0" datatype="html">
+        <source>6-stellige PIN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="97dc1040bb3e77412b8239e2aeadf553979f4df8" datatype="html">
+        <source>8-stellige PIN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="76eb75ce28fc7d0df35afa3dd7512c568bc393af" datatype="html">
+        <source>Einstellungen zur Veröffentlichung des Formulares</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/publish/publish.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ce1644c20155c362a15c9ed1bad4159b7fe19e4c" datatype="html">
+        <source> Kommentar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/comment/comment.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="119637411ef6bbda1d43b4000160756fdb87a822" datatype="html">
+        <source>Angabe eines Kommentares zu der PIN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/comment/comment.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="697a62df6367f9d278a34db562e924baf78f4ed6" datatype="html">
+        <source> Speichern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/comment/comment.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b679e53ab84675ac0cc538ce87487ae0e1c87f3a" datatype="html">
+        <source>Kommentar speichern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/comment/comment.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7cf44ef55854c8814020e2dca96756b50f3ed380" datatype="html">
+        <source>Leseberechtigte</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7b0eb26da72b44819cedf73048745fa361e6bd05" datatype="html">
+        <source>Einstellungen zum teilen eines Formulars</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/details/settings/settings.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fed629d252a6a62ae2ad5a4c391a4bc02ba0396e" datatype="html">
+        <source> Toolbox</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5fdef93c2d1c6219c1006754bde3dee6988ca1a4" datatype="html">
+        <source>Zwischenablage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1bf371e4a5a8dc8d2d0c4cad87782337c9a429e6" datatype="html">
+        <source> Favoriten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f3c651ebc9847222c445e8f87d09070902d9d175" datatype="html">
+        <source>Zeige Seite <x id="INTERPOLATION" equiv-text="{{ i + 1 }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1bef804d45ef7e79024e4b3866d5b7a68fe6a13e" datatype="html">
+        <source>Neue Seite hinzufügen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">165</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">147</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="efde25f176ce5ace20c61c5aac426d71a3d72b08" datatype="html">
+        <source>Ausgewählte Seite löschen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">187</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b10f2c9cdf70f3439bfef96ee5146a0ddc612066" datatype="html">
+        <source>Formular page navigation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a7691622bdeb1c754f7ad68b8bc32e11ed4f4042" datatype="html">
+        <source>Letzte Änderung wiederholen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">215</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">199</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b1df8cca83e8b2aabba612f6525228581b5fb9f0" datatype="html">
+        <source>Letzte Änderung rückgängig machen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">237</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">221</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="34cb7cfd4c662ae8d6e8d87aad97967fb4457592" datatype="html">
+        <source>Formular Einstellungen öffnen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">258</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">243</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8d75d8e2bff6ab3bdec64ea91887559156d34bf2" datatype="html">
+        <source>Formular Vorschau öffnen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">285</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">264</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d3c6d6530e627a99f368ec6733e8eaa6675ea946" datatype="html">
+        <source>Formular speichern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">308</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">291</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d6c435a171e786bd2d9be77c424e0644f49c98c3" datatype="html">
+        <source>Zurück zu den Details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">331</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">314</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5ffafe3f861146ee9c7451a0a556e685d9ce4c6a" datatype="html">
+        <source>
+            Ziehen Sie etwas in den Arbeitsbereich...
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">341</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="093e0c642470ef632c3b0438d24a68046571b71a" datatype="html">
+        <source>Verschieben</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">375</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">363</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5223023db37a3481255af749e193e788c1be9107" datatype="html">
+        <source>Nach oben verschieben</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">395</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">381</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">410</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">396</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d34a9590ca0f8c5a09e599e7c13f998ccf9259ac" datatype="html">
+        <source>Nach unten verschieben</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">415</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">401</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">430</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">416</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="feabfc384269a35e1f051ef9302a4b5624f3a69a" datatype="html">
+        <source>Kopieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">436</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">421</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6fde62fab9b96d5e6d7e6eb637268570d69406e0" datatype="html">
+        <source>Als Favoriten speichern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">455</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/editor.component.html</context>
+          <context context-type="linenumber">442</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f3a360526be240e3912e53f8a4ad9c9ccf49e959" datatype="html">
+        <source>Formular Titel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0f7372b1f3d8de8750510d53a7bd6c8debf115c7" datatype="html">
+        <source>Titel anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c3ba0e16c9ef005f6bbc4f995f14c2af12e38961" datatype="html">
+        <source>Formular Beschreibung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="855ab9034da4e37ba317248956337799431740fd" datatype="html">
+        <source>Dieser Text wird auf jeder Seite vom Formular angezeigt
+                            werden.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="03759440a23d9e830ddbe9d3eb0a55ac22408639" datatype="html">
+        <source>Standardsprache</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f0122b157c4f5c7549a55110ddc09bd1387a94d2" datatype="html">
+        <source>Deutsch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="61ddf1e2614b372839555e50c09bd50b32644c05" datatype="html">
+        <source>Englisch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="496703e384b8f05105c74c1491f1d8d1fad681b0" datatype="html">
+        <source>Die Standardsprache welche dem Benutzer angezeigt wird. Der
+                            Benutzer hat die
+                            Möglichkeit die Sprache zu wechseln.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="782888deeffa1a69bde7541780ee6c4002c90172" datatype="html">
+        <source>Fragen Nummerierung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cb64dca8c636d6bbb76f5830e2219c615cb68080" datatype="html">
+        <source>Durchgängig nummerieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="953cbf08330ba523eee697419d916b43111306d4" datatype="html">
+        <source>Seitenweise nummerieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8e6462844dfd8ad482449192f36578581c8df9ef" datatype="html">
+        <source>Keine Nummern anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52a26edf41c52e1e49d7105701cad3ee8d3ecf42" datatype="html">
+        <source>Fragen Reihenfolge</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">466</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="310575d2106be5bd1e8b404cdaa241f54f934802" datatype="html">
+        <source>Wie definiert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">475</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">346</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">530</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2ca8921f603de06c2c1c94776061e029fae31007" datatype="html">
+        <source>Zufällig</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">477</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">348</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">536</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="47006a6fc74246da2c0cef564e99297af590f4a6" datatype="html">
+        <source>Abschlusstext*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8399a124ea8654e7c1a6dbf35a233f9f6b91dbac" datatype="html">
+        <source>Umleitungs URL</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2f0ad14852853cce6ae09d15c7bf632b9605c37b" datatype="html">
+        <source>Der Benutzer wird nach Abschluss des Formulares an diese Adresse
+                            weitergeleitet.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ae07791e8b314f4fbc181d42ef9825168de20786" datatype="html">
+        <source>Allgemeine Einstellungen zum Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e30d6b998dc1a0d5fc02cd1de474c2260574c199" datatype="html">
+        <source>Allgemein</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="27eed72a6e4bd7933f6b3b321e287106cc711b97" datatype="html">
+        <source>Formular Logo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="419312cb64c94f0d151d3574cda3b291e69168f8" datatype="html">
+        <source>Eine URL zu einem Logo angeben.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1ba7568bba29f8d8e352f93e67002d0b548eb838" datatype="html">
+        <source>Position</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="762e7746dc6210b2f58f547edf02aa0455f5f927" datatype="html">
+        <source>Nicht anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">186</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">337</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">606</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dc60677d5a906e69f38a5cf9da7f2eb03931bea0" datatype="html">
+        <source>Links</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">188</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a83833deddd55d76969140c336b154e9e928f758" datatype="html">
+        <source>Rechts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">190</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1d9ed0b21ebcf3e6c66f9deedcbf01a165e38183" datatype="html">
+        <source>Oben</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">192</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">339</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">608</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="12549632c2c4f5abf8772650fdfc7a0fc6a6abfc" datatype="html">
+        <source>Unten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">194</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">341</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">610</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="57b1757459f8763eac7ed67b0686d4568a39b449" datatype="html">
+        <source>Breite in Pixel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">201</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">450</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a28322d812fe19c7fbf6dcbe0c318610880b937" datatype="html">
+        <source>Höhe in Pixel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">214</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">463</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="64353883cf25581cdac91743635278b2009698c5" datatype="html">
+        <source>Größenanpassung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">227</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">476</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a44826c4a52dde23d34fb47348d74106cc267e66" datatype="html">
+        <source>Keine Anpassung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">233</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">482</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c6927e4f4f13698c165aeba8457580432cfaa45b" datatype="html">
+        <source>Verkleinern</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">235</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">484</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5e8ffbe875055f34f7162bff4fb068b592e78605" datatype="html">
+        <source>Abschneiden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">237</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">486</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7fafd803f891177b9f538522085fab163d5c1174" datatype="html">
+        <source>Füllen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">239</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">488</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="36b4cdb706af5dc0407e3523b50243f371cb3b38" datatype="html">
+        <source>Logo für das Formular festlegen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e1ec9749196346b5a9bd8047e3bcc60ada632666" datatype="html">
+        <source>Logo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="01862c02671a4d7c67e3ac18731e22de2e5eac54" datatype="html">
+        <source>Erste Seite ist Startseite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">269</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d826061b7224327e37fc2bcf61095a00b1501785" datatype="html">
+        <source>Die erste Seite erhält einen Start Button für das
+                            Formular.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c993c9bc2065fa1f05d0f9a531edb80073b92a1b" datatype="html">
+        <source>Zurück Button erlauben</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">285</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="791d3a6195c093d9772a6cb1824b5bb5cef3d8ef" datatype="html">
+        <source>Nächste Seite automatisch öffnen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">298</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="da34c6080bd51d8a70378c01ee8c9bb4827c3c8a" datatype="html">
+        <source>Nach abschließen einer Seite wird automatisch die nächste
+                            geöffnet.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">301</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f7882b6b55e74c6a35d748c238eca08885a484c8" datatype="html">
+        <source>Vorschau vor dem absenden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">308</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0e4f3e089dc29a6760e5f0b2f4af193fb07380d6" datatype="html">
+        <source>Keine Vorschau</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">315</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7a2dad07cbeb09c7a204f3199eb55b18167cf74b" datatype="html">
+        <source>Alle Fragen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">317</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1fc12f944ff385fdefcc9652e4a272ca7d38c84d" datatype="html">
+        <source>Alle ausgefüllten Fragen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">319</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="51807756d1207a75b3da3c732051c386c62b9bbf" datatype="html">
+        <source>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten,
+                            bevor er das
+                            Formular final absendet.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">323</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="15c746f2040d2e1d07d3ea7a1e2c61112d85ecfe" datatype="html">
+        <source>Fortschrittsbalken Anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">331</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0a894e6d50bbae72bee467625486287e82e05df8" datatype="html">
+        <source>Oben und unten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">343</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d39fbf8c408d5a8ccf7b03948fdd2b83f5d3df1f" datatype="html">
+        <source>Fortschrittsbalken Berechnung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">350</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2b96e8fd499c6bede0b1267f69c34bf410216528" datatype="html">
+        <source>Seitenanzahl</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">356</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="be3e852463e05f67c0ade2f5d2248bb07ed659dd" datatype="html">
+        <source>Fragenanzahl</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">358</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="543abe5e10a82b767e6a223d228d4fd6c0c79416" datatype="html">
+        <source>Korrekt beantwortete Fragen (Quiz)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">360</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="544ce3567c8d8a775bbe99622633ffd0e8799359" datatype="html">
+        <source>Einstellungen für die Navigation durch das Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">257</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a0fdbb96dd88f013acf48e37fcbab25550b30d5c" datatype="html">
+        <source>Navigation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">253</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c03bc1f7d2f32c4fda00d14fdea96327a84ee5b0" datatype="html">
+        <source>Seite <x id="INTERPOLATION" equiv-text="{{ i + 1 }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">390</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f53eec746229e41876dbbab08b133487acde246a" datatype="html">
+        <source>Seiten Titel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">438</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">446</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0e58ad0ee920dccfe527394aa76ddc989ecd935b" datatype="html">
+        <source>Seiten Beschreibung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">453</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="416fbab55f3e5ea2e68e5af0e7199c6cf3314300" datatype="html">
+        <source>Diese Option überschreibt den Standartwert aus dem Reiter Allgemein.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">481</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3ef7f50f88dc9e74a068736891fa9b76bb3c3033" datatype="html">
+        <source>Sichtbar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">494</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d7a6d1cee2758d213d79cf54655c8d355865b0c5" datatype="html">
+        <source>Diese Option stellt ein, ob die Seite standartmäßig
+                                    sichtbar ist.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">497</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1fb5acaf42cd8c8e8613d64055178cb223105974" datatype="html">
+        <source>Deaktiviert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">511</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c27b5ea3cf280eac475fb24d0011f6b0a91e17ac" datatype="html">
+        <source>Diese Option stellt ein, ob die Seite standartmäßig
+                                    ausfüllbar ist.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">514</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9cb046c6b1bb39fc5d6c50442ff0c41c287e45b6" datatype="html">
+        <source>Zeitlimit in Sekunden für die Seite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">521</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8c19e734022caf2c38e4398affbb9cabd1dc4dfa" datatype="html">
+        <source>Diese Option überschreibt den Standartwert pro Seite
+                                    aus dem Reiter
+                                    Timer/Quiz.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">531</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bfd24a3c89183377c9d4cd43340123f49941edf3" datatype="html">
+        <source>Sichtbarkeitsbedingung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">537</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">575</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/condition-modal/condition-modal.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/condition-modal/condition-modal.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="27bea072c2979a3ae98b91cf534a049915043339" datatype="html">
+        <source>Aktivierungsbedingung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">543</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">581</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6c107c07c08476b5b372e4dd32472c98712f0ecd" datatype="html">
+        <source>Einstellungen für die Seiten des Formulares</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">378</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5181ee1615ebc1d07329e26a3fa1c1fae45ca8a6" datatype="html">
+        <source>Seiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">374</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="00ee7c03a1a8ea6fce5d06db0967483eee0bbc3b" datatype="html">
+        <source>Zeitlimit in Sekunden für das Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">576</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="44620c47d0aa1770858f1af1bb5265e582334b98" datatype="html">
+        <source>Zeitlimit in Sekunden pro Seite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">588</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3448adc0edf7703636ee9d6375377a7ce504afe4" datatype="html">
+        <source>Zeitlimit anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">600</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c48b708152dbf3fa47cb7aa72444f3a681d456c8" datatype="html">
+        <source>Timer anzeigen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">617</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e1cecb9aa4b816bea6a11564d39eb0201d7a4b3b" datatype="html">
+        <source>Zeit auf dieser Seite und das gesamte Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">623</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9f01c1cab3c7c6dcad80c2a1e6c03505860d907d" datatype="html">
+        <source>Zeit auf dieser Seite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">625</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e7c3103382cbf7f7aea0d3422d06d86dc8d05d80" datatype="html">
+        <source>Zeit für das gesamte Formular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">627</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d416f292dd2cf21004ef6af8f0beb5edeb6c0e02" datatype="html">
+        <source>Einstellungen für Timer und Quiz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">571</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d7c169478742b0214b38a63db9054031435dac62" datatype="html">
+        <source>Timer/Quiz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/formular-settings/formular-settings.component.html</context>
+          <context context-type="linenumber">567</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="475c657f491f1a54f995cdde7d1f1c35ae050bfa" datatype="html">
+        <source>Fragen ID*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7b63d711e87f8980c7c2852e2b6659c20d385c1b" datatype="html">
+        <source>Dieser Wert muss im Formular einmalig sein. Die ID lässt
+                                sich als Variable nutzen
+                                enthält die Antwort einer Frage:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ba0f3b4bad02ec5cdcd7ce33a832f7a4ee6a161d" datatype="html">
+        <source>Fragen Titel*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="57fa2da6f5cdf78538f36401c2e1c7a248bfc816" datatype="html">
+        <source>Fragen Beschreibung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a8929713bc9bcf423382a74cae36b3f050f38f89" datatype="html">
+        <source>Dieser Text wird unter der Frage angezeigt. Markdown zur
+                            formatierung wird
+                            unterstützt.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d1192a8b331de4d247f556593162e276567744c0" datatype="html">
+        <source>Pflichtfeld</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="af12dfa22ee904b8ea474684be8c79a8eccff498" datatype="html">
+        <source>Pflichtfeld Fehlertext</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="57a3b81333a58db0777a4bb659b283ac0f5cad41" datatype="html">
+        <source>Diese Option stellt ein, ob das Feld standartmäßig sichtbar
+                            ist.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ab5a52c95432184910c095a6a606e3ecfd168000" datatype="html">
+        <source>Diese Option stellt ein, ob das Feld standartmäßig ausfüllbar
+                            ist.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="729620f11323403dc8a98f4f62155f2ef9435851" datatype="html">
+        <source>Fragennummer verstecken</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a14c7df8c5eb3a3bc40e1b621bd6b6723eac4a23" datatype="html">
+        <source>Eingabetyp</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b7bac07a97402a4a41bfce4ee9a953ce4d94a615" datatype="html">
+        <source>Farbe</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1470eabded471793a7ef2271e2a1dc30a1a3265f" datatype="html">
+        <source>Datum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2778a6f909d6b4da4ce0c5872be8e153af083768" datatype="html">
+        <source>Datum &amp; Uhrzeit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6d3b88a3ae6ff3d987f86395605397ec736dee9c" datatype="html">
+        <source>E-Mail</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c8b5d6ef187cc1ed74ab241cd85d3b5706e44b0e" datatype="html">
+        <source>Monat</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">159</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d4082aa00abaa9ade9156cf6ea38236931376741" datatype="html">
+        <source>Ganzzahl</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="718d2c551e42949cc764ec78ac287c73dda60d44" datatype="html">
+        <source>Telefonnummer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8ba143716c2da6e4120c0c1a804f0bdd9a7e5f5b" datatype="html">
+        <source>Text</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">165</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6b348826f126b03ed54f617de9062488ce496b5b" datatype="html">
+        <source>Uhrzeit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="801b98c6f02fe3b32f6afa3ee854c99ed83474e6" datatype="html">
+        <source>URL</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bba584e70105a8f45c6b47e7e796643d840ab7b7" datatype="html">
+        <source>Woche</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c8909c35aef5f26216de3ee3437051b6c007b19b" datatype="html">
+        <source>Nicht jede Option wird von allen Webbrowsern unterstützt.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">175</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="39e29e567af11ff6b2208501aa2d8ad6a588b3df" datatype="html">
+        <source>Zeilen des Eingabefeldes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dd04b98ff3798a1dd25aa5c60cedef618a79d153" datatype="html">
+        <source>Wert Schritte</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9cf3c1dbb505514ff19cc7bff13d18b77ec4eb00" datatype="html">
+        <source>Anzeigetext Minimum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">219</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7c6ba16aa48ab8d4600ab3414629cd8540220ebe" datatype="html">
+        <source>Minimaler Wert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">231</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a96ac5f6c1241394675d22e7d1c7380c8100a4ea" datatype="html">
+        <source>Anzeigetext Maximum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">242</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="63a4390e9c3dda8a756af00537582940c9899454" datatype="html">
+        <source>Maximaler Wert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">254</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="71021225cb5baaaa3e70d39b065dfd0ac696cd7e" datatype="html">
+        <source>Allgemeine Einstellungen zur Frage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="68c672608d22c9a99104311b57eb532fc7e30bb4" datatype="html">
+        <source>Standardwert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">277</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">273</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5c0def1d6ec71248b7c32e752c8d244a99efd29a" datatype="html">
+        <source>Korrekte Antwort (Quiz)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">283</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bd103333486514763a5eac245b1afd0e8d5b506c" datatype="html">
+        <source>Unterfragen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">295</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">292</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ae932732f41a53a6b9a490e13d99358f49e6e502" datatype="html">
+        <source>Jede Unterfrage ist Pflichtfeld</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">315</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9930e44bfb26cb04f7192fb95470f10923482984" datatype="html">
+        <source>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">318</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="15ac6ee64e80761ccb1a95587d4ba81bace8afb3" datatype="html">
+        <source>Unsichtbar ohne sichtbare Fragen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">331</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="30577a1bb58a8827b2751c2f3c1b76aaaf4f6f16" datatype="html">
+        <source>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgbelendet.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">334</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3171bf71a32844cb0805e728dbbf73c734d41eae" datatype="html">
+        <source>Unterfragen Reihenfolge</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">340</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="05b1f292261654a9f65d673e5cd96c5b94abda31" datatype="html">
+        <source>Einstellungen zu Unterfragen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">303</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dfc09099573c4af249b064ce199da986a7d9b445" datatype="html">
+        <source>Unterfrage Sichtbarkeitsbedingung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">360</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a37ae4db9a71ee5519a7541a951ec26b4b93b544" datatype="html">
+        <source>Antworten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">371</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">559</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bd646c230ed3e74b0eba14f20101f6ad28ab5711" datatype="html">
+        <source>Anderes Eingabefeld aktivieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">392</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4d5fe40648e577f201a75be887e6253984bd89ef" datatype="html">
+        <source>Zeige Knopf um Auswahl rückgängig zu machen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">405</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="caa4e23149b0c93b230899aa5fd5301342199d1e" datatype="html">
+        <source>Zeige Knopf um alles auszuwählen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">418</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4c20b5cbc2af125f474468ca2521d384698db4ba" datatype="html">
+        <source>Zeige Knopf für nichts trifft zu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">430</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1f235d1f6a3dd3e3b34cbbc4948154cfd40d56bb" datatype="html">
+        <source>Mehrfachauswahl erlauben</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">444</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="67c0bff9b5a627b4f5d559e1b0dc1881c8254bbe" datatype="html">
+        <source>Unsichtbar ohne sichtbare Antworten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">503</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5362b1687267f2262f0f425c2d4a165b05425c62" datatype="html">
+        <source>Sind alle Antworten unsichtbar, dann wird die Frage ausgbelendet.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">506</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="25c35796495c860157cfbfeabad84ab370934cf5" datatype="html">
+        <source>Darstellung in Spalten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">512</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3cc16019832709b894cb77d2026204b706e28215" datatype="html">
+        <source>Antworten Reihenfolge</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">524</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b51c3c4ad90f5ec06c13fd85f545a63f3d1d5e06" datatype="html">
+        <source>Aufsteigend sortiert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">532</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d0eabd6a08d124aaf2b7570002a0675bdcc1df91" datatype="html">
+        <source>Absteigend sortiert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">534</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="059fa8d1452a3a0832a372a328fe74e7a5f454b3" datatype="html">
+        <source>Einstellungen zu Antwortmöglichkeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">380</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="681ec36f3bf2e3ea86b41445ad5a0864c038451b" datatype="html">
+        <source>Antwort Sichtbarkeitsbedingung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">548</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">565</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1a3e2faa3d302fdef2c9aaf85d01c78ea9df5a59" datatype="html">
+        <source>Antwortmöglichkeiten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">368</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">556</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="624788f8d1a6960c8d4d2a798d107637a6286f76" datatype="html">
+        <source>Pflichtbedingung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">587</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="10882cf142c02326439e5060e98056bc153f6db7" datatype="html">
+        <source>Bedingungen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">573</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9a4ec3f6e778642a45261c25fe9cc2e5057f2d41" datatype="html">
+        <source>Validatoren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/question-settings/question-settings.component.html</context>
+          <context context-type="linenumber">595</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3354a41e99f99ba9706a2a0298cdee436e0a5ba7" datatype="html">
+        <source>Datenwert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3ef107fb5eba6e4f07c75d06c224439d110cc893" datatype="html">
+        <source>Anzeigetext</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d189b13e759a4f90d346061b242e0157c92ca5e8" datatype="html">
+        <source>Bild löschen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1442aeb35a72e87c66deb0d152c8d1a833e85da3" datatype="html">
+        <source>Bild Hochladen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">164</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">149</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7944dfcc2a21cb00d67b95c7fda9a89bf54c16af" datatype="html">
+        <source>Antworten konfigurieren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b09cebee3ee17f9f9cf479b779db1e83282bfd26" datatype="html">
+        <source>Hinzufügen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">195</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="77e25fb9fb453691802c9711f98f159f5d5ce091" datatype="html">
+        <source>Antwortmöglichkeit hinzufügen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/fragebogen/editor/answers/answers.component.html</context>
+          <context context-type="linenumber">181</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
