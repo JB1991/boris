@@ -71,6 +71,7 @@ export class WrapperComponent implements OnChanges {
         this.survey.showInvisibleElements = this.showInvisible;
         this.survey.sendResultOnPageNext = true;
         this.survey.checkErrorsMode = 'onNextPage';
+        this.survey.storeOthersAsComment = false;
         this.survey.maxTextLength = 5000;
         this.survey.maxOthersLength = 200;
 
