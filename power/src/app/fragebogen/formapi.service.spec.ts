@@ -33,11 +33,11 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('should load formlist with fields', (done) => {
-        service.getInternFormList({ fields: 'id,title' }).then((value) => {
-            expect(value).toEqual(formsListSample['data']);
+        service.getInternFormList({ fields: 'id,title', status: 'published' }).then((value) => {
+            expect(value).toEqual(formsListSample);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms?fields=id%2Ctitle', 'GET', formsListSample);
+        answerHTTPRequest(environment.formAPI + 'intern/forms?fields=id%2Ctitle&status=published', 'GET', formsListSample);
     });
 
     it('should fail load formlist with empty response', (done) => {
@@ -66,7 +66,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('should fail load formlist with http error', (done) => {
         service.getInternFormList().catch((error) => {
-            expect(error['statusText']).toEqual('Not Found');
+            expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/intern/forms: 404 Not Found');
             done();
         });
         answerHTTPRequest(environment.formAPI + 'intern/forms', 'GET', null,
@@ -114,7 +114,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('should fail load form with http error', (done) => {
         service.getInternForm('123').catch((error) => {
-            expect(error['statusText']).toEqual('Not Found');
+            expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/intern/forms/123: 404 Not Found');
             done();
         });
         answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', null,
