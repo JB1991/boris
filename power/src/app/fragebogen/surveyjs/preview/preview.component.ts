@@ -28,12 +28,9 @@ export class PreviewComponent {
      * @param mode Survey mode [edit, display]
      * @param data Survey data
      */
-    public open(mode?: string, data?: any) {
+    public open(mode?: 'edit' | 'display', data?: any) {
         // set mode
         if (mode) {
-            if (!(mode === 'edit' || mode === 'display')) {
-                throw new Error('mode is invalid');
-            }
             this.mode = mode;
             this.showInvisible = false;
             this.language = 'de';

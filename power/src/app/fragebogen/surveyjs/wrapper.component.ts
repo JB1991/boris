@@ -12,7 +12,7 @@ export class WrapperComponent implements OnChanges {
     @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv: ElementRef;
     @Input() public model: {};
     @Input() public data: any = null;
-    @Input() public mode: string;
+    @Input() public mode: 'edit' | 'display';
     @Input() public theme: string;
     @Input() public css: {};
     @Input() public showInvisible = false;

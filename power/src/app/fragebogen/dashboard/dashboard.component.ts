@@ -15,10 +15,10 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 export class DashboardComponent implements OnInit {
 
     constructor(public titleService: Title,
-                public router: Router,
-                public alerts: AlertsService,
-                public loadingscreen: LoadingscreenService,
-                public storage: StorageService) {
+        public router: Router,
+        public alerts: AlertsService,
+        public loadingscreen: LoadingscreenService,
+        public storage: StorageService) {
         this.titleService.setTitle($localize`Dashboard - POWER.NI`);
         this.storage.resetService();
     }
@@ -143,6 +143,7 @@ export class DashboardComponent implements OnInit {
     /**
      * Imports form from JSON
      */
+    /* istanbul ignore next */
     public importForm() {
         // create input
         const input = document.createElement('input');

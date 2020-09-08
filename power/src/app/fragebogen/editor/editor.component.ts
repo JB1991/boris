@@ -48,18 +48,21 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.z', ['$event']) onUndoHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.undoChanges();
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.y', ['$event']) onRedoHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.redoChanges();
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.s', ['$event']) onSaveHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -67,6 +70,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.v', ['$event']) onPasteHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -74,6 +78,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.p', ['$event']) onAddPageHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -81,6 +86,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.d', ['$event']) onDelPageHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -88,6 +94,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.arrowleft', ['$event']) onLeftPageHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID !== 0) {
@@ -96,21 +103,11 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.arrowright', ['$event']) onRightPageHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID < this.storage.model.pages.length - 1) {
                 this.wsPageSelect(this.storage.selectedPageID + 1);
-            }
-        }
-    }
-
-    @HostListener('document:keydown.f11', ['$event']) onPreviewHandler(event: KeyboardEvent) {
-        if (this.storage.getAutoSaveEnabled()) {
-            event.preventDefault();
-            if (this.preview.isVisible) {
-                this.preview.modal.close();
-            } else {
-                this.preview.open();
             }
         }
     }

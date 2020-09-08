@@ -262,6 +262,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
     /**
      * Exports form to json
      */
+    /* istanbul ignore next */
     public exportForm() {
         // load form
         this.storage.loadForm(this.storage.form.id).subscribe((data) => {

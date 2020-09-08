@@ -210,38 +210,6 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         expect(component.storage.formsList.length).toEqual(1);
     });
 
-    it('importForm() should allow uploading a file', () => {
-        answerInitialRequests();
-
-        // Check the import button
-        const button = debugElement.query(By.css('#button-import'));
-        expect(button).toBeDefined();
-        expect(button.nativeElement.id).toEqual('button-import');
-        expect(button.nativeElement.textContent).toContain('Formular importieren');
-
-        // Spy on FileReader
-        const mockReader = jasmine.createSpyObj('FileReader', ['readAsText']);
-        spyOn(window as any, 'FileReader').and.returnValue(mockReader);
-
-        // Trigger event via event binding
-        button.triggerEventHandler('click', null);
-
-        // Create event
-        const blob = new Blob([JSON.stringify(formSample)], {type: 'application/json'});
-        const file = new File([blob], 'formular.json');
-        const event = new Event('change', {bubbles: true});
-
-        // Overwrite native target property
-        Object.defineProperty(event, 'target', {value: {files: {0: file}}});
-
-        // Trigger event directly
-        const input = document.querySelector('#file-upload');
-        input.dispatchEvent(event);
-
-        expect(mockReader.readAsText).toHaveBeenCalledTimes(1);
-        expect(component.storage.formsList.length).toBe(1);
-    });
-
     it('should change forms page', () => {
         answerInitialRequests();
         const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
