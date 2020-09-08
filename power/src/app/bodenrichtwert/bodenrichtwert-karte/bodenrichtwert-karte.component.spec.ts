@@ -3,6 +3,10 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient } from '@angular/common/http';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@app/shared/shared.module';
+import { CommonModule } from '@angular/common';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
     let component: BodenrichtwertKarteComponent;
@@ -13,7 +17,14 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [BodenrichtwertKarteComponent],
-            imports: [HttpClientTestingModule]
+            imports: [
+                CommonModule,
+                HttpClientTestingModule,
+                NgxMapboxGLModule,
+                FormsModule,
+                ReactiveFormsModule,
+                SharedModule
+            ]
         })
             .compileComponents();
     }));

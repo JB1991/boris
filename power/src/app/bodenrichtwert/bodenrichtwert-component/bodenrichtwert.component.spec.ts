@@ -2,6 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { BodenrichtwertComponent } from './bodenrichtwert.component';
+import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
+import { BodenrichtwertVerlaufComponent } from '../bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { SharedModule } from '@app/shared/shared.module';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -11,11 +17,18 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                BodenrichtwertComponent
+                BodenrichtwertComponent,
+                BodenrichtwertKarteComponent,
+                BodenrichtwertVerlaufComponent
             ],
             imports: [
+                CommonModule,
                 HttpClientTestingModule,
-                NgbAccordionModule
+                NgbAccordionModule,
+                NgxMapboxGLModule,
+                FormsModule,
+                ReactiveFormsModule,
+                SharedModule
             ]
         })
             .compileComponents();
