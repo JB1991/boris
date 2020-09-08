@@ -4,9 +4,12 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
+import { FormAPIService } from '../../formapi.service'
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 import { lstat } from 'fs';
+import { Form } from '@angular/forms';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 @Component({
     selector: 'power-forms-dashboard-newform',
@@ -19,12 +22,14 @@ export class NewformComponent implements OnInit {
     public service = '';
     public template = '';
     public tagList = [];
+    public templateList = [];
     public searchText: string;
 
     constructor(public modalService: BsModalService,
         public router: Router,
         public alerts: AlertsService,
-        public storage: StorageService) {
+        public storage: StorageService,
+        public formapi: FormAPIService) {
     }
 
     ngOnInit() {
@@ -35,6 +40,8 @@ export class NewformComponent implements OnInit {
      */
     public open() {
         this.tagList = [];
+        this.templateList = [];
+        this.searchText = "";
         this.modal.show();
     }
 
@@ -45,18 +52,23 @@ export class NewformComponent implements OnInit {
         this.modal.hide();
     }
 
-    public setTemplate() {
-        // this.template = id;
-        console.log("click: ");
+    /**
+     * Set template id
+     * @param event 
+     */
+    public setTemplate(event: TypeaheadMatch) {
+        this.template = event.item.id;
     }
 
-    public fetchTemplates(event: Object) {
-        let fields = 'id,title';
-        let sort = 'asc';
-        let order = 'title';
+    public fetchTemplates() {
+        var queryParams: Object = {
+            fields: 'id,title',
+            'title-contains': this.searchText,
+            sort: 'title',
+            order: 'asc'
+        }
 
-        console.log(event);
-        this.storage.loadFilteredFormsList(fields, sort, order, this.searchText).subscribe((data) => {
+        this.formapi.getInternFormList(queryParams).then(data => {
             // check for error
             if (!data || data['error'] || !data['data']) {
                 const alertText = (data && data['error'] ? data['error'] : this.template);
@@ -66,15 +78,13 @@ export class NewformComponent implements OnInit {
                 return;
             }
             
-            this.storage.templateList = data['data'];
-
+            this.templateList = data['data'];
         }, (error: Error) => {
             // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
             console.log(error);
             return;
         });
-
     }
 
     /**
