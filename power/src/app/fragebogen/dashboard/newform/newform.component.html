@@ -80,20 +80,21 @@
 
                     <!-- template -->
                     <div class="form-group">
-                        <label for="formtemplate"
-                               i18n>Template</label>
-                        <select class="custom-select"
-                                [(ngModel)]="template"
-                                id="formtemplate"
-                                name="formtemplate"
-                                required>
-                            <option value=""
-                                    i18n>Standard</option>
-                            <option *ngFor="let templ of storage.formsList; index as i"
-                                    value="{{ templ.id }}">
-                                {{ templ.title }}
-                            </option>
-                        </select>
+                        <label for="searchtemplate"
+                                i18n>Template</label>
+                        <input type="text"
+                                class="form-control"
+                                list="templateList"
+                                [(ngModel)]="searchText"
+                                (change)="fetchTemplates($event.target.value)"
+                                id="searchtemplate"
+                                name="searchtemplate"
+                                i18n-placeholder placeholder="Suchen">
+                    
+                        <datalist id="templateList">
+                                <option *ngFor="let templ of storage.templateList; index as i"
+                                    value="{{ templ.title }}"></option>
+                        </datalist>
                     </div>
 
                     <!-- tags -->

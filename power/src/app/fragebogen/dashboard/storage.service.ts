@@ -14,6 +14,7 @@ export class StorageService {
     public formsList: any = [];
     public tasksList: any = [];
     public tagList: any = [];
+    public templateList: any = [];
     public serviceList: any = [
         { value: 'AKS', name: 'Automatische Kaufpreissammlung' }
     ];
@@ -48,6 +49,32 @@ export class StorageService {
         return this.httpClient.get(url, this.auth.getHeaders());
     }
 
+    public loadFilteredFormsList(fields: string, sort: string, order: string, title: string) {
+        let url = environment.formAPI + 'intern/forms';
+
+        let params = [];
+        if (fields) {
+            params.push('fields=' + encodeURIComponent(fields));
+        }
+        if (sort) {
+            params.push('sort=' + encodeURIComponent(sort));
+        }
+        if (order) {
+            params.push('order=' + encodeURIComponent(order));
+        }
+        if (title) {
+            params.push('title-contains=' + encodeURIComponent(title));
+        }
+        if (params) {
+            url += '?';
+            params.forEach(element => {
+                url += element + '&';
+            })
+            url = url.substring(0, url.length - 1);
+        }
+        console.log(url);
+        return this.httpClient.get(url, this.auth.getHeaders());
+    }
     /**
      * Loads list of tasks
      */

@@ -6,6 +6,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
+import { lstat } from 'fs';
 
 @Component({
     selector: 'power-forms-dashboard-newform',
@@ -18,6 +19,7 @@ export class NewformComponent implements OnInit {
     public service = '';
     public template = '';
     public tagList = [];
+    public searchText: string;
 
     constructor(public modalService: BsModalService,
         public router: Router,
@@ -41,6 +43,38 @@ export class NewformComponent implements OnInit {
      */
     public close() {
         this.modal.hide();
+    }
+
+    public setTemplate() {
+        // this.template = id;
+        console.log("click: ");
+    }
+
+    public fetchTemplates(event: Object) {
+        let fields = 'id,title';
+        let sort = 'asc';
+        let order = 'title';
+
+        console.log(event);
+        this.storage.loadFilteredFormsList(fields, sort, order, this.searchText).subscribe((data) => {
+            // check for error
+            if (!data || data['error'] || !data['data']) {
+                const alertText = (data && data['error'] ? data['error'] : this.template);
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+                console.log('Could not load templates: ' + alertText);
+                return;
+            }
+            
+            this.storage.templateList = data['data'];
+
+        }, (error: Error) => {
+            // failed to load form
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            console.log(error);
+            return;
+        });
+
     }
 
     /**
