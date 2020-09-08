@@ -57,9 +57,13 @@ export class NewformComponent implements OnInit {
      * @param event 
      */
     public setTemplate(event: TypeaheadMatch) {
+        console.log(event);
         this.template = event.item.id;
     }
 
+    /**
+     * Fetch all Templates (Forms with id, title) for a search text
+     */
     public fetchTemplates() {
         var queryParams: Object = {
             fields: 'id,title',

@@ -5,11 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { environment } from '@env/environment';
+import {By} from '@angular/platform-browser';
 
 import { NewformComponent } from './newform.component';
 import { StorageService } from '../storage.service';
 import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
@@ -58,6 +60,27 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.modal.isShown).toBeTrue();
         component.close();
         expect(component.modal.isShown).toBeFalse();
+    });
+
+    it('should set template', () => {
+        var event = new TypeaheadMatch(
+            {
+                id: '123',
+                title: 'Template'
+            },
+            'Template'
+        )
+
+        component.setTemplate(event);
+        expect(component.template).toEqual('123');
+    });
+
+    it('should fetch templates on keyup', () => {
+        let search = fixture.debugElement.query(By.css('#searchtemplate'));
+        spyOn(component, 'fetchTemplates');
+        search.triggerEventHandler('keyup', {});
+
+        expect(component.fetchTemplates).toHaveBeenCalled();
     });
 
     it('should new form', () => {

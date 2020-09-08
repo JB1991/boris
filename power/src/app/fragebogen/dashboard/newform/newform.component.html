@@ -95,25 +95,6 @@
                                 (keyup)="fetchTemplates()"
                                 i18n-placeholder placeholder="Suchen">
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="searchtemplate"
-                                i18n>Template</label>
-                        <input type="text"
-                                class="form-control"
-                                list="templateList"
-                                [(ngModel)]="searchText"
-                                (keyup)="fetchTemplates($event.target.value)"
-                                id="searchtemplate"
-                                name="searchtemplate"
-                                i18n-placeholder placeholder="Suchen">
-                        <div *ngFor="let templ of storage.templateList; index as i">
-                            <p>{{ templ.title }}</p>
-                        </div>
-                        <datalist id="templateList">
-                                <option *ngFor="let templ of storage.templateList; index as i"
-                                    value="{{ templ.title }}"></option>
-                        </datalist>
-                    </div> -->
 
                     <!-- tags -->
                     <power-tagbox [(tagList)]="tagList"
