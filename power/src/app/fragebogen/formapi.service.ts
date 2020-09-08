@@ -40,7 +40,7 @@ export class FormAPIService {
     }
 
     /**
-     * Returns forms list with filter options
+     * Returns forms list
      * @param queryParams Query parameters
      */
     public async getInternFormList(queryParams?: {
@@ -276,6 +276,270 @@ export class FormAPIService {
         }
         return data['message'];
     }
+
+    /**
+     * Returns forms list
+     * @param queryParams Query parameters
+     */
+    public async getPublicFormList(queryParams?: {
+        fields?: string;
+        'title-contains'?: string;
+        'published-before'?: string;
+        'published-after'?: string;
+        sort?: 'id' | 'title' | 'created' | 'published' | 'cancelled';
+        order?: 'asc' | 'desc';
+        limit?: number;
+        offset?: number;
+    }): Promise<{
+        data: PublicForm[];
+        total: number;
+    }> {
+        // craft url
+        let data: ArrayBuffer;
+        const params = new URLSearchParams({});
+        if (queryParams) {
+            for (const key of Object.keys(queryParams)) {
+                params.append(key, queryParams[key].toString());
+            }
+        }
+        const url = environment.formAPI + 'public/forms' +
+            (params.toString() ? '?' + params.toString() : '');
+
+        // load forms list
+        try {
+            data = await this.httpClient.get(url, this.auth.getHeaders()).toPromise();
+        } catch (error) {
+            // failed
+            throw new Error(error['message']);
+        }
+
+        // check for error
+        if (!data) {
+            throw new Error('API returned an empty response');
+        } else if (data['error']) {
+            throw new Error('API returned error: ' + data['error']);
+        } else if (!data['data']) {
+            throw new Error('API returned an invalid response');
+        }
+        return <any>data;
+    }
+
+    /**
+     * Returns form by id
+     * @param id Form id
+     * @param queryParams Query parameters
+     */
+    public async getPublicForm(id: string, queryParams?: {
+        fields?: string;
+    }): Promise<PublicForm> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+
+        // craft url
+        let data: ArrayBuffer;
+        const params = new URLSearchParams({});
+        if (queryParams) {
+            for (const key of Object.keys(queryParams)) {
+                params.append(key, queryParams[key].toString());
+            }
+        }
+        const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id) +
+            (params.toString() ? '?' + params.toString() : '');
+
+        // load form
+        try {
+            data = await this.httpClient.get(url, this.auth.getHeaders()).toPromise();
+        } catch (error) {
+            // failed
+            throw new Error(error['message']);
+        }
+
+        // check for error
+        if (!data) {
+            throw new Error('API returned an empty response');
+        } else if (data['error']) {
+            throw new Error('API returned error: ' + data['error']);
+        } else if (!data['data']) {
+            throw new Error('API returned an invalid response');
+        }
+        return data['data'];
+    }
+
+    /**
+     * Creates task for form-id
+     * @param id Form id
+     * @param results Formular result json
+     * @param queryParams Query parameters
+     */
+    public async createPublicTask(id: string, results: any, queryParams?: {
+        fields?: string;
+        submit?: boolean;
+    }): Promise<PublicTask> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+        if (!results) {
+            throw new Error('results is required');
+        }
+
+        // craft url
+        let data: ArrayBuffer;
+        const params = new URLSearchParams({});
+        if (queryParams) {
+            for (const key of Object.keys(queryParams)) {
+                params.append(key, queryParams[key].toString());
+            }
+        }
+        const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id) + '/tasks' +
+            (params.toString() ? '?' + params.toString() : '');
+
+        // load form
+        try {
+            data = await this.httpClient.post(url, results, this.auth.getHeaders()).toPromise();
+        } catch (error) {
+            // failed
+            throw new Error(error['message']);
+        }
+
+        // check for error
+        if (!data) {
+            throw new Error('API returned an empty response');
+        } else if (data['error']) {
+            throw new Error('API returned error: ' + data['error']);
+        } else if (!data['data']) {
+            throw new Error('API returned an invalid response');
+        }
+        return data['data'];
+    }
+
+    /**
+     * Returns task by id
+     * @param id Task id
+     * @param queryParams Query parameters
+     */
+    public async getPublicTask(id: string, queryParams?: {
+        fields?: string;
+    }): Promise<PublicTask> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+
+        // craft url
+        let data: ArrayBuffer;
+        const params = new URLSearchParams({});
+        if (queryParams) {
+            for (const key of Object.keys(queryParams)) {
+                params.append(key, queryParams[key].toString());
+            }
+        }
+        const url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id) +
+            (params.toString() ? '?' + params.toString() : '');
+
+        // load form
+        try {
+            data = await this.httpClient.get(url, this.auth.getHeaders()).toPromise();
+        } catch (error) {
+            // failed
+            throw new Error(error['message']);
+        }
+
+        // check for error
+        if (!data) {
+            throw new Error('API returned an empty response');
+        } else if (data['error']) {
+            throw new Error('API returned error: ' + data['error']);
+        } else if (!data['data']) {
+            throw new Error('API returned an invalid response');
+        }
+        return data['data'];
+    }
+
+    /**
+     * Updates task by id
+     * @param id Task id
+     * @param results Formular result json
+     * @param queryParams Query parameters
+     */
+    public async updatePublicTask(id: string, results?: any, queryParams?: {
+        fields?: string;
+        submit?: boolean;
+    }): Promise<PublicTask> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+        if (!results) {
+            results = '';
+        }
+
+        // craft url
+        let data: ArrayBuffer;
+        const params = new URLSearchParams({});
+        if (queryParams) {
+            for (const key of Object.keys(queryParams)) {
+                params.append(key, queryParams[key].toString());
+            }
+        }
+        const url = environment.formAPI + 'public/tasks/' + encodeURIComponent(id) +
+            (params.toString() ? '?' + params.toString() : '');
+
+        // load form
+        try {
+            data = await this.httpClient.post(url, results, this.auth.getHeaders()).toPromise();
+        } catch (error) {
+            // failed
+            throw new Error(error['message']);
+        }
+
+        // check for error
+        if (!data) {
+            throw new Error('API returned an empty response');
+        } else if (data['error']) {
+            throw new Error('API returned error: ' + data['error']);
+        } else if (!data['data']) {
+            throw new Error('API returned an invalid response');
+        }
+        return data['data'];
+    }
+
+    /**
+     * Grants access
+     * @param pin Formular pin
+     * @param factor Two factor value
+     */
+    public async getPublicAccess(pin: string, factor?: string): Promise<PublicAccess> {
+        // check data
+        if (!pin) {
+            throw new Error('pin is required');
+        }
+
+        // craft url
+        let data: ArrayBuffer;
+        const url = environment.formAPI + 'public/access?pin=' + encodeURIComponent(pin) +
+            (factor ? '&factor=' + encodeURIComponent(factor) : '');
+
+        // load form
+        try {
+            data = await this.httpClient.get(url, this.auth.getHeaders()).toPromise();
+        } catch (error) {
+            // failed
+            throw new Error(error['message']);
+        }
+
+        // check for error
+        if (!data) {
+            throw new Error('API returned an empty response');
+        } else if (data['error']) {
+            throw new Error('API returned error: ' + data['error']);
+        } else if (!data['data']) {
+            throw new Error('API returned an invalid response');
+        }
+        return data['data'];
+    }
 }
 
 export interface Form {
@@ -293,6 +557,15 @@ export interface Form {
     status: 'created' | 'published' | 'cancelled';
 }
 
+export interface PublicForm {
+    id: string;
+    content: Object;
+    title: string;
+    access?: 'public' | 'pin6' | 'pin8' | 'pin6-factor';
+    'access-minutes'?: number;
+    published?: string;
+}
+
 export interface Task {
     id: string;
     'form-id': string;
@@ -304,4 +577,16 @@ export interface Task {
     submitted?: string;
     status: 'created' | 'accessed' | 'submitted';
     description: string;
+}
+
+export interface PublicTask {
+    id: string;
+    'form-id': string;
+    content: Object;
+}
+
+export interface PublicAccess {
+    id: string;
+    'form-id': string;
+    content: Object;
 }

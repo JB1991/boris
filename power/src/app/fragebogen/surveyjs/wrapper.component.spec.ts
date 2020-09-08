@@ -8,7 +8,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
     let component: WrapperComponent;
     let fixture: ComponentFixture<WrapperComponent>;
 
-    const formSample = require('../../../assets/fragebogen/form-content.json');
+    const formSample = require('../../../assets/fragebogen/surveyjs.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

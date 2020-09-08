@@ -14,7 +14,7 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
     let fixture: ComponentFixture<MaketaskComponent>;
     let httpTestingController: HttpTestingController;
 
-    const taskSample = require('../../../../assets/fragebogen/tasks-list.json');
+    const taskSample = require('../../../../assets/fragebogen/intern-get-tasks.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

@@ -17,7 +17,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
 
-    const publicFormsListSample = require('../../../assets/fragebogen/public-forms-list-sample.json');
+    const publicFormsListSample = require('../../../assets/fragebogen/public-get-forms.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

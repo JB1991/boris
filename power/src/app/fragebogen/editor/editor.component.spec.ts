@@ -22,8 +22,8 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     let fixture: ComponentFixture<EditorComponent>;
     let httpTestingController: HttpTestingController;
 
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const formContent = require('../../../assets/fragebogen/form-content.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    const formContent = require('../../../assets/fragebogen/surveyjs.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

@@ -10,11 +10,11 @@ describe('Fragebogen.Details.StorageService', () => {
     let service: StorageService;
     let httpTestingController: HttpTestingController;
 
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
-    const updateSample = require('../../../assets/fragebogen/form-sample-update.json');
-    const taskList = require('../../../assets/fragebogen/tasks-list.json');
-    const taskSample = require('../../../assets/fragebogen/task-sample.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    const updateSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    const taskList = require('../../../assets/fragebogen/intern-get-tasks.json');
+    const taskSample = require('../../../assets/fragebogen/intern-get-tasks-id.json');
 
     beforeEach(() => {
         TestBed.configureTestingModule({

@@ -14,7 +14,7 @@ describe('Fragebogen.Details.CommentComponent', () => {
     let fixture: ComponentFixture<CommentComponent>;
     let httpTestingController: HttpTestingController;
 
-    const taskSample = require('../../../../assets/fragebogen/task-sample.json');
+    const taskSample = require('../../../../assets/fragebogen/intern-get-tasks-id.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

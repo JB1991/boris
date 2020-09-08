@@ -19,7 +19,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     let component: QuestionSettingsComponent;
     let fixture: ComponentFixture<QuestionSettingsComponent>;
 
-    const formSample = require('../../../../assets/fragebogen/form-content.json');
+    const formSample = require('../../../../assets/fragebogen/surveyjs.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

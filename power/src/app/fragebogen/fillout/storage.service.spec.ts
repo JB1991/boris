@@ -8,10 +8,10 @@ describe('Fragebogen.Fillout.StorageService', () => {
     let service: StorageService;
     let httpTestingController: HttpTestingController;
 
-    const accessSample = require('../../../assets/fragebogen/access.json');
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const taskSample = require('../../../assets/fragebogen/public-task-sample.json');
-    const submitSample = require('../../../assets/fragebogen/form-submit.json');
+    const accessSample = require('../../../assets/fragebogen/public-get-access.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    const taskSample = require('../../../assets/fragebogen/intern-get-tasks-id.json');
+    const submitSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
 
     beforeEach(() => {
         TestBed.configureTestingModule({

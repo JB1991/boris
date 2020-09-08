@@ -16,11 +16,11 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     let fixture: ComponentFixture<FilloutComponent>;
     let httpTestingController: HttpTestingController;
 
-    const accessSample = require('../../../assets/fragebogen/access.json');
-    const accessemptySample = require('../../../assets/fragebogen/access-empty.json');
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const taskSample = require('../../../assets/fragebogen/public-task-sample.json');
-    const submitSample = require('../../../assets/fragebogen/form-submit.json');
+    const accessSample = require('../../../assets/fragebogen/public-get-access.json');
+    const accessemptySample = require('../../../assets/fragebogen/public-get-access-empty.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    const taskSample = require('../../../assets/fragebogen/intern-get-tasks-id.json');
+    const submitSample = require('../../../assets/fragebogen/public-post-tasks.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

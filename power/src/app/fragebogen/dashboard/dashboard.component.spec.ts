@@ -19,12 +19,11 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let httpTestingController: HttpTestingController;
     let debugElement: DebugElement;
 
-    const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
-    const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
-    const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
-    const taskList = require('../../../assets/fragebogen/tasks-list.json');
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const emptyResponse = require('../../../assets/fragebogen/empty-response.json');
+    const formsListSample = require('../../../assets/fragebogen/intern-get-forms.json');
+    const tagsSample = require('../../../assets/fragebogen/intern-get-tags.json');
+    const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    const taskList = require('../../../assets/fragebogen/intern-get-tasks.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
 
     const formsURL = environment.formAPI
         + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
@@ -207,27 +206,6 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             component.deleteForm(1);
         }).toThrowError('Invalid id');
         expect(component.storage.formsList.length).toEqual(1);
-    });
-
-    it('should change forms page', () => {
-        answerInitialRequests();
-        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
-        component.formsPageChanged(event);
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&limit=5&offset=5&sort=title',
-            'GET', emptyResponse);
-        expect(component.storage.formsList.length).toEqual(0);
-        expect(component.storage.formsCountTotal).toEqual(1);
-    });
-
-    it('should change tasks page', () => {
-        answerInitialRequests();
-        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
-        component.tasksPageChanged(event);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=5&offset=5',
-            'GET', emptyResponse);
-        expect(component.storage.tasksList.length).toEqual(0);
-        expect(component.storage.tasksCountTotal).toEqual(2);
     });
 
     function checkStorageVariables(formsListLength, tasksListLength, tagListLength, formsCountTotal, tasksCountTotal) {

@@ -15,7 +15,7 @@ describe('Fragebogen.Details.SettingsComponent', () => {
     let fixture: ComponentFixture<SettingsComponent>;
     let httpTestingController: HttpTestingController;
 
-    const formSample = require('../../../../assets/fragebogen/form-sample.json');
+    const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

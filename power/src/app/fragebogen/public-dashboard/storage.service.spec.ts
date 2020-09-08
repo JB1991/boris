@@ -13,8 +13,8 @@ describe('Fragebogen.Public-Dashboard.StorageService', () => {
     const formId = 'bs63c2os5bcus8t5q0kg';
     const formsURL = environment.formAPI + 'public/forms?fields=id,title,published';
 
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    const formsListSample = require('../../../assets/fragebogen/public-get-forms.json');
 
     beforeEach(() => {
         TestBed.configureTestingModule({

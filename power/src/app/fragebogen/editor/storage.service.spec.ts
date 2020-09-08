@@ -12,7 +12,7 @@ describe('Fragebogen.Editor.StorageService', () => {
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
 
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
