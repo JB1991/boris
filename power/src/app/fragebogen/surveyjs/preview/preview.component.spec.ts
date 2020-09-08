@@ -39,12 +39,6 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
         component.debugPrint('x');
     });
 
-    it('should crash', () => {
-        expect(function () {
-            component.open('ediet');
-        }).toThrowError('mode is invalid');
-    });
-
     it('should open/close', () => {
         expect(component.modal.isVisible()).toBeFalse();
         expect(component.mode).toEqual('edit');

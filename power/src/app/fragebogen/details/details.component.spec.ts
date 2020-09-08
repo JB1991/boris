@@ -4,13 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { environment } from '@env/environment';
 
 import { DetailsComponent } from './details.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
@@ -56,7 +56,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 DetailsComponent,
                 MockMaketaskComponent,
                 MockPublishComponent,
-                MockCommentComponent
+                MockCommentComponent,
+                MockSettingsComponent
             ]
         }).compileComponents();
 
@@ -415,28 +416,29 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 });
 
 @Component({
+    selector: 'power-forms-details-comment',
+    template: ''
+})
+class MockCommentComponent { }
+@Component({
     selector: 'power-forms-details-maketask',
     template: ''
 })
-class MockMaketaskComponent {
-}
+class MockMaketaskComponent { }
 @Component({
     selector: 'power-forms-details-publish',
     template: ''
 })
-class MockPublishComponent {
-}
+class MockPublishComponent { }
 @Component({
-    selector: 'power-forms-details-comment',
+    selector: 'power-forms-details-settings',
     template: ''
 })
-class MockCommentComponent {
-}
+class MockSettingsComponent { }
 @Component({
     selector: 'power-forms-dashboard',
     template: ''
 })
-class MockDashboardComponent {
-}
+class MockDashboardComponent { }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

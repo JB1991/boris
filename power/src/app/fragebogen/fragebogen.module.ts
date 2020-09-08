@@ -9,6 +9,7 @@ import { EditorModule } from './editor/editor.module';
 import { DetailsModule } from './details/details.module';
 import { FilloutModule } from './fillout/fillout.module';
 import { PublicDashboardModule } from './public-dashboard/public-dashboard.module';
+import { FormAPIService } from './formapi.service';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,9 @@ import { PublicDashboardModule } from './public-dashboard/public-dashboard.modul
         FilloutModule,
         EditorModule,
         PublicDashboardModule
+    ],
+    providers: [
+        FormAPIService
     ]
 })
 

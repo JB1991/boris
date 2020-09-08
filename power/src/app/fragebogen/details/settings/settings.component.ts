@@ -6,25 +6,25 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
 
 @Component({
-	selector: 'power-forms-details-settings',
-	templateUrl: './settings.component.html',
+    selector: 'power-forms-details-settings',
+    templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-	@ViewChild('modalsettings') public modal: ModalDirective;
+    @ViewChild('modalsettings') public modal: ModalDirective;
 
     public tagList = [];
     public ownerList = [];
     public readerList = [];
 
-	constructor(public modalService: BsModalService,
-                public router: Router,
-                public alerts: AlertsService,
-                public storage: StorageService) {
-	}
+    constructor(public modalService: BsModalService,
+        public router: Router,
+        public alerts: AlertsService,
+        public storage: StorageService) {
+    }
 
-	ngOnInit() {
-	}
+    ngOnInit() {
+    }
 
     /**
      * Opens settings modal
@@ -46,7 +46,7 @@ export class SettingsComponent implements OnInit {
     /**
      * Update Form with tags, owners and readers
      */
-	public updateForm() {
+    public updateForm() {
 
         this.storage.updateForm(
             this.storage.form.id,
@@ -74,6 +74,6 @@ export class SettingsComponent implements OnInit {
             console.log(error);
             return;
         });
-	}
+    }
 
 }

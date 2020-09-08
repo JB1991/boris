@@ -52,12 +52,12 @@ export class StorageService {
      * @param readers readers
      */
     public updateForm(id: string, tags?: string, owners?: string, readers?: string): Observable<Object> {
-        if(!id) {
+        if (!id) {
             throw new Error('id is required');
         }
 
         // build url
-        let params = [];
+        const params = [];
         if (tags) {
             params.push('tags=' + encodeURIComponent(tags));
         }
@@ -75,7 +75,7 @@ export class StorageService {
             });
             url = url.substring(0, url.length - 1);
         }
-        
+
         // load data from server
         return this.httpClient.post(url, '', this.auth.getHeaders());
     }

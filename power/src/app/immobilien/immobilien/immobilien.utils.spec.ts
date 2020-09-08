@@ -290,6 +290,26 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
             }
         });
     });
+
+    it('dispatchMapSelect works', function() {
+        const obj = {
+            'dispatchAction': jasmine.createSpy()
+        };
+
+        ImmobilenUtils.dispatchMapSelect(obj, 'foo', true);
+        expect(obj.dispatchAction).toHaveBeenCalledWith({
+            type: 'mapSelect',
+            name: 'foo'
+        });
+
+        ImmobilenUtils.dispatchMapSelect(obj, 'foo', false);
+        expect(obj.dispatchAction).toHaveBeenCalledWith({
+            type: 'mapUnSelect',
+            name: 'foo'
+        });
+
+    });
+
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

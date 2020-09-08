@@ -18,13 +18,11 @@ export class AlertsService {
      * @param text Body message
      * @param timeout Timeout in milliseconds
      */
-    public NewAlert(type: string, title: string, text: string, timeout: number = 5000) {
+    public NewAlert(type: 'success' | 'danger' | 'info' | 'warning',
+        title: string, text: string, timeout: number = 5000) {
         // check if type is set
         if (!type) {
             throw new Error('Type is required');
-        }
-        if (!(type === 'success' || type === 'danger' || type === 'info' || type === 'warning')) {
-            throw new Error('Type is invalid');
         }
         if (timeout < 1000 || timeout > 60000) {
             throw new Error('timeout too big or small');

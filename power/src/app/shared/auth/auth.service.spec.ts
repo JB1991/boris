@@ -176,7 +176,8 @@ describe('Shared.Auth.AuthService', () => {
             done();
         });
 
-        answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'abc.e30=.123' });
+        answerHTTPRequest(environment.auth.url + 'token', 'POST',
+            { 'expires_in': 900, 'access_token': 'abc.e30=.123' });
     });
 
     it('should not refresh session', (done) => {

@@ -76,7 +76,8 @@ describe('Static.Login.LoginComponent', () => {
             done();
         });
 
-        answerHTTPRequest(environment.auth.url + 'token', 'POST', { 'expires_in': 900, 'access_token': 'abc.e30=.123' });
+        answerHTTPRequest(environment.auth.url + 'token', 'POST',
+            { 'expires_in': 900, 'access_token': 'abc.e30=.123' });
     });
 
     it('should fail request token', (done) => {

@@ -2,30 +2,26 @@ import { Component, Input, Output, EventEmitter, InjectionToken, Inject } from '
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
-
 @Component({
-    selector: 'power-tagbox',
-    templateUrl: './tagbox.component.html',
-    styleUrls: ['./tagbox.component.scss'],
     providers: [
         {
             provide: UNIQ_ID_TOKEN,
             useFactory: () => id++
         }
-    ]
+    ],
+    selector: 'power-tagbox',
+    templateUrl: './tagbox.component.html',
+    styleUrls: ['./tagbox.component.scss']
 })
 export class TagboxComponent {
     @Input() public tagboxLabel: string;
-    @Input() public displayBlock: boolean = false;
+    @Input() public displayBlock = false;
     @Input() public dataList: string[] = [];
     @Input() public tagList: string[] = [];
     @Output() public tagListChange = new EventEmitter<string[]>();
     public tagInput: string;
 
-    constructor(
-        @Inject(UNIQ_ID_TOKEN)
-        public uniqId: number
-    ) { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
     /**
      * Adds tag to list

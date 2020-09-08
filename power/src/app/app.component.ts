@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     ) {
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.config = this.configService.config;
 
         // load version
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
     }
 
-    ngAfterViewChecked(): void {
+    ngAfterViewChecked() {
         this.cdRef.detectChanges();
     }
 

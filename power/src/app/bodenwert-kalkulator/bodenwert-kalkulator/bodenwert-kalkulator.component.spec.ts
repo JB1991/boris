@@ -1,7 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator.component';
+import { CommonModule } from '@angular/common';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@app/shared/shared.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
     let component: BodenwertKalkulatorComponent;
@@ -9,9 +14,19 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [BodenwertKalkulatorComponent, NgbAccordion]
-        })
-            .compileComponents();
+            declarations: [
+                BodenwertKalkulatorComponent
+            ],
+            imports: [
+                CommonModule,
+                HttpClientTestingModule,
+                NgbAccordionModule,
+                NgxMapboxGLModule,
+                FormsModule,
+                ReactiveFormsModule,
+                SharedModule
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

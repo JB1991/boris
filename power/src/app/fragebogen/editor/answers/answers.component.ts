@@ -114,6 +114,7 @@ export class AnswersComponent {
      * Uploads foto to formular
      * @param i Answer number
      */
+    /* istanbul ignore next */
     public uploadImage(i: number) {
         // check data
         if (i < 0 || i >= this.data.length) {
@@ -124,7 +125,6 @@ export class AnswersComponent {
         input.accept = 'image/*';
 
         // image selected
-        /* istanbul ignore next */
         input.onchange = (e: Event) => {
             const file = e.target['files'][0];
             const reader = new FileReader();

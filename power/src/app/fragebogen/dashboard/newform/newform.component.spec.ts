@@ -8,8 +8,8 @@ import { environment } from '@env/environment';
 
 import { NewformComponent } from './newform.component';
 import { StorageService } from '../storage.service';
+import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { TagboxComponent } from '@app/shared/tagbox/tagbox.component';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
@@ -26,7 +26,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 ModalModule.forRoot(),
                 RouterTestingModule.withRoutes([
                     { path: 'forms/details/:id', component: MockDetailsComponent }
-                ])
+                ]),
+                SharedModule
             ],
             providers: [
                 BsModalService,
@@ -34,8 +35,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 AlertsService
             ],
             declarations: [
-                NewformComponent,
-                TagboxComponent
+                NewformComponent
             ]
         }).compileComponents();
 

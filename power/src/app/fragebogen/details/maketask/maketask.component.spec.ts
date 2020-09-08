@@ -9,7 +9,7 @@ import { MaketaskComponent } from './maketask.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
-describe('Fragebogen.Details.Maketask.MaketaskComponent', () => {
+describe('Fragebogen.Details.MaketaskComponent', () => {
     let component: MaketaskComponent;
     let fixture: ComponentFixture<MaketaskComponent>;
     let httpTestingController: HttpTestingController;
