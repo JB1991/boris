@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AlertsComponent } from './alerts.component';
 import { AlertsService } from './alerts.service';
@@ -7,7 +7,7 @@ describe('Shared.Alerts.AlertsComponent', () => {
     let component: AlertsComponent;
     let fixture: ComponentFixture<AlertsComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             providers: [
                 AlertsService

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Title } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ describe('Static.Login.LoginComponent', () => {
     let httpTestingController: HttpTestingController;
     let redirectspy: jasmine.Spy<(url: any) => void>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -111,7 +111,7 @@ describe('Static.Login.LoginComponent', () => {
         return JSON.parse(JSON.stringify(data));
     }
 
-    afterEach(async(() => {
+    afterEach(waitForAsync(() => {
         // Verify that no requests are remaining
         httpTestingController.verify();
 

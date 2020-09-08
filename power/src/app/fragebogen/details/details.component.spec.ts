@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -26,7 +26,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     const formURL = environment.formAPI + 'intern/forms/1234';
     const tasksURL = environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?limit=9007199254740991&offset=0&sort=created&order=desc';
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,

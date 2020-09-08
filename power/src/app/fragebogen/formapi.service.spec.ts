@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '@env/environment';
@@ -13,7 +13,7 @@ describe('Fragebogen.FormAPIService', () => {
     const formsListSample = require('../../assets/fragebogen/forms-list-sample.json');
     const formSample = require('../../assets/fragebogen/form-sample.json');
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -37,7 +37,8 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(formsListSample);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms?fields=id%2Ctitle&status=published', 'GET', formsListSample);
+        answerHTTPRequest(environment.formAPI + 'intern/forms?fields=id%2Ctitle&status=published',
+            'GET', formsListSample);
     });
 
     it('should fail load formlist with empty response', (done) => {

@@ -1,12 +1,11 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
 import { environment } from '@env/environment';
-import {By} from '@angular/platform-browser';
 
 import { DashboardComponent } from './dashboard.component';
 import { StorageService } from './storage.service';
@@ -32,7 +31,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     const tasksURL = environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=9007199254740991&offset=0';
     const tagsURL = environment.formAPI + 'intern/tags';
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,

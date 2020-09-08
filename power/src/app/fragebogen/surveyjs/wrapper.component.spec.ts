@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShowdownModule } from 'ngx-showdown';
 
 import { WrapperComponent } from './wrapper.component';
@@ -10,7 +10,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
     const formSample = require('../../../assets/fragebogen/form-content.json');
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 ShowdownModule

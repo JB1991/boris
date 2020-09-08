@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShowdownModule } from 'ngx-showdown';
 import { FormsModule } from '@angular/forms';
 import { environment } from '@env/environment';
@@ -11,7 +11,7 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
     let component: PreviewComponent;
     let fixture: ComponentFixture<PreviewComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 SharedModule,
