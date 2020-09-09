@@ -4,8 +4,12 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
+import { FormAPIService } from '../../formapi.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
+import { lstat } from 'fs';
+import { Form } from '@angular/forms';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 @Component({
     selector: 'power-forms-dashboard-newform',
@@ -18,11 +22,15 @@ export class NewformComponent implements OnInit {
     public service = '';
     public template = '';
     public tagList = [];
+    public templateList = [];
+    public searchText: string;
+    public test: string;
 
     constructor(public modalService: BsModalService,
         public router: Router,
         public alerts: AlertsService,
-        public storage: StorageService) {
+        public storage: StorageService,
+        public formapi: FormAPIService) {
     }
 
     ngOnInit() {
@@ -33,6 +41,8 @@ export class NewformComponent implements OnInit {
      */
     public open() {
         this.tagList = [];
+        this.templateList = [];
+        this.searchText = '';
         this.modal.show();
     }
 
@@ -41,6 +51,37 @@ export class NewformComponent implements OnInit {
      */
     public close() {
         this.modal.hide();
+    }
+
+    /**
+     * Set template to selected id
+     * @param event selected typeahead item
+     */
+    public setTemplate(event: TypeaheadMatch) {
+        this.template = event.item.id;
+    }
+
+    /**
+     * Fetch all Templates (Forms with id, title) for the current search text
+     */
+    public fetchTemplates() {
+        let queryParams: Object = {
+            'title-contains': this.searchText,
+            fields: 'id,title',
+            sort: 'title',
+            order: 'asc'
+        };
+
+        this.formapi.getInternForms(queryParams).then(result => {
+
+            this.templateList = result.data;
+
+        }, (error: Error) => {
+            // failed to load form
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            console.log(error);
+            return;
+        });
     }
 
     /**
