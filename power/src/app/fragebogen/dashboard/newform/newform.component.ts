@@ -53,8 +53,8 @@ export class NewformComponent implements OnInit {
     }
 
     /**
-     * Set template id
-     * @param event 
+     * Set template to selected id
+     * @param event selected typeahead item
      */
     public setTemplate(event: TypeaheadMatch) {
         console.log(event);
@@ -62,12 +62,12 @@ export class NewformComponent implements OnInit {
     }
 
     /**
-     * Fetch all Templates (Forms with id, title) for a search text
+     * Fetch all Templates (Forms with id, title) for the current search text
      */
     public fetchTemplates() {
         var queryParams: Object = {
-            fields: 'id,title',
             'title-contains': this.searchText,
+            fields: 'id,title',
             sort: 'title',
             order: 'asc'
         }
