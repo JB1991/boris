@@ -1,20 +1,24 @@
 import { Component } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { environment } from '@env/environment';
+import {By} from '@angular/platform-browser';
 
 import { NewformComponent } from './newform.component';
 import { StorageService } from '../storage.service';
 import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { TypeaheadMatch, TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { FormAPIService, Form } from '@app/fragebogen/formapi.service';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
     let fixture: ComponentFixture<NewformComponent>;
     let httpTestingController: HttpTestingController;
+    let formapiService: FormAPIService;
 
     const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
 
@@ -27,7 +31,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: 'forms/details/:id', component: MockDetailsComponent }
                 ]),
-                SharedModule
+                SharedModule,
+                TypeaheadModule
             ],
             providers: [
                 BsModalService,
@@ -41,6 +46,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
         fixture = TestBed.createComponent(NewformComponent);
         component = fixture.componentInstance;
+        formapiService = TestBed.inject(FormAPIService);
         fixture.detectChanges();
 
         spyOn(console, 'log');
@@ -55,9 +61,64 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
     it('should open and close', () => {
         component.open();
+        expect(component.templateList).toEqual([]);
+        expect(component.tagList).toEqual([]);
+        expect(component.searchText).toEqual('');
         expect(component.modal.isShown).toBeTrue();
         component.close();
         expect(component.modal.isShown).toBeFalse();
+    });
+
+    it('should set template', () => {
+        const event = new TypeaheadMatch(
+            {
+                id: '123',
+                title: 'Template'
+            },
+            'Template'
+        );
+
+        component.setTemplate(event);
+        expect(component.template).toEqual('123');
+    });
+
+    it('should fail to fetch templates', async(() => {
+        const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.reject('Failure'));
+
+        component.fetchTemplates();
+
+        fixture.whenStable().then(() => {
+            fixture.detectChanges();
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        });
+    }));
+
+    it('should fetch templates', (done) => {
+        const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.resolve( 
+            {
+                data: [
+                    {id: '123', content: null, title: 'Template', tags: [], owners: [], readers: [], created: null, status: 'created' },
+                    {id: '321', content: null, title: 'Template', tags: [], owners: [], readers: [], created: null, status: 'created' }
+                ],
+                total: 2
+            }
+        ));
+        
+        component.fetchTemplates();
+
+        spy.calls.mostRecent().returnValue.then(() => {
+            fixture.detectChanges();
+            expect(component.templateList.length).toEqual(2);
+            expect(component.templateList[0].id).toEqual('123');
+            done();
+        });
+    });
+
+    it('should call fetchTemplates on keyup', () => {
+        const searchElement = fixture.debugElement.query(By.css('#searchtemplate'));
+        spyOn(component, 'fetchTemplates');
+        searchElement.triggerEventHandler('keyup', {});
+        expect(component.fetchTemplates).toHaveBeenCalled();
     });
 
     it('should new form', () => {
