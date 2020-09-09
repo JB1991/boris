@@ -1,12 +1,11 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
 import { environment } from '@env/environment';
-import {By} from '@angular/platform-browser';
 
 import { DashboardComponent } from './dashboard.component';
 import { StorageService } from './storage.service';
@@ -20,19 +19,18 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let httpTestingController: HttpTestingController;
     let debugElement: DebugElement;
 
-    const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
-    const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
-    const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
-    const taskList = require('../../../assets/fragebogen/tasks-list.json');
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const emptyResponse = require('../../../assets/fragebogen/empty-response.json');
+    const formsListSample = require('../../../assets/fragebogen/intern-get-forms.json');
+    const tagsSample = require('../../../assets/fragebogen/intern-get-tags.json');
+    const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    const taskList = require('../../../assets/fragebogen/intern-get-tasks.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
 
     const formsURL = environment.formAPI
         + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
     const tasksURL = environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=9007199254740991&offset=0';
     const tagsURL = environment.formAPI + 'intern/tags';
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -208,27 +206,6 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             component.deleteForm(1);
         }).toThrowError('Invalid id');
         expect(component.storage.formsList.length).toEqual(1);
-    });
-
-    it('should change forms page', () => {
-        answerInitialRequests();
-        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
-        component.formsPageChanged(event);
-        answerHTTPRequest(environment.formAPI +
-            'intern/forms?fields=created,id,owners,status,tags,title&limit=5&offset=5&sort=title',
-            'GET', emptyResponse);
-        expect(component.storage.formsList.length).toEqual(0);
-        expect(component.storage.formsCountTotal).toEqual(1);
-    });
-
-    it('should change tasks page', () => {
-        answerInitialRequests();
-        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
-        component.tasksPageChanged(event);
-        answerHTTPRequest(environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=5&offset=5',
-            'GET', emptyResponse);
-        expect(component.storage.tasksList.length).toEqual(0);
-        expect(component.storage.tasksCountTotal).toEqual(2);
     });
 
     function checkStorageVariables(formsListLength, tasksListLength, tagListLength, formsCountTotal, tasksCountTotal) {

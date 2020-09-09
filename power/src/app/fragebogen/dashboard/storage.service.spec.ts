@@ -14,12 +14,12 @@ describe('Fragebogen.Dashboard.StorageService', () => {
     const formsURL = environment.formAPI
         + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
 
-    const formContent = require('../../../assets/fragebogen/form-content.json');
-    const formDeleted = require('../../../assets/fragebogen/form-deleted.json');
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const formsListSample = require('../../../assets/fragebogen/forms-list-sample.json');
-    const tagsSample = require('../../../assets/fragebogen/tags-sample.json');
-    const taskList = require('../../../assets/fragebogen/tasks-list.json');
+    const formContent = require('../../../assets/fragebogen/surveyjs.json');
+    const formsListSample = require('../../../assets/fragebogen/intern-get-forms.json');
+    const tagsSample = require('../../../assets/fragebogen/intern-get-tags.json');
+    const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    const taskList = require('../../../assets/fragebogen/intern-get-tasks.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -62,8 +62,8 @@ describe('Fragebogen.Dashboard.StorageService', () => {
     });
 
     it('deleteForm() should delete a form by id', () => {
-        service.deleteForm(formId).subscribe(data => expect(data).toEqual(formDeleted));
-        answerHTTPRequest(environment.formAPI + 'intern/forms/' + formId, 'DELETE', formDeleted);
+        service.deleteForm(formId).subscribe(data => expect(data).toEqual(deleteSample));
+        answerHTTPRequest(environment.formAPI + 'intern/forms/' + formId, 'DELETE', deleteSample);
     });
 
     it('should fail', () => {

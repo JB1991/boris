@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
@@ -17,9 +17,9 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
 
-    const publicFormsListSample = require('../../../assets/fragebogen/public-forms-list-sample.json');
+    const publicFormsListSample = require('../../../assets/fragebogen/public-get-forms.json');
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -60,7 +60,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     });
 
     it('should fail 2', () => {
-        answerHTTPRequest(environment.formAPI + 'public/forms?fields=id,title,published', 'GET', {'error': 'failed'});
+        answerHTTPRequest(environment.formAPI + 'public/forms?fields=id,title,published', 'GET', { 'error': 'failed' });
         expect(component.storage.formsList.length).toBe(0);
     });
 

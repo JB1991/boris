@@ -1,14 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValueComponent } from './value.component';
-
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 describe('Fragebogen.Editor.ValueComponent', () => {
     let component: ValueComponent;
     let fixture: ComponentFixture<ValueComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 SurveyjsModule
