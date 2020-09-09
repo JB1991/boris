@@ -11,10 +11,8 @@ import { NewformComponent } from './newform.component';
 import { StorageService } from '../storage.service';
 import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { TypeaheadMatch, TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormAPIService, Form } from '@app/fragebogen/formapi.service';
-import { of, throwError, Observable } from 'rxjs';
-import { FileCheck } from 'ngx-bootstrap-icons';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
@@ -33,7 +31,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: 'forms/details/:id', component: MockDetailsComponent }
                 ]),
-                SharedModule
+                SharedModule,
+                TypeaheadModule
             ],
             providers: [
                 BsModalService,
