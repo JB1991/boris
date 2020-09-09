@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { environment } from '@env/environment';
-import {By} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 
 import { NewformComponent } from './newform.component';
 import { StorageService } from '../storage.service';
@@ -82,7 +82,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.template).toEqual('123');
     });
 
-    it('should fail to fetch templates', async(() => {
+    it('should fail to fetch templates', waitForAsync(() => {
         const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.reject('Failure'));
 
         component.fetchTemplates();
@@ -94,16 +94,22 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     }));
 
     it('should fetch templates', (done) => {
-        const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.resolve( 
+        const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.resolve(
             {
                 data: [
-                    {id: '123', content: null, title: 'Template', tags: [], owners: [], readers: [], created: null, status: 'created' },
-                    {id: '321', content: null, title: 'Template', tags: [], owners: [], readers: [], created: null, status: 'created' }
+                    {
+                        id: '123', content: null, title: 'Template', tags: [], owners: [], readers: [],
+                        created: null, status: 'created'
+                    },
+                    {
+                        id: '321', content: null, title: 'Template', tags: [], owners: [], readers: [],
+                        created: null, status: 'created'
+                    }
                 ],
                 total: 2
             }
         ));
-        
+
         component.fetchTemplates();
 
         spy.calls.mostRecent().returnValue.then(() => {

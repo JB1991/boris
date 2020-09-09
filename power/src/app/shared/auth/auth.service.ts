@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
@@ -11,7 +11,7 @@ import { ConfigService } from '@app/config.service';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService implements OnDestroy {
+export class AuthService {
     public user: User;
     private timerHandle: NodeJS.Timeout;
 
@@ -20,27 +20,6 @@ export class AuthService implements OnDestroy {
         public conf: ConfigService) {
         // load session
         this.loadSession(true);
-
-        // auto refresh
-        /* istanbul ignore next */
-        if (environment.production) {
-            this.timerHandle = setInterval(async () => {
-                await this.loadSession(true);
-
-                // check session
-                if (!this.IsAuthenticated()) {
-                    clearInterval(this.timerHandle);
-                }
-            }, 15 * 60000);
-        }
-    }
-
-    ngOnDestroy() {
-        // delete refresh method
-        /* istanbul ignore next */
-        if (this.timerHandle) {
-            clearInterval(this.timerHandle);
-        }
     }
 
     /**
@@ -50,6 +29,7 @@ export class AuthService implements OnDestroy {
     public async loadSession(refresh = true) {
         // check if session is loaded and still valid
         if (this.IsAuthenticated()) {
+            this.sessionCheck();
             return;
         }
 
@@ -62,6 +42,7 @@ export class AuthService implements OnDestroy {
 
         // check if session is still valid
         if (this.IsAuthenticated()) {
+            this.sessionCheck();
             return;
         }
 
@@ -93,6 +74,7 @@ export class AuthService implements OnDestroy {
                 this.user.token = data;
                 this.user.data = this.parseUserinfo();
                 localStorage.setItem('user', JSON.stringify(this.user));
+                this.sessionCheck();
                 return;
             } catch (error) {
                 // failed to refresh
@@ -108,6 +90,25 @@ export class AuthService implements OnDestroy {
         // delete localStorage
         localStorage.removeItem('user');
         this.user = null;
+    }
+
+    /**
+     * Refreshes session after 15 minutes
+     */
+    private sessionCheck() {
+        /* istanbul ignore next */
+        if (environment.production) {
+            // clear refresh timeout
+            if (this.timerHandle) {
+                clearTimeout(this.timerHandle);
+                this.timerHandle = null;
+            }
+
+            // set refresh timeout
+            this.timerHandle = setTimeout(async () => {
+                await this.loadSession(true);
+            }, 15 * 60000);
+        }
     }
 
     /**

@@ -65,7 +65,7 @@ export class NewformComponent implements OnInit {
      * Fetch all Templates (Forms with id, title) for the current search text
      */
     public fetchTemplates() {
-        let queryParams: Object = {
+        const queryParams: Object = {
             'title-contains': this.searchText,
             fields: 'id,title',
             sort: 'title',
