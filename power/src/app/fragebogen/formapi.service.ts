@@ -455,7 +455,8 @@ export class FormAPIService {
             throw new Error('id is required');
         }
 
-        return (await this.getData('intern/elements/' + encodeURIComponent(id), 'message', null, null, true))['message'];
+        return (await this.getData('intern/elements/' + encodeURIComponent(id),
+            'message', null, null, true))['message'];
     }
 
     /**
@@ -597,7 +598,7 @@ export interface Task {
     'form-id': string;
     factor?: string;
     pin?: string;
-    content?: Object;
+    content: Object;
     created: string;
     accessed?: string;
     submitted?: string;
@@ -608,18 +609,18 @@ export interface Task {
 export interface PublicTask {
     id: string;
     'form-id': string;
-    content?: Object;
+    content: Object;
 }
 
 export interface PublicAccess {
     id: string;
     'form-id': string;
-    content?: Object;
+    content: Object;
 }
 
 export interface Question {
     id: string;
-    content?: Object;
+    content: Object;
     owners: string[];
     readers: string[];
     created: string;
