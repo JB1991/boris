@@ -47,6 +47,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
         fixture = TestBed.createComponent(NewformComponent);
         component = fixture.componentInstance;
+        formapiService = TestBed.inject(FormAPIService);
         fixture.detectChanges();
 
         spyOn(console, 'log');
