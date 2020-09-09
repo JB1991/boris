@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
+import * as Survey from 'survey-angular';
 
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
@@ -15,6 +16,7 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 export class FormularSettingsComponent {
     @ViewChild('formsettingsmodal') public modal: ModalComponent;
     public copy = '';
+    public languages = Survey.surveyLocalization.localeNames;
 
     constructor(public alerts: AlertsService,
         public storage: StorageService,

@@ -39,6 +39,7 @@ export class QuestionSettingsComponent {
         this.copy = JSON.stringify(this.storage.model);
         this.storage.setAutoSaveEnabled(false);
         this.modal.open($localize`Fragen Einstellungen`);
+        this.migration();
     }
 
     /**
@@ -57,5 +58,19 @@ export class QuestionSettingsComponent {
         this.question = null;
         this.copy = '';
         this.storage.setAutoSaveEnabled(true);
+    }
+
+    /**
+     * Migrates element to newest version
+     */
+    /* istanbul ignore next */
+    private migration() {
+        // add commentText
+        if (['radiogroup', 'checkbox', 'imagepicker', 'rating', 'file']
+            .includes(this.storage.model.pages[this.page].elements[this.question].type)) {
+            if (!this.storage.model.pages[this.page].elements[this.question].commentText) {
+                this.storage.model.pages[this.page].elements[this.question]['commentText'] = {};
+            }
+        }
     }
 }

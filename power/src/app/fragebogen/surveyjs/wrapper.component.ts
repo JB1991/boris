@@ -1,7 +1,7 @@
 import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ShowdownConverter } from 'ngx-showdown';
 import * as Survey from 'survey-angular';
-import * as widgets from 'surveyjs-widgets';
+import * as Slider from './nouislider';
 
 @Component({
     selector: 'power-forms-surveyjs-wrapper',
@@ -47,8 +47,7 @@ export class WrapperComponent implements OnChanges {
         Survey.surveyLocalization.defaultLocale = 'de';
 
         // load custom widgets
-        widgets.nouislider(Survey);
-        widgets.sortablejs(Survey);
+        Slider.init(Survey);
 
         // create survey
         this.survey = new Survey.Model(this.model);

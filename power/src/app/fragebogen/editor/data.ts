@@ -43,6 +43,7 @@ export const defaultTemplate = {
                     requiredErrorText: {
                         default: 'Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren.'
                     },
+                    commentText: {},
                     colCount: 1,
                     visible: true,
                     isRequired: true
@@ -127,6 +128,7 @@ export const FormularFields = [
             colCount: 1,
             choicesOrder: 'none',
             visible: true,
+            commentText: {},
             isRequired: true,
             requiredErrorText: {}
         }
@@ -158,6 +160,7 @@ export const FormularFields = [
             colCount: 1,
             choicesOrder: 'none',
             visible: true,
+            commentText: {},
             isRequired: true,
             requiredErrorText: {}
         }
@@ -196,6 +199,7 @@ export const FormularFields = [
             imageWidth: 200,
             imageHeight: 150,
             visible: true,
+            commentText: {},
             isRequired: true,
             requiredErrorText: {}
         }
@@ -219,6 +223,7 @@ export const FormularFields = [
             minRateDescription: {
                 default: 'Sehr schlecht'
             },
+            commentText: {},
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -237,7 +242,8 @@ export const FormularFields = [
             type: 'nouislider',
             step: 1,
             rangeMin: 0,
-            rangeMax: 1000,
+            rangeMax: 100,
+            decimals: 0,
             visible: true,
             isRequired: true,
             requiredErrorText: {}

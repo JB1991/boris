@@ -80,7 +80,8 @@
                     </div>
 
                     <!-- question-requiredErrorText -->
-                    <div class="form-group">
+                    <div class="form-group"
+                         *ngIf="storage.model.pages[page].elements[question].isRequired">
                         <label for="question-requiredErrorText"
                                i18n>Pflichtfeld Fehlertext</label>
                         <input type="text"
@@ -89,6 +90,36 @@
                                maxlength="200"
                                name="question-requiredErrorText"
                                id="question-requiredErrorText">
+                    </div>
+
+                    <!-- question-hasComment -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="storage.model.pages[page].elements[question].hasComment"
+                               [disabled]="storage.model.pages[page].elements[question].hasOther"
+                               name="question-hasComment"
+                               id="question-hasComment"
+                               aria-describedby="question-hasCommentHelp">
+                        <label class="custom-control-label"
+                               for="question-hasComment"
+                               i18n>Kommentar Eingabefeld aktivieren</label>
+                        <small id="question-hasCommentHelp"
+                               class="form-text text-muted"
+                               i18n>Diese Option ist deaktiviert, wenn das "Anderes Eingabefeld" aktiviert ist.</small>
+                    </div>
+
+                    <!-- question-commentText -->
+                    <div class="form-group"
+                         *ngIf="storage.model.pages[page].elements[question].hasComment && storage.model.pages[page].elements[question].commentText">
+                        <label for="question-commentText"
+                               i18n>Kommentar Eingabefeld Text</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="storage.model.pages[page].elements[question].commentText.default"
+                               maxlength="200"
+                               name="question-commentText"
+                               id="question-commentText">
                     </div>
 
                     <!-- question-visible -->
@@ -260,6 +291,55 @@
                         </div>
                     </div>
 
+                    <div *ngIf="storage.model.pages[page].elements[question].type === 'nouislider'">
+                        <!-- question-step -->
+                        <div class="form-group">
+                            <label for="question-step"
+                                   i18n>Skala Schritte</label>
+                            <input type="number"
+                                   class="form-control"
+                                   min="0"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].step"
+                                   name="question-step"
+                                   id="question-step">
+                        </div>
+
+                        <!-- question-rangeMin -->
+                        <div class="form-group">
+                            <label for="question-rangeMin"
+                                   i18n>Minimaler Wert</label>
+                            <input type="number"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].rangeMin"
+                                   name="question-rangeMin"
+                                   id="question-rangeMin">
+                        </div>
+
+                        <!-- question-rangeMax -->
+                        <div class="form-group">
+                            <label for="question-rangeMax"
+                                   i18n>Maximaler Wert</label>
+                            <input type="number"
+                                   class="form-control"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].rangeMax"
+                                   name="question-rangeMax"
+                                   id="question-rangeMax">
+                        </div>
+
+                        <!-- question-decimals -->
+                        <div class="form-group">
+                            <label for="question-decimals"
+                                   i18n>Nachkommastellen</label>
+                            <input type="number"
+                                   class="form-control"
+                                   min="0"
+                                   max="2"
+                                   [(ngModel)]="storage.model.pages[page].elements[question].decimals"
+                                   name="question-decimals"
+                                   id="question-decimals">
+                        </div>
+                    </div>
+
                     <button type="submit"
                             class="d-none"
                             aria-hidden="true"
@@ -385,11 +465,17 @@
                         <input type="checkbox"
                                class="custom-control-input"
                                [(ngModel)]="storage.model.pages[page].elements[question].hasOther"
+                               [disabled]="storage.model.pages[page].elements[question].hasComment"
                                name="question-hasOther"
-                               id="question-hasOther">
+                               id="question-hasOther"
+                               aria-describedby="question-hasOtherHelp">
                         <label class="custom-control-label"
                                for="question-hasOther"
                                i18n>Anderes Eingabefeld aktivieren</label>
+                        <small id="question-hasOtherHelp"
+                               class="form-text text-muted"
+                               i18n>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert
+                            ist.</small>
                     </div>
 
                     <!-- question-showClearButton -->

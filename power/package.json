@@ -53,7 +53,6 @@
         "rxjs-compat": "^6.6.3",
         "showdown": "^1.9.1",
         "survey-angular": "^1.8.1",
-        "surveyjs-widgets": "^1.8.1",
         "tslib": "^2.0.1",
         "web-animations-js": "^2.3.2",
         "zone.js": "^0.10.3"

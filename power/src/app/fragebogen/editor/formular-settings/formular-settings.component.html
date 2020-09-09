@@ -61,15 +61,15 @@
                     <div class="form-group">
                         <label for="form-locale"
                                i18n>Standardsprache</label>
-                        <select class="custom-select"
+                        <select class="custom-select text-capitalize"
                                 [(ngModel)]="storage.model.locale"
                                 id="form-locale"
                                 name="form-locale"
                                 aria-describedby="form-localeHelp">
-                            <option value="de"
-                                    i18n>Deutsch</option>
-                            <option value="en"
-                                    i18n>Englisch</option>
+                            <option *ngFor="let lang of languages | keyvalue; index as i"
+                                    [ngValue]="lang.key">
+                                {{ lang.value }}
+                            </option>
                         </select>
                         <small id="form-localeHelp"
                                class="form-text text-muted"

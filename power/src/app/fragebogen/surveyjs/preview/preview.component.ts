@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { environment } from '@env/environment';
+import * as Survey from 'survey-angular';
 
 import { WrapperComponent } from '../wrapper.component';
 import { Bootstrap4_CSS } from '../style';
@@ -20,6 +21,7 @@ export class PreviewComponent {
     public language = 'de';
     public showInvisible = false;
     public isVisible = false;
+    public languages = Survey.surveyLocalization.localeNames;
 
     constructor() { }
 

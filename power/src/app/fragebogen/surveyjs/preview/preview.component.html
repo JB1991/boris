@@ -30,15 +30,19 @@
                     <div class="form-group">
                         <label for="language"
                                i18n>Sprache</label>
-                        <select class="custom-select"
+                        <select class="custom-select text-capitalize"
                                 [(ngModel)]="language"
                                 (change)="setLanguage()"
                                 id="language"
                                 name="language">
-                            <option *ngFor="let lang of wrapper.survey.getUsedLocales(); index as i"
+                            <option *ngFor="let lang of languages | keyvalue; index as i"
+                                    [ngValue]="lang.key">
+                                {{ lang.value }}
+                            </option>
+                            <!--<option *ngFor="let lang of wrapper.survey.getUsedLocales(); index as i"
                                     [ngValue]="lang">
                                 {{ lang }}
-                            </option>
+                            </option>-->
                         </select>
                     </div>
                 </div>
