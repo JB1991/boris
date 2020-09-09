@@ -10,9 +10,8 @@ describe('Fragebogen.FormAPIService', () => {
     let service: FormAPIService;
     let httpTestingController: HttpTestingController;
 
-    const internTags = require('../../assets/fragebogen/intern-get-tags.json');
     const internForms = require('../../assets/fragebogen/intern-get-forms.json');
-    const formSample = require('../../assets/fragebogen/intern-get-forms-id.json');
+    const publicAccess = require('../../assets/fragebogen/public-get-access.json');
 
     const httpRequests = [
         { func: 'getInternTags', param1: null, param2: null, method: 'GET', url: 'intern/tags' },
@@ -27,6 +26,11 @@ describe('Fragebogen.FormAPIService', () => {
         { func: 'getInternTask', param1: '123', param2: null, method: 'GET', url: 'intern/tasks/123' },
         { func: 'updateInternTask', param1: '123', param2: null, method: 'POST', url: 'intern/tasks/123' },
         { func: 'deleteInternTask', param1: '123', param2: null, method: 'DELETE', url: 'intern/tasks/123' },
+        { func: 'getInternElements', param1: null, param2: null, method: 'GET', url: 'intern/elements' },
+        { func: 'createInternElement', param1: {}, param2: null, method: 'POST', url: 'intern/elements' },
+        { func: 'getInternElement', param1: '123', param2: null, method: 'GET', url: 'intern/elements/123' },
+        { func: 'updateInternElement', param1: '123', param2: null, method: 'POST', url: 'intern/elements/123' },
+        { func: 'deleteInternElement', param1: '123', param2: null, method: 'DELETE', url: 'intern/elements/123' },
         { func: 'getPublicForms', param1: null, param2: null, method: 'GET', url: 'public/forms' },
         { func: 'getPublicForm', param1: '123', param2: null, method: 'GET', url: 'public/forms/123' },
         { func: 'createPublicTask', param1: '123', param2: {}, method: 'POST', url: 'public/forms/123/tasks' },
@@ -42,9 +46,14 @@ describe('Fragebogen.FormAPIService', () => {
         { func: 'getInternFormTasks', param1: '', param2: null, missing: 'id' },
         { func: 'createInternFormTasks', param1: '', param2: {}, missing: 'id' },
         { func: 'createInternFormTasks', param1: '123', param2: '', missing: 'results' },
+        { func: 'getInternFormCSV', param1: '', param2: '', missing: 'id' },
         { func: 'getInternTask', param1: '', param2: null, missing: 'id' },
         { func: 'updateInternTask', param1: '', param2: null, missing: 'id' },
         { func: 'deleteInternTask', param1: '', param2: null, missing: 'id' },
+        { func: 'createInternElement', param1: '', param2: null, missing: 'element' },
+        { func: 'getInternElement', param1: '', param2: null, missing: 'id' },
+        { func: 'updateInternElement', param1: '', param2: null, missing: 'id' },
+        { func: 'deleteInternElement', param1: '', param2: null, missing: 'id' },
         { func: 'getPublicForm', param1: '', param2: null, missing: 'id' },
         { func: 'createPublicTask', param1: '', param2: {}, missing: 'id' },
         { func: 'createPublicTask', param1: '123', param2: '', missing: 'results' },
@@ -84,12 +93,21 @@ describe('Fragebogen.FormAPIService', () => {
             'GET', internForms);
     });
 
-    it('should get form with fields', (done) => {
-        service.getInternForm('123', { fields: 'id,title' }).then((value) => {
-            expect(value).toEqual(formSample['data']);
+    it('should get access with factor', (done) => {
+        service.getPublicAccess('123', 'abc').then((value) => {
+            expect(value).toEqual(publicAccess['data']);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?fields=id%2Ctitle', 'GET', formSample);
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=123&factor=abc',
+            'GET', publicAccess);
+    });
+
+    it('should get getInternFormCSV with fields', (done) => {
+        service.getInternFormCSV('123', { status: 'submitted' }).then((value) => {
+            expect(value).toEqual('Toast');
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks/csv?status=submitted', 'GET', 'Toast');
     });
 
     /*
@@ -103,6 +121,14 @@ describe('Fragebogen.FormAPIService', () => {
             });
             answerHTTPRequest(environment.formAPI + test.url, test.method, null);
         });
+    });
+
+    it('should fail getInternFormCSV with empty response', (done) => {
+        service.getInternFormCSV('123').catch((error) => {
+            expect(error.toString()).toEqual('Error: API returned an empty response');
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks/csv', 'GET', null);
     });
 
     /*
@@ -143,6 +169,15 @@ describe('Fragebogen.FormAPIService', () => {
             answerHTTPRequest(environment.formAPI + test.url, test.method, '',
                 { status: 404, statusText: 'Not Found' });
         });
+    });
+
+    it('should fail getInternFormCSV with http error', (done) => {
+        service.getInternFormCSV('123').catch((error) => {
+            expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/intern/forms/123/tasks/csv: 404 Not Found');
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks/csv', 'GET', '',
+            { status: 404, statusText: 'Not Found' });
     });
 
     /*

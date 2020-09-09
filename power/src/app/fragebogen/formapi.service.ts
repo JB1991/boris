@@ -100,7 +100,7 @@ export class FormAPIService {
      * @param form Formular json
      * @param queryParams Query parameters
      */
-    public async createInternForm(form: any, queryParams?: {
+    public async createInternForm(form: Object, queryParams?: {
         fields?: string;
         access?: 'public' | 'pin6' | 'pin8' | 'pin6-factor';
         'access-minutes'?: number;
@@ -138,7 +138,7 @@ export class FormAPIService {
      * @param form Formular json
      * @param queryParams Query parameters
      */
-    public async updateInternForm(id: string, form?: any, queryParams?: {
+    public async updateInternForm(id: string, form?: Object, queryParams?: {
         fields?: string;
         access?: 'public' | 'pin6' | 'pin8' | 'pin6-factor';
         'access-minutes'?: number;
@@ -179,7 +179,7 @@ export class FormAPIService {
     }
 
     /**
-     * Returns tasks by form-id
+     * Returns task list by form-id
      * @param id Form id
      * @param queryParams Query parameters
      */
@@ -214,7 +214,7 @@ export class FormAPIService {
      * @param results Formular result json
      * @param queryParams Query parameters
      */
-    public async createInternFormTasks(id: string, results?: any, queryParams?: {
+    public async createInternFormTasks(id: string, results: Object, queryParams?: {
         fields?: string;
         factor?: string;
         description?: string;
@@ -232,6 +232,56 @@ export class FormAPIService {
         }
 
         return (await this.getData('intern/forms/' + encodeURIComponent(id) + '/tasks', 'data', queryParams, results));
+    }
+
+    /**
+     * Returns CSV results
+     * @param id Form id
+     * @param queryParams Query parameters
+     */
+    public async getInternFormCSV(id: string, queryParams?: {
+        fields?: string;
+        status?: 'created' | 'accessed' | 'submitted';
+        'created-before'?: string;
+        'created-after'?: string;
+        'accessed-before'?: string;
+        'accessed-after'?: string;
+        'submitted-before'?: string;
+        'submitted-after'?: string;
+        sort?: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted';
+        order?: 'asc' | 'desc';
+        limit?: number;
+        offset?: number;
+    }): Promise<string> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+
+        // craft url
+        let data: ArrayBuffer;
+        const params = new URLSearchParams({});
+        if (queryParams) {
+            for (const key of Object.keys(queryParams)) {
+                params.append(key, queryParams[key].toString());
+            }
+        }
+        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks/csv' +
+            (params.toString() ? '?' + params.toString() : '');
+
+        // get data
+        try {
+            data = await this.httpClient.get(url, this.auth.getHeaders('text', 'text/csv')).toPromise();
+        } catch (error) {
+            // failed
+            throw new Error(error['message']);
+        }
+
+        // check for error
+        if (!data) {
+            throw new Error('API returned an empty response');
+        }
+        return <any>data;
     }
 
     /**
@@ -280,7 +330,7 @@ export class FormAPIService {
      * @param results Formular result json
      * @param queryParams Query parameters
      */
-    public async updateInternTask(id: string, results?: any, queryParams?: {
+    public async updateInternTask(id: string, results?: Object, queryParams?: {
         fields?: string;
         factor?: string;
         description?: string;
@@ -308,6 +358,104 @@ export class FormAPIService {
         }
 
         return (await this.getData('intern/tasks/' + encodeURIComponent(id), 'message', null, null, true))['message'];
+    }
+
+    /**
+     * Returns element list
+     * @param queryParams Query parameters
+     */
+    public async getInternElements(queryParams?: {
+        fields?: string;
+        'name-contains'?: string;
+        name?: string;
+        'type-contains'?: string;
+        type?: string;
+        'title-contains'?: string;
+        title?: string;
+        'created-before'?: string;
+        'created-after'?: string;
+        sort?: 'id' | 'name' | 'type' | 'title' | 'created';
+        order?: 'asc' | 'desc';
+        limit?: number;
+        offset?: number;
+    }): Promise<{
+        data: Question[];
+        total: number;
+    }> {
+        return (await this.getData('intern/elements', 'data', queryParams));
+    }
+
+    /**
+     * Creates new element
+     * @param element SurveyJS Question
+     * @param queryParams Query parameters
+     */
+    public async createInternElement(element: Object, queryParams?: {
+        fields?: string;
+        owners?: string[];
+        readers?: string[];
+    }): Promise<Question> {
+        // check data
+        if (!element) {
+            throw new Error('element is required');
+        }
+
+        return (await this.getData('intern/elements', 'data', queryParams, element))['data'];
+    }
+
+    /**
+     * Returns element by id
+     * @param id Element id
+     * @param queryParams Query parameters
+     */
+    public async getInternElement(id: string, queryParams?: {
+        fields?: string;
+    }): Promise<Question> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+
+        return (await this.getData('intern/elements/' + encodeURIComponent(id), 'data', queryParams))['data'];
+    }
+
+    /**
+     * Updates element by id
+     * @param id Element id
+     * @param element SurveyJS Question
+     * @param queryParams Query parameters
+     */
+    public async updateInternElement(id: string, element?: Object, queryParams?: {
+        fields?: string;
+        owners?: string[];
+        readers?: string[];
+        'add-owners'?: string[];
+        'add-readers'?: string[];
+        'remove-owners'?: string[];
+        'remove-readers'?: string[];
+    }): Promise<Question> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+        if (!element) {
+            element = '';
+        }
+
+        return (await this.getData('intern/elements/' + encodeURIComponent(id), 'data', queryParams, element))['data'];
+    }
+
+    /**
+     * Deletes element by id
+     * @param id Task id
+     */
+    public async deleteInternElement(id: string): Promise<string> {
+        // check data
+        if (!id) {
+            throw new Error('id is required');
+        }
+
+        return (await this.getData('intern/elements/' + encodeURIComponent(id), 'message', null, null, true))['message'];
     }
 
     /**
@@ -347,12 +495,12 @@ export class FormAPIService {
     }
 
     /**
-     * Creates task for form-id
+     * Creates new task for form-id
      * @param id Form id
      * @param results Formular result json
      * @param queryParams Query parameters
      */
-    public async createPublicTask(id: string, results: any, queryParams?: {
+    public async createPublicTask(id: string, results: Object, queryParams?: {
         fields?: string;
         submit?: boolean;
     }): Promise<PublicTask> {
@@ -389,7 +537,7 @@ export class FormAPIService {
      * @param results Formular result json
      * @param queryParams Query parameters
      */
-    public async updatePublicTask(id: string, results?: any, queryParams?: {
+    public async updatePublicTask(id: string, results?: Object, queryParams?: {
         fields?: string;
         submit?: boolean;
     }): Promise<PublicTask> {
@@ -467,4 +615,12 @@ export interface PublicAccess {
     id: string;
     'form-id': string;
     content?: Object;
+}
+
+export interface Question {
+    id: string;
+    content?: Object;
+    owners: string[];
+    readers: string[];
+    created: string;
 }
