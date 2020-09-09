@@ -47,7 +47,6 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
         fixture = TestBed.createComponent(NewformComponent);
         component = fixture.componentInstance;
-        formapiService = TestBed.get(FormAPIService);
         fixture.detectChanges();
 
         spyOn(console, 'log');
@@ -71,21 +70,21 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     });
 
     it('should set template', () => {
-        var event = new TypeaheadMatch(
+        const event = new TypeaheadMatch(
             {
                 id: '123',
                 title: 'Template'
             },
             'Template'
-        )
+        );
 
         component.setTemplate(event);
         expect(component.template).toEqual('123');
     });
 
     it('should fail to fetch templates', async(() => {
-        let spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.reject('Failure'));
-        
+        const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.reject('Failure'));
+
         component.fetchTemplates();
 
         fixture.whenStable().then(() => {
@@ -95,7 +94,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     }));
 
     it('should fetch templates', (done) => {
-        let spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.resolve( 
+        const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.resolve( 
             {
                 data: [
                     {id: '123', content: null, title: 'Template', tags: [], owners: [], readers: [], created: null, status: 'created' },
@@ -116,11 +115,9 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     });
 
     it('should call fetchTemplates on keyup', () => {
-
-        let searchElement = fixture.debugElement.query(By.css('#searchtemplate'));
+        const searchElement = fixture.debugElement.query(By.css('#searchtemplate'));
         spyOn(component, 'fetchTemplates');
         searchElement.triggerEventHandler('keyup', {});
-
         expect(component.fetchTemplates).toHaveBeenCalled();
     });
 

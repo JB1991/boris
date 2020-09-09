@@ -4,7 +4,7 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
-import { FormAPIService } from '../../formapi.service'
+import { FormAPIService } from '../../formapi.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 import { lstat } from 'fs';
@@ -42,7 +42,7 @@ export class NewformComponent implements OnInit {
     public open() {
         this.tagList = [];
         this.templateList = [];
-        this.searchText = "";
+        this.searchText = '';
         this.modal.show();
     }
 
@@ -65,12 +65,12 @@ export class NewformComponent implements OnInit {
      * Fetch all Templates (Forms with id, title) for the current search text
      */
     public fetchTemplates() {
-        var queryParams: Object = {
+        let queryParams: Object = {
             'title-contains': this.searchText,
             fields: 'id,title',
             sort: 'title',
             order: 'asc'
-        }
+        };
 
         this.formapi.getInternForms(queryParams).then(result => {
 
