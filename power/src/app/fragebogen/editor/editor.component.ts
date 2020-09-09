@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -18,10 +18,11 @@ import { PreviewComponent } from '../surveyjs/preview/preview.component';
     templateUrl: './editor.component.html',
     styleUrls: ['./editor.component.css']
 })
-export class EditorComponent implements OnInit, ComponentCanDeactivate {
+export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
     @ViewChild('preview') public preview: PreviewComponent;
     public elementCopy: any;
     public isCollapsedToolBox = false;
+    private timerHandle: NodeJS.Timeout;
 
     constructor(public route: ActivatedRoute,
         public router: Router,
@@ -45,6 +46,14 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         } else {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        }
+
+    }
+
+    ngOnDestroy() {
+        // delete auto save method
+        if (this.timerHandle) {
+            clearInterval(this.timerHandle);
         }
     }
 
@@ -169,6 +178,12 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
             // store formular
             this.storage.model = data['data']['content'];
             this.loadingscreen.setVisible(false);
+
+            // auto save
+            /* istanbul ignore next */
+            this.timerHandle = setInterval(() => {
+                this.wsSave();
+            }, 5 * 60000);
         }, (error: Error) => {
             // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);

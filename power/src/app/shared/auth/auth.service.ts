@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
@@ -11,14 +11,36 @@ import { ConfigService } from '@app/config.service';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
     public user: User;
+    private timerHandle: NodeJS.Timeout;
 
     constructor(public router: Router,
         public httpClient: HttpClient,
         public conf: ConfigService) {
         // load session
         this.loadSession(true);
+
+        // auto refresh
+        /* istanbul ignore next */
+        if (environment.production) {
+            this.timerHandle = setInterval(async () => {
+                await this.loadSession(true);
+
+                // check session
+                if (!this.IsAuthenticated()) {
+                    clearInterval(this.timerHandle);
+                }
+            }, 15 * 60000);
+        }
+    }
+
+    ngOnDestroy() {
+        // delete refresh method
+        /* istanbul ignore next */
+        if (this.timerHandle) {
+            clearInterval(this.timerHandle);
+        }
     }
 
     /**

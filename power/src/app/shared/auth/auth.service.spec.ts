@@ -34,6 +34,7 @@ describe('Shared.Auth.AuthService', () => {
 
     it('should be created', () => {
         expect(service).toBeTruthy();
+        service.ngOnDestroy();
         expect(service.getUser()).toBeNull();
     });
 
