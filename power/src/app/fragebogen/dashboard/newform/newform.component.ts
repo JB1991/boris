@@ -24,6 +24,7 @@ export class NewformComponent implements OnInit {
     public tagList = [];
     public templateList = [];
     public searchText: string;
+    public test: string;
 
     constructor(public modalService: BsModalService,
         public router: Router,
@@ -57,7 +58,6 @@ export class NewformComponent implements OnInit {
      * @param event selected typeahead item
      */
     public setTemplate(event: TypeaheadMatch) {
-        console.log(event);
         this.template = event.item.id;
     }
 
@@ -72,17 +72,10 @@ export class NewformComponent implements OnInit {
             order: 'asc'
         }
 
-        this.formapi.getInternFormList(queryParams).then(data => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : this.template);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+        this.formapi.getInternForms(queryParams).then(result => {
 
-                console.log('Could not load templates: ' + alertText);
-                return;
-            }
-            
-            this.templateList = data['data'];
+            this.templateList = result.data;
+
         }, (error: Error) => {
             // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
