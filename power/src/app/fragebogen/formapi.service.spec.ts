@@ -16,12 +16,18 @@ describe('Fragebogen.FormAPIService', () => {
 
     const httpRequests = [
         { func: 'getInternTags', param1: null, param2: null, method: 'GET', url: 'intern/tags' },
-        { func: 'getInternFormList', param1: null, param2: null, method: 'GET', url: 'intern/forms' },
+        { func: 'getInternForms', param1: null, param2: null, method: 'GET', url: 'intern/forms' },
         { func: 'createInternForm', param1: {}, param2: null, method: 'POST', url: 'intern/forms' },
         { func: 'getInternForm', param1: '123', param2: null, method: 'GET', url: 'intern/forms/123' },
         { func: 'updateInternForm', param1: '123', param2: null, method: 'POST', url: 'intern/forms/123' },
         { func: 'deleteInternForm', param1: '123', param2: null, method: 'DELETE', url: 'intern/forms/123' },
-        { func: 'getPublicFormList', param1: null, param2: null, method: 'GET', url: 'public/forms' },
+        { func: 'getInternFormTasks', param1: '123', param2: null, method: 'GET', url: 'intern/forms/123/tasks' },
+        { func: 'createInternFormTasks', param1: '123', param2: {}, method: 'POST', url: 'intern/forms/123/tasks' },
+        { func: 'getInternTasks', param1: null, param2: null, method: 'GET', url: 'intern/tasks' },
+        { func: 'getInternTask', param1: '123', param2: null, method: 'GET', url: 'intern/tasks/123' },
+        { func: 'updateInternTask', param1: '123', param2: null, method: 'POST', url: 'intern/tasks/123' },
+        { func: 'deleteInternTask', param1: '123', param2: null, method: 'DELETE', url: 'intern/tasks/123' },
+        { func: 'getPublicForms', param1: null, param2: null, method: 'GET', url: 'public/forms' },
         { func: 'getPublicForm', param1: '123', param2: null, method: 'GET', url: 'public/forms/123' },
         { func: 'createPublicTask', param1: '123', param2: {}, method: 'POST', url: 'public/forms/123/tasks' },
         { func: 'getPublicTask', param1: '123', param2: null, method: 'GET', url: 'public/tasks/123' },
@@ -33,9 +39,15 @@ describe('Fragebogen.FormAPIService', () => {
         { func: 'getInternForm', param1: '', param2: null, missing: 'id' },
         { func: 'updateInternForm', param1: '', param2: null, missing: 'id' },
         { func: 'deleteInternForm', param1: '', param2: null, missing: 'id' },
+        { func: 'getInternFormTasks', param1: '', param2: null, missing: 'id' },
+        { func: 'createInternFormTasks', param1: '', param2: {}, missing: 'id' },
+        { func: 'createInternFormTasks', param1: '123', param2: '', missing: 'results' },
+        { func: 'getInternTask', param1: '', param2: null, missing: 'id' },
+        { func: 'updateInternTask', param1: '', param2: null, missing: 'id' },
+        { func: 'deleteInternTask', param1: '', param2: null, missing: 'id' },
         { func: 'getPublicForm', param1: '', param2: null, missing: 'id' },
-        { func: 'createPublicTask', param1: '123', param2: '', missing: 'results' },
         { func: 'createPublicTask', param1: '', param2: {}, missing: 'id' },
+        { func: 'createPublicTask', param1: '123', param2: '', missing: 'results' },
         { func: 'getPublicTask', param1: '', param2: null, missing: 'id' },
         { func: 'updatePublicTask', param1: '', param2: null, missing: 'id' },
         { func: 'getPublicAccess', param1: '', param2: null, missing: 'pin' }
@@ -64,7 +76,7 @@ describe('Fragebogen.FormAPIService', () => {
         SUCCESS
     */
     it('should get formlist with fields', (done) => {
-        service.getInternFormList({ fields: 'id,title', status: 'published' }).then((value) => {
+        service.getInternForms({ fields: 'id,title', status: 'published' }).then((value) => {
             expect(value).toEqual(internForms);
             done();
         });
