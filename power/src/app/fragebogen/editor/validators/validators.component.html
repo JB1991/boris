@@ -145,7 +145,7 @@
                         (click)="selectedItems($event, i, j)"
                         value="{{ choice.value }}"
                         [selected]="item.value.indexOf(choice.value) !== -1">
-                    {{ choice.text ? choice.text : choice.value }}
+                    {{ choice.text.default ? choice.text.default : choice.value }}
                 </option>
             </select>
         </div>
