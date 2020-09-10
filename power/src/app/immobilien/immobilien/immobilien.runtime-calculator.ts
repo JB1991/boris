@@ -3,8 +3,8 @@ import * as ImmobilenNipixStatic from './immobilien.static';
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienExport from './immobilien.export';
-import * as ImmobilienUtils from './immobilien.utils';
-import * as ImmobilienHelper from './immobilien.helper';
+import { ImmobilienUtils } from './immobilien.utils';
+import {ImmobilienHelper } from './immobilien.helper';
 
 export class NipixRuntimeCalculator {
 

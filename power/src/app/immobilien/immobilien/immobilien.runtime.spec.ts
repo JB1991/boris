@@ -6,8 +6,8 @@ import * as ImmobilienRuntime from './immobilien.runtime';
 import * as ImmobilienNipixRuntimeCalculator from './immobilien.runtime-calculator';
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienExport from './immobilien.export';
-import * as ImmobilienUtils from './immobilien.utils';
-import * as ImmobilienHelper from './immobilien.helper';
+import { ImmobilienUtils } from './immobilien.utils';
+import { ImmobilienHelper } from './immobilien.helper';
 
 describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 

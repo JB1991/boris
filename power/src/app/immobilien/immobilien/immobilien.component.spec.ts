@@ -4,9 +4,9 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ImmobilienComponent } from './immobilien.component';
 import * as ImmobilienNipixStatic from './immobilien.static';
 import * as ImmobilienNipixRuntime from './immobilien.runtime';
-import * as ImmobilienChartOptions from './immobilien.chartoptions';
-import * as ImmobilienHelper from './immobilien.helper';
-import * as ImmobilienUtils from './immobilien.utils';
+import { ImmobilienChartOptions } from './immobilien.chartoptions';
+import { ImmobilienHelper } from './immobilien.helper';
+import { ImmobilienUtils } from './immobilien.utils';
 import * as echarts from 'echarts';
 
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
@@ -75,6 +75,11 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 NgxBootstrapIconsModule.pick(icons)
+            ],
+            providers: [
+                ImmobilienUtils,
+                ImmobilienHelper,
+                ImmobilienChartOptions
             ]
         })
             .compileComponents();

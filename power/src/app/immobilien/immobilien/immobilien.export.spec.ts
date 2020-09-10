@@ -5,7 +5,7 @@ import * as ImmobilienStatic from './immobilien.static';
 import * as ImmobilienRuntime from './immobilien.runtime';
 import * as echarts from 'echarts';
 
-import * as Helper from './immobilien.helper';
+import { ImmobilienHelper } from './immobilien.helper';
 
 describe('Immobilien.Immobilien.ImmobilenExport', () => {
 
@@ -101,7 +101,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
             }
         );
 
-        spyOn(Helper, 'downloadFile').and.callFake(
+        spyOn(ImmobilienHelper, 'downloadFile').and.callFake(
             function(data, filename, filetype = 'text/csv', isurl = false): any {
                 return ;
             }
@@ -123,7 +123,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
     it('exportNiPixGeoJson (geoJSON) single works', function() {
         niRuntime.drawPresets[0]['type'] = 'single';
         component.exportNiPixGeoJson();
-        expect(Helper.downloadFile).toHaveBeenCalledWith(
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(
             JSON.stringify(
                 {
                     'type': 'FeatureCollection',
@@ -170,14 +170,14 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
 
     it('exportNiPixGeoJson (geoJSON) aggr works', function() {
         niRuntime.drawPresets[0]['type'] = 'aggr';
-        spyOn(Helper, 'getGeometryArray').and.callFake(
+        spyOn(ImmobilienHelper, 'getGeometryArray').and.callFake(
             function(data, features) {
                 return { 'type': 'foo', 'geometries': ['bar'] };
             }
         );
 
         component.exportNiPixGeoJson();
-        expect(Helper.downloadFile).toHaveBeenCalledWith(
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(
             JSON.stringify(
                 {
                     'type': 'FeatureCollection',
@@ -221,7 +221,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
     it('exportNiPixGeoJson (CSV) single works', function() {
         niRuntime.drawPresets[0]['type'] = 'single';
         component.exportNiPixGeoJson(false);
-        expect(Helper.downloadFile).toHaveBeenCalledWith(
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(
             '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n' +
             '"undefined";"foo";"2000_2";"1";"undefined"\r\n' +
             '"undefined";"foo";"2000_3";"42";"undefined"\r\n' +
@@ -233,7 +233,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
     it('exportNiPixGeoJson (CSV) aggr works', function() {
         niRuntime.drawPresets[0]['type'] = 'aggr';
         component.exportNiPixGeoJson(false);
-        expect(Helper.downloadFile).toHaveBeenCalledWith(
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(
             '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n' +
             '"undefined";"4102";"2000_2";"1";"undefined"\r\n' +
             '"undefined";"4102";"2000_3";"42";"undefined"\r\n' +
@@ -246,12 +246,12 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         niRuntime.state.activeSelection = 99;
         niRuntime.state.selectedMyRegion = 'foo';
         component.exportGeoJSON();
-        expect(Helper.downloadFile).toHaveBeenCalledWith(JSON.stringify({'features': [ ] }), 'Wohnungsmarktregionen.geojson');
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(JSON.stringify({'features': [ ] }), 'Wohnungsmarktregionen.geojson');
     });
 
     it('exportGeoJSON works', function() {
         const res = component.exportGeoJSON();
-        expect(Helper.downloadFile).toHaveBeenCalledWith(JSON.stringify({
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(JSON.stringify({
             'features': [
                 { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {  } }
             ]
@@ -263,7 +263,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         component.chartRenderFinished();
         expect(niRuntime.chart.obj.resize).toHaveBeenCalled();
         expect(niRuntime.chart.obj.setOption).toHaveBeenCalled();
-        expect(Helper.downloadFile).toHaveBeenCalledWith('data', 'nipix.png', '', true);
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith('data', 'nipix.png', '', true);
     });
 
 });

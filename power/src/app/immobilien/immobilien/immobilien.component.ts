@@ -5,9 +5,9 @@ import {NgbAccordion, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {merge, Observable, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 
-import * as ImmobilenChartOptions from './immobilien.chartoptions';
-import * as ImmobilienHelper from './immobilien.helper';
-import * as ImmobilienUtils from './immobilien.utils';
+import { ImmobilienChartOptions } from './immobilien.chartoptions';
+import { ImmobilienHelper } from './immobilien.helper';
+import { ImmobilienUtils } from './immobilien.utils';
 import * as ImmobilenNipixStatic from './immobilien.static';
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
 
@@ -62,7 +62,7 @@ export class ImmobilienComponent implements OnInit {
     /**
      * echart_range_series
      */
-    chart_range = ImmobilenChartOptions.chartRange();
+    chart_range = ImmobilienChartOptions.chartRange();
 
     // Find My WomaReg
     search = (text$: Observable<string>) => {
@@ -116,7 +116,7 @@ export class ImmobilienComponent implements OnInit {
                 this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[0]['name'];
                 this.nipixRuntime.availableQuartal = ImmobilienUtils.getDateArray(json['lastYear'], json['lastPeriod']);
                 this.nipixRuntime.updateAvailableQuartal(json['lastYear'], json['lastPeriod']);
-                this.nipixRuntime.chart.options = ImmobilenChartOptions.getChartOptions.bind(this)({
+                this.nipixRuntime.chart.options = ImmobilienChartOptions.getChartOptions.bind(this)({
                     'text': this.nipixStatic.textOptions,
                     'date': this.nipixRuntime.availableQuartal,
                     'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
@@ -211,7 +211,7 @@ export class ImmobilienComponent implements OnInit {
      */
     setMapOptions(selectType: any = 'multiple') {
 
-        this.nipixRuntime.map.options = ImmobilenChartOptions.getMapOptions.bind(this)({
+        this.nipixRuntime.map.options = ImmobilienChartOptions.getMapOptions.bind(this)({
             'text': this.nipixStatic.textOptions,
             'tooltipFormatter': this.nipixRuntime.formatter.mapTooltipFormatter,
             'exportGeoJSON': function() { this.nipixRuntime.export.exportGeoJSON(); }.bind(this),
@@ -411,7 +411,7 @@ export class ImmobilienComponent implements OnInit {
      * Update Chart
      */
     updateChartMerge(range_start, range_end, subAdd, range_text) {
-        const chartOptionMerge = ImmobilenChartOptions.getChartOptionsMerge({
+        const chartOptionMerge = ImmobilienChartOptions.getChartOptionsMerge({
             'graphic0': this.nipixRuntime.chart.options['graphic'][0],
             'graphic1left': this.nipixStatic.chartExportWidth - 600 + 65,
             'graphic1children': [].concat(this.nipixRuntime.formatter.graphicLegend()),
