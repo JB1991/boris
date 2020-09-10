@@ -49,7 +49,6 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
     });
 
     it('should open modal', () => {
-        component.storage.model = { pages: [0, 1, 2] };
         component.open();
         expect(component.modal.isVisible()).toBeTrue();
         component.modal.close();
@@ -57,29 +56,27 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
     });
 
     it('should move pages', () => {
-        component.storage.model = { pages: [0, 1, 2] };
+        component.model = { pages: [0, 1, 2] };
         component.open();
-
         // move up
         component.moveUp(1);
-        expect(component.storage.model.pages).toEqual([1, 0, 2]);
+        expect(component.model.pages).toEqual([1, 0, 2]);
 
         // move down
         component.moveDown(1);
-        expect(component.storage.model.pages).toEqual([1, 2, 0]);
-        component.close();
+        expect(component.model.pages).toEqual([1, 2, 0]);
+        component.modal.close();
     });
 
     it('should not move pages', () => {
-        component.storage.model = { pages: [0, 1, 2] };
-
+        component.model = { pages: [0, 1, 2] };
         // move up
         component.moveUp(0);
-        expect(component.storage.model.pages).toEqual([0, 1, 2]);
+        expect(component.model.pages).toEqual([0, 1, 2]);
 
         // move down
         component.moveDown(2);
-        expect(component.storage.model.pages).toEqual([0, 1, 2]);
+        expect(component.model.pages).toEqual([0, 1, 2]);
 
         // test out of bounds
         expect(() => {

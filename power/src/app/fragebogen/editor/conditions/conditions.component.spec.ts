@@ -17,15 +17,13 @@ describe('Fragebogen.Editor.Conditions.ConditionsComponent', () => {
             ],
             providers: [StorageService],
             declarations: [ConditionsComponent]
-        })
-            .compileComponents();
-    }));
+        }).compileComponents();
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(ConditionsComponent);
         component = fixture.componentInstance;
+        component.model = { pages: [] };
         fixture.detectChanges();
-    });
+    }));
 
     it('should create', () => {
         expect(component).toBeTruthy();

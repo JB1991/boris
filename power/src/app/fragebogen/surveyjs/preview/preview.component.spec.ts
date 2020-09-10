@@ -26,6 +26,7 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
 
         fixture = TestBed.createComponent(PreviewComponent);
         component = fixture.componentInstance;
+        component.form = { locale: 'de' };
         fixture.detectChanges();
 
         spyOn(console, 'log');

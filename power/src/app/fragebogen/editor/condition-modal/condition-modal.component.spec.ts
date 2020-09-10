@@ -26,6 +26,7 @@ describe('Fragebogen.Editor.ConditionModalComponent', () => {
 
         fixture = TestBed.createComponent(ConditionModalComponent);
         component = fixture.componentInstance;
+        component.model = { pages: [] };
         fixture.detectChanges();
     }));
 

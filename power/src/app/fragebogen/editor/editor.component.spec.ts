@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -538,10 +538,12 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     template: ''
 })
 class MockElementModalComponent {
+    @Input() public model: any;
 }
 @Component({
     selector: 'power-forms-editor-formular-settings',
     template: ''
 })
 class MockFormularModalComponent {
+    @Input() public model: any;
 }

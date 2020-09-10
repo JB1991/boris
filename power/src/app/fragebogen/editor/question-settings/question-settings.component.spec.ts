@@ -57,7 +57,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     });
 
     it('should open modal', () => {
-        component.storage.model = formSample;
+        component.model = formSample;
         component.open(0, 0);
         expect(component.modal.isVisible()).toBeTrue();
         component.modal.close();
@@ -65,16 +65,16 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     });
 
     it('should update model', () => {
-        component.storage.model = formSample;
+        component.model = formSample;
         component.open(0, 0);
         expect(component.storage.getUnsavedChanges()).toBeFalse();
-        component.storage.model.title.default = 'xxx';
+        component.model.title.default = 'xxx';
         component.modal.close();
         expect(component.storage.getUnsavedChanges()).toBeTrue();
     });
 
     it('should crash open', () => {
-        component.storage.model = formSample;
+        component.model = formSample;
 
         expect(() => {
             component.open(0, -1);
