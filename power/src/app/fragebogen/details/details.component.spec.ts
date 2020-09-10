@@ -11,6 +11,7 @@ import { DetailsComponent } from './details.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
@@ -35,6 +36,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             providers: [
                 Title,
                 StorageService,
+                AuthService,
                 {
                     provide: ActivatedRoute,
                     useValue: {

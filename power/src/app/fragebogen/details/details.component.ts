@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 import { StorageService } from './storage.service';
 import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 @Component({
     selector: 'power-forms-details',
@@ -22,7 +23,8 @@ export class DetailsComponent implements OnInit {
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public storage: StorageService) {
+        public storage: StorageService,
+        public auth: AuthService) {
         this.titleService.setTitle($localize`Formular Details - POWER.NI`);
         this.storage.resetService();
     }
