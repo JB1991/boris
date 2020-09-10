@@ -66,7 +66,7 @@ export class QuestionSettingsComponent {
     /* istanbul ignore next */
     private migration() {
         // add commentText
-        if (['radiogroup', 'checkbox', 'imagepicker', 'rating', 'file']
+        if (['radiogroup', 'checkbox', 'imagepicker', 'rating', 'file', 'nouislider']
             .includes(this.model.pages[this.page].elements[this.question].type)) {
             if (!this.model.pages[this.page].elements[this.question].commentText) {
                 this.model.pages[this.page].elements[this.question]['commentText'] = {};
