@@ -509,10 +509,12 @@
 </main>
 
 <!-- configure formular modal -->
-<power-forms-editor-formular-settings #formularsettings></power-forms-editor-formular-settings>
+<power-forms-editor-formular-settings [(model)]="storage.model"
+                                      #formularsettings></power-forms-editor-formular-settings>
 
 <!-- configure element modal -->
-<power-forms-editor-question-settings #questionsettings></power-forms-editor-question-settings>
+<power-forms-editor-question-settings [(model)]="storage.model"
+                                      #questionsettings></power-forms-editor-question-settings>
 
 <!-- preview -->
 <power-forms-surveyjs-preview [form]="storage.model"

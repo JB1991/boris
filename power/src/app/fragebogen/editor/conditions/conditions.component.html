@@ -32,7 +32,7 @@
                         value="{{ question.name }}">
                     {{ question.title }}
                 </option>
-                <option *ngFor="let variable of storage.model.calculatedValues; index as j"
+                <option *ngFor="let variable of model.calculatedValues; index as j"
                         value="{{ variable.name }}">
                     {{ '&#123;' + variable.name + '&#125;' }}
                 </option>
@@ -88,7 +88,7 @@
                         value="{{ '&#123;' + question.name + '&#125;'  }}">
                     {{ question.title }}
                 </option>
-                <option *ngFor="let variable of storage.model.calculatedValues; index as j"
+                <option *ngFor="let variable of model.calculatedValues; index as j"
                         value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
                 <option value="{item}"></option>
                 <option value="{pageno}"></option>

@@ -8,8 +8,9 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 })
 export class ConditionModalComponent {
     @ViewChild('conditionmodal') public modal: ModalminiComponent;
-    @Input() data: any;
-    @Output() dataChange = new EventEmitter<any>();
+    @Input() public model: any;
+    @Input() public data: any;
+    @Output() public dataChange = new EventEmitter<any>();
 
     constructor() { }
 

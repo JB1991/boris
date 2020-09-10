@@ -16,6 +16,7 @@ let id = 0;
     styleUrls: ['./value.component.scss']
 })
 export class ValueComponent implements OnChanges {
+    @Input() public model: any;
     @Input() public question: any;
     @Input() public value: any;
     @Output() public valueChange = new EventEmitter<any>();

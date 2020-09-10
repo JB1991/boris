@@ -15,7 +15,7 @@ export function init(Survey) {
         htmlTemplate:
             '<div><div></div></div>',
         activatedByChanged: function (activatedBy) {
-            Survey.JsonObject.metaData.addClass('nouislider', [], null, 'empty');
+            Survey.JsonObject.metaData.addClass('nouislider', [], null, 'rating');
             Survey.JsonObject.metaData.addProperties('nouislider', [
                 {
                     name: 'step:number',

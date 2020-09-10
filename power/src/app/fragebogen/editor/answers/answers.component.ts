@@ -16,6 +16,7 @@ let id = 0;
 })
 export class AnswersComponent {
     @ViewChild('answersForm') public myForm;
+    @Input() public model: any;
     @Input() public hasImg = false;
     @Input() public data: any = [];
     @Output() public dataChange = new EventEmitter<any>();
@@ -108,6 +109,7 @@ export class AnswersComponent {
             throw new Error('i is invalid');
         }
         this.data[i].imageLink = '';
+        this.dataChange.emit(this.data);
     }
 
     /**
@@ -162,6 +164,7 @@ export class AnswersComponent {
 
                     // save image
                     this.data[i].imageLink = canvas.toDataURL('image/jpeg');
+                    this.dataChange.emit(this.data);
                     input.remove();
                 };
                 img.src = String(reader.result);

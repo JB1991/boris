@@ -171,6 +171,9 @@ export const Bootstrap4_CSS = {
         fileSignBottom: 'sv-hidden',
         removeButtonBottom: 'sv-hidden',
     },
+    nouislider: {
+        other: 'form-control',
+    },
     signaturepad: {
         root: 'sv_q_signaturepad sjs_sp_container',
         controls: 'sjs_sp_controls',

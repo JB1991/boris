@@ -244,6 +244,7 @@ export const FormularFields = [
             rangeMin: 0,
             rangeMax: 100,
             decimals: 0,
+            commentText: {},
             visible: true,
             isRequired: true,
             requiredErrorText: {}

@@ -35,7 +35,6 @@ export class PreviewComponent {
         if (mode) {
             this.mode = mode;
             this.showInvisible = false;
-            this.language = 'de';
         }
         // set data to display
         if (data && !this.data) {
@@ -43,6 +42,7 @@ export class PreviewComponent {
         }
 
         // show modal
+        this.language = this.form.locale;
         this.isVisible = true;
         if (this.data) {
             this.modal.open($localize`Ergebnisvorschau`);
