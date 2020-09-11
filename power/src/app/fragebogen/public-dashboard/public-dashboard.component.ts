@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,8 @@ import { FormAPIService } from '../formapi.service';
 @Component({
     selector: 'power-public-dashboard',
     templateUrl: './public-dashboard.component.html',
-    styleUrls: ['./public-dashboard.component.scss']
+    styleUrls: ['./public-dashboard.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class PublicDashboardComponent implements OnInit {
 
