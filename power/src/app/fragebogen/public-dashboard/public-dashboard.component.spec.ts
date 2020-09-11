@@ -16,7 +16,6 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let fixture: ComponentFixture<PublicDashboardComponent>;
 
     const publicForms = require('../../../assets/fragebogen/public-get-forms.json');
-    const publicFormsBig = require('../../../assets/fragebogen/public-get-forms-big.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -59,15 +58,6 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         component.update().then(() => {
             expect(component.data).toBe(publicForms.data);
             expect(component.total).toBe(publicForms.total);
-            done();
-        });
-    });
-
-    it('should succeed', (done) => {
-        spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve(publicFormsBig));
-        component.update().then(() => {
-            expect(component.data).toBe(publicFormsBig.data);
-            expect(component.total).toBe(publicFormsBig.total);
             done();
         });
     });

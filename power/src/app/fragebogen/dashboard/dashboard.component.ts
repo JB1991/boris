@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit {
         input.click();
     }
 
-    public changeFormSort(sort: 'title' | 'published') {
+    public changeFormSort(sort: 'id' | 'title' | 'created' | 'published' | 'cancelled') {
         if (this.formSort === sort) {
             if (this.formOrder === 'asc') {
                 this.formOrder = 'desc';

@@ -5,30 +5,20 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
-import { environment } from '@env/environment';
 
 import { DashboardComponent } from './dashboard.component';
-import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { DataService } from './data.service';
+import { FormAPIService } from '../formapi.service';
 
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
-    let httpClient: HttpClient;
-    let httpTestingController: HttpTestingController;
-    let debugElement: DebugElement;
 
-    const formsListSample = require('../../../assets/fragebogen/intern-get-forms.json');
-    const tagsSample = require('../../../assets/fragebogen/intern-get-tags.json');
-    const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
-    const taskList = require('../../../assets/fragebogen/intern-get-tasks.json');
-    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
-
-    const formsURL = environment.formAPI
-        + 'intern/forms?fields=created,id,owners,status,tags,title&limit=9007199254740991&offset=0&sort=title';
-    const tasksURL = environment.formAPI + 'intern/tasks?status=submitted&sort=submitted&limit=9007199254740991&offset=0';
-    const tagsURL = environment.formAPI + 'intern/tags';
+    const internForms = require('../../../assets/fragebogen/intern-get-forms.json');
+    const internTasks = require('../../../assets/fragebogen/intern-get-tasks.json');
+    const internTags = require('../../../assets/fragebogen/intern-get-tags.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -41,9 +31,10 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             ],
             providers: [
                 Title,
-                StorageService,
                 AlertsService,
-                LoadingscreenService
+                LoadingscreenService,
+                FormAPIService,
+                DataService
             ],
             declarations: [
                 DashboardComponent,
@@ -53,199 +44,142 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
         fixture = TestBed.createComponent(DashboardComponent);
         component = fixture.componentInstance;
-        debugElement = fixture.debugElement;
         fixture.detectChanges();
 
         spyOn(console, 'log');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
-        httpClient = TestBed.inject(HttpClient);
-        httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
     it('should create', () => {
         expect(component).toBeTruthy();
-        answerInitialRequests();
-        checkStorageVariables(1, 2, 3, 1, 2);
     });
 
-    it('should not create', () => {
-        answerHTTPRequest(formsURL, 'GET', formsListSample);
-        answerHTTPRequest(tasksURL, 'GET', taskList);
-        answerHTTPRequest(tagsURL, 'GET', null);
-        checkStorageVariables(1, 2, 0, 1, 2);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tags');
+    /*
+        SUCCESS
+    */
+    it('should succeed', (done) => {
+        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve(internForms));
+        component.formStatus = 'created';
+        component.formAccess = 'public';
+        component.formTitle = 'something';
+        component.updateForms().then(() => {
+            expect(component.data.forms).toEqual(internForms.data);
+            expect(component.formTotal).toEqual(internForms.total);
+            done();
+        });
     });
 
-    it('should not create 2', () => {
-        answerHTTPRequest(formsURL, 'GET', null);
-        checkStorageVariables(0, 0, 0, 0, 0);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Forms');
+    it('should succeed', (done) => {
+        spyOn(component.formAPI, 'getInternTasks').and.returnValue(Promise.resolve(internTasks));
+        component.taskStatus = 'created';
+        component.updateTasks().then(() => {
+            expect(component.data.tasks).toEqual(internTasks.data);
+            expect(component.taskTotal).toEqual(internTasks.total);
+            done();
+        });
     });
 
-    it('should not create 3', () => {
-        answerHTTPRequest(formsURL, 'GET', formsListSample);
-        answerHTTPRequest(tasksURL, 'GET', null);
-        answerHTTPRequest(tagsURL, 'GET', tagsSample);
-        checkStorageVariables(1, 0, 3, 1, 0);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Tasks');
+    it('should succeed', (done) => {
+        spyOn(component.formAPI, 'getInternTags').and.returnValue(Promise.resolve(internTags.data));
+        component.taskStatus = 'created';
+        component.updateTags().then(() => {
+            expect(component.data.tags).toEqual(internTags.data);
+            done();
+        });
     });
 
-    it('should error', () => {
-        answerHTTPRequest(formsURL, 'GET', { 'error': 'Internal Server Error' });
-        checkStorageVariables(0, 0, 0, 0, 0);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    it('should succeed', (done) => {
+        spyOn(component.formAPI, 'deleteInternForm').and.returnValue(Promise.resolve('123'));
+        spyOn(component, 'updateForms');
+        component.deleteForm('123').then(() => {
+            done();
+        });
     });
 
-    it('should error 404', () => {
-        answerHTTPRequest(formsURL, 'GET', formsListSample, { status: 404, statusText: 'Not Found' });
-        checkStorageVariables(0, 0, 0, 0, 0);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    it('should succeed', (done) => {
+        spyOn(component, 'updateForms');
+        component.changeFormSort('published');
+        expect(component.formSort).toBe('published');
+        expect(component.formOrder).toBe('asc');
+        component.changeFormSort('published');
+        expect(component.formSort).toBe('published');
+        expect(component.formOrder).toBe('desc');
+        component.changeFormSort('published');
+        expect(component.formSort).toBe('published');
+        expect(component.formOrder).toBe('asc');
+        component.changeFormSort('title');
+        expect(component.formSort).toBe('title');
+        expect(component.formOrder).toBe('asc');
+        done();
+    })
+
+    it('should succeed', (done) => {
+        spyOn(component, 'updateTasks');
+        component.changeTaskSort('submitted');
+        expect(component.taskSort).toBe('submitted');
+        expect(component.taskOrder).toBe('asc');
+        component.changeTaskSort('submitted');
+        expect(component.taskSort).toBe('submitted');
+        expect(component.taskOrder).toBe('desc');
+        component.changeTaskSort('submitted');
+        expect(component.taskSort).toBe('submitted');
+        expect(component.taskOrder).toBe('asc');
+        done();
+    })
+
+    /*
+        Error
+    */
+    it('should fail', (done) => {
+        spyOn(component.formAPI, 'getInternForms').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        component.updateForms().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert)
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+            done();
+        });
     });
 
-    it('should error 2', () => {
-        answerHTTPRequest(formsURL, 'GET', formsListSample);
-        answerHTTPRequest(tasksURL, 'GET', taskList);
-        answerHTTPRequest(tagsURL, 'GET', { 'error': 'Internal Server Error' });
-        checkStorageVariables(1, 2, 0, 1, 2);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    it('should fail', (done) => {
+        spyOn(component.formAPI, 'getInternTasks').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        component.updateTasks().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert)
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+            done();
+        });
     });
 
-    it('should error 3', () => {
-        answerHTTPRequest(formsURL, 'GET', formsListSample);
-        answerHTTPRequest(tasksURL, 'GET', { 'error': 'Internal Server Error' });
-        answerHTTPRequest(tagsURL, 'GET', tagsSample);
-        checkStorageVariables(1, 0, 3, 1, 0);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+    it('should fail', (done) => {
+        spyOn(component.formAPI, 'getInternTags').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        component.updateTags().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert)
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+            done();
+        });
     });
 
-    it('should error 404 2', () => {
-        answerHTTPRequest(formsURL, 'GET', formsListSample);
-        answerHTTPRequest(tasksURL, 'GET', taskList);
-        answerHTTPRequest(tagsURL, 'GET', tagsSample, { status: 404, statusText: 'Not Found' });
-        checkStorageVariables(1, 2, 0, 1, 2);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
+    it('should fail', (done) => {
+        spyOn(component.formAPI, 'deleteInternForm').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        spyOn(component, 'updateForms');
+        component.deleteForm('').then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert)
+                .toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Error: fail');
+            done();
+        });
     });
 
-    it('should error 404 3', () => {
-        answerHTTPRequest(formsURL, 'GET', formsListSample);
-        answerHTTPRequest(tasksURL, 'GET', taskList,
-            { status: 404, statusText: 'Not Found' });
-        answerHTTPRequest(tagsURL, 'GET', tagsSample);
-        checkStorageVariables(1, 0, 3, 1, 0);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
-    });
-
-    it('should delete', () => {
-        answerInitialRequests();
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.deleteForm(0);
-        answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
-            'Das Formular wurde erfolgreich gelöscht.');
-        expect(component.storage.formsList.length).toEqual(0);
-    });
-
-    it('should not delete', () => {
-        answerInitialRequests();
-        spyOn(window, 'confirm').and.returnValue(false);
-        component.deleteForm(0);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-        expect(component.storage.formsList.length).toEqual(1);
-    });
-
-    it('should fail delete', () => {
-        answerInitialRequests();
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.deleteForm(0);
-        answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', null);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'bs63c2os5bcus8t5q0kg');
-        expect(component.storage.formsList.length).toEqual(1);
-    });
-
-    it('should fail delete 2', () => {
-        answerInitialRequests();
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.deleteForm(0);
-        answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE',
-            { 'error': 'Internal Server Error' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Internal Server Error');
-        expect(component.storage.formsList.length).toEqual(1);
-    });
-
-    it('should fail delete 404', () => {
-        answerInitialRequests();
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.deleteForm(0);
-        answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg', 'DELETE', deleteSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Not Found');
-        expect(component.storage.formsList.length).toEqual(1);
-    });
-
-    it('should crash delete', () => {
-        answerInitialRequests();
-        spyOn(window, 'confirm').and.returnValue(true);
-        expect(function () {
-            component.deleteForm(1);
-        }).toThrowError('Invalid id');
-        expect(component.storage.formsList.length).toEqual(1);
-    });
-
-    function checkStorageVariables(formsListLength, tasksListLength, tagListLength, formsCountTotal, tasksCountTotal) {
-        expect(component.storage.formsList.length).toEqual(formsListLength);
-        expect(component.storage.tasksList.length).toEqual(tasksListLength);
-        expect(component.storage.tagList.length).toEqual(tagListLength);
-        expect(component.storage.formsCountTotal).toEqual(formsCountTotal);
-        expect(component.storage.tasksCountTotal).toEqual(tasksCountTotal);
-    }
-
-    function answerInitialRequests() {
-        answerHTTPRequest(formsURL, 'GET', formsListSample);
-        answerHTTPRequest(tasksURL, 'GET', taskList);
-        answerHTTPRequest(tagsURL, 'GET', tagsSample);
-    }
-
-    /**
-     * Mocks the API by taking HTTP requests form the queue and returning the answer
-     * @param url The URL of the HTTP request
-     * @param method HTTP request method
-     * @param body The body of the answer
-     * @param opts Optional HTTP information of the answer
-     */
-    function answerHTTPRequest(url, method, body, opts?) {
-        // Take HTTP request from queue
-        const request = httpTestingController.expectOne(url);
-        expect(request.request.method).toEqual(method);
-
-        // Return the answer
-        request.flush(deepCopy(body), opts);
-    }
-
-    function deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
-
-    afterEach(() => {
-        // Verify that no requests are remaining
-        httpTestingController.verify();
-    });
 });
 
 @Component({

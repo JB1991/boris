@@ -71,9 +71,7 @@ export class NewformComponent implements OnInit {
         };
 
         this.formAPI.getInternForms(queryParams).then(result => {
-
             this.templateList = result.data;
-
         }, (error: Error) => {
             // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
@@ -111,21 +109,21 @@ export class NewformComponent implements OnInit {
      * Makes new formular
      * @param template SurveyJS Template
      */
-    public makeForm(template: any) {
-        // check data
-        if (!template) {
-            throw new Error('template is required');
+    public async makeForm(template: any) {
+        try {
+            if (!template) {
+                throw new Error('template is required');
+            }
+            if (!this.title) {
+                throw new Error('title is required');
+            }
+            template.title.default = this.title;
+    
+            const response = await this.formAPI.createInternForm(template, {tags: this.tagList})
+            this.data.forms.push(response);
+        } catch (error) {
+            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
         }
-        if (!this.title) {
-            throw new Error('title is required');
-        }
-        template.title.default = this.title;
-
-        this.formAPI.createInternForm(template, {tags: this.tagList}).then((data) => {
-            this.data.forms.push(data);
-        }).catch((error) => {
-            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error['statusText']);
-        })
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */
