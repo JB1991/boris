@@ -86,7 +86,7 @@
                        [routerLink]="['/login']"
                        [queryParams]="{redirect: uri.pathname}"
                        routerLinkActive="active"
-                       i18n>Einloggen</a>
+                       i18n>Login</a>
                 </li>
                 <li class="nav-item dropdown"
                     *ngIf="auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">

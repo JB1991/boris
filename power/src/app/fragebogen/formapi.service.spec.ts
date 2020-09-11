@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '@env/environment';
@@ -10,10 +10,59 @@ describe('Fragebogen.FormAPIService', () => {
     let service: FormAPIService;
     let httpTestingController: HttpTestingController;
 
-    const formsListSample = require('../../assets/fragebogen/forms-list-sample.json');
-    const formSample = require('../../assets/fragebogen/form-sample.json');
+    const internForms = require('../../assets/fragebogen/intern-get-forms.json');
+    const publicAccess = require('../../assets/fragebogen/public-get-access.json');
 
-    beforeEach(async(() => {
+    const httpRequests = [
+        { func: 'getInternTags', param1: null, param2: null, method: 'GET', url: 'intern/tags' },
+        { func: 'getInternForms', param1: null, param2: null, method: 'GET', url: 'intern/forms' },
+        { func: 'createInternForm', param1: {}, param2: null, method: 'POST', url: 'intern/forms' },
+        { func: 'getInternForm', param1: '123', param2: null, method: 'GET', url: 'intern/forms/123' },
+        { func: 'updateInternForm', param1: '123', param2: null, method: 'POST', url: 'intern/forms/123' },
+        { func: 'deleteInternForm', param1: '123', param2: null, method: 'DELETE', url: 'intern/forms/123' },
+        { func: 'getInternFormTasks', param1: '123', param2: null, method: 'GET', url: 'intern/forms/123/tasks' },
+        { func: 'createInternFormTasks', param1: '123', param2: {}, method: 'POST', url: 'intern/forms/123/tasks' },
+        { func: 'getInternTasks', param1: null, param2: null, method: 'GET', url: 'intern/tasks' },
+        { func: 'getInternTask', param1: '123', param2: null, method: 'GET', url: 'intern/tasks/123' },
+        { func: 'updateInternTask', param1: '123', param2: null, method: 'POST', url: 'intern/tasks/123' },
+        { func: 'deleteInternTask', param1: '123', param2: null, method: 'DELETE', url: 'intern/tasks/123' },
+        { func: 'getInternElements', param1: null, param2: null, method: 'GET', url: 'intern/elements' },
+        { func: 'createInternElement', param1: {}, param2: null, method: 'POST', url: 'intern/elements' },
+        { func: 'getInternElement', param1: '123', param2: null, method: 'GET', url: 'intern/elements/123' },
+        { func: 'updateInternElement', param1: '123', param2: null, method: 'POST', url: 'intern/elements/123' },
+        { func: 'deleteInternElement', param1: '123', param2: null, method: 'DELETE', url: 'intern/elements/123' },
+        { func: 'getPublicForms', param1: null, param2: null, method: 'GET', url: 'public/forms' },
+        { func: 'getPublicForm', param1: '123', param2: null, method: 'GET', url: 'public/forms/123' },
+        { func: 'createPublicTask', param1: '123', param2: {}, method: 'POST', url: 'public/forms/123/tasks' },
+        { func: 'getPublicTask', param1: '123', param2: null, method: 'GET', url: 'public/tasks/123' },
+        { func: 'updatePublicTask', param1: '123', param2: null, method: 'POST', url: 'public/tasks/123' },
+        { func: 'getPublicAccess', param1: 'abc', param2: null, method: 'GET', url: 'public/access?pin=abc' }
+    ];
+    const inputErrors = [
+        { func: 'createInternForm', param1: '', param2: null, missing: 'form' },
+        { func: 'getInternForm', param1: '', param2: null, missing: 'id' },
+        { func: 'updateInternForm', param1: '', param2: null, missing: 'id' },
+        { func: 'deleteInternForm', param1: '', param2: null, missing: 'id' },
+        { func: 'getInternFormTasks', param1: '', param2: null, missing: 'id' },
+        { func: 'createInternFormTasks', param1: '', param2: {}, missing: 'id' },
+        { func: 'createInternFormTasks', param1: '123', param2: '', missing: 'results' },
+        { func: 'getInternFormCSV', param1: '', param2: '', missing: 'id' },
+        { func: 'getInternTask', param1: '', param2: null, missing: 'id' },
+        { func: 'updateInternTask', param1: '', param2: null, missing: 'id' },
+        { func: 'deleteInternTask', param1: '', param2: null, missing: 'id' },
+        { func: 'createInternElement', param1: '', param2: null, missing: 'element' },
+        { func: 'getInternElement', param1: '', param2: null, missing: 'id' },
+        { func: 'updateInternElement', param1: '', param2: null, missing: 'id' },
+        { func: 'deleteInternElement', param1: '', param2: null, missing: 'id' },
+        { func: 'getPublicForm', param1: '', param2: null, missing: 'id' },
+        { func: 'createPublicTask', param1: '', param2: {}, missing: 'id' },
+        { func: 'createPublicTask', param1: '123', param2: '', missing: 'results' },
+        { func: 'getPublicTask', param1: '', param2: null, missing: 'id' },
+        { func: 'updatePublicTask', param1: '', param2: null, missing: 'id' },
+        { func: 'getPublicAccess', param1: '', param2: null, missing: 'pin' }
+    ];
+
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -32,93 +81,115 @@ describe('Fragebogen.FormAPIService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should load formlist with fields', (done) => {
-        service.getInternFormList({ fields: 'id,title' }).then((value) => {
-            expect(value).toEqual(formsListSample['data']);
+    /*
+        SUCCESS
+    */
+    it('should get formlist with fields', (done) => {
+        service.getInternForms({ fields: 'id,title', status: 'published' }).then((value) => {
+            expect(value).toEqual(internForms);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms?fields=id%2Ctitle', 'GET', formsListSample);
+        answerHTTPRequest(environment.formAPI + 'intern/forms?fields=id%2Ctitle&status=published',
+            'GET', internForms);
     });
 
-    it('should fail load formlist with empty response', (done) => {
-        service.getInternFormList().catch((error) => {
+    it('should get access with factor', (done) => {
+        service.getPublicAccess('123', 'abc').then((value) => {
+            expect(value).toEqual(publicAccess['data']);
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=123&factor=abc',
+            'GET', publicAccess);
+    });
+
+    it('should get getInternFormCSV with fields', (done) => {
+        service.getInternFormCSV('123', { status: 'submitted' }).then((value) => {
+            expect(value).toEqual('Toast');
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks/csv?status=submitted', 'GET', 'Toast');
+    });
+
+    /*
+        EMPTY RESPONSE ERRORS
+    */
+    httpRequests.forEach((test) => {
+        it('should fail ' + test.func + ' with empty response', (done) => {
+            service[test.func](test.param1, test.param2).catch((error) => {
+                expect(error.toString()).toEqual('Error: API returned an empty response');
+                done();
+            });
+            answerHTTPRequest(environment.formAPI + test.url, test.method, null);
+        });
+    });
+
+    it('should fail getInternFormCSV with empty response', (done) => {
+        service.getInternFormCSV('123').catch((error) => {
             expect(error.toString()).toEqual('Error: API returned an empty response');
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'GET', null);
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks/csv', 'GET', null);
     });
 
-    it('should fail load formlist with empty data', (done) => {
-        service.getInternFormList().catch((error) => {
-            expect(error.toString()).toEqual('Error: API returned an invalid response');
-            done();
+    /*
+        ERROR RESPONSE
+    */
+    httpRequests.forEach((test) => {
+        it('should fail ' + test.func + ' with error response', (done) => {
+            service[test.func](test.param1, test.param2).catch((error) => {
+                expect(error.toString()).toEqual('Error: API returned error: Toast');
+                done();
+            });
+            answerHTTPRequest(environment.formAPI + test.url, test.method, { error: 'Toast' });
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'GET', {});
     });
 
-    it('should fail load formlist with error response', (done) => {
-        service.getInternFormList().catch((error) => {
-            expect(error.toString()).toEqual('Error: API returned error: Toast');
-            done();
+    /*
+        EMPTY DATA ERRORS
+    */
+    httpRequests.forEach((test) => {
+        it('should fail ' + test.func + ' with empty data', (done) => {
+            service[test.func](test.param1, test.param2).catch((error) => {
+                expect(error.toString()).toEqual('Error: API returned an invalid response');
+                done();
+            });
+            answerHTTPRequest(environment.formAPI + test.url, test.method, {});
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'GET', { error: 'Toast' });
     });
 
-    it('should fail load formlist with http error', (done) => {
-        service.getInternFormList().catch((error) => {
-            expect(error['statusText']).toEqual('Not Found');
+    /*
+        HTTP ERRORS
+    */
+    httpRequests.forEach((test) => {
+        it('should fail ' + test.func + ' with http error', (done) => {
+            service[test.func](test.param1, test.param2).catch((error) => {
+                expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/' + test.url + ': 404 Not Found');
+                done();
+            });
+            answerHTTPRequest(environment.formAPI + test.url, test.method, '',
+                { status: 404, statusText: 'Not Found' });
+        });
+    });
+
+    it('should fail getInternFormCSV with http error', (done) => {
+        service.getInternFormCSV('123').catch((error) => {
+            expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/intern/forms/123/tasks/csv: 404 Not Found');
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'GET', null,
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks/csv', 'GET', '',
             { status: 404, statusText: 'Not Found' });
     });
 
-    it('should load form with fields', (done) => {
-        service.getInternForm('123', { fields: 'id,title' }).then((value) => {
-            expect(value).toEqual(formSample['data']);
-            done();
+    /*
+        INPUT PARAMS ERRORS
+    */
+    inputErrors.forEach((test) => {
+        it('should fail ' + test.func + ' with missing data', (done) => {
+            service[test.func](test.param1, test.param2).catch((error) => {
+                expect(error.toString()).toEqual('Error: ' + test.missing + ' is required');
+                done();
+            });
         });
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?fields=id%2Ctitle', 'GET', formSample);
-    });
-
-    it('should not load form with missing id', (done) => {
-        service.getInternForm('').catch((error) => {
-            expect(error.toString()).toEqual('Error: id is required');
-            done();
-        });
-    });
-
-    it('should fail load form with empty response', (done) => {
-        service.getInternForm('123').catch((error) => {
-            expect(error.toString()).toEqual('Error: API returned an empty response');
-            done();
-        });
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', null);
-    });
-
-    it('should fail load form with empty data', (done) => {
-        service.getInternForm('123').catch((error) => {
-            expect(error.toString()).toEqual('Error: API returned an invalid response');
-            done();
-        });
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', {});
-    });
-
-    it('should fail load form with error response', (done) => {
-        service.getInternForm('123').catch((error) => {
-            expect(error.toString()).toEqual('Error: API returned error: Toast');
-            done();
-        });
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', { error: 'Toast' });
-    });
-
-    it('should fail load form with http error', (done) => {
-        service.getInternForm('123').catch((error) => {
-            expect(error['statusText']).toEqual('Not Found');
-            done();
-        });
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', null,
-            { status: 404, statusText: 'Not Found' });
     });
 
     /**

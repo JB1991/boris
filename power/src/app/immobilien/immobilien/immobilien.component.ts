@@ -559,31 +559,6 @@ export class ImmobilienComponent implements OnInit {
     }
 
     /**
-     * Gets the color for a specific series
-     *
-     * @param series series id
-     *
-     * @return Series Color
-     */
-    getSeriesColor(series) {
-        return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
-    }
-
-    /**
-     * Get Label for a specific Series
-     *
-     * @param series series Id
-     *
-     * @return series label (sort)
-     */
-    getSeriesLabel(series) {
-        return this.nipixStatic.data.regionen[series]['name'] +
-            ' (' +
-            this.nipixStatic.data.regionen[series]['short'] +
-            ')';
-    }
-
-    /**
      * Get custom color
      *
      * @param name draw name

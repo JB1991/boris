@@ -2,8 +2,8 @@
  * surveyjs style object for bootstrap 4
  */
 export const Bootstrap4_CSS = {
-    root: 'sv_main sv_bootstrap_css',
-    container: 'sv_container card',
+    root: 'sv_main sv_bootstrap_css mb-1 mb-lg-3',
+    container: 'card',
     header: 'panel-heading card-header',
     body: 'panel-body',
     bodyEmpty: 'panel-body sv_body_empty',
@@ -13,7 +13,7 @@ export const Bootstrap4_CSS = {
     logo: 'sv_logo',
     logoImage: 'sv_logo__image',
     headerText: 'sv_header__text',
-    navigationButton: '',
+    navigationButton: 'btn btn-green',
     completedPage: 'card-body',
     navigation: {
         complete: 'btn btn-success',
@@ -54,7 +54,8 @@ export const Bootstrap4_CSS = {
         titleRequired: '',
         hasError: 'has-error',
         indent: 20,
-        formGroup: 'form-group m-0'
+        formGroup: 'form-group m-0',
+        other: 'form-control',
     },
     panel: {
         title: 'sv_p_title',
@@ -91,7 +92,7 @@ export const Bootstrap4_CSS = {
         itemInline: '',
         itemControl: 'custom-control-input',
         itemDecorator: 'sv-hidden',
-        label: 'sv_q_checkbox_label',
+        label: 'sv_q_checkbox_label m-0',
         labelChecked: '',
         controlLabel: 'custom-control-label',
         materialDecorator: 'checkbox-material',
@@ -125,7 +126,7 @@ export const Bootstrap4_CSS = {
         item: 'sv_q_radiogroup custom-control custom-radio',
         itemChecked: 'checked',
         itemInline: 'sv_q_radiogroup_inline',
-        label: 'sv_q_radiogroup_label',
+        label: 'sv_q_radiogroup_label m-0',
         labelChecked: '',
         itemControl: 'custom-control-input',
         itemDecorator: 'sv-hidden',
@@ -154,7 +155,8 @@ export const Bootstrap4_CSS = {
         minText: 'sv_q_rating_min_text',
         itemText: 'sv_q_rating_item_text',
         maxText: 'sv_q_rating_max_text',
-        disabled: ''
+        disabled: '',
+        other: 'form-control',
     },
     text: 'form-control',
     expression: 'form-control',
@@ -169,6 +171,10 @@ export const Bootstrap4_CSS = {
         fileDecorator: 'sv-hidden',
         fileSignBottom: 'sv-hidden',
         removeButtonBottom: 'sv-hidden',
+        other: 'form-control',
+    },
+    nouislider: {
+        other: 'form-control',
     },
     signaturepad: {
         root: 'sv_q_signaturepad sjs_sp_container',

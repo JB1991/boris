@@ -34,19 +34,6 @@
                 <smooth-dnd-container groupName="toolbox"
                                       [getChildPayload]="getPayloadToolbox"
                                       behaviour="copy">
-                    <li id="{{ item.type }}"
-                        *ngFor="let item of storage.FormularFields"
-                        role="button"
-                        tabindex="0"
-                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
-                        title="{{ item.name }}"
-                        (click)="wsNewElement(item.type)"
-                        (keyup.enter)="wsNewElement(item.type)">
-                        <span [innerHtml]="item.icon | svg"
-                              aria-hidden="true"
-                              class="align-baseline"></span>
-                        <span class="pl-2 d-none d-lg-inline">{{ item.name }}</span>
-                    </li>
                     <li id="elementcopy"
                         *ngIf="elementCopy"
                         role="button"
@@ -73,6 +60,19 @@
                         </span>
                         <span class="pl-2 d-none d-lg-inline"
                               i18n>Zwischenablage</span>
+                    </li>
+                    <li id="{{ item.type }}"
+                        *ngFor="let item of storage.FormularFields"
+                        role="button"
+                        tabindex="0"
+                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
+                        title="{{ item.name }}"
+                        (click)="wsNewElement(item.type)"
+                        (keyup.enter)="wsNewElement(item.type)">
+                        <span [innerHtml]="item.icon | svg"
+                              aria-hidden="true"
+                              class="align-baseline"></span>
+                        <span class="pl-2 d-none d-lg-inline">{{ item.name }}</span>
                     </li>
                 </smooth-dnd-container>
             </ul>
@@ -354,7 +354,7 @@
                      [attr.data-id]="i">
                     <div class="card-body p-0">
                         <!-- element buttons -->
-                        <div class="float-lg-right stick-right m-1 m-lg-2">
+                        <div class="float-lg-right stick-right m-1 m-lg-2" style="z-index: 400;">
                             <button type="button"
                                     class="btn btn-light btn-sm mr-2 drag-handle drag-mouse"
                                     tabindex="-1"
@@ -509,10 +509,12 @@
 </main>
 
 <!-- configure formular modal -->
-<power-forms-editor-formular-settings #formularsettings></power-forms-editor-formular-settings>
+<power-forms-editor-formular-settings [(model)]="storage.model"
+                                      #formularsettings></power-forms-editor-formular-settings>
 
 <!-- configure element modal -->
-<power-forms-editor-question-settings #questionsettings></power-forms-editor-question-settings>
+<power-forms-editor-question-settings [(model)]="storage.model"
+                                      #questionsettings></power-forms-editor-question-settings>
 
 <!-- preview -->
 <power-forms-surveyjs-preview [form]="storage.model"

@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { BodenrichtwertListeComponent } from './bodenrichtwert-liste.component';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
+import { CommonModule } from '@angular/common';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () => {
     let component: BodenrichtwertListeComponent;
@@ -14,7 +17,10 @@ describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () =
                 BodenrichtwertListeComponent
             ],
             imports: [
-                HttpClientTestingModule
+                CommonModule,
+                HttpClientTestingModule,
+                NgbPaginationModule,
+                FormsModule
             ],
             providers: [
                 BodenrichtwertService

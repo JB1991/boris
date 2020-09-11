@@ -1,10 +1,10 @@
 <!-- details page -->
 <main class="mainpage p-1 p-lg-3"
       id="content"
-      tabindex="-1">
+      tabindex="-1"
+      *ngIf="storage.form">
     <!-- title -->
-    <div class="h4"
-         *ngIf="storage.form">
+    <div class="h4">
         <svg width="1em"
              height="1em"
              viewBox="0 0 16 16"
@@ -44,8 +44,7 @@
     </div>
 
     <!-- form details -->
-    <div class="row m-0 mb-3"
-         *ngIf="storage.form">
+    <div class="row m-0 mb-3">
         <div class="col-12 col-md-6 pl-0">
             <p class="font-weight-light mb-1">
                 <span i18n>ID</span>: {{ storage.form.id }}
@@ -62,10 +61,10 @@
                 <span i18n>Archiviert</span>: {{ storage.form.cancelled | date:'short' }}
             </p>
             <p class="font-weight-light mb-1"
-               *ngIf="storage.form && storage.form.status === 'published'">
+               *ngIf="storage.form.status === 'published'">
                 <span i18n>Zugriff</span>: {{ storage.form.access }}
             </p>
-            <!--<p class="font-weight-light mb-1" *ngIf="storage.form && storage.form.status === 'published'">
+            <!--<p class="font-weight-light mb-1" *ngIf="storage.form.status === 'published'">
                       Zugriffszeit</span>: {{ storage.form['access-minutes'] }} Minuten
                   </p>-->
         </div>
@@ -91,7 +90,7 @@
                     i18n-title
                     title="Formular bearbeiten"
                     [routerLink]="['/forms/editor', storage.form.id]"
-                    *ngIf="storage.form && storage.form.status === 'created'">
+                    *ngIf="storage.form.status === 'created' && (!auth.IsAuthEnabled() || storage.form.owners.includes(auth.user.data.email))">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -156,8 +155,9 @@
             <button type="button"
                     class="btn btn-primary btn-sm mr-2"
                     i18n-title
-                    title="Formular teilen"
-                    (click)="settings.open()">
+                    title="Formular Einstellungen"
+                    (click)="settings.open()"
+                    *ngIf="!auth.IsAuthEnabled() || storage.form.owners.includes(auth.user.data.email)">
                   <svg width="1em"
                     height="1em"
                     viewBox="0 0 16 16"
@@ -178,7 +178,7 @@
                     i18n-title
                     title="Formular veröffentlichen"
                     (click)="publish.open()"
-                    *ngIf="storage.form && storage.form.status === 'created'">
+                    *ngIf="storage.form.status === 'created' && (!auth.IsAuthEnabled() || storage.form.owners.includes(auth.user.data.email))">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -197,7 +197,7 @@
                     i18n-title
                     title="Formular archivieren"
                     (click)="archiveForm()"
-                    *ngIf="storage.form && storage.form.status === 'published'">
+                    *ngIf="storage.form.status === 'published' && (!auth.IsAuthEnabled() || storage.form.owners.includes(auth.user.data.email))">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -216,7 +216,7 @@
                     i18n-title
                     title="Formular löschen"
                     (click)="deleteForm()"
-                    *ngIf="storage.form && storage.form.status !== 'published'">
+                    *ngIf="storage.form.status !== 'published' && (!auth.IsAuthEnabled() || storage.form.owners.includes(auth.user.data.email))">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -235,7 +235,7 @@
 
     <!-- tasks list -->
     <div class="card bg-light"
-         *ngIf="storage.form && storage.form.status !== 'created'">
+         *ngIf="storage.form.status !== 'created'">
         <div class="card-header h5">
             <svg width="1em"
                  height="1em"
@@ -357,7 +357,8 @@
                                     class="btn btn-danger btn-sm"
                                     i18n-title
                                     title="Antwort löschen"
-                                    (click)="deleteTask(i)">
+                                    (click)="deleteTask(i)"
+                                    *ngIf="!auth.IsAuthEnabled() || storage.form.owners.includes(auth.user.data.email)">
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
@@ -386,7 +387,7 @@
                     i18n-title
                     title="Neue PIN erstellen"
                     (click)="maketask.open()"
-                    *ngIf="storage.form && storage.form.status === 'published' && storage.form.access !== 'public'">
+                    *ngIf="storage.form.status === 'published' && storage.form.access !== 'public' && (!auth.IsAuthEnabled() || storage.form.owners.includes(auth.user.data.email))">
                 <svg width="1.5em"
                      height="1.5em"
                      viewBox="0 0 16 16"

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -22,10 +22,10 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     let fixture: ComponentFixture<EditorComponent>;
     let httpTestingController: HttpTestingController;
 
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const formContent = require('../../../assets/fragebogen/form-content.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    const formContent = require('../../../assets/fragebogen/surveyjs.json');
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -538,10 +538,12 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     template: ''
 })
 class MockElementModalComponent {
+    @Input() public model: any;
 }
 @Component({
     selector: 'power-forms-editor-formular-settings',
     template: ''
 })
 class MockFormularModalComponent {
+    @Input() public model: any;
 }

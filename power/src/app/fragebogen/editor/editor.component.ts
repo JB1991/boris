@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -18,10 +18,11 @@ import { PreviewComponent } from '../surveyjs/preview/preview.component';
     templateUrl: './editor.component.html',
     styleUrls: ['./editor.component.css']
 })
-export class EditorComponent implements OnInit, ComponentCanDeactivate {
+export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
     @ViewChild('preview') public preview: PreviewComponent;
     public elementCopy: any;
     public isCollapsedToolBox = false;
+    private timerHandle: NodeJS.Timeout;
 
     constructor(public route: ActivatedRoute,
         public router: Router,
@@ -46,20 +47,31 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         }
+
     }
 
+    ngOnDestroy() {
+        // delete auto save method
+        if (this.timerHandle) {
+            clearInterval(this.timerHandle);
+        }
+    }
+
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.z', ['$event']) onUndoHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.undoChanges();
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.y', ['$event']) onRedoHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.redoChanges();
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.s', ['$event']) onSaveHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -67,6 +79,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.v', ['$event']) onPasteHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -74,6 +87,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.p', ['$event']) onAddPageHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -81,6 +95,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.d', ['$event']) onDelPageHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
@@ -88,6 +103,7 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.arrowleft', ['$event']) onLeftPageHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID !== 0) {
@@ -96,21 +112,11 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
         }
     }
 
+    /* istanbul ignore next */
     @HostListener('document:keydown.control.arrowright', ['$event']) onRightPageHandler(event: KeyboardEvent) {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID < this.storage.model.pages.length - 1) {
                 this.wsPageSelect(this.storage.selectedPageID + 1);
-            }
-        }
-    }
-
-    @HostListener('document:keydown.f11', ['$event']) onPreviewHandler(event: KeyboardEvent) {
-        if (this.storage.getAutoSaveEnabled()) {
-            event.preventDefault();
-            if (this.preview.isVisible) {
-                this.preview.modal.close();
-            } else {
-                this.preview.open();
             }
         }
     }
@@ -172,6 +178,12 @@ export class EditorComponent implements OnInit, ComponentCanDeactivate {
             // store formular
             this.storage.model = data['data']['content'];
             this.loadingscreen.setVisible(false);
+
+            // auto save
+            /* istanbul ignore next */
+            this.timerHandle = setInterval(() => {
+                this.wsSave();
+            }, 5 * 60000);
         }, (error: Error) => {
             // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);

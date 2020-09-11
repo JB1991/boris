@@ -13,6 +13,7 @@ import { ConfigService } from '@app/config.service';
 })
 export class AuthService {
     public user: User;
+    private timerHandle: NodeJS.Timeout;
 
     constructor(public router: Router,
         public httpClient: HttpClient,
@@ -28,6 +29,7 @@ export class AuthService {
     public async loadSession(refresh = true) {
         // check if session is loaded and still valid
         if (this.IsAuthenticated()) {
+            this.sessionCheck();
             return;
         }
 
@@ -40,6 +42,7 @@ export class AuthService {
 
         // check if session is still valid
         if (this.IsAuthenticated()) {
+            this.sessionCheck();
             return;
         }
 
@@ -71,6 +74,7 @@ export class AuthService {
                 this.user.token = data;
                 this.user.data = this.parseUserinfo();
                 localStorage.setItem('user', JSON.stringify(this.user));
+                this.sessionCheck();
                 return;
             } catch (error) {
                 // failed to refresh
@@ -86,6 +90,25 @@ export class AuthService {
         // delete localStorage
         localStorage.removeItem('user');
         this.user = null;
+    }
+
+    /**
+     * Refreshes session after 15 minutes
+     */
+    private sessionCheck() {
+        /* istanbul ignore next */
+        if (environment.production) {
+            // clear refresh timeout
+            if (this.timerHandle) {
+                clearTimeout(this.timerHandle);
+                this.timerHandle = null;
+            }
+
+            // set refresh timeout
+            this.timerHandle = setTimeout(async () => {
+                await this.loadSession(true);
+            }, 15 * 60000);
+        }
     }
 
     /**

@@ -1,7 +1,7 @@
 import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ShowdownConverter } from 'ngx-showdown';
 import * as Survey from 'survey-angular';
-import * as widgets from 'surveyjs-widgets';
+import * as Slider from './nouislider';
 
 @Component({
     selector: 'power-forms-surveyjs-wrapper',
@@ -12,8 +12,8 @@ export class WrapperComponent implements OnChanges {
     @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv: ElementRef;
     @Input() public model: {};
     @Input() public data: any = null;
-    @Input() public mode: string;
-    @Input() public theme: string;
+    @Input() public mode: 'edit' | 'display';
+    @Input() public theme = 'default';
     @Input() public css: {};
     @Input() public showInvisible = false;
     @Output() public submitResult: EventEmitter<any> = new EventEmitter();
@@ -47,8 +47,7 @@ export class WrapperComponent implements OnChanges {
         Survey.surveyLocalization.defaultLocale = 'de';
 
         // load custom widgets
-        widgets.nouislider(Survey);
-        widgets.sortablejs(Survey);
+        Slider.init(Survey);
 
         // create survey
         this.survey = new Survey.Model(this.model);
@@ -71,19 +70,9 @@ export class WrapperComponent implements OnChanges {
         this.survey.showInvisibleElements = this.showInvisible;
         this.survey.sendResultOnPageNext = true;
         this.survey.checkErrorsMode = 'onNextPage';
+        this.survey.storeOthersAsComment = false;
         this.survey.maxTextLength = 5000;
         this.survey.maxOthersLength = 200;
-
-        // fix links
-        this.survey.onAfterRenderQuestion.add(function (_, options) {
-            const linkEl = options.htmlElement.querySelector('a');
-            if (linkEl) {
-                /* istanbul ignore next */
-                linkEl.onclick = function (e) {
-                    e.stopPropagation();
-                };
-            }
-        });
 
         // build property model
         this.props = { model: this.survey };

@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienStatic from './immobilien.static';
 import * as ImmobilienRuntime from './immobilien.runtime';
+import * as ImmobilienUtils from './immobilien.utils';
 
 describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
 
@@ -14,12 +15,38 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         'regionen': {
             'foo': {
                 'name': 'bar',
-                'short': 'ba'
+                'short': 'ba',
+                'color': '#abcdef'
+            },
+            'dd': {
+                'name': 'dd',
+                'short': 'dd'
+            },
+            'draw': {
+                'name': 'draw',
+                'short': 'draw'
             }
         },
         'shortNames': {
             'shortName': 'short'
-        }
+        },
+        'selections' : {
+            'single' : {
+                'type': 'single'
+            },
+            'multi' : {
+                'type': 'multi',
+                'preset': ['foo']
+            },
+            'multiIndex' : {
+                'type': 'multiIndex'
+            },
+            'multiSelect': {
+                'type': 'multiSelect',
+                'preset': ['foo']
+            }
+        },
+        'allItems': ['foo']
     };
 
     const niRuntimeCalculated = {
@@ -28,7 +55,16 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         },
         'hiddenData': {
             'foo': [100]
-        }
+        },
+        'drawData': [
+            {
+                'data': [],
+                'name': 'dd'
+            },
+            {   'data': [0],
+                'name': 'draw'
+            }
+        ]
     };
 
 
@@ -43,7 +79,8 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
         niRuntime.state = {
             'rangeEndIndex': 10,
-            'selectedChartLine': ''
+            'selectedChartLine': '',
+            'activeSelection': 'na'
         };
         niRuntime.calculated = JSON.parse(JSON.stringify(niRuntimeCalculated));
         niRuntime.highlightSeries = function(seriesName) {};
@@ -53,7 +90,29 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
             }
         };
 
+        niRuntime.getDrawPreset = function(name) {
+            return {
+                'show': true,
+                'values': ['foo'],
+                'colors': '#aabbcc'
+            };
+        };
+
         component = new ImmobilienFormatter.ImmobilienFormatter(niStatic, niRuntime);
+
+        spyOn(ImmobilienUtils, 'generateTextElement').and.callFake(
+            function(name, color = '#000', fontSizeBase = 1.2, position = 0, posX?) {
+                return name;
+            }
+        );
+
+        spyOn(ImmobilienUtils, 'generateDotElement').and.callFake(
+            function(radius = 4, color = '#fff', fontSizeBase = 1.2, position = 0,
+                posX = 0, bordercolor = '#000', border = 0): any {
+                return 'dot';
+            }
+        );
+
     });
 
 
@@ -142,6 +201,46 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         const res = component.formatLegend('bar');
         expect(res).toEqual('foo');
     });
+
+    it('getSeriesLabel work', function() {
+        const res = component.getSeriesLabel('foo');
+        expect(res).toEqual('bar (ba)');
+    });
+
+    it('getSeriesColor', function() {
+        const res = component.getSeriesColor('foo');
+        expect(res).toEqual('#abcdef');
+    });
+
+    it('simpleLEgend work', function() {
+        const res = component.simpleLegend();
+        expect(res).toEqual(['dd (ohne Daten)', 'draw']);
+    });
+
+    it('grapicLegend undefined work', function() {
+        const res = component.graphicLegend();
+        expect(res).toEqual([]);
+    });
+
+    it('graphicLegend Single work', function() {
+        niRuntime.state.activeSelection = 'single';
+        const res = component.graphicLegend();
+        expect(res).toEqual(['[ohne Daten] dd (dd)', 'dot', 'draw (draw)', 'dot']);
+    });
+
+    it('graphicLegend Multi work', function() {
+        niRuntime.state.activeSelection = 'multi';
+        const res = component.graphicLegend();
+        expect(res).toEqual(['foo (undefined)', 'dot']);
+    });
+
+    it('graphicLegend MultiSelect work', function() {
+        niRuntime.state.activeSelection = 'multiSelect';
+        const res = component.graphicLegend();
+        expect(res).toEqual(['dot', 'bar (ba)']);
+    });
+
+
 
 
 });

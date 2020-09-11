@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GeosearchComponent } from './geosearch.component';
@@ -9,7 +9,7 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     let fixture: ComponentFixture<GeosearchComponent>;
     let httpTestingController: HttpTestingController;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 GeosearchComponent
@@ -20,8 +20,7 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
                 ReactiveFormsModule,
                 NgbTypeaheadModule
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {

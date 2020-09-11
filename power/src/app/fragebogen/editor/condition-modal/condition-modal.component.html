@@ -20,6 +20,7 @@
 
 <power-modalmini #conditionmodal
                  (closing)="close()">
-    <power-forms-editor-conditions [(data)]="data">
+    <power-forms-editor-conditions [model]="model"
+                                   [(data)]="data">
     </power-forms-editor-conditions>
 </power-modalmini>

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShowdownModule } from 'ngx-showdown';
 import { FormsModule } from '@angular/forms';
 import { environment } from '@env/environment';
@@ -11,7 +11,7 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
     let component: PreviewComponent;
     let fixture: ComponentFixture<PreviewComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 SharedModule,
@@ -26,6 +26,7 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
 
         fixture = TestBed.createComponent(PreviewComponent);
         component = fixture.componentInstance;
+        component.form = { locale: 'de' };
         fixture.detectChanges();
 
         spyOn(console, 'log');
@@ -37,12 +38,6 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
         component.debugPrint('x');
         environment.production = false;
         component.debugPrint('x');
-    });
-
-    it('should crash', () => {
-        expect(function () {
-            component.open('ediet');
-        }).toThrowError('mode is invalid');
     });
 
     it('should open/close', () => {

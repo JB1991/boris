@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -12,9 +12,9 @@ describe('Fragebogen.Editor.StorageService', () => {
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
 
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,

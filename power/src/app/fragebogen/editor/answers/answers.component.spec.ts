@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AnswersComponent } from './answers.component';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ describe('Fragebogen.Editor.AnswersComponent', () => {
     let component: AnswersComponent;
     let fixture: ComponentFixture<AnswersComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 FormsModule
@@ -62,13 +62,6 @@ describe('Fragebogen.Editor.AnswersComponent', () => {
         component.data = [{ imageLink: 'abc' }];
         component.delImage(0);
         expect(component.data[0].imageLink).toEqual('');
-    });
-
-    it('should upload image', () => {
-        component.data = [{ imageLink: '' }];
-        spyOn(document, 'createElement').and.callThrough();
-        component.uploadImage(0);
-        expect(document.createElement).toHaveBeenCalled();
     });
 
     it('should throw error', () => {

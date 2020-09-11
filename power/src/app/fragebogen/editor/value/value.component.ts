@@ -16,6 +16,7 @@ let id = 0;
     styleUrls: ['./value.component.scss']
 })
 export class ValueComponent implements OnChanges {
+    @Input() public model: any;
     @Input() public question: any;
     @Input() public value: any;
     @Output() public valueChange = new EventEmitter<any>();
@@ -24,10 +25,12 @@ export class ValueComponent implements OnChanges {
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) {
         // overwrite style class
-        this.css_style.container = 'sv_container';
+        this.css_style.root = 'sv_main sv_bootstrap_css bg-white';
+        this.css_style.container = '';
         this.css_style.row = 'sv_row';
-        this.css_style.question.header = 'd-none';
         this.css_style.page.root = '';
+        this.css_style.question.header = 'd-none';
+        this.css_style.question.formGroup = 'd-none';
     }
 
     ngOnChanges() {

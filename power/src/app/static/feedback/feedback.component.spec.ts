@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedbackComponent } from './feedback.component';
 
@@ -6,11 +6,10 @@ describe('Static.Feedback.FeedbackComponent', () => {
     let component: FeedbackComponent;
     let fixture: ComponentFixture<FeedbackComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [ FeedbackComponent ]
-        })
-            .compileComponents();
+            declarations: [FeedbackComponent]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

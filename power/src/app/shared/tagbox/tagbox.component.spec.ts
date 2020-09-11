@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { TagboxComponent } from './tagbox.component';
@@ -7,7 +7,7 @@ describe('Shared.TagboxComponent', () => {
     let component: TagboxComponent;
     let fixture: ComponentFixture<TagboxComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 FormsModule

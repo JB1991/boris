@@ -1,16 +1,15 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ImpressumComponent} from './impressum.component';
+import { ImpressumComponent } from './impressum.component';
 
 describe('Static.Impressum.ImpressumComponent', () => {
     let component: ImpressumComponent;
     let fixture: ComponentFixture<ImpressumComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [ImpressumComponent]
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {

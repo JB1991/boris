@@ -54,7 +54,7 @@ td {
 
 /* imagepicker: checked color */
 .imagepicker-checked div {
-    background-color: #ccc;
+    background-color: #ccc !important;
 }
 
 @media (max-width: 576px) {
@@ -71,14 +71,8 @@ td {
     }
 }
 
-/* slider: remove too much margin */
-.noUi-target {
-    margin-left: 10px !important;
-    margin-right: 10px !important;
-}
-
-.noUi-connect {
-    width: initial !important;
+.sv_custom_header {
+    display: none !important;
 }
 
 .smooth-dnd-container {

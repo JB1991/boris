@@ -80,25 +80,25 @@
 
                     <!-- template -->
                     <div class="form-group">
-                        <label for="formtemplate"
-                               i18n>Template</label>
-                        <select class="custom-select"
-                                [(ngModel)]="template"
-                                id="formtemplate"
-                                name="formtemplate"
-                                required>
-                            <option value=""
-                                    i18n>Standard</option>
-                            <option *ngFor="let templ of storage.formsList; index as i"
-                                    value="{{ templ.id }}">
-                                {{ templ.title }}
-                            </option>
-                        </select>
+                        <label for="searchtemplate"
+                                i18n>Template</label>
+                        <input type="text"
+                                class="form-control"
+                                id="searchtemplate"
+                                name="searchtemplate"
+                                [(ngModel)]="searchText"
+                                [typeahead]="templateList"
+                                [typeaheadScrollable]="true"
+                                [typeaheadOptionsInScrollableView]="5"
+                                typeaheadOptionField="title"
+                                (typeaheadOnSelect)="setTemplate($event)"
+                                (keyup)="fetchTemplates()"
+                                i18n-placeholder placeholder="Suchen">
                     </div>
 
                     <!-- tags -->
                     <power-tagbox [(tagList)]="tagList"
-                                  [dataList]="storage.tagList"
+                                  [dataList]="data.tags"
                                   tagboxLabel="Tags"></power-tagbox>
 
                     <button type="submit"

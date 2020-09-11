@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
@@ -11,7 +11,7 @@ describe('AppComponent', () => {
     let fixture: ComponentFixture<AppComponent>;
     let httpTestingController: HttpTestingController;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -35,18 +35,18 @@ describe('AppComponent', () => {
         httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
-    it('should create the app', async(() => {
+    it('should create the app', waitForAsync(() => {
         expect(app).toBeTruthy();
 
         spyOn(app.cdRef, 'detectChanges');
         app.ngAfterViewChecked();
     }));
 
-    it(`should have 'power' as title`, async(() => {
+    it(`should have 'power' as title`, waitForAsync(() => {
         expect(app.title).toContain('power');
     }));
 
-    it('should have a version number including a dot', async(() => {
+    it('should have a version number including a dot', waitForAsync(() => {
         expect(app.appVersion.version).toEqual('local');
     }));
 

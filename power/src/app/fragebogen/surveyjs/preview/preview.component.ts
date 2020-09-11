@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { environment } from '@env/environment';
+import * as Survey from 'survey-angular';
 
 import { WrapperComponent } from '../wrapper.component';
 import { Bootstrap4_CSS } from '../style';
@@ -20,6 +21,7 @@ export class PreviewComponent {
     public language = 'de';
     public showInvisible = false;
     public isVisible = false;
+    public languages = Survey.surveyLocalization.localeNames;
 
     constructor() { }
 
@@ -28,15 +30,11 @@ export class PreviewComponent {
      * @param mode Survey mode [edit, display]
      * @param data Survey data
      */
-    public open(mode?: string, data?: any) {
+    public open(mode?: 'edit' | 'display', data?: any) {
         // set mode
         if (mode) {
-            if (!(mode === 'edit' || mode === 'display')) {
-                throw new Error('mode is invalid');
-            }
             this.mode = mode;
             this.showInvisible = false;
-            this.language = 'de';
         }
         // set data to display
         if (data && !this.data) {
@@ -44,6 +42,7 @@ export class PreviewComponent {
         }
 
         // show modal
+        this.language = this.form.locale;
         this.isVisible = true;
         if (this.data) {
             this.modal.open($localize`Ergebnisvorschau`);

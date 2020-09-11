@@ -1,6 +1,7 @@
 <power-modal #formsettingsmodal
              (closing)="close()">
-    <div class="container px-1 px-lg-3">
+    <div class="container px-1 px-lg-3"
+         *ngIf="model">
         <accordion [isAnimated]="true"
                    [closeOthers]="true">
             <!-- common -->
@@ -17,8 +18,8 @@
                                i18n>Formular Titel*</label>
                         <input type="text"
                                class="form-control"
-                               [(ngModel)]="storage.model.title.default"
-                               [class.is-invalid]="!storage.model.title.default"
+                               [(ngModel)]="model.title.default"
+                               [class.is-invalid]="!model.title.default"
                                maxlength="200"
                                name="form-title"
                                id="form-title"
@@ -31,7 +32,7 @@
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox"
                                class="custom-control-input"
-                               [(ngModel)]="storage.model.showTitle"
+                               [(ngModel)]="model.showTitle"
                                name="form-showTitle"
                                id="form-showTitle">
                         <label class="custom-control-label"
@@ -44,7 +45,7 @@
                         <label for="form-description"
                                i18n>Formular Beschreibung</label>
                         <textarea class="form-control"
-                                  [(ngModel)]="storage.model.description.default"
+                                  [(ngModel)]="model.description.default"
                                   id="form-description"
                                   name="form-description"
                                   rows="5"
@@ -61,15 +62,15 @@
                     <div class="form-group">
                         <label for="form-locale"
                                i18n>Standardsprache</label>
-                        <select class="custom-select"
-                                [(ngModel)]="storage.model.locale"
+                        <select class="custom-select text-capitalize"
+                                [(ngModel)]="model.locale"
                                 id="form-locale"
                                 name="form-locale"
                                 aria-describedby="form-localeHelp">
-                            <option value="de"
-                                    i18n>Deutsch</option>
-                            <option value="en"
-                                    i18n>Englisch</option>
+                            <option *ngFor="let lang of languages | keyvalue; index as i"
+                                    [ngValue]="lang.key">
+                                {{ lang.value }}
+                            </option>
                         </select>
                         <small id="form-localeHelp"
                                class="form-text text-muted"
@@ -83,7 +84,7 @@
                         <label for="form-showQuestionNumbers"
                                i18n>Fragen Nummerierung</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.showQuestionNumbers"
+                                [(ngModel)]="model.showQuestionNumbers"
                                 id="form-showQuestionNumbers"
                                 name="form-showQuestionNumbers">
                             <option value="on"
@@ -100,7 +101,7 @@
                         <label for="form-questionsOrder"
                                i18n>Fragen Reihenfolge</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.questionsOrder"
+                                [(ngModel)]="model.questionsOrder"
                                 id="form-questionsOrder"
                                 name="form-questionsOrder">
                             <option value="initial"
@@ -115,7 +116,7 @@
                         <label for="form-completedHtml"
                                i18n>Abschlusstext*</label>
                         <textarea class="form-control"
-                                  [(ngModel)]="storage.model.completedHtml.default"
+                                  [(ngModel)]="model.completedHtml.default"
                                   id="form-completedHtml"
                                   name="form-completedHtml"
                                   rows="5"
@@ -129,7 +130,7 @@
                                i18n>Umleitungs URL</label>
                         <input type="text"
                                class="form-control"
-                               [(ngModel)]="storage.model.navigateToUrl"
+                               [(ngModel)]="model.navigateToUrl"
                                name="form-navigateToUrl"
                                id="form-navigateToUrl"
                                placeholder="https://..."
@@ -163,7 +164,7 @@
                                i18n>Formular Logo</label>
                         <input type="text"
                                class="form-control"
-                               [(ngModel)]="storage.model.logo"
+                               [(ngModel)]="model.logo"
                                name="form-logo"
                                id="form-logo"
                                placeholder="https://..."
@@ -179,7 +180,7 @@
                         <label for="form-logoPosition"
                                i18n>Position</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.logoPosition"
+                                [(ngModel)]="model.logoPosition"
                                 id="form-logoPosition"
                                 name="form-logoPosition">
                             <option value="none"
@@ -201,7 +202,7 @@
                                i18n>Breite in Pixel</label>
                         <input type="number"
                                class="form-control"
-                               [(ngModel)]="storage.model.logoWidth"
+                               [(ngModel)]="model.logoWidth"
                                min="0"
                                max="512"
                                name="form-logoWidth"
@@ -214,7 +215,7 @@
                                i18n>Höhe in Pixel</label>
                         <input type="number"
                                class="form-control"
-                               [(ngModel)]="storage.model.logoHeight"
+                               [(ngModel)]="model.logoHeight"
                                min="0"
                                max="512"
                                name="form-logoHeight"
@@ -226,7 +227,7 @@
                         <label for="form-logoFit"
                                i18n>Größenanpassung</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.logoFit"
+                                [(ngModel)]="model.logoFit"
                                 id="form-logoFit"
                                 name="form-logoFit">
                             <option value="none"
@@ -260,7 +261,7 @@
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox"
                                class="custom-control-input"
-                               [(ngModel)]="storage.model.firstPageIsStarted"
+                               [(ngModel)]="model.firstPageIsStarted"
                                name="form-firstPageIsStarted"
                                id="form-firstPageIsStarted"
                                aria-describedby="form-firstPageIsStartedHelp">
@@ -277,7 +278,7 @@
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox"
                                class="custom-control-input"
-                               [(ngModel)]="storage.model.showPrevButton"
+                               [(ngModel)]="model.showPrevButton"
                                name="form-showPrevButton"
                                id="form-showPrevButton">
                         <label class="custom-control-label"
@@ -289,7 +290,7 @@
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox"
                                class="custom-control-input"
-                               [(ngModel)]="storage.model.goNextPageAutomatic"
+                               [(ngModel)]="model.goNextPageAutomatic"
                                name="form-goNextPageAutomatic"
                                id="form-goNextPageAutomatic"
                                aria-describedby="form-goNextPageAutomaticHelp">
@@ -307,7 +308,7 @@
                         <label for="form-showPreviewBeforeComplete"
                                i18n>Vorschau vor dem absenden</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.showPreviewBeforeComplete"
+                                [(ngModel)]="model.showPreviewBeforeComplete"
                                 id="form-showPreviewBeforeComplete"
                                 name="form-showPreviewBeforeComplete"
                                 aria-describedby="form-showPreviewBeforeCompleteHelp">
@@ -330,7 +331,7 @@
                         <label for="form-showProgressBar"
                                i18n>Fortschrittsbalken Anzeigen</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.showProgressBar"
+                                [(ngModel)]="model.showProgressBar"
                                 id="form-showProgressBar"
                                 name="form-showProgressBar">
                             <option value="off"
@@ -349,13 +350,15 @@
                         <label for="form-progressBarType"
                                i18n>Fortschrittsbalken Berechnung</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.progressBarType"
+                                [(ngModel)]="model.progressBarType"
                                 id="form-progressBarType"
                                 name="form-progressBarType">
                             <option value="pages"
-                                    i18n>Seitenanzahl</option>
+                                    i18n>Sichtbare Seiten</option>
+                            <option value="requiredQuestions"
+                                    i18n>Sichtbare Pflichtfragen</option>
                             <option value="questions"
-                                    i18n>Fragenanzahl</option>
+                                    i18n>Alle sichtbaren Fragen</option>
                             <option value="correctQuestions"
                                     i18n>Korrekt beantwortete Fragen (Quiz)</option>
                         </select>
@@ -380,7 +383,7 @@
 
                     <!-- render pages -->
                     <accordion [isAnimated]="true">
-                        <accordion-group *ngFor="let page of storage.model.pages; index as i"
+                        <accordion-group *ngFor="let page of model.pages; index as i"
                                          class="mb-1 mb-lg-3">
                             <!-- card head -->
                             <button accordion-heading
@@ -415,7 +418,7 @@
                                             i18n-title
                                             title="Nach unten verschieben"
                                             (click)="moveDown(i)"
-                                            [disabled]="i === storage.model.pages.length - 1">
+                                            [disabled]="i === model.pages.length - 1">
                                         <svg width="1em"
                                              height="1em"
                                              viewBox="0 0 16 16"
@@ -536,13 +539,15 @@
                             <hr>
                             <span i18n>Sichtbarkeitsbedingung</span>
                             <br>
-                            <power-forms-editor-conditions [(data)]="page.visibleIf">
+                            <power-forms-editor-conditions [model]="model"
+                                                           [(data)]="page.visibleIf">
                             </power-forms-editor-conditions>
 
                             <hr>
                             <span i18n>Aktivierungsbedingung</span>
                             <br>
-                            <power-forms-editor-conditions [(data)]="page.enableIf">
+                            <power-forms-editor-conditions [model]="model"
+                                                           [(data)]="page.enableIf">
                             </power-forms-editor-conditions>
                         </accordion-group>
                     </accordion>
@@ -576,7 +581,7 @@
                                i18n>Zeitlimit in Sekunden für das Formular</label>
                         <input type="number"
                                class="form-control"
-                               [(ngModel)]="storage.model.maxTimeToFinish"
+                               [(ngModel)]="model.maxTimeToFinish"
                                min="0"
                                name="form-maxTimeToFinish"
                                id="form-maxTimeToFinish">
@@ -588,7 +593,7 @@
                                i18n>Zeitlimit in Sekunden pro Seite</label>
                         <input type="number"
                                class="form-control"
-                               [(ngModel)]="storage.model.maxTimeToFinishPage"
+                               [(ngModel)]="model.maxTimeToFinishPage"
                                min="0"
                                name="form-maxTimeToFinishPage"
                                id="form-maxTimeToFinishPage">
@@ -599,7 +604,7 @@
                         <label for="form-showTimerPanel"
                                i18n>Zeitlimit anzeigen</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.showTimerPanel"
+                                [(ngModel)]="model.showTimerPanel"
                                 id="form-showTimerPanel"
                                 name="form-showTimerPanel">
                             <option value="none"
@@ -616,7 +621,7 @@
                         <label for="form-showTimerPanelMode"
                                i18n>Timer anzeigen</label>
                         <select class="custom-select"
-                                [(ngModel)]="storage.model.showTimerPanelMode"
+                                [(ngModel)]="model.showTimerPanelMode"
                                 id="form-showTimerPanelMode"
                                 name="form-showTimerPanelMode">
                             <option value="all"

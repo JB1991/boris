@@ -1,7 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, InjectionToken, Inject } from '@angular/core';
 
-import { StorageService } from '../storage.service';
-
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
 @Component({
@@ -16,20 +14,20 @@ let id = 0;
     styleUrls: ['./conditions.component.css']
 })
 export class ConditionsComponent implements OnInit, OnChanges {
-    @Input() data: any;
-    @Output() dataChange = new EventEmitter<any>();
+    @Input() public model: any;
+    @Input() public data: any;
+    @Output() public dataChange = new EventEmitter<any>();
 
     public struct: any = [];
     public questions: any = [];
 
-    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
-        public storage: StorageService) { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
     ngOnInit() {
         // make question list
         this.questions = [];
-        for (let i = 0; i < this.storage.model.pages.length; i++) {
-            for (const element of this.storage.model.pages[i].elements) {
+        for (let i = 0; i < this.model.pages.length; i++) {
+            for (const element of this.model.pages[i].elements) {
                 // add to list
                 if (element.type !== 'matrix') {
                     this.questions.push({

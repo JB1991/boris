@@ -13,9 +13,10 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [BodenrichtwertVerlaufComponent],
-            imports: [HttpClientTestingModule]
-        })
-            .compileComponents();
+            imports: [
+                HttpClientTestingModule
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

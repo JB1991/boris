@@ -80,7 +80,8 @@
                           i18n>Nach unten verschieben</span>
                 </button>
 
-                <power-forms-editor-condition-modal [(data)]="item.visibleIf"></power-forms-editor-condition-modal>
+                <power-forms-editor-condition-modal [model]="model"
+                                                    [(data)]="item.visibleIf"></power-forms-editor-condition-modal>
 
                 <button type="button"
                         class="btn btn-light text-danger"

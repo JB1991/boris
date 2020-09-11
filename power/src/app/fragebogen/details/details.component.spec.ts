@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -11,22 +11,21 @@ import { DetailsComponent } from './details.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
     let fixture: ComponentFixture<DetailsComponent>;
     let httpTestingController: HttpTestingController;
 
-    const formSample = require('../../../assets/fragebogen/form-sample.json');
-    const formSample2 = require('../../../assets/fragebogen/form-sample-2.json');
-    const deleteSample = require('../../../assets/fragebogen/form-deleted.json');
-    const taskSample = require('../../../assets/fragebogen/tasks-list.json');
-    const emptyResponse = require('../../../assets/fragebogen/empty-response.json');
+    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    const taskSample = require('../../../assets/fragebogen/intern-get-tasks.json');
 
     const formURL = environment.formAPI + 'intern/forms/1234';
     const tasksURL = environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?limit=9007199254740991&offset=0&sort=created&order=desc';
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -37,6 +36,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             providers: [
                 Title,
                 StorageService,
+                AuthService,
                 {
                     provide: ActivatedRoute,
                     useValue: {
@@ -75,19 +75,6 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         expect(component).toBeTruthy();
         answerInitialRequests();
         expect(component.storage.tasksList.length).toEqual(2);
-    });
-
-    it('should create 2', () => {
-        answerHTTPRequest(formURL, 'GET', formSample2);
-        expect(component.storage.form.status).toEqual('created');
-        expect(component.storage.tasksList).toEqual([]);
-    });
-
-    it('should create 3', () => {
-        answerHTTPRequest(formURL, 'GET', formSample2);
-        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
-        component.ngOnInit();
-        expect(component.router.navigate).toHaveBeenCalledTimes(1);
     });
 
     it('should not create', () => {
@@ -372,16 +359,6 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         expect(function () {
             component.openTask(2);
         }).toThrowError('invalid i');
-    });
-
-    it('should change tasks page', () => {
-        answerInitialRequests();
-        const event: PageChangedEvent = { page: 2, itemsPerPage: 5 };
-        component.tasksPageChanged(event);
-        answerHTTPRequest(environment.formAPI + 'intern/forms/bs63c2os5bcus8t5q0kg/tasks?limit=5&offset=5&sort=created&order=desc',
-            'GET', emptyResponse);
-        expect(component.storage.tasksList.length).toEqual(0);
-        expect(component.storage.tasksCountTotal).toEqual(2);
     });
 
     function answerInitialRequests() {
