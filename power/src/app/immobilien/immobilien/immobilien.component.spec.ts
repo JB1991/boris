@@ -1,5 +1,6 @@
 import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 
 import { ImmobilienComponent } from './immobilien.component';
 import * as ImmobilienNipixStatic from './immobilien.static';
@@ -110,6 +111,15 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(component.initNipix).toHaveBeenCalled();
     });
 
+    it('Find My WoMa works', () => {
+        const inp$ = of('f','fo','foo');
+        niStatic.data.gemeinden = {
+            'foobar': '4211'
+        };
+
+        const ret = component.search(inp$);
+    });
+
     it('loadConfig works', () => {
         spyOn(ImmobilienUtils, 'getMyMapRegionen').and.callFake(
             function (regionen: any, myregion?: any, selectionList?: any, lighten?: boolean) { return []; });
@@ -214,6 +224,16 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(ImmobilienUtils.dispatchMapSelect).toHaveBeenCalled();
     });
 
+    it('updateMapSelect works', () => {
+        niRuntime.updateMapSelect = jasmine.createSpy();
+
+        component.updateMapSelect();
+        expect(niRuntime.updateMapSelect).toHaveBeenCalledWith(null);
+
+        component.updateMapSelect('foobar');
+        expect(niRuntime.updateMapSelect).toHaveBeenCalledWith('foobar');
+    });
+
     it('Init with initState=4 works', () => {
         spyOn(component, 'updateChart').and.callFake( function() {} );
         spyOn(component, 'updateMapSelect').and.callFake( function() {} );
@@ -224,6 +244,16 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
         expect(component.updateChart).toHaveBeenCalled();
         expect(component.updateMapSelect).toHaveBeenCalled();
+    });
+
+    it('onChartFinished works', () => {
+        niRuntime.export = {
+            'chartRenderFinished': jasmine.createSpy()
+        };
+
+        component.onChartFinished(null);
+
+        expect(niRuntime.export.chartRenderFinished).toHaveBeenCalled();
     });
 
     it('onChangeCat works', () => {

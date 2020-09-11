@@ -85,6 +85,16 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         );
     });
 
+    it('highlightTimeout works', () => {
+        component.state.highlightedSeries = 'foo';
+        spyOn(component, 'updateMapSelect').and.callFake( function() { } );
+
+        component.highlightTimeout();
+        expect(component.state.highlightedSeries).toEqual('');
+        expect(component.updateMapSelect).toHaveBeenCalled();
+
+    });
+
     it('resetHighlight works', function() {
         spyOn(window, 'clearTimeout').and.callThrough();
         spyOn(component, 'updateMapSelect').and.callThrough();
@@ -115,11 +125,11 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         expect(ImmobilienUtils.dispatchMapSelect).toHaveBeenCalled();
     });
 
-    /*it('calculateDrawData works', function() {
-        spyOn(component.calculator, 'calculateDrawData').and.callFake();
+    it('calculateDrawData works', function() {
+        spyOn(component.calculator, 'calculateDrawData').and.callFake( function() { } );
         component.calculateDrawData();
         expect(component.calculator.calculateDrawData).toHaveBeenCalled();
-    });*/
+    });
 
 
     it('updateRange works', function() {

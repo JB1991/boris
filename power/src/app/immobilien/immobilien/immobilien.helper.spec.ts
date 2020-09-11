@@ -104,6 +104,25 @@ describe('Immobilien.Immobilien.ImmobilienHelper', () => {
 
     });
 
+    it('ImmobilienHelper.downloadFile with data works', function() {
+        let clicked = false;
+        const anchor =  Object.create(HTMLElement.prototype);
+        anchor.click = function() { clicked = true; };
+
+        const fun = function (elem: string) {
+            return this;
+        };
+
+        spyOn(document, 'createElement').and.callFake(fun.bind(anchor));
+
+        const res = ImmobilienHelper.downloadFile('foo', 'bar');
+
+        expect(anchor.href.indexOf('blob') !== -1).toBe(true);
+        expect(anchor.download).toEqual('bar');
+        expect(clicked).toEqual(true);
+
+    });
+
     it('ImmobilienHelper.convertArrayToCSV works', function() {
         const data = [
             {

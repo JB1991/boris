@@ -38,7 +38,7 @@ export class NipixRuntime {
 
     public formatter: ImmobilienFormatter.ImmobilienFormatter;
     public export: ImmobilienExport.ImmobilienExport;
-    private calculator: ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator;
+    public calculator: ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator;
 
     public map: NipixRuntimeMap = {
         'obj': null,
@@ -144,7 +144,7 @@ export class NipixRuntime {
     /**
      * timeout handler for diable highlight
      */
-    private highlightTimeout() {
+    public highlightTimeout() {
         this.state.highlightedSeries = '';
         this.updateMapSelect();
     }
