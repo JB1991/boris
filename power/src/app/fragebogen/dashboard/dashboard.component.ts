@@ -15,13 +15,12 @@ import { FormsModule } from '@angular/forms';
     encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
-    
     public formTotal: number;
     public formPage = 1;
     public formPerPage = 5;
     public formPageSizes: number[];
 
-    public formTitle?:string;
+    public formTitle?: string;
     public formStatus?: 'created' | 'published' | 'cancelled' | 'all';
     public formAccess?: 'public' | 'pin6' | 'pin8' | 'pin6-factor' | 'all';
     public formSort: 'id' | 'title' | 'created' | 'published' | 'cancelled' = 'title';
@@ -32,7 +31,7 @@ export class DashboardComponent implements OnInit {
     public taskPerPage = 5;
     public taskPageSizes: number[];
 
-    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all'
+    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
     public taskSort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted' = 'submitted';
     public taskOrder: 'asc' | 'desc' = 'desc';
 
@@ -68,7 +67,6 @@ export class DashboardComponent implements OnInit {
      */
     /* istanbul ignore next */
     public importForm() {
-        console.log('import');
         const input = document.createElement('input');
         input.id = 'file-upload';
         input.type = 'file';
@@ -91,7 +89,7 @@ export class DashboardComponent implements OnInit {
                     this.updateForms();
                 }).catch((error) => {
                     this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error);
-                })
+                });
             };
             // FileReader is async -> call readAsText() after declaring the onload handler
             reader.readAsText(file);

@@ -74,7 +74,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         expect(component.sort).toBe('published');
         expect(component.order).toBe('asc');
         done();
-    })
+    });
 
     /*
         Error

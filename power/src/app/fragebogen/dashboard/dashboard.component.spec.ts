@@ -112,7 +112,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         expect(component.formSort).toBe('title');
         expect(component.formOrder).toBe('asc');
         done();
-    })
+    });
 
     it('should succeed', (done) => {
         spyOn(component, 'updateTasks');
@@ -126,7 +126,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         expect(component.taskSort).toBe('submitted');
         expect(component.taskOrder).toBe('asc');
         done();
-    })
+    });
 
     /*
         Error
