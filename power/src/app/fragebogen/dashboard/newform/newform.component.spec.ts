@@ -4,21 +4,17 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
-import { environment } from '@env/environment';
 import { By } from '@angular/platform-browser';
-
 import { NewformComponent } from './newform.component';
-import { StorageService } from '../storage.service';
 import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { TypeaheadMatch, TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { FormAPIService, Form } from '@app/fragebogen/formapi.service';
+import { FormAPIService } from '@app/fragebogen/formapi.service';
+import { DataService } from '../data.service';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
     let fixture: ComponentFixture<NewformComponent>;
-    let httpTestingController: HttpTestingController;
-    let formapiService: FormAPIService;
 
     const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
 
@@ -36,8 +32,9 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             ],
             providers: [
                 BsModalService,
-                StorageService,
-                AlertsService
+                AlertsService,
+                FormAPIService,
+                DataService
             ],
             declarations: [
                 NewformComponent
@@ -46,18 +43,12 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
         fixture = TestBed.createComponent(NewformComponent);
         component = fixture.componentInstance;
-        formapiService = TestBed.inject(FormAPIService);
         fixture.detectChanges();
 
         spyOn(console, 'log');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
-        httpTestingController = TestBed.inject(HttpTestingController);
     }));
-
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
 
     it('should open and close', () => {
         component.open();
@@ -83,7 +74,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     });
 
     it('should fail to fetch templates', waitForAsync(() => {
-        const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.reject('Failure'));
+        const spy = spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.reject('Failure'));
 
         component.fetchTemplates();
 
@@ -94,7 +85,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     }));
 
     it('should fetch templates', (done) => {
-        const spy = spyOn(formapiService, 'getInternForms').and.returnValue(Promise.resolve(
+        const spy = spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve(
             {
                 data: [
                     {
@@ -120,6 +111,11 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         });
     });
 
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+
     it('should call fetchTemplates on keyup', () => {
         const searchElement = fixture.debugElement.query(By.css('#searchtemplate'));
         spyOn(component, 'fetchTemplates');
@@ -127,125 +123,65 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.fetchTemplates).toHaveBeenCalled();
     });
 
-    it('should new form', () => {
-        component.title = 'Test';
-        fixture.detectChanges();
-        component.NewForm();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich erstellt.');
+    /*
+        SUCCESS
+    */
+    it('should succeed', (done) => {
+        spyOn(component.formAPI, 'createInternForm').and.returnValue(Promise.resolve(formSample.data));
+        component.title = 'something';
+        component.makeForm({
+            title: {
+                default: 'example'
+            }
+        }).then(() => {
+            done();
+        });
     });
 
-    it('should new form template', () => {
-        component.title = 'Test';
-        component.template = '123';
-        fixture.detectChanges();
-        component.NewForm();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich erstellt.');
+    /*
+        Error
+    */
+    it('should fail', (done) => {
+        spyOn(component.formAPI, 'createInternForm').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        component.title = 'something';
+        component.makeForm({
+            title: {
+                default: 'example'
+            }
+        }).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert)
+                .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Error: fail');
+            done();
+        });
     });
 
-    it('should fail new form template', () => {
-        component.title = 'Test';
-        component.template = '123';
-        fixture.detectChanges();
-
-        component.NewForm();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', null);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '123');
-
-        component.NewForm();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', null);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', '');
+    it('should fail', (done) => {
+        spyOn(component.formAPI, 'createInternForm');
+        component.title = undefined;
+        component.makeForm({
+            title: {
+                default: 'example'
+            }
+        }).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert)
+                .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Error: title is required');
+            done();
+        });
     });
 
-    it('should fail new form template', () => {
-        component.title = 'Test';
-        component.template = '123';
-        fixture.detectChanges();
-
-        component.NewForm();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET',
-            { 'error': 'Internal Server Error' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
-
-        component.NewForm();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST',
-            { 'error': 'Internal Server Error' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Internal Server Error');
-    });
-
-    it('should fail new form template 404', () => {
-        component.title = 'Test';
-        component.template = '123';
-        fixture.detectChanges();
-
-        component.NewForm();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
-
-        component.NewForm();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'GET', formSample);
-        answerHTTPRequest(environment.formAPI + 'intern/forms', 'POST', formSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Not Found');
-    });
-
-    it('should crash make form', () => {
-        expect(function () {
-            component.makeForm(null);
-        }).toThrowError('template is required');
-
-        expect(function () {
-            component.makeForm({ 'x': 5 });
-        }).toThrowError('title is required');
-    });
-
-    it('should fail new form', () => {
-        component.NewForm();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Ungültige Einstellungen', 'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
-    });
-
-    /**
-     * Mocks the API by taking HTTP requests form the queue and returning the answer
-     * @param url The URL of the HTTP request
-     * @param method HTTP request method
-     * @param body The body of the answer
-     * @param opts Optional HTTP information of the answer
-     */
-    function answerHTTPRequest(url, method, body, opts?) {
-        // Take HTTP request from queue
-        const request = httpTestingController.expectOne(url);
-        expect(request.request.method).toEqual(method);
-
-        // Return the answer
-        request.flush(deepCopy(body), opts);
-    }
-
-    function deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
-
-    afterEach(() => {
-        // Verify that no requests are remaining
-        httpTestingController.verify();
+    it('should fail', (done) => {
+        spyOn(component.formAPI, 'createInternForm');
+        component.title = undefined;
+        component.makeForm(null).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert)
+                .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Error: template is required');
+            done();
+        });
     });
 });
 

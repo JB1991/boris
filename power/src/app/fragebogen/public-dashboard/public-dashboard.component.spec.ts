@@ -16,7 +16,6 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let fixture: ComponentFixture<PublicDashboardComponent>;
 
     const publicForms = require('../../../assets/fragebogen/public-get-forms.json');
-    const publicFormsBig = require('../../../assets/fragebogen/public-get-forms-big.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -64,23 +63,8 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     });
 
     it('should succeed', (done) => {
-        spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve(publicFormsBig));
-        component.update().then(() => {
-            expect(component.data).toBe(publicFormsBig.data);
-            expect(component.total).toBe(publicFormsBig.total);
-            done();
-        });
-    });
-
-    it('should succeed', (done) => {
         spyOn(component, 'update');
-        component.changePage(1);
-        component.changePerPage(1);
-        component.filterByTitle('something');
         component.changeSort('published');
-        expect(component.page).toBe(1);
-        expect(component.perPage).toBe(1);
-        expect(component.title).toBe('something');
         expect(component.sort).toBe('published');
         expect(component.order).toBe('asc');
         component.changeSort('published');
@@ -90,7 +74,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         expect(component.sort).toBe('published');
         expect(component.order).toBe('asc');
         done();
-    })
+    });
 
     /*
         Error
