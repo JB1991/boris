@@ -13,7 +13,7 @@ export class WrapperComponent implements OnChanges {
     @Input() public model: {};
     @Input() public data: any = null;
     @Input() public mode: 'edit' | 'display';
-    @Input() public theme: string;
+    @Input() public theme = 'default';
     @Input() public css: {};
     @Input() public showInvisible = false;
     @Output() public submitResult: EventEmitter<any> = new EventEmitter();
