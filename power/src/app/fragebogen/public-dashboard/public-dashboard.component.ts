@@ -16,11 +16,11 @@ export class PublicDashboardComponent implements OnInit {
 
     public data: any[];
     public total: number;
-    public page: number;
-    public perPage: number;
+    public page = 1;
+    public perPage = 5;
     public pageSizes: number[];
 
-    public title = '';
+    public title?: string;
     public sort: 'title' | 'published' = 'title';
     public order: 'asc' | 'desc' = 'asc';
 
@@ -33,24 +33,6 @@ export class PublicDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.page = 1;
-        this.perPage = 5;
-        this.update();
-    }
-
-    public changePage(page: number) {
-        this.page = page;
-        this.update();
-    }
-
-    public changePerPage(perPage: number) {
-        console.log(perPage);
-        this.perPage = perPage;
-        this.update();
-    }
-
-    public filterByTitle(title: string) {
-        this.title = title;
         this.update();
     }
 
@@ -77,7 +59,7 @@ export class PublicDashboardComponent implements OnInit {
                 sort: this.sort,
                 order: this.order,
             };
-            if (this.title !== '') {
+            if (this.title !== undefined && this.title !== '' ) {
                 params['title-contains'] = this.title;
             }
             const response = await this.formAPI.getPublicForms(params);
@@ -87,7 +69,7 @@ export class PublicDashboardComponent implements OnInit {
             this.pageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.router.navigate(['/forms'], { replaceUrl: true });
         }
     }

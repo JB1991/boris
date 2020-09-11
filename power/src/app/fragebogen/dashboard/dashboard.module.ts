@@ -7,7 +7,6 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { StorageService } from './storage.service';
 import { DashboardComponent } from './dashboard.component';
 import { NewformComponent } from './newform/newform.component';
 
@@ -28,9 +27,7 @@ import { SharedModule } from '@app/shared/shared.module';
         PaginationModule.forRoot(),
         TypeaheadModule
     ],
-    providers: [
-        StorageService
-    ]
+    providers: []
 })
 export class DashboardModule {
 }

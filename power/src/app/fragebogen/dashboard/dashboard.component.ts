@@ -1,143 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
-import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { FormAPIService } from '../formapi.service';
+import { DataService } from './data.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'power-forms-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.css']
+    styleUrls: ['./dashboard.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
+    
+    public formTotal: number;
+    public formPage = 1;
+    public formPerPage = 5;
+    public formPageSizes: number[];
+
+    public formTitle?:string;
+    public formStatus?: 'created' | 'published' | 'cancelled' | 'all';
+    public formAccess?: 'public' | 'pin6' | 'pin8' | 'pin6-factor' | 'all';
+    public formSort: 'id' | 'title' | 'created' | 'published' | 'cancelled' = 'title';
+    public formOrder: 'asc' | 'desc' = 'asc';
+
+    public taskTotal: number;
+    public taskPage = 1;
+    public taskPerPage = 5;
+    public taskPageSizes: number[];
+
+    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all'
+    public taskSort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted' = 'submitted';
+    public taskOrder: 'asc' | 'desc' = 'desc';
 
     constructor(public titleService: Title,
         public router: Router,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public storage: StorageService) {
+        public formAPI: FormAPIService,
+        public data: DataService) {
         this.titleService.setTitle($localize`Dashboard - POWER.NI`);
-        this.storage.resetService();
     }
 
     ngOnInit() {
-        // load forms from server
-        this.loadingscreen.setVisible(true);
-        this.storage.loadFormsList().subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : 'Forms');
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log('Could not load forms: ' + alertText);
-                return;
-            }
-
-            // save data
-            this.storage.formsList = data['data'];
-            this.storage.formsCountTotal = this.storage.formsList.length;
-            this.storage.formsList = this.storage.formsList.slice(0, this.storage.formsPerPage);
-
-            // load tasks from server
-            this.storage.loadTasksList().subscribe((data2) => {
-                // check for error
-                if (!data2 || data2['error'] || !data2['data']) {
-                    const alertText = (data2 && data2['error'] ? data2['error'] : 'Tasks');
-                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                    this.loadingscreen.setVisible(false);
-                    this.router.navigate(['/forms'], { replaceUrl: true });
-                    console.log('Could not load tasks: ' + alertText);
-                    return;
-                }
-
-                // save data
-                this.storage.tasksList = data2['data'];
-                this.storage.tasksCountTotal = this.storage.tasksList.length;
-                this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
-
-                this.loadingscreen.setVisible(false);
-            }, (error2: Error) => {
-                // failed to load tags
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
-                this.loadingscreen.setVisible(false);
-
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log(error2);
-                return;
-            });
-
-            // load tags from server
-            this.storage.loadTags().subscribe((data2) => {
-                // check for error
-                if (!data2 || data2['error'] || !data2['data']) {
-                    const alertText = (data2 && data2['error'] ? data2['error'] : 'Tags');
-                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                    this.router.navigate(['/forms'], { replaceUrl: true });
-                    console.log('Could not load tags: ' + alertText);
-                    return;
-                }
-
-                // save data
-                this.storage.tagList = data2['data'];
-            }, (error2: Error) => {
-                // failed to load tags
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
-
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log(error2);
-                return;
-            });
-        }, (error: Error) => {
-            // failed to load forms
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
-            this.loadingscreen.setVisible(false);
-
-            this.router.navigate(['/forms'], { replaceUrl: true });
-            console.log(error);
-            return;
-        });
+        this.updateForms();
+        this.updateTasks();
+        this.updateTags();
     }
 
-    /**
-     * Deletes an existing form from the Form-API
-     * @param id Number of form
-     */
-    public deleteForm(id: number) {
-        // check data
-        if (id < 0 || id >= this.storage.formsList.length) {
-            throw new Error('Invalid id');
+    public async deleteForm(id: string) {
+        try {
+            this.loadingscreen.setVisible(true);
+            const response = await this.formAPI.deleteInternForm(id);
+            this.updateForms();
+            this.loadingscreen.setVisible(false);
+        } catch (error) {
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
+            this.router.navigate(['/forms'], { replaceUrl: true });
         }
-        // Ask user to confirm deletion
-        if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
-            return;
-        }
-
-        this.storage.deleteForm(this.storage.formsList[id].id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.formsList[id].id);
-                this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, alertText);
-                console.log('Could not delete form: ' + alertText);
-                return;
-            }
-
-            // Success
-            this.storage.formsList.splice(id, 1);
-            this.alerts.NewAlert('success', $localize`Formular gelöscht`,
-                $localize`Das Formular wurde erfolgreich gelöscht.`);
-        }, (error: Error) => {
-            // failed to delete form
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
-            console.log(error);
-            return;
-        });
     }
 
     /**
@@ -145,7 +68,7 @@ export class DashboardComponent implements OnInit {
      */
     /* istanbul ignore next */
     public importForm() {
-        // create input
+        console.log('import');
         const input = document.createElement('input');
         input.id = 'file-upload';
         input.type = 'file';
@@ -164,109 +87,109 @@ export class DashboardComponent implements OnInit {
             // Upload success
             /* istanbul ignore next */
             reader.onload = () => {
-                this.storage.createForm(reader.result).subscribe((data) => {
-                    // check for error
-                    if (!data || data['error']) {
-                        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen',
-                            (data['error'] ? data['error'] : ''));
-                        throw new Error('Could not load form: ' + (data['error'] ? data['error'] : ''));
-                    }
-
-                    // success
-                    this.storage.formsList.push(data['data']);
-                    this.alerts.NewAlert('success', 'Erfolgreich erstellt', 'Das Formular wurde erfolgreich hochgeladen.');
-                }, (error) => {
-                    // failed to create form
-                    this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error['statusText']);
-                    throw error;
-                });
+                this.formAPI.createInternForm(reader.result).then(() => {
+                    this.updateForms();
+                }).catch((error) => {
+                    this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error);
+                })
             };
-
             // FileReader is async -> call readAsText() after declaring the onload handler
             reader.readAsText(file);
         };
         input.click();
     }
 
-    /** Triggered by the pagination event, when the user changes the page
-     * @param event Contains the page number and the number of items per page
-     */
-    public formsPageChanged(event: PageChangedEvent): void {
-        const limit = event.itemsPerPage;
-        const offset = (event.page - 1) * event.itemsPerPage;
-        this.loadFormsFromAPI(limit, offset);
-    }
-
-    /**
-     * Triggered by the pagination event, when the user changes the page
-     * @param event Contains the page number and the number of items per page
-     */
-    public tasksPageChanged(event: PageChangedEvent): void {
-        const limit = event.itemsPerPage;
-        const offset = (event.page - 1) * event.itemsPerPage;
-        this.loadTasksFromAPI(limit, offset);
-    }
-
-    /**
-     * Load the list of forms from the Form-API
-     * @param limit The maximum number of forms to be loaded
-     * @param offset The number of the first form to be loaded
-     */
-    private loadFormsFromAPI(limit?: number, offset?: number) {
-        this.storage.loadFormsList(limit, offset).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : 'Forms');
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log('Could not load forms: ' + alertText);
-                return;
+    public changeFormSort(sort: 'title' | 'published') {
+        if (this.formSort === sort) {
+            if (this.formOrder === 'asc') {
+                this.formOrder = 'desc';
+            } else {
+                this.formOrder = 'asc';
             }
-
-            // save data
-            this.storage.formsList = data['data'];
-            this.loadingscreen.setVisible(false);
-        }, (error: Error) => {
-            // failed to load forms
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
-            this.loadingscreen.setVisible(false);
-            this.router.navigate(['/forms'], { replaceUrl: true });
-            console.log(error);
-            return;
-        });
+        } else {
+            this.formOrder = 'asc';
+        }
+        this.formSort = sort;
+        this.updateForms();
     }
 
-    /**
-     * Load the list of tasks from the Form-API
-     * @param limit The maximum number of forms to be loaded
-     * @param offset The number of the first form to be loaded
-     */
-    private loadTasksFromAPI(limit?: number, offset?: number) {
-        this.storage.loadTasksList(limit, offset).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : 'Tasks');
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log('Could not load tasks: ' + alertText);
-                return;
+    public async updateForms() {
+        try {
+            this.loadingscreen.setVisible(true);
+            const params = {
+                limit: this.formPerPage,
+                offset: (this.formPage - 1) * this.formPerPage,
+                sort: this.formSort,
+                order: this.formOrder,
+            };
+            if (this.formStatus !== undefined && this.formStatus !== 'all') {
+                params['status'] = this.formStatus;
             }
-
-            // save data
-            this.storage.tasksList = data['data'];
+            if (this.formAccess !== undefined && this.formAccess !== 'all') {
+                params['access'] = this.formAccess;
+            }
+            if (this.formTitle !== undefined) {
+                params['title-contains'] = this.formTitle;
+            }
+            const response = await this.formAPI.getInternForms(params);
+            this.data.forms = response.data;
+            this.formTotal = response.total;
+            const maxPages = Math.floor(this.formTotal / 5) + 1;
+            this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
-        }, (error: Error) => {
-            // failed to load tags
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
-            this.loadingscreen.setVisible(false);
-
+        } catch (error) {
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.router.navigate(['/forms'], { replaceUrl: true });
-            console.log(error);
-            return;
-        });
+        }
+    }
+
+    public changeTaskSort(sort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted') {
+        if (this.taskSort === sort) {
+            if (this.taskOrder === 'asc') {
+                this.taskOrder = 'desc';
+            } else {
+                this.taskOrder = 'asc';
+            }
+        } else {
+            this.taskOrder = 'asc';
+        }
+        this.taskSort = sort;
+        this.updateTasks();
+    }
+
+    public async updateTasks() {
+        try {
+            this.loadingscreen.setVisible(true);
+            const params = {
+                limit: this.taskPerPage,
+                offset: (this.taskPage - 1) * this.taskPerPage,
+                sort: this.taskSort,
+                order: this.taskOrder,
+            };
+            if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
+                params['status'] = this.taskStatus;
+            }
+            const response = await this.formAPI.getInternTasks(params);
+            this.data.tasks = response.data;
+            this.taskTotal = response.total;
+            const maxPages = Math.floor(this.taskTotal / 5) + 1;
+            this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            this.loadingscreen.setVisible(false);
+        } catch (error) {
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.router.navigate(['/forms'], { replaceUrl: true });
+        }
+    }
+
+    public async updateTags() {
+        try {
+            this.loadingscreen.setVisible(true);
+            this.data.tags = await this.formAPI.getInternTags();
+            this.loadingscreen.setVisible(false);
+        } catch (error) {
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.router.navigate(['/forms'], { replaceUrl: true });
+        }
     }
 }
 
