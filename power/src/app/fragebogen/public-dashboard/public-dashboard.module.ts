@@ -5,8 +5,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { PublicDashboardRoutingModule } from './public-dashboard-routing.module';
 import { PublicDashboardComponent } from './public-dashboard.component';
-import { StorageService } from './storage.service';
 import { FormsModule } from '@angular/forms';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
     declarations: [
@@ -17,10 +17,9 @@ import { FormsModule } from '@angular/forms';
         PublicDashboardRoutingModule,
         HttpClientModule,
         FormsModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        PaginationModule.forRoot(),
     ],
-    providers: [
-        StorageService
-    ]
+    providers: []
 })
 export class PublicDashboardModule { }
