@@ -86,6 +86,9 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         component.changeSort('published');
         expect(component.sort).toBe('published');
         expect(component.order).toBe('desc');
+        component.changeSort('published');
+        expect(component.sort).toBe('published');
+        expect(component.order).toBe('asc');
         done();
     })
 

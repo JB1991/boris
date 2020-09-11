@@ -58,6 +58,8 @@ export class PublicDashboardComponent implements OnInit {
         if (this.sort === sort) {
             if (this.order === 'asc') {
                 this.order = 'desc';
+            } else {
+                this.order = 'asc';
             }
         } else {
             this.order = 'asc';
