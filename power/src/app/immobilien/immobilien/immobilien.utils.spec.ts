@@ -1,17 +1,17 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import * as ImmobilenHelper from './immobilien.helper';
-import * as ImmobilenUtils from './immobilien.utils';
+import { ImmobilienHelper } from './immobilien.helper';
+import { ImmobilienUtils } from './immobilien.utils';
 
-describe('Immobilien.Immobilien.ImmobilenUtils', () => {
+describe('Immobilien.Immobilien.ImmobilienUtils', () => {
 
     it('getDateArray works', function() {
-        const res = ImmobilenUtils.getDateArray(2000, 2);
+        const res = ImmobilienUtils.getDateArray(2000, 2);
         expect(res).toEqual(['2000/2']);
     });
 
     it('getMyMapRegionen works', function() {
-        const res = ImmobilenUtils.getMyMapRegionen({'foo': {}});
+        const res = ImmobilienUtils.getMyMapRegionen({'foo': {}});
         expect(res).toEqual([{
             'name': 'foo',
             'itemStyle': {
@@ -30,7 +30,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('getMyMapRegionen with selected works', function() {
-        const res = ImmobilenUtils.getMyMapRegionen({'foo': {}}, 'foo');
+        const res = ImmobilienUtils.getMyMapRegionen({'foo': {}}, 'foo');
         expect(res).toEqual([{
             'name': 'foo',
             'itemStyle': {
@@ -49,7 +49,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('getMyMapRegionen with selectionList works', function() {
-        const res = ImmobilenUtils.getMyMapRegionen({'foo': {}}, null, ['foo']);
+        const res = ImmobilienUtils.getMyMapRegionen({'foo': {}}, null, ['foo']);
         expect(res).toEqual([{
             'name': 'foo',
             'selected': true,
@@ -70,7 +70,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
 
 
     it('getMyMapRegionen with lighten works', function() {
-        const res = ImmobilenUtils.getMyMapRegionen({'foo': {'color': '#ffffff'}}, null, null, true);
+        const res = ImmobilienUtils.getMyMapRegionen({'foo': {'color': '#ffffff'}}, null, null, true);
         expect(res).toEqual([{
             'name': 'foo',
             'itemStyle': {
@@ -89,7 +89,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('generateSeries works', function() {
-        const res = ImmobilenUtils.generateSeries('foo', [], '#ffffff', null, '-');
+        const res = ImmobilienUtils.generateSeries('foo', [], '#ffffff', null, '-');
         expect(res).toEqual({
             'name': 'foo',
             'type': 'line',
@@ -120,7 +120,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
     });
 
     it('generateSeries with parameters works', function() {
-        const res = ImmobilenUtils.generateSeries('foo', [], '#ffffff', 'bar', 'foo', 1, 2, 'bar');
+        const res = ImmobilienUtils.generateSeries('foo', [], '#ffffff', 'bar', 'foo', 1, 2, 'bar');
         expect(res).toEqual({
             'name': 'foo',
             'type': 'bar',
@@ -152,28 +152,28 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
 
     it('generateDrawSeriesData empty works', function() {
         const data = {'2000_1': {'value': 1}, '2000_2': {'value': '1.0'}};
-        const res = ImmobilenUtils.generateDrawSeriesData(data);
+        const res = ImmobilienUtils.generateDrawSeriesData(data);
         expect(res).toEqual([]);
     });
 
     it('generateDrawSeriesData works', function() {
         const data = {'2000_1': {'value': 1}, '2000_2': {'value': '1.0'}};
         const date = ['2000/1', '2000/2'];
-        const res = ImmobilenUtils.generateDrawSeriesData(data, date, 'value', 80);
+        const res = ImmobilienUtils.generateDrawSeriesData(data, date, 'value', 80);
         expect(res).toEqual([21, 21]);
     });
 
     it('generateDrawSeriesData empty field works', function() {
         const data = [1, '1.0'];
         const date = ['2000/1', '2000/2'];
-        const res = ImmobilenUtils.generateDrawSeriesData(data, date);
+        const res = ImmobilienUtils.generateDrawSeriesData(data, date);
         expect(res).toEqual([1, 1]);
     });
 
     it('generateDrawSeriesData with no data works', function() {
         const data = {};
         const date = ['2000/1', '2000/2'];
-        const res = ImmobilenUtils.generateDrawSeriesData(data, date, 'value', 80);
+        const res = ImmobilienUtils.generateDrawSeriesData(data, date, 'value', 80);
         expect(res).toEqual([undefined, undefined]);
     });
 
@@ -185,7 +185,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 return val;
             }
         );
-        const res = ImmobilenUtils.generateTextElement('foo');
+        const res = ImmobilienUtils.generateTextElement('foo');
         expect(res).toEqual({
             type: 'text',
             top: 0,
@@ -207,7 +207,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 return val;
             }
         );
-        const res = ImmobilenUtils.generateTextElement('foo', '#aabbcc', 1, 1, 1);
+        const res = ImmobilienUtils.generateTextElement('foo', '#aabbcc', 1, 1, 1);
         expect(res).toEqual({
             type: 'text',
             top: 1.5,
@@ -229,7 +229,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 return val;
             }
         );
-        const res = ImmobilenUtils.generateDotElement();
+        const res = ImmobilienUtils.generateDotElement();
         expect(res).toEqual({
             type: 'circle',
             cursor: 'normal',
@@ -254,7 +254,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 return val;
             }
         );
-        const res = ImmobilenUtils.generateDotElement(1, '#aabbcc', 1, 1, 1, '#ff0000', 1);
+        const res = ImmobilienUtils.generateDotElement(1, '#aabbcc', 1, 1, 1, '#ff0000', 1);
         expect(res).toEqual({
             type: 'circle',
             cursor: 'normal',
@@ -283,7 +283,7 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
                 'colors': '#ff0000'
             }
         ];
-        const res = ImmobilenUtils.modifyRegionen(regionen, modifyArray);
+        const res = ImmobilienUtils.modifyRegionen(regionen, modifyArray);
         expect(res).toEqual({
             'foo': {
                 'color': '#ff0000'
@@ -296,13 +296,13 @@ describe('Immobilien.Immobilien.ImmobilenUtils', () => {
             'dispatchAction': jasmine.createSpy()
         };
 
-        ImmobilenUtils.dispatchMapSelect(obj, 'foo', true);
+        ImmobilienUtils.dispatchMapSelect(obj, 'foo', true);
         expect(obj.dispatchAction).toHaveBeenCalledWith({
             type: 'mapSelect',
             name: 'foo'
         });
 
-        ImmobilenUtils.dispatchMapSelect(obj, 'foo', false);
+        ImmobilienUtils.dispatchMapSelect(obj, 'foo', false);
         expect(obj.dispatchAction).toHaveBeenCalledWith({
             type: 'mapUnSelect',
             name: 'foo'

@@ -1,7 +1,7 @@
-import * as ImmobilenHelper from './immobilien.helper';
+import { ImmobilienHelper } from './immobilien.helper';
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
 import * as ImmobilenNipixStatic from './immobilien.static';
-import * as ImmobilienUtils from './immobilien.utils';
+import { ImmobilienUtils } from './immobilien.utils';
 
 export class ImmobilienFormatter {
 
@@ -64,7 +64,7 @@ export class ImmobilienFormatter {
             let printlegend = true;
             const pixel = Math.round(this.nipixRuntime.chart.obj.convertToPixel({'yAxisIndex': 0}, params.data));
             const clearance = Math.round(
-                ( ImmobilenHelper.convertRemToPixels( this.nipixStatic.textOptions.fontSizePage ) - 2 )
+                ( ImmobilienHelper.convertRemToPixels( this.nipixStatic.textOptions.fontSizePage ) - 2 )
                 / 2 );
 
             for (let i = 0; i < this.legendposition.length; i++) {
@@ -126,7 +126,7 @@ export class ImmobilienFormatter {
      * @return Series Color
      */
     public getSeriesColor(series) {
-        return ImmobilenHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
+        return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
     }
 
     public simpleLegend() {
