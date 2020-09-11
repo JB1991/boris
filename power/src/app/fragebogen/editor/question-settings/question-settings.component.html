@@ -341,6 +341,63 @@
                         </div>
                     </div>
 
+                    <div *ngIf="model.pages[page].elements[question].type === 'boolean'">
+                        <!-- question-labelFalse -->
+                        <div class="form-group">
+                            <label for="question-labelFalse"
+                                   i18n>Anzeigetext links</label>
+                            <input type="text"
+                                   class="form-control"
+                                   [(ngModel)]="model.pages[page].elements[question].labelFalse.default"
+                                   maxlength="200"
+                                   name="question-labelFalse"
+                                   id="question-labelFalse">
+                        </div>
+
+                        <!-- question-labelTrue -->
+                        <div class="form-group">
+                            <label for="question-labelTrue"
+                                   i18n>Anzeigetext rechts</label>
+                            <input type="text"
+                                   class="form-control"
+                                   [(ngModel)]="model.pages[page].elements[question].labelTrue.default"
+                                   maxlength="200"
+                                   name="question-labelTrue"
+                                   id="question-labelTrue">
+                        </div>
+                    </div>
+
+                    <div *ngIf="model.pages[page].elements[question].type === 'file'">
+                        <!-- question-allowMultiple -->
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   [(ngModel)]="model.pages[page].elements[question].allowMultiple"
+                                   name="question-allowMultiple"
+                                   id="question-allowMultiple">
+                            <label class="custom-control-label"
+                                   for="question-allowMultiple"
+                                   i18n>Mehrere Dateien erlauben</label>
+                        </div>
+
+                        <!-- question-acceptedTypes-->
+                        <div class="form-group">
+                            <label for="form-acceptedTypes"
+                                   i18n>Erlaubte Dateitypen</label>
+                            <select class="custom-select"
+                                    [(ngModel)]="model.pages[page].elements[question].acceptedTypes"
+                                    id="form-acceptedTypes"
+                                    name="form-acceptedTypes">
+                                <option value=""
+                                        i18n>Alles erlauben</option>
+                                <option value=".pdf"
+                                        i18n>PDF-Dokumente</option>
+                                <option value="image/*"
+                                        i18n>Bilder</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <button type="submit"
                             class="d-none"
                             aria-hidden="true"

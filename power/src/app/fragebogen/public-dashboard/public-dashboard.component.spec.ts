@@ -41,7 +41,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
 
-        // spyOn(console, 'log');
+        spyOn(console, 'log');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
     }));
