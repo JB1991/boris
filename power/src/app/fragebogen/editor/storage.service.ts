@@ -23,11 +23,7 @@ export class StorageService {
     public AutoSaveEnabled = true;
 
     constructor(private httpClient: HttpClient,
-        public auth: AuthService) {
-        // overwrite style class
-        this.css_style.container = 'sv_container';
-        this.css_style.row = 'sv_row';
-    }
+        public auth: AuthService) { }
 
     /**
      * Resets service to empty model
@@ -35,8 +31,11 @@ export class StorageService {
     public resetService() {
         this.model = JSON.parse(JSON.stringify(templates.defaultTemplate));
         this.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
-        this.css_style.container = 'sv_container';
+        // overwrite style class
+        this.css_style.root = 'sv_main sv_bootstrap_css bg-light';
+        this.css_style.container = '';
         this.css_style.row = 'sv_row';
+
         this.FormularFields = templates.FormularFields;
         this.selectedPageID = 0;
         this.selectedElementID = null;

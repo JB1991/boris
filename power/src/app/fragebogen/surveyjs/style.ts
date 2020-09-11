@@ -2,8 +2,8 @@
  * surveyjs style object for bootstrap 4
  */
 export const Bootstrap4_CSS = {
-    root: 'sv_main sv_bootstrap_css',
-    container: 'sv_container card',
+    root: 'sv_main sv_bootstrap_css mb-1 mb-lg-3',
+    container: 'card',
     header: 'panel-heading card-header',
     body: 'panel-body',
     bodyEmpty: 'panel-body sv_body_empty',
@@ -13,7 +13,7 @@ export const Bootstrap4_CSS = {
     logo: 'sv_logo',
     logoImage: 'sv_logo__image',
     headerText: 'sv_header__text',
-    navigationButton: '',
+    navigationButton: 'btn btn-green',
     completedPage: 'card-body',
     navigation: {
         complete: 'btn btn-success',
@@ -54,7 +54,8 @@ export const Bootstrap4_CSS = {
         titleRequired: '',
         hasError: 'has-error',
         indent: 20,
-        formGroup: 'form-group m-0'
+        formGroup: 'form-group m-0',
+        other: 'form-control',
     },
     panel: {
         title: 'sv_p_title',
@@ -170,6 +171,7 @@ export const Bootstrap4_CSS = {
         fileDecorator: 'sv-hidden',
         fileSignBottom: 'sv-hidden',
         removeButtonBottom: 'sv-hidden',
+        other: 'form-control',
     },
     nouislider: {
         other: 'form-control',

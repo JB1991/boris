@@ -303,88 +303,115 @@ export const FormularFields = [
             isRequired: true,
             requiredErrorText: {}
         }
+    }, {
+        type: 'file',
+        name: $localize`Fileupload`,
+        icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cloud-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
+        <path fill-rule="evenodd" d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>\
+        <path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2z"/>\
+      </svg>',
+        template: {
+            title: {},
+            description: {},
+            name: '',
+            type: 'file',
+            storeDataAsText: true,
+            waitForUpload: true,
+            allowMultiple: false,
+            allowImagesPreview: true,
+            acceptedTypes: '',
+            imageWidth: 200,
+            maxSize: 1048576,
+            commentText: {},
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
+        }
+    }, {
+        type: 'signaturepad',
+        name: $localize`Unterschrift`,
+        icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
+        <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>\
+      </svg>',
+        template: {
+            title: {},
+            description: {},
+            name: '',
+            type: 'signaturepad',
+            width: 600,
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
+        }
+    }, {
+        type: 'boolean',
+        name: $localize`Ja/Nein`,
+        icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-on" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
+        <path fill-rule="evenodd" d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>\
+      </svg>',
+        template: {
+            title: {},
+            description: {},
+            name: '',
+            type: 'boolean',
+            labelTrue: {},
+            labelFalse: {},
+            visible: true,
+            isRequired: true,
+            requiredErrorText: {}
+        }
     }
 ];
 /*
-  }, {
-    type: 'file',
-    name: 'Fileupload',
-    icon: 'fas fa-table',
-    template: {
-      title: 'Titel der Frage',
-      name: 'question1',
-      type: 'file',
-      valueName: '',
-      allowMultiple: false,
-      waitForUpload: true,
-      maxSize: 1048576
-    }
-  }, {
-    type: 'signaturepad',
-    name: 'Unterschrift',
-    icon: 'fas fa-table',
-    template: {
-      title: 'Titel der Frage',
-      name: 'question1',
-      type: 'signaturepad',
-      valueName: '',
-      width: 600,
-    }
-  }, {
-    type: 'boolean',
-    name: 'Ja/Nein',
-    icon: 'fas fa-table',
-    template: {
-      title: 'Titel der Frage',
-      name: 'question1',
-      type: 'boolean',
-      valueName: '',
-      labelTrue: 'Wahr',
-      labelFalse: 'Falsch'
-    }
-  }, {
-    type: 'html',
-    name: 'Freitext',
-    icon: 'fas fa-table',
-    template: {
-      title: 'Titel der Frage',
-      name: 'question1',
-      type: 'html',
-      html: 'Hallo Welt!\n\nTest'
-    }
-  }, {
-    type: 'multipletext',
-    name: 'Adresse',
-    icon: 'fas fa-table',
-    template: {
-      title: 'Titel der Frage',
-      name: 'question1',
-      type: 'multipletext',
-      valueName: '',
-      labelTrue: 'Wahr',
-      labelFalse: 'Falsch',
-      items: [
-        {
-         name: 'e1',
-         isRequired: true,
-         title: 'Vorname'
-        }, {
-         name: 'e2',
-         title: 'Nachname'
+    }, {
+        type: 'html',
+        name: $localize`Freitext`,
+        icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grid-3x2-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
+    <path fill-rule="evenodd" d="M4 4H2v2h2V4zm1 7V9a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 5V9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 4H7v2h2V4zm5 0h-2v2h2V4zM4 9H2v2h2V9zm5 0H7v2h2V9zm5 0h-2v2h2V9zm-3-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2z"/>\
+  </svg>',
+        template: {
+            title: 'Titel der Frage',
+            name: 'question1',
+            type: 'html',
+            html: 'Hallo Welt!\n\nTest'
         }
-      ]
+    }, {
+        type: 'multipletext',
+        name: 'Adresse',
+        icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grid-3x2-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
+    <path fill-rule="evenodd" d="M4 4H2v2h2V4zm1 7V9a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 5V9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 4H7v2h2V4zm5 0h-2v2h2V4zM4 9H2v2h2V9zm5 0H7v2h2V9zm5 0h-2v2h2V9zm-3-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2z"/>\
+  </svg>',
+        template: {
+            title: 'Titel der Frage',
+            name: 'question1',
+            type: 'multipletext',
+            valueName: '',
+            labelTrue: 'Wahr',
+            labelFalse: 'Falsch',
+            items: [
+                {
+                    name: 'e1',
+                    isRequired: true,
+                    title: 'Vorname'
+                }, {
+                    name: 'e2',
+                    title: 'Nachname'
+                }
+            ]
+        }
+    }, {
+        type: 'sortablelist',
+        name: 'Ranking',
+        icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grid-3x2-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
+    <path fill-rule="evenodd" d="M4 4H2v2h2V4zm1 7V9a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 5V9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 4H7v2h2V4zm5 0h-2v2h2V4zM4 9H2v2h2V9zm5 0H7v2h2V9zm5 0h-2v2h2V9zm-3-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2z"/>\
+  </svg>',
+        template: {
+            title: 'Titel der Frage',
+            name: 'question1',
+            type: 'sortablelist',
+            valueName: '',
+            choices: ['family', 'work', 'pets', 'travels', 'games']
+        }
     }
-  }, {
-    type: 'sortablelist',
-    name: 'Ranking',
-    icon: 'fas fa-table',
-    template: {
-      title: 'Titel der Frage',
-      name: 'question1',
-      type: 'sortablelist',
-      valueName: '',
-      choices: ['family', 'work', 'pets', 'travels', 'games']
-    }
-  }
 ];
 */

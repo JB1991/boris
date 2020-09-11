@@ -77,8 +77,8 @@ export function init(Survey) {
         },
         afterRender: function (question, el) {
             el.style.paddingBottom = '19px';
-            el.style.paddingLeft = '20px';
-            el.style.paddingRight = '20px';
+            el.style.paddingLeft = '10px';
+            el.style.paddingRight = '10px';
             el.style.paddingTop = '44px';
             el = el.children[0];
             el.style.marginBottom = '60px';
