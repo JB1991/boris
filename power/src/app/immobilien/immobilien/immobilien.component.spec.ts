@@ -90,15 +90,15 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         prepareNiStatic();
         prepareNiRuntime();
 
-        spyOn(ImmobilienComponent.prototype, 'initNipix').and.callFake( function() {
-        });
-
         fixture = TestBed.createComponent(ImmobilienComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
-
         component.nipixStatic = niStatic;
         component.nipixRuntime = niRuntime;
+
+        spyOn(component, 'initNipix').and.callFake( function() {
+        });
+
+        fixture.detectChanges();
 
         httpTestingController = TestBed.inject(HttpTestingController);
 
