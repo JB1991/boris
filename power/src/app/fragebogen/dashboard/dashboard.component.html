@@ -12,7 +12,7 @@
             <div class="float-md-right row">
                 <div class="col-sm">
                     <select class="browser-default custom-select"
-                        (change)="taskStatus = $event.target.value; updateTasks()">
+                        (change)="taskStatus = $event.target.value; updateTasks(false)">
                         <option value="all" selected>Status: Alle</option>
                         <option value="created">Status: Erstellt</option>
                         <option value="accessed">Status: In Bearbeitung</option>
@@ -91,14 +91,14 @@
             <div class="float-right">
                 <div class="form-inline well">
                     <div class="form-group mx-2">
-                        <select class="custom-select" (change)="taskPerPage = $event.target.value; updateTasks()">
+                        <select class="custom-select" (change)="taskPerPage = $event.target.value; updateTasks(false)">
                             <option *ngFor=" let size of taskPageSizes">
                                 {{ size }}
                             </option>
                         </select>
                     </div>
                     <pagination [boundaryLinks]="true" [itemsPerPage]="taskPerPage" [maxSize]="10"
-                        [totalItems]="taskTotal" (pageChanged)="taskPage = $event.page; updateTasks()"
+                        [totalItems]="taskTotal" (pageChanged)="taskPage = $event.page; updateTasks(false)"
                         previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
                     </pagination>
                 </div>
@@ -121,7 +121,7 @@
             <div class="float-md-right row">
                 <div class="col-sm">
                     <select class="browser-default custom-select"
-                        (change)="formStatus = $event.target.value; updateForms()">
+                        (change)="formStatus = $event.target.value; updateForms(false)">
                         <option value="all" selected>Status: Alle</option>
                         <option value="created">Status: Erstellt</option>
                         <option value="published">Status: Veröffentlicht</option>
@@ -130,8 +130,8 @@
                 </div>
                 <div class="col-sm ml-sm-1">
                     <input class="form-control" id="form-title-search" type="text" placeholder="Titel"
-                        aria-label="Titel" (blur)="formTitle = $event.target.value; updateForms()"
-                        (keydown.enter)="formTitle = $event.target.value; updateForms()">
+                        aria-label="Titel" (blur)="formTitle = $event.target.value; updateForms(false)"
+                        (keydown.enter)="formTitle = $event.target.value; updateForms(false)">
                 </div>
             </div>
         </div>
@@ -238,14 +238,14 @@
                 <div class="float-right">
                     <div class="form-inline well">
                         <div class="form-group mx-2">
-                            <select class="custom-select" (change)="formPerPage = $event.target.value; updateForms()">
+                            <select class="custom-select" (change)="formPerPage = $event.target.value; updateForms(false)">
                                 <option *ngFor=" let size of formPageSizes">
                                     {{ size }}
                                 </option>
                             </select>
                         </div>
                         <pagination [boundaryLinks]="true" [itemsPerPage]="formPerPage" [maxSize]="10"
-                            [totalItems]="formTotal" (pageChanged)="formPage = $event.page; updateForms()"
+                            [totalItems]="formTotal" (pageChanged)="formPage = $event.page; updateForms(false)"
                             previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
                         </pagination>
                     </div>

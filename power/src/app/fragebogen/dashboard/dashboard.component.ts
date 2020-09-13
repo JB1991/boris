@@ -57,8 +57,8 @@ export class DashboardComponent implements OnInit {
             this.updateForms(false);
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
-            this.router.navigate(['/forms'], { replaceUrl: true });
         }
     }
 

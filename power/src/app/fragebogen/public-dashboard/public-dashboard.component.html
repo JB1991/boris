@@ -13,7 +13,7 @@
             <span i18n>&nbsp;Formulare</span>
             <div class="float-right">
                 <input class="form-control" id="form-title-search" type="text" placeholder="Titel" aria-label="Titel"
-                    (blur)="title = $event.target.value; update()" (keydown.enter)="title = $event.target.value; update()">
+                    (blur)="title = $event.target.value; update(false)" (keydown.enter)="title = $event.target.value; update(false)">
             </div>
         </div>
         <div class="card-body table-responsive p-0">
@@ -59,14 +59,14 @@
             <div class="float-right">
                 <div class="form-inline well">
                     <div class="form-group mx-2">
-                        <select class="custom-select" (change)="perPage = $event.target.value; update()">
+                        <select class="custom-select" (change)="perPage = $event.target.value; update(false)">
                             <option *ngFor=" let size of pageSizes">
                                 {{ size }}
                             </option>
                         </select>
                     </div>
                     <pagination [boundaryLinks]="true" [itemsPerPage]="perPage" [maxSize]="10" [totalItems]="total"
-                        (pageChanged)="page = $event.page; update()" previousText="&lsaquo;" nextText="&rsaquo;"
+                        (pageChanged)="page = $event.page; update(false)" previousText="&lsaquo;" nextText="&rsaquo;"
                         firstText="&laquo;" lastText="&raquo;">
                     </pagination>
                 </div>
