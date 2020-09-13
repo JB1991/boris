@@ -33,7 +33,7 @@ export class PublicDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.update();
+        this.update(true);
     }
 
     public changeSort(sort: 'title' | 'published') {
@@ -47,10 +47,10 @@ export class PublicDashboardComponent implements OnInit {
             this.order = 'asc';
         }
         this.sort = sort;
-        this.update();
+        this.update(false);
     }
 
-    public async update() {
+    public async update(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
@@ -69,8 +69,11 @@ export class PublicDashboardComponent implements OnInit {
             this.pageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            if (navigate) {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
         }
     }
 

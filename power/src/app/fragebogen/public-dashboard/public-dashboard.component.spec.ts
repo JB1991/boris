@@ -55,7 +55,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     it('should succeed', (done) => {
         spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve(publicForms));
         component.title = 'something';
-        component.update().then(() => {
+        component.update(false).then(() => {
             expect(component.data).toBe(publicForms.data);
             expect(component.total).toBe(publicForms.total);
             done();
@@ -83,7 +83,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         spyOn(component.formAPI, 'getPublicForms').and.callFake(() => {
             return Promise.reject(new Error('fail'));
         });
-        component.update().then(() => {
+        component.update(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
