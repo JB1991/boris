@@ -107,7 +107,7 @@ export class AuthService {
             // set refresh timeout
             this.timerHandle = setTimeout(async () => {
                 await this.loadSession(true);
-            }, 15 * 60000);
+            }, 5 * 60000);
         }
     }
 

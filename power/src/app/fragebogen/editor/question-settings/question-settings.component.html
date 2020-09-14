@@ -169,6 +169,30 @@
                                i18n>Fragennummer verstecken</label>
                     </div>
 
+                    <!-- question-startWithNewLine -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].startWithNewLine"
+                               name="question-startWithNewLine"
+                               id="question-startWithNewLine">
+                        <label class="custom-control-label"
+                               for="question-startWithNewLine"
+                               i18n>Frage startet auf neuer Zeile</label>
+                    </div>
+
+                    <!-- question-width -->
+                    <div class="form-group">
+                        <label for="question-width"
+                               i18n>Breite der Frage in Pixel</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="model.pages[page].elements[question].width"
+                               name="question-width"
+                               id="question-width"
+                               placeholder="200px">
+                    </div>
+
                     <div *ngIf="model.pages[page].elements[question].type === 'text'">
                         <!-- question-inputType-->
                         <div class="form-group">

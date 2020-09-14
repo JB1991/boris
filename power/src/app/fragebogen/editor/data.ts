@@ -45,6 +45,7 @@ export const defaultTemplate = {
                     },
                     commentText: {},
                     colCount: 1,
+                    startWithNewLine: true,
                     visible: true,
                     isRequired: true
                 }
@@ -79,6 +80,7 @@ export const FormularFields = [
             name: '',
             type: 'text',
             inputType: 'text',
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -108,6 +110,7 @@ export const FormularFields = [
                 }
             ],
             colCount: 2,
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -125,6 +128,7 @@ export const FormularFields = [
             name: '',
             type: 'comment',
             rows: 4,
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -142,6 +146,7 @@ export const FormularFields = [
             type: 'boolean',
             labelTrue: {},
             labelFalse: {},
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -173,8 +178,9 @@ export const FormularFields = [
             ],
             colCount: 1,
             choicesOrder: 'none',
-            visible: true,
             commentText: {},
+            startWithNewLine: true,
+            visible: true,
             isRequired: true,
             requiredErrorText: {}
         }
@@ -205,8 +211,9 @@ export const FormularFields = [
             ],
             colCount: 1,
             choicesOrder: 'none',
-            visible: true,
             commentText: {},
+            startWithNewLine: true,
+            visible: true,
             isRequired: true,
             requiredErrorText: {}
         }
@@ -244,8 +251,9 @@ export const FormularFields = [
             imageFit: 'fill',
             imageWidth: 200,
             imageHeight: 150,
-            visible: true,
             commentText: {},
+            startWithNewLine: true,
+            visible: true,
             isRequired: true,
             requiredErrorText: {}
         }
@@ -270,6 +278,7 @@ export const FormularFields = [
                 default: 'Sehr schlecht'
             },
             commentText: {},
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -291,6 +300,7 @@ export const FormularFields = [
             rangeMax: 100,
             decimals: 0,
             commentText: {},
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -345,6 +355,7 @@ export const FormularFields = [
             isAllRowRequired: true,
             hideIfRowsEmpty: true,
             rowsOrder: 'initial',
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -363,6 +374,7 @@ export const FormularFields = [
             width: 600,
             dataFormat: 'image/svg+xml',
             penColor: '#000000',
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -387,6 +399,7 @@ export const FormularFields = [
             imageWidth: 200,
             maxSize: 5242880,
             commentText: {},
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}

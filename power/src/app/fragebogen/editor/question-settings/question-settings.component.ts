@@ -72,5 +72,10 @@ export class QuestionSettingsComponent {
                 this.model.pages[this.page].elements[this.question]['commentText'] = {};
             }
         }
+
+        // add startWithNewLine
+        if (typeof this.model.pages[this.page].elements[this.question].startWithNewLine === 'undefined') {
+            this.model.pages[this.page].elements[this.question].startWithNewLine = true;
+        }
     }
 }
