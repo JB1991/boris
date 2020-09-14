@@ -40,9 +40,15 @@ describe('Fragebogen.Editor.ValueComponent', () => {
         spyOn(component.valueChange, 'emit');
         expect(component).toBeTruthy();
 
+        // update value
         component.ngOnChanges();
         component.updateValue({ e1: 'Test' });
         expect(component.value).toEqual('Test');
         expect(component.valueChange.emit).toHaveBeenCalledWith('Test');
+
+        // reset value
+        component.resetValue();
+        expect(component.value).toBeNull();
+        expect(component.valueChange.emit).toHaveBeenCalledWith(null);
     });
 });
