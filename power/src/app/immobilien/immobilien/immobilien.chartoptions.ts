@@ -49,7 +49,7 @@ export class ImmobilienChartOptions {
         ret.toolbox.feature.mySaveAsImage.onclick = opt.exportAsImage;
         ret.toolbox.feature.mySaveAsCSV.onclick = opt.exportCSV;
         ret.toolbox.feature.mySaveAsGeoJSON.onclick = opt.exportNiPixGeoJson;
-        ret.series[0] = this.chartRange();
+        ret.series[0] = ImmobilienChartOptions.chartRange();
 
         return ret;
     }
