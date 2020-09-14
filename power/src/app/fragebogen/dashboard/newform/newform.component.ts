@@ -103,6 +103,7 @@ export class NewformComponent implements OnInit {
 
         // make new form
         this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
+        this.close();
     }
 
     /**
