@@ -60,11 +60,11 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    npm run lint:styles
    npm run lint:html
    ```
-   
+
 ## Übersetzung
 Sprachstrings exportieren
 ```
-ng xi18n --output-path src/locales --ivy
+ng xi18n --format=xlf2 --ivy --output-path src/locales
 ```
 
 Sprache testen

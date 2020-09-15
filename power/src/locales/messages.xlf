@@ -1,0 +1,2904 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="de">
+  <file id="ngi18n" original="ng.template">
+    <unit id="5693309902155405103">
+      <notes>
+        <note category="location">src/app/app.component.js:158</note>
+      </notes>
+      <segment>
+        <source>LGLN Logo</source>
+      </segment>
+    </unit>
+    <unit id="6352019999410584828">
+      <notes>
+        <note category="location">src/app/app.component.js:164</note>
+      </notes>
+      <segment>
+        <source>Portal für Wertermittlung</source>
+      </segment>
+    </unit>
+    <unit id="4234420133257512194">
+      <notes>
+        <note category="location">src/app/app.component.js:170</note>
+      </notes>
+      <segment>
+        <source>.niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="1960371191469910628">
+      <notes>
+        <note category="location">src/app/app.component.js:176</note>
+      </notes>
+      <segment>
+        <source>POWER</source>
+      </segment>
+    </unit>
+    <unit id="7921562522568590712">
+      <notes>
+        <note category="location">src/app/app.component.js:188</note>
+      </notes>
+      <segment>
+        <source>Navigation umschalten</source>
+      </segment>
+    </unit>
+    <unit id="8429316238784832901">
+      <notes>
+        <note category="location">src/app/app.component.js:200</note>
+      </notes>
+      <segment>
+        <source>Feedback</source>
+      </segment>
+    </unit>
+    <unit id="2354045805420094700">
+      <notes>
+        <note category="location">src/app/app.component.js:206</note>
+      </notes>
+      <segment>
+        <source>Informationen</source>
+      </segment>
+    </unit>
+    <unit id="1547876271716599756">
+      <notes>
+        <note category="location">src/app/app.component.js:212</note>
+      </notes>
+      <segment>
+        <source>Impressum</source>
+      </segment>
+    </unit>
+    <unit id="4082114936887396529">
+      <notes>
+        <note category="location">src/app/app.component.js:218</note>
+      </notes>
+      <segment>
+        <source>Datenschutz</source>
+      </segment>
+    </unit>
+    <unit id="2601146275474047321">
+      <notes>
+        <note category="location">src/app/app.component.js:224</note>
+      </notes>
+      <segment>
+        <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/>und Nutzungsbedingungen</source>
+      </segment>
+    </unit>
+    <unit id="7767778924054675928">
+      <notes>
+        <note category="location">src/app/app.component.js:230</note>
+      </notes>
+      <segment>
+        <source>Version: <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/>/<ph id="1" equiv="INTERPOLATION_1" disp="&quot;\uFFFD1\uFFFD&quot;"/></source>
+      </segment>
+    </unit>
+    <unit id="4654226818601672329">
+      <notes>
+        <note category="location">src/app/app.component.js:236</note>
+      </notes>
+      <segment>
+        <source>Bodenrichtwerte</source>
+      </segment>
+    </unit>
+    <unit id="4783586120320798427">
+      <notes>
+        <note category="location">src/app/app.component.js:242</note>
+      </notes>
+      <segment>
+        <source>Bodenwerte</source>
+      </segment>
+    </unit>
+    <unit id="192194816728870761">
+      <notes>
+        <note category="location">src/app/app.component.js:248</note>
+      </notes>
+      <segment>
+        <source>Immobilien</source>
+      </segment>
+    </unit>
+    <unit id="8530560792297920136">
+      <notes>
+        <note category="location">src/app/app.component.js:254</note>
+      </notes>
+      <segment>
+        <source>Formulare</source>
+      </segment>
+    </unit>
+    <unit id="2454050363478003966">
+      <notes>
+        <note category="location">src/app/app.component.js:260</note>
+      </notes>
+      <segment>
+        <source>Login</source>
+      </segment>
+    </unit>
+    <unit id="4086606389696938932">
+      <notes>
+        <note category="location">src/app/app.component.js:266</note>
+      </notes>
+      <segment>
+        <source>Account</source>
+      </segment>
+    </unit>
+    <unit id="8989302283670322437">
+      <notes>
+        <note category="location">src/app/app.component.js:272</note>
+      </notes>
+      <segment>
+        <source>Ausloggen</source>
+      </segment>
+    </unit>
+    <unit id="8183476381446897959">
+      <notes>
+        <note category="location">src/app/shared/alerts/alerts.component.js:67</note>
+      </notes>
+      <segment>
+        <source>Schließen</source>
+      </segment>
+    </unit>
+    <unit id="3809540430353766710">
+      <notes>
+        <note category="location">src/app/shared/alerts/alerts.component.js:79</note>
+      </notes>
+      <segment>
+        <source>Alert schließen</source>
+      </segment>
+    </unit>
+    <unit id="1669800724507050603">
+      <notes>
+        <note category="location">src/app/shared/loadingscreen/loadingscreen.component.js:31</note>
+      </notes>
+      <segment>
+        <source>Wird geladen...</source>
+      </segment>
+    </unit>
+    <unit id="5826116471492977880">
+      <notes>
+        <note category="location">src/app/shared/tagbox/tagbox.component.js:82</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> mit ENTER bestätigen</source>
+      </segment>
+    </unit>
+    <unit id="4580399730639224598">
+      <notes>
+        <note category="location">src/app/shared/tagbox/tagbox.component.js:88</note>
+      </notes>
+      <segment>
+        <source>Löschen</source>
+      </segment>
+    </unit>
+    <unit id="6267893735675184411">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:81</note>
+      </notes>
+      <segment>
+        <source>Formulare - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="2278750118279823127">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:102</note>
+      </notes>
+      <segment>
+        <source>Formular ausfüllen</source>
+      </segment>
+    </unit>
+    <unit id="1105762641221065617">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:108</note>
+      </notes>
+      <segment>
+        <source>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen. </source>
+      </segment>
+    </unit>
+    <unit id="7046170260599391233">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:114</note>
+      </notes>
+      <segment>
+        <source>Eingabe einer PIN zum Formular ausfüllen</source>
+      </segment>
+    </unit>
+    <unit id="3438075409129621721">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:120</note>
+      </notes>
+      <segment>
+        <source>Formular PIN</source>
+      </segment>
+    </unit>
+    <unit id="4392993924409588244">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:132</note>
+      </notes>
+      <segment>
+        <source>Absenden</source>
+      </segment>
+    </unit>
+    <unit id="8191576719702905998">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:144</note>
+      </notes>
+      <segment>
+        <source>Formular finden</source>
+      </segment>
+    </unit>
+    <unit id="7370577168011282060">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:150</note>
+      </notes>
+      <segment>
+        <source>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare. </source>
+      </segment>
+    </unit>
+    <unit id="5711849175900703108">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:156</note>
+      </notes>
+      <segment>
+        <source>Zu den öffentlichen Formularen</source>
+      </segment>
+    </unit>
+    <unit id="6489685542013391299">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:162</note>
+      </notes>
+      <segment>
+        <source>Notarportal</source>
+      </segment>
+    </unit>
+    <unit id="5065209650042517514">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:168</note>
+      </notes>
+      <segment>
+        <source>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen. </source>
+      </segment>
+    </unit>
+    <unit id="3867605560596531339">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:174</note>
+      </notes>
+      <segment>
+        <source>Mitarbeiter</source>
+      </segment>
+    </unit>
+    <unit id="5221936450324512652">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:180</note>
+      </notes>
+      <segment>
+        <source>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen. </source>
+      </segment>
+    </unit>
+    <unit id="6949567012632159210">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.js:186</note>
+      </notes>
+      <segment>
+        <source>Zum Mitarbeiterportal</source>
+      </segment>
+    </unit>
+    <unit id="5601035884726674890">
+      <notes>
+        <note category="location">src/app/static/logout/logout.component.js:18</note>
+      </notes>
+      <segment>
+        <source>Logout - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="4655456087046490805">
+      <notes>
+        <note category="location">src/app/static/logout/logout.component.js:44</note>
+      </notes>
+      <segment>
+        <source>Sie wurden ausgeloggt.</source>
+      </segment>
+    </unit>
+    <unit id="4321269269579074973">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:209</note>
+      </notes>
+      <segment>
+        <source>Öffentliche Formulare - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="8488547527396922136">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:251</note>
+      </notes>
+      <segment>
+        <source>Laden fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="3237325831282116749">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:266</note>
+      </notes>
+      <segment>
+        <source> Formulare</source>
+      </segment>
+    </unit>
+    <unit id="2346175350170490455">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:272</note>
+      </notes>
+      <segment>
+        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&quot;\uFFFD#16\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#16\uFFFD|\uFFFD/#1:1\uFFFD\uFFFD/*17:1\uFFFD]&quot;">Titel</pc><pc id="1" equivStart="START_TAG_SPAN_1" equivEnd="CLOSE_TAG_SPAN_1" dispStart="&quot;\uFFFD*17:1\uFFFD\uFFFD#1:1\uFFFD&quot;"><pc id="2" equivStart="START_TAG__SVG_SVG" equivEnd="CLOSE_TAG__SVG_SVG" dispStart="&quot;\uFFFD*2:2\uFFFD\uFFFD#1:2\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#1:2\uFFFD\uFFFD/*2:2\uFFFD|\uFFFD/#1:3\uFFFD\uFFFD/*3:3\uFFFD]&quot;"><pc id="3" equivStart="START_TAG__SVG_PATH" equivEnd="CLOSE_TAG__SVG_PATH" dispStart="&quot;\uFFFD#2:2\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#2:2\uFFFD|\uFFFD/#2:3\uFFFD]&quot;"></pc></pc><pc id="4" equivStart="START_TAG__SVG_SVG_1" equivEnd="CLOSE_TAG__SVG_SVG_1" dispStart="&quot;\uFFFD*3:3\uFFFD\uFFFD#1:3\uFFFD&quot;"><pc id="5" equivStart="START_TAG__SVG_PATH_1" equivEnd="CLOSE_TAG__SVG_PATH_1" dispStart="&quot;\uFFFD#2:3\uFFFD&quot;"></pc></pc></pc></source>
+      </segment>
+    </unit>
+    <unit id="2644787182106782870">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:278</note>
+      </notes>
+      <segment>
+        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&quot;\uFFFD#20\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#20\uFFFD|\uFFFD/#1:1\uFFFD\uFFFD/*21:1\uFFFD]&quot;">Veröffentlicht</pc><pc id="1" equivStart="START_TAG_SPAN_1" equivEnd="CLOSE_TAG_SPAN_1" dispStart="&quot;\uFFFD*21:1\uFFFD\uFFFD#1:1\uFFFD&quot;"><pc id="2" equivStart="START_TAG__SVG_SVG" equivEnd="CLOSE_TAG__SVG_SVG" dispStart="&quot;\uFFFD*2:2\uFFFD\uFFFD#1:2\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#1:2\uFFFD\uFFFD/*2:2\uFFFD|\uFFFD/#1:3\uFFFD\uFFFD/*3:3\uFFFD]&quot;"><pc id="3" equivStart="START_TAG__SVG_PATH" equivEnd="CLOSE_TAG__SVG_PATH" dispStart="&quot;\uFFFD#2:2\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#2:2\uFFFD|\uFFFD/#2:3\uFFFD]&quot;"></pc></pc><pc id="4" equivStart="START_TAG__SVG_SVG_1" equivEnd="CLOSE_TAG__SVG_SVG_1" dispStart="&quot;\uFFFD*3:3\uFFFD\uFFFD#1:3\uFFFD&quot;"><pc id="5" equivStart="START_TAG__SVG_PATH_1" equivEnd="CLOSE_TAG__SVG_PATH_1" dispStart="&quot;\uFFFD#2:3\uFFFD&quot;"></pc></pc></pc></source>
+      </segment>
+    </unit>
+    <unit id="2319824520635416840">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:284</note>
+      </notes>
+      <segment>
+        <source>Keine Formulare gefunden</source>
+      </segment>
+    </unit>
+    <unit id="380575489674159475">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:131</note>
+      </notes>
+      <segment>
+        <source>Speichern erfolgreich</source>
+      </segment>
+    </unit>
+    <unit id="8744559871232772444">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:131</note>
+      </notes>
+      <segment>
+        <source>Ihre Daten wurden erfolgreich gespeichert.</source>
+      </segment>
+    </unit>
+    <unit id="6200688387678213794">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:134</note>
+      </notes>
+      <segment>
+        <source>Das Speichern auf dem Server ist fehlgeschlagen: {error[&apos;statusText&apos;]}</source>
+      </segment>
+    </unit>
+    <unit id="4028295370197925352">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:135</note>
+      </notes>
+      <segment>
+        <source>Speichern fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="3198167021097608380">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:188</note>
+      </notes>
+      <segment>
+        <source>Das Speichern auf dem Server ist fehlgeschlagen: {alertText}</source>
+      </segment>
+    </unit>
+    <unit id="8953940785817491538">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:55</note>
+      </notes>
+      <segment>
+        <source>Formular gespeichert</source>
+      </segment>
+    </unit>
+    <unit id="7810020688490288269">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:55</note>
+      </notes>
+      <segment>
+        <source>Das Formular wurde erfolgreich gespeichert.</source>
+      </segment>
+    </unit>
+    <unit id="4285599221688268192">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:76</note>
+      </notes>
+      <segment>
+        <source> Einstellungen</source>
+      </segment>
+    </unit>
+    <unit id="8987485918990583314">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:94</note>
+      </notes>
+      <segment>
+        <source>Einstellungen zum teilen eines Formulars</source>
+      </segment>
+    </unit>
+    <unit id="7886570921510760899">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:100</note>
+      </notes>
+      <segment>
+        <source>Tags</source>
+      </segment>
+    </unit>
+    <unit id="4626002947369124112">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:106</note>
+      </notes>
+      <segment>
+        <source>Besitzer</source>
+      </segment>
+    </unit>
+    <unit id="2057709581925448431">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:112</note>
+      </notes>
+      <segment>
+        <source>Leseberechtigte</source>
+      </segment>
+    </unit>
+    <unit id="6296453444800494674">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:124</note>
+      </notes>
+      <segment>
+        <source>Formular teilen</source>
+      </segment>
+    </unit>
+    <unit id="4956493749509908625">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:130</note>
+      </notes>
+      <segment>
+        <source> Speichern</source>
+      </segment>
+    </unit>
+    <unit id="4048396797910850999">
+      <notes>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.js:81</note>
+      </notes>
+      <segment>
+        <source> Kommentar</source>
+      </segment>
+    </unit>
+    <unit id="3108124209892519095">
+      <notes>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.js:99</note>
+      </notes>
+      <segment>
+        <source>Angabe eines Kommentares zu der PIN</source>
+      </segment>
+    </unit>
+    <unit id="2137405200624328487">
+      <notes>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.js:105</note>
+      </notes>
+      <segment>
+        <source>Kommentar</source>
+      </segment>
+    </unit>
+    <unit id="6015221729910186784">
+      <notes>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.js:117</note>
+      </notes>
+      <segment>
+        <source>Kommentar speichern</source>
+      </segment>
+    </unit>
+    <unit id="6229675034175850416">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:38,40</note>
+      </notes>
+      <segment>
+        <source>Möchten Sie dieses Formular wirklich veröffentlichen?
+Das Formular lässt sich danach nicht mehr bearbeiten.
+Dies lässt sich nicht mehr umkehren!</source>
+      </segment>
+    </unit>
+    <unit id="7045718201948539195">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:48</note>
+      </notes>
+      <segment>
+        <source>Veröffentlichen fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="1333796698883815409">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:54</note>
+      </notes>
+      <segment>
+        <source>Formular veröffentlicht</source>
+      </segment>
+    </unit>
+    <unit id="4271491079612886596">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:54</note>
+      </notes>
+      <segment>
+        <source>Das Formular wurde erfolgreich veröffentlicht.</source>
+      </segment>
+    </unit>
+    <unit id="6871250245901588184">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:75</note>
+      </notes>
+      <segment>
+        <source> Veröffentlichen</source>
+      </segment>
+    </unit>
+    <unit id="6805794462715952034">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:93</note>
+      </notes>
+      <segment>
+        <source>Einstellungen zur Veröffentlichung des Formulares</source>
+      </segment>
+    </unit>
+    <unit id="153541716325950562">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:99</note>
+      </notes>
+      <segment>
+        <source>Zugangsschutz</source>
+      </segment>
+    </unit>
+    <unit id="92152990194442672">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:105</note>
+      </notes>
+      <segment>
+        <source>Öffentlich</source>
+      </segment>
+    </unit>
+    <unit id="1593201256931919296">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:111</note>
+      </notes>
+      <segment>
+        <source>6-stellige PIN</source>
+      </segment>
+    </unit>
+    <unit id="7984545901488378361">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:117</note>
+      </notes>
+      <segment>
+        <source>8-stellige PIN</source>
+      </segment>
+    </unit>
+    <unit id="5652205002901618415">
+      <notes>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.js:129</note>
+      </notes>
+      <segment>
+        <source>Formular veröffentlichen</source>
+      </segment>
+    </unit>
+    <unit id="6753318560504296925">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:64</note>
+      </notes>
+      <segment>
+        <source>Ungültige Eingabe</source>
+      </segment>
+    </unit>
+    <unit id="4223480731813357720">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:64</note>
+      </notes>
+      <segment>
+        <source>Bitte generieren Sie nur zwischen 1 und 100 PINs.</source>
+      </segment>
+    </unit>
+    <unit id="2001137006078143875">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:72</note>
+      </notes>
+      <segment>
+        <source>Erstellen fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="6541847541201897337">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:118</note>
+      </notes>
+      <segment>
+        <source> PIN Generator</source>
+      </segment>
+    </unit>
+    <unit id="8856370755053434405">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:136</note>
+      </notes>
+      <segment>
+        <source>Angabe wie viele PINs erstellt werden</source>
+      </segment>
+    </unit>
+    <unit id="8610693548852405446">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:142</note>
+      </notes>
+      <segment>
+        <source>Anzahl PINs</source>
+      </segment>
+    </unit>
+    <unit id="7897642684892254234">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:148</note>
+      </notes>
+      <segment>
+        <source>Kopiere PIN(s) in die Zwischenablage</source>
+      </segment>
+    </unit>
+    <unit id="7650064767892495053">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:160</note>
+      </notes>
+      <segment>
+        <source>PINs erstellen</source>
+      </segment>
+    </unit>
+    <unit id="7449095028828358900">
+      <notes>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:166</note>
+      </notes>
+      <segment>
+        <source> PINs erstellen</source>
+      </segment>
+    </unit>
+    <unit id="2208822168211707034">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:553</note>
+      </notes>
+      <segment>
+        <source>Formular Details - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="6100299460018469503">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:634</note>
+      </notes>
+      <segment>
+        <source>Möchten Sie dieses Formular wirklich löschen?</source>
+      </segment>
+    </unit>
+    <unit id="3149526115468934989">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:642</note>
+      </notes>
+      <segment>
+        <source>Löschen fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="3249149247481122578">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:647</note>
+      </notes>
+      <segment>
+        <source>Formular gelöscht</source>
+      </segment>
+    </unit>
+    <unit id="2182084453272634090">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:647</note>
+      </notes>
+      <segment>
+        <source>Das Formular wurde erfolgreich gelöscht.</source>
+      </segment>
+    </unit>
+    <unit id="8502469069928490597">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:661,662</note>
+      </notes>
+      <segment>
+        <source>Möchten Sie dieses Formular wirklich archivieren?
+Dies lässt sich nicht mehr umkehren!</source>
+      </segment>
+    </unit>
+    <unit id="7962314393644503154">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:670</note>
+      </notes>
+      <segment>
+        <source>Archivieren fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="4018735454945884382">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:676</note>
+      </notes>
+      <segment>
+        <source>Formular archiviert</source>
+      </segment>
+    </unit>
+    <unit id="836974120290109919">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:676</note>
+      </notes>
+      <segment>
+        <source>Das Formular wurde erfolgreich archiviert.</source>
+      </segment>
+    </unit>
+    <unit id="7293756355878993771">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:692</note>
+      </notes>
+      <segment>
+        <source>Download fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="6951710129778189571">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:692</note>
+      </notes>
+      <segment>
+        <source>Die Antworten konnten nicht geladen werden.</source>
+      </segment>
+    </unit>
+    <unit id="2908879179796145625">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:725</note>
+      </notes>
+      <segment>
+        <source>Möchten Sie diese Antwort wirklich löschen?</source>
+      </segment>
+    </unit>
+    <unit id="6105229413905166645">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:739</note>
+      </notes>
+      <segment>
+        <source>Antwort gelöscht</source>
+      </segment>
+    </unit>
+    <unit id="4168664506109423502">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:739</note>
+      </notes>
+      <segment>
+        <source>Die Antwort wurde erfolgreich gelöscht.</source>
+      </segment>
+    </unit>
+    <unit id="3959921924624883384">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:832</note>
+      </notes>
+      <segment>
+        <source>Zurück zum Dashboard</source>
+      </segment>
+    </unit>
+    <unit id="2449659618107106899">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:838</note>
+      </notes>
+      <segment>
+        <source> Zurück</source>
+      </segment>
+    </unit>
+    <unit id="8040881171107393560">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:844</note>
+      </notes>
+      <segment>
+        <source>ID</source>
+      </segment>
+    </unit>
+    <unit id="1133378173705582866">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:850</note>
+      </notes>
+      <segment>
+        <source>Erstellt</source>
+      </segment>
+    </unit>
+    <unit id="5611592591303869712">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:856</note>
+      </notes>
+      <segment>
+        <source>Status</source>
+      </segment>
+    </unit>
+    <unit id="3710766590975810780">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:862</note>
+      </notes>
+      <segment>
+        <source>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</source>
+      </segment>
+    </unit>
+    <unit id="8022684452981881720">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:874</note>
+      </notes>
+      <segment>
+        <source>Leser</source>
+      </segment>
+    </unit>
+    <unit id="7423544162328062071">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:886</note>
+      </notes>
+      <segment>
+        <source>Formular Vorschau</source>
+      </segment>
+    </unit>
+    <unit id="7189840420378275443">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:892</note>
+      </notes>
+      <segment>
+        <source> Vorschau</source>
+      </segment>
+    </unit>
+    <unit id="4517189945274702297">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:898</note>
+      </notes>
+      <segment>
+        <source>Formular exportieren</source>
+      </segment>
+    </unit>
+    <unit id="6248079750489664880">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:904</note>
+      </notes>
+      <segment>
+        <source> Formular exportieren</source>
+      </segment>
+    </unit>
+    <unit id="2688283467752225426">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:910</note>
+      </notes>
+      <segment>
+        <source>Veröffentlicht</source>
+      </segment>
+    </unit>
+    <unit id="993560666209573635">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:916</note>
+      </notes>
+      <segment>
+        <source>Archiviert</source>
+      </segment>
+    </unit>
+    <unit id="5028453380651426894">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:922</note>
+      </notes>
+      <segment>
+        <source>Zugriff</source>
+      </segment>
+    </unit>
+    <unit id="2332375813543028449">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:928</note>
+      </notes>
+      <segment>
+        <source>Formular bearbeiten</source>
+      </segment>
+    </unit>
+    <unit id="7777270641333596836">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:934</note>
+      </notes>
+      <segment>
+        <source> Bearbeiten</source>
+      </segment>
+    </unit>
+    <unit id="5895799308050944719">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:940</note>
+      </notes>
+      <segment>
+        <source>Formular Einstellungen</source>
+      </segment>
+    </unit>
+    <unit id="5070302732354433099">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:964</note>
+      </notes>
+      <segment>
+        <source>Formular archivieren</source>
+      </segment>
+    </unit>
+    <unit id="7196638447313202098">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:970</note>
+      </notes>
+      <segment>
+        <source> Archivieren</source>
+      </segment>
+    </unit>
+    <unit id="4085873167168807139">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:976</note>
+      </notes>
+      <segment>
+        <source>Formular löschen</source>
+      </segment>
+    </unit>
+    <unit id="6836220284923117349">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:982</note>
+      </notes>
+      <segment>
+        <source> Löschen</source>
+      </segment>
+    </unit>
+    <unit id="5571974442224048751">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:988</note>
+      </notes>
+      <segment>
+        <source> Antworten</source>
+      </segment>
+    </unit>
+    <unit id="5377294052725398895">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1012</note>
+      </notes>
+      <segment>
+        <source>Zuletzt bearbeitet</source>
+      </segment>
+    </unit>
+    <unit id="8243852995513838598">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1024</note>
+      </notes>
+      <segment>
+        <source>Ergebnisse als CSV herunterladen</source>
+      </segment>
+    </unit>
+    <unit id="3644392333901744131">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1030</note>
+      </notes>
+      <segment>
+        <source> Ergebnisse (CSV)</source>
+      </segment>
+    </unit>
+    <unit id="2935871829967083793">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1036</note>
+      </notes>
+      <segment>
+        <source>PIN</source>
+      </segment>
+    </unit>
+    <unit id="1294029994729525960">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1042</note>
+      </notes>
+      <segment>
+        <source>{VAR_SELECT, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</source>
+      </segment>
+    </unit>
+    <unit id="6920196637619975735">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1048</note>
+      </notes>
+      <segment>
+        <source>Bearbeiten</source>
+      </segment>
+    </unit>
+    <unit id="1856659986941989615">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1060</note>
+      </notes>
+      <segment>
+        <source>Ergebnisse anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="6830555755425424668">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1066</note>
+      </notes>
+      <segment>
+        <source> Ergebnisse</source>
+      </segment>
+    </unit>
+    <unit id="1451460320963900414">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1072</note>
+      </notes>
+      <segment>
+        <source>Antwort löschen</source>
+      </segment>
+    </unit>
+    <unit id="2911941681969480793">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1084</note>
+      </notes>
+      <segment>
+        <source>Keine Antworten vorhanden</source>
+      </segment>
+    </unit>
+    <unit id="2844088667159499341">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1090</note>
+      </notes>
+      <segment>
+        <source>Neue PIN erstellen</source>
+      </segment>
+    </unit>
+    <unit id="5657563291186389106">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.js:1096</note>
+      </notes>
+      <segment>
+        <source> Neue PIN erstellen</source>
+      </segment>
+    </unit>
+    <unit id="2409494154701983500">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.js:26</note>
+      </notes>
+      <segment>
+        <source>Sichtbarkeitsbedingung</source>
+      </segment>
+    </unit>
+    <unit id="4148353123071676032">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/value/value.component.js:73</note>
+      </notes>
+      <segment>
+        <source>Zurücksetzen</source>
+      </segment>
+    </unit>
+    <unit id="2355362274364029817">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/value/value.component.js:79</note>
+      </notes>
+      <segment>
+        <source> Zurücksetzen </source>
+      </segment>
+    </unit>
+    <unit id="5327356321137513330">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:340</note>
+      </notes>
+      <segment>
+        <source>Antworten konfigurieren</source>
+      </segment>
+    </unit>
+    <unit id="7408924036382005310">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:352</note>
+      </notes>
+      <segment>
+        <source>Antwortmöglichkeit hinzufügen</source>
+      </segment>
+    </unit>
+    <unit id="623302995999546215">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:358</note>
+      </notes>
+      <segment>
+        <source>Hinzufügen</source>
+      </segment>
+    </unit>
+    <unit id="8660201601995499983">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:364</note>
+      </notes>
+      <segment>
+        <source>Datenwert</source>
+      </segment>
+    </unit>
+    <unit id="1532860079177852917">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:376</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext</source>
+      </segment>
+    </unit>
+    <unit id="3714125747806279899">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:388</note>
+      </notes>
+      <segment>
+        <source>Nach oben verschieben</source>
+      </segment>
+    </unit>
+    <unit id="603389987382112463">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:400</note>
+      </notes>
+      <segment>
+        <source>Nach unten verschieben</source>
+      </segment>
+    </unit>
+    <unit id="8611525284352303611">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:424</note>
+      </notes>
+      <segment>
+        <source>Bild löschen</source>
+      </segment>
+    </unit>
+    <unit id="6005602603007222956">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.js:436</note>
+      </notes>
+      <segment>
+        <source>Bild Hochladen</source>
+      </segment>
+    </unit>
+    <unit id="5076633116931203629">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:871</note>
+      </notes>
+      <segment>
+        <source>Fragen Einstellungen</source>
+      </segment>
+    </unit>
+    <unit id="2258060347097525516">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:918</note>
+      </notes>
+      <segment>
+        <source>Allgemein</source>
+      </segment>
+    </unit>
+    <unit id="1599145277090237336">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:924</note>
+      </notes>
+      <segment>
+        <source>Fragen ID*</source>
+      </segment>
+    </unit>
+    <unit id="667903415264349733">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:930</note>
+      </notes>
+      <segment>
+        <source>Dieser Wert muss im Formular einmalig sein. Die ID lässt sich als Variable nutzen enthält die Antwort einer Frage:</source>
+      </segment>
+    </unit>
+    <unit id="2802606053829950827">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:936</note>
+      </notes>
+      <segment>
+        <source>Fragen Titel*</source>
+      </segment>
+    </unit>
+    <unit id="8079987278225698865">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:942</note>
+      </notes>
+      <segment>
+        <source>Fragen Beschreibung</source>
+      </segment>
+    </unit>
+    <unit id="2759709272025029555">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:948</note>
+      </notes>
+      <segment>
+        <source>Dieser Text wird unter der Frage angezeigt. Markdown zur formatierung wird unterstützt.</source>
+      </segment>
+    </unit>
+    <unit id="2633103922838468705">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:954</note>
+      </notes>
+      <segment>
+        <source>Pflichtfeld</source>
+      </segment>
+    </unit>
+    <unit id="2465969235242735880">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:960</note>
+      </notes>
+      <segment>
+        <source>Sichtbar</source>
+      </segment>
+    </unit>
+    <unit id="3236450441053271493">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:966</note>
+      </notes>
+      <segment>
+        <source>Diese Option stellt ein, ob das Feld standartmäßig sichtbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="5564872229726777752">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:972</note>
+      </notes>
+      <segment>
+        <source>Deaktiviert</source>
+      </segment>
+    </unit>
+    <unit id="3201488103301574743">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:978</note>
+      </notes>
+      <segment>
+        <source>Diese Option stellt ein, ob das Feld standartmäßig ausfüllbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="1000474965396519246">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:984</note>
+      </notes>
+      <segment>
+        <source>Fragennummer verstecken</source>
+      </segment>
+    </unit>
+    <unit id="696701674056104184">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:990</note>
+      </notes>
+      <segment>
+        <source>Frage startet auf neuer Zeile</source>
+      </segment>
+    </unit>
+    <unit id="2787708308943566133">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:996</note>
+      </notes>
+      <segment>
+        <source>Breite der Frage in Pixel</source>
+      </segment>
+    </unit>
+    <unit id="281433735310730701">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1002</note>
+      </notes>
+      <segment>
+        <source>Standardwert</source>
+      </segment>
+    </unit>
+    <unit id="2721307579039816609">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1008</note>
+      </notes>
+      <segment>
+        <source>Bedingungen</source>
+      </segment>
+    </unit>
+    <unit id="2123058190140167354">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1020</note>
+      </notes>
+      <segment>
+        <source>Aktivierungsbedingung</source>
+      </segment>
+    </unit>
+    <unit id="5801991604521871701">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1026</note>
+      </notes>
+      <segment>
+        <source>Pflichtbedingung</source>
+      </segment>
+    </unit>
+    <unit id="2909264081763608567">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1032</note>
+      </notes>
+      <segment>
+        <source>Validatoren</source>
+      </segment>
+    </unit>
+    <unit id="2899899258573669142">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1038</note>
+      </notes>
+      <segment>
+        <source>Pflichtfeld Fehlertext</source>
+      </segment>
+    </unit>
+    <unit id="3105030069974657046">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1044</note>
+      </notes>
+      <segment>
+        <source>Kommentar Eingabefeld aktivieren</source>
+      </segment>
+    </unit>
+    <unit id="2282551280196521788">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1050</note>
+      </notes>
+      <segment>
+        <source>Diese Option ist deaktiviert, wenn das &quot;Anderes Eingabefeld&quot; aktiviert ist.</source>
+      </segment>
+    </unit>
+    <unit id="7665047802410449230">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1056</note>
+      </notes>
+      <segment>
+        <source>Kommentar Eingabefeld Text</source>
+      </segment>
+    </unit>
+    <unit id="8648957206736539595">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1062</note>
+      </notes>
+      <segment>
+        <source>Eingabetyp</source>
+      </segment>
+    </unit>
+    <unit id="431976875835451828">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1068</note>
+      </notes>
+      <segment>
+        <source>Farbe</source>
+      </segment>
+    </unit>
+    <unit id="935267939147271845">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1074</note>
+      </notes>
+      <segment>
+        <source>Datum</source>
+      </segment>
+    </unit>
+    <unit id="2278763268677546133">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1080</note>
+      </notes>
+      <segment>
+        <source>Datum &amp; Uhrzeit</source>
+      </segment>
+    </unit>
+    <unit id="8115083664628466958">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1086</note>
+      </notes>
+      <segment>
+        <source>E-Mail</source>
+      </segment>
+    </unit>
+    <unit id="2298141652517601203">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1092</note>
+      </notes>
+      <segment>
+        <source>Monat</source>
+      </segment>
+    </unit>
+    <unit id="8415078453524192234">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1098</note>
+      </notes>
+      <segment>
+        <source>Ganzzahl</source>
+      </segment>
+    </unit>
+    <unit id="681866609203884162">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1104</note>
+      </notes>
+      <segment>
+        <source>Telefonnummer</source>
+      </segment>
+    </unit>
+    <unit id="6162693758764653365">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1110</note>
+      </notes>
+      <segment>
+        <source>Text</source>
+      </segment>
+    </unit>
+    <unit id="7897216764489223339">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1116</note>
+      </notes>
+      <segment>
+        <source>Uhrzeit</source>
+      </segment>
+    </unit>
+    <unit id="2375260419993138758">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1122</note>
+      </notes>
+      <segment>
+        <source>URL</source>
+      </segment>
+    </unit>
+    <unit id="6264380877246584426">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1128</note>
+      </notes>
+      <segment>
+        <source>Woche</source>
+      </segment>
+    </unit>
+    <unit id="2976414078576857994">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1134</note>
+      </notes>
+      <segment>
+        <source>Nicht jede Option wird von allen Webbrowsern unterstützt.</source>
+      </segment>
+    </unit>
+    <unit id="3335825202752630529">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1140</note>
+      </notes>
+      <segment>
+        <source>Zeilen des Eingabefeldes</source>
+      </segment>
+    </unit>
+    <unit id="1783931905141779260">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1146</note>
+      </notes>
+      <segment>
+        <source>Wert Schritte</source>
+      </segment>
+    </unit>
+    <unit id="2884070345504600057">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1152</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext Minimum</source>
+      </segment>
+    </unit>
+    <unit id="3235518685482283884">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1158</note>
+      </notes>
+      <segment>
+        <source>Minimaler Wert</source>
+      </segment>
+    </unit>
+    <unit id="1919934867677848930">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1164</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext Maximum</source>
+      </segment>
+    </unit>
+    <unit id="4044856277132637349">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1170</note>
+      </notes>
+      <segment>
+        <source>Maximaler Wert</source>
+      </segment>
+    </unit>
+    <unit id="5110740723354501274">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1176</note>
+      </notes>
+      <segment>
+        <source>Skala Schritte</source>
+      </segment>
+    </unit>
+    <unit id="5306332341695056473">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1194</note>
+      </notes>
+      <segment>
+        <source>Nachkommastellen</source>
+      </segment>
+    </unit>
+    <unit id="3406135397633818536">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1200</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext links</source>
+      </segment>
+    </unit>
+    <unit id="5558176899213566695">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1206</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext rechts</source>
+      </segment>
+    </unit>
+    <unit id="4037439038235710994">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1212</note>
+      </notes>
+      <segment>
+        <source>Mehrere Dateien erlauben</source>
+      </segment>
+    </unit>
+    <unit id="4242082417573669453">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1218</note>
+      </notes>
+      <segment>
+        <source>Erlaubte Dateitypen</source>
+      </segment>
+    </unit>
+    <unit id="4465613126133133953">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1224</note>
+      </notes>
+      <segment>
+        <source>PDF-Dokumente</source>
+      </segment>
+    </unit>
+    <unit id="9045290048674217310">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1230</note>
+      </notes>
+      <segment>
+        <source>Bilder</source>
+      </segment>
+    </unit>
+    <unit id="924135540804019092">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1236</note>
+      </notes>
+      <segment>
+        <source>Maximale Dateigröße in Bytes</source>
+      </segment>
+    </unit>
+    <unit id="2009978670427997964">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1248</note>
+      </notes>
+      <segment>
+        <source>Korrekte Antwort (Quiz)</source>
+      </segment>
+    </unit>
+    <unit id="3779344425702119911">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1254</note>
+      </notes>
+      <segment>
+        <source>Unterfragen</source>
+      </segment>
+    </unit>
+    <unit id="4793302653467568534">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1266</note>
+      </notes>
+      <segment>
+        <source>Jede Unterfrage ist Pflichtfeld</source>
+      </segment>
+    </unit>
+    <unit id="5373486674031991069">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1272</note>
+      </notes>
+      <segment>
+        <source>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</source>
+      </segment>
+    </unit>
+    <unit id="7227476185175598244">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1278</note>
+      </notes>
+      <segment>
+        <source>Unsichtbar ohne sichtbare Fragen</source>
+      </segment>
+    </unit>
+    <unit id="254243942710551060">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1284</note>
+      </notes>
+      <segment>
+        <source>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgbelendet.</source>
+      </segment>
+    </unit>
+    <unit id="6882061501622662520">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1290</note>
+      </notes>
+      <segment>
+        <source>Unterfragen Reihenfolge</source>
+      </segment>
+    </unit>
+    <unit id="276184332300045619">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1296</note>
+      </notes>
+      <segment>
+        <source>Wie definiert</source>
+      </segment>
+    </unit>
+    <unit id="5748078469472297200">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1302</note>
+      </notes>
+      <segment>
+        <source>Zufällig</source>
+      </segment>
+    </unit>
+    <unit id="3410376041034296385">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1308</note>
+      </notes>
+      <segment>
+        <source>Unterfrage Sichtbarkeitsbedingung</source>
+      </segment>
+    </unit>
+    <unit id="2918457483295577227">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1314</note>
+      </notes>
+      <segment>
+        <source>Antwortmöglichkeiten</source>
+      </segment>
+    </unit>
+    <unit id="3643065623582513222">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1320</note>
+      </notes>
+      <segment>
+        <source>Antworten</source>
+      </segment>
+    </unit>
+    <unit id="6756465483742901259">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1326</note>
+      </notes>
+      <segment>
+        <source>Unsichtbar ohne sichtbare Antworten</source>
+      </segment>
+    </unit>
+    <unit id="8864163877372531653">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1332</note>
+      </notes>
+      <segment>
+        <source>Sind alle Antworten unsichtbar, dann wird die Frage ausgbelendet.</source>
+      </segment>
+    </unit>
+    <unit id="3740504915156757002">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1338</note>
+      </notes>
+      <segment>
+        <source>Darstellung in Spalten</source>
+      </segment>
+    </unit>
+    <unit id="8079868020998407724">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1344</note>
+      </notes>
+      <segment>
+        <source>Antworten Reihenfolge</source>
+      </segment>
+    </unit>
+    <unit id="8691548970191506667">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1356</note>
+      </notes>
+      <segment>
+        <source>Aufsteigend sortiert</source>
+      </segment>
+    </unit>
+    <unit id="1947750218509794653">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1362</note>
+      </notes>
+      <segment>
+        <source>Absteigend sortiert</source>
+      </segment>
+    </unit>
+    <unit id="9152737328129816882">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1374</note>
+      </notes>
+      <segment>
+        <source>Antwort Sichtbarkeitsbedingung</source>
+      </segment>
+    </unit>
+    <unit id="8045928720268721680">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1380</note>
+      </notes>
+      <segment>
+        <source>Anderes Eingabefeld aktivieren</source>
+      </segment>
+    </unit>
+    <unit id="2546334027949858879">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1386</note>
+      </notes>
+      <segment>
+        <source>Diese Option ist deaktiviert, wenn das &quot;Kommentar Eingabefeld&quot; aktiviert ist.</source>
+      </segment>
+    </unit>
+    <unit id="2412317594447763128">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1392</note>
+      </notes>
+      <segment>
+        <source>Zeige Knopf um Auswahl rückgängig zu machen</source>
+      </segment>
+    </unit>
+    <unit id="4799237165177498998">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1398</note>
+      </notes>
+      <segment>
+        <source>Zeige Knopf um alles auszuwählen</source>
+      </segment>
+    </unit>
+    <unit id="7915859704986171168">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1404</note>
+      </notes>
+      <segment>
+        <source>Zeige Knopf für nichts trifft zu</source>
+      </segment>
+    </unit>
+    <unit id="2158488422074241298">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1410</note>
+      </notes>
+      <segment>
+        <source>Mehrfachauswahl erlauben</source>
+      </segment>
+    </unit>
+    <unit id="7096759547174459513">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1416</note>
+      </notes>
+      <segment>
+        <source>Breite in Pixel</source>
+      </segment>
+    </unit>
+    <unit id="6463726515236192057">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1422</note>
+      </notes>
+      <segment>
+        <source>Höhe in Pixel</source>
+      </segment>
+    </unit>
+    <unit id="3681264497760339705">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1428</note>
+      </notes>
+      <segment>
+        <source>Größenanpassung</source>
+      </segment>
+    </unit>
+    <unit id="4728532590739893418">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1434</note>
+      </notes>
+      <segment>
+        <source>Keine Anpassung</source>
+      </segment>
+    </unit>
+    <unit id="4710626519203410106">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1440</note>
+      </notes>
+      <segment>
+        <source>Verkleinern</source>
+      </segment>
+    </unit>
+    <unit id="7766735261673100646">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1446</note>
+      </notes>
+      <segment>
+        <source>Abschneiden</source>
+      </segment>
+    </unit>
+    <unit id="2067326968798044785">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1452</note>
+      </notes>
+      <segment>
+        <source>Füllen</source>
+      </segment>
+    </unit>
+    <unit id="3020287547382707558">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:680</note>
+      </notes>
+      <segment>
+        <source>Formular Titel*</source>
+      </segment>
+    </unit>
+    <unit id="8617378541577598232">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:686</note>
+      </notes>
+      <segment>
+        <source>Formular Titel</source>
+      </segment>
+    </unit>
+    <unit id="4100707199422330681">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:692</note>
+      </notes>
+      <segment>
+        <source>Titel anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="3833317435714673084">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:698</note>
+      </notes>
+      <segment>
+        <source>Formular Beschreibung</source>
+      </segment>
+    </unit>
+    <unit id="5174948911103092376">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:704</note>
+      </notes>
+      <segment>
+        <source>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</source>
+      </segment>
+    </unit>
+    <unit id="5666267213246612821">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:710</note>
+      </notes>
+      <segment>
+        <source>Standardsprache</source>
+      </segment>
+    </unit>
+    <unit id="9019552118736918171">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:716</note>
+      </notes>
+      <segment>
+        <source>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
+      </segment>
+    </unit>
+    <unit id="1372482459728345325">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:722</note>
+      </notes>
+      <segment>
+        <source>Fragen Nummerierung</source>
+      </segment>
+    </unit>
+    <unit id="8481579963208403613">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:728</note>
+      </notes>
+      <segment>
+        <source>Durchgängig nummerieren</source>
+      </segment>
+    </unit>
+    <unit id="3639076766141137848">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:734</note>
+      </notes>
+      <segment>
+        <source>Seitenweise nummerieren</source>
+      </segment>
+    </unit>
+    <unit id="2434918029138704338">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:740</note>
+      </notes>
+      <segment>
+        <source>Keine Nummern anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="9158296968384637533">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:746</note>
+      </notes>
+      <segment>
+        <source>Fragen Reihenfolge</source>
+      </segment>
+    </unit>
+    <unit id="3821562361871225487">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:764</note>
+      </notes>
+      <segment>
+        <source>Abschlusstext*</source>
+      </segment>
+    </unit>
+    <unit id="7027469161598572792">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:770</note>
+      </notes>
+      <segment>
+        <source>Umleitungs URL</source>
+      </segment>
+    </unit>
+    <unit id="9128980080597633518">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:776</note>
+      </notes>
+      <segment>
+        <source>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</source>
+      </segment>
+    </unit>
+    <unit id="4550958265168690830">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:782</note>
+      </notes>
+      <segment>
+        <source>Logo</source>
+      </segment>
+    </unit>
+    <unit id="5229120071979656638">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:788</note>
+      </notes>
+      <segment>
+        <source>Formular Logo</source>
+      </segment>
+    </unit>
+    <unit id="2501314743594284688">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:794</note>
+      </notes>
+      <segment>
+        <source>Eine URL zu einem Logo angeben.</source>
+      </segment>
+    </unit>
+    <unit id="1172866303261737245">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:800</note>
+      </notes>
+      <segment>
+        <source>Position</source>
+      </segment>
+    </unit>
+    <unit id="5556435091490236322">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:806</note>
+      </notes>
+      <segment>
+        <source>Nicht anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="7565716024468232322">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:812</note>
+      </notes>
+      <segment>
+        <source>Links</source>
+      </segment>
+    </unit>
+    <unit id="2593178093887078258">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:818</note>
+      </notes>
+      <segment>
+        <source>Rechts</source>
+      </segment>
+    </unit>
+    <unit id="7729339462879047946">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:824</note>
+      </notes>
+      <segment>
+        <source>Oben</source>
+      </segment>
+    </unit>
+    <unit id="6261398890082020172">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:830</note>
+      </notes>
+      <segment>
+        <source>Unten</source>
+      </segment>
+    </unit>
+    <unit id="1348774649041038169">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:878</note>
+      </notes>
+      <segment>
+        <source>Navigation</source>
+      </segment>
+    </unit>
+    <unit id="3791397886649466581">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:884</note>
+      </notes>
+      <segment>
+        <source>Erste Seite ist Startseite</source>
+      </segment>
+    </unit>
+    <unit id="2189698395299719013">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:890</note>
+      </notes>
+      <segment>
+        <source>Die erste Seite erhält einen Start Button für das Formular.</source>
+      </segment>
+    </unit>
+    <unit id="6178833123766704127">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:896</note>
+      </notes>
+      <segment>
+        <source>Zurück Button erlauben</source>
+      </segment>
+    </unit>
+    <unit id="7695508861104987850">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:902</note>
+      </notes>
+      <segment>
+        <source>Nächste Seite automatisch öffnen</source>
+      </segment>
+    </unit>
+    <unit id="2539753449794837656">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:908</note>
+      </notes>
+      <segment>
+        <source>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</source>
+      </segment>
+    </unit>
+    <unit id="8815755568322473340">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:914</note>
+      </notes>
+      <segment>
+        <source>Vorschau vor dem absenden</source>
+      </segment>
+    </unit>
+    <unit id="4048724896199851116">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:920</note>
+      </notes>
+      <segment>
+        <source>Keine Vorschau</source>
+      </segment>
+    </unit>
+    <unit id="3116521044657277687">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:926</note>
+      </notes>
+      <segment>
+        <source>Alle Fragen</source>
+      </segment>
+    </unit>
+    <unit id="8088636398432806268">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:932</note>
+      </notes>
+      <segment>
+        <source>Alle ausgefüllten Fragen</source>
+      </segment>
+    </unit>
+    <unit id="324207327537868266">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:938</note>
+      </notes>
+      <segment>
+        <source>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular final absendet.</source>
+      </segment>
+    </unit>
+    <unit id="9183727284848549860">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:944</note>
+      </notes>
+      <segment>
+        <source>Fortschrittsbalken Anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="4185383975352174936">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:968</note>
+      </notes>
+      <segment>
+        <source>Oben und unten</source>
+      </segment>
+    </unit>
+    <unit id="503802866275364170">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:974</note>
+      </notes>
+      <segment>
+        <source>Fortschrittsbalken Berechnung</source>
+      </segment>
+    </unit>
+    <unit id="5884518565866049278">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:980</note>
+      </notes>
+      <segment>
+        <source>Sichtbare Seiten</source>
+      </segment>
+    </unit>
+    <unit id="8170033538072466570">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:986</note>
+      </notes>
+      <segment>
+        <source>Sichtbare Pflichtfragen</source>
+      </segment>
+    </unit>
+    <unit id="6268991995109043706">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:992</note>
+      </notes>
+      <segment>
+        <source>Alle sichtbaren Fragen</source>
+      </segment>
+    </unit>
+    <unit id="4672431604235348857">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:998</note>
+      </notes>
+      <segment>
+        <source>Korrekt beantwortete Fragen (Quiz)</source>
+      </segment>
+    </unit>
+    <unit id="235619957920177805">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1004</note>
+      </notes>
+      <segment>
+        <source>Seiten</source>
+      </segment>
+    </unit>
+    <unit id="8842099329146114445">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1010</note>
+      </notes>
+      <segment>
+        <source>Timer/Quiz</source>
+      </segment>
+    </unit>
+    <unit id="1939472793559014594">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1016</note>
+      </notes>
+      <segment>
+        <source>Zeitlimit in Sekunden für das Formular</source>
+      </segment>
+    </unit>
+    <unit id="2813735869096234149">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1022</note>
+      </notes>
+      <segment>
+        <source>Zeitlimit in Sekunden pro Seite</source>
+      </segment>
+    </unit>
+    <unit id="7133964056789991209">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1028</note>
+      </notes>
+      <segment>
+        <source>Zeitlimit anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="2491849397970098376">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1052</note>
+      </notes>
+      <segment>
+        <source>Timer anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="8224626603237394009">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1058</note>
+      </notes>
+      <segment>
+        <source>Zeit auf dieser Seite und das gesamte Formular</source>
+      </segment>
+    </unit>
+    <unit id="3070058222143457362">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1064</note>
+      </notes>
+      <segment>
+        <source>Zeit auf dieser Seite</source>
+      </segment>
+    </unit>
+    <unit id="5906479838476211239">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1070</note>
+      </notes>
+      <segment>
+        <source>Zeit für das gesamte Formular</source>
+      </segment>
+    </unit>
+    <unit id="3653220996715334574">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1076</note>
+      </notes>
+      <segment>
+        <source>Seite <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></source>
+      </segment>
+    </unit>
+    <unit id="2471765562897109795">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1106</note>
+      </notes>
+      <segment>
+        <source>Seiten Titel</source>
+      </segment>
+    </unit>
+    <unit id="6320380037348531310">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1118</note>
+      </notes>
+      <segment>
+        <source>Seiten Beschreibung</source>
+      </segment>
+    </unit>
+    <unit id="2798807656507405918">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1130</note>
+      </notes>
+      <segment>
+        <source>Standard</source>
+      </segment>
+    </unit>
+    <unit id="2754127055396942427">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1148</note>
+      </notes>
+      <segment>
+        <source>Diese Option überschreibt den Standartwert aus dem Reiter Allgemein.</source>
+      </segment>
+    </unit>
+    <unit id="8416197884058958262">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1160</note>
+      </notes>
+      <segment>
+        <source>Diese Option stellt ein, ob die Seite standartmäßig sichtbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="1203335748647784729">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1172</note>
+      </notes>
+      <segment>
+        <source>Diese Option stellt ein, ob die Seite standartmäßig ausfüllbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="7030772613006934299">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1178</note>
+      </notes>
+      <segment>
+        <source>Zeitlimit in Sekunden für die Seite</source>
+      </segment>
+    </unit>
+    <unit id="5551209617707821082">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1184</note>
+      </notes>
+      <segment>
+        <source>Diese Option überschreibt den Standartwert pro Seite aus dem Reiter Timer/Quiz.</source>
+      </segment>
+    </unit>
+    <unit id="4723836104354899512">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:211</note>
+      </notes>
+      <segment>
+        <source>Formular Editor - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="1846940666050448274">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:533</note>
+      </notes>
+      <segment>
+        <source>Möchten Sie diese Seite wirklich löschen?</source>
+      </segment>
+    </unit>
+    <unit id="4083098439898145242">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:614</note>
+      </notes>
+      <segment>
+        <source>Erfolgreich kopiert</source>
+      </segment>
+    </unit>
+    <unit id="9006495839796416057">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:614</note>
+      </notes>
+      <segment>
+        <source>Sie finden Ihre Zwischenablage ganz oben in der Toolbox.</source>
+      </segment>
+    </unit>
+    <unit id="827004122415134621">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:638</note>
+      </notes>
+      <segment>
+        <source>Möchten Sie das Element wirklich löschen?</source>
+      </segment>
+    </unit>
+    <unit id="6264262637253053810">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:701</note>
+      </notes>
+      <segment>
+        <source> Toolbox</source>
+      </segment>
+    </unit>
+    <unit id="8818010061681835406">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:707</note>
+      </notes>
+      <segment>
+        <source> Favoriten</source>
+      </segment>
+    </unit>
+    <unit id="9011837343127283352">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:713</note>
+      </notes>
+      <segment>
+        <source>Formular page navigation</source>
+      </segment>
+    </unit>
+    <unit id="1557196698790782207">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:719</note>
+      </notes>
+      <segment>
+        <source>Neue Seite hinzufügen</source>
+      </segment>
+    </unit>
+    <unit id="5744410059698672022">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:731</note>
+      </notes>
+      <segment>
+        <source>Ausgewählte Seite löschen</source>
+      </segment>
+    </unit>
+    <unit id="457974053481573035">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:743</note>
+      </notes>
+      <segment>
+        <source>Letzte Änderung wiederholen</source>
+      </segment>
+    </unit>
+    <unit id="9184754693751559474">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:755</note>
+      </notes>
+      <segment>
+        <source>Letzte Änderung rückgängig machen</source>
+      </segment>
+    </unit>
+    <unit id="8074982956026936752">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:767</note>
+      </notes>
+      <segment>
+        <source>Formular Einstellungen öffnen</source>
+      </segment>
+    </unit>
+    <unit id="1984014520885532931">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:779</note>
+      </notes>
+      <segment>
+        <source>Formular Vorschau öffnen</source>
+      </segment>
+    </unit>
+    <unit id="1757132388528868196">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:791</note>
+      </notes>
+      <segment>
+        <source>Formular speichern</source>
+      </segment>
+    </unit>
+    <unit id="90895410484051873">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:803</note>
+      </notes>
+      <segment>
+        <source>Zurück zu den Details</source>
+      </segment>
+    </unit>
+    <unit id="8696865147554603290">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:815</note>
+      </notes>
+      <segment>
+        <source>Zwischenablage</source>
+      </segment>
+    </unit>
+    <unit id="5063140447217153857">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:827</note>
+      </notes>
+      <segment>
+        <source>Zeige Seite <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></source>
+      </segment>
+    </unit>
+    <unit id="6670435124565827548">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:833</note>
+      </notes>
+      <segment>
+        <source> Ziehen Sie etwas in den Arbeitsbereich... </source>
+      </segment>
+    </unit>
+    <unit id="7897211246412919659">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:839</note>
+      </notes>
+      <segment>
+        <source>Verschieben</source>
+      </segment>
+    </unit>
+    <unit id="6421015407864399648">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:875</note>
+      </notes>
+      <segment>
+        <source>Kopieren</source>
+      </segment>
+    </unit>
+    <unit id="9141378190271389476">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:887</note>
+      </notes>
+      <segment>
+        <source>Als Favoriten speichern</source>
+      </segment>
+    </unit>
+    <unit id="8852250703686567498">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:88</note>
+      </notes>
+      <segment>
+        <source>Ungültige Einstellungen</source>
+      </segment>
+    </unit>
+    <unit id="9111265276371777280">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:88</note>
+      </notes>
+      <segment>
+        <source>Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.</source>
+      </segment>
+    </unit>
+    <unit id="6921718972798296996">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:138</note>
+      </notes>
+      <segment>
+        <source> Neues Formular</source>
+      </segment>
+    </unit>
+    <unit id="1456316300337773432">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:156</note>
+      </notes>
+      <segment>
+        <source>Einstellungen zum neuen Formular</source>
+      </segment>
+    </unit>
+    <unit id="6154523979033512876">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:168</note>
+      </notes>
+      <segment>
+        <source>Mein Formular</source>
+      </segment>
+    </unit>
+    <unit id="5610425955750546094">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:174</note>
+      </notes>
+      <segment>
+        <source>Template</source>
+      </segment>
+    </unit>
+    <unit id="8496502695397194982">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:180</note>
+      </notes>
+      <segment>
+        <source>Suchen</source>
+      </segment>
+    </unit>
+    <unit id="3367843544810442794">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:192</note>
+      </notes>
+      <segment>
+        <source>Formular erstellen</source>
+      </segment>
+    </unit>
+    <unit id="5961265961943224067">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.js:198</note>
+      </notes>
+      <segment>
+        <source> Erstellen</source>
+      </segment>
+    </unit>
+    <unit id="4827703385144532970">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:599</note>
+      </notes>
+      <segment>
+        <source>Dashboard - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="6075502696052235124">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:774</note>
+      </notes>
+      <segment>
+        <source>Status: Alle</source>
+      </segment>
+    </unit>
+    <unit id="7386041263711688644">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:780</note>
+      </notes>
+      <segment>
+        <source>Status: Erstellt</source>
+      </segment>
+    </unit>
+    <unit id="1570500676393057586">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:786</note>
+      </notes>
+      <segment>
+        <source>Status: In Bearbeitung</source>
+      </segment>
+    </unit>
+    <unit id="2913904211707162832">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:792</note>
+      </notes>
+      <segment>
+        <source>Status: Abgeschlossen</source>
+      </segment>
+    </unit>
+    <unit id="2418500321333956842">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:804</note>
+      </notes>
+      <segment>
+        <source>Formular</source>
+      </segment>
+    </unit>
+    <unit id="3906234135081295833">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:822</note>
+      </notes>
+      <segment>
+        <source>Abgeschlossen</source>
+      </segment>
+    </unit>
+    <unit id="8999417070988208750">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:846</note>
+      </notes>
+      <segment>
+        <source>Formular öffnen</source>
+      </segment>
+    </unit>
+    <unit id="786291885141387519">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:852</note>
+      </notes>
+      <segment>
+        <source> Formular öffnen </source>
+      </segment>
+    </unit>
+    <unit id="1875629595072033230">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:858</note>
+      </notes>
+      <segment>
+        <source>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</source>
+      </segment>
+    </unit>
+    <unit id="8902031064230548096">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:888</note>
+      </notes>
+      <segment>
+        <source>Status: Veröffentlicht</source>
+      </segment>
+    </unit>
+    <unit id="6006001086469034825">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:894</note>
+      </notes>
+      <segment>
+        <source>Status: Geschlossen</source>
+      </segment>
+    </unit>
+    <unit id="3516494453193947151">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:900</note>
+      </notes>
+      <segment>
+        <source>Titel</source>
+      </segment>
+    </unit>
+    <unit id="1330299988060557700">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:948</note>
+      </notes>
+      <segment>
+        <source>Neues Formular erstellen</source>
+      </segment>
+    </unit>
+    <unit id="2877409751096310292">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:954</note>
+      </notes>
+      <segment>
+        <source>Neues Formular</source>
+      </segment>
+    </unit>
+    <unit id="3451297314722320142">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:960</note>
+      </notes>
+      <segment>
+        <source>Formular importieren</source>
+      </segment>
+    </unit>
+    <unit id="5316487234495661938">
+      <notes>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.js:113</note>
+      </notes>
+      <segment>
+        <source>Ergebnisvorschau</source>
+      </segment>
+    </unit>
+    <unit id="8676788741374508103">
+      <notes>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.js:116</note>
+      </notes>
+      <segment>
+        <source>Formularvorschau</source>
+      </segment>
+    </unit>
+    <unit id="7055687446802038168">
+      <notes>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.js:155</note>
+      </notes>
+      <segment>
+        <source>Anzeigemodus</source>
+      </segment>
+    </unit>
+    <unit id="6957721606845154617">
+      <notes>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.js:161</note>
+      </notes>
+      <segment>
+        <source>Editiermodus</source>
+      </segment>
+    </unit>
+    <unit id="5290454533235962082">
+      <notes>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.js:167</note>
+      </notes>
+      <segment>
+        <source>Vorschaumodus</source>
+      </segment>
+    </unit>
+    <unit id="51574765818008149">
+      <notes>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.js:173</note>
+      </notes>
+      <segment>
+        <source>Sprache</source>
+      </segment>
+    </unit>
+    <unit id="5444543356424916610">
+      <notes>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.js:179</note>
+      </notes>
+      <segment>
+        <source>Unsichtbare Elemente anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="623768782436568030">
+      <notes>
+        <note category="location">src/app/fragebogen/pendingchanges.guard.js:14</note>
+      </notes>
+      <segment>
+        <source>ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.</source>
+      </segment>
+    </unit>
+    <unit id="5589675804344200229">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:72</note>
+      </notes>
+      <segment>
+        <source>Eingabefeld</source>
+      </segment>
+    </unit>
+    <unit id="5364143507457218055">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:90</note>
+      </notes>
+      <segment>
+        <source>Kommentarfeld</source>
+      </segment>
+    </unit>
+    <unit id="1531248391846636211">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:108</note>
+      </notes>
+      <segment>
+        <source>Ja/Nein</source>
+      </segment>
+    </unit>
+    <unit id="9142428020401391819">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:126</note>
+      </notes>
+      <segment>
+        <source>Einfachauswahl</source>
+      </segment>
+    </unit>
+    <unit id="1256089082629822545">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:159</note>
+      </notes>
+      <segment>
+        <source>Mehrfachauswahl</source>
+      </segment>
+    </unit>
+    <unit id="5222539429128643526">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:192</note>
+      </notes>
+      <segment>
+        <source>Bilderauswahl</source>
+      </segment>
+    </unit>
+    <unit id="241839647344135361">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:232</note>
+      </notes>
+      <segment>
+        <source>Bewertung</source>
+      </segment>
+    </unit>
+    <unit id="6613897755697953443">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:258</note>
+      </notes>
+      <segment>
+        <source>Slider</source>
+      </segment>
+    </unit>
+    <unit id="8349020599502130637">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:280</note>
+      </notes>
+      <segment>
+        <source>Likert Skala</source>
+      </segment>
+    </unit>
+    <unit id="7531449458395898640">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:335</note>
+      </notes>
+      <segment>
+        <source>Unterschrift</source>
+      </segment>
+    </unit>
+    <unit id="6217203485626464476">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/data.js:354</note>
+      </notes>
+      <segment>
+        <source>Fileupload</source>
+      </segment>
+    </unit>
+    <unit id="3645495878014081231">
+      <notes>
+        <note category="location">src/app/static/login/login.component.js:31</note>
+      </notes>
+      <segment>
+        <source>Login - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="3246386386339214161">
+      <notes>
+        <note category="location">src/app/static/login/login.component.js:79</note>
+      </notes>
+      <segment>
+        <source>Login fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="4025988496947543426">
+      <notes>
+        <note category="location">src/app/static/login/login.component.js:79</note>
+      </notes>
+      <segment>
+        <source>Es konnte kein Token vom Endpunkt bezogen werden.</source>
+      </segment>
+    </unit>
+    <unit id="4426393519905650436">
+      <notes>
+        <note category="location">src/app/static/login/login.component.js:104</note>
+      </notes>
+      <segment>
+        <source>Sie werden in kürze weitergeleitet...</source>
+      </segment>
+    </unit>
+    <unit id="5603926992325888453">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:12</note>
+      </notes>
+      <segment>
+        <source>Portal für Wertermittlung Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="154280373686343609">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:27</note>
+      </notes>
+      <segment>
+        <source>für Bauland und landwirtschaftliche Nutzflächen für das gesamte Land Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="3480843511135968157">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:33</note>
+      </notes>
+      <segment>
+        <source>Zur Anwendung</source>
+      </segment>
+    </unit>
+    <unit id="1966118280092754963">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:39</note>
+      </notes>
+      <segment>
+        <source>Immobilienpreis-Index</source>
+      </segment>
+    </unit>
+    <unit id="2864908577077720607">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:51</note>
+      </notes>
+      <segment>
+        <source>Fragebogen</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>
