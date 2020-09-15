@@ -1,6 +1,7 @@
 FROM nginx:alpine
 
 COPY /power/dist/power /usr/share/nginx/html
+RUN mv /usr/share/nginx/html/de/* /usr/share/nginx/html/
 
 ARG BRANCH="local"
 ARG COMMIT="dev"

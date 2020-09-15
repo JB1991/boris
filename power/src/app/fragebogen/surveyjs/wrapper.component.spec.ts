@@ -66,17 +66,5 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
         expect(component.data).toEqual({ 'data': 5 });
     });
-
-    it('should do surveyjs 3', () => {
-        component.model = formSample;
-        component.changes = null;
-        component.interimResult = null;
-        component.submitResult = null;
-
-        component.ngOnChanges();
-        fixture.detectChanges();
-
-        expect(component.data).toBeNull();
-    });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

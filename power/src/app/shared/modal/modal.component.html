@@ -5,7 +5,8 @@
      [attr.aria-hidden]="!isOpen"
      [attr.aria-label]="title"
      #mymodal>
-    <div cdkTrapFocus>
+    <div role="document"
+         cdkTrapFocus>
         <!-- modal headbar -->
         <nav class="navbar navbar-light bg-light mb-1 mb-lg-3">
             <span class="navbar-brand mb-0 h1"
@@ -15,6 +16,8 @@
                     class="close"
                     i18n-title
                     title="Schließen"
+                    i18n-aria-label
+                    aria-label="Schließen"
                     (click)="close()">
                 <span aria-hidden="true">&times;</span>
             </button>

@@ -1,7 +1,6 @@
 import { PreviewPipe } from './preview.pipe';
 
 const sample = {
-    locale: 'de',
     pages: [
         {
             elements: [

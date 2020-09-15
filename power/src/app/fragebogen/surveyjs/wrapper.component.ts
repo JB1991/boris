@@ -12,7 +12,7 @@ export class WrapperComponent implements OnChanges {
     @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv: ElementRef;
     @Input() public model: {};
     @Input() public data: any = null;
-    @Input() public mode: 'edit' | 'display';
+    @Input() public mode: 'edit' | 'display' = 'edit';
     @Input() public theme = 'default';
     @Input() public css: {};
     @Input() public showInvisible = false;
@@ -41,9 +41,7 @@ export class WrapperComponent implements OnChanges {
     }
 
     ngOnChanges() {
-        if (this.theme) {
-            Survey.StylesManager.applyTheme(this.theme);
-        }
+        Survey.StylesManager.applyTheme(this.theme);
         Survey.surveyLocalization.defaultLocale = 'de';
 
         // load custom widgets
@@ -64,9 +62,7 @@ export class WrapperComponent implements OnChanges {
         });
 
         // set options
-        if (this.mode) {
-            this.survey.mode = this.mode;
-        }
+        this.survey.mode = this.mode;
         this.survey.showInvisibleElements = this.showInvisible;
         this.survey.sendResultOnPageNext = true;
         this.survey.checkErrorsMode = 'onNextPage';
@@ -75,30 +71,21 @@ export class WrapperComponent implements OnChanges {
         this.survey.maxOthersLength = 200;
 
         // build property model
-        this.props = { model: this.survey };
-        if (this.css) {
-            this.props['css'] = this.css;
-        }
+        this.props = { model: this.survey, css: this.css };
         if (this.model && this.model['data']) {
             this.props['data'] = this.model['data'];
         } else if (this.data) {
             this.props['data'] = this.data;
         }
-        if (this.changes) {
-            this.props['onValueChanged'] = (s, _) => {
-                this.changes.emit(s.data);
-            };
-        }
-        if (this.interimResult) {
-            this.props['onCurrentPageChanged'] = (s, _) => {
-                this.interimResult.emit(s.data);
-            };
-        }
-        if (this.submitResult) {
-            this.props['onComplete'] = (s, o) => {
-                this.submitResult.emit({ result: s.data, options: o });
-            };
-        }
+        this.props['onValueChanged'] = (s, _) => {
+            this.changes.emit(s.data);
+        };
+        this.props['onCurrentPageChanged'] = (s, _) => {
+            this.interimResult.emit(s.data);
+        };
+        this.props['onComplete'] = (s, o) => {
+            this.submitResult.emit({ result: s.data, options: o });
+        };
 
         // render survey
         Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, this.props);
