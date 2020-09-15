@@ -13,32 +13,51 @@
             <span i18n>&nbsp;Formulare</span>
             <div class="float-right">
                 <input class="form-control" id="form-title-search" type="text" placeholder="Titel" aria-label="Titel"
-                    (blur)="title = $event.target.value; update(false)" (keydown.enter)="title = $event.target.value; update(false)">
+                    (blur)="title = $event.target.value; update(false)"
+                    (keydown.enter)="title = $event.target.value; update(false)">
             </div>
         </div>
         <div class="card-body table-responsive p-0">
             <table class="table table-hover m-0">
                 <thead>
                     <tr>
-                        <th scope="col" (click)="changeSort('title')" class="border-top-0 w-50" i18n>
-                            <span role="button">Titel</span>
+                        <th scope="col" 
+                        (click)="changeSort('title')" 
+                        class="border-top-0 w-50">
+                            <span role="button" 
+                            i18n>Titel
+                            </span>
                             <span *ngIf="sort && sort == 'title'">
-                                <svg *ngIf="order == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up">
-                                    <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                <svg *ngIf="order == 'asc'" 
+                                    width="1em" 
+                                    height="0.8em" 
+                                    viewBox="0 1.2 16 16"
+                                    class="bi bi-arrow-up"
+                                    aria-hidden="true">
+                                    <path
+                                        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                 </svg>
-                                <svg *ngIf="order == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down">
-                                    <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                <span class="sr-only"
+                                      i18n>Aufsteigend sortiert</span>
+                                <svg *ngIf="order == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16"
+                                    class="bi bi-arrow-down">
+                                    <path
+                                        d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                 </svg>
                             </span>
                         </th>
                         <th scope="col" (click)="changeSort('published')" class="border-top-0" i18n>
                             <span role="button">Veröffentlicht</span>
                             <span *ngIf="sort && sort == 'published'">
-                                <svg *ngIf="order == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up">
-                                    <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                <svg *ngIf="order == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16"
+                                    class="bi bi-arrow-up">
+                                    <path
+                                        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                 </svg>
-                                <svg *ngIf="order == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down">
-                                    <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                <svg *ngIf="order == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16"
+                                    class="bi bi-arrow-down">
+                                    <path
+                                        d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                 </svg>
                             </span>
                         </th>
