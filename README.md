@@ -67,6 +67,11 @@ Sprachstrings exportieren
 ng xi18n --output-path src/locales --ivy
 ```
 
+Sprache testen
+```
+ng serve --open --configuration=en
+```
+
 ## Coding Guideline
 Die Programmier-Richtlinie für dieses Projekt ist hier zu finden:
 [Coding Guideline - Angular-Frontend](https://gitlab.com/lgln/power.ni/coding-guidelines/angular-frontend)

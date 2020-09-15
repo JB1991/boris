@@ -99,7 +99,7 @@
                             "localize": [
                                 "en"
                             ],
-                            "baseHref": "/en/"
+                            "baseHref": "/"
                         }
                     }
                 },
@@ -114,6 +114,12 @@
                     "configurations": {
                         "production": {
                             "browserTarget": "power:build:production,de"
+                        },
+                        "de": {
+                            "browserTarget": "power:build:de"
+                        },
+                        "en": {
+                            "browserTarget": "power:build:en"
                         }
                     }
                 },
