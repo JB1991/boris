@@ -61,6 +61,12 @@
                                 {
                                     "type": "anyComponentStyle",
                                     "maximumWarning": "6kb"
+                                },
+                                {
+                                    "type": "bundle",
+                                    "name": "main",
+                                    "maximumWarning": "512kb",
+                                    "maximumError": "768kb"
                                 }
                             ],
                             "fileReplacements": [
