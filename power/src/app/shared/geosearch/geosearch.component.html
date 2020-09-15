@@ -1,7 +1,13 @@
 <div class="input-group p-1">
-    <input type="text" placement="bottom" class="form-control" placeholder="Bitte Ort eingeben ..."
+    <input type="text"
+           class="form-control"
+           placement="bottom"
+           placeholder="Bitte Ort eingeben ..."
+           aria-label="Ort"
            [(ngModel)]="model"
-           [ngbTypeahead]="search" [class.is-invalid]="searchFailed" [inputFormatter]="formatter"
+           [ngbTypeahead]="search"
+           [class.is-invalid]="searchFailed"
+           [inputFormatter]="formatter"
            [resultFormatter]="formatter"
            (selectItem)="selectItem($event.item)">
 </div>
