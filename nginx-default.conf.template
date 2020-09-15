@@ -3,7 +3,7 @@
 server {
   listen  80;
   gzip on;
-  gzip_types application/javascript application/json text/css text/html;
+  gzip_types application/javascript application/json application/octet-stream image/x-icon text/css text/html;
   server_tokens off;
 
   # security headers
