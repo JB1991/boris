@@ -158,6 +158,7 @@ export class FormAPIService {
         if (!id) {
             throw new Error('id is required');
         }
+        /* istanbul ignore else */
         if (!form) {
             form = '';
         }
@@ -340,6 +341,7 @@ export class FormAPIService {
         if (!id) {
             throw new Error('id is required');
         }
+        /* istanbul ignore else */
         if (!results) {
             results = '';
         }
@@ -438,6 +440,7 @@ export class FormAPIService {
         if (!id) {
             throw new Error('id is required');
         }
+        /* istanbul ignore else */
         if (!element) {
             element = '';
         }
@@ -546,6 +549,7 @@ export class FormAPIService {
         if (!id) {
             throw new Error('id is required');
         }
+        /* istanbul ignore else */
         if (!results) {
             results = '';
         }

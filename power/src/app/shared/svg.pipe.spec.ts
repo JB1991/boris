@@ -3,7 +3,7 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 
 import { SvgPipe } from './svg.pipe';
 
-describe('Fragebogen.Editor.SvgPipe', () => {
+describe('Shared.SvgPipe', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [

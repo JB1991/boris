@@ -13,14 +13,12 @@ import { FormAPIService } from '../formapi.service';
     encapsulation: ViewEncapsulation.None
 })
 export class PublicDashboardComponent implements OnInit {
-
     public data: any[];
     public total: number;
     public page = 1;
     public perPage = 5;
     public pageSizes: number[];
-
-    public title?: string;
+    public title: string;
     public sort: 'title' | 'published' = 'title';
     public order: 'asc' | 'desc' = 'asc';
 
@@ -59,7 +57,7 @@ export class PublicDashboardComponent implements OnInit {
                 sort: this.sort,
                 order: this.order,
             };
-            if (this.title !== undefined && this.title !== '' ) {
+            if (this.title) {
                 params['title-contains'] = this.title;
             }
             const response = await this.formAPI.getPublicForms(params);
@@ -71,6 +69,7 @@ export class PublicDashboardComponent implements OnInit {
         } catch (error) {
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            /* istanbul ignore else */
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }

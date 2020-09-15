@@ -14,7 +14,6 @@ export class PreviewPipe implements PipeTransform {
      */
     transform(value: any): any {
         return {
-            locale: 'de',
             pages: [
                 {
                     elements: [

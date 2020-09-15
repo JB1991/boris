@@ -475,7 +475,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // scroll top
         setTimeout(() => {
             const div = document.getElementById('toolbox');
-            /* istanbul ignore else */
+            /* istanbul ignore next */
             if (div) {
                 document.getElementById('toolbox').scrollTop = 0;
             }

@@ -29,7 +29,8 @@
                     "title": {
                         "default": "# Titel der Frage"
                     },
-                    "type": "text"
+                    "type": "text",
+					"startWithNewLine": true
                 },
                 {
                     "choices": [

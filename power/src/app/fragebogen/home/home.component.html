@@ -19,12 +19,16 @@
                         <path fill-rule="evenodd"
                               d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
                     </svg>
-                    <span i18n>&nbsp;Formular ausfüllen</span>
+                    <span class="ml-1"
+                          i18n>Formular ausfüllen</span>
                 </h1>
+
                 <p class="lead"
                    i18n>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular
-                    zu gelangen.</p>
+                    zu gelangen.
+                </p>
                 <hr class="my-4">
+
                 <div class="lead">
                     <form #pinFormular="ngForm"
                           i18n-aria-label
@@ -40,6 +44,7 @@
                                i18n-placeholder
                                placeholder="Formular PIN"
                                #pin>
+
                         <button type="submit"
                                 class="btn btn-success"
                                 i18n-title
@@ -77,12 +82,16 @@
                         <path fill-rule="evenodd"
                               d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                     </svg>
-                    <span i18n>&nbsp;Formular finden</span>
+                    <span class="ml-1"
+                          i18n>Formular finden</span>
                 </h1>
+
                 <p class="lead"
                    i18n>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen
-                    Formulare.</p>
+                    Formulare.
+                </p>
                 <hr class="my-4">
+
                 <div class="lead">
                     <a [routerLink]="['/forms/public-dashboard']">
                         <svg width="1em"
@@ -99,7 +108,8 @@
                             <path fill-rule="evenodd"
                                   d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z" />
                         </svg>
-                        <span i18n>&nbsp;Zu den öffentlichen Formularen</span>
+                        <span class="ml-1"
+                              i18n>Zu den öffentlichen Formularen</span>
                     </a>
                 </div>
             </div>
@@ -122,12 +132,16 @@
                         <path fill-rule="evenodd"
                               d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
                     </svg>
-                    <span i18n>&nbsp;Notarportal</span>
+                    <span class="ml-1"
+                          i18n>Notarportal</span>
                 </h1>
+
                 <p class="lead"
                    i18n>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen
-                    Datenaustausch vorzunehmen.</p>
+                    Datenaustausch vorzunehmen.
+                </p>
                 <hr class="my-4">
+
                 <div class="lead">
                     Coming Soon&trade;
                 </div>
@@ -150,11 +164,15 @@
                         <path fill-rule="evenodd"
                               d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                     </svg>
-                    <span i18n>&nbsp;Mitarbeiter</span>
+                    <span class="ml-1"
+                          i18n>Mitarbeiter</span>
                 </h1>
+
                 <p class="lead"
-                   i18n>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</p>
+                   i18n>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.
+                </p>
                 <hr class="my-4">
+
                 <div class="lead">
                     <a [routerLink]="['/forms/dashboard']">
                         <svg width="1em"
@@ -171,7 +189,8 @@
                             <path fill-rule="evenodd"
                                   d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z" />
                         </svg>
-                        <span i18n>&nbsp;Zum Mitarbeiterportal</span>
+                        <span class="ml-1"
+                              i18n>Zum Mitarbeiterportal</span>
                     </a>
                 </div>
             </div>

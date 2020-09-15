@@ -12,10 +12,10 @@ import { environment } from '@env/environment';
 import { EditorComponent } from './editor.component';
 import { StorageService } from './storage.service';
 import { HistoryService } from './history.service';
-import { SvgPipe } from './svg.pipe';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('Fragebogen.Editor.EditorComponent', () => {
     let component: EditorComponent;
@@ -33,7 +33,8 @@ describe('Fragebogen.Editor.EditorComponent', () => {
                 BrowserAnimationsModule,
                 NgxSmoothDnDModule,
                 CollapseModule.forRoot(),
-                SurveyjsModule
+                SurveyjsModule,
+                SharedModule
             ],
             providers: [
                 Title,
@@ -57,8 +58,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
             declarations: [
                 EditorComponent,
                 MockElementModalComponent,
-                MockFormularModalComponent,
-                SvgPipe
+                MockFormularModalComponent
             ]
         }).compileComponents();
 

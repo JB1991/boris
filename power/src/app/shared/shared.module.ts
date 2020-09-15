@@ -12,13 +12,15 @@ import { TagboxComponent } from './tagbox/tagbox.component';
 import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
+import { SvgPipe } from './svg.pipe';
 
 @NgModule({
     declarations: [
         GeosearchComponent,
         ModalComponent,
         ModalminiComponent,
-        TagboxComponent
+        TagboxComponent,
+        SvgPipe
     ],
     exports: [
         GeosearchComponent,
@@ -27,7 +29,8 @@ import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
         TagboxComponent,
         AuthModule,
         AlertsModule,
-        LoadingscreenModule
+        LoadingscreenModule,
+        SvgPipe
     ],
     imports: [
         CommonModule,
