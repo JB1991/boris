@@ -14,7 +14,10 @@
                 }
             },
             "i18n": {
-                "sourceLocale": "de",
+                "sourceLocale": {
+                    "code": "de",
+                    "baseHref": ""
+                },
                 "locales": {
                     "en": "src/locales/messages.en.xlf"
                 }
@@ -23,7 +26,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "localize": false,
+                        "localize": true,
                         "aot": true,
                         "outputPath": "dist/power",
                         "index": "src/index.html",
@@ -79,20 +82,32 @@
                             "vendorChunk": false,
                             "buildOptimizer": true,
                             "serviceWorker": true
+                        },
+                        "de": {
+                            "localize": [
+                                "de"
+                            ],
+                            "baseHref": "/"
+                        },
+                        "en": {
+                            "localize": [
+                                "en"
+                            ],
+                            "baseHref": "/en/"
                         }
                     }
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "power:build",
+                        "browserTarget": "power:build:de",
                         "proxyConfig": "proxy.conf.json",
                         "host": "0.0.0.0",
                         "disableHostCheck": true
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "power:build:production"
+                            "browserTarget": "power:build:production,de"
                         }
                     }
                 },
