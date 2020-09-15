@@ -27,9 +27,9 @@ export const STICHTAGE = [
 export const TEILMAERKTE = [
     {value: 'B', viewValue: 'Bauland'},
     {value: 'LF', viewValue: 'Landwirtschaft'},
-    {value: 'SF', viewValue: 'Sonderfläche'},
-    {value: 'R', viewValue: 'R'},
-    {value: 'E', viewValue: 'E'},
+    {value: 'SF', viewValue: 'Sonstige Flächen'},
+    {value: 'R', viewValue: 'Rohbauland'},
+    {value: 'E', viewValue: 'Bauerwartungsland'},
 ];
 
 /**
@@ -100,4 +100,5 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.featureSubscription.unsubscribe();
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */
