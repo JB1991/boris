@@ -5,3 +5,18 @@
 .navbar-toggler {
     outline: none;
 }
+
+.footer-link,
+.navbar-nav .nav-item .nav-link {
+    color: #0173ec;
+}
+
+.footer-link:hover,
+.navbar-nav .nav-item.active .nav-link,
+.navbar-nav .nav-item:hover .nav-link {
+    color: #0052a9;
+}
+
+.navbar-nav .nav-item .nav-link.active {
+    color: #004084;
+}
