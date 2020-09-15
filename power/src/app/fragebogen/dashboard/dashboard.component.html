@@ -39,14 +39,14 @@
                             (click)="changeTaskSort('id')"
                             class="border-top-0"
                             i18n>
-                            ID
+                            <span role="button">ID</span>
                             <span *ngIf="taskSort && taskSort == 'id'">
-                                <span *ngIf="taskOrder == 'asc'">
-                                    (aufsteigend)
-                                </span>
-                                <span *ngIf="taskOrder == 'desc'">
-                                    (absteigend)
-                                </span>
+                                <svg *ngIf="taskOrder == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up">
+                                    <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                </svg>
+                                <svg *ngIf="taskOrder == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down">
+                                    <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                </svg>
                             </span>
                         </th>
                         <th scope="col"
@@ -62,28 +62,28 @@
                             (click)="changeTaskSort('submitted')"
                             class="border-top-0"
                             i18n>
-                            Abgeschlossen
+                            <span role="button">Abgeschlossen</span>
                             <span *ngIf="taskSort && taskSort == 'submitted'">
-                                <span *ngIf="taskOrder == 'asc'">
-                                    (aufsteigend)
-                                </span>
-                                <span *ngIf="taskOrder == 'desc'">
-                                    (absteigend)
-                                </span>
+                                <svg *ngIf="taskOrder == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up">
+                                    <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                </svg>
+                                <svg *ngIf="taskOrder == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down">
+                                    <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                </svg>
                             </span>
                         </th>
                         <th scope="col"
                             (click)="changeTaskSort('created')"
                             class="border-top-0"
                             i18n>
-                            Erstellt
+                            <span role="button">Erstellt</span>
                             <span *ngIf="taskSort && taskSort == 'created'">
-                                <span *ngIf="taskOrder == 'asc'">
-                                    (aufsteigend)
-                                </span>
-                                <span *ngIf="taskOrder == 'desc'">
-                                    (absteigend)
-                                </span>
+                                <svg *ngIf="taskOrder == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up">
+                                    <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                </svg>
+                                <svg *ngIf="taskOrder == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down">
+                                    <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                </svg>
                             </span>
                         </th>
                     </tr>
@@ -190,28 +190,28 @@
                             (click)="changeFormSort('id')"
                             class="border-top-0"
                             i18n>
-                            ID
+                            <span role="button">ID</span>
                             <span *ngIf="formSort && formSort == 'id'">
-                                <span *ngIf="formOrder == 'asc'">
-                                    (aufsteigend)
-                                </span>
-                                <span *ngIf="formOrder == 'desc'">
-                                    (absteigend)
-                                </span>
+                                <svg *ngIf="formOrder == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up">
+                                    <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                </svg>
+                                <svg *ngIf="formOrder == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down">
+                                    <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                </svg>
                             </span>
                         </th>
                         <th scope="col"
                             (click)="changeFormSort('title')"
                             class="border-top-0 w-50"
                             i18n>
-                            Titel
+                            <span role="button">Titel</span>
                             <span *ngIf="formSort && formSort == 'title'">
-                                <span *ngIf="formOrder == 'asc'">
-                                    (aufsteigend)
-                                </span>
-                                <span *ngIf="formOrder == 'desc'">
-                                    (absteigend)
-                                </span>
+                                <svg *ngIf="formOrder == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up">
+                                    <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                </svg>
+                                <svg *ngIf="formOrder == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down">
+                                    <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                </svg>
                             </span>
                         </th>
                         <th scope="col"
@@ -227,14 +227,14 @@
                             (click)="changeFormSort('created')"
                             class="border-top-0"
                             i18n>
-                            Erstellt
+                            <span role="button">Erstellt</span>
                             <span *ngIf="formSort && formSort == 'created'">
-                                <span *ngIf="formOrder == 'asc'">
-                                    (aufsteigend)
-                                </span>
-                                <span *ngIf="formOrder == 'desc'">
-                                    (absteigend)
-                                </span>
+                                <svg *ngIf="formOrder == 'asc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up">
+                                    <path d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                </svg>
+                                <svg *ngIf="formOrder == 'desc'" width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down">
+                                    <path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                </svg>
                             </span>
                         </th>
                         <th scope="col"
