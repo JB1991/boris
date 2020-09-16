@@ -5,6 +5,7 @@ import { FilloutRoutingModule } from './fillout-routing.module';
 import { FilloutComponent } from './fillout.component';
 import { StorageService } from './storage.service';
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
     imports: [
         CommonModule,
         FilloutRoutingModule,
-        SurveyjsModule
+        SurveyjsModule,
+        FormsModule
     ],
     providers: [
         StorageService

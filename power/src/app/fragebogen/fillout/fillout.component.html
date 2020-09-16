@@ -3,16 +3,43 @@
       id="content"
       tabindex="-1"
       *ngIf="storage.form">
+
+    <!-- language -->
+    <div class="form-group row w-50"
+         *ngIf="wrapper && wrapper.survey.getUsedLocales().length > 1">
+        <label class="col-sm-3 col-form-label"
+               for="language"
+               i18n>Sprache</label>
+        <div class="col-sm-9">
+            <select class="custom-select text-capitalize"
+                    [(ngModel)]="language"
+                    (change)="setLanguage()"
+                    id="language"
+                    name="language">
+                <!--<option *ngFor="let lang of languages | keyvalue; index as i"
+                        [ngValue]="lang.key">
+                    {{ lang.value }}
+                </option>-->
+                <option *ngFor="let lang of wrapper.survey.getUsedLocales(); index as i"
+                        [ngValue]="lang">
+                    {{ languages[lang] }}
+                </option>
+            </select>
+        </div>
+    </div>
+
     <power-forms-surveyjs-wrapper *ngIf="storage.form.access !== 'public'"
                                   [model]="storage.form.content"
                                   [css]="storage.css_style"
                                   (submitResult)="submit($event)"
                                   (interimResult)="progress($event)"
-                                  (changes)="changed($event)">
+                                  (changes)="changed($event)"
+                                  #wrapper>
     </power-forms-surveyjs-wrapper>
     <power-forms-surveyjs-wrapper *ngIf="storage.form.access === 'public'"
                                   [model]="storage.form.content"
                                   [css]="storage.css_style"
-                                  (submitResult)="submitTask(storage.form.id, $event)">
+                                  (submitResult)="submitTask(storage.form.id, $event)"
+                                  #wrapper>
     </power-forms-surveyjs-wrapper>
 </main>

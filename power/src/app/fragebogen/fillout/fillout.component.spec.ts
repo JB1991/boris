@@ -79,6 +79,18 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         expect(component.router.navigate).toHaveBeenCalledTimes(1);
     });
 
+    it('should set language', () => {
+        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
+        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
+        expect(component.storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
+        expect(component.storage.form.id).toEqual('bs63c2os5bcus8t5q0kg');
+
+        component.wrapper = <any>{ survey: { locale: 'de', getUsedLocales: () => { return []; } } };
+        component.language = 'en';
+        component.setLanguage();
+        expect(component.wrapper.survey.locale).toEqual('en');
+    });
+
     it('should create public', () => {
         answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
         answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);

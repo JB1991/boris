@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges, Inject, LOCALE_ID } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ShowdownConverter } from 'ngx-showdown';
 import * as Survey from 'survey-angular';
 import * as Slider from './nouislider';
@@ -23,8 +23,7 @@ export class WrapperComponent implements OnChanges {
     public survey: Survey.Survey;
     public props: any;
 
-    constructor(@Inject(LOCALE_ID) public locale: string,
-        public showdownConverter: ShowdownConverter) {
+    constructor(public showdownConverter: ShowdownConverter) {
         // set showdown settings for markdown
         showdownConverter.setFlavor('github');
         showdownConverter.setOptions({
@@ -70,7 +69,6 @@ export class WrapperComponent implements OnChanges {
         this.survey.storeOthersAsComment = false;
         this.survey.maxTextLength = 5000;
         this.survey.maxOthersLength = 200;
-        this.survey.locale = this.locale;
 
         // build property model
         this.props = { model: this.survey, css: this.css };

@@ -497,7 +497,7 @@
                         </div>
 
                         <!-- element preview -->
-                        <power-forms-surveyjs-wrapper [model]="container | preview"
+                        <power-forms-surveyjs-wrapper [model]="container | preview: storage.model.locale"
                                                       [css]="storage.css_style"
                                                       [showInvisible]="true">
                         </power-forms-surveyjs-wrapper>

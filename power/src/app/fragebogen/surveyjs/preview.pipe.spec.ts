@@ -1,6 +1,7 @@
 import { PreviewPipe } from './preview.pipe';
 
 const sample = {
+    locale: 'de',
     pages: [
         {
             elements: [
@@ -17,12 +18,12 @@ const sample = {
 
 describe('Fragebogen.Surveyjs.PreviewPipe', () => {
     it('create an instance', () => {
-        const pip = new PreviewPipe();
+        const pip = new PreviewPipe('de');
         expect(pip).toBeTruthy();
     });
 
     it('transforms data', () => {
-        const pip = new PreviewPipe();
+        const pip = new PreviewPipe('de');
         expect(pip.transform({ 'x': 3 })).toEqual(sample);
     });
 });

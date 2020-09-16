@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, Inject, LOCALE_ID } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { environment } from '@env/environment';
 import * as Survey from 'survey-angular';
 
@@ -23,9 +23,7 @@ export class PreviewComponent {
     public isVisible = false;
     public languages = Survey.surveyLocalization.localeNames;
 
-    constructor(@Inject(LOCALE_ID) public locale: string) {
-        this.language = this.locale;
-    }
+    constructor() { }
 
     /**
      * Opens full formular preview

@@ -1,10 +1,12 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { environment } from '@env/environment';
+import * as Survey from 'survey-angular';
 
 import { StorageService } from './storage.service';
+import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
@@ -14,9 +16,13 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
     styleUrls: ['./fillout.component.css']
 })
 export class FilloutComponent implements OnInit {
+    @ViewChild('wrapper') public wrapper: WrapperComponent;
+    public language = 'de';
     public submitted = false;
+    public languages = Survey.surveyLocalization.localeNames;
 
-    constructor(public titleService: Title,
+    constructor(@Inject(LOCALE_ID) public locale: string,
+        public titleService: Title,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
@@ -51,6 +57,13 @@ export class FilloutComponent implements OnInit {
         return !this.storage.getUnsavedChanges();
     }
 
+    /**
+     * Set language
+     */
+    public setLanguage() {
+        this.wrapper.survey.locale = this.language;
+    }
+
     public loadForm(id: string) {
         // load form by id
         this.storage.loadForm(id).subscribe((data2) => {
@@ -67,6 +80,16 @@ export class FilloutComponent implements OnInit {
 
             // store form
             this.storage.form = data2['data'];
+            this.language = this.storage.form.content.locale;
+
+            // check if user language exists in survey
+            /* istanbul ignore next */
+            setTimeout(() => {
+                if (this.wrapper && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
+                    this.language = this.locale;
+                    this.setLanguage();
+                }
+            }, 100);
 
             // display form
             this.loadingscreen.setVisible(false);
