@@ -313,9 +313,81 @@
         <source>Sie wurden ausgeloggt.</source>
       </segment>
     </unit>
+    <unit id="3645495878014081231">
+      <notes>
+        <note category="location">src/app/static/login/login.component.js:31</note>
+      </notes>
+      <segment>
+        <source>Login - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="3246386386339214161">
+      <notes>
+        <note category="location">src/app/static/login/login.component.js:79</note>
+      </notes>
+      <segment>
+        <source>Login fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="4025988496947543426">
+      <notes>
+        <note category="location">src/app/static/login/login.component.js:79</note>
+      </notes>
+      <segment>
+        <source>Es konnte kein Token vom Endpunkt bezogen werden.</source>
+      </segment>
+    </unit>
+    <unit id="4426393519905650436">
+      <notes>
+        <note category="location">src/app/static/login/login.component.js:104</note>
+      </notes>
+      <segment>
+        <source>Sie werden in kürze weitergeleitet...</source>
+      </segment>
+    </unit>
+    <unit id="5603926992325888453">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:12</note>
+      </notes>
+      <segment>
+        <source>Portal für Wertermittlung Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="154280373686343609">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:27</note>
+      </notes>
+      <segment>
+        <source>für Bauland und landwirtschaftliche Nutzflächen für das gesamte Land Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="3480843511135968157">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:33</note>
+      </notes>
+      <segment>
+        <source>Zur Anwendung</source>
+      </segment>
+    </unit>
+    <unit id="1966118280092754963">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:39</note>
+      </notes>
+      <segment>
+        <source>Immobilienpreis-Index</source>
+      </segment>
+    </unit>
+    <unit id="2864908577077720607">
+      <notes>
+        <note category="location">src/app/static/start/start.component.js:51</note>
+      </notes>
+      <segment>
+        <source>Fragebogen</source>
+      </segment>
+    </unit>
     <unit id="4321269269579074973">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:209</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:221</note>
       </notes>
       <segment>
         <source>Öffentliche Formulare - POWER.NI</source>
@@ -323,7 +395,7 @@
     </unit>
     <unit id="8488547527396922136">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:251</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:263</note>
       </notes>
       <segment>
         <source>Laden fehlgeschlagen</source>
@@ -331,31 +403,63 @@
     </unit>
     <unit id="3237325831282116749">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:266</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:278</note>
       </notes>
       <segment>
         <source> Formulare</source>
       </segment>
     </unit>
-    <unit id="2346175350170490455">
+    <unit id="2728359226136161685">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:272</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:284</note>
       </notes>
       <segment>
-        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&quot;\uFFFD#16\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#16\uFFFD|\uFFFD/#1:1\uFFFD\uFFFD/*17:1\uFFFD]&quot;">Titel</pc><pc id="1" equivStart="START_TAG_SPAN_1" equivEnd="CLOSE_TAG_SPAN_1" dispStart="&quot;\uFFFD*17:1\uFFFD\uFFFD#1:1\uFFFD&quot;"><pc id="2" equivStart="START_TAG__SVG_SVG" equivEnd="CLOSE_TAG__SVG_SVG" dispStart="&quot;\uFFFD*2:2\uFFFD\uFFFD#1:2\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#1:2\uFFFD\uFFFD/*2:2\uFFFD|\uFFFD/#1:3\uFFFD\uFFFD/*3:3\uFFFD]&quot;"><pc id="3" equivStart="START_TAG__SVG_PATH" equivEnd="CLOSE_TAG__SVG_PATH" dispStart="&quot;\uFFFD#2:2\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#2:2\uFFFD|\uFFFD/#2:3\uFFFD]&quot;"></pc></pc><pc id="4" equivStart="START_TAG__SVG_SVG_1" equivEnd="CLOSE_TAG__SVG_SVG_1" dispStart="&quot;\uFFFD*3:3\uFFFD\uFFFD#1:3\uFFFD&quot;"><pc id="5" equivStart="START_TAG__SVG_PATH_1" equivEnd="CLOSE_TAG__SVG_PATH_1" dispStart="&quot;\uFFFD#2:3\uFFFD&quot;"></pc></pc></pc></source>
+        <source>Titel </source>
       </segment>
     </unit>
-    <unit id="2644787182106782870">
+    <unit id="2688283467752225426">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:278</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:290</note>
       </notes>
       <segment>
-        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&quot;\uFFFD#20\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#20\uFFFD|\uFFFD/#1:1\uFFFD\uFFFD/*21:1\uFFFD]&quot;">Veröffentlicht</pc><pc id="1" equivStart="START_TAG_SPAN_1" equivEnd="CLOSE_TAG_SPAN_1" dispStart="&quot;\uFFFD*21:1\uFFFD\uFFFD#1:1\uFFFD&quot;"><pc id="2" equivStart="START_TAG__SVG_SVG" equivEnd="CLOSE_TAG__SVG_SVG" dispStart="&quot;\uFFFD*2:2\uFFFD\uFFFD#1:2\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#1:2\uFFFD\uFFFD/*2:2\uFFFD|\uFFFD/#1:3\uFFFD\uFFFD/*3:3\uFFFD]&quot;"><pc id="3" equivStart="START_TAG__SVG_PATH" equivEnd="CLOSE_TAG__SVG_PATH" dispStart="&quot;\uFFFD#2:2\uFFFD&quot;" dispEnd="&quot;[\uFFFD/#2:2\uFFFD|\uFFFD/#2:3\uFFFD]&quot;"></pc></pc><pc id="4" equivStart="START_TAG__SVG_SVG_1" equivEnd="CLOSE_TAG__SVG_SVG_1" dispStart="&quot;\uFFFD*3:3\uFFFD\uFFFD#1:3\uFFFD&quot;"><pc id="5" equivStart="START_TAG__SVG_PATH_1" equivEnd="CLOSE_TAG__SVG_PATH_1" dispStart="&quot;\uFFFD#2:3\uFFFD&quot;"></pc></pc></pc></source>
+        <source>Veröffentlicht</source>
+      </segment>
+    </unit>
+    <unit id="6679956278246368232">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:296</note>
+      </notes>
+      <segment>
+        <source>Aufsteigend sortiert </source>
+      </segment>
+    </unit>
+    <unit id="3126010801543248162">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:302</note>
+      </notes>
+      <segment>
+        <source>Absteigend sortiert </source>
+      </segment>
+    </unit>
+    <unit id="8906724350046217592">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:308</note>
+      </notes>
+      <segment>
+        <source>Aufsteigend sortiert </source>
+      </segment>
+    </unit>
+    <unit id="6878012265862317748">
+      <notes>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:314</note>
+      </notes>
+      <segment>
+        <source>Absteigend sortiert </source>
       </segment>
     </unit>
     <unit id="2319824520635416840">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:284</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:320</note>
       </notes>
       <segment>
         <source>Keine Formulare gefunden</source>
@@ -866,14 +970,6 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source> Formular exportieren</source>
-      </segment>
-    </unit>
-    <unit id="2688283467752225426">
-      <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:910</note>
-      </notes>
-      <segment>
-        <source>Veröffentlicht</source>
       </segment>
     </unit>
     <unit id="993560666209573635">
@@ -2550,7 +2646,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4827703385144532970">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:599</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:659</note>
       </notes>
       <segment>
         <source>Dashboard - POWER.NI</source>
@@ -2558,7 +2654,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6075502696052235124">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:774</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:834</note>
       </notes>
       <segment>
         <source>Status: Alle</source>
@@ -2566,7 +2662,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7386041263711688644">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:780</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:840</note>
       </notes>
       <segment>
         <source>Status: Erstellt</source>
@@ -2574,7 +2670,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1570500676393057586">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:786</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:846</note>
       </notes>
       <segment>
         <source>Status: In Bearbeitung</source>
@@ -2582,7 +2678,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2913904211707162832">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:792</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:852</note>
       </notes>
       <segment>
         <source>Status: Abgeschlossen</source>
@@ -2590,7 +2686,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2418500321333956842">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:804</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:864</note>
       </notes>
       <segment>
         <source>Formular</source>
@@ -2598,7 +2694,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3906234135081295833">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:822</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:882</note>
       </notes>
       <segment>
         <source>Abgeschlossen</source>
@@ -2606,7 +2702,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8999417070988208750">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:846</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:930</note>
       </notes>
       <segment>
         <source>Formular öffnen</source>
@@ -2614,7 +2710,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="786291885141387519">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:852</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:936</note>
       </notes>
       <segment>
         <source> Formular öffnen </source>
@@ -2622,7 +2718,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1875629595072033230">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:858</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:942</note>
       </notes>
       <segment>
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</source>
@@ -2630,7 +2726,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8902031064230548096">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:888</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:972</note>
       </notes>
       <segment>
         <source>Status: Veröffentlicht</source>
@@ -2638,7 +2734,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6006001086469034825">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:894</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:978</note>
       </notes>
       <segment>
         <source>Status: Geschlossen</source>
@@ -2646,7 +2742,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3516494453193947151">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:900</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:984</note>
       </notes>
       <segment>
         <source>Titel</source>
@@ -2654,7 +2750,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1330299988060557700">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:948</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:1032</note>
       </notes>
       <segment>
         <source>Neues Formular erstellen</source>
@@ -2662,7 +2758,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2877409751096310292">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:954</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:1038</note>
       </notes>
       <segment>
         <source>Neues Formular</source>
@@ -2670,10 +2766,18 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3451297314722320142">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:960</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:1044</note>
       </notes>
       <segment>
         <source>Formular importieren</source>
+      </segment>
+    </unit>
+    <unit id="623768782436568030">
+      <notes>
+        <note category="location">src/app/fragebogen/pendingchanges.guard.js:14</note>
+      </notes>
+      <segment>
+        <source>ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.</source>
       </segment>
     </unit>
     <unit id="5316487234495661938">
@@ -2730,14 +2834,6 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Unsichtbare Elemente anzeigen</source>
-      </segment>
-    </unit>
-    <unit id="623768782436568030">
-      <notes>
-        <note category="location">src/app/fragebogen/pendingchanges.guard.js:14</note>
-      </notes>
-      <segment>
-        <source>ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.</source>
       </segment>
     </unit>
     <unit id="5589675804344200229">
@@ -2826,78 +2922,6 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Fileupload</source>
-      </segment>
-    </unit>
-    <unit id="3645495878014081231">
-      <notes>
-        <note category="location">src/app/static/login/login.component.js:31</note>
-      </notes>
-      <segment>
-        <source>Login - POWER.NI</source>
-      </segment>
-    </unit>
-    <unit id="3246386386339214161">
-      <notes>
-        <note category="location">src/app/static/login/login.component.js:79</note>
-      </notes>
-      <segment>
-        <source>Login fehlgeschlagen</source>
-      </segment>
-    </unit>
-    <unit id="4025988496947543426">
-      <notes>
-        <note category="location">src/app/static/login/login.component.js:79</note>
-      </notes>
-      <segment>
-        <source>Es konnte kein Token vom Endpunkt bezogen werden.</source>
-      </segment>
-    </unit>
-    <unit id="4426393519905650436">
-      <notes>
-        <note category="location">src/app/static/login/login.component.js:104</note>
-      </notes>
-      <segment>
-        <source>Sie werden in kürze weitergeleitet...</source>
-      </segment>
-    </unit>
-    <unit id="5603926992325888453">
-      <notes>
-        <note category="location">src/app/static/start/start.component.js:12</note>
-      </notes>
-      <segment>
-        <source>Portal für Wertermittlung Niedersachsen</source>
-      </segment>
-    </unit>
-    <unit id="154280373686343609">
-      <notes>
-        <note category="location">src/app/static/start/start.component.js:27</note>
-      </notes>
-      <segment>
-        <source>für Bauland und landwirtschaftliche Nutzflächen für das gesamte Land Niedersachsen</source>
-      </segment>
-    </unit>
-    <unit id="3480843511135968157">
-      <notes>
-        <note category="location">src/app/static/start/start.component.js:33</note>
-      </notes>
-      <segment>
-        <source>Zur Anwendung</source>
-      </segment>
-    </unit>
-    <unit id="1966118280092754963">
-      <notes>
-        <note category="location">src/app/static/start/start.component.js:39</note>
-      </notes>
-      <segment>
-        <source>Immobilienpreis-Index</source>
-      </segment>
-    </unit>
-    <unit id="2864908577077720607">
-      <notes>
-        <note category="location">src/app/static/start/start.component.js:51</note>
-      </notes>
-      <segment>
-        <source>Fragebogen</source>
       </segment>
     </unit>
   </file>

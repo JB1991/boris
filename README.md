@@ -62,15 +62,30 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    ```
 
 ## Übersetzung
-Sprachstrings exportieren
-```
-ng xi18n --format=xlf2 --ivy --output-path src/locales
-```
 
-Sprache testen
-```
-ng serve --open --configuration=en
-```
+1. Tool installieren
+   ```
+   npm install -g ngx-i18nsupport
+   ```
+
+2. Sprachstrings exportieren
+   ```
+   cd power
+   ng xi18n --format=xlf2 --ivy --output-path src/locales
+   ```
+
+3. Vorhandene Übersetzungen updaten
+   ```
+   cd power/src/locales
+   xliffmerge -p .\config.json
+   ```
+
+4. [Übersetzung anfertigen](https://martinroob.github.io/tiny-translator/de/#/home)
+
+5. Sprache testen
+   ```
+   ng serve --open --configuration=en
+   ```
 
 ## Coding Guideline
 Die Programmier-Richtlinie für dieses Projekt ist hier zu finden:
