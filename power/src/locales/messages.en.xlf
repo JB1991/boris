@@ -16,7 +16,7 @@
       </notes>
       <segment state="initial">
         <source>Portal für Wertermittlung</source>
-        <target>Portal für Wertermittlung</target>
+        <target>Portal for Valuation</target>
       </segment>
     </unit>
     <unit id="4234420133257512194">
@@ -25,7 +25,7 @@
       </notes>
       <segment state="initial">
         <source>.niedersachsen</source>
-        <target>.niedersachsen</target>
+        <target>.lower saxony</target>
       </segment>
     </unit>
     <unit id="1960371191469910628">
@@ -43,7 +43,7 @@
       </notes>
       <segment state="initial">
         <source>Navigation umschalten</source>
-        <target>Navigation umschalten</target>
+        <target>toggle navigation</target>
       </segment>
     </unit>
     <unit id="8429316238784832901">
@@ -61,7 +61,7 @@
       </notes>
       <segment state="initial">
         <source>Informationen</source>
-        <target>Informationen</target>
+        <target>Information</target>
       </segment>
     </unit>
     <unit id="1547876271716599756">
@@ -70,7 +70,7 @@
       </notes>
       <segment state="initial">
         <source>Impressum</source>
-        <target>Impressum</target>
+        <target>Imprint</target>
       </segment>
     </unit>
     <unit id="4082114936887396529">
@@ -79,7 +79,7 @@
       </notes>
       <segment state="initial">
         <source>Datenschutz</source>
-        <target>Datenschutz</target>
+        <target>Privacy</target>
       </segment>
     </unit>
     <unit id="2601146275474047321">
@@ -88,7 +88,7 @@
       </notes>
       <segment state="initial">
         <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/>und Nutzungsbedingungen</source>
-        <target>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/>und Nutzungsbedingungen</target>
+        <target>general terms <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/> and conditions of use</target>
       </segment>
     </unit>
     <unit id="7767778924054675928">
@@ -106,7 +106,7 @@
       </notes>
       <segment state="initial">
         <source>Bodenrichtwerte</source>
-        <target>Bodenrichtwerte</target>
+        <target>Standard land value</target>
       </segment>
     </unit>
     <unit id="4783586120320798427">
@@ -115,7 +115,7 @@
       </notes>
       <segment state="initial">
         <source>Bodenwerte</source>
-        <target>Bodenwerte</target>
+        <target>Land value</target>
       </segment>
     </unit>
     <unit id="192194816728870761">
@@ -124,7 +124,7 @@
       </notes>
       <segment state="initial">
         <source>Immobilien</source>
-        <target>Immobilien</target>
+        <target>Real estate</target>
       </segment>
     </unit>
     <unit id="8530560792297920136">
@@ -133,7 +133,7 @@
       </notes>
       <segment state="initial">
         <source>Formulare</source>
-        <target>Formulare</target>
+        <target>Form</target>
       </segment>
     </unit>
     <unit id="2454050363478003966">
@@ -160,7 +160,7 @@
       </notes>
       <segment state="initial">
         <source>Ausloggen</source>
-        <target>Ausloggen</target>
+        <target>Logout</target>
       </segment>
     </unit>
     <unit id="8183476381446897959">
@@ -169,7 +169,7 @@
       </notes>
       <segment state="initial">
         <source>Schließen</source>
-        <target>Schließen</target>
+        <target>Close</target>
       </segment>
     </unit>
     <unit id="3809540430353766710">
@@ -178,7 +178,7 @@
       </notes>
       <segment state="initial">
         <source>Alert schließen</source>
-        <target>Alert schließen</target>
+        <target>Close alert</target>
       </segment>
     </unit>
     <unit id="1669800724507050603">
@@ -187,7 +187,7 @@
       </notes>
       <segment state="initial">
         <source>Wird geladen...</source>
-        <target>Wird geladen...</target>
+        <target>Is loading...</target>
       </segment>
     </unit>
     <unit id="5826116471492977880">
@@ -196,7 +196,7 @@
       </notes>
       <segment state="initial">
         <source><ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> mit ENTER bestätigen</source>
-        <target><ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> mit ENTER bestätigen</target>
+        <target><ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> confirm with ENTER</target>
       </segment>
     </unit>
     <unit id="4580399730639224598">
@@ -205,7 +205,7 @@
       </notes>
       <segment state="initial">
         <source>Löschen</source>
-        <target>Löschen</target>
+        <target>Delete</target>
       </segment>
     </unit>
     <unit id="6267893735675184411">
@@ -214,7 +214,7 @@
       </notes>
       <segment state="initial">
         <source>Formulare - POWER.NI</source>
-        <target>Formulare - POWER.NI</target>
+        <target>Forms - POWER.NI</target>
       </segment>
     </unit>
     <unit id="2278750118279823127">
@@ -223,7 +223,7 @@
       </notes>
       <segment state="initial">
         <source>Formular ausfüllen</source>
-        <target>Formular ausfüllen</target>
+        <target>Fill out form</target>
       </segment>
     </unit>
     <unit id="1105762641221065617">
@@ -232,7 +232,7 @@
       </notes>
       <segment state="initial">
         <source>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen. </source>
-        <target>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen. </target>
+        <target>If you have received a form PIN, enter it here to go to the form. </target>
       </segment>
     </unit>
     <unit id="7046170260599391233">
@@ -241,7 +241,7 @@
       </notes>
       <segment state="initial">
         <source>Eingabe einer PIN zum Formular ausfüllen</source>
-        <target>Eingabe einer PIN zum Formular ausfüllen</target>
+        <target>Enter a PIN to fill out the form</target>
       </segment>
     </unit>
     <unit id="3438075409129621721">
@@ -250,7 +250,7 @@
       </notes>
       <segment state="initial">
         <source>Formular PIN</source>
-        <target>Formular PIN</target>
+        <target>Form PIN</target>
       </segment>
     </unit>
     <unit id="4392993924409588244">
@@ -259,7 +259,7 @@
       </notes>
       <segment state="initial">
         <source>Absenden</source>
-        <target>Absenden</target>
+        <target>Send</target>
       </segment>
     </unit>
     <unit id="8191576719702905998">
@@ -268,7 +268,7 @@
       </notes>
       <segment state="initial">
         <source>Formular finden</source>
-        <target>Formular finden</target>
+        <target>Find form</target>
       </segment>
     </unit>
     <unit id="7370577168011282060">
@@ -277,7 +277,7 @@
       </notes>
       <segment state="initial">
         <source>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare. </source>
-        <target>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare. </target>
+        <target>If you want to submit a form, you will find our public forms here.</target>
       </segment>
     </unit>
     <unit id="5711849175900703108">
@@ -286,7 +286,7 @@
       </notes>
       <segment state="initial">
         <source>Zu den öffentlichen Formularen</source>
-        <target>Zu den öffentlichen Formularen</target>
+        <target>To the public forms</target>
       </segment>
     </unit>
     <unit id="6489685542013391299">
@@ -295,7 +295,7 @@
       </notes>
       <segment state="initial">
         <source>Notarportal</source>
-        <target>Notarportal</target>
+        <target>Notary portal</target>
       </segment>
     </unit>
     <unit id="5065209650042517514">
@@ -304,7 +304,7 @@
       </notes>
       <segment state="initial">
         <source>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen. </source>
-        <target>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen. </target>
+        <target>As a notary, you have the opportunity to exchange data digitally via our online portal. </target>
       </segment>
     </unit>
     <unit id="3867605560596531339">
@@ -313,7 +313,7 @@
       </notes>
       <segment state="initial">
         <source>Mitarbeiter</source>
-        <target>Mitarbeiter</target>
+        <target>Employee</target>
       </segment>
     </unit>
     <unit id="5221936450324512652">
@@ -322,7 +322,7 @@
       </notes>
       <segment state="initial">
         <source>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen. </source>
-        <target>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen. </target>
+        <target>Internal area for the employees of the land survey of Lower Saxony. </target>
       </segment>
     </unit>
     <unit id="6949567012632159210">
@@ -331,7 +331,7 @@
       </notes>
       <segment state="initial">
         <source>Zum Mitarbeiterportal</source>
-        <target>Zum Mitarbeiterportal</target>
+        <target>To the employee portal</target>
       </segment>
     </unit>
     <unit id="5601035884726674890">
@@ -349,7 +349,7 @@
       </notes>
       <segment state="initial">
         <source>Sie wurden ausgeloggt.</source>
-        <target>Sie wurden ausgeloggt.</target>
+        <target>You have been logged out.</target>
       </segment>
     </unit>
     <unit id="3645495878014081231">
@@ -367,7 +367,7 @@
       </notes>
       <segment state="initial">
         <source>Login fehlgeschlagen</source>
-        <target>Login fehlgeschlagen</target>
+        <target>Login failed</target>
       </segment>
     </unit>
     <unit id="4025988496947543426">
@@ -376,7 +376,7 @@
       </notes>
       <segment state="initial">
         <source>Es konnte kein Token vom Endpunkt bezogen werden.</source>
-        <target>Es konnte kein Token vom Endpunkt bezogen werden.</target>
+        <target>A token could not be obtained from the endpoint.</target>
       </segment>
     </unit>
     <unit id="4426393519905650436">
@@ -385,7 +385,7 @@
       </notes>
       <segment state="initial">
         <source>Sie werden in kürze weitergeleitet...</source>
-        <target>Sie werden in kürze weitergeleitet...</target>
+        <target>You will be redirected in a moment...</target>
       </segment>
     </unit>
     <unit id="5603926992325888453">
@@ -394,7 +394,7 @@
       </notes>
       <segment state="initial">
         <source>Portal für Wertermittlung Niedersachsen</source>
-        <target>Portal für Wertermittlung Niedersachsen</target>
+        <target>Portal for valuation lower saxony</target>
       </segment>
     </unit>
     <unit id="154280373686343609">
@@ -403,7 +403,7 @@
       </notes>
       <segment state="initial">
         <source>für Bauland und landwirtschaftliche Nutzflächen für das gesamte Land Niedersachsen</source>
-        <target>für Bauland und landwirtschaftliche Nutzflächen für das gesamte Land Niedersachsen</target>
+        <target>for building land and agricultural land for the entire state of Lower Saxony</target>
       </segment>
     </unit>
     <unit id="3480843511135968157">
@@ -412,7 +412,7 @@
       </notes>
       <segment state="initial">
         <source>Zur Anwendung</source>
-        <target>Zur Anwendung</target>
+        <target>Application</target>
       </segment>
     </unit>
     <unit id="1966118280092754963">
@@ -421,7 +421,7 @@
       </notes>
       <segment state="initial">
         <source>Immobilienpreis-Index</source>
-        <target>Immobilienpreis-Index</target>
+        <target>Real estate price index</target>
       </segment>
     </unit>
     <unit id="2864908577077720607">
@@ -430,7 +430,7 @@
       </notes>
       <segment state="initial">
         <source>Fragebogen</source>
-        <target>Fragebogen</target>
+        <target>Questionnaire</target>
       </segment>
     </unit>
     <unit id="4321269269579074973">
@@ -439,7 +439,7 @@
       </notes>
       <segment state="initial">
         <source>Öffentliche Formulare - POWER.NI</source>
-        <target>Öffentliche Formulare - POWER.NI</target>
+        <target>Public forms - POWER.NI</target>
       </segment>
     </unit>
     <unit id="8488547527396922136">
@@ -448,7 +448,7 @@
       </notes>
       <segment state="initial">
         <source>Laden fehlgeschlagen</source>
-        <target>Laden fehlgeschlagen</target>
+        <target>Loading failed</target>
       </segment>
     </unit>
     <unit id="3237325831282116749">
@@ -457,7 +457,7 @@
       </notes>
       <segment state="initial">
         <source> Formulare</source>
-        <target> Formulare</target>
+        <target> forms</target>
       </segment>
     </unit>
     <unit id="2728359226136161685">
@@ -466,7 +466,7 @@
       </notes>
       <segment state="initial">
         <source>Titel </source>
-        <target>Titel </target>
+        <target>Title </target>
       </segment>
     </unit>
     <unit id="2688283467752225426">
@@ -475,7 +475,7 @@
       </notes>
       <segment state="initial">
         <source>Veröffentlicht</source>
-        <target>Veröffentlicht</target>
+        <target>Published</target>
       </segment>
     </unit>
     <unit id="6679956278246368232">
@@ -484,7 +484,7 @@
       </notes>
       <segment state="initial">
         <source>Aufsteigend sortiert </source>
-        <target>Aufsteigend sortiert </target>
+        <target>Sorted in ascending order </target>
       </segment>
     </unit>
     <unit id="3126010801543248162">
@@ -493,7 +493,7 @@
       </notes>
       <segment state="initial">
         <source>Absteigend sortiert </source>
-        <target>Absteigend sortiert </target>
+        <target>Sorted in descending order </target>
       </segment>
     </unit>
     <unit id="8906724350046217592">
@@ -502,7 +502,7 @@
       </notes>
       <segment state="initial">
         <source>Aufsteigend sortiert </source>
-        <target>Aufsteigend sortiert </target>
+        <target>Sorted in ascending order </target>
       </segment>
     </unit>
     <unit id="6878012265862317748">
@@ -511,7 +511,7 @@
       </notes>
       <segment state="initial">
         <source>Absteigend sortiert </source>
-        <target>Absteigend sortiert </target>
+        <target>Sorted in descending order </target>
       </segment>
     </unit>
     <unit id="2319824520635416840">
@@ -520,7 +520,7 @@
       </notes>
       <segment state="initial">
         <source>Keine Formulare gefunden</source>
-        <target>Keine Formulare gefunden</target>
+        <target>No forms found</target>
       </segment>
     </unit>
     <unit id="380575489674159475">
@@ -529,7 +529,7 @@
       </notes>
       <segment state="initial">
         <source>Speichern erfolgreich</source>
-        <target>Speichern erfolgreich</target>
+        <target>Successfully saved</target>
       </segment>
     </unit>
     <unit id="8744559871232772444">
@@ -538,7 +538,7 @@
       </notes>
       <segment state="initial">
         <source>Ihre Daten wurden erfolgreich gespeichert.</source>
-        <target>Ihre Daten wurden erfolgreich gespeichert.</target>
+        <target>Your data has been saved successfully.</target>
       </segment>
     </unit>
     <unit id="6200688387678213794">
@@ -547,7 +547,7 @@
       </notes>
       <segment state="initial">
         <source>Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}</source>
-        <target>Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}</target>
+        <target>Saving to the server failed: {error['statusText']}</target>
       </segment>
     </unit>
     <unit id="4028295370197925352">
@@ -556,7 +556,7 @@
       </notes>
       <segment state="initial">
         <source>Speichern fehlgeschlagen</source>
-        <target>Speichern fehlgeschlagen</target>
+        <target>Saving failed</target>
       </segment>
     </unit>
     <unit id="3198167021097608380">
@@ -565,7 +565,7 @@
       </notes>
       <segment state="initial">
         <source>Das Speichern auf dem Server ist fehlgeschlagen: {alertText}</source>
-        <target>Das Speichern auf dem Server ist fehlgeschlagen: {alertText}</target>
+        <target>Saving to the server failed: {alertText}</target>
       </segment>
     </unit>
     <unit id="8953940785817491538">
@@ -574,7 +574,7 @@
       </notes>
       <segment state="initial">
         <source>Formular gespeichert</source>
-        <target>Formular gespeichert</target>
+        <target>Form saved</target>
       </segment>
     </unit>
     <unit id="7810020688490288269">
@@ -583,7 +583,7 @@
       </notes>
       <segment state="initial">
         <source>Das Formular wurde erfolgreich gespeichert.</source>
-        <target>Das Formular wurde erfolgreich gespeichert.</target>
+        <target>The form was saved successfully.</target>
       </segment>
     </unit>
     <unit id="4285599221688268192">
@@ -592,7 +592,7 @@
       </notes>
       <segment state="initial">
         <source> Einstellungen</source>
-        <target> Einstellungen</target>
+        <target> Settings</target>
       </segment>
     </unit>
     <unit id="8987485918990583314">
@@ -601,7 +601,7 @@
       </notes>
       <segment state="initial">
         <source>Einstellungen zum teilen eines Formulars</source>
-        <target>Einstellungen zum teilen eines Formulars</target>
+        <target>Settings for sharing a form</target>
       </segment>
     </unit>
     <unit id="7886570921510760899">
@@ -619,7 +619,7 @@
       </notes>
       <segment state="initial">
         <source>Besitzer</source>
-        <target>Besitzer</target>
+        <target>Owner</target>
       </segment>
     </unit>
     <unit id="2057709581925448431">
@@ -628,7 +628,7 @@
       </notes>
       <segment state="initial">
         <source>Leseberechtigte</source>
-        <target>Leseberechtigte</target>
+        <target>Read-only user</target>
       </segment>
     </unit>
     <unit id="6296453444800494674">
@@ -637,7 +637,7 @@
       </notes>
       <segment state="initial">
         <source>Formular teilen</source>
-        <target>Formular teilen</target>
+        <target>Share form</target>
       </segment>
     </unit>
     <unit id="4956493749509908625">
@@ -646,7 +646,7 @@
       </notes>
       <segment state="initial">
         <source> Speichern</source>
-        <target> Speichern</target>
+        <target> Save</target>
       </segment>
     </unit>
     <unit id="4048396797910850999">
@@ -655,7 +655,7 @@
       </notes>
       <segment state="initial">
         <source> Kommentar</source>
-        <target> Kommentar</target>
+        <target> Comment</target>
       </segment>
     </unit>
     <unit id="3108124209892519095">
@@ -664,7 +664,7 @@
       </notes>
       <segment state="initial">
         <source>Angabe eines Kommentares zu der PIN</source>
-        <target>Angabe eines Kommentares zu der PIN</target>
+        <target>Specification of a comment on the PIN</target>
       </segment>
     </unit>
     <unit id="2137405200624328487">
@@ -673,7 +673,7 @@
       </notes>
       <segment state="initial">
         <source>Kommentar</source>
-        <target>Kommentar</target>
+        <target>Comment</target>
       </segment>
     </unit>
     <unit id="6015221729910186784">
@@ -682,7 +682,7 @@
       </notes>
       <segment state="initial">
         <source>Kommentar speichern</source>
-        <target>Kommentar speichern</target>
+        <target>Save comment</target>
       </segment>
     </unit>
     <unit id="6229675034175850416">
@@ -693,9 +693,9 @@
         <source>Möchten Sie dieses Formular wirklich veröffentlichen?
 Das Formular lässt sich danach nicht mehr bearbeiten.
 Dies lässt sich nicht mehr umkehren!</source>
-        <target>Möchten Sie dieses Formular wirklich veröffentlichen?
-Das Formular lässt sich danach nicht mehr bearbeiten.
-Dies lässt sich nicht mehr umkehren!</target>
+        <target>Are you sure you want to publish this form?
+The form can then no longer be edited.
+This can not be reversed!</target>
       </segment>
     </unit>
     <unit id="7045718201948539195">
@@ -704,7 +704,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Veröffentlichen fehlgeschlagen</source>
-        <target>Veröffentlichen fehlgeschlagen</target>
+        <target>Publishing failed</target>
       </segment>
     </unit>
     <unit id="1333796698883815409">
@@ -713,7 +713,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular veröffentlicht</source>
-        <target>Formular veröffentlicht</target>
+        <target>Form published</target>
       </segment>
     </unit>
     <unit id="4271491079612886596">
@@ -722,7 +722,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Das Formular wurde erfolgreich veröffentlicht.</source>
-        <target>Das Formular wurde erfolgreich veröffentlicht.</target>
+        <target>The form was published successfully.</target>
       </segment>
     </unit>
     <unit id="6871250245901588184">
@@ -731,7 +731,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Veröffentlichen</source>
-        <target> Veröffentlichen</target>
+        <target> Publish</target>
       </segment>
     </unit>
     <unit id="6805794462715952034">
@@ -740,7 +740,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Einstellungen zur Veröffentlichung des Formulares</source>
-        <target>Einstellungen zur Veröffentlichung des Formulares</target>
+        <target>Settings for publishing the form</target>
       </segment>
     </unit>
     <unit id="153541716325950562">
@@ -749,7 +749,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zugangsschutz</source>
-        <target>Zugangsschutz</target>
+        <target>Access protection</target>
       </segment>
     </unit>
     <unit id="92152990194442672">
@@ -758,7 +758,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Öffentlich</source>
-        <target>Öffentlich</target>
+        <target>Public</target>
       </segment>
     </unit>
     <unit id="1593201256931919296">
@@ -767,7 +767,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>6-stellige PIN</source>
-        <target>6-stellige PIN</target>
+        <target>6-digit PIN</target>
       </segment>
     </unit>
     <unit id="7984545901488378361">
@@ -776,7 +776,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>8-stellige PIN</source>
-        <target>8-stellige PIN</target>
+        <target>8-digit PIN</target>
       </segment>
     </unit>
     <unit id="5652205002901618415">
@@ -785,7 +785,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular veröffentlichen</source>
-        <target>Formular veröffentlichen</target>
+        <target>Form published</target>
       </segment>
     </unit>
     <unit id="6753318560504296925">
@@ -794,7 +794,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Ungültige Eingabe</source>
-        <target>Ungültige Eingabe</target>
+        <target>Invalid input</target>
       </segment>
     </unit>
     <unit id="4223480731813357720">
@@ -803,7 +803,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Bitte generieren Sie nur zwischen 1 und 100 PINs.</source>
-        <target>Bitte generieren Sie nur zwischen 1 und 100 PINs.</target>
+        <target>Please only generate 1 to 100 PINs.</target>
       </segment>
     </unit>
     <unit id="2001137006078143875">
@@ -812,7 +812,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Erstellen fehlgeschlagen</source>
-        <target>Erstellen fehlgeschlagen</target>
+        <target>Failed to create</target>
       </segment>
     </unit>
     <unit id="6541847541201897337">
@@ -821,7 +821,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> PIN Generator</source>
-        <target> PIN Generator</target>
+        <target> PIN generator</target>
       </segment>
     </unit>
     <unit id="8856370755053434405">
@@ -830,7 +830,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Angabe wie viele PINs erstellt werden</source>
-        <target>Angabe wie viele PINs erstellt werden</target>
+        <target>Specification of how many PINs are created</target>
       </segment>
     </unit>
     <unit id="8610693548852405446">
@@ -839,7 +839,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Anzahl PINs</source>
-        <target>Anzahl PINs</target>
+        <target>Number of PINs</target>
       </segment>
     </unit>
     <unit id="7897642684892254234">
@@ -848,7 +848,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Kopiere PIN(s) in die Zwischenablage</source>
-        <target>Kopiere PIN(s) in die Zwischenablage</target>
+        <target>Copy PIN(s) to the clipboard</target>
       </segment>
     </unit>
     <unit id="7650064767892495053">
@@ -857,7 +857,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>PINs erstellen</source>
-        <target>PINs erstellen</target>
+        <target>Create PINs</target>
       </segment>
     </unit>
     <unit id="7449095028828358900">
@@ -866,7 +866,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> PINs erstellen</source>
-        <target> PINs erstellen</target>
+        <target> Create PINs</target>
       </segment>
     </unit>
     <unit id="2208822168211707034">
@@ -875,7 +875,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Details - POWER.NI</source>
-        <target>Formular Details - POWER.NI</target>
+        <target>Form details - POWER.NI</target>
       </segment>
     </unit>
     <unit id="6100299460018469503">
@@ -884,7 +884,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Möchten Sie dieses Formular wirklich löschen?</source>
-        <target>Möchten Sie dieses Formular wirklich löschen?</target>
+        <target>Do you really want to delete this form?</target>
       </segment>
     </unit>
     <unit id="3149526115468934989">
@@ -893,7 +893,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Löschen fehlgeschlagen</source>
-        <target>Löschen fehlgeschlagen</target>
+        <target>Failed to delete</target>
       </segment>
     </unit>
     <unit id="3249149247481122578">
@@ -902,7 +902,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular gelöscht</source>
-        <target>Formular gelöscht</target>
+        <target>Form deleted</target>
       </segment>
     </unit>
     <unit id="2182084453272634090">
@@ -911,7 +911,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Das Formular wurde erfolgreich gelöscht.</source>
-        <target>Das Formular wurde erfolgreich gelöscht.</target>
+        <target>The form was successfully deleted.</target>
       </segment>
     </unit>
     <unit id="8502469069928490597">
@@ -921,8 +921,8 @@ Dies lässt sich nicht mehr umkehren!</target>
       <segment state="initial">
         <source>Möchten Sie dieses Formular wirklich archivieren?
 Dies lässt sich nicht mehr umkehren!</source>
-        <target>Möchten Sie dieses Formular wirklich archivieren?
-Dies lässt sich nicht mehr umkehren!</target>
+        <target>Are you sure you want to archive this form?
+This can not be reversed!</target>
       </segment>
     </unit>
     <unit id="7962314393644503154">
@@ -931,7 +931,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Archivieren fehlgeschlagen</source>
-        <target>Archivieren fehlgeschlagen</target>
+        <target>Archive failed</target>
       </segment>
     </unit>
     <unit id="4018735454945884382">
@@ -940,7 +940,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular archiviert</source>
-        <target>Formular archiviert</target>
+        <target>Form archived</target>
       </segment>
     </unit>
     <unit id="836974120290109919">
@@ -949,7 +949,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Das Formular wurde erfolgreich archiviert.</source>
-        <target>Das Formular wurde erfolgreich archiviert.</target>
+        <target>The form was successfully archived.</target>
       </segment>
     </unit>
     <unit id="7293756355878993771">
@@ -958,7 +958,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Download fehlgeschlagen</source>
-        <target>Download fehlgeschlagen</target>
+        <target>Download failed</target>
       </segment>
     </unit>
     <unit id="6951710129778189571">
@@ -967,7 +967,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Die Antworten konnten nicht geladen werden.</source>
-        <target>Die Antworten konnten nicht geladen werden.</target>
+        <target>The answers could not be loaded.</target>
       </segment>
     </unit>
     <unit id="2908879179796145625">
@@ -976,7 +976,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Möchten Sie diese Antwort wirklich löschen?</source>
-        <target>Möchten Sie diese Antwort wirklich löschen?</target>
+        <target>Are you sure you want to delete this answer?</target>
       </segment>
     </unit>
     <unit id="6105229413905166645">
@@ -985,7 +985,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Antwort gelöscht</source>
-        <target>Antwort gelöscht</target>
+        <target>Answer deleted</target>
       </segment>
     </unit>
     <unit id="4168664506109423502">
@@ -994,7 +994,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Die Antwort wurde erfolgreich gelöscht.</source>
-        <target>Die Antwort wurde erfolgreich gelöscht.</target>
+        <target>The answer was deleted successfully.</target>
       </segment>
     </unit>
     <unit id="3959921924624883384">
@@ -1003,7 +1003,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zurück zum Dashboard</source>
-        <target>Zurück zum Dashboard</target>
+        <target>Back to Dashboard</target>
       </segment>
     </unit>
     <unit id="2449659618107106899">
@@ -1012,7 +1012,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Zurück</source>
-        <target> Zurück</target>
+        <target> Back</target>
       </segment>
     </unit>
     <unit id="8040881171107393560">
@@ -1030,7 +1030,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Erstellt</source>
-        <target>Erstellt</target>
+        <target>Created</target>
       </segment>
     </unit>
     <unit id="5611592591303869712">
@@ -1057,7 +1057,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Leser</source>
-        <target>Leser</target>
+        <target>Reader</target>
       </segment>
     </unit>
     <unit id="7423544162328062071">
@@ -1066,7 +1066,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Vorschau</source>
-        <target>Formular Vorschau</target>
+        <target>Form preview</target>
       </segment>
     </unit>
     <unit id="7189840420378275443">
@@ -1075,7 +1075,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Vorschau</source>
-        <target> Vorschau</target>
+        <target> Preview</target>
       </segment>
     </unit>
     <unit id="4517189945274702297">
@@ -1084,7 +1084,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular exportieren</source>
-        <target>Formular exportieren</target>
+        <target>Export form</target>
       </segment>
     </unit>
     <unit id="6248079750489664880">
@@ -1093,7 +1093,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Formular exportieren</source>
-        <target> Formular exportieren</target>
+        <target> Export form</target>
       </segment>
     </unit>
     <unit id="993560666209573635">
@@ -1102,7 +1102,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Archiviert</source>
-        <target>Archiviert</target>
+        <target>Archived</target>
       </segment>
     </unit>
     <unit id="5028453380651426894">
@@ -1111,7 +1111,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zugriff</source>
-        <target>Zugriff</target>
+        <target>Access</target>
       </segment>
     </unit>
     <unit id="2332375813543028449">
@@ -1120,7 +1120,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular bearbeiten</source>
-        <target>Formular bearbeiten</target>
+        <target>Edit form</target>
       </segment>
     </unit>
     <unit id="7777270641333596836">
@@ -1129,7 +1129,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Bearbeiten</source>
-        <target> Bearbeiten</target>
+        <target> Edit</target>
       </segment>
     </unit>
     <unit id="5895799308050944719">
@@ -1138,7 +1138,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Einstellungen</source>
-        <target>Formular Einstellungen</target>
+        <target>Form settings</target>
       </segment>
     </unit>
     <unit id="5070302732354433099">
@@ -1147,7 +1147,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular archivieren</source>
-        <target>Formular archivieren</target>
+        <target>Archive form</target>
       </segment>
     </unit>
     <unit id="7196638447313202098">
@@ -1156,7 +1156,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Archivieren</source>
-        <target> Archivieren</target>
+        <target> Archive</target>
       </segment>
     </unit>
     <unit id="4085873167168807139">
@@ -1165,7 +1165,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular löschen</source>
-        <target>Formular löschen</target>
+        <target>Delete form</target>
       </segment>
     </unit>
     <unit id="6836220284923117349">
@@ -1174,7 +1174,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Löschen</source>
-        <target> Löschen</target>
+        <target> Delete</target>
       </segment>
     </unit>
     <unit id="5571974442224048751">
@@ -1183,7 +1183,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Antworten</source>
-        <target> Antworten</target>
+        <target> Reply</target>
       </segment>
     </unit>
     <unit id="5377294052725398895">
@@ -1192,7 +1192,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zuletzt bearbeitet</source>
-        <target>Zuletzt bearbeitet</target>
+        <target>Last edited</target>
       </segment>
     </unit>
     <unit id="8243852995513838598">
@@ -1201,7 +1201,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Ergebnisse als CSV herunterladen</source>
-        <target>Ergebnisse als CSV herunterladen</target>
+        <target>Download results as CSV</target>
       </segment>
     </unit>
     <unit id="3644392333901744131">
@@ -1210,7 +1210,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Ergebnisse (CSV)</source>
-        <target> Ergebnisse (CSV)</target>
+        <target> Results (CSV)</target>
       </segment>
     </unit>
     <unit id="2935871829967083793">
@@ -1237,7 +1237,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Bearbeiten</source>
-        <target>Bearbeiten</target>
+        <target>Edit</target>
       </segment>
     </unit>
     <unit id="1856659986941989615">
@@ -1246,7 +1246,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Ergebnisse anzeigen</source>
-        <target>Ergebnisse anzeigen</target>
+        <target>View results</target>
       </segment>
     </unit>
     <unit id="6830555755425424668">
@@ -1255,7 +1255,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Ergebnisse</source>
-        <target> Ergebnisse</target>
+        <target> Results</target>
       </segment>
     </unit>
     <unit id="1451460320963900414">
@@ -1264,7 +1264,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Antwort löschen</source>
-        <target>Antwort löschen</target>
+        <target>Delete answer</target>
       </segment>
     </unit>
     <unit id="2911941681969480793">
@@ -1273,7 +1273,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Keine Antworten vorhanden</source>
-        <target>Keine Antworten vorhanden</target>
+        <target>There are no answers</target>
       </segment>
     </unit>
     <unit id="2844088667159499341">
@@ -1282,7 +1282,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Neue PIN erstellen</source>
-        <target>Neue PIN erstellen</target>
+        <target>Create new PIN</target>
       </segment>
     </unit>
     <unit id="5657563291186389106">
@@ -1291,7 +1291,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Neue PIN erstellen</source>
-        <target> Neue PIN erstellen</target>
+        <target> Create new PIN</target>
       </segment>
     </unit>
     <unit id="2409494154701983500">
@@ -1300,7 +1300,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Sichtbarkeitsbedingung</source>
-        <target>Sichtbarkeitsbedingung</target>
+        <target>Visibility condition</target>
       </segment>
     </unit>
     <unit id="4148353123071676032">
@@ -1309,7 +1309,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zurücksetzen</source>
-        <target>Zurücksetzen</target>
+        <target>Reset</target>
       </segment>
     </unit>
     <unit id="2355362274364029817">
@@ -1318,7 +1318,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Zurücksetzen </source>
-        <target> Zurücksetzen </target>
+        <target> Reset </target>
       </segment>
     </unit>
     <unit id="5327356321137513330">
@@ -1327,7 +1327,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Antworten konfigurieren</source>
-        <target>Antworten konfigurieren</target>
+        <target>Configure responses</target>
       </segment>
     </unit>
     <unit id="7408924036382005310">
@@ -1336,7 +1336,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Antwortmöglichkeit hinzufügen</source>
-        <target>Antwortmöglichkeit hinzufügen</target>
+        <target>Add answer option</target>
       </segment>
     </unit>
     <unit id="623302995999546215">
@@ -1345,7 +1345,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Hinzufügen</source>
-        <target>Hinzufügen</target>
+        <target>Add</target>
       </segment>
     </unit>
     <unit id="8660201601995499983">
@@ -1354,7 +1354,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Datenwert</source>
-        <target>Datenwert</target>
+        <target>Data value</target>
       </segment>
     </unit>
     <unit id="1532860079177852917">
@@ -1363,7 +1363,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Anzeigetext</source>
-        <target>Anzeigetext</target>
+        <target>Display text</target>
       </segment>
     </unit>
     <unit id="3714125747806279899">
@@ -1372,7 +1372,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Nach oben verschieben</source>
-        <target>Nach oben verschieben</target>
+        <target>Move up</target>
       </segment>
     </unit>
     <unit id="603389987382112463">
@@ -1381,7 +1381,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Nach unten verschieben</source>
-        <target>Nach unten verschieben</target>
+        <target>Move down</target>
       </segment>
     </unit>
     <unit id="8611525284352303611">
@@ -1390,7 +1390,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Bild löschen</source>
-        <target>Bild löschen</target>
+        <target>Delete image</target>
       </segment>
     </unit>
     <unit id="6005602603007222956">
@@ -1399,7 +1399,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Bild Hochladen</source>
-        <target>Bild Hochladen</target>
+        <target>Upload image</target>
       </segment>
     </unit>
     <unit id="5076633116931203629">
@@ -1408,7 +1408,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fragen Einstellungen</source>
-        <target>Fragen Einstellungen</target>
+        <target>Questions settings</target>
       </segment>
     </unit>
     <unit id="2258060347097525516">
@@ -1417,7 +1417,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Allgemein</source>
-        <target>Allgemein</target>
+        <target>General</target>
       </segment>
     </unit>
     <unit id="1599145277090237336">
@@ -1426,7 +1426,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fragen ID*</source>
-        <target>Fragen ID*</target>
+        <target>Question ID*</target>
       </segment>
     </unit>
     <unit id="667903415264349733">
@@ -1435,7 +1435,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Dieser Wert muss im Formular einmalig sein. Die ID lässt sich als Variable nutzen enthält die Antwort einer Frage:</source>
-        <target>Dieser Wert muss im Formular einmalig sein. Die ID lässt sich als Variable nutzen enthält die Antwort einer Frage:</target>
+        <target>This value must be unique in the form. The ID can be used as a variable contains the answer to a question:</target>
       </segment>
     </unit>
     <unit id="2802606053829950827">
@@ -1444,7 +1444,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fragen Titel*</source>
-        <target>Fragen Titel*</target>
+        <target>Questions title*</target>
       </segment>
     </unit>
     <unit id="8079987278225698865">
@@ -1453,7 +1453,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fragen Beschreibung</source>
-        <target>Fragen Beschreibung</target>
+        <target>Questions description</target>
       </segment>
     </unit>
     <unit id="2759709272025029555">
@@ -1462,7 +1462,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Dieser Text wird unter der Frage angezeigt. Markdown zur formatierung wird unterstützt.</source>
-        <target>Dieser Text wird unter der Frage angezeigt. Markdown zur formatierung wird unterstützt.</target>
+        <target>This text is displayed below the question. Markdown for formatting is supported.</target>
       </segment>
     </unit>
     <unit id="2633103922838468705">
@@ -1471,7 +1471,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Pflichtfeld</source>
-        <target>Pflichtfeld</target>
+        <target>Required field</target>
       </segment>
     </unit>
     <unit id="2465969235242735880">
@@ -1480,7 +1480,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Sichtbar</source>
-        <target>Sichtbar</target>
+        <target>Visible</target>
       </segment>
     </unit>
     <unit id="3236450441053271493">
@@ -1489,7 +1489,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option stellt ein, ob das Feld standartmäßig sichtbar ist.</source>
-        <target>Diese Option stellt ein, ob das Feld standartmäßig sichtbar ist.</target>
+        <target>This option sets whether the field is visible by default.</target>
       </segment>
     </unit>
     <unit id="5564872229726777752">
@@ -1498,7 +1498,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Deaktiviert</source>
-        <target>Deaktiviert</target>
+        <target>Deactivate</target>
       </segment>
     </unit>
     <unit id="3201488103301574743">
@@ -1507,7 +1507,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option stellt ein, ob das Feld standartmäßig ausfüllbar ist.</source>
-        <target>Diese Option stellt ein, ob das Feld standartmäßig ausfüllbar ist.</target>
+        <target>This option sets whether the field can be filled in by default.</target>
       </segment>
     </unit>
     <unit id="1000474965396519246">
@@ -1516,7 +1516,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fragennummer verstecken</source>
-        <target>Fragennummer verstecken</target>
+        <target>Hide question number</target>
       </segment>
     </unit>
     <unit id="696701674056104184">
@@ -1525,7 +1525,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Frage startet auf neuer Zeile</source>
-        <target>Frage startet auf neuer Zeile</target>
+        <target>Question starts on a new line</target>
       </segment>
     </unit>
     <unit id="2787708308943566133">
@@ -1534,7 +1534,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Breite der Frage in Pixel</source>
-        <target>Breite der Frage in Pixel</target>
+        <target>Width of the question in pixels</target>
       </segment>
     </unit>
     <unit id="281433735310730701">
@@ -1543,7 +1543,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Standardwert</source>
-        <target>Standardwert</target>
+        <target>Standard value</target>
       </segment>
     </unit>
     <unit id="2721307579039816609">
@@ -1552,7 +1552,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Bedingungen</source>
-        <target>Bedingungen</target>
+        <target>Conditions</target>
       </segment>
     </unit>
     <unit id="2123058190140167354">
@@ -1561,7 +1561,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Aktivierungsbedingung</source>
-        <target>Aktivierungsbedingung</target>
+        <target>Activation condition</target>
       </segment>
     </unit>
     <unit id="5801991604521871701">
@@ -1570,7 +1570,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Pflichtbedingung</source>
-        <target>Pflichtbedingung</target>
+        <target>Mandatory condition</target>
       </segment>
     </unit>
     <unit id="2909264081763608567">
@@ -1579,7 +1579,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Validatoren</source>
-        <target>Validatoren</target>
+        <target>Validators</target>
       </segment>
     </unit>
     <unit id="2899899258573669142">
@@ -1588,7 +1588,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Pflichtfeld Fehlertext</source>
-        <target>Pflichtfeld Fehlertext</target>
+        <target>Mandatory field error text</target>
       </segment>
     </unit>
     <unit id="3105030069974657046">
@@ -1597,7 +1597,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Kommentar Eingabefeld aktivieren</source>
-        <target>Kommentar Eingabefeld aktivieren</target>
+        <target>Comment Activate the input field</target>
       </segment>
     </unit>
     <unit id="2282551280196521788">
@@ -1606,7 +1606,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option ist deaktiviert, wenn das "Anderes Eingabefeld" aktiviert ist.</source>
-        <target>Diese Option ist deaktiviert, wenn das "Anderes Eingabefeld" aktiviert ist.</target>
+        <target>This option is deactivated if the "Other input field" is activated.</target>
       </segment>
     </unit>
     <unit id="7665047802410449230">
@@ -1615,7 +1615,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Kommentar Eingabefeld Text</source>
-        <target>Kommentar Eingabefeld Text</target>
+        <target>Comment Input field text</target>
       </segment>
     </unit>
     <unit id="8648957206736539595">
@@ -1624,7 +1624,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Eingabetyp</source>
-        <target>Eingabetyp</target>
+        <target>Input typ</target>
       </segment>
     </unit>
     <unit id="431976875835451828">
@@ -1633,7 +1633,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Farbe</source>
-        <target>Farbe</target>
+        <target>Colour</target>
       </segment>
     </unit>
     <unit id="935267939147271845">
@@ -1642,7 +1642,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Datum</source>
-        <target>Datum</target>
+        <target>Date</target>
       </segment>
     </unit>
     <unit id="2278763268677546133">
@@ -1651,7 +1651,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Datum &amp; Uhrzeit</source>
-        <target>Datum &amp; Uhrzeit</target>
+        <target>Date &amp; Time</target>
       </segment>
     </unit>
     <unit id="8115083664628466958">
@@ -1660,7 +1660,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>E-Mail</source>
-        <target>E-Mail</target>
+        <target>E-mail</target>
       </segment>
     </unit>
     <unit id="2298141652517601203">
@@ -1669,7 +1669,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Monat</source>
-        <target>Monat</target>
+        <target>Month</target>
       </segment>
     </unit>
     <unit id="8415078453524192234">
@@ -1678,7 +1678,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Ganzzahl</source>
-        <target>Ganzzahl</target>
+        <target>Integer</target>
       </segment>
     </unit>
     <unit id="681866609203884162">
@@ -1687,7 +1687,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Telefonnummer</source>
-        <target>Telefonnummer</target>
+        <target>Phone number</target>
       </segment>
     </unit>
     <unit id="6162693758764653365">
@@ -1705,7 +1705,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Uhrzeit</source>
-        <target>Uhrzeit</target>
+        <target>Time</target>
       </segment>
     </unit>
     <unit id="2375260419993138758">
@@ -1723,7 +1723,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Woche</source>
-        <target>Woche</target>
+        <target>Week</target>
       </segment>
     </unit>
     <unit id="2976414078576857994">
@@ -1732,7 +1732,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Nicht jede Option wird von allen Webbrowsern unterstützt.</source>
-        <target>Nicht jede Option wird von allen Webbrowsern unterstützt.</target>
+        <target>Not every option is supported by all web browsers.</target>
       </segment>
     </unit>
     <unit id="3335825202752630529">
@@ -1741,7 +1741,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeilen des Eingabefeldes</source>
-        <target>Zeilen des Eingabefeldes</target>
+        <target>Lines of the input field</target>
       </segment>
     </unit>
     <unit id="1783931905141779260">
@@ -1750,7 +1750,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Wert Schritte</source>
-        <target>Wert Schritte</target>
+        <target>Value steps</target>
       </segment>
     </unit>
     <unit id="2884070345504600057">
@@ -1759,7 +1759,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Anzeigetext Minimum</source>
-        <target>Anzeigetext Minimum</target>
+        <target>Display text minimum</target>
       </segment>
     </unit>
     <unit id="3235518685482283884">
@@ -1768,7 +1768,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Minimaler Wert</source>
-        <target>Minimaler Wert</target>
+        <target>Minimum value</target>
       </segment>
     </unit>
     <unit id="1919934867677848930">
@@ -1777,7 +1777,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Anzeigetext Maximum</source>
-        <target>Anzeigetext Maximum</target>
+        <target>Display text maximum</target>
       </segment>
     </unit>
     <unit id="4044856277132637349">
@@ -1786,7 +1786,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Maximaler Wert</source>
-        <target>Maximaler Wert</target>
+        <target>Maximum value</target>
       </segment>
     </unit>
     <unit id="5110740723354501274">
@@ -1795,7 +1795,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Skala Schritte</source>
-        <target>Skala Schritte</target>
+        <target>Scale steps</target>
       </segment>
     </unit>
     <unit id="5306332341695056473">
@@ -1804,7 +1804,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Nachkommastellen</source>
-        <target>Nachkommastellen</target>
+        <target>Decimal places</target>
       </segment>
     </unit>
     <unit id="3406135397633818536">
@@ -1813,7 +1813,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Anzeigetext links</source>
-        <target>Anzeigetext links</target>
+        <target>Display text links</target>
       </segment>
     </unit>
     <unit id="5558176899213566695">
@@ -1822,7 +1822,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Anzeigetext rechts</source>
-        <target>Anzeigetext rechts</target>
+        <target>Display text on the right</target>
       </segment>
     </unit>
     <unit id="4037439038235710994">
@@ -1831,7 +1831,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Mehrere Dateien erlauben</source>
-        <target>Mehrere Dateien erlauben</target>
+        <target>Allow multiple files</target>
       </segment>
     </unit>
     <unit id="4242082417573669453">
@@ -1840,7 +1840,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Erlaubte Dateitypen</source>
-        <target>Erlaubte Dateitypen</target>
+        <target>Allowed file types</target>
       </segment>
     </unit>
     <unit id="4465613126133133953">
@@ -1849,7 +1849,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>PDF-Dokumente</source>
-        <target>PDF-Dokumente</target>
+        <target>PDF-document</target>
       </segment>
     </unit>
     <unit id="9045290048674217310">
@@ -1858,7 +1858,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Bilder</source>
-        <target>Bilder</target>
+        <target>Images</target>
       </segment>
     </unit>
     <unit id="924135540804019092">
@@ -1867,7 +1867,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Maximale Dateigröße in Bytes</source>
-        <target>Maximale Dateigröße in Bytes</target>
+        <target>Maximum file size in bytes</target>
       </segment>
     </unit>
     <unit id="2009978670427997964">
@@ -1876,7 +1876,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Korrekte Antwort (Quiz)</source>
-        <target>Korrekte Antwort (Quiz)</target>
+        <target>Correct answers (quiz)</target>
       </segment>
     </unit>
     <unit id="3779344425702119911">
@@ -1885,7 +1885,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Unterfragen</source>
-        <target>Unterfragen</target>
+        <target>Sub-questions</target>
       </segment>
     </unit>
     <unit id="4793302653467568534">
@@ -1894,7 +1894,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Jede Unterfrage ist Pflichtfeld</source>
-        <target>Jede Unterfrage ist Pflichtfeld</target>
+        <target>Each sub-question is a mandatory field</target>
       </segment>
     </unit>
     <unit id="5373486674031991069">
@@ -1903,7 +1903,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</source>
-        <target>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</target>
+        <target>This option forces that each sub-question have to be answered.</target>
       </segment>
     </unit>
     <unit id="7227476185175598244">
@@ -1912,7 +1912,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Unsichtbar ohne sichtbare Fragen</source>
-        <target>Unsichtbar ohne sichtbare Fragen</target>
+        <target>Invisible with no visible questions</target>
       </segment>
     </unit>
     <unit id="254243942710551060">
@@ -1921,7 +1921,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgbelendet.</source>
-        <target>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgbelendet.</target>
+        <target>If all sub-questions are invisible, the question is hidden.</target>
       </segment>
     </unit>
     <unit id="6882061501622662520">
@@ -1930,7 +1930,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Unterfragen Reihenfolge</source>
-        <target>Unterfragen Reihenfolge</target>
+        <target>Sub-question order</target>
       </segment>
     </unit>
     <unit id="276184332300045619">
@@ -1939,7 +1939,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Wie definiert</source>
-        <target>Wie definiert</target>
+        <target>As defined</target>
       </segment>
     </unit>
     <unit id="5748078469472297200">
@@ -1948,7 +1948,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zufällig</source>
-        <target>Zufällig</target>
+        <target>Random</target>
       </segment>
     </unit>
     <unit id="3410376041034296385">
@@ -1957,7 +1957,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Unterfrage Sichtbarkeitsbedingung</source>
-        <target>Unterfrage Sichtbarkeitsbedingung</target>
+        <target>Sub-question visibility condition</target>
       </segment>
     </unit>
     <unit id="2918457483295577227">
@@ -1966,7 +1966,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Antwortmöglichkeiten</source>
-        <target>Antwortmöglichkeiten</target>
+        <target>Answer options</target>
       </segment>
     </unit>
     <unit id="3643065623582513222">
@@ -1975,7 +1975,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Antworten</source>
-        <target>Antworten</target>
+        <target>Answers</target>
       </segment>
     </unit>
     <unit id="6756465483742901259">
@@ -1984,7 +1984,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Unsichtbar ohne sichtbare Antworten</source>
-        <target>Unsichtbar ohne sichtbare Antworten</target>
+        <target>Invisible with no visible answers</target>
       </segment>
     </unit>
     <unit id="8864163877372531653">
@@ -1993,7 +1993,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Sind alle Antworten unsichtbar, dann wird die Frage ausgbelendet.</source>
-        <target>Sind alle Antworten unsichtbar, dann wird die Frage ausgbelendet.</target>
+        <target>If all the answers are invisible, the question is hidde.</target>
       </segment>
     </unit>
     <unit id="3740504915156757002">
@@ -2002,7 +2002,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Darstellung in Spalten</source>
-        <target>Darstellung in Spalten</target>
+        <target>Representation in columns</target>
       </segment>
     </unit>
     <unit id="8079868020998407724">
@@ -2011,7 +2011,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Antworten Reihenfolge</source>
-        <target>Antworten Reihenfolge</target>
+        <target>Answers order</target>
       </segment>
     </unit>
     <unit id="8691548970191506667">
@@ -2020,7 +2020,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Aufsteigend sortiert</source>
-        <target>Aufsteigend sortiert</target>
+        <target>Sorted in ascending order</target>
       </segment>
     </unit>
     <unit id="1947750218509794653">
@@ -2029,7 +2029,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Absteigend sortiert</source>
-        <target>Absteigend sortiert</target>
+        <target>Sorted in descending order</target>
       </segment>
     </unit>
     <unit id="9152737328129816882">
@@ -2038,7 +2038,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Antwort Sichtbarkeitsbedingung</source>
-        <target>Antwort Sichtbarkeitsbedingung</target>
+        <target>Answer visibility condition</target>
       </segment>
     </unit>
     <unit id="8045928720268721680">
@@ -2047,7 +2047,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Anderes Eingabefeld aktivieren</source>
-        <target>Anderes Eingabefeld aktivieren</target>
+        <target>Activate another input field</target>
       </segment>
     </unit>
     <unit id="2546334027949858879">
@@ -2056,7 +2056,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</source>
-        <target>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</target>
+        <target>This option is deactivated if the "Comment input field" is activated.</target>
       </segment>
     </unit>
     <unit id="2412317594447763128">
@@ -2065,7 +2065,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeige Knopf um Auswahl rückgängig zu machen</source>
-        <target>Zeige Knopf um Auswahl rückgängig zu machen</target>
+        <target>Show button to undo selection</target>
       </segment>
     </unit>
     <unit id="4799237165177498998">
@@ -2074,7 +2074,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeige Knopf um alles auszuwählen</source>
-        <target>Zeige Knopf um alles auszuwählen</target>
+        <target>Show button to select all</target>
       </segment>
     </unit>
     <unit id="7915859704986171168">
@@ -2083,7 +2083,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeige Knopf für nichts trifft zu</source>
-        <target>Zeige Knopf für nichts trifft zu</target>
+        <target>Show button for nothing applies</target>
       </segment>
     </unit>
     <unit id="2158488422074241298">
@@ -2092,7 +2092,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Mehrfachauswahl erlauben</source>
-        <target>Mehrfachauswahl erlauben</target>
+        <target>Allow multiple selections</target>
       </segment>
     </unit>
     <unit id="7096759547174459513">
@@ -2101,7 +2101,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Breite in Pixel</source>
-        <target>Breite in Pixel</target>
+        <target>Width in pixels</target>
       </segment>
     </unit>
     <unit id="6463726515236192057">
@@ -2110,7 +2110,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Höhe in Pixel</source>
-        <target>Höhe in Pixel</target>
+        <target>Height in pixels</target>
       </segment>
     </unit>
     <unit id="3681264497760339705">
@@ -2119,7 +2119,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Größenanpassung</source>
-        <target>Größenanpassung</target>
+        <target>Size adjustment</target>
       </segment>
     </unit>
     <unit id="4728532590739893418">
@@ -2128,7 +2128,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Keine Anpassung</source>
-        <target>Keine Anpassung</target>
+        <target>No adjustment</target>
       </segment>
     </unit>
     <unit id="4710626519203410106">
@@ -2137,7 +2137,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Verkleinern</source>
-        <target>Verkleinern</target>
+        <target>Minimize</target>
       </segment>
     </unit>
     <unit id="7766735261673100646">
@@ -2146,7 +2146,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Abschneiden</source>
-        <target>Abschneiden</target>
+        <target>Cut off</target>
       </segment>
     </unit>
     <unit id="2067326968798044785">
@@ -2155,7 +2155,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Füllen</source>
-        <target>Füllen</target>
+        <target>To fill</target>
       </segment>
     </unit>
     <unit id="3020287547382707558">
@@ -2164,7 +2164,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Titel*</source>
-        <target>Formular Titel*</target>
+        <target>Form title*</target>
       </segment>
     </unit>
     <unit id="8617378541577598232">
@@ -2173,7 +2173,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Titel</source>
-        <target>Formular Titel</target>
+        <target>Form title</target>
       </segment>
     </unit>
     <unit id="4100707199422330681">
@@ -2182,7 +2182,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Titel anzeigen</source>
-        <target>Titel anzeigen</target>
+        <target>Display title</target>
       </segment>
     </unit>
     <unit id="3833317435714673084">
@@ -2191,7 +2191,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Beschreibung</source>
-        <target>Formular Beschreibung</target>
+        <target>Form description</target>
       </segment>
     </unit>
     <unit id="5174948911103092376">
@@ -2200,7 +2200,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</source>
-        <target>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</target>
+        <target>This text will be displayed on every page of the form.</target>
       </segment>
     </unit>
     <unit id="5666267213246612821">
@@ -2209,7 +2209,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Standardsprache</source>
-        <target>Standardsprache</target>
+        <target>Default language</target>
       </segment>
     </unit>
     <unit id="9019552118736918171">
@@ -2218,7 +2218,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
-        <target>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</target>
+        <target>The default language that is displayed to the user. The user can change the language.</target>
       </segment>
     </unit>
     <unit id="1372482459728345325">
@@ -2227,7 +2227,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fragen Nummerierung</source>
-        <target>Fragen Nummerierung</target>
+        <target>Questions numbering</target>
       </segment>
     </unit>
     <unit id="8481579963208403613">
@@ -2236,7 +2236,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Durchgängig nummerieren</source>
-        <target>Durchgängig nummerieren</target>
+        <target>Number continuously</target>
       </segment>
     </unit>
     <unit id="3639076766141137848">
@@ -2245,7 +2245,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Seitenweise nummerieren</source>
-        <target>Seitenweise nummerieren</target>
+        <target>Number page by page</target>
       </segment>
     </unit>
     <unit id="2434918029138704338">
@@ -2254,7 +2254,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Keine Nummern anzeigen</source>
-        <target>Keine Nummern anzeigen</target>
+        <target>Don't show numbers</target>
       </segment>
     </unit>
     <unit id="9158296968384637533">
@@ -2263,7 +2263,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fragen Reihenfolge</source>
-        <target>Fragen Reihenfolge</target>
+        <target>Questions order</target>
       </segment>
     </unit>
     <unit id="3821562361871225487">
@@ -2272,7 +2272,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Abschlusstext*</source>
-        <target>Abschlusstext*</target>
+        <target>Closing text*</target>
       </segment>
     </unit>
     <unit id="7027469161598572792">
@@ -2281,7 +2281,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Umleitungs URL</source>
-        <target>Umleitungs URL</target>
+        <target>Redirect url</target>
       </segment>
     </unit>
     <unit id="9128980080597633518">
@@ -2290,7 +2290,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</source>
-        <target>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</target>
+        <target>The user will be forwarded to this address after completing the form.</target>
       </segment>
     </unit>
     <unit id="4550958265168690830">
@@ -2308,7 +2308,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Logo</source>
-        <target>Formular Logo</target>
+        <target>Form logo</target>
       </segment>
     </unit>
     <unit id="2501314743594284688">
@@ -2317,7 +2317,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Eine URL zu einem Logo angeben.</source>
-        <target>Eine URL zu einem Logo angeben.</target>
+        <target>Provide a URL to a logo.</target>
       </segment>
     </unit>
     <unit id="1172866303261737245">
@@ -2335,7 +2335,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Nicht anzeigen</source>
-        <target>Nicht anzeigen</target>
+        <target>Do not display</target>
       </segment>
     </unit>
     <unit id="7565716024468232322">
@@ -2353,7 +2353,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Rechts</source>
-        <target>Rechts</target>
+        <target>Right</target>
       </segment>
     </unit>
     <unit id="7729339462879047946">
@@ -2362,7 +2362,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Oben</source>
-        <target>Oben</target>
+        <target>Top</target>
       </segment>
     </unit>
     <unit id="6261398890082020172">
@@ -2371,7 +2371,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Unten</source>
-        <target>Unten</target>
+        <target>Bottom</target>
       </segment>
     </unit>
     <unit id="1348774649041038169">
@@ -2389,7 +2389,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Erste Seite ist Startseite</source>
-        <target>Erste Seite ist Startseite</target>
+        <target>The first page is the start page</target>
       </segment>
     </unit>
     <unit id="2189698395299719013">
@@ -2398,7 +2398,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Die erste Seite erhält einen Start Button für das Formular.</source>
-        <target>Die erste Seite erhält einen Start Button für das Formular.</target>
+        <target>The first page receives a start button for the form.</target>
       </segment>
     </unit>
     <unit id="6178833123766704127">
@@ -2407,7 +2407,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zurück Button erlauben</source>
-        <target>Zurück Button erlauben</target>
+        <target>Allow back button</target>
       </segment>
     </unit>
     <unit id="7695508861104987850">
@@ -2416,7 +2416,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Nächste Seite automatisch öffnen</source>
-        <target>Nächste Seite automatisch öffnen</target>
+        <target>Open next page automatically</target>
       </segment>
     </unit>
     <unit id="2539753449794837656">
@@ -2425,7 +2425,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</source>
-        <target>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</target>
+        <target>After completing one page, the next is automatically opened.</target>
       </segment>
     </unit>
     <unit id="8815755568322473340">
@@ -2434,7 +2434,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Vorschau vor dem absenden</source>
-        <target>Vorschau vor dem absenden</target>
+        <target>Preview before sending</target>
       </segment>
     </unit>
     <unit id="4048724896199851116">
@@ -2443,7 +2443,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Keine Vorschau</source>
-        <target>Keine Vorschau</target>
+        <target>No preview</target>
       </segment>
     </unit>
     <unit id="3116521044657277687">
@@ -2452,7 +2452,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Alle Fragen</source>
-        <target>Alle Fragen</target>
+        <target>All questions</target>
       </segment>
     </unit>
     <unit id="8088636398432806268">
@@ -2461,7 +2461,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Alle ausgefüllten Fragen</source>
-        <target>Alle ausgefüllten Fragen</target>
+        <target>All questions answered</target>
       </segment>
     </unit>
     <unit id="324207327537868266">
@@ -2470,7 +2470,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular final absendet.</source>
-        <target>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular final absendet.</target>
+        <target>The user cannot preview his or her responses before finally submitting the form.</target>
       </segment>
     </unit>
     <unit id="9183727284848549860">
@@ -2479,7 +2479,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fortschrittsbalken Anzeigen</source>
-        <target>Fortschrittsbalken Anzeigen</target>
+        <target>Show progress bar</target>
       </segment>
     </unit>
     <unit id="4185383975352174936">
@@ -2488,7 +2488,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Oben und unten</source>
-        <target>Oben und unten</target>
+        <target>Top and bottom</target>
       </segment>
     </unit>
     <unit id="503802866275364170">
@@ -2497,7 +2497,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fortschrittsbalken Berechnung</source>
-        <target>Fortschrittsbalken Berechnung</target>
+        <target>Progress bar calculation</target>
       </segment>
     </unit>
     <unit id="5884518565866049278">
@@ -2506,7 +2506,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Sichtbare Seiten</source>
-        <target>Sichtbare Seiten</target>
+        <target>Visible sites</target>
       </segment>
     </unit>
     <unit id="8170033538072466570">
@@ -2515,7 +2515,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Sichtbare Pflichtfragen</source>
-        <target>Sichtbare Pflichtfragen</target>
+        <target>Visible mandatory questions</target>
       </segment>
     </unit>
     <unit id="6268991995109043706">
@@ -2524,7 +2524,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Alle sichtbaren Fragen</source>
-        <target>Alle sichtbaren Fragen</target>
+        <target>All visible questions</target>
       </segment>
     </unit>
     <unit id="4672431604235348857">
@@ -2533,7 +2533,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Korrekt beantwortete Fragen (Quiz)</source>
-        <target>Korrekt beantwortete Fragen (Quiz)</target>
+        <target>Correctly answered questions (quiz)</target>
       </segment>
     </unit>
     <unit id="235619957920177805">
@@ -2542,7 +2542,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Seiten</source>
-        <target>Seiten</target>
+        <target>Pages</target>
       </segment>
     </unit>
     <unit id="8842099329146114445">
@@ -2560,7 +2560,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeitlimit in Sekunden für das Formular</source>
-        <target>Zeitlimit in Sekunden für das Formular</target>
+        <target>Time limit in seconds for the form</target>
       </segment>
     </unit>
     <unit id="2813735869096234149">
@@ -2569,7 +2569,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeitlimit in Sekunden pro Seite</source>
-        <target>Zeitlimit in Sekunden pro Seite</target>
+        <target>Time limit in seconds per side</target>
       </segment>
     </unit>
     <unit id="7133964056789991209">
@@ -2578,7 +2578,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeitlimit anzeigen</source>
-        <target>Zeitlimit anzeigen</target>
+        <target>Show time limit</target>
       </segment>
     </unit>
     <unit id="2491849397970098376">
@@ -2587,7 +2587,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Timer anzeigen</source>
-        <target>Timer anzeigen</target>
+        <target>Show timer</target>
       </segment>
     </unit>
     <unit id="8224626603237394009">
@@ -2596,7 +2596,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeit auf dieser Seite und das gesamte Formular</source>
-        <target>Zeit auf dieser Seite und das gesamte Formular</target>
+        <target>Time on this page and the entire form</target>
       </segment>
     </unit>
     <unit id="3070058222143457362">
@@ -2605,7 +2605,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeit auf dieser Seite</source>
-        <target>Zeit auf dieser Seite</target>
+        <target>Time on this side</target>
       </segment>
     </unit>
     <unit id="5906479838476211239">
@@ -2614,7 +2614,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeit für das gesamte Formular</source>
-        <target>Zeit für das gesamte Formular</target>
+        <target>Time for the entire form</target>
       </segment>
     </unit>
     <unit id="3653220996715334574">
@@ -2623,7 +2623,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Seite <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></source>
-        <target>Seite <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></target>
+        <target>Page <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></target>
       </segment>
     </unit>
     <unit id="2471765562897109795">
@@ -2632,7 +2632,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Seiten Titel</source>
-        <target>Seiten Titel</target>
+        <target>Page title</target>
       </segment>
     </unit>
     <unit id="6320380037348531310">
@@ -2641,7 +2641,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Seiten Beschreibung</source>
-        <target>Seiten Beschreibung</target>
+        <target>Page description</target>
       </segment>
     </unit>
     <unit id="2798807656507405918">
@@ -2659,7 +2659,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option überschreibt den Standartwert aus dem Reiter Allgemein.</source>
-        <target>Diese Option überschreibt den Standartwert aus dem Reiter Allgemein.</target>
+        <target>This option overwrites the standard value from the General tab.</target>
       </segment>
     </unit>
     <unit id="8416197884058958262">
@@ -2668,7 +2668,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option stellt ein, ob die Seite standartmäßig sichtbar ist.</source>
-        <target>Diese Option stellt ein, ob die Seite standartmäßig sichtbar ist.</target>
+        <target>This option sets whether the page is visible by default.</target>
       </segment>
     </unit>
     <unit id="1203335748647784729">
@@ -2677,7 +2677,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option stellt ein, ob die Seite standartmäßig ausfüllbar ist.</source>
-        <target>Diese Option stellt ein, ob die Seite standartmäßig ausfüllbar ist.</target>
+        <target>This option sets whether the page can be filled in by default.</target>
       </segment>
     </unit>
     <unit id="7030772613006934299">
@@ -2686,7 +2686,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeitlimit in Sekunden für die Seite</source>
-        <target>Zeitlimit in Sekunden für die Seite</target>
+        <target>Time limit in seconds for the page</target>
       </segment>
     </unit>
     <unit id="5551209617707821082">
@@ -2695,7 +2695,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Diese Option überschreibt den Standartwert pro Seite aus dem Reiter Timer/Quiz.</source>
-        <target>Diese Option überschreibt den Standartwert pro Seite aus dem Reiter Timer/Quiz.</target>
+        <target>This option overwrites the default value per page from the tab: Timer / Quiz.</target>
       </segment>
     </unit>
     <unit id="4723836104354899512">
@@ -2704,7 +2704,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Editor - POWER.NI</source>
-        <target>Formular Editor - POWER.NI</target>
+        <target>Form editor - POWER.NI</target>
       </segment>
     </unit>
     <unit id="1846940666050448274">
@@ -2713,7 +2713,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Möchten Sie diese Seite wirklich löschen?</source>
-        <target>Möchten Sie diese Seite wirklich löschen?</target>
+        <target>Are you sure you want to delete this page?</target>
       </segment>
     </unit>
     <unit id="4083098439898145242">
@@ -2722,7 +2722,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Erfolgreich kopiert</source>
-        <target>Erfolgreich kopiert</target>
+        <target>Copied successfully</target>
       </segment>
     </unit>
     <unit id="9006495839796416057">
@@ -2731,7 +2731,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Sie finden Ihre Zwischenablage ganz oben in der Toolbox.</source>
-        <target>Sie finden Ihre Zwischenablage ganz oben in der Toolbox.</target>
+        <target>You can find your clipboard at the top of the toolbox.</target>
       </segment>
     </unit>
     <unit id="827004122415134621">
@@ -2740,7 +2740,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Möchten Sie das Element wirklich löschen?</source>
-        <target>Möchten Sie das Element wirklich löschen?</target>
+        <target>Are you sure you want to delete the item?</target>
       </segment>
     </unit>
     <unit id="6264262637253053810">
@@ -2758,7 +2758,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Favoriten</source>
-        <target> Favoriten</target>
+        <target> Favorites</target>
       </segment>
     </unit>
     <unit id="9011837343127283352">
@@ -2776,7 +2776,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Neue Seite hinzufügen</source>
-        <target>Neue Seite hinzufügen</target>
+        <target>Add new page</target>
       </segment>
     </unit>
     <unit id="5744410059698672022">
@@ -2785,7 +2785,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Ausgewählte Seite löschen</source>
-        <target>Ausgewählte Seite löschen</target>
+        <target>Delete selected page</target>
       </segment>
     </unit>
     <unit id="457974053481573035">
@@ -2794,7 +2794,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Letzte Änderung wiederholen</source>
-        <target>Letzte Änderung wiederholen</target>
+        <target>Repeat last change</target>
       </segment>
     </unit>
     <unit id="9184754693751559474">
@@ -2803,7 +2803,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Letzte Änderung rückgängig machen</source>
-        <target>Letzte Änderung rückgängig machen</target>
+        <target>Undo the last change</target>
       </segment>
     </unit>
     <unit id="8074982956026936752">
@@ -2812,7 +2812,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Einstellungen öffnen</source>
-        <target>Formular Einstellungen öffnen</target>
+        <target>Open the form settings</target>
       </segment>
     </unit>
     <unit id="1984014520885532931">
@@ -2821,7 +2821,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular Vorschau öffnen</source>
-        <target>Formular Vorschau öffnen</target>
+        <target>Open the form preview</target>
       </segment>
     </unit>
     <unit id="1757132388528868196">
@@ -2830,7 +2830,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular speichern</source>
-        <target>Formular speichern</target>
+        <target>Save form</target>
       </segment>
     </unit>
     <unit id="90895410484051873">
@@ -2839,7 +2839,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zurück zu den Details</source>
-        <target>Zurück zu den Details</target>
+        <target>Back to details</target>
       </segment>
     </unit>
     <unit id="8696865147554603290">
@@ -2848,7 +2848,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zwischenablage</source>
-        <target>Zwischenablage</target>
+        <target>Clipboard</target>
       </segment>
     </unit>
     <unit id="5063140447217153857">
@@ -2857,7 +2857,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Zeige Seite <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></source>
-        <target>Zeige Seite <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></target>
+        <target>Show page <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></target>
       </segment>
     </unit>
     <unit id="6670435124565827548">
@@ -2866,7 +2866,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Ziehen Sie etwas in den Arbeitsbereich... </source>
-        <target> Ziehen Sie etwas in den Arbeitsbereich... </target>
+        <target> Drag something into the work area... </target>
       </segment>
     </unit>
     <unit id="7897211246412919659">
@@ -2875,7 +2875,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Verschieben</source>
-        <target>Verschieben</target>
+        <target>Move</target>
       </segment>
     </unit>
     <unit id="6421015407864399648">
@@ -2884,7 +2884,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Kopieren</source>
-        <target>Kopieren</target>
+        <target>Copy</target>
       </segment>
     </unit>
     <unit id="9141378190271389476">
@@ -2893,7 +2893,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Als Favoriten speichern</source>
-        <target>Als Favoriten speichern</target>
+        <target>Save as favorites</target>
       </segment>
     </unit>
     <unit id="8852250703686567498">
@@ -2902,7 +2902,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Ungültige Einstellungen</source>
-        <target>Ungültige Einstellungen</target>
+        <target>Invalid settings</target>
       </segment>
     </unit>
     <unit id="9111265276371777280">
@@ -2911,7 +2911,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.</source>
-        <target>Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.</target>
+        <target>Some settings are incorrect and must be corrected beforehand.</target>
       </segment>
     </unit>
     <unit id="6921718972798296996">
@@ -2920,7 +2920,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Neues Formular</source>
-        <target> Neues Formular</target>
+        <target> New form</target>
       </segment>
     </unit>
     <unit id="1456316300337773432">
@@ -2929,7 +2929,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Einstellungen zum neuen Formular</source>
-        <target>Einstellungen zum neuen Formular</target>
+        <target>Settings for the new form</target>
       </segment>
     </unit>
     <unit id="6154523979033512876">
@@ -2938,7 +2938,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Mein Formular</source>
-        <target>Mein Formular</target>
+        <target>My form</target>
       </segment>
     </unit>
     <unit id="5610425955750546094">
@@ -2956,7 +2956,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Suchen</source>
-        <target>Suchen</target>
+        <target>Search</target>
       </segment>
     </unit>
     <unit id="3367843544810442794">
@@ -2965,7 +2965,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular erstellen</source>
-        <target>Formular erstellen</target>
+        <target>Create form</target>
       </segment>
     </unit>
     <unit id="5961265961943224067">
@@ -2974,7 +2974,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Erstellen</source>
-        <target> Erstellen</target>
+        <target> Create</target>
       </segment>
     </unit>
     <unit id="4827703385144532970">
@@ -2992,7 +2992,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Status: Alle</source>
-        <target>Status: Alle</target>
+        <target>Status: All</target>
       </segment>
     </unit>
     <unit id="7386041263711688644">
@@ -3001,7 +3001,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Status: Erstellt</source>
-        <target>Status: Erstellt</target>
+        <target>Status: Created</target>
       </segment>
     </unit>
     <unit id="1570500676393057586">
@@ -3010,7 +3010,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Status: In Bearbeitung</source>
-        <target>Status: In Bearbeitung</target>
+        <target>Status: In progress</target>
       </segment>
     </unit>
     <unit id="2913904211707162832">
@@ -3019,7 +3019,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Status: Abgeschlossen</source>
-        <target>Status: Abgeschlossen</target>
+        <target>Status: Completed</target>
       </segment>
     </unit>
     <unit id="2418500321333956842">
@@ -3028,7 +3028,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular</source>
-        <target>Formular</target>
+        <target>Form</target>
       </segment>
     </unit>
     <unit id="3906234135081295833">
@@ -3037,7 +3037,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Abgeschlossen</source>
-        <target>Abgeschlossen</target>
+        <target>Completed</target>
       </segment>
     </unit>
     <unit id="8999417070988208750">
@@ -3046,7 +3046,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular öffnen</source>
-        <target>Formular öffnen</target>
+        <target>Open form</target>
       </segment>
     </unit>
     <unit id="786291885141387519">
@@ -3055,7 +3055,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source> Formular öffnen </source>
-        <target> Formular öffnen </target>
+        <target> Open form </target>
       </segment>
     </unit>
     <unit id="1875629595072033230">
@@ -3073,7 +3073,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Status: Veröffentlicht</source>
-        <target>Status: Veröffentlicht</target>
+        <target>Status: Published</target>
       </segment>
     </unit>
     <unit id="6006001086469034825">
@@ -3082,7 +3082,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Status: Geschlossen</source>
-        <target>Status: Geschlossen</target>
+        <target>Status: Closed</target>
       </segment>
     </unit>
     <unit id="3516494453193947151">
@@ -3091,7 +3091,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Titel</source>
-        <target>Titel</target>
+        <target>Title</target>
       </segment>
     </unit>
     <unit id="1330299988060557700">
@@ -3100,7 +3100,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Neues Formular erstellen</source>
-        <target>Neues Formular erstellen</target>
+        <target>Create a new form</target>
       </segment>
     </unit>
     <unit id="2877409751096310292">
@@ -3109,7 +3109,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Neues Formular</source>
-        <target>Neues Formular</target>
+        <target>New form</target>
       </segment>
     </unit>
     <unit id="3451297314722320142">
@@ -3118,7 +3118,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formular importieren</source>
-        <target>Formular importieren</target>
+        <target>Import form</target>
       </segment>
     </unit>
     <unit id="623768782436568030">
@@ -3127,7 +3127,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.</source>
-        <target>ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.</target>
+        <target>ATTENTION: You have unsaved changes. Press cancel to keep the changes.</target>
       </segment>
     </unit>
     <unit id="5316487234495661938">
@@ -3136,7 +3136,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Ergebnisvorschau</source>
-        <target>Ergebnisvorschau</target>
+        <target>Result preview</target>
       </segment>
     </unit>
     <unit id="8676788741374508103">
@@ -3145,7 +3145,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Formularvorschau</source>
-        <target>Formularvorschau</target>
+        <target>Form preview</target>
       </segment>
     </unit>
     <unit id="7055687446802038168">
@@ -3154,7 +3154,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Anzeigemodus</source>
-        <target>Anzeigemodus</target>
+        <target>Display mode</target>
       </segment>
     </unit>
     <unit id="6957721606845154617">
@@ -3163,7 +3163,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Editiermodus</source>
-        <target>Editiermodus</target>
+        <target>Edit mode</target>
       </segment>
     </unit>
     <unit id="5290454533235962082">
@@ -3172,7 +3172,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Vorschaumodus</source>
-        <target>Vorschaumodus</target>
+        <target>Preview mode</target>
       </segment>
     </unit>
     <unit id="51574765818008149">
@@ -3181,7 +3181,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Sprache</source>
-        <target>Sprache</target>
+        <target>Language</target>
       </segment>
     </unit>
     <unit id="5444543356424916610">
@@ -3190,7 +3190,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Unsichtbare Elemente anzeigen</source>
-        <target>Unsichtbare Elemente anzeigen</target>
+        <target>Display invisible elements</target>
       </segment>
     </unit>
     <unit id="5589675804344200229">
@@ -3199,7 +3199,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Eingabefeld</source>
-        <target>Eingabefeld</target>
+        <target>Input box</target>
       </segment>
     </unit>
     <unit id="5364143507457218055">
@@ -3208,7 +3208,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Kommentarfeld</source>
-        <target>Kommentarfeld</target>
+        <target>Comment field</target>
       </segment>
     </unit>
     <unit id="1531248391846636211">
@@ -3217,7 +3217,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Ja/Nein</source>
-        <target>Ja/Nein</target>
+        <target>Yes/No</target>
       </segment>
     </unit>
     <unit id="9142428020401391819">
@@ -3226,7 +3226,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Einfachauswahl</source>
-        <target>Einfachauswahl</target>
+        <target>Single choice</target>
       </segment>
     </unit>
     <unit id="1256089082629822545">
@@ -3235,7 +3235,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Mehrfachauswahl</source>
-        <target>Mehrfachauswahl</target>
+        <target>Multiple choice</target>
       </segment>
     </unit>
     <unit id="5222539429128643526">
@@ -3244,7 +3244,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Bilderauswahl</source>
-        <target>Bilderauswahl</target>
+        <target>Image selection</target>
       </segment>
     </unit>
     <unit id="241839647344135361">
@@ -3253,7 +3253,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Bewertung</source>
-        <target>Bewertung</target>
+        <target>Rating</target>
       </segment>
     </unit>
     <unit id="6613897755697953443">
@@ -3271,7 +3271,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Likert Skala</source>
-        <target>Likert Skala</target>
+        <target>Likert scale</target>
       </segment>
     </unit>
     <unit id="7531449458395898640">
@@ -3280,7 +3280,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Unterschrift</source>
-        <target>Unterschrift</target>
+        <target>Signature</target>
       </segment>
     </unit>
     <unit id="6217203485626464476">
@@ -3289,7 +3289,7 @@ Dies lässt sich nicht mehr umkehren!</target>
       </notes>
       <segment state="initial">
         <source>Fileupload</source>
-        <target>Fileupload</target>
+        <target>File upload</target>
       </segment>
     </unit>
   </file>
