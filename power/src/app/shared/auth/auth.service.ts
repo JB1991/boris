@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
@@ -15,7 +15,8 @@ export class AuthService {
     public user: User;
     private timerHandle: NodeJS.Timeout;
 
-    constructor(public router: Router,
+    constructor(@Inject(LOCALE_ID) public locale: string,
+        public router: Router,
         public httpClient: HttpClient,
         public conf: ConfigService) {
         // load session
@@ -159,7 +160,9 @@ export class AuthService {
         body = body.set('client_id', environment.auth.clientid);
         body = body.set('client_secret', environment.auth.clientsecret);
         body = body.set('code', code);
-        body = body.set('redirect_uri', location.protocol + '//' + location.host + '/login');
+        body = body.set('redirect_uri', location.protocol + '//' + location.host +
+            /* istanbul ignore next */
+            (this.locale === 'de' ? '' : '/' + this.locale) + '/login');
 
         // post login data
         try {

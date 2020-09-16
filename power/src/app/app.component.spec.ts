@@ -71,13 +71,6 @@ describe('AppComponent', () => {
         expect(app.appVersion).toEqual({ version: 'local', branch: 'dev' });
     });
 
-    it('should remove language from baseurl', waitForAsync(() => {
-        app.baseurl = '/en-US/forms';
-        app.ngOnInit();
-        answerHTTPRequest('/assets/version.json', 'GET', { version: '123456', branch: 'prod' });
-        expect(app.baseurl).toEqual('/forms');
-    }));
-
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer
      * @param url The URL of the HTTP request
