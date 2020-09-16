@@ -43,7 +43,7 @@
       </notes>
       <segment state="initial">
         <source>Navigation umschalten</source>
-        <target>toggle navigation</target>
+        <target>Toggle navigation</target>
       </segment>
     </unit>
     <unit id="8429316238784832901">
@@ -196,7 +196,7 @@
       </notes>
       <segment state="initial">
         <source><ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> mit ENTER bestätigen</source>
-        <target><ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> confirm with ENTER</target>
+        <target>confirm <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> with ENTER</target>
       </segment>
     </unit>
     <unit id="4580399730639224598">
@@ -1048,7 +1048,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="initial">
         <source>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</source>
-        <target>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</target>
+        <target>{VAR_SELECT, select, created {Created} published {Published} cancelled {Cancelled}}</target>
       </segment>
     </unit>
     <unit id="8022684452981881720">
@@ -1228,7 +1228,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="initial">
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</source>
-        <target>{VAR_SELECT, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</target>
+        <target>{VAR_SELECT, select, created {Created} accessed {Accessed} submitted {Submitted}}</target>
       </segment>
     </unit>
     <unit id="6920196637619975735">
@@ -3064,7 +3064,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="initial">
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</source>
-        <target>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</target>
+        <target>{VAR_SELECT, select, created {Created} accessed {Accessed} submitted {Submitted}}</target>
       </segment>
     </unit>
     <unit id="8902031064230548096">
