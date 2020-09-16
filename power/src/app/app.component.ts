@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Config, ConfigService } from '@app/config.service';
 import { HttpClient } from '@angular/common/http';
@@ -18,19 +18,24 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public config: Config;
     public appVersion: any = { version: 'local', branch: 'dev' };
     public uri = location;
+    public baseurl = location.pathname;
 
     private unsubscribe$: Subject<void> = new Subject<void>();
 
-    constructor(
+    constructor(@Inject(LOCALE_ID) public locale: string,
         public cdRef: ChangeDetectorRef,
         public configService: ConfigService,
         public httpClient: HttpClient,
         public auth: AuthService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.config = this.configService.config;
+
+        // remove language from url
+        if (this.baseurl.startsWith('/' + this.locale + '/')) {
+            this.baseurl = this.baseurl.substr(this.locale.length + 1);
+        }
 
         // load version
         this.httpClient.get('/assets/version.json').subscribe(data => {

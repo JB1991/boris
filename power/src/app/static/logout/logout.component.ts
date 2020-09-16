@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -13,7 +13,8 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 })
 export class LogoutComponent implements OnInit {
 
-    constructor(public titleService: Title,
+    constructor(@Inject(LOCALE_ID) public locale: string,
+        public titleService: Title,
         public router: Router,
         public auth: AuthService,
         public loadingscreen: LoadingscreenService) {
@@ -30,7 +31,9 @@ export class LogoutComponent implements OnInit {
         // redirect to logout page
         this.redirect(environment.auth.url + 'logout' +
             '?client_id=' + encodeURIComponent(environment.auth.clientid) +
-            '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host));
+            '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host +
+                /* istanbul ignore next */
+                (this.locale === 'de' ? '' : '/' + this.locale + '/')));
     }
 
     /**

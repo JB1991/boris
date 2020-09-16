@@ -91,6 +91,18 @@ describe('Static.Login.LoginComponent', () => {
         });
     });
 
+    it('should trim language from redirect url', (done) => {
+        // set keycloak return code
+        spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.callFake((name) => {
+            return (name === 'redirect' ? '/en-US/forms' : null);
+        });
+
+        component.authenticate().then((value) => {
+            expect(component.redirect).toHaveBeenCalledTimes(2);
+            done();
+        });
+    });
+
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer
      * @param url The URL of the HTTP request
