@@ -3,7 +3,7 @@
   <file id="ngi18n" original="ng.template">
     <unit id="5693309902155405103">
       <notes>
-        <note category="location">src/app/app.component.js:158</note>
+        <note category="location">src/app/app.component.js:173</note>
       </notes>
       <segment state="initial">
         <source>LGLN Logo</source>
@@ -12,7 +12,7 @@
     </unit>
     <unit id="6352019999410584828">
       <notes>
-        <note category="location">src/app/app.component.js:164</note>
+        <note category="location">src/app/app.component.js:179</note>
       </notes>
       <segment state="initial">
         <source>Portal für Wertermittlung</source>
@@ -21,7 +21,7 @@
     </unit>
     <unit id="4234420133257512194">
       <notes>
-        <note category="location">src/app/app.component.js:170</note>
+        <note category="location">src/app/app.component.js:185</note>
       </notes>
       <segment state="initial">
         <source>.niedersachsen</source>
@@ -30,7 +30,7 @@
     </unit>
     <unit id="1960371191469910628">
       <notes>
-        <note category="location">src/app/app.component.js:176</note>
+        <note category="location">src/app/app.component.js:191</note>
       </notes>
       <segment state="initial">
         <source>POWER</source>
@@ -39,7 +39,7 @@
     </unit>
     <unit id="7921562522568590712">
       <notes>
-        <note category="location">src/app/app.component.js:188</note>
+        <note category="location">src/app/app.component.js:203</note>
       </notes>
       <segment state="initial">
         <source>Navigation umschalten</source>
@@ -48,16 +48,43 @@
     </unit>
     <unit id="8429316238784832901">
       <notes>
-        <note category="location">src/app/app.component.js:200</note>
+        <note category="location">src/app/app.component.js:215</note>
       </notes>
       <segment state="initial">
         <source>Feedback</source>
         <target>Feedback</target>
       </segment>
     </unit>
+    <unit id="8257015353025970722">
+      <notes>
+        <note category="location">src/app/app.component.js:221</note>
+      </notes>
+      <segment state="initial">
+        <source>Sprache </source>
+        <target>Language </target>
+      </segment>
+    </unit>
+    <unit id="3313528406596871463">
+      <notes>
+        <note category="location">src/app/app.component.js:227</note>
+      </notes>
+      <segment state="initial">
+        <source>Deutsch</source>
+        <target>German</target>
+      </segment>
+    </unit>
+    <unit id="8957931169022166336">
+      <notes>
+        <note category="location">src/app/app.component.js:233</note>
+      </notes>
+      <segment state="initial">
+        <source>Englisch</source>
+        <target>English</target>
+      </segment>
+    </unit>
     <unit id="2354045805420094700">
       <notes>
-        <note category="location">src/app/app.component.js:206</note>
+        <note category="location">src/app/app.component.js:239</note>
       </notes>
       <segment state="initial">
         <source>Informationen</source>
@@ -66,7 +93,7 @@
     </unit>
     <unit id="1547876271716599756">
       <notes>
-        <note category="location">src/app/app.component.js:212</note>
+        <note category="location">src/app/app.component.js:245</note>
       </notes>
       <segment state="initial">
         <source>Impressum</source>
@@ -75,7 +102,7 @@
     </unit>
     <unit id="4082114936887396529">
       <notes>
-        <note category="location">src/app/app.component.js:218</note>
+        <note category="location">src/app/app.component.js:251</note>
       </notes>
       <segment state="initial">
         <source>Datenschutz</source>
@@ -84,16 +111,16 @@
     </unit>
     <unit id="2601146275474047321">
       <notes>
-        <note category="location">src/app/app.component.js:224</note>
+        <note category="location">src/app/app.component.js:257</note>
       </notes>
       <segment state="initial">
-        <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/>und Nutzungsbedingungen</source>
+        <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#56\uFFFD\uFFFD/#56\uFFFD&quot;"/>und Nutzungsbedingungen</source>
         <target>general terms <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/> and conditions of use</target>
       </segment>
     </unit>
     <unit id="7767778924054675928">
       <notes>
-        <note category="location">src/app/app.component.js:230</note>
+        <note category="location">src/app/app.component.js:263</note>
       </notes>
       <segment state="initial">
         <source>Version: <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/>/<ph id="1" equiv="INTERPOLATION_1" disp="&quot;\uFFFD1\uFFFD&quot;"/></source>
@@ -102,7 +129,7 @@
     </unit>
     <unit id="4654226818601672329">
       <notes>
-        <note category="location">src/app/app.component.js:236</note>
+        <note category="location">src/app/app.component.js:269</note>
       </notes>
       <segment state="initial">
         <source>Bodenrichtwerte</source>
@@ -111,7 +138,7 @@
     </unit>
     <unit id="4783586120320798427">
       <notes>
-        <note category="location">src/app/app.component.js:242</note>
+        <note category="location">src/app/app.component.js:275</note>
       </notes>
       <segment state="initial">
         <source>Bodenwerte</source>
@@ -120,7 +147,7 @@
     </unit>
     <unit id="192194816728870761">
       <notes>
-        <note category="location">src/app/app.component.js:248</note>
+        <note category="location">src/app/app.component.js:281</note>
       </notes>
       <segment state="initial">
         <source>Immobilien</source>
@@ -129,7 +156,7 @@
     </unit>
     <unit id="8530560792297920136">
       <notes>
-        <note category="location">src/app/app.component.js:254</note>
+        <note category="location">src/app/app.component.js:287</note>
       </notes>
       <segment state="initial">
         <source>Formulare</source>
@@ -138,7 +165,7 @@
     </unit>
     <unit id="2454050363478003966">
       <notes>
-        <note category="location">src/app/app.component.js:260</note>
+        <note category="location">src/app/app.component.js:293</note>
       </notes>
       <segment state="initial">
         <source>Login</source>
@@ -147,7 +174,7 @@
     </unit>
     <unit id="4086606389696938932">
       <notes>
-        <note category="location">src/app/app.component.js:266</note>
+        <note category="location">src/app/app.component.js:299</note>
       </notes>
       <segment state="initial">
         <source>Account</source>
@@ -156,7 +183,7 @@
     </unit>
     <unit id="8989302283670322437">
       <notes>
-        <note category="location">src/app/app.component.js:272</note>
+        <note category="location">src/app/app.component.js:305</note>
       </notes>
       <segment state="initial">
         <source>Ausloggen</source>
@@ -336,7 +363,7 @@
     </unit>
     <unit id="5601035884726674890">
       <notes>
-        <note category="location">src/app/static/logout/logout.component.js:18</note>
+        <note category="location">src/app/static/logout/logout.component.js:19</note>
       </notes>
       <segment state="initial">
         <source>Logout - POWER.NI</source>
@@ -345,7 +372,7 @@
     </unit>
     <unit id="4655456087046490805">
       <notes>
-        <note category="location">src/app/static/logout/logout.component.js:44</note>
+        <note category="location">src/app/static/logout/logout.component.js:47</note>
       </notes>
       <segment state="initial">
         <source>Sie wurden ausgeloggt.</source>
@@ -354,7 +381,7 @@
     </unit>
     <unit id="3645495878014081231">
       <notes>
-        <note category="location">src/app/static/login/login.component.js:31</note>
+        <note category="location">src/app/static/login/login.component.js:32</note>
       </notes>
       <segment state="initial">
         <source>Login - POWER.NI</source>
@@ -363,7 +390,7 @@
     </unit>
     <unit id="3246386386339214161">
       <notes>
-        <note category="location">src/app/static/login/login.component.js:79</note>
+        <note category="location">src/app/static/login/login.component.js:83</note>
       </notes>
       <segment state="initial">
         <source>Login fehlgeschlagen</source>
@@ -372,7 +399,7 @@
     </unit>
     <unit id="4025988496947543426">
       <notes>
-        <note category="location">src/app/static/login/login.component.js:79</note>
+        <note category="location">src/app/static/login/login.component.js:83</note>
       </notes>
       <segment state="initial">
         <source>Es konnte kein Token vom Endpunkt bezogen werden.</source>
@@ -381,7 +408,7 @@
     </unit>
     <unit id="4426393519905650436">
       <notes>
-        <note category="location">src/app/static/login/login.component.js:104</note>
+        <note category="location">src/app/static/login/login.component.js:111</note>
       </notes>
       <segment state="initial">
         <source>Sie werden in kürze weitergeleitet...</source>
@@ -525,7 +552,7 @@
     </unit>
     <unit id="380575489674159475">
       <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.js:131</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:187</note>
       </notes>
       <segment state="initial">
         <source>Speichern erfolgreich</source>
@@ -534,7 +561,7 @@
     </unit>
     <unit id="8744559871232772444">
       <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.js:131</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:187</note>
       </notes>
       <segment state="initial">
         <source>Ihre Daten wurden erfolgreich gespeichert.</source>
@@ -543,7 +570,7 @@
     </unit>
     <unit id="6200688387678213794">
       <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.js:134</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:190</note>
       </notes>
       <segment state="initial">
         <source>Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}</source>
@@ -552,7 +579,7 @@
     </unit>
     <unit id="4028295370197925352">
       <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.js:135</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:191</note>
       </notes>
       <segment state="initial">
         <source>Speichern fehlgeschlagen</source>
@@ -561,7 +588,7 @@
     </unit>
     <unit id="3198167021097608380">
       <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.js:188</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:244</note>
       </notes>
       <segment state="initial">
         <source>Das Speichern auf dem Server ist fehlgeschlagen: {alertText}</source>
@@ -1413,7 +1440,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2258060347097525516">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:918</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:674</note>
       </notes>
       <segment state="initial">
         <source>Allgemein</source>
@@ -1476,7 +1503,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2465969235242735880">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:960</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1154</note>
       </notes>
       <segment state="initial">
         <source>Sichtbar</source>
@@ -1494,7 +1521,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5564872229726777752">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:972</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1166</note>
       </notes>
       <segment state="initial">
         <source>Deaktiviert</source>
@@ -1557,7 +1584,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2123058190140167354">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1020</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1196</note>
       </notes>
       <segment state="initial">
         <source>Aktivierungsbedingung</source>
@@ -1935,7 +1962,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="276184332300045619">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1296</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:752</note>
       </notes>
       <segment state="initial">
         <source>Wie definiert</source>
@@ -1944,7 +1971,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5748078469472297200">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1302</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:758</note>
       </notes>
       <segment state="initial">
         <source>Zufällig</source>
@@ -2097,7 +2124,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7096759547174459513">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1416</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:836</note>
       </notes>
       <segment state="initial">
         <source>Breite in Pixel</source>
@@ -2106,7 +2133,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6463726515236192057">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1422</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:842</note>
       </notes>
       <segment state="initial">
         <source>Höhe in Pixel</source>
@@ -2115,7 +2142,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3681264497760339705">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1428</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:848</note>
       </notes>
       <segment state="initial">
         <source>Größenanpassung</source>
@@ -2124,7 +2151,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4728532590739893418">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1434</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:854</note>
       </notes>
       <segment state="initial">
         <source>Keine Anpassung</source>
@@ -2133,7 +2160,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4710626519203410106">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1440</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:860</note>
       </notes>
       <segment state="initial">
         <source>Verkleinern</source>
@@ -2142,7 +2169,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7766735261673100646">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1446</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:866</note>
       </notes>
       <segment state="initial">
         <source>Abschneiden</source>
@@ -2151,7 +2178,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2067326968798044785">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1452</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:872</note>
       </notes>
       <segment state="initial">
         <source>Füllen</source>
@@ -3177,7 +3204,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="51574765818008149">
       <notes>
-        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.js:173</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.js:309</note>
       </notes>
       <segment state="initial">
         <source>Sprache</source>
