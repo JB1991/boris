@@ -53,7 +53,7 @@ describe('AppComponent', () => {
     it('should load config', () => {
         app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         app.ngOnInit();
-        answerHTTPRequest('./assets/version.json', 'GET', { version: '123456', branch: 'prod' });
+        answerHTTPRequest('/assets/version.json', 'GET', { version: '123456', branch: 'prod' });
 
         expect(app.config).toBeTruthy();
         expect(app.config.modules.length).toEqual(2);
@@ -64,7 +64,7 @@ describe('AppComponent', () => {
         // load config
         app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         app.ngOnInit();
-        answerHTTPRequest('./assets/version.json', 'GET', { branch: 'prod' });
+        answerHTTPRequest('/assets/version.json', 'GET', { branch: 'prod' });
 
         expect(app.config).toBeTruthy();
         expect(app.config.modules.length).toEqual(2);

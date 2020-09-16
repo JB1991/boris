@@ -37,7 +37,7 @@ describe('AppModule', () => {
         });
 
         // answer http request
-        const req = httpTestingController.expectOne('./assets/config/config.json');
+        const req = httpTestingController.expectOne('/assets/config/config.json');
         expect(req.request.method).toEqual('GET');
         req.flush({});
         httpTestingController.verify();
@@ -52,7 +52,7 @@ describe('AppModule', () => {
         });
 
         // answer http request
-        const req = httpTestingController.expectOne('./assets/config/config.json');
+        const req = httpTestingController.expectOne('/assets/config/config.json');
         expect(req.request.method).toEqual('GET');
         req.flush({});
         httpTestingController.verify();
@@ -67,7 +67,7 @@ describe('AppModule', () => {
         });
 
         // answer http request
-        const req = httpTestingController.expectOne('./assets/config/config.json');
+        const req = httpTestingController.expectOne('/assets/config/config.json');
         expect(req.request.method).toEqual('GET');
         req.flush({}, { status: 404, statusText: 'Not Found' });
         httpTestingController.verify();
@@ -82,7 +82,7 @@ describe('AppModule', () => {
         });
 
         // answer http request
-        const req = httpTestingController.expectOne('./assets/config/config.json');
+        const req = httpTestingController.expectOne('/assets/config/config.json');
         expect(req.request.method).toEqual('GET');
         req.flush({}, { status: 500, statusText: 'Internal Server Error' });
         httpTestingController.verify();
