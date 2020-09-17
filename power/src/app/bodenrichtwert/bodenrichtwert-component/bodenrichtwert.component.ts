@@ -73,6 +73,11 @@ export class BodenrichtwertComponent implements OnDestroy {
     teilmarkt;
 
     /**
+     * State of the detail arrow (whether the arrow should point up or down)
+     */
+    detailArrow: boolean;
+
+    /**
      * Div-ViewChild contains Bodenrichtwert-List, Bodenrichtwert-Detail and Bodenrichtwert-Verlauf
      */
     @ViewChild('acc', {static: true}) acc: NgbAccordion;
@@ -90,6 +95,13 @@ export class BodenrichtwertComponent implements OnDestroy {
         });
         this.stichtag = STICHTAGE[0];
         this.teilmarkt = TEILMAERKTE[0];
+    }
+
+    /**
+     * Toggles the state of the details arrow (up or down)
+     */
+    toggleDetailArrow() {
+        this.detailArrow = !this.detailArrow;
     }
 
     /**

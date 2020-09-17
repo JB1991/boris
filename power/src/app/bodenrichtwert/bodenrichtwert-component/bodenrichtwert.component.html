@@ -13,8 +13,10 @@
                     <div *ngIf="adresse" class="text-center">
                         <h5 class="m-0 mx-center">{{adresse.properties.text}}
                             <button (click)="map.classList.toggle('small')" class="btn btn-link p-0">
-                                <img src="/assets/icons/chevron-down.svg" width="25" height="25"
-                                     alt="Einklappen/ausklappen">
+                                <img src="{{ detailArrow ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                                     width="25" height="25"
+                                     alt="Einklappen/ausklappen"
+                                     (click)="toggleDetailArrow()">
                             </button>
                         </h5>
                     </div>
