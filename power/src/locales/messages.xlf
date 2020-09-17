@@ -49,9 +49,17 @@
         <source>Feedback</source>
       </segment>
     </unit>
+    <unit id="7911002864553844497">
+      <notes>
+        <note category="location">src/app/app.component.html:144</note>
+      </notes>
+      <segment>
+        <source>* Pflichtfeld</source>
+      </segment>
+    </unit>
     <unit id="8257015353025970722">
       <notes>
-        <note category="location">src/app/app.component.html:144,145</note>
+        <note category="location">src/app/app.component.html:150,151</note>
       </notes>
       <segment>
         <source>Sprache </source>
@@ -59,7 +67,7 @@
     </unit>
     <unit id="3313528406596871463">
       <notes>
-        <note category="location">src/app/app.component.html:148</note>
+        <note category="location">src/app/app.component.html:154</note>
       </notes>
       <segment>
         <source>Deutsch</source>
@@ -67,7 +75,7 @@
     </unit>
     <unit id="8957931169022166336">
       <notes>
-        <note category="location">src/app/app.component.html:151</note>
+        <note category="location">src/app/app.component.html:157</note>
       </notes>
       <segment>
         <source>Englisch</source>
@@ -75,7 +83,7 @@
     </unit>
     <unit id="2354045805420094700">
       <notes>
-        <note category="location">src/app/app.component.html:155</note>
+        <note category="location">src/app/app.component.html:161</note>
       </notes>
       <segment>
         <source>Informationen</source>
@@ -83,7 +91,7 @@
     </unit>
     <unit id="1547876271716599756">
       <notes>
-        <note category="location">src/app/app.component.html:160</note>
+        <note category="location">src/app/app.component.html:166</note>
       </notes>
       <segment>
         <source>Impressum</source>
@@ -91,7 +99,7 @@
     </unit>
     <unit id="4082114936887396529">
       <notes>
-        <note category="location">src/app/app.component.html:164</note>
+        <note category="location">src/app/app.component.html:170</note>
       </notes>
       <segment>
         <source>Datenschutz</source>
@@ -99,7 +107,7 @@
     </unit>
     <unit id="2601146275474047321">
       <notes>
-        <note category="location">src/app/app.component.html:168</note>
+        <note category="location">src/app/app.component.html:174</note>
       </notes>
       <segment>
         <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&lt;br&gt;"/>und Nutzungsbedingungen</source>
@@ -107,7 +115,7 @@
     </unit>
     <unit id="7767778924054675928">
       <notes>
-        <note category="location">src/app/app.component.html:171</note>
+        <note category="location">src/app/app.component.html:177</note>
       </notes>
       <segment>
         <source>Version: <ph id="0" equiv="INTERPOLATION" disp="{{ appVersion.branch }}"/>/<ph id="1" equiv="INTERPOLATION_1" disp="{{ appVersion.version }}"/></source>
@@ -409,20 +417,68 @@
         <source>Fragebogen</source>
       </segment>
     </unit>
+    <unit id="8488547527396922136">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:73</note>
+      </notes>
+      <segment>
+        <source>Laden fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="380575489674159475">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:131</note>
+      </notes>
+      <segment>
+        <source>Speichern erfolgreich</source>
+      </segment>
+    </unit>
+    <unit id="8744559871232772444">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:131</note>
+      </notes>
+      <segment>
+        <source>Ihre Daten wurden erfolgreich gespeichert.</source>
+      </segment>
+    </unit>
+    <unit id="6200688387678213794">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:134</note>
+      </notes>
+      <segment>
+        <source>Das Speichern auf dem Server ist fehlgeschlagen: {error[&apos;statusText&apos;]}</source>
+      </segment>
+    </unit>
+    <unit id="4028295370197925352">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:135</note>
+      </notes>
+      <segment>
+        <source>Speichern fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="3198167021097608380">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:196</note>
+      </notes>
+      <segment>
+        <source>Das Speichern auf dem Server ist fehlgeschlagen: {alertText}</source>
+      </segment>
+    </unit>
+    <unit id="51574765818008149">
+      <notes>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.html:12</note>
+      </notes>
+      <segment>
+        <source>Sprache</source>
+      </segment>
+    </unit>
     <unit id="4321269269579074973">
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.ts:30</note>
       </notes>
       <segment>
         <source>Öffentliche Formulare - POWER.NI</source>
-      </segment>
-    </unit>
-    <unit id="8488547527396922136">
-      <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.ts:71</note>
-      </notes>
-      <segment>
-        <source>Laden fehlgeschlagen</source>
       </segment>
     </unit>
     <unit id="3237325831282116749">
@@ -495,54 +551,6 @@
       </notes>
       <segment>
         <source>Keine Formulare gefunden</source>
-      </segment>
-    </unit>
-    <unit id="380575489674159475">
-      <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:131</note>
-      </notes>
-      <segment>
-        <source>Speichern erfolgreich</source>
-      </segment>
-    </unit>
-    <unit id="8744559871232772444">
-      <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:131</note>
-      </notes>
-      <segment>
-        <source>Ihre Daten wurden erfolgreich gespeichert.</source>
-      </segment>
-    </unit>
-    <unit id="6200688387678213794">
-      <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:134</note>
-      </notes>
-      <segment>
-        <source>Das Speichern auf dem Server ist fehlgeschlagen: {error[&apos;statusText&apos;]}</source>
-      </segment>
-    </unit>
-    <unit id="4028295370197925352">
-      <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:135</note>
-      </notes>
-      <segment>
-        <source>Speichern fehlgeschlagen</source>
-      </segment>
-    </unit>
-    <unit id="3198167021097608380">
-      <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:196</note>
-      </notes>
-      <segment>
-        <source>Das Speichern auf dem Server ist fehlgeschlagen: {alertText}</source>
-      </segment>
-    </unit>
-    <unit id="51574765818008149">
-      <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.html:12</note>
-      </notes>
-      <segment>
-        <source>Sprache</source>
       </segment>
     </unit>
     <unit id="8953940785817491538">
@@ -2670,7 +2678,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3367843544810442794">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:117</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:119</note>
       </notes>
       <segment>
         <source>Formular erstellen</source>
@@ -2678,7 +2686,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5961265961943224067">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:132</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:134</note>
       </notes>
       <segment>
         <source> Erstellen</source>

@@ -55,9 +55,18 @@
         <target>Feedback</target>
       </segment>
     </unit>
-    <unit id="8257015353025970722">
+    <unit id="7911002864553844497">
       <notes>
         <note category="location">src/app/app.component.html:144</note>
+      </notes>
+      <segment state="initial">
+        <source>* Pflichtfeld</source>
+        <target>* Required</target>
+      </segment>
+    </unit>
+    <unit id="8257015353025970722">
+      <notes>
+        <note category="location">src/app/app.component.html:150</note>
       </notes>
       <segment state="initial">
         <source>Sprache </source>
@@ -66,7 +75,7 @@
     </unit>
     <unit id="3313528406596871463">
       <notes>
-        <note category="location">src/app/app.component.html:148</note>
+        <note category="location">src/app/app.component.html:154</note>
       </notes>
       <segment state="initial">
         <source>Deutsch</source>
@@ -75,7 +84,7 @@
     </unit>
     <unit id="8957931169022166336">
       <notes>
-        <note category="location">src/app/app.component.html:151</note>
+        <note category="location">src/app/app.component.html:157</note>
       </notes>
       <segment state="initial">
         <source>Englisch</source>
@@ -84,7 +93,7 @@
     </unit>
     <unit id="2354045805420094700">
       <notes>
-        <note category="location">src/app/app.component.html:155</note>
+        <note category="location">src/app/app.component.html:161</note>
       </notes>
       <segment state="initial">
         <source>Informationen</source>
@@ -93,7 +102,7 @@
     </unit>
     <unit id="1547876271716599756">
       <notes>
-        <note category="location">src/app/app.component.html:160</note>
+        <note category="location">src/app/app.component.html:166</note>
       </notes>
       <segment state="initial">
         <source>Impressum</source>
@@ -102,7 +111,7 @@
     </unit>
     <unit id="4082114936887396529">
       <notes>
-        <note category="location">src/app/app.component.html:164</note>
+        <note category="location">src/app/app.component.html:170</note>
       </notes>
       <segment state="initial">
         <source>Datenschutz</source>
@@ -111,7 +120,7 @@
     </unit>
     <unit id="2601146275474047321">
       <notes>
-        <note category="location">src/app/app.component.html:168</note>
+        <note category="location">src/app/app.component.html:174</note>
       </notes>
       <segment state="initial">
         <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&lt;br>"/>und Nutzungsbedingungen</source>
@@ -120,7 +129,7 @@
     </unit>
     <unit id="7767778924054675928">
       <notes>
-        <note category="location">src/app/app.component.html:171</note>
+        <note category="location">src/app/app.component.html:177</note>
       </notes>
       <segment state="initial">
         <source>Version: <ph id="0" equiv="INTERPOLATION" disp="{{ appVersion.branch }}"/>/<ph id="1" equiv="INTERPOLATION_1" disp="{{ appVersion.version }}"/></source>
@@ -471,7 +480,7 @@
     </unit>
     <unit id="8488547527396922136">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.ts:71</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:73</note>
       </notes>
       <segment state="initial">
         <source>Laden fehlgeschlagen</source>
@@ -2988,7 +2997,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3367843544810442794">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:117</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:119</note>
       </notes>
       <segment state="initial">
         <source>Formular erstellen</source>
@@ -2997,7 +3006,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5961265961943224067">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:132</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:134</note>
       </notes>
       <segment state="initial">
         <source> Erstellen</source>
