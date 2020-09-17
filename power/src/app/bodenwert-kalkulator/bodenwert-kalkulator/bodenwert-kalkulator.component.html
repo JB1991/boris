@@ -54,10 +54,12 @@
         <mgl-map
             id="map"
             (click)="onMapClickEvent($event)"
-            [style]="MAP_STYLE_URL"
-            [trackResize]="true"
+            (load)="loadMap($event)"
             [bounds]="bounds"
-            (load)="loadMap($event)">
+            [maxZoom]="20"
+            [minZoom]="5"
+            [style]="MAP_STYLE_URL"
+            [trackResize]="true">
 
             <mgl-vector-source id="geoserver"
                                [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=alkis:ax_flurstueck&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
