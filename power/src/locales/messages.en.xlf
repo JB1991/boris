@@ -115,7 +115,7 @@
       </notes>
       <segment state="initial">
         <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#56\uFFFD\uFFFD/#56\uFFFD&quot;"/>und Nutzungsbedingungen</source>
-        <target>general terms <ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/> and conditions of use</target>
+        <target>General terms and<ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/> conditions of use</target>
       </segment>
     </unit>
     <unit id="7767778924054675928">
@@ -313,7 +313,7 @@
       </notes>
       <segment state="initial">
         <source>Zu den öffentlichen Formularen</source>
-        <target>To the public forms</target>
+        <target>Go to the public forms</target>
       </segment>
     </unit>
     <unit id="6489685542013391299">
@@ -358,7 +358,7 @@
       </notes>
       <segment state="initial">
         <source>Zum Mitarbeiterportal</source>
-        <target>To the employee portal</target>
+        <target>Got to the employee portal</target>
       </segment>
     </unit>
     <unit id="5601035884726674890">
@@ -484,7 +484,7 @@
       </notes>
       <segment state="initial">
         <source> Formulare</source>
-        <target> forms</target>
+        <target> Forms</target>
       </segment>
     </unit>
     <unit id="2728359226136161685">
