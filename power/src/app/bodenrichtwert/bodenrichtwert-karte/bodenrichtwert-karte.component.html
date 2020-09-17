@@ -7,19 +7,26 @@
                     <div class="btn-group d-flex">
                         <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
                              aria-label="Button group with nested dropdown">
-                            <button class="btn btn-block" ngbDropdownToggle>
-                                Stichtag: {{stichtag | date:"yyyy"}}</button>
+                            <button type="button" class="btn btn-block" ngbDropdownToggle>
+                                Stichtag: {{stichtag | date:"yyyy"}}
+                            </button>
                             <div class="dropdown-menu" ngbDropdownMenu>
-                                <button *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)"
-                                        ngbDropdownItem>{{stag  | date:"yyyy"}}</button>
+                                <button type="button" *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)"
+                                        ngbDropdownItem>
+                                    {{stag  | date:"yyyy"}}
+                                </button>
                             </div>
                         </div>
                         <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
                              aria-label="Button group with nested dropdown">
-                            <button class="btn btn-block" ngbDropdownToggle>Teilmarkt:  {{teilmarkt.viewValue}}</button>
+                            <button type="button" class="btn btn-block" ngbDropdownToggle>
+                                Teilmarkt: {{teilmarkt.viewValue}}
+                            </button>
                             <div class="dropdown-menu" ngbDropdownMenu>
-                                <button *ngFor="let tm of TEILMAERKTE" (click)="onTeilmarktChange(tm)" ngbDropdownItem
-                                        class="btn-block">{{tm.viewValue}}</button>
+                                <button type="button" *ngFor="let tm of TEILMAERKTE" (click)="onTeilmarktChange(tm)"
+                                        ngbDropdownItem class="btn-block">
+                                    {{tm.viewValue}}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -74,18 +81,25 @@
         <div class="btn-group d-flex w-100">
             <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
                  aria-label="Button group with nested dropdown">
-                <button class="btn btn-block" ngbDropdownToggle>Stichtag: {{stichtag}}</button>
+                <button type="button" class="btn btn-block" ngbDropdownToggle>
+                    Stichtag: {{stichtag}}
+                </button>
                 <div class="dropdown-menu" ngbDropdownMenu>
-                    <button *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)"
-                            ngbDropdownItem>{{stag}}</button>
+                    <button type="button" *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)" ngbDropdownItem>
+                        {{stag}}
+                    </button>
                 </div>
             </div>
             <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
                  aria-label="Button group with nested dropdown">
-                <button class="btn btn-block" ngbDropdownToggle>Teilmarkt:  {{teilmarkt.viewValue}}</button>
+                <button type="button" class="btn btn-block" ngbDropdownToggle>
+                    Teilmarkt: {{teilmarkt.viewValue}}
+                </button>
                 <div class="dropdown-menu" ngbDropdownMenu>
-                    <button *ngFor="let tm of TEILMAERKTE" (click)="onTeilmarktChange(tm)" ngbDropdownItem
-                            class="btn-block">{{tm.viewValue}}</button>
+                    <button type="button" *ngFor="let tm of TEILMAERKTE" (click)="onTeilmarktChange(tm)" ngbDropdownItem
+                            class="btn-block">
+                        {{tm.viewValue}}
+                    </button>
                 </div>
             </div>
         </div>
@@ -162,7 +176,7 @@
             type="symbol"
             [source]="'geoserver'"
             [sourceLayer]="'br_brzone_flat'"
-            [minzoom]=13
+            [minzoom]="13"
             [paint]="{
       'text-halo-color' : '#fff',
       'text-halo-width' : 2,
@@ -185,7 +199,7 @@
             type="symbol"
             [source]="'geoserver'"
             [sourceLayer]="'br_brzone_flat'"
-            [minzoom]=10
+            [minzoom]="10"
             [paint]="{
       'text-halo-color' : '#fff',
       'text-halo-width' : 2,
