@@ -44,7 +44,9 @@ export class BodenwertKalkulatorComponent implements OnInit {
     onMapClickEvent(event: MapMouseEvent) {
         if (event.point) {
             const point: Point = new Point(event.point.x, event.point.y);
-            const features: MapboxGeoJSONFeature[] = this.map.queryRenderedFeatures(point, {layers: ['flurstuecke-fill']});
+            const features: MapboxGeoJSONFeature[] =
+                this.map.queryRenderedFeatures(point, {layers: ['flurstuecke-fill']});
+
             for (const feature of features) {
                 this.updateFlurstueckSelection(feature);
             }
@@ -193,4 +195,5 @@ export class BodenwertKalkulatorComponent implements OnInit {
         }
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */
