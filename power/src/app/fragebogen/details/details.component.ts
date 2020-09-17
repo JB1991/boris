@@ -9,6 +9,7 @@ import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.compo
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { FormAPIService } from '../formapi.service';
 
 @Component({
     selector: 'power-forms-details',
@@ -24,6 +25,7 @@ export class DetailsComponent implements OnInit {
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public storage: StorageService,
+        public formapi: FormAPIService,
         public auth: AuthService) {
         this.titleService.setTitle($localize`Formular Details - POWER.NI`);
         this.storage.resetService();
@@ -52,38 +54,13 @@ export class DetailsComponent implements OnInit {
             throw new Error('id is required');
         }
 
-        // load form form server
-        this.storage.loadForm(id).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : id);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-                console.log('Could not load form: ' + alertText);
-                return;
-            }
-
-            // save data
-            this.storage.form = data['data'];
+        this.formapi.getInternForm(id).then(result => {
+            this.storage.form = result;
 
             if (this.storage.form.status !== 'created') {
-                // load tasks from server
-                this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {
-                    // check for error
-                    if (!data2 || data2['error'] || !data2['data']) {
-                        const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.form.id);
-                        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                        this.loadingscreen.setVisible(false);
-                        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-                        console.log('Could not load task: ' + alertText);
-                        return;
-                    }
-
+                this.formapi.getInternFormTasks(id).then(result2 => {
                     // save data
-                    this.storage.tasksList = data2['data'];
+                    this.storage.tasksList = result2.data;
                     this.storage.tasksCountTotal = this.storage.tasksList.length;
                     this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
 
@@ -100,6 +77,7 @@ export class DetailsComponent implements OnInit {
             } else {
                 this.loadingscreen.setVisible(false);
             }
+
         }, (error: Error) => {
             // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
@@ -109,6 +87,64 @@ export class DetailsComponent implements OnInit {
             console.log(error);
             return;
         });
+
+        // // load form form server
+        // this.storage.loadForm(id).subscribe((data) => {
+        //     // check for error
+        //     if (!data || data['error'] || !data['data']) {
+        //         const alertText = (data && data['error'] ? data['error'] : id);
+        //         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+        //         this.loadingscreen.setVisible(false);
+        //         this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        //         console.log('Could not load form: ' + alertText);
+        //         return;
+        //     }
+
+        //     // save data
+        //     this.storage.form = data['data'];
+
+        //     if (this.storage.form.status !== 'created') {
+        //         // load tasks from server
+        //         this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {
+        //             // check for error
+        //             if (!data2 || data2['error'] || !data2['data']) {
+        //                 const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.form.id);
+        //                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+        //                 this.loadingscreen.setVisible(false);
+        //                 this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        //                 console.log('Could not load task: ' + alertText);
+        //                 return;
+        //             }
+
+        //             // save data
+        //             this.storage.tasksList = data2['data'];
+        //             this.storage.tasksCountTotal = this.storage.tasksList.length;
+        //             this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
+
+        //             this.loadingscreen.setVisible(false);
+        //         }, (error2: Error) => {
+        //             // failed to load task list
+        //             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
+        //             this.loadingscreen.setVisible(false);
+
+        //             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        //             console.log(error2);
+        //             return;
+        //         });
+        //     } else {
+        //         this.loadingscreen.setVisible(false);
+        //     }
+        // }, (error: Error) => {
+        //     // failed to load form
+        //     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+        //     this.loadingscreen.setVisible(false);
+
+        //     this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        //     console.log(error);
+        //     return;
+        // });
     }
 
     /**
