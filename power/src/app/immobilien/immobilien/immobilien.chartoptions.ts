@@ -38,7 +38,7 @@ export class ImmobilienChartOptions {
         const ret = JSON.parse(JSON.stringify(CO.chartOptions));
         ret.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeBase);
         ret.title.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage);
-        ret.grid[0].top = 56 + ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage) * 1.5;
+        ret.grid[0].top = 56 + ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage) * (1.5 + 1);
         ret.graphic[0].style.fontSize =  ImmobilienHelper.convertRemToPixels(opt.text.fontSizeCopy);
         ret.graphic[0].style.text = 'Quelle: Oberer Gutachterausschuss für Grundstückswerte in Niedersachsen, '
             + ImmobilienHelper.getDate();
@@ -63,7 +63,7 @@ export class ImmobilienChartOptions {
         ret.graphic[1].left = opt.graphic1left;
         ret.graphic[1].children = opt.graphic1children;
         ret.graphic[2].style.fontSize = opt.graphic2fontsize;
-        ret.graphic[2].style.text = opt.graphioc2text;
+        ret.graphic[2].style.text = opt.graphic2text;
         ret.legend.data = opt.legenddata;
         ret.legend.formatter =  opt.legendformatter;
         ret.title.subtext = opt.subtitle;
