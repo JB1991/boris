@@ -3,6 +3,7 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
+import { FormAPIService } from '../../formapi.service';
 
 @Component({
     selector: 'power-forms-details-maketask',
@@ -17,7 +18,8 @@ export class MaketaskComponent implements OnInit {
 
     constructor(public modalService: BsModalService,
         public alerts: AlertsService,
-        public storage: StorageService) {
+        public storage: StorageService,
+        public formapi: FormAPIService) {
     }
 
     ngOnInit() {
@@ -50,21 +52,15 @@ export class MaketaskComponent implements OnInit {
             throw new Error('Invalid bounds for variable amount');
         }
 
+        const queryParams: Object = {
+            number: this.amount
+        };
         // make pins
-        this.storage.createTask(this.storage.form.id, this.amount).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-                this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, alertText);
-
-                console.log('Could not create task: ' + alertText);
-                return;
-            }
-
-            // success
-            for (let i = 0; i < data['data'].length; i++) {
-                this.pinList.push(data['data'][i].pin);
-                this.storage.tasksList.splice(0, 0, data['data'][i]);
+        this.formapi.createInternFormTasks(this.storage.form.id, this.storage.form, queryParams).then(result => {
+            //     // success
+            for (let i = 0; i < result.data.length; i++) {
+                this.pinList.push(result.data[i].pin);
+                this.storage.tasksList.splice(0, 0, result.data[i]);
                 this.storage.tasksCountTotal++;
                 this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
             }

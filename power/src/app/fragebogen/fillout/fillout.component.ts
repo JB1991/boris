@@ -6,9 +6,11 @@ import { environment } from '@env/environment';
 import * as Survey from 'survey-angular';
 
 import { StorageService } from './storage.service';
+import { FormAPIService } from '../formapi.service';
 import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { contentTemplate } from '@angular-devkit/schematics';
 
 @Component({
     selector: 'power-forms-fillout',
@@ -27,7 +29,8 @@ export class FilloutComponent implements OnInit {
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public storage: StorageService) {
+        public storage: StorageService,
+        public formapi: FormAPIService) {
         this.titleService.setTitle($localize`Formulare - POWER.NI`);
         this.storage.resetService();
     }
@@ -64,22 +67,12 @@ export class FilloutComponent implements OnInit {
         this.wrapper.survey.locale = this.language;
     }
 
+    // tslint:disable-next-line: max-func-body-length
     public loadForm(id: string) {
         // load form by id
-        this.storage.loadForm(id).subscribe((data2) => {
-            // check for error
-            if (!data2 || data2['error'] || !data2['data']) {
-                const alertText = (data2 && data2['error'] ? data2['error'] : id);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log('Could not load form: ' + alertText);
-                return;
-            }
-
-            // store form
-            this.storage.form = data2['data'];
+        this.formapi.getInternForm(id).then(result => {
+            //store form
+            this.storage.form = result;
             this.language = this.storage.form.content.locale;
 
             // check if user language exists in survey
@@ -102,6 +95,18 @@ export class FilloutComponent implements OnInit {
             console.log(error2);
             return;
         });
+
+        // this.storage.loadForm(id).subscribe((data2) => {
+        //     // check for error
+        //     if (!data2 || data2['error'] || !data2['data']) {
+        //         const alertText = (data2 && data2['error'] ? data2['error'] : id);
+        //         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+        //         this.loadingscreen.setVisible(false);
+        //         this.router.navigate(['/forms'], { replaceUrl: true });
+        //         console.log('Could not load form: ' + alertText);
+        //         return;
+        //     }
     }
 
     /**
@@ -109,6 +114,8 @@ export class FilloutComponent implements OnInit {
      * @param id Form pin
      * @param result Task result
      */
+    
+    // tslint:disable-next-line: max-func-body-length
     public submitTask(id: string, result: any) {
         // check data
         if (!id) {
@@ -118,16 +125,10 @@ export class FilloutComponent implements OnInit {
             throw new Error('no data provided');
         }
 
-        this.storage.submitTask(id, result.result).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : id);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log('Could not load form: ' + alertText);
-                return;
-            }
+        const queryParams: Object = {
+            submit: true,
+        };
+        this.formapi.createPublicTask(id, result.result, queryParams).then(() => {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }, (error: Error) => {
             // failed to complete task

@@ -4,6 +4,7 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
+import { FormAPIService } from '../../formapi.service';
 
 @Component({
     selector: 'power-forms-details-settings',
@@ -20,7 +21,8 @@ export class SettingsComponent implements OnInit {
     constructor(public modalService: BsModalService,
         public router: Router,
         public alerts: AlertsService,
-        public storage: StorageService) {
+        public storage: StorageService,
+        public formapi: FormAPIService) {
     }
 
     ngOnInit() {
@@ -47,24 +49,17 @@ export class SettingsComponent implements OnInit {
      * Update Form with tags, owners and readers
      */
     public updateForm() {
+        
+        const queryParams: Object = {
+            tags: this.tagList.toString(),
+            owners: this.ownerList.toString(),
+            readers: this.readerList.toString()
+        };
 
-        this.storage.updateForm(
-            this.storage.form.id,
-            this.tagList.toString(),
-            this.ownerList.toString(),
-            this.readerList.toString()
-        ).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
-
-                console.log('Could not update form: ' + alertText);
-                return;
-            }
-
-            // success
-            this.storage.form = data['data'];
+        this.formapi.updateInternForm(this.storage.form.id, null, queryParams).then(result => {
+            //     // success
+            console.log(result)
+            this.storage.form = result;
             this.alerts.NewAlert('success', $localize`Formular gespeichert`,
                 $localize`Das Formular wurde erfolgreich gespeichert.`);
             this.close();

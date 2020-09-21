@@ -11,6 +11,7 @@ import { HistoryService } from './history.service';
 import { ComponentCanDeactivate } from '@app/fragebogen/pendingchanges.guard';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { FormAPIService } from '../formapi.service';
 import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
 @Component({
@@ -30,6 +31,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public storage: StorageService,
+        public formapi: FormAPIService,
         public history: HistoryService) {
         this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
         this.storage.resetService();
@@ -157,26 +159,16 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Load form data
      * @param id Form id
      */
-    public loadData(id: string) {
+    // tslint:disable-next-line: max-func-body-length
+    public async loadData(id: string) {
         // check data
         if (!id) {
             throw new Error('id is required');
         }
 
-        this.storage.loadForm(id).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data'] || !data['data']['content']) {
-                const alertText = (data && data['error'] ? data['error'] : id);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-                console.log('Could not load form: ' + alertText);
-                return;
-            }
-
-            // store formular
-            this.storage.model = data['data']['content'];
+        try {
+            const result = await this.formapi.getInternForm(id);
+            this.storage.model = result.content;
             this.loadingscreen.setVisible(false);
 
             // auto save
@@ -184,15 +176,27 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.timerHandle = setInterval(() => {
                 this.wsSave();
             }, 5 * 60000);
-        }, (error: Error) => {
-            // failed to load form
+        } catch (error) {
+            //     // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             console.log(error);
             return;
-        });
+        }
+
+    //     // this.storage.loadForm(id).subscribe((data) => {
+        //     // check for error
+        //     if (!data || data['error'] || !data['data'] || !data['data']['content']) {
+        //         const alertText = (data && data['error'] ? data['error'] : id);
+        //         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+
+        //         this.loadingscreen.setVisible(false);
+        //         this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        //         console.log('Could not load form: ' + alertText);
+        //         return;
+        //     }
     }
 
     /**
@@ -430,17 +434,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
-        this.storage.saveForm(this.storage.model, id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : id);
-                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
-
-                console.log('Could not save form: ' + alertText);
-                return;
-            }
-
-            // success
+        
+        this.formapi.updateInternForm(id, this.storage.model).then(() => {
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
         }, (error: Error) => {
@@ -451,6 +446,28 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             console.log(error);
             return;
         });
+        
+        // this.storage.saveForm(this.storage.model, id).subscribe((data) => {
+        //     // check for error
+        //     if (!data || data['error']) {
+        //         const alertText = (data && data['error'] ? data['error'] : id);
+        //         this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
+
+        //         console.log('Could not save form: ' + alertText);
+        //         return;
+        //     }
+
+        //     // success
+        //     this.storage.setUnsavedChanges(false);
+        //     this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
+        // }, (error: Error) => {
+        //     // failed to save
+        //     this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+        //     this.loadingscreen.setVisible(false);
+
+        //     console.log(error);
+        //     return;
+        // });
     }
 
     /**

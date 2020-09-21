@@ -64,20 +64,20 @@ export class StorageService {
         return this.httpClient.post(url, content);
     }
 
-    /**
-     * Loads form by id.
-     * @param id Form id
-     */
-    public loadForm(id: string): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
+    // /**
+    //  * Loads form by id.
+    //  * @param id Form id
+    //  */
+    // public loadForm(id: string): Observable<Object> {
+    //     // check data
+    //     if (!id) {
+    //         throw new Error('id is required');
+    //     }
 
-        // load data from server
-        const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id);
-        return this.httpClient.get(url);
-    }
+    //     // load data from server
+    //     const url = environment.formAPI + 'public/forms/' + encodeURIComponent(id);
+    //     return this.httpClient.get(url);
+    // }
 
     /**
      * Saves progress

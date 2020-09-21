@@ -3,6 +3,7 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
+import { FormAPIService } from '../../formapi.service';
 
 @Component({
     selector: 'power-forms-details-comment',
@@ -16,7 +17,8 @@ export class CommentComponent implements OnInit {
 
     constructor(public modalService: BsModalService,
         public alerts: AlertsService,
-        public storage: StorageService) {
+        public storage: StorageService,
+        public formapi: FormAPIService) {
     }
 
     ngOnInit() {
@@ -56,19 +58,14 @@ export class CommentComponent implements OnInit {
             throw new Error('invalid i');
         }
 
+        const queryParams: Object = {
+            description: this.comment,
+        };
+
         // save
-        this.storage.updateTaskComment(this.storage.tasksList[this.tasknr].id, this.comment).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.tasknr.toString());
-                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
-
-                console.log('Could not update task: ' + alertText);
-                return;
-            }
-
+        this.formapi.updateInternTask(this.storage.tasksList[this.tasknr].id, null, queryParams).then(result => {
             // success
-            this.storage.tasksList[this.tasknr].description = this.comment;
+            this.storage.tasksList[this.tasknr].description = result.description;
             this.close();
         }, (error: Error) => {
             // failed to create task
