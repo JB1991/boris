@@ -43,7 +43,7 @@
         "mapbox-gl": "^1.12.0",
         "ngx-bootstrap": "^6.1.0",
         "ngx-bootstrap-icons": "^1.0.0",
-        "ngx-echarts": "^4.2.2",
+        "ngx-echarts": "^5.1.2",
         "ngx-mapbox-gl": "^4.8.1",
         "ngx-showdown": "^6.0.0",
         "ngx-smooth-dnd": "^0.4.1",
