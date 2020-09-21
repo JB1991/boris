@@ -75,7 +75,7 @@ export const chartOptions = {
                 show: true,
                 fontSize: null
             },
-            name: 'Zeit'
+            name: 'Quartal'
         },
         {
             id: 'xds',
