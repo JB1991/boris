@@ -91,7 +91,7 @@ export const mapOptions = {
                 'normal': {
                     'show': true,
                     'position': 'right',
-                    'offset': [5, 0],
+                    'offset': [-1, 0],
                     'formatter': '{b}',
                     'backgroundColor': 'rgba(255,255,255,0.7)'
                 },
