@@ -36,7 +36,7 @@ export const chartOptions = {
             top: null,
             left: '60',
             right: '90',
-            bottom: 75,
+            bottom: 75+15,
             'backgroundColor': 'rgb(255, 255, 255)',
             'borderColor': 'transparent',
             'show': true
@@ -45,7 +45,7 @@ export const chartOptions = {
             id: 'bottom',
             left: '60',
             right: '90',
-            height: '30',
+            height: 30+15,
             bottom: '50'
         }
     ],
