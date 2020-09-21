@@ -79,6 +79,11 @@ export class ImmobilienFormatter {
                 printlegend = false;
             }
 
+            if ((this.nipixRuntime.calculated.drawData.length === 2) &&
+                (params.seriesName === '1')) {
+                printlegend = false;
+            }
+
             if (printlegend) {
                 this.legendposition.push(pixel);
                 return this.findName(params.seriesName, false, true);
