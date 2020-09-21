@@ -112,7 +112,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('Find My WoMa works', () => {
-        const inp$ = of('f','fo','foo');
+        const inp$ = of('f', 'fo', 'foo');
         niStatic.data.gemeinden = {
             'foobar': '4211'
         };

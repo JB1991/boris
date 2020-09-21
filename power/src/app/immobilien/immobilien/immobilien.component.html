@@ -118,7 +118,7 @@
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="select['type'] == 'multiSelect'">
-                                <span class="dotlabel" style="padding-left: 0.5rem; vertical-align:middle;">
+                                <span class="dotlabel" style="padding-left: 0.5rem; vertical-align: middle;">
                                     alle/keine auswählen
                                 </span>
                             </ng-container>
@@ -195,7 +195,7 @@
                         (click)="click$.next($event.target.value)"
                         #searchWoMaReg="ngbTypeahead"
                         >
-                        <ng-container *ngIf="regionName(nipixStatic.data.gemeinden[model]) !== ''"> 
+                        <ng-container *ngIf="regionName(nipixStatic.data.gemeinden[model]) !== ''">
                             <hr>
                             Ihre Wohnungsmarktregion: {{ regionName(nipixStatic.data.gemeinden[model]) }}
                         </ng-container>
