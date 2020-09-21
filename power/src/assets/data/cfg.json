@@ -67,8 +67,8 @@
         ]
     },
     "shortNames": {
-        "Eigenheime": "EH",
-        "Eigentumswohnungen": "EW",
+        "gebrauchte Eigenheime": "EH",
+        "gebrauchte Eigentumswohnungen": "EW",
         "städtische Regionen": "SR",
         "ländliche Regionen": "LR"
     },
@@ -218,7 +218,7 @@
             "colors": []
         },
         {
-            "name": "Eigenheime",
+            "name": "gebrauchte Eigenheime",
             "type": "aggr",
             "nipixCategory": "gebrauchte Eigenheime",
             "show": false,
@@ -243,7 +243,7 @@
             "colors": "rgb(214,39,40)"
         },
         {
-            "name": "Eigentumswohnungen",
+            "name": "gebrauchte Eigentumswohnungen",
             "type": "aggr",
             "nipixCategory": "gebrauchte Eigentumswohnungen",
             "show": false,
@@ -347,8 +347,8 @@
             "name": "Preisentwicklung Niedersachsen, gesamt",
             "type": "multi",
             "preset": [
-                "Eigenheime",
-                "Eigentumswohnungen"
+                "gebrauchte Eigenheime",
+                "gebrauchte Eigentumswohnungen"
             ]
         },
         {
