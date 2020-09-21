@@ -105,7 +105,7 @@
                                     <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)"
                                           style="padding-bottom: 0.5rem; padding-top: 0.5rem;">
                                         <input id="{{i}}vall"
-                                               [checked]="nipixRuntime.getDrawPreset(itm).values.length == 0"
+                                               [checked]="nipixRuntime.getDrawPreset(itm).values.length > 0"
                                                type="checkbox" class="custom-control-input"
                                                (click)="toggleAllSelect(itm)">
                                         <label for="{{i}}vall" style="margin-bottom: 0;" class="custom-control-label">
