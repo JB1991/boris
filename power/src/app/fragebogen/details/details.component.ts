@@ -48,37 +48,26 @@ export class DetailsComponent implements OnInit {
      * Load form data
      * @param id Form id
      */
-    public loadData(id: string) {
+    public async loadData(id: string) {
         // check data
         if (!id) {
             throw new Error('id is required');
         }
 
-        this.formapi.getInternForm(id).then(result => {
+        try {
+            const result = await this.formapi.getInternForm(id);
             this.storage.form = result;
+            if(result.status !== 'created') {
+                const results = await this.formapi.getInternFormTasks(id);
+                this.storage.tasksList = results.data;
+                this.storage.tasksCountTotal = results.total;
+                this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
 
-            if (this.storage.form.status !== 'created') {
-                this.formapi.getInternFormTasks(id).then(result2 => {
-                    // save data
-                    this.storage.tasksList = result2.data;
-                    this.storage.tasksCountTotal = this.storage.tasksList.length;
-                    this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
-
-                    this.loadingscreen.setVisible(false);
-                }, (error2: Error) => {
-                    // failed to load task list
-                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
-                    this.loadingscreen.setVisible(false);
-
-                    this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-                    console.log(error2);
-                    return;
-                });
+                this.loadingscreen.setVisible(false);
             } else {
                 this.loadingscreen.setVisible(false);
             }
-
-        }, (error: Error) => {
+        } catch(error) {
             // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
             this.loadingscreen.setVisible(false);
@@ -86,65 +75,7 @@ export class DetailsComponent implements OnInit {
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             console.log(error);
             return;
-        });
-
-        // // load form form server
-        // this.storage.loadForm(id).subscribe((data) => {
-        //     // check for error
-        //     if (!data || data['error'] || !data['data']) {
-        //         const alertText = (data && data['error'] ? data['error'] : id);
-        //         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-        //         this.loadingscreen.setVisible(false);
-        //         this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        //         console.log('Could not load form: ' + alertText);
-        //         return;
-        //     }
-
-        //     // save data
-        //     this.storage.form = data['data'];
-
-        //     if (this.storage.form.status !== 'created') {
-        //         // load tasks from server
-        //         this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {
-        //             // check for error
-        //             if (!data2 || data2['error'] || !data2['data']) {
-        //                 const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.form.id);
-        //                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-        //                 this.loadingscreen.setVisible(false);
-        //                 this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        //                 console.log('Could not load task: ' + alertText);
-        //                 return;
-        //             }
-
-        //             // save data
-        //             this.storage.tasksList = data2['data'];
-        //             this.storage.tasksCountTotal = this.storage.tasksList.length;
-        //             this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
-
-        //             this.loadingscreen.setVisible(false);
-        //         }, (error2: Error) => {
-        //             // failed to load task list
-        //             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
-        //             this.loadingscreen.setVisible(false);
-
-        //             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        //             console.log(error2);
-        //             return;
-        //         });
-        //     } else {
-        //         this.loadingscreen.setVisible(false);
-        //     }
-        // }, (error: Error) => {
-        //     // failed to load form
-        //     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
-        //     this.loadingscreen.setVisible(false);
-
-        //     this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        //     console.log(error);
-        //     return;
-        // });
+        }
     }
 
     /**
@@ -157,16 +88,7 @@ export class DetailsComponent implements OnInit {
         }
 
         // delete form
-        this.storage.deleteForm(this.storage.form.id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-                this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, alertText);
-
-                console.log('Could not delete form: ' + alertText);
-                return;
-            }
-
+        this.formapi.deleteInternForm(this.storage.form.id).then(() => {
             // success
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
@@ -174,7 +96,7 @@ export class DetailsComponent implements OnInit {
         }, (error: Error) => {
             // failed to delete form
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
-            console.log(error);
+            // console.log(error);
             return;
         });
     }
@@ -189,19 +111,14 @@ Dies lässt sich nicht mehr umkehren!`)) {
             return;
         }
 
+        const queryParams: Object = {
+            cancel: true,
+        };
+
+
         // archive form
-        this.storage.archiveForm(this.storage.form.id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-                this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, alertText);
-
-                console.log('Could not archive form: ' + alertText);
-                return;
-            }
-
-            // success
-            this.storage.form = data['data'];
+        this.formapi.updateInternForm(this.storage.form.id, null, queryParams).then(result => {
+            this.storage.form = result;
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
         }, (error: Error) => {
@@ -217,18 +134,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public getCSV() {
         // load csv results
-        this.storage.getCSV(this.storage.form.id).subscribe((data) => {
-            // check for error
-            if (!data) {
-                this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`,
-                    $localize`Die Antworten konnten nicht geladen werden.`);
-
-                console.log('Could not load results: ' + this.storage.form.id);
-                return;
-            }
-
-            // download csv
-            const blob = new Blob([data.toString()], { type: 'text/csv;charset=utf-8;' });
+       this.formapi.getInternFormCSV(this.storage.form.id).then(result => {
+            const blob = new Blob([result.toString()], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'results.csv');
@@ -238,10 +145,10 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 pom.setAttribute('download', 'results.csv');
                 pom.click();
             }
-        }, (error: Error) => {
+       }, (error: Error) => {
             // failed to load results
             this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error['statusText']);
-            console.log(error);
+            console .log(error);
             return;
         });
     }
@@ -262,17 +169,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         }
 
         // delete task
-        this.storage.deleteTask(this.storage.tasksList[i].id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.tasksList[i].id);
-                this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, alertText);
-
-                console.log('Could not delete task: ' + alertText);
-                return;
-            }
-
-            // success
+        this.formapi.deleteInternTask(this.storage.tasksList[i].id).then(result => {
             this.storage.tasksList.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
@@ -303,22 +200,15 @@ Dies lässt sich nicht mehr umkehren!`)) {
     /* istanbul ignore next */
     public exportForm() {
         // load form
-        this.storage.loadForm(this.storage.form.id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                this.alerts.NewAlert('danger', 'Laden fehlgeschlagen',
-                    (data['error'] ? data['error'] : this.storage.form.id));
-                throw new Error('Could not load form: ' + (data['error'] ? data['error'] : this.storage.form.id));
-            }
-
+        this.formapi.getInternForm(this.storage.form.id).then(result => {
             // download json
             const pom = document.createElement('a');
-            const encodedURIComponent = encodeURIComponent(JSON.stringify(data['data']['content']));
+            const encodedURIComponent = encodeURIComponent(JSON.stringify(result.content));
             const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
             pom.setAttribute('href', href);
             pom.setAttribute('download', 'formular.json');
             pom.click();
-        }, (error) => {
+        }).catch((error) => {
             // failed to load form
             this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
             throw error;
@@ -341,20 +231,12 @@ Dies lässt sich nicht mehr umkehren!`)) {
      * @param offset The number of the first form to be loaded
      */
     private loadTasksFromAPI(limit?: number, offset?: number) {
-        this.storage.loadTasks(this.storage.form.id, limit, offset).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : 'Tasks');
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log('Could not load tasks: ' + alertText);
-                return;
-            }
-
-            // save data
-            this.storage.tasksList = data['data'];
+        const queryParams: Object = {
+            limit: limit,
+            offset: offset
+        };
+        this.formapi.getInternFormTasks(this.storage.form.id, queryParams).then(result => {
+            this.storage.tasksList = result.data;
             this.loadingscreen.setVisible(false);
         }, (error: Error) => {
             // failed to load tags

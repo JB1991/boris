@@ -30,21 +30,6 @@ export class StorageService {
     }
 
     /**
-     * Loads form by id.
-     * @param id Form id
-     */
-    public loadForm(id: string): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        // load data from server
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-        return this.httpClient.get(url, this.auth.getHeaders());
-    }
-
-    /**
      * Update Form by id
      * @param id Form id
      * @param tags tags
@@ -103,69 +88,6 @@ export class StorageService {
     }
 
     /**
-     * Archives form by id.
-     * @param id Form id
-     */
-    public archiveForm(id: string): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        // load data from server
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '?cancel=true';
-        return this.httpClient.post(url, '', this.auth.getHeaders());
-    }
-
-    /**
-     * Get form results by id.
-     * @param id Form id
-     */
-    public getCSV(id: string): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        // load data from server
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks/csv?status=submitted';
-        return this.httpClient.get(url, this.auth.getHeaders('text', 'text/csv'));
-    }
-
-    /**
-     * Deletes formular
-     * @param id Formular id
-     */
-    public deleteForm(id: string): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        // delete formular
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-        return this.httpClient.delete(url, this.auth.getHeaders());
-    }
-
-    /**
-     * Loads tasks for form.
-     * @param id Form id
-     * @param limit Maximum number of tasks to load
-     * @param offset Number of first form to load
-     */
-    public loadTasks(id: string, limit = Number.MAX_SAFE_INTEGER, offset = 0) {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        // load data from server
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks?limit=' + limit
-            + '&offset=' + offset + '&sort=created&order=desc';
-        return this.httpClient.get(url, this.auth.getHeaders());
-    }
-
-    /**
      * Creates task
      * @param id Task id
      * @param amount Number of tasks
@@ -185,22 +107,6 @@ export class StorageService {
         }
         return this.httpClient.post(url, {}, this.auth.getHeaders());
     }
-
-    /**
-     * Deletes task
-     * @param id Task id
-     */
-    public deleteTask(id: string): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        // delete task
-        const url = environment.formAPI + 'intern/tasks/' + encodeURIComponent(id);
-        return this.httpClient.delete(url, this.auth.getHeaders());
-    }
-
     /**
      * Updates comment
      * @param id Task id
