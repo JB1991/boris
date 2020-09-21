@@ -186,8 +186,10 @@
                         (click)="click$.next($event.target.value)"
                         #searchWoMaReg="ngbTypeahead"
                         >
-                    <hr>
-                    Ihre Wohnungsmarktregion: {{ regionName(nipixStatic.data.gemeinden[model]) | json }}
+                        <ng-container *ngIf="regionName(nipixStatic.data.gemeinden[model]) !== ''"> 
+                            <hr>
+                            Ihre Wohnungsmarktregion: {{ regionName(nipixStatic.data.gemeinden[model]) }}
+                        </ng-container>
 
                 </ng-template>
             </ngb-panel>
