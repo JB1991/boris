@@ -13,7 +13,11 @@ export class ImmobilienChartOptions {
     /**
      * Configuration Option for the Map
      */
-    static getMapOptions(opt: any = {'text': {}}, selectType: any = 'multiple'): echarts.EChartOption {
+    static getMapOptions(
+        opt: any = {'text': {}, 'geoCoordMap': {}},
+        selectType: any = 'multiple'
+    ): echarts.EChartOption {
+
         const ret = JSON.parse(JSON.stringify(MO.mapOptions));
         ret.title.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage);
         ret.graphic[0].bottom = ImmobilienHelper.convertRemToPixels( opt.text.fontSizeCopy ) * 2.5;
