@@ -86,13 +86,13 @@ export class FilloutComponent implements OnInit {
 
             // display form
             this.loadingscreen.setVisible(false);
-        }, (error2: Error) => {
+        }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
-            console.log(error2);
+            console.log(error);
             return;
         });
     }
@@ -118,10 +118,10 @@ export class FilloutComponent implements OnInit {
         };
         this.formapi.createPublicTask(id, result.result, queryParams).then(() => {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             return;
         });
     }
@@ -143,9 +143,9 @@ export class FilloutComponent implements OnInit {
 
             // load form by id
             this.loadForm(this.storage.task['form-id']);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to load task
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
@@ -172,10 +172,10 @@ export class FilloutComponent implements OnInit {
         this.formapi.updatePublicTask(this.storage.task.id, result.result, queryParams).then(() => {
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error['statusText']}`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
@@ -197,9 +197,9 @@ export class FilloutComponent implements OnInit {
         // interim results
         this.formapi.updatePublicTask(this.storage.task.id, result).then(() => {
             this.storage.setUnsavedChanges(false);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to save task
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });

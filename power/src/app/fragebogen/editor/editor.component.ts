@@ -178,7 +178,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             }, 5 * 60000);
         } catch (error) {
             //     // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -427,9 +427,9 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             // success
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to save
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             console.log(error);

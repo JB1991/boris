@@ -82,9 +82,9 @@ export class MaketaskComponent implements OnInit {
 
             // close modal
             this.close();
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to create task
-            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });

@@ -67,9 +67,9 @@ export class CommentComponent implements OnInit {
             // success
             this.storage.tasksList[this.tasknr].description = result.description;
             this.close();
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to create task
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
