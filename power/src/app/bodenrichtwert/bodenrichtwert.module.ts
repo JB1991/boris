@@ -6,6 +6,7 @@ import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
@@ -50,7 +51,7 @@ import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
         NgbAccordionModule,
         NgbPaginationModule,
         NgxMapboxGLModule,
-        NgxEchartsModule,
+        NgxEchartsModule.forRoot({ echarts }),
         AngularResizedEventModule,
         SharedModule,
         NgbDropdownModule
