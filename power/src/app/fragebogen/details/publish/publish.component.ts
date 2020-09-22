@@ -3,6 +3,7 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { StorageService } from '../storage.service';
+import { FormAPIService } from '../../formapi.service';
 
 @Component({
     selector: 'power-forms-details-publish',
@@ -16,7 +17,8 @@ export class PublishComponent implements OnInit {
 
     constructor(public modalService: BsModalService,
         public alerts: AlertsService,
-        public storage: StorageService) {
+        public storage: StorageService,
+        public formapi: FormAPIService) {
     }
 
     ngOnInit() {
@@ -47,19 +49,14 @@ Dies lässt sich nicht mehr umkehren!`)) {
             return;
         }
 
-        // publish form
-        this.storage.publishForm(this.storage.form.id, this.pin, this.accesstime).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-                this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, alertText);
-
-                console.log('Could not publish form: ' + alertText);
-                return;
-            }
-
+        const queryParams: Object = {
+            access: this.pin,
+            'access-minutes': this.accesstime,
+            publish: true,
+        };
+        this.formapi.updateInternForm(this.storage.form.id, null, queryParams).then(result => {
             // success
-            this.storage.form = data['data'];
+            this.storage.form = result;
             this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,
                 $localize`Das Formular wurde erfolgreich veröffentlicht.`);
             this.close();
