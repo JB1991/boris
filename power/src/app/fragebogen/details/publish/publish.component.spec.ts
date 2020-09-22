@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, tick, fakeAsync, flush } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
@@ -8,11 +8,11 @@ import { environment } from '@env/environment';
 import { PublishComponent } from './publish.component';
 import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { FormAPIService } from '@app/fragebogen/formapi.service';
 
 describe('Fragebogen.Details.PublishComponent', () => {
     let component: PublishComponent;
     let fixture: ComponentFixture<PublishComponent>;
-    let httpTestingController: HttpTestingController;
 
     const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
 
@@ -27,107 +27,74 @@ describe('Fragebogen.Details.PublishComponent', () => {
             providers: [
                 BsModalService,
                 StorageService,
-                AlertsService
+                AlertsService,
+                FormAPIService
             ],
             declarations: [
                 PublishComponent
             ]
-        }).compileComponents();
-
-        fixture = TestBed.createComponent(PublishComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        spyOn(console, 'log');
-        spyOn(component.alerts, 'NewAlert');
-        httpTestingController = TestBed.inject(HttpTestingController);
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(PublishComponent);
+            component = fixture.componentInstance;
+            
+            spyOn(console, 'log');
+            spyOn(component.alerts, 'NewAlert');
+            fixture.detectChanges(); // onInit
+        });
     }));
 
-    // it('should create', () => {
-    //     expect(component).toBeTruthy();
-    // });
-
-    // it('should open and close', () => {
-    //     component.open();
-    //     expect(component.modal.isShown).toBeTrue();
-    //     component.close();
-    //     expect(component.modal.isShown).toBeFalse();
-    // });
-
-    // it('should publish', () => {
-    //     component.storage.form = { 'id': '123' };
-    //     component.pin = 'pin6';
-    //     component.open();
-    //     spyOn(window, 'confirm').and.returnValue(true);
-
-    //     component.Publish();
-    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
-    //         'POST', formSample);
-    //     expect(component.modal.isShown).toBeFalse();
-    // });
-
-    // it('should not publish', () => {
-    //     spyOn(window, 'confirm').and.returnValue(false);
-    //     component.Publish();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    // });
-
-    // it('should error', () => {
-    //     component.storage.form = { 'id': '123' };
-    //     spyOn(window, 'confirm').and.returnValue(true);
-
-    //     component.Publish();
-    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-    //         'POST', { 'error': 'Internal Server Error' });
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Internal Server Error');
-    // });
-
-    // it('should error 404', () => {
-    //     component.storage.form = { 'id': '123' };
-    //     spyOn(window, 'confirm').and.returnValue(true);
-
-    //     component.Publish();
-    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-    //         'POST', formSample, { status: 404, statusText: 'Not Found' });
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Not Found');
-    // });
-
-    // it('should fail to publish', () => {
-    //     component.storage.form = { 'id': '123' };
-    //     spyOn(window, 'confirm').and.returnValue(true);
-
-    //     component.Publish();
-    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-    //         'POST', null);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', '123');
-    // });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
     /**
-     * Mocks the API by taking HTTP requests form the queue and returning the answer
-     * @param url The URL of the HTTP request
-     * @param method HTTP request method
-     * @param body The body of the answer
-     * @param opts Optional HTTP information of the answer
+     * OPEN AND CLOSE
      */
-    function answerHTTPRequest(url, method, body, opts?) {
-        // Take HTTP request from queue
-        const request = httpTestingController.expectOne(url);
-        expect(request.request.method).toEqual(method);
+    it('should open and close', () => {
+        component.open();
+        expect(component.modal.isShown).toBeTrue();
+        component.close();
+        expect(component.modal.isShown).toBeFalse();
+    });
 
-        // Return the answer
-        request.flush(deepCopy(body), opts);
-    }
+    /**
+     * PUBLISH
+     */
+    it('should publish', fakeAsync(() => {
+        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample.data));
+        spyOn(window, 'confirm').and.returnValue(true);
+        component.storage.form = { 'id': '123' };
+        component.pin = 'pin6';
+        component.open();
 
-    function deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
+        component.Publish();
+        tick();
+        expect(component.modal.isShown).toBeFalse();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular veröffentlicht',
+            'Das Formular wurde erfolgreich veröffentlicht.');
+        flush();
+    }));
+
+    it('should not publish', () => {
+        spyOn(window, 'confirm').and.returnValue(false);
+        component.Publish();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+    });
+
+    it('should error', fakeAsync(() => {
+        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to publish'));
+        spyOn(window, 'confirm').and.returnValue(true);
+        component.storage.form = { 'id': '123' };
+
+        component.Publish();
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Failed to publish');
+    }));
 
     afterEach(() => {
-        // Verify that no requests are remaining
-        httpTestingController.verify();
+
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -68,8 +68,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     }));
 
     it('should create', () => {
-        expect(component).toBeTruthy();
         fixture.detectChanges();
+        expect(component).toBeTruthy();
     });
 
     it('should not create', () => {
@@ -121,6 +121,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.loadData(null).catch(() => {
             return new Error('id is required');
         });
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
     });
 
     /**
@@ -349,7 +350,6 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         // Verify that no requests are remaining
         // httpTestingController.verify();
         fixture.destroy();
-        component = null;
     });
 });
 

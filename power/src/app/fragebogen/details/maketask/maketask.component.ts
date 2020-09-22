@@ -56,8 +56,8 @@ export class MaketaskComponent implements OnInit {
             number: this.amount
         };
         // make pins
-        this.formapi.createInternFormTasks(this.storage.form.id, this.storage.form, queryParams).then(result => {
-            //     // success
+        this.formapi.createInternFormTasks(this.storage.form.id, this.storage.form, queryParams).then((result) => {
+            // success
             for (let i = 0; i < result.data.length; i++) {
                 this.pinList.push(result.data[i].pin);
                 this.storage.tasksList.splice(0, 0, result.data[i]);
