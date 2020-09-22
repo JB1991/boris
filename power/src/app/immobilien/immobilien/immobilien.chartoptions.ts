@@ -25,8 +25,18 @@ export class ImmobilienChartOptions {
         ret.toolbox.feature.mySaveAsGeoJSON.onclick = opt.exportGeoJSON;
         ret.series[0].selectedMode = selectType;
         ret.series[0].data = opt.mapRegionen;
+
         ret.series[1].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[1].data = opt.geoCoordMap;
+        ret.series[1].data = opt.geoCoordMap['right'];
+
+        ret.series[2].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
+        ret.series[2].data = opt.geoCoordMap['bottom'];
+
+        ret.series[3].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
+        ret.series[3].data = opt.geoCoordMap['left'];
+
+        ret.series[4].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
+        ret.series[4].data = opt.geoCoordMap['top'];
 
         return ret;
     }
