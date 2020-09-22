@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { AngularResizedEventModule } from 'angular-resize-event';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
@@ -52,7 +51,6 @@ import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
         NgbPaginationModule,
         NgxMapboxGLModule,
         NgxEchartsModule.forRoot({ echarts }),
-        AngularResizedEventModule,
         SharedModule,
         NgbDropdownModule
     ],
