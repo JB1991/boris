@@ -60,6 +60,7 @@ export class FilloutComponent implements OnInit {
         return !this.storage.getUnsavedChanges();
     }
 
+    
     /**
      * Set language
      */
@@ -205,7 +206,7 @@ export class FilloutComponent implements OnInit {
         });
     }
 
-    
+
      /**
      * Receives change events
      * @param result Data
