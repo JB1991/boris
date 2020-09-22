@@ -38,9 +38,10 @@ export class NewformComponent implements OnInit {
      * Opens new form modal
      */
     public open() {
+        this.searchText = '';
+        this.title = '';
         this.tagList = [];
         this.templateList = [];
-        this.searchText = '';
         this.modal.show();
     }
 
@@ -72,9 +73,9 @@ export class NewformComponent implements OnInit {
 
         this.formAPI.getInternForms(queryParams).then(result => {
             this.templateList = result.data;
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
@@ -94,7 +95,8 @@ export class NewformComponent implements OnInit {
         // load template
         if (this.template) {
             this.formAPI.getInternForm(this.template).then((data) => {
-                this.makeForm(data['data']['content']);
+                this.makeForm(data.content);
+                this.close();
             }).catch((error) => {
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error);
             });
