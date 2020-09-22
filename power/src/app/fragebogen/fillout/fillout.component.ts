@@ -95,18 +95,6 @@ export class FilloutComponent implements OnInit {
             console.log(error2);
             return;
         });
-
-        // this.storage.loadForm(id).subscribe((data2) => {
-        //     // check for error
-        //     if (!data2 || data2['error'] || !data2['data']) {
-        //         const alertText = (data2 && data2['error'] ? data2['error'] : id);
-        //         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-        //         this.loadingscreen.setVisible(false);
-        //         this.router.navigate(['/forms'], { replaceUrl: true });
-        //         console.log('Could not load form: ' + alertText);
-        //         return;
-        //     }
     }
 
     /**
@@ -149,21 +137,9 @@ export class FilloutComponent implements OnInit {
             throw new Error('pin is required');
         }
 
-        // get access by pin
-        this.storage.getAccess(pin, factor).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : pin + ' - ' + factor);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log('Could not load access: ' + alertText);
-                return;
-            }
-
+        this.formapi.getPublicAccess(pin, factor).then(result => {
             // store task data
-            this.storage.task = data['data'];
+            this.storage.task = result;
 
             // load form by id
             this.loadForm(this.storage.task['form-id']);
@@ -189,17 +165,11 @@ export class FilloutComponent implements OnInit {
         }
         this.submitted = true;
 
+        const queryParams: Object = {
+            submit: true
+        }
         // complete
-        this.storage.saveResults(this.storage.task.id, result.result, true).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.task.pin);
-                result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {alertText}`);
-                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
-
-                console.log('Could not submit results: ' + alertText);
-                return;
-            }
+        this.formapi.updatePublicTask(this.storage.task.id, result.result, queryParams).then(() => {
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }, (error: Error) => {
@@ -223,17 +193,9 @@ export class FilloutComponent implements OnInit {
         if (this.submitted) {
             return;
         }
-
+        console.log(result);
         // interim results
-        this.storage.saveResults(this.storage.task.id, result).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.task.pin);
-                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
-
-                console.log('Could not save results: ' + alertText);
-                return;
-            }
+        this.formapi.updatePublicTask(this.storage.task.id, result).then(() => {
             this.storage.setUnsavedChanges(false);
         }, (error: Error) => {
             // failed to save task
@@ -243,7 +205,8 @@ export class FilloutComponent implements OnInit {
         });
     }
 
-    /**
+    
+     /**
      * Receives change events
      * @param result Data
      */

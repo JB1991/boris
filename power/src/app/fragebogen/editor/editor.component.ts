@@ -185,18 +185,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             console.log(error);
             return;
         }
-
-    //     // this.storage.loadForm(id).subscribe((data) => {
-        //     // check for error
-        //     if (!data || data['error'] || !data['data'] || !data['data']['content']) {
-        //         const alertText = (data && data['error'] ? data['error'] : id);
-        //         this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-        //         this.loadingscreen.setVisible(false);
-        //         this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        //         console.log('Could not load form: ' + alertText);
-        //         return;
-        //     }
     }
 
     /**
@@ -436,6 +424,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         const id = this.route.snapshot.paramMap.get('id');
         
         this.formapi.updateInternForm(id, this.storage.model).then(() => {
+            // success
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
         }, (error: Error) => {
@@ -446,28 +435,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             console.log(error);
             return;
         });
-        
-        // this.storage.saveForm(this.storage.model, id).subscribe((data) => {
-        //     // check for error
-        //     if (!data || data['error']) {
-        //         const alertText = (data && data['error'] ? data['error'] : id);
-        //         this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
-
-        //         console.log('Could not save form: ' + alertText);
-        //         return;
-        //     }
-
-        //     // success
-        //     this.storage.setUnsavedChanges(false);
-        //     this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
-        // }, (error: Error) => {
-        //     // failed to save
-        //     this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
-        //     this.loadingscreen.setVisible(false);
-
-        //     console.log(error);
-        //     return;
-        // });
     }
 
     /**
