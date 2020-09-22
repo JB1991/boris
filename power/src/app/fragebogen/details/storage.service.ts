@@ -27,6 +27,7 @@ export class StorageService {
         this.form = null;
         this.tasksList = [];
         this.tasksCountTotal = 0;
+        this.tasksPerPage = 5;
     }
 
     /**

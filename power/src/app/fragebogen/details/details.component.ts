@@ -18,6 +18,7 @@ import { FormAPIService } from '../formapi.service';
 })
 export class DetailsComponent implements OnInit {
     @ViewChild('preview') public preview: PreviewComponent;
+    component: any;
 
     constructor(public titleService: Title,
         public router: Router,
@@ -69,7 +70,7 @@ export class DetailsComponent implements OnInit {
             }
         } catch(error) {
             // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -93,9 +94,9 @@ export class DetailsComponent implements OnInit {
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to delete form
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
             // console.log(error);
             return;
         });
@@ -121,9 +122,9 @@ Dies lässt sich nicht mehr umkehren!`)) {
             this.storage.form = result;
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to publish form
-            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
@@ -145,9 +146,9 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 pom.setAttribute('download', 'results.csv');
                 pom.click();
             }
-       }, (error: Error) => {
+       }).catch((error: Error) => {
             // failed to load results
-            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error.toString());
             console .log(error);
             return;
         });
@@ -169,13 +170,13 @@ Dies lässt sich nicht mehr umkehren!`)) {
         }
 
         // delete task
-        this.formapi.deleteInternTask(this.storage.tasksList[i].id).then(result => {
+        this.formapi.deleteInternTask(this.storage.tasksList[i].id).then(() => {
             this.storage.tasksList.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to delete task
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
@@ -208,9 +209,9 @@ Dies lässt sich nicht mehr umkehren!`)) {
             pom.setAttribute('href', href);
             pom.setAttribute('download', 'formular.json');
             pom.click();
-        }).catch((error) => {
+        }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error.toString());
             throw error;
         });
     }
@@ -238,9 +239,9 @@ Dies lässt sich nicht mehr umkehren!`)) {
         this.formapi.getInternFormTasks(this.storage.form.id, queryParams).then(result => {
             this.storage.tasksList = result.data;
             this.loadingscreen.setVisible(false);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to load tags
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
