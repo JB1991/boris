@@ -45,74 +45,74 @@ describe('Fragebogen.Details.SettingsComponent', () => {
         httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+    // it('should create', () => {
+    //     expect(component).toBeTruthy();
+    // });
 
-    it('should open and close', () => {
-        component.storage.form = { 'id': '123' };
-        component.open();
-        expect(component.modal.isShown).toBeTrue();
-        component.close();
-        expect(component.modal.isShown).toBeFalse();
-    });
+    // it('should open and close', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     component.open();
+    //     expect(component.modal.isShown).toBeTrue();
+    //     component.close();
+    //     expect(component.modal.isShown).toBeFalse();
+    // });
 
-    it('should update form', () => {
-        component.storage.form = { 'id': '123' };
-        component.tagList = [];
-        component.ownerList = [];
-        component.readerList = [];
-        fixture.detectChanges();
-        component.updateForm();
+    // it('should update form', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     component.tagList = [];
+    //     component.ownerList = [];
+    //     component.readerList = [];
+    //     fixture.detectChanges();
+    //     component.updateForm();
 
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', formSample);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gespeichert', 'Das Formular wurde erfolgreich gespeichert.');
-    });
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', formSample);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gespeichert', 'Das Formular wurde erfolgreich gespeichert.');
+    // });
 
-    it('should fail update form - data', () => {
-        component.storage.form = { 'id': '123' };
-        component.tagList = [];
-        component.ownerList = [];
-        component.readerList = [];
-        fixture.detectChanges();
-        component.updateForm();
+    // it('should fail update form - data', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     component.tagList = [];
+    //     component.ownerList = [];
+    //     component.readerList = [];
+    //     fixture.detectChanges();
+    //     component.updateForm();
 
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', { 'error': 'Internal Server Error' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Internal Server Error');
-    });
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', { 'error': 'Internal Server Error' });
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert)
+    //         .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Internal Server Error');
+    // });
 
 
-    it('should fail update form - null', () => {
-        component.storage.form = { 'id': '123' };
-        component.tagList = [];
-        component.ownerList = [];
-        component.readerList = [];
-        fixture.detectChanges();
-        component.updateForm();
+    // it('should fail update form - null', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     component.tagList = [];
+    //     component.ownerList = [];
+    //     component.readerList = [];
+    //     fixture.detectChanges();
+    //     component.updateForm();
 
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', null);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', '123');
-    });
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', null);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert)
+    //         .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', '123');
+    // });
 
-    it('should fail update form - not found', () => {
-        component.storage.form = { 'id': '123' };
-        component.tagList = [];
-        component.ownerList = [];
-        component.readerList = [];
-        fixture.detectChanges();
-        component.updateForm();
+    // it('should fail update form - not found', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     component.tagList = [];
+    //     component.ownerList = [];
+    //     component.readerList = [];
+    //     fixture.detectChanges();
+    //     component.updateForm();
 
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', formSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
-    });
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', formSample,
+    //         { status: 404, statusText: 'Not Found' });
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert)
+    //         .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
+    // });
 
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer

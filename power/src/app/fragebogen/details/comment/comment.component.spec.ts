@@ -43,85 +43,85 @@ describe('Fragebogen.Details.CommentComponent', () => {
         httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+    // it('should create', () => {
+    //     expect(component).toBeTruthy();
+    // });
 
-    it('should open and close', () => {
-        component.storage.tasksList.push({ id: '123', description: '' });
-        component.open(0);
-        expect(component.modal.isShown).toBeTrue();
-        component.close();
-        expect(component.modal.isShown).toBeFalse();
-    });
+    // it('should open and close', () => {
+    //     component.storage.tasksList.push({ id: '123', description: '' });
+    //     component.open(0);
+    //     expect(component.modal.isShown).toBeTrue();
+    //     component.close();
+    //     expect(component.modal.isShown).toBeFalse();
+    // });
 
-    it('should fail open', () => {
-        expect(function () {
-            component.open(-1);
-        }).toThrowError('invalid i');
-        expect(function () {
-            component.open(10);
-        }).toThrowError('invalid i');
-    });
+    // it('should fail open', () => {
+    //     expect(function () {
+    //         component.open(-1);
+    //     }).toThrowError('invalid i');
+    //     expect(function () {
+    //         component.open(10);
+    //     }).toThrowError('invalid i');
+    // });
 
-    it('should fail save', () => {
-        component.tasknr = -1;
-        expect(function () {
-            component.save();
-        }).toThrowError('invalid i');
-        component.tasknr = 1;
-        expect(function () {
-            component.save();
-        }).toThrowError('invalid i');
-    });
+    // it('should fail save', () => {
+    //     component.tasknr = -1;
+    //     expect(function () {
+    //         component.save();
+    //     }).toThrowError('invalid i');
+    //     component.tasknr = 1;
+    //     expect(function () {
+    //         component.save();
+    //     }).toThrowError('invalid i');
+    // });
 
-    it('should save', () => {
-        component.storage.tasksList.push({ id: '123', description: '' });
-        component.tasknr = 0;
-        component.comment = 'Toast';
+    // it('should save', () => {
+    //     component.storage.tasksList.push({ id: '123', description: '' });
+    //     component.tasknr = 0;
+    //     component.comment = 'Toast';
 
-        component.save();
-        answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST', taskSample);
-        expect(component.tasknr).toEqual(-1);
-        expect(component.storage.tasksList[0].description).toEqual('Toast');
-    });
+    //     component.save();
+    //     answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST', taskSample);
+    //     expect(component.tasknr).toEqual(-1);
+    //     expect(component.storage.tasksList[0].description).toEqual('Toast');
+    // });
 
-    it('should error', () => {
-        component.storage.tasksList.push({ id: '123', description: '' });
-        component.tasknr = 0;
-        component.comment = 'Toast';
+    // it('should error', () => {
+    //     component.storage.tasksList.push({ id: '123', description: '' });
+    //     component.tasknr = 0;
+    //     component.comment = 'Toast';
 
-        component.save();
-        answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST',
-            { 'error': 'Internal Server Error' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Internal Server Error');
-    });
+    //     component.save();
+    //     answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST',
+    //         { 'error': 'Internal Server Error' });
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert)
+    //         .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Internal Server Error');
+    // });
 
-    it('should error 2', () => {
-        component.storage.tasksList.push({ id: '123', description: '' });
-        component.tasknr = 0;
-        component.comment = 'Toast';
+    // it('should error 2', () => {
+    //     component.storage.tasksList.push({ id: '123', description: '' });
+    //     component.tasknr = 0;
+    //     component.comment = 'Toast';
 
-        component.save();
-        answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST', '');
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', '0');
-    });
+    //     component.save();
+    //     answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST', '');
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert)
+    //         .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', '0');
+    // });
 
-    it('should error 404', () => {
-        component.storage.tasksList.push({ id: '123', description: '' });
-        component.tasknr = 0;
-        component.comment = 'Toast';
+    // it('should error 404', () => {
+    //     component.storage.tasksList.push({ id: '123', description: '' });
+    //     component.tasknr = 0;
+    //     component.comment = 'Toast';
 
-        component.save();
-        answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST', taskSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
-    });
+    //     component.save();
+    //     answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Toast', 'POST', taskSample,
+    //         { status: 404, statusText: 'Not Found' });
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
+    // });
 
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer

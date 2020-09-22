@@ -43,67 +43,67 @@ describe('Fragebogen.Details.PublishComponent', () => {
         httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+    // it('should create', () => {
+    //     expect(component).toBeTruthy();
+    // });
 
-    it('should open and close', () => {
-        component.open();
-        expect(component.modal.isShown).toBeTrue();
-        component.close();
-        expect(component.modal.isShown).toBeFalse();
-    });
+    // it('should open and close', () => {
+    //     component.open();
+    //     expect(component.modal.isShown).toBeTrue();
+    //     component.close();
+    //     expect(component.modal.isShown).toBeFalse();
+    // });
 
-    it('should publish', () => {
-        component.storage.form = { 'id': '123' };
-        component.pin = 'pin6';
-        component.open();
-        spyOn(window, 'confirm').and.returnValue(true);
+    // it('should publish', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     component.pin = 'pin6';
+    //     component.open();
+    //     spyOn(window, 'confirm').and.returnValue(true);
 
-        component.Publish();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
-            'POST', formSample);
-        expect(component.modal.isShown).toBeFalse();
-    });
+    //     component.Publish();
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
+    //         'POST', formSample);
+    //     expect(component.modal.isShown).toBeFalse();
+    // });
 
-    it('should not publish', () => {
-        spyOn(window, 'confirm').and.returnValue(false);
-        component.Publish();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    });
+    // it('should not publish', () => {
+    //     spyOn(window, 'confirm').and.returnValue(false);
+    //     component.Publish();
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+    // });
 
-    it('should error', () => {
-        component.storage.form = { 'id': '123' };
-        spyOn(window, 'confirm').and.returnValue(true);
+    // it('should error', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     spyOn(window, 'confirm').and.returnValue(true);
 
-        component.Publish();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-            'POST', { 'error': 'Internal Server Error' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Internal Server Error');
-    });
+    //     component.Publish();
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
+    //         'POST', { 'error': 'Internal Server Error' });
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Internal Server Error');
+    // });
 
-    it('should error 404', () => {
-        component.storage.form = { 'id': '123' };
-        spyOn(window, 'confirm').and.returnValue(true);
+    // it('should error 404', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     spyOn(window, 'confirm').and.returnValue(true);
 
-        component.Publish();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-            'POST', formSample, { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Not Found');
-    });
+    //     component.Publish();
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
+    //         'POST', formSample, { status: 404, statusText: 'Not Found' });
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Not Found');
+    // });
 
-    it('should fail to publish', () => {
-        component.storage.form = { 'id': '123' };
-        spyOn(window, 'confirm').and.returnValue(true);
+    // it('should fail to publish', () => {
+    //     component.storage.form = { 'id': '123' };
+    //     spyOn(window, 'confirm').and.returnValue(true);
 
-        component.Publish();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
-            'POST', null);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', '123');
-    });
+    //     component.Publish();
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin8&access-minutes=60',
+    //         'POST', null);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', '123');
+    // });
 
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer

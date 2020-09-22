@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
-import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
-import { environment } from '@env/environment';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { DetailsComponent } from './details.component';
 import { StorageService } from './storage.service';
@@ -13,9 +12,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { FormAPIService } from '../formapi.service';
-import { ok } from 'assert';
 import { SurveyjsModule } from '../surveyjs/surveyjs.module';
-import { Observable, of } from 'rxjs';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
@@ -26,7 +23,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     const formSampleCreated = require('../../../assets/fragebogen/intern-get-forms-id-created.json');
     const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
     const taskSample = require('../../../assets/fragebogen/intern-get-tasks.json');
-    
+
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -63,7 +60,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(DetailsComponent);
             component = fixture.componentInstance;
-            
+
             spyOn(console, 'log');
             spyOn(component.router, 'navigate');
             spyOn(component.alerts, 'NewAlert');
@@ -109,17 +106,17 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should fail load data', (done) => {
         spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed'));
-        
+
         component.loadData('bs63c2os5bcus8t5q0kg').then(() => {
             expect(component.storage.form).toBeNull();
             expect(component.storage.tasksList.length).toEqual(0);
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-            'Laden fehlgeschlagen', 'Failed');
+                'Laden fehlgeschlagen', 'Failed');
             done();
         });
     });
-    
+
     it('should crash', () => {
         component.loadData(null).catch(() => {
             return new Error('id is required');
@@ -171,7 +168,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.storage.form = formSample.data;
         const spy = spyOn(component.formapi, 'updateInternForm').and
             .returnValue(Promise.resolve(formSample.data));
- 
+
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.archiveForm();
@@ -209,7 +206,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(window, 'confirm').and.returnValue(true);
         spyOn(component.formapi, 'getInternFormCSV').and
             .returnValue(Promise.resolve('CSV'));
- 
+
         // navigator.msSaveBlob = null;
         // const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
         // spyOn(document, 'createElement').and.returnValue(spyObj);
@@ -226,7 +223,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     //     spyOn(window, 'confirm').and.returnValue(true);
     //     spyOn(component.formapi, 'getInternFormCSV').and
     //         .returnValue(Promise.resolve('CSV'));
-        
+
     //     navigator.msSaveBlob = () => true;
     //     const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
     //     spyOn(document, 'createElement').and.returnValue(spyObj);
@@ -258,12 +255,12 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should delete task', fakeAsync(() => {
         component.storage.tasksList = taskSample.data;
         spyOn(component.formapi, 'deleteInternTask').and.returnValue(Promise.resolve('deleted task'));
-        
+
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteTask(0);
         tick();
-        
+
         expect(component.storage.tasksList.length).toEqual(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort gelöscht',
@@ -296,14 +293,14 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         });
 
         spyOn(window, 'confirm').and.returnValue(true);
-        
+
         component.deleteTask(0);
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
             'Löschen fehlgeschlagen', 'Error: Failed');
     }));
-    
+
     /**
      * OPEN TASK
      */

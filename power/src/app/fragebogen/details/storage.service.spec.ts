@@ -8,13 +8,13 @@ import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Details.StorageService', () => {
     let service: StorageService;
-    let httpTestingController: HttpTestingController;
+    // let httpTestingController: HttpTestingController;
 
-    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
-    const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
-    const updateSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
-    const taskList = require('../../../assets/fragebogen/intern-get-tasks.json');
-    const taskSample = require('../../../assets/fragebogen/intern-get-tasks-id.json');
+    // const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    // const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    // const updateSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    // const taskList = require('../../../assets/fragebogen/intern-get-tasks.json');
+    // const taskSample = require('../../../assets/fragebogen/intern-get-tasks-id.json');
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -28,7 +28,7 @@ describe('Fragebogen.Details.StorageService', () => {
         });
         spyOn(console, 'log');
         service = TestBed.inject(StorageService);
-        httpTestingController = TestBed.inject(HttpTestingController);
+        // httpTestingController = TestBed.inject(HttpTestingController);
     });
 
     it('should be created', () => {
@@ -52,21 +52,21 @@ describe('Fragebogen.Details.StorageService', () => {
     //     }).toThrowError('id is required');
     // });
 
-    it('should publish form', () => {
-        service.publishForm('123').subscribe(data => expect(data).toEqual(formSample));
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
-            'POST', formSample);
-    });
+    // it('should publish form', () => {
+    //     service.publishForm('123').subscribe(data => expect(data).toEqual(formSample));
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?publish=true&access=pin6&access-minutes=60',
+    //         'POST', formSample);
+    // });
 
-    it('should fail publish form', () => {
-        expect(function () {
-            service.publishForm('');
-        }).toThrowError('id is required');
+    // it('should fail publish form', () => {
+    //     expect(function () {
+    //         service.publishForm('');
+    //     }).toThrowError('id is required');
 
-        expect(function () {
-            service.publishForm('123', 'pin5');
-        }).toThrowError('pin is invalid');
-    });
+    //     expect(function () {
+    //         service.publishForm('123', 'pin5');
+    //     }).toThrowError('pin is invalid');
+    // });
 
     // it('should archive form', () => {
     //     service.archiveForm('123').subscribe(data => expect(data).toEqual(formSample));
@@ -102,27 +102,27 @@ describe('Fragebogen.Details.StorageService', () => {
     //     }).toThrowError('id is required');
     // });
 
-    it('should create tasks', () => {
-        service.createTask('123', 2, '123456').subscribe(data => expect(data).toEqual(taskList));
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2&factor=123456', 'POST', taskList);
-    });
+    // it('should create tasks', () => {
+    //     service.createTask('123', 2, '123456').subscribe(data => expect(data).toEqual(taskList));
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123/tasks?number=2&factor=123456', 'POST', taskList);
+    // });
 
-    it('should fail create tasks', () => {
-        expect(function () {
-            service.createTask('');
-        }).toThrowError('id is required');
-    });
+    // it('should fail create tasks', () => {
+    //     expect(function () {
+    //         service.createTask('');
+    //     }).toThrowError('id is required');
+    // });
 
-    it('should update task comment', () => {
-        service.updateTaskComment('123', 'Test').subscribe(data => expect(data).toEqual(taskSample));
-        answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Test', 'POST', taskSample);
-    });
+    // it('should update task comment', () => {
+    //     service.updateTaskComment('123', 'Test').subscribe(data => expect(data).toEqual(taskSample));
+    //     answerHTTPRequest(environment.formAPI + 'intern/tasks/123?description=Test', 'POST', taskSample);
+    // });
 
-    it('should fail update task comment', () => {
-        expect(function () {
-            service.updateTaskComment('', '');
-        }).toThrowError('id is required');
-    });
+    // it('should fail update task comment', () => {
+    //     expect(function () {
+    //         service.updateTaskComment('', '');
+    //     }).toThrowError('id is required');
+    // });
 
     // it('should delete task', () => {
     //     service.deleteTask('1234').subscribe(data => expect(data).toEqual(deleteSample));
@@ -156,41 +156,41 @@ describe('Fragebogen.Details.StorageService', () => {
         expect(service.tasksCountTotal).toEqual(0);
     });
 
-    it('should update form', () => {
-        service.updateForm('123', 'Tags', 'Owners', 'Readers').subscribe(data => expect(data).toEqual(updateSample));
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123?tags=Tags&owners=Owners&readers=Readers',
-            'POST', updateSample);
-    });
+    // it('should update form', () => {
+    //     service.updateForm('123', 'Tags', 'Owners', 'Readers').subscribe(data => expect(data).toEqual(updateSample));
+    //     answerHTTPRequest(environment.formAPI + 'intern/forms/123?tags=Tags&owners=Owners&readers=Readers',
+    //         'POST', updateSample);
+    // });
 
-    it('should fail update form', () => {
-        expect(function () {
-            service.updateForm('', '');
-        }).toThrowError('id is required');
-    });
+    // it('should fail update form', () => {
+    //     expect(function () {
+    //         service.updateForm('', '');
+    //     }).toThrowError('id is required');
+    // });
 
-    /**
-     * Mocks the API by taking HTTP requests form the queue and returning the answer
-     * @param url The URL of the HTTP request
-     * @param method HTTP request method
-     * @param body The body of the answer
-     * @param opts Optional HTTP information of the answer
-     */
-    function answerHTTPRequest(url, method, body, opts?) {
-        // Take HTTP request from queue
-        const request = httpTestingController.expectOne(url);
-        expect(request.request.method).toEqual(method);
+    // /**
+    //  * Mocks the API by taking HTTP requests form the queue and returning the answer
+    //  * @param url The URL of the HTTP request
+    //  * @param method HTTP request method
+    //  * @param body The body of the answer
+    //  * @param opts Optional HTTP information of the answer
+    //  */
+    // function answerHTTPRequest(url, method, body, opts?) {
+    //     // Take HTTP request from queue
+    //     const request = httpTestingController.expectOne(url);
+    //     expect(request.request.method).toEqual(method);
 
-        // Return the answer
-        request.flush(deepCopy(body), opts);
-    }
+    //     // Return the answer
+    //     request.flush(deepCopy(body), opts);
+    // }
 
-    function deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
+    // function deepCopy(data) {
+    //     return JSON.parse(JSON.stringify(data));
+    // }
 
     afterEach(() => {
         // Verify that no requests are remaining
-        httpTestingController.verify();
+        // httpTestingController.verify();
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
