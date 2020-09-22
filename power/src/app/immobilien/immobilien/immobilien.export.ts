@@ -118,7 +118,10 @@ export class ImmobilienExport {
             ImmobilienHelper.downloadFile(JSON.stringify(geoJson), 'Immobilienpreisindex.geojson');
         } else {  // CSV
             let csv = '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n';
-            csv += ImmobilienHelper.convertArrayToCSV(tmp, ['type', 'region', 'nipix.date', 'nipix.index', 'nipix.sales']);
+            csv += ImmobilienHelper.convertArrayToCSV(
+                tmp,
+                ['type', 'region', 'nipix.date', 'nipix.index', 'nipix.sales']
+            );
             ImmobilienHelper.downloadFile(csv, 'Immobilienpreisindex.csv');
         }
     }

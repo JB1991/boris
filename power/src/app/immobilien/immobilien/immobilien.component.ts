@@ -416,7 +416,7 @@ export class ImmobilienComponent implements OnInit {
             'graphic1left': this.nipixStatic.chartExportWidth - 600 + 65,
             'graphic1children': [].concat(this.nipixRuntime.formatter.graphicLegend()),
             'graphic2fontsize': ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage),
-            'graphioc2text': range_text,
+            'graphic2text': range_text,
             'legenddata': this.nipixRuntime.formatter.simpleLegend(),
             'legendformatter':  this.nipixRuntime.formatter.formatLegend,
             'subtitle': this.nipixRuntime.calculated.chartTitle + subAdd,

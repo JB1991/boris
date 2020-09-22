@@ -7,68 +7,75 @@
     "lastYear": 2018,
     "lastPeriod": 4,
     "map": {
-        "geoCoordMap": [
-            {
-                "name": "Hannover",
-                "value": [
-                    553508,
-                    5805402
-                ]
-            },
-            {
-                "name": "Braunschweig",
-                "value": [
-                    604181,
-                    5792042
-                ]
-            },
-            {
-                "name": "Osnabrück",
-                "value": [
-                    435154,
-                    5791143
-                ]
-            },
-            {
-                "name": "Oldenburg",
-                "value": [
-                    447464,
-                    5888516
-                ]
-            },
-            {
-                "name": "Lüneburg",
-                "value": [
-                    593935,
-                    5900862
-                ]
-            },
-            {
-                "name": "Göttingen",
-                "value": [
-                    564868,
-                    5709487
-                ]
-            },
-            {
-                "name": "Aurich",
-                "value": [
-                    399429,
-                    5925718
-                ]
-            },
-            {
-                "name": "Wolfsburg",
-                "value": [
-                    621464,
-                    5809316
-                ]
-            }
-        ]
+        "geoCoordMap": {
+            "bottom": [
+                {
+                    "name": "Oldenburg",
+                    "value": [
+                        447464,
+                        5888516
+                    ]
+                }
+            ],
+            "left": [],
+            "right": [
+                {
+                    "name": "Braunschweig",
+                    "value": [
+                        604181,
+                        5792042
+                    ]
+                },
+                {
+                    "name": "Osnabr\u00fcck",
+                    "value": [
+                        435154,
+                        5791143
+                    ]
+                },
+                {
+                    "name": "L\u00fcneburg",
+                    "value": [
+                        593935,
+                        5900862
+                    ]
+                },
+                {
+                    "name": "G\u00f6ttingen",
+                    "value": [
+                        564868,
+                        5709487
+                    ]
+                },
+                {
+                    "name": "Aurich",
+                    "value": [
+                        399429,
+                        5925718
+                    ]
+                },
+                {
+                    "name": "Wolfsburg",
+                    "value": [
+                        621464,
+                        5809316
+                    ]
+                }
+            ],
+            "top": [
+                {
+                    "name": "Hannover",
+                    "value": [
+                        553508,
+                        5805402
+                    ]
+                }
+            ]
+        }
     },
     "shortNames": {
-        "Eigenheime": "EH",
-        "Eigentumswohnungen": "EW",
+        "gebrauchte Eigenheime": "EH",
+        "gebrauchte Eigentumswohnungen": "EW",
         "städtische Regionen": "SR",
         "ländliche Regionen": "LR"
     },
@@ -218,7 +225,7 @@
             "colors": []
         },
         {
-            "name": "Eigenheime",
+            "name": "gebrauchte Eigenheime",
             "type": "aggr",
             "nipixCategory": "gebrauchte Eigenheime",
             "show": false,
@@ -243,7 +250,7 @@
             "colors": "rgb(214,39,40)"
         },
         {
-            "name": "Eigentumswohnungen",
+            "name": "gebrauchte Eigentumswohnungen",
             "type": "aggr",
             "nipixCategory": "gebrauchte Eigentumswohnungen",
             "show": false,
@@ -347,8 +354,8 @@
             "name": "Preisentwicklung Niedersachsen, gesamt",
             "type": "multi",
             "preset": [
-                "Eigenheime",
-                "Eigentumswohnungen"
+                "gebrauchte Eigenheime",
+                "gebrauchte Eigentumswohnungen"
             ]
         },
         {
