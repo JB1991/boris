@@ -17,6 +17,16 @@ import { FormAPIService } from '../formapi.service';
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+    public data: any[];
+    public taskTotal: number;
+    public taskPage = 1;
+    public taskPerPage = 5;
+    public taskPageSizes: number[];
+
+    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
+    public taskSort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted' = 'submitted';
+    public taskOrder: 'asc' | 'desc' = 'desc';
+
     @ViewChild('preview') public preview: PreviewComponent;
 
     constructor(public titleService: Title,
@@ -32,8 +42,9 @@ export class DetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-        // get id
+        this.updateTasks(true);
         this.loadingscreen.setVisible(true);
+        // get id
         const id = this.route.snapshot.paramMap.get('id');
         if (id) {
             // load data
@@ -248,6 +259,32 @@ Dies lässt sich nicht mehr umkehren!`)) {
             return;
         });
     }
-}
 
+    public async updateTasks(navigate: boolean) {
+        try {
+            this.loadingscreen.setVisible(true);
+            const params = {
+                limit: this.taskPerPage,
+                offset: (this.taskPage - 1) * this.taskPerPage,
+                sort: this.taskSort,
+                order: this.taskOrder,
+            };
+            if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
+                params['status'] = this.taskStatus;
+            }
+            const response = await this.formapi.getInternFormTasks(this.storage.form.id, params);
+            this.data = response.data;
+            this.taskTotal = response.total;
+            const maxPages = Math.floor(this.taskTotal / 5) + 1;
+            this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            this.loadingscreen.setVisible(false);
+        } catch (error) {
+            this.loadingscreen.setVisible(false);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            if (navigate) {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
+        }
+    }
+}
 /* vim: set expandtab ts=4 sw=4 sts=4: */
