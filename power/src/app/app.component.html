@@ -124,10 +124,15 @@
                            [routerLink]="">{{ auth.user.data.email }}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
-                           (click)="isCollapsed = true"
+                           (click)="isCollapsed = true; isCollapsedAcc = true"
+                           [routerLink]="['/forms/dashboard']"
+                           routerLinkActive="active"
+                           i18n>Meine Formulare</a>
+                        <a class="dropdown-item"
+                           (click)="isCollapsed = true; isCollapsedAcc = true"
                            [routerLink]="['/logout']"
                            routerLinkActive="active"
-                           i18n>Ausloggen</a>
+                           i18n>Logout</a>
                     </div>
                 </li>
             </ul>

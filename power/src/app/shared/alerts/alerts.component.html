@@ -34,7 +34,7 @@
                             cy="4.5"
                             r="1" />
                 </svg>
-                {{ alert.title }}
+                {{ alert.date | date:'mediumTime' }}: {{ alert.title }}
             </span>
             <p class="m-0">{{ alert.text }}</p>
         </alert>
