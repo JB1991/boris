@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { AngularResizedEventModule } from 'angular-resize-event';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
@@ -18,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
 import { HyphenatePipe } from './pipes/hyphenate.pipe';
+import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -38,7 +39,8 @@ import { HyphenatePipe } from './pipes/hyphenate.pipe';
         BodenrichtwertListeComponent,
         NutzungPipe,
         BeitragPipe,
-        HyphenatePipe
+        HyphenatePipe,
+        UmlautCorrectionPipe
     ],
     imports: [
         BodenrichtwertRoutingModule,
@@ -48,8 +50,7 @@ import { HyphenatePipe } from './pipes/hyphenate.pipe';
         NgbAccordionModule,
         NgbPaginationModule,
         NgxMapboxGLModule,
-        NgxEchartsModule,
-        AngularResizedEventModule,
+        NgxEchartsModule.forRoot({ echarts }),
         SharedModule,
         NgbDropdownModule
     ],
