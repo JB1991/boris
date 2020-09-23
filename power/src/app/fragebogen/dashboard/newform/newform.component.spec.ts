@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -39,15 +39,15 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             declarations: [
                 NewformComponent
             ]
-        }).compileComponents();
-
-        fixture = TestBed.createComponent(NewformComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        spyOn(console, 'log');
-        spyOn(component.router, 'navigate');
-        spyOn(component.alerts, 'NewAlert');
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(NewformComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges(); // onInit
+    
+            spyOn(console, 'log');
+            spyOn(component.router, 'navigate');
+            spyOn(component.alerts, 'NewAlert');
+        });
     }));
 
     it('should open and close', () => {
@@ -73,19 +73,16 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.template).toEqual('123');
     });
 
-    it('should fail to fetch templates', waitForAsync(() => {
-        const spy = spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.reject('Failure'));
+    it('should fail to fetch templates', fakeAsync(() => {
+        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.reject('Failure'));
 
         component.fetchTemplates();
-
-        fixture.whenStable().then(() => {
-            fixture.detectChanges();
-            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        });
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     }));
 
-    it('should fetch templates', (done) => {
-        const spy = spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve(
+    it('should fetch templates', fakeAsync(() => {
+        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve(
             {
                 data: [
                     {
@@ -102,14 +99,10 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         ));
 
         component.fetchTemplates();
-
-        spy.calls.mostRecent().returnValue.then(() => {
-            fixture.detectChanges();
-            expect(component.templateList.length).toEqual(2);
-            expect(component.templateList[0].id).toEqual('123');
-            done();
-        });
-    });
+        tick();
+        expect(component.templateList.length).toEqual(2);
+        expect(component.templateList[0].id).toEqual('123');
+    }));
 
 
     it('should create', () => {

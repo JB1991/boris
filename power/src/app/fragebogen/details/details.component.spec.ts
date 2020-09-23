@@ -17,7 +17,6 @@ import { SurveyjsModule } from '../surveyjs/surveyjs.module';
 describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
     let fixture: ComponentFixture<DetailsComponent>;
-    // let httpTestingController: HttpTestingController;
 
     const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
     const formSampleCreated = require('../../../assets/fragebogen/intern-get-forms-id-created.json');
@@ -38,17 +37,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 AuthService,
                 AlertsService,
                 LoadingscreenService,
-                FormAPIService,
-                {
-                    provide: ActivatedRoute,
-                    useValue: {
-                        snapshot: {
-                            paramMap: {
-                                get: () => 123,
-                            }
-                        }
-                    }
-                }
+                FormAPIService
             ],
             declarations: [
                 DetailsComponent,
@@ -68,12 +57,13 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     }));
 
     it('should create', () => {
+        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
         fixture.detectChanges();
         expect(component).toBeTruthy();
     });
 
     it('should not create', () => {
-        component.route.snapshot.paramMap.get = () => null;
+        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
         fixture.detectChanges();
         // expect(component.router.navigated).toEqual(true);
     });
@@ -321,35 +311,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         }).toThrowError('invalid i');
     });
 
-    // function answerInitialRequests() {
-    //     answerHTTPRequest(formURL, 'GET', formSample);
-    //     answerHTTPRequest(tasksURL, 'GET', taskSample);
-    // }
-
-    // /**
-    //  * Mocks the API by taking HTTP requests form the queue and returning the answer
-    //  * @param url The URL of the HTTP request
-    //  * @param method HTTP request method
-    //  * @param body The body of the answer
-    //  * @param opts Optional HTTP information of the answer
-    //  */
-    // function answerHTTPRequest(url, method, body, opts?) {
-    //     // Take HTTP request from queue
-    //     const request = httpTestingController.expectOne(url);
-    //     expect(request.request.method).toEqual(method);
-
-    //     // Return the answer
-    //     request.flush(deepCopy(body), opts);
-    // }
-
-    // function deepCopy(data) {
-    //     return JSON.parse(JSON.stringify(data));
-    // }
-
     afterEach(() => {
-        // Verify that no requests are remaining
-        // httpTestingController.verify();
-        fixture.destroy();
+
     });
 });
 
