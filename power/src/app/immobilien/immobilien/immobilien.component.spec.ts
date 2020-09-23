@@ -8,6 +8,8 @@ import * as ImmobilienNipixRuntime from './immobilien.runtime';
 import { ImmobilienChartOptions } from './immobilien.chartoptions';
 import { ImmobilienHelper } from './immobilien.helper';
 import { ImmobilienUtils } from './immobilien.utils';
+
+import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
@@ -75,7 +77,8 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                NgxBootstrapIconsModule.pick(icons)
+                NgxBootstrapIconsModule.pick(icons),
+                NgxEchartsModule.forRoot({ echarts })
             ],
             providers: [
                 ImmobilienUtils,
@@ -112,7 +115,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('Find My WoMa works', () => {
-        const inp$ = of('f','fo','foo');
+        const inp$ = of('f', 'fo', 'foo');
         niStatic.data.gemeinden = {
             'foobar': '4211'
         };

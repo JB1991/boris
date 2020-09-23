@@ -34,6 +34,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         /* istanbul ignore next */
         this._subscription = router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
+                this.isCollapsed = true;
+                this.isCollapsedAcc = true;
+
                 // update baseurl
                 this.baseurl = location.pathname;
                 if (this.baseurl.startsWith('/' + this.locale + '/')) {

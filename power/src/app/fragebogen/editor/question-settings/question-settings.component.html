@@ -25,9 +25,8 @@
                     <small id="question-nameHelp"
                            class="form-text text-muted">
                         <span i18n>Dieser Wert muss im Formular einmalig sein. Die ID lässt
-                            sich als Variable nutzen
-                            enthält die Antwort einer Frage:</span>
-                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code></small>
+                            sich als Variable nutzen, diese enthält die Antwort der
+                            Frage:</span><code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code></small>
                 </div>
 
                 <!-- question-title -->
@@ -55,12 +54,10 @@
                               rows="5"
                               aria-describedby="question-descriptionHelp"
                               maxlength="5000">
-                        </textarea>
+                    </textarea>
                     <small id="question-descriptionHelp"
                            class="form-text text-muted"
-                           i18n>Dieser Text wird unter der Frage angezeigt. Markdown zur
-                        formatierung wird
-                        unterstützt.</small>
+                           i18n>Dieser Text wird unter der Frage angezeigt.</small>
                 </div>
 
                 <!-- question-isRequired -->

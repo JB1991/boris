@@ -69,7 +69,12 @@ export class ImmobilienUtils {
                 bc = '#ffffff';
             }
 
-            const region = this.getMyMapRegionenGR(keys[i], bc, bw, ImmobilienHelper.convertColor(regionen[keys[i]].color));
+            const region = this.getMyMapRegionenGR(
+                keys[i],
+                bc,
+                bw,
+                ImmobilienHelper.convertColor(regionen[keys[i]].color)
+            );
 
             if (lighten === true) {
                 region['itemStyle']['areaColor'] = ImmobilienHelper.modifyColor(regionen[keys[i]].color, 0.85);
@@ -220,25 +225,32 @@ export class ImmobilienUtils {
         };
     }
 
-    static generateDotElement(radius = 4, color = '#fff', fontSizeBase = 1.2, position = 0,
-        posX = 0, bordercolor = '#000', border = 0): any {
-            return {
-                type: 'circle',
-                cursor: 'normal',
-                shape: {
-                    cx: -2 * radius + posX * radius * 4,
-                    cy: position * 1.5 * ImmobilienHelper.convertRemToPixels(fontSizeBase)
-                    + ImmobilienHelper.convertRemToPixels(fontSizeBase) / 2,
-                    r: radius
-                },
-                style: {
-                    fill: ImmobilienHelper.convertColor(color),
-                    stroke: ImmobilienHelper.convertColor(bordercolor),
-                    lineWidth: border
-                }
-            };
+    static generateDotElement(
+        radius = 4,
+        color = '#fff',
+        fontSizeBase = 1.2,
+        position = 0,
+        posX = 0,
+        bordercolor = '#000',
+        border = 0
+    ): any {
+        return {
+            type: 'circle',
+            cursor: 'normal',
+            shape: {
+                cx: -2 * radius + posX * radius * 4,
+                cy: position * 1.5 * ImmobilienHelper.convertRemToPixels(fontSizeBase)
+                + ImmobilienHelper.convertRemToPixels(fontSizeBase) / 2,
+                r: radius
+            },
+            style: {
+                fill: ImmobilienHelper.convertColor(color),
+                stroke: ImmobilienHelper.convertColor(bordercolor),
+                lineWidth: border
+            }
+        };
 
-        }
+    }
 
     static modifyRegionen(regionen, modifyArray) {
 

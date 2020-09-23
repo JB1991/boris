@@ -4,6 +4,7 @@ import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail.component
 import { BeitragPipe } from '@app/bodenrichtwert/pipes/beitrag.pipe';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { HyphenatePipe } from '@app/bodenrichtwert/pipes/hyphenate.pipe';
+import { UmlautCorrectionPipe } from '@app/bodenrichtwert/pipes/umlaut-correction.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
     let component: BodenrichtwertDetailComponent;
@@ -15,7 +16,8 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
                 BodenrichtwertDetailComponent,
                 BeitragPipe,
                 NutzungPipe,
-                HyphenatePipe
+                HyphenatePipe,
+                UmlautCorrectionPipe
             ]
         })
             .compileComponents();
