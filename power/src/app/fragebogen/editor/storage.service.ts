@@ -44,40 +44,6 @@ export class StorageService {
     }
 
     /**
-     * Loads a form by id
-     */
-    public loadForm(id: string): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        // load form
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-        return this.httpClient.get(url, this.auth.getHeaders());
-    }
-
-    /**
-     * Saves form by id
-     * @param data Surveyjs model
-     * @param id Form id
-     * @param tags Form tags
-     */
-    public saveForm(data: any, id: string, tags?: string[]): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-        if (!data) {
-            throw new Error('data is required');
-        }
-
-        // save form
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + (tags ? '?tags=' + tags : '');
-        return this.httpClient.post(url, data, this.auth.getHeaders());
-    }
-
-    /**
      * Sets unsaved changes state
      * @param state true or false
      */

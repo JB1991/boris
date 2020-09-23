@@ -2,13 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
-import { StorageService } from './storage.service';
 import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { FormAPIService } from '../formapi.service';
 
 @Component({
     selector: 'power-forms-details',
@@ -16,26 +15,46 @@ import { AuthService } from '@app/shared/auth/auth.service';
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+    public data: any = {
+        form: null,
+        tasksList: [],
+        tasksCountTotal: 0,
+        tasksPerPage: 5,
+    };
+
+    public id: string;
+
+    public taskTotal: number;
+    public taskPage = 1;
+    public taskPerPage = 5;
+    public taskPageSizes: number[];
+
+    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
+    public taskSort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted' = 'submitted';
+    public taskOrder: 'asc' | 'desc' = 'desc';
+
     @ViewChild('preview') public preview: PreviewComponent;
+    component: any;
 
     constructor(public titleService: Title,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public storage: StorageService,
+        public formapi: FormAPIService,
         public auth: AuthService) {
         this.titleService.setTitle($localize`Formular Details - POWER.NI`);
-        this.storage.resetService();
+        this.resetService();
+        this.id = this.route.snapshot.paramMap.get('id');
     }
 
     ngOnInit() {
-        // get id
+        this.updateTasks(true);
         this.loadingscreen.setVisible(true);
-        const id = this.route.snapshot.paramMap.get('id');
-        if (id) {
+        // get idform
+        if (this.id) {
             // load data
-            this.loadData(id);
+            this.loadData(this.id);
         } else {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -46,71 +65,41 @@ export class DetailsComponent implements OnInit {
      * Load form data
      * @param id Form id
      */
-    public loadData(id: string) {
+    public async loadData(id: string) {
         // check data
         if (!id) {
             throw new Error('id is required');
         }
 
-        // load form form server
-        this.storage.loadForm(id).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : id);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
+        try {
+            const result = await this.formapi.getInternForm(id);
+            this.data.form = result;
+            if (result.status !== 'created') {
+                const results = await this.formapi.getInternFormTasks(id);
+                this.data.tasksList = results.data;
+                this.data.tasksCountTotal = results.total;
+                this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
                 this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-                console.log('Could not load form: ' + alertText);
-                return;
-            }
-
-            // save data
-            this.storage.form = data['data'];
-
-            if (this.storage.form.status !== 'created') {
-                // load tasks from server
-                this.storage.loadTasks(this.storage.form.id).subscribe((data2) => {
-                    // check for error
-                    if (!data2 || data2['error'] || !data2['data']) {
-                        const alertText = (data2 && data2['error'] ? data2['error'] : this.storage.form.id);
-                        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                        this.loadingscreen.setVisible(false);
-                        this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-                        console.log('Could not load task: ' + alertText);
-                        return;
-                    }
-
-                    // save data
-                    this.storage.tasksList = data2['data'];
-                    this.storage.tasksCountTotal = this.storage.tasksList.length;
-                    this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
-
-                    this.loadingscreen.setVisible(false);
-                }, (error2: Error) => {
-                    // failed to load task list
-                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error2['statusText']);
-                    this.loadingscreen.setVisible(false);
-
-                    this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-                    console.log(error2);
-                    return;
-                });
             } else {
                 this.loadingscreen.setVisible(false);
             }
-        }, (error: Error) => {
+        } catch (error) {
             // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             console.log(error);
             return;
-        });
+        }
     }
 
+    public resetService() {
+        this.data.form = null;
+        this.data.tasksList = [];
+        this.data.tasksCountTotal = 0;
+        this.data.tasksPerPage = 5;
+    }
     /**
      * Deletes form
      */
@@ -121,24 +110,15 @@ export class DetailsComponent implements OnInit {
         }
 
         // delete form
-        this.storage.deleteForm(this.storage.form.id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-                this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, alertText);
-
-                console.log('Could not delete form: ' + alertText);
-                return;
-            }
-
+        this.formapi.deleteInternForm(this.data.form.id).then(() => {
             // success
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to delete form
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
-            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
+            // console.log(error);
             return;
         });
     }
@@ -153,24 +133,19 @@ Dies lässt sich nicht mehr umkehren!`)) {
             return;
         }
 
+        const queryParams: Object = {
+            cancel: true,
+        };
+
+
         // archive form
-        this.storage.archiveForm(this.storage.form.id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-                this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, alertText);
-
-                console.log('Could not archive form: ' + alertText);
-                return;
-            }
-
-            // success
-            this.storage.form = data['data'];
+        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
+            this.data.form = result;
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to publish form
-            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
@@ -181,18 +156,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public getCSV() {
         // load csv results
-        this.storage.getCSV(this.storage.form.id).subscribe((data) => {
-            // check for error
-            if (!data) {
-                this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`,
-                    $localize`Die Antworten konnten nicht geladen werden.`);
-
-                console.log('Could not load results: ' + this.storage.form.id);
-                return;
-            }
-
-            // download csv
-            const blob = new Blob([data.toString()], { type: 'text/csv;charset=utf-8;' });
+        this.formapi.getInternFormCSV(this.data.form.id).then(result => {
+            const blob = new Blob([result.toString()], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'results.csv');
@@ -202,9 +167,9 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 pom.setAttribute('download', 'results.csv');
                 pom.click();
             }
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to load results
-            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
@@ -216,7 +181,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public deleteTask(i: number) {
         // check data
-        if (i < 0 || i >= this.storage.tasksList.length) {
+        if (i < 0 || i >= this.data.tasksList.length) {
             throw new Error('invalid i');
         }
 
@@ -226,23 +191,13 @@ Dies lässt sich nicht mehr umkehren!`)) {
         }
 
         // delete task
-        this.storage.deleteTask(this.storage.tasksList[i].id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.tasksList[i].id);
-                this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, alertText);
-
-                console.log('Could not delete task: ' + alertText);
-                return;
-            }
-
-            // success
-            this.storage.tasksList.splice(i, 1);
+        this.formapi.deleteInternTask(this.data.tasksList[i].id).then(() => {
+            this.data.tasksList.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to delete task
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
@@ -254,11 +209,11 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public openTask(i: number) {
         // check data
-        if (i < 0 || i >= this.storage.tasksList.length) {
+        if (i < 0 || i >= this.data.tasksList.length) {
             throw new Error('invalid i');
         }
 
-        this.preview.open('display', this.storage.tasksList[i].content);
+        this.preview.open('display', this.data.tasksList[i].content);
     }
 
     /**
@@ -267,69 +222,46 @@ Dies lässt sich nicht mehr umkehren!`)) {
     /* istanbul ignore next */
     public exportForm() {
         // load form
-        this.storage.loadForm(this.storage.form.id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                this.alerts.NewAlert('danger', 'Laden fehlgeschlagen',
-                    (data['error'] ? data['error'] : this.storage.form.id));
-                throw new Error('Could not load form: ' + (data['error'] ? data['error'] : this.storage.form.id));
-            }
-
+        this.formapi.getInternForm(this.data.form.id).then(result => {
             // download json
             const pom = document.createElement('a');
-            const encodedURIComponent = encodeURIComponent(JSON.stringify(data['data']['content']));
+            const encodedURIComponent = encodeURIComponent(JSON.stringify(result.content));
             const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
             pom.setAttribute('href', href);
             pom.setAttribute('download', 'formular.json');
             pom.click();
-        }, (error) => {
+        }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error['statusText']);
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error.toString());
             throw error;
         });
     }
 
-    /**
-     * Triggered by the pagination event, when the user changes the page
-     * @param event Contains the page number and the number of items per page
-     */
-    public tasksPageChanged(event: PageChangedEvent): void {
-        const limit = event.itemsPerPage;
-        const offset = (event.page - 1) * event.itemsPerPage;
-        this.loadTasksFromAPI(limit, offset);
-    }
-
-    /**
-     * Load the list of tasks from the Form-API
-     * @param limit The maximum number of forms to be loaded
-     * @param offset The number of the first form to be loaded
-     */
-    private loadTasksFromAPI(limit?: number, offset?: number) {
-        this.storage.loadTasks(this.storage.form.id, limit, offset).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data']) {
-                const alertText = (data && data['error'] ? data['error'] : 'Tasks');
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
-
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms'], { replaceUrl: true });
-                console.log('Could not load tasks: ' + alertText);
-                return;
+    public async updateTasks(navigate: boolean) {
+        try {
+            this.loadingscreen.setVisible(true);
+            const params = {
+                limit: this.taskPerPage,
+                offset: (this.taskPage - 1) * this.taskPerPage,
+                sort: this.taskSort,
+                order: this.taskOrder,
+            };
+            if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
+                params['status'] = this.taskStatus;
             }
-
-            // save data
-            this.storage.tasksList = data['data'];
+            const response = await this.formapi.getInternFormTasks(this.id, params);
+            this.data.tasksCountTotal = response.total;
+            this.data.tasksList = response.data;
+            const maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
+            this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
-        }, (error: Error) => {
-            // failed to load tags
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+        } catch (error) {
             this.loadingscreen.setVisible(false);
-
-            this.router.navigate(['/forms'], { replaceUrl: true });
-            console.log(error);
-            return;
-        });
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            if (navigate) {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
+        }
     }
 }
-
 /* vim: set expandtab ts=4 sw=4 sts=4: */

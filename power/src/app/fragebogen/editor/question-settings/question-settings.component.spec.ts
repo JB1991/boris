@@ -42,14 +42,14 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
                 ValueComponent,
                 AnswersComponent
             ]
-        }).compileComponents();
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(QuestionSettingsComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
 
-        fixture = TestBed.createComponent(QuestionSettingsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        spyOn(console, 'log');
-        spyOn(component.alerts, 'NewAlert');
+            spyOn(console, 'log');
+            spyOn(component.alerts, 'NewAlert');
+        });
     }));
 
     it('should create', () => {

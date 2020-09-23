@@ -1,19 +1,17 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { waitForAsync, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
-import { environment } from '@env/environment';
 
 import { SettingsComponent } from './settings.component';
-import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { SharedModule } from '@app/shared/shared.module';
+import { FormAPIService } from '@app/fragebogen/formapi.service';
 
 describe('Fragebogen.Details.SettingsComponent', () => {
     let component: SettingsComponent;
     let fixture: ComponentFixture<SettingsComponent>;
-    let httpTestingController: HttpTestingController;
 
     const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
 
@@ -28,114 +26,70 @@ describe('Fragebogen.Details.SettingsComponent', () => {
             ],
             providers: [
                 BsModalService,
-                StorageService,
-                AlertsService
+                AlertsService,
+                FormAPIService
             ],
             declarations: [
                 SettingsComponent
             ]
-        }).compileComponents();
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(SettingsComponent);
+            component = fixture.componentInstance;
 
-        fixture = TestBed.createComponent(SettingsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+            spyOn(console, 'log');
+            spyOn(component.alerts, 'NewAlert');
+            fixture.detectChanges(); // onInit
+        });
 
-        spyOn(console, 'log');
-        spyOn(component.alerts, 'NewAlert');
-        httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
 
+    /**
+     * OPEN AND CLOSE
+     */
     it('should open and close', () => {
-        component.storage.form = { 'id': '123' };
+        component.data.form = { 'id': '123' };
         component.open();
         expect(component.modal.isShown).toBeTrue();
         component.close();
         expect(component.modal.isShown).toBeFalse();
     });
 
-    it('should update form', () => {
-        component.storage.form = { 'id': '123' };
+    /**
+     * UPDATE FORM
+     */
+    it('should update form', fakeAsync(() => {
+        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample.data));
+        component.data.form = { 'id': '123' };
         component.tagList = [];
         component.ownerList = [];
         component.readerList = [];
         fixture.detectChanges();
-        component.updateForm();
 
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', formSample);
+        component.updateForm();
+        tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gespeichert', 'Das Formular wurde erfolgreich gespeichert.');
-    });
+    }));
 
-    it('should fail update form - data', () => {
-        component.storage.form = { 'id': '123' };
+    it('should fail update form - data', fakeAsync(() => {
+        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to update form'));
+        component.data.form = { 'id': '123' };
         component.tagList = [];
         component.ownerList = [];
         component.readerList = [];
         fixture.detectChanges();
         component.updateForm();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', { 'error': 'Internal Server Error' });
+        tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Internal Server Error');
-    });
-
-
-    it('should fail update form - null', () => {
-        component.storage.form = { 'id': '123' };
-        component.tagList = [];
-        component.ownerList = [];
-        component.readerList = [];
-        fixture.detectChanges();
-        component.updateForm();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', null);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', '123');
-    });
-
-    it('should fail update form - not found', () => {
-        component.storage.form = { 'id': '123' };
-        component.tagList = [];
-        component.ownerList = [];
-        component.readerList = [];
-        fixture.detectChanges();
-        component.updateForm();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms/123', 'POST', formSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
-    });
-
-    /**
-     * Mocks the API by taking HTTP requests form the queue and returning the answer
-     * @param url The URL of the HTTP request
-     * @param method HTTP request method
-     * @param body The body of the answer
-     * @param opts Optional HTTP information of the answer
-     */
-    function answerHTTPRequest(url, method, body, opts?) {
-        // Take HTTP request from queue
-        const request = httpTestingController.expectOne(url);
-        expect(request.request.method).toEqual(method);
-
-        // Return the answer
-        request.flush(deepCopy(body), opts);
-    }
-
-    function deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
+            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Failed to update form');
+    }));
 
     afterEach(() => {
-        // Verify that no requests are remaining
-        httpTestingController.verify();
+
     });
 });

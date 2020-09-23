@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { environment } from '@env/environment';
+import * as templates from './data';
 
 import { EditorComponent } from './editor.component';
 import { StorageService } from './storage.service';
@@ -16,11 +16,11 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { FormAPIService } from '../formapi.service';
 
 describe('Fragebogen.Editor.EditorComponent', () => {
     let component: EditorComponent;
     let fixture: ComponentFixture<EditorComponent>;
-    let httpTestingController: HttpTestingController;
 
     const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
     const formContent = require('../../../assets/fragebogen/surveyjs.json');
@@ -40,77 +40,50 @@ describe('Fragebogen.Editor.EditorComponent', () => {
                 Title,
                 StorageService,
                 HistoryService,
-                {
-                    provide: ActivatedRoute,
-                    useValue: {
-                        snapshot: {
-                            paramMap: {
-                                get: () => {
-                                    return 'abc';
-                                }
-                            }
-                        }
-                    }
-                },
                 AlertsService,
-                LoadingscreenService
+                LoadingscreenService,
+                FormAPIService
             ],
             declarations: [
                 EditorComponent,
                 MockElementModalComponent,
                 MockFormularModalComponent
             ]
-        }).compileComponents();
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(EditorComponent);
+            component = fixture.componentInstance;
 
-        fixture = TestBed.createComponent(EditorComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        spyOn(console, 'log');
-        spyOn(component.router, 'navigate');
-        spyOn(component.alerts, 'NewAlert');
-        httpTestingController = TestBed.inject(HttpTestingController);
+            spyOn(console, 'log');
+            spyOn(component.router, 'navigate');
+            spyOn(component.alerts, 'NewAlert');
+            fixture.detectChanges();
+        });
     }));
 
+    /**
+     * ONINIT AND DESTROY
+     */
     it('should create', () => {
         expect(component).toBeTruthy();
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        expect(component.storage.model).toEqual(formContent);
-
-        // expect crash
-        expect(function () {
-            component.loadData(null);
-        }).toThrowError('id is required');
-    });
-
-    it('should create 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
+        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
+        spyOn(component, 'loadData');
         component.ngOnInit();
-        expect(component.router.navigate).toHaveBeenCalledTimes(1);
+        expect(component.loadData).toHaveBeenCalledTimes(1);
+        expect(component.loadData).toHaveBeenCalledWith('123');
     });
 
-    it('should fail to load', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', null);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'abc');
+    it('should destroy', () => {
+        component.timerHandle = setTimeout(() => {
+            return;
+        }, 100);
+        component.ngOnDestroy();
+        expect(component.timerHandle).toBeNull();
     });
 
-    it('should fail to load 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { 'error': 'xxx' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'xxx');
-    });
-
-    it('should fail to load 3', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', 5,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
-    });
-
+    /**
+     * CAN DEACTIVATE
+     */
     it('should not leave page', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
         expect(component.canDeactivate()).toBeTrue();
         spyOn(window, 'confirm').and.returnValue(true);
 
@@ -119,13 +92,10 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         environment.production = false;
     });
 
-    it('should canDeactivate', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        expect(component.canDeactivate()).toBeTrue();
-    });
-
+    /**
+     * ON SCROLL
+     */
     it('should onScroll/onResize', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
         // small screen, not scrolled
         (<any>window).innerWidth = 450;
         component.onScroll(null);
@@ -142,328 +112,41 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         component.onScroll(null);
     });
 
-    it('should drag and drop', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        expect(component.shouldAcceptDropPagination({ groupName: 'pagination' }, null)).toBeTrue();
-        expect(component.shouldAcceptDropPagination({ groupName: 'workspace' }, null)).toBeTrue();
-        expect(component.shouldAcceptDropPagination({ groupName: 'toolbox' }, null)).toBeFalse();
-        expect(component.shouldAcceptDropWorkspace({ groupName: 'pagination' }, null)).toBeFalse();
-        expect(component.shouldAcceptDropWorkspace({ groupName: 'workspace' }, null)).toBeTrue();
-        expect(component.shouldAcceptDropWorkspace({ groupName: 'toolbox' }, null)).toBeTrue();
-        expect(component.getPayloadToolbox(1)).toEqual({ from: 'toolbox', index: 1 });
-        expect(component.getPayloadPagination(1)).toEqual({ from: 'pagination', index: 1 });
-        expect(component.getPayloadWorkspace(1)).toEqual({ from: 'workspace', index: 1 });
+    /**
+     * LOAD DATA
+     */
+    it('shoul to load data', (done) => {
+        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSample.data));
+        component.loadData('123').then(() => {
+            clearTimeout(component.timerHandle);
+            expect(component.storage.model).toEqual(formSample.data.content);
+            done();
+        });
     });
 
-    it('should make new element', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(2);
-
-        // add element
-        component.wsNewElement('radiogroup');
-        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(3);
-
-        // add copied element
-        component.elementCopy = JSON.stringify({ title: 'A', name: 'x', type: 'comment' });
-        component.wsNewElement('elementcopy');
-        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(4);
+    it('should error to load data', (done) => {
+        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed to load data'));
+        component.loadData('123').then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+                'Failed to load data');
+            done();
+        });
     });
 
-    it('should crash new element', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        expect(() => {
-            component.wsNewElement('toast');
-        }).toThrowError('type is not a known element');
-        expect(() => {
-            component.wsNewElement('');
-        }).toThrowError('type is required');
+    it('should fail to load data', (done) => {
+        // expect crash
+        component.loadData(null).catch((error) => {
+            expect(error.toString()).toEqual('Error: id is required');
+            done();
+        });
     });
 
-    it('should make new page', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        expect(component.storage.model.pages.length).toEqual(1);
-        component.wsPageCreate();
-        component.wsPageCreate(0);
-        expect(component.storage.model.pages.length).toEqual(3);
-    });
-
-    it('should crash new page', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        expect(() => {
-            component.wsPageCreate(-1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsPageCreate(2);
-        }).toThrowError('page is invalid');
-    });
-
-    it('should delete page', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.wsPageCreate();
-
-        // delete new page
-        component.storage.selectedPageID = 0;
-        component.wsPageDelete(1);
-        expect(component.storage.model.pages.length).toEqual(1);
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
-
-        // delete last page
-        component.storage.selectedPageID = 3;
-        component.wsPageDelete(0);
-        expect(component.storage.selectedPageID).toEqual(0);
-        expect(component.storage.model.pages.length).toEqual(1);
-        expect(component.storage.model.pages[0].elements.length).toEqual(0);
-    });
-
-    it('should not delete page', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        spyOn(window, 'confirm').and.returnValue(false);
-        component.wsPageCreate();
-        component.wsPageDelete(1);
-        expect(component.storage.model.pages.length).toEqual(2);
-    });
-
-    it('should crash delete page', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        expect(() => {
-            component.wsPageDelete(-1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsPageDelete(1);
-        }).toThrowError('page is invalid');
-    });
-
-    it('should change page', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        expect(component.storage.selectedPageID).toEqual(0);
-        component.wsPageCreate();
-        component.wsPageSelect(1);
-        expect(component.storage.selectedPageID).toEqual(1);
-
-        // select page
-        component.wsPageSelect(0);
-        expect(component.storage.selectedPageID).toEqual(0);
-    });
-
-    it('should crash change page', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        expect(() => {
-            component.wsPageSelect(-1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsPageSelect(1);
-        }).toThrowError('page is invalid');
-    });
-
-    it('should copy element', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        component.wsNewElement('text');
-        component.wsElementCopy(0, 0);
-        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e3","type":"text","inputType":"text","startWithNewLine":true,"visible":true,"isRequired":true,"requiredErrorText":{}}');
-        component.wsElementCopy(0);
-        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e3","type":"text","inputType":"text","startWithNewLine":true,"visible":true,"isRequired":true,"requiredErrorText":{}}');
-    });
-
-    it('should crash copy element', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        expect(() => {
-            component.wsElementCopy(0, -1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsElementCopy(0, 1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsElementCopy(-1);
-        }).toThrowError('element is invalid');
-        expect(() => {
-            component.wsElementCopy(2);
-        }).toThrowError('element is invalid');
-    });
-
-    it('should remove element', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        spyOn(window, 'confirm').and.returnValue(true);
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
-
-        // delete element
-        component.wsElementRemove(0);
-        expect(component.storage.model.pages[0].elements.length).toEqual(1);
-    });
-
-    it('should not remove element', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        spyOn(window, 'confirm').and.returnValue(false);
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
-
-        // delete element
-        component.wsElementRemove(0, 0);
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
-    });
-
-    it('should crash remove element', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        expect(() => {
-            component.wsElementRemove(0, -1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsElementRemove(0, 1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsElementRemove(-1);
-        }).toThrowError('element is invalid');
-        expect(() => {
-            component.wsElementRemove(2);
-        }).toThrowError('element is invalid');
-    });
-
-    it('should save formular', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        component.storage.setUnsavedChanges(true);
-        component.wsSave();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'POST', formSample);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich', '');
-    });
-
-    it('should save formular error', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        component.storage.setUnsavedChanges(true);
-        component.wsSave();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'POST', { 'error': 'Internal Server Error' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Internal Server Error');
-    });
-
-    it('should save formular error 2', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        component.storage.setUnsavedChanges(true);
-        component.wsSave();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'POST', null);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'abc');
-    });
-
-    it('should save formular error 3', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        component.storage.setUnsavedChanges(true);
-        component.wsSave();
-
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'POST', formSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
-    });
-
-    it('should not save formular', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        // no changes
-        component.storage.setAutoSaveEnabled(true);
-        component.storage.setUnsavedChanges(false);
-        component.wsSave();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-
-        // autosave disabled
-        component.storage.setAutoSaveEnabled(false);
-        component.storage.setUnsavedChanges(true);
-        component.wsSave();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    });
-
-    it('should move element up', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        component.wsNewElement('comment');
-        component.wsElementMoveup(1);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
-
-        // cant move up
-        component.wsElementMoveup(0);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
-    });
-
-    it('should crash move element up', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        expect(() => {
-            component.wsElementMoveup(0, -1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsElementMoveup(0, 1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsElementMoveup(-1);
-        }).toThrowError('element is invalid');
-        expect(() => {
-            component.wsElementMoveup(2);
-        }).toThrowError('element is invalid');
-    });
-
-    it('should move element down', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        component.wsNewElement('comment');
-        component.wsElementMovedown(0);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
-
-        // cant move down
-        component.wsElementMovedown(2);
-        expect(component.storage.model.pages[0].elements[2].type).toEqual('checkbox');
-    });
-
-    it('should crash move element down', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-
-        expect(() => {
-            component.wsElementMovedown(0, -1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsElementMovedown(0, 1);
-        }).toThrowError('page is invalid');
-        expect(() => {
-            component.wsElementMovedown(-1);
-        }).toThrowError('element is invalid');
-        expect(() => {
-            component.wsElementMovedown(2);
-        }).toThrowError('element is invalid');
-    });
-
-    it('should drag and drop workspace', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
-
-        // do nothing
-        component.onDropWorkspace({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadPagination(0) });
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
-
-        // drag new element into workspace
-        component.onDropWorkspace({ removedIndex: 0, addedIndex: 1, payload: component.getPayloadToolbox(1) });
-        expect(component.storage.model.pages[0].elements[1].type).toEqual('comment');
-        expect(component.storage.model.pages[0].elements.length).toEqual(3);
-
-        // drag element 1 onto position 0
-        component.onDropWorkspace({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadWorkspace(1) });
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('comment');
-        expect(component.storage.model.pages[0].elements[1].type).toEqual('text');
-
-        // drag copied element into workspace
-        component.elementCopy = JSON.stringify({ title: 'A', name: 'x', type: 'imagepicker' });
-        component.onDropWorkspace({ removedIndex: 10, addedIndex: 0, payload: component.getPayloadToolbox(99) });
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('imagepicker');
-        expect(component.storage.model.pages[0].elements.length).toEqual(4);
-    });
-
+    /**
+     * OnDropPagination
+     */
     it('should drag and drop pagination', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
         expect(component.storage.model.pages[0].elements.length).toEqual(2);
         expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
 
@@ -491,7 +174,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     });
 
     it('should not drag and drop', () => {
-        answerHTTPRequest(environment.formAPI + 'intern/forms/abc', 'GET', { data: { content: formContent } });
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
 
         component.onDropPagination(null);
         component.onDropPagination({ removedIndex: null, addedIndex: null });
@@ -507,29 +190,349 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         }).toThrowError('Could not create new Element');
     });
 
+    it('should not leave page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        expect(component.canDeactivate()).toBeTrue();
+        spyOn(window, 'confirm').and.returnValue(true);
+
+        environment.production = true;
+        expect(component.canDeactivate()).toEqual(!component.storage.getUnsavedChanges());
+        environment.production = false;
+    });
+
+    it('should canDeactivate', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        expect(component.canDeactivate()).toBeTrue();
+    });
+
+    it('should drag and drop', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        expect(component.shouldAcceptDropPagination({ groupName: 'pagination' }, null)).toBeTrue();
+        expect(component.shouldAcceptDropPagination({ groupName: 'workspace' }, null)).toBeTrue();
+        expect(component.shouldAcceptDropPagination({ groupName: 'toolbox' }, null)).toBeFalse();
+        expect(component.shouldAcceptDropWorkspace({ groupName: 'pagination' }, null)).toBeFalse();
+        expect(component.shouldAcceptDropWorkspace({ groupName: 'workspace' }, null)).toBeTrue();
+        expect(component.shouldAcceptDropWorkspace({ groupName: 'toolbox' }, null)).toBeTrue();
+        expect(component.getPayloadToolbox(1)).toEqual({ from: 'toolbox', index: 1 });
+        expect(component.getPayloadPagination(1)).toEqual({ from: 'pagination', index: 1 });
+        expect(component.getPayloadWorkspace(1)).toEqual({ from: 'workspace', index: 1 });
+    });
+
     /**
-     * Mocks the API by taking HTTP requests form the queue and returning the answer
-     * @param url The URL of the HTTP request
-     * @param method HTTP request method
-     * @param body The body of the answer
-     * @param opts Optional HTTP information of the answer
+     * wsNewElement
      */
-    function answerHTTPRequest(url, method, body, opts?) {
-        // Take HTTP request from queue
-        const request = httpTestingController.expectOne(url);
-        expect(request.request.method).toEqual(method);
+    it('should make new element', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(2);
 
-        // Return the answer
-        request.flush(deepCopy(body), opts);
-    }
+        // add element
+        component.wsNewElement('radiogroup');
+        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(3);
 
-    function deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
+        // add copied element
+        component.elementCopy = JSON.stringify({ title: 'A', name: 'x', type: 'comment' });
+        component.wsNewElement('elementcopy');
+        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(4);
+    });
+
+    it('should crash new element', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+
+        expect(() => {
+            component.wsNewElement('toast');
+        }).toThrowError('type is not a known element');
+        expect(() => {
+            component.wsNewElement('');
+        }).toThrowError('type is required');
+    });
+
+    /**
+     * wsPageCreate
+     */
+
+    it('should make new page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        expect(component.storage.model.pages.length).toEqual(1);
+        component.wsPageCreate();
+        component.wsPageCreate(0);
+        expect(component.storage.model.pages.length).toEqual(3);
+    });
+
+    it('should crash new page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+
+        expect(() => {
+            component.wsPageCreate(-1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsPageCreate(2);
+        }).toThrowError('page is invalid');
+    });
+
+    /**
+     * wsPageDelete
+     */
+    it('should delete page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        spyOn(window, 'confirm').and.returnValue(true);
+        component.wsPageCreate();
+
+        // delete new page
+        component.storage.selectedPageID = 0;
+        component.wsPageDelete(1);
+        expect(component.storage.model.pages.length).toEqual(1);
+        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+
+        // delete last page
+        component.storage.selectedPageID = 3;
+        component.wsPageDelete(0);
+        expect(component.storage.selectedPageID).toEqual(0);
+        expect(component.storage.model.pages.length).toEqual(1);
+        expect(component.storage.model.pages[0].elements.length).toEqual(0);
+    });
+
+    it('should not delete page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        spyOn(window, 'confirm').and.returnValue(false);
+        component.wsPageCreate();
+        component.wsPageDelete(1);
+        expect(component.storage.model.pages.length).toEqual(2);
+    });
+
+    it('should crash delete page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+
+        expect(() => {
+            component.wsPageDelete(-1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsPageDelete(1);
+        }).toThrowError('page is invalid');
+    });
+
+    /**
+     * wsPageSelect
+     */
+    it('should change page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        expect(component.storage.selectedPageID).toEqual(0);
+        component.wsPageCreate();
+        component.wsPageSelect(1);
+        expect(component.storage.selectedPageID).toEqual(1);
+
+        // select page
+        component.wsPageSelect(0);
+        expect(component.storage.selectedPageID).toEqual(0);
+    });
+
+    it('should crash change page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+
+        expect(() => {
+            component.wsPageSelect(-1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsPageSelect(1);
+        }).toThrowError('page is invalid');
+    });
+
+    /**
+     * wsPageCopy
+     */
+    it('should copy element', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        component.wsNewElement('text');
+        component.wsElementCopy(0, 0);
+        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e3","type":"text","inputType":"text","startWithNewLine":true,"visible":true,"isRequired":true,"requiredErrorText":{}}');
+        component.wsElementCopy(0);
+        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e3","type":"text","inputType":"text","startWithNewLine":true,"visible":true,"isRequired":true,"requiredErrorText":{}}');
+    });
+
+    it('should crash copy element', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+
+        expect(() => {
+            component.wsElementCopy(0, -1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementCopy(0, 1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementCopy(-1);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.wsElementCopy(2);
+        }).toThrowError('element is invalid');
+    });
+
+    /**
+     * wsElementRemove
+     */
+    it('should remove element', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        spyOn(window, 'confirm').and.returnValue(true);
+        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+
+        // delete element
+        component.wsElementRemove(0);
+        expect(component.storage.model.pages[0].elements.length).toEqual(1);
+    });
+
+    it('should not remove element', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        spyOn(window, 'confirm').and.returnValue(false);
+        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+
+        // delete element
+        component.wsElementRemove(0, 0);
+        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+    });
+
+    it('should crash remove element', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+
+        expect(() => {
+            component.wsElementRemove(0, -1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementRemove(0, 1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementRemove(-1);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.wsElementRemove(2);
+        }).toThrowError('element is invalid');
+    });
+
+    /**
+     * wsSave
+     */
+    it('should save formular', fakeAsync(() => {
+        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample));
+        component.storage.setUnsavedChanges(true);
+        component.wsSave();
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich', '');
+    }));
+
+    it('should fail to save formular', fakeAsync(() => {
+        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to save formular'));
+        component.storage.setUnsavedChanges(true);
+        component.wsSave();
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Failed to save formular');
+    }));
+
+    it('should not save formular', fakeAsync(() => {
+        // no changes
+        component.storage.setAutoSaveEnabled(true);
+        component.storage.setUnsavedChanges(false);
+        component.wsSave();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+
+        // autosave disabled
+        component.storage.setAutoSaveEnabled(false);
+        component.storage.setUnsavedChanges(true);
+        component.wsSave();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+    }));
+
+    /**
+     * wsElementMoveup
+     */
+    it('should move element up', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        component.wsNewElement('comment');
+        component.wsElementMoveup(1);
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+
+        // cant move up
+        component.wsElementMoveup(0);
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+    });
+
+    it('should crash move element up', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+
+        expect(() => {
+            component.wsElementMoveup(0, -1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementMoveup(0, 1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementMoveup(-1);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.wsElementMoveup(2);
+        }).toThrowError('element is invalid');
+    });
+
+    /**
+     * wsElementMovedown
+     */
+    it('should move element down', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        component.wsNewElement('comment');
+        component.wsElementMovedown(0);
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+
+        // cant move down
+        component.wsElementMovedown(2);
+        expect(component.storage.model.pages[0].elements[2].type).toEqual('checkbox');
+    });
+
+    it('should crash move element down', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+
+        expect(() => {
+            component.wsElementMovedown(0, -1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementMovedown(0, 1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementMovedown(-1);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.wsElementMovedown(2);
+        }).toThrowError('element is invalid');
+    });
+
+    /**
+     * onDropWorkspace
+     */
+    it('should drag and drop workspace', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+
+        // do nothing
+        component.onDropWorkspace({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadPagination(0) });
+        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+
+        // drag new element into workspace
+        component.onDropWorkspace({ removedIndex: 0, addedIndex: 1, payload: component.getPayloadToolbox(1) });
+        expect(component.storage.model.pages[0].elements[1].type).toEqual('comment');
+        expect(component.storage.model.pages[0].elements.length).toEqual(3);
+
+        // drag element 1 onto position 0
+        component.onDropWorkspace({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadWorkspace(1) });
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('comment');
+        expect(component.storage.model.pages[0].elements[1].type).toEqual('text');
+
+        // drag copied element into workspace
+        component.elementCopy = JSON.stringify({ title: 'A', name: 'x', type: 'imagepicker' });
+        component.onDropWorkspace({ removedIndex: 10, addedIndex: 0, payload: component.getPayloadToolbox(99) });
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('imagepicker');
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
+    });
 
     afterEach(() => {
-        // Verify that no requests are remaining
-        httpTestingController.verify();
+
     });
 });
 
