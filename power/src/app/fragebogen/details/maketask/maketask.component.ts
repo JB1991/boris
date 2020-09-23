@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -11,6 +11,7 @@ import { FormAPIService } from '../../formapi.service';
     styleUrls: ['./maketask.component.css']
 })
 export class MaketaskComponent implements OnInit {
+    @Input() public data: any;
     @ViewChild('modalmaketask') public modal: ModalDirective;
     public amount = 1;
     public pinList = [];
@@ -56,13 +57,13 @@ export class MaketaskComponent implements OnInit {
             number: this.amount
         };
         // make pins
-        this.formapi.createInternFormTasks(this.storage.form.id, this.storage.form, queryParams).then((result) => {
+        this.formapi.createInternFormTasks(this.data.form.id, this.data.form, queryParams).then((result) => {
             // success
             for (let i = 0; i < result.data.length; i++) {
                 this.pinList.push(result.data[i].pin);
-                this.storage.tasksList.splice(0, 0, result.data[i]);
-                this.storage.tasksCountTotal++;
-                this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
+                this.data.tasksList.splice(0, 0, result.data[i]);
+                this.data.tasksCountTotal++;
+                this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
             }
 
             // copy to clipboard

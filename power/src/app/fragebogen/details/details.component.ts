@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
-import { StorageService } from './storage.service';
 import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
@@ -17,6 +16,13 @@ import { FormAPIService } from '../formapi.service';
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+    public data: any = {
+        form: null,
+        tasksList: [],
+        tasksCountTotal: 0,
+        tasksPerPage: 5,
+    };
+       
     public id: string;
 
     public taskTotal: number;
@@ -36,11 +42,10 @@ export class DetailsComponent implements OnInit {
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public storage: StorageService,
         public formapi: FormAPIService,
         public auth: AuthService) {
         this.titleService.setTitle($localize`Formular Details - POWER.NI`);
-        this.storage.resetService();
+        this.resetService();
         this.id = this.route.snapshot.paramMap.get('id');
     }
 
@@ -69,13 +74,12 @@ export class DetailsComponent implements OnInit {
 
         try {
             const result = await this.formapi.getInternForm(id);
-            this.storage.form = result;
+            this.data.form = result;
             if (result.status !== 'created') {
                 const results = await this.formapi.getInternFormTasks(id);
-                this.storage.tasksList = results.data;
-                this.storage.tasksCountTotal = results.total;
-                this.storage.tasksList = this.storage.tasksList.slice(0, this.storage.tasksPerPage);
-
+                this.data.tasksList = results.data;
+                this.data.tasksCountTotal = results.total;
+                this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
                 this.loadingscreen.setVisible(false);
             } else {
                 this.loadingscreen.setVisible(false);
@@ -91,6 +95,12 @@ export class DetailsComponent implements OnInit {
         }
     }
 
+    public resetService() {
+        this.data.form = null;
+        this.data.tasksList = [];
+        this.data.tasksCountTotal = 0;
+        this.data.tasksPerPage = 5;
+    }
     /**
      * Deletes form
      */
@@ -101,7 +111,7 @@ export class DetailsComponent implements OnInit {
         }
 
         // delete form
-        this.formapi.deleteInternForm(this.storage.form.id).then(() => {
+        this.formapi.deleteInternForm(this.data.form.id).then(() => {
             // success
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
@@ -130,8 +140,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
 
 
         // archive form
-        this.formapi.updateInternForm(this.storage.form.id, null, queryParams).then(result => {
-            this.storage.form = result;
+        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
+            this.data.form = result;
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
         }).catch((error: Error) => {
@@ -147,7 +157,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public getCSV() {
         // load csv results
-        this.formapi.getInternFormCSV(this.storage.form.id).then(result => {
+        this.formapi.getInternFormCSV(this.data.form.id).then(result => {
             const blob = new Blob([result.toString()], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
@@ -172,7 +182,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public deleteTask(i: number) {
         // check data
-        if (i < 0 || i >= this.storage.tasksList.length) {
+        if (i < 0 || i >= this.data.tasksList.length) {
             throw new Error('invalid i');
         }
 
@@ -182,8 +192,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
         }
 
         // delete task
-        this.formapi.deleteInternTask(this.storage.tasksList[i].id).then(() => {
-            this.storage.tasksList.splice(i, 1);
+        this.formapi.deleteInternTask(this.data.tasksList[i].id).then(() => {
+            this.data.tasksList.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
         }).catch((error: Error) => {
@@ -200,11 +210,11 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public openTask(i: number) {
         // check data
-        if (i < 0 || i >= this.storage.tasksList.length) {
+        if (i < 0 || i >= this.data.tasksList.length) {
             throw new Error('invalid i');
         }
 
-        this.preview.open('display', this.storage.tasksList[i].content);
+        this.preview.open('display', this.data.tasksList[i].content);
     }
 
     /**
@@ -213,7 +223,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
     /* istanbul ignore next */
     public exportForm() {
         // load form
-        this.formapi.getInternForm(this.storage.form.id).then(result => {
+        this.formapi.getInternForm(this.data.form.id).then(result => {
             // download json
             const pom = document.createElement('a');
             const encodedURIComponent = encodeURIComponent(JSON.stringify(result.content));
@@ -237,14 +247,13 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 sort: this.taskSort,
                 order: this.taskOrder,
             };
-            console.log(params);
             if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
                 params['status'] = this.taskStatus;
             }
             const response = await this.formapi.getInternFormTasks(this.id, params);
-            this.storage.tasksCountTotal = response.total;
-            this.storage.tasksList = response.data;
-            const maxPages = Math.floor(this.storage.tasksCountTotal / 5) + 1;
+            this.data.tasksCountTotal = response.total;
+            this.data.tasksList = response.data;
+            const maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
             this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
