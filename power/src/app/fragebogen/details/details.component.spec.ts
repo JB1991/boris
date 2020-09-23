@@ -58,9 +58,9 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     }));
 
     it('should create', () => {
+        expect(component).toBeTruthy();
         spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
         fixture.detectChanges();
-        expect(component).toBeTruthy();
     });
 
     it('should not create', () => {
@@ -203,9 +203,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         // spyOn(document, 'createElement').and.returnValue(spyObj);
 
         component.getCSV();
-
         tick();
-
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
     }));
 
