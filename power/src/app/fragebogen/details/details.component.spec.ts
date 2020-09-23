@@ -53,6 +53,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             spyOn(console, 'log');
             spyOn(component.router, 'navigate');
             spyOn(component.alerts, 'NewAlert');
+            fixture.detectChanges(); // onInit
         });
     }));
 
@@ -64,8 +65,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should not create', () => {
         spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
-        fixture.detectChanges();
-        // expect(component.router.navigated).toEqual(true);
+        expect(component.router.navigate).toHaveBeenCalledTimes(1);
     });
 
     /**

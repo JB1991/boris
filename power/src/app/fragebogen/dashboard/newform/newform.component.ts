@@ -98,7 +98,7 @@ export class NewformComponent implements OnInit {
                 this.makeForm(data.content);
                 this.close();
             }).catch((error) => {
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error);
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             });
             return;
         }

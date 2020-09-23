@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
@@ -175,6 +175,53 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Error: template is required');
             done();
         });
+    });
+
+    /**
+     * NEW FORM
+     */
+    it('should create new form with template', fakeAsync(() => {
+        spyOn(component, 'close').and.callThrough();
+        spyOn(component.formAPI, 'getInternForm').and.callFake(() => {
+            return Promise.resolve(formSample);
+        });
+        component.template = '123';
+        component.title = 'Test';
+        fixture.detectChanges();
+        component.NewForm();
+        tick();
+        expect(component.close).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should create new form without template', () => {
+        spyOn(component, 'close').and.callThrough();
+        spyOn(component, 'makeForm').and.callThrough();
+        component.title = 'Test';
+        fixture.detectChanges();
+        component.NewForm();
+        expect(component.makeForm).toHaveBeenCalledTimes(1);
+        expect(component.close).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fail to create new form', fakeAsync(() => {
+        spyOn(component.formAPI, 'getInternForm').and.callFake(() => {
+            return Promise.reject('Failed to create form');
+        });
+        component.title = 'Test';
+        component.template = '123';
+        fixture.detectChanges();
+        component.NewForm();
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Failed to create form');
+    }));
+
+    it('should not create new form (missing title)', () => {
+        component.title = null;
+        component.NewForm();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen',
+            'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
     });
 });
 
