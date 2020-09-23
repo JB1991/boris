@@ -63,9 +63,9 @@ export class SettingsComponent implements OnInit {
             this.alerts.NewAlert('success', $localize`Formular gespeichert`,
                 $localize`Das Formular wurde erfolgreich gespeichert.`);
             this.close();
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to update form
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });

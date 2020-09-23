@@ -44,8 +44,8 @@ export class PublishComponent implements OnInit {
     public Publish() {
         // Ask user to confirm achivation
         if (!confirm($localize`Möchten Sie dieses Formular wirklich veröffentlichen?\n\
-Das Formular lässt sich danach nicht mehr bearbeiten.\n\
-Dies lässt sich nicht mehr umkehren!`)) {
+            Das Formular lässt sich danach nicht mehr bearbeiten.\n\
+            Dies lässt sich nicht mehr umkehren!`)) {
             return;
         }
 
@@ -60,9 +60,9 @@ Dies lässt sich nicht mehr umkehren!`)) {
             this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,
                 $localize`Das Formular wurde erfolgreich veröffentlicht.`);
             this.close();
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to publish form
-            this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
