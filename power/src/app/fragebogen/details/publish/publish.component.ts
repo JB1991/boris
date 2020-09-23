@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { StorageService } from '../storage.service';
 import { FormAPIService } from '../../formapi.service';
 
 @Component({
@@ -11,13 +10,18 @@ import { FormAPIService } from '../../formapi.service';
     styleUrls: ['./publish.component.css']
 })
 export class PublishComponent implements OnInit {
+    @Input() public data = {
+        form: null,
+        tasksList: [],
+        tasksCountTotal: 0,
+        tasksPerPage: 5,
+    };
     @ViewChild('modalpublish') public modal: ModalDirective;
     public pin = 'pin8';
     public accesstime = 60;
 
     constructor(public modalService: BsModalService,
         public alerts: AlertsService,
-        public storage: StorageService,
         public formapi: FormAPIService) {
     }
 
@@ -54,9 +58,9 @@ export class PublishComponent implements OnInit {
             'access-minutes': this.accesstime,
             publish: true,
         };
-        this.formapi.updateInternForm(this.storage.form.id, null, queryParams).then(result => {
+        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
             // success
-            this.storage.form = result;
+            this.data.form = result;
             this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,
                 $localize`Das Formular wurde erfolgreich veröffentlicht.`);
             this.close();

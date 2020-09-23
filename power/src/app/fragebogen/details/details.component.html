@@ -456,10 +456,10 @@
 <power-forms-details-maketask #maketask [(data)]="data"></power-forms-details-maketask>
 
 <!-- publish modal -->
-<power-forms-details-publish #publish></power-forms-details-publish>
+<power-forms-details-publish #publish [(data)]="data"></power-forms-details-publish>
 
 <!-- comment modal -->
-<power-forms-details-comment #comment></power-forms-details-comment>
+<power-forms-details-comment #comment [(data)]="data"></power-forms-details-comment>
 
 <!-- preview modal -->
 <power-forms-surveyjs-preview *ngIf="data.form"
@@ -468,4 +468,4 @@
 </power-forms-surveyjs-preview>
 
 <!-- share form modal -->
-<power-forms-details-settings #settings></power-forms-details-settings>
+<power-forms-details-settings #settings [(data)]="data"></power-forms-details-settings>

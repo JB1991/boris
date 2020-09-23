@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { StorageService } from '../storage.service';
 import { FormAPIService } from '../../formapi.service';
 
 @Component({
@@ -11,13 +10,18 @@ import { FormAPIService } from '../../formapi.service';
     styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
+    @Input() public data = {
+        form: null,
+        tasksList: [],
+        tasksCountTotal: 0,
+        tasksPerPage: 5,
+    };
     @ViewChild('modalcomment') public modal: ModalDirective;
     public tasknr = -1;
     public comment: string;
 
     constructor(public modalService: BsModalService,
         public alerts: AlertsService,
-        public storage: StorageService,
         public formapi: FormAPIService) {
     }
 
@@ -30,12 +34,12 @@ export class CommentComponent implements OnInit {
      */
     public open(i: number) {
         // check data
-        if (i < 0 || i >= this.storage.tasksList.length) {
+        if (i < 0 || i >= this.data.tasksList.length) {
             throw new Error('invalid i');
         }
 
         // open
-        this.comment = this.storage.tasksList[i].description;
+        this.comment = this.data.tasksList[i].description;
         this.tasknr = i;
         this.modal.show();
     }
@@ -54,7 +58,7 @@ export class CommentComponent implements OnInit {
      */
     public save() {
         // check data
-        if (this.tasknr < 0 || this.tasknr >= this.storage.tasksList.length) {
+        if (this.tasknr < 0 || this.tasknr >= this.data.tasksList.length) {
             throw new Error('invalid i');
         }
 
@@ -63,9 +67,9 @@ export class CommentComponent implements OnInit {
         };
 
         // save
-        this.formapi.updateInternTask(this.storage.tasksList[this.tasknr].id, null, queryParams).then(result => {
+        this.formapi.updateInternTask(this.data.tasksList[this.tasknr].id, null, queryParams).then(result => {
             // success
-            this.storage.tasksList[this.tasknr].description = result.description;
+            this.data.tasksList[this.tasknr].description = result.description;
             this.close();
         }).catch((error: Error) => {
             // failed to create task

@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { StorageService } from '../storage.service';
 import { FormAPIService } from '../../formapi.service';
 
 @Component({
@@ -12,6 +11,12 @@ import { FormAPIService } from '../../formapi.service';
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+    @Input() public data = {
+        form: null,
+        tasksList: [],
+        tasksCountTotal: 0,
+        tasksPerPage: 5,
+    };
     @ViewChild('modalsettings') public modal: ModalDirective;
 
     public tagList = [];
@@ -21,7 +26,6 @@ export class SettingsComponent implements OnInit {
     constructor(public modalService: BsModalService,
         public router: Router,
         public alerts: AlertsService,
-        public storage: StorageService,
         public formapi: FormAPIService) {
     }
 
@@ -32,9 +36,9 @@ export class SettingsComponent implements OnInit {
      * Opens settings modal
      */
     public open() {
-        this.tagList = Object.assign([], this.storage.form.tags);
-        this.ownerList = Object.assign([], this.storage.form.owners);
-        this.readerList = Object.assign([], this.storage.form.readers);
+        this.tagList = Object.assign([], this.data.form.tags);
+        this.ownerList = Object.assign([], this.data.form.owners);
+        this.readerList = Object.assign([], this.data.form.readers);
         this.modal.show();
     }
 
@@ -56,10 +60,9 @@ export class SettingsComponent implements OnInit {
             readers: this.readerList.toString()
         };
 
-        this.formapi.updateInternForm(this.storage.form.id, null, queryParams).then(result => {
+        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
             //     // success
-            console.log(result)
-            this.storage.form = result;
+            this.data.form = result;
             this.alerts.NewAlert('success', $localize`Formular gespeichert`,
                 $localize`Das Formular wurde erfolgreich gespeichert.`);
             this.close();
