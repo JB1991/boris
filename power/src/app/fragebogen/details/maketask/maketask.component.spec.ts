@@ -25,7 +25,6 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
             ],
             providers: [
                 BsModalService,
-                StorageService,
                 AlertsService,
                 FormAPIService
             ],
@@ -88,20 +87,20 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
                 total: 2
             }
         ));
-        component.storage.form = { 'id': '123' };
+        component.data.form = { 'id': '123' };
         component.amount = 2;
         component.copy = false;
     
         component.Generate();
         tick();
         expect(component.pinList.length).toEqual(2);
-        expect(component.storage.tasksList.length).toEqual(2);
+        expect(component.data.tasksList.length).toEqual(2);
         
         component.open();
         component.copy = true;
         component.Generate();
         tick();
-        expect(component.storage.tasksList.length).toEqual(4);
+        expect(component.data.tasksList.length).toEqual(4);
         expect(component.pinList.length).toEqual(2);
         flush();
     }));
@@ -120,7 +119,7 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
 
     it('should error', fakeAsync(() => {
         spyOn(component.formapi, 'createInternFormTasks').and.returnValue(Promise.reject('Failed to generate'));
-        component.storage.form = { 'id': '123' };
+        component.data.form = { 'id': '123' };
         component.amount = 2;
 
         component.Generate();

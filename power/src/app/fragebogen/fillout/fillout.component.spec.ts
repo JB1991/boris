@@ -70,7 +70,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             }
             return null;
         });
-        spyOn(component, 'loadForm').and.callThrough();
+        spyOn(component, 'loadForm');
         component.ngOnInit();
         expect(component.loadForm).toHaveBeenCalledTimes(1);
         expect(component.loadForm).toHaveBeenCalledWith('123');

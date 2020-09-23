@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { DetailsComponent } from './details.component';
-import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
@@ -29,11 +27,12 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 HttpClientTestingModule,
                 SurveyjsModule,
                 PaginationModule,
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([
+                    { path: 'forms', component: MockDashboardComponent }
+                ])
             ],
             providers: [
                 Title,
-                StorageService,
                 AuthService,
                 AlertsService,
                 LoadingscreenService,
@@ -53,18 +52,21 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             spyOn(console, 'log');
             spyOn(component.router, 'navigate');
             spyOn(component.alerts, 'NewAlert');
-            fixture.detectChanges(); // onInit
+            // fixture.detectChanges(); // onInit
         });
     }));
 
     it('should create', () => {
         expect(component).toBeTruthy();
-        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
-        fixture.detectChanges();
+        spyOn(component, 'loadData');
+        component.id = '123';
+        component.ngOnInit();
+        expect(component.loadData).toHaveBeenCalledTimes(1);
     });
 
     it('should not create', () => {
-        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
+        component.id = null;
+        component.ngOnInit();
         expect(component.router.navigate).toHaveBeenCalledTimes(1);
     });
 
@@ -76,9 +78,9 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.resolve(taskSample));
 
         component.loadData('bs63c2os5bcus8t5q0kg').then(() => {
-            expect(component.storage.form).toEqual(formSample.data);
-            expect(component.storage.form.status).toEqual('published');
-            expect(component.storage.tasksList).toEqual(taskSample.data);
+            expect(component.data.form).toEqual(formSample.data);
+            expect(component.data.form.status).toEqual('published');
+            expect(component.data.tasksList).toEqual(taskSample.data);
             done();
         });
     });
@@ -87,9 +89,9 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSampleCreated.data));
 
         component.loadData('bs63c2os5bcus8t5q0kg').then(() => {
-            expect(component.storage.form).toEqual(formSampleCreated.data);
-            expect(component.storage.form.status).toEqual('created');
-            expect(component.storage.tasksList.length).toEqual(0);
+            expect(component.data.form).toEqual(formSampleCreated.data);
+            expect(component.data.form.status).toEqual('created');
+            expect(component.data.tasksList.length).toEqual(0);
             done();
         });
     });
@@ -98,8 +100,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed'));
 
         component.loadData('bs63c2os5bcus8t5q0kg').then(() => {
-            expect(component.storage.form).toBeNull();
-            expect(component.storage.tasksList.length).toEqual(0);
+            expect(component.data.form).toBeNull();
+            expect(component.data.tasksList.length).toEqual(0);
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
                 'Laden fehlgeschlagen', 'Failed');
@@ -118,7 +120,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * DELETE FORM
      */
     it('should delete form', fakeAsync(() => {
-        component.storage.form = formSample.data;
+        component.data.form = formSample.data;
         const spy = spyOn(component.formapi, 'deleteInternForm').and.callFake(() => {
             return Promise.resolve(deleteSample.data);
         });
@@ -140,7 +142,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail delete form', fakeAsync(() => {
-        component.storage.form = formSample.data;
+        component.data.form = formSample.data;
         spyOn(component.formapi, 'deleteInternForm').and
             .returnValue(Promise.reject('Failed'));
         spyOn(window, 'confirm').and.returnValue(true);
@@ -156,7 +158,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     //  * ARCHIVE FORM
     //  */
     it('should archive form', fakeAsync(() => {
-        component.storage.form = formSample.data;
+        component.data.form = formSample.data;
         const spy = spyOn(component.formapi, 'updateInternForm').and
             .returnValue(Promise.resolve(formSample.data));
 
@@ -177,7 +179,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail archive form', fakeAsync(() => {
-        component.storage.form = formSample.data;
+        component.data.form = formSample.data;
         spyOn(component.formapi, 'updateInternForm').and
             .returnValue(Promise.reject('Failed'));
         spyOn(window, 'confirm').and.returnValue(true);
@@ -193,7 +195,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     //  * GET CSV
     //  */
     it('should get csv', fakeAsync(() => {
-        component.storage.form = formSample.data;
+        component.data.form = formSample.data;
         spyOn(window, 'confirm').and.returnValue(true);
         spyOn(component.formapi, 'getInternFormCSV').and
             .returnValue(Promise.resolve('CSV'));
@@ -208,7 +210,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     }));
 
     // it('should get csv 2', fakeAsync(() => {
-    //     component.storage.form = formSample.data;
+    //     component.data.form = formSample.data;
     //     spyOn(window, 'confirm').and.returnValue(true);
     //     spyOn(component.formapi, 'getInternFormCSV').and
     //         .returnValue(Promise.resolve('CSV'));
@@ -225,7 +227,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     // }));
 
     it('should fail get csv', fakeAsync(() => {
-        component.storage.form = formSample.data;
+        component.data.form = formSample.data;
         spyOn(component.formapi, 'getInternFormCSV').and
             .returnValue(Promise.reject('Failed'));
         spyOn(window, 'confirm').and.returnValue(true);
@@ -242,7 +244,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * DELETE TASK
      */
     it('should delete task', fakeAsync(() => {
-        component.storage.tasksList = taskSample.data;
+        component.data.tasksList = taskSample.data;
         spyOn(component.formapi, 'deleteInternTask').and.returnValue(Promise.resolve('deleted task'));
 
         spyOn(window, 'confirm').and.returnValue(true);
@@ -250,21 +252,21 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.deleteTask(0);
         tick();
 
-        expect(component.storage.tasksList.length).toEqual(1);
+        expect(component.data.tasksList.length).toEqual(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort gelöscht',
             'Die Antwort wurde erfolgreich gelöscht.');
     }));
 
     it('should not delete task', () => {
-        component.storage.tasksList = taskSample.data;
+        component.data.tasksList = taskSample.data;
         spyOn(window, 'confirm').and.returnValue(false);
         component.deleteTask(0);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
     });
 
     it('should fail delete task', () => {
-        component.storage.tasksList = taskSample.data;
+        component.data.tasksList = taskSample.data;
 
         expect(function () {
             component.deleteTask(-1);
@@ -276,7 +278,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail delete task 404', fakeAsync(() => {
-        component.storage.tasksList = taskSample.data;
+        component.data.tasksList = taskSample.data;
         spyOn(component.formapi, 'deleteInternTask').and.callFake(() => {
             return Promise.reject(new Error('Failed'));
         });
@@ -294,7 +296,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * OPEN TASK
      */
     it('should open task', () => {
-        component.storage.tasksList = taskSample.data;
+        component.data.tasksList = taskSample.data;
         expect(function () {
             component.openTask(0);
         }).toThrowError('Cannot read property \'open\' of undefined');
@@ -310,7 +312,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     afterEach(() => {
-
+        // fixture.destroy();
     });
 });
 

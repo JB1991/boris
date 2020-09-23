@@ -11,7 +11,12 @@ import { FormAPIService } from '../../formapi.service';
     styleUrls: ['./maketask.component.css']
 })
 export class MaketaskComponent implements OnInit {
-    @Input() public data: any;
+    @Input() public data = {
+        form: null,
+        tasksList: [],
+        tasksCountTotal: 0,
+        tasksPerPage: 5,
+    };
     @ViewChild('modalmaketask') public modal: ModalDirective;
     public amount = 1;
     public pinList = [];
