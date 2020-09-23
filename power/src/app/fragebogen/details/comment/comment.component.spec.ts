@@ -1,9 +1,8 @@
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
-import { environment } from '@env/environment';
 
 import { CommentComponent } from './comment.component';
 import { StorageService } from '../storage.service';
@@ -26,7 +25,6 @@ describe('Fragebogen.Details.CommentComponent', () => {
             ],
             providers: [
                 BsModalService,
-                StorageService,
                 AlertsService,
                 FormAPIService
             ],
@@ -51,7 +49,7 @@ describe('Fragebogen.Details.CommentComponent', () => {
      * OPEN AND CLOSE
      */
     it('should open and close', () => {
-        component.storage.tasksList.push({ id: '123', description: '' });
+        component.data.tasksList.push({ id: '123', description: '' });
         component.open(0);
         expect(component.modal.isShown).toBeTrue();
         component.close();
@@ -83,7 +81,7 @@ describe('Fragebogen.Details.CommentComponent', () => {
 
     it('should save', fakeAsync(() => {
         spyOn(component.formapi, 'updateInternTask').and.returnValue(Promise.resolve(taskSample.data));
-        component.storage.tasksList.push({ id: '123', description: '' });
+        component.data.tasksList.push({ id: '123', description: '' });
         component.tasknr = 0;
         component.comment = 'Toast';
 
@@ -91,12 +89,12 @@ describe('Fragebogen.Details.CommentComponent', () => {
         tick();
         
         expect(component.tasknr).toEqual(-1);
-        expect(component.storage.tasksList[0].description).toEqual('Toast');
+        expect(component.data.tasksList[0].description).toEqual('Toast');
     }));
 
     it('should error', fakeAsync(() => {
         spyOn(component.formapi, 'updateInternTask').and.returnValue(Promise.reject('Toast failed'));
-        component.storage.tasksList.push({ id: '123', description: '' });
+        component.data.tasksList.push({ id: '123', description: '' });
         component.tasknr = 0;
         component.comment = 'Toast';
 

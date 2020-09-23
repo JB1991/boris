@@ -1,12 +1,10 @@
 import { waitForAsync, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
-import { environment } from '@env/environment';
 
 import { SettingsComponent } from './settings.component';
-import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { SharedModule } from '@app/shared/shared.module';
 import { FormAPIService } from '@app/fragebogen/formapi.service';
@@ -28,7 +26,6 @@ describe('Fragebogen.Details.SettingsComponent', () => {
             ],
             providers: [
                 BsModalService,
-                StorageService,
                 AlertsService,
                 FormAPIService
             ],
@@ -54,7 +51,7 @@ describe('Fragebogen.Details.SettingsComponent', () => {
      * OPEN AND CLOSE
      */
     it('should open and close', () => {
-        component.storage.form = { 'id': '123' };
+        component.data.form = { 'id': '123' };
         component.open();
         expect(component.modal.isShown).toBeTrue();
         component.close();
@@ -66,7 +63,7 @@ describe('Fragebogen.Details.SettingsComponent', () => {
      */
     it('should update form', fakeAsync(() => {
         spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample.data));
-        component.storage.form = { 'id': '123' };
+        component.data.form = { 'id': '123' };
         component.tagList = [];
         component.ownerList = [];
         component.readerList = [];
@@ -80,7 +77,7 @@ describe('Fragebogen.Details.SettingsComponent', () => {
 
     it('should fail update form - data', fakeAsync(() => {
         spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to update form'));
-        component.storage.form = { 'id': '123' };
+        component.data.form = { 'id': '123' };
         component.tagList = [];
         component.ownerList = [];
         component.readerList = [];

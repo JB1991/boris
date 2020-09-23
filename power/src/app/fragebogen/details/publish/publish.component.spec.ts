@@ -1,9 +1,8 @@
 import { waitForAsync, ComponentFixture, TestBed, tick, fakeAsync, flush } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
-import { environment } from '@env/environment';
 
 import { PublishComponent } from './publish.component';
 import { StorageService } from '../storage.service';
@@ -26,7 +25,6 @@ describe('Fragebogen.Details.PublishComponent', () => {
             ],
             providers: [
                 BsModalService,
-                StorageService,
                 AlertsService,
                 FormAPIService
             ],
@@ -63,7 +61,7 @@ describe('Fragebogen.Details.PublishComponent', () => {
     it('should publish', fakeAsync(() => {
         spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample.data));
         spyOn(window, 'confirm').and.returnValue(true);
-        component.storage.form = { 'id': '123' };
+        component.data.form = { 'id': '123' };
         component.pin = 'pin6';
         component.open();
 
@@ -85,7 +83,7 @@ describe('Fragebogen.Details.PublishComponent', () => {
     it('should error', fakeAsync(() => {
         spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to publish'));
         spyOn(window, 'confirm').and.returnValue(true);
-        component.storage.form = { 'id': '123' };
+        component.data.form = { 'id': '123' };
 
         component.Publish();
         tick();
