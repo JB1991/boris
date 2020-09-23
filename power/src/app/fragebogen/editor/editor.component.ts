@@ -23,7 +23,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     @ViewChild('preview') public preview: PreviewComponent;
     public elementCopy: any;
     public isCollapsedToolBox = false;
-    private timerHandle: NodeJS.Timeout;
+    public timerHandle: NodeJS.Timeout;
 
     constructor(public route: ActivatedRoute,
         public router: Router,
@@ -56,6 +56,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // delete auto save method
         if (this.timerHandle) {
             clearInterval(this.timerHandle);
+            this.timerHandle = null;
         }
     }
 

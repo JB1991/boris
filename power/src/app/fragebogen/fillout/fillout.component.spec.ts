@@ -55,7 +55,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     it('should create with pin', () => {
         expect(component).toBeTruthy();
         spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
-        spyOn(component, 'loadData').and.callThrough();
+        spyOn(component, 'loadData');
         component.ngOnInit();
         expect(component.loadData).toHaveBeenCalledTimes(1);
         expect(component.loadData).toHaveBeenCalledWith('123');
