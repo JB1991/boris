@@ -34,7 +34,7 @@ describe('Fragebogen.Details.CommentComponent', () => {
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(CommentComponent);
             component = fixture.componentInstance;
-    
+
             spyOn(console, 'log');
             spyOn(component.alerts, 'NewAlert');
             fixture.detectChanges(); // onInit
@@ -64,7 +64,7 @@ describe('Fragebogen.Details.CommentComponent', () => {
             component.open(10);
         }).toThrowError('invalid i');
     });
-    
+
     /**
      * SAVE
      */
@@ -87,7 +87,7 @@ describe('Fragebogen.Details.CommentComponent', () => {
 
         component.save();
         tick();
-        
+
         expect(component.tasknr).toEqual(-1);
         expect(component.data.tasksList[0].description).toEqual('Toast');
     }));

@@ -41,7 +41,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(FilloutComponent);
             component = fixture.componentInstance;
-            
+
             spyOn(console, 'log');
             spyOn(component.router, 'navigate');
             spyOn(component.alerts, 'NewAlert');
@@ -65,7 +65,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     it('should create with id', () => {
         expect(component).toBeTruthy();
         spyOn(component.route.snapshot.paramMap, 'get').and.callFake((param) => {
-            if(param === 'id') {
+            if (param === 'id') {
                 return '123';
             }
             return null;
@@ -80,7 +80,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      * SET LANGUAGE
      */
     it('should set language', () => {
-        component.wrapper = <any>{ survey: { locale: 'de', getUsedLocales: () => { return []; } } };
+        component.wrapper = <any>{ survey: { locale: 'de', getUsedLocales: () => [] } };
         component.language = 'en';
         component.setLanguage();
         expect(component.wrapper.survey.locale).toEqual('en');
@@ -98,7 +98,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         expect(component.language).toEqual(formSample.data.content.locale);
         flush();
     }));
-    
+
     it('should fail to load form', fakeAsync(() => {
         spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed to load form'));
 
@@ -149,7 +149,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
             'Failed to load data');
     }));
-    
+
     /**
      * SUBMIT
      */

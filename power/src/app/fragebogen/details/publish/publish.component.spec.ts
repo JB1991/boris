@@ -34,7 +34,7 @@ describe('Fragebogen.Details.PublishComponent', () => {
         }).compileComponents().then(() => {
             fixture = TestBed.createComponent(PublishComponent);
             component = fixture.componentInstance;
-            
+
             spyOn(console, 'log');
             spyOn(component.alerts, 'NewAlert');
             fixture.detectChanges(); // onInit

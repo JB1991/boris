@@ -121,7 +121,7 @@ export class NewformComponent implements OnInit {
                 throw new Error('title is required');
             }
             template.title.default = this.title;
-            const response = await this.formAPI.createInternForm(template, {tags: this.tagList});
+            const response = await this.formAPI.createInternForm(template, { tags: this.tagList });
             this.data.forms.push(response);
         } catch (error) {
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());

@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit {
         tasksCountTotal: 0,
         tasksPerPage: 5,
     };
-       
+
     public id: string;
 
     public taskTotal: number;

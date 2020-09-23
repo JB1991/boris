@@ -423,7 +423,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
-        
+
         this.formapi.updateInternForm(id, this.storage.model).then(() => {
             // success
             this.storage.setUnsavedChanges(false);

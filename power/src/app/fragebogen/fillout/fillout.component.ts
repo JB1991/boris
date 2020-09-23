@@ -71,7 +71,7 @@ export class FilloutComponent implements OnInit {
     public loadForm(id: string) {
         // load form by id
         this.formapi.getInternForm(id).then(result => {
-            //store form
+            // store form
             this.storage.form = result;
             this.language = this.storage.form.content.locale;
 
@@ -102,7 +102,7 @@ export class FilloutComponent implements OnInit {
      * @param id Form pin
      * @param result Task result
      */
-    
+
     // tslint:disable-next-line: max-func-body-length
     public submitTask(id: string, result: any) {
         // check data
@@ -167,7 +167,7 @@ export class FilloutComponent implements OnInit {
 
         const queryParams: Object = {
             submit: true
-        }
+        };
         // complete
         this.formapi.updatePublicTask(this.storage.task.id, result.result, queryParams).then(() => {
             this.storage.setUnsavedChanges(false);
@@ -206,10 +206,10 @@ export class FilloutComponent implements OnInit {
     }
 
 
-     /**
-     * Receives change events
-     * @param result Data
-     */
+    /**
+    * Receives change events
+    * @param result Data
+    */
     public changed(result: any) {
         this.storage.setUnsavedChanges(true);
     }

@@ -46,7 +46,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
             fixture = TestBed.createComponent(QuestionSettingsComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-    
+
             spyOn(console, 'log');
             spyOn(component.alerts, 'NewAlert');
         });

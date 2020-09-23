@@ -43,7 +43,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             fixture = TestBed.createComponent(NewformComponent);
             component = fixture.componentInstance;
             fixture.detectChanges(); // onInit
-    
+
             spyOn(console, 'log');
             spyOn(component.router, 'navigate');
             spyOn(component.alerts, 'NewAlert');
@@ -213,7 +213,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         component.NewForm();
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Failed to create form');
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+            'Failed to create form');
     }));
 
     it('should not create new form (missing title)', () => {

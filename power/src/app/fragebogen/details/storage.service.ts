@@ -11,7 +11,7 @@ export class StorageService {
     public tasksList: any = [];
     public tasksCountTotal = 0;
     public tasksPerPage = 5;
-    
+
     /**
      * Resets service to empty model
      */

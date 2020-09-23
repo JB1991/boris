@@ -53,7 +53,7 @@ export class SettingsComponent implements OnInit {
      * Update Form with tags, owners and readers
      */
     public updateForm() {
-        
+
         const queryParams: Object = {
             tags: this.tagList.toString(),
             owners: this.ownerList.toString(),

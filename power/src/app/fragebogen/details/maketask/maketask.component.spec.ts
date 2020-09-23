@@ -40,7 +40,7 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
             fixture.detectChanges();
         });
     }));
-    
+
     it('should create', () => {
         fixture.detectChanges();
         expect(component).toBeTruthy();
@@ -62,26 +62,26 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
                     {
                         id: '123',
                         content: {},
-                        "form-id": 'bs8t7ifp9r1b3pt5qkr0',
+                        'form-id': 'bs8t7ifp9r1b3pt5qkr0',
                         pin: 'oGxOwQeS',
                         factor: 'string',
                         created: '2020-09-22T22:29:36.814Z',
-                        accessed: "2020-09-22T22:29:36.814Z",
-                        submitted: "2020-09-22T22:29:36.814Z",
-                        description: "description",
-                        status: "created"
+                        accessed: '2020-09-22T22:29:36.814Z',
+                        submitted: '2020-09-22T22:29:36.814Z',
+                        description: 'description',
+                        status: 'created'
                     },
                     {
                         id: '123',
                         content: {},
-                        "form-id": 'bs8t7ifp9r1b3pt5qkr0',
+                        'form-id': 'bs8t7ifp9r1b3pt5qkr0',
                         pin: 'oGxOwQeS',
-                        factor: "string",
-                        created: "2020-09-22T22:29:36.814Z",
-                        accessed: "2020-09-22T22:29:36.814Z",
-                        submitted: "2020-09-22T22:29:36.814Z",
-                        description: "description",
-                        status: "created"
+                        factor: 'string',
+                        created: '2020-09-22T22:29:36.814Z',
+                        accessed: '2020-09-22T22:29:36.814Z',
+                        submitted: '2020-09-22T22:29:36.814Z',
+                        description: 'description',
+                        status: 'created'
                     }
                 ],
                 total: 2
@@ -90,12 +90,12 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
         component.data.form = { 'id': '123' };
         component.amount = 2;
         component.copy = false;
-    
+
         component.Generate();
         tick();
         expect(component.pinList.length).toEqual(2);
         expect(component.data.tasksList.length).toEqual(2);
-        
+
         component.open();
         component.copy = true;
         component.Generate();
@@ -104,7 +104,7 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
         expect(component.pinList.length).toEqual(2);
         flush();
     }));
-    
+
     it('should crash', () => {
         expect(function () {
             component.amount = 0;
