@@ -311,8 +311,31 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         }).toThrowError('invalid i');
     });
 
-    afterEach(() => {
-        // fixture.destroy();
+    /**
+     * UPDATE TASK
+     */
+    it('should update tasks', (done) => {
+        spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.resolve(taskSample));
+        component.taskStatus = 'created';
+        component.id = '123';
+
+        component.updateTasks(true).then(() => {
+            expect(component.data.tasksCountTotal).toEqual(2);
+            done();
+        });
+    });
+
+    it('should fail to update tasks', (done) => {
+        spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.reject('Failed to update tasks'));
+        component.taskStatus = 'created';
+        component.id = '123';
+
+        component.updateTasks(false).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+                'Failed to update tasks');
+            done();
+        });
     });
 });
 
