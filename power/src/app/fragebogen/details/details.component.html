@@ -439,7 +439,7 @@
                     <pagination [boundaryLinks]="true"
                                 [itemsPerPage]="taskPerPage"
                                 [maxSize]="10"
-                                [totalItems]="taskTotal"
+                                [totalItems]="storage.tasksCountTotal"
                                 (pageChanged)="taskPage = $event.page; updateTasks(false)"
                                 previousText="&lsaquo;"
                                 nextText="&rsaquo;"

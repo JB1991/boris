@@ -237,13 +237,14 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 sort: this.taskSort,
                 order: this.taskOrder,
             };
+            console.log(params);
             if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
                 params['status'] = this.taskStatus;
             }
             const response = await this.formapi.getInternFormTasks(this.id, params);
-            this.storage.tasksList=response.data;
-            this.taskTotal = response.total;
-            const maxPages = Math.floor(this.taskTotal / 5) + 1;
+            this.storage.tasksCountTotal = response.total;
+            this.storage.tasksList = response.data;
+            const maxPages = Math.floor(this.storage.tasksCountTotal / 5) + 1;
             this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
