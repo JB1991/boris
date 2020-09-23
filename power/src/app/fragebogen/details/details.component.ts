@@ -17,7 +17,8 @@ import { FormAPIService } from '../formapi.service';
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-    public data: any[];
+    public id: string;
+
     public taskTotal: number;
     public taskPage = 1;
     public taskPerPage = 5;
@@ -40,16 +41,16 @@ export class DetailsComponent implements OnInit {
         public auth: AuthService) {
         this.titleService.setTitle($localize`Formular Details - POWER.NI`);
         this.storage.resetService();
+        this.id = this.route.snapshot.paramMap.get('id');
     }
 
     ngOnInit() {
         this.updateTasks(true);
         this.loadingscreen.setVisible(true);
-        // get id
-        const id = this.route.snapshot.paramMap.get('id');
-        if (id) {
+        // get idform
+        if (this.id) {
             // load data
-            this.loadData(id);
+            this.loadData(this.id);
         } else {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -69,7 +70,7 @@ export class DetailsComponent implements OnInit {
         try {
             const result = await this.formapi.getInternForm(id);
             this.storage.form = result;
-            if(result.status !== 'created') {
+            if (result.status !== 'created') {
                 const results = await this.formapi.getInternFormTasks(id);
                 this.storage.tasksList = results.data;
                 this.storage.tasksCountTotal = results.total;
@@ -79,7 +80,7 @@ export class DetailsComponent implements OnInit {
             } else {
                 this.loadingscreen.setVisible(false);
             }
-        } catch(error) {
+        } catch (error) {
             // failed to load form
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
@@ -146,7 +147,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public getCSV() {
         // load csv results
-       this.formapi.getInternFormCSV(this.storage.form.id).then(result => {
+        this.formapi.getInternFormCSV(this.storage.form.id).then(result => {
             const blob = new Blob([result.toString()], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
@@ -157,10 +158,10 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 pom.setAttribute('download', 'results.csv');
                 pom.click();
             }
-       }).catch((error: Error) => {
+        }).catch((error: Error) => {
             // failed to load results
             this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error.toString());
-            console .log(error);
+            console.log(error);
             return;
         });
     }
@@ -227,40 +228,6 @@ Dies lässt sich nicht mehr umkehren!`)) {
         });
     }
 
-    /**
-     * Triggered by the pagination event, when the user changes the page
-     * @param event Contains the page number and the number of items per page
-     */
-    public tasksPageChanged(event: PageChangedEvent): void {
-        const limit = event.itemsPerPage;
-        const offset = (event.page - 1) * event.itemsPerPage;
-        this.loadTasksFromAPI(limit, offset);
-    }
-
-    /**
-     * Load the list of tasks from the Form-API
-     * @param limit The maximum number of forms to be loaded
-     * @param offset The number of the first form to be loaded
-     */
-    private loadTasksFromAPI(limit?: number, offset?: number) {
-        const queryParams: Object = {
-            limit: limit,
-            offset: offset
-        };
-        this.formapi.getInternFormTasks(this.storage.form.id, queryParams).then(result => {
-            this.storage.tasksList = result.data;
-            this.loadingscreen.setVisible(false);
-        }).catch((error: Error) => {
-            // failed to load tags
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            this.loadingscreen.setVisible(false);
-
-            this.router.navigate(['/forms'], { replaceUrl: true });
-            console.log(error);
-            return;
-        });
-    }
-
     public async updateTasks(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
@@ -273,8 +240,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
             if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
                 params['status'] = this.taskStatus;
             }
-            const response = await this.formapi.getInternFormTasks(this.storage.form.id, params);
-            this.data = response.data;
+            const response = await this.formapi.getInternFormTasks(this.id, params);
+            this.storage.tasksList=response.data;
             this.taskTotal = response.total;
             const maxPages = Math.floor(this.taskTotal / 5) + 1;
             this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
