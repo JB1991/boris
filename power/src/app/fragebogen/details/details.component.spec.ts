@@ -52,7 +52,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             spyOn(console, 'log');
             spyOn(component.router, 'navigate');
             spyOn(component.alerts, 'NewAlert');
-            // fixture.detectChanges(); // onInit
+            // fixture.detectChanges();
         });
     }));
 

@@ -22,7 +22,8 @@
                         <path fill-rule="evenodd"
                               d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
                     </svg>
-                    <span i18n>&nbsp;Einstellungen</span>
+                    <span class="ml-2"
+                          i18n>Einstellungen</span>
                 </div>
 
                 <!-- modal close button -->
@@ -40,36 +41,23 @@
 
             <!-- modal body -->
             <div class="modal-body">
-                <!-- generate form -->
-                <form #settings="ngForm"
-                      i18n-aria-label
-                      aria-label="Einstellungen zum teilen eines Formulars"
-                      onsubmit="return false;">
-
-                    <!-- tags -->
-                    <power-tagbox [(tagList)]="tagList"
-                                  [dataList]="tagList"
-                                  i18n-tagboxLabel
-                                  tagboxLabel="Tags"></power-tagbox>
-                    <!-- owners -->
-                    <power-tagbox [(tagList)]="ownerList"
-                                  [dataList]="ownerList"
-                                  i18n-tagboxLabel
-                                  tagboxLabel="Besitzer"
-                                  [displayBlock]="true"></power-tagbox>
-                    <!-- readers -->
-                    <power-tagbox [(tagList)]="readerList"
-                                  [dataList]="readerList"
-                                  i18n-tagboxLabel
-                                  tagboxLabel="Leseberechtigte"
-                                  [displayBlock]="true"></power-tagbox>
-
-                    <button type="submit"
-                            class="d-none"
-                            aria-hidden="true"
-                            disabled
-                            i18n>Absenden</button>
-                </form>
+                <!-- tags -->
+                <power-tagbox [(tagList)]="tagList"
+                              [dataList]="tagList"
+                              i18n-tagboxLabel
+                              tagboxLabel="Tags"></power-tagbox>
+                <!-- owners -->
+                <power-tagbox [(tagList)]="ownerList"
+                              [dataList]="ownerList"
+                              i18n-tagboxLabel
+                              tagboxLabel="Besitzer"
+                              [displayBlock]="true"></power-tagbox>
+                <!-- readers -->
+                <power-tagbox [(tagList)]="readerList"
+                              [dataList]="readerList"
+                              i18n-tagboxLabel
+                              tagboxLabel="Leseberechtigte"
+                              [displayBlock]="true"></power-tagbox>
             </div>
 
             <!-- modal buttons -->
@@ -91,7 +79,8 @@
                         <path fill-rule="evenodd"
                               d="M13.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm-11-6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                     </svg>
-                    <span i18n>&nbsp;Speichern</span>
+                    <span class="ml-2"
+                          i18n>Speichern</span>
                 </button>
             </div>
         </div>

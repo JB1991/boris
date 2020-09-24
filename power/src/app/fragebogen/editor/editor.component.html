@@ -24,7 +24,8 @@
                     <path fill-rule="evenodd"
                           d="M15.898 2.223a3.003 3.003 0 0 1-3.679 3.674L5.878 12.15a3 3 0 1 1-2.027-2.027l6.252-6.341A3 3 0 0 1 13.778.1l-2.142 2.142L12 4l1.757.364 2.141-2.141zm-13.37 9.019L3.001 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z" />
                 </svg>
-                <span i18n>&nbsp;Toolbox</span>
+                <span class="ml-2"
+                      i18n>Toolbox</span>
             </div>
 
             <ul id="toolbox"
@@ -34,6 +35,20 @@
                 <smooth-dnd-container groupName="toolbox"
                                       [getChildPayload]="getPayloadToolbox"
                                       behaviour="copy">
+                    <li id="{{ item.type }}"
+                        *ngFor="let item of storage.FormularFields"
+                        role="button"
+                        tabindex="0"
+                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
+                        title="{{ item.name }}"
+                        (click)="wsNewElement(item.type)"
+                        (keyup.enter)="wsNewElement(item.type)">
+                        <span [innerHtml]="item.icon | svg"
+                              aria-hidden="true"
+                              class="align-baseline"></span>
+                        <span class="pl-2 d-none d-lg-inline">{{ item.name }}</span>
+                    </li>
+
                     <li id="elementcopy"
                         *ngIf="elementCopy"
                         role="button"
@@ -61,19 +76,6 @@
                         <span class="pl-2 d-none d-lg-inline"
                               i18n>Zwischenablage</span>
                     </li>
-                    <li id="{{ item.type }}"
-                        *ngFor="let item of storage.FormularFields"
-                        role="button"
-                        tabindex="0"
-                        class="list-group-item clickable text-nowrap smooth-dnd-draggable-wrapper bg-light py-2"
-                        title="{{ item.name }}"
-                        (click)="wsNewElement(item.type)"
-                        (keyup.enter)="wsNewElement(item.type)">
-                        <span [innerHtml]="item.icon | svg"
-                              aria-hidden="true"
-                              class="align-baseline"></span>
-                        <span class="pl-2 d-none d-lg-inline">{{ item.name }}</span>
-                    </li>
                 </smooth-dnd-container>
             </ul>
         </div>
@@ -97,7 +99,8 @@
                     <path
                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                 </svg>
-                <span i18n>&nbsp;Favoriten</span>
+                <span class="ml-2"
+                      i18n>Favoriten</span>
             </div>
             <div id="favorites"
                  class="card-body"
@@ -338,9 +341,7 @@
         <div id="placeholder"
              *ngIf="storage.model.pages[storage.selectedPageID].elements.length === 0"
              class="text-muted"
-             i18n>
-            Ziehen Sie etwas in den Arbeitsbereich...
-        </div>
+             i18n>Ziehen Sie etwas in den Arbeitsbereich...</div>
         <smooth-dnd-container class="h-100"
                               groupName="workspace"
                               (drop)="onDropWorkspace($event)"
@@ -352,10 +353,9 @@
                                   *ngFor="let container of storage.model.pages[storage.selectedPageID].elements; index as i">
                 <div class="card bg-light mb-2"
                      [attr.data-id]="i">
-                    <div class="card-body p-0">
+                    <div class="card-body p-1 p-lg-2">
                         <!-- element buttons -->
-                        <div class="float-lg-right stick-right m-1 m-lg-2"
-                             style="z-index: 400;">
+                        <div class="float-lg-right">
                             <button type="button"
                                     class="btn btn-light btn-sm mr-2 drag-handle drag-mouse"
                                     tabindex="-1"
@@ -496,6 +496,7 @@
                                       i18n>Löschen</span>
                             </button>
                         </div>
+                        <div style="clear: both;"></div>
 
                         <!-- element preview -->
                         <power-forms-surveyjs-wrapper [model]="container | preview: storage.model.locale"

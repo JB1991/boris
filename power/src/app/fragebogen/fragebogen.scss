@@ -57,6 +57,14 @@ td {
     background-color: #ccc !important;
 }
 
+.sv_q_imgsel {
+    width: 210px;
+}
+
+.sv_q_imagepicker_inline {
+    line-height: normal !important;
+}
+
 @media (max-width: 576px) {
     /* single/multiple choices element: one answer per line on mobile */
     .sv_q_select_column {

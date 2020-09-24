@@ -34,6 +34,7 @@ export class StorageService {
         // overwrite style class
         this.css_style.root = 'sv_main sv_bootstrap_css bg-light';
         this.css_style.container = '';
+        this.css_style.page.root = 'card-body p-0';
         this.css_style.row = 'sv_row';
 
         this.FormularFields = templates.FormularFields;

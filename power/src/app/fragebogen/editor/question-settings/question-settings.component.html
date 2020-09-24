@@ -25,8 +25,9 @@
                     <small id="question-nameHelp"
                            class="form-text text-muted">
                         <span i18n>Dieser Wert muss im Formular einmalig sein. Die ID lässt
-                            sich als Variable nutzen, diese enthält die Antwort der
-                            Frage:</span><code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code></small>
+                            sich als Variable nutzen, diese enthält die Antwort der Frage:</span>
+                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code>
+                    </small>
                 </div>
 
                 <!-- question-title -->
@@ -129,8 +130,7 @@
                            i18n>Sichtbar</label>
                     <small id="question-visibleHelp"
                            class="form-text text-muted"
-                           i18n>Diese Option stellt ein, ob das Feld standartmäßig sichtbar
-                        ist.</small>
+                           i18n>Diese Option stellt ein, ob das Feld standardmäßig sichtbar ist.</small>
                 </div>
 
                 <!-- question-readOnly -->
@@ -146,8 +146,7 @@
                            i18n>Deaktiviert</label>
                     <small id="question-readOnlyHelp"
                            class="form-text text-muted"
-                           i18n>Diese Option stellt ein, ob das Feld standartmäßig ausfüllbar
-                        ist.</small>
+                           i18n>Diese Option stellt ein, ob das Feld standartmäßig ausfüllbar ist.</small>
                 </div>
 
                 <!-- question-hideNumber -->
@@ -489,7 +488,7 @@
                            i18n>Unsichtbar ohne sichtbare Fragen</label>
                     <small id="question-hideIfRowsEmptyHelp"
                            class="form-text text-muted"
-                           i18n>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgbelendet.</small>
+                           i18n>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgeblendet.</small>
                 </div>
 
                 <!-- question-rowsOrder-->
@@ -543,8 +542,7 @@
                            i18n>Anderes Eingabefeld aktivieren</label>
                     <small id="question-hasOtherHelp"
                            class="form-text text-muted"
-                           i18n>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert
-                        ist.</small>
+                           i18n>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</small>
                 </div>
 
                 <!-- question-showClearButton -->
@@ -658,7 +656,7 @@
                            i18n>Unsichtbar ohne sichtbare Antworten</label>
                     <small id="question-hideIfChoicesEmptyHelp"
                            class="form-text text-muted"
-                           i18n>Sind alle Antworten unsichtbar, dann wird die Frage ausgbelendet.</small>
+                           i18n>Sind alle Antworten unsichtbar, dann wird die Frage ausgeblendet.</small>
                 </div>
 
                 <!-- question-colCount -->
@@ -693,7 +691,7 @@
                 </div>
 
                 <hr>
-                <span i18n>Antwort Sichtbarkeitsbedingung</span>
+                <span i18n>Antwortbedingungen</span>
                 <br>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].choicesVisibleIf">
@@ -712,7 +710,7 @@
                 </power-forms-editor-answers>
 
                 <hr>
-                <span i18n>Antwort Sichtbarkeitsbedingung</span>
+                <span i18n>Antwortbedingungen</span>
                 <br>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].columnsVisibleIf">

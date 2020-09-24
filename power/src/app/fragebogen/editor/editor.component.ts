@@ -455,14 +455,14 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // copy
         this.elementCopy = JSON.stringify(this.storage.model.pages[page].elements[element]);
         this.alerts.NewAlert('success', $localize`Erfolgreich kopiert`,
-            $localize`Sie finden Ihre Zwischenablage ganz oben in der Toolbox.`);
+            $localize`Sie finden Ihre Zwischenablage ganz unten in der Toolbox.`);
 
         // scroll top
         setTimeout(() => {
             const div = document.getElementById('toolbox');
             /* istanbul ignore next */
             if (div) {
-                document.getElementById('toolbox').scrollTop = 0;
+                document.getElementById('toolbox').scrollTop = 300;
             }
         }, 100);
     }

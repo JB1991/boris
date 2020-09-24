@@ -1,9 +1,10 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { Config, ConfigService } from '@app/config.service';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '@app/shared/auth/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Subject, Subscription } from 'rxjs';
+
+import { Config, ConfigService } from '@app/config.service';
+import { AuthService } from '@app/shared/auth/auth.service';
 
 @Component({
     selector: 'power-root',

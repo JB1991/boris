@@ -33,7 +33,8 @@ export class LogoutComponent implements OnInit {
             '?client_id=' + encodeURIComponent(environment.auth.clientid) +
             '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host +
                 /* istanbul ignore next */
-                (this.locale === 'de' ? '' : '/' + this.locale + '/')));
+                (this.locale === 'de' ? '' : '/' + this.locale + '/')
+                + '?logout=true'));
     }
 
     /**

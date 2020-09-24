@@ -77,8 +77,8 @@ export function init(Survey) {
         },
         afterRender: function (question, el) {
             el.style.paddingBottom = '19px';
-            el.style.paddingLeft = '10px';
-            el.style.paddingRight = '10px';
+            el.style.paddingLeft = '20px';
+            el.style.paddingRight = '20px';
             el.style.paddingTop = '44px';
             el = el.children[0];
             el.style.marginBottom = '60px';
@@ -92,6 +92,7 @@ export function init(Survey) {
                 tooltips: question.tooltips,
                 pips: {
                     mode: question.pipsMode || 'positions',
+                    stepped: true,
                     values: question.pipsValues.map(function (pVal) {
                         let pipValue = pVal;
                         if (pVal.value !== undefined) {
