@@ -193,7 +193,6 @@ Dies lässt sich nicht mehr umkehren!`)) {
             this.data.tasksList.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
-            console.log(this.data.tasksList);
             if (this.data.tasksList.length === 0) {
                 this.updateTasks(false);
             }; 
