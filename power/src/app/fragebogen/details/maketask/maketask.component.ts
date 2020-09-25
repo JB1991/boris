@@ -16,6 +16,9 @@ export class MaketaskComponent implements OnInit {
         tasksList: [],
         tasksCountTotal: 0,
         tasksPerPage: 5,
+        taskTotal: 0,
+        taskPage: 1,
+        taskPageSizes: [], 
     };
     @ViewChild('modalmaketask') public modal: ModalDirective;
     public amount = 1;
@@ -70,6 +73,8 @@ export class MaketaskComponent implements OnInit {
                 this.data.tasksCountTotal++;
                 this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
             }
+            const maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
+            this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
 
             // copy to clipboard
             if (this.copy) {

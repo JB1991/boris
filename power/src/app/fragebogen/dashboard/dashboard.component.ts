@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit {
             this.loadingscreen.setVisible(true);
             const response = await this.formAPI.deleteInternForm(id);
             this.updateForms(false);
+            this.updateTasks(false);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);

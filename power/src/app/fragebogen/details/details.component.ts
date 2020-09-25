@@ -20,14 +20,12 @@ export class DetailsComponent implements OnInit {
         tasksList: [],
         tasksCountTotal: 0,
         tasksPerPage: 5,
+        taskTotal: 0,
+        taskPage: 1,
+        taskPageSizes: [],
     };
 
     public id: string;
-
-    public taskTotal: number;
-    public taskPage = 1;
-    public taskPerPage = 5;
-    public taskPageSizes: number[];
 
     public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
     public taskSort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted' = 'submitted';
@@ -195,12 +193,30 @@ Dies lässt sich nicht mehr umkehren!`)) {
             this.data.tasksList.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
+            console.log(this.data.tasksList);
+            if (this.data.tasksList.length === 0) {
+                this.updateTasks(false);
+            }; 
         }).catch((error: Error) => {
             // failed to delete task
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });
+    }
+
+    public changeTaskSort(sort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted') {
+        if (this.taskSort === sort) {
+            if (this.taskOrder === 'asc') {
+                this.taskOrder = 'desc';
+            } else {
+                this.taskOrder = 'asc';
+            }
+        } else {
+            this.taskOrder = 'asc';
+        }
+        this.taskSort = sort;
+        this.updateTasks(false);
     }
 
     /**
@@ -241,8 +257,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
-                limit: this.taskPerPage,
-                offset: (this.taskPage - 1) * this.taskPerPage,
+                limit: this.data.tasksPerPage,
+                offset: (this.data.taskPage - 1) * this.data.tasksPerPage,
                 sort: this.taskSort,
                 order: this.taskOrder,
             };
@@ -253,7 +269,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
             this.data.tasksCountTotal = response.total;
             this.data.tasksList = response.data;
             const maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
-            this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);

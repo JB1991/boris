@@ -257,8 +257,12 @@
                 <thead>
                     <tr>
                         <th scope="col"
-                            class="border-top-0"
-                            i18n>ID</th>
+                            (click)="changeTaskSort('id')"
+                            class="border-top-0">
+                            <span role="button" 
+                                  i18n>ID</span>
+
+                        </th>
                         <th scope="col"
                             class="border-top-0"
                             *ngIf="data.form.access !== 'public'"
@@ -432,17 +436,17 @@
                 <div class="form-inline well">
                     <div class="form-group mx-2">
                         <select class="custom-select"
-                                (change)="taskPerPage = $event.target.value; updateTasks(false)">
-                            <option *ngFor=" let size of taskPageSizes">
+                                (change)="data.tasksPerPage = $event.target.value; updateTasks(false)">
+                            <option *ngFor=" let size of data.taskPageSizes">
                                 {{ size }}
                             </option>
                         </select>
                     </div>
                     <pagination [boundaryLinks]="true"
-                                [itemsPerPage]="taskPerPage"
+                                [itemsPerPage]="data.tasksPerPage"
                                 [maxSize]="10"
                                 [totalItems]="data.tasksCountTotal"
-                                (pageChanged)="taskPage = $event.page; updateTasks(false)"
+                                (pageChanged)="data.taskPage = $event.page; updateTasks(false)"
                                 previousText="&lsaquo;"
                                 nextText="&rsaquo;"
                                 firstText="&laquo;"
