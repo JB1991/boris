@@ -73,9 +73,13 @@ export class MaketaskComponent implements OnInit {
                 this.data.tasksCountTotal++;
                 this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
             }
-            const maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
-            this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
-
+            let maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
+            if (maxPages > 10) {
+                maxPages = 10;
+                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            } else {
+                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            }
             // copy to clipboard
             if (this.copy) {
                 const selBox = document.createElement('textarea');

@@ -28,7 +28,7 @@ export class DetailsComponent implements OnInit {
     public id: string;
 
     public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
-    public taskSort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted' = 'submitted';
+    public taskSort: 'id' | 'pin' | 'created' | 'submitted' = 'submitted';
     public taskOrder: 'asc' | 'desc' = 'desc';
 
     @ViewChild('preview') public preview: PreviewComponent;
@@ -204,7 +204,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         });
     }
 
-    public changeTaskSort(sort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted') {
+    public changeTaskSort(sort: 'id' | 'pin' | 'created' ) {
         if (this.taskSort === sort) {
             if (this.taskOrder === 'asc') {
                 this.taskOrder = 'desc';
@@ -267,8 +267,14 @@ Dies lässt sich nicht mehr umkehren!`)) {
             const response = await this.formapi.getInternFormTasks(this.id, params);
             this.data.tasksCountTotal = response.total;
             this.data.tasksList = response.data;
-            const maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
-            this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            let maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
+            if (maxPages > 10) {
+                maxPages = 10;
+                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            } else {
+                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            }
+            console.log(this.data.taskPageSizes);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);

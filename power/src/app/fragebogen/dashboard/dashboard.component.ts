@@ -133,8 +133,13 @@ export class DashboardComponent implements OnInit {
             const response = await this.formAPI.getInternForms(params);
             this.data.forms = response.data;
             this.formTotal = response.total;
-            const maxPages = Math.floor(this.formTotal / 5) + 1;
-            this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            let maxPages = Math.floor(this.formTotal / 5) + 1;
+            if (maxPages > 10) {
+                maxPages = 10;
+                this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            } else {
+                this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            }
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);
@@ -174,8 +179,13 @@ export class DashboardComponent implements OnInit {
             const response = await this.formAPI.getInternTasks(params);
             this.data.tasks = response.data;
             this.taskTotal = response.total;
-            const maxPages = Math.floor(this.taskTotal / 5) + 1;
-            this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            let maxPages = Math.floor(this.taskTotal / 5) + 1;
+            if (maxPages > 10) {
+                maxPages = 10;
+                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            } else {
+                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            }
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);
