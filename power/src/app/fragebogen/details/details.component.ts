@@ -195,7 +195,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
             if (this.data.tasksList.length === 0) {
                 this.updateTasks(false);
-            }; 
+            }
         }).catch((error: Error) => {
             // failed to delete task
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
@@ -204,7 +204,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         });
     }
 
-    public changeTaskSort(sort: 'id' | 'pin' | 'created' ) {
+    public changeTaskSort(sort: 'id' | 'pin' | 'created') {
         if (this.taskSort === sort) {
             if (this.taskOrder === 'asc') {
                 this.taskOrder = 'desc';

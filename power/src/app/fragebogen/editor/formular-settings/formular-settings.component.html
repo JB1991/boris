@@ -342,13 +342,16 @@
                              heading="Seiten"
                              class="mb-1 mb-lg-3">
                 <!-- render pages -->
-                <accordion [isAnimated]="true">
+                <accordion [isAnimated]="true"
+                           [closeOthers]="true">
                     <accordion-group *ngFor="let page of model.pages; index as i"
                                      class="mb-1 mb-lg-3">
                         <!-- card head -->
-                        <button accordion-heading
-                                class="btn btn-link btn-block p-0 clearfix"
-                                type="button">
+                        <div accordion-heading
+                             (keyup.enter)="openPage()"
+                             class="btn btn-link btn-block p-0 clearfix clickable"
+                             role="button"
+                             tabindex="0">
                             <span class="pull-left float-left"
                                   i18n>Seite {{ i + 1 }}</span>
                             <span class="float-right pull-right"
@@ -393,7 +396,7 @@
                                           i18n>Nach unten verschieben</span>
                                 </button>
                             </span>
-                        </button>
+                        </div>
 
                         <!-- page-title -->
                         <div class="form-group">

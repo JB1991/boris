@@ -117,6 +117,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
      */
     it('shoul to load data', (done) => {
         spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSample.data));
+        spyOn(component.formapi, 'getInternElements').and.returnValue(Promise.resolve({ data: [], total: 0 }));
         component.loadData('123').then(() => {
             clearTimeout(component.timerHandle);
             expect(component.storage.model).toEqual(formSample.data.content);

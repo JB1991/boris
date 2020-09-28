@@ -363,7 +363,7 @@
     </unit>
     <unit id="8488547527396922136">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:264</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:270</note>
       </notes>
       <segment>
         <source>Laden fehlgeschlagen</source>
@@ -371,7 +371,7 @@
     </unit>
     <unit id="3516494453193947151">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:285</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:291</note>
       </notes>
       <segment>
         <source>Titel</source>
@@ -379,7 +379,7 @@
     </unit>
     <unit id="2688283467752225426">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:297</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:303</note>
       </notes>
       <segment>
         <source>Veröffentlicht</source>
@@ -387,7 +387,7 @@
     </unit>
     <unit id="8691548970191506667">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:303</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:309</note>
       </notes>
       <segment>
         <source>Aufsteigend sortiert</source>
@@ -395,7 +395,7 @@
     </unit>
     <unit id="1947750218509794653">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:309</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:315</note>
       </notes>
       <segment>
         <source>Absteigend sortiert</source>
@@ -403,7 +403,7 @@
     </unit>
     <unit id="2319824520635416840">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:327</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.js:333</note>
       </notes>
       <segment>
         <source>Keine Formulare gefunden</source>
@@ -439,30 +439,6 @@
       </notes>
       <segment>
         <source>Speichern fehlgeschlagen</source>
-      </segment>
-    </unit>
-    <unit id="2137405200624328487">
-      <notes>
-        <note category="location">src/app/fragebogen/details/comment/comment.component.js:83</note>
-      </notes>
-      <segment>
-        <source>Kommentar</source>
-      </segment>
-    </unit>
-    <unit id="6015221729910186784">
-      <notes>
-        <note category="location">src/app/fragebogen/details/comment/comment.component.js:107</note>
-      </notes>
-      <segment>
-        <source>Kommentar speichern</source>
-      </segment>
-    </unit>
-    <unit id="2854123663314832793">
-      <notes>
-        <note category="location">src/app/fragebogen/details/comment/comment.component.js:113</note>
-      </notes>
-      <segment>
-        <source>Speichern</source>
       </segment>
     </unit>
     <unit id="8953940785817491538">
@@ -519,6 +495,30 @@
       </notes>
       <segment>
         <source>Formular teilen</source>
+      </segment>
+    </unit>
+    <unit id="2854123663314832793">
+      <notes>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.js:121</note>
+      </notes>
+      <segment>
+        <source>Speichern</source>
+      </segment>
+    </unit>
+    <unit id="2137405200624328487">
+      <notes>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.js:83</note>
+      </notes>
+      <segment>
+        <source>Kommentar</source>
+      </segment>
+    </unit>
+    <unit id="6015221729910186784">
+      <notes>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.js:107</note>
+      </notes>
+      <segment>
+        <source>Kommentar speichern</source>
       </segment>
     </unit>
     <unit id="3282960248553286648">
@@ -605,7 +605,7 @@
     </unit>
     <unit id="6753318560504296925">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:73</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:76</note>
       </notes>
       <segment>
         <source>Ungültige Eingabe</source>
@@ -613,7 +613,7 @@
     </unit>
     <unit id="4223480731813357720">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:73</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:76</note>
       </notes>
       <segment>
         <source>Bitte generieren Sie nur zwischen 1 und 100 PINs.</source>
@@ -621,7 +621,7 @@
     </unit>
     <unit id="2001137006078143875">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:106</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:117</note>
       </notes>
       <segment>
         <source>Erstellen fehlgeschlagen</source>
@@ -629,7 +629,7 @@
     </unit>
     <unit id="7227765461588462158">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:123</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:134</note>
       </notes>
       <segment>
         <source>PIN Generator</source>
@@ -637,7 +637,7 @@
     </unit>
     <unit id="8610693548852405446">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:141</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:152</note>
       </notes>
       <segment>
         <source>Anzahl PINs</source>
@@ -645,7 +645,7 @@
     </unit>
     <unit id="7897642684892254234">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:147</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:158</note>
       </notes>
       <segment>
         <source>Kopiere PIN(s) in die Zwischenablage</source>
@@ -653,7 +653,7 @@
     </unit>
     <unit id="7650064767892495053">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:153</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.js:164</note>
       </notes>
       <segment>
         <source>PINs erstellen</source>
@@ -661,7 +661,7 @@
     </unit>
     <unit id="2208822168211707034">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:592</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:677</note>
       </notes>
       <segment>
         <source>Formular Details - POWER.NI</source>
@@ -669,7 +669,7 @@
     </unit>
     <unit id="6100299460018469503">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:654</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:739</note>
       </notes>
       <segment>
         <source>Möchten Sie dieses Formular wirklich löschen?</source>
@@ -677,7 +677,7 @@
     </unit>
     <unit id="3249149247481122578">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:660</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:745</note>
       </notes>
       <segment>
         <source>Formular gelöscht</source>
@@ -685,7 +685,7 @@
     </unit>
     <unit id="2182084453272634090">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:660</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:745</note>
       </notes>
       <segment>
         <source>Das Formular wurde erfolgreich gelöscht.</source>
@@ -693,7 +693,7 @@
     </unit>
     <unit id="3149526115468934989">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:664</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:749</note>
       </notes>
       <segment>
         <source>Löschen fehlgeschlagen</source>
@@ -701,7 +701,7 @@
     </unit>
     <unit id="8502469069928490597">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:674,675</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:759,760</note>
       </notes>
       <segment>
         <source>Möchten Sie dieses Formular wirklich archivieren?
@@ -710,7 +710,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4018735454945884382">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:684</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:769</note>
       </notes>
       <segment>
         <source>Formular archiviert</source>
@@ -718,7 +718,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="836974120290109919">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:684</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:769</note>
       </notes>
       <segment>
         <source>Das Formular wurde erfolgreich archiviert.</source>
@@ -726,7 +726,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7962314393644503154">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:687</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:772</note>
       </notes>
       <segment>
         <source>Archivieren fehlgeschlagen</source>
@@ -734,7 +734,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7293756355878993771">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:711</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:796</note>
       </notes>
       <segment>
         <source>Download fehlgeschlagen</source>
@@ -742,7 +742,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2908879179796145625">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:726</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:811</note>
       </notes>
       <segment>
         <source>Möchten Sie diese Antwort wirklich löschen?</source>
@@ -750,7 +750,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6105229413905166645">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:732</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:817</note>
       </notes>
       <segment>
         <source>Antwort gelöscht</source>
@@ -758,7 +758,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4168664506109423502">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:732</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:817</note>
       </notes>
       <segment>
         <source>Die Antwort wurde erfolgreich gelöscht.</source>
@@ -766,7 +766,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3959921924624883384">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:812</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:921</note>
       </notes>
       <segment>
         <source>Zurück zum Dashboard</source>
@@ -774,7 +774,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8930526198656004715">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:818</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:927</note>
       </notes>
       <segment>
         <source>Zurück</source>
@@ -782,7 +782,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8040881171107393560">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:824</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:933</note>
       </notes>
       <segment>
         <source>ID</source>
@@ -790,7 +790,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1133378173705582866">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:830</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:939</note>
       </notes>
       <segment>
         <source>Erstellt</source>
@@ -798,7 +798,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5611592591303869712">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:836</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:945</note>
       </notes>
       <segment>
         <source>Status</source>
@@ -806,7 +806,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3710766590975810780">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:842</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:951</note>
       </notes>
       <segment>
         <source>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</source>
@@ -814,7 +814,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8022684452981881720">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:854</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:963</note>
       </notes>
       <segment>
         <source>Leser</source>
@@ -822,7 +822,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7423544162328062071">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:866</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:975</note>
       </notes>
       <segment>
         <source>Formular Vorschau</source>
@@ -830,7 +830,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8104152103272919854">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:872</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:981</note>
       </notes>
       <segment>
         <source>Vorschau</source>
@@ -838,7 +838,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4517189945274702297">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:878</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:987</note>
       </notes>
       <segment>
         <source>Formular exportieren</source>
@@ -846,7 +846,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="993560666209573635">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:896</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1005</note>
       </notes>
       <segment>
         <source>Archiviert</source>
@@ -854,7 +854,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5028453380651426894">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:902</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1011</note>
       </notes>
       <segment>
         <source>Zugriff</source>
@@ -862,7 +862,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2332375813543028449">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:908</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1017</note>
       </notes>
       <segment>
         <source>Formular bearbeiten</source>
@@ -870,7 +870,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6920196637619975735">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:914</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1023</note>
       </notes>
       <segment>
         <source>Bearbeiten</source>
@@ -878,7 +878,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5895799308050944719">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:920</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1029</note>
       </notes>
       <segment>
         <source>Formular Einstellungen</source>
@@ -886,7 +886,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5070302732354433099">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:944</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1053</note>
       </notes>
       <segment>
         <source>Formular archivieren</source>
@@ -894,7 +894,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6275450215073900352">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:950</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1059</note>
       </notes>
       <segment>
         <source>Archivieren</source>
@@ -902,7 +902,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4085873167168807139">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:956</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1065</note>
       </notes>
       <segment>
         <source>Formular löschen</source>
@@ -910,7 +910,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3643065623582513222">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:968</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1077</note>
       </notes>
       <segment>
         <source>Antworten</source>
@@ -918,7 +918,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5377294052725398895">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:992</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1101</note>
       </notes>
       <segment>
         <source>Zuletzt bearbeitet</source>
@@ -926,7 +926,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8243852995513838598">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1004</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1113</note>
       </notes>
       <segment>
         <source>Ergebnisse als CSV herunterladen</source>
@@ -934,7 +934,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5187026264207776715">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1010</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1119</note>
       </notes>
       <segment>
         <source>Ergebnisse (CSV)</source>
@@ -942,7 +942,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2935871829967083793">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1016</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1137</note>
       </notes>
       <segment>
         <source>PIN</source>
@@ -950,7 +950,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1294029994729525960">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1022</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1155</note>
       </notes>
       <segment>
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</source>
@@ -958,7 +958,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1856659986941989615">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1040</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1173</note>
       </notes>
       <segment>
         <source>Ergebnisse anzeigen</source>
@@ -966,7 +966,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5717311496824649212">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1046</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1179</note>
       </notes>
       <segment>
         <source>Ergebnisse</source>
@@ -974,7 +974,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1451460320963900414">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1052</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1185</note>
       </notes>
       <segment>
         <source>Antwort löschen</source>
@@ -982,7 +982,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2911941681969480793">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1064</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1197</note>
       </notes>
       <segment>
         <source>Keine Antworten vorhanden</source>
@@ -990,7 +990,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2844088667159499341">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.js:1070</note>
+        <note category="location">src/app/fragebogen/details/details.component.js:1203</note>
       </notes>
       <segment>
         <source>Neue PIN erstellen</source>
@@ -1018,6 +1018,670 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Zurücksetzen</source>
+      </segment>
+    </unit>
+    <unit id="5076633116931203629">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:881</note>
+      </notes>
+      <segment>
+        <source>Fragen Einstellungen</source>
+      </segment>
+    </unit>
+    <unit id="2258060347097525516">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:928</note>
+      </notes>
+      <segment>
+        <source>Allgemein</source>
+      </segment>
+    </unit>
+    <unit id="1599145277090237336">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:934</note>
+      </notes>
+      <segment>
+        <source>Fragen ID*</source>
+      </segment>
+    </unit>
+    <unit id="2695337957296458234">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:940</note>
+      </notes>
+      <segment>
+        <source>Dieser Wert muss im Formular einmalig sein. Die ID lässt sich als Variable nutzen, diese enthält die Antwort der Frage:</source>
+      </segment>
+    </unit>
+    <unit id="2802606053829950827">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:946</note>
+      </notes>
+      <segment>
+        <source>Fragen Titel*</source>
+      </segment>
+    </unit>
+    <unit id="8079987278225698865">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:952</note>
+      </notes>
+      <segment>
+        <source>Fragen Beschreibung</source>
+      </segment>
+    </unit>
+    <unit id="4535567108770324879">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:958</note>
+      </notes>
+      <segment>
+        <source>Dieser Text wird unter der Frage angezeigt.</source>
+      </segment>
+    </unit>
+    <unit id="2633103922838468705">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:964</note>
+      </notes>
+      <segment>
+        <source>Pflichtfeld</source>
+      </segment>
+    </unit>
+    <unit id="2465969235242735880">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:970</note>
+      </notes>
+      <segment>
+        <source>Sichtbar</source>
+      </segment>
+    </unit>
+    <unit id="1043150964998466029">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:976</note>
+      </notes>
+      <segment>
+        <source>Diese Option stellt ein, ob das Feld standardmäßig sichtbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="5564872229726777752">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:982</note>
+      </notes>
+      <segment>
+        <source>Deaktiviert</source>
+      </segment>
+    </unit>
+    <unit id="5629269951933356095">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:988</note>
+      </notes>
+      <segment>
+        <source>Diese Option stellt ein, ob das Feld standardmäßig ausfüllbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="1000474965396519246">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:994</note>
+      </notes>
+      <segment>
+        <source>Fragennummer verstecken</source>
+      </segment>
+    </unit>
+    <unit id="696701674056104184">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1000</note>
+      </notes>
+      <segment>
+        <source>Frage startet auf neuer Zeile</source>
+      </segment>
+    </unit>
+    <unit id="2787708308943566133">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1006</note>
+      </notes>
+      <segment>
+        <source>Breite der Frage in Pixel</source>
+      </segment>
+    </unit>
+    <unit id="281433735310730701">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1012</note>
+      </notes>
+      <segment>
+        <source>Standardwert</source>
+      </segment>
+    </unit>
+    <unit id="2721307579039816609">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1018</note>
+      </notes>
+      <segment>
+        <source>Bedingungen</source>
+      </segment>
+    </unit>
+    <unit id="2409494154701983500">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1024</note>
+      </notes>
+      <segment>
+        <source>Sichtbarkeitsbedingung</source>
+      </segment>
+    </unit>
+    <unit id="2123058190140167354">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1030</note>
+      </notes>
+      <segment>
+        <source>Aktivierungsbedingung</source>
+      </segment>
+    </unit>
+    <unit id="5801991604521871701">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1036</note>
+      </notes>
+      <segment>
+        <source>Pflichtbedingung</source>
+      </segment>
+    </unit>
+    <unit id="2909264081763608567">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1042</note>
+      </notes>
+      <segment>
+        <source>Validatoren</source>
+      </segment>
+    </unit>
+    <unit id="2899899258573669142">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1048</note>
+      </notes>
+      <segment>
+        <source>Pflichtfeld Fehlertext</source>
+      </segment>
+    </unit>
+    <unit id="3105030069974657046">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1054</note>
+      </notes>
+      <segment>
+        <source>Kommentar Eingabefeld aktivieren</source>
+      </segment>
+    </unit>
+    <unit id="2282551280196521788">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1060</note>
+      </notes>
+      <segment>
+        <source>Diese Option ist deaktiviert, wenn das &quot;Anderes Eingabefeld&quot; aktiviert ist.</source>
+      </segment>
+    </unit>
+    <unit id="7665047802410449230">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1066</note>
+      </notes>
+      <segment>
+        <source>Kommentar Eingabefeld Text</source>
+      </segment>
+    </unit>
+    <unit id="8648957206736539595">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1072</note>
+      </notes>
+      <segment>
+        <source>Eingabetyp</source>
+      </segment>
+    </unit>
+    <unit id="431976875835451828">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1078</note>
+      </notes>
+      <segment>
+        <source>Farbe</source>
+      </segment>
+    </unit>
+    <unit id="935267939147271845">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1084</note>
+      </notes>
+      <segment>
+        <source>Datum</source>
+      </segment>
+    </unit>
+    <unit id="2278763268677546133">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1090</note>
+      </notes>
+      <segment>
+        <source>Datum &amp; Uhrzeit</source>
+      </segment>
+    </unit>
+    <unit id="8115083664628466958">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1096</note>
+      </notes>
+      <segment>
+        <source>E-Mail</source>
+      </segment>
+    </unit>
+    <unit id="2298141652517601203">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1102</note>
+      </notes>
+      <segment>
+        <source>Monat</source>
+      </segment>
+    </unit>
+    <unit id="8415078453524192234">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1108</note>
+      </notes>
+      <segment>
+        <source>Ganzzahl</source>
+      </segment>
+    </unit>
+    <unit id="681866609203884162">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1114</note>
+      </notes>
+      <segment>
+        <source>Telefonnummer</source>
+      </segment>
+    </unit>
+    <unit id="6162693758764653365">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1120</note>
+      </notes>
+      <segment>
+        <source>Text</source>
+      </segment>
+    </unit>
+    <unit id="7897216764489223339">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1126</note>
+      </notes>
+      <segment>
+        <source>Uhrzeit</source>
+      </segment>
+    </unit>
+    <unit id="2375260419993138758">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1132</note>
+      </notes>
+      <segment>
+        <source>URL</source>
+      </segment>
+    </unit>
+    <unit id="6264380877246584426">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1138</note>
+      </notes>
+      <segment>
+        <source>Woche</source>
+      </segment>
+    </unit>
+    <unit id="2976414078576857994">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1144</note>
+      </notes>
+      <segment>
+        <source>Nicht jede Option wird von allen Webbrowsern unterstützt.</source>
+      </segment>
+    </unit>
+    <unit id="3335825202752630529">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1150</note>
+      </notes>
+      <segment>
+        <source>Zeilen des Eingabefeldes</source>
+      </segment>
+    </unit>
+    <unit id="1783931905141779260">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1156</note>
+      </notes>
+      <segment>
+        <source>Wert Schritte</source>
+      </segment>
+    </unit>
+    <unit id="2884070345504600057">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1162</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext Minimum</source>
+      </segment>
+    </unit>
+    <unit id="3235518685482283884">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1168</note>
+      </notes>
+      <segment>
+        <source>Minimaler Wert</source>
+      </segment>
+    </unit>
+    <unit id="1919934867677848930">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1174</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext Maximum</source>
+      </segment>
+    </unit>
+    <unit id="4044856277132637349">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1180</note>
+      </notes>
+      <segment>
+        <source>Maximaler Wert</source>
+      </segment>
+    </unit>
+    <unit id="7301845257544939728">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1186</note>
+      </notes>
+      <segment>
+        <source>Zusätzliches Eingabefeld aktivieren</source>
+      </segment>
+    </unit>
+    <unit id="5110740723354501274">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1192</note>
+      </notes>
+      <segment>
+        <source>Skala Schritte</source>
+      </segment>
+    </unit>
+    <unit id="5306332341695056473">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1210</note>
+      </notes>
+      <segment>
+        <source>Nachkommastellen</source>
+      </segment>
+    </unit>
+    <unit id="3406135397633818536">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1216</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext links</source>
+      </segment>
+    </unit>
+    <unit id="5558176899213566695">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1222</note>
+      </notes>
+      <segment>
+        <source>Anzeigetext rechts</source>
+      </segment>
+    </unit>
+    <unit id="4037439038235710994">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1228</note>
+      </notes>
+      <segment>
+        <source>Mehrere Dateien erlauben</source>
+      </segment>
+    </unit>
+    <unit id="4242082417573669453">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1234</note>
+      </notes>
+      <segment>
+        <source>Erlaubte Dateitypen</source>
+      </segment>
+    </unit>
+    <unit id="4465613126133133953">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1240</note>
+      </notes>
+      <segment>
+        <source>PDF-Dokumente</source>
+      </segment>
+    </unit>
+    <unit id="9045290048674217310">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1246</note>
+      </notes>
+      <segment>
+        <source>Bilder</source>
+      </segment>
+    </unit>
+    <unit id="924135540804019092">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1252</note>
+      </notes>
+      <segment>
+        <source>Maximale Dateigröße in Bytes</source>
+      </segment>
+    </unit>
+    <unit id="2009978670427997964">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1264</note>
+      </notes>
+      <segment>
+        <source>Korrekte Antwort (Quiz)</source>
+      </segment>
+    </unit>
+    <unit id="3779344425702119911">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1270</note>
+      </notes>
+      <segment>
+        <source>Unterfragen</source>
+      </segment>
+    </unit>
+    <unit id="4793302653467568534">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1282</note>
+      </notes>
+      <segment>
+        <source>Jede Unterfrage ist Pflichtfeld</source>
+      </segment>
+    </unit>
+    <unit id="5373486674031991069">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1288</note>
+      </notes>
+      <segment>
+        <source>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</source>
+      </segment>
+    </unit>
+    <unit id="7227476185175598244">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1294</note>
+      </notes>
+      <segment>
+        <source>Unsichtbar ohne sichtbare Fragen</source>
+      </segment>
+    </unit>
+    <unit id="2879018139997145543">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1300</note>
+      </notes>
+      <segment>
+        <source>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgeblendet.</source>
+      </segment>
+    </unit>
+    <unit id="6882061501622662520">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1306</note>
+      </notes>
+      <segment>
+        <source>Unterfragen Reihenfolge</source>
+      </segment>
+    </unit>
+    <unit id="276184332300045619">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1312</note>
+      </notes>
+      <segment>
+        <source>Wie definiert</source>
+      </segment>
+    </unit>
+    <unit id="5748078469472297200">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1318</note>
+      </notes>
+      <segment>
+        <source>Zufällig</source>
+      </segment>
+    </unit>
+    <unit id="3410376041034296385">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1324</note>
+      </notes>
+      <segment>
+        <source>Unterfrage Sichtbarkeitsbedingung</source>
+      </segment>
+    </unit>
+    <unit id="2918457483295577227">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1330</note>
+      </notes>
+      <segment>
+        <source>Antwortmöglichkeiten</source>
+      </segment>
+    </unit>
+    <unit id="6756465483742901259">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1342</note>
+      </notes>
+      <segment>
+        <source>Unsichtbar ohne sichtbare Antworten</source>
+      </segment>
+    </unit>
+    <unit id="1824561744575281085">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1348</note>
+      </notes>
+      <segment>
+        <source>Sind alle Antworten unsichtbar, dann wird die Frage ausgeblendet.</source>
+      </segment>
+    </unit>
+    <unit id="3740504915156757002">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1354</note>
+      </notes>
+      <segment>
+        <source>Darstellung in Spalten</source>
+      </segment>
+    </unit>
+    <unit id="8079868020998407724">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1360</note>
+      </notes>
+      <segment>
+        <source>Antworten Reihenfolge</source>
+      </segment>
+    </unit>
+    <unit id="1855713545021520634">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1390</note>
+      </notes>
+      <segment>
+        <source>Antwortbedingungen</source>
+      </segment>
+    </unit>
+    <unit id="8045928720268721680">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1396</note>
+      </notes>
+      <segment>
+        <source>Anderes Eingabefeld aktivieren</source>
+      </segment>
+    </unit>
+    <unit id="2772784062511473861">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1402</note>
+      </notes>
+      <segment>
+        <source>Diese Option ist deaktiviert, wenn das &quot;Kommentar Eingabefeld&quot; aktiviert ist.</source>
+      </segment>
+    </unit>
+    <unit id="2412317594447763128">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1408</note>
+      </notes>
+      <segment>
+        <source>Zeige Knopf um Auswahl rückgängig zu machen</source>
+      </segment>
+    </unit>
+    <unit id="4799237165177498998">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1414</note>
+      </notes>
+      <segment>
+        <source>Zeige Knopf um alles auszuwählen</source>
+      </segment>
+    </unit>
+    <unit id="7915859704986171168">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1420</note>
+      </notes>
+      <segment>
+        <source>Zeige Knopf für nichts trifft zu</source>
+      </segment>
+    </unit>
+    <unit id="2158488422074241298">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1426</note>
+      </notes>
+      <segment>
+        <source>Mehrfachauswahl erlauben</source>
+      </segment>
+    </unit>
+    <unit id="7096759547174459513">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1432</note>
+      </notes>
+      <segment>
+        <source>Breite in Pixel</source>
+      </segment>
+    </unit>
+    <unit id="6463726515236192057">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1438</note>
+      </notes>
+      <segment>
+        <source>Höhe in Pixel</source>
+      </segment>
+    </unit>
+    <unit id="3681264497760339705">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1444</note>
+      </notes>
+      <segment>
+        <source>Größenanpassung</source>
+      </segment>
+    </unit>
+    <unit id="4728532590739893418">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1450</note>
+      </notes>
+      <segment>
+        <source>Keine Anpassung</source>
+      </segment>
+    </unit>
+    <unit id="4710626519203410106">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1456</note>
+      </notes>
+      <segment>
+        <source>Verkleinern</source>
+      </segment>
+    </unit>
+    <unit id="7766735261673100646">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1462</note>
+      </notes>
+      <segment>
+        <source>Abschneiden</source>
+      </segment>
+    </unit>
+    <unit id="2067326968798044785">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1468</note>
+      </notes>
+      <segment>
+        <source>Füllen</source>
       </segment>
     </unit>
     <unit id="5327356321137513330">
@@ -1092,665 +1756,9 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Bild Hochladen</source>
       </segment>
     </unit>
-    <unit id="5076633116931203629">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:871</note>
-      </notes>
-      <segment>
-        <source>Fragen Einstellungen</source>
-      </segment>
-    </unit>
-    <unit id="2258060347097525516">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:918</note>
-      </notes>
-      <segment>
-        <source>Allgemein</source>
-      </segment>
-    </unit>
-    <unit id="1599145277090237336">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:924</note>
-      </notes>
-      <segment>
-        <source>Fragen ID*</source>
-      </segment>
-    </unit>
-    <unit id="2695337957296458234">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:930</note>
-      </notes>
-      <segment>
-        <source>Dieser Wert muss im Formular einmalig sein. Die ID lässt sich als Variable nutzen, diese enthält die Antwort der Frage:</source>
-      </segment>
-    </unit>
-    <unit id="2802606053829950827">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:936</note>
-      </notes>
-      <segment>
-        <source>Fragen Titel*</source>
-      </segment>
-    </unit>
-    <unit id="8079987278225698865">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:942</note>
-      </notes>
-      <segment>
-        <source>Fragen Beschreibung</source>
-      </segment>
-    </unit>
-    <unit id="4535567108770324879">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:948</note>
-      </notes>
-      <segment>
-        <source>Dieser Text wird unter der Frage angezeigt.</source>
-      </segment>
-    </unit>
-    <unit id="2633103922838468705">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:954</note>
-      </notes>
-      <segment>
-        <source>Pflichtfeld</source>
-      </segment>
-    </unit>
-    <unit id="2465969235242735880">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:960</note>
-      </notes>
-      <segment>
-        <source>Sichtbar</source>
-      </segment>
-    </unit>
-    <unit id="1043150964998466029">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:966</note>
-      </notes>
-      <segment>
-        <source>Diese Option stellt ein, ob das Feld standardmäßig sichtbar ist.</source>
-      </segment>
-    </unit>
-    <unit id="5564872229726777752">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:972</note>
-      </notes>
-      <segment>
-        <source>Deaktiviert</source>
-      </segment>
-    </unit>
-    <unit id="9162015597708518866">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:978</note>
-      </notes>
-      <segment>
-        <source>Diese Option stellt ein, ob das Feld standartmäßig ausfüllbar ist.</source>
-      </segment>
-    </unit>
-    <unit id="1000474965396519246">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:984</note>
-      </notes>
-      <segment>
-        <source>Fragennummer verstecken</source>
-      </segment>
-    </unit>
-    <unit id="696701674056104184">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:990</note>
-      </notes>
-      <segment>
-        <source>Frage startet auf neuer Zeile</source>
-      </segment>
-    </unit>
-    <unit id="2787708308943566133">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:996</note>
-      </notes>
-      <segment>
-        <source>Breite der Frage in Pixel</source>
-      </segment>
-    </unit>
-    <unit id="281433735310730701">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1002</note>
-      </notes>
-      <segment>
-        <source>Standardwert</source>
-      </segment>
-    </unit>
-    <unit id="2721307579039816609">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1008</note>
-      </notes>
-      <segment>
-        <source>Bedingungen</source>
-      </segment>
-    </unit>
-    <unit id="2409494154701983500">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1014</note>
-      </notes>
-      <segment>
-        <source>Sichtbarkeitsbedingung</source>
-      </segment>
-    </unit>
-    <unit id="2123058190140167354">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1020</note>
-      </notes>
-      <segment>
-        <source>Aktivierungsbedingung</source>
-      </segment>
-    </unit>
-    <unit id="5801991604521871701">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1026</note>
-      </notes>
-      <segment>
-        <source>Pflichtbedingung</source>
-      </segment>
-    </unit>
-    <unit id="2909264081763608567">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1032</note>
-      </notes>
-      <segment>
-        <source>Validatoren</source>
-      </segment>
-    </unit>
-    <unit id="2899899258573669142">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1038</note>
-      </notes>
-      <segment>
-        <source>Pflichtfeld Fehlertext</source>
-      </segment>
-    </unit>
-    <unit id="3105030069974657046">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1044</note>
-      </notes>
-      <segment>
-        <source>Kommentar Eingabefeld aktivieren</source>
-      </segment>
-    </unit>
-    <unit id="2282551280196521788">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1050</note>
-      </notes>
-      <segment>
-        <source>Diese Option ist deaktiviert, wenn das &quot;Anderes Eingabefeld&quot; aktiviert ist.</source>
-      </segment>
-    </unit>
-    <unit id="7665047802410449230">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1056</note>
-      </notes>
-      <segment>
-        <source>Kommentar Eingabefeld Text</source>
-      </segment>
-    </unit>
-    <unit id="8648957206736539595">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1062</note>
-      </notes>
-      <segment>
-        <source>Eingabetyp</source>
-      </segment>
-    </unit>
-    <unit id="431976875835451828">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1068</note>
-      </notes>
-      <segment>
-        <source>Farbe</source>
-      </segment>
-    </unit>
-    <unit id="935267939147271845">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1074</note>
-      </notes>
-      <segment>
-        <source>Datum</source>
-      </segment>
-    </unit>
-    <unit id="2278763268677546133">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1080</note>
-      </notes>
-      <segment>
-        <source>Datum &amp; Uhrzeit</source>
-      </segment>
-    </unit>
-    <unit id="8115083664628466958">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1086</note>
-      </notes>
-      <segment>
-        <source>E-Mail</source>
-      </segment>
-    </unit>
-    <unit id="2298141652517601203">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1092</note>
-      </notes>
-      <segment>
-        <source>Monat</source>
-      </segment>
-    </unit>
-    <unit id="8415078453524192234">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1098</note>
-      </notes>
-      <segment>
-        <source>Ganzzahl</source>
-      </segment>
-    </unit>
-    <unit id="681866609203884162">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1104</note>
-      </notes>
-      <segment>
-        <source>Telefonnummer</source>
-      </segment>
-    </unit>
-    <unit id="6162693758764653365">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1110</note>
-      </notes>
-      <segment>
-        <source>Text</source>
-      </segment>
-    </unit>
-    <unit id="7897216764489223339">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1116</note>
-      </notes>
-      <segment>
-        <source>Uhrzeit</source>
-      </segment>
-    </unit>
-    <unit id="2375260419993138758">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1122</note>
-      </notes>
-      <segment>
-        <source>URL</source>
-      </segment>
-    </unit>
-    <unit id="6264380877246584426">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1128</note>
-      </notes>
-      <segment>
-        <source>Woche</source>
-      </segment>
-    </unit>
-    <unit id="2976414078576857994">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1134</note>
-      </notes>
-      <segment>
-        <source>Nicht jede Option wird von allen Webbrowsern unterstützt.</source>
-      </segment>
-    </unit>
-    <unit id="3335825202752630529">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1140</note>
-      </notes>
-      <segment>
-        <source>Zeilen des Eingabefeldes</source>
-      </segment>
-    </unit>
-    <unit id="1783931905141779260">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1146</note>
-      </notes>
-      <segment>
-        <source>Wert Schritte</source>
-      </segment>
-    </unit>
-    <unit id="2884070345504600057">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1152</note>
-      </notes>
-      <segment>
-        <source>Anzeigetext Minimum</source>
-      </segment>
-    </unit>
-    <unit id="3235518685482283884">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1158</note>
-      </notes>
-      <segment>
-        <source>Minimaler Wert</source>
-      </segment>
-    </unit>
-    <unit id="1919934867677848930">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1164</note>
-      </notes>
-      <segment>
-        <source>Anzeigetext Maximum</source>
-      </segment>
-    </unit>
-    <unit id="4044856277132637349">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1170</note>
-      </notes>
-      <segment>
-        <source>Maximaler Wert</source>
-      </segment>
-    </unit>
-    <unit id="5110740723354501274">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1176</note>
-      </notes>
-      <segment>
-        <source>Skala Schritte</source>
-      </segment>
-    </unit>
-    <unit id="5306332341695056473">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1194</note>
-      </notes>
-      <segment>
-        <source>Nachkommastellen</source>
-      </segment>
-    </unit>
-    <unit id="3406135397633818536">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1200</note>
-      </notes>
-      <segment>
-        <source>Anzeigetext links</source>
-      </segment>
-    </unit>
-    <unit id="5558176899213566695">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1206</note>
-      </notes>
-      <segment>
-        <source>Anzeigetext rechts</source>
-      </segment>
-    </unit>
-    <unit id="4037439038235710994">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1212</note>
-      </notes>
-      <segment>
-        <source>Mehrere Dateien erlauben</source>
-      </segment>
-    </unit>
-    <unit id="4242082417573669453">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1218</note>
-      </notes>
-      <segment>
-        <source>Erlaubte Dateitypen</source>
-      </segment>
-    </unit>
-    <unit id="4465613126133133953">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1224</note>
-      </notes>
-      <segment>
-        <source>PDF-Dokumente</source>
-      </segment>
-    </unit>
-    <unit id="9045290048674217310">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1230</note>
-      </notes>
-      <segment>
-        <source>Bilder</source>
-      </segment>
-    </unit>
-    <unit id="924135540804019092">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1236</note>
-      </notes>
-      <segment>
-        <source>Maximale Dateigröße in Bytes</source>
-      </segment>
-    </unit>
-    <unit id="2009978670427997964">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1248</note>
-      </notes>
-      <segment>
-        <source>Korrekte Antwort (Quiz)</source>
-      </segment>
-    </unit>
-    <unit id="3779344425702119911">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1254</note>
-      </notes>
-      <segment>
-        <source>Unterfragen</source>
-      </segment>
-    </unit>
-    <unit id="4793302653467568534">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1266</note>
-      </notes>
-      <segment>
-        <source>Jede Unterfrage ist Pflichtfeld</source>
-      </segment>
-    </unit>
-    <unit id="5373486674031991069">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1272</note>
-      </notes>
-      <segment>
-        <source>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</source>
-      </segment>
-    </unit>
-    <unit id="7227476185175598244">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1278</note>
-      </notes>
-      <segment>
-        <source>Unsichtbar ohne sichtbare Fragen</source>
-      </segment>
-    </unit>
-    <unit id="2879018139997145543">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1284</note>
-      </notes>
-      <segment>
-        <source>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgeblendet.</source>
-      </segment>
-    </unit>
-    <unit id="6882061501622662520">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1290</note>
-      </notes>
-      <segment>
-        <source>Unterfragen Reihenfolge</source>
-      </segment>
-    </unit>
-    <unit id="276184332300045619">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1296</note>
-      </notes>
-      <segment>
-        <source>Wie definiert</source>
-      </segment>
-    </unit>
-    <unit id="5748078469472297200">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1302</note>
-      </notes>
-      <segment>
-        <source>Zufällig</source>
-      </segment>
-    </unit>
-    <unit id="3410376041034296385">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1308</note>
-      </notes>
-      <segment>
-        <source>Unterfrage Sichtbarkeitsbedingung</source>
-      </segment>
-    </unit>
-    <unit id="2918457483295577227">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1314</note>
-      </notes>
-      <segment>
-        <source>Antwortmöglichkeiten</source>
-      </segment>
-    </unit>
-    <unit id="6756465483742901259">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1326</note>
-      </notes>
-      <segment>
-        <source>Unsichtbar ohne sichtbare Antworten</source>
-      </segment>
-    </unit>
-    <unit id="1824561744575281085">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1332</note>
-      </notes>
-      <segment>
-        <source>Sind alle Antworten unsichtbar, dann wird die Frage ausgeblendet.</source>
-      </segment>
-    </unit>
-    <unit id="3740504915156757002">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1338</note>
-      </notes>
-      <segment>
-        <source>Darstellung in Spalten</source>
-      </segment>
-    </unit>
-    <unit id="8079868020998407724">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1344</note>
-      </notes>
-      <segment>
-        <source>Antworten Reihenfolge</source>
-      </segment>
-    </unit>
-    <unit id="1855713545021520634">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1374</note>
-      </notes>
-      <segment>
-        <source>Antwortbedingungen</source>
-      </segment>
-    </unit>
-    <unit id="8045928720268721680">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1380</note>
-      </notes>
-      <segment>
-        <source>Anderes Eingabefeld aktivieren</source>
-      </segment>
-    </unit>
-    <unit id="2772784062511473861">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1386</note>
-      </notes>
-      <segment>
-        <source>Diese Option ist deaktiviert, wenn das &quot;Kommentar Eingabefeld&quot; aktiviert ist.</source>
-      </segment>
-    </unit>
-    <unit id="2412317594447763128">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1392</note>
-      </notes>
-      <segment>
-        <source>Zeige Knopf um Auswahl rückgängig zu machen</source>
-      </segment>
-    </unit>
-    <unit id="4799237165177498998">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1398</note>
-      </notes>
-      <segment>
-        <source>Zeige Knopf um alles auszuwählen</source>
-      </segment>
-    </unit>
-    <unit id="7915859704986171168">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1404</note>
-      </notes>
-      <segment>
-        <source>Zeige Knopf für nichts trifft zu</source>
-      </segment>
-    </unit>
-    <unit id="2158488422074241298">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1410</note>
-      </notes>
-      <segment>
-        <source>Mehrfachauswahl erlauben</source>
-      </segment>
-    </unit>
-    <unit id="7096759547174459513">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1416</note>
-      </notes>
-      <segment>
-        <source>Breite in Pixel</source>
-      </segment>
-    </unit>
-    <unit id="6463726515236192057">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1422</note>
-      </notes>
-      <segment>
-        <source>Höhe in Pixel</source>
-      </segment>
-    </unit>
-    <unit id="3681264497760339705">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1428</note>
-      </notes>
-      <segment>
-        <source>Größenanpassung</source>
-      </segment>
-    </unit>
-    <unit id="4728532590739893418">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1434</note>
-      </notes>
-      <segment>
-        <source>Keine Anpassung</source>
-      </segment>
-    </unit>
-    <unit id="4710626519203410106">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1440</note>
-      </notes>
-      <segment>
-        <source>Verkleinern</source>
-      </segment>
-    </unit>
-    <unit id="7766735261673100646">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1446</note>
-      </notes>
-      <segment>
-        <source>Abschneiden</source>
-      </segment>
-    </unit>
-    <unit id="2067326968798044785">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.js:1452</note>
-      </notes>
-      <segment>
-        <source>Füllen</source>
-      </segment>
-    </unit>
     <unit id="3020287547382707558">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:680</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:687</note>
       </notes>
       <segment>
         <source>Formular Titel*</source>
@@ -1758,7 +1766,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8617378541577598232">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:686</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:693</note>
       </notes>
       <segment>
         <source>Formular Titel</source>
@@ -1766,7 +1774,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4100707199422330681">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:692</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:699</note>
       </notes>
       <segment>
         <source>Titel anzeigen</source>
@@ -1774,7 +1782,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3833317435714673084">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:698</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:705</note>
       </notes>
       <segment>
         <source>Formular Beschreibung</source>
@@ -1782,7 +1790,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1760256603507464336">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:704</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:711</note>
       </notes>
       <segment>
         <source>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</source>
@@ -1790,7 +1798,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5666267213246612821">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:710</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:717</note>
       </notes>
       <segment>
         <source>Standardsprache</source>
@@ -1798,7 +1806,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1294910383430489999">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:716</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:723</note>
       </notes>
       <segment>
         <source>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
@@ -1806,7 +1814,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1372482459728345325">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:722</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:729</note>
       </notes>
       <segment>
         <source>Fragen Nummerierung</source>
@@ -1814,7 +1822,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8481579963208403613">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:728</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:735</note>
       </notes>
       <segment>
         <source>Durchgängig nummerieren</source>
@@ -1822,7 +1830,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3639076766141137848">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:734</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:741</note>
       </notes>
       <segment>
         <source>Seitenweise nummerieren</source>
@@ -1830,7 +1838,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2434918029138704338">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:740</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:747</note>
       </notes>
       <segment>
         <source>Keine Nummern anzeigen</source>
@@ -1838,7 +1846,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9158296968384637533">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:746</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:753</note>
       </notes>
       <segment>
         <source>Fragen Reihenfolge</source>
@@ -1846,7 +1854,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3821562361871225487">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:764</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:771</note>
       </notes>
       <segment>
         <source>Abschlusstext*</source>
@@ -1854,7 +1862,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7027469161598572792">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:770</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:777</note>
       </notes>
       <segment>
         <source>Umleitungs URL</source>
@@ -1862,7 +1870,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="330655507364677006">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:776</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:783</note>
       </notes>
       <segment>
         <source>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</source>
@@ -1870,7 +1878,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4550958265168690830">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:782</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:789</note>
       </notes>
       <segment>
         <source>Logo</source>
@@ -1878,7 +1886,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5229120071979656638">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:788</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:795</note>
       </notes>
       <segment>
         <source>Formular Logo</source>
@@ -1886,7 +1894,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2501314743594284688">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:794</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:801</note>
       </notes>
       <segment>
         <source>Eine URL zu einem Logo angeben.</source>
@@ -1894,7 +1902,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1172866303261737245">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:800</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:807</note>
       </notes>
       <segment>
         <source>Position</source>
@@ -1902,7 +1910,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5556435091490236322">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:806</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:813</note>
       </notes>
       <segment>
         <source>Nicht anzeigen</source>
@@ -1910,7 +1918,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7565716024468232322">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:812</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:819</note>
       </notes>
       <segment>
         <source>Links</source>
@@ -1918,7 +1926,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2593178093887078258">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:818</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:825</note>
       </notes>
       <segment>
         <source>Rechts</source>
@@ -1926,7 +1934,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7729339462879047946">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:824</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:831</note>
       </notes>
       <segment>
         <source>Oben</source>
@@ -1934,7 +1942,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6261398890082020172">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:830</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:837</note>
       </notes>
       <segment>
         <source>Unten</source>
@@ -1942,7 +1950,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1348774649041038169">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:878</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:885</note>
       </notes>
       <segment>
         <source>Navigation</source>
@@ -1950,7 +1958,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3791397886649466581">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:884</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:891</note>
       </notes>
       <segment>
         <source>Erste Seite ist Startseite</source>
@@ -1958,7 +1966,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2082107161153819759">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:890</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:897</note>
       </notes>
       <segment>
         <source>Die erste Seite erhält einen Start Button für das Formular.</source>
@@ -1966,7 +1974,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6178833123766704127">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:896</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:903</note>
       </notes>
       <segment>
         <source>Zurück Button erlauben</source>
@@ -1974,7 +1982,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7695508861104987850">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:902</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:909</note>
       </notes>
       <segment>
         <source>Nächste Seite automatisch öffnen</source>
@@ -1982,7 +1990,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8766608425941978130">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:908</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:915</note>
       </notes>
       <segment>
         <source>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</source>
@@ -1990,7 +1998,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8815755568322473340">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:914</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:921</note>
       </notes>
       <segment>
         <source>Vorschau vor dem absenden</source>
@@ -1998,7 +2006,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4048724896199851116">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:920</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:927</note>
       </notes>
       <segment>
         <source>Keine Vorschau</source>
@@ -2006,7 +2014,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3116521044657277687">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:926</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:933</note>
       </notes>
       <segment>
         <source>Alle Fragen</source>
@@ -2014,7 +2022,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8088636398432806268">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:932</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:939</note>
       </notes>
       <segment>
         <source>Alle ausgefüllten Fragen</source>
@@ -2022,7 +2030,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="838952338592474932">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:938</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:945</note>
       </notes>
       <segment>
         <source>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular final absendet.</source>
@@ -2030,7 +2038,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9183727284848549860">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:944</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:951</note>
       </notes>
       <segment>
         <source>Fortschrittsbalken Anzeigen</source>
@@ -2038,7 +2046,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4185383975352174936">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:968</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:975</note>
       </notes>
       <segment>
         <source>Oben und unten</source>
@@ -2046,7 +2054,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="503802866275364170">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:974</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:981</note>
       </notes>
       <segment>
         <source>Fortschrittsbalken Berechnung</source>
@@ -2054,7 +2062,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5884518565866049278">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:980</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:987</note>
       </notes>
       <segment>
         <source>Sichtbare Seiten</source>
@@ -2062,7 +2070,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8170033538072466570">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:986</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:993</note>
       </notes>
       <segment>
         <source>Sichtbare Pflichtfragen</source>
@@ -2070,7 +2078,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6268991995109043706">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:992</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:999</note>
       </notes>
       <segment>
         <source>Alle sichtbaren Fragen</source>
@@ -2078,7 +2086,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4672431604235348857">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:998</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1005</note>
       </notes>
       <segment>
         <source>Korrekt beantwortete Fragen (Quiz)</source>
@@ -2086,7 +2094,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="235619957920177805">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1004</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1011</note>
       </notes>
       <segment>
         <source>Seiten</source>
@@ -2094,7 +2102,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8842099329146114445">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1010</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1017</note>
       </notes>
       <segment>
         <source>Timer/Quiz</source>
@@ -2102,7 +2110,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1939472793559014594">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1016</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1023</note>
       </notes>
       <segment>
         <source>Zeitlimit in Sekunden für das Formular</source>
@@ -2110,7 +2118,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2813735869096234149">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1022</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1029</note>
       </notes>
       <segment>
         <source>Zeitlimit in Sekunden pro Seite</source>
@@ -2118,7 +2126,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7133964056789991209">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1028</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1035</note>
       </notes>
       <segment>
         <source>Zeitlimit anzeigen</source>
@@ -2126,7 +2134,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2491849397970098376">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1052</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1059</note>
       </notes>
       <segment>
         <source>Timer anzeigen</source>
@@ -2134,7 +2142,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8224626603237394009">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1058</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1065</note>
       </notes>
       <segment>
         <source>Zeit auf dieser Seite und das gesamte Formular</source>
@@ -2142,7 +2150,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3070058222143457362">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1064</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1071</note>
       </notes>
       <segment>
         <source>Zeit auf dieser Seite</source>
@@ -2150,7 +2158,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5906479838476211239">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1070</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1077</note>
       </notes>
       <segment>
         <source>Zeit für das gesamte Formular</source>
@@ -2158,7 +2166,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3653220996715334574">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1076</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1083</note>
       </notes>
       <segment>
         <source>Seite <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></source>
@@ -2166,7 +2174,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2471765562897109795">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1106</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1113</note>
       </notes>
       <segment>
         <source>Seiten Titel</source>
@@ -2174,7 +2182,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6320380037348531310">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1118</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1125</note>
       </notes>
       <segment>
         <source>Seiten Beschreibung</source>
@@ -2182,55 +2190,55 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2798807656507405918">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1130</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1137</note>
       </notes>
       <segment>
         <source>Standard</source>
       </segment>
     </unit>
-    <unit id="2754127055396942427">
+    <unit id="7620481386125449624">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1148</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1155</note>
       </notes>
       <segment>
-        <source>Diese Option überschreibt den Standartwert aus dem Reiter Allgemein.</source>
+        <source>Diese Option überschreibt den Standardwert aus dem Reiter Allgemein.</source>
       </segment>
     </unit>
-    <unit id="5432777547261246934">
+    <unit id="4418869254061112387">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1160</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1167</note>
       </notes>
       <segment>
-        <source>Diese Option stellt ein, ob die Seite standartmäßig sichtbar ist.</source>
+        <source>Diese Option stellt ein, ob die Seite standardmäßig sichtbar ist.</source>
       </segment>
     </unit>
-    <unit id="8420686038797049082">
+    <unit id="3393167416522495063">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1172</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1179</note>
       </notes>
       <segment>
-        <source>Diese Option stellt ein, ob die Seite standartmäßig ausfüllbar ist.</source>
+        <source>Diese Option stellt ein, ob die Seite standardmäßig ausfüllbar ist.</source>
       </segment>
     </unit>
     <unit id="7030772613006934299">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1178</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1185</note>
       </notes>
       <segment>
         <source>Zeitlimit in Sekunden für die Seite</source>
       </segment>
     </unit>
-    <unit id="7782976948258383259">
+    <unit id="5288017806656387875">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1184</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.js:1191</note>
       </notes>
       <segment>
-        <source>Diese Option überschreibt den Standartwert pro Seite aus dem Reiter Timer/Quiz.</source>
+        <source>Diese Option überschreibt den Standardwert pro Seite aus dem Reiter Timer/Quiz.</source>
       </segment>
     </unit>
     <unit id="4723836104354899512">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:224</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:273</note>
       </notes>
       <segment>
         <source>Formular Editor - POWER.NI</source>
@@ -2238,7 +2246,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1846940666050448274">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:542</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:615</note>
       </notes>
       <segment>
         <source>Möchten Sie diese Seite wirklich löschen?</source>
@@ -2246,7 +2254,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4083098439898145242">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:616</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:689</note>
       </notes>
       <segment>
         <source>Erfolgreich kopiert</source>
@@ -2254,7 +2262,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6844731081276396216">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:616</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:689</note>
       </notes>
       <segment>
         <source>Sie finden Ihre Zwischenablage ganz unten in der Toolbox.</source>
@@ -2262,15 +2270,63 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="827004122415134621">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:640</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:713</note>
       </notes>
       <segment>
         <source>Möchten Sie das Element wirklich löschen?</source>
       </segment>
     </unit>
+    <unit id="7703604397816691419">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:796</note>
+      </notes>
+      <segment>
+        <source>Favoriten hinzugefügt</source>
+      </segment>
+    </unit>
+    <unit id="6554859241404673322">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:796</note>
+      </notes>
+      <segment>
+        <source>Die Frage wurde erfolgreich als Favoriten hinzugefügt.</source>
+      </segment>
+    </unit>
+    <unit id="3725407762902324146">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:798</note>
+      </notes>
+      <segment>
+        <source>Favoriten hinzufügen fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="8790959798803024488">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:823</note>
+      </notes>
+      <segment>
+        <source>Favoriten gelöscht</source>
+      </segment>
+    </unit>
+    <unit id="8437124138358195643">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:823</note>
+      </notes>
+      <segment>
+        <source>Die Frage wurde erfolgreich aus den Favoriten entfernt.</source>
+      </segment>
+    </unit>
+    <unit id="5857557357218947756">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:825</note>
+      </notes>
+      <segment>
+        <source>Favorite löschen fehlgeschlagen</source>
+      </segment>
+    </unit>
     <unit id="8213233138195056757">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:703</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:858</note>
       </notes>
       <segment>
         <source>Toolbox</source>
@@ -2278,7 +2334,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4459038419001492449">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:709</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:864</note>
       </notes>
       <segment>
         <source>Favoriten</source>
@@ -2286,7 +2342,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9011837343127283352">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:715</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:870</note>
       </notes>
       <segment>
         <source>Formular page navigation</source>
@@ -2294,7 +2350,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1557196698790782207">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:721</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:876</note>
       </notes>
       <segment>
         <source>Neue Seite hinzufügen</source>
@@ -2302,7 +2358,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5744410059698672022">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:733</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:888</note>
       </notes>
       <segment>
         <source>Ausgewählte Seite löschen</source>
@@ -2310,7 +2366,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="457974053481573035">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:745</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:900</note>
       </notes>
       <segment>
         <source>Letzte Änderung wiederholen</source>
@@ -2318,7 +2374,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9184754693751559474">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:757</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:912</note>
       </notes>
       <segment>
         <source>Letzte Änderung rückgängig machen</source>
@@ -2326,7 +2382,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8074982956026936752">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:769</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:924</note>
       </notes>
       <segment>
         <source>Formular Einstellungen öffnen</source>
@@ -2334,7 +2390,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1984014520885532931">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:781</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:936</note>
       </notes>
       <segment>
         <source>Formular Vorschau öffnen</source>
@@ -2342,7 +2398,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1757132388528868196">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:793</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:948</note>
       </notes>
       <segment>
         <source>Formular speichern</source>
@@ -2350,7 +2406,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="90895410484051873">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:805</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:960</note>
       </notes>
       <segment>
         <source>Zurück zu den Details</source>
@@ -2358,15 +2414,23 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8696865147554603290">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:817</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:972</note>
       </notes>
       <segment>
         <source>Zwischenablage</source>
       </segment>
     </unit>
+    <unit id="9065639806315315313">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:984</note>
+      </notes>
+      <segment>
+        <source>Sie haben keine Favoriten</source>
+      </segment>
+    </unit>
     <unit id="5063140447217153857">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:829</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:990</note>
       </notes>
       <segment>
         <source>Zeige Seite <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></source>
@@ -2374,7 +2438,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3225144225680546881">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:835</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:996</note>
       </notes>
       <segment>
         <source>Ziehen Sie etwas in den Arbeitsbereich...</source>
@@ -2382,7 +2446,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7897211246412919659">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:841</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:1002</note>
       </notes>
       <segment>
         <source>Verschieben</source>
@@ -2390,7 +2454,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6421015407864399648">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:877</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:1038</note>
       </notes>
       <segment>
         <source>Kopieren</source>
@@ -2398,10 +2462,18 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9141378190271389476">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.js:889</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:1074</note>
       </notes>
       <segment>
         <source>Als Favoriten speichern</source>
+      </segment>
+    </unit>
+    <unit id="7055050626756411310">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.js:1086</note>
+      </notes>
+      <segment>
+        <source>Favoriten löschen</source>
       </segment>
     </unit>
     <unit id="8852250703686567498">
@@ -2486,7 +2558,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6075502696052235124">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:834</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:847</note>
       </notes>
       <segment>
         <source>Status: Alle</source>
@@ -2494,7 +2566,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7386041263711688644">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:840</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:853</note>
       </notes>
       <segment>
         <source>Status: Erstellt</source>
@@ -2502,7 +2574,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1570500676393057586">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:846</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:859</note>
       </notes>
       <segment>
         <source>Status: In Bearbeitung</source>
@@ -2510,7 +2582,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2913904211707162832">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:852</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:865</note>
       </notes>
       <segment>
         <source>Status: Abgeschlossen</source>
@@ -2518,7 +2590,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2418500321333956842">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:864</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:877</note>
       </notes>
       <segment>
         <source>Formular</source>
@@ -2526,7 +2598,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3906234135081295833">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:882</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:895</note>
       </notes>
       <segment>
         <source>Abgeschlossen</source>
@@ -2534,7 +2606,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8999417070988208750">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:930</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:943</note>
       </notes>
       <segment>
         <source>Formular öffnen</source>
@@ -2542,7 +2614,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1875629595072033230">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:942</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:955</note>
       </notes>
       <segment>
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</source>
@@ -2550,7 +2622,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8902031064230548096">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:972</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:985</note>
       </notes>
       <segment>
         <source>Status: Veröffentlicht</source>
@@ -2558,7 +2630,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6006001086469034825">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:978</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:991</note>
       </notes>
       <segment>
         <source>Status: Geschlossen</source>
@@ -2566,7 +2638,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1330299988060557700">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:1032</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:1045</note>
       </notes>
       <segment>
         <source>Neues Formular erstellen</source>
@@ -2574,7 +2646,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3451297314722320142">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:1044</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.js:1057</note>
       </notes>
       <segment>
         <source>Formular importieren</source>
@@ -2722,6 +2794,14 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Fileupload</source>
+      </segment>
+    </unit>
+    <unit id="7420692199240086704">
+      <notes>
+        <note category="location">src/app/fragebogen/surveyjs/nouislider.js:150</note>
+      </notes>
+      <segment>
+        <source>Eingabewert</source>
       </segment>
     </unit>
     <unit id="3645495878014081231">

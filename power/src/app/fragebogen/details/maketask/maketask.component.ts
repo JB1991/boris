@@ -18,7 +18,7 @@ export class MaketaskComponent implements OnInit {
         tasksPerPage: 5,
         taskTotal: 0,
         taskPage: 1,
-        taskPageSizes: [], 
+        taskPageSizes: [],
     };
     @ViewChild('modalmaketask') public modal: ModalDirective;
     public amount = 1;

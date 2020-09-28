@@ -82,4 +82,11 @@ export class FormularSettingsComponent {
         // move down
         moveItemInArray(this.model.pages, i, i + 1);
     }
+
+    /**
+     * Open page tab
+     */
+    public openPage() {
+        (<any>document.activeElement).click();
+    }
 }

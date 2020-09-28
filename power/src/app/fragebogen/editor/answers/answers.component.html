@@ -117,6 +117,7 @@
                        placeholder="https://..."
                        required>
                 <div *ngIf="item.imageLink.startsWith('data:image')">
+                    <!-- [html-validate-disable-next element-required-attributes, wcag/h37] -->
                     <img class="img-thumbnail"
                          style="height: 80px;"
                          [src]="item.imageLink"
