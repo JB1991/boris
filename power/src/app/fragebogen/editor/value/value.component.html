@@ -6,4 +6,11 @@
                                   [data]="data"
                                   (changes)="updateValue($event)">
     </power-forms-surveyjs-wrapper>
+
+    <button type="button"
+            class="btn btn-primary btn-sm mt-1"
+            i18n-title
+            title="Zurücksetzen"
+            (click)="resetValue()"
+            i18n>Zurücksetzen</button>
 </div>

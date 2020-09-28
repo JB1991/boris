@@ -20,7 +20,8 @@
                         <path
                               d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z" />
                     </svg>
-                    <span i18n>&nbsp;PIN Generator</span>
+                    <span class="ml-2"
+                          i18n>PIN Generator</span>
                 </div>
 
                 <!-- modal close button -->
@@ -38,45 +39,33 @@
 
             <!-- modal body -->
             <div class="modal-body">
-                <!-- generate form -->
-                <form #taskForm="ngForm"
-                      i18n-aria-label
-                      aria-label="Angabe wie viele PINs erstellt werden"
-                      onsubmit="return false;">
-                    <!-- amount -->
-                    <div class="form-group row">
-                        <label for="inputAmount"
-                               class="col-sm-4 col-form-label"
-                               i18n>Anzahl PINs</label>
-                        <div class="col-sm-8">
-                            <input type="number"
-                                   class="form-control"
-                                   min="1"
-                                   max="100"
-                                   id="inputAmount"
-                                   name="inputAmount"
-                                   [(ngModel)]="amount">
-                        </div>
+                <!-- amount -->
+                <div class="form-group row">
+                    <label for="inputAmount"
+                           class="col-sm-4 col-form-label"
+                           i18n>Anzahl PINs</label>
+                    <div class="col-sm-8">
+                        <input type="number"
+                               class="form-control"
+                               min="1"
+                               max="100"
+                               id="inputAmount"
+                               name="inputAmount"
+                               [(ngModel)]="amount">
                     </div>
+                </div>
 
-                    <!-- copy -->
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox"
-                               class="custom-control-input"
-                               [(ngModel)]="copy"
-                               name="copy"
-                               id="copy">
-                        <label class="custom-control-label"
-                               for="copy"
-                               i18n>Kopiere PIN(s) in die Zwischenablage</label>
-                    </div>
-
-                    <button type="submit"
-                            class="d-none"
-                            aria-hidden="true"
-                            disabled
-                            i18n>Absenden</button>
-                </form>
+                <!-- copy -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox"
+                           class="custom-control-input"
+                           [(ngModel)]="copy"
+                           name="copy"
+                           id="copy">
+                    <label class="custom-control-label"
+                           for="copy"
+                           i18n>Kopiere PIN(s) in die Zwischenablage</label>
+                </div>
 
                 <!-- results -->
                 <div class="scrolllist mt-2"
@@ -105,7 +94,8 @@
                         <path
                               d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z" />
                     </svg>
-                    <span i18n>&nbsp;PINs erstellen</span>
+                    <span class="ml-2"
+                          i18n>PINs erstellen</span>
                 </button>
             </div>
         </div>

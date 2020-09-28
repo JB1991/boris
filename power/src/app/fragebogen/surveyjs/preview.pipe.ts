@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 
 /**
  * Peview pipe wraps a single formular element into a minimal preview formular
@@ -8,13 +8,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PreviewPipe implements PipeTransform {
 
+    constructor(@Inject(LOCALE_ID) public locale: string) { }
+
     /**
      * Wraps a single formular element into a minimal preview formular
      * @param value formular element
      */
-    transform(value: any): any {
+    transform(value: any, lang = this.locale): any {
         return {
-            locale: 'de',
+            locale: lang,
             pages: [
                 {
                     elements: [

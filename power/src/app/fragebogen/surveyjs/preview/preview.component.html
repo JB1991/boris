@@ -2,72 +2,60 @@
              (closing)="close()">
     <div class="container px-1 px-lg-3"
          *ngIf="isVisible">
-        <form #previewForm="ngForm"
-              i18n-aria-label
-              aria-label="Einstellungen für die Vorschau"
-              *ngIf="!data"
-              onsubmit="return false;">
-            <div class="form-row">
-                <!-- display mode -->
-                <div class="col-12 col-lg-4">
-                    <div class="form-group">
-                        <label for="mode"
-                               i18n>Anzeigemodus</label>
-                        <select class="custom-select"
-                                [(ngModel)]="mode"
-                                id="mode"
-                                name="mode">
-                            <option value="edit"
-                                    i18n>Editiermodus</option>
-                            <option value="display"
-                                    i18n>Vorschaumodus</option>
-                        </select>
-                    </div>
+        <div class="form-row">
+            <!-- display mode -->
+            <div class="col-12 col-lg-4">
+                <div class="form-group">
+                    <label for="mode"
+                           i18n>Anzeigemodus</label>
+                    <select class="custom-select"
+                            [(ngModel)]="mode"
+                            id="mode"
+                            name="mode">
+                        <option value="edit"
+                                i18n>Editiermodus</option>
+                        <option value="display"
+                                i18n>Vorschaumodus</option>
+                    </select>
                 </div>
-
-                <!-- language -->
-                <div class="col-12 col-lg-4">
-                    <div class="form-group">
-                        <label for="language"
-                               i18n>Sprache</label>
-                        <select class="custom-select text-capitalize"
-                                [(ngModel)]="language"
-                                (change)="setLanguage()"
-                                id="language"
-                                name="language">
-                            <option *ngFor="let lang of languages | keyvalue; index as i"
-                                    [ngValue]="lang.key">
-                                {{ lang.value }}
-                            </option>
-                            <!--<option *ngFor="let lang of wrapper.survey.getUsedLocales(); index as i"
-                                    [ngValue]="lang">
-                                {{ lang }}
-                            </option>-->
-                        </select>
-                    </div>
-                </div>
-
-                <!-- show invisible -->
-                <div class="col-12 col-lg-4">
-                    <div class="custom-control custom-checkbox mb-3">
-                        <input type="checkbox"
-                               class="custom-control-input"
-                               [(ngModel)]="showInvisible"
-                               name="showInvisible"
-                               id="showInvisible">
-                        <label class="custom-control-label"
-                               for="showInvisible"
-                               i18n>Unsichtbare Elemente anzeigen</label>
-                    </div>
-                </div>
-
-                <button type="submit"
-                        class="d-none"
-                        aria-hidden="true"
-                        disabled
-                        i18n>Absenden</button>
             </div>
-        </form>
+
+            <!-- language -->
+            <div class="col-12 col-lg-4">
+                <div class="form-group">
+                    <label for="language"
+                           i18n>Sprache</label>
+                    <select class="custom-select text-capitalize"
+                            [(ngModel)]="language"
+                            (change)="setLanguage()"
+                            id="language"
+                            name="language">
+                        <option *ngFor="let lang of languages | keyvalue; index as i"
+                                [ngValue]="lang.key">
+                            {{ lang.value }}
+                        </option>
+                        <!--<option *ngFor="let lang of wrapper.survey.getUsedLocales(); index as i"
+                                    [ngValue]="lang">
+                                {{ languages[lang] }}
+                            </option>-->
+                    </select>
+                </div>
+            </div>
+
+            <!-- show invisible -->
+            <div class="col-12 col-lg-4">
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox"
+                           class="custom-control-input"
+                           [(ngModel)]="showInvisible"
+                           name="showInvisible"
+                           id="showInvisible">
+                    <label class="custom-control-label"
+                           for="showInvisible"
+                           i18n>Unsichtbare Elemente anzeigen</label>
+                </div>
+            </div>
+        </div>
 
         <!-- preview -->
         <power-forms-surveyjs-wrapper #wrapper

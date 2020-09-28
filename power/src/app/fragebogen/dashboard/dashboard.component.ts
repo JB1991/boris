@@ -45,20 +45,21 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.updateForms();
-        this.updateTasks();
-        this.updateTags();
+        this.updateForms(true);
+        this.updateTasks(true);
+        this.updateTags(true);
     }
 
     public async deleteForm(id: string) {
         try {
             this.loadingscreen.setVisible(true);
             const response = await this.formAPI.deleteInternForm(id);
-            this.updateForms();
+            this.updateForms(false);
+            this.updateTasks(false);
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
-            this.router.navigate(['/forms'], { replaceUrl: true });
         }
     }
 
@@ -86,7 +87,7 @@ export class DashboardComponent implements OnInit {
             /* istanbul ignore next */
             reader.onload = () => {
                 this.formAPI.createInternForm(reader.result).then(() => {
-                    this.updateForms();
+                    this.updateForms(false);
                 }).catch((error) => {
                     this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error);
                 });
@@ -108,10 +109,10 @@ export class DashboardComponent implements OnInit {
             this.formOrder = 'asc';
         }
         this.formSort = sort;
-        this.updateForms();
+        this.updateForms(false);
     }
 
-    public async updateForms() {
+    public async updateForms(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
@@ -132,12 +133,20 @@ export class DashboardComponent implements OnInit {
             const response = await this.formAPI.getInternForms(params);
             this.data.forms = response.data;
             this.formTotal = response.total;
-            const maxPages = Math.floor(this.formTotal / 5) + 1;
-            this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            let maxPages = Math.floor(this.formTotal / 5) + 1;
+            if (maxPages > 10) {
+                maxPages = 10;
+                this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            } else {
+                this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            }
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            if (navigate) {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
         }
     }
 
@@ -152,10 +161,10 @@ export class DashboardComponent implements OnInit {
             this.taskOrder = 'asc';
         }
         this.taskSort = sort;
-        this.updateTasks();
+        this.updateTasks(false);
     }
 
-    public async updateTasks() {
+    public async updateTasks(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
@@ -170,23 +179,34 @@ export class DashboardComponent implements OnInit {
             const response = await this.formAPI.getInternTasks(params);
             this.data.tasks = response.data;
             this.taskTotal = response.total;
-            const maxPages = Math.floor(this.taskTotal / 5) + 1;
-            this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            let maxPages = Math.floor(this.taskTotal / 5) + 1;
+            if (maxPages > 10) {
+                maxPages = 10;
+                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            } else {
+                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            }
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            if (navigate) {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
         }
     }
 
-    public async updateTags() {
+    public async updateTags(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
             this.data.tags = await this.formAPI.getInternTags();
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            if (navigate) {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
         }
     }
 }

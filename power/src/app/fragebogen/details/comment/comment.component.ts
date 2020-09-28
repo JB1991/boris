@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { StorageService } from '../storage.service';
+import { FormAPIService } from '../../formapi.service';
 
 @Component({
     selector: 'power-forms-details-comment',
@@ -10,13 +10,19 @@ import { StorageService } from '../storage.service';
     styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
+    @Input() public data = {
+        form: null,
+        tasksList: [],
+        tasksCountTotal: 0,
+        tasksPerPage: 5,
+    };
     @ViewChild('modalcomment') public modal: ModalDirective;
     public tasknr = -1;
     public comment: string;
 
     constructor(public modalService: BsModalService,
         public alerts: AlertsService,
-        public storage: StorageService) {
+        public formapi: FormAPIService) {
     }
 
     ngOnInit() {
@@ -28,12 +34,12 @@ export class CommentComponent implements OnInit {
      */
     public open(i: number) {
         // check data
-        if (i < 0 || i >= this.storage.tasksList.length) {
+        if (i < 0 || i >= this.data.tasksList.length) {
             throw new Error('invalid i');
         }
 
         // open
-        this.comment = this.storage.tasksList[i].description;
+        this.comment = this.data.tasksList[i].description;
         this.tasknr = i;
         this.modal.show();
     }
@@ -52,27 +58,22 @@ export class CommentComponent implements OnInit {
      */
     public save() {
         // check data
-        if (this.tasknr < 0 || this.tasknr >= this.storage.tasksList.length) {
+        if (this.tasknr < 0 || this.tasknr >= this.data.tasksList.length) {
             throw new Error('invalid i');
         }
 
+        const queryParams: Object = {
+            description: this.comment,
+        };
+
         // save
-        this.storage.updateTaskComment(this.storage.tasksList[this.tasknr].id, this.comment).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.tasknr.toString());
-                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
-
-                console.log('Could not update task: ' + alertText);
-                return;
-            }
-
+        this.formapi.updateInternTask(this.data.tasksList[this.tasknr].id, null, queryParams).then(result => {
             // success
-            this.storage.tasksList[this.tasknr].description = this.comment;
+            this.data.tasksList[this.tasknr].description = result.description;
             this.close();
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to create task
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });

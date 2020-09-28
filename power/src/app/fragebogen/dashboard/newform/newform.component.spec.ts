@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
@@ -39,15 +39,15 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             declarations: [
                 NewformComponent
             ]
-        }).compileComponents();
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(NewformComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges(); // onInit
 
-        fixture = TestBed.createComponent(NewformComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        spyOn(console, 'log');
-        spyOn(component.router, 'navigate');
-        spyOn(component.alerts, 'NewAlert');
+            spyOn(console, 'log');
+            spyOn(component.router, 'navigate');
+            spyOn(component.alerts, 'NewAlert');
+        });
     }));
 
     it('should open and close', () => {
@@ -73,19 +73,16 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.template).toEqual('123');
     });
 
-    it('should fail to fetch templates', waitForAsync(() => {
-        const spy = spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.reject('Failure'));
+    it('should fail to fetch templates', fakeAsync(() => {
+        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.reject('Failure'));
 
         component.fetchTemplates();
-
-        fixture.whenStable().then(() => {
-            fixture.detectChanges();
-            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        });
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     }));
 
-    it('should fetch templates', (done) => {
-        const spy = spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve(
+    it('should fetch templates', fakeAsync(() => {
+        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve(
             {
                 data: [
                     {
@@ -102,14 +99,10 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         ));
 
         component.fetchTemplates();
-
-        spy.calls.mostRecent().returnValue.then(() => {
-            fixture.detectChanges();
-            expect(component.templateList.length).toEqual(2);
-            expect(component.templateList[0].id).toEqual('123');
-            done();
-        });
-    });
+        tick();
+        expect(component.templateList.length).toEqual(2);
+        expect(component.templateList[0].id).toEqual('123');
+    }));
 
 
     it('should create', () => {
@@ -182,6 +175,54 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Error: template is required');
             done();
         });
+    });
+
+    /**
+     * NEW FORM
+     */
+    it('should create new form with template', fakeAsync(() => {
+        spyOn(component, 'close').and.callThrough();
+        spyOn(component.formAPI, 'getInternForm').and.callFake(() => {
+            return Promise.resolve(formSample);
+        });
+        component.template = '123';
+        component.title = 'Test';
+        fixture.detectChanges();
+        component.NewForm();
+        tick();
+        expect(component.close).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should create new form without template', () => {
+        spyOn(component, 'close').and.callThrough();
+        spyOn(component, 'makeForm').and.callThrough();
+        component.title = 'Test';
+        fixture.detectChanges();
+        component.NewForm();
+        expect(component.makeForm).toHaveBeenCalledTimes(1);
+        expect(component.close).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fail to create new form', fakeAsync(() => {
+        spyOn(component.formAPI, 'getInternForm').and.callFake(() => {
+            return Promise.reject('Failed to create form');
+        });
+        component.title = 'Test';
+        component.template = '123';
+        fixture.detectChanges();
+        component.NewForm();
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+            'Failed to create form');
+    }));
+
+    it('should not create new form (missing title)', () => {
+        component.title = null;
+        component.NewForm();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen',
+            'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
     });
 });
 

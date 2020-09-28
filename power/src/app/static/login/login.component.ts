@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
@@ -14,7 +14,8 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(public titleService: Title,
+    constructor(@Inject(LOCALE_ID) public locale: string,
+        public titleService: Title,
         public activatedRoute: ActivatedRoute,
         public router: Router,
         public auth: AuthService,
@@ -36,6 +37,9 @@ export class LoginComponent implements OnInit {
         let redirect = this.activatedRoute.snapshot.queryParamMap.get('redirect');
         if (redirect) {
             // save uri
+            if (redirect.startsWith('/' + this.locale + '/')) {
+                redirect = redirect.substr(this.locale.length + 1);
+            }
             localStorage.setItem('redirect', redirect);
         } else {
             // try load redirect uri
@@ -80,7 +84,10 @@ export class LoginComponent implements OnInit {
         this.redirect(environment.auth.url + 'auth' +
             '?response_type=code' +
             '&client_id=' + encodeURIComponent(environment.auth.clientid) +
-            '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host + '/login'));
+            '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host +
+                /* istanbul ignore next */
+                (this.locale === 'de' ? '' : '/' + this.locale) +
+                '/login'));
     }
 
     /**

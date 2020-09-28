@@ -45,6 +45,7 @@ export const defaultTemplate = {
                     },
                     commentText: {},
                     colCount: 1,
+                    startWithNewLine: true,
                     visible: true,
                     isRequired: true
                 }
@@ -79,6 +80,7 @@ export const FormularFields = [
             name: '',
             type: 'text',
             inputType: 'text',
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -108,6 +110,7 @@ export const FormularFields = [
                 }
             ],
             colCount: 2,
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -125,6 +128,7 @@ export const FormularFields = [
             name: '',
             type: 'comment',
             rows: 4,
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -142,6 +146,7 @@ export const FormularFields = [
             type: 'boolean',
             labelTrue: {},
             labelFalse: {},
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -173,8 +178,9 @@ export const FormularFields = [
             ],
             colCount: 1,
             choicesOrder: 'none',
-            visible: true,
             commentText: {},
+            startWithNewLine: true,
+            visible: true,
             isRequired: true,
             requiredErrorText: {}
         }
@@ -205,8 +211,9 @@ export const FormularFields = [
             ],
             colCount: 1,
             choicesOrder: 'none',
-            visible: true,
             commentText: {},
+            startWithNewLine: true,
+            visible: true,
             isRequired: true,
             requiredErrorText: {}
         }
@@ -244,8 +251,9 @@ export const FormularFields = [
             imageFit: 'fill',
             imageWidth: 200,
             imageHeight: 150,
-            visible: true,
             commentText: {},
+            startWithNewLine: true,
+            visible: true,
             isRequired: true,
             requiredErrorText: {}
         }
@@ -270,6 +278,7 @@ export const FormularFields = [
                 default: 'Sehr schlecht'
             },
             commentText: {},
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -291,6 +300,7 @@ export const FormularFields = [
             rangeMax: 100,
             decimals: 0,
             commentText: {},
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -345,6 +355,7 @@ export const FormularFields = [
             isAllRowRequired: true,
             hideIfRowsEmpty: true,
             rowsOrder: 'initial',
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -363,6 +374,7 @@ export const FormularFields = [
             width: 600,
             dataFormat: 'image/svg+xml',
             penColor: '#000000',
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
@@ -383,42 +395,14 @@ export const FormularFields = [
             waitForUpload: true,
             allowMultiple: false,
             allowImagesPreview: true,
-            acceptedTypes: '',
+            acceptedTypes: '.pdf',
             imageWidth: 200,
-            maxSize: 1048576,
+            maxSize: 5242880,
             commentText: {},
+            startWithNewLine: true,
             visible: true,
             isRequired: true,
             requiredErrorText: {}
         }
     }
 ];
-/*
-    }, {
-        type: 'html',
-        name: $localize`Freitext`,
-        icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grid-3x2-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
-    <path fill-rule="evenodd" d="M4 4H2v2h2V4zm1 7V9a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 5V9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 4H7v2h2V4zm5 0h-2v2h2V4zM4 9H2v2h2V9zm5 0H7v2h2V9zm5 0h-2v2h2V9zm-3-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2z"/>\
-  </svg>',
-        template: {
-            title: 'Titel der Frage',
-            name: 'question1',
-            type: 'html',
-            html: 'Hallo Welt!\n\nTest'
-        }
-    }, {
-        type: 'sortablelist',
-        name: 'Ranking',
-        icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grid-3x2-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
-    <path fill-rule="evenodd" d="M4 4H2v2h2V4zm1 7V9a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 5V9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 4H7v2h2V4zm5 0h-2v2h2V4zM4 9H2v2h2V9zm5 0H7v2h2V9zm5 0h-2v2h2V9zm-3-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2z"/>\
-  </svg>',
-        template: {
-            title: 'Titel der Frage',
-            name: 'question1',
-            type: 'sortablelist',
-            valueName: '',
-            choices: ['family', 'work', 'pets', 'travels', 'games']
-        }
-    }
-];
-*/

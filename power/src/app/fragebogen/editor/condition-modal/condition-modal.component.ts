@@ -11,6 +11,7 @@ export class ConditionModalComponent {
     @Input() public model: any;
     @Input() public data: any;
     @Output() public dataChange = new EventEmitter<any>();
+    public title = $localize`Sichtbarkeitsbedingung für Antwort oder Unterfrage`;
 
     constructor() { }
 

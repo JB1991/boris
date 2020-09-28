@@ -22,7 +22,8 @@
                         <path
                               d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                     </svg>
-                    <span i18n>&nbsp;Kommentar</span>
+                    <span class="ml-2"
+                          i18n>Kommentar</span>
                 </div>
 
                 <!-- modal close button -->
@@ -40,31 +41,19 @@
 
             <!-- modal body -->
             <div class="modal-body">
-                <!-- generate form -->
-                <form #taskForm="ngForm"
-                      i18n-aria-label
-                      aria-label="Angabe eines Kommentares zu der PIN"
-                      onsubmit="return false;">
-                    <div class="form-group row mb-0">
-                        <label for="comment"
-                               class="col-sm-4 col-form-label"
-                               i18n>Kommentar</label>
-                        <div class="col-sm-8">
-                            <input type="text"
-                                   class="form-control"
-                                   maxlength="100"
-                                   id="comment"
-                                   name="comment"
-                                   [(ngModel)]="comment">
-                        </div>
+                <div class="form-group row mb-0">
+                    <label for="comment"
+                           class="col-sm-4 col-form-label"
+                           i18n>Kommentar</label>
+                    <div class="col-sm-8">
+                        <input type="text"
+                               class="form-control"
+                               maxlength="100"
+                               id="comment"
+                               name="comment"
+                               [(ngModel)]="comment">
                     </div>
-
-                    <button type="submit"
-                            class="d-none"
-                            aria-hidden="true"
-                            disabled
-                            i18n>Absenden</button>
-                </form>
+                </div>
             </div>
 
             <!-- modal buttons -->
@@ -86,7 +75,8 @@
                         <path
                               d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                     </svg>
-                    <span i18n>&nbsp;Speichern</span>
+                    <span class="ml-2"
+                          i18n>Speichern</span>
                 </button>
             </div>
         </div>

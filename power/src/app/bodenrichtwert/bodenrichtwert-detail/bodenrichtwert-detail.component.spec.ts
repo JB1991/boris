@@ -1,21 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail.component';
 import { BeitragPipe } from '@app/bodenrichtwert/pipes/beitrag.pipe';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { HyphenatePipe } from '@app/bodenrichtwert/pipes/hyphenate.pipe';
+import { UmlautCorrectionPipe } from '@app/bodenrichtwert/pipes/umlaut-correction.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
     let component: BodenrichtwertDetailComponent;
     let fixture: ComponentFixture<BodenrichtwertDetailComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 BodenrichtwertDetailComponent,
                 BeitragPipe,
                 NutzungPipe,
-                HyphenatePipe
+                HyphenatePipe,
+                UmlautCorrectionPipe
             ]
         })
             .compileComponents();

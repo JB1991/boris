@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { StorageService } from '../storage.service';
+import { FormAPIService } from '../../formapi.service';
 
 @Component({
     selector: 'power-forms-details-settings',
@@ -11,6 +11,12 @@ import { StorageService } from '../storage.service';
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+    @Input() public data = {
+        form: null,
+        tasksList: [],
+        tasksCountTotal: 0,
+        tasksPerPage: 5,
+    };
     @ViewChild('modalsettings') public modal: ModalDirective;
 
     public tagList = [];
@@ -20,7 +26,7 @@ export class SettingsComponent implements OnInit {
     constructor(public modalService: BsModalService,
         public router: Router,
         public alerts: AlertsService,
-        public storage: StorageService) {
+        public formapi: FormAPIService) {
     }
 
     ngOnInit() {
@@ -30,9 +36,9 @@ export class SettingsComponent implements OnInit {
      * Opens settings modal
      */
     public open() {
-        this.tagList = Object.assign([], this.storage.form.tags);
-        this.ownerList = Object.assign([], this.storage.form.owners);
-        this.readerList = Object.assign([], this.storage.form.readers);
+        this.tagList = Object.assign([], this.data.form.tags);
+        this.ownerList = Object.assign([], this.data.form.owners);
+        this.readerList = Object.assign([], this.data.form.readers);
         this.modal.show();
     }
 
@@ -48,29 +54,21 @@ export class SettingsComponent implements OnInit {
      */
     public updateForm() {
 
-        this.storage.updateForm(
-            this.storage.form.id,
-            this.tagList.toString(),
-            this.ownerList.toString(),
-            this.readerList.toString()
-        ).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : this.storage.form.id);
-                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
+        const queryParams: Object = {
+            tags: this.tagList.toString(),
+            owners: this.ownerList.toString(),
+            readers: this.readerList.toString()
+        };
 
-                console.log('Could not update form: ' + alertText);
-                return;
-            }
-
-            // success
-            this.storage.form = data['data'];
+        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
+            //     // success
+            this.data.form = result;
             this.alerts.NewAlert('success', $localize`Formular gespeichert`,
                 $localize`Das Formular wurde erfolgreich gespeichert.`);
             this.close();
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to update form
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });

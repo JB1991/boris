@@ -61,6 +61,32 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    npm run lint:html
    ```
 
+## Übersetzung
+
+1. Tool installieren
+   ```
+   npm install -g ngx-i18nsupport
+   ```
+
+2. Sprachstrings exportieren
+   ```
+   cd power
+   ng xi18n --format=xlf2 --ivy --output-path src/locales
+   ```
+
+3. Vorhandene Übersetzungen updaten
+   ```
+   cd power/src/locales
+   xliffmerge -p .\config.json
+   ```
+
+4. [Übersetzung anfertigen](https://martinroob.github.io/tiny-translator/de/#/home)
+
+5. Sprache testen
+   ```
+   ng serve --open --configuration=en
+   ```
+
 ## Coding Guideline
 Die Programmier-Richtlinie für dieses Projekt ist hier zu finden:
 [Coding Guideline - Angular-Frontend](https://gitlab.com/lgln/power.ni/coding-guidelines/angular-frontend)
@@ -100,21 +126,42 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 
 ## Module
 
-### Fragebogenonline
-* Dynamisches erstellen von Fragebogen, welche online ausgefüllt werden können
+### Alertsmodul
+* Anzeigen von Fehlermeldungen an den Benutzer
 * Funktionen
-  * Mächtiger Editor zum erstellen von dynamischen und flexiblen Fragebögen
-  * Universelle Lösung, vielseitig einsetzbar
-  * Öffentliche Fragebögen oder mit PIN geschützte
-  * Ergebnisexport als CSV oder per API
+  * Unterstützt success, danger, info und warning Meldungen
+  * Timeout frei einstellbar
+  * Maximal 4 Meldungen gleichzeitig zu sehen
+* Schnittstellen
+  * `AlertsService` zum Constructor hinzufügen
+  * `NewAlert`: Erstellen neuer Meldung
 * Abhängigkeiten
   * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
   * [bootstrap-icons](https://icons.getbootstrap.com/)
-  * [ngx-smooth-dnd](https://github.com/kutlugsahin/ngx-smooth-dnd)
-  * [SurveyJS - Angular](https://github.com/surveyjs/surveyjs_angular_cli)
-  * [SurveyJS - Widgets](https://github.com/surveyjs/widgets)
-    * [nouislider](https://refreshless.com/nouislider/)
-  * [ngx-showdown](https://github.com/yisraelx/ngx-showdown)
+
+### Authentifizierungsmodul
+* Authentifizierung mittels Keycloak
+* Funktionen
+  * Login über Keycloak
+  * Logout über Keycloak
+  * Beziehen von Benutzerinfos über Keycloak
+  * Schützen von Routen
+  * Autorisierung von API Anfragen
+* Schnittstellen
+  * Route schützen
+    * Importiere `AuthGuard` in die Routendefinition
+    * Füge AuthGuard zur Route hinzu `canActivate: [AuthGuard]`
+  * Authentifizierung prüfen
+    * `AuthService` zum Constructor hinzufügen
+    * `IsAuthEnabled`: True wenn Authentifizierung aktiviert
+    * `IsAuthenticated`: True wenn Benutzer Authentifiziert
+  * Benutzerinfos erhalten
+    * `AuthService` zum Constructor hinzufügen
+    * `getBearer`: HTTP Authorizationheader content
+    * `getHeaders`: Gibt fertigen Anguar `HttpHeaders` zurück mit Responsetype, Content-Type und Authorizationheader gesetzt
+    * `getUser`: Gibt Benutzerobjekt zurück. Attribut `.data` enthält Userinfo von Keycloak
+* Abhängigkeiten
+  * Keycloak
 
 ### Bodenrichtwerte
 * Visualisierung der Bodenrichtwertzonen
@@ -150,6 +197,36 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
   * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
 
+### Fragebogenonline
+* Dynamisches erstellen von Fragebogen, welche online ausgefüllt werden können
+* Funktionen
+  * Mächtiger Editor zum erstellen von dynamischen und flexiblen Fragebögen
+  * Universelle Lösung, vielseitig einsetzbar
+  * Öffentliche Fragebögen oder mit PIN geschützte
+  * Ergebnisexport als CSV oder per API
+* Abhängigkeiten
+  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
+  * [bootstrap-icons](https://icons.getbootstrap.com/)
+  * [ngx-smooth-dnd](https://github.com/kutlugsahin/ngx-smooth-dnd)
+  * [SurveyJS - Angular](https://github.com/surveyjs/surveyjs_angular_cli)
+  * [SurveyJS - Widgets](https://github.com/surveyjs/widgets)
+    * [nouislider](https://refreshless.com/nouislider/)
+  * [ngx-showdown](https://github.com/yisraelx/ngx-showdown)
+
+### Immobilienpreisindex
+* Darstellung des Immobilienpreisindexes als Grafik
+* Darstellung der Wohnungsmarktregionen als Karte mit Auswahlfunktion
+* Funktionen
+  * Auswahl der darzustellenden Indexreihen nach Wohnungsmarktregion und Indextyp
+  * Aggregation mehrerer Wohnungsmarktregionen
+  * Individuelle Bestimmung der anzuzeigenden Regionen / Aggregationen
+* Details zur Konfiguration sind in der Datei [README.md](power/src/app/immobilien/immobilien/README.md) zu finden.
+* Abhängigkeiten
+  * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
+  * [ngx-bootstrap-icons](https://www.npmjs.com/package/ngx-bootstrap-icons)
+  * [ECharts](https://www.npmjs.com/package/echarts)
+
+
 ### Geosearch
 * Funktionen
   * Adresssuche (Von Adresse zu Geokoordinaten)
@@ -161,42 +238,6 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
   * [RxJS](https://angular.io/guide/rx-library)
   * [GeoJSON](https://www.npmjs.com/package/geojson)
 
-### Authentifizierungsmodul
-* Authentifizierung mittels Keycloak
-* Funktionen
-  * Login über Keycloak
-  * Logout über Keycloak
-  * Beziehen von Benutzerinfos über Keycloak
-  * Schützen von Routen
-  * Autorisierung von API Anfragen
-* Schnittstellen
-  * Route schützen
-    * Importiere `AuthGuard` in die Routendefinition
-    * Füge AuthGuard zur Route hinzu `canActivate: [AuthGuard]`
-  * Authentifizierung prüfen
-    * `AuthService` zum Constructor hinzufügen
-    * `IsAuthEnabled`: True wenn Authentifizierung aktiviert
-    * `IsAuthenticated`: True wenn Benutzer Authentifiziert
-  * Benutzerinfos erhalten
-    * `AuthService` zum Constructor hinzufügen
-    * `getBearer`: HTTP Authorizationheader content
-    * `getHeaders`: Gibt fertigen Anguar `HttpHeaders` zurück mit Responsetype, Content-Type und Authorizationheader gesetzt
-    * `getUser`: Gibt Benutzerobjekt zurück. Attribut `.data` enthält Userinfo von Keycloak
-* Abhängigkeiten
-  * Keycloak
-
-### Alertsmodul
-* Anzeigen von Fehlermeldungen an den Benutzer
-* Funktionen
-  * Unterstützt success, danger, info und warning Meldungen
-  * Timeout frei einstellbar
-  * Maximal 4 Meldungen gleichzeitig zu sehen
-* Schnittstellen
-  * `AlertsService` zum Constructor hinzufügen
-  * `NewAlert`: Erstellen neuer Meldung
-* Abhängigkeiten
-  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
-  * [bootstrap-icons](https://icons.getbootstrap.com/)
 
 ### Loadingscreenmodul
 * Anzeige eines Ladebildschirmes

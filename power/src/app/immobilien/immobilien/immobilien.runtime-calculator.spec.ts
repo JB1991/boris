@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienStatic from './immobilien.static';
 import * as ImmobilienRuntime from './immobilien.runtime';
-import * as ImmobilienUtils from './immobilien.utils';
+import { ImmobilienUtils } from './immobilien.utils';
 import * as ImmobilienRuntimeCalculator from './immobilien.runtime-calculator';
 
 describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {

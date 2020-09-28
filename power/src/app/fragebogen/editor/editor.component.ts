@@ -11,6 +11,7 @@ import { HistoryService } from './history.service';
 import { ComponentCanDeactivate } from '@app/fragebogen/pendingchanges.guard';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { FormAPIService } from '../formapi.service';
 import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
 @Component({
@@ -22,7 +23,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     @ViewChild('preview') public preview: PreviewComponent;
     public elementCopy: any;
     public isCollapsedToolBox = false;
-    private timerHandle: NodeJS.Timeout;
+    public timerHandle: NodeJS.Timeout;
+    public favorites = [];
 
     constructor(public route: ActivatedRoute,
         public router: Router,
@@ -30,6 +32,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public storage: StorageService,
+        public formapi: FormAPIService,
         public history: HistoryService) {
         this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
         this.storage.resetService();
@@ -54,6 +57,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // delete auto save method
         if (this.timerHandle) {
             clearInterval(this.timerHandle);
+            this.timerHandle = null;
         }
     }
 
@@ -157,42 +161,35 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Load form data
      * @param id Form id
      */
-    public loadData(id: string) {
+    // tslint:disable-next-line: max-func-body-length
+    public async loadData(id: string) {
         // check data
         if (!id) {
             throw new Error('id is required');
         }
 
-        this.storage.loadForm(id).subscribe((data) => {
-            // check for error
-            if (!data || data['error'] || !data['data'] || !data['data']['content']) {
-                const alertText = (data && data['error'] ? data['error'] : id);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, alertText);
+        try {
+            const result = await this.formapi.getInternForm(id);
+            this.storage.model = result.content;
 
-                this.loadingscreen.setVisible(false);
-                this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-                console.log('Could not load form: ' + alertText);
-                return;
-            }
-
-            // store formular
-            this.storage.model = data['data']['content'];
-            this.loadingscreen.setVisible(false);
+            const elements = await this.formapi.getInternElements();
+            this.favorites = elements.data;
 
             // auto save
             /* istanbul ignore next */
             this.timerHandle = setInterval(() => {
                 this.wsSave();
             }, 5 * 60000);
-        }, (error: Error) => {
-            // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error['statusText']);
+            this.loadingscreen.setVisible(false);
+        } catch (error) {
+            //     // failed to load form
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             console.log(error);
             return;
-        });
+        }
     }
 
     /**
@@ -257,6 +254,17 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.history.makeHistory(this.storage.model);
             data.name = this.storage.newElementID();
             this.storage.model.pages[this.storage.selectedPageID].elements.splice(dropResult.addedIndex, 0, data);
+
+            // favorite dragged into workspace
+        } else if (dropResult.payload.from === 'favorites') {
+            if (this.favorites[dropResult.payload.index]) {
+                this.history.makeHistory(this.storage.model);
+                const data = JSON.parse(JSON.stringify(this.favorites[dropResult.payload.index].content));
+                data.name = this.storage.newElementID();
+                this.storage.model.pages[this.storage.selectedPageID].elements.splice(dropResult.addedIndex, 0, data);
+            } else {
+                throw new Error('Could not insert favorite');
+            }
         }
     }
 
@@ -284,6 +292,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // enable drag from toolbox and workspace
         if (sourceContainerOptions.groupName === 'toolbox') {
             return true;
+        } else if (sourceContainerOptions.groupName === 'favorites') {
+            return true;
         } else if (sourceContainerOptions.groupName === 'workspace') {
             return true;
         }
@@ -296,6 +306,14 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      */
     public getPayloadToolbox(index: number): Object {
         return { from: 'toolbox', index: index };
+    }
+
+    /**
+     * Sets drop from infos
+     * @param index id
+     */
+    public getPayloadFavorites(index: number): Object {
+        return { from: 'favorites', index: index };
     }
 
     /**
@@ -430,22 +448,14 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
-        this.storage.saveForm(this.storage.model, id).subscribe((data) => {
-            // check for error
-            if (!data || data['error']) {
-                const alertText = (data && data['error'] ? data['error'] : id);
-                this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, alertText);
 
-                console.log('Could not save form: ' + alertText);
-                return;
-            }
-
+        this.formapi.updateInternForm(id, this.storage.model).then(() => {
             // success
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
-        }, (error: Error) => {
+        }).catch((error: Error) => {
             // failed to save
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['statusText']);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
             console.log(error);
@@ -469,6 +479,17 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         // copy
         this.elementCopy = JSON.stringify(this.storage.model.pages[page].elements[element]);
+        this.alerts.NewAlert('success', $localize`Erfolgreich kopiert`,
+            $localize`Sie finden Ihre Zwischenablage ganz unten in der Toolbox.`);
+
+        // scroll top
+        setTimeout(() => {
+            const div = document.getElementById('toolbox');
+            /* istanbul ignore next */
+            if (div) {
+                document.getElementById('toolbox').scrollTop = 300;
+            }
+        }, 100);
     }
 
     /**
@@ -539,5 +560,99 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // move down
         this.history.makeHistory(this.storage.model);
         moveItemInArray(this.storage.model.pages[page].elements, element, element + 1);
+    }
+
+    /**
+     * Adds favorite to workspace
+     * @param i Favorite index
+     */
+    public insertFavorite(i: number) {
+        // check data
+        if (i < 0 || i >= this.favorites.length) {
+            throw new Error('i is invalid');
+        }
+
+        // add favorite
+        this.history.makeHistory(this.storage.model);
+        const data = JSON.parse(JSON.stringify(this.favorites[i].content));
+        data.name = this.storage.newElementID();
+        this.storage.model.pages[this.storage.selectedPageID].elements.splice(0, 0, data);
+    }
+
+    /**
+     * Adds question as favorite
+     * @param element Element number
+     * @param page Page number
+     */
+    public addFavorite(element: number, page: number = this.storage.selectedPageID) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+        if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
+            throw new Error('element is invalid');
+        }
+
+        // prepare data
+        const question = JSON.parse(JSON.stringify(this.storage.model.pages[page].elements[element]));
+        question.name = '';
+
+        // add favorite
+        this.formapi.createInternElement(question).then((data) => {
+            this.favorites.push(data);
+            this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
+                $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);
+        }).catch((error) => {
+            this.alerts.NewAlert('danger', $localize`Favoriten hinzufügen fehlgeschlagen`, error.toString());
+        });
+    }
+
+    /**
+     * Deletes favorite
+     * @param element Element number
+     * @param page Page number
+     */
+    public delFavorite(element: number, page: number = this.storage.selectedPageID) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+        if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
+            throw new Error('element is invalid');
+        }
+
+        // get id
+        const index = this.isFavorite(this.storage.model.pages[page].elements[element]);
+        if (!index) {
+            return;
+        }
+
+        // delete favorite
+        this.formapi.deleteInternElement(this.favorites[index - 1].id)
+            .then((data) => {
+                this.favorites.splice(index - 1, 1);
+                this.alerts.NewAlert('success', $localize`Favoriten gelöscht`,
+                    $localize`Die Frage wurde erfolgreich aus den Favoriten entfernt.`);
+            }).catch((error) => {
+                this.alerts.NewAlert('danger', $localize`Favorite löschen fehlgeschlagen`, error.toString());
+            });
+    }
+
+    /**
+     * Checks if an element is a favorite
+     * @param element Question
+     */
+    public isFavorite(element: any): number {
+        // prepare data
+        const question = JSON.parse(JSON.stringify(element));
+        question.name = '';
+
+        // check if already present
+        for (let i = 0; i < this.favorites.length; i++) {
+            if (JSON.stringify(question) === JSON.stringify(this.favorites[i].content)) {
+                return i + 1;
+            }
+        }
+        return null;
     }
 }

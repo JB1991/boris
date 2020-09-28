@@ -13,14 +13,12 @@ import { FormAPIService } from '../formapi.service';
     encapsulation: ViewEncapsulation.None
 })
 export class PublicDashboardComponent implements OnInit {
-
     public data: any[];
     public total: number;
     public page = 1;
     public perPage = 5;
     public pageSizes: number[];
-
-    public title?: string;
+    public title: string;
     public sort: 'title' | 'published' = 'title';
     public order: 'asc' | 'desc' = 'asc';
 
@@ -33,7 +31,7 @@ export class PublicDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.update();
+        this.update(true);
     }
 
     public changeSort(sort: 'title' | 'published') {
@@ -47,10 +45,10 @@ export class PublicDashboardComponent implements OnInit {
             this.order = 'asc';
         }
         this.sort = sort;
-        this.update();
+        this.update(false);
     }
 
-    public async update() {
+    public async update(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
@@ -59,18 +57,27 @@ export class PublicDashboardComponent implements OnInit {
                 sort: this.sort,
                 order: this.order,
             };
-            if (this.title !== undefined && this.title !== '' ) {
+            if (this.title) {
                 params['title-contains'] = this.title;
             }
             const response = await this.formAPI.getPublicForms(params);
             this.data = response.data;
             this.total = response.total;
-            const maxPages = Math.floor(this.total / 5) + 1;
-            this.pageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            let maxPages = Math.floor(this.total / 5) + 1;
+            if (maxPages > 10) {
+                maxPages = 10;
+                this.pageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            } else {
+                this.pageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+            }
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            this.router.navigate(['/forms'], { replaceUrl: true });
+            /* istanbul ignore else */
+            if (navigate) {
+                this.router.navigate(['/forms'], { replaceUrl: true });
+            }
         }
     }
 

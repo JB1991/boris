@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 
@@ -10,14 +9,13 @@ import { FilloutComponent } from './fillout.component';
 import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { FormAPIService } from '../formapi.service';
 
 describe('Fragebogen.Fillout.FilloutComponent', () => {
     let component: FilloutComponent;
     let fixture: ComponentFixture<FilloutComponent>;
-    let httpTestingController: HttpTestingController;
 
     const accessSample = require('../../../assets/fragebogen/public-get-access.json');
-    const accessemptySample = require('../../../assets/fragebogen/public-get-access-empty.json');
     const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
     const taskSample = require('../../../assets/fragebogen/intern-get-tasks-id.json');
     const submitSample = require('../../../assets/fragebogen/public-post-tasks.json');
@@ -33,273 +31,195 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             providers: [
                 Title,
                 StorageService,
-                {
-                    provide: ActivatedRoute,
-                    useValue: {
-                        snapshot: {
-                            paramMap: {
-                                get: () => {
-                                    return '1234';
-                                }
-                            }
-                        }
-                    }
-                },
                 AlertsService,
-                LoadingscreenService
+                LoadingscreenService,
+                FormAPIService
             ],
             declarations: [
                 FilloutComponent
             ]
-        }).compileComponents();
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(FilloutComponent);
+            component = fixture.componentInstance;
 
-        fixture = TestBed.createComponent(FilloutComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-
-        spyOn(console, 'log');
-        spyOn(component.router, 'navigate');
-        spyOn(component.alerts, 'NewAlert');
-        httpTestingController = TestBed.inject(HttpTestingController);
+            spyOn(console, 'log');
+            spyOn(component.router, 'navigate');
+            spyOn(component.alerts, 'NewAlert');
+            fixture.detectChanges(); // onInit
+        });
     }));
 
-    it('should create', () => {
+    /**
+     * ngOnInit
+     */
+    it('should create with pin', () => {
         expect(component).toBeTruthy();
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        expect(component.storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
-        expect(component.storage.form.id).toEqual('bs63c2os5bcus8t5q0kg');
-    });
-
-    it('should create 2', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue(null);
+        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
+        spyOn(component, 'loadData');
         component.ngOnInit();
-        expect(component.router.navigate).toHaveBeenCalledTimes(1);
+        expect(component.loadData).toHaveBeenCalledTimes(1);
+        expect(component.loadData).toHaveBeenCalledWith('123');
     });
 
-    it('should create public', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
-            if (arg === 'id') {
-                return 'bs8t7ifp9r1b3pt5qkr0';
+
+    it('should create with id', () => {
+        expect(component).toBeTruthy();
+        spyOn(component.route.snapshot.paramMap, 'get').and.callFake((param) => {
+            if (param === 'id') {
+                return '123';
             }
             return null;
         });
+        spyOn(component, 'loadForm');
         component.ngOnInit();
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0', 'GET', formSample);
+        expect(component.loadForm).toHaveBeenCalledTimes(1);
+        expect(component.loadForm).toHaveBeenCalledWith('123');
     });
 
-    it('should create public 2', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
-            if (arg === 'id') {
-                return 'bs8t7ifp9r1b3pt5qkr0';
-            }
-            return null;
-        });
-        component.submitTask('bs8t7ifp9r1b3pt5qkr0', taskSample.data.content);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true',
-            'POST', taskSample);
+    /**
+     * SET LANGUAGE
+     */
+    it('should set language', () => {
+        component.wrapper = <any>{ survey: { locale: 'de', getUsedLocales: () => [] } };
+        component.language = 'en';
+        component.setLanguage();
+        expect(component.wrapper.survey.locale).toEqual('en');
     });
 
-    it('should not create public 2', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
-            if (arg === 'id') {
-                return 'bs8t7ifp9r1b3pt5qkr0';
-            }
-            return null;
-        });
-        component.submitTask('bs8t7ifp9r1b3pt5qkr0', taskSample.data.content);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true', 'POST', null);
-    });
+    /**
+     * LOAD FORM
+     */
+    it('should load form', fakeAsync(() => {
+        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSample.data));
 
-    it('should not create public 3', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
-            if (arg === 'id') {
-                return 'bs8t7ifp9r1b3pt5qkr0';
-            }
-            return null;
-        });
-        component.submitTask('bs8t7ifp9r1b3pt5qkr0',
+        component.loadForm('123');
+        tick();
+        expect(component.storage.form).toEqual(formSample.data);
+        expect(component.language).toEqual(formSample.data.content.locale);
+        flush();
+    }));
+
+    it('should fail to load form', fakeAsync(() => {
+        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed to load form'));
+
+        component.loadForm('123');
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+            'Failed to load form');
+    }));
+
+    /**
+     * SUBMIT TASK
+     */
+    it('should submit task', fakeAsync(() => {
+        spyOn(component.formapi, 'createPublicTask').and.returnValue(Promise.resolve(taskSample.data));
+        component.submitTask('123', taskSample.data.content);
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich',
+            'Ihre Daten wurden erfolgreich gespeichert.');
+    }));
+
+    it('should fail to submit task', fakeAsync(() => {
+        spyOn(component.formapi, 'createPublicTask').and.returnValue(Promise.reject('Failed to submit task'));
+        component.submitTask('123',
             { result: taskSample.data.content, options: { showDataSavingError: () => { } } });
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true',
-            'POST', { 'error': 'failed' });
-    });
-
-    it('should not create public 4', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        spyOn(component.route.snapshot.paramMap, 'get').and.callFake(function (arg) {
-            if (arg === 'id') {
-                return 'bs8t7ifp9r1b3pt5qkr0';
-            }
-            return null;
-        });
-        component.submitTask('bs8t7ifp9r1b3pt5qkr0',
-            { result: taskSample.data.content, options: { showDataSavingError: () => { } } });
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs8t7ifp9r1b3pt5qkr0/tasks?submit=true',
-            'POST', {}, { status: 404, statusText: 'Not Found' });
-    });
-
-    it('should not create', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', null);
-        expect(component.storage.task).toBeNull();
+        tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', '1234 - null');
-    });
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen',
+            'Failed to submit task');
+    }));
 
-    it('should not create 2', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', null);
-        expect(component.storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
-        expect(component.storage.form).toBeNull();
+    /**
+     * LOAD DATA
+     */
+    it('should load data', fakeAsync(() => {
+        spyOn(component.formapi, 'getPublicAccess').and.returnValue(Promise.resolve(accessSample.data));
+        component.loadData('123', 'factor');
+        tick();
+        expect(component.storage.task).toEqual(accessSample.data);
+    }));
+
+    it('should fail to load data', fakeAsync(() => {
+        spyOn(component.formapi, 'getPublicAccess').and.returnValue(Promise.reject('Failed to load data'));
+        component.loadData('123', 'factor');
+        tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'bs7v95fp9r1ctg9cbecg');
-    });
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+            'Failed to load data');
+    }));
 
-    it('should not create 3', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET',
-            { 'error': 'Internal Server Error' });
-        expect(component.storage.task).toBeNull();
+    /**
+     * SUBMIT
+     */
+    it('should submit data', fakeAsync(() => {
+        spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(accessSample.data));
+        component.storage.task = taskSample.data;
+        component.submit(accessSample.data);
+        fixture.detectChanges();
+        tick();
+        expect(component.storage.UnsavedChanges).toBeFalse();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich',
+            'Ihre Daten wurden erfolgreich gespeichert.');
+    }));
 
-        component.loadData('1234');
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET',
-            { 'error': 'Internal Server Error' });
-        expect(component.storage.form).toBeNull();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Internal Server Error');
-    });
-
-    it('should error 404', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.storage.task).toBeNull();
+    it('should fail to submit data', fakeAsync(() => {
+        spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
+        component.storage.task = taskSample.data;
+        component.submit({ result: submitSample, options: { showDataSavingError: () => { } } });
+        fixture.detectChanges();
+        tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
-    });
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen',
+            'Failed to submit data');
+    }));
 
-    it('should error 404 2', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.storage.task.id).toEqual('bs834mvp9r1ctg9cbed0');
-        expect(component.storage.form).toBeNull();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Not Found');
-    });
+    /**
+     * PROGRESS
+     */
+    it('should progress result', fakeAsync(() => {
+        spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(accessSample.data));
+        component.storage.task = taskSample.data;
+        component.progress(accessSample.data);
+        fixture.detectChanges();
+        tick();
+        expect(component.storage.UnsavedChanges).toBeFalse();
+    }));
 
-    it('should submit progress', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessemptySample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        component.storage.setUnsavedChanges(true);
-
+    it('should fail to progress data', fakeAsync(() => {
+        spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
+        component.storage.task = taskSample.data;
         component.progress(submitSample);
-        answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST', submitSample);
-        expect(component.storage.getUnsavedChanges()).toBeFalse();
-    });
+        fixture.detectChanges();
+        tick();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen',
+            'Failed to submit data');
+    }));
 
-    it('should not submit progress', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessemptySample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        component.storage.setUnsavedChanges(true);
-
+    it('should return (submitted === true)', () => {
+        spyOn(component.formapi, 'updatePublicTask');
         component.submitted = true;
+        fixture.detectChanges();
         component.progress(submitSample);
+        expect(component.formapi.updatePublicTask).toHaveBeenCalledTimes(0);
     });
 
-    it('should fail submit progress', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        component.storage.setUnsavedChanges(true);
-
-        component.progress(submitSample);
-        answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST', null);
-        expect(component.storage.getUnsavedChanges()).toBeTrue();
-
-        component.progress(submitSample);
-        answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST',
-            { 'error': 'Internal Server Error' });
-        expect(component.storage.getUnsavedChanges()).toBeTrue();
-    });
-
-    it('should error 404 3', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        component.storage.setUnsavedChanges(true);
-
-        component.progress(submitSample);
-        answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0', 'POST', submitSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.storage.getUnsavedChanges()).toBeTrue();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
-    });
-
-    it('should submit form', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        component.storage.setUnsavedChanges(true);
-
-        component.submit({ result: submitSample, options: { showDataSavingError: () => { } } });
-        answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', submitSample);
-        expect(component.storage.getUnsavedChanges()).toBeFalse();
-    });
-
-    it('should fail submit form', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        component.storage.setUnsavedChanges(true);
-
-        component.submit({ result: submitSample, options: { showDataSavingError: () => { } } });
-        answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', null);
-        expect(component.storage.getUnsavedChanges()).toBeTrue();
-
-        component.submit({ result: submitSample, options: { showDataSavingError: () => { } } });
-        answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST',
-            { 'error': 'Internal Server Error' });
-        expect(component.storage.getUnsavedChanges()).toBeTrue();
-    });
-
-    it('should error 404 4', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-        component.storage.setUnsavedChanges(true);
-
-        component.submit({ result: submitSample, options: { showDataSavingError: () => { } } });
-        answerHTTPRequest(environment.formAPI + 'public/tasks/bs834mvp9r1ctg9cbed0?submit=true', 'POST', submitSample,
-            { status: 404, statusText: 'Not Found' });
-        expect(component.storage.getUnsavedChanges()).toBeTrue();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Not Found');
-    });
-
+    /**
+     * CHANGED
+     */
     it('should set unsavedchanges', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-
         expect(component.storage.getUnsavedChanges()).toBeFalse();
         component.changed('data');
         expect(component.storage.getUnsavedChanges()).toBeTrue();
     });
 
+    /**
+     * ERROR for submitTask, loadData, submit, progress
+     */
     it('should throw error', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
-
         expect(function () {
             component.loadData('', '123');
         }).toThrowError('pin is required');
@@ -317,40 +237,16 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         }).toThrowError('no data provided');
     });
 
+    /**
+     * CAN DEACTIVATE
+     */
     it('should not leave page', () => {
-        answerHTTPRequest(environment.formAPI + 'public/access?pin=1234', 'GET', accessSample);
-        answerHTTPRequest(environment.formAPI + 'public/forms/bs7v95fp9r1ctg9cbecg', 'GET', formSample);
         expect(component.canDeactivate()).toBeTrue();
         spyOn(window, 'confirm').and.returnValue(true);
 
         environment.production = true;
         expect(component.canDeactivate()).toEqual(!component.storage.getUnsavedChanges());
         environment.production = false;
-    });
-
-    /**
-     * Mocks the API by taking HTTP requests form the queue and returning the answer
-     * @param url The URL of the HTTP request
-     * @param method HTTP request method
-     * @param body The body of the answer
-     * @param opts Optional HTTP information of the answer
-     */
-    function answerHTTPRequest(url, method, body, opts?) {
-        // Take HTTP request from queue
-        const request = httpTestingController.expectOne(url);
-        expect(request.request.method).toEqual(method);
-
-        // Return the answer
-        request.flush(deepCopy(body), opts);
-    }
-
-    function deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
-
-    afterEach(() => {
-        // Verify that no requests are remaining
-        httpTestingController.verify();
     });
 });
 

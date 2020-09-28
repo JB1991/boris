@@ -3,8 +3,8 @@ import * as ImmobilenNipixStatic from './immobilien.static';
 import * as ImmobilienNipixRuntimeCalculator from './immobilien.runtime-calculator';
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienExport from './immobilien.export';
-import * as ImmobilienUtils from './immobilien.utils';
-import * as ImmobilienHelper from './immobilien.helper';
+import { ImmobilienUtils } from './immobilien.utils';
+import { ImmobilienHelper } from './immobilien.helper';
 
 interface NipixRuntimeMap {
     obj?: any;
@@ -38,7 +38,7 @@ export class NipixRuntime {
 
     public formatter: ImmobilienFormatter.ImmobilienFormatter;
     public export: ImmobilienExport.ImmobilienExport;
-    private calculator: ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator;
+    public calculator: ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator;
 
     public map: NipixRuntimeMap = {
         'obj': null,
@@ -144,7 +144,7 @@ export class NipixRuntime {
     /**
      * timeout handler for diable highlight
      */
-    private highlightTimeout() {
+    public highlightTimeout() {
         this.state.highlightedSeries = '';
         this.updateMapSelect();
     }

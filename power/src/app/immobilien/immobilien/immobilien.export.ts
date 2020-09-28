@@ -1,13 +1,8 @@
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
 import * as ImmobilenNipixStatic from './immobilien.static';
-import * as ImmobilenChartOptions from './immobilien.chartoptions';
+import { ImmobilienChartOptions } from './immobilien.chartoptions';
 
-import {
-    downloadFile,
-    convertArrayToCSV,
-    getSingleFeature,
-    getGeometryArray
-} from './immobilien.helper';
+import { ImmobilienHelper } from './immobilien.helper';
 
 import * as echarts from 'echarts';
 
@@ -40,7 +35,7 @@ export class ImmobilienExport {
     public exportAsImage() {
         this.exportChart = true;
         this.nipixRuntime.chart.obj.resize({width: this.nipixStatic.chartExportWidth});
-        this.nipixRuntime.chart.obj.setOption(ImmobilenChartOptions.mergeHide);
+        this.nipixRuntime.chart.obj.setOption(ImmobilienChartOptions.mergeHide);
 
     }
 
@@ -55,9 +50,9 @@ export class ImmobilienExport {
         });
 
         this.nipixRuntime.chart.obj.resize({width: 'auto'});
-        this.nipixRuntime.chart.obj.setOption(ImmobilenChartOptions.mergeShow);
+        this.nipixRuntime.chart.obj.setOption(ImmobilienChartOptions.mergeShow);
 
-        downloadFile(img, 'nipix.png', '', true);
+        ImmobilienHelper.downloadFile(img, 'nipix.png', '', true);
     }
 
 
@@ -85,7 +80,7 @@ export class ImmobilienExport {
             return el != null;
         });
 
-        downloadFile(JSON.stringify(data), 'Wohnungsmarktregionen.geojson');
+        ImmobilienHelper.downloadFile(JSON.stringify(data), 'Wohnungsmarktregionen.geojson');
     }
 
     public chartRenderFinished() {
@@ -120,11 +115,14 @@ export class ImmobilienExport {
         if (geoJSON) {
             const geoJson = JSON.parse(JSON.stringify(ImmobilienExport.geoJsonHeader));
             geoJson.features = tmp;
-            downloadFile(JSON.stringify(geoJson), 'Immobilienpreisindex.geojson');
+            ImmobilienHelper.downloadFile(JSON.stringify(geoJson), 'Immobilienpreisindex.geojson');
         } else {  // CSV
             let csv = '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n';
-            csv += convertArrayToCSV(tmp, ['type', 'region', 'nipix.date', 'nipix.index', 'nipix.sales']);
-            downloadFile(csv, 'Immobilienpreisindex.csv');
+            csv += ImmobilienHelper.convertArrayToCSV(
+                tmp,
+                ['type', 'region', 'nipix.date', 'nipix.index', 'nipix.sales']
+            );
+            ImmobilienHelper.downloadFile(csv, 'Immobilienpreisindex.csv');
         }
     }
 
@@ -133,7 +131,7 @@ export class ImmobilienExport {
         const tmp = [];
         if (drawitem['type'] === 'single') {
             for (let s = 0; s < drawitem['values'].length; s++) {
-                const feature = getSingleFeature(geoData, drawitem['values'][s]);
+                const feature = ImmobilienHelper.getSingleFeature(geoData, drawitem['values'][s]);
                 if (!feature.hasOwnProperty('properties')) {
                     feature['properties'] = {};
                 }
@@ -153,7 +151,7 @@ export class ImmobilienExport {
                         'data': this.getNiPixTimeslot(date, series, drawitem['name'], istart, iend)
                     }
                 },
-                'geometry': getGeometryArray(geoData, drawitem['values'])
+                'geometry': ImmobilienHelper.getGeometryArray(geoData, drawitem['values'])
             };
             tmp.push(feature);
         }

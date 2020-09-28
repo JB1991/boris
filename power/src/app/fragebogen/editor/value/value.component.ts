@@ -46,4 +46,13 @@ export class ValueComponent implements OnChanges {
         this.data[this.question.name] = this.value;
         this.valueChange.emit(this.value);
     }
+
+    /**
+     * Resets value
+     */
+    public resetValue() {
+        this.value = null;
+        this.data = {};
+        this.valueChange.emit(this.value);
+    }
 }

@@ -27,9 +27,9 @@ export const STICHTAGE = [
 export const TEILMAERKTE = [
     {value: 'B', viewValue: 'Bauland'},
     {value: 'LF', viewValue: 'Landwirtschaft'},
-    {value: 'SF', viewValue: 'Sonderfläche'},
-    {value: 'R', viewValue: 'R'},
-    {value: 'E', viewValue: 'E'},
+    {value: 'SF', viewValue: 'Sonstige Flächen'},
+    {value: 'R', viewValue: 'Rohbauland'},
+    {value: 'E', viewValue: 'Bauerwartungsland'},
 ];
 
 /**
@@ -73,6 +73,11 @@ export class BodenrichtwertComponent implements OnDestroy {
     teilmarkt;
 
     /**
+     * State of the detail arrow (whether the arrow should point up or down)
+     */
+    detailArrow: boolean;
+
+    /**
      * Div-ViewChild contains Bodenrichtwert-List, Bodenrichtwert-Detail and Bodenrichtwert-Verlauf
      */
     @ViewChild('acc', {static: true}) acc: NgbAccordion;
@@ -93,6 +98,13 @@ export class BodenrichtwertComponent implements OnDestroy {
     }
 
     /**
+     * Toggles the state of the details arrow (up or down)
+     */
+    toggleDetailArrow() {
+        this.detailArrow = !this.detailArrow;
+    }
+
+    /**
      * Destroys all active subscriptions
      */
     ngOnDestroy(): void {
@@ -100,4 +112,5 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.featureSubscription.unsubscribe();
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

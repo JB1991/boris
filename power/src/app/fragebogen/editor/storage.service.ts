@@ -34,6 +34,7 @@ export class StorageService {
         // overwrite style class
         this.css_style.root = 'sv_main sv_bootstrap_css bg-light';
         this.css_style.container = '';
+        this.css_style.page.root = 'card-body p-0';
         this.css_style.row = 'sv_row';
 
         this.FormularFields = templates.FormularFields;
@@ -41,40 +42,6 @@ export class StorageService {
         this.selectedElementID = null;
         this.UnsavedChanges = false;
         this.AutoSaveEnabled = true;
-    }
-
-    /**
-     * Loads a form by id
-     */
-    public loadForm(id: string): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        // load form
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id);
-        return this.httpClient.get(url, this.auth.getHeaders());
-    }
-
-    /**
-     * Saves form by id
-     * @param data Surveyjs model
-     * @param id Form id
-     * @param tags Form tags
-     */
-    public saveForm(data: any, id: string, tags?: string[]): Observable<Object> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-        if (!data) {
-            throw new Error('data is required');
-        }
-
-        // save form
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + (tags ? '?tags=' + tags : '');
-        return this.httpClient.post(url, data, this.auth.getHeaders());
     }
 
     /**

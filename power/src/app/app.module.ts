@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -11,10 +11,6 @@ import { Observable, ObservableInput, of } from 'rxjs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { environment } from '@env/environment';
 
-import { registerLocaleData } from '@angular/common';
-import localeDe from '@angular/common/locales/de';
-registerLocaleData(localeDe);
-
 import { AuthModule } from '@app/shared/auth/auth.module';
 import { AlertsModule } from '@app/shared/alerts/alerts.module';
 import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
@@ -22,7 +18,7 @@ import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.mod
 export function load(httpClient: HttpClient, configService: ConfigService) {
     return (): Promise<boolean> => {
         return new Promise<boolean>((resolve: (a: boolean) => void): void => {
-            httpClient.get<Config>('./assets/config/config.json')
+            httpClient.get<Config>('/assets/config/config.json')
                 .pipe(
                     map((x: Config) => {
                         configService.config = x;
@@ -65,11 +61,7 @@ export function load(httpClient: HttpClient, configService: ConfigService) {
                 HttpClient,
                 ConfigService
             ]
-        },
-        {
-            provide: LOCALE_ID,
-            useValue: 'de-DE'
-        },
+        }
     ],
     bootstrap: [AppComponent]
 })

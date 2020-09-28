@@ -63,7 +63,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         component.formStatus = 'created';
         component.formAccess = 'public';
         component.formTitle = 'something';
-        component.updateForms().then(() => {
+        component.updateForms(false).then(() => {
             expect(component.data.forms).toEqual(internForms.data);
             expect(component.formTotal).toEqual(internForms.total);
             done();
@@ -73,7 +73,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed', (done) => {
         spyOn(component.formAPI, 'getInternTasks').and.returnValue(Promise.resolve(internTasks));
         component.taskStatus = 'created';
-        component.updateTasks().then(() => {
+        component.updateTasks(false).then(() => {
             expect(component.data.tasks).toEqual(internTasks.data);
             expect(component.taskTotal).toEqual(internTasks.total);
             done();
@@ -83,7 +83,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed', (done) => {
         spyOn(component.formAPI, 'getInternTags').and.returnValue(Promise.resolve(internTags.data));
         component.taskStatus = 'created';
-        component.updateTags().then(() => {
+        component.updateTags(false).then(() => {
             expect(component.data.tags).toEqual(internTags.data);
             done();
         });
@@ -135,7 +135,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component.formAPI, 'getInternForms').and.callFake(() => {
             return Promise.reject(new Error('fail'));
         });
-        component.updateForms().then(() => {
+        component.updateForms(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
@@ -147,7 +147,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component.formAPI, 'getInternTasks').and.callFake(() => {
             return Promise.reject(new Error('fail'));
         });
-        component.updateTasks().then(() => {
+        component.updateTasks(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
@@ -159,7 +159,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component.formAPI, 'getInternTags').and.callFake(() => {
             return Promise.reject(new Error('fail'));
         });
-        component.updateTags().then(() => {
+        component.updateTags(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
                 .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');

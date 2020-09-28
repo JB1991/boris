@@ -31,9 +31,20 @@ ul {
 
 .check {
     width: 1.5rem;
-    display: inline-block;
-    margin-right: 0.5rem;
+    display: table-cell;
+    vertical-align: top;
+    padding-right: 0.5rem;
     padding-left: 2rem;
+}
+
+.dot {
+    display: table-cell;
+    vertical-align: top;
+    padding-right: 0.5rem;
+}
+
+.dotlabel {
+    display: table-cell;
 }
 
 .row * {

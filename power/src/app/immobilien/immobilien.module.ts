@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
 
+import * as echarts from 'echarts';
+
 // Select some icons (use an object, not an array)
 const icons = {
     Building,
@@ -29,9 +31,9 @@ const icons = {
         NgbModule,
         AccordionModule.forRoot(),
         BsDropdownModule.forRoot(),
-        NgxEchartsModule,
         FormsModule,
-        NgxBootstrapIconsModule.pick(icons)
+        NgxBootstrapIconsModule.pick(icons),
+        NgxEchartsModule.forRoot({ echarts })
     ],
     declarations: [ImmobilienComponent]
 })

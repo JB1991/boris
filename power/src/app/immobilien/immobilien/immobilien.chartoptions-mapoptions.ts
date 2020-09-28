@@ -1,3 +1,33 @@
+function getScatter(position) {
+    return  {
+        'type': 'effectScatter',
+        'coordinateSystem': 'geo',
+        'zlevel': 2,
+
+        'label': {
+            'fontSize': null,
+            'normal': {
+                'show': true,
+                'position': position,
+                'offset': [0, 0],
+                'formatter': '{b}',
+                'backgroundColor': 'rgba(255,255,255,0.7)'
+            },
+            'emphasis': {
+                'show': true
+            }
+        },
+        'symbol': 'circle',
+        'symbolSize': 4,
+        'itemStyle': {
+            'normal': {
+                'show': true,
+            }
+        },
+        'data': null
+    };
+}
+
 export const mapOptions = {
     'title': {
         'text': 'Wohnungsmarktregionen in Niedersachsen',
@@ -81,35 +111,12 @@ export const mapOptions = {
             'selectedMode': null,
             'data': null,
         },
-        {
-            'type': 'effectScatter',
-            'coordinateSystem': 'geo',
-            'zlevel': 2,
-
-            'label': {
-                'fontSize': null,
-                'normal': {
-                    'show': true,
-                    'position': 'right',
-                    'offset': [5, 0],
-                    'formatter': '{b}',
-                    'backgroundColor': 'rgba(255,255,255,0.7)'
-                },
-                'emphasis': {
-                    'show': true
-                }
-            },
-            'symbol': 'circle',
-            'symbolSize': 4,
-            'itemStyle': {
-                'normal': {
-                    'show': true,
-                }
-            },
-            'data': null
-        }
-
-    ]
+        getScatter('right'),
+        getScatter('bottom'),
+        getScatter('left'),
+        getScatter('top')
+    ],
+    'color': ['#000000']
 };
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

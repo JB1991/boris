@@ -1,7 +1,7 @@
-import * as ImmobilenHelper from './immobilien.helper';
+import { ImmobilienHelper } from './immobilien.helper';
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
 import * as ImmobilenNipixStatic from './immobilien.static';
-import * as ImmobilienUtils from './immobilien.utils';
+import { ImmobilienUtils } from './immobilien.utils';
 
 export class ImmobilienFormatter {
 
@@ -57,24 +57,30 @@ export class ImmobilienFormatter {
      */
     public formatLabel = (params) => {
         if (params.dataIndex === this.nipixRuntime.state.rangeEndIndex) {
-            if (this.legendposition.length >= params.seriesIndex) {
+            if ((this.legendposition.length > params.seriesIndex) ||
+                (params.seriesIndex === 0)) {
                 this.legendposition = [];
             }
 
             let printlegend = true;
             const pixel = Math.round(this.nipixRuntime.chart.obj.convertToPixel({'yAxisIndex': 0}, params.data));
-            const clearance = Math.round(
-                ( ImmobilenHelper.convertRemToPixels( this.nipixStatic.textOptions.fontSizePage ) - 2 )
-                / 2 );
+            const fontSizeInPx = ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage);
+            const clearance = Math.round( (fontSizeInPx + 2) / 2 );
 
             for (let i = 0; i < this.legendposition.length; i++) {
-                if ((pixel > this.legendposition[i] - clearance) && (pixel < this.legendposition[i] + clearance)) {
+                if ((pixel > this.legendposition[i] - clearance) &&
+                    (pixel < this.legendposition[i] + clearance)) {
                     printlegend = false;
                 }
             }
 
             if ((this.nipixRuntime.state.selectedChartLine !== '')
                 && (this.nipixRuntime.state.selectedChartLine !== name)) {
+                printlegend = false;
+            }
+
+            if ((this.nipixRuntime.calculated.drawData.length === 2) &&
+                (params.seriesName === '1')) {
                 printlegend = false;
             }
 
@@ -126,7 +132,7 @@ export class ImmobilienFormatter {
      * @return Series Color
      */
     public getSeriesColor(series) {
-        return ImmobilenHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
+        return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
     }
 
     public simpleLegend() {
