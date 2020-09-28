@@ -11,7 +11,9 @@
                 <!-- question-name -->
                 <div class="form-group">
                     <label for="question-name"
-                           i18n>Fragen ID*</label>
+                           i18n>Fragen ID
+                           <span (click)="questionsettingsmodal.scrollToFooter()" role="button">*</span>
+                     </label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].name"
@@ -33,7 +35,9 @@
                 <!-- question-title -->
                 <div class="form-group">
                     <label for="question-title"
-                           i18n>Fragen Titel*</label>
+                           i18n>Fragen Titel
+                           <span (click)="questionsettingsmodal.scrollToFooter()" role="button">*</span>
+                     </label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].title.default"

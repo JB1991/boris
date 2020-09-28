@@ -274,7 +274,6 @@ Dies lässt sich nicht mehr umkehren!`)) {
             } else {
                 this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             }
-            console.log(this.data.taskPageSizes);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);

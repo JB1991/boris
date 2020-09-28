@@ -1,6 +1,15 @@
-import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, HostListener, Input, InjectionToken, Inject } from '@angular/core';
+
+const UNIQ_ID_TOKEN = new InjectionToken('ID');
+let id = 0;
 
 @Component({
+    providers: [
+        {
+            provide: UNIQ_ID_TOKEN,
+            useFactory: () => id++
+        }
+    ],
     selector: 'power-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss']
@@ -12,7 +21,7 @@ export class ModalComponent implements OnDestroy {
     public isOpen = false;
     public title = '';
 
-    constructor() { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
     ngOnDestroy() {
         if (this.isOpen) {
@@ -67,6 +76,17 @@ export class ModalComponent implements OnDestroy {
         if (this.focusedElement) {
             this.focusedElement.focus();
         }
+    }
+
+    /**
+     * Set Viewport to the footer
+     */
+    public scrollToFooter() {
+        const footer = document.getElementById('footer-' + this.uniqId);
+        footer.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
     }
 
     /**
