@@ -193,7 +193,7 @@ export class FilloutComponent implements OnInit {
         if (this.submitted) {
             return;
         }
-        console.log(result);
+
         // interim results
         this.formapi.updatePublicTask(this.storage.task.id, result).then(() => {
             this.storage.setUnsavedChanges(false);
@@ -205,11 +205,10 @@ export class FilloutComponent implements OnInit {
         });
     }
 
-
     /**
-    * Receives change events
-    * @param result Data
-    */
+     * Receives change events
+     * @param result Data
+     */
     public changed(result: any) {
         this.storage.setUnsavedChanges(true);
     }

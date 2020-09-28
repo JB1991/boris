@@ -6,6 +6,7 @@
         "attr-case": "off",
         "no-inline-style": "off",
         "svg-focusable": "off",
-		"element-name": "off"
+		"element-name": "off",
+		"prefer-native-element": "off"
     }
 }
