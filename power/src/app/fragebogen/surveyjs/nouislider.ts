@@ -69,6 +69,11 @@ export function init(Survey) {
                     default: true,
                 },
                 {
+                    name: 'inputbox:boolean',
+                    category: 'slider',
+                    default: false,
+                },
+                {
                     name: 'decimals:number',
                     category: 'slider',
                     default: 2,
@@ -80,11 +85,16 @@ export function init(Survey) {
             el.style.paddingLeft = '20px';
             el.style.paddingRight = '20px';
             el.style.paddingTop = '44px';
+            if (question.inputbox) {
+                el.style.paddingTop = '19px';
+            }
+
             el = el.children[0];
             el.style.marginBottom = '60px';
             if (question.orientation === 'vertical') {
                 el.style.height = '250px';
             }
+
             const slider = noUiSlider.create(el, {
                 start: question.value || (question.rangeMin + question.rangeMax) / 2,
                 connect: [true, false],
@@ -128,12 +138,39 @@ export function init(Survey) {
                 orientation: question.orientation,
                 direction: question.direction,
             });
+
             slider.on('change', function () {
                 question.value = Number(slider.get());
             });
+
+            if (question.inputbox) {
+                const container = document.createElement('div');
+                container.className = 'mb-5';
+                container.setAttribute('aria-hidden', 'true');
+
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.min = question.rangeMin;
+                input.max = question.rangeMax;
+                input.step = question.step;
+                input.className = 'ml-2';
+
+                container.appendChild(document.createTextNode($localize`Eingabewert`));
+                container.appendChild(input);
+                el.parentNode.insertBefore(container, el.parentNode.firstChild);
+
+                input.onchange = () => {
+                    slider.set(input.value);
+                };
+                slider.on('update', function () {
+                    input.value = slider.get();
+                });
+            }
+
             const updateValueHandler = function () {
                 slider.set(question.value);
             };
+
             if (question.isReadOnly) {
                 el.setAttribute('disabled', true);
             }

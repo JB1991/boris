@@ -309,6 +309,18 @@
                 </div>
 
                 <div *ngIf="model.pages[page].elements[question].type === 'nouislider'">
+                    <!-- question-inputbox -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].inputbox"
+                               name="question-inputbox"
+                               id="question-inputbox">
+                        <label class="custom-control-label"
+                               for="question-inputbox"
+                               i18n>Zusätzliches Eingabefeld aktivieren</label>
+                    </div>
+
                     <!-- question-step -->
                     <div class="form-group">
                         <label for="question-step"
