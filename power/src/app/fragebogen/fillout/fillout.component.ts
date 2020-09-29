@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { environment } from '@env/environment';
 import * as Survey from 'survey-angular';
 
-import { StorageService } from './storage.service';
 import { FormAPIService } from '../formapi.service';
 import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
+import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 import { contentTemplate } from '@angular-devkit/schematics';
 
 @Component({
@@ -23,16 +23,22 @@ export class FilloutComponent implements OnInit {
     public submitted = false;
     public languages = Survey.surveyLocalization.localeNames;
 
+    public data = {
+        css_style: JSON.parse(JSON.stringify(Bootstrap4_CSS)),
+        task: null,
+        form: null,
+        UnsavedChanges: false
+    };
+
     constructor(@Inject(LOCALE_ID) public locale: string,
         public titleService: Title,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public storage: StorageService,
         public formapi: FormAPIService) {
         this.titleService.setTitle($localize`Formulare - POWER.NI`);
-        this.storage.resetService();
+        this.resetService();
     }
 
     ngOnInit() {
@@ -57,7 +63,7 @@ export class FilloutComponent implements OnInit {
         if (!environment.production) {
             return true;
         }
-        return !this.storage.getUnsavedChanges();
+        return !this.getUnsavedChanges();
     }
 
     /**
@@ -72,8 +78,8 @@ export class FilloutComponent implements OnInit {
         // load form by id
         this.formapi.getInternForm(id).then(result => {
             // store form
-            this.storage.form = result;
-            this.language = this.storage.form.content.locale;
+            this.data.form = result;
+            this.language = this.data.form.content.locale;
 
             // check if user language exists in survey
             /* istanbul ignore next */
@@ -139,10 +145,10 @@ export class FilloutComponent implements OnInit {
 
         this.formapi.getPublicAccess(pin, factor).then(result => {
             // store task data
-            this.storage.task = result;
+            this.data.task = result;
 
             // load form by id
-            this.loadForm(this.storage.task['form-id']);
+            this.loadForm(this.data.task['form-id']);
         }).catch((error: Error) => {
             // failed to load task
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
@@ -169,8 +175,8 @@ export class FilloutComponent implements OnInit {
             submit: true
         };
         // complete
-        this.formapi.updatePublicTask(this.storage.task.id, result.result, queryParams).then(() => {
-            this.storage.setUnsavedChanges(false);
+        this.formapi.updatePublicTask(this.data.task.id, result.result, queryParams).then(() => {
+            this.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
@@ -195,8 +201,8 @@ export class FilloutComponent implements OnInit {
         }
 
         // interim results
-        this.formapi.updatePublicTask(this.storage.task.id, result).then(() => {
-            this.storage.setUnsavedChanges(false);
+        this.formapi.updatePublicTask(this.data.task.id, result).then(() => {
+            this.setUnsavedChanges(false);
         }).catch((error: Error) => {
             // failed to save task
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
@@ -210,7 +216,29 @@ export class FilloutComponent implements OnInit {
      * @param result Data
      */
     public changed(result: any) {
-        this.storage.setUnsavedChanges(true);
+        this.setUnsavedChanges(true);
+    }
+
+    public resetService() {
+        this.data.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
+        this.data.task = null;
+        this.data.form = null;
+        this.data.UnsavedChanges = false;
+    }
+
+        /**
+     * Sets unsaved changes state
+     * @param state true or false
+     */
+    public setUnsavedChanges(state: boolean) {
+        this.data.UnsavedChanges = state;
+    }
+
+    /**
+     * Returns true if unsaved changes exists
+     */
+    public getUnsavedChanges(): boolean {
+        return this.data.UnsavedChanges;
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

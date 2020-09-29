@@ -9,7 +9,6 @@ import { PageChangedEvent, PaginationModule } from 'ngx-bootstrap/pagination';
 import { DashboardComponent } from './dashboard.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { DataService } from './data.service';
 import { FormAPIService } from '../formapi.service';
 
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
@@ -34,7 +33,6 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
                 AlertsService,
                 LoadingscreenService,
                 FormAPIService,
-                DataService
             ],
             declarations: [
                 DashboardComponent,

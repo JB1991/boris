@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { FilloutRoutingModule } from './fillout-routing.module';
 import { FilloutComponent } from './fillout.component';
-import { StorageService } from './storage.service';
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 import { FormsModule } from '@angular/forms';
 
@@ -18,7 +17,6 @@ import { FormsModule } from '@angular/forms';
         FormsModule
     ],
     providers: [
-        StorageService
     ]
 })
 export class FilloutModule { }

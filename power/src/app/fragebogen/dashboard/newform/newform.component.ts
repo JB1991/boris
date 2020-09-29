@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
@@ -7,7 +7,6 @@ import { FormAPIService } from '../../formapi.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
-import { DataService } from '../data.service';
 
 @Component({
     selector: 'power-forms-dashboard-newform',
@@ -16,6 +15,11 @@ import { DataService } from '../data.service';
 })
 export class NewformComponent implements OnInit {
     @ViewChild('modalnewform') public modal: ModalDirective;
+    @Input() public data = {
+        tags: <string[]> [],
+        forms: [],
+        tasks: []
+    };
     public title: string;
     public service = '';
     public template = '';
@@ -28,7 +32,7 @@ export class NewformComponent implements OnInit {
         public router: Router,
         public alerts: AlertsService,
         public formAPI: FormAPIService,
-        public data: DataService) {
+        ) {
     }
 
     ngOnInit() {
