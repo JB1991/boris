@@ -96,6 +96,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
             'smooth': false,
             'symbol': 'circle',
             'symbolSize': 4,
+            'showAllSymbol': true,
             'sampling': 'average',
             'zlevel': 0,
             'itemStyle': {
@@ -127,6 +128,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
             'smooth': false,
             'symbol': 'circle',
             'symbolSize': 4,
+            'showAllSymbol': true,
             'sampling': 'average',
             'zlevel': 1,
             'xAxisIndex': 1,

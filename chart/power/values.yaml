@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: de.icr.io/power/power
   pullPolicy: Always
-  tag: 0.1.14
+  tag: ""
 
 imagePullSecrets: 
   - name: de-icr-io
@@ -39,16 +39,24 @@ service:
   port: 80
 
 ingress:
-  enabled: false
-  annotations: 
-    ingress.bluemix.net/redirect-to-https: "True"
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/override: power-https-redirect
+    konghq.com/plugins: power-rate-limiting-by-ip,power-cors
   hosts:
-    - host: dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0000.eu-de.containers.appdomain.cloud
-      paths: ['/']
+    - host: dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+      paths:
+      - path: /
+        serviceName: power
+        servicePort: 80
+      - path: /geoserver/
+        serviceName: presentation-geoserver
+        servicePort: 8080
   tls:
-   - secretName: power-cluster-65655d4c73bf47a3300821aa2939abf4-0000
+   - secretName: power-cluster-65655d4c73bf47a3300821aa2939abf4-0001
      hosts:
-       - dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0000.eu-de.containers.appdomain.cloud
+       - dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

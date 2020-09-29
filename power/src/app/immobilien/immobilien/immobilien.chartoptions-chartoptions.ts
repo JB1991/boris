@@ -54,7 +54,7 @@ export const chartOptions = {
             type: 'text',
             id: 'copyright',
             right: 90,
-            bottom: 10,
+            bottom: 2,
             z: 100,
             style: {
                 fill: '#333',
