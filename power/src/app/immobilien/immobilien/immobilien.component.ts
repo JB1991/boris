@@ -249,7 +249,23 @@ export class ImmobilienComponent implements OnInit {
         }
 
         // Adds the current selection state to the draw item
-        this.nipixRuntime.drawPresets[0].values = nval;
+        for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
+            if (this.nipixRuntime.drawPresets[i].show === true) {
+                if ((this.nipixRuntime.drawPresets[i].type === 'aggr') &&
+                    (this.nipixRuntime.drawPresets[i].name.length > 2) &&
+                    (nval.length == 0)) {
+                    this.nipixRuntime.drawPresets[i].values =
+                        JSON.parse(JSON.stringify(this.nipixStatic.data.presets[i].values));
+                } else if ((this.nipixRuntime.drawPresets[i].type === 'aggr') &&
+                    (this.nipixRuntime.drawPresets[i].name.length > 2) &&
+                    (this.nipixStatic.data.presets[i].values.includes(nval[0]))) {
+                    this.nipixRuntime.drawPresets[i].values = nval;
+                } else if ((this.nipixRuntime.drawPresets[i].type !== 'aggr') ||
+                    (this.nipixRuntime.drawPresets[i].name.length <= 2)) {
+                    this.nipixRuntime.drawPresets[i].values = nval;
+                }
+            }
+        }
 
         // Finally Update chart
         this.updateChart();
@@ -475,6 +491,12 @@ export class ImmobilienComponent implements OnInit {
 
     onPanelChangeIndex(selection_id: number) {
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
+            if ((this.nipixRuntime.drawPresets[i].show) &&
+                (this.nipixRuntime.drawPresets[i].type === 'aggr') &&
+                (this.nipixRuntime.drawPresets[i].name.length > 3)) {
+                this.nipixRuntime.drawPresets[i].values =
+                    JSON.parse(JSON.stringify(this.nipixStatic.data.presets[i].values));
+            }
             this.nipixRuntime.drawPresets[i].show = false;
         }
         if (this.nipixStatic.data.selections[selection_id] !== undefined
@@ -497,8 +519,11 @@ export class ImmobilienComponent implements OnInit {
             ImmobilienUtils.modifyRegionen(this.nipixStatic.data.regionen, this.nipixRuntime.drawPresets
                 .filter(drawitem => (drawitem['show'] === true && drawitem['type'] !== 'single'))),
             null, null, true);
-        if (this.nipixStatic.data.selections[selection_id]['type'] === 'single') {
+        if ((this.nipixStatic.data.selections[selection_id]['type'] === 'single') ||
+            (this.nipixStatic.data.selections[selection_id]['type'] === 'multiIndex')) {
             this.setMapOptions();
+        } else if (this.nipixStatic.data.selections[selection_id]['type'] === 'multi') {
+            this.setMapOptions('single')
         } else {
             this.setMapOptions(false);
         }
