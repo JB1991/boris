@@ -71,6 +71,59 @@ h1 {
     background-color: #a7a7a7;
 }
 
+.product-device-3 {
+    position: absolute;
+    left: 20%;
+    right: 0%;
+    bottom: -35%;
+    width: 300px;
+    height: 540px;
+    background-color: #343a40 !important;
+    border-radius: 21px;
+    -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+}
+
+.product-device-3::before {
+    position: absolute;
+    top: 10%;
+    right: 10px;
+    bottom: 10%;
+    left: 10px;
+    content: '';
+    background-image: url('~assets/IMG_Immobilienindex.webp');
+    background-size: 280px 490px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.product-device-4 {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    bottom: -35%;
+    width: 300px;
+    height: 540px;
+    background-color: #343a40 !important;
+    border-radius: 21px;
+    -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+}
+
+.product-device-4::before {
+    position: absolute;
+    top: 10%;
+    right: 10px;
+    bottom: 10%;
+    left: 10px;
+    content: '';
+    background-image: url('~assets/IMG_Fragebogen.webp');
+    background-size: 280px 490px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+
 .flex-equal > * {
     -ms-flex: 1;
     flex: 1;
