@@ -31,11 +31,11 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-        {{- range .paths }}
-          - path: {{ . }}
+        {{- range $key, $paths := .paths }}
+          - path: {{ $paths.path }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              serviceName: {{ $paths.serviceName }}
+              servicePort: {{ $paths.servicePort }}
         {{- end }}
   {{- end }}
 {{- end }}
