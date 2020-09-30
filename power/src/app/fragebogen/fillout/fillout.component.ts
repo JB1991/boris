@@ -226,7 +226,7 @@ export class FilloutComponent implements OnInit {
         this.data.UnsavedChanges = false;
     }
 
-        /**
+    /**
      * Sets unsaved changes state
      * @param state true or false
      */

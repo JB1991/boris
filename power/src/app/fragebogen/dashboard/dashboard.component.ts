@@ -14,10 +14,10 @@ import { FormAPIService } from '../formapi.service';
 })
 export class DashboardComponent implements OnInit {
     public data = {
-        tags: <string[]> [],
+        tags: <string[]>[],
         forms: [],
         tasks: []
-    }
+    };
 
     public formTotal: number;
     public formPage = 1;
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public formAPI: FormAPIService
-        ) {
+    ) {
         this.titleService.setTitle($localize`Dashboard - POWER.NI`);
     }
 
