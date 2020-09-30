@@ -183,7 +183,7 @@ deploy:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
+    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="$CI_COMMIT_REF_NAME"
     - bash scripts/slack.sh
   only:
     - dev
