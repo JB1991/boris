@@ -165,19 +165,19 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 
 ### Bodenrichtwerte
 * Visualisierung der Bodenrichtwertzonen
-* Funktionen:
+* Funktionen
   * Auswahl von Stichtag und Teilmarkt
   * Adresssuche, Reverse Geocoding
   * Geolocation Positionsbestimmung
   * 3D-Gebäude
 * Stichtage 2012 - 2019
-* Informationen zu:
+* Informationen zu
   * Art der Nutzung
   * Bodenrichtwert
   * Beitragsrechtlicher Zustand
 * Entwicklung des BRW als Step-Line-Graph
-* Abhängigkeiten:
-  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
+* Abhängigkeiten
+  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [BORIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/borisni-database-vboris2)
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
   * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
   * [ECharts](https://www.npmjs.com/package/echarts)
@@ -185,15 +185,15 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 
 ### Bodenwerte
 * Visualisierung von Bodenwerten (Flurstück)
-* Funktionen:
+* Funktionen
   * Adresssuche, Reverse Geocoding
   * Geolocation Positionsbestimmung
   * 3D-Gebäude
   * Selektion und Addition von Flurstücken
 * Benötigt Datensatz mit Flurstücken und Werten
 * Derzeit mit offiziellen LGLN Testdaten + zufällig generierten Werten (100.000€ - 1.000.000€)
-* Abhängigkeiten:
-  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
+* Abhängigkeiten
+  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [ALKIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/alkis-database)
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
   * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
 
