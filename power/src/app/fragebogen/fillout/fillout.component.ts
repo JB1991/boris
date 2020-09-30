@@ -73,6 +73,7 @@ export class FilloutComponent implements OnInit {
         this.wrapper.survey.locale = this.language;
     }
 
+    
     // tslint:disable-next-line: max-func-body-length
     public loadForm(id: string) {
         // load form by id
