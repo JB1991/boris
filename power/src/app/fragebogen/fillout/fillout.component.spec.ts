@@ -88,7 +88,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      * LOAD FORM
      */
     it('should load form', fakeAsync(() => {
-        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSample.data));
+        spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.resolve(formSample.data));
 
         component.loadForm('123');
         tick();
@@ -98,7 +98,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     }));
 
     it('should fail to load form', fakeAsync(() => {
-        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed to load form'));
+        spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.reject('Failed to load form'));
 
         component.loadForm('123');
         tick();

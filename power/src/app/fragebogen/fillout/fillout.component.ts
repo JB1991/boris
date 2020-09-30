@@ -76,7 +76,7 @@ export class FilloutComponent implements OnInit {
     // tslint:disable-next-line: max-func-body-length
     public loadForm(id: string) {
         // load form by id
-        this.formapi.getInternForm(id).then(result => {
+        this.formapi.getPublicForm(id).then(result => {
             // store form
             this.data.form = result;
             this.language = this.data.form.content.locale;
