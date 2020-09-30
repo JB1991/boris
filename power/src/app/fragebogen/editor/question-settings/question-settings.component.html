@@ -12,8 +12,9 @@
                 <div class="form-group">
                     <label for="question-name"
                            i18n>Fragen ID
-                           <span (click)="questionsettingsmodal.scrollToFooter()" role="button">*</span>
-                     </label>
+                        <span (click)="questionsettingsmodal.scrollToFooter()"
+                              role="button">*</span>
+                    </label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].name"
@@ -36,8 +37,9 @@
                 <div class="form-group">
                     <label for="question-title"
                            i18n>Fragen Titel
-                           <span (click)="questionsettingsmodal.scrollToFooter()" role="button">*</span>
-                     </label>
+                        <span (click)="questionsettingsmodal.scrollToFooter()"
+                              role="button">*</span>
+                    </label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].title.default"
@@ -178,7 +180,8 @@
                 </div>
 
                 <!-- question-width -->
-                <div class="form-group">
+                <div class="form-group"
+                     *ngIf="model.pages[page].elements[question].type !== 'signaturepad'">
                     <label for="question-width"
                            i18n>Breite der Frage in Pixel</label>
                     <input type="text"
@@ -422,7 +425,7 @@
                                 name="form-acceptedTypes">
                             <!--<option value=""
                                         i18n>Alles erlauben</option>-->
-                            <option value=".pdf"
+                            <option value="application/pdf"
                                     i18n>PDF-Dokumente</option>
                             <option value="image/*"
                                     i18n>Bilder</option>

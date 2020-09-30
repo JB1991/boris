@@ -144,7 +144,7 @@ export const Bootstrap4_CSS = {
         label: 'sv_q_imgsel_label',
         itemControl: 'sv_q_imgsel_control_item',
         image: 'sv_q_imgsel_image',
-        itemText: 'sv_q_imgsel_text font-weight-light text-wrap',
+        itemText: 'sv_q_imgsel_text font-weight-light',
         other: 'form-control',
         clearButton: 'sv_q_radiogroup_clear btn btn-danger',
     },
