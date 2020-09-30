@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { StorageService } from '../storage.service';
 import { FormAPIService } from '../../formapi.service';
 
 @Component({
@@ -27,7 +26,6 @@ export class MaketaskComponent implements OnInit {
 
     constructor(public modalService: BsModalService,
         public alerts: AlertsService,
-        public storage: StorageService,
         public formapi: FormAPIService) {
     }
 

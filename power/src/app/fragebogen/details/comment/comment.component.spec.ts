@@ -5,7 +5,6 @@ import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CommentComponent } from './comment.component';
-import { StorageService } from '../storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '@app/fragebogen/formapi.service';
 

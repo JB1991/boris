@@ -99,6 +99,7 @@ export class ImmobilienUtils {
             'smooth': false,
             'symbol': 'circle',
             'symbolSize': 4,
+            'showAllSymbol': true,
             'sampling': 'average',
             'zlevel': zindex,
             'itemStyle': {

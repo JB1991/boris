@@ -10,7 +10,6 @@ import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { TypeaheadMatch, TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormAPIService } from '@app/fragebogen/formapi.service';
-import { DataService } from '../data.service';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
@@ -34,7 +33,6 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 BsModalService,
                 AlertsService,
                 FormAPIService,
-                DataService
             ],
             declarations: [
                 NewformComponent

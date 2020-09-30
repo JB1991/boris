@@ -143,7 +143,8 @@
 
     <div class="container-fluid">
         <footer class="pt-4 my-md-5 pt-md-5 border-top w-100 m-0 overflow-hidden">
-            <div class="row justify-content-end">
+            <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
+                 class="row justify-content-end">
                 <div class="col-md-4 text-right">
                     <p class="text-muted"
                        i18n>* Pflichtfeld</p>

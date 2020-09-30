@@ -14,26 +14,28 @@
 </div>
 
 <div class="d-lg-flex flex-md-equal w-0 h-50">
-    <div class="pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 py-3">
+    <div class="position-relative overflow-hidden pt-3 px-3 pt-md-5 px-md-5 text-center"
+         style="height: 500px;">
+        <div class="col-lg-7 mx-auto headline">
             <h2 class="font-weight-normal"
                 i18n>Immobilienpreis-Index</h2>
             <a class="btn btn-danger"
                [routerLink]="['/immobilienpreisindex']"
                i18n>Zur Anwendung</a>
         </div>
-        <div class="bg-dark shadow-sm mx-auto"
-             style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+        <div class="product-device-3 shadow-sm d-none d-lg-block"></div>
     </div>
-    <div class="pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
+
+    <div class="position-relative pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <div class="col-lg-7 mx-auto headline">
             <h2 class="font-weight-normal"
                 i18n>Online Formulare</h2>
             <a class="btn btn-danger"
                [routerLink]="['/forms']"
                i18n>Zur Anwendung</a>
         </div>
-        <div class="bg-dark shadow-sm mx-auto"
-             style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+        <!-- <div class="bg-dark shadow-sm"
+             style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div> -->
+        <div class="product-device-4 shadow-sm mx-auto d-none d-lg-block"></div>
     </div>
 </div>

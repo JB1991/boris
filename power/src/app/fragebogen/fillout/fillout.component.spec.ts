@@ -6,7 +6,6 @@ import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 
 import { FilloutComponent } from './fillout.component';
-import { StorageService } from './storage.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService } from '../formapi.service';
@@ -30,7 +29,6 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             ],
             providers: [
                 Title,
-                StorageService,
                 AlertsService,
                 LoadingscreenService,
                 FormAPIService
@@ -94,7 +92,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
         component.loadForm('123');
         tick();
-        expect(component.storage.form).toEqual(formSample.data);
+        expect(component.data.form).toEqual(formSample.data);
         expect(component.language).toEqual(formSample.data.content.locale);
         flush();
     }));
@@ -138,7 +136,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         spyOn(component.formapi, 'getPublicAccess').and.returnValue(Promise.resolve(accessSample.data));
         component.loadData('123', 'factor');
         tick();
-        expect(component.storage.task).toEqual(accessSample.data);
+        expect(component.data.task).toEqual(accessSample.data);
     }));
 
     it('should fail to load data', fakeAsync(() => {
@@ -155,11 +153,11 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      */
     it('should submit data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(accessSample.data));
-        component.storage.task = taskSample.data;
+        component.data.task = taskSample.data;
         component.submit(accessSample.data);
         fixture.detectChanges();
         tick();
-        expect(component.storage.UnsavedChanges).toBeFalse();
+        expect(component.data.UnsavedChanges).toBeFalse();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich',
             'Ihre Daten wurden erfolgreich gespeichert.');
@@ -167,7 +165,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     it('should fail to submit data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
-        component.storage.task = taskSample.data;
+        component.data.task = taskSample.data;
         component.submit({ result: submitSample, options: { showDataSavingError: () => { } } });
         fixture.detectChanges();
         tick();
@@ -181,16 +179,16 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      */
     it('should progress result', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(accessSample.data));
-        component.storage.task = taskSample.data;
+        component.data.task = taskSample.data;
         component.progress(accessSample.data);
         fixture.detectChanges();
         tick();
-        expect(component.storage.UnsavedChanges).toBeFalse();
+        expect(component.data.UnsavedChanges).toBeFalse();
     }));
 
     it('should fail to progress data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
-        component.storage.task = taskSample.data;
+        component.data.task = taskSample.data;
         component.progress(submitSample);
         fixture.detectChanges();
         tick();
@@ -211,9 +209,9 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      * CHANGED
      */
     it('should set unsavedchanges', () => {
-        expect(component.storage.getUnsavedChanges()).toBeFalse();
+        expect(component.getUnsavedChanges()).toBeFalse();
         component.changed('data');
-        expect(component.storage.getUnsavedChanges()).toBeTrue();
+        expect(component.getUnsavedChanges()).toBeTrue();
     });
 
     /**
@@ -245,7 +243,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         spyOn(window, 'confirm').and.returnValue(true);
 
         environment.production = true;
-        expect(component.canDeactivate()).toEqual(!component.storage.getUnsavedChanges());
+        expect(component.canDeactivate()).toEqual(!component.getUnsavedChanges());
         environment.production = false;
     });
 });

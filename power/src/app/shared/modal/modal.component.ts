@@ -1,4 +1,7 @@
-import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, HostListener, Input, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, OnDestroy, ViewChild, ElementRef,
+    Output, EventEmitter, HostListener, InjectionToken, Inject
+} from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;

@@ -592,6 +592,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
             throw new Error('element is invalid');
         }
+        if (!this.storage.model.pages[page].elements[element].title.default) {
+            this.alerts.NewAlert('warning', $localize`Kein Titel vorhanden`,
+                $localize`Bitte geben Sie erst einen Fragetitel ein, um die Favoritenfunktion mit dieser Frage nutzen zu können.`);
+            return;
+        }
 
         // prepare data
         const question = JSON.parse(JSON.stringify(this.storage.model.pages[page].elements[element]));

@@ -1,0 +1,1139 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "bbox": [
+                9.80197862229792,
+                52.4072429511222,
+                9.80212561098666,
+                52.4073328456491
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.80205,
+                    52.40729
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 331, 30659 Hannover - Bothfeld",
+                "typ": "Haus",
+                "score": 1.5861975,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.80198,
+                                52.40724
+                            ],
+                            [
+                                9.80198,
+                                52.40733
+                            ],
+                            [
+                                9.80213,
+                                52.40733
+                            ],
+                            [
+                                9.80213,
+                                52.40724
+                            ],
+                            [
+                                9.80198,
+                                52.40724
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03241001",
+                "rs": "032410001001",
+                "schluessel": "032410001001000002197",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Hannover, Region",
+                "verwgem": "Hannover",
+                "gemeinde": "Hannover, Landeshauptstadt",
+                "plz": "30659",
+                "ort": "Hannover",
+                "ortsteil": "Bothfeld",
+                "strasse": "Podbielskistraße",
+                "haus": "331",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000509041"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.8011200721775,
+                52.4072607388106,
+                9.80126706095621,
+                52.4073506333561
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.80119,
+                    52.40731
+                ]
+            },
+            "properties": {
+                "text": "Podbielskiestraße 331E, 30659 Hannover - Bothfeld",
+                "typ": "Haus",
+                "score": 1.581622,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.80112,
+                                52.40726
+                            ],
+                            [
+                                9.80112,
+                                52.40735
+                            ],
+                            [
+                                9.80127,
+                                52.40735
+                            ],
+                            [
+                                9.80127,
+                                52.40726
+                            ],
+                            [
+                                9.80112,
+                                52.40726
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03241001",
+                "rs": "032410001001",
+                "schluessel": "032410001001000002197",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Hannover, Region",
+                "verwgem": "Hannover",
+                "gemeinde": "Hannover, Landeshauptstadt",
+                "plz": "30659",
+                "ort": "Hannover",
+                "ortsteil": "Bothfeld",
+                "strasse": "Podbielskiestraße",
+                "haus": "331E",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000000405"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36685656482982,
+                52.3312617141042,
+                9.36700331291286,
+                52.3313516167652
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36693,
+                    52.33131
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 1, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36686,
+                                52.33126
+                            ],
+                            [
+                                9.36686,
+                                52.33135
+                            ],
+                            [
+                                9.367,
+                                52.33135
+                            ],
+                            [
+                                9.367,
+                                52.33126
+                            ],
+                            [
+                                9.36686,
+                                52.33126
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "1",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007313"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36652588292164,
+                52.3305685573236,
+                9.3666726287163,
+                52.3306584599985
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.3666,
+                    52.33061
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 10, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36653,
+                                52.33057
+                            ],
+                            [
+                                9.36653,
+                                52.33066
+                            ],
+                            [
+                                9.36667,
+                                52.33066
+                            ],
+                            [
+                                9.36667,
+                                52.33057
+                            ],
+                            [
+                                9.36653,
+                                52.33057
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "10",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007323"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36652770736447,
+                52.3304057876825,
+                9.36667445262048,
+                52.3304956903598
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.3666,
+                    52.33045
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 12, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36653,
+                                52.33041
+                            ],
+                            [
+                                9.36653,
+                                52.3305
+                            ],
+                            [
+                                9.36667,
+                                52.3305
+                            ],
+                            [
+                                9.36667,
+                                52.33041
+                            ],
+                            [
+                                9.36653,
+                                52.33041
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "12",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007324"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36652914372148,
+                52.3302422280771,
+                9.36667588843624,
+                52.3303321307569
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.3666,
+                    52.33029
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 14, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36653,
+                                52.33024
+                            ],
+                            [
+                                9.36653,
+                                52.33033
+                            ],
+                            [
+                                9.36668,
+                                52.33033
+                            ],
+                            [
+                                9.36668,
+                                52.33024
+                            ],
+                            [
+                                9.36653,
+                                52.33024
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "14",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007325"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36654432516293,
+                52.3300709389402,
+                9.36669106931063,
+                52.3301608416225
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36662,
+                    52.33012
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 16, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36654,
+                                52.33007
+                            ],
+                            [
+                                9.36654,
+                                52.33016
+                            ],
+                            [
+                                9.36669,
+                                52.33016
+                            ],
+                            [
+                                9.36669,
+                                52.33007
+                            ],
+                            [
+                                9.36654,
+                                52.33007
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "16",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007326"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36650866455475,
+                52.3298879490873,
+                9.36665540809752,
+                52.3299778517727
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36658,
+                    52.32993
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 18, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36651,
+                                52.32989
+                            ],
+                            [
+                                9.36651,
+                                52.32998
+                            ],
+                            [
+                                9.36666,
+                                52.32998
+                            ],
+                            [
+                                9.36666,
+                                52.32989
+                            ],
+                            [
+                                9.36651,
+                                52.32989
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "18",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007327"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36648182570545,
+                52.3312873494403,
+                9.36662857387947,
+                52.3313772521046
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36656,
+                    52.33133
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 2, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36648,
+                                52.33129
+                            ],
+                            [
+                                9.36648,
+                                52.33138
+                            ],
+                            [
+                                9.36663,
+                                52.33138
+                            ],
+                            [
+                                9.36663,
+                                52.33129
+                            ],
+                            [
+                                9.36648,
+                                52.33129
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "2",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007314"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36649001471844,
+                52.3297230222988,
+                9.36663675771577,
+                52.3298129249869
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36656,
+                    52.32977
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 20, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36649,
+                                52.32972
+                            ],
+                            [
+                                9.36649,
+                                52.32981
+                            ],
+                            [
+                                9.36664,
+                                52.32981
+                            ],
+                            [
+                                9.36664,
+                                52.32972
+                            ],
+                            [
+                                9.36649,
+                                52.32972
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "20",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007328"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36650032922862,
+                52.3314664546545,
+                9.36664707799505,
+                52.3315563573158
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36657,
+                    52.33151
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 2A, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.3665,
+                                52.33147
+                            ],
+                            [
+                                9.3665,
+                                52.33156
+                            ],
+                            [
+                                9.36665,
+                                52.33156
+                            ],
+                            [
+                                9.36665,
+                                52.33147
+                            ],
+                            [
+                                9.3665,
+                                52.33147
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "2A",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007315"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36686198237598,
+                52.3311200969475,
+                9.36700872999027,
+                52.3312099996105
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36694,
+                    52.33117
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 3, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36686,
+                                52.33112
+                            ],
+                            [
+                                9.36686,
+                                52.33121
+                            ],
+                            [
+                                9.36701,
+                                52.33121
+                            ],
+                            [
+                                9.36701,
+                                52.33112
+                            ],
+                            [
+                                9.36686,
+                                52.33112
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "3",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007316"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36648301478314,
+                52.3311098283851,
+                9.36662976236968,
+                52.3311997310521
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36656,
+                    52.33115
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 4, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36648,
+                                52.33111
+                            ],
+                            [
+                                9.36648,
+                                52.3312
+                            ],
+                            [
+                                9.36663,
+                                52.3312
+                            ],
+                            [
+                                9.36663,
+                                52.33111
+                            ],
+                            [
+                                9.36648,
+                                52.33111
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "4",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007317"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36687092840791,
+                52.3309402412327,
+                9.36701767542688,
+                52.3310301438984
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36694,
+                    52.33099
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 5, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36687,
+                                52.33094
+                            ],
+                            [
+                                9.36687,
+                                52.33103
+                            ],
+                            [
+                                9.36702,
+                                52.33103
+                            ],
+                            [
+                                9.36702,
+                                52.33094
+                            ],
+                            [
+                                9.36687,
+                                52.33094
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "5",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007318"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36646596222719,
+                52.330946452027,
+                9.36661270927335,
+                52.3310363546967
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36654,
+                    52.33099
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 6, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36647,
+                                52.33095
+                            ],
+                            [
+                                9.36647,
+                                52.33104
+                            ],
+                            [
+                                9.36661,
+                                52.33104
+                            ],
+                            [
+                                9.36661,
+                                52.33095
+                            ],
+                            [
+                                9.36647,
+                                52.33095
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "6",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007319"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36688577739479,
+                52.3307466386876,
+                9.36703252377285,
+                52.3308365413561
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36696,
+                    52.33079
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 7, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36689,
+                                52.33075
+                            ],
+                            [
+                                9.36689,
+                                52.33084
+                            ],
+                            [
+                                9.36703,
+                                52.33084
+                            ],
+                            [
+                                9.36703,
+                                52.33075
+                            ],
+                            [
+                                9.36689,
+                                52.33075
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "7",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007320"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36648267298866,
+                52.3307435206129,
+                9.36662941936301,
+                52.3308334232855
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36656,
+                    52.33079
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 8, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36648,
+                                52.33074
+                            ],
+                            [
+                                9.36648,
+                                52.33083
+                            ],
+                            [
+                                9.36663,
+                                52.33083
+                            ],
+                            [
+                                9.36663,
+                                52.33074
+                            ],
+                            [
+                                9.36648,
+                                52.33074
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "8",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007321"
+        },
+        {
+            "type": "Feature",
+            "bbox": [
+                9.36683738717192,
+                52.330626972605,
+                9.36698413315477,
+                52.3307168752758
+            ],
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    9.36691,
+                    52.33067
+                ]
+            },
+            "properties": {
+                "text": "Podbielskistraße 9, 31542 Bad Nenndorf",
+                "typ": "Haus",
+                "score": 1.5279744,
+                "bbox": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                9.36684,
+                                52.33063
+                            ],
+                            [
+                                9.36684,
+                                52.33072
+                            ],
+                            [
+                                9.36698,
+                                52.33072
+                            ],
+                            [
+                                9.36698,
+                                52.33063
+                            ],
+                            [
+                                9.36684,
+                                52.33063
+                            ]
+                        ]
+                    ]
+                },
+                "ags": "03257006",
+                "rs": "032575403006",
+                "schluessel": "0325754030060000050BN",
+                "bundesland": "Niedersachsen",
+                "regbezirk": "Hannover",
+                "kreis": "Schaumburg",
+                "verwgem": "Nenndorf",
+                "gemeinde": "Bad Nenndorf, Stadt",
+                "plz": "31542",
+                "ort": "Bad Nenndorf",
+                "ortsteil": "",
+                "strasse": "Podbielskistraße",
+                "haus": "9",
+                "qualitaet": "A"
+            },
+            "id": "DENIHK0000007322"
+        }
+    ]
+}

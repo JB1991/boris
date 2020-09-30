@@ -7,7 +7,6 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SharedModule } from '@app/shared/shared.module';
 
 import { DetailsRoutingModule } from './details-routing.module';
-import { StorageService } from './storage.service';
 import { DetailsComponent } from './details.component';
 import { MaketaskComponent } from './maketask/maketask.component';
 import { PublishComponent } from './publish/publish.component';
@@ -36,7 +35,6 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
         PaginationModule,
     ],
     providers: [
-        StorageService
     ]
 })
 export class DetailsModule { }

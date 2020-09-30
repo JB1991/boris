@@ -9,38 +9,61 @@ import { Feature, FeatureCollection } from 'geojson';
 })
 export class GeosearchService {
 
+    // Geosearch URL
     url = '/geocoding/geosearch/';
 
+    // Subject with feature object which contains a geometry and associated properties
     features = new Subject<Feature>();
 
     constructor(private http: HttpClient) {
     }
 
+    /**
+     * Returns the features as an Observable
+     */
     getFeatures(): Observable<Feature> {
         return this.features.asObservable();
     }
 
+    /**
+     * Updates the features by feeding a new value to the Subject
+     * @param feature New feature
+     */
     updateFeatures(feature: Feature) {
         this.features.next(feature);
     }
 
+    /**
+     * Search for houses in lower saxony
+     * @param search The search string to be passed to the GeoCoder
+     */
     search(search: string): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {
             params: new HttpParams().set('query', `text:(${search}) AND typ:haus AND bundesland:Niedersachsen`)
         }).pipe(
-            catchError(this.handleError)
+            catchError(GeosearchService.handleError)
         );
     }
 
-    getAddressFromCoordinates(lat, lng): Observable<FeatureCollection> {
+    /**
+     * Translate geo coordinates to an address
+     * @param lat Latitude
+     * @param lon Longitude
+     */
+    getAddressFromCoordinates(lat, lon): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {
-            params: new HttpParams().set('query', 'typ: haus').append('lat', lat).append('lon', lng)
+            params: new HttpParams().set('query', 'typ: haus').append('lat', lat).append('lon', lon)
         }).pipe(
-            catchError(this.handleError)
+            catchError(GeosearchService.handleError)
         );
     }
 
-    private handleError(error: HttpErrorResponse) {
+    /**
+     * Handling of HTTP errors by logging it to the console
+     * @param error HTTP error to be handled
+     * @private
+     */
+    private static handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             console.error('Es ist ein Fehler aufgetreten: ' + error.message);
         } else {
@@ -52,5 +75,4 @@ export class GeosearchService {
     }
 }
 
-// Sample result from BKG Geocoding Service: See file power/src/assets/geosearch/sample.json
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -5,8 +5,6 @@ import { Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService } from '../formapi.service';
-import { DataService } from './data.service';
-import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'power-forms-dashboard',
@@ -15,6 +13,12 @@ import { FormsModule } from '@angular/forms';
     encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
+    public data = {
+        tags: <string[]>[],
+        forms: [],
+        tasks: []
+    };
+
     public formTotal: number;
     public formPage = 1;
     public formPerPage = 5;
@@ -39,8 +43,8 @@ export class DashboardComponent implements OnInit {
         public router: Router,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public formAPI: FormAPIService,
-        public data: DataService) {
+        public formAPI: FormAPIService
+    ) {
         this.titleService.setTitle($localize`Dashboard - POWER.NI`);
     }
 
