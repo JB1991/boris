@@ -4,19 +4,19 @@
     <p class="lead">Bitte formulieren Sie ihr Anliegen so exakt wie möglich:</p>
     <ul>
         <li>Genaue Beschreibung des Fehlers bzw. Vorschlags</li>
-        <li>Bei Fehlern: Welche Schritte haben den Fehler ausgelöst?</li>
-        <li>Bei Fehlern: URL (Adresszeile im Browser)</li>
-        <li>Bei Fehlern: Bildschirmfoto (wenn möglich)</li>
-        <li>Bei Fehlern: Versionsnummer (siehe Fußzeile)</li>
+        <li>Welche Schritte haben den Fehler ausgelöst?</li>
+        <li>Unter welcher URL (Adresszeile im Browser) ist das Problem aufgetreten?</li>
+        <li>Wenn möglich Bildschirmfotos anhängen</li>
+        <li>Angabe der Versionsnummer (siehe Fußzeile)</li>
     </ul>
     <p class="lead">Dieser Button öffnet Ihr E-Mail-Programm:</p>
+    <p>Der Empfänger, Betreff und ein Basistext sind bereits ausgefüllt.</p>
     <a type="button"
        class="btn btn-primary"
-       href="mailto:incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com">
+       href="mailto:{{ mail }}?subject={{ subject }}&body={{ body }}">
         Feedback geben
     </a>
     <br><br>
-    <p>Der Empfänger ist bereits ausgefüllt.</p>
     <p>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</p>
     <code>incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com</code>
 </div>

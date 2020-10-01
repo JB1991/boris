@@ -54,6 +54,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.httpClient.get('/assets/version.json').subscribe(data => {
             if (data && data['version']) {
                 this.appVersion = data;
+                this.configService.appVersion = data;
             }
         });
     }
