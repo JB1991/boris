@@ -30,6 +30,7 @@ install:
     - merge_requests
     - dev
     - staging
+    - production
 
 test:karma:
   stage: test
@@ -53,6 +54,7 @@ test:karma:
     - merge_requests
     - dev
     - staging
+    - production
 
 test:e2e:
   stage: test
@@ -75,6 +77,7 @@ test:e2e:
     - merge_requests
     - dev
     - staging
+    - production
 
 test:audit:
   stage: test
@@ -91,6 +94,7 @@ test:audit:
     - merge_requests
     - dev
     - staging
+    - production
 
 test:lint:
   stage: test
@@ -107,6 +111,7 @@ test:lint:
     - merge_requests
     - dev
     - staging
+    - production
 
 test:lint:html:
   stage: test
@@ -123,6 +128,7 @@ test:lint:html:
     - merge_requests
     - dev
     - staging
+    - production
 
 test:lint:styles:
   stage: test
@@ -139,6 +145,7 @@ test:lint:styles:
     - merge_requests
     - dev
     - staging
+    - production
 
 build:
   stage: build
@@ -158,6 +165,7 @@ build:
   only:
     - dev
     - staging
+    - production
 
 package:
   stage: package
@@ -172,8 +180,9 @@ package:
   only:
     - dev
     - staging
+    - production
 
-deploy:
+deploy:development:
   stage: deploy
   image: dtzar/helm-kubectl:latest
   dependencies: []
@@ -183,8 +192,37 @@ deploy:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="$CI_COMMIT_REF_NAME"
-    - bash scripts/slack.sh
+    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="dev"
   only:
     - dev
+
+deploy:staging:
+  stage: deploy
+  image: dtzar/helm-kubectl:latest
+  dependencies: []
+  cache: {}
+  environment: staging
+  script:
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="staging"
+  only:
     - staging
+
+deploy:production:
+  stage: deploy
+  image: dtzar/helm-kubectl:latest
+  dependencies: []
+  cache: {}
+  environment: production
+  script:
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="production"
+  only:
+    - production
+  when: manual
