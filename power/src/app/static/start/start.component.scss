@@ -123,6 +123,19 @@ h1 {
     border-radius: 5px;
 }
 
+.bodenrichtwerte {
+    position: relative;
+    top: 0%;
+    right: 0px;
+    bottom: 0%;
+    left: 10px;
+    content: '';
+    background-image: url('~assets/bodenrichtwerte.jpeg');
+    // background-size: 280px 280px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0px;
+}
+
 .flex-equal > * {
     -ms-flex: 1;
     flex: 1;
