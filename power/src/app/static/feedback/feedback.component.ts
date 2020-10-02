@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class FeedbackComponent implements OnInit {
 
-    public mail: string = 'incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com';
+    public mail = 'incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com';
 
 
     constructor(public titleService: Title) {
