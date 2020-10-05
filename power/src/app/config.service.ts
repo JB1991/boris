@@ -10,7 +10,8 @@ export interface Config {
 })
 export class ConfigService {
 
-    config: Config;
+    public config: Config;
+    public appVersion: any = { version: 'local', branch: 'dev' };
 
     constructor() { }
 }
