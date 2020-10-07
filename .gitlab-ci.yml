@@ -81,7 +81,7 @@ test:e2e:
     - dev
     - staging
     - production
-when: manual
+  when: manual
 
 test:audit:
   stage: test
