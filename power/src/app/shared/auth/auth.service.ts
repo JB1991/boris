@@ -71,7 +71,7 @@ export class AuthService {
 
                 // save data
                 this.user.expires = new Date();
-                this.user.expires.setSeconds(this.user.expires.getSeconds() + data['expires_in']);
+                this.user.expires.setSeconds(this.user.expires.getSeconds() + (data['expires_in'] / 2));
                 this.user.token = data;
                 this.user.data = this.parseUserinfo();
                 localStorage.setItem('user', JSON.stringify(this.user));
@@ -94,7 +94,7 @@ export class AuthService {
     }
 
     /**
-     * Refreshes session after 15 minutes
+     * Refreshes session after 5 minutes
      */
     private sessionCheck() {
         /* istanbul ignore next */
@@ -175,7 +175,7 @@ export class AuthService {
 
             // save data
             const expire = new Date();
-            expire.setSeconds(expire.getSeconds() + data['expires_in']);
+            expire.setSeconds(expire.getSeconds() + (data['expires_in'] / 2));
             this.user = { 'expires': expire, 'token': data, 'data': null };
             this.user.data = this.parseUserinfo();
             localStorage.setItem('user', JSON.stringify(this.user));
