@@ -42,8 +42,15 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
-    it('should create', () => {
+    it('should be created', () => {
         expect(component).toBeTruthy();
     });
+
+    it('toggleDetail should toggle the state of the detail arrow', () => {
+        expect(component.detailArrow).toBe(false);
+        component.toggleDetailArrow();
+        expect(component.detailArrow).toBe(true);
+    });
+
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
