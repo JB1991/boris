@@ -12,7 +12,7 @@ export class FeedbackComponent implements OnInit {
 
 
     constructor(public titleService: Title) {
-        this.titleService.setTitle('Feedback geben - POWER.NI');
+        this.titleService.setTitle($localize`Feedback - POWER.NI`);
     }
 
     ngOnInit(): void {
