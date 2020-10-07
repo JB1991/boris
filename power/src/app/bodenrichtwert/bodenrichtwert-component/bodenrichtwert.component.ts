@@ -75,7 +75,7 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * State of the detail arrow (whether the arrow should point up or down)
      */
-    detailArrow: boolean;
+    detailArrow = false;
 
     /**
      * Div-ViewChild contains Bodenrichtwert-List, Bodenrichtwert-Detail and Bodenrichtwert-Verlauf

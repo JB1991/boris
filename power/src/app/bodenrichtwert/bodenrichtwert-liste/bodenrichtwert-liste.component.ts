@@ -18,7 +18,7 @@ export class BodenrichtwertListeComponent implements OnChanges {
 
     @Input() teilmarkt;
 
-    @Output() selectionChange = new EventEmitter();
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
     filteredFeatures: Feature[];
 
@@ -38,4 +38,5 @@ export class BodenrichtwertListeComponent implements OnChanges {
         return this.features.features.length;
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */
