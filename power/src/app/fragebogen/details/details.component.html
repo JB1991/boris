@@ -259,36 +259,36 @@
                         <th scope="col"
                             (click)="changeTaskSort('id')"
                             class="border-top-0">
-                            <span role="button" 
+                            <span role="button"
                                   i18n>ID</span>
-                                  <span *ngIf="taskSort && taskSort === 'id'">
-                                    <span *ngIf="taskOrder === 'asc'">
-                                        <svg width="1em"
-                                             height="0.8em"
-                                             viewBox="0 1.2 16 16"
-                                             class="bi bi-arrow-up"
-                                             role="button"
-                                             aria-hidden="true">
-                                            <path
-                                                  d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                                        </svg>
-                                        <span class="sr-only"
-                                              i18n>Aufsteigend sortiert</span>
-                                    </span>
-                                    <span *ngIf="taskOrder === 'desc'">
-                                        <svg width="1em"
-                                             height="0.8em"
-                                             viewBox="0 1.2 16 16"
-                                             class="bi bi-arrow-down"
-                                             role="button"
-                                             aria-hidden="true">
-                                            <path
-                                                  d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
-                                        </svg>
-                                        <span class="sr-only"
-                                              i18n>Absteigend sortiert</span>
-                                    </span>
+                            <span *ngIf="taskSort && taskSort === 'id'">
+                                <span *ngIf="taskOrder === 'asc'">
+                                    <svg width="1em"
+                                         height="0.8em"
+                                         viewBox="0 1.2 16 16"
+                                         class="bi bi-arrow-up"
+                                         role="button"
+                                         aria-hidden="true">
+                                        <path
+                                              d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                    </svg>
+                                    <span class="sr-only"
+                                          i18n>Aufsteigend sortiert</span>
                                 </span>
+                                <span *ngIf="taskOrder === 'desc'">
+                                    <svg width="1em"
+                                         height="0.8em"
+                                         viewBox="0 1.2 16 16"
+                                         class="bi bi-arrow-down"
+                                         role="button"
+                                         aria-hidden="true">
+                                        <path
+                                              d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                    </svg>
+                                    <span class="sr-only"
+                                          i18n>Absteigend sortiert</span>
+                                </span>
+                            </span>
                         </th>
                         <th scope="col"
                             class="border-top-0"
@@ -308,34 +308,34 @@
                             class="border-top-0">
                             <span role="button"
                                   i18n>Erstellt</span>
-                                  <span *ngIf="taskSort && taskSort === 'created'">
-                                    <span *ngIf="taskOrder === 'asc'">
-                                        <svg width="1em"
-                                             height="0.8em"
-                                             viewBox="0 1.2 16 16"
-                                             class="bi bi-arrow-up"
-                                             role="button"
-                                             aria-hidden="true">
-                                            <path
-                                                  d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                                        </svg>
-                                        <span class="sr-only"
-                                              i18n>Aufsteigend sortiert</span>
-                                    </span>
-                                    <span *ngIf="taskOrder === 'desc'">
-                                        <svg width="1em"
-                                             height="0.8em"
-                                             viewBox="0 1.2 16 16"
-                                             class="bi bi-arrow-down"
-                                             role="button"
-                                             aria-hidden="true">
-                                            <path
-                                                  d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
-                                        </svg>
-                                        <span class="sr-only"
-                                              i18n>Absteigend sortiert</span>
-                                    </span>
+                            <span *ngIf="taskSort && taskSort === 'created'">
+                                <span *ngIf="taskOrder === 'asc'">
+                                    <svg width="1em"
+                                         height="0.8em"
+                                         viewBox="0 1.2 16 16"
+                                         class="bi bi-arrow-up"
+                                         role="button"
+                                         aria-hidden="true">
+                                        <path
+                                              d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                    </svg>
+                                    <span class="sr-only"
+                                          i18n>Aufsteigend sortiert</span>
                                 </span>
+                                <span *ngIf="taskOrder === 'desc'">
+                                    <svg width="1em"
+                                         height="0.8em"
+                                         viewBox="0 1.2 16 16"
+                                         class="bi bi-arrow-down"
+                                         role="button"
+                                         aria-hidden="true">
+                                        <path
+                                              d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                    </svg>
+                                    <span class="sr-only"
+                                          i18n>Absteigend sortiert</span>
+                                </span>
+                            </span>
                         </th>
                         <th scope="col"
                             class="border-top-0 w-75"></th>
@@ -496,7 +496,7 @@
                         <select class="custom-select"
                                 (change)="data.tasksPerPage = $event.target.value; updateTasks(false)">
                             <option *ngFor=" let size of data.taskPageSizes ">
-                               {{ size }}
+                                {{ size }}
                             </option>
                         </select>
                     </div>

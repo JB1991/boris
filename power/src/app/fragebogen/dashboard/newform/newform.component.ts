@@ -16,7 +16,7 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 export class NewformComponent implements OnInit {
     @ViewChild('modalnewform') public modal: ModalDirective;
     @Input() public data = {
-        tags: <string[]> [],
+        tags: <string[]>[],
         forms: [],
         tasks: []
     };
@@ -32,7 +32,7 @@ export class NewformComponent implements OnInit {
         public router: Router,
         public alerts: AlertsService,
         public formAPI: FormAPIService,
-        ) {
+    ) {
     }
 
     ngOnInit() {
