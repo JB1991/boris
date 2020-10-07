@@ -371,6 +371,15 @@
                 <div class="card bg-light mb-2"
                      [attr.data-id]="i">
                     <div class="card-body p-1 p-lg-2">
+                        <div class="float-lg-left">
+                            <span [innerHtml]="getIcon(container.type) | svg"
+                                  aria-hidden="true"
+                                  class="align-baseline"></span>
+                            <span class="ml-1"
+                                  i18n>Fragen ID:</span>
+                            <code>{{ ' &#123;' + container.name + '&#125;' }}</code>
+                        </div>
+
                         <!-- element buttons -->
                         <div class="float-lg-right">
                             <button type="button"
