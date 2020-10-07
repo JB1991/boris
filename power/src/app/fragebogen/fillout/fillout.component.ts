@@ -10,7 +10,6 @@ import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
-import { contentTemplate } from '@angular-devkit/schematics';
 
 @Component({
     selector: 'power-forms-fillout',
@@ -73,7 +72,7 @@ export class FilloutComponent implements OnInit {
         this.wrapper.survey.locale = this.language;
     }
 
-    
+
     // tslint:disable-next-line: max-func-body-length
     public loadForm(id: string) {
         // load form by id

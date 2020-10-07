@@ -1,31 +1,38 @@
 <div class="container">
     <div class="row">
         <div class="col-sm text-center pt-3">
-            <h2>Feedback geben</h2>
-            <p class="lead m-0">Sie haben ein Problem? Oder wollen einen Vorschlag machen?</p>
-            <p class="lead mb-3">Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und <br>
+            <h2 i18n="Header">Feedback</h2>
+            <p class="lead mb-3"
+               i18n>Sie haben ein Problem? Oder wollen einen Vorschlag machen? <br>
+                Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und <br>
                 bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</p>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-12 col-sm-12 col-md-8 col-xl-5 text-left">
             <ul>
-                <li>Genaue Beschreibung des Fehlers</li>
-                <li>Welche Schritte haben den Fehler ausgelöst?</li>
-                <li>Unter welcher URL (Adresszeile im Browser) ist das Problem aufgetreten?</li>
-                <li>Wenn möglich Bildschirmfotos anhängen</li>
-                <li>Angabe der Versionsnummer (siehe Fußzeile)</li>
+                <li i18n>Genaue Beschreibung des Fehlers</li>
+                <li i18n>Welche Schritte haben den Fehler ausgelöst?</li>
+                <li i18n>Unter welcher URL (Adresszeile im Browser) ist das Problem aufgetreten?</li>
+                <li i18n>Wenn möglich Bildschirmfotos anhängen</li>
+                <li i18n>Angabe der Versionsnummer (siehe Fußzeile)</li>
             </ul>
         </div>
     </div>
     <div class="row">
         <div class="col-sm text-center">
-            <p class="lead mb-0">Dieser Button öffnet Ihr E-Mail-Programm:</p>
-            <p class="text-muted">Der Empfänger ist bereits ausgefüllt</p>
+            <p class="lead mb-0"
+               i18n>Dieser Button öffnet Ihr E-Mail-Programm:</p>
+            <p class="text-muted"
+               i18n>Der Empfänger ist bereits ausgefüllt</p>
             <a type="button"
                class="btn btn-primary"
-               href="mailto:{{ mail }}">Feedback geben</a>
-            <p class="mt-3">Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</p>
+               href="mailto:{{ mail }}"
+               i18n-title="Feedback geben"
+               title="Feedback geben"
+               i18n>Feedback</a>
+            <p class="mt-3"
+               i18n>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</p>
             <code class="mr-2">{{ mail }}</code>
             <button type="button"
                     class="btn btn-light btn-circle btn-sm mr-2"

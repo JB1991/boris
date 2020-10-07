@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
@@ -12,7 +12,7 @@ import { Feature } from 'geojson';
 })
 export class GeosearchComponent implements OnInit {
 
-    constructor(private fb: FormBuilder, private geosearchService: GeosearchService) {
+    constructor(private formBuilder: FormBuilder, public geosearchService: GeosearchService) {
     }
 
     @Output() selectResult = new EventEmitter();
@@ -21,13 +21,19 @@ export class GeosearchComponent implements OnInit {
 
     searchForm: FormGroup;
     filteredResults: Feature[];
-    searching: boolean;
-    searchFailed: boolean;
+    searchFailed = false;
 
-    formatter = (result) => result.properties.text;
+    /**
+     * Return the text property
+     * @param feature GeoJSON feature
+     */
+    formatter = (feature) => feature.properties.text;
 
+    /**
+     * Initialization of the search form
+     */
     ngOnInit() {
-        this.searchForm = this.fb.group({
+        this.searchForm = this.formBuilder.group({
             searchInput: null
         });
 
@@ -45,37 +51,34 @@ export class GeosearchComponent implements OnInit {
             .subscribe(result => {
                 this.filteredResults = result.features;
             });
-
     }
 
-    displayFn(result: Feature) {
-        if (result) {
-            return result.properties.name;
-        }
-    }
-
+    /**
+     * Pass the search input to the Geosearch service
+     * @param text$ Input as Observable
+     */
     search = (text$: Observable<string>) =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
-            tap(() => this.searching = true),
             switchMap(term =>
                 this.geosearchService.search(term).pipe(
-                    tap(() => this.searching = false),
                     catchError(() => {
                         this.searchFailed = true;
                         return of([]);
                     })
                 )
             ),
-            tap(() => this.searching = false),
-            map(res => res['features'])
+            map(result => result['features'])
         )
 
+    /**
+     * Select an item from the search result list
+     * @param item GeoJSON feature
+     */
     selectItem(item: any) {
         this.selectResult.next(item);
         this.geosearchService.updateFeatures(item);
     }
-
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

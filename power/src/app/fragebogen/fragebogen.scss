@@ -71,10 +71,6 @@ td {
     white-space: normal !important;
 }
 
-.custom-control-label::before {
-    top: 0.1rem !important;
-}
-
 @media (max-width: 576px) {
     /* single/multiple choices element: one answer per line on mobile */
     .sv_q_select_column {
