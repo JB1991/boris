@@ -200,8 +200,7 @@
                         <select class="custom-select"
                                 [(ngModel)]="model.pages[page].elements[question].inputType"
                                 id="question-inputType"
-                                name="question-inputType"
-                                aria-describedby="question-inputTypeHelp">
+                                name="question-inputType">
                             <option value="color"
                                     i18n>Farbe</option>
                             <option value="date"
@@ -225,9 +224,6 @@
                             <option value="week"
                                     i18n>Woche</option>
                         </select>
-                        <small id="question-inputTypeHelp"
-                               class="form-text text-muted"
-                               i18n>Nicht jede Option wird von allen Webbrowsern unterstützt.</small>
                     </div>
 
                     <!--<span i18n>Minimaler Wert</span>

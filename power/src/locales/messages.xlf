@@ -460,9 +460,100 @@
         <source>Zum Mitarbeiterportal</source>
       </segment>
     </unit>
+    <unit id="4247324030645335768">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.ts:15</note>
+      </notes>
+      <segment>
+        <source>Feedback - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="2986528747849173823">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:6,8</note>
+      </notes>
+      <segment>
+        <source>Sie haben ein Problem? Oder wollen einen Vorschlag machen? <ph id="0" equiv="LINE_BREAK" disp="&lt;br&gt;
+                "/> Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und <ph id="1" equiv="LINE_BREAK" disp="&lt;br&gt;
+                "/> bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</source>
+      </segment>
+    </unit>
+    <unit id="7367328173535829935">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:14</note>
+      </notes>
+      <segment>
+        <source>Genaue Beschreibung des Fehlers</source>
+      </segment>
+    </unit>
+    <unit id="4123864181932103753">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:15</note>
+      </notes>
+      <segment>
+        <source>Welche Schritte haben den Fehler ausgelöst?</source>
+      </segment>
+    </unit>
+    <unit id="7910674658319241709">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:16</note>
+      </notes>
+      <segment>
+        <source>Unter welcher URL (Adresszeile im Browser) ist das Problem aufgetreten?</source>
+      </segment>
+    </unit>
+    <unit id="1994562609464771954">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:17</note>
+      </notes>
+      <segment>
+        <source>Wenn möglich Bildschirmfotos anhängen</source>
+      </segment>
+    </unit>
+    <unit id="4226210865010442150">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:18</note>
+      </notes>
+      <segment>
+        <source>Angabe der Versionsnummer (siehe Fußzeile)</source>
+      </segment>
+    </unit>
+    <unit id="4561497787163319061">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:25</note>
+      </notes>
+      <segment>
+        <source>Dieser Button öffnet Ihr E-Mail-Programm:</source>
+      </segment>
+    </unit>
+    <unit id="4662989801329383377">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:27</note>
+      </notes>
+      <segment>
+        <source>Der Empfänger ist bereits ausgefüllt</source>
+      </segment>
+    </unit>
+    <unit id="973296511127857819">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:32</note>
+        <note category="description">Feedback geben</note>
+      </notes>
+      <segment>
+        <source>Feedback geben</source>
+      </segment>
+    </unit>
+    <unit id="3623561868630871584">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:35</note>
+      </notes>
+      <segment>
+        <source>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</source>
+      </segment>
+    </unit>
     <unit id="1399354247773521386">
       <notes>
-        <note category="location">src/app/static/feedback/feedback.component.html:33</note>
+        <note category="location">src/app/static/feedback/feedback.component.html:40</note>
       </notes>
       <segment>
         <source>Email-Adresse kopieren</source>

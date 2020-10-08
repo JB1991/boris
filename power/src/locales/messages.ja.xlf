@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="de" trgLang="en">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="de" trgLang="ja">
   <file id="ngi18n" original="ng.template">
     <unit id="5693309902155405103">
       <notes>
@@ -7,7 +7,7 @@
       </notes>
       <segment state="translated">
         <source>LGLN Logo</source>
-        <target>LGLN Logo</target>
+        <target>LGLN ロゴ</target>
       </segment>
     </unit>
     <unit id="6352019999410584828">
@@ -16,7 +16,7 @@
       </notes>
       <segment state="translated">
         <source>Portal für Wertermittlung</source>
-        <target>Portal for Valuation</target>
+        <target>評価用のポータル</target>
       </segment>
     </unit>
     <unit id="4234420133257512194">
@@ -25,7 +25,7 @@
       </notes>
       <segment state="translated">
         <source>.niedersachsen</source>
-        <target>.lower saxony</target>
+        <target>.lower ザクセン</target>
       </segment>
     </unit>
     <unit id="1960371191469910628">
@@ -34,7 +34,7 @@
       </notes>
       <segment state="translated">
         <source>POWER</source>
-        <target>POWER</target>
+        <target>パワー</target>
       </segment>
     </unit>
     <unit id="7921562522568590712">
@@ -43,7 +43,7 @@
       </notes>
       <segment state="translated">
         <source>Navigation umschalten</source>
-        <target>Toggle navigation</target>
+        <target>ナビゲーションの切り替え</target>
       </segment>
     </unit>
     <unit id="8429316238784832901">
@@ -52,7 +52,7 @@
       </notes>
       <segment state="translated">
         <source>Feedback</source>
-        <target>Feedback</target>
+        <target>フィードバック</target>
       </segment>
     </unit>
     <unit id="7911002864553844497">
@@ -61,7 +61,7 @@
       </notes>
       <segment state="translated">
         <source>* Pflichtfeld</source>
-        <target>* Required</target>
+        <target>* 必須</target>
       </segment>
     </unit>
     <unit id="3313528406596871463">
@@ -70,7 +70,7 @@
       </notes>
       <segment state="translated">
         <source>Deutsch</source>
-        <target>German</target>
+        <target>ドイツ語</target>
       </segment>
     </unit>
     <unit id="8957931169022166336">
@@ -79,7 +79,7 @@
       </notes>
       <segment state="translated">
         <source>Englisch</source>
-        <target>English</target>
+        <target>英語</target>
       </segment>
     </unit>
     <unit id="2354045805420094700">
@@ -88,7 +88,7 @@
       </notes>
       <segment state="translated">
         <source>Informationen</source>
-        <target>Information</target>
+        <target>利用情報</target>
       </segment>
     </unit>
     <unit id="1547876271716599756">
@@ -97,7 +97,7 @@
       </notes>
       <segment state="translated">
         <source>Impressum</source>
-        <target>Imprint</target>
+        <target>インプリント</target>
       </segment>
     </unit>
     <unit id="4082114936887396529">
@@ -106,7 +106,7 @@
       </notes>
       <segment state="translated">
         <source>Datenschutz</source>
-        <target>Privacy</target>
+        <target>プライバシー</target>
       </segment>
     </unit>
     <unit id="2601146275474047321">
@@ -114,8 +114,8 @@
         <note category="location">src/app/app.component.html:179</note>
       </notes>
       <segment state="translated">
-        <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&lt;br>"/>und Nutzungsbedingungen</source>
-        <target>General terms and<ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/> conditions of use</target>
+        <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&lt;br&gt;"/>und Nutzungsbedingungen</source>
+        <target>一般用語および<ph id="0" equiv="LINE_BREAK" disp="&quot;\uFFFD#48\uFFFD\uFFFD/#48\uFFFD&quot;"/> conditions of use</target>
       </segment>
     </unit>
     <unit id="2724055831234181057">
@@ -124,7 +124,7 @@
       </notes>
       <segment state="translated">
         <source>Version</source>
-        <target>Version</target>
+        <target>バージョン</target>
       </segment>
     </unit>
     <unit id="4654226818601672329">
@@ -133,7 +133,7 @@
       </notes>
       <segment state="translated">
         <source>Bodenrichtwerte</source>
-        <target>Standard land value</target>
+        <target>標準土地価値</target>
       </segment>
     </unit>
     <unit id="4783586120320798427">
@@ -142,7 +142,7 @@
       </notes>
       <segment state="translated">
         <source>Bodenwerte</source>
-        <target>Land value</target>
+        <target>地価</target>
       </segment>
     </unit>
     <unit id="192194816728870761">
@@ -151,7 +151,7 @@
       </notes>
       <segment state="translated">
         <source>Immobilien</source>
-        <target>Real estate</target>
+        <target>不動産</target>
       </segment>
     </unit>
     <unit id="8530560792297920136">
@@ -160,7 +160,7 @@
       </notes>
       <segment state="translated">
         <source>Formulare</source>
-        <target>Form</target>
+        <target>形態</target>
       </segment>
     </unit>
     <unit id="2454050363478003966">
@@ -169,7 +169,7 @@
       </notes>
       <segment state="translated">
         <source>Login</source>
-        <target>Login</target>
+        <target>ログイン</target>
       </segment>
     </unit>
     <unit id="4086606389696938932">
@@ -178,7 +178,7 @@
       </notes>
       <segment state="translated">
         <source>Account</source>
-        <target>Account</target>
+        <target>勘定</target>
       </segment>
     </unit>
     <unit id="8353670871689367892">
@@ -187,7 +187,7 @@
       </notes>
       <segment state="translated">
         <source>Meine Formulare</source>
-        <target>Meine Formulare</target>
+        <target>ミーン・フォーミュア</target>
       </segment>
     </unit>
     <unit id="3797778920049399855">
@@ -196,7 +196,7 @@
       </notes>
       <segment state="translated">
         <source>Logout</source>
-        <target>Logout</target>
+        <target>ログアウト</target>
       </segment>
     </unit>
     <unit id="8183476381446897959">
@@ -205,7 +205,7 @@
       </notes>
       <segment state="translated">
         <source>Schließen</source>
-        <target>Close</target>
+        <target>クローズ</target>
       </segment>
     </unit>
     <unit id="3809540430353766710">
@@ -214,7 +214,7 @@
       </notes>
       <segment state="translated">
         <source>Alert schließen</source>
-        <target>Close alert</target>
+        <target>アラートを閉じる</target>
       </segment>
     </unit>
     <unit id="1669800724507050603">
@@ -223,145 +223,7 @@
       </notes>
       <segment state="translated">
         <source>Wird geladen...</source>
-        <target>Is loading...</target>
-      </segment>
-    </unit>
-    <unit id="7195844454508171367">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:50</note>
-      </notes>
-      <segment state="initial">
-        <source>Immobilienpreisindex - POWER.NI</source>
-        <target>Real estate price index - POWER.NI</target>
-      </segment>
-    </unit>
-    <unit id="1534912079502587880">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:422</note>
-      </notes>
-      <segment state="initial">
-        <source>Zeitraum von </source>
-        <target>period of time from </target>
-      </segment>
-    </unit>
-    <unit id="3512731915705693257">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:424</note>
-      </notes>
-      <segment state="initial">
-        <source> bis </source>
-        <target> to </target>
-      </segment>
-    </unit>
-    <unit id="5616702469514807074">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:9,10</note>
-      </notes>
-      <segment state="initial">
-        <source> HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </source>
-        <target> NOTE: The base year of the index series calculation is based on the selection below and can be adjusted dynamically with the sliders. </target>
-      </segment>
-    </unit>
-    <unit id="3896770541274170506">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:215</note>
-        <note category="description">AGNB Start</note>
-      </notes>
-      <segment state="initial">
-        <source>Es gelten die</source>
-        <target>The</target>
-      </segment>
-    </unit>
-    <unit id="1619432944706390012">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:216,217</note>
-        <note category="description">AGNB</note>
-      </notes>
-      <segment state="initial">
-        <source> Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB) </source>
-        <target> general terms and conditions of use (AGNB) </target>
-      </segment>
-    </unit>
-    <unit id="8060976976079359371">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:217</note>
-        <note category="description">AGNB Ende</note>
-      </notes>
-      <segment state="initial">
-        <source>.</source>
-        <target>apply.</target>
-      </segment>
-    </unit>
-    <unit id="30907226667156700">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:58</note>
-      </notes>
-      <segment state="initial">
-        <source>Vergleiche</source>
-        <target>Comparisons</target>
-      </segment>
-    </unit>
-    <unit id="8989264670726719114">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:69,70</note>
-      </notes>
-      <segment state="initial">
-        <source> HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich. </source>
-        <target> NOTE: A selection via the map is unfortunately not possible for the comparisons. </target>
-      </segment>
-    </unit>
-    <unit id="4756214614417949543">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:119,120</note>
-      </notes>
-      <segment state="initial">
-        <source> alle auswählen </source>
-        <target> select all </target>
-      </segment>
-    </unit>
-    <unit id="113911435119961071">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:123,124</note>
-      </notes>
-      <segment state="initial">
-        <source> Auswahl aufheben </source>
-        <target> Deselect </target>
-      </segment>
-    </unit>
-    <unit id="1751509647881708009">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:129,130</note>
-      </notes>
-      <segment state="initial">
-        <source> alle/keine auswählen </source>
-        <target> select all/none </target>
-      </segment>
-    </unit>
-    <unit id="3527049829860901630">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:191</note>
-      </notes>
-      <segment state="initial">
-        <source>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</source>
-        <target>Which housing market region does my municipality belong to?</target>
-      </segment>
-    </unit>
-    <unit id="6982726396008717823">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:194</note>
-      </notes>
-      <segment state="initial">
-        <source>Suchen Sie ihre Gemeinde:</source>
-        <target>Find your community:</target>
-      </segment>
-    </unit>
-    <unit id="7846860601179790148">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:207</note>
-      </notes>
-      <segment state="initial">
-        <source>Ihre Wohnungsmarktregion:</source>
-        <target>Your housing market region:</target>
+        <target>ロード中 ...</target>
       </segment>
     </unit>
     <unit id="5826116471492977880">
@@ -370,7 +232,7 @@
       </notes>
       <segment state="translated">
         <source><ph id="0" equiv="INTERPOLATION" disp="placeholder=&quot;{{ t"/> mit ENTER bestätigen</source>
-        <target>confirm <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> with ENTER</target>
+        <target>確認<ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/> with ENTER</target>
       </segment>
     </unit>
     <unit id="4580399730639224598">
@@ -379,7 +241,7 @@
       </notes>
       <segment state="translated">
         <source>Löschen</source>
-        <target>Delete</target>
+        <target>削除</target>
       </segment>
     </unit>
     <unit id="6267893735675184411">
@@ -388,7 +250,7 @@
       </notes>
       <segment state="translated">
         <source>Formulare - POWER.NI</source>
-        <target>Forms - POWER.NI</target>
+        <target>フォーム - POWER.NI</target>
       </segment>
     </unit>
     <unit id="2278750118279823127">
@@ -397,7 +259,7 @@
       </notes>
       <segment state="translated">
         <source>Formular ausfüllen</source>
-        <target>Fill out form</target>
+        <target>フォームに入力</target>
       </segment>
     </unit>
     <unit id="6576010156506184054">
@@ -406,7 +268,7 @@
       </notes>
       <segment state="translated">
         <source>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen.</source>
-        <target>If you have received a PIN, enter it here to fillout your form.</target>
+        <target>PINを受信している場合は、ここに入力してフォームをファイルアウトします。</target>
       </segment>
     </unit>
     <unit id="7046170260599391233">
@@ -415,7 +277,7 @@
       </notes>
       <segment state="translated">
         <source>Eingabe einer PIN zum Formular ausfüllen</source>
-        <target>Enter a PIN to fill out the form</target>
+        <target>フォームに入力する PIN を入力してください</target>
       </segment>
     </unit>
     <unit id="3438075409129621721">
@@ -424,7 +286,7 @@
       </notes>
       <segment state="translated">
         <source>Formular PIN</source>
-        <target>Form PIN</target>
+        <target>フォーム PIN</target>
       </segment>
     </unit>
     <unit id="4392993924409588244">
@@ -433,7 +295,7 @@
       </notes>
       <segment state="translated">
         <source>Absenden</source>
-        <target>Send</target>
+        <target>送信</target>
       </segment>
     </unit>
     <unit id="8191576719702905998">
@@ -442,7 +304,7 @@
       </notes>
       <segment state="translated">
         <source>Formular finden</source>
-        <target>Find form</target>
+        <target>フォームの検索</target>
       </segment>
     </unit>
     <unit id="3543208003266478980">
@@ -451,7 +313,7 @@
       </notes>
       <segment state="translated">
         <source>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare.</source>
-        <target>If youd would like to submit a form, you will find our public forms here.</target>
+        <target>フォームを送信したい場合は、ここで公開フォームを検索します。</target>
       </segment>
     </unit>
     <unit id="5711849175900703108">
@@ -460,7 +322,7 @@
       </notes>
       <segment state="translated">
         <source>Zu den öffentlichen Formularen</source>
-        <target>Go to the public forms</target>
+        <target>公開フォームに移動します。</target>
       </segment>
     </unit>
     <unit id="6489685542013391299">
@@ -469,7 +331,7 @@
       </notes>
       <segment state="translated">
         <source>Notarportal</source>
-        <target>Notary portal</target>
+        <target>公証人ポータル</target>
       </segment>
     </unit>
     <unit id="4785299248596372755">
@@ -478,7 +340,7 @@
       </notes>
       <segment state="translated">
         <source>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen.</source>
-        <target>Notaries have the opportunity to exchange data through our online portal.</target>
+        <target>公証人は、オンライン・ポータルを通じてデータを交換する機会を持っています。</target>
       </segment>
     </unit>
     <unit id="3867605560596531339">
@@ -487,7 +349,7 @@
       </notes>
       <segment state="translated">
         <source>Mitarbeiter</source>
-        <target>Employee</target>
+        <target>従業員</target>
       </segment>
     </unit>
     <unit id="7585378083307211134">
@@ -496,7 +358,7 @@
       </notes>
       <segment state="translated">
         <source>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</source>
-        <target>Intranet for the employees of the State Survey of Lower Saxony.</target>
+        <target>ニーダーザクセン州政府調査局の従業員のイントラネット。</target>
       </segment>
     </unit>
     <unit id="6949567012632159210">
@@ -505,7 +367,7 @@
       </notes>
       <segment state="translated">
         <source>Zum Mitarbeiterportal</source>
-        <target>Go to the employee portal</target>
+        <target>従業員ポータルへの移動</target>
       </segment>
     </unit>
     <unit id="4247324030645335768">
@@ -514,7 +376,7 @@
       </notes>
       <segment state="translated">
         <source>Feedback - POWER.NI</source>
-        <target>Feedback - POWER.NI</target>
+        <target>フィードバック - POWER.NI</target>
       </segment>
     </unit>
     <unit id="973296511127857819">
@@ -524,7 +386,7 @@
       </notes>
       <segment state="translated">
         <source>Feedback geben</source>
-        <target>Submit feedback</target>
+        <target>フィードバックの送信</target>
       </segment>
     </unit>
     <unit id="2986528747849173823">
@@ -532,10 +394,8 @@
         <note category="location">src/app/static/feedback/feedback.component.html:6,8</note>
       </notes>
       <segment state="translated">
-        <source>Sie haben ein Problem? Oder wollen einen Vorschlag machen? <ph id="0" equiv="LINE_BREAK" disp="&lt;br>
-                "/> Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und <ph id="1" equiv="LINE_BREAK" disp="&lt;br>
-                "/> bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</source>
-        <target>You have got any Issues or woud like to make a suggestion? <ph id="0" equiv="LINE_BREAK" type="fmt" disp="&lt;br/>"/> Please be as accurate as possible with your suggestion <ph id="1" equiv="LINE_BREAK" type="fmt" disp="&lt;br/>"/> and by issues refer to the following points.</target>
+        <source>Sie haben ein Problem? Oder wollen einen Vorschlag machen? <ph id="0" equiv="LINE_BREAK" disp="&lt;br&gt;                 "/> Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und <ph id="1" equiv="LINE_BREAK" disp="&lt;br&gt;                 "/> bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</source>
+        <target>何か問題があるか、提案をするのがウードですか ?<ph id="0" equiv="LINE_BREAK" type="fmt" disp="&lt;br/&gt;"/> Please be as accurate as possible with your suggestion <ph id="1" equiv="LINE_BREAK" type="fmt" disp="&lt;br/&gt;"/> and by issues refer to the following points.</target>
       </segment>
     </unit>
     <unit id="7367328173535829935">
@@ -544,7 +404,7 @@
       </notes>
       <segment state="translated">
         <source>Genaue Beschreibung des Fehlers</source>
-        <target>Precise description of the bug</target>
+        <target>バグの正確な記述</target>
       </segment>
     </unit>
     <unit id="4123864181932103753">
@@ -553,7 +413,7 @@
       </notes>
       <segment state="translated">
         <source>Welche Schritte haben den Fehler ausgelöst?</source>
-        <target>Which steps have led to the issue?</target>
+        <target>どの手順によって問題が発生しましたか ?</target>
       </segment>
     </unit>
     <unit id="7910674658319241709">
@@ -562,7 +422,7 @@
       </notes>
       <segment state="translated">
         <source>Unter welcher URL (Adresszeile im Browser) ist das Problem aufgetreten?</source>
-        <target>Under which URL (address bar of the browser) did the issue occur?</target>
+        <target>この問題が発生したのは、どの URL ( ブラウザーのアドレス・バー ) でしたか ?</target>
       </segment>
     </unit>
     <unit id="1994562609464771954">
@@ -571,7 +431,7 @@
       </notes>
       <segment state="translated">
         <source>Wenn möglich Bildschirmfotos anhängen</source>
-        <target>Attach screenshots if possible</target>
+        <target>可能な場合はスクリーン・ショットを添付</target>
       </segment>
     </unit>
     <unit id="4226210865010442150">
@@ -580,7 +440,7 @@
       </notes>
       <segment state="translated">
         <source>Angabe der Versionsnummer (siehe Fußzeile)</source>
-        <target>Indicate the version (refer to the footer)</target>
+        <target>バージョンを指定します ( フッターを参照 )</target>
       </segment>
     </unit>
     <unit id="4561497787163319061">
@@ -589,7 +449,7 @@
       </notes>
       <segment state="translated">
         <source>Dieser Button öffnet Ihr E-Mail-Programm:</source>
-        <target>This button opens your E-mail app</target>
+        <target>このボタンにより、 E メール・アプリケーション</target>
       </segment>
     </unit>
     <unit id="4662989801329383377">
@@ -598,7 +458,7 @@
       </notes>
       <segment state="translated">
         <source>Der Empfänger ist bereits ausgefüllt</source>
-        <target>The recipient is already filled</target>
+        <target>受信者は既に入力済みです</target>
       </segment>
     </unit>
     <unit id="3623561868630871584">
@@ -607,7 +467,7 @@
       </notes>
       <segment state="translated">
         <source>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</source>
-        <target>Please send your request to the following email address if your app does not open:</target>
+        <target>ご使用のアプリケーションが開いていない場合は、以下の E メール・アドレスに要求を送信してください。</target>
       </segment>
     </unit>
     <unit id="1399354247773521386">
@@ -616,16 +476,7 @@
       </notes>
       <segment state="translated">
         <source>Email-Adresse kopieren</source>
-        <target>Copy email address</target>
-      </segment>
-    </unit>
-    <unit id="1399354247773521386">
-      <notes>
-        <note category="location">src/app/static/feedback/feedback.component.html:33</note>
-      </notes>
-      <segment state="initial">
-        <source>Email-Adresse kopieren</source>
-        <target>Email-Adresse kopieren</target>
+        <target>メールアドレスのコピー</target>
       </segment>
     </unit>
     <unit id="5601035884726674890">
@@ -634,7 +485,7 @@
       </notes>
       <segment state="translated">
         <source>Logout - POWER.NI</source>
-        <target>Logout - POWER.NI</target>
+        <target>ログアウト - POWER.NI</target>
       </segment>
     </unit>
     <unit id="4655456087046490805">
@@ -643,7 +494,7 @@
       </notes>
       <segment state="translated">
         <source>Sie wurden ausgeloggt.</source>
-        <target>You have been logged out.</target>
+        <target>ログアウトしました。</target>
       </segment>
     </unit>
     <unit id="3645495878014081231">
@@ -652,7 +503,7 @@
       </notes>
       <segment state="translated">
         <source>Login - POWER.NI</source>
-        <target>Login - POWER.NI</target>
+        <target>ログイン - POWER.NI</target>
       </segment>
     </unit>
     <unit id="3246386386339214161">
@@ -661,7 +512,7 @@
       </notes>
       <segment state="translated">
         <source>Login fehlgeschlagen</source>
-        <target>Login failed</target>
+        <target>ログイン失敗</target>
       </segment>
     </unit>
     <unit id="4025988496947543426">
@@ -670,7 +521,7 @@
       </notes>
       <segment state="translated">
         <source>Es konnte kein Token vom Endpunkt bezogen werden.</source>
-        <target>A token could not be obtained from the endpoint.</target>
+        <target>エンドポイントからトークンを取得できませんでした。</target>
       </segment>
     </unit>
     <unit id="4426393519905650436">
@@ -679,7 +530,7 @@
       </notes>
       <segment state="translated">
         <source>Sie werden in kürze weitergeleitet...</source>
-        <target>You will be redirected in a moment...</target>
+        <target>すぐにリダイレクトされます ...</target>
       </segment>
     </unit>
     <unit id="5603926992325888453">
@@ -688,7 +539,7 @@
       </notes>
       <segment state="translated">
         <source>Portal für Wertermittlung Niedersachsen</source>
-        <target>Portal for valuation lower saxony</target>
+        <target>バリュエーション・サクセン・ポータル</target>
       </segment>
     </unit>
     <unit id="6662738000749272890">
@@ -697,7 +548,7 @@
       </notes>
       <segment state="translated">
         <source>Logout erfolgreich</source>
-        <target>Successfully logged out</target>
+        <target>正常にログアウトしました</target>
       </segment>
     </unit>
     <unit id="3341815476221006999">
@@ -706,7 +557,7 @@
       </notes>
       <segment state="translated">
         <source>Sie wurden erfolgreich ausgeloggt.</source>
-        <target>You have been logged out successfully.</target>
+        <target>正常にログアウトしました。</target>
       </segment>
     </unit>
     <unit id="154280373686343609">
@@ -715,7 +566,7 @@
       </notes>
       <segment state="translated">
         <source>für Bauland und landwirtschaftliche Nutzflächen für das gesamte Land Niedersachsen</source>
-        <target>for building land and agricultural land for the entire state of Lower Saxony</target>
+        <target>ニーダーザクセン州全体の土地と農地を建設するために</target>
       </segment>
     </unit>
     <unit id="3480843511135968157">
@@ -724,7 +575,7 @@
       </notes>
       <segment state="translated">
         <source>Zur Anwendung</source>
-        <target>Application</target>
+        <target>アプリケーション</target>
       </segment>
     </unit>
     <unit id="1966118280092754963">
@@ -733,7 +584,7 @@
       </notes>
       <segment state="translated">
         <source>Immobilienpreis-Index</source>
-        <target>Real estate price index</target>
+        <target>不動産価格指数</target>
       </segment>
     </unit>
     <unit id="2237919460029267172">
@@ -742,106 +593,7 @@
       </notes>
       <segment state="translated">
         <source>Online Formulare</source>
-        <target>Online forms</target>
-      </segment>
-    </unit>
-    <unit id="1701380331708164107">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:49</note>
-      </notes>
-      <segment state="initial">
-        <source>Preisentwicklung seit </source>
-        <target>Price development since </target>
-      </segment>
-    </unit>
-    <unit id="6992806450133789005">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:50</note>
-      </notes>
-      <segment state="initial">
-        <source>Zugrunde liegende Fälle</source>
-        <target>Underlying cases</target>
-      </segment>
-    </unit>
-    <unit id="2929422577222561800">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:148</note>
-      </notes>
-      <segment state="initial">
-        <source> (ohne Daten)</source>
-        <target> (without data)</target>
-      </segment>
-    </unit>
-    <unit id="419177917405783754">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:163</note>
-      </notes>
-      <segment state="initial">
-        <source>[ohne Daten] </source>
-        <target>[without data] </target>
-      </segment>
-    </unit>
-    <unit id="6048412675100908725">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:33</note>
-      </notes>
-      <segment state="initial">
-        <source>Wohnungsmarktregionen in Niedersachsen</source>
-        <target>Housing market regions in Lower Saxony</target>
-      </segment>
-    </unit>
-    <unit id="488018968147373869">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:75</note>
-      </notes>
-      <segment state="initial">
-        <source>Bild</source>
-        <target>image</target>
-      </segment>
-    </unit>
-    <unit id="6782744539751451451">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:80</note>
-      </notes>
-      <segment state="initial">
-        <source>GeoJSON</source>
-        <target>GeoJSON</target>
-      </segment>
-    </unit>
-    <unit id="1857718811662681434">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:25</note>
-      </notes>
-      <segment state="initial">
-        <source>Niedersächsischer Immobilienpreisindex (NIPIX)</source>
-        <target>Lower Saxony Real Estate Price Index (NIPIX)</target>
-      </segment>
-    </unit>
-    <unit id="6148922370359130527">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:78</note>
-      </notes>
-      <segment state="initial">
-        <source>Quartal</source>
-        <target>quarter</target>
-      </segment>
-    </unit>
-    <unit id="8799324919469174670">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:104</note>
-      </notes>
-      <segment state="initial">
-        <source>Preisentwicklung</source>
-        <target>Price development</target>
-      </segment>
-    </unit>
-    <unit id="7926143511350598250">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:171</note>
-      </notes>
-      <segment state="initial">
-        <source>CSV</source>
-        <target>CSV</target>
+        <target>オンライン・フォーム</target>
       </segment>
     </unit>
     <unit id="4321269269579074973">
@@ -850,7 +602,7 @@
       </notes>
       <segment state="translated">
         <source>Öffentliche Formulare - POWER.NI</source>
-        <target>Public forms - POWER.NI</target>
+        <target>パブリック・フォーム - POWER.NI</target>
       </segment>
     </unit>
     <unit id="8488547527396922136">
@@ -859,7 +611,7 @@
       </notes>
       <segment state="translated">
         <source>Laden fehlgeschlagen</source>
-        <target>Loading failed</target>
+        <target>ロードの失敗</target>
       </segment>
     </unit>
     <unit id="2688283467752225426">
@@ -868,7 +620,7 @@
       </notes>
       <segment state="translated">
         <source>Veröffentlicht</source>
-        <target>Published</target>
+        <target>公開済み</target>
       </segment>
     </unit>
     <unit id="2319824520635416840">
@@ -877,7 +629,7 @@
       </notes>
       <segment state="translated">
         <source>Keine Formulare gefunden</source>
-        <target>No forms found</target>
+        <target>用紙が見つからない</target>
       </segment>
     </unit>
     <unit id="380575489674159475">
@@ -886,7 +638,7 @@
       </notes>
       <segment state="translated">
         <source>Speichern erfolgreich</source>
-        <target>Successfully saved</target>
+        <target>正常保存</target>
       </segment>
     </unit>
     <unit id="8744559871232772444">
@@ -895,7 +647,7 @@
       </notes>
       <segment state="translated">
         <source>Ihre Daten wurden erfolgreich gespeichert.</source>
-        <target>Your data has been saved successfully.</target>
+        <target>データが正常に保存されました。</target>
       </segment>
     </unit>
     <unit id="5728737389036894478">
@@ -904,7 +656,7 @@
       </notes>
       <segment state="translated">
         <source>Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}</source>
-        <target>Saving on the server failed: {error.toString()}</target>
+        <target>サーバーへの保存に失敗しました : {error.toString()}</target>
       </segment>
     </unit>
     <unit id="4028295370197925352">
@@ -913,7 +665,7 @@
       </notes>
       <segment state="translated">
         <source>Speichern fehlgeschlagen</source>
-        <target>Saving failed</target>
+        <target>保存失敗</target>
       </segment>
     </unit>
     <unit id="8953940785817491538">
@@ -922,7 +674,7 @@
       </notes>
       <segment state="translated">
         <source>Formular gespeichert</source>
-        <target>Form saved</target>
+        <target>フォーム保存済み</target>
       </segment>
     </unit>
     <unit id="7810020688490288269">
@@ -931,7 +683,7 @@
       </notes>
       <segment state="translated">
         <source>Das Formular wurde erfolgreich gespeichert.</source>
-        <target>The form was saved successfully.</target>
+        <target>フォームは正常に保存されました。</target>
       </segment>
     </unit>
     <unit id="4435703504669117699">
@@ -940,7 +692,7 @@
       </notes>
       <segment state="translated">
         <source>Einstellungen</source>
-        <target>Settings</target>
+        <target>設定</target>
       </segment>
     </unit>
     <unit id="7886570921510760899">
@@ -949,7 +701,7 @@
       </notes>
       <segment state="translated">
         <source>Tags</source>
-        <target>Tags</target>
+        <target>タグ</target>
       </segment>
     </unit>
     <unit id="4626002947369124112">
@@ -958,7 +710,7 @@
       </notes>
       <segment state="translated">
         <source>Besitzer</source>
-        <target>Owner</target>
+        <target>所有者</target>
       </segment>
     </unit>
     <unit id="2057709581925448431">
@@ -967,7 +719,7 @@
       </notes>
       <segment state="translated">
         <source>Leseberechtigte</source>
-        <target>Read-only user</target>
+        <target>読み取り専用ユーザー</target>
       </segment>
     </unit>
     <unit id="6296453444800494674">
@@ -976,7 +728,7 @@
       </notes>
       <segment state="translated">
         <source>Formular teilen</source>
-        <target>Share form</target>
+        <target>フォームの共有</target>
       </segment>
     </unit>
     <unit id="3282960248553286648">
@@ -987,7 +739,7 @@
         <source>Möchten Sie dieses Formular wirklich veröffentlichen?
             Das Formular lässt sich danach nicht mehr bearbeiten.
             Dies lässt sich nicht mehr umkehren!</source>
-        <target>Are you sure to publish this form? It will no longer be possible to edit the form afterwards. This cannot be reversed!</target>
+        <target>このフォームを発行しますか ? 後でフォームを編集することはできなくなります。 これはリバースできません !</target>
       </segment>
     </unit>
     <unit id="2137405200624328487">
@@ -996,7 +748,7 @@
       </notes>
       <segment state="translated">
         <source>Kommentar</source>
-        <target>Comment</target>
+        <target>解説</target>
       </segment>
     </unit>
     <unit id="6015221729910186784">
@@ -1005,7 +757,7 @@
       </notes>
       <segment state="translated">
         <source>Kommentar speichern</source>
-        <target>Save comment</target>
+        <target>コメントの保存</target>
       </segment>
     </unit>
     <unit id="2854123663314832793">
@@ -1014,7 +766,7 @@
       </notes>
       <segment state="translated">
         <source>Speichern</source>
-        <target>Save</target>
+        <target>セーブ</target>
       </segment>
     </unit>
     <unit id="7045718201948539195">
@@ -1023,7 +775,7 @@
       </notes>
       <segment state="translated">
         <source>Veröffentlichen fehlgeschlagen</source>
-        <target>Publishing failed</target>
+        <target>パブリッシュ失敗</target>
       </segment>
     </unit>
     <unit id="4636978523362061571">
@@ -1032,7 +784,7 @@
       </notes>
       <segment state="translated">
         <source>Veröffentlichen</source>
-        <target>Publish</target>
+        <target>公開</target>
       </segment>
     </unit>
     <unit id="1333796698883815409">
@@ -1041,7 +793,7 @@
       </notes>
       <segment state="translated">
         <source>Formular veröffentlicht</source>
-        <target>Form published</target>
+        <target>フォームの公開</target>
       </segment>
     </unit>
     <unit id="4271491079612886596">
@@ -1050,7 +802,7 @@
       </notes>
       <segment state="translated">
         <source>Das Formular wurde erfolgreich veröffentlicht.</source>
-        <target>The form was published successfully.</target>
+        <target>フォームは正常に公開されました。</target>
       </segment>
     </unit>
     <unit id="153541716325950562">
@@ -1059,7 +811,7 @@
       </notes>
       <segment state="translated">
         <source>Zugangsschutz</source>
-        <target>Access protection</target>
+        <target>アクセス保護</target>
       </segment>
     </unit>
     <unit id="92152990194442672">
@@ -1068,7 +820,7 @@
       </notes>
       <segment state="translated">
         <source>Öffentlich</source>
-        <target>Public</target>
+        <target>パブリック</target>
       </segment>
     </unit>
     <unit id="1593201256931919296">
@@ -1077,7 +829,7 @@
       </notes>
       <segment state="translated">
         <source>6-stellige PIN</source>
-        <target>6-digit PIN</target>
+        <target>6 桁の PIN</target>
       </segment>
     </unit>
     <unit id="7984545901488378361">
@@ -1086,7 +838,7 @@
       </notes>
       <segment state="translated">
         <source>8-stellige PIN</source>
-        <target>8-digit PIN</target>
+        <target>8 桁の PIN</target>
       </segment>
     </unit>
     <unit id="5652205002901618415">
@@ -1095,7 +847,7 @@
       </notes>
       <segment state="translated">
         <source>Formular veröffentlichen</source>
-        <target>Form published</target>
+        <target>フォームの公開</target>
       </segment>
     </unit>
     <unit id="6753318560504296925">
@@ -1104,7 +856,7 @@
       </notes>
       <segment state="translated">
         <source>Ungültige Eingabe</source>
-        <target>Invalid input</target>
+        <target>無効な入力</target>
       </segment>
     </unit>
     <unit id="4223480731813357720">
@@ -1113,7 +865,7 @@
       </notes>
       <segment state="translated">
         <source>Bitte generieren Sie nur zwischen 1 und 100 PINs.</source>
-        <target>Please only generate 1 to 100 PINs.</target>
+        <target>1 から 100 の PINsのみを生成してください。</target>
       </segment>
     </unit>
     <unit id="2001137006078143875">
@@ -1122,7 +874,7 @@
       </notes>
       <segment state="translated">
         <source>Erstellen fehlgeschlagen</source>
-        <target>Failed to create</target>
+        <target>作成の失敗</target>
       </segment>
     </unit>
     <unit id="7227765461588462158">
@@ -1131,7 +883,7 @@
       </notes>
       <segment state="translated">
         <source>PIN Generator</source>
-        <target>PIN Generator</target>
+        <target>PIN ジェネレーター</target>
       </segment>
     </unit>
     <unit id="8610693548852405446">
@@ -1140,7 +892,7 @@
       </notes>
       <segment state="translated">
         <source>Anzahl PINs</source>
-        <target>Number of PINs</target>
+        <target>PINs の数</target>
       </segment>
     </unit>
     <unit id="7897642684892254234">
@@ -1149,7 +901,7 @@
       </notes>
       <segment state="translated">
         <source>Kopiere PIN(s) in die Zwischenablage</source>
-        <target>Copy PIN(s) to the clipboard</target>
+        <target>PIN をクリップボードにコピー</target>
       </segment>
     </unit>
     <unit id="7650064767892495053">
@@ -1158,7 +910,7 @@
       </notes>
       <segment state="translated">
         <source>PINs erstellen</source>
-        <target>Create PINs</target>
+        <target>PIN の作成</target>
       </segment>
     </unit>
     <unit id="2208822168211707034">
@@ -1167,7 +919,7 @@
       </notes>
       <segment state="translated">
         <source>Formular Details - POWER.NI</source>
-        <target>Form details - POWER.NI</target>
+        <target>フォームの詳細 - POWER.NI</target>
       </segment>
     </unit>
     <unit id="6100299460018469503">
@@ -1176,7 +928,7 @@
       </notes>
       <segment state="translated">
         <source>Möchten Sie dieses Formular wirklich löschen?</source>
-        <target>Do you really want to delete this form?</target>
+        <target>このフォームを削除しますか ?</target>
       </segment>
     </unit>
     <unit id="3149526115468934989">
@@ -1185,7 +937,7 @@
       </notes>
       <segment state="translated">
         <source>Löschen fehlgeschlagen</source>
-        <target>Failed to delete</target>
+        <target>削除の失敗</target>
       </segment>
     </unit>
     <unit id="3249149247481122578">
@@ -1194,7 +946,7 @@
       </notes>
       <segment state="translated">
         <source>Formular gelöscht</source>
-        <target>Form deleted</target>
+        <target>フォームの削除</target>
       </segment>
     </unit>
     <unit id="2182084453272634090">
@@ -1203,7 +955,7 @@
       </notes>
       <segment state="translated">
         <source>Das Formular wurde erfolgreich gelöscht.</source>
-        <target>The form was successfully deleted.</target>
+        <target>フォームは正常に削除されました。</target>
       </segment>
     </unit>
     <unit id="8502469069928490597">
@@ -1213,8 +965,8 @@
       <segment state="translated">
         <source>Möchten Sie dieses Formular wirklich archivieren?
 Dies lässt sich nicht mehr umkehren!</source>
-        <target>Are you sure you want to archive this form?
-This can not be reversed!</target>
+        <target>このフォームをアーカイブしますか ?
+これは元に戻せません !</target>
       </segment>
     </unit>
     <unit id="7962314393644503154">
@@ -1223,7 +975,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Archivieren fehlgeschlagen</source>
-        <target>Archive failed</target>
+        <target>アーカイブ失敗</target>
       </segment>
     </unit>
     <unit id="4018735454945884382">
@@ -1232,7 +984,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular archiviert</source>
-        <target>Form archived</target>
+        <target>フォーム・アーカイブ</target>
       </segment>
     </unit>
     <unit id="836974120290109919">
@@ -1241,7 +993,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Das Formular wurde erfolgreich archiviert.</source>
-        <target>The form was successfully archived.</target>
+        <target>フォームは正常にアーカイブされました。</target>
       </segment>
     </unit>
     <unit id="7293756355878993771">
@@ -1250,7 +1002,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Download fehlgeschlagen</source>
-        <target>Download failed</target>
+        <target>ダウンロードに失敗</target>
       </segment>
     </unit>
     <unit id="2908879179796145625">
@@ -1259,7 +1011,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Möchten Sie diese Antwort wirklich löschen?</source>
-        <target>Are you sure you want to delete this answer?</target>
+        <target>この回答を削除しますか ?</target>
       </segment>
     </unit>
     <unit id="6105229413905166645">
@@ -1268,7 +1020,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Antwort gelöscht</source>
-        <target>Answer deleted</target>
+        <target>回答の削除</target>
       </segment>
     </unit>
     <unit id="4168664506109423502">
@@ -1277,7 +1029,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Die Antwort wurde erfolgreich gelöscht.</source>
-        <target>The answer was deleted successfully.</target>
+        <target>回答が正常に削除されました。</target>
       </segment>
     </unit>
     <unit id="3959921924624883384">
@@ -1286,7 +1038,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zurück zum Dashboard</source>
-        <target>Back to Dashboard</target>
+        <target>ダッシュボードに戻る</target>
       </segment>
     </unit>
     <unit id="8930526198656004715">
@@ -1295,7 +1047,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zurück</source>
-        <target>Back</target>
+        <target>バック</target>
       </segment>
     </unit>
     <unit id="8040881171107393560">
@@ -1313,7 +1065,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Erstellt</source>
-        <target>Created</target>
+        <target>作成済み</target>
       </segment>
     </unit>
     <unit id="5611592591303869712">
@@ -1322,7 +1074,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Status</source>
-        <target>Status</target>
+        <target>状況</target>
       </segment>
     </unit>
     <unit id="3710766590975810780">
@@ -1331,7 +1083,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</source>
-        <target>{VAR_SELECT, select, created {Created} published {Published} cancelled {Cancelled}}</target>
+        <target>{VAR_SELECT、選択、作成された {作成された } {公開された } { 公開済み } { キャンセルされた } {</target>
       </segment>
     </unit>
     <unit id="8022684452981881720">
@@ -1340,7 +1092,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Leser</source>
-        <target>Reader</target>
+        <target>読取装置</target>
       </segment>
     </unit>
     <unit id="7423544162328062071">
@@ -1349,7 +1101,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Vorschau</source>
-        <target>Form preview</target>
+        <target>フォーム・プレビュー</target>
       </segment>
     </unit>
     <unit id="8104152103272919854">
@@ -1358,7 +1110,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Vorschau</source>
-        <target>Preview</target>
+        <target>プレビュー</target>
       </segment>
     </unit>
     <unit id="4517189945274702297">
@@ -1367,7 +1119,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular exportieren</source>
-        <target>Export form</target>
+        <target>エクスポート形式</target>
       </segment>
     </unit>
     <unit id="993560666209573635">
@@ -1376,7 +1128,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Archiviert</source>
-        <target>Archived</target>
+        <target>アーカイブ済み</target>
       </segment>
     </unit>
     <unit id="5028453380651426894">
@@ -1385,7 +1137,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zugriff</source>
-        <target>Access</target>
+        <target>アクセス</target>
       </segment>
     </unit>
     <unit id="2332375813543028449">
@@ -1394,7 +1146,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular bearbeiten</source>
-        <target>Edit form</target>
+        <target>フォームの編集</target>
       </segment>
     </unit>
     <unit id="5895799308050944719">
@@ -1403,7 +1155,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Einstellungen</source>
-        <target>Form settings</target>
+        <target>フォームの設定</target>
       </segment>
     </unit>
     <unit id="5070302732354433099">
@@ -1412,7 +1164,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular archivieren</source>
-        <target>Archive form</target>
+        <target>アーカイブ形式</target>
       </segment>
     </unit>
     <unit id="6275450215073900352">
@@ -1421,7 +1173,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Archivieren</source>
-        <target>Archive</target>
+        <target>アーカイブ</target>
       </segment>
     </unit>
     <unit id="4085873167168807139">
@@ -1430,7 +1182,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular löschen</source>
-        <target>Delete form</target>
+        <target>フォームの削除</target>
       </segment>
     </unit>
     <unit id="5377294052725398895">
@@ -1439,7 +1191,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zuletzt bearbeitet</source>
-        <target>Last edited</target>
+        <target>最終編集日</target>
       </segment>
     </unit>
     <unit id="8243852995513838598">
@@ -1448,7 +1200,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ergebnisse als CSV herunterladen</source>
-        <target>Download results as CSV</target>
+        <target>結果を CSV でダウンロード</target>
       </segment>
     </unit>
     <unit id="5187026264207776715">
@@ -1457,7 +1209,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ergebnisse (CSV)</source>
-        <target>Results (CSV)</target>
+        <target>結果 (CSV)</target>
       </segment>
     </unit>
     <unit id="2935871829967083793">
@@ -1466,7 +1218,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>PIN</source>
-        <target>PIN</target>
+        <target>ピン</target>
       </segment>
     </unit>
     <unit id="1294029994729525960">
@@ -1475,7 +1227,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</source>
-        <target>{VAR_SELECT, select, created {Created} accessed {Accessed} submitted {Submitted}}</target>
+        <target>{VAR_SELECT、選択、作成された { 作成済み } {アクセスされた } {アクセスされた } {実行依頼された } {</target>
       </segment>
     </unit>
     <unit id="6920196637619975735">
@@ -1484,7 +1236,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Bearbeiten</source>
-        <target>Edit</target>
+        <target>編集</target>
       </segment>
     </unit>
     <unit id="1856659986941989615">
@@ -1493,7 +1245,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ergebnisse anzeigen</source>
-        <target>View results</target>
+        <target>結果の表示</target>
       </segment>
     </unit>
     <unit id="5717311496824649212">
@@ -1502,7 +1254,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ergebnisse</source>
-        <target>Results</target>
+        <target>結果</target>
       </segment>
     </unit>
     <unit id="1451460320963900414">
@@ -1511,7 +1263,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Antwort löschen</source>
-        <target>Delete answer</target>
+        <target>回答の削除</target>
       </segment>
     </unit>
     <unit id="2911941681969480793">
@@ -1520,7 +1272,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Keine Antworten vorhanden</source>
-        <target>There are no answers</target>
+        <target>答えはありません</target>
       </segment>
     </unit>
     <unit id="2844088667159499341">
@@ -1529,7 +1281,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Neue PIN erstellen</source>
-        <target>Create new PIN</target>
+        <target>新規 PIN の作成</target>
       </segment>
     </unit>
     <unit id="5630731892828039251">
@@ -1538,7 +1290,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sichtbarkeitsbedingung für Antwort oder Unterfrage</source>
-        <target>Visibility condition for answer or subquestion</target>
+        <target>回答またはサブ質問の可視性条件</target>
       </segment>
     </unit>
     <unit id="2796348156539709272">
@@ -1547,7 +1299,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sichtbarkeitsbedingung für Antwort oder Unterfrage einstellen</source>
-        <target>Set visibility condition for answer or subquestion</target>
+        <target>回答またはサブ質問の可視性条件の設定</target>
       </segment>
     </unit>
     <unit id="2409494154701983500">
@@ -1556,7 +1308,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sichtbarkeitsbedingung</source>
-        <target>Visibility condition</target>
+        <target>可視性条件</target>
       </segment>
     </unit>
     <unit id="4148353123071676032">
@@ -1565,7 +1317,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zurücksetzen</source>
-        <target>Reset</target>
+        <target>リセット</target>
       </segment>
     </unit>
     <unit id="5327356321137513330">
@@ -1574,7 +1326,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Antworten konfigurieren</source>
-        <target>Configure responses</target>
+        <target>応答の構成</target>
       </segment>
     </unit>
     <unit id="7408924036382005310">
@@ -1583,7 +1335,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Antwortmöglichkeit hinzufügen</source>
-        <target>Add answer option</target>
+        <target>回答オプションの追加</target>
       </segment>
     </unit>
     <unit id="623302995999546215">
@@ -1592,7 +1344,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Hinzufügen</source>
-        <target>Add</target>
+        <target>追加</target>
       </segment>
     </unit>
     <unit id="8660201601995499983">
@@ -1601,7 +1353,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Datenwert</source>
-        <target>Data value</target>
+        <target>データ値</target>
       </segment>
     </unit>
     <unit id="1532860079177852917">
@@ -1610,7 +1362,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Anzeigetext</source>
-        <target>Display text</target>
+        <target>テキストの表示</target>
       </segment>
     </unit>
     <unit id="3714125747806279899">
@@ -1619,7 +1371,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Nach oben verschieben</source>
-        <target>Move up</target>
+        <target>上へ移動</target>
       </segment>
     </unit>
     <unit id="603389987382112463">
@@ -1628,7 +1380,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Nach unten verschieben</source>
-        <target>Move down</target>
+        <target>下へ移動</target>
       </segment>
     </unit>
     <unit id="8611525284352303611">
@@ -1637,7 +1389,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Bild löschen</source>
-        <target>Delete image</target>
+        <target>イメージの削除</target>
       </segment>
     </unit>
     <unit id="6005602603007222956">
@@ -1646,7 +1398,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Bild Hochladen</source>
-        <target>Upload image</target>
+        <target>イメージのアップロード</target>
       </segment>
     </unit>
     <unit id="5076633116931203629">
@@ -1655,7 +1407,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Fragen Einstellungen</source>
-        <target>Questions settings</target>
+        <target>質問の設定</target>
       </segment>
     </unit>
     <unit id="2258060347097525516">
@@ -1664,7 +1416,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Allgemein</source>
-        <target>General</target>
+        <target>一般</target>
       </segment>
     </unit>
     <unit id="4355165187689802345">
@@ -1672,10 +1424,8 @@ This can not be reversed!</target>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:14,16</note>
       </notes>
       <segment state="translated">
-        <source>Fragen ID <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;questionsettingsmodal.scrollToFooter()&quot;
-                              role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></source>
-        <target>Fragen ID <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;questionsettingsmodal.scrollToFooter()&quot;
-                              role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></target>
+        <source>Fragen ID <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;questionsettingsmodal.scrollToFooter()&quot;                               role=&quot;button&quot;&gt;" dispEnd="&lt;/span&gt;">*</pc></source>
+        <target>フラーゲン ID<pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;questionsettingsmodal.scrollToFooter()&quot;                               role=&quot;button&quot;&gt;" dispEnd="&lt;/span&gt;">*</pc></target>
       </segment>
     </unit>
     <unit id="2695337957296458234">
@@ -1684,7 +1434,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Dieser Wert muss im Formular einmalig sein. Die ID lässt sich als Variable nutzen, diese enthält die Antwort der Frage:</source>
-        <target>This value has to be unique for the form. The ID can be used as variable, which contains the answer to the question:</target>
+        <target>この値は、フォームに対して固有である必要があります。 この ID を変数として使用できます。これには、次の質問への回答が含まれます。</target>
       </segment>
     </unit>
     <unit id="6135681231733233865">
@@ -1692,10 +1442,8 @@ This can not be reversed!</target>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:39,41</note>
       </notes>
       <segment state="translated">
-        <source>Fragen Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;questionsettingsmodal.scrollToFooter()&quot;
-                              role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></source>
-        <target>Fragen Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;questionsettingsmodal.scrollToFooter()&quot;
-                              role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></target>
+        <source>Fragen Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;questionsettingsmodal.scrollToFooter()&quot;                               role=&quot;button&quot;&gt;" dispEnd="&lt;/span&gt;">*</pc></source>
+        <target>フレイゲン・ティテル<pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;questionsettingsmodal.scrollToFooter()&quot;                               role=&quot;button&quot;&gt;" dispEnd="&lt;/span&gt;">*</pc></target>
       </segment>
     </unit>
     <unit id="8079987278225698865">
@@ -1704,7 +1452,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Fragen Beschreibung</source>
-        <target>Questions description</target>
+        <target>質問の説明</target>
       </segment>
     </unit>
     <unit id="4535567108770324879">
@@ -1713,7 +1461,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Dieser Text wird unter der Frage angezeigt.</source>
-        <target>This text is displayed below the question.</target>
+        <target>このテキストは質問の下に表示されます。</target>
       </segment>
     </unit>
     <unit id="2633103922838468705">
@@ -1722,7 +1470,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Pflichtfeld</source>
-        <target>Required field</target>
+        <target>必須フィールド</target>
       </segment>
     </unit>
     <unit id="2465969235242735880">
@@ -1731,7 +1479,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sichtbar</source>
-        <target>Visible</target>
+        <target>ヴィジブル</target>
       </segment>
     </unit>
     <unit id="1043150964998466029">
@@ -1740,7 +1488,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob das Feld standardmäßig sichtbar ist.</source>
-        <target>This option sets whether the field is visible by default.</target>
+        <target>このオプションは、フィールドがデフォルトで表示されるかどうかを設定</target>
       </segment>
     </unit>
     <unit id="5564872229726777752">
@@ -1749,7 +1497,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Deaktiviert</source>
-        <target>Deactivate</target>
+        <target>非活動化</target>
       </segment>
     </unit>
     <unit id="5629269951933356095">
@@ -1758,7 +1506,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob das Feld standardmäßig ausfüllbar ist.</source>
-        <target>This option sets whether the field can be filled out by default.</target>
+        <target>このオプションは、フィールドをデフォルトで記入できるかどうかを設定します。</target>
       </segment>
     </unit>
     <unit id="1000474965396519246">
@@ -1767,7 +1515,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Fragennummer verstecken</source>
-        <target>Hide question number</target>
+        <target>質問番号を隠す</target>
       </segment>
     </unit>
     <unit id="696701674056104184">
@@ -1776,7 +1524,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Frage startet auf neuer Zeile</source>
-        <target>Question starts on a new line</target>
+        <target>質問は新しい行から開始します。</target>
       </segment>
     </unit>
     <unit id="2787708308943566133">
@@ -1785,7 +1533,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Breite der Frage in Pixel</source>
-        <target>Width of the question in pixels</target>
+        <target>質問の幅 ( ピクセル )</target>
       </segment>
     </unit>
     <unit id="281433735310730701">
@@ -1794,7 +1542,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Standardwert</source>
-        <target>Standard value</target>
+        <target>標準値</target>
       </segment>
     </unit>
     <unit id="2721307579039816609">
@@ -1803,7 +1551,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Bedingungen</source>
-        <target>Conditions</target>
+        <target>条件</target>
       </segment>
     </unit>
     <unit id="2123058190140167354">
@@ -1812,7 +1560,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Aktivierungsbedingung</source>
-        <target>Activation condition</target>
+        <target>アクティベーション条件</target>
       </segment>
     </unit>
     <unit id="5801991604521871701">
@@ -1821,7 +1569,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Pflichtbedingung</source>
-        <target>Mandatory condition</target>
+        <target>必須条件</target>
       </segment>
     </unit>
     <unit id="2909264081763608567">
@@ -1830,7 +1578,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Validatoren</source>
-        <target>Validators</target>
+        <target>バリデーター</target>
       </segment>
     </unit>
     <unit id="2899899258573669142">
@@ -1839,7 +1587,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Pflichtfeld Fehlertext</source>
-        <target>Mandatory field error text</target>
+        <target>必須フィールドのエラー・テキスト</target>
       </segment>
     </unit>
     <unit id="3105030069974657046">
@@ -1848,7 +1596,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Kommentar Eingabefeld aktivieren</source>
-        <target>Comment Activate the input field</target>
+        <target>コメント入力フィールドの活動化</target>
       </segment>
     </unit>
     <unit id="2282551280196521788">
@@ -1857,7 +1605,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option ist deaktiviert, wenn das "Anderes Eingabefeld" aktiviert ist.</source>
-        <target>This option is deactivated if the "Other input field" is activated.</target>
+        <target>このオプションは、「その他の入力フィールド」が活動化されている場合は非活動化</target>
       </segment>
     </unit>
     <unit id="7665047802410449230">
@@ -1866,7 +1614,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Kommentar Eingabefeld Text</source>
-        <target>Comment Input field text</target>
+        <target>コメント入力フィールド・テキスト</target>
       </segment>
     </unit>
     <unit id="8648957206736539595">
@@ -1875,7 +1623,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Eingabetyp</source>
-        <target>Input typ</target>
+        <target>入力タイップ</target>
       </segment>
     </unit>
     <unit id="431976875835451828">
@@ -1884,7 +1632,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Farbe</source>
-        <target>Colour</target>
+        <target>コラーール</target>
       </segment>
     </unit>
     <unit id="935267939147271845">
@@ -1893,7 +1641,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Datum</source>
-        <target>Date</target>
+        <target>日付</target>
       </segment>
     </unit>
     <unit id="2278763268677546133">
@@ -1902,7 +1650,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Datum &amp; Uhrzeit</source>
-        <target>Date &amp; Time</target>
+        <target>日付と時刻</target>
       </segment>
     </unit>
     <unit id="8115083664628466958">
@@ -1911,7 +1659,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>E-Mail</source>
-        <target>E-mail</target>
+        <target>E メール</target>
       </segment>
     </unit>
     <unit id="2298141652517601203">
@@ -1920,7 +1668,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Monat</source>
-        <target>Month</target>
+        <target>月</target>
       </segment>
     </unit>
     <unit id="8415078453524192234">
@@ -1929,7 +1677,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ganzzahl</source>
-        <target>Integer</target>
+        <target>整数</target>
       </segment>
     </unit>
     <unit id="681866609203884162">
@@ -1938,7 +1686,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Telefonnummer</source>
-        <target>Phone number</target>
+        <target>電話番号</target>
       </segment>
     </unit>
     <unit id="6162693758764653365">
@@ -1947,7 +1695,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Text</source>
-        <target>Text</target>
+        <target>本文</target>
       </segment>
     </unit>
     <unit id="7897216764489223339">
@@ -1956,7 +1704,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Uhrzeit</source>
-        <target>Time</target>
+        <target>時間</target>
       </segment>
     </unit>
     <unit id="2375260419993138758">
@@ -1965,7 +1713,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>URL</source>
-        <target>URL</target>
+        <target>ウルル</target>
       </segment>
     </unit>
     <unit id="6264380877246584426">
@@ -1974,7 +1722,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Woche</source>
-        <target>Week</target>
+        <target>週</target>
       </segment>
     </unit>
     <unit id="2976414078576857994">
@@ -1983,7 +1731,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Nicht jede Option wird von allen Webbrowsern unterstützt.</source>
-        <target>Not every option is supported by all web browsers.</target>
+        <target>すべてのオプションがすべての Web ブラウザーでサポートされているわけでは</target>
       </segment>
     </unit>
     <unit id="3335825202752630529">
@@ -1992,7 +1740,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeilen des Eingabefeldes</source>
-        <target>Lines of the input field</target>
+        <target>入力フィールドの行</target>
       </segment>
     </unit>
     <unit id="1783931905141779260">
@@ -2001,7 +1749,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Wert Schritte</source>
-        <target>Value steps</target>
+        <target>値ステップ</target>
       </segment>
     </unit>
     <unit id="2884070345504600057">
@@ -2010,7 +1758,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Anzeigetext Minimum</source>
-        <target>Display text minimum</target>
+        <target>テキストの最小表示</target>
       </segment>
     </unit>
     <unit id="3235518685482283884">
@@ -2019,7 +1767,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Minimaler Wert</source>
-        <target>Minimum value</target>
+        <target>最小値</target>
       </segment>
     </unit>
     <unit id="1919934867677848930">
@@ -2028,7 +1776,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Anzeigetext Maximum</source>
-        <target>Display text maximum</target>
+        <target>テキストの最大表示</target>
       </segment>
     </unit>
     <unit id="4044856277132637349">
@@ -2037,7 +1785,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Maximaler Wert</source>
-        <target>Maximum value</target>
+        <target>最大値</target>
       </segment>
     </unit>
     <unit id="7301845257544939728">
@@ -2046,7 +1794,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zusätzliches Eingabefeld aktivieren</source>
-        <target>Activate additional input field</target>
+        <target>追加入力フィールドの活動化</target>
       </segment>
     </unit>
     <unit id="5110740723354501274">
@@ -2055,7 +1803,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Skala Schritte</source>
-        <target>Scale steps</target>
+        <target>スケールのステップ</target>
       </segment>
     </unit>
     <unit id="5306332341695056473">
@@ -2064,7 +1812,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Nachkommastellen</source>
-        <target>Decimal places</target>
+        <target>小数点以下桁数</target>
       </segment>
     </unit>
     <unit id="3406135397633818536">
@@ -2073,7 +1821,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Anzeigetext links</source>
-        <target>Display text links</target>
+        <target>テキストリンクの表示</target>
       </segment>
     </unit>
     <unit id="5558176899213566695">
@@ -2082,7 +1830,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Anzeigetext rechts</source>
-        <target>Display text on the right</target>
+        <target>右側にテキストを表示する</target>
       </segment>
     </unit>
     <unit id="4037439038235710994">
@@ -2091,7 +1839,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Mehrere Dateien erlauben</source>
-        <target>Allow multiple files</target>
+        <target>複数ファイルの許可</target>
       </segment>
     </unit>
     <unit id="4242082417573669453">
@@ -2100,7 +1848,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Erlaubte Dateitypen</source>
-        <target>Allowed file types</target>
+        <target>許可ファイル・タイプ</target>
       </segment>
     </unit>
     <unit id="4465613126133133953">
@@ -2109,7 +1857,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>PDF-Dokumente</source>
-        <target>PDF-document</target>
+        <target>PDF 文書</target>
       </segment>
     </unit>
     <unit id="9045290048674217310">
@@ -2118,7 +1866,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Bilder</source>
-        <target>Images</target>
+        <target>像像</target>
       </segment>
     </unit>
     <unit id="924135540804019092">
@@ -2127,7 +1875,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Maximale Dateigröße in Bytes</source>
-        <target>Maximum file size in bytes</target>
+        <target>最大ファイル・サイズ ( バイト )</target>
       </segment>
     </unit>
     <unit id="2009978670427997964">
@@ -2136,7 +1884,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Korrekte Antwort (Quiz)</source>
-        <target>Correct answers (quiz)</target>
+        <target>正解 ( クイズ)</target>
       </segment>
     </unit>
     <unit id="3779344425702119911">
@@ -2145,7 +1893,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Unterfragen</source>
-        <target>Sub-questions</target>
+        <target>サブ質問</target>
       </segment>
     </unit>
     <unit id="4793302653467568534">
@@ -2154,7 +1902,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Jede Unterfrage ist Pflichtfeld</source>
-        <target>Each sub-question is a mandatory field</target>
+        <target>各サブ質問は必須フィールドです</target>
       </segment>
     </unit>
     <unit id="5373486674031991069">
@@ -2163,7 +1911,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</source>
-        <target>This option forces that each sub-question have to be answered.</target>
+        <target>このオプションは、各サブ質問に回答する必要があることを強制します。</target>
       </segment>
     </unit>
     <unit id="7227476185175598244">
@@ -2172,7 +1920,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Unsichtbar ohne sichtbare Fragen</source>
-        <target>Invisible with no visible questions</target>
+        <target>可視の質問なしで表示できます</target>
       </segment>
     </unit>
     <unit id="2879018139997145543">
@@ -2181,7 +1929,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgeblendet.</source>
-        <target>If all sub-questions are invisible, the question is hidden.</target>
+        <target>すべてのサブ質問が表示されない場合、質問は非表示になります。</target>
       </segment>
     </unit>
     <unit id="6882061501622662520">
@@ -2190,7 +1938,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Unterfragen Reihenfolge</source>
-        <target>Sub-question order</target>
+        <target>サブ質問の順序</target>
       </segment>
     </unit>
     <unit id="276184332300045619">
@@ -2199,7 +1947,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Wie definiert</source>
-        <target>As defined</target>
+        <target>定義どおり</target>
       </segment>
     </unit>
     <unit id="5748078469472297200">
@@ -2208,7 +1956,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zufällig</source>
-        <target>Random</target>
+        <target>ランダム</target>
       </segment>
     </unit>
     <unit id="3410376041034296385">
@@ -2217,7 +1965,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Unterfrage Sichtbarkeitsbedingung</source>
-        <target>Sub-question visibility condition</target>
+        <target>サブ質問の可視性条件</target>
       </segment>
     </unit>
     <unit id="2918457483295577227">
@@ -2226,7 +1974,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Antwortmöglichkeiten</source>
-        <target>Answer options</target>
+        <target>「回答」オプション</target>
       </segment>
     </unit>
     <unit id="3643065623582513222">
@@ -2235,7 +1983,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Antworten</source>
-        <target>Answers</target>
+        <target>アンサーズ</target>
       </segment>
     </unit>
     <unit id="6756465483742901259">
@@ -2244,7 +1992,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Unsichtbar ohne sichtbare Antworten</source>
-        <target>Invisible with no visible answers</target>
+        <target>可視の回答なしで表示できます</target>
       </segment>
     </unit>
     <unit id="1824561744575281085">
@@ -2253,7 +2001,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sind alle Antworten unsichtbar, dann wird die Frage ausgeblendet.</source>
-        <target>If all answers are invisible, the question is hidden.</target>
+        <target>すべての回答が非表示の場合、質問は非表示になります</target>
       </segment>
     </unit>
     <unit id="3740504915156757002">
@@ -2262,7 +2010,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Darstellung in Spalten</source>
-        <target>Representation in columns</target>
+        <target>列のリプレゼンテーション</target>
       </segment>
     </unit>
     <unit id="8079868020998407724">
@@ -2271,7 +2019,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Antworten Reihenfolge</source>
-        <target>Answers order</target>
+        <target>回答の順序</target>
       </segment>
     </unit>
     <unit id="1855713545021520634">
@@ -2280,7 +2028,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Antwortbedingungen</source>
-        <target>Answer conditions</target>
+        <target>回答条件</target>
       </segment>
     </unit>
     <unit id="8691548970191506667">
@@ -2289,7 +2037,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Aufsteigend sortiert</source>
-        <target>Sorted in ascending order</target>
+        <target>昇順にソートされます。</target>
       </segment>
     </unit>
     <unit id="1947750218509794653">
@@ -2298,7 +2046,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Absteigend sortiert</source>
-        <target>Sorted in descending order</target>
+        <target>降順でソート</target>
       </segment>
     </unit>
     <unit id="8045928720268721680">
@@ -2307,7 +2055,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Anderes Eingabefeld aktivieren</source>
-        <target>Activate another input field</target>
+        <target>別の入力フィールドの活動化</target>
       </segment>
     </unit>
     <unit id="2772784062511473861">
@@ -2316,7 +2064,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</source>
-        <target>This option is deactivated if the "Comment input field" is activated.</target>
+        <target>このオプションは、「コメント入力フィールド」が活動化されている場合には非活動化</target>
       </segment>
     </unit>
     <unit id="2412317594447763128">
@@ -2325,7 +2073,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf um Auswahl rückgängig zu machen</source>
-        <target>Show button to undo selection</target>
+        <target>選択を取り消すボタンを表示</target>
       </segment>
     </unit>
     <unit id="4799237165177498998">
@@ -2334,7 +2082,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf um alles auszuwählen</source>
-        <target>Show button to select all</target>
+        <target>すべてを選択するボタンを表示</target>
       </segment>
     </unit>
     <unit id="7915859704986171168">
@@ -2343,7 +2091,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf für nichts trifft zu</source>
-        <target>Show button for nothing applies</target>
+        <target>何も適用しないボタンを表示</target>
       </segment>
     </unit>
     <unit id="2158488422074241298">
@@ -2352,7 +2100,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Mehrfachauswahl erlauben</source>
-        <target>Allow multiple selections</target>
+        <target>複数選択の許可</target>
       </segment>
     </unit>
     <unit id="7096759547174459513">
@@ -2361,7 +2109,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Breite in Pixel</source>
-        <target>Width in pixels</target>
+        <target>幅 ( ピクセル単位 )</target>
       </segment>
     </unit>
     <unit id="6463726515236192057">
@@ -2370,7 +2118,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Höhe in Pixel</source>
-        <target>Height in pixels</target>
+        <target>高さ ( ピクセル単位 )</target>
       </segment>
     </unit>
     <unit id="3681264497760339705">
@@ -2379,7 +2127,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Größenanpassung</source>
-        <target>Size adjustment</target>
+        <target>サイズ調整</target>
       </segment>
     </unit>
     <unit id="4728532590739893418">
@@ -2388,7 +2136,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Keine Anpassung</source>
-        <target>No adjustment</target>
+        <target>調整なし</target>
       </segment>
     </unit>
     <unit id="4710626519203410106">
@@ -2397,7 +2145,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Verkleinern</source>
-        <target>Minimize</target>
+        <target>最小化</target>
       </segment>
     </unit>
     <unit id="7766735261673100646">
@@ -2406,7 +2154,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Abschneiden</source>
-        <target>Cut off</target>
+        <target>カット・オフ</target>
       </segment>
     </unit>
     <unit id="2067326968798044785">
@@ -2415,7 +2163,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Füllen</source>
-        <target>To fill</target>
+        <target>入力する方法</target>
       </segment>
     </unit>
     <unit id="6145933794591239367">
@@ -2423,8 +2171,8 @@ This can not be reversed!</target>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:14,15</note>
       </notes>
       <segment state="translated">
-        <source>Formular Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></source>
-        <target>Formular Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></target>
+        <source>Formular Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;&gt;" dispEnd="&lt;/span&gt;">*</pc></source>
+        <target>シール・タイテル<pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;&gt;" dispEnd="&lt;/span&gt;">*</pc></target>
       </segment>
     </unit>
     <unit id="8617378541577598232">
@@ -2433,7 +2181,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Titel</source>
-        <target>Form title</target>
+        <target>フォームのタイトル</target>
       </segment>
     </unit>
     <unit id="4100707199422330681">
@@ -2442,7 +2190,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Titel anzeigen</source>
-        <target>Display title</target>
+        <target>表示タイトル</target>
       </segment>
     </unit>
     <unit id="3833317435714673084">
@@ -2451,7 +2199,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Beschreibung</source>
-        <target>Form description</target>
+        <target>フォームの説明</target>
       </segment>
     </unit>
     <unit id="1760256603507464336">
@@ -2460,7 +2208,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</source>
-        <target>This text will be displayed on every page of the form.</target>
+        <target>このテキストは、フォームのすべてのページに表示されます。</target>
       </segment>
     </unit>
     <unit id="5666267213246612821">
@@ -2469,7 +2217,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Standardsprache</source>
-        <target>Default language</target>
+        <target>デフォルト言語</target>
       </segment>
     </unit>
     <unit id="1294910383430489999">
@@ -2478,7 +2226,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
-        <target>The default language which is displayed to the user. The user can switch the language.</target>
+        <target>ユーザーに表示されるデフォルト言語。 ユーザーは言語を切り替えることができます。</target>
       </segment>
     </unit>
     <unit id="1372482459728345325">
@@ -2487,7 +2235,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Fragen Nummerierung</source>
-        <target>Questions numbering</target>
+        <target>質問の番号付け</target>
       </segment>
     </unit>
     <unit id="8481579963208403613">
@@ -2496,7 +2244,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Durchgängig nummerieren</source>
-        <target>Number continuously</target>
+        <target>継続数</target>
       </segment>
     </unit>
     <unit id="3639076766141137848">
@@ -2505,7 +2253,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Seitenweise nummerieren</source>
-        <target>Number page by page</target>
+        <target>ページごとのページ数</target>
       </segment>
     </unit>
     <unit id="2434918029138704338">
@@ -2514,7 +2262,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Keine Nummern anzeigen</source>
-        <target>Don't show numbers</target>
+        <target>数字を表示しない</target>
       </segment>
     </unit>
     <unit id="9158296968384637533">
@@ -2523,7 +2271,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Fragen Reihenfolge</source>
-        <target>Questions order</target>
+        <target>質問の順序</target>
       </segment>
     </unit>
     <unit id="7905779239609883676">
@@ -2531,8 +2279,8 @@ This can not be reversed!</target>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:113,114</note>
       </notes>
       <segment state="translated">
-        <source>Abschlusstext <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></source>
-        <target>Abschlusstext <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></target>
+        <source>Abschlusstext <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;&gt;" dispEnd="&lt;/span&gt;">*</pc></source>
+        <target>アプシュルスト・ネクスト<pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;&gt;" dispEnd="&lt;/span&gt;">*</pc></target>
       </segment>
     </unit>
     <unit id="7027469161598572792">
@@ -2541,7 +2289,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Umleitungs URL</source>
-        <target>Redirect url</target>
+        <target>URL のリダイレクト</target>
       </segment>
     </unit>
     <unit id="330655507364677006">
@@ -2550,7 +2298,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</source>
-        <target>The user will be redirected to this address after completing the form.</target>
+        <target>ユーザーは、フォームを入力した後、このアドレスにリダイレクトされます。</target>
       </segment>
     </unit>
     <unit id="4550958265168690830">
@@ -2559,7 +2307,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Logo</source>
-        <target>Logo</target>
+        <target>ロゴ</target>
       </segment>
     </unit>
     <unit id="5229120071979656638">
@@ -2568,7 +2316,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Logo</source>
-        <target>Form logo</target>
+        <target>フォーム・ロゴ</target>
       </segment>
     </unit>
     <unit id="2501314743594284688">
@@ -2577,7 +2325,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Eine URL zu einem Logo angeben.</source>
-        <target>Provide a URL to a logo.</target>
+        <target>URL をロゴに指定します。</target>
       </segment>
     </unit>
     <unit id="1172866303261737245">
@@ -2586,7 +2334,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Position</source>
-        <target>Position</target>
+        <target>ポジション</target>
       </segment>
     </unit>
     <unit id="5556435091490236322">
@@ -2595,7 +2343,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Nicht anzeigen</source>
-        <target>Do not display</target>
+        <target>表示しない</target>
       </segment>
     </unit>
     <unit id="7565716024468232322">
@@ -2604,7 +2352,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Links</source>
-        <target>Left</target>
+        <target>左</target>
       </segment>
     </unit>
     <unit id="2593178093887078258">
@@ -2613,7 +2361,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Rechts</source>
-        <target>Right</target>
+        <target>右</target>
       </segment>
     </unit>
     <unit id="7729339462879047946">
@@ -2622,7 +2370,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Oben</source>
-        <target>Top</target>
+        <target>トップ</target>
       </segment>
     </unit>
     <unit id="6261398890082020172">
@@ -2631,7 +2379,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Unten</source>
-        <target>Bottom</target>
+        <target>ボトム</target>
       </segment>
     </unit>
     <unit id="1348774649041038169">
@@ -2640,7 +2388,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Navigation</source>
-        <target>Navigation</target>
+        <target>ナビゲーション</target>
       </segment>
     </unit>
     <unit id="3791397886649466581">
@@ -2649,7 +2397,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Erste Seite ist Startseite</source>
-        <target>The first page is the start page</target>
+        <target>最初のページは開始ページです。</target>
       </segment>
     </unit>
     <unit id="2082107161153819759">
@@ -2658,7 +2406,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Die erste Seite erhält einen Start Button für das Formular.</source>
-        <target>The first page will have a start button for the form.</target>
+        <target>最初のページには、フォームの開始ボタンが表示されます。</target>
       </segment>
     </unit>
     <unit id="6178833123766704127">
@@ -2667,7 +2415,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zurück Button erlauben</source>
-        <target>Allow back button</target>
+        <target>「戻る」ボタン</target>
       </segment>
     </unit>
     <unit id="7695508861104987850">
@@ -2676,7 +2424,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Nächste Seite automatisch öffnen</source>
-        <target>Open next page automatically</target>
+        <target>次のページを自動的に開く</target>
       </segment>
     </unit>
     <unit id="8766608425941978130">
@@ -2685,7 +2433,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</source>
-        <target>After completing a page, the next one is opened automaticall.</target>
+        <target>ページを完了すると、次のページが自動的に自動的にオープンされます。</target>
       </segment>
     </unit>
     <unit id="8815755568322473340">
@@ -2694,7 +2442,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Vorschau vor dem absenden</source>
-        <target>Preview before sending</target>
+        <target>送信前のプレビュー</target>
       </segment>
     </unit>
     <unit id="4048724896199851116">
@@ -2703,7 +2451,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Keine Vorschau</source>
-        <target>No preview</target>
+        <target>プレビューなし</target>
       </segment>
     </unit>
     <unit id="3116521044657277687">
@@ -2712,7 +2460,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Alle Fragen</source>
-        <target>All questions</target>
+        <target>すべての質問</target>
       </segment>
     </unit>
     <unit id="8088636398432806268">
@@ -2721,7 +2469,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Alle ausgefüllten Fragen</source>
-        <target>All questions answered</target>
+        <target>すべての質問に</target>
       </segment>
     </unit>
     <unit id="838952338592474932">
@@ -2730,7 +2478,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular final absendet.</source>
-        <target>The user can see a preview of his answers before submitting the form finally.</target>
+        <target>ユーザーは、最終的にフォームを送信する前に、自分の回答のプレビューを表示できます。</target>
       </segment>
     </unit>
     <unit id="9183727284848549860">
@@ -2739,7 +2487,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Fortschrittsbalken Anzeigen</source>
-        <target>Show progress bar</target>
+        <target>進行バーの表示</target>
       </segment>
     </unit>
     <unit id="4185383975352174936">
@@ -2748,7 +2496,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Oben und unten</source>
-        <target>Top and bottom</target>
+        <target>上と下</target>
       </segment>
     </unit>
     <unit id="503802866275364170">
@@ -2757,7 +2505,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Fortschrittsbalken Berechnung</source>
-        <target>Progress bar calculation</target>
+        <target>進捗バーの計算</target>
       </segment>
     </unit>
     <unit id="5884518565866049278">
@@ -2766,7 +2514,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sichtbare Seiten</source>
-        <target>Visible sites</target>
+        <target>閲覧可能サイト</target>
       </segment>
     </unit>
     <unit id="8170033538072466570">
@@ -2775,7 +2523,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sichtbare Pflichtfragen</source>
-        <target>Visible mandatory questions</target>
+        <target>表示される必須質問</target>
       </segment>
     </unit>
     <unit id="6268991995109043706">
@@ -2784,7 +2532,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Alle sichtbaren Fragen</source>
-        <target>All visible questions</target>
+        <target>すべての表示質問</target>
       </segment>
     </unit>
     <unit id="4672431604235348857">
@@ -2793,7 +2541,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Korrekt beantwortete Fragen (Quiz)</source>
-        <target>Correctly answered questions (quiz)</target>
+        <target>質問の回答 ( クイズ)</target>
       </segment>
     </unit>
     <unit id="235619957920177805">
@@ -2802,7 +2550,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Seiten</source>
-        <target>Pages</target>
+        <target>ページ</target>
       </segment>
     </unit>
     <unit id="8842099329146114445">
@@ -2811,7 +2559,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Timer/Quiz</source>
-        <target>Timer/Quiz</target>
+        <target>タイマー/クイズ</target>
       </segment>
     </unit>
     <unit id="1939472793559014594">
@@ -2820,7 +2568,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeitlimit in Sekunden für das Formular</source>
-        <target>Time limit in seconds for the form</target>
+        <target>フォームの制限時間 ( 秒単位 )</target>
       </segment>
     </unit>
     <unit id="2813735869096234149">
@@ -2829,7 +2577,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeitlimit in Sekunden pro Seite</source>
-        <target>Time limit in seconds per side</target>
+        <target>1 サイド当たりの時間制限 ( 秒 )</target>
       </segment>
     </unit>
     <unit id="7133964056789991209">
@@ -2838,7 +2586,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeitlimit anzeigen</source>
-        <target>Show time limit</target>
+        <target>時間制限の表示</target>
       </segment>
     </unit>
     <unit id="2491849397970098376">
@@ -2847,7 +2595,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Timer anzeigen</source>
-        <target>Show timer</target>
+        <target>タイマーの表示</target>
       </segment>
     </unit>
     <unit id="8224626603237394009">
@@ -2856,7 +2604,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeit auf dieser Seite und das gesamte Formular</source>
-        <target>Time on this page and the entire form</target>
+        <target>このページとフォーム全体の時刻</target>
       </segment>
     </unit>
     <unit id="3070058222143457362">
@@ -2865,7 +2613,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeit auf dieser Seite</source>
-        <target>Time on this side</target>
+        <target>この側の時間</target>
       </segment>
     </unit>
     <unit id="5906479838476211239">
@@ -2874,7 +2622,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeit für das gesamte Formular</source>
-        <target>Time for the entire form</target>
+        <target>フォーム全体の時間</target>
       </segment>
     </unit>
     <unit id="3653220996715334574">
@@ -2883,7 +2631,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Seite <ph id="0" equiv="INTERPOLATION" disp="{{ i + 1 }}"/></source>
-        <target>Page <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></target>
+        <target>ページ<ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></target>
       </segment>
     </unit>
     <unit id="2471765562897109795">
@@ -2892,7 +2640,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Seiten Titel</source>
-        <target>Page title</target>
+        <target>ページ・タイトル</target>
       </segment>
     </unit>
     <unit id="6320380037348531310">
@@ -2901,7 +2649,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Seiten Beschreibung</source>
-        <target>Page description</target>
+        <target>ページの説明</target>
       </segment>
     </unit>
     <unit id="2798807656507405918">
@@ -2910,7 +2658,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Standard</source>
-        <target>Standard</target>
+        <target>スタンダード</target>
       </segment>
     </unit>
     <unit id="7620481386125449624">
@@ -2919,7 +2667,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option überschreibt den Standardwert aus dem Reiter Allgemein.</source>
-        <target>This option overwrites the default value of the general tab.</target>
+        <target>このオプションは、「一般」タブのデフォルト値を上書きします。</target>
       </segment>
     </unit>
     <unit id="4418869254061112387">
@@ -2928,7 +2676,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob die Seite standardmäßig sichtbar ist.</source>
-        <target>This option sets whether the page is visible by default.</target>
+        <target>このオプションは、ページがデフォルトで表示されるかどうかを設定</target>
       </segment>
     </unit>
     <unit id="3393167416522495063">
@@ -2937,7 +2685,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob die Seite standardmäßig ausfüllbar ist.</source>
-        <target>This option sets whether the page can be filled out by default.</target>
+        <target>このオプションは、ページをデフォルトで記入できるかどうかを設定します。</target>
       </segment>
     </unit>
     <unit id="7030772613006934299">
@@ -2946,7 +2694,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeitlimit in Sekunden für die Seite</source>
-        <target>Time limit in seconds for the page</target>
+        <target>ページの制限時間 ( 秒 )</target>
       </segment>
     </unit>
     <unit id="5288017806656387875">
@@ -2955,7 +2703,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Diese Option überschreibt den Standardwert pro Seite aus dem Reiter Timer/Quiz.</source>
-        <target>This option overwrites the default value per page of the Timer/Quiz tab.</target>
+        <target>このオプションは、「 Timer/Quiz 」タブのページ当たりのデフォルト値を上書きします。</target>
       </segment>
     </unit>
     <unit id="4723836104354899512">
@@ -2964,7 +2712,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Editor - POWER.NI</source>
-        <target>Form editor - POWER.NI</target>
+        <target>フォーム・エディター - POWER.NI</target>
       </segment>
     </unit>
     <unit id="1846940666050448274">
@@ -2973,7 +2721,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Möchten Sie diese Seite wirklich löschen?</source>
-        <target>Are you sure you want to delete this page?</target>
+        <target>このページを削除しますか ?</target>
       </segment>
     </unit>
     <unit id="4083098439898145242">
@@ -2982,7 +2730,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Erfolgreich kopiert</source>
-        <target>Copied successfully</target>
+        <target>正常にコピーされた</target>
       </segment>
     </unit>
     <unit id="6844731081276396216">
@@ -2991,7 +2739,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sie finden Ihre Zwischenablage ganz unten in der Toolbox.</source>
-        <target>You can find your clipboard at the bottom of the toolbox.</target>
+        <target>クリップボードはツールボックスの下部に表示されます。</target>
       </segment>
     </unit>
     <unit id="827004122415134621">
@@ -3000,7 +2748,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Möchten Sie das Element wirklich löschen?</source>
-        <target>Are you sure you want to delete the item?</target>
+        <target>項目を削除しますか ?</target>
       </segment>
     </unit>
     <unit id="8308742862340480417">
@@ -3009,7 +2757,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Kein Titel vorhanden</source>
-        <target>No title available</target>
+        <target>使用可能なタイトルなし</target>
       </segment>
     </unit>
     <unit id="7992701910216700161">
@@ -3018,7 +2766,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Bitte geben Sie erst einen Fragetitel ein, um die Favoritenfunktion mit dieser Frage nutzen zu können.</source>
-        <target>Please enter a question title first in order to use this question as favorites.</target>
+        <target>この質問をお気に入りとして使用するには、まず質問のタイトルを入力してください。</target>
       </segment>
     </unit>
     <unit id="7703604397816691419">
@@ -3027,7 +2775,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Favoriten hinzugefügt</source>
-        <target>Added favorite</target>
+        <target>お気に入りの追加</target>
       </segment>
     </unit>
     <unit id="6554859241404673322">
@@ -3036,7 +2784,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Die Frage wurde erfolgreich als Favoriten hinzugefügt.</source>
-        <target>The question successfully added as a favorite.</target>
+        <target>質問はお気に入りとして正常に追加されました。</target>
       </segment>
     </unit>
     <unit id="3725407762902324146">
@@ -3045,7 +2793,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Favoriten hinzufügen fehlgeschlagen</source>
-        <target>Failed to add favorite</target>
+        <target>お気に入りを追加できません</target>
       </segment>
     </unit>
     <unit id="8790959798803024488">
@@ -3054,7 +2802,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Favoriten gelöscht</source>
-        <target>Deleted favorite</target>
+        <target>お気に入りを削除</target>
       </segment>
     </unit>
     <unit id="8437124138358195643">
@@ -3063,7 +2811,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Die Frage wurde erfolgreich aus den Favoriten entfernt.</source>
-        <target>The question was successfully removed from favorites.</target>
+        <target>質問はお気に入りから正常に削除されました。</target>
       </segment>
     </unit>
     <unit id="5857557357218947756">
@@ -3072,7 +2820,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Favorite löschen fehlgeschlagen</source>
-        <target>Failed to delete favorite</target>
+        <target>お気に入りを削除できません</target>
       </segment>
     </unit>
     <unit id="8213233138195056757">
@@ -3081,7 +2829,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Toolbox</source>
-        <target>Toolbox</target>
+        <target>ツールボックス</target>
       </segment>
     </unit>
     <unit id="4459038419001492449">
@@ -3090,7 +2838,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Favoriten</source>
-        <target>Favorites</target>
+        <target>お気に入り</target>
       </segment>
     </unit>
     <unit id="9011837343127283352">
@@ -3099,7 +2847,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular page navigation</source>
-        <target>Formular page navigation</target>
+        <target>公式ページ・ナビゲーション</target>
       </segment>
     </unit>
     <unit id="1557196698790782207">
@@ -3108,7 +2856,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Neue Seite hinzufügen</source>
-        <target>Add new page</target>
+        <target>新規ページの追加</target>
       </segment>
     </unit>
     <unit id="5744410059698672022">
@@ -3117,7 +2865,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ausgewählte Seite löschen</source>
-        <target>Delete selected page</target>
+        <target>選択ページの削除</target>
       </segment>
     </unit>
     <unit id="457974053481573035">
@@ -3126,7 +2874,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Letzte Änderung wiederholen</source>
-        <target>Repeat last change</target>
+        <target>最終変更を繰り返す</target>
       </segment>
     </unit>
     <unit id="9184754693751559474">
@@ -3135,7 +2883,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Letzte Änderung rückgängig machen</source>
-        <target>Undo the last change</target>
+        <target>最後の変更を元に戻す</target>
       </segment>
     </unit>
     <unit id="8074982956026936752">
@@ -3144,7 +2892,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Einstellungen öffnen</source>
-        <target>Open the form settings</target>
+        <target>フォーム設定を開く</target>
       </segment>
     </unit>
     <unit id="1984014520885532931">
@@ -3153,7 +2901,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Vorschau öffnen</source>
-        <target>Open the form preview</target>
+        <target>フォーム・プレビューを開きます</target>
       </segment>
     </unit>
     <unit id="1757132388528868196">
@@ -3162,7 +2910,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular speichern</source>
-        <target>Save form</target>
+        <target>フォームの保存</target>
       </segment>
     </unit>
     <unit id="90895410484051873">
@@ -3171,7 +2919,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zurück zu den Details</source>
-        <target>Back to details</target>
+        <target>詳細に戻る</target>
       </segment>
     </unit>
     <unit id="8696865147554603290">
@@ -3180,7 +2928,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zwischenablage</source>
-        <target>Clipboard</target>
+        <target>クリップボード</target>
       </segment>
     </unit>
     <unit id="9065639806315315313">
@@ -3189,7 +2937,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sie haben keine Favoriten</source>
-        <target>You have no favorites</target>
+        <target>お気に入りがありません</target>
       </segment>
     </unit>
     <unit id="5063140447217153857">
@@ -3198,7 +2946,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Zeige Seite <ph id="0" equiv="INTERPOLATION" disp="           "/></source>
-        <target>Show page <ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></target>
+        <target>ページの表示<ph id="0" equiv="INTERPOLATION" disp="&quot;\uFFFD0\uFFFD&quot;"/></target>
       </segment>
     </unit>
     <unit id="3225144225680546881">
@@ -3207,7 +2955,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ziehen Sie etwas in den Arbeitsbereich...</source>
-        <target>Drag something into to the workspace...</target>
+        <target>何かをワークスペースにドラッグ ...</target>
       </segment>
     </unit>
     <unit id="7897211246412919659">
@@ -3216,7 +2964,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Verschieben</source>
-        <target>Move</target>
+        <target>行け !</target>
       </segment>
     </unit>
     <unit id="6421015407864399648">
@@ -3225,7 +2973,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Kopieren</source>
-        <target>Copy</target>
+        <target>コピー</target>
       </segment>
     </unit>
     <unit id="9141378190271389476">
@@ -3234,7 +2982,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Als Favoriten speichern</source>
-        <target>Save as favorites</target>
+        <target>お気に入りとして保存</target>
       </segment>
     </unit>
     <unit id="7055050626756411310">
@@ -3243,16 +2991,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Favoriten löschen</source>
-        <target>Delete favorites</target>
-      </segment>
-    </unit>
-    <unit id="6145933794591239367">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:14,15</note>
-      </notes>
-      <segment state="initial">
-        <source>Formular Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></source>
-        <target>Formular Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></target>
+        <target>お気に入りの削除</target>
       </segment>
     </unit>
     <unit id="8852250703686567498">
@@ -3261,7 +3000,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ungültige Einstellungen</source>
-        <target>Invalid settings</target>
+        <target>無効な設定</target>
       </segment>
     </unit>
     <unit id="9111265276371777280">
@@ -3270,7 +3009,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.</source>
-        <target>Some settings are incorrect and must be corrected beforehand.</target>
+        <target>一部の設定が正しくないため、事前に訂正する必要があります。</target>
       </segment>
     </unit>
     <unit id="6154523979033512876">
@@ -3279,7 +3018,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Mein Formular</source>
-        <target>My form</target>
+        <target>マイ・フォーム</target>
       </segment>
     </unit>
     <unit id="5610425955750546094">
@@ -3288,7 +3027,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Template</source>
-        <target>Template</target>
+        <target>テンプレート</target>
       </segment>
     </unit>
     <unit id="8496502695397194982">
@@ -3297,7 +3036,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Suchen</source>
-        <target>Search</target>
+        <target>サーチ</target>
       </segment>
     </unit>
     <unit id="3367843544810442794">
@@ -3306,7 +3045,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular erstellen</source>
-        <target>Create form</target>
+        <target>フォームの作成</target>
       </segment>
     </unit>
     <unit id="2961538958334556025">
@@ -3315,7 +3054,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Erstellen</source>
-        <target>Create</target>
+        <target>クリエイ作成</target>
       </segment>
     </unit>
     <unit id="4827703385144532970">
@@ -3324,7 +3063,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Dashboard - POWER.NI</source>
-        <target>Dashboard - POWER.NI</target>
+        <target>ダッシュボード - POWER.NI</target>
       </segment>
     </unit>
     <unit id="6075502696052235124">
@@ -3333,7 +3072,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Status: Alle</source>
-        <target>Status: All</target>
+        <target>状況: すべて</target>
       </segment>
     </unit>
     <unit id="7386041263711688644">
@@ -3342,7 +3081,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Status: Erstellt</source>
-        <target>Status: Created</target>
+        <target>状況: 作成済み</target>
       </segment>
     </unit>
     <unit id="1570500676393057586">
@@ -3351,7 +3090,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Status: In Bearbeitung</source>
-        <target>Status: In progress</target>
+        <target>状況: 進行中</target>
       </segment>
     </unit>
     <unit id="2913904211707162832">
@@ -3360,7 +3099,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Status: Abgeschlossen</source>
-        <target>Status: Completed</target>
+        <target>状況: 完了</target>
       </segment>
     </unit>
     <unit id="2418500321333956842">
@@ -3369,7 +3108,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular</source>
-        <target>Form</target>
+        <target>形態</target>
       </segment>
     </unit>
     <unit id="3906234135081295833">
@@ -3378,7 +3117,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Abgeschlossen</source>
-        <target>Completed</target>
+        <target>竣工</target>
       </segment>
     </unit>
     <unit id="8999417070988208750">
@@ -3387,7 +3126,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular öffnen</source>
-        <target>Open form</target>
+        <target>フォームを開く</target>
       </segment>
     </unit>
     <unit id="1875629595072033230">
@@ -3396,7 +3135,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</source>
-        <target>{VAR_SELECT, select, created {Created} accessed {Accessed} submitted {Submitted}}</target>
+        <target>{VAR_SELECT、選択、作成された { 作成済み } {アクセスされた } {アクセスされた } {実行依頼された } {</target>
       </segment>
     </unit>
     <unit id="8902031064230548096">
@@ -3405,7 +3144,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Status: Veröffentlicht</source>
-        <target>Status: Published</target>
+        <target>状況: 公開済み</target>
       </segment>
     </unit>
     <unit id="6006001086469034825">
@@ -3414,7 +3153,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Status: Geschlossen</source>
-        <target>Status: Closed</target>
+        <target>状況: クローズ</target>
       </segment>
     </unit>
     <unit id="3516494453193947151">
@@ -3423,7 +3162,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Titel</source>
-        <target>Title</target>
+        <target>書名</target>
       </segment>
     </unit>
     <unit id="1330299988060557700">
@@ -3432,7 +3171,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Neues Formular erstellen</source>
-        <target>Create a new form</target>
+        <target>新規フォームの作成</target>
       </segment>
     </unit>
     <unit id="2877409751096310292">
@@ -3441,7 +3180,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Neues Formular</source>
-        <target>New form</target>
+        <target>新規フォーム</target>
       </segment>
     </unit>
     <unit id="515361261308847185">
@@ -3450,7 +3189,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular Titel *</source>
-        <target>Form title *</target>
+        <target>フォーム・タイトル *</target>
       </segment>
     </unit>
     <unit id="3451297314722320142">
@@ -3459,7 +3198,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formular importieren</source>
-        <target>Import form</target>
+        <target>インポート・フォーム</target>
       </segment>
     </unit>
     <unit id="623768782436568030">
@@ -3468,7 +3207,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>ACHTUNG: Sie haben ungespeicherte Änderungen. Drücken Sie auf abbrechen um die Änderungen zu behalten.</source>
-        <target>ATTENTION: You have unsaved changes. Press cancel to keep the changes.</target>
+        <target>重要: 保存されていない変更があります。 変更を保持するには「キャンセル」を</target>
       </segment>
     </unit>
     <unit id="5316487234495661938">
@@ -3477,7 +3216,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ergebnisvorschau</source>
-        <target>Result preview</target>
+        <target>結果のプレビュー</target>
       </segment>
     </unit>
     <unit id="8676788741374508103">
@@ -3486,7 +3225,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Formularvorschau</source>
-        <target>Form preview</target>
+        <target>フォーム・プレビュー</target>
       </segment>
     </unit>
     <unit id="7055687446802038168">
@@ -3495,7 +3234,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Anzeigemodus</source>
-        <target>Display mode</target>
+        <target>表示モード</target>
       </segment>
     </unit>
     <unit id="6957721606845154617">
@@ -3504,7 +3243,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Editiermodus</source>
-        <target>Edit mode</target>
+        <target>編集モード</target>
       </segment>
     </unit>
     <unit id="5290454533235962082">
@@ -3513,7 +3252,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Vorschaumodus</source>
-        <target>Preview mode</target>
+        <target>プレビュー・モード</target>
       </segment>
     </unit>
     <unit id="51574765818008149">
@@ -3522,7 +3261,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Sprache</source>
-        <target>Language</target>
+        <target>言語</target>
       </segment>
     </unit>
     <unit id="5444543356424916610">
@@ -3531,7 +3270,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Unsichtbare Elemente anzeigen</source>
-        <target>Display invisible elements</target>
+        <target>不可視の要素</target>
       </segment>
     </unit>
     <unit id="5589675804344200229">
@@ -3540,7 +3279,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Eingabefeld</source>
-        <target>Input box</target>
+        <target>入力ボックス</target>
       </segment>
     </unit>
     <unit id="5364143507457218055">
@@ -3549,7 +3288,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Kommentarfeld</source>
-        <target>Comment field</target>
+        <target>コメント欄</target>
       </segment>
     </unit>
     <unit id="1531248391846636211">
@@ -3558,7 +3297,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Ja/Nein</source>
-        <target>Yes/No</target>
+        <target>はい/いいえ</target>
       </segment>
     </unit>
     <unit id="9142428020401391819">
@@ -3567,7 +3306,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Einfachauswahl</source>
-        <target>Single choice</target>
+        <target>単一選択</target>
       </segment>
     </unit>
     <unit id="1256089082629822545">
@@ -3576,7 +3315,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Mehrfachauswahl</source>
-        <target>Multiple choice</target>
+        <target>多肢選択</target>
       </segment>
     </unit>
     <unit id="5222539429128643526">
@@ -3585,7 +3324,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Bilderauswahl</source>
-        <target>Image selection</target>
+        <target>イメージの選択</target>
       </segment>
     </unit>
     <unit id="241839647344135361">
@@ -3594,7 +3333,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Bewertung</source>
-        <target>Rating</target>
+        <target>評点</target>
       </segment>
     </unit>
     <unit id="6613897755697953443">
@@ -3603,7 +3342,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Slider</source>
-        <target>Slider</target>
+        <target>スライダー</target>
       </segment>
     </unit>
     <unit id="8349020599502130637">
@@ -3612,7 +3351,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Likert Skala</source>
-        <target>Likert scale</target>
+        <target>リカート尺度</target>
       </segment>
     </unit>
     <unit id="7531449458395898640">
@@ -3621,7 +3360,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Unterschrift</source>
-        <target>Signature</target>
+        <target>シグネチャー</target>
       </segment>
     </unit>
     <unit id="6217203485626464476">
@@ -3630,7 +3369,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Fileupload</source>
-        <target>File upload</target>
+        <target>ファイルのアップロード</target>
       </segment>
     </unit>
     <unit id="7420692199240086704">
@@ -3639,18 +3378,7 @@ This can not be reversed!</target>
       </notes>
       <segment state="translated">
         <source>Eingabewert</source>
-        <target>Input value</target>
-      </segment>
-    </unit>
-    <unit id="9121502791322086638">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions.ts:25</note>
-      </notes>
-      <segment state="initial">
-        <source>Quelle: Oberer Gutachterausschuss für
-Grundstückswerte in Niedersachsen, </source>
-        <target>Source: Upper Advisory Committee for
-Property values in Lower Saxony, </target>
+        <target>入力値</target>
       </segment>
     </unit>
   </file>
