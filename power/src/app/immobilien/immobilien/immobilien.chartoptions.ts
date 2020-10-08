@@ -14,7 +14,7 @@ export class ImmobilienChartOptions {
      * Configuration Option for the Map
      */
     static getMapOptions(
-        opt: any = {'text': {}, 'geoCoordMap': {}},
+        opt: any = {'text': {}},
         selectType: any = 'multiple'
     ): echarts.EChartOption {
 
@@ -31,16 +31,16 @@ export class ImmobilienChartOptions {
         ret.series[0].data = opt.mapRegionen;
 
         ret.series[1].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[1].data = opt.geoCoordMap['right'];
+        ret.series[1].data = opt.geoCoordMapRight;
 
         ret.series[2].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[2].data = opt.geoCoordMap['bottom'];
+        ret.series[2].data = opt.geoCoordMapBottom;
 
         ret.series[3].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[3].data = opt.geoCoordMap['left'];
+        ret.series[3].data = opt.geoCoordMapLeft;
 
         ret.series[4].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[4].data = opt.geoCoordMap['top'];
+        ret.series[4].data = opt.geoCoordMapTop;
 
         return ret;
     }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Inject, LOCALE_ID} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
 import {NgbAccordion, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
@@ -43,6 +43,7 @@ export class ImmobilienComponent implements OnInit {
      * @param titleService Service for settings the title of the HTML document
      */
     constructor(
+        @Inject(LOCALE_ID) public locale: string,
         private http: HttpClient,
         private titleService: Title
     ) {
@@ -90,10 +91,21 @@ export class ImmobilienComponent implements OnInit {
      * Load external Config File
      */
     initNipix() {
-        // LoadConfig
+        // Load Language
+        this.loadLanguage('assets/data/i18n/'+this.locale+'.json');
+        // Load Config
         this.loadConfig(this.configUrl);
     }
 
+    loadLanguage(url) {
+        this.http.get(url)
+            .subscribe(
+                data => {
+                    this.nipixRuntime.setLocale(data);
+                },
+                error => {}
+            );
+    }
     /**
      * Handle Load Configuration
      *
@@ -216,7 +228,10 @@ export class ImmobilienComponent implements OnInit {
             'tooltipFormatter': this.nipixRuntime.formatter.mapTooltipFormatter,
             'exportGeoJSON': function() { this.nipixRuntime.export.exportGeoJSON(); }.bind(this),
             'mapRegionen': this.nipixRuntime.calculated.mapRegionen,
-            'geoCoordMap': this.nipixStatic.data.geoCoordMap
+            'geoCoordMapLeft': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['left']),
+            'geoCoordMapRight': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['right']),
+            'geoCoordMapTop': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['top']),
+            'geoCoordMapBottom': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['bottom'])
         }, selectType);
         // Update Map Selection; Wait a little time for browser to render
         setTimeout(this.updateMapSelect.bind(this), 100);

@@ -17,7 +17,7 @@
                 <ng-template ngbPanelTitle>
                     <i-bs name="plus-circle" *ngIf="staticExpand(p) == false" aria-hidden="true"></i-bs>
                     <i-bs name="dash-circle" *ngIf="staticExpand(p) == true" aria-hidden="true"></i-bs>
-                    {{select['name']}}
+                    {{nipixRuntime.translate(select['name'])}}
                 </ng-template>
                 <ng-template ngbPanelContent>
 
@@ -33,7 +33,7 @@
                                   *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory == 'gebrauchte Eigentumswohnungen'"
                                   aria-hidden="true">
                             </i-bs>
-                            {{nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory}}
+                            {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
                             <button type="button" class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories"
@@ -46,7 +46,7 @@
                                       *ngIf="f == 'gebrauchte Eigentumswohnungen'"
                                       aria-hidden="true">
                                 </i-bs>
-                                {{f}}
+                                {{nipixRuntime.translate(f)}}
                             </button>
                         </div>
                     </div>
@@ -55,12 +55,12 @@
                     <div ngbDropdown class="d-inline-block btn-block" style="margin-bottom: 1rem;" *ngIf="select['type'] == 'multiSelect'">
                         <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}"
                                 type="button" ngbDropdownToggle>
-                            {{ (select['selected']) }} Vergleiche
+                            {{ (select['selected']) }} <ng-container i18n>Vergleiche</ng-container>
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
                             <button type="button" class="dropdown-item" *ngFor="let f of select['preset']"
                                     (click)="onSetNumber(select['name'], f)">
-                                {{f}} Vergleiche
+                                {{f}} <ng-container i18n>Vergleiche</ng-container>
                             </button>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                                           *ngIf="f == 'gebrauchte Eigentumswohnungen'"
                                           aria-hidden="true">
                                     </i-bs>
-                                    {{f}}
+                                    {{nipixRuntime.translate(f)}}
                                 </span>
                             </li>
                         </ng-container>
@@ -172,10 +172,10 @@
                                     [style.background-color]="nipixRuntime.getDrawPreset(itm).colors"></span>
                             </span>
                             <span (click)="onClickDrawRoot(itm)" class="dotlabel">
-                                {{ itm }}
+                                {{ nipixRuntime.translate(itm) }}
                                 <i-bs name="house-fill" *ngIf="itm == 'gebrauchte Eigenheime'" aria-hidden="true"></i-bs>
                                 <i-bs name="building" *ngIf="itm == 'gebrauchte Eigentumswohnungen'" aria-hidden="true"></i-bs>
-                                ({{ nipixStatic.data.shortNames[itm] }})
+                                ({{ nipixRuntime.translate(nipixStatic.data.shortNames[itm]) }})
                             </span>
                         </li>
                     </ul>

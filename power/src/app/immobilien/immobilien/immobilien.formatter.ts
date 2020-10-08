@@ -17,9 +17,9 @@ export class ImmobilienFormatter {
 
     public mapTooltipFormatter = (params) => {
         if (this.nipixStatic.data.regionen.hasOwnProperty(params.name)) {
-            return this.nipixStatic.data.regionen[params.name]['name'];
+            return this.nipixRuntime.translate(this.nipixStatic.data.regionen[params.name]['name']);
         } else {
-            return params.name;
+            return this.nipixRuntime.translate(params.name);
         }
     }
 
@@ -95,17 +95,21 @@ export class ImmobilienFormatter {
     }
 
     private findName = (name: string, legend = false, shortregion = false): string => {
+        let myname = '';
+
         if (legend && this.nipixRuntime.calculated.legendText.hasOwnProperty(name)) {
-            return this.nipixRuntime.calculated.legendText[name];
+            myname = this.nipixRuntime.calculated.legendText[name];
         } else if (this.nipixStatic.data.shortNames.hasOwnProperty(name)) {
-            return this.nipixStatic.data.shortNames[name];
+            myname = this.nipixStatic.data.shortNames[name];
         } else if (!shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
-            return this.nipixStatic.data.regionen[name]['name'];
+            myname = this.nipixStatic.data.regionen[name]['name'];
         } else if (shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
-            return this.nipixStatic.data.regionen[name]['short'];
+            myname = this.nipixStatic.data.regionen[name]['short'];
         } else {
-            return name;
+            myname = name;
         }
+
+        return this.nipixRuntime.translate(myname);
     }
 
     public formatLegend = (name: string) => {
@@ -120,9 +124,9 @@ export class ImmobilienFormatter {
      * @return series label (sort)
      */
     public getSeriesLabel(series) {
-        return this.nipixStatic.data.regionen[series]['name'] +
+        return this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['name']) +
             ' (' +
-            this.nipixStatic.data.regionen[series]['short'] +
+            this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['short']) +
             ')';
     }
 
