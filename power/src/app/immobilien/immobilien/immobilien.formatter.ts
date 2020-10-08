@@ -43,9 +43,11 @@ export class ImmobilienFormatter {
 
         this.nipixRuntime.highlightSeries(params.seriesName);
 
+        printName = this.nipixRuntime.translate(printName);
+
         return '<b>' + (<any>params).marker + printName + '</b><br>' +
-            'Preisentwicklung seit ' + this.nipixStatic.referenceDate.replace('_', '/') + ': ' + entw + '%<br>' +
-            'Zugrunde liegende Fälle (' + params.name + '): ' + faelle;
+            $localize`Preisentwicklung seit ` + this.nipixStatic.referenceDate.replace('_', '/') + ': ' + entw + '%<br>' +
+            $localize`Zugrunde liegende Fälle` + ' (' + params.name + '): ' + faelle;
     }
 
     /**
@@ -139,7 +141,7 @@ export class ImmobilienFormatter {
         const legend = [];
         for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
             if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
-                legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + ' (ohne Daten)');
+                legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + $localize` (ohne Daten)`);
             } else {
                 legend.push(this.nipixRuntime.calculated.drawData[i]['name']);
             }
@@ -154,7 +156,7 @@ export class ImmobilienFormatter {
             const element = this.nipixStatic.data.regionen[this.nipixRuntime.calculated.drawData[i]['name']];
 
             if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
-                addText = '[ohne Daten] ';
+                addText = $localize`[ohne Daten] `;
             }
 
             if (this.nipixStatic.data.regionen.hasOwnProperty(this.nipixRuntime.calculated.drawData[i]['name'])) {

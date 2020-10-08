@@ -46,7 +46,7 @@ export class ImmobilienComponent implements OnInit {
         private http: HttpClient,
         private titleService: Title
     ) {
-        this.titleService.setTitle('Immobilienpreisindex - POWER.NI');
+        this.titleService.setTitle($localize`Immobilienpreisindex - POWER.NI`);
     }
 
     title = 'lgln';
@@ -404,9 +404,9 @@ export class ImmobilienComponent implements OnInit {
         }
         this.nipixRuntime.updateRange(range_start, range_end);
 
-        const range_text = 'Zeitraum von ' +
+        const range_text = $localize`Zeitraum von ` +
             this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex] +
-            ' bis ' +
+            $localize` bis ` +
             this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeEndIndex];
 
         this.nipixRuntime.calculateDrawData();
