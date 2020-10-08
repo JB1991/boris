@@ -226,6 +226,144 @@
         <target>Is loading...</target>
       </segment>
     </unit>
+    <unit id="7195844454508171367">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:50</note>
+      </notes>
+      <segment state="initial">
+        <source>Immobilienpreisindex - POWER.NI</source>
+        <target>Real estate price index - POWER.NI</target>
+      </segment>
+    </unit>
+    <unit id="1534912079502587880">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:422</note>
+      </notes>
+      <segment state="initial">
+        <source>Zeitraum von </source>
+        <target>period of time from </target>
+      </segment>
+    </unit>
+    <unit id="3512731915705693257">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:424</note>
+      </notes>
+      <segment state="initial">
+        <source> bis </source>
+        <target> to </target>
+      </segment>
+    </unit>
+    <unit id="5616702469514807074">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:9,10</note>
+      </notes>
+      <segment state="initial">
+        <source> HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </source>
+        <target> NOTE: The base year of the index series calculation is based on the selection below and can be adjusted dynamically with the sliders. </target>
+      </segment>
+    </unit>
+    <unit id="3896770541274170506">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:215</note>
+        <note category="description">AGNB Start</note>
+      </notes>
+      <segment state="initial">
+        <source>Es gelten die</source>
+        <target>The</target>
+      </segment>
+    </unit>
+    <unit id="1619432944706390012">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:216,217</note>
+        <note category="description">AGNB</note>
+      </notes>
+      <segment state="initial">
+        <source> Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB) </source>
+        <target> general terms and conditions of use (AGNB) </target>
+      </segment>
+    </unit>
+    <unit id="8060976976079359371">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:217</note>
+        <note category="description">AGNB Ende</note>
+      </notes>
+      <segment state="initial">
+        <source>.</source>
+        <target>apply.</target>
+      </segment>
+    </unit>
+    <unit id="30907226667156700">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:58</note>
+      </notes>
+      <segment state="initial">
+        <source>Vergleiche</source>
+        <target>Comparisons</target>
+      </segment>
+    </unit>
+    <unit id="8989264670726719114">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:69,70</note>
+      </notes>
+      <segment state="initial">
+        <source> HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich. </source>
+        <target> NOTE: A selection via the map is unfortunately not possible for the comparisons. </target>
+      </segment>
+    </unit>
+    <unit id="4756214614417949543">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:119,120</note>
+      </notes>
+      <segment state="initial">
+        <source> alle auswählen </source>
+        <target> select all </target>
+      </segment>
+    </unit>
+    <unit id="113911435119961071">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:123,124</note>
+      </notes>
+      <segment state="initial">
+        <source> Auswahl aufheben </source>
+        <target> Deselect </target>
+      </segment>
+    </unit>
+    <unit id="1751509647881708009">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:129,130</note>
+      </notes>
+      <segment state="initial">
+        <source> alle/keine auswählen </source>
+        <target> select all/none </target>
+      </segment>
+    </unit>
+    <unit id="3527049829860901630">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:191</note>
+      </notes>
+      <segment state="initial">
+        <source>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</source>
+        <target>Which housing market region does my municipality belong to?</target>
+      </segment>
+    </unit>
+    <unit id="6982726396008717823">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:194</note>
+      </notes>
+      <segment state="initial">
+        <source>Suchen Sie ihre Gemeinde:</source>
+        <target>Find your community:</target>
+      </segment>
+    </unit>
+    <unit id="7846860601179790148">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:207</note>
+      </notes>
+      <segment state="initial">
+        <source>Ihre Wohnungsmarktregion:</source>
+        <target>Your housing market region:</target>
+      </segment>
+    </unit>
     <unit id="5826116471492977880">
       <notes>
         <note category="location">src/app/shared/tagbox/tagbox.component.html:14</note>
@@ -481,6 +619,15 @@
         <target>Copy email address</target>
       </segment>
     </unit>
+    <unit id="1399354247773521386">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:33</note>
+      </notes>
+      <segment state="initial">
+        <source>Email-Adresse kopieren</source>
+        <target>Email-Adresse kopieren</target>
+      </segment>
+    </unit>
     <unit id="5601035884726674890">
       <notes>
         <note category="location">src/app/static/logout/logout.component.ts:21</note>
@@ -596,6 +743,105 @@
       <segment state="translated">
         <source>Online Formulare</source>
         <target>Online forms</target>
+      </segment>
+    </unit>
+    <unit id="1701380331708164107">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:49</note>
+      </notes>
+      <segment state="initial">
+        <source>Preisentwicklung seit </source>
+        <target>Price development since </target>
+      </segment>
+    </unit>
+    <unit id="6992806450133789005">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:50</note>
+      </notes>
+      <segment state="initial">
+        <source>Zugrunde liegende Fälle</source>
+        <target>Underlying cases</target>
+      </segment>
+    </unit>
+    <unit id="2929422577222561800">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:148</note>
+      </notes>
+      <segment state="initial">
+        <source> (ohne Daten)</source>
+        <target> (without data)</target>
+      </segment>
+    </unit>
+    <unit id="419177917405783754">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:163</note>
+      </notes>
+      <segment state="initial">
+        <source>[ohne Daten] </source>
+        <target>[without data] </target>
+      </segment>
+    </unit>
+    <unit id="6048412675100908725">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:33</note>
+      </notes>
+      <segment state="initial">
+        <source>Wohnungsmarktregionen in Niedersachsen</source>
+        <target>Housing market regions in Lower Saxony</target>
+      </segment>
+    </unit>
+    <unit id="488018968147373869">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:75</note>
+      </notes>
+      <segment state="initial">
+        <source>Bild</source>
+        <target>image</target>
+      </segment>
+    </unit>
+    <unit id="6782744539751451451">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:80</note>
+      </notes>
+      <segment state="initial">
+        <source>GeoJSON</source>
+        <target>GeoJSON</target>
+      </segment>
+    </unit>
+    <unit id="1857718811662681434">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:25</note>
+      </notes>
+      <segment state="initial">
+        <source>Niedersächsischer Immobilienpreisindex (NIPIX)</source>
+        <target>Lower Saxony Real Estate Price Index (NIPIX)</target>
+      </segment>
+    </unit>
+    <unit id="6148922370359130527">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:78</note>
+      </notes>
+      <segment state="initial">
+        <source>Quartal</source>
+        <target>quarter</target>
+      </segment>
+    </unit>
+    <unit id="8799324919469174670">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:104</note>
+      </notes>
+      <segment state="initial">
+        <source>Preisentwicklung</source>
+        <target>Price development</target>
+      </segment>
+    </unit>
+    <unit id="7926143511350598250">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:171</note>
+      </notes>
+      <segment state="initial">
+        <source>CSV</source>
+        <target>CSV</target>
       </segment>
     </unit>
     <unit id="4321269269579074973">
@@ -3000,6 +3246,15 @@ This can not be reversed!</target>
         <target>Delete favorites</target>
       </segment>
     </unit>
+    <unit id="6145933794591239367">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:14,15</note>
+      </notes>
+      <segment state="initial">
+        <source>Formular Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></source>
+        <target>Formular Titel <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" dispStart="&lt;span (click)=&quot;formsettingsmodal.scrollToFooter()&quot; role=&quot;button&quot;>" dispEnd="&lt;/span>">*</pc></target>
+      </segment>
+    </unit>
     <unit id="8852250703686567498">
       <notes>
         <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:94</note>
@@ -3385,6 +3640,17 @@ This can not be reversed!</target>
       <segment state="translated">
         <source>Eingabewert</source>
         <target>Input value</target>
+      </segment>
+    </unit>
+    <unit id="9121502791322086638">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions.ts:25</note>
+      </notes>
+      <segment state="initial">
+        <source>Quelle: Oberer Gutachterausschuss für
+Grundstückswerte in Niedersachsen, </source>
+        <target>Source: Upper Advisory Committee for
+Property values in Lower Saxony, </target>
       </segment>
     </unit>
   </file>

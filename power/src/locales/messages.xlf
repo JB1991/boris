@@ -209,6 +209,129 @@
         <source>Wird geladen...</source>
       </segment>
     </unit>
+    <unit id="7195844454508171367">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:50</note>
+      </notes>
+      <segment>
+        <source>Immobilienpreisindex - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="1534912079502587880">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:422</note>
+      </notes>
+      <segment>
+        <source>Zeitraum von </source>
+      </segment>
+    </unit>
+    <unit id="3512731915705693257">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:424</note>
+      </notes>
+      <segment>
+        <source> bis </source>
+      </segment>
+    </unit>
+    <unit id="5616702469514807074">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:9,10</note>
+      </notes>
+      <segment>
+        <source> HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </source>
+      </segment>
+    </unit>
+    <unit id="3896770541274170506">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:215</note>
+        <note category="description">AGNB Start</note>
+      </notes>
+      <segment>
+        <source>Es gelten die</source>
+      </segment>
+    </unit>
+    <unit id="1619432944706390012">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:216,217</note>
+        <note category="description">AGNB</note>
+      </notes>
+      <segment>
+        <source> Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB) </source>
+      </segment>
+    </unit>
+    <unit id="8060976976079359371">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:217</note>
+        <note category="description">AGNB Ende</note>
+      </notes>
+      <segment>
+        <source>.</source>
+      </segment>
+    </unit>
+    <unit id="30907226667156700">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:58</note>
+      </notes>
+      <segment>
+        <source>Vergleiche</source>
+      </segment>
+    </unit>
+    <unit id="8989264670726719114">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:69,70</note>
+      </notes>
+      <segment>
+        <source> HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich. </source>
+      </segment>
+    </unit>
+    <unit id="4756214614417949543">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:119,120</note>
+      </notes>
+      <segment>
+        <source> alle auswählen </source>
+      </segment>
+    </unit>
+    <unit id="113911435119961071">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:123,124</note>
+      </notes>
+      <segment>
+        <source> Auswahl aufheben </source>
+      </segment>
+    </unit>
+    <unit id="1751509647881708009">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:129,130</note>
+      </notes>
+      <segment>
+        <source> alle/keine auswählen </source>
+      </segment>
+    </unit>
+    <unit id="3527049829860901630">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:191</note>
+      </notes>
+      <segment>
+        <source>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</source>
+      </segment>
+    </unit>
+    <unit id="6982726396008717823">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:194</note>
+      </notes>
+      <segment>
+        <source>Suchen Sie ihre Gemeinde:</source>
+      </segment>
+    </unit>
+    <unit id="7846860601179790148">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:207</note>
+      </notes>
+      <segment>
+        <source>Ihre Wohnungsmarktregion:</source>
+      </segment>
+    </unit>
     <unit id="5826116471492977880">
       <notes>
         <note category="location">src/app/shared/tagbox/tagbox.component.html:14</note>
@@ -2921,6 +3044,15 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Eingabewert</source>
       </segment>
     </unit>
+    <unit id="9121502791322086638">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions.ts:25</note>
+      </notes>
+      <segment>
+        <source>Quelle: Oberer Gutachterausschuss für
+Grundstückswerte in Niedersachsen, </source>
+      </segment>
+    </unit>
     <unit id="3645495878014081231">
       <notes>
         <note category="location">src/app/static/login/login.component.ts:24</note>
@@ -3007,6 +3139,94 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Online Formulare</source>
+      </segment>
+    </unit>
+    <unit id="1701380331708164107">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:49</note>
+      </notes>
+      <segment>
+        <source>Preisentwicklung seit </source>
+      </segment>
+    </unit>
+    <unit id="6992806450133789005">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:50</note>
+      </notes>
+      <segment>
+        <source>Zugrunde liegende Fälle</source>
+      </segment>
+    </unit>
+    <unit id="2929422577222561800">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:148</note>
+      </notes>
+      <segment>
+        <source> (ohne Daten)</source>
+      </segment>
+    </unit>
+    <unit id="419177917405783754">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:163</note>
+      </notes>
+      <segment>
+        <source>[ohne Daten] </source>
+      </segment>
+    </unit>
+    <unit id="6048412675100908725">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:33</note>
+      </notes>
+      <segment>
+        <source>Wohnungsmarktregionen in Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="488018968147373869">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:75</note>
+      </notes>
+      <segment>
+        <source>Bild</source>
+      </segment>
+    </unit>
+    <unit id="6782744539751451451">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:80</note>
+      </notes>
+      <segment>
+        <source>GeoJSON</source>
+      </segment>
+    </unit>
+    <unit id="1857718811662681434">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:25</note>
+      </notes>
+      <segment>
+        <source>Niedersächsischer Immobilienpreisindex (NIPIX)</source>
+      </segment>
+    </unit>
+    <unit id="6148922370359130527">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:78</note>
+      </notes>
+      <segment>
+        <source>Quartal</source>
+      </segment>
+    </unit>
+    <unit id="8799324919469174670">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:104</note>
+      </notes>
+      <segment>
+        <source>Preisentwicklung</source>
+      </segment>
+    </unit>
+    <unit id="7926143511350598250">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:171</note>
+      </notes>
+      <segment>
+        <source>CSV</source>
       </segment>
     </unit>
   </file>

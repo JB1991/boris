@@ -22,7 +22,7 @@ export const chartOptions = {
         'fontSize': null
     },
     'title': <any>{
-        'text': 'Niedersächsischer Immobilienpreisindex (NIPIX)',
+        'text': $localize`Niedersächsischer Immobilienpreisindex (NIPIX)`,
         'left': 'center',
         'top': 10,
         'show': false,
@@ -75,7 +75,7 @@ export const chartOptions = {
                 show: true,
                 fontSize: null
             },
-            name: 'Quartal'
+            name: $localize`Quartal`
         },
         {
             id: 'xds',
@@ -101,7 +101,7 @@ export const chartOptions = {
                 show: true,
                 fontSize: null
             },
-            name: 'Preisentwicklung',
+            name: $localize`Preisentwicklung`,
             nameLocation: 'middle',
             nameRotate: 90,
             nameGap: 35
@@ -162,19 +162,19 @@ export const chartOptions = {
         feature: {
             mySaveAsImage: {
                 show: true,
-                title: 'Bild',
+                title: $localize`Bild`,
                 icon: 'path://M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M6,20H15L18,20V12L14,16L12,14L6,20M8,9A2,2 0 0,0 6,11A2,2 0 0,0 8,13A2,2 0 0,0 10,11A2,2 0 0,0 8,9Z',
                 onclick: null
             },
             mySaveAsCSV: {
                 show: true,
-                title: 'CSV',
+                title: $localize`CSV`,
                 icon: 'path://M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M10,19H7V17H10V19M10,16H7V14H10V16M10,13H7V11H10V13M14,19H11V17H14V19M14,16H11V14H14V16M14,13H11V11H14V13M13,9V3.5L18.5,9H13Z',
                 onclick: null
             },
             mySaveAsGeoJSON: {
                 show: true,
-                title: 'GeoJSON',
+                title: $localize`GeoJSON`,
                 icon: 'path://M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15.68,15C15.34,13.3 13.82,12 12,12C10.55,12 9.3,12.82 8.68,14C7.17,14.18 6,15.45 6,17A3,3 0 0,0 9,20H15.5A2.5,2.5 0 0,0 18,17.5C18,16.18 16.97,15.11 15.68,15Z',
                 onclick: null
             }
@@ -220,7 +220,7 @@ export const chartOptionsMerge = {
         'formatter': null
     },
     'title': {
-        'text': 'Niedersächsischer Immobilienpreisindex (NIPIX)',
+        'text': $localize`Niedersächsischer Immobilienpreisindex (NIPIX)`,
         'subtext': null,
         'left': 'center',
         'top': 10,

@@ -98,6 +98,8 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
             };
         };
 
+        niRuntime.translate = function(id) { return id; }
+
         component = new ImmobilienFormatter.ImmobilienFormatter(niStatic, niRuntime);
 
         spyOn(ImmobilienUtils, 'generateTextElement').and.callFake(
