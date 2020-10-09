@@ -67,6 +67,12 @@
                            i18n>Dieser Text wird unter der Frage angezeigt.</small>
                 </div>
 
+                <span i18n>Sichtbarkeitsbedingungen für die Frage</span>
+                <br>
+                <power-forms-editor-conditions [model]="model"
+                                               [(data)]="model.pages[page].elements[question].visibleIf">
+                </power-forms-editor-conditions>
+                <br>
                 <!-- question-isRequired -->
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox"
@@ -706,7 +712,12 @@
                 </div>
 
                 <hr>
-                <span i18n>Antwortbedingungen</span>
+                <span i18n>Generische Antwortbedingungen</span>
+                <br>
+                <small id="activationCondition-nameHelp"
+                class="text-muted">
+                     <span i18n>Wird für jede Antwort einzeln evaluiert!</span>
+                </small>
                 <br>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].choicesVisibleIf">
@@ -733,18 +744,21 @@
             </accordion-group>
 
             <!-- conditions -->
-            <accordion-group i18n-heading
+            <!-- <accordion-group i18n-heading
                              heading="Bedingungen"
                              class="mb-1 mb-lg-3">
-                <span i18n>Sichtbarkeitsbedingung</span>
+                <span i18n>Sichtbarkeitsbedingung für die Frage</span>
                 <br>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].visibleIf">
                 </power-forms-editor-conditions>
-
                 <hr>
-                <span i18n>Aktivierungsbedingung</span>
+                <span i18n>Aktivierungsbedingung für alle Antworten</span>
                 <br>
+                <small id="activationCondition-nameHelp"
+                       class="text-muted">
+                     <span i18n>Wird für jede Antwort einzeln evaluiert!</span>
+                </small>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].enableIf">
                 </power-forms-editor-conditions>
@@ -755,7 +769,7 @@
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].requiredIf">
                 </power-forms-editor-conditions>
-            </accordion-group>
+            </accordion-group> -->
 
             <!-- validators -->
             <accordion-group i18n-heading
