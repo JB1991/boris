@@ -157,18 +157,62 @@
     background-color: #e9ecef;
 }
 
-.img1 {
-    background-image: url('~assets/IMG_Dummy.jpg');
+.boris-img {
+    background-image: url('~assets/boris.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     width: 100%;
     display: block;
     border-radius: 0.25rem;
     height: 300px;
+    border: solid 4px #e9ecef;
 }
 
-@media (min-width: 768px) {
-    .img1 {
+.nipix-img {
+    background-image: url('~assets/nipix.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    display: block;
+    border-radius: 0.25rem;
+    height: 300px;
+    border: solid 4px #e9ecef;
+}
+
+.form-img {
+    background-image: url('~assets/onlineForm.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    display: block;
+    border-radius: 0.25rem;
+    height: 300px;
+    border: solid 4px #e9ecef;
+}
+
+@media (max-width: 992px) {
+    .nipix-img {
+        background-position: top;
+    }
+}
+
+@media (min-width: 992px) {
+    .nipix-img {
         height: 100%;
+    }
+    .boris-img {
+        height: 100%;
+    }
+    .form-img {
+        height: 100%;
+    }
+}
+
+@media (min-width: 1200) {
+    .container-xl {
+        max-width: 1400px;
     }
 }
