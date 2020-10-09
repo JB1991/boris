@@ -46,6 +46,17 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
     });
 
+    it('translate works', function() {
+        const locale = {
+            'foo': 'bar'
+        };
+        component.setLocale(locale);
+
+        const res = component.translateArray([ {'name': 'foo'}, {'name': 'foobar'} ]);
+        expect(res).toEqual([ {'name': 'bar'}, {'name': 'foobar'} ]);
+
+    });
+
     it('resetDrawPresets works', function() {
         component.resetDrawPresets();
         expect(component.drawPresets).toEqual(presets);

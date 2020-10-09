@@ -38,6 +38,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
             'fontSizePage': 1
         };
         niStatic.data = {
+            'geoCoordMap': {}
         };
     };
 
@@ -62,7 +63,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         };
         niRuntime.formatter = {
         };
-
+        niRuntime.translateArray = function (data) { return data; } 
     };
 
     const configAnswer = {

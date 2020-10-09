@@ -75,12 +75,37 @@ export class NipixRuntime {
         'legendText': {}
     };
 
+    public locale = {};
 
     public constructor(niStatic: ImmobilenNipixStatic.NipixStatic) {
         this.nipixStatic = niStatic;
         this.formatter = new ImmobilienFormatter.ImmobilienFormatter(this.nipixStatic, this);
         this.export = new ImmobilienExport.ImmobilienExport(this.nipixStatic, this);
         this.calculator = new ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator(this.nipixStatic, this);
+    }
+
+    public setLocale(newLocale) {
+        this.locale = newLocale;
+    }
+
+    public translate(defaultID: string) {
+        if (this.locale.hasOwnProperty(defaultID)) {
+            return this.locale[defaultID];
+        } else {
+            return defaultID;
+        }
+    }
+
+    public translateArray(input, key = 'name') {
+        let cpy = JSON.parse(JSON.stringify(input));
+
+        for (let i=0; i<cpy.length; i++) {
+            if (cpy[i][key] !== undefined) {
+                cpy[i][key] = this.translate(cpy[i][key]);
+            }
+        }
+
+        return cpy;
     }
 
     public resetDrawPresets() {

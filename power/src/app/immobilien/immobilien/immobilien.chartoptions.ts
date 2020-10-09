@@ -14,7 +14,7 @@ export class ImmobilienChartOptions {
      * Configuration Option for the Map
      */
     static getMapOptions(
-        opt: any = {'text': {}, 'geoCoordMap': {}},
+        opt: any = {'text': {}},
         selectType: any = 'multiple'
     ): echarts.EChartOption {
 
@@ -22,7 +22,7 @@ export class ImmobilienChartOptions {
         ret.title.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage);
         ret.graphic[0].bottom = ImmobilienHelper.convertRemToPixels( opt.text.fontSizeCopy ) * 2.5;
         ret.graphic[0].style.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeCopy);
-        ret.graphic[0].style.text = 'Quelle: Oberer Gutachterausschuss für\nGrundstückswerte in Niedersachsen, '
+        ret.graphic[0].style.text = $localize`Quelle: Oberer Gutachterausschuss für\nGrundstückswerte in Niedersachsen, `
             + ImmobilienHelper.getDate();
         ret.tooltip.formatter = opt.tooltipFormatter;
         ret.tooltip.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
@@ -31,16 +31,16 @@ export class ImmobilienChartOptions {
         ret.series[0].data = opt.mapRegionen;
 
         ret.series[1].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[1].data = opt.geoCoordMap['right'];
+        ret.series[1].data = opt.geoCoordMapRight;
 
         ret.series[2].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[2].data = opt.geoCoordMap['bottom'];
+        ret.series[2].data = opt.geoCoordMapBottom;
 
         ret.series[3].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[3].data = opt.geoCoordMap['left'];
+        ret.series[3].data = opt.geoCoordMapLeft;
 
         ret.series[4].label.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeMap);
-        ret.series[4].data = opt.geoCoordMap['top'];
+        ret.series[4].data = opt.geoCoordMapTop;
 
         return ret;
     }
@@ -54,7 +54,7 @@ export class ImmobilienChartOptions {
         ret.title.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage);
         ret.grid[0].top = 56 + ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage) * (1.5 + 1);
         ret.graphic[0].style.fontSize =  ImmobilienHelper.convertRemToPixels(opt.text.fontSizeCopy);
-        ret.graphic[0].style.text = 'Quelle: Oberer Gutachterausschuss für\nGrundstückswerte in Niedersachsen, '
+        ret.graphic[0].style.text = $localize`Quelle: Oberer Gutachterausschuss für\nGrundstückswerte in Niedersachsen, `
             + ImmobilienHelper.getDate();
         ret.xAxis[0].data = opt.date;
         ret.xAxis[0].axisLabel.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeAxisLabel);
