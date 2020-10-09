@@ -44,12 +44,12 @@
             <div class="content col-lg-12 text-dark p-5 rounded-left">
                 <a class="h2 btn-link text-dark font-weight-bold"
                    [routerLink]="['/immobilienpreisindex']"
-                   i18n>Fragebogen-Online</a>
+                   i18n>Online Formulare</a>
                 <p class="lead text-justify pt-3"
-                   i18n>{{ 'Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser,' +
-                   ' Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen' +
-                   ' „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die' +
-                   ' Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.' | hyphenate }}</p>
+                   i18n>
+                    {{ 'Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. ' +
+                   'Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.' | hyphenate }}
+                </p>
                 <form #pinFormular="ngForm"
                       i18n-aria-label
                       aria-label="Eingabe einer PIN zum Formular ausfüllen"
