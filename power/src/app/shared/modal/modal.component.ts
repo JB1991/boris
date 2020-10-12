@@ -84,6 +84,7 @@ export class ModalComponent implements OnDestroy {
     /**
      * Set Viewport to the footer
      */
+    /* istanbul ignore next */
     public scrollToFooter() {
         const footer = document.getElementById('footer-' + this.uniqId);
         footer.scrollIntoView({

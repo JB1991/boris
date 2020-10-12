@@ -45,15 +45,15 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 MockCommentComponent,
                 MockSettingsComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(DetailsComponent);
-            component = fixture.componentInstance;
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.router, 'navigate');
-            spyOn(component.alerts, 'NewAlert');
-            // fixture.detectChanges();
-        });
+        fixture = TestBed.createComponent(DetailsComponent);
+        component = fixture.componentInstance;
+        // fixture.detectChanges();
+
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
     }));
 
     it('should create', () => {
@@ -120,7 +120,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * DELETE FORM
      */
     it('should delete form', fakeAsync(() => {
-        component.data.form = formSample.data;
+        component.data.form = JSON.parse(JSON.stringify(formSample.data));
         const spy = spyOn(component.formapi, 'deleteInternForm').and.callFake(() => {
             return Promise.resolve(deleteSample.data);
         });
@@ -142,7 +142,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail delete form', fakeAsync(() => {
-        component.data.form = formSample.data;
+        component.data.form = JSON.parse(JSON.stringify(formSample.data));
         spyOn(component.formapi, 'deleteInternForm').and
             .returnValue(Promise.reject('Failed'));
         spyOn(window, 'confirm').and.returnValue(true);
@@ -158,7 +158,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     //  * ARCHIVE FORM
     //  */
     it('should archive form', fakeAsync(() => {
-        component.data.form = formSample.data;
+        component.data.form = JSON.parse(JSON.stringify(formSample.data));
         const spy = spyOn(component.formapi, 'updateInternForm').and
             .returnValue(Promise.resolve(formSample.data));
 
@@ -179,7 +179,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail archive form', fakeAsync(() => {
-        component.data.form = formSample.data;
+        component.data.form = JSON.parse(JSON.stringify(formSample.data));
         spyOn(component.formapi, 'updateInternForm').and
             .returnValue(Promise.reject('Failed'));
         spyOn(window, 'confirm').and.returnValue(true);
@@ -191,43 +191,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             'Archivieren fehlgeschlagen', 'Failed');
     }));
 
-    // /**
-    //  * GET CSV
-    //  */
-    it('should get csv', fakeAsync(() => {
-        component.data.form = formSample.data;
-        spyOn(window, 'confirm').and.returnValue(true);
-        spyOn(component.formapi, 'getInternFormCSV').and
-            .returnValue(Promise.resolve('CSV'));
-
-        // navigator.msSaveBlob = null;
-        // const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
-        // spyOn(document, 'createElement').and.returnValue(spyObj);
-
-        component.getCSV();
-        tick();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    }));
-
-    // it('should get csv 2', fakeAsync(() => {
-    //     component.data.form = formSample.data;
-    //     spyOn(window, 'confirm').and.returnValue(true);
-    //     spyOn(component.formapi, 'getInternFormCSV').and
-    //         .returnValue(Promise.resolve('CSV'));
-
-    //     navigator.msSaveBlob = () => true;
-    //     const spyObj = jasmine.createSpyObj('pom', ['click', 'setAttribute']);
-    //     spyOn(document, 'createElement').and.returnValue(spyObj);
-
-    //     component.getCSV();
-
-    //     tick();
-    //     fixture.detectChanges();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    // }));
-
     it('should fail get csv', fakeAsync(() => {
-        component.data.form = formSample.data;
+        component.data.form = JSON.parse(JSON.stringify(formSample.data));
         spyOn(component.formapi, 'getInternFormCSV').and
             .returnValue(Promise.reject('Failed'));
         spyOn(window, 'confirm').and.returnValue(true);
@@ -244,29 +209,34 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * DELETE TASK
      */
     it('should delete task', fakeAsync(() => {
-        component.data.tasksList = taskSample.data;
+        component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
+        spyOn(component, 'updateTasks');
         spyOn(component.formapi, 'deleteInternTask').and.returnValue(Promise.resolve('deleted task'));
 
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteTask(0);
         tick();
-
         expect(component.data.tasksList.length).toEqual(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+
+        component.deleteTask(0);
+        tick();
+        expect(component.data.tasksList.length).toEqual(0);
+
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort gelöscht',
             'Die Antwort wurde erfolgreich gelöscht.');
     }));
 
     it('should not delete task', () => {
-        component.data.tasksList = taskSample.data;
+        component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
         spyOn(window, 'confirm').and.returnValue(false);
         component.deleteTask(0);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
     });
 
     it('should fail delete task', () => {
-        component.data.tasksList = taskSample.data;
+        component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
 
         expect(function () {
             component.deleteTask(-1);
@@ -278,7 +248,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail delete task 404', fakeAsync(() => {
-        component.data.tasksList = taskSample.data;
+        component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
         spyOn(component.formapi, 'deleteInternTask').and.callFake(() => {
             return Promise.reject(new Error('Failed'));
         });
@@ -296,7 +266,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * OPEN TASK
      */
     it('should open task', () => {
-        component.data.tasksList = taskSample.data;
+        component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
         expect(function () {
             component.openTask(0);
         }).toThrowError('Cannot read property \'open\' of undefined');
@@ -325,6 +295,20 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         });
     });
 
+    it('should update tasks 2', (done) => {
+        spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.resolve({
+            data: [],
+            total: 100
+        }));
+        component.taskStatus = 'created';
+        component.id = '123';
+
+        component.updateTasks(true).then(() => {
+            expect(component.data.taskPageSizes.length).toEqual(10);
+            done();
+        });
+    });
+
     it('should fail to update tasks', (done) => {
         spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.reject('Failed to update tasks'));
         component.taskStatus = 'created';
@@ -336,6 +320,27 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 'Failed to update tasks');
             done();
         });
+    });
+
+    it('should change sort order', () => {
+        spyOn(component, 'updateTasks');
+        component.taskOrder = 'asc';
+        component.taskSort = 'id';
+
+        component.changeTaskSort('id');
+        expect(component.taskOrder).toEqual('desc');
+        component.changeTaskSort('id');
+        expect(component.taskOrder).toEqual('asc');
+    });
+
+    it('should reset sort order', () => {
+        spyOn(component, 'updateTasks');
+        component.taskOrder = 'desc';
+        component.taskSort = 'id';
+
+        component.changeTaskSort('pin');
+        expect(component.taskOrder).toEqual('asc');
+        expect(component.taskSort).toEqual('pin');
     });
 });
 

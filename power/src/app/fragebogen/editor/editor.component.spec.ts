@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { environment } from '@env/environment';
-import * as templates from './data';
 
 import { EditorComponent } from './editor.component';
 import { StorageService } from './storage.service';
@@ -213,6 +212,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         expect(component.shouldAcceptDropPagination({ groupName: 'toolbox' }, null)).toBeFalse();
         expect(component.shouldAcceptDropWorkspace({ groupName: 'pagination' }, null)).toBeFalse();
         expect(component.shouldAcceptDropWorkspace({ groupName: 'workspace' }, null)).toBeTrue();
+        expect(component.shouldAcceptDropWorkspace({ groupName: 'favorites' }, null)).toBeTrue();
         expect(component.shouldAcceptDropWorkspace({ groupName: 'toolbox' }, null)).toBeTrue();
         expect(component.getPayloadToolbox(1)).toEqual({ from: 'toolbox', index: 1 });
         expect(component.getPayloadPagination(1)).toEqual({ from: 'pagination', index: 1 });
@@ -530,10 +530,149 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         component.onDropWorkspace({ removedIndex: 10, addedIndex: 0, payload: component.getPayloadToolbox(99) });
         expect(component.storage.model.pages[0].elements[0].type).toEqual('imagepicker');
         expect(component.storage.model.pages[0].elements.length).toEqual(4);
+
+        // drag favorite into workspace
+        component.favorites = [{ content: { type: 'test' } }];
+        component.onDropWorkspace({ removedIndex: 0, addedIndex: 1, payload: component.getPayloadFavorites(0) });
+        expect(component.storage.model.pages[0].elements[1].type).toEqual('test');
+        expect(component.storage.model.pages[0].elements.length).toEqual(5);
     });
 
-    afterEach(() => {
+    it('should not drag and drop workspace', () => {
+        expect(() => {
+            component.onDropWorkspace({ removedIndex: 0, addedIndex: 1, payload: component.getPayloadFavorites(0) });
+        }).toThrowError('Could not insert favorite');
+    });
 
+    /**
+     * Favorites
+     */
+    it('should check if is favorite', () => {
+        component.favorites = [{
+            content: {
+                title: 'ABC',
+                name: ''
+            }
+        }];
+
+        expect(component.isFavorite({ title: 'ABC', name: '' })).toEqual(1);
+        expect(component.isFavorite({ title: 'DEF', name: '' })).toBeNull();
+    });
+
+    it('should insert favorite', () => {
+        component.favorites = [{
+            content: {
+                title: 'ABC',
+                name: ''
+            }
+        }];
+
+        expect(component.storage.model.pages[0].elements.length).toEqual(1);
+        component.insertFavorite(0);
+        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+    });
+
+    it('should fail insert favorite', () => {
+        expect(() => {
+            component.insertFavorite(-1);
+        }).toThrowError('i is invalid');
+        expect(() => {
+            component.insertFavorite(3);
+        }).toThrowError('i is invalid');
+    });
+
+    it('should not add favorite', () => {
+        spyOn(component.formapi, 'createInternElement');
+        component.storage.model.pages[0].elements[0].title.default = '';
+        component.addFavorite(0);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.formapi.createInternElement).toHaveBeenCalledTimes(0);
+    });
+
+    it('should add favorite', fakeAsync(() => {
+        spyOn(component.formapi, 'createInternElement').and.returnValue(Promise.resolve({
+            id: '123',
+            content: {},
+            owners: [],
+            readers: [],
+            created: ''
+        }));
+
+        component.addFavorite(0);
+        tick();
+
+        expect(component.favorites.length).toEqual(1);
+    }));
+
+    it('should fail add favorite', fakeAsync(() => {
+        spyOn(component.formapi, 'createInternElement').and.returnValue(Promise.reject('Failed'));
+
+        component.addFavorite(0);
+        tick();
+
+        expect(component.favorites.length).toEqual(0);
+    }));
+
+    it('should crash add favorite', () => {
+        expect(() => {
+            component.addFavorite(-1);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.addFavorite(3);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.addFavorite(0, -1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.addFavorite(0, 3);
+        }).toThrowError('page is invalid');
+    });
+
+    it('should del favorite', fakeAsync(() => {
+        spyOn(component.formapi, 'deleteInternElement').and.returnValue(Promise.resolve('OK'));
+        component.favorites = [
+            { content: JSON.parse(JSON.stringify(component.storage.model.pages[0].elements[0])) }
+        ];
+        component.favorites[0].content.name = '';
+        expect(component.favorites.length).toEqual(1);
+
+        component.delFavorite(0);
+        tick();
+        expect(component.favorites.length).toEqual(0);
+    }));
+
+    it('should fail del favorite', fakeAsync(() => {
+        spyOn(component.formapi, 'deleteInternElement').and.returnValue(Promise.reject('Failed'));
+        component.favorites = [
+            { content: JSON.parse(JSON.stringify(component.storage.model.pages[0].elements[0])) }
+        ];
+        component.favorites[0].content.name = '';
+        expect(component.favorites.length).toEqual(1);
+
+        component.delFavorite(0);
+        tick();
+        expect(component.favorites.length).toEqual(1);
+    }));
+
+    it('should not del favorite', () => {
+        spyOn(component.formapi, 'deleteInternElement');
+        component.delFavorite(0);
+        expect(component.formapi.deleteInternElement).toHaveBeenCalledTimes(0);
+    });
+
+    it('should crash del favorite', () => {
+        expect(() => {
+            component.delFavorite(-1);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.delFavorite(3);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.delFavorite(0, -1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.delFavorite(0, 3);
+        }).toThrowError('page is invalid');
     });
 });
 
