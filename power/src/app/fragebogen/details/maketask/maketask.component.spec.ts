@@ -12,8 +12,6 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
     let component: MaketaskComponent;
     let fixture: ComponentFixture<MaketaskComponent>;
 
-    const taskSample = require('../../../../assets/fragebogen/intern-get-tasks.json');
-
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [

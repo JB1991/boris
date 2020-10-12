@@ -4,9 +4,10 @@
     ],
     "rules": {
         "attr-case": "off",
+        "element-name": "off",
+        "no-dup-id": "off",
         "no-inline-style": "off",
-        "svg-focusable": "off",
-		"element-name": "off",
-		"prefer-native-element": "off"
+        "prefer-native-element": "off",
+        "svg-focusable": "off"
     }
 }

@@ -660,4 +660,12 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
         return null;
     }
+
+    /**
+     * Returns question svg
+     * @param type Question type
+     */
+    public getIcon(type: string): string {
+        return this.storage.FormularFields.filter(p => p.type === type)[0].icon;
+    }
 }

@@ -3,11 +3,18 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GeosearchComponent } from './geosearch.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { Feature, FeatureCollection } from 'geojson';
+import { of, throwError } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
+    const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
+    const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
+
     let component: GeosearchComponent;
     let fixture: ComponentFixture<GeosearchComponent>;
     let httpTestingController: HttpTestingController;
+    let testScheduler: TestScheduler;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -21,6 +28,10 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
                 NgbTypeaheadModule
             ]
         }).compileComponents();
+
+        testScheduler = new TestScheduler((actual, expected) => {
+            expect(actual).toEqual(expected);
+        });
     }));
 
     beforeEach(() => {
@@ -31,8 +42,49 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
-    it('should create', () => {
+    it('should be created', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('selectItem selects an item from the result list', (done) => {
+        spyOn(component.geosearchService, 'updateFeatures');
+        component.selectResult.subscribe(next => {
+            expect(next).toEqual(feature);
+            done();
+        });
+        component.selectItem(feature);
+        expect(component.geosearchService.updateFeatures).toHaveBeenCalled();
+    });
+
+    it('formatter should return the text property', () => {
+        expect(component.formatter(feature)).toEqual('Podbielskistraße 331, 30659 Hannover - Bothfeld');
+    });
+
+    it('search should successfully call the Geosearch service', () => {
+        spyOn(component.geosearchService, 'search').and.returnValue(of(featureCollection));
+
+        testScheduler.run(({expectObservable}) => {
+            const input$ = of('podbi');
+            expectObservable(component.search(input$));
+        });
+        expect(component.geosearchService.search).toHaveBeenCalled();
+        expect(component.searchFailed).toBe(false);
+    });
+
+    it('search should unsuccessfully call the Geosearch service', () => {
+        spyOn(component.geosearchService, 'search').and.returnValue(throwError({status: 404}));
+
+        testScheduler.run(({expectObservable}) => {
+            const input$ = of('podbi');
+            expectObservable(component.search(input$));
+        });
+        expect(component.geosearchService.search).toHaveBeenCalled();
+        expect(component.searchFailed).toBe(true);
+    });
+
+    it('ngOnInit should initialize the search form', () => {
+        component.searchForm.controls['searchInput'].setValue('podbi');
+        expect(component.searchForm.value.searchInput).toBe('podbi');
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -114,18 +114,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return m;
     }
 
-    uniqBy(a, key) {
-        const seen = {};
-        return a.filter(function (item) {
-            const k = key(item);
-            return seen.hasOwnProperty(k) ? false : (seen[k] = true);
-        });
-    }
-
-    downloadGeoJSON() {
-
-    }
-
     onChartInit(event: any) {
         this.echartsInstance = event;
     }

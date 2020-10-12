@@ -19,7 +19,8 @@
                     "baseHref": ""
                 },
                 "locales": {
-                    "en": "src/locales/messages.en.xlf"
+                    "en": "src/locales/messages.en.xlf",
+                    "ja": "src/locales/messages.ja.xlf"
                 }
             },
             "architect": {
@@ -68,8 +69,8 @@
                                 {
                                     "type": "bundle",
                                     "name": "main",
-                                    "maximumWarning": "512kb",
-                                    "maximumError": "768kb"
+                                    "maximumWarning": "768kb",
+                                    "maximumError": "1024kb"
                                 }
                             ],
                             "fileReplacements": [

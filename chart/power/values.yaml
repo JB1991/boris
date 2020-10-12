@@ -38,6 +38,9 @@ service:
   type: ClusterIP
   port: 80
 
+# Deployment environment, default dev
+environment: dev
+
 ingress:
   enabled: true
   annotations:
@@ -45,7 +48,7 @@ ingress:
     konghq.com/override: power-https-redirect
     konghq.com/plugins: power-rate-limiting-by-ip,power-cors
   hosts:
-    - host: dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+    - host: power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
       paths:
       - path: /
         serviceName: power
@@ -56,7 +59,7 @@ ingress:
   tls:
    - secretName: power-cluster-65655d4c73bf47a3300821aa2939abf4-0001
      hosts:
-       - dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+       - power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

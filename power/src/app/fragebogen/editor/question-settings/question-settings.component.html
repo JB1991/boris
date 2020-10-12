@@ -11,9 +11,10 @@
                 <!-- question-name -->
                 <div class="form-group">
                     <label for="question-name"
-                           i18n>Fragen ID
-                           <span (click)="questionsettingsmodal.scrollToFooter()" role="button">*</span>
-                     </label>
+                           (click)="questionsettingsmodal.scrollToFooter()"
+                           role="button"
+                           i18n>Fragen ID *
+                    </label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].name"
@@ -35,9 +36,10 @@
                 <!-- question-title -->
                 <div class="form-group">
                     <label for="question-title"
-                           i18n>Fragen Titel
-                           <span (click)="questionsettingsmodal.scrollToFooter()" role="button">*</span>
-                     </label>
+                           (click)="questionsettingsmodal.scrollToFooter()"
+                           role="button"
+                           i18n>Fragen Titel *
+                    </label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].title.default"
@@ -178,7 +180,8 @@
                 </div>
 
                 <!-- question-width -->
-                <div class="form-group">
+                <div class="form-group"
+                     *ngIf="model.pages[page].elements[question].type !== 'signaturepad'">
                     <label for="question-width"
                            i18n>Breite der Frage in Pixel</label>
                     <input type="text"
@@ -197,8 +200,7 @@
                         <select class="custom-select"
                                 [(ngModel)]="model.pages[page].elements[question].inputType"
                                 id="question-inputType"
-                                name="question-inputType"
-                                aria-describedby="question-inputTypeHelp">
+                                name="question-inputType">
                             <option value="color"
                                     i18n>Farbe</option>
                             <option value="date"
@@ -222,9 +224,6 @@
                             <option value="week"
                                     i18n>Woche</option>
                         </select>
-                        <small id="question-inputTypeHelp"
-                               class="form-text text-muted"
-                               i18n>Nicht jede Option wird von allen Webbrowsern unterstützt.</small>
                     </div>
 
                     <!--<span i18n>Minimaler Wert</span>
@@ -422,7 +421,7 @@
                                 name="form-acceptedTypes">
                             <!--<option value=""
                                         i18n>Alles erlauben</option>-->
-                            <option value=".pdf"
+                            <option value="application/pdf"
                                     i18n>PDF-Dokumente</option>
                             <option value="image/*"
                                     i18n>Bilder</option>

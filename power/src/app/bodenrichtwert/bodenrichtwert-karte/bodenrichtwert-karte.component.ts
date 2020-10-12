@@ -32,9 +32,6 @@ export class BodenrichtwertKarteComponent implements OnInit {
     lat: number;
     lng: number;
 
-    x;
-    y;
-
     @Input() teilmarkt;
     @Output() teilmarktChange = new EventEmitter();
 
@@ -46,8 +43,8 @@ export class BodenrichtwertKarteComponent implements OnInit {
     STICHTAGE = STICHTAGE;
 
     constructor(
-        private bodenrichtwertService: BodenrichtwertService,
-        private geosearchService: GeosearchService
+        public bodenrichtwertService: BodenrichtwertService,
+        public geosearchService: GeosearchService
     ) {
     }
 
@@ -56,10 +53,6 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
     loadMap(event: Map) {
         this.map = event;
-        if (this.zoom && this.x && this.y) {
-            this.map.setZoom(this.zoom);
-            this.map.setCenter([this.x, this.y]);
-        }
     }
 
     toggleSearchActive() {
@@ -91,12 +84,12 @@ export class BodenrichtwertKarteComponent implements OnInit {
         });
     }
 
-    getAddressFromLatLng(lat, lng) {
+    getAddressFromLatLng(lat: number, lng: number) {
         this.geosearchService.getAddressFromCoordinates(lat, lng)
             .subscribe(res => this.geosearchService.updateFeatures(res.features[0]));
     }
 
-    onMapClickEvent(event: mapboxgl.MapMouseEvent) {
+    onMapClickEvent(event: any) {
         if (event.lngLat) {
             this.lat = event.lngLat.lat;
             this.lng = event.lngLat.lng;
@@ -174,7 +167,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
         this.stichtagChange.next(stichtag);
     }
 
-    onTeilmarktChange(teilmarkt: Selection) {
+    onTeilmarktChange(teilmarkt: any) {
         this.teilmarkt = teilmarkt;
         this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
     }

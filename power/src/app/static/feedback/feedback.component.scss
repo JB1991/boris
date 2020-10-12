@@ -1,9 +1,14 @@
 ul {
-    list-style: none;
-    padding: 0;
+    list-style: url('~assets/icons/arrow-right.svg');
+    list-style-position: outside;
 }
 
-ul li::before {
-    content: url('~assets/icons/arrow-right.svg');
-    padding-right: 8px;
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
 }

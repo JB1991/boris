@@ -1,0 +1,63 @@
+{
+    "type": "Feature",
+    "bbox": [
+        9.80197862229792,
+        52.4072429511222,
+        9.80212561098666,
+        52.4073328456491
+    ],
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            9.80205,
+            52.40729
+        ]
+    },
+    "properties": {
+        "text": "Podbielskistraße 331, 30659 Hannover - Bothfeld",
+        "typ": "Haus",
+        "score": 1.5861975,
+        "bbox": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [
+                        9.80198,
+                        52.40724
+                    ],
+                    [
+                        9.80198,
+                        52.40733
+                    ],
+                    [
+                        9.80213,
+                        52.40733
+                    ],
+                    [
+                        9.80213,
+                        52.40724
+                    ],
+                    [
+                        9.80198,
+                        52.40724
+                    ]
+                ]
+            ]
+        },
+        "ags": "03241001",
+        "rs": "032410001001",
+        "schluessel": "032410001001000002197",
+        "bundesland": "Niedersachsen",
+        "regbezirk": "Hannover",
+        "kreis": "Hannover, Region",
+        "verwgem": "Hannover",
+        "gemeinde": "Hannover, Landeshauptstadt",
+        "plz": "30659",
+        "ort": "Hannover",
+        "ortsteil": "Bothfeld",
+        "strasse": "Podbielskistraße",
+        "haus": "331",
+        "qualitaet": "A"
+    },
+    "id": "DENIHK0000509041"
+}

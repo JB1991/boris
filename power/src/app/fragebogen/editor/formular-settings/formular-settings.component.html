@@ -11,8 +11,9 @@
                 <!-- form-title -->
                 <div class="form-group">
                     <label for="form-title"
-                           i18n>Formular Titel
-                           <span (click)="formsettingsmodal.scrollToFooter()" role="button">*</span>
+                           (click)="formsettingsmodal.scrollToFooter()"
+                           role="button"
+                           i18n>Formular Titel *
                      </label>
                     <input type="text"
                            class="form-control"
@@ -110,8 +111,9 @@
                 <!-- form-completedHtml -->
                 <div class="form-group">
                     <label for="form-completedHtml"
-                           i18n>Abschlusstext
-                           <span (click)="formsettingsmodal.scrollToFooter()" role="button">*</span>
+                           (click)="formsettingsmodal.scrollToFooter()"
+                           role="button"
+                           i18n>Abschlusstext *
                      </label>
                     <textarea class="form-control"
                               [(ngModel)]="model.completedHtml.default"

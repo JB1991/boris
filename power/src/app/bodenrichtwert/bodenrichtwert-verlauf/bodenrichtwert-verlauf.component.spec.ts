@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
+import * as echarts from 'echarts';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
+    const features = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-features.json');
+
     let component: BodenrichtwertVerlaufComponent;
     let fixture: ComponentFixture<BodenrichtwertVerlaufComponent>;
     let httpClient: HttpClient;
@@ -28,8 +30,18 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
-    it('should create', () => {
+    it('should be created', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('generate should insert data into chart options', () => {
+        component.echartsInstance = echarts.init(document.getElementById('time-series'));
+        component.echartsInstance.setOption(component.chartOption);
+        expect(component.chartOption.legend.data.length).toBe(0);
+        expect(component.chartOption.series.length).toBe(0);
+        component.generate(features);
+        expect(component.chartOption.legend.data.length).toBe(3);
+        expect(component.chartOption.series.length).toBe(3);
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
