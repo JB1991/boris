@@ -69,8 +69,8 @@
                                 {
                                     "type": "bundle",
                                     "name": "main",
-                                    "maximumWarning": "512kb",
-                                    "maximumError": "768kb"
+                                    "maximumWarning": "768kb",
+                                    "maximumError": "1024kb"
                                 }
                             ],
                             "fileReplacements": [
