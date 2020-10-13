@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class AlertsService {
-    public alertslist: any = [];
+    public alertslist = [];
 
     constructor() { }
 

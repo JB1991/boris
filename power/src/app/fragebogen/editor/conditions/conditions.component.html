@@ -2,7 +2,8 @@
     <div class="form-row m-0 mb-2">
         <div class="form-group col-2 m-0 pl-0">
             <label for="conditionCondition{{ i }}{{ uniqId }}"
-                   class="sr-only">Verknüpfung*</label>
+                   class="sr-only"
+                   i18n>Verknüpfung*</label>
             <select class="custom-select"
                     [(ngModel)]="item.condition"
                     (change)="modelChanged($event)"
@@ -11,37 +12,36 @@
                     id="conditionCondition{{ i }}{{ uniqId }}"
                     name="conditionCondition{{ i }}{{ uniqId }}"
                     required>
-                <option value="and">Und</option>
-                <option value="or">Oder</option>
+                <option value="and"
+                        i18n>Und</option>
+                <option value="or"
+                        i18n>Oder</option>
             </select>
         </div>
 
         <div class="form-group col-4 m-0">
             <label for="conditionQuestion{{ i }}{{ uniqId }}"
-                   class="sr-only">Formularfeld*</label>
-            <select class="custom-select"
-                    [(ngModel)]="item.question"
-                    (change)="modelChanged($event)"
-                    [class.is-invalid]="!item.question"
-                    id="conditionQuestion{{ i }}{{ uniqId }}"
-                    name="conditionQuestion{{ i }}{{ uniqId }}"
-                    required>
-                <option value=""
-                        disabled>Formularfeld auswählen</option>
-                <option *ngFor="let question of questions; index as j"
-                        value="{{ question.name }}">
-                    {{ question.title }}
-                </option>
-                <option *ngFor="let variable of model.calculatedValues; index as j"
-                        value="{{ variable.name }}">
-                    {{ '&#123;' + variable.name + '&#125;' }}
-                </option>
-            </select>
+                   class="sr-only"
+                   i18n>Formularfeld*</label>
+            <input type="text"
+                   class="form-control"
+                   [attr.list]="'conditionlist-' + uniqId"
+                   [(ngModel)]="item.question"
+                   (change)="modelChanged($event)"
+                   *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
+                   [class.is-invalid]="!item.question"
+                   id="conditionQuestion{{ i }}{{ uniqId }}"
+                   name="conditionQuestion{{ i }}{{ uniqId }}"
+                   i18n-placeholder
+                   placeholder="Wert oder Variabel {e1}"
+                   maxlength="200"
+                   required>
         </div>
 
         <div class="form-group col-2 m-0">
             <label for="conditionOperator{{ i }}{{ uniqId }}"
-                   class="sr-only">Operator*</label>
+                   class="sr-only"
+                   i18n>Operator*</label>
             <select class="custom-select"
                     [(ngModel)]="item.operator"
                     (change)="switchValueType($event, i); modelChanged($event)"
@@ -49,10 +49,14 @@
                     id="conditionOperator{{ i }}{{ uniqId }}"
                     name="conditionOperator{{ i }}{{ uniqId }}"
                     required>
-                <option value="empty">Leer</option>
-                <option value="notempty">Nicht leer</option>
-                <option value="contains">Enthält</option>
-                <option value="notcontains">Enthält nicht</option>
+                <option value="empty"
+                        i18n>Leer</option>
+                <option value="notempty"
+                        i18n>Nicht leer</option>
+                <option value="contains"
+                        i18n>Enthält</option>
+                <option value="notcontains"
+                        i18n>Enthält nicht</option>
                 <option value="equal">=</option>
                 <option value="notequal">&lt;&gt;</option>
                 <option value="greater">&gt;</option>
@@ -60,16 +64,19 @@
                 <option value="greaterorequal">&gt;=</option>
                 <option value="lessorequal">&lt;=</option>
                 <option value="anyof"
-                        *ngIf="item.choices">Enthält mindestens eines</option>
+                        *ngIf="item.choices"
+                        i18n>Enthält mindestens eines</option>
                 <option value="allof"
-                        *ngIf="item.choices">Enthält alle</option>
+                        *ngIf="item.choices"
+                        i18n>Enthält alle</option>
             </select>
         </div>
 
         <div class="form-group col-4 m-0 pr-0"
              *ngIf="!(item.operator === 'empty' || item.operator === 'notempty')">
             <label for="conditionValueA{{ i }}{{ uniqId }}"
-                   class="sr-only">Wert oder Variabel %7Be1%7D</label>
+                   class="sr-only"
+                   i18n>Wert oder Variabel %7Be1%7D</label>
             <input type="text"
                    class="form-control"
                    [attr.list]="'conditionlist-' + uniqId"
@@ -79,25 +86,10 @@
                    [class.is-invalid]="!item.value"
                    id="conditionValueA{{ i }}{{ uniqId }}"
                    name="conditionValueA{{ i }}{{ uniqId }}"
+                   i18n-placeholder
                    placeholder="Wert oder Variabel {e1}"
                    maxlength="200"
                    required>
-
-            <datalist id="{{ 'conditionlist-' + uniqId }}">
-                <option *ngFor="let question of questions; index as j"
-                        value="{{ '&#123;' + question.name + '&#125;'  }}">
-                    {{ question.title }}
-                </option>
-                <option *ngFor="let variable of model.calculatedValues; index as j"
-                        value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
-                <option value="{item}"></option>
-                <option value="{pageno}"></option>
-                <option value="{pagecount}"></option>
-                <option value="{locale}"></option>
-                <option value="{correctedanswers}"></option>
-                <option value="{incorrectedanswers}"></option>
-                <option value="{questioncount}"></option>
-            </datalist>
 
             <select multiple
                     class="custom-select"
@@ -114,12 +106,29 @@
                 </option>
             </select>
         </div>
+
+        <datalist id="{{ 'conditionlist-' + uniqId }}">
+            <option *ngFor="let question of questions; index as j"
+                    value="{{ '&#123;' + question.name + '&#125;' }}">
+                {{ question.title }}
+            </option>
+            <option *ngFor="let variable of model.calculatedValues; index as j"
+                    value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
+            <option value="{item}"></option>
+            <option value="{pageno}"></option>
+            <option value="{pagecount}"></option>
+            <option value="{locale}"></option>
+            <option value="{correctedanswers}"></option>
+            <option value="{incorrectedanswers}"></option>
+            <option value="{questioncount}"></option>
+        </datalist>
     </div>
 </div>
 
 <div class="mb-2">
     <button type="button"
             class="btn btn-danger btn-sm mr-2"
+            i18n-title
             title="Bedingung entfernen"
             (click)="ConditionDel()">
         <svg width="1em"
@@ -133,10 +142,12 @@
             <path fill-rule="evenodd"
                   d="M3.5 8a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5z" />
         </svg>
-        <span class="sr-only">Bedingung entfernen</span>
+        <span class="sr-only"
+              i18n>Bedingung entfernen</span>
     </button>
     <button type="button"
             class="btn btn-success btn-sm"
+            i18n-title
             title="Bedingung hinzufügen"
             (click)="ConditionAdd()">
         <svg width="1em"
@@ -152,6 +163,7 @@
             <path fill-rule="evenodd"
                   d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
         </svg>
-        <span class="sr-only">Bedingung hinzufügen</span>
+        <span class="sr-only"
+              i18n>Bedingung hinzufügen</span>
     </button>
 </div>
