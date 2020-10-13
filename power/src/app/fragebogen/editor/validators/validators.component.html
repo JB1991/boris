@@ -78,30 +78,24 @@
                    required>
         </div>
 
+
         <div class="form-group col-4 m-0"
              *ngIf="item.type === 'expression'">
             <label for="validatorExpQuestion{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Formularfeld*</label>
-            <select class="custom-select"
-                    [(ngModel)]="item.question"
-                    (change)="modelChanged($event)"
-                    [class.is-invalid]="!item.question"
-                    id="validatorExpQuestion{{ i }}{{ uniqId }}"
-                    name="validatorExpQuestion{{ i }}{{ uniqId }}"
-                    required>
-                <option value=""
-                        disabled
-                        i18n>Formularfeld auswählen</option>
-                <option *ngFor="let question of questions; index as j"
-                        value="{{ question.name }}">
-                    {{ question.title }}
-                </option>
-                <option *ngFor="let variable of model.calculatedValues; index as j"
-                        value="{{ variable.name }}">
-                    {{ '&#123;' + variable.name + '&#125;' }}
-                </option>
-            </select>
+            <input type="text"
+                   class="form-control"
+                   [attr.list]="'conditionlist-' + uniqId"
+                   [(ngModel)]="item.question"
+                   (change)="modelChanged($event)"
+                   [class.is-invalid]="!item.question"
+                   id="validatorExpQuestion{{ i }}{{ uniqId }}"
+                   name="validatorExpQuestion{{ i }}{{ uniqId }}"
+                   i18n-placeholder
+                   placeholder="Wert oder Variabel {e1}"
+                   maxlength="200"
+                   required>
         </div>
 
         <div class="form-group col-2 m-0"
@@ -146,6 +140,7 @@
                    i18n>Wert oder Variabel %7Be1%7D</label>
             <input type="text"
                    class="form-control"
+                   [attr.list]="'conditionlist-' + uniqId"
                    [(ngModel)]="item.value"
                    (change)="modelChanged($event)"
                    *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
@@ -174,6 +169,22 @@
         </div>
     </div>
 </div>
+
+<datalist id="{{ 'conditionlist-' + uniqId }}">
+    <option *ngFor="let question of questions; index as j"
+            value="{{ '&#123;' + question.name + '&#125;' }}">
+        {{ question.title }}
+    </option>
+    <option *ngFor="let variable of model.calculatedValues; index as j"
+            value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
+    <option value="{item}"></option>
+    <option value="{pageno}"></option>
+    <option value="{pagecount}"></option>
+    <option value="{locale}"></option>
+    <option value="{correctedanswers}"></option>
+    <option value="{incorrectedanswers}"></option>
+    <option value="{questioncount}"></option>
+</datalist>
 
 <div class="mb-2">
     <button type="button"

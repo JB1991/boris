@@ -28,7 +28,6 @@
                    [attr.list]="'conditionlist-' + uniqId"
                    [(ngModel)]="item.question"
                    (change)="modelChanged($event)"
-                   *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
                    [class.is-invalid]="!item.question"
                    id="conditionQuestion{{ i }}{{ uniqId }}"
                    name="conditionQuestion{{ i }}{{ uniqId }}"
@@ -106,24 +105,24 @@
                 </option>
             </select>
         </div>
-
-        <datalist id="{{ 'conditionlist-' + uniqId }}">
-            <option *ngFor="let question of questions; index as j"
-                    value="{{ '&#123;' + question.name + '&#125;' }}">
-                {{ question.title }}
-            </option>
-            <option *ngFor="let variable of model.calculatedValues; index as j"
-                    value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
-            <option value="{item}"></option>
-            <option value="{pageno}"></option>
-            <option value="{pagecount}"></option>
-            <option value="{locale}"></option>
-            <option value="{correctedanswers}"></option>
-            <option value="{incorrectedanswers}"></option>
-            <option value="{questioncount}"></option>
-        </datalist>
     </div>
 </div>
+
+<datalist id="{{ 'conditionlist-' + uniqId }}">
+    <option *ngFor="let question of questions; index as j"
+            value="{{ '&#123;' + question.name + '&#125;' }}">
+        {{ question.title }}
+    </option>
+    <option *ngFor="let variable of model.calculatedValues; index as j"
+            value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
+    <option value="{item}"></option>
+    <option value="{pageno}"></option>
+    <option value="{pagecount}"></option>
+    <option value="{locale}"></option>
+    <option value="{correctedanswers}"></option>
+    <option value="{incorrectedanswers}"></option>
+    <option value="{questioncount}"></option>
+</datalist>
 
 <div class="mb-2">
     <button type="button"

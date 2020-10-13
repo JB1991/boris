@@ -95,10 +95,13 @@ describe('Fragebogen.Editor.EditorComponent', () => {
      * ON SCROLL
      */
     it('should onScroll/onResize', () => {
+        const tb = document.getElementById('toolbox').parentElement;
+
         // small screen, not scrolled
         (<any>window).innerWidth = 450;
         component.onScroll(null);
         component.onResize(null);
+        expect(tb.style.marginTop).toEqual('0px');
 
         // wide screen, scrolled
         (<any>window).innerWidth = 1024;
@@ -109,6 +112,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         // wide screen, not scrolled
         (<any>window).pageYOffset = 0;
         component.onScroll(null);
+        expect(tb.style.marginTop).toEqual('0px');
     });
 
     /**
