@@ -1,15 +1,15 @@
 <div *ngFor="let item of struct; index as i">
     <div class="form-row m-0 mb-2">
         <div class="form-group col-2 m-0 pl-0">
-            <label for="conditionCondition{{ i }}"
+            <label for="conditionCondition{{ i }}{{ uniqId }}"
                    class="sr-only">Verknüpfung*</label>
             <select class="custom-select"
                     [(ngModel)]="item.condition"
                     (change)="modelChanged($event)"
                     [class.is-invalid]="!item.condition && i !== 0"
                     [disabled]="i === 0"
-                    id="conditionCondition{{ i }}"
-                    name="conditionCondition{{ i }}"
+                    id="conditionCondition{{ i }}{{ uniqId }}"
+                    name="conditionCondition{{ i }}{{ uniqId }}"
                     required>
                 <option value="and">Und</option>
                 <option value="or">Oder</option>
@@ -17,14 +17,14 @@
         </div>
 
         <div class="form-group col-4 m-0">
-            <label for="conditionQuestion{{ i }}"
+            <label for="conditionQuestion{{ i }}{{ uniqId }}"
                    class="sr-only">Formularfeld*</label>
             <select class="custom-select"
                     [(ngModel)]="item.question"
                     (change)="modelChanged($event)"
                     [class.is-invalid]="!item.question"
-                    id="conditionQuestion{{ i }}"
-                    name="conditionQuestion{{ i }}"
+                    id="conditionQuestion{{ i }}{{ uniqId }}"
+                    name="conditionQuestion{{ i }}{{ uniqId }}"
                     required>
                 <option value=""
                         disabled>Formularfeld auswählen</option>
@@ -40,14 +40,14 @@
         </div>
 
         <div class="form-group col-2 m-0">
-            <label for="conditionOperator{{ i }}"
+            <label for="conditionOperator{{ i }}{{ uniqId }}"
                    class="sr-only">Operator*</label>
             <select class="custom-select"
                     [(ngModel)]="item.operator"
                     (change)="switchValueType($event, i); modelChanged($event)"
                     [class.is-invalid]="!item.operator"
-                    id="conditionOperator{{ i }}"
-                    name="conditionOperator{{ i }}"
+                    id="conditionOperator{{ i }}{{ uniqId }}"
+                    name="conditionOperator{{ i }}{{ uniqId }}"
                     required>
                 <option value="empty">Leer</option>
                 <option value="notempty">Nicht leer</option>
@@ -68,7 +68,7 @@
 
         <div class="form-group col-4 m-0 pr-0"
              *ngIf="!(item.operator === 'empty' || item.operator === 'notempty')">
-            <label for="conditionValue{{ i }}"
+            <label for="conditionValueA{{ i }}{{ uniqId }}"
                    class="sr-only">Wert oder Variabel %7Be1%7D</label>
             <input type="text"
                    class="form-control"
@@ -77,8 +77,8 @@
                    (change)="modelChanged($event)"
                    *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
                    [class.is-invalid]="!item.value"
-                   id="conditionValue{{ i }}"
-                   name="conditionValue{{ i }}"
+                   id="conditionValueA{{ i }}{{ uniqId }}"
+                   name="conditionValueA{{ i }}{{ uniqId }}"
                    placeholder="Wert oder Variabel {e1}"
                    maxlength="200"
                    required>
@@ -103,8 +103,8 @@
                     class="custom-select"
                     *ngIf="item.operator === 'anyof' || item.operator === 'allof'"
                     [class.is-invalid]="!item.value"
-                    id="conditionValue{{ i }}"
-                    name="conditionValue{{ i }}"
+                    id="conditionValueB{{ i }}{{ uniqId }}"
+                    name="conditionValueB{{ i }}{{ uniqId }}"
                     required>
                 <option *ngFor="let choice of item.choices; index as j"
                         (click)="selectedItems($event, i, j)"
