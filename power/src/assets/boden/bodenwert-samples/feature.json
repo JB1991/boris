@@ -1,0 +1,63 @@
+{
+    "type": "Feature",
+    "bbox": [
+        9.58963142128906,
+        52.374273966173,
+        9.58977830711883,
+        52.3743638652547
+    ],
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            9.5897,
+            52.37432
+        ]
+    },
+    "properties": {
+        "text": "Anhaltsweg 1, 30926 Seelze - Döteberg",
+        "typ": "Haus",
+        "score": 1.8575137,
+        "bbox": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [
+                        9.58963,
+                        52.37427
+                    ],
+                    [
+                        9.58963,
+                        52.37436
+                    ],
+                    [
+                        9.58978,
+                        52.37436
+                    ],
+                    [
+                        9.58978,
+                        52.37427
+                    ],
+                    [
+                        9.58963,
+                        52.37427
+                    ]
+                ]
+            ]
+        },
+        "ags": "03241015",
+        "rs": "032410015015",
+        "schluessel": "032410015015000004100",
+        "bundesland": "Niedersachsen",
+        "regbezirk": "Hannover",
+        "kreis": "Hannover, Region",
+        "verwgem": "Seelze",
+        "gemeinde": "Seelze, Stadt",
+        "plz": "30926",
+        "ort": "Seelze",
+        "ortsteil": "Döteberg",
+        "strasse": "Anhaltsweg",
+        "haus": "1",
+        "qualitaet": "A"
+    },
+    "id": "DENIHK0001219567"
+}
