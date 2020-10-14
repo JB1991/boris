@@ -1,7 +1,10 @@
 <div class="container-xl border-left border-right">
-    <div class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
+    <div class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2"
+        tabindex="0" 
+        aria-label="Sie befinden sich im Absatz für BORIS.NI."
+        i18n-aria-label>
         <div class="col-lg-6 p-0">
-            <div class="boris-img col-lg-12 p-0"></div>
+            <div class= "boris-img col-lg-12 p-0" ></div>
         </div>
         <div class="col-lg-6 px-0 pl-lg-5 pt-2 pt-lg-0">
             <div class="content col-lg-12 text-dark p-5 rounded-left">
@@ -9,23 +12,30 @@
                    [routerLink]="['/bodenrichtwerte']"
                    i18n>BORIS.NI</a>
                 <p class="h6"
+                   tabindex="0"
                    i18n>{{ 'Bodenrichtwertinformationssystem Niedersachsen' | hyphenate }}</p>
                 <p class="lead text-justify"
+                   tabindex="0"
                    i18n>{{ 'Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte' +
                     ' in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und' +
                     ' für Flächen der Land- und Forstwirtschaft zur Verfügung.' | hyphenate }} </p>
             </div>
         </div>
     </div>
-    <div class="row pr-lg-5 pt-lg-5 pl-lg-0 pb-lg-0 p-2">
+    <div class="row pr-lg-5 pt-lg-5 pl-lg-0 pb-lg-0 p-2"
+        tabindex="0" 
+        aria-label="Sie befinden sich im Absatz für NIPIX."
+        i18n-aria-label>
         <div class="col-lg-9 p-0 pr-lg-5 pt-2 pt-lg-0">
             <div class="content col-lg-12 text-dark p-5 rounded-right">
                 <a class="h2 btn-link text-dark font-weight-bold"
                    [routerLink]="['/immobilienpreisindex']"
                    i18n>NIPIX</a>
                 <p class="h6"
+                   tabindex="0"
                    i18n>{{ 'Niedersächsischer Immobilienpreisindex' | hyphenate }}</p>
                 <p class="lead text-justify"
+                   tabindex="0"
                    i18n>{{ 'Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser,' +
                     ' Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen' +
                     ' „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die' +
@@ -36,7 +46,10 @@
             <div class="nipix-img col-lg-12 p-0"></div>
         </div>
     </div>
-    <div class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
+    <div class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2"
+         tabindex="0" 
+         aria-label="Sie befinden sich im Absatz für den Zugang zu den Online-Formularen."
+         i18n-aria-label>
         <div class="col-lg-6 pr-0 pl-lg-0 pl-0">
             <div class="form-img col-lg-12 p-0"></div>
         </div>
@@ -44,15 +57,17 @@
             <div class="content col-lg-12 text-dark p-5 rounded-left">
                 <a class="h2 btn-link text-dark font-weight-bold"
                    [routerLink]="['/immobilienpreisindex']"
+                   tabindex="0"
                    i18n>Online Formulare</a>
                 <p class="lead text-justify pt-3"
+                   tabindex="0"
                    i18n>
                     {{ 'Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. ' +
                    'Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.' | hyphenate }}
                 </p>
                 <form #pinFormular="ngForm"
                       i18n-aria-label
-                      aria-label="Eingabe einer PIN zum Formular ausfüllen"
+                      aria-label="Eingabefeld für eine PIN, um zum entsprechenden Formular zu gelangen."
                       (ngSubmit)="submitPIN(pin.value)"
                       class="form-inline">
                     <label class="control-label sr-only"
@@ -63,9 +78,11 @@
                            id="pin"
                            i18n-placeholder
                            placeholder="Formular PIN"
+                           aria-hidden="true"
                            #pin>
 
                     <button type="submit"
+                            role="button"
                             class="btn btn-success"
                             i18n-title
                             title="Absenden">
@@ -81,7 +98,7 @@
                                   d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
                         </svg>
                         <span class="sr-only"
-                              i18n>Absenden</span>
+                              i18n>Die PIN absenden</span>
                     </button>
                 </form>
             </div>
@@ -89,7 +106,10 @@
     </div>
 </div>
 <div class="container-xl mt-5">
-    <div class="row jumbotron mb-0">
+    <div class="row jumbotron mb-0"
+         tabindex="0" 
+         aria-label="Sie befinden sich im Absatz Neuigkeiten."
+         i18n-aria-label>
         <div class="col-lg-12">
             <h2>
                 <svg width="1em"
