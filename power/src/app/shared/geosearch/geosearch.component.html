@@ -3,7 +3,9 @@
            class="form-control"
            placement="bottom"
            placeholder="Bitte Ort eingeben ..."
+           i18n-placeholder
            aria-label="Ort"
+           i18n-aria-label
            [(ngModel)]="model"
            [ngbTypeahead]="search"
            [class.is-invalid]="searchFailed"

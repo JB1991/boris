@@ -65,13 +65,13 @@ export class GeosearchService {
      */
     private static handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-            console.error('Es ist ein Fehler aufgetreten: ' + error.message);
+            console.error($localize`Es ist ein Fehler aufgetreten: ` + error.message);
         } else {
             console.error(
-                `Return-Code vom Backend: ${error.status}, ` +
-                `Nachricht: ${error.error}`);
+                $localize`Return-Code vom Backend` + `: ${error.status}, ` +
+                $localize`Nachricht` + `: ${error.error}`);
         }
-        return throwError('Es ist ein Fehler aufgetreten.');
+        return throwError($localize`Es ist ein Fehler aufgetreten.`);
     }
 }
 

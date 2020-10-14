@@ -35,7 +35,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     @ViewChild('acc') acc: NgbAccordion;
 
     constructor(private titleService: Title) {
-        this.titleService.setTitle('Bodenwerte - POWER.NI');
+        this.titleService.setTitle($localize`Bodenwerte - POWER.NI`);
     }
 
     ngOnInit() {

@@ -12,13 +12,13 @@
                 </div>
                 <div class="nav">
                     <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung">
+                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" i18n-alt>
                     </a>
                     <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren">
+                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren" i18n-alt>
                     </a>
                     <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen">
+                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen" i18n-alt>
                     </a>
                 </div>
             </nav>
@@ -31,16 +31,16 @@
             <nav class="nav nav-underline">
                 <div class="nav ml-auto">
                     <a class="nav-link" (click)="toggleSearchActive()">
-                        <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche">
+                        <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche" i18n-alt>
                     </a>
                     <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung">
+                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" i18n-alt>
                     </a>
                     <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren">
+                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren" i18n-alt>
                     </a>
                     <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen">
+                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen" i18n-alt>
                     </a>
                 </div>
             </nav>
@@ -101,9 +101,7 @@
     }"
                 [filter]="['in', '', '']"
             ></mgl-layer>
-
         </mgl-map>
-
     </div>
 
     <div class="">
@@ -112,7 +110,7 @@
                 <ng-template ngbPanelHeader>
                     <div>
                         <div class="text-center">
-                            <h5 class="m-0 mx-center">Wählen Sie Flurstücke auf der Karte aus</h5>
+                            <h5 class="m-0 mx-center" i18n>Wählen Sie Flurstücke auf der Karte aus</h5>
                         </div>
                     </div>
                 </ng-template>
@@ -120,8 +118,8 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <th scope="col">Amtliche Fläche</th>
-                                <th scope="col">Wert</th>
+                                <th scope="col" i18n>Amtliche Fläche</th>
+                                <th scope="col" i18n>Wert</th>
                             </tr>
                             <tr *ngFor="let feature of this.flurstueckSelection | keyvalue">
                                 <td>{{feature.value.properties.amtlicheflaeche | number }} m&#178;</td>
@@ -131,7 +129,7 @@
                     </table>
 
                     <h3>
-                        Summe {{ flurstueckSelection | keyvalue | flurstueckPipe | currency:'EUR':"symbol" : '1.2-2'}}
+                        <span i18n>Summe</span> {{ flurstueckSelection | keyvalue | flurstueckPipe | currency:'EUR':"symbol" : '1.2-2'}}
                     </h3>
                 </ng-template>
             </ngb-panel>

@@ -25,11 +25,11 @@ export const STICHTAGE = [
  * Possible selections of Teilmärkte
  */
 export const TEILMAERKTE = [
-    {value: 'B', viewValue: 'Bauland'},
-    {value: 'LF', viewValue: 'Landwirtschaft'},
-    {value: 'SF', viewValue: 'Sonstige Flächen'},
-    {value: 'R', viewValue: 'Rohbauland'},
-    {value: 'E', viewValue: 'Bauerwartungsland'},
+    {value: 'B', viewValue: $localize`Bauland`},
+    {value: 'LF', viewValue: $localize`Landwirtschaft`},
+    {value: 'SF', viewValue: $localize`Sonstige Flächen`},
+    {value: 'R', viewValue: $localize`Rohbauland`},
+    {value: 'E', viewValue: $localize`Bauerwartungsland`},
 ];
 
 /**
@@ -87,7 +87,7 @@ export class BodenrichtwertComponent implements OnDestroy {
         private bodenrichtwertService: BodenrichtwertService,
         private titleService: Title
     ) {
-        this.titleService.setTitle('Bodenrichtwerte - POWER.NI');
+        this.titleService.setTitle($localize`Bodenrichtwerte - POWER.NI`);
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.acc.expandAll();
