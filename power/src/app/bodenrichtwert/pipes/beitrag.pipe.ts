@@ -6,9 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class BeitragPipe implements PipeTransform {
 
     beitrag = {
-        '1': $localize`erschließungsbeitrags- und kostenerstattungsbetragsfrei`,
-        '2': $localize`erschließungsbeitrags-/kostenerstattungsbetragsfrei und abgabenpflichtig nach Kommunalabgabengesetz`,
-        '3': $localize`erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz`,
+        '1': $localize`Erschließungsbeitrags- und kostenerstattungsbetragsfrei`,
+        '2': $localize`Erschließungsbeitrags-/kostenerstattungsbetragsfrei und abgabenpflichtig nach Kommunalabgabengesetz`,
+        '3': $localize`Erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz`,
     };
 
     transform(value: any, ...args: any[]): any {

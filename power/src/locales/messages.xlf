@@ -460,36 +460,36 @@
         <source>Suche</source>
       </segment>
     </unit>
+    <unit id="5763537713323428568">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:11</note>
+      </notes>
+      <segment>
+        <source>Art der Nutzung</source>
+      </segment>
+    </unit>
+    <unit id="4858894794380558995">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:12</note>
+      </notes>
+      <segment>
+        <source>Bodenrichtwert</source>
+      </segment>
+    </unit>
+    <unit id="5682599121859154301">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:13</note>
+      </notes>
+      <segment>
+        <source>Beitragsabgabenrechtlicher Zustand</source>
+      </segment>
+    </unit>
     <unit id="7478201324644826913">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:4</note>
       </notes>
       <segment>
         <source>Bodenrichtwertzone</source>
-      </segment>
-    </unit>
-    <unit id="6810244932636363380">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:10</note>
-      </notes>
-      <segment>
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{&apos;Art der Nutzung&apos; | hyphenate}}"/></source>
-      </segment>
-    </unit>
-    <unit id="5795756251357634021">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:12</note>
-      </notes>
-      <segment>
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{&apos;Bodenrichtwert&apos; | hyphenate}}"/></source>
-      </segment>
-    </unit>
-    <unit id="1624589484330446118">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:14</note>
-      </notes>
-      <segment>
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{&apos;Beitragsabgabenrechtlicher Zustand&apos; | hyphenate}}"/></source>
       </segment>
     </unit>
     <unit id="3576285261904159823">
@@ -692,44 +692,44 @@
         <source>Kleinsiedlungsgebiet</source>
       </segment>
     </unit>
-    <unit id="1862940427237471732">
+    <unit id="6798650949201776336">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:11</note>
       </notes>
       <segment>
-        <source>reines Wohngebiet</source>
+        <source>Reines Wohngebiet</source>
       </segment>
     </unit>
-    <unit id="4558549283758156883">
+    <unit id="3582173993797014873">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:12</note>
       </notes>
       <segment>
-        <source>allgemeines Wohngebiet</source>
+        <source>Allgemeines Wohngebiet</source>
       </segment>
     </unit>
-    <unit id="4622949985491218566">
+    <unit id="4122406384179715979">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:13</note>
       </notes>
       <segment>
-        <source>besonderes Wohngebiet</source>
+        <source>Besonderes Wohngebiet</source>
       </segment>
     </unit>
-    <unit id="210894721313832686">
+    <unit id="907298596850983792">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:14</note>
       </notes>
       <segment>
-        <source>urbanes Gebiet</source>
+        <source>Urbanes Gebiet</source>
       </segment>
     </unit>
-    <unit id="1006647105502340269">
+    <unit id="7950447362043930766">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:15</note>
       </notes>
       <segment>
-        <source>gemischte Baufläche</source>
+        <source>Gemischte Baufläche</source>
       </segment>
     </unit>
     <unit id="5735114100345323111">
@@ -756,12 +756,12 @@
         <source>Kerngebiet</source>
       </segment>
     </unit>
-    <unit id="1903218131057173174">
+    <unit id="8197581721313063876">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:19</note>
       </notes>
       <segment>
-        <source>gewerbliche Baufläche</source>
+        <source>Gewerbliche Baufläche</source>
       </segment>
     </unit>
     <unit id="5782195038206381885">
@@ -796,12 +796,12 @@
         <source>Sondergebiet für Erholung</source>
       </segment>
     </unit>
-    <unit id="162005438786254236">
+    <unit id="439037924215870402">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:24</note>
       </notes>
       <segment>
-        <source>sonstige Sondergebiete</source>
+        <source>Sonstige Sondergebiete</source>
       </segment>
     </unit>
     <unit id="250728197738412053">
@@ -812,12 +812,12 @@
         <source>Baufläche für Gemeinbedarf</source>
       </segment>
     </unit>
-    <unit id="3409629403595806257">
+    <unit id="9146477794686693262">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:26</note>
       </notes>
       <segment>
-        <source>landwirtschaftliche Fläche</source>
+        <source>Landwirtschaftliche Fläche</source>
       </segment>
     </unit>
     <unit id="9195449413560624696">
@@ -876,20 +876,20 @@
         <source>Unland, Geringstland, Bergweide, Moor</source>
       </segment>
     </unit>
-    <unit id="6820389239003569586">
+    <unit id="8560846121493735569">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:34</note>
       </notes>
       <segment>
-        <source>forstwirtschaftliche Fläche</source>
+        <source>Forstwirtschaftliche Fläche</source>
       </segment>
     </unit>
-    <unit id="1497990184194789511">
+    <unit id="3095297259851332286">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:35</note>
       </notes>
       <segment>
-        <source>private Grünfläche</source>
+        <source>Private Grünfläche</source>
       </segment>
     </unit>
     <unit id="3186821120942074679">
@@ -924,12 +924,12 @@
         <source>Sportfläche</source>
       </segment>
     </unit>
-    <unit id="4466520307892786696">
+    <unit id="2353535484058081518">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:40</note>
       </notes>
       <segment>
-        <source>sonstige private Fläche</source>
+        <source>Sonstige private Fläche</source>
       </segment>
     </unit>
     <unit id="901399518108774764">
@@ -956,12 +956,12 @@
         <source>Flughafen, Flugplatz</source>
       </segment>
     </unit>
-    <unit id="5080633461358611239">
+    <unit id="2957967519400105673">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:44</note>
       </notes>
       <segment>
-        <source>private Parkplätze, Stellplatzfläche</source>
+        <source>Private Parkplätze, Stellplatzfläche</source>
       </segment>
     </unit>
     <unit id="426938245653560695">
@@ -1140,12 +1140,12 @@
         <source>Militär</source>
       </segment>
     </unit>
-    <unit id="5663311903803595895">
+    <unit id="6193278872529551070">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:70</note>
       </notes>
       <segment>
-        <source>landwirtschaftliche Produktion</source>
+        <source>Landwirtschaftliche Produktion</source>
       </segment>
     </unit>
     <unit id="4688523918241886367">
@@ -1276,28 +1276,28 @@
         <source>Braunkohletagebau</source>
       </segment>
     </unit>
-    <unit id="4111718186734860766">
+    <unit id="1279564565030115671">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:9</note>
       </notes>
       <segment>
-        <source>erschließungsbeitrags- und kostenerstattungsbetragsfrei</source>
+        <source>Erschließungsbeitrags- und kostenerstattungsbetragsfrei</source>
       </segment>
     </unit>
-    <unit id="8470765739784044911">
+    <unit id="4364985666336009061">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:10</note>
       </notes>
       <segment>
-        <source>erschließungsbeitrags-/kostenerstattungsbetragsfrei und abgabenpflichtig nach Kommunalabgabengesetz</source>
+        <source>Erschließungsbeitrags-/kostenerstattungsbetragsfrei und abgabenpflichtig nach Kommunalabgabengesetz</source>
       </segment>
     </unit>
-    <unit id="2123977304212384212">
+    <unit id="4017046019966127783">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:11</note>
       </notes>
       <segment>
-        <source>erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz</source>
+        <source>Erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz</source>
       </segment>
     </unit>
     <unit id="4321269269579074973">
@@ -4251,22 +4251,20 @@ Grundstückswerte in Niedersachsen, </source>
         <source>BORIS.NI</source>
       </segment>
     </unit>
-    <unit id="3714767208349194088">
+    <unit id="2078906062700177291">
       <notes>
         <note category="location">src/app/static/start/start.component.html:12</note>
       </notes>
       <segment>
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ &apos;Bodenrichtwertinformationssystem Niedersachsen&apos; | hyphenate }}"/></source>
+        <source>Bodenrichtwertinformationssystem Niedersachsen</source>
       </segment>
     </unit>
-    <unit id="634244390629979408">
+    <unit id="8096672709644262128">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:14,16</note>
+        <note category="location">src/app/static/start/start.component.html:15</note>
       </notes>
       <segment>
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ &apos;Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte&apos; +
-                    &apos; in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und&apos; +
-                    &apos; für Flächen der Land- und Forstw"/> </source>
+        <source>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft zur Verfügung.</source>
       </segment>
     </unit>
     <unit id="3780495839469833614">
@@ -4277,48 +4275,76 @@ Grundstückswerte in Niedersachsen, </source>
         <source>NIPIX</source>
       </segment>
     </unit>
-    <unit id="7337852448544901493">
+    <unit id="2295421029143589974">
       <notes>
         <note category="location">src/app/static/start/start.component.html:27</note>
       </notes>
       <segment>
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ &apos;Niedersächsischer Immobilienpreisindex&apos; | hyphenate }}"/></source>
+        <source>Niedersächsischer Immobilienpreisindex</source>
       </segment>
     </unit>
-    <unit id="7234420257669452242">
+    <unit id="2451194999501456827">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:29,32</note>
+        <note category="location">src/app/static/start/start.component.html:30</note>
       </notes>
       <segment>
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ &apos;Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser,&apos; +
-                    &apos; Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen&apos; +
-                    &apos; „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die&apos; +
-                    &apos; Gutachterausschüsse und der Ob"/></source>
+        <source>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</source>
       </segment>
     </unit>
     <unit id="2237919460029267172">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:47</note>
+        <note category="location">src/app/static/start/start.component.html:46</note>
       </notes>
       <segment>
         <source>Online Formulare</source>
       </segment>
     </unit>
-    <unit id="3385467352340598089">
+    <unit id="8558394574447430341">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:50,52</note>
+        <note category="location">src/app/static/start/start.component.html:48</note>
       </notes>
       <segment>
-        <source> <ph id="0" equiv="INTERPOLATION" disp="{ &apos;Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. &apos; +
-                   &apos;Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfülle"/> </source>
+        <source>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.</source>
       </segment>
     </unit>
     <unit id="841934696444961534">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:109</note>
+        <note category="location">src/app/static/start/start.component.html:106</note>
       </notes>
       <segment>
         <source>News</source>
+      </segment>
+    </unit>
+    <unit id="4177395589093342239">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:111</note>
+      </notes>
+      <segment>
+        <source>Immobilienmarktbericht 2020</source>
+      </segment>
+    </unit>
+    <unit id="1702834368412695399">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:112</note>
+      </notes>
+      <segment>
+        <source>Eine Dekade steigender Preise in Niedersachsen...</source>
+      </segment>
+    </unit>
+    <unit id="4980082766864057233">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:115</note>
+      </notes>
+      <segment>
+        <source>Bodenrichtwerte 2021</source>
+      </segment>
+    </unit>
+    <unit id="6326925902432622347">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:116</note>
+      </notes>
+      <segment>
+        <source>Die neuen Bodenrichtwerte sind jetzt verfügbar...</source>
       </segment>
     </unit>
     <unit id="1701380331708164107">
