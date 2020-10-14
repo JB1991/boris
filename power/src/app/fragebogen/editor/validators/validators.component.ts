@@ -66,14 +66,16 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     data = {
                         type: validator.type,
                         min: validator.minValue,
-                        max: validator.maxValue
+                        max: validator.maxValue,
+                        text: validator.text
                     };
                     break;
                 case 'answercount':
                     data = {
                         type: validator.type,
                         min: validator.minCount,
-                        max: validator.maxCount
+                        max: validator.maxCount,
+                        text: validator.text
                     };
                     break;
                 case 'text':
@@ -81,12 +83,14 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         type: validator.type,
                         min: validator.minLength,
                         max: validator.maxLength,
-                        allowDigits: validator.allowDigits
+                        allowDigits: validator.allowDigits,
+                        text: validator.text
                     };
                     break;
                 case 'email':
                     data = {
-                        type: validator.type
+                        type: validator.type,
+                        text: validator.text
                     };
                     break;
                 case 'regex':
@@ -100,6 +104,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     data = {
                         type: validator.type,
                         expression: validator.expression,
+                        text: validator.text,
                         question: '',
                         operator: '',
                         value: '',
@@ -157,14 +162,16 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     data = {
                         type: item.type,
                         minValue: item.min,
-                        maxValue: item.max
+                        maxValue: item.max,
+                        text: {}
                     };
                     break;
                 case 'answercount':
                     data = {
                         type: item.type,
                         minCount: item.min,
-                        maxCount: item.max
+                        maxCount: item.max,
+                        text: {}
                     };
                     break;
                 case 'text':
@@ -172,25 +179,28 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         type: item.type,
                         minLength: item.min,
                         maxLength: item.max,
-                        allowDigits: (item.allowDigits ? item.allowDigits : true)
+                        allowDigits: (item.allowDigits ? item.allowDigits : true),
+                        text: {}
                     };
                     break;
                 case 'email':
                     data = {
-                        type: item.type
+                        type: item.type,
+                        text: {}
                     };
                     break;
                 case 'regex':
                     data = {
                         type: item.type,
                         regex: item.regex,
-                        text: $localize`Ihre Eingabe entspricht nicht dem gefordertem Format.`
+                        text: {}
                     };
                     break;
                 case 'expression':
                     data = {
                         type: item.type,
-                        expression: ''
+                        expression: '',
+                        text: {}
                     };
 
                     // add question and operator
@@ -256,7 +266,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         for (const item of this.struct) {
             item.choices = null;
             for (const question of this.questions) {
-                if (item.question === question.name) {
+                if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
                 }
             }

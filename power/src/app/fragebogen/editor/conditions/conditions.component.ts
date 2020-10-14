@@ -171,7 +171,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
         for (const item of this.struct) {
             item.choices = null;
             for (const question of this.questions) {
-                if (item.question === question.name) {
+                if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
                 }
             }

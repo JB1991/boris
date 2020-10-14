@@ -115,13 +115,34 @@
     </option>
     <option *ngFor="let variable of model.calculatedValues; index as j"
             value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
-    <option value="{item}"></option>
-    <option value="{pageno}"></option>
-    <option value="{pagecount}"></option>
-    <option value="{locale}"></option>
-    <option value="{correctedanswers}"></option>
-    <option value="{incorrectedanswers}"></option>
-    <option value="{questioncount}"></option>
+    <option value="{item}"
+            i18n>Referenziert die ausgewählten Antwort(en) dieser Frage</option>
+    <option value="{pageno}"
+            i18n>Aktuelle Seitennummer</option>
+    <option value="{pagecount}"
+            i18n>Seitenanzahl</option>
+    <option value="{locale}"
+            i18n>Sprache des Benutzers in Kurzform (z.B. de)</option>
+    <option value="{correctedanswers}"
+            i18n>Anzahl korrekter Antworten (Quiz)</option>
+    <option value="{incorrectedanswers}"
+            i18n>Anzahl falscher Antworten (Quiz)</option>
+    <option value="{questioncount}"
+            i18n>Anzahl an Fragen</option>
+    <option value="today(0)"
+            i18n>Gibt das heutige Datum zurück. Anstelle der 0 kann ein Offset für den Tag übergeben werden.</option>
+    <option value="age({birthdate})"
+            i18n>Berechnet das Alter aus einem Datum</option>
+    <option value="sum({e1}, {e2}, ...)"
+            i18n>Summiert mehrere Werte zusammen</option>
+    <option value="min({e1}, {e2}, ...)"
+            i18n>Gibt den kleinsten Wert aus einer Liste zurück</option>
+    <option value="max({e1}, {e2}, ...)"
+            i18n>Gibt den größten Wert aus einer Liste zurück</option>
+    <option value="count({e1}, {e2}, ...)"
+            i18n>Zählt die Werte aus einer Liste</option>
+    <option value="avg({e1}, {e2}, ...)"
+            i18n>Berechnet den Mittelwert aus einer Liste</option>
 </datalist>
 
 <div class="mb-2">
