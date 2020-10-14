@@ -8,19 +8,19 @@
     <div class="card-body">
         <dl class="row">
             <dt class="col-md-5">
-                <span i18n>Art der Nutzung</span>
+                {{brzStrings.usage | hyphenate}}
             </dt>
             <dd class="col-md-7">
                 {{feature.properties.nutzung | nutzung | hyphenate}}
             </dd>
             <dt class="col-md-5">
-                <span i18n>Bodenrichtwert</span>
+                {{brzStrings.value | hyphenate}}
             </dt>
             <dd class="col-md-7">
                 {{feature.properties.brw | number}} &euro; / m&#178;
             </dd>
             <dt class="col-md-5" *ngIf="feature.properties.beit">
-                <span i18n>Beitragsabgabenrechtlicher Zustand</span>
+                {{brzStrings.state | hyphenate}}
             </dt>
             <dd class="col-md-7" *ngIf="feature.properties.beit">
                 {{feature.properties.beit | beitrag | hyphenate}}

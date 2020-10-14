@@ -76,7 +76,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 3. Vorhandene Übersetzungen updaten
    ```
-   cd power/src/locales
+   cd src/locales
    xliffmerge -p ./config.json
    ```
 

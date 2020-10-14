@@ -460,17 +460,9 @@
         <source>Suche</source>
       </segment>
     </unit>
-    <unit id="7478201324644826913">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:4</note>
-      </notes>
-      <segment>
-        <source>Bodenrichtwertzone</source>
-      </segment>
-    </unit>
     <unit id="5763537713323428568">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:11</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:11</note>
       </notes>
       <segment>
         <source>Art der Nutzung</source>
@@ -478,7 +470,7 @@
     </unit>
     <unit id="4858894794380558995">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:17</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:12</note>
       </notes>
       <segment>
         <source>Bodenrichtwert</source>
@@ -486,10 +478,18 @@
     </unit>
     <unit id="5682599121859154301">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:23</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:13</note>
       </notes>
       <segment>
         <source>Beitragsabgabenrechtlicher Zustand</source>
+      </segment>
+    </unit>
+    <unit id="7478201324644826913">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:4</note>
+      </notes>
+      <segment>
+        <source>Bodenrichtwertzone</source>
       </segment>
     </unit>
     <unit id="3576285261904159823">
