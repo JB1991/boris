@@ -12,7 +12,7 @@ describe('Bodenrichtwert.Pipes.BeitragPipe', () => {
     });
 
     it('should return the correct value', () => {
-        expect(pipe.transform('1')).toEqual('erschließungsbeitrags- und kostenerstattungsbetragsfrei');
+        expect(pipe.transform('1')).toEqual('Erschließungsbeitrags- und kostenerstattungsbetragsfrei');
     });
 
     it('should return undefined when there is no appropriate entry', () => {
