@@ -152,6 +152,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
     /**
      * Downloads results as csv
      */
+    /* istanbul ignore next */
     public getCSV() {
         // load csv results
         this.formapi.getInternFormCSV(this.data.form.id).then(result => {

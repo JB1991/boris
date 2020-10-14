@@ -86,6 +86,7 @@ export class FormularSettingsComponent {
     /**
      * Open page tab
      */
+    /* istanbul ignore next */
     public openPage() {
         (<any>document.activeElement).click();
     }

@@ -1,7 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, InjectionToken, Inject } from '@angular/core';
 
-import { StorageService } from '../storage.service';
-
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
 @Component({
@@ -16,37 +14,37 @@ let id = 0;
     styleUrls: ['./validators.component.css']
 })
 export class ValidatorsComponent implements OnInit, OnChanges {
-    @Input() data: any;
-    @Output() dataChange = new EventEmitter<any>();
+    @Input() public model: any;
+    @Input() public data: any;
+    @Output() public dataChange = new EventEmitter<any>();
 
-    public struct: any = [];
-    public questions: any = [];
+    public struct = [];
+    public questions = [];
 
-    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
-        public storage: StorageService) { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
     ngOnInit() {
         // make question list
         this.questions = [];
-        for (let i = 0; i < this.storage.model.pages.length; i++) {
-            for (const element of this.storage.model.pages[i].elements) {
+        for (let i = 0; i < this.model.pages.length; i++) {
+            for (const element of this.model.pages[i].elements) {
                 // add to list
-                if (element.type !== 'matrix') {
-                    this.questions.push({
-                        name: element.name,
-                        title: element.name + ': ' + element.title.default,
-                        type: element.type,
-                        choices: (element.choices ? element.choices : null)
-                    });
-                } else {
+                if (element.type === 'matrix') {
                     for (const q of element.rows) {
                         this.questions.push({
                             name: element.name + '.' + q.value,
-                            title: element.name + ': ' + (q.text.default ? q.text.default : q.value),
+                            title: q.text.default ? q.text.default : '',
                             type: element.type,
                             choices: element.columns
                         });
                     }
+                } else {
+                    this.questions.push({
+                        name: element.name,
+                        title: element.title.default ? element.title.default : '',
+                        type: element.type,
+                        choices: element.choices
+                    });
                 }
             }
         }
@@ -82,7 +80,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                 case 'regex':
                     data = {
                         type: validator.type,
-                        regex: validator.regex
+                        regex: validator.regex,
+                        text: validator.text
                     };
                     break;
                 case 'expression':
@@ -98,9 +97,9 @@ export class ValidatorsComponent implements OnInit, OnChanges {
 
                     // get question
                     if (split[0].startsWith('{')) {
-                        data.question = split[0].substring(1, split[0].length - 1);
+                        data.question = split[0];
                     } else {
-                        throw new Error('Expected parameter to be variable');
+                        data.question = split[0].substring(1, split[0].length - 1);
                     }
 
                     // get operator
@@ -125,7 +124,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     }
                     break;
                 default:
-                    throw new Error('Undown validator type');
+                    throw new Error('Unkown validator type');
             }
             this.struct.push(data);
         }
@@ -161,7 +160,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     data = {
                         type: item.type,
                         regex: item.regex,
-                        text: 'Ihre Eingabe entspricht dem gefordertem Format.'
+                        text: $localize`Ihre Eingabe entspricht nicht dem gefordertem Format.`
                     };
                     break;
                 case 'expression':
@@ -171,7 +170,11 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     };
 
                     // add question and operator
-                    data.expression = '{' + item.question + '} ' + item.operator;
+                    if (item.question.startsWith('{')) {
+                        data.expression = item.question + ' ' + item.operator;
+                    } else {
+                        data.expression = '\'' + item.question + '\' ' + item.operator;
+                    }
 
                     // add values
                     if (item.operator === 'empty' || item.operator === 'notempty') {
@@ -180,13 +183,14 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         // array
                         data.expression += ' [';
                         for (let i = 0; i < item.value.length; i++) {
-                            if (!item.value[i]) { continue; }
                             data.expression += '\'' + item.value[i] + '\'' + (i + 1 >= item.value.length ? '' : ',');
                         }
                         data.expression += ']';
                     } else {
                         // string
-                        if (!item.value) { item.value = ''; }
+                        if (!item.value) {
+                            item.value = '';
+                        }
                         if (!item.value.startsWith('{')) {
                             // text
                             data.expression += ' \'' + item.value + '\'';
@@ -197,7 +201,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     }
                     break;
                 default:
-                    throw new Error('Undown validator type');
+                    throw new Error('Unkown validator type');
             }
             this.data.validators.push(data);
         }

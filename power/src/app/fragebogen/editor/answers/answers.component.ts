@@ -18,7 +18,7 @@ export class AnswersComponent {
     @ViewChild('answersForm') public myForm;
     @Input() public model: any;
     @Input() public hasImg = false;
-    @Input() public data: any = [];
+    @Input() public data = [];
     @Output() public dataChange = new EventEmitter<any>();
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }

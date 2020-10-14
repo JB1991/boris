@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 import { SvgPipe } from './svg.pipe';
+import { HyphenatePipe } from './hyphenate.pipe';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { SvgPipe } from './svg.pipe';
         ModalComponent,
         ModalminiComponent,
         TagboxComponent,
-        SvgPipe
+        SvgPipe,
+        HyphenatePipe
     ],
     exports: [
         GeosearchComponent,
@@ -30,7 +32,8 @@ import { SvgPipe } from './svg.pipe';
         AuthModule,
         AlertsModule,
         LoadingscreenModule,
-        SvgPipe
+        SvgPipe,
+        HyphenatePipe
     ],
     imports: [
         CommonModule,

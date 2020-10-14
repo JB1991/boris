@@ -102,6 +102,57 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
         flush();
     }));
 
+    it('should generate 2', fakeAsync(() => {
+        spyOn(component.formapi, 'createInternFormTasks').and.returnValue(Promise.resolve(
+            {
+                data: [
+                    {
+                        id: '123',
+                        content: {},
+                        'form-id': 'bs8t7ifp9r1b3pt5qkr0',
+                        pin: 'oGxOwQeS',
+                        factor: 'string',
+                        created: '2020-09-22T22:29:36.814Z',
+                        accessed: '2020-09-22T22:29:36.814Z',
+                        submitted: '2020-09-22T22:29:36.814Z',
+                        description: 'description',
+                        status: 'created'
+                    },
+                    {
+                        id: '123',
+                        content: {},
+                        'form-id': 'bs8t7ifp9r1b3pt5qkr0',
+                        pin: 'oGxOwQeS',
+                        factor: 'string',
+                        created: '2020-09-22T22:29:36.814Z',
+                        accessed: '2020-09-22T22:29:36.814Z',
+                        submitted: '2020-09-22T22:29:36.814Z',
+                        description: 'description',
+                        status: 'created'
+                    }
+                ],
+                total: 2
+            }
+        ));
+        component.data.tasksCountTotal = 100;
+        component.data.form = { 'id': '123' };
+        component.amount = 2;
+        component.copy = false;
+
+        component.Generate();
+        tick();
+        expect(component.pinList.length).toEqual(2);
+        expect(component.data.tasksList.length).toEqual(2);
+
+        component.open();
+        component.copy = true;
+        component.Generate();
+        tick();
+        expect(component.data.tasksList.length).toEqual(4);
+        expect(component.pinList.length).toEqual(2);
+        flush();
+    }));
+
     it('should crash', () => {
         expect(function () {
             component.amount = 0;

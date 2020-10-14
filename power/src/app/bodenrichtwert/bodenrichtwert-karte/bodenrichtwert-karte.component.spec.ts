@@ -60,6 +60,11 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
+    afterEach(() => {
+        // Clean up and release all internal resources associated with this map
+        component.map.remove();
+    });
+
     it('should be created', () => {
         expect(component).toBeTruthy();
     });

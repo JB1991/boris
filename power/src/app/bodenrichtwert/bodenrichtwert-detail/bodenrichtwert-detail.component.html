@@ -1,8 +1,10 @@
 <div class="card">
-    <h5 class="card-header">
-        {{feature.properties.brzname | umlautCorrection}}
-        {{feature.properties.wnum}}
-    </h5>
+    <div class="card-header">
+        <div class="row">
+            <h5 class="col-md-5 mb-0"><b>Bodenrichtwertzone</b></h5>
+            <h5 class="col-md-7 mb-0">{{feature.properties.brzname | umlautCorrection}} {{feature.properties.wnum}}</h5>
+        </div>
+    </div>
     <div class="card-body">
         <dl class="row">
             <dt class="col-md-5">{{'Art der Nutzung' | hyphenate}}</dt>

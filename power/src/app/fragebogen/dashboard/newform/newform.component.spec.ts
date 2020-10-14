@@ -125,6 +125,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 default: 'example'
             }
         }).then(() => {
+            expect(component.data.forms.length).toEqual(1);
             done();
         });
     });
