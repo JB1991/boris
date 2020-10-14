@@ -68,11 +68,12 @@
                 </div>
 
                 <span i18n>Sichtbarkeitsbedingungen für die Frage</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].visibleIf">
                 </power-forms-editor-conditions>
-                <br>
+                <hr>
+
                 <!-- question-isRequired -->
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox"
@@ -529,7 +530,7 @@
 
                 <hr>
                 <span i18n>Unterfrage Sichtbarkeitsbedingung</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].rowsVisibleIf">
                 </power-forms-editor-conditions>
@@ -714,11 +715,9 @@
                 <hr>
                 <span i18n>Generische Sichtbarkeitsbedingung für die Antworten</span>
                 <br>
-                <small id="activationCondition-nameHelp"
-                class="text-muted">
-                     <span i18n>Wird für jede Antwort einzeln evaluiert!</span>
-                </small>
-                <br>
+                <small class="text-muted"
+                       i18n>Wird für jede Antwort einzeln evaluiert.</small>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].choicesVisibleIf">
                 </power-forms-editor-conditions>
@@ -737,7 +736,7 @@
 
                 <hr>
                 <span i18n>Antwortbedingungen</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].columnsVisibleIf">
                 </power-forms-editor-conditions>
@@ -748,24 +747,24 @@
                              heading="Bedingungen"
                              class="mb-1 mb-lg-3">
                 <span i18n>Sichtbarkeitsbedingung für die Frage</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].visibleIf">
                 </power-forms-editor-conditions>
+
                 <hr>
                 <span i18n>Aktivierungsbedingung für alle Antworten</span>
                 <br>
-                <small id="activationCondition-nameHelp"
-                       class="text-muted">
-                     <span i18n>Wird für jede Antwort einzeln evaluiert!</span>
-                </small>
+                <small class="text-muted"
+                       i18n>Wird für jede Antwort einzeln evaluiert.</small>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].enableIf">
                 </power-forms-editor-conditions>
 
                 <hr>
                 <span i18n>Pflichtbedingung</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].requiredIf">
                 </power-forms-editor-conditions>
@@ -775,12 +774,11 @@
             <accordion-group i18n-heading
                              heading="Validatoren"
                              class="mb-1 mb-lg-3">
-                Validatoren
-                <br>
+                <span i18n>Validatoren</span>
+                <hr>
                 <power-forms-editor-validators [model]="model"
                                                [(data)]="model.pages[page].elements[question]">
                 </power-forms-editor-validators>
-
             </accordion-group>
         </accordion>
     </div>

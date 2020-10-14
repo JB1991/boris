@@ -14,7 +14,7 @@
                            (click)="formsettingsmodal.scrollToFooter()"
                            role="button"
                            i18n>Formular Titel *
-                     </label>
+                    </label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.title.default"
@@ -72,7 +72,8 @@
                     </select>
                     <small id="form-localeHelp"
                            class="form-text text-muted"
-                           i18n>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit
+                           i18n>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die
+                        Möglichkeit
                         die Sprache zu wechseln.</small>
                 </div>
 
@@ -114,7 +115,7 @@
                            (click)="formsettingsmodal.scrollToFooter()"
                            role="button"
                            i18n>Abschlusstext *
-                     </label>
+                    </label>
                     <textarea class="form-control"
                               [(ngModel)]="model.completedHtml.default"
                               id="form-completedHtml"
@@ -502,14 +503,14 @@
 
                         <hr>
                         <span i18n>Sichtbarkeitsbedingung</span>
-                        <br>
+                        <hr>
                         <power-forms-editor-conditions [model]="model"
                                                        [(data)]="page.visibleIf">
                         </power-forms-editor-conditions>
 
                         <hr>
                         <span i18n>Aktivierungsbedingung</span>
-                        <br>
+                        <hr>
                         <power-forms-editor-conditions [model]="model"
                                                        [(data)]="page.enableIf">
                         </power-forms-editor-conditions>

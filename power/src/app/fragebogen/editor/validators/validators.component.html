@@ -1,6 +1,6 @@
 <div *ngFor="let item of struct; index as i">
-    <div class="form-row m-0 mb-2">
-        <div class="form-group col-3 m-0 pl-0">
+    <div class="form-row">
+        <div class="form-group col-3 mb-0">
             <label for="validatorType{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Typ*</label>
@@ -26,7 +26,7 @@
             </select>
         </div>
 
-        <div class="form-group col-4 m-0"
+        <div class="form-group col-4 mb-0"
              *ngIf="item.type === 'numeric' || item.type === 'text' || item.type === 'answercount'">
             <label for="validatorMin{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -43,7 +43,7 @@
                    required>
         </div>
 
-        <div class="form-group col-4 m-0 pr-0"
+        <div class="form-group col-4 mb-0"
              *ngIf="item.type === 'numeric' || item.type === 'text' || item.type === 'answercount'">
             <label for="validatorMax{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -60,7 +60,7 @@
                    required>
         </div>
 
-        <div class="form-group col-9 m-0 pr-0"
+        <div class="form-group col-9 mb-0"
              *ngIf="item.type === 'regex'">
             <label for="validatorData{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -78,7 +78,25 @@
                    required>
         </div>
 
-        <div class="form-group col-4 m-0"
+        <div class="form-group col-12 mb-0 mt-2"
+             *ngIf="item.type === 'regex'">
+            <label for="validatorText{{ i }}{{ uniqId }}"
+                   class="sr-only"
+                   i18n>Fehlermeldung für Benutzer*</label>
+            <input type="text"
+                   class="form-control"
+                   [(ngModel)]="item.text.default"
+                   (change)="modelChanged($event)"
+                   [class.is-invalid]="!item.text.default"
+                   id="validatorText{{ i }}{{ uniqId }}"
+                   name="validatorText{{ i }}{{ uniqId }}"
+                   i18n-placeholder
+                   placeholder="Fehlermeldung für Benutzer"
+                   maxlength="200"
+                   required>
+        </div>
+
+        <div class="form-group col-4 mb-0"
              *ngIf="item.type === 'expression'">
             <label for="validatorExpQuestion{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -97,7 +115,7 @@
                    required>
         </div>
 
-        <div class="form-group col-2 m-0"
+        <div class="form-group col-2 mb-0"
              *ngIf="item.type === 'expression'">
             <label for="validatorExpOperator{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -132,7 +150,7 @@
             </select>
         </div>
 
-        <div class="form-group col-3 m-0 pr-0"
+        <div class="form-group col-3 mb-0"
              *ngIf="item.type === 'expression' && !(item.operator === 'empty' || item.operator === 'notempty')">
             <label for="validatorExpValueA{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -167,6 +185,7 @@
             </select>
         </div>
     </div>
+    <hr>
 </div>
 
 <datalist id="{{ 'validationlist-' + uniqId }}">

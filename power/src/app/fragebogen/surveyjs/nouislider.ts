@@ -108,7 +108,7 @@ export function init(Survey) {
                         if (pVal.value !== undefined) {
                             pipValue = pVal.value;
                         }
-                        return parseInt(pipValue, 10);
+                        return Number(pipValue).toFixed(question.decimals);
                     }),
                     density: question.pipsDensity || 5,
                     format: {
@@ -119,7 +119,7 @@ export function init(Survey) {
                                     pipText = ele.text;
                                 }
                             });
-                            return pipText;
+                            return Number(pipText).toFixed(question.decimals);
                         },
                     },
                 },
@@ -140,7 +140,7 @@ export function init(Survey) {
             });
 
             slider.on('change', function () {
-                question.value = Number(slider.get());
+                question.value = Number(slider.get()).toFixed(question.decimals);
             });
 
             if (question.inputbox) {
