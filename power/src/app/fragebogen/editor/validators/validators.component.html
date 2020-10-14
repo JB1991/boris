@@ -13,20 +13,24 @@
                     required>
                 <option value="numeric"
                         i18n>Numerisch</option>
+                <option value="answercount"
+                        i18n>Anzahl Antworten</option>
                 <option value="text"
                         i18n>Text</option>
+                <option value="email"
+                        i18n>E-Mail</option>
                 <option value="regex"
-                        i18n>Regex</option>
+                        i18n>Regulärer Ausdruck</option>
                 <option value="expression"
                         i18n>Bedingung</option>
             </select>
         </div>
 
         <div class="form-group col-4 m-0"
-             *ngIf="item.type === 'numeric' || item.type === 'text'">
+             *ngIf="item.type === 'numeric' || item.type === 'text' || item.type === 'answercount'">
             <label for="validatorMin{{ i }}{{ uniqId }}"
                    class="sr-only"
-                   i18n>Minimaler Wert/Länge*</label>
+                   i18n>Minimaler Wert/Länge/Anzahl*</label>
             <input type="number"
                    class="form-control"
                    [(ngModel)]="item.min"
@@ -35,17 +39,15 @@
                    id="validatorMin{{ i }}{{ uniqId }}"
                    name="validatorMin{{ i }}{{ uniqId }}"
                    i18n-placeholder
-                   placeholder="Minimaler Wert/Länge"
-                   min="0"
-                   max="10000"
+                   placeholder="Minimaler Wert/Länge/Anzahl"
                    required>
         </div>
 
         <div class="form-group col-4 m-0 pr-0"
-             *ngIf="item.type === 'numeric' || item.type === 'text'">
+             *ngIf="item.type === 'numeric' || item.type === 'text' || item.type === 'answercount'">
             <label for="validatorMax{{ i }}{{ uniqId }}"
                    class="sr-only"
-                   i18n>Maximaler Wert/Länge*</label>
+                   i18n>Maximaler Wert/Länge/Anzahl*</label>
             <input type="number"
                    class="form-control"
                    [(ngModel)]="item.max"
@@ -54,9 +56,7 @@
                    id="validatorMax{{ i }}{{ uniqId }}"
                    name="validatorMax{{ i }}{{ uniqId }}"
                    i18n-placeholder
-                   placeholder="Maximaler Wert/Länge"
-                   min="0"
-                   max="10000"
+                   placeholder="Maximaler Wert/Länge/Anzahl"
                    required>
         </div>
 
@@ -78,7 +78,6 @@
                    required>
         </div>
 
-
         <div class="form-group col-4 m-0"
              *ngIf="item.type === 'expression'">
             <label for="validatorExpQuestion{{ i }}{{ uniqId }}"
@@ -86,7 +85,7 @@
                    i18n>Formularfeld*</label>
             <input type="text"
                    class="form-control"
-                   [attr.list]="'conditionlist-' + uniqId"
+                   [attr.list]="'validationlist-' + uniqId"
                    [(ngModel)]="item.question"
                    (change)="modelChanged($event)"
                    [class.is-invalid]="!item.question"
@@ -140,7 +139,7 @@
                    i18n>Wert oder Variabel %7Be1%7D</label>
             <input type="text"
                    class="form-control"
-                   [attr.list]="'conditionlist-' + uniqId"
+                   [attr.list]="'validationlist-' + uniqId"
                    [(ngModel)]="item.value"
                    (change)="modelChanged($event)"
                    *ngIf="!(item.operator === 'anyof' || item.operator === 'allof')"
@@ -170,7 +169,7 @@
     </div>
 </div>
 
-<datalist id="{{ 'conditionlist-' + uniqId }}">
+<datalist id="{{ 'validationlist-' + uniqId }}">
     <option *ngFor="let question of questions; index as j"
             value="{{ '&#123;' + question.name + '&#125;' }}">
         {{ question.title }}

@@ -69,12 +69,24 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         max: validator.maxValue
                     };
                     break;
+                case 'answercount':
+                    data = {
+                        type: validator.type,
+                        min: validator.minCount,
+                        max: validator.maxCount
+                    };
+                    break;
                 case 'text':
                     data = {
                         type: validator.type,
                         min: validator.minLength,
                         max: validator.maxLength,
                         allowDigits: validator.allowDigits
+                    };
+                    break;
+                case 'email':
+                    data = {
+                        type: validator.type
                     };
                     break;
                 case 'regex':
@@ -148,12 +160,24 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         maxValue: item.max
                     };
                     break;
+                case 'answercount':
+                    data = {
+                        type: item.type,
+                        minCount: item.min,
+                        maxCount: item.max
+                    };
+                    break;
                 case 'text':
                     data = {
                         type: item.type,
                         minLength: item.min,
                         maxLength: item.max,
-                        allowDigits: item.allowDigits
+                        allowDigits: (item.allowDigits ? item.allowDigits : true)
+                    };
+                    break;
+                case 'email':
+                    data = {
+                        type: item.type
                     };
                     break;
                 case 'regex':
