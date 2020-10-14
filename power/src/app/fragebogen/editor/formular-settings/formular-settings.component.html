@@ -15,16 +15,12 @@
                            role="button"
                            i18n>Formular Titel *
                     </label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.title.default"
-                           [class.is-invalid]="!model.title.default"
-                           maxlength="200"
-                           name="form-title"
-                           id="form-title"
-                           i18n-placeholder
-                           placeholder="Formular Titel"
-                           required>
+                    <power-forms-editor-localeinput [(locale)]="model.title"
+                                                    eid="form-title"
+                                                    required="true"
+                                                    maxlength="200"
+                                                    i18n-placeholder
+                                                    placeholder="Formular Titel"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- form-showTitle -->
@@ -43,14 +39,10 @@
                 <div class="form-group">
                     <label for="form-description"
                            i18n>Formular Beschreibung</label>
-                    <textarea class="form-control"
-                              [(ngModel)]="model.description.default"
-                              id="form-description"
-                              name="form-description"
-                              rows="5"
-                              aria-describedby="form-descriptionHelp"
-                              maxlength="5000">
-                        </textarea>
+                    <power-forms-editor-localeinput textarea="true"
+                                                    [(locale)]="model.description"
+                                                    eid="form-description"
+                                                    describedby="form-descriptionHelp"></power-forms-editor-localeinput>
                     <small id="form-descriptionHelp"
                            class="form-text text-muted"
                            i18n>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</small>

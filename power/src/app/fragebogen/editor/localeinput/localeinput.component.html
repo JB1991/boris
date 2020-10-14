@@ -1,0 +1,47 @@
+<div class="form-row">
+    <div class="form-group col-2 mb-0">
+        <label for="localeInput-{{ eid }}"
+               class="sr-only"
+               i18n>Sprache</label>
+        <select class="custom-select"
+                id="localeInput-{{ eid }}"
+                name="localeInput-{{ eid }}"
+                [(ngModel)]="displayLang">
+            <option value="default"
+                    i18n>DE</option>
+            <option value="en"
+                    i18n>EN</option>
+        </select>
+    </div>
+
+    <div class="form-group col-10 mb-0"
+         *ngIf="!textarea">
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="locale[displayLang]"
+               (change)="updateValue()"
+               [class.is-invalid]="required && !locale[displayLang]"
+               [name]="eid"
+               [id]="eid"
+               [maxlength]="maxlength"
+               [placeholder]="placeholder"
+               [attr.aria-describedby]="describedby"
+               [required]="required">
+    </div>
+
+    <div class="form-group col-12 mb-0 mt-2"
+         *ngIf="textarea">
+        <textarea class="form-control"
+                  rows="5"
+                  [(ngModel)]="locale[displayLang]"
+                  (change)="updateValue()"
+                  [class.is-invalid]="required && !locale[displayLang]"
+                  [name]="eid"
+                  [id]="eid"
+                  [maxlength]="maxlength"
+                  [placeholder]="placeholder"
+                  [attr.aria-describedby]="describedby"
+                  [required]="required">
+         </textarea>
+    </div>
+</div>
