@@ -57,7 +57,7 @@
     </unit>
     <unit id="7911002864553844497">
       <notes>
-        <note category="location">src/app/app.component.html:150</note>
+        <note category="location">src/app/app.component.html:151</note>
       </notes>
       <segment state="translated">
         <source>* Pflichtfeld</source>
@@ -66,7 +66,7 @@
     </unit>
     <unit id="2354045805420094700">
       <notes>
-        <note category="location">src/app/app.component.html:166</note>
+        <note category="location">src/app/app.component.html:167</note>
       </notes>
       <segment state="translated">
         <source>Informationen</source>
@@ -75,7 +75,7 @@
     </unit>
     <unit id="1547876271716599756">
       <notes>
-        <note category="location">src/app/app.component.html:171</note>
+        <note category="location">src/app/app.component.html:172</note>
       </notes>
       <segment state="translated">
         <source>Impressum</source>
@@ -84,7 +84,7 @@
     </unit>
     <unit id="4082114936887396529">
       <notes>
-        <note category="location">src/app/app.component.html:175</note>
+        <note category="location">src/app/app.component.html:176</note>
       </notes>
       <segment state="translated">
         <source>Datenschutz</source>
@@ -93,7 +93,7 @@
     </unit>
     <unit id="2601146275474047321">
       <notes>
-        <note category="location">src/app/app.component.html:179</note>
+        <note category="location">src/app/app.component.html:180</note>
       </notes>
       <segment state="translated">
         <source>Allgemeine Geschäfts- <ph id="0" equiv="LINE_BREAK" disp="&lt;br>"/>und Nutzungsbedingungen</source>
@@ -102,7 +102,7 @@
     </unit>
     <unit id="2724055831234181057">
       <notes>
-        <note category="location">src/app/app.component.html:182</note>
+        <note category="location">src/app/app.component.html:183</note>
       </notes>
       <segment state="translated">
         <source>Version</source>
@@ -156,7 +156,7 @@
     </unit>
     <unit id="4086606389696938932">
       <notes>
-        <note category="location">src/app/app.component.html:117</note>
+        <note category="location">src/app/app.component.html:118</note>
       </notes>
       <segment state="translated">
         <source>Account</source>
@@ -165,7 +165,7 @@
     </unit>
     <unit id="8353670871689367892">
       <notes>
-        <note category="location">src/app/app.component.html:130</note>
+        <note category="location">src/app/app.component.html:131</note>
       </notes>
       <segment state="translated">
         <source>Meine Formulare</source>
@@ -174,7 +174,7 @@
     </unit>
     <unit id="3797778920049399855">
       <notes>
-        <note category="location">src/app/app.component.html:135</note>
+        <note category="location">src/app/app.component.html:136</note>
       </notes>
       <segment state="translated">
         <source>Logout</source>
@@ -259,7 +259,7 @@
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:216,217</note>
         <note category="description">AGNB</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source> Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB) </source>
         <target> general terms and conditions of use (AGNB) </target>
       </segment>
@@ -278,7 +278,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:58</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Vergleiche</source>
         <target>Comparisons</target>
       </segment>
@@ -287,7 +287,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:69,70</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source> HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich. </source>
         <target> NOTE: A selection via the map is unfortunately not possible for the comparisons. </target>
       </segment>
@@ -296,7 +296,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:119,120</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source> alle auswählen </source>
         <target> select all </target>
       </segment>
@@ -305,7 +305,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:123,124</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source> Auswahl aufheben </source>
         <target> Deselect </target>
       </segment>
@@ -314,7 +314,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:129,130</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source> alle/keine auswählen </source>
         <target> select all/none </target>
       </segment>
@@ -323,7 +323,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:191</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</source>
         <target>Which housing market region does my municipality belong to?</target>
       </segment>
@@ -332,7 +332,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:194</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Suchen Sie ihre Gemeinde:</source>
         <target>Find your community:</target>
       </segment>
@@ -341,9 +341,225 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:207</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Ihre Wohnungsmarktregion:</source>
         <target>Your housing market region:</target>
+      </segment>
+    </unit>
+    <unit id="8329545165404152883">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:28</note>
+      </notes>
+      <segment state="final">
+        <source>Bauland</source>
+        <target>Building land</target>
+      </segment>
+    </unit>
+    <unit id="5604265057128591701">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:29</note>
+      </notes>
+      <segment state="final">
+        <source>Landwirtschaft</source>
+        <target>Agriculture</target>
+      </segment>
+    </unit>
+    <unit id="9194025495383271508">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:30</note>
+      </notes>
+      <segment state="final">
+        <source>Sonstige Flächen</source>
+        <target>Other areas</target>
+      </segment>
+    </unit>
+    <unit id="7994737100939253729">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:31</note>
+      </notes>
+      <segment state="final">
+        <source>Rohbauland</source>
+        <target>Greenfield site</target>
+      </segment>
+    </unit>
+    <unit id="7862698021378725781">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:32</note>
+      </notes>
+      <segment state="final">
+        <source>Bauerwartungsland</source>
+        <target>Land for construction</target>
+      </segment>
+    </unit>
+    <unit id="2823852046748418240">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:90</note>
+      </notes>
+      <segment state="final">
+        <source>Bodenrichtwerte - POWER.NI</source>
+        <target>Standard land values - POWER.NI</target>
+      </segment>
+    </unit>
+    <unit id="3534291329002652546">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:10</note>
+      </notes>
+      <segment state="final">
+        <source>Wählen Sie eine Position</source>
+        <target>Select a position</target>
+      </segment>
+    </unit>
+    <unit id="5547133809440902634">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:17</note>
+      </notes>
+      <segment state="final">
+        <source>Einklappen/ausklappen</source>
+        <target>Fold in/fold out</target>
+      </segment>
+    </unit>
+    <unit id="4802502751287439621">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:3</note>
+      </notes>
+      <segment state="final">
+        <source>Zeitliche Entwicklung</source>
+        <target>Development over time</target>
+      </segment>
+    </unit>
+    <unit id="8227910877649689310">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:4,5</note>
+      </notes>
+      <segment state="final">
+        <source>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</source>
+        <target>The chronological development series only takes into account the standard land values that are determined on the reporting date of December 31 of the respective year. It does not take into account any economic developments during the year.</target>
+      </segment>
+    </unit>
+    <unit id="4890544763204306749">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:10,12</note>
+      </notes>
+      <segment state="final">
+        <source>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt. </source>
+        <target>For the selected coordinate several ground reference zones have been available since 2012. The chronological development series shows all zones for the periods of their validity.</target>
+      </segment>
+    </unit>
+    <unit id="9117142324442802101">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:11</note>
+      </notes>
+      <segment state="final">
+        <source>Stichtag</source>
+        <target>Target date</target>
+      </segment>
+    </unit>
+    <unit id="6238610718217601006">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:23</note>
+      </notes>
+      <segment state="final">
+        <source>Teilmarkt</source>
+        <target>Submarket</target>
+      </segment>
+    </unit>
+    <unit id="5063541446028843345">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:39</note>
+      </notes>
+      <segment state="final">
+        <source>Ortung</source>
+        <target>Geolocation</target>
+      </segment>
+    </unit>
+    <unit id="6052049272309725871">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:42</note>
+      </notes>
+      <segment state="final">
+        <source>3D aktivieren/deaktivieren</source>
+        <target>Activate/deactivate 3D</target>
+      </segment>
+    </unit>
+    <unit id="3959786746681776209">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:45</note>
+      </notes>
+      <segment state="final">
+        <source>Karte zurücksetzen</source>
+        <target>Reset map</target>
+      </segment>
+    </unit>
+    <unit id="3906533541170541583">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:58</note>
+      </notes>
+      <segment state="final">
+        <source>Filtern</source>
+        <target>Filter</target>
+      </segment>
+    </unit>
+    <unit id="9098454119754693999">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:63</note>
+      </notes>
+      <segment state="final">
+        <source>Suche</source>
+        <target>Search</target>
+      </segment>
+    </unit>
+    <unit id="7478201324644826913">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:4</note>
+      </notes>
+      <segment state="final">
+        <source>Bodenrichtwertzone</source>
+        <target>Standard land value zone</target>
+      </segment>
+    </unit>
+    <unit id="6810244932636363380">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:10</note>
+      </notes>
+      <segment state="initial">
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{'Art der Nutzung' | hyphenate}}"/></source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{'Art der Nutzung' | hyphenate}}"/></target>
+      </segment>
+    </unit>
+    <unit id="5795756251357634021">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:12</note>
+      </notes>
+      <segment state="initial">
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{'Bodenrichtwert' | hyphenate}}"/></source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{'Bodenrichtwert' | hyphenate}}"/></target>
+      </segment>
+    </unit>
+    <unit id="1624589484330446118">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:14</note>
+      </notes>
+      <segment state="initial">
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{'Beitragsabgabenrechtlicher Zustand' | hyphenate}}"/></source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{'Beitragsabgabenrechtlicher Zustand' | hyphenate}}"/></target>
+      </segment>
+    </unit>
+    <unit id="3576285261904159823">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.component.html:5</note>
+      </notes>
+      <segment state="final">
+        <source>Bitte Ort eingeben ...</source>
+        <target>Please enter location ...</target>
+      </segment>
+    </unit>
+    <unit id="625064919933078273">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.component.html:7</note>
+      </notes>
+      <segment state="final">
+        <source>Ort</source>
+        <target>Location</target>
       </segment>
     </unit>
     <unit id="5826116471492977880">
@@ -364,6 +580,51 @@
         <target>Delete</target>
       </segment>
     </unit>
+    <unit id="7813295753346997362">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:38</note>
+      </notes>
+      <segment state="final">
+        <source>Bodenwerte - POWER.NI</source>
+        <target>Land values - POWER.NI</target>
+      </segment>
+    </unit>
+    <unit id="2536156425034607770">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:113</note>
+      </notes>
+      <segment state="final">
+        <source>Wählen Sie Flurstücke auf der Karte aus</source>
+        <target>Select parcels on the map</target>
+      </segment>
+    </unit>
+    <unit id="1889515159201485012">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:121</note>
+      </notes>
+      <segment state="final">
+        <source>Amtliche Fläche</source>
+        <target>Official area</target>
+      </segment>
+    </unit>
+    <unit id="5422814021855947257">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:122</note>
+      </notes>
+      <segment state="final">
+        <source>Wert</source>
+        <target>Value</target>
+      </segment>
+    </unit>
+    <unit id="6941480264920362873">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:132</note>
+      </notes>
+      <segment state="final">
+        <source>Summe</source>
+        <target>Sum</target>
+      </segment>
+    </unit>
     <unit id="6267893735675184411">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.ts:16</note>
@@ -375,7 +636,7 @@
     </unit>
     <unit id="2278750118279823127">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:23</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:24</note>
       </notes>
       <segment state="translated">
         <source>Formular ausfüllen</source>
@@ -384,7 +645,7 @@
     </unit>
     <unit id="6576010156506184054">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:27</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:28</note>
       </notes>
       <segment state="translated">
         <source>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein um zum Formular zu gelangen.</source>
@@ -393,7 +654,7 @@
     </unit>
     <unit id="7046170260599391233">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:34</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:35</note>
       </notes>
       <segment state="translated">
         <source>Eingabe einer PIN zum Formular ausfüllen</source>
@@ -402,7 +663,7 @@
     </unit>
     <unit id="3438075409129621721">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:39</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:40</note>
       </notes>
       <segment state="translated">
         <source>Formular PIN</source>
@@ -411,7 +672,7 @@
     </unit>
     <unit id="4392993924409588244">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:50</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:51</note>
       </notes>
       <segment state="translated">
         <source>Absenden</source>
@@ -420,7 +681,7 @@
     </unit>
     <unit id="8191576719702905998">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:85</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:88</note>
       </notes>
       <segment state="translated">
         <source>Formular finden</source>
@@ -429,7 +690,7 @@
     </unit>
     <unit id="3543208003266478980">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:89</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:92</note>
       </notes>
       <segment state="translated">
         <source>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare.</source>
@@ -438,7 +699,7 @@
     </unit>
     <unit id="5711849175900703108">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:109</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:113</note>
       </notes>
       <segment state="translated">
         <source>Zu den öffentlichen Formularen</source>
@@ -447,7 +708,7 @@
     </unit>
     <unit id="6489685542013391299">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:133</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:139</note>
       </notes>
       <segment state="translated">
         <source>Notarportal</source>
@@ -456,7 +717,7 @@
     </unit>
     <unit id="4785299248596372755">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:137</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:143</note>
       </notes>
       <segment state="translated">
         <source>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen.</source>
@@ -465,7 +726,7 @@
     </unit>
     <unit id="3867605560596531339">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:164</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:171</note>
       </notes>
       <segment state="translated">
         <source>Mitarbeiter</source>
@@ -474,7 +735,7 @@
     </unit>
     <unit id="7585378083307211134">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:168</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:175</note>
       </notes>
       <segment state="translated">
         <source>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</source>
@@ -483,11 +744,713 @@
     </unit>
     <unit id="6949567012632159210">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:188</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:196</note>
       </notes>
       <segment state="translated">
         <source>Zum Mitarbeiterportal</source>
         <target>Go to the employee portal</target>
+      </segment>
+    </unit>
+    <unit id="5924032803312260874">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:9</note>
+      </notes>
+      <segment state="final">
+        <source>Wohnbaufläche</source>
+        <target>General residential building area</target>
+      </segment>
+    </unit>
+    <unit id="1934697071238483728">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:10</note>
+      </notes>
+      <segment state="final">
+        <source>Kleinsiedlungsgebiet</source>
+        <target>Small residential estate area</target>
+      </segment>
+    </unit>
+    <unit id="1862940427237471732">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:11</note>
+      </notes>
+      <segment state="final">
+        <source>reines Wohngebiet</source>
+        <target>residential-only area</target>
+      </segment>
+    </unit>
+    <unit id="4558549283758156883">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:12</note>
+      </notes>
+      <segment state="final">
+        <source>allgemeines Wohngebiet</source>
+        <target>general residential area</target>
+      </segment>
+    </unit>
+    <unit id="4622949985491218566">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:13</note>
+      </notes>
+      <segment state="final">
+        <source>besonderes Wohngebiet</source>
+        <target>special residential area</target>
+      </segment>
+    </unit>
+    <unit id="210894721313832686">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:14</note>
+      </notes>
+      <segment state="final">
+        <source>urbanes Gebiet</source>
+        <target>urban area</target>
+      </segment>
+    </unit>
+    <unit id="1006647105502340269">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:15</note>
+      </notes>
+      <segment state="final">
+        <source>gemischte Baufläche</source>
+        <target>mixed building area</target>
+      </segment>
+    </unit>
+    <unit id="5735114100345323111">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:16</note>
+      </notes>
+      <segment state="final">
+        <source>Dorfgebiet</source>
+        <target>village area</target>
+      </segment>
+    </unit>
+    <unit id="3320939576531631157">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:17</note>
+      </notes>
+      <segment state="final">
+        <source>Mischgebiet</source>
+        <target>mixed use area</target>
+      </segment>
+    </unit>
+    <unit id="2187900019732733514">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:18</note>
+      </notes>
+      <segment state="final">
+        <source>Kerngebiet</source>
+        <target>central area</target>
+      </segment>
+    </unit>
+    <unit id="1903218131057173174">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:19</note>
+      </notes>
+      <segment state="final">
+        <source>gewerbliche Baufläche</source>
+        <target>commercial development zone</target>
+      </segment>
+    </unit>
+    <unit id="5782195038206381885">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:20</note>
+      </notes>
+      <segment state="final">
+        <source>Gewerbegebiet</source>
+        <target>business park</target>
+      </segment>
+    </unit>
+    <unit id="6187691016661117888">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:21</note>
+      </notes>
+      <segment state="final">
+        <source>Industriegebiet</source>
+        <target>industrial area</target>
+      </segment>
+    </unit>
+    <unit id="2315713807788912482">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:22</note>
+      </notes>
+      <segment state="final">
+        <source>Sonderbaufläche</source>
+        <target>special building area</target>
+      </segment>
+    </unit>
+    <unit id="1296274433637973890">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:23</note>
+      </notes>
+      <segment state="final">
+        <source>Sondergebiet für Erholung</source>
+        <target>Special area for recovery</target>
+      </segment>
+    </unit>
+    <unit id="162005438786254236">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:24</note>
+      </notes>
+      <segment state="final">
+        <source>sonstige Sondergebiete</source>
+        <target>other special areas</target>
+      </segment>
+    </unit>
+    <unit id="250728197738412053">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:25</note>
+      </notes>
+      <segment state="final">
+        <source>Baufläche für Gemeinbedarf</source>
+        <target>Building area for common use</target>
+      </segment>
+    </unit>
+    <unit id="3409629403595806257">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:26</note>
+      </notes>
+      <segment state="final">
+        <source>landwirtschaftliche Fläche</source>
+        <target>farm land</target>
+      </segment>
+    </unit>
+    <unit id="9195449413560624696">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:27</note>
+      </notes>
+      <segment state="final">
+        <source>Acker</source>
+        <target>field</target>
+      </segment>
+    </unit>
+    <unit id="326958539468328829">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:28</note>
+      </notes>
+      <segment state="final">
+        <source>Grünland</source>
+        <target>grassland</target>
+      </segment>
+    </unit>
+    <unit id="2975244100425369386">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:29</note>
+      </notes>
+      <segment state="final">
+        <source>Erwerbsgartenanbaufläche</source>
+        <target>Commercial horticultural area</target>
+      </segment>
+    </unit>
+    <unit id="934720702481956030">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:30</note>
+      </notes>
+      <segment state="final">
+        <source>Anbaufläche für Sonderkulturen</source>
+        <target>Area under cultivation for special crops</target>
+      </segment>
+    </unit>
+    <unit id="2663918106472060703">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:31</note>
+      </notes>
+      <segment state="final">
+        <source>Weingarten</source>
+        <target>vineyard</target>
+      </segment>
+    </unit>
+    <unit id="6274978844841258379">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:32</note>
+      </notes>
+      <segment state="final">
+        <source>Kurzumtriebsplantagen/Agroforst</source>
+        <target>Short rotation plantations/Agroforest</target>
+      </segment>
+    </unit>
+    <unit id="2245771305378095635">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:33</note>
+      </notes>
+      <segment state="final">
+        <source>Unland, Geringstland, Bergweide, Moor</source>
+        <target>lowland, mountain pasture, moor</target>
+      </segment>
+    </unit>
+    <unit id="6820389239003569586">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:34</note>
+      </notes>
+      <segment state="final">
+        <source>forstwirtschaftliche Fläche</source>
+        <target>forestry land</target>
+      </segment>
+    </unit>
+    <unit id="1497990184194789511">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:35</note>
+      </notes>
+      <segment state="final">
+        <source>private Grünfläche</source>
+        <target>private green space</target>
+      </segment>
+    </unit>
+    <unit id="3186821120942074679">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:36</note>
+      </notes>
+      <segment state="final">
+        <source>Kleingartenfläche</source>
+        <target>Allotment garden area</target>
+      </segment>
+    </unit>
+    <unit id="8645015050513177022">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:37</note>
+      </notes>
+      <segment state="final">
+        <source>Freizeitgartenfläche</source>
+        <target>Leisure garden area</target>
+      </segment>
+    </unit>
+    <unit id="4333837908822348935">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:38</note>
+      </notes>
+      <segment state="final">
+        <source>Campingplatz</source>
+        <target>Campsite</target>
+      </segment>
+    </unit>
+    <unit id="5383065386730837628">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:39</note>
+      </notes>
+      <segment state="final">
+        <source>Sportfläche</source>
+        <target>Sports area</target>
+      </segment>
+    </unit>
+    <unit id="4466520307892786696">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:40</note>
+      </notes>
+      <segment state="final">
+        <source>sonstige private Fläche</source>
+        <target>other private space</target>
+      </segment>
+    </unit>
+    <unit id="901399518108774764">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:41</note>
+      </notes>
+      <segment state="final">
+        <source>Friedhof</source>
+        <target>Cemetery</target>
+      </segment>
+    </unit>
+    <unit id="8499998807958805830">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:42</note>
+      </notes>
+      <segment state="final">
+        <source>Wasserfläche</source>
+        <target>Water surface</target>
+      </segment>
+    </unit>
+    <unit id="1151949559128906261">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:43</note>
+      </notes>
+      <segment state="final">
+        <source>Flughafen, Flugplatz</source>
+        <target>Airport, airfield</target>
+      </segment>
+    </unit>
+    <unit id="5080633461358611239">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:44</note>
+      </notes>
+      <segment state="final">
+        <source>private Parkplätze, Stellplatzfläche</source>
+        <target>private parking, parking space</target>
+      </segment>
+    </unit>
+    <unit id="426938245653560695">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:45</note>
+      </notes>
+      <segment state="final">
+        <source>Lagerfläche</source>
+        <target>Storage area</target>
+      </segment>
+    </unit>
+    <unit id="3816895539137369065">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:46</note>
+      </notes>
+      <segment state="final">
+        <source>Abbauland</source>
+        <target>extraction land</target>
+      </segment>
+    </unit>
+    <unit id="5845848448903115775">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:47</note>
+      </notes>
+      <segment state="final">
+        <source>Gemeinbedarfsfläche (kein Bauland)</source>
+        <target>Common use area (no building land)</target>
+      </segment>
+    </unit>
+    <unit id="3627960659261417823">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:48</note>
+      </notes>
+      <segment state="final">
+        <source>Sondernutzungsfläche</source>
+        <target>Special use area</target>
+      </segment>
+    </unit>
+    <unit id="6302473731485840190">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:52</note>
+      </notes>
+      <segment state="final">
+        <source>Ein- und Zweifamilienhäuser</source>
+        <target>One and two family houses</target>
+      </segment>
+    </unit>
+    <unit id="4046860761410870572">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:53</note>
+      </notes>
+      <segment state="final">
+        <source>Mehrfamilienhäuser</source>
+        <target>Multi-family houses</target>
+      </segment>
+    </unit>
+    <unit id="8459691521363587437">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:54</note>
+      </notes>
+      <segment state="final">
+        <source>Geschäftshäuser</source>
+        <target>commercials</target>
+      </segment>
+    </unit>
+    <unit id="2129116147128562947">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:55</note>
+      </notes>
+      <segment state="final">
+        <source>Wohn- und Geschäftshäuser</source>
+        <target>Residential and commercial buildings</target>
+      </segment>
+    </unit>
+    <unit id="8225522313081419869">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:56</note>
+      </notes>
+      <segment state="final">
+        <source>Büro- und Geschäftshäuser</source>
+        <target>Office and commercial buildings</target>
+      </segment>
+    </unit>
+    <unit id="8724558564508796305">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:57</note>
+      </notes>
+      <segment state="final">
+        <source>Bürohäuser</source>
+        <target>Office buildings</target>
+      </segment>
+    </unit>
+    <unit id="718356833920296551">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:58</note>
+      </notes>
+      <segment state="final">
+        <source>Produktion und Logistik</source>
+        <target>Production and logistics</target>
+      </segment>
+    </unit>
+    <unit id="1965311344074408534">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:59</note>
+      </notes>
+      <segment state="final">
+        <source>Wochenendhäuser</source>
+        <target>weekend houses</target>
+      </segment>
+    </unit>
+    <unit id="4295501522613548962">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:60</note>
+      </notes>
+      <segment state="final">
+        <source>Ferienhäuser</source>
+        <target>Vacation homes</target>
+      </segment>
+    </unit>
+    <unit id="9080377334379464003">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:61</note>
+      </notes>
+      <segment state="final">
+        <source>Freizeit und Touristik</source>
+        <target>Leisure and Tourism</target>
+      </segment>
+    </unit>
+    <unit id="8838443511619253514">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:62</note>
+      </notes>
+      <segment state="final">
+        <source>Läden (eingeschossig)</source>
+        <target>Stores (single storey)</target>
+      </segment>
+    </unit>
+    <unit id="647205834645172838">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:63</note>
+      </notes>
+      <segment state="final">
+        <source>Einkaufszentren</source>
+        <target>Shopping Centers</target>
+      </segment>
+    </unit>
+    <unit id="1398267539365941562">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:64</note>
+      </notes>
+      <segment state="final">
+        <source>Messen, Ausstellungen, Kongresse, Großveranstaltungen aller Art</source>
+        <target>Trade fairs, exhibitions, congresses, major events of all kinds</target>
+      </segment>
+    </unit>
+    <unit id="3353673812524426333">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:65</note>
+      </notes>
+      <segment state="final">
+        <source>Bildungseinrichtungen</source>
+        <target>educational institutions</target>
+      </segment>
+    </unit>
+    <unit id="6228312886973462025">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:66</note>
+      </notes>
+      <segment state="final">
+        <source>Gesundheitseinrichtungen</source>
+        <target>Health Care Facilities</target>
+      </segment>
+    </unit>
+    <unit id="7544988430182853917">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:67</note>
+      </notes>
+      <segment state="final">
+        <source>Hafen</source>
+        <target>port</target>
+      </segment>
+    </unit>
+    <unit id="6962755390521002796">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:68</note>
+      </notes>
+      <segment state="final">
+        <source>Garagen, Stellplatzanlagen, Parkhäuser</source>
+        <target>garages, parking lots, parking garages</target>
+      </segment>
+    </unit>
+    <unit id="5278420004463645282">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:69</note>
+      </notes>
+      <segment state="final">
+        <source>Militär</source>
+        <target>Military</target>
+      </segment>
+    </unit>
+    <unit id="5663311903803595895">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:70</note>
+      </notes>
+      <segment state="final">
+        <source>landwirtschaftliche Produktion</source>
+        <target>agricultural production</target>
+      </segment>
+    </unit>
+    <unit id="4688523918241886367">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:71</note>
+      </notes>
+      <segment state="final">
+        <source>Außenbereich</source>
+        <target>Outdoor area</target>
+      </segment>
+    </unit>
+    <unit id="5062919037564307861">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:72</note>
+      </notes>
+      <segment state="final">
+        <source>Obstanbaufläche</source>
+        <target>Fruit growing area</target>
+      </segment>
+    </unit>
+    <unit id="3506399344496489706">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:73</note>
+      </notes>
+      <segment state="final">
+        <source>Gemüseanbaufläche</source>
+        <target>Vegetable cultivation area</target>
+      </segment>
+    </unit>
+    <unit id="4271313728166358446">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:74</note>
+      </notes>
+      <segment state="final">
+        <source>Blumen- und Zierpflanzenanbaufläche</source>
+        <target>Area for growing flowers and ornamental plants</target>
+      </segment>
+    </unit>
+    <unit id="6617953362408992172">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:75</note>
+      </notes>
+      <segment state="final">
+        <source>Baumschulfläche</source>
+        <target>Tree nursery area</target>
+      </segment>
+    </unit>
+    <unit id="6832249817769107192">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:76</note>
+      </notes>
+      <segment state="final">
+        <source>Spargelanbaufläche</source>
+        <target>Asparagus cultivation area</target>
+      </segment>
+    </unit>
+    <unit id="3886942514191763025">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:77</note>
+      </notes>
+      <segment state="final">
+        <source>Hopfenanbaufläche</source>
+        <target>Hop-growing area</target>
+      </segment>
+    </unit>
+    <unit id="1244513933004404683">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:78</note>
+      </notes>
+      <segment state="final">
+        <source>Tabakanbaufläche</source>
+        <target>Tobacco cultivation area</target>
+      </segment>
+    </unit>
+    <unit id="7031902290900045455">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:79</note>
+      </notes>
+      <segment state="final">
+        <source>Weingarten in Flachlage</source>
+        <target>Vineyard in flat position</target>
+      </segment>
+    </unit>
+    <unit id="2841329862474047093">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:80</note>
+      </notes>
+      <segment state="final">
+        <source>Weingarten in Hanglage</source>
+        <target>Vineyard on hillside</target>
+      </segment>
+    </unit>
+    <unit id="2793003165781304611">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:81</note>
+      </notes>
+      <segment state="final">
+        <source>Weingarten in Steillage</source>
+        <target>Vineyard in steep slope</target>
+      </segment>
+    </unit>
+    <unit id="3099739538119123995">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:82</note>
+      </notes>
+      <segment state="final">
+        <source>Abbauland von Sand und Kies</source>
+        <target>Mining land of sand and gravel</target>
+      </segment>
+    </unit>
+    <unit id="1254157501951070242">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:83</note>
+      </notes>
+      <segment state="final">
+        <source>Abbauland von Ton und Mergel</source>
+        <target>Mining land of clay and marl</target>
+      </segment>
+    </unit>
+    <unit id="150048695518631753">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:84</note>
+      </notes>
+      <segment state="final">
+        <source>Abbauland von Torf</source>
+        <target>Peat extraction land</target>
+      </segment>
+    </unit>
+    <unit id="6055560016988889097">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:85</note>
+      </notes>
+      <segment state="final">
+        <source>Steinbruch</source>
+        <target>Quarry</target>
+      </segment>
+    </unit>
+    <unit id="2275619324101199940">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:86</note>
+      </notes>
+      <segment state="final">
+        <source>Braunkohletagebau</source>
+        <target>lignite opencast mine</target>
+      </segment>
+    </unit>
+    <unit id="4111718186734860766">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:9</note>
+      </notes>
+      <segment state="final">
+        <source>erschließungsbeitrags- und kostenerstattungsbetragsfrei</source>
+        <target>development contribution and cost reimbursement free</target>
+      </segment>
+    </unit>
+    <unit id="8470765739784044911">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:10</note>
+      </notes>
+      <segment state="final">
+        <source>erschließungsbeitrags-/kostenerstattungsbetragsfrei und abgabenpflichtig nach Kommunalabgabengesetz</source>
+        <target>development contributions/cost refunds free of charge and subject to charges according to the local tax law</target>
+      </segment>
+    </unit>
+    <unit id="2123977304212384212">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:11</note>
+      </notes>
+      <segment state="final">
+        <source>erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz</source>
+        <target>development contribution/cost reimbursement liable and taxable according to the municipal tax law</target>
       </segment>
     </unit>
     <unit id="4247324030645335768">
@@ -605,9 +1568,9 @@
       <notes>
         <note category="location">src/app/static/feedback/feedback.component.html:33</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Email-Adresse kopieren</source>
-        <target>Email-Adresse kopieren</target>
+        <target>Copy email address</target>
       </segment>
     </unit>
     <unit id="5601035884726674890">
@@ -666,7 +1629,7 @@
     </unit>
     <unit id="5603926992325888453">
       <notes>
-        <note category="location">src/app/static/start/start.component.ts:17</note>
+        <note category="location">src/app/static/start/start.component.ts:18</note>
       </notes>
       <segment state="translated">
         <source>Portal für Wertermittlung Niedersachsen</source>
@@ -675,7 +1638,7 @@
     </unit>
     <unit id="6662738000749272890">
       <notes>
-        <note category="location">src/app/static/start/start.component.ts:23</note>
+        <note category="location">src/app/static/start/start.component.ts:24</note>
       </notes>
       <segment state="translated">
         <source>Logout erfolgreich</source>
@@ -684,54 +1647,111 @@
     </unit>
     <unit id="3341815476221006999">
       <notes>
-        <note category="location">src/app/static/start/start.component.ts:24</note>
+        <note category="location">src/app/static/start/start.component.ts:25</note>
       </notes>
       <segment state="translated">
         <source>Sie wurden erfolgreich ausgeloggt.</source>
         <target>You have been logged out successfully.</target>
       </segment>
     </unit>
-    <unit id="154280373686343609">
+    <unit id="7110617334146423425">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:5</note>
+        <note category="location">src/app/static/start/start.component.html:10</note>
       </notes>
-      <segment state="translated">
-        <source>für Bauland und landwirtschaftliche Nutzflächen für das gesamte Land Niedersachsen</source>
-        <target>for building land and agricultural land for the entire state of Lower Saxony</target>
+      <segment state="final">
+        <source>BORIS.NI</source>
+        <target>BORIS.NI</target>
       </segment>
     </unit>
-    <unit id="3480843511135968157">
+    <unit id="3714767208349194088">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:8</note>
+        <note category="location">src/app/static/start/start.component.html:12</note>
       </notes>
-      <segment state="translated">
-        <source>Zur Anwendung</source>
-        <target>Application</target>
+      <segment state="initial">
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Bodenrichtwertinformationssystem Niedersachsen' | hyphenate }}"/></source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Bodenrichtwertinformationssystem Niedersachsen' | hyphenate }}"/></target>
       </segment>
     </unit>
-    <unit id="1966118280092754963">
+    <unit id="634244390629979408">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:21</note>
+        <note category="location">src/app/static/start/start.component.html:14,16</note>
       </notes>
-      <segment state="translated">
-        <source>Immobilienpreis-Index</source>
-        <target>Real estate price index</target>
+      <segment state="initial">
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte' +
+                    ' in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und' +
+                    ' für Flächen der Land- und Forstw"/> </source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte' +
+                    ' in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und' +
+                    ' für Flächen der Land- und Forstw"/> </target>
+      </segment>
+    </unit>
+    <unit id="3780495839469833614">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:25</note>
+      </notes>
+      <segment state="final">
+        <source>NIPIX</source>
+        <target>NIPIX</target>
+      </segment>
+    </unit>
+    <unit id="7337852448544901493">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:27</note>
+      </notes>
+      <segment state="initial">
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Niedersächsischer Immobilienpreisindex' | hyphenate }}"/></source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Niedersächsischer Immobilienpreisindex' | hyphenate }}"/></target>
+      </segment>
+    </unit>
+    <unit id="7234420257669452242">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:29,32</note>
+      </notes>
+      <segment state="initial">
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser,' +
+                    ' Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen' +
+                    ' „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die' +
+                    ' Gutachterausschüsse und der Ob"/></source>
+        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser,' +
+                    ' Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen' +
+                    ' „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die' +
+                    ' Gutachterausschüsse und der Ob"/></target>
       </segment>
     </unit>
     <unit id="2237919460029267172">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:32</note>
+        <note category="location">src/app/static/start/start.component.html:47</note>
       </notes>
       <segment state="translated">
         <source>Online Formulare</source>
         <target>Online forms</target>
       </segment>
     </unit>
+    <unit id="3385467352340598089">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:50,52</note>
+      </notes>
+      <segment state="initial">
+        <source> <ph id="0" equiv="INTERPOLATION" disp="{ 'Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. ' +
+                   'Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfülle"/> </source>
+        <target> <ph id="0" equiv="INTERPOLATION" disp="{ 'Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. ' +
+                   'Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfülle"/> </target>
+      </segment>
+    </unit>
+    <unit id="841934696444961534">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:109</note>
+      </notes>
+      <segment state="final">
+        <source>News</source>
+        <target>News</target>
+      </segment>
+    </unit>
     <unit id="1701380331708164107">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:49</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Preisentwicklung seit </source>
         <target>Price development since </target>
       </segment>
@@ -740,7 +1760,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:50</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Zugrunde liegende Fälle</source>
         <target>Underlying cases</target>
       </segment>
@@ -749,7 +1769,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:148</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source> (ohne Daten)</source>
         <target> (without data)</target>
       </segment>
@@ -758,7 +1778,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:163</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>[ohne Daten] </source>
         <target>[without data] </target>
       </segment>
@@ -767,7 +1787,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:33</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Wohnungsmarktregionen in Niedersachsen</source>
         <target>Housing market regions in Lower Saxony</target>
       </segment>
@@ -776,7 +1796,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:75</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Bild</source>
         <target>image</target>
       </segment>
@@ -785,7 +1805,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:80</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>GeoJSON</source>
         <target>GeoJSON</target>
       </segment>
@@ -794,7 +1814,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:25</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Niedersächsischer Immobilienpreisindex (NIPIX)</source>
         <target>Lower Saxony Real Estate Price Index (NIPIX)</target>
       </segment>
@@ -803,7 +1823,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:78</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Quartal</source>
         <target>quarter</target>
       </segment>
@@ -812,7 +1832,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:104</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Preisentwicklung</source>
         <target>Price development</target>
       </segment>
@@ -821,7 +1841,7 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:171</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>CSV</source>
         <target>CSV</target>
       </segment>
@@ -846,7 +1866,7 @@
     </unit>
     <unit id="2688283467752225426">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:77</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:84</note>
       </notes>
       <segment state="translated">
         <source>Veröffentlicht</source>
@@ -855,7 +1875,7 @@
     </unit>
     <unit id="2319824520635416840">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:120</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:133</note>
       </notes>
       <segment state="translated">
         <source>Keine Formulare gefunden</source>
@@ -918,7 +1938,7 @@
     </unit>
     <unit id="4435703504669117699">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.html:26</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:27</note>
       </notes>
       <segment state="translated">
         <source>Einstellungen</source>
@@ -927,7 +1947,7 @@
     </unit>
     <unit id="7886570921510760899">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.html:48</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:49</note>
       </notes>
       <segment state="translated">
         <source>Tags</source>
@@ -936,7 +1956,7 @@
     </unit>
     <unit id="4626002947369124112">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.html:53</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:54</note>
       </notes>
       <segment state="translated">
         <source>Besitzer</source>
@@ -945,7 +1965,7 @@
     </unit>
     <unit id="2057709581925448431">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.html:59</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:60</note>
       </notes>
       <segment state="translated">
         <source>Leseberechtigte</source>
@@ -954,7 +1974,7 @@
     </unit>
     <unit id="6296453444800494674">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.html:68</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:69</note>
       </notes>
       <segment state="translated">
         <source>Formular teilen</source>
@@ -974,7 +1994,7 @@
     </unit>
     <unit id="2137405200624328487">
       <notes>
-        <note category="location">src/app/fragebogen/details/comment/comment.component.html:26</note>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.html:27</note>
       </notes>
       <segment state="translated">
         <source>Kommentar</source>
@@ -983,7 +2003,7 @@
     </unit>
     <unit id="6015221729910186784">
       <notes>
-        <note category="location">src/app/fragebogen/details/comment/comment.component.html:64</note>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.html:65</note>
       </notes>
       <segment state="translated">
         <source>Kommentar speichern</source>
@@ -992,7 +2012,7 @@
     </unit>
     <unit id="2854123663314832793">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.html:83</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:85</note>
       </notes>
       <segment state="translated">
         <source>Speichern</source>
@@ -1010,7 +2030,7 @@
     </unit>
     <unit id="4636978523362061571">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:24</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:25</note>
       </notes>
       <segment state="translated">
         <source>Veröffentlichen</source>
@@ -1037,7 +2057,7 @@
     </unit>
     <unit id="153541716325950562">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:46</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:47</note>
       </notes>
       <segment state="translated">
         <source>Zugangsschutz</source>
@@ -1046,7 +2066,7 @@
     </unit>
     <unit id="92152990194442672">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:54</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:55</note>
       </notes>
       <segment state="translated">
         <source>Öffentlich</source>
@@ -1055,7 +2075,7 @@
     </unit>
     <unit id="1593201256931919296">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:56</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:57</note>
       </notes>
       <segment state="translated">
         <source>6-stellige PIN</source>
@@ -1064,7 +2084,7 @@
     </unit>
     <unit id="7984545901488378361">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:58</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:59</note>
       </notes>
       <segment state="translated">
         <source>8-stellige PIN</source>
@@ -1073,7 +2093,7 @@
     </unit>
     <unit id="5652205002901618415">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:87</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:88</note>
       </notes>
       <segment state="translated">
         <source>Formular veröffentlichen</source>
@@ -1109,7 +2129,7 @@
     </unit>
     <unit id="7227765461588462158">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:24</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:25</note>
       </notes>
       <segment state="translated">
         <source>PIN Generator</source>
@@ -1118,7 +2138,7 @@
     </unit>
     <unit id="8610693548852405446">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:46</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:47</note>
       </notes>
       <segment state="translated">
         <source>Anzahl PINs</source>
@@ -1127,7 +2147,7 @@
     </unit>
     <unit id="7897642684892254234">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:67</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:68</note>
       </notes>
       <segment state="translated">
         <source>Kopiere PIN(s) in die Zwischenablage</source>
@@ -1136,7 +2156,7 @@
     </unit>
     <unit id="7650064767892495053">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:85</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:86</note>
       </notes>
       <segment state="translated">
         <source>PINs erstellen</source>
@@ -1228,7 +2248,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7293756355878993771">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:170</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:171</note>
       </notes>
       <segment state="translated">
         <source>Download fehlgeschlagen</source>
@@ -1237,7 +2257,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2908879179796145625">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:187</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:188</note>
       </notes>
       <segment state="translated">
         <source>Möchten Sie diese Antwort wirklich löschen?</source>
@@ -1246,7 +2266,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6105229413905166645">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:194</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:195</note>
       </notes>
       <segment state="translated">
         <source>Antwort gelöscht</source>
@@ -1255,7 +2275,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4168664506109423502">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:195</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:196</note>
       </notes>
       <segment state="translated">
         <source>Die Antwort wurde erfolgreich gelöscht.</source>
@@ -1264,7 +2284,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3959921924624883384">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:26</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:27</note>
       </notes>
       <segment state="translated">
         <source>Zurück zum Dashboard</source>
@@ -1273,7 +2293,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8930526198656004715">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:43</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:45</note>
       </notes>
       <segment state="translated">
         <source>Zurück</source>
@@ -1282,7 +2302,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8040881171107393560">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:51</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:53</note>
       </notes>
       <segment state="translated">
         <source>ID</source>
@@ -1291,7 +2311,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1133378173705582866">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:54</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:56</note>
       </notes>
       <segment state="translated">
         <source>Erstellt</source>
@@ -1300,7 +2320,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5611592591303869712">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:74</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:76</note>
       </notes>
       <segment state="translated">
         <source>Status</source>
@@ -1309,7 +2329,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3710766590975810780">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:74</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:76</note>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</source>
@@ -1318,7 +2338,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8022684452981881720">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:82</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:84</note>
       </notes>
       <segment state="translated">
         <source>Leser</source>
@@ -1327,7 +2347,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7423544162328062071">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:113</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:116</note>
       </notes>
       <segment state="translated">
         <source>Formular Vorschau</source>
@@ -1336,7 +2356,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8104152103272919854">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:134</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:138</note>
       </notes>
       <segment state="translated">
         <source>Vorschau</source>
@@ -1345,7 +2365,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4517189945274702297">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:139</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:143</note>
       </notes>
       <segment state="translated">
         <source>Formular exportieren</source>
@@ -1354,7 +2374,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="993560666209573635">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:62</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:64</note>
       </notes>
       <segment state="translated">
         <source>Archiviert</source>
@@ -1363,7 +2383,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5028453380651426894">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:66</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:68</note>
       </notes>
       <segment state="translated">
         <source>Zugriff</source>
@@ -1372,7 +2392,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2332375813543028449">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:92</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:94</note>
       </notes>
       <segment state="translated">
         <source>Formular bearbeiten</source>
@@ -1381,7 +2401,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5895799308050944719">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:159</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:164</note>
       </notes>
       <segment state="translated">
         <source>Formular Einstellungen</source>
@@ -1390,7 +2410,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5070302732354433099">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:199</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:206</note>
       </notes>
       <segment state="translated">
         <source>Formular archivieren</source>
@@ -1399,7 +2419,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6275450215073900352">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:213</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:221</note>
       </notes>
       <segment state="translated">
         <source>Archivieren</source>
@@ -1408,7 +2428,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4085873167168807139">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:218</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:226</note>
       </notes>
       <segment state="translated">
         <source>Formular löschen</source>
@@ -1417,7 +2437,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5377294052725398895">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:305</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:321</note>
       </notes>
       <segment state="translated">
         <source>Zuletzt bearbeitet</source>
@@ -1426,7 +2446,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8243852995513838598">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:474</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:501</note>
       </notes>
       <segment state="translated">
         <source>Ergebnisse als CSV herunterladen</source>
@@ -1435,7 +2455,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5187026264207776715">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:489</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:517</note>
       </notes>
       <segment state="translated">
         <source>Ergebnisse (CSV)</source>
@@ -1444,7 +2464,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2935871829967083793">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:296</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:312</note>
       </notes>
       <segment state="translated">
         <source>PIN</source>
@@ -1453,7 +2473,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1294029994729525960">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:369</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:392</note>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</source>
@@ -1462,7 +2482,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6920196637619975735">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:108</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:111</note>
       </notes>
       <segment state="translated">
         <source>Bearbeiten</source>
@@ -1471,7 +2491,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1856659986941989615">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:404</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:428</note>
       </notes>
       <segment state="translated">
         <source>Ergebnisse anzeigen</source>
@@ -1480,7 +2500,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5717311496824649212">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:418</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:443</note>
       </notes>
       <segment state="translated">
         <source>Ergebnisse</source>
@@ -1489,7 +2509,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1451460320963900414">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:423</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:448</note>
       </notes>
       <segment state="translated">
         <source>Antwort löschen</source>
@@ -1498,7 +2518,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2911941681969480793">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:445</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:471</note>
       </notes>
       <segment state="translated">
         <source>Keine Antworten vorhanden</source>
@@ -1507,11 +2527,92 @@ This can not be reversed!</target>
     </unit>
     <unit id="2844088667159499341">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:452</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:478</note>
       </notes>
       <segment state="translated">
         <source>Neue PIN erstellen</source>
         <target>Create new PIN</target>
+      </segment>
+    </unit>
+    <unit id="4576494210369927240">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.ts:163</note>
+      </notes>
+      <segment state="final">
+        <source>Ihre Eingabe entspricht nicht dem gefordertem Format.</source>
+        <target>Your input does not correspond to the required format.</target>
+      </segment>
+    </unit>
+    <unit id="4550688755259900759">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:193</note>
+      </notes>
+      <segment state="final">
+        <source>Validator entfernen</source>
+        <target>Remove Validator</target>
+      </segment>
+    </unit>
+    <unit id="8806290211366185339">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:212</note>
+      </notes>
+      <segment state="final">
+        <source>Validator hinzufügen</source>
+        <target>Add Validator</target>
+      </segment>
+    </unit>
+    <unit id="6209159556487284356">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:237</note>
+      </notes>
+      <segment state="final">
+        <source>Standard Validator hinzufügen</source>
+        <target>Add Standard Validator</target>
+      </segment>
+    </unit>
+    <unit id="1486818173512343117">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:246</note>
+      </notes>
+      <segment state="final">
+        <source>Validator Auswählen</source>
+        <target>Select Validator</target>
+      </segment>
+    </unit>
+    <unit id="6952684160362722423">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:248</note>
+      </notes>
+      <segment state="final">
+        <source>Datum (yyyy-mm-dd)</source>
+        <target>Date (yyyy-mm-dd)</target>
+      </segment>
+    </unit>
+    <unit id="5935220739341314160">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:250</note>
+      </notes>
+      <segment state="final">
+        <source>Datum (dd.mm.yyyy)</source>
+        <target>Date (dd.mm.yyyy)</target>
+      </segment>
+    </unit>
+    <unit id="8436397319015927050">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:6</note>
+      </notes>
+      <segment state="final">
+        <source>Typ*</source>
+        <target>Type*</target>
+      </segment>
+    </unit>
+    <unit id="3161459175867304033">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:15</note>
+      </notes>
+      <segment state="final">
+        <source>Numerisch</source>
+        <target>Numeric</target>
       </segment>
     </unit>
     <unit id="5630731892828039251">
@@ -1523,18 +2624,63 @@ This can not be reversed!</target>
         <target>Visibility condition for answer or subquestion</target>
       </segment>
     </unit>
-    <unit id="2796348156539709272">
+    <unit id="4874905878981423123">
       <notes>
         <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:4</note>
       </notes>
-      <segment state="translated">
-        <source>Sichtbarkeitsbedingung für Antwort oder Unterfrage einstellen</source>
-        <target>Set visibility condition for answer or subquestion</target>
+      <segment state="final">
+        <source>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</source>
+        <target>Set visibility condition for this answer or sub-question</target>
+      </segment>
+    </unit>
+    <unit id="7879816504576872670">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:131</note>
+      </notes>
+      <segment state="final">
+        <source>Bedingung entfernen</source>
+        <target>Remove condition</target>
+      </segment>
+    </unit>
+    <unit id="7929073975769097788">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:150</note>
+      </notes>
+      <segment state="final">
+        <source>Bedingung hinzufügen</source>
+        <target>Add condition</target>
+      </segment>
+    </unit>
+    <unit id="8609937274244410240">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:6</note>
+      </notes>
+      <segment state="final">
+        <source>Verknüpfung*</source>
+        <target>Link*</target>
+      </segment>
+    </unit>
+    <unit id="6496415064530389125">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:16</note>
+      </notes>
+      <segment state="final">
+        <source>Und</source>
+        <target>And</target>
+      </segment>
+    </unit>
+    <unit id="7030282443677019965">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:18</note>
+      </notes>
+      <segment state="final">
+        <source>Oder</source>
+        <target>Or</target>
       </segment>
     </unit>
     <unit id="2409494154701983500">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:739</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:504</note>
       </notes>
       <segment state="translated">
         <source>Sichtbarkeitsbedingung</source>
@@ -1561,7 +2707,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7408924036382005310">
       <notes>
-        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:183</note>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:188</note>
       </notes>
       <segment state="translated">
         <source>Antwortmöglichkeit hinzufügen</source>
@@ -1570,7 +2716,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="623302995999546215">
       <notes>
-        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:197</note>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:203</note>
       </notes>
       <segment state="translated">
         <source>Hinzufügen</source>
@@ -1606,7 +2752,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="603389987382112463">
       <notes>
-        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:66</note>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:67</note>
       </notes>
       <segment state="translated">
         <source>Nach unten verschieben</source>
@@ -1615,7 +2761,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8611525284352303611">
       <notes>
-        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:129</note>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:132</note>
       </notes>
       <segment state="translated">
         <source>Bild löschen</source>
@@ -1624,7 +2770,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6005602603007222956">
       <notes>
-        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:151</note>
+        <note category="location">src/app/fragebogen/editor/answers/answers.component.html:155</note>
       </notes>
       <segment state="translated">
         <source>Bild Hochladen</source>
@@ -1694,9 +2840,18 @@ This can not be reversed!</target>
         <target>This text is displayed below the question.</target>
       </segment>
     </unit>
+    <unit id="1600536931782855933">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:70</note>
+      </notes>
+      <segment state="final">
+        <source>Sichtbarkeitsbedingungen für die Frage</source>
+        <target>Visibility conditions for the question</target>
+      </segment>
+    </unit>
     <unit id="2633103922838468705">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:79</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:85</note>
       </notes>
       <segment state="translated">
         <source>Pflichtfeld</source>
@@ -1705,7 +2860,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2465969235242735880">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:136</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:142</note>
       </notes>
       <segment state="translated">
         <source>Sichtbar</source>
@@ -1714,7 +2869,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1043150964998466029">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:139</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:145</note>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob das Feld standardmäßig sichtbar ist.</source>
@@ -1723,7 +2878,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5564872229726777752">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:152</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:158</note>
       </notes>
       <segment state="translated">
         <source>Deaktiviert</source>
@@ -1732,7 +2887,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5629269951933356095">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:155</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:161</note>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob das Feld standardmäßig ausfüllbar ist.</source>
@@ -1741,7 +2896,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1000474965396519246">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:167</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:173</note>
       </notes>
       <segment state="translated">
         <source>Fragennummer verstecken</source>
@@ -1750,7 +2905,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="696701674056104184">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:179</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:185</note>
       </notes>
       <segment state="translated">
         <source>Frage startet auf neuer Zeile</source>
@@ -1759,7 +2914,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2787708308943566133">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:186</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:192</note>
       </notes>
       <segment state="translated">
         <source>Breite der Frage in Pixel</source>
@@ -1768,43 +2923,25 @@ This can not be reversed!</target>
     </unit>
     <unit id="281433735310730701">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:448</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:454</note>
       </notes>
       <segment state="translated">
         <source>Standardwert</source>
         <target>Standard value</target>
       </segment>
     </unit>
-    <unit id="2721307579039816609">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:737</note>
-      </notes>
-      <segment state="translated">
-        <source>Bedingungen</source>
-        <target>Conditions</target>
-      </segment>
-    </unit>
     <unit id="2123058190140167354">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:746</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:511</note>
       </notes>
       <segment state="translated">
         <source>Aktivierungsbedingung</source>
         <target>Activation condition</target>
       </segment>
     </unit>
-    <unit id="5801991604521871701">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:753</note>
-      </notes>
-      <segment state="translated">
-        <source>Pflichtbedingung</source>
-        <target>Mandatory condition</target>
-      </segment>
-    </unit>
     <unit id="2909264081763608567">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:762</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:776</note>
       </notes>
       <segment state="translated">
         <source>Validatoren</source>
@@ -1813,7 +2950,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2899899258573669142">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:86</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:92</note>
       </notes>
       <segment state="translated">
         <source>Pflichtfeld Fehlertext</source>
@@ -1822,7 +2959,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3105030069974657046">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:107</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:113</note>
       </notes>
       <segment state="translated">
         <source>Kommentar Eingabefeld aktivieren</source>
@@ -1831,7 +2968,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2282551280196521788">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:110</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:116</note>
       </notes>
       <segment state="translated">
         <source>Diese Option ist deaktiviert, wenn das "Anderes Eingabefeld" aktiviert ist.</source>
@@ -1840,7 +2977,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7665047802410449230">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:117</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:123</note>
       </notes>
       <segment state="translated">
         <source>Kommentar Eingabefeld Text</source>
@@ -1849,7 +2986,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8648957206736539595">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:199</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:205</note>
       </notes>
       <segment state="translated">
         <source>Eingabetyp</source>
@@ -1858,7 +2995,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="431976875835451828">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:205</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:211</note>
       </notes>
       <segment state="translated">
         <source>Farbe</source>
@@ -1867,7 +3004,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="935267939147271845">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:207</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:213</note>
       </notes>
       <segment state="translated">
         <source>Datum</source>
@@ -1876,7 +3013,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2278763268677546133">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:209</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:215</note>
       </notes>
       <segment state="translated">
         <source>Datum &amp; Uhrzeit</source>
@@ -1885,7 +3022,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8115083664628466958">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:211</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:217</note>
       </notes>
       <segment state="translated">
         <source>E-Mail</source>
@@ -1894,7 +3031,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2298141652517601203">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:213</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:219</note>
       </notes>
       <segment state="translated">
         <source>Monat</source>
@@ -1903,7 +3040,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8415078453524192234">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:215</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:221</note>
       </notes>
       <segment state="translated">
         <source>Ganzzahl</source>
@@ -1912,7 +3049,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="681866609203884162">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:217</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:223</note>
       </notes>
       <segment state="translated">
         <source>Telefonnummer</source>
@@ -1921,16 +3058,178 @@ This can not be reversed!</target>
     </unit>
     <unit id="6162693758764653365">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:219</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:17</note>
       </notes>
       <segment state="translated">
         <source>Text</source>
         <target>Text</target>
       </segment>
     </unit>
+    <unit id="9016240874733836639">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:19</note>
+      </notes>
+      <segment state="final">
+        <source>Regex</source>
+        <target>Regex</target>
+      </segment>
+    </unit>
+    <unit id="8004653636071920023">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:21</note>
+      </notes>
+      <segment state="final">
+        <source>Bedingung</source>
+        <target>Condition</target>
+      </segment>
+    </unit>
+    <unit id="5316084940564011260">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:29</note>
+      </notes>
+      <segment state="final">
+        <source>Minimaler Wert/Länge*</source>
+        <target>Minimum value/length*</target>
+      </segment>
+    </unit>
+    <unit id="6358864601131548946">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:38</note>
+      </notes>
+      <segment state="final">
+        <source>Minimaler Wert/Länge</source>
+        <target>Minimum value/length</target>
+      </segment>
+    </unit>
+    <unit id="4543385132472144385">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:48</note>
+      </notes>
+      <segment state="final">
+        <source>Maximaler Wert/Länge*</source>
+        <target>Maximum value/length*</target>
+      </segment>
+    </unit>
+    <unit id="5726133744336964038">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:57</note>
+      </notes>
+      <segment state="final">
+        <source>Maximaler Wert/Länge</source>
+        <target>Maximum value/length</target>
+      </segment>
+    </unit>
+    <unit id="103619226146181343">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:67</note>
+      </notes>
+      <segment state="final">
+        <source>Regulärerausdruck*</source>
+        <target>Regular expression*</target>
+      </segment>
+    </unit>
+    <unit id="3660200870312194667">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:76</note>
+      </notes>
+      <segment state="final">
+        <source>Regulärerausdruck z.B.: ^\d*$</source>
+        <target>Regular expression e.g.: ^\d*$</target>
+      </segment>
+    </unit>
+    <unit id="4107960379440332335">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:86</note>
+      </notes>
+      <segment state="final">
+        <source>Formularfeld*</source>
+        <target>Form field*</target>
+      </segment>
+    </unit>
+    <unit id="4129820936220292343">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:96</note>
+      </notes>
+      <segment state="final">
+        <source>Wert oder Variabel {e1}</source>
+        <target>Value or Variable {e1}</target>
+      </segment>
+    </unit>
+    <unit id="5848610628261856643">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:105</note>
+      </notes>
+      <segment state="final">
+        <source>Operator*</source>
+        <target>Operator*</target>
+      </segment>
+    </unit>
+    <unit id="4333733863543260974">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:114</note>
+      </notes>
+      <segment state="final">
+        <source>Leer</source>
+        <target>Empty</target>
+      </segment>
+    </unit>
+    <unit id="447306477246144131">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:116</note>
+      </notes>
+      <segment state="final">
+        <source>Nicht leer</source>
+        <target>Not empty</target>
+      </segment>
+    </unit>
+    <unit id="5337456151430247073">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:118</note>
+      </notes>
+      <segment state="final">
+        <source>Enthält</source>
+        <target>Includes</target>
+      </segment>
+    </unit>
+    <unit id="5450837182765876340">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:120</note>
+      </notes>
+      <segment state="final">
+        <source>Enthält nicht</source>
+        <target>Does not contain</target>
+      </segment>
+    </unit>
+    <unit id="3682885931610428519">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:129</note>
+      </notes>
+      <segment state="final">
+        <source>Enthält mindestens eines</source>
+        <target>Contains at least one</target>
+      </segment>
+    </unit>
+    <unit id="5531218639276023450">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:132</note>
+      </notes>
+      <segment state="final">
+        <source>Enthält alle</source>
+        <target>Contains all</target>
+      </segment>
+    </unit>
+    <unit id="8259468771853264984">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:140</note>
+      </notes>
+      <segment state="final">
+        <source>Wert oder Variabel %7Be1%7D</source>
+        <target>Value or Variable %7Be1%7D</target>
+      </segment>
+    </unit>
     <unit id="7897216764489223339">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:221</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:227</note>
       </notes>
       <segment state="translated">
         <source>Uhrzeit</source>
@@ -1939,7 +3238,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2375260419993138758">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:223</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:229</note>
       </notes>
       <segment state="translated">
         <source>URL</source>
@@ -1948,7 +3247,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6264380877246584426">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:225</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:231</note>
       </notes>
       <segment state="translated">
         <source>Woche</source>
@@ -1957,7 +3256,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3335825202752630529">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:245</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:251</note>
       </notes>
       <segment state="translated">
         <source>Zeilen des Eingabefeldes</source>
@@ -1966,7 +3265,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1783931905141779260">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:258</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:264</note>
       </notes>
       <segment state="translated">
         <source>Wert Schritte</source>
@@ -1975,7 +3274,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2884070345504600057">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:270</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:276</note>
       </notes>
       <segment state="translated">
         <source>Anzeigetext Minimum</source>
@@ -1984,7 +3283,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3235518685482283884">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:282</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:288</note>
       </notes>
       <segment state="translated">
         <source>Minimaler Wert</source>
@@ -1993,7 +3292,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1919934867677848930">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:293</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:299</note>
       </notes>
       <segment state="translated">
         <source>Anzeigetext Maximum</source>
@@ -2002,7 +3301,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4044856277132637349">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:305</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:311</note>
       </notes>
       <segment state="translated">
         <source>Maximaler Wert</source>
@@ -2011,7 +3310,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7301845257544939728">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:324</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:330</note>
       </notes>
       <segment state="translated">
         <source>Zusätzliches Eingabefeld aktivieren</source>
@@ -2020,7 +3319,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5110740723354501274">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:330</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:336</note>
       </notes>
       <segment state="translated">
         <source>Skala Schritte</source>
@@ -2029,7 +3328,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5306332341695056473">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:364</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:370</note>
       </notes>
       <segment state="translated">
         <source>Nachkommastellen</source>
@@ -2038,7 +3337,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3406135397633818536">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:379</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:385</note>
       </notes>
       <segment state="translated">
         <source>Anzeigetext links</source>
@@ -2047,7 +3346,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5558176899213566695">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:391</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:397</note>
       </notes>
       <segment state="translated">
         <source>Anzeigetext rechts</source>
@@ -2056,7 +3355,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4037439038235710994">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:411</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:417</note>
       </notes>
       <segment state="translated">
         <source>Mehrere Dateien erlauben</source>
@@ -2065,7 +3364,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4242082417573669453">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:417</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:423</note>
       </notes>
       <segment state="translated">
         <source>Erlaubte Dateitypen</source>
@@ -2074,7 +3373,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4465613126133133953">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:425</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:431</note>
       </notes>
       <segment state="translated">
         <source>PDF-Dokumente</source>
@@ -2083,7 +3382,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="9045290048674217310">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:427</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:433</note>
       </notes>
       <segment state="translated">
         <source>Bilder</source>
@@ -2092,7 +3391,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="924135540804019092">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:434</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:440</note>
       </notes>
       <segment state="translated">
         <source>Maximale Dateigröße in Bytes</source>
@@ -2101,7 +3400,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2009978670427997964">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:458</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:464</note>
       </notes>
       <segment state="translated">
         <source>Korrekte Antwort (Quiz)</source>
@@ -2110,7 +3409,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3779344425702119911">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:467</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:473</note>
       </notes>
       <segment state="translated">
         <source>Unterfragen</source>
@@ -2119,7 +3418,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4793302653467568534">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:487</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:493</note>
       </notes>
       <segment state="translated">
         <source>Jede Unterfrage ist Pflichtfeld</source>
@@ -2128,7 +3427,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5373486674031991069">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:490</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:496</note>
       </notes>
       <segment state="translated">
         <source>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</source>
@@ -2137,7 +3436,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7227476185175598244">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:503</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:509</note>
       </notes>
       <segment state="translated">
         <source>Unsichtbar ohne sichtbare Fragen</source>
@@ -2146,7 +3445,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2879018139997145543">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:506</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:512</note>
       </notes>
       <segment state="translated">
         <source>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgeblendet.</source>
@@ -2155,7 +3454,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6882061501622662520">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:512</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:518</note>
       </notes>
       <segment state="translated">
         <source>Unterfragen Reihenfolge</source>
@@ -2164,7 +3463,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="276184332300045619">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:518</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:524</note>
       </notes>
       <segment state="translated">
         <source>Wie definiert</source>
@@ -2173,7 +3472,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5748078469472297200">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:520</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:526</note>
       </notes>
       <segment state="translated">
         <source>Zufällig</source>
@@ -2182,7 +3481,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3410376041034296385">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:525</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:531</note>
       </notes>
       <segment state="translated">
         <source>Unterfrage Sichtbarkeitsbedingung</source>
@@ -2191,7 +3490,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2918457483295577227">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:534</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:540</note>
       </notes>
       <segment state="translated">
         <source>Antwortmöglichkeiten</source>
@@ -2200,7 +3499,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3643065623582513222">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:252</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:262</note>
       </notes>
       <segment state="translated">
         <source>Antworten</source>
@@ -2209,7 +3508,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6756465483742901259">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:671</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:677</note>
       </notes>
       <segment state="translated">
         <source>Unsichtbar ohne sichtbare Antworten</source>
@@ -2218,7 +3517,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1824561744575281085">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:674</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:680</note>
       </notes>
       <segment state="translated">
         <source>Sind alle Antworten unsichtbar, dann wird die Frage ausgeblendet.</source>
@@ -2227,7 +3526,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3740504915156757002">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:680</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:686</note>
       </notes>
       <segment state="translated">
         <source>Darstellung in Spalten</source>
@@ -2236,16 +3535,34 @@ This can not be reversed!</target>
     </unit>
     <unit id="8079868020998407724">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:692</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:698</note>
       </notes>
       <segment state="translated">
         <source>Antworten Reihenfolge</source>
         <target>Answers order</target>
       </segment>
     </unit>
+    <unit id="8209303407900443094">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:715</note>
+      </notes>
+      <segment state="final">
+        <source>Generische Sichtbarkeitsbedingung für die Antworten</source>
+        <target>Generic visibility condition for the answers</target>
+      </segment>
+    </unit>
+    <unit id="3261633872624223930">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:719</note>
+      </notes>
+      <segment state="final">
+        <source>Wird für jede Antwort einzeln evaluiert!</source>
+        <target>Evaluated separately for each answer!</target>
+      </segment>
+    </unit>
     <unit id="1855713545021520634">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:709</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:739</note>
       </notes>
       <segment state="translated">
         <source>Antwortbedingungen</source>
@@ -2254,7 +3571,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8691548970191506667">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:56</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:60</note>
       </notes>
       <segment state="translated">
         <source>Aufsteigend sortiert</source>
@@ -2263,7 +3580,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1947750218509794653">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:69</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:76</note>
       </notes>
       <segment state="translated">
         <source>Absteigend sortiert</source>
@@ -2272,7 +3589,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8045928720268721680">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:557</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:563</note>
       </notes>
       <segment state="translated">
         <source>Anderes Eingabefeld aktivieren</source>
@@ -2281,7 +3598,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2772784062511473861">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:560</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:566</note>
       </notes>
       <segment state="translated">
         <source>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</source>
@@ -2290,7 +3607,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2412317594447763128">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:573</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:579</note>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf um Auswahl rückgängig zu machen</source>
@@ -2299,7 +3616,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4799237165177498998">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:586</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:592</note>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf um alles auszuwählen</source>
@@ -2308,7 +3625,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7915859704986171168">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:598</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:604</note>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf für nichts trifft zu</source>
@@ -2317,7 +3634,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2158488422074241298">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:612</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:618</note>
       </notes>
       <segment state="translated">
         <source>Mehrfachauswahl erlauben</source>
@@ -2326,7 +3643,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7096759547174459513">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:618</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:624</note>
       </notes>
       <segment state="translated">
         <source>Breite in Pixel</source>
@@ -2335,7 +3652,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6463726515236192057">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:631</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:637</note>
       </notes>
       <segment state="translated">
         <source>Höhe in Pixel</source>
@@ -2344,7 +3661,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3681264497760339705">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:644</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:650</note>
       </notes>
       <segment state="translated">
         <source>Größenanpassung</source>
@@ -2353,7 +3670,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4728532590739893418">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:650</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:656</note>
       </notes>
       <segment state="translated">
         <source>Keine Anpassung</source>
@@ -2362,7 +3679,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4710626519203410106">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:652</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:658</note>
       </notes>
       <segment state="translated">
         <source>Verkleinern</source>
@@ -2371,7 +3688,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7766735261673100646">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:654</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:660</note>
       </notes>
       <segment state="translated">
         <source>Abschneiden</source>
@@ -2380,7 +3697,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2067326968798044785">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:656</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:662</note>
       </notes>
       <segment state="translated">
         <source>Füllen</source>
@@ -2441,13 +3758,13 @@ This can not be reversed!</target>
         <target>Default language</target>
       </segment>
     </unit>
-    <unit id="1294910383430489999">
+    <unit id="8076694592964221532">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:75</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:75,76</note>
       </notes>
-      <segment state="translated">
-        <source>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
-        <target>The default language which is displayed to the user. The user can switch the language.</target>
+      <segment state="final">
+        <source>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
+        <target>The default language displayed to the user. The user has the possibility to change the language.</target>
       </segment>
     </unit>
     <unit id="1372482459728345325">
@@ -2776,7 +4093,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8842099329146114445">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:527</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:529</note>
       </notes>
       <segment state="translated">
         <source>Timer/Quiz</source>
@@ -2785,7 +4102,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1939472793559014594">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:532</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:534</note>
       </notes>
       <segment state="translated">
         <source>Zeitlimit in Sekunden für das Formular</source>
@@ -2794,7 +4111,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2813735869096234149">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:544</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:546</note>
       </notes>
       <segment state="translated">
         <source>Zeitlimit in Sekunden pro Seite</source>
@@ -2803,7 +4120,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7133964056789991209">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:556</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:558</note>
       </notes>
       <segment state="translated">
         <source>Zeitlimit anzeigen</source>
@@ -2812,7 +4129,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2491849397970098376">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:573</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:575</note>
       </notes>
       <segment state="translated">
         <source>Timer anzeigen</source>
@@ -2821,7 +4138,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8224626603237394009">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:579</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:581</note>
       </notes>
       <segment state="translated">
         <source>Zeit auf dieser Seite und das gesamte Formular</source>
@@ -2830,7 +4147,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3070058222143457362">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:581</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:583</note>
       </notes>
       <segment state="translated">
         <source>Zeit auf dieser Seite</source>
@@ -2839,7 +4156,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5906479838476211239">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:583</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:585</note>
       </notes>
       <segment state="translated">
         <source>Zeit für das gesamte Formular</source>
@@ -2857,7 +4174,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2471765562897109795">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:406</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:408</note>
       </notes>
       <segment state="translated">
         <source>Seiten Titel</source>
@@ -2866,7 +4183,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6320380037348531310">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:421</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:423</note>
       </notes>
       <segment state="translated">
         <source>Seiten Beschreibung</source>
@@ -2875,7 +4192,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2798807656507405918">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:441</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:443</note>
       </notes>
       <segment state="translated">
         <source>Standard</source>
@@ -2884,7 +4201,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7620481386125449624">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:449</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:451</note>
       </notes>
       <segment state="translated">
         <source>Diese Option überschreibt den Standardwert aus dem Reiter Allgemein.</source>
@@ -2893,7 +4210,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4418869254061112387">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:465</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:467</note>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob die Seite standardmäßig sichtbar ist.</source>
@@ -2902,7 +4219,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3393167416522495063">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:481</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:483</note>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob die Seite standardmäßig ausfüllbar ist.</source>
@@ -2911,7 +4228,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7030772613006934299">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:487</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:489</note>
       </notes>
       <segment state="translated">
         <source>Zeitlimit in Sekunden für die Seite</source>
@@ -2920,7 +4237,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5288017806656387875">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:497</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:499</note>
       </notes>
       <segment state="translated">
         <source>Diese Option überschreibt den Standardwert pro Seite aus dem Reiter Timer/Quiz.</source>
@@ -3046,7 +4363,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8213233138195056757">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:28</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:29</note>
       </notes>
       <segment state="translated">
         <source>Toolbox</source>
@@ -3055,7 +4372,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="4459038419001492449">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:103</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:109</note>
       </notes>
       <segment state="translated">
         <source>Favoriten</source>
@@ -3064,7 +4381,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="9011837343127283352">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:137</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:143</note>
       </notes>
       <segment state="translated">
         <source>Formular page navigation</source>
@@ -3073,7 +4390,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1557196698790782207">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:167</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:173</note>
       </notes>
       <segment state="translated">
         <source>Neue Seite hinzufügen</source>
@@ -3082,7 +4399,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5744410059698672022">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:193</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:200</note>
       </notes>
       <segment state="translated">
         <source>Ausgewählte Seite löschen</source>
@@ -3091,7 +4408,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="457974053481573035">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:219</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:227</note>
       </notes>
       <segment state="translated">
         <source>Letzte Änderung wiederholen</source>
@@ -3100,7 +4417,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="9184754693751559474">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:241</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:250</note>
       </notes>
       <segment state="translated">
         <source>Letzte Änderung rückgängig machen</source>
@@ -3109,7 +4426,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8074982956026936752">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:290</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:301</note>
       </notes>
       <segment state="translated">
         <source>Formular Einstellungen öffnen</source>
@@ -3118,7 +4435,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1984014520885532931">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:263</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:273</note>
       </notes>
       <segment state="translated">
         <source>Formular Vorschau öffnen</source>
@@ -3127,7 +4444,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1757132388528868196">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:311</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:323</note>
       </notes>
       <segment state="translated">
         <source>Formular speichern</source>
@@ -3136,7 +4453,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="90895410484051873">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:334</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:347</note>
       </notes>
       <segment state="translated">
         <source>Zurück zu den Details</source>
@@ -3145,7 +4462,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8696865147554603290">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:58</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:62</note>
       </notes>
       <segment state="translated">
         <source>Zwischenablage</source>
@@ -3154,7 +4471,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="9065639806315315313">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:126</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:132</note>
       </notes>
       <segment state="translated">
         <source>Sie haben keine Favoriten</source>
@@ -3163,7 +4480,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5063140447217153857">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:155</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:161</note>
       </notes>
       <segment state="translated">
         <source>Zeige Seite <ph id="0" equiv="INTERPOLATION" disp="           "/></source>
@@ -3172,7 +4489,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3225144225680546881">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:361</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:375</note>
       </notes>
       <segment state="translated">
         <source>Ziehen Sie etwas in den Arbeitsbereich...</source>
@@ -3181,7 +4498,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2010348647719233142">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:379</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:393</note>
       </notes>
       <segment state="translated">
         <source>Fragen ID:</source>
@@ -3190,7 +4507,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7897211246412919659">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:390</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:404</note>
       </notes>
       <segment state="translated">
         <source>Verschieben</source>
@@ -3199,7 +4516,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6421015407864399648">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:448</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:465</note>
       </notes>
       <segment state="translated">
         <source>Kopieren</source>
@@ -3208,7 +4525,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="9141378190271389476">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:469</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:487</note>
       </notes>
       <segment state="translated">
         <source>Als Favoriten speichern</source>
@@ -3217,7 +4534,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7055050626756411310">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:489</note>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:508</note>
       </notes>
       <segment state="translated">
         <source>Favoriten löschen</source>
@@ -3244,7 +4561,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6154523979033512876">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:57</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:58</note>
       </notes>
       <segment state="translated">
         <source>Mein Formular</source>
@@ -3253,7 +4570,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="5610425955750546094">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:80</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:81</note>
       </notes>
       <segment state="translated">
         <source>Template</source>
@@ -3262,7 +4579,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8496502695397194982">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:93</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:94</note>
       </notes>
       <segment state="translated">
         <source>Suchen</source>
@@ -3271,7 +4588,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3367843544810442794">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:109</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:110</note>
       </notes>
       <segment state="translated">
         <source>Formular erstellen</source>
@@ -3280,7 +4597,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2961538958334556025">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:125</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:127</note>
       </notes>
       <segment state="translated">
         <source>Erstellen</source>
@@ -3298,7 +4615,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6075502696052235124">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:28</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:29</note>
       </notes>
       <segment state="translated">
         <source>Status: Alle</source>
@@ -3307,7 +4624,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="7386041263711688644">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:30</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:31</note>
       </notes>
       <segment state="translated">
         <source>Status: Erstellt</source>
@@ -3316,7 +4633,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1570500676393057586">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:32</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:33</note>
       </notes>
       <segment state="translated">
         <source>Status: In Bearbeitung</source>
@@ -3325,7 +4642,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2913904211707162832">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:34</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:35</note>
       </notes>
       <segment state="translated">
         <source>Status: Abgeschlossen</source>
@@ -3334,7 +4651,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2418500321333956842">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:80</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:87</note>
       </notes>
       <segment state="translated">
         <source>Formular</source>
@@ -3343,7 +4660,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3906234135081295833">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:91</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:98</note>
       </notes>
       <segment state="translated">
         <source>Abgeschlossen</source>
@@ -3352,7 +4669,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8999417070988208750">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:162</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:181</note>
       </notes>
       <segment state="translated">
         <source>Formular öffnen</source>
@@ -3361,7 +4678,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1875629595072033230">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:166</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:185</note>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</source>
@@ -3370,7 +4687,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="8902031064230548096">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:238</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:258</note>
       </notes>
       <segment state="translated">
         <source>Status: Veröffentlicht</source>
@@ -3379,7 +4696,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="6006001086469034825">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:240</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:260</note>
       </notes>
       <segment state="translated">
         <source>Status: Geschlossen</source>
@@ -3388,7 +4705,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3516494453193947151">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:28</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:29</note>
       </notes>
       <segment state="translated">
         <source>Titel</source>
@@ -3397,7 +4714,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="1330299988060557700">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:423</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:462</note>
       </notes>
       <segment state="translated">
         <source>Neues Formular erstellen</source>
@@ -3406,7 +4723,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="2877409751096310292">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:27</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:28</note>
       </notes>
       <segment state="translated">
         <source>Neues Formular</source>
@@ -3415,7 +4732,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="515361261308847185">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:48</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:49</note>
       </notes>
       <segment state="translated">
         <source>Formular Titel *</source>
@@ -3424,7 +4741,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="3451297314722320142">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:444</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:484</note>
       </notes>
       <segment state="translated">
         <source>Formular importieren</source>
@@ -3487,7 +4804,7 @@ This can not be reversed!</target>
     </unit>
     <unit id="51574765818008149">
       <notes>
-        <note category="location">src/app/app.component.html:156</note>
+        <note category="location">src/app/app.component.html:157</note>
       </notes>
       <segment state="translated">
         <source>Sprache</source>
@@ -3611,11 +4928,47 @@ This can not be reversed!</target>
         <target>Input value</target>
       </segment>
     </unit>
+    <unit id="605904030458936187">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.service.ts:68</note>
+      </notes>
+      <segment state="final">
+        <source>Es ist ein Fehler aufgetreten: </source>
+        <target>An error has occurred:</target>
+      </segment>
+    </unit>
+    <unit id="2331129654501752489">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.service.ts:71</note>
+      </notes>
+      <segment state="final">
+        <source>Return-Code vom Backend</source>
+        <target>Return code from backend</target>
+      </segment>
+    </unit>
+    <unit id="5644795770167690835">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.service.ts:72</note>
+      </notes>
+      <segment state="final">
+        <source>Nachricht</source>
+        <target>Message</target>
+      </segment>
+    </unit>
+    <unit id="7608695348965743146">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.service.ts:74</note>
+      </notes>
+      <segment state="final">
+        <source>Es ist ein Fehler aufgetreten.</source>
+        <target>An error has occurred.</target>
+      </segment>
+    </unit>
     <unit id="9121502791322086638">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions.ts:25</note>
       </notes>
-      <segment state="initial">
+      <segment state="final">
         <source>Quelle: Oberer Gutachterausschuss für
 Grundstückswerte in Niedersachsen, </source>
         <target>Source: Upper Advisory Committee for
