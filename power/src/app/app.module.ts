@@ -9,6 +9,7 @@ import { Config, ConfigService } from '@app/config.service';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '@env/environment';
 
 import { AuthModule } from '@app/shared/auth/auth.module';
@@ -50,7 +51,8 @@ export function load(httpClient: HttpClient, configService: ConfigService) {
         AuthModule,
         AlertsModule,
         LoadingscreenModule,
-        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
+        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+        NgbModule
     ],
     providers: [
         {
