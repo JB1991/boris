@@ -26,9 +26,12 @@
                 <input class="form-control"
                        id="form-title-search"
                        type="text"
+                       role="search"
                        placeholder="Titel"
                        i18n-placeholder
-                       aria-label="Titel"
+                       aria-label="Suchen Sie hier nach einem Titel."
+                       aria-placeholder=""
+                       i18n-aria-label
                        (blur)="title = $event.target.value; update(false)"
                        (keydown.enter)="title = $event.target.value; update(false)">
             </div>
@@ -41,6 +44,8 @@
                             (click)="changeSort('title')"
                             class="border-top-0 w-50">
                             <span role="button"
+                                  tabindex="0"
+                                  aria-label="Spalte: Titel. Auf- und absteigende Sortierung möglich."
                                   i18n>Titel</span>
                             <span *ngIf="sort && sort === 'title'">
                                 <span *ngIf="order === 'asc'">
@@ -81,6 +86,8 @@
                             (click)="changeSort('published')"
                             class="border-top-0">
                             <span role="button"
+                                  tabindex="0"
+                                  aria-label="Sie befinden sich in der Spalte 'Veröffentlicht'. Auf- und absteigende Sortierung möglich."
                                   i18n>Veröffentlicht</span>
                             <span *ngIf="sort && sort === 'published'">
                                 <span *ngIf="order === 'asc'">

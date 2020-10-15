@@ -1,16 +1,15 @@
 <div class="container-xl border-left border-right">
-    <div class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
+    <section class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
         <div class="col-lg-6 p-0">
-            <div class= "boris-img col-lg-12 p-0" ></div>
+            <div class= "boris-img col-lg-12 p-0"></div>
         </div>
         <div class="col-lg-6 px-0 pl-lg-5 pt-2 pt-lg-0">
             <div class="content col-lg-12 text-dark p-5 rounded-left">
                 <a class="h2 btn-link text-dark font-weight-bold"
                    id="Boris.NI"
                    [routerLink]="['/bodenrichtwerte']"
-                   aria-labelledby="Boris.NI BorisSub BorisContext"
-                   i18n
-                   i18n-aria-labelledby>BORIS.NI</a>   
+                   aria-labelledby="Boris.NI BorisSub"
+                   i18n>BORIS.NI</a>   
                 <p class="h6"
                    id="BorisSub"
                    i18n>{{ 'Bodenrichtwertinformationssystem Niedersachsen' | hyphenate }}</p>
@@ -21,16 +20,15 @@
                     ' für Flächen der Land- und Forstwirtschaft zur Verfügung.' | hyphenate }} </p>
             </div>
         </div>
-    </div>
-    <div class="row pr-lg-5 pt-lg-5 pl-lg-0 pb-lg-0 p-2">
+    </section>
+    <section class="row pr-lg-5 pt-lg-5 pl-lg-0 pb-lg-0 p-2">
         <div class="col-lg-9 p-0 pr-lg-5 pt-2 pt-lg-0">
             <div class="content col-lg-12 text-dark p-5 rounded-right">
                 <a class="h2 btn-link text-dark font-weight-bold"
                    id="nipix"
                    [routerLink]="['/immobilienpreisindex']"
                    aria-labelledby="nipix nipixSub"
-                   i18n
-                   i18n-aria-labelledby>NIPIX</a>
+                   i18n>NIPIX</a>
                 <p class="h6"
                    id="nipixSub"
                    i18n>{{ 'Niedersächsischer Immobilienpreisindex' | hyphenate }}</p>
@@ -45,8 +43,8 @@
         <div class="col-lg-3 pr-lg-0 pr-0 pl-0 order-lg-last order-first">
             <div class="nipix-img col-lg-12 p-0"></div>
         </div>
-    </div>
-    <div class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
+    </section>
+    <section class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
         <div class="col-lg-6 pr-0 pl-lg-0 pl-0">
             <div class="form-img col-lg-12 p-0"></div>
         </div>
@@ -99,9 +97,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </section>
 </div>
-<div class="container-xl mt-5">
+<section class="container-xl mt-5">
     <div class="row jumbotron mb-0">
         <div class="col-lg-12">
             <h2 id=news 
@@ -127,12 +125,14 @@
             <hr class="my-4">
         </div>
         <div class="col-lg-6">
-            <h5 tabindex="0">{{ 'Immobilienmarktbericht 2020' | hyphenate }} </h5>
+            <h5 tabindex="0"
+                i18n>{{ 'Immobilienmarktbericht 2020' | hyphenate }} </h5>
             <a>{{ 'Eine Dekade steigender Preise in Niedersachsen...' | hyphenate }}</a>
         </div>
         <div class="col-lg-6">
-            <h5 tabindex="0">{{ 'Bodenrichtwerte 2021' | hyphenate }} </h5>
+            <h5 tabindex="0"
+                i18n>{{ 'Bodenrichtwerte 2021' | hyphenate }} </h5>
             <a>{{ 'Die neuen Bodenrichtwerte sind jetzt verfügbar...' | hyphenate }}</a>
         </div>
     </div>
-</div>
+</section>

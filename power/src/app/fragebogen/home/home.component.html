@@ -3,9 +3,11 @@
       id="content"
       tabindex="-1">
     <div class="row m-0 mt-3">
-        <div class="col-12 col-lg-6">
+        <section class="col-12 col-lg-6">
             <div class="jumbotron">
-                <h1 class="display-4">
+                <h1 class="display-4"
+                    tabindex="0"
+                    aria-labelledby="formFillout formFilloutText">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -21,35 +23,38 @@
                               d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
                     </svg>
                     <span class="ml-1"
-                          tabindex="0"
+                          id="formFillout"
                           i18n>Formular ausfüllen</span>
                 </h1>
 
                 <p class="lead"
+                   id="formFilloutText"
+                   aria-label="Wenn Sie eine Formular PIN erhalten haben, geben Sie diese im nachfolgenden Eingabefeld ein,
+                   um zum Formular zu gelangen."
+                   i18n-aria-label
                    i18n>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein
                     um zum Formular zu gelangen.</p>
                 <hr class="my-4">
 
                 <div class="lead">
                     <form #pinFormular="ngForm"
-                          i18n-aria-label
-                          aria-label="Eingabe einer PIN zum Formular ausfüllen"
                           (ngSubmit)="submitPIN(pin.value)"
                           class="form-inline">
                         <label class="control-label sr-only"
-                               for="pin"
-                               i18n>Formular PIN</label>
+                               id="pin"
+                               i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</label>
                         <input type="text"
                                class="form-control mr-2 w-mobile"
-                               id="pin"
                                i18n-placeholder
                                placeholder="Formular PIN"
+                               aria-labelledby="pin"
+                               aria-placeholder=""
                                #pin>
 
                         <button type="submit"
                                 class="btn btn-success"
                                 i18n-title
-                                title="Absenden">
+                                title="PIN absenden">
                             <svg width="1.5em"
                                  height="1.5em"
                                  viewBox="0 0 16 16"
@@ -62,16 +67,18 @@
                                       d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
                             </svg>
                             <span class="sr-only"
-                                  i18n>Absenden</span>
+                                  i18n>PIN absenden</span>
                         </button>
                     </form>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="col-12 col-lg-6">
+        <section class="col-12 col-lg-6">
             <div class="jumbotron">
-                <h1 class="display-4">
+                <h1 class="display-4"
+                    tabindex="0"
+                    aria-labelledby="formFind formFindText">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -86,11 +93,15 @@
                               d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                     </svg>
                     <span class="ml-1"
+                          id="formFind"
                           i18n>Formular finden</span>
                 </h1>
 
                 <p class="lead"
-                   i18n>Wenn Sie ein Formular einreichen wollen finden Sie hier unsere öffentlichen Formulare.</p>
+                   id="formFindText"
+                   aria-label="Wenn Sie ein Formular einreichen wollen, finden Sie unter nachfolgendem Link unsere öffentlichen Formulare."
+                   i18n-aria-label
+                   i18n>Wenn Sie ein Formular einreichen wollen, finden Sie hier unsere öffentlichen Formulare.</p>
                 <hr class="my-4">
 
                 <div class="lead">
@@ -115,12 +126,14 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="col-12 col-lg-6"
+        <section class="col-12 col-lg-6"
              *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
             <div class="jumbotron">
-                <h1 class="display-4">
+                <h1 class="display-4"
+                    tabindex="0"
+                    aria-labelledby="notary notaryText">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -137,10 +150,12 @@
                               d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
                     </svg>
                     <span class="ml-1"
+                          id="notary"
                           i18n>Notarportal</span>
                 </h1>
 
                 <p class="lead"
+                   id="notaryText"
                    i18n>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch
                     vorzunehmen.</p>
                 <hr class="my-4">
@@ -149,12 +164,14 @@
                     Coming Soon&trade;
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="col-12 col-lg-6"
+        <section class="col-12 col-lg-6"
              *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
             <div class="jumbotron">
-                <h1 class="display-4">
+                <h1 class="display-4"
+                    tabindex="0"
+                    aria-labelledby="employee employeeText">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -169,10 +186,14 @@
                               d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                     </svg>
                     <span class="ml-1"
+                          id="employee"
                           i18n>Mitarbeiter</span>
                 </h1>
 
                 <p class="lead"
+                   id="employeeText"
+                   aria-label="Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen unter nachfolgendem Link."
+                   i18n-aria-label
                    i18n>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</p>
                 <hr class="my-4">
 
@@ -198,6 +219,6 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </main>
