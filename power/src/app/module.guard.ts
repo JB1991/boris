@@ -18,7 +18,7 @@ export class ModuleGuard implements CanActivate {
      */
     async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         // check if module is enabled
-        for (var module of this.config.config.modules) {
+        for (const module of this.config.config.modules) {
             if (state.url.startsWith('/' + module)) {
                 return true;
             }

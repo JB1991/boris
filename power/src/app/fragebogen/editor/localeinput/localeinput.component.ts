@@ -9,8 +9,8 @@ export class LocaleInputComponent {
     @Input() public required = false;
     @Input() public textarea = false;
     @Input() public maxlength = 5000;
-    @Input() public placeholder: string = '';
-    @Input() public describedby: string = '';
+    @Input() public placeholder = '';
+    @Input() public describedby = '';
     @Input() public eid: string;
     @Input() public locale: any;
     @Output() public localeChange = new EventEmitter<any>();

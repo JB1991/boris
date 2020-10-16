@@ -1,4 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { LocaleInputComponent } from './localeinput.component';
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
@@ -10,6 +11,7 @@ describe('Fragebogen.Editor.LocaleInputComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
+                FormsModule,
                 SurveyjsModule
             ],
             declarations: [
@@ -19,11 +21,14 @@ describe('Fragebogen.Editor.LocaleInputComponent', () => {
 
         fixture = TestBed.createComponent(LocaleInputComponent);
         component = fixture.componentInstance;
+        component.locale = {};
+        component.eid = 'abc';
         fixture.detectChanges();
 
         spyOn(console, 'log');
     }));
 
     it('should create', () => {
+        expect(component).toBeTruthy();
     });
 });
