@@ -2,7 +2,7 @@
 <main class="mainpage p-1 p-lg-3"
       id="content"
       tabindex="-1">
-    <div class="card bg-light"
+    <section class="card bg-light"
          *ngIf="data">
         <div class="card-header h5">
             <svg width="1em"
@@ -29,7 +29,7 @@
                        role="search"
                        placeholder="Titel"
                        i18n-placeholder
-                       aria-label="Suchen Sie hier nach einem Titel."
+                       aria-label="Suchen Sie hier nach einem Formular Titel."
                        aria-placeholder=""
                        i18n-aria-label
                        (blur)="title = $event.target.value; update(false)"
@@ -45,7 +45,7 @@
                             class="border-top-0 w-50">
                             <span role="button"
                                   tabindex="0"
-                                  aria-label="Spalte: Titel. Auf- und absteigende Sortierung möglich."
+                                  aria-label="Sie befinden sich in der Spalte 'Titel'. Auf- und absteigende Sortierung möglich."
                                   i18n>Titel</span>
                             <span *ngIf="sort && sort === 'title'">
                                 <span *ngIf="order === 'asc'">
@@ -137,13 +137,16 @@
             </table>
             <span class="m-3"
                   *ngIf="!data.length"
+                  tabindex="0"
                   i18n>Keine Formulare gefunden</span>
         </div>
-        <div class="card-footer">
+        <div class="card-footer"
+             aria-label="...">
             <div class="float-right">
                 <div class="form-inline well">
                     <div class="form-group mx-2">
                         <select class="custom-select"
+                                aria-label="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen."
                                 (change)="perPage = $event.target.value; update(false)">
                             <option *ngFor=" let size of pageSizes">
                                 {{ size }}
@@ -158,10 +161,16 @@
                                 previousText="&lsaquo;"
                                 nextText="&rsaquo;"
                                 firstText="&laquo;"
-                                lastText="&raquo;">
+                                lastText="&raquo;"
+                                [attr.aria-label]="'Sie befinden sich in der Pagination. Derzeit ist Seite ' + page + 
+                                                    ' von ' + totalPages + ' Seiten ausgewählt.'"
+                                role="navigation"
+                                (focusin)="ariaPagination = $event.originalTarget.childNodes[0].nodeValue; console()"
+                                >
+                        <span class="sr-only" *ngIf="ariaPagination"></span>
                     </pagination>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </main>

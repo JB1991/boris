@@ -18,9 +18,11 @@ export class PublicDashboardComponent implements OnInit {
     public page = 1;
     public perPage = 5;
     public pageSizes: number[];
+    public totalPages: number;
     public title: string;
     public sort: 'title' | 'published' = 'title';
     public order: 'asc' | 'desc' = 'asc';
+    public ariaPagination: any;
 
     constructor(public titleService: Title,
         public router: Router,
@@ -32,6 +34,10 @@ export class PublicDashboardComponent implements OnInit {
 
     ngOnInit() {
         this.update(true);
+    }
+
+    public console () {
+        console.log(this.ariaPagination);
     }
 
     public changeSort(sort: 'title' | 'published') {
@@ -63,6 +69,7 @@ export class PublicDashboardComponent implements OnInit {
             const response = await this.formAPI.getPublicForms(params);
             this.data = response.data;
             this.total = response.total;
+            this.totalPages = Math.ceil(this.total/this.perPage);
             let maxPages = Math.floor(this.total / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
