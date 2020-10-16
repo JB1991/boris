@@ -1,5 +1,5 @@
 <div class="form-row">
-    <div class="form-group col-2 mb-0">
+    <div class="form-group col-6 col-md-2 mb-0">
         <label for="localeInput-{{ eid }}"
                class="sr-only"
                i18n>Sprache</label>
@@ -8,15 +8,15 @@
                 name="localeInput-{{ eid }}"
                 [(ngModel)]="displayLang">
             <option value="default"
-                    i18n>DE</option>
+                    i18n>Deutsch (Standard)</option>
             <option value="en"
-                    i18n>EN</option>
+                    i18n>Englisch</option>
         </select>
     </div>
 
-    <div class="form-group col-10 mb-0"
+    <div class="form-group col-12 col-md-10 mt-1 mt-md-0 mb-0"
          *ngIf="!textarea">
-        <input type="text"
+        <input [type]="type"
                class="form-control"
                [(ngModel)]="locale[displayLang]"
                (change)="updateValue()"
@@ -29,7 +29,7 @@
                [required]="required">
     </div>
 
-    <div class="form-group col-12 mb-0 mt-2"
+    <div class="form-group col-12 mt-1 mt-md-2 mb-0"
          *ngIf="textarea">
         <textarea class="form-control"
                   rows="5"

@@ -28,14 +28,11 @@
                 <label for="answer-text-{{ i }}{{ uniqId }}"
                        class="sr-only"
                        i18n>Anzeigetext</label>
-                <input type="text"
-                       class="form-control"
-                       [(ngModel)]="item.text.default"
-                       id="answer-text-{{ i }}{{ uniqId }}"
-                       name="answer-text-{{ i }}{{ uniqId }}"
-                       i18n-placeholder
-                       placeholder="Anzeigetext"
-                       maxlength="200">
+                <power-forms-editor-localeinput [(locale)]="item.text"
+                                                eid="answer-text-{{ i }}{{ uniqId }}"
+                                                maxlength="200"
+                                                i18n-placeholder
+                                                placeholder="Anzeigetext"></power-forms-editor-localeinput>
             </div>
 
             <!-- buttons -->

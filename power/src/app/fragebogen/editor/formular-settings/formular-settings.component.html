@@ -13,8 +13,7 @@
                     <label for="form-title"
                            (click)="formsettingsmodal.scrollToFooter()"
                            role="button"
-                           i18n>Formular Titel *
-                    </label>
+                           i18n>Formular Titel *</label>
                     <power-forms-editor-localeinput [(locale)]="model.title"
                                                     eid="form-title"
                                                     required="true"
@@ -104,17 +103,11 @@
                 <!-- form-completedHtml -->
                 <div class="form-group">
                     <label for="form-completedHtml"
-                           (click)="formsettingsmodal.scrollToFooter()"
                            role="button"
-                           i18n>Abschlusstext *
-                    </label>
-                    <textarea class="form-control"
-                              [(ngModel)]="model.completedHtml.default"
-                              id="form-completedHtml"
-                              name="form-completedHtml"
-                              rows="5"
-                              maxlength="5000">
-                        </textarea>
+                           i18n>Abschlusstext</label>
+                    <power-forms-editor-localeinput textarea="true"
+                                                    [(locale)]="model.completedHtml"
+                                                    eid="form-completedHtml"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- form-navigateToUrl -->
@@ -399,28 +392,23 @@
                         <div class="form-group">
                             <label for="page-title-{{ i }}"
                                    i18n>Seiten Titel</label>
-                            <input type="text"
-                                   class="form-control"
-                                   [(ngModel)]="page.title.default"
-                                   maxlength="200"
-                                   name="page-title-{{ i }}"
-                                   id="page-title-{{ i }}"
-                                   i18n-placeholder
-                                   placeholder="Seiten Titel"
-                                   required>
+                            <power-forms-editor-localeinput [(locale)]="page.title"
+                                                            eid="page-title-{{ i }}"
+                                                            required="true"
+                                                            maxlength="200"
+                                                            i18n-placeholder
+                                                            placeholder="Seiten Titel">
+                            </power-forms-editor-localeinput>
                         </div>
 
                         <!-- page-description -->
                         <div class="form-group">
                             <label for="page-description-{{ i }}"
                                    i18n>Seiten Beschreibung</label>
-                            <textarea class="form-control"
-                                      [(ngModel)]="page.description.default"
-                                      id="page-description-{{ i }}"
-                                      name="page-description-{{ i }}"
-                                      rows="5"
-                                      maxlength="5000">
-                                </textarea>
+                            <power-forms-editor-localeinput textarea="true"
+                                                            [(locale)]="page.description"
+                                                            eid="page-description-{{ i }}">
+                            </power-forms-editor-localeinput>
                         </div>
 
                         <!-- page-questionsOrder-->

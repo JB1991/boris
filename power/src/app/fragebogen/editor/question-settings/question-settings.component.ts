@@ -73,6 +73,13 @@ export class QuestionSettingsComponent {
             }
         }
 
+        // add otherText
+        if (['radiogroup', 'checkbox'].includes(this.model.pages[this.page].elements[this.question].type)) {
+            if (!this.model.pages[this.page].elements[this.question].otherText) {
+                this.model.pages[this.page].elements[this.question]['otherText'] = {};
+            }
+        }
+
         // add startWithNewLine
         if (typeof this.model.pages[this.page].elements[this.question].startWithNewLine === 'undefined') {
             this.model.pages[this.page].elements[this.question].startWithNewLine = true;

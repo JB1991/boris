@@ -126,6 +126,7 @@
                            [routerLink]="">{{ auth.user.data.email }}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
+                           *ngIf="config.modules.includes('forms')"
                            (click)="isCollapsed = true; isCollapsedAcc = true"
                            [routerLink]="['/forms/dashboard']"
                            routerLinkActive="active"

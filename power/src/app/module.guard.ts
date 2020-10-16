@@ -14,7 +14,7 @@ export class ModuleGuard implements CanActivate {
     constructor(public router: Router, public config: ConfigService) { }
 
     /**
-     * Called before a protected route is loaded to check if user is authenticated
+     * Called before a protected route is loaded to check if module is enabled
      */
     async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         // check if module is enabled

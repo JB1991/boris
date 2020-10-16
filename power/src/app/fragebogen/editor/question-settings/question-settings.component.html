@@ -13,8 +13,7 @@
                     <label for="question-name"
                            (click)="questionsettingsmodal.scrollToFooter()"
                            role="button"
-                           i18n>Fragen ID *
-                    </label>
+                           i18n>Fragen ID *</label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].name"
@@ -29,8 +28,7 @@
                            class="form-text text-muted">
                         <span i18n>Dieser Wert muss im Formular einmalig sein. Die ID lässt
                             sich als Variable nutzen, diese enthält die Antwort der Frage:</span>
-                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code>
-                    </small>
+                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code></small>
                 </div>
 
                 <!-- question-title -->
@@ -38,30 +36,22 @@
                     <label for="question-title"
                            (click)="questionsettingsmodal.scrollToFooter()"
                            role="button"
-                           i18n>Fragen Titel *
-                    </label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].title.default"
-                           [class.is-invalid]="!model.pages[page].elements[question].title.default"
-                           maxlength="200"
-                           name="question-title"
-                           id="question-title"
-                           required>
+                           i18n>Fragen Titel *</label>
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].title"
+                                                    eid="question-title"
+                                                    required="true"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-description -->
                 <div class="form-group">
                     <label for="question-description"
                            i18n>Fragen Beschreibung</label>
-                    <textarea class="form-control"
-                              [(ngModel)]="model.pages[page].elements[question].description.default"
-                              id="question-description"
-                              name="question-description"
-                              rows="5"
-                              aria-describedby="question-descriptionHelp"
-                              maxlength="5000">
-                    </textarea>
+                    <power-forms-editor-localeinput textarea="true"
+                                                    [(locale)]="model.pages[page].elements[question].description"
+                                                    eid="question-description"
+                                                    describedby="question-descriptionHelp">
+                    </power-forms-editor-localeinput>
                     <small id="question-descriptionHelp"
                            class="form-text text-muted"
                            i18n>Dieser Text wird unter der Frage angezeigt.</small>
@@ -91,12 +81,9 @@
                      *ngIf="model.pages[page].elements[question].isRequired">
                     <label for="question-requiredErrorText"
                            i18n>Pflichtfeld Fehlertext</label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].requiredErrorText.default"
-                           maxlength="200"
-                           name="question-requiredErrorText"
-                           id="question-requiredErrorText">
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].requiredErrorText"
+                                                    eid="question-requiredErrorText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-hasComment -->
@@ -122,12 +109,9 @@
                      *ngIf="model.pages[page].elements[question].hasComment">
                     <label for="question-commentText"
                            i18n>Kommentar Eingabefeld Text</label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].commentText.default"
-                           maxlength="200"
-                           name="question-commentText"
-                           id="question-commentText">
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].commentText"
+                                                    eid="question-commentText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-visible -->
@@ -275,12 +259,9 @@
                     <div class="form-group">
                         <label for="question-minRateDescription"
                                i18n>Anzeigetext Minimum</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].minRateDescription.default"
-                               maxlength="200"
-                               name="question-minRateDescription"
-                               id="question-minRateDescription">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].minRateDescription"
+                                                        eid="question-minRateDescription"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-rateMin -->
@@ -298,12 +279,9 @@
                     <div class="form-group">
                         <label for="question-maxRateDescription"
                                i18n>Anzeigetext Maximum</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].maxRateDescription.default"
-                               maxlength="200"
-                               name="question-maxRateDescription"
-                               id="question-maxRateDescription">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].maxRateDescription"
+                                                        eid="question-maxRateDescription"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-rateMax -->
@@ -384,24 +362,18 @@
                     <div class="form-group">
                         <label for="question-labelFalse"
                                i18n>Anzeigetext links</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].labelFalse.default"
-                               maxlength="200"
-                               name="question-labelFalse"
-                               id="question-labelFalse">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelFalse"
+                                                        eid="question-labelFalse"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-labelTrue -->
                     <div class="form-group">
                         <label for="question-labelTrue"
                                i18n>Anzeigetext rechts</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].labelTrue.default"
-                               maxlength="200"
-                               name="question-labelTrue"
-                               id="question-labelTrue">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelTrue"
+                                                        eid="question-labelTrue"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
                 </div>
 
@@ -565,6 +537,16 @@
                     <small id="question-hasOtherHelp"
                            class="form-text text-muted"
                            i18n>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</small>
+                </div>
+
+                <!-- question-otherText -->
+                <div class="form-group"
+                     *ngIf="model.pages[page].elements[question].hasOther">
+                    <label for="question-otherText"
+                           i18n>Anderes Eingabefeld Text</label>
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].otherText"
+                                                    eid="question-otherText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-showClearButton -->

@@ -11,6 +11,7 @@ export class LocaleInputComponent {
     @Input() public maxlength = 5000;
     @Input() public placeholder = '';
     @Input() public describedby = '';
+    @Input() public type = 'text';
     @Input() public eid: string;
     @Input() public locale: any;
     @Output() public localeChange = new EventEmitter<any>();
