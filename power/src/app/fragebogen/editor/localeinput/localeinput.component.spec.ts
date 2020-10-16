@@ -31,4 +31,10 @@ describe('Fragebogen.Editor.LocaleInputComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should update', () => {
+        spyOn(component.localeChange, 'emit');
+        component.updateValue();
+        expect(component.localeChange.emit).toHaveBeenCalledTimes(1);
+    });
 });

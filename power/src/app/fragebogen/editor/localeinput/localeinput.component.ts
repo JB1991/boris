@@ -18,6 +18,7 @@ export class LocaleInputComponent {
     public displayLang = 'default';
 
     constructor(@Inject(LOCALE_ID) public lang: string) {
+        /* istanbul ignore else */
         if (lang !== 'de') {
             this.displayLang = lang;
         }

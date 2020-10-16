@@ -16,6 +16,7 @@
 
     <div class="form-group col-12 col-md-10 mt-1 mt-md-0 mb-0"
          *ngIf="!textarea">
+        <!-- [html-validate-disable-next element-required-attributes] -->
         <input [type]="type"
                class="form-control"
                [(ngModel)]="locale[displayLang]"

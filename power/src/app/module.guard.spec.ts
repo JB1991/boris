@@ -42,10 +42,11 @@ describe('Shared.Auth.AuthGuard', () => {
         // set config
         guard.config.config = { 'modules': ['forms', 'feedback'], 'authentication': true };
 
-        guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/forms/dashboard' }).then((value) => {
-            expect(value).toBeTrue();
-            done();
-        });
+        guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/forms/dashboard' })
+            .then((value) => {
+                expect(value).toBeTrue();
+                done();
+            });
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

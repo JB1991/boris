@@ -88,7 +88,6 @@ export class DashboardComponent implements OnInit {
             const reader = new FileReader();
 
             // Upload success
-            /* istanbul ignore next */
             reader.onload = () => {
                 this.formAPI.createInternForm(reader.result).then(() => {
                     this.updateForms(false);
