@@ -51,7 +51,7 @@
                        i18n>Bodenrichtwerte</a>
                 </li>
                 <li class="nav-item"
-                    *ngIf="config.modules.includes('bodenwerte')">
+                    *ngIf="config.modules.includes('bodenwertkalkulator')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/bodenwertkalkulator']"
@@ -59,7 +59,7 @@
                        i18n>Bodenwerte</a>
                 </li>
                 <li class="nav-item"
-                    *ngIf="config.modules.includes('immobilien')">
+                    *ngIf="config.modules.includes('immobilienpreisindex')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/immobilienpreisindex']"
@@ -67,14 +67,15 @@
                        i18n>Immobilien</a>
                 </li>
                 <li class="nav-item"
-                    *ngIf="config.modules.includes('fragebogen')">
+                    *ngIf="config.modules.includes('forms')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/forms']"
                        routerLinkActive="active"
                        i18n>Formulare</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item"
+                    *ngIf="config.modules.includes('feedback')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/feedback']"

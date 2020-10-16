@@ -82,7 +82,8 @@ affinity: {}
 config:
   modules:
     - "bodenrichtwerte"
-    - "bodenwerte"
-    - "immobilien"
-    - "fragebogen"
+    - "bodenwertkalkulator"
+    - "immobilienpreisindex"
+    - "forms"
+    - "feedback"
   authentication: true

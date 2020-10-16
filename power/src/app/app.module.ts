@@ -11,6 +11,7 @@ import { Observable, ObservableInput, of } from 'rxjs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { environment } from '@env/environment';
 
+import { ModuleGuard } from './module.guard';
 import { AuthModule } from '@app/shared/auth/auth.module';
 import { AlertsModule } from '@app/shared/alerts/alerts.module';
 import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
@@ -53,6 +54,7 @@ export function load(httpClient: HttpClient, configService: ConfigService) {
         ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [
+        ModuleGuard,
         {
             provide: APP_INITIALIZER,
             useFactory: load,
