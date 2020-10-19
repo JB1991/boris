@@ -1,13 +1,10 @@
 <!-- landing page -->
 <main class="mainpage"
-      id="content"
-      tabindex="-1">
+      id="content">
     <div class="row m-0 mt-3">
         <section class="col-12 col-lg-6">
             <div class="jumbotron">
-                <h1 class="display-4"
-                    tabindex="0"
-                    aria-labelledby="formFillout formFilloutText">
+                <h1 class="display-4">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -28,10 +25,6 @@
                 </h1>
 
                 <p class="lead"
-                   id="formFilloutText"
-                   aria-label="Wenn Sie eine Formular PIN erhalten haben, geben Sie diese im nachfolgenden Eingabefeld ein,
-                   um zum Formular zu gelangen."
-                   i18n-aria-label
                    i18n>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein
                     um zum Formular zu gelangen.</p>
                 <hr class="my-4">
@@ -42,7 +35,8 @@
                           class="form-inline">
                         <label class="control-label sr-only"
                                id="pin"
-                               i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</label>
+                               i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu
+                            gelangen.</label>
                         <input type="text"
                                class="form-control mr-2 w-mobile"
                                i18n-placeholder
@@ -76,9 +70,7 @@
 
         <section class="col-12 col-lg-6">
             <div class="jumbotron">
-                <h1 class="display-4"
-                    tabindex="0"
-                    aria-labelledby="formFind formFindText">
+                <h1 class="display-4">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -93,19 +85,17 @@
                               d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                     </svg>
                     <span class="ml-1"
-                          id="formFind"
                           i18n>Formular finden</span>
                 </h1>
 
                 <p class="lead"
-                   id="formFindText"
-                   aria-label="Wenn Sie ein Formular einreichen wollen, finden Sie unter nachfolgendem Link unsere öffentlichen Formulare."
-                   i18n-aria-label
                    i18n>Wenn Sie ein Formular einreichen wollen, finden Sie hier unsere öffentlichen Formulare.</p>
                 <hr class="my-4">
 
                 <div class="lead">
-                    <a [routerLink]="['/forms/public-dashboard']">
+                    <a [routerLink]="['/forms/public-dashboard']"
+                       aria-label="Über diesen Link gelangen Sie zu den öffentlichen Formularen."
+                       i18n-aria-label>
                         <svg width="1em"
                              height="1em"
                              viewBox="0 0 16 16"
@@ -129,11 +119,9 @@
         </section>
 
         <section class="col-12 col-lg-6"
-             *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
+                 *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
             <div class="jumbotron">
-                <h1 class="display-4"
-                    tabindex="0"
-                    aria-labelledby="notary notaryText">
+                <h1 class="display-4">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -150,12 +138,10 @@
                               d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
                     </svg>
                     <span class="ml-1"
-                          id="notary"
                           i18n>Notarportal</span>
                 </h1>
 
                 <p class="lead"
-                   id="notaryText"
                    i18n>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch
                     vorzunehmen.</p>
                 <hr class="my-4">
@@ -167,11 +153,9 @@
         </section>
 
         <section class="col-12 col-lg-6"
-             *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
+                 *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
             <div class="jumbotron">
-                <h1 class="display-4"
-                    tabindex="0"
-                    aria-labelledby="employee employeeText">
+                <h1 class="display-4">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -186,19 +170,17 @@
                               d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                     </svg>
                     <span class="ml-1"
-                          id="employee"
                           i18n>Mitarbeiter</span>
                 </h1>
 
                 <p class="lead"
-                   id="employeeText"
-                   aria-label="Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen unter nachfolgendem Link."
-                   i18n-aria-label
                    i18n>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</p>
                 <hr class="my-4">
 
                 <div class="lead">
-                    <a [routerLink]="['/forms/dashboard']">
+                    <a [routerLink]="['/forms/dashboard']"
+                        aria-label="Über diesen Link gelangen Sie zum Mitarbeiterportal."
+                        i18n-aria-label>
                         <svg width="1em"
                              height="1em"
                              viewBox="0 0 16 16"

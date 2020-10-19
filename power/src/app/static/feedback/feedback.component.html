@@ -1,16 +1,19 @@
 <div class="container">
-    <div class="row"
-         tabindex="0">
+    <div class="row">
         <div class="col-sm text-center pt-3">
-            <h2 i18n="Header">Feedback</h2>
+            <h1 id="feedbackHeader"
+                i18n>Feedback</h1>
             <p class="lead mb-3"
+               id="feedbackInfo"
+               aria-label="Sie haben ein Problem? Oder wollen einen Vorschlag machen? Bitte
+               formulieren Sie ihr Anliegen so exakt wie möglich."
+               i18n-aria-label
                i18n>Sie haben ein Problem? Oder wollen einen Vorschlag machen? <br>
                 Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und <br>
                 bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</p>
         </div>
     </div>
-    <div class="row justify-content-center"
-         tabindex="0">
+    <div class="row justify-content-center">
         <div class="col-12 col-sm-12 col-md-8 col-xl-5 text-left">
             <ul>
                 <li i18n>Genaue Beschreibung des Fehlers</li>
@@ -24,17 +27,16 @@
     <div class="row">
         <div class="col-sm text-center">
             <p class="lead mb-0"
+               id="feedback1"
                i18n>Dieser Button öffnet Ihr E-Mail-Programm:</p>
             <p class="text-muted"
+               id="feedback2"
                i18n>Der Empfänger ist bereits ausgefüllt</p>
             <a type="button"
                role="button"
-               id="feedbackButton"
                class="btn btn-primary"
                href="mailto:{{ mail }}"
-               aria-label= "Dieser Button öffnet Ihr E-Mail-Programm. Der Empfänger ist bereits ausgefüllt."
-               aria-labelledby="feedbackButton feedbackManually"
-               i18n-aria-label
+               aria-labelledby="feedbackHeader feedbackInfo feedback1 feedback2 feedbackManually"
                i18n-title="Feedback geben"
                title="Feedback geben"
                i18n>Feedback</a>
@@ -48,6 +50,8 @@
                     class="btn btn-light btn-circle btn-sm mr-2"
                     i18n-title
                     title="Email-Adresse kopieren"
+                    aria-label="Email-Adresse kopieren"
+                    aria-i18n-label
                     (click)="copyEmailToClipboard()">
                 <svg width="1em"
                      height="1em"
@@ -62,8 +66,6 @@
                     <path fill-rule="evenodd"
                           d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
                 </svg>
-                <span class="sr-only"
-                      i18n>Email-Adresse kopieren</span>
             </button>
         </div>
     </div>
