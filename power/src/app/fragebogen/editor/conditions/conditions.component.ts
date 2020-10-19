@@ -53,7 +53,8 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         // check if data exists
-        if (!this.data) {
+        if (!this.data || this.struct.length > 0) {
+            this.loadChoices(null);
             return;
         }
 

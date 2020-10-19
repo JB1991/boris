@@ -1,6 +1,6 @@
 <div *ngFor="let item of struct; index as i">
     <div class="form-row">
-        <div class="form-group col-2 mb-0">
+        <div class="form-group col-4 col-lg-2 mb-1 mb-lg-0">
             <label for="conditionCondition{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Verknüpfung*</label>
@@ -19,7 +19,7 @@
             </select>
         </div>
 
-        <div class="form-group col-4 mb-0">
+        <div class="form-group col-8 col-lg-4 mb-1 mb-lg-0">
             <label for="conditionQuestion{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Formularfeld*</label>
@@ -37,7 +37,7 @@
                    required>
         </div>
 
-        <div class="form-group col-2 mb-0">
+        <div class="form-group col-4 col-lg-2 mb-0">
             <label for="conditionOperator{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Operator*</label>
@@ -71,7 +71,7 @@
             </select>
         </div>
 
-        <div class="form-group col-4 mb-0"
+        <div class="form-group col-8 col-lg-4 mb-0"
              *ngIf="!(item.operator === 'empty' || item.operator === 'notempty')">
             <label for="conditionValueA{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -90,20 +90,22 @@
                    maxlength="200"
                    required>
 
-            <select multiple
-                    class="custom-select"
-                    *ngIf="item.operator === 'anyof' || item.operator === 'allof'"
-                    [class.is-invalid]="!item.value"
-                    id="conditionValueB{{ i }}{{ uniqId }}"
-                    name="conditionValueB{{ i }}{{ uniqId }}"
-                    required>
-                <option *ngFor="let choice of item.choices; index as j"
-                        (click)="selectedItems($event, i, j)"
-                        value="{{ choice.value }}"
-                        [selected]="item.value.indexOf(choice.value) !== -1">
-                    {{ choice.text.default ? choice.text.default : choice.value }}
-                </option>
-            </select>
+            <div *ngIf="item.operator === 'anyof' || item.operator === 'allof'">
+                <div class="custom-control custom-checkbox"
+                     *ngFor="let choice of item.choices; index as j">
+                    <input class="custom-control-input"
+                           type="checkbox"
+                           id="conditionValueB{{ i }}{{ j }}{{ uniqId }}"
+                           name="conditionValueB{{ i }}{{ j }}{{ uniqId }}"
+                           (change)="selectedItems($event, i, j)"
+                           value="{{ choice.value }}"
+                           [checked]="item.value.indexOf(choice.value) !== -1">
+                    <label class="custom-control-label"
+                           for="conditionValueB{{ i }}{{ j }}{{ uniqId }}">
+                        {{ choice.text.default ? choice.text.default : choice.value }}
+                    </label>
+                </div>
+            </div>
         </div>
     </div>
     <hr>

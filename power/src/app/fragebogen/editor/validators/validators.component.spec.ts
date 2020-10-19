@@ -125,12 +125,18 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
             validators: [
                 {
                     type: 'numeric',
-                    minValue: 0,
+                    minValue: 1,
                     maxValue: 10
+                }, {
+                    type: 'answercount',
+                    minCount: 1,
+                    maxCount: 3
                 }, {
                     type: 'text',
                     minLength: 0,
                     maxLength: 10
+                }, {
+                    type: 'email'
                 }, {
                     type: 'regex',
                     regex: 'abc'
@@ -138,10 +144,13 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
             ]
         };
         component.ngOnChanges(null);
-        expect(component.struct.length).toEqual(3);
+        expect(component.struct.length).toEqual(5);
         expect(component.struct[0].type).toEqual('numeric');
-        expect(component.struct[1].type).toEqual('text');
-        expect(component.struct[2].type).toEqual('regex');
+        expect(component.struct[1].type).toEqual('answercount');
+        expect(component.struct[2].type).toEqual('text');
+        expect(component.struct[3].type).toEqual('email');
+        expect(component.struct[4].type).toEqual('regex');
+        component.modelChanged(null);
     });
 
     it('should parse expression validators', () => {
@@ -183,13 +192,19 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
         const testdata = [
             {
                 type: 'numeric',
-                minValue: 0,
+                minValue: 1,
                 maxValue: 10
+            }, {
+                type: 'answercount',
+                minCount: 1,
+                maxCount: 3
             }, {
                 type: 'text',
                 minLength: 0,
                 maxLength: 10,
                 allowDigits: true
+            }, {
+                type: 'email'
             }, {
                 type: 'regex',
                 regex: 'abc',

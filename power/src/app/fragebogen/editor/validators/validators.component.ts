@@ -53,7 +53,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         // check if data exists
-        if (!this.data || !this.data.validators) {
+        if (!this.data || !this.data.validators || this.struct.length > 0) {
+            this.loadChoices(null);
             return;
         }
 
@@ -148,8 +149,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
      * @param event Event
      */
     public modelChanged(event: Event) {
-        this.data.validators = [];
         // convert form to validator object
+        this.data.validators = [];
         for (const item of this.struct) {
             let data;
             switch (item.type) {

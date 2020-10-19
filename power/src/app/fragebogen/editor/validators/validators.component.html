@@ -1,6 +1,6 @@
 <div *ngFor="let item of struct; index as i">
     <div class="form-row">
-        <div class="form-group col-3 mb-0">
+        <div class="form-group col-4 col-lg-2 mb-1 mb-lg-0">
             <label for="validatorType{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Typ*</label>
@@ -26,7 +26,7 @@
             </select>
         </div>
 
-        <div class="form-group col-4 mb-0"
+        <div class="form-group col-8 col-lg-5 mb-1 mb-lg-0"
              *ngIf="item.type === 'numeric' || item.type === 'text' || item.type === 'answercount'">
             <label for="validatorMin{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -43,7 +43,7 @@
                    required>
         </div>
 
-        <div class="form-group col-4 mb-0"
+        <div class="form-group col-8 col-lg-5 mb-lg-0"
              *ngIf="item.type === 'numeric' || item.type === 'text' || item.type === 'answercount'">
             <label for="validatorMax{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -60,7 +60,7 @@
                    required>
         </div>
 
-        <div class="form-group col-9 mb-0"
+        <div class="form-group col-8 col-lg-10 mb-1 mb-lg-0"
              *ngIf="item.type === 'regex'">
             <label for="validatorData{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -78,7 +78,7 @@
                    required>
         </div>
 
-        <div class="form-group col-12 mb-0 mt-2"
+        <div class="form-group col-12 mb-0"
              *ngIf="item.type === 'regex'">
             <label for="validatorText{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -91,7 +91,7 @@
                                             placeholder="Fehlermeldung für Benutzer"></power-forms-editor-localeinput>
         </div>
 
-        <div class="form-group col-4 mb-0"
+        <div class="form-group col-8 col-lg-4 mb-1 mb-lg-0"
              *ngIf="item.type === 'expression'">
             <label for="validatorExpQuestion{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -110,7 +110,7 @@
                    required>
         </div>
 
-        <div class="form-group col-2 mb-0"
+        <div class="form-group col-4 col-lg-2 mb-0"
              *ngIf="item.type === 'expression'">
             <label for="validatorExpOperator{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -145,7 +145,7 @@
             </select>
         </div>
 
-        <div class="form-group col-3 mb-0"
+        <div class="form-group col-8 col-lg-4 mb-0"
              *ngIf="item.type === 'expression' && !(item.operator === 'empty' || item.operator === 'notempty')">
             <label for="validatorExpValueA{{ i }}{{ uniqId }}"
                    class="sr-only"
@@ -164,20 +164,22 @@
                    maxlength="200"
                    required>
 
-            <select multiple
-                    class="custom-select"
-                    *ngIf="item.operator === 'anyof' || item.operator === 'allof'"
-                    [class.is-invalid]="!item.value"
-                    id="validatorExpValueB{{ i }}{{ uniqId }}"
-                    name="validatorExpValueB{{ i }}{{ uniqId }}"
-                    required>
-                <option *ngFor="let choice of item.choices; index as j"
-                        (click)="selectedItems($event, i, j)"
-                        value="{{ choice.value }}"
-                        [selected]="item.value.indexOf(choice.value) !== -1">
-                    {{ choice.text.default ? choice.text.default : choice.value }}
-                </option>
-            </select>
+            <div *ngIf="item.operator === 'anyof' || item.operator === 'allof'">
+                <div class="custom-control custom-checkbox"
+                     *ngFor="let choice of item.choices; index as j">
+                    <input class="custom-control-input"
+                           type="checkbox"
+                           id="conditionValueB{{ i }}{{ j }}{{ uniqId }}"
+                           name="conditionValueB{{ i }}{{ j }}{{ uniqId }}"
+                           (change)="selectedItems($event, i, j)"
+                           value="{{ choice.value }}"
+                           [checked]="item.value.indexOf(choice.value) !== -1">
+                    <label class="custom-control-label"
+                           for="conditionValueB{{ i }}{{ j }}{{ uniqId }}">
+                        {{ choice.text.default ? choice.text.default : choice.value }}
+                    </label>
+                </div>
+            </div>
         </div>
     </div>
     <hr>
