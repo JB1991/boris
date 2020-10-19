@@ -149,18 +149,27 @@
             </div>
             <div class="row justify-content-around">
                 <div class="col-md-4 text-center">
-                    <div class="h5"
-                         i18n>Sprache</div>
+                    <h5 tabindex="0"
+                        aria-label="Sprachauswahl"
+                        aria-i18n-label
+                        i18n>Sprache</h5>
                     <a href="{{ baseurl }}"
-                       class="footer-link">Deutsch</a>
+                       class="footer-link"
+                       aria-label="Deutsch"
+                       aria-i18n-label>Deutsch</a>
                     - <a href="/en{{ baseurl }}"
-                       class="footer-link">English</a>
+                       class="footer-link"
+                       aria-label="Englisch"
+                       aria-i18n-label>English</a>
                     - <a href="/ja{{ baseurl }}"
+                       aria-label="Japanisch"
+                       aria-i18n-label
                        class="footer-link">日本語</a>
                     <hr>
-
-                    <div class="h5"
-                         i18n>Informationen</div>
+                    <h5 tabindex="0"
+                        aria-label="Webseiten Informationen"
+                        aria-i18n-label
+                        i18n>Informationen</h5>
                     <ul class="list-unstyled text-small">
                         <li class="m-2"><a
                                href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
@@ -175,7 +184,8 @@
                                class="footer-link"
                                i18n>Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
                     </ul>
-                    <p class="text-muted">
+                    <p class="text-muted"
+                       tabindex="0">
                         <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}</p>
                 </div>
             </div>
