@@ -3,7 +3,7 @@
       id="content">
     <section class="card bg-light"
          *ngIf="data">
-        <h5 class="card-header">
+        <div class="card-header h5">
             <svg width="1em"
                  height="1em"
                  viewBox="0 0 16 16"
@@ -33,7 +33,7 @@
                        (blur)="title = $event.target.value; update(false)"
                        (keydown.enter)="title = $event.target.value; update(false)">
             </div>
-        </h5>
+        </div>
         <div class="card-body table-responsive p-0">
             <table class="table table-hover m-0">
                 <caption class="sr-only"
