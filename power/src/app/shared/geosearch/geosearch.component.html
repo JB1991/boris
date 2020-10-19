@@ -8,7 +8,6 @@
            i18n-aria-label
            [(ngModel)]="model"
            [ngbTypeahead]="search"
-           [class.is-invalid]="searchFailed"
            [inputFormatter]="formatter"
            [resultFormatter]="formatter"
            (selectItem)="selectItem($event.item)">
