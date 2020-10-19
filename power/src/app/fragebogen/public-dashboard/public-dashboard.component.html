@@ -21,7 +21,6 @@
             <span class="ml-1"
                   aria-hidden="true"
                   i18n>Formulare</span>
-
             <div class="float-right">
                 <input class="form-control"
                        id="form-title-search"
@@ -46,13 +45,17 @@
                             class="border-top-0 w-50">
                             <span role="button"
                                   tabindex="0"
+                                  (keydown.enter)="changeSort('title')"
                                   aria-roledescription="Auf- und absteigende Sortierung möglich."
-                                  aria-describedby="ascSortedTitle descSortedTitle noFroms"
+                                  aria-describedby="ascSortedTitle descSortedTitle noForms"
                                   i18n
-                                  i18n-aria-roledescription
-                                  i18n-describedby>Titel</span>
+                                  i18n-aria-roledescription>Titel
+                            </span>
                             <span *ngIf="sort && sort === 'title'">
-                                <span *ngIf="order === 'asc'">
+                                <span *ngIf="order === 'asc'"
+                                      id="ascSortedTitle"
+                                      aria-label="Aufsteigend sortiert."
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -65,10 +68,10 @@
                                         <path
                                               d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
-                                    <span class="sr-only" id="ascSortedTitle"
-                                          i18n> Aufsteigend sortiert</span>
                                 </span>
-                                <span *ngIf="order === 'desc'">
+                                <span *ngIf="order === 'desc'"
+                                      id="descSortedTitle"
+                                      aria-label="Absteigend sortiert.">
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -81,8 +84,6 @@
                                         <path
                                               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                     </svg>
-                                    <span class="sr-only" id="descSortedTitle"
-                                          i18n>Absteigend sortiert</span>
                                 </span>
                             </span>
                         </th>
@@ -91,13 +92,17 @@
                             class="border-top-0">
                             <span role="button"
                                   tabindex="0"
+                                  (keydown.enter)="changeSort('published')"
                                   aria-roledescription="Auf- und absteigende Sortierung möglich."
                                   aria-describedby="ascSortedPublished descSortedPublished"
                                   i18n
                                   i18n-roledescription
                                   i18n-describedby>Veröffentlicht</span>
                             <span *ngIf="sort && sort === 'published'">
-                                <span *ngIf="order === 'asc'">
+                                <span *ngIf="order === 'asc'"
+                                      id="ascSortedPublished"
+                                      aria-label="Aufsteigend sortiert."
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -110,11 +115,11 @@
                                         <path
                                               d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
-                                    <span class="sr-only"
-                                          id="ascSortedPublished"
-                                          i18n>Aufsteigend sortiert</span>
                                 </span>
-                                <span *ngIf="order === 'desc'">
+                                <span *ngIf="order === 'desc'"
+                                      id="descSortedPublished"
+                                      aria-label="Absteigend sortiert."
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -127,9 +132,6 @@
                                         <path
                                               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                     </svg>
-                                    <span class="sr-only" 
-                                          id="descSortedPublished"
-                                          i18n>Absteigend sortiert</span>
                                 </span>
                             </span>
                         </th>
@@ -147,7 +149,7 @@
             </table>
             <span class="m-3"
                   *ngIf="!data.length"
-                  id="noFroms"
+                  id="noForms"
                   i18n>Keine Formulare gefunden</span>
         </div>
         <div class="card-footer">
@@ -174,10 +176,10 @@
                                 nextText="&rsaquo;"
                                 firstText="&laquo;"
                                 lastText="&raquo;"
+                                role="navigation"
                                 aria-label="Pagination"
                                 [attr.aria-description]="'Derzeit ist Seite ' + page + 
                                                     ' von ' + totalPages + ' Seiten ausgewählt.'"
-                                role="navigation"
                                 i18n-aria-label
                                 i18n-aria-description>
                     </pagination>
