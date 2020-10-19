@@ -28,8 +28,6 @@
                 aria-label="Navigation umschalten">
             <span class="navbar-toggler-icon"
                   aria-hidden="true"></span>
-            <span class="sr-only"
-                  i18n>Navigation umschalten</span>
         </button>
 
         <div class="collapse navbar-collapse"
@@ -149,19 +147,28 @@
             </div>
             <div class="row justify-content-around">
                 <div class="col-md-4 text-center">
-                    <h5 i18n>Sprache</h5>
+                    <h5 id="languages"
+                        aria-label="Sprachauswahl"
+                        aria-i18n-label
+                        i18n>Sprache</h5>
                     <a href="{{ baseurl }}"
+                       id="de"
                        class="footer-link"
-                       aria-label="Sprache wechseln zu Deutsch"
+                       aria-labelledby="languages de"
+                       aria-label="Deutsch"
                        aria-i18n-label>Deutsch</a>
                     - <a href="/en{{ baseurl }}"
+                       id="en"
                        class="footer-link"
-                       aria-label="Sprache wechseln zu Englisch"
+                       aria-labelledby="languages en"
+                       aria-label="Englisch"
                        aria-i18n-label>English</a>
                     - <a href="/ja{{ baseurl }}"
-                       aria-label="Sprache wechseln zu Japanisch"
-                       aria-i18n-label
-                       class="footer-link">日本語</a>
+                       id="ja"
+                       class="footer-link"
+                       aria-label="Japanisch"
+                       aria-labelledby="languages ja"
+                       aria-i18n-label>日本語</a>
                     <hr>
                     <h5 i18n>Informationen</h5>
                     <ul class="list-unstyled text-small">
