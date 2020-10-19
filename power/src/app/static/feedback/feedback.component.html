@@ -5,13 +5,15 @@
                 i18n>Feedback</h1>
             <p class="lead mb-3"
                id="feedbackInfo"
+               aria-label="Sie haben ein Problem? Oder wollen einen Vorschlag machen? Bitte
+               formulieren Sie ihr Anliegen so exakt wie möglich."
+               i18n-aria-label
                i18n>Sie haben ein Problem? Oder wollen einen Vorschlag machen? <br>
                 Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und <br>
                 bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</p>
         </div>
     </div>
-    <div class="row justify-content-center"
-         id="feedbackIssue">
+    <div class="row justify-content-center">
         <div class="col-12 col-sm-12 col-md-8 col-xl-5 text-left">
             <ul>
                 <li i18n>Genaue Beschreibung des Fehlers</li>
@@ -34,7 +36,7 @@
                role="button"
                class="btn btn-primary"
                href="mailto:{{ mail }}"
-               aria-labelledby="feedbackHeader feedbackInfo feedbackIssue feedback1 feedback2 feedbackManually"
+               aria-labelledby="feedbackHeader feedbackInfo feedback1 feedback2 feedbackManually"
                i18n-title="Feedback geben"
                title="Feedback geben"
                i18n>Feedback</a>

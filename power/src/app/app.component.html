@@ -132,9 +132,7 @@
         </div>
     </nav>
 
-    <main>
-        <router-outlet></router-outlet>
-    </main>
+    <router-outlet></router-outlet>
 
     <div class="container-fluid">
         <footer class="pt-4 my-md-5 pt-md-5 border-top w-100 m-0 overflow-hidden">
@@ -154,21 +152,15 @@
                     <a href="{{ baseurl }}"
                        id="de"
                        class="footer-link"
-                       aria-labelledby="languages de"
-                       aria-label="Deutsch"
-                       i18n-aria-label>Deutsch</a>
+                       aria-labelledby="languages de">Deutsch</a>
                     - <a href="/en{{ baseurl }}"
                        id="en"
                        class="footer-link"
-                       aria-labelledby="languages en"
-                       aria-label="Englisch"
-                       i18n-aria-label>English</a>
+                       aria-labelledby="languages en">English</a>
                     - <a href="/ja{{ baseurl }}"
                        id="ja"
                        class="footer-link"
-                       aria-label="Japanisch"
-                       aria-labelledby="languages ja"
-                       i18n-aria-label>日本語</a>
+                       aria-labelledby="languages ja">日本語</a>
                     <hr>
                     <h5 i18n>Informationen</h5>
                     <ul class="list-unstyled text-small">
@@ -185,8 +177,7 @@
                                class="footer-link"
                                i18n>Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
                     </ul>
-                    <p class="text-muted"
-                       tabindex="0">
+                    <p class="text-muted">
                         <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}</p>
                 </div>
             </div>
