@@ -380,6 +380,30 @@
         <source>Einklappen/ausklappen</source>
       </segment>
     </unit>
+    <unit id="4802502751287439621">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:3</note>
+      </notes>
+      <segment>
+        <source>Zeitliche Entwicklung</source>
+      </segment>
+    </unit>
+    <unit id="8227910877649689310">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</source>
+      </segment>
+    </unit>
+    <unit id="4890544763204306749">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:10,12</note>
+      </notes>
+      <segment>
+        <source>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt. </source>
+      </segment>
+    </unit>
     <unit id="9117142324442802101">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:11</note>
@@ -434,30 +458,6 @@
       </notes>
       <segment>
         <source>Suche</source>
-      </segment>
-    </unit>
-    <unit id="4802502751287439621">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:3</note>
-      </notes>
-      <segment>
-        <source>Zeitliche Entwicklung</source>
-      </segment>
-    </unit>
-    <unit id="8227910877649689310">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:4,5</note>
-      </notes>
-      <segment>
-        <source>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</source>
-      </segment>
-    </unit>
-    <unit id="4890544763204306749">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:10,12</note>
-      </notes>
-      <segment>
-        <source>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt. </source>
       </segment>
     </unit>
     <unit id="5763537713323428568">
@@ -532,9 +532,17 @@
         <source>Bodenwerte - POWER.NI</source>
       </segment>
     </unit>
+    <unit id="4300090619021279969">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:54</note>
+      </notes>
+      <segment>
+        <source>Testdaten</source>
+      </segment>
+    </unit>
     <unit id="2536156425034607770">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:113</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:115</note>
       </notes>
       <segment>
         <source>Wählen Sie Flurstücke auf der Karte aus</source>
@@ -542,7 +550,7 @@
     </unit>
     <unit id="1889515159201485012">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:121</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:123</note>
       </notes>
       <segment>
         <source>Amtliche Fläche</source>
@@ -550,7 +558,7 @@
     </unit>
     <unit id="5422814021855947257">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:122</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:124</note>
       </notes>
       <segment>
         <source>Wert</source>
@@ -558,7 +566,7 @@
     </unit>
     <unit id="6941480264920362873">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:132</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:134</note>
       </notes>
       <segment>
         <source>Summe</source>
@@ -1911,22 +1919,6 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Englisch</source>
       </segment>
     </unit>
-    <unit id="5630731892828039251">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:14</note>
-      </notes>
-      <segment>
-        <source>Sichtbarkeitsbedingung für Antwort oder Unterfrage</source>
-      </segment>
-    </unit>
-    <unit id="4874905878981423123">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:4</note>
-      </notes>
-      <segment>
-        <source>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</source>
-      </segment>
-    </unit>
     <unit id="1962054522708788552">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:194</note>
@@ -2285,6 +2277,22 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Wert oder Variabel %7Be1%7D</source>
+      </segment>
+    </unit>
+    <unit id="5630731892828039251">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:14</note>
+      </notes>
+      <segment>
+        <source>Sichtbarkeitsbedingung für Antwort oder Unterfrage</source>
+      </segment>
+    </unit>
+    <unit id="4874905878981423123">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:4</note>
+      </notes>
+      <segment>
+        <source>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</source>
       </segment>
     </unit>
     <unit id="7879816504576872670">

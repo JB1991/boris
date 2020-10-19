@@ -589,9 +589,18 @@
         <target>Land values - POWER.NI</target>
       </segment>
     </unit>
+    <unit id="4300090619021279969">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:54</note>
+      </notes>
+      <segment state="final">
+        <source>Testdaten</source>
+        <target>Test data</target>
+      </segment>
+    </unit>
     <unit id="2536156425034607770">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:113</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:115</note>
       </notes>
       <segment state="final">
         <source>Wählen Sie Flurstücke auf der Karte aus</source>
@@ -600,7 +609,7 @@
     </unit>
     <unit id="1889515159201485012">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:121</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:123</note>
       </notes>
       <segment state="final">
         <source>Amtliche Fläche</source>
@@ -609,7 +618,7 @@
     </unit>
     <unit id="5422814021855947257">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:122</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:124</note>
       </notes>
       <segment state="final">
         <source>Wert</source>
@@ -618,7 +627,7 @@
     </unit>
     <unit id="6941480264920362873">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:132</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:134</note>
       </notes>
       <segment state="final">
         <source>Summe</source>

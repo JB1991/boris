@@ -51,6 +51,8 @@
 
     <div class="height-minus-header-map" [class.small]="flurstueckSelection.size > 0" #map>
 
+        <div class="corner-ribbon top-left sticky shadow" i18n>Testdaten</div>
+
         <mgl-map
             id="map"
             (click)="onMapClickEvent($event)"
