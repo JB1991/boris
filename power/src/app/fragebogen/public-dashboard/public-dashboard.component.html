@@ -20,6 +20,7 @@
                       d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
             </svg>
             <span class="ml-1"
+                  aria-hidden="true"
                   i18n>Formulare</span>
 
             <div class="float-right">
@@ -29,15 +30,15 @@
                        role="search"
                        placeholder="Titel"
                        i18n-placeholder
-                       aria-label="Suchen Sie hier nach einem Formular Titel."
-                       aria-placeholder=""
-                       i18n-aria-label
+                       aria-description="Suchen Sie hier nach einem Formular Titel."
+                       i18n-aria-description
                        (blur)="title = $event.target.value; update(false)"
                        (keydown.enter)="title = $event.target.value; update(false)">
             </div>
         </div>
         <div class="card-body table-responsive p-0">
             <table class="table table-hover m-0">
+                <caption class="sr-only">Öffentliche Formulare</caption>
                 <thead>
                     <tr>
                         <th scope="col"
@@ -45,8 +46,11 @@
                             class="border-top-0 w-50">
                             <span role="button"
                                   tabindex="0"
-                                  aria-label="Sie befinden sich in der Spalte 'Titel'. Auf- und absteigende Sortierung möglich."
-                                  i18n>Titel</span>
+                                  aria-roledescription="Auf- und absteigende Sortierung möglich."
+                                  aria-describedby="ascSortedTitle descSortedTitle noFroms"
+                                  i18n
+                                  i18n-aria-roledescription
+                                  i18n-describedby>Titel</span>
                             <span *ngIf="sort && sort === 'title'">
                                 <span *ngIf="order === 'asc'">
                                     <svg width="1em"
@@ -61,8 +65,8 @@
                                         <path
                                               d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
-                                    <span class="sr-only"
-                                          i18n>Aufsteigend sortiert</span>
+                                    <span class="sr-only" id="ascSortedTitle"
+                                          i18n> Aufsteigend sortiert</span>
                                 </span>
                                 <span *ngIf="order === 'desc'">
                                     <svg width="1em"
@@ -77,7 +81,7 @@
                                         <path
                                               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                     </svg>
-                                    <span class="sr-only"
+                                    <span class="sr-only" id="descSortedTitle"
                                           i18n>Absteigend sortiert</span>
                                 </span>
                             </span>
@@ -87,8 +91,11 @@
                             class="border-top-0">
                             <span role="button"
                                   tabindex="0"
-                                  aria-label="Sie befinden sich in der Spalte 'Veröffentlicht'. Auf- und absteigende Sortierung möglich."
-                                  i18n>Veröffentlicht</span>
+                                  aria-roledescription="Auf- und absteigende Sortierung möglich."
+                                  aria-describedby="ascSortedPublished descSortedPublished"
+                                  i18n
+                                  i18n-roledescription
+                                  i18n-describedby>Veröffentlicht</span>
                             <span *ngIf="sort && sort === 'published'">
                                 <span *ngIf="order === 'asc'">
                                     <svg width="1em"
@@ -104,6 +111,7 @@
                                               d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
                                     <span class="sr-only"
+                                          id="ascSortedPublished"
                                           i18n>Aufsteigend sortiert</span>
                                 </span>
                                 <span *ngIf="order === 'desc'">
@@ -119,25 +127,27 @@
                                         <path
                                               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                     </svg>
-                                    <span class="sr-only"
+                                    <span class="sr-only" 
+                                          id="descSortedPublished"
                                           i18n>Absteigend sortiert</span>
                                 </span>
                             </span>
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="">
                     <tr *ngFor="let form of data; index as i">
                         <td>
-                            <a [routerLink]="['/forms/fillout/form', form.id]">{{ form.title }}</a>
+                            <a [routerLink]="['/forms/fillout/form', form.id]"
+                               [attr.aria-describedby]="i">{{ form.title }}</a>
                         </td>
-                        <td>{{ form.published | date:'short' }}</td>
+                        <td [id]="i">{{ form.published | date:'short' }}</td>
                     </tr>
                 </tbody>
             </table>
             <span class="m-3"
                   *ngIf="!data.length"
-                  tabindex="0"
+                  id="noFroms"
                   i18n>Keine Formulare gefunden</span>
         </div>
         <div class="card-footer"
@@ -146,7 +156,8 @@
                 <div class="form-inline well">
                     <div class="form-group mx-2">
                         <select class="custom-select"
-                                aria-label="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen."
+                                aria-label="Formularanzahl pro Seite"
+                                aria-description="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen."
                                 (change)="perPage = $event.target.value; update(false)">
                             <option *ngFor=" let size of pageSizes">
                                 {{ size }}
@@ -162,12 +173,12 @@
                                 nextText="&rsaquo;"
                                 firstText="&laquo;"
                                 lastText="&raquo;"
-                                [attr.aria-label]="'Sie befinden sich in der Pagination. Derzeit ist Seite ' + page + 
+                                aria-label="Pagination"
+                                [attr.aria-description]="'Derzeit ist Seite ' + page + 
                                                     ' von ' + totalPages + ' Seiten ausgewählt.'"
                                 role="navigation"
-                                (focusin)="ariaPagination = $event.originalTarget.childNodes[0].nodeValue; console()"
-                                >
-                        <span class="sr-only" *ngIf="ariaPagination"></span>
+                                i18n-aria-label
+                                i18n-aria-description>
                     </pagination>
                 </div>
             </div>

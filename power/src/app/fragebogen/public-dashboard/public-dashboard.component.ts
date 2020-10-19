@@ -22,7 +22,6 @@ export class PublicDashboardComponent implements OnInit {
     public title: string;
     public sort: 'title' | 'published' = 'title';
     public order: 'asc' | 'desc' = 'asc';
-    public ariaPagination: any;
 
     constructor(public titleService: Title,
         public router: Router,
@@ -34,10 +33,6 @@ export class PublicDashboardComponent implements OnInit {
 
     ngOnInit() {
         this.update(true);
-    }
-
-    public console () {
-        console.log(this.ariaPagination);
     }
 
     public changeSort(sort: 'title' | 'published') {
@@ -87,5 +82,4 @@ export class PublicDashboardComponent implements OnInit {
             }
         }
     }
-
 }
