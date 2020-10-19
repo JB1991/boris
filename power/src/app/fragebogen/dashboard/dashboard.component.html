@@ -1,11 +1,10 @@
 <!-- dashboard page -->
 <main class="mainpage p-1 p-lg-3"
-      id="content"
-      tabindex="-1">
+      id="content">
     <!-- tasks list -->
     <div class="card bg-light mb-1 mb-lg-3"
          *ngIf="data.tasks">
-        <div class="card-header h5">
+        <h5 class="card-header">
             <svg width="1em"
                  height="1em"
                  viewBox="0 0 16 16"
@@ -23,7 +22,8 @@
             <div class="float-md-right row">
                 <div class="col-sm">
                     <select class="browser-default custom-select"
-                            (change)="taskStatus = $event.target.value; updateTasks(false)">
+                            (change)="taskStatus = $event.target.value; updateTasks(false)"
+                            aria-roledescription="Antworten filtern nach Status.">
                         <option value="all"
                                 selected
                                 i18n>Status: Alle</option>
@@ -36,19 +36,29 @@
                     </select>
                 </div>
             </div>
-        </div>
+        </h5>
 
         <div class="card-body table-responsive p-0">
             <table class="table table-hover m-0">
+                <caption class="sr-only"
+                         i18n>Antworten zu den ausgefüllten Formularen</caption>
                 <thead>
                     <tr>
                         <th scope="col"
                             (click)="changeTaskSort('id')"
                             class="border-top-0">
                             <span role="button"
+                                  aria-roledescription="Aufsteigend oder Absteigend sortieren."
+                                  aria-describedby="ascID descID"
+                                  i18n-aria-roledescription
+                                  tabindex="0"
+                                  (keydown.enter)="changeTaskSort('id')"
                                   i18n>ID</span>
                             <span *ngIf="taskSort && taskSort === 'id'">
-                                <span *ngIf="taskOrder === 'asc'">
+                                <span *ngIf="taskOrder === 'asc'"
+                                      id="ascID"
+                                      aria-label="Aufsteigend sortiert"
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -61,10 +71,11 @@
                                         <path
                                               d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
-                                    <span class="sr-only"
-                                          i18n>Aufsteigend sortiert</span>
                                 </span>
-                                <span *ngIf="taskOrder === 'desc'">
+                                <span *ngIf="taskOrder === 'desc'"
+                                      id="descID"
+                                      aria-label="Absteigend sortiert"
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -77,8 +88,6 @@
                                         <path
                                               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                     </svg>
-                                    <span class="sr-only"
-                                          i18n>Absteigend sortiert</span>
                                 </span>
                             </span>
                         </th>
@@ -95,9 +104,17 @@
                             (click)="changeTaskSort('submitted')"
                             class="border-top-0">
                             <span role="button"
+                                  aria-roledescription="Aufsteigend oder Absteigend sortieren."
+                                  aria-describedby="ascCompleted descCompleted"
+                                  i18n-aria-roledescription
+                                  tabindex="0"
+                                  (keydown.enter)="changeTaskSort('submitted')"
                                   i18n>Abgeschlossen</span>
                             <span *ngIf="taskSort && taskSort === 'submitted'">
-                                <span *ngIf="taskOrder === 'asc'">
+                                <span *ngIf="taskOrder === 'asc'"
+                                      id="ascCompleted"
+                                      aria-label="Aufsteigend sortiert"
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -110,10 +127,11 @@
                                         <path
                                               d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
-                                    <span class="sr-only"
-                                          i18n>Aufsteigend sortiert</span>
                                 </span>
-                                <span *ngIf="taskOrder === 'desc'">
+                                <span *ngIf="taskOrder === 'desc'"
+                                      id="descCompleted"
+                                      aria-label="Absteigend sortiert"
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -126,8 +144,6 @@
                                         <path
                                               d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                     </svg>
-                                    <span class="sr-only"
-                                          i18n>Absteigend sortiert</span>
                                 </span>
                             </span>
                         </th>
@@ -135,9 +151,17 @@
                             (click)="changeTaskSort('created')"
                             class="border-top-0">
                             <span role="button"
+                                  aria-roledescription="Aufsteigend oder Absteigend sortieren."
+                                  aria-describedby="ascCreated descCreated"
+                                  i18n-aria-roledescription
+                                  tabindex="0"
+                                  (keydown.enter)="changeTaskSort('created')"
                                   i18n>Erstellt</span>
                             <span *ngIf="taskSort && taskSort === 'created'">
-                                <span *ngIf="taskOrder === 'asc'">
+                                <span *ngIf="taskOrder === 'asc'"
+                                      id="ascCreated"
+                                      aria-label="Aufsteigend sortiert"
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -153,7 +177,10 @@
                                     <span class="sr-only"
                                           i18n>Aufsteigend sortiert</span>
                                 </span>
-                                <span *ngIf="taskOrder === 'desc'">
+                                <span *ngIf="taskOrder === 'desc'"
+                                      id="descCreated"
+                                      aria-label="Absteigend sortiert"
+                                      i18n-aria-label>
                                     <svg width="1em"
                                          height="0.8em"
                                          viewBox="0 1.2 16 16"
@@ -173,7 +200,7 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody aria-live="polite">
                     <tr *ngFor="let task of data.tasks; index as i">
                         <td>{{ task.id }}</td>
                         <td>
@@ -195,6 +222,7 @@
             </table>
             <span class="m-3"
                   *ngIf="!data.tasks.length"
+                  id="noTasks"
                   i18n>Keine Antworten vorhanden</span>
         </div>
 
