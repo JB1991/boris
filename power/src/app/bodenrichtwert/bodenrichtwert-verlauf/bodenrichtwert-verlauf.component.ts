@@ -13,7 +13,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     state: any;
 
-    series_template = [
+    seriesTemplate = [
         {stag: '2012', brw: 0, nutzung: ''},
         {stag: '2013', brw: 0, nutzung: ''},
         {stag: '2014', brw: 0, nutzung: ''},
@@ -65,35 +65,46 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.features) {
-            this.generate(this.features.features);
+            this.features.features = this.filterByStichtag(this.features.features);
+            this.generateChart(this.features.features);
         }
     }
 
-    generate(features) {
-        // Gruppieren nach WNUM
-        const grouped_by_wnum = this.groupBy(features, item => item.properties.wnum);
+    filterByStichtag(features) {
+        const filteredFeatures = [];
+        for (const feature of features) {
+            const year = feature.properties.stag.substring(0, 4);
+            if (year >= 2012 && year <= 2019) {
+                filteredFeatures.push(feature);
+            }
+        }
+        return filteredFeatures;
+    }
+
+    generateChart(features) {
+        const groupedByWNUM = this.groupBy(features, item => item.properties.wnum);
 
         this.chartOption.series = [];
 
-        for (const [key, value] of grouped_by_wnum.entries()) {
+        for (const [key, value] of groupedByWNUM.entries()) {
 
             features = Array.from(value);
 
-            const x = this.series_template;
+            const series = this.seriesTemplate;
 
-            for (let i = 0; i < x.length; i++) {
-                const tmp = features.find(f => f.properties.stag.includes(x[i].stag));
+            for (let i = 0; i < series.length; i++) {
+                const tmp = features.find(f => f.properties.stag.includes(series[i].stag));
                 if (tmp) {
-                    x[i].brw = tmp.properties.brw;
-                    x[i].nutzung = this.nutzungPipe.transform(tmp.properties.nutzung, null);
+                    series[i].brw = tmp.properties.brw;
+                    series[i].nutzung = this.nutzungPipe.transform(tmp.properties.nutzung, null);
                 }
             }
-            this.chartOption.legend.data.push(x[0].nutzung);
+            this.chartOption.legend.data.push(series[0].nutzung);
             this.chartOption.series.push({
-                name: x[0].nutzung,
+                name: series[0].nutzung,
                 type: 'line',
                 step: 'end',
-                data: x.map(t => t.brw)
+                data: series.map(t => t.brw)
             }
             );
         }
@@ -101,21 +112,22 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     groupBy(list, keyGetter) {
-        const m = new Map();
+        const map = new Map();
         list.forEach((item) => {
             const key = keyGetter(item);
-            const collection = m.get(key);
+            const collection = map.get(key);
             if (!collection) {
-                m.set(key, [item]);
+                map.set(key, [item]);
             } else {
                 collection.push(item);
             }
         });
-        return m;
+        return map;
     }
 
     onChartInit(event: any) {
         this.echartsInstance = event;
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */
