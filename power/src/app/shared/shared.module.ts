@@ -12,8 +12,8 @@ import { TagboxComponent } from './tagbox/tagbox.component';
 import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
-import { SvgPipe } from './svg.pipe';
-import { HyphenatePipe } from './hyphenate.pipe';
+import { SvgPipe } from './pipes/svg.pipe';
+import { HyphenatePipe } from './pipes/hyphenate.pipe';
 
 @NgModule({
     declarations: [

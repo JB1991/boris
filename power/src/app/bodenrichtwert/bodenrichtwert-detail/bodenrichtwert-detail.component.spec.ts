@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail.component';
 import { BeitragPipe } from '@app/bodenrichtwert/pipes/beitrag.pipe';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
-import { HyphenatePipe } from '@app/bodenrichtwert/pipes/hyphenate.pipe';
 import { UmlautCorrectionPipe } from '@app/bodenrichtwert/pipes/umlaut-correction.pipe';
+import { HyphenatePipe } from '@app/shared/pipes/hyphenate.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
     let component: BodenrichtwertDetailComponent;
