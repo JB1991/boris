@@ -1,10 +1,9 @@
 <!-- dashboard page -->
 <main class="mainpage p-1 p-lg-3"
-      id="content"
-      tabindex="-1">
+      id="content">
     <section class="card bg-light"
          *ngIf="data">
-        <div class="card-header h5">
+        <h5 class="card-header">
             <svg width="1em"
                  height="1em"
                  viewBox="0 0 16 16"
@@ -29,16 +28,17 @@
                        type="text"
                        role="search"
                        placeholder="Titel"
+                       aria-description="Suchen Sie hier nach einem Formular-Titel."
                        i18n-placeholder
-                       aria-description="Suchen Sie hier nach einem Formular Titel."
                        i18n-aria-description
                        (blur)="title = $event.target.value; update(false)"
                        (keydown.enter)="title = $event.target.value; update(false)">
             </div>
-        </div>
+        </h5>
         <div class="card-body table-responsive p-0">
             <table class="table table-hover m-0">
-                <caption class="sr-only">Öffentliche Formulare</caption>
+                <caption class="sr-only"
+                         i18n>Öffentliche Formulare</caption>
                 <thead>
                     <tr>
                         <th scope="col"
@@ -135,7 +135,7 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody id="">
+                <tbody aria-live="polite">
                     <tr *ngFor="let form of data; index as i">
                         <td>
                             <a [routerLink]="['/forms/fillout/form', form.id]"
@@ -150,14 +150,15 @@
                   id="noFroms"
                   i18n>Keine Formulare gefunden</span>
         </div>
-        <div class="card-footer"
-             aria-label="...">
+        <div class="card-footer">
             <div class="float-right">
                 <div class="form-inline well">
                     <div class="form-group mx-2">
                         <select class="custom-select"
                                 aria-label="Formularanzahl pro Seite"
                                 aria-description="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen."
+                                i18n-aria-label
+                                i18n-aria-description
                                 (change)="perPage = $event.target.value; update(false)">
                             <option *ngFor=" let size of pageSizes">
                                 {{ size }}
