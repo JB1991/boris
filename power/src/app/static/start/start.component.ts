@@ -1,22 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { Config, ConfigService } from '@app/config.service';
 
 @Component({
     selector: 'power-start',
     templateUrl: './start.component.html',
     styleUrls: ['./start.component.scss']
 })
-export class StartComponent {
+export class StartComponent implements OnInit {
+    public config: Config;
 
     constructor(public title: Title,
         public router: Router,
         public route: ActivatedRoute,
-        public alerts: AlertsService) {
+        public alerts: AlertsService,
+        public configService: ConfigService) {
         this.title.setTitle($localize`Portal für Wertermittlung Niedersachsen`);
-
         // check if logged out
         /* istanbul ignore next */
         this.route.queryParams.subscribe(params => {
@@ -25,6 +27,10 @@ export class StartComponent {
                     $localize`Sie wurden erfolgreich ausgeloggt.`);
             }
         });
+    }
+
+    ngOnInit() {
+        this.config = this.configService.config;
     }
 
     /**

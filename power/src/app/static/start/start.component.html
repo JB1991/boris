@@ -1,5 +1,6 @@
 <div class="container-xl border-left border-right">
-    <section class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
+    <section *ngIf="config.modules.includes('bodenrichtwerte')"
+             class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
         <div class="col-lg-6 p-0">
             <div class="boris-img col-lg-12 p-0"></div>
         </div>
@@ -21,7 +22,8 @@
             </div>
         </div>
     </section>
-    <section class="row pr-lg-5 pt-lg-5 pl-lg-0 pb-lg-0 p-2">
+    <section *ngIf="config.modules.includes('immobilienpreisindex')"
+             class="row pr-lg-5 pt-lg-5 pl-lg-0 pb-lg-0 p-2">
         <div class="col-lg-9 p-0 pr-lg-5 pt-2 pt-lg-0">
             <div class="content col-lg-12 text-dark p-5 rounded-right">
                 <a class="h2 btn-link text-dark font-weight-bold"
@@ -44,7 +46,8 @@
             <div class="nipix-img col-lg-12 p-0"></div>
         </div>
     </section>
-    <section class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
+    <section *ngIf="config.modules.includes('forms')"
+             class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
         <div class="col-lg-6 pr-0 pl-lg-0 pl-0">
             <div class="form-img col-lg-12 p-0"></div>
         </div>

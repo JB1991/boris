@@ -4,6 +4,7 @@ import { StartComponent } from './start.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from '@app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { ConfigService } from '@app/config.service';
 
 describe('Static.Start.StartComponent', () => {
     let component: StartComponent;
@@ -16,6 +17,9 @@ describe('Static.Start.StartComponent', () => {
                 RouterTestingModule.withRoutes([]),
                 FormsModule,
                 SharedModule
+            ],
+            providers: [
+                ConfigService
             ]
         }).compileComponents();
     }));
@@ -23,7 +27,6 @@ describe('Static.Start.StartComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(StartComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
         spyOn(component.router, 'navigate');
