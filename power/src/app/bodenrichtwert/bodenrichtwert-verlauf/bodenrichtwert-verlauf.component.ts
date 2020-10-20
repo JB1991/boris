@@ -72,9 +72,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.features) {
+            this.clearChart();
             this.features.features = this.filterByStichtag(this.features.features);
             this.generateChart(this.features.features);
         }
+    }
+
+    clearChart() {
+        this.chartOption.legend.data = [];
+        this.chartOption.series = [];
     }
 
     filterByStichtag(features) {
@@ -90,7 +96,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
-        this.chartOption.series = [];
 
         for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
@@ -112,7 +117,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
             );
         }
-        this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true, true);
+        this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
     groupBy(list, keyGetter) {
