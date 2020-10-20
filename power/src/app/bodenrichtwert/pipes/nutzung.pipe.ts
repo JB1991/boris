@@ -89,6 +89,10 @@ export class NutzungPipe implements PipeTransform {
 
     transform(value: any[], ...args: any[]): any {
 
+        if (value === null) {
+            return null;
+        }
+
         let res = '';
 
         for (const nutzung of value) {
