@@ -12,13 +12,16 @@
                 </div>
                 <div class="nav">
                     <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" i18n-alt>
+                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" title="Ortung" i18n-alt
+                             i18n-title>
                     </a>
                     <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren" i18n-alt>
+                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren"
+                             title="3D aktivieren/deaktivieren" i18n-alt i18n-title>
                     </a>
                     <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen" i18n-alt>
+                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen"
+                             title="Karte zurücksetzen" i18n-alt i18n-title>
                     </a>
                 </div>
             </nav>
@@ -31,16 +34,20 @@
             <nav class="nav nav-underline">
                 <div class="nav ml-auto">
                     <a class="nav-link" (click)="toggleSearchActive()">
-                        <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche" i18n-alt>
+                        <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche" title="Suche" i18n-alt
+                             i18n-title>
                     </a>
                     <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" i18n-alt>
+                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" title="Ortung" i18n-alt
+                             i18n-title>
                     </a>
                     <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren" i18n-alt>
+                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren"
+                             title="3D aktivieren/deaktivieren" i18n-alt i18n-title>
                     </a>
                     <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen" i18n-alt>
+                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen"
+                             title="Karte zurücksetzen" i18n-alt i18n-title>
                     </a>
                 </div>
             </nav>
@@ -131,7 +138,8 @@
                     </table>
 
                     <h3>
-                        <span i18n>Summe</span> {{ flurstueckSelection | keyvalue | flurstueckPipe | currency:'EUR':"symbol" : '1.2-2'}}
+                        <span i18n>Summe</span>:
+                        {{ flurstueckSelection | keyvalue | flurstueckPipe | currency:'EUR':"symbol" : '1.2-2'}}
                     </h3>
                 </ng-template>
             </ngb-panel>
