@@ -89,14 +89,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     generateChart(features) {
-        const groupedByWNUM = this.groupBy(features, item => item.properties.wnum);
-
+        const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.chartOption.series = [];
 
-        for (const [key, value] of groupedByWNUM.entries()) {
-
+        for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
-
             const series = this.seriesTemplate;
 
             for (let i = 0; i < series.length; i++) {
@@ -122,11 +119,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         const map = new Map();
         list.forEach((item) => {
             const key = keyGetter(item);
-            const collection = map.get(key);
-            if (!collection) {
-                map.set(key, [item]);
-            } else {
-                collection.push(item);
+            if (key !== null) {
+                const collection = map.get(key);
+                if (!collection) {
+                    map.set(key, [item]);
+                } else {
+                    collection.push(item);
+                }
             }
         });
         return map;
