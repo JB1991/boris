@@ -14,14 +14,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     state: any;
 
     seriesTemplate = [
-        {stag: '2012', brw: 0, nutzung: ''},
-        {stag: '2013', brw: 0, nutzung: ''},
-        {stag: '2014', brw: 0, nutzung: ''},
-        {stag: '2015', brw: 0, nutzung: ''},
-        {stag: '2016', brw: 0, nutzung: ''},
-        {stag: '2017', brw: 0, nutzung: ''},
-        {stag: '2018', brw: 0, nutzung: ''},
-        {stag: '2019', brw: 0, nutzung: ''},
+        {stag: '2012', brw: null, nutzung: ''},
+        {stag: '2013', brw: null, nutzung: ''},
+        {stag: '2014', brw: null, nutzung: ''},
+        {stag: '2015', brw: null, nutzung: ''},
+        {stag: '2016', brw: null, nutzung: ''},
+        {stag: '2017', brw: null, nutzung: ''},
+        {stag: '2018', brw: null, nutzung: ''},
+        {stag: '2019', brw: null, nutzung: ''},
     ];
 
     chartOption: EChartOption = {
@@ -99,23 +99,24 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
         for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
-            const series = this.seriesTemplate;
+            const series = this.deepCopy(this.seriesTemplate);
 
             for (let i = 0; i < series.length; i++) {
-                const tmp = features.find(f => f.properties.stag.includes(series[i].stag));
-                if (tmp) {
-                    series[i].brw = tmp.properties.brw;
-                    series[i].nutzung = this.nutzungPipe.transform(tmp.properties.nutzung, null);
+                const feature = features.find(f => f.properties.stag.includes(series[i].stag));
+                if (feature) {
+                    series[i].brw = feature.properties.brw;
+                    series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
                 }
             }
-            this.chartOption.legend.data.push(series[0].nutzung);
+
+            const nutzung = this.getNutzung(series);
+            this.chartOption.legend.data.push(nutzung);
             this.chartOption.series.push({
-                name: series[0].nutzung,
+                name: nutzung,
                 type: 'line',
                 step: 'end',
                 data: series.map(t => t.brw)
-            }
-            );
+            });
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
@@ -134,6 +135,19 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         });
         return map;
+    }
+
+    deepCopy(data) {
+        return JSON.parse(JSON.stringify(data));
+    }
+
+    getNutzung(series) {
+        for (const entry of series) {
+            if (entry.nutzung !== '') {
+                return entry.nutzung;
+            }
+        }
+        return '';
     }
 
     onChartInit(event: any) {
