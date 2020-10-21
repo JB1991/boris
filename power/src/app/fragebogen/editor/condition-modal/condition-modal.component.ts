@@ -1,4 +1,6 @@
 import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
 @Component({
@@ -13,9 +15,11 @@ export class ConditionModalComponent {
     @Output() public dataChange = new EventEmitter<any>();
     public title = $localize`Sichtbarkeitsbedingung für Antwort oder Unterfrage`;
 
-    constructor() { }
+    constructor(public alerts: AlertsService) { }
 
     public close() {
+        this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
+            $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
         this.dataChange.emit(this.data);
     }
 }
