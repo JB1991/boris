@@ -52,6 +52,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
             }
             this.showOrHideFlurstueckPanel();
             this.updateFlurstueckHighlighting();
+            this.map.flyTo({center: [event.lngLat.lng, event.lngLat.lat - 0.00235], zoom: 15, speed: 1});
         }
     }
 

@@ -22,6 +22,9 @@
                 </div>
             </ng-template>
             <ng-template ngbPanelContent>
+                <ng-container *ngIf="!adresse || adresse.properties.bundesland !== 'Niedersachsen'">
+                    <p class="text-center">Keine gültige Adresse! <br> Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen aus.</p>
+                </ng-container>
                 <power-bodenrichtwert-liste [stichtag]="stichtag"
                                             [teilmarkt]="teilmarkt"
                                             [features]="features">
