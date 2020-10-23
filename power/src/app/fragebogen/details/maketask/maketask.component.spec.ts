@@ -1,10 +1,10 @@
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
-import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MaketaskComponent } from './maketask.component';
+import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '@app/fragebogen/formapi.service';
 
@@ -17,11 +17,10 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 FormsModule,
-                ModalModule.forRoot(),
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                SharedModule
             ],
             providers: [
-                BsModalService,
                 AlertsService,
                 FormAPIService
             ],
@@ -47,9 +46,9 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
     it('should open and close', () => {
         fixture.detectChanges();
         component.open();
-        expect(component.modal.isShown).toBeTrue();
+        expect(component.modal.isOpen).toBeTrue();
         component.close();
-        expect(component.modal.isShown).toBeFalse();
+        expect(component.modal.isOpen).toBeFalse();
     });
 
     it('should generate', fakeAsync(() => {

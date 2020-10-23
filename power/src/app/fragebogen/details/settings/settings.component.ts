@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { FormAPIService } from '../../formapi.service';
 
 @Component({
@@ -17,14 +17,13 @@ export class SettingsComponent implements OnInit {
         tasksCountTotal: 0,
         tasksPerPage: 5,
     };
-    @ViewChild('modalsettings') public modal: ModalDirective;
+    @ViewChild('settingsmodal') public modal: ModalminiComponent;
 
     public tagList = [];
     public ownerList = [];
     public readerList = [];
 
-    constructor(public modalService: BsModalService,
-        public router: Router,
+    constructor(public router: Router,
         public alerts: AlertsService,
         public formapi: FormAPIService) {
     }
@@ -39,14 +38,14 @@ export class SettingsComponent implements OnInit {
         this.tagList = Object.assign([], this.data.form.tags);
         this.ownerList = Object.assign([], this.data.form.owners);
         this.readerList = Object.assign([], this.data.form.readers);
-        this.modal.show();
+        this.modal.open($localize`Einstellungen`);
     }
 
     /**
      * Closes settings modal
      */
     public close() {
-        this.modal.hide();
+        this.modal.close();
     }
 
     /**

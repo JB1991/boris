@@ -191,20 +191,6 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             'Archivieren fehlgeschlagen', 'Failed');
     }));
 
-    it('should fail get csv', fakeAsync(() => {
-        component.data.form = JSON.parse(JSON.stringify(formSample.data));
-        spyOn(component.formapi, 'getInternFormCSV').and
-            .returnValue(Promise.reject('Failed'));
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.getCSV();
-
-        tick();
-
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-            'Download fehlgeschlagen', 'Failed');
-    }));
-
     /**
      * DELETE TASK
      */

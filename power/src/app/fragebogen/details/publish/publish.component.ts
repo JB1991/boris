@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '../../formapi.service';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
 @Component({
     selector: 'power-forms-details-publish',
@@ -16,12 +16,11 @@ export class PublishComponent implements OnInit {
         tasksCountTotal: 0,
         tasksPerPage: 5,
     };
-    @ViewChild('modalpublish') public modal: ModalDirective;
+    @ViewChild('publishmodal') public modal: ModalminiComponent;
     public pin = 'pin8';
     public accesstime = 60;
 
-    constructor(public modalService: BsModalService,
-        public alerts: AlertsService,
+    constructor(public alerts: AlertsService,
         public formapi: FormAPIService) {
     }
 
@@ -32,14 +31,14 @@ export class PublishComponent implements OnInit {
      * Opens modal
      */
     public open() {
-        this.modal.show();
+        this.modal.open($localize`Veröffentlichen`);
     }
 
     /**
      * Closes modal
      */
     public close() {
-        this.modal.hide();
+        this.modal.close();
     }
 
     /**

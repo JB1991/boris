@@ -18,7 +18,7 @@ cache: &global_cache
 
 install:
   stage: init
-  image: node:14
+  image: node:15
   dependencies: []
   cache:
     <<: *global_cache
@@ -85,7 +85,7 @@ test:e2e:
 
 test:audit:
   stage: test
-  image: node:14
+  image: node:15
   dependencies: []
   cache:
     <<: *global_cache
@@ -103,7 +103,7 @@ test:audit:
 
 test:lint:
   stage: test
-  image: node:14
+  image: node:15
   dependencies: []
   cache:
     <<: *global_cache
@@ -121,7 +121,7 @@ test:lint:
 
 test:lint:html:
   stage: test
-  image: node:14
+  image: node:15
   dependencies: []
   cache:
     <<: *global_cache
@@ -139,7 +139,7 @@ test:lint:html:
 
 test:lint:styles:
   stage: test
-  image: node:14
+  image: node:15
   dependencies: []
   cache:
     <<: *global_cache
@@ -157,7 +157,7 @@ test:lint:styles:
 
 build:
   stage: build
-  image: node:14
+  image: node:15
   dependencies: []
   cache:
     <<: *global_cache
