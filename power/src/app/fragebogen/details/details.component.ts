@@ -154,6 +154,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     /* istanbul ignore next */
     public getCSV() {
+        alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
+
         // load csv results
         this.formapi.getInternFormCSV(this.data.form.id).then(result => {
             const blob = new Blob([result.toString()], { type: 'text/csv;charset=utf-8;' });
