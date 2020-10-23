@@ -29,7 +29,6 @@ export class BodenrichtwertKarteComponent implements OnInit {
     }).on('dragend', () => {
         this.lat = this.marker.getLngLat().lat
         this.lng = this.marker.getLngLat().lng
-
         this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
         this.getAddressFromLatLng(this.lat, this.lng);
         this.map.flyTo({
