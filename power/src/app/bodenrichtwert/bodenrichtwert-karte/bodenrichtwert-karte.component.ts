@@ -25,7 +25,21 @@ export class BodenrichtwertKarteComponent implements OnInit {
     ]);
     marker: Marker = new Marker({
         color: '#c4153a',
-    });
+        draggable: true
+    }).on('dragend', () => {
+        this.lat = this.marker.getLngLat().lat
+        this.lng = this.marker.getLngLat().lng
+
+        this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        this.getAddressFromLatLng(this.lat, this.lng);
+        this.map.flyTo({
+            center: [this.lng, this.lat],
+            zoom: 14,
+            speed: 1,
+            curve: 1,
+            bearing: 0
+        });
+    })
 
     zoom = 18;
 
@@ -106,6 +120,22 @@ export class BodenrichtwertKarteComponent implements OnInit {
             });
         }
     }
+
+    // onDragEnd() {
+    //     console.log("test");
+    //     this.lat = this.marker.getLngLat().lat
+    //     this.lng = this.marker.getLngLat().lng
+
+    //     this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+    //     this.getAddressFromLatLng(this.lat, this.lng);
+    //     this.map.flyTo({
+    //         center: [this.lng, this.lat],
+    //         zoom: 14,
+    //         speed: 1,
+    //         curve: 1,
+    //         bearing: 0
+    //     });
+    // }
 
     onSearchSelect(event: any) {
         this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
