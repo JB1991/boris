@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -9,7 +9,8 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 export class ModalminiComponent implements OnDestroy {
     @ViewChild('modalmini') public modal: ModalDirective;
     @ViewChild('mymodal') public div: ElementRef;
-    @Output() public closing: EventEmitter<void> = new EventEmitter();
+    @Input() public checkInvalid = false;
+    @Output() public closing: EventEmitter<boolean> = new EventEmitter();
     public focusedElement: any;
     public isOpen = false;
     public title = '';
@@ -47,8 +48,14 @@ export class ModalminiComponent implements OnDestroy {
             return;
         }
 
+        // dont close if invalid inputs exists
+        if (this.checkInvalid && this.div.nativeElement.getElementsByClassName('is-invalid').length > 0) {
+            this.closing.emit(false);
+            return;
+        }
+
         // close callback
-        this.closing.emit();
+        this.closing.emit(true);
 
         // close modal
         this.isOpen = false;

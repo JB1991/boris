@@ -1,6 +1,6 @@
 import {
     Component, OnDestroy, ViewChild, ElementRef,
-    Output, EventEmitter, HostListener, InjectionToken, Inject
+    Output, EventEmitter, HostListener, InjectionToken, Inject, Input
 } from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
@@ -19,7 +19,8 @@ let id = 0;
 })
 export class ModalComponent implements OnDestroy {
     @ViewChild('mymodal') public div: ElementRef;
-    @Output() public closing: EventEmitter<void> = new EventEmitter();
+    @Input() public checkInvalid = false;
+    @Output() public closing: EventEmitter<boolean> = new EventEmitter();
     public focusedElement: any;
     public isOpen = false;
     public title = '';
@@ -67,8 +68,14 @@ export class ModalComponent implements OnDestroy {
             return;
         }
 
+        // dont close if invalid inputs exists
+        if (this.checkInvalid && this.div.nativeElement.getElementsByClassName('is-invalid').length > 0) {
+            this.closing.emit(false);
+            return;
+        }
+
         // close callback
-        this.closing.emit();
+        this.closing.emit(true);
 
         // close modal
         this.isOpen = false;

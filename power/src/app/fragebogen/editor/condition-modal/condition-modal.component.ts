@@ -17,9 +17,18 @@ export class ConditionModalComponent {
 
     constructor(public alerts: AlertsService) { }
 
-    public close() {
-        this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
-            $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
-        this.dataChange.emit(this.data);
+    /**
+     * Close callback of modal
+     * @param value True if no invalid forms found
+     */
+    public close(value: boolean) {
+        if (value) {
+            this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
+                $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
+            this.dataChange.emit(this.data);
+        } else {
+            // invalid input
+            this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`, $localize`Bitte prüfen Sie Ihre Eingaben.`);
+        }
     }
 }

@@ -178,9 +178,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
      */
     it('should create new form with template', fakeAsync(() => {
         spyOn(component, 'close').and.callThrough();
-        spyOn(component.formAPI, 'getInternForm').and.callFake(() => {
-            return Promise.resolve(formSample);
-        });
+        spyOn(component.formAPI, 'getInternForm').and.returnValue(Promise.resolve(formSample));
+        spyOn(component.formAPI, 'createInternForm');
         component.template = '123';
         component.title = 'Test';
         fixture.detectChanges();
@@ -189,19 +188,21 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.close).toHaveBeenCalledTimes(1);
     }));
 
-    it('should create new form without template', () => {
+    it('should create new form without template', fakeAsync(() => {
         spyOn(component, 'close').and.callThrough();
         spyOn(component, 'makeForm').and.callThrough();
+        spyOn(component.formAPI, 'createInternForm');
         component.title = 'Test';
         fixture.detectChanges();
         component.NewForm();
+        tick();
         expect(component.makeForm).toHaveBeenCalledTimes(1);
         expect(component.close).toHaveBeenCalledTimes(1);
-    });
+    }));
 
     it('should fail to create new form', fakeAsync(() => {
         spyOn(component.formAPI, 'getInternForm').and.callFake(() => {
-            return Promise.reject('Failed to create form');
+            return Promise.reject(new Error('Failed to create form'));
         });
         component.title = 'Test';
         component.template = '123';
@@ -210,7 +211,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
-            'Failed to create form');
+            'Error: Failed to create form');
     }));
 
     it('should not create new form (missing title)', () => {
