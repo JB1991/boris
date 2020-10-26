@@ -18,9 +18,10 @@
  * BROWSER POLYFILLS
  */
 
-/** IE10 and IE11 requires the following for NgClass support on SVG elements */
+/** IE11 requires the following for NgClass support on SVG elements */
 import 'classlist.js';  // Run `npm install --save classlist.js`.
-import 'core-js/es/array';
+import 'core-js/es/array'; // required for Array.includes()
+import 'core-js/features/url-search-params'; // required for URLSearchParams
 
 /**
  * Web Animations `@angular/platform-browser/animations`
