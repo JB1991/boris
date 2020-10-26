@@ -48,15 +48,15 @@ describe('Fragebogen.Editor.EditorComponent', () => {
                 MockElementModalComponent,
                 MockFormularModalComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(EditorComponent);
-            component = fixture.componentInstance;
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.router, 'navigate');
-            spyOn(component.alerts, 'NewAlert');
-            fixture.detectChanges();
-        });
+        fixture = TestBed.createComponent(EditorComponent);
+        component = fixture.componentInstance;
+
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     /**

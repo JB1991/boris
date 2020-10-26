@@ -29,14 +29,14 @@ describe('Fragebogen.Details.SettingsComponent', () => {
             declarations: [
                 SettingsComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(SettingsComponent);
-            component = fixture.componentInstance;
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.alerts, 'NewAlert');
-            fixture.detectChanges(); // onInit
-        });
+        fixture = TestBed.createComponent(SettingsComponent);
+        component = fixture.componentInstance;
+
+        spyOn(console, 'log');
+        spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges(); // onInit
     }));
 
     it('should create', () => {

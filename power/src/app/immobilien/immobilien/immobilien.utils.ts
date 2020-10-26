@@ -267,6 +267,11 @@ export class ImmobilienUtils {
     }
 
     static dispatchMapSelect(obj: any, name: string, select: boolean) {
+        // check if is function
+        if (typeof obj.dispatchAction !== 'function') {
+            return;
+        }
+
         if (select) {
             // Select
             obj.dispatchAction({
