@@ -20,6 +20,7 @@
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 import 'classlist.js';  // Run `npm install --save classlist.js`.
+import 'core-js/es7/array';
 
 /**
  * Web Animations `@angular/platform-browser/animations`
@@ -59,16 +60,3 @@ import '@angular/localize/init';
 
 // aws-sdk requires global to exist
 (window as any).global = window;
-
-// support for includes on IE/Edge
-if (!Array.prototype.includes) {
-    Object.defineProperty(Array.prototype, "includes", {
-        enumerable: false,
-        value: function (obj) {
-            var newArr = this.filter(function (el) {
-                return el === obj;
-            });
-            return newArr.length > 0;
-        }
-    });
-}
