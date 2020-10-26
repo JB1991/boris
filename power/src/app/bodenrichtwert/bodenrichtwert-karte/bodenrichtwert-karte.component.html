@@ -117,6 +117,7 @@
     <mgl-map
         (click)="onMapClickEvent($event)"
         (mouseUp)="onDragEnd()"
+        (touchEnd)="onDragEnd()"
         (load)="loadMap($event)"
         [bounds]="bounds"
         [maxZoom]="20"

@@ -16,6 +16,8 @@ export class BodenrichtwertKarteComponent implements OnInit {
     filterActive = false;
     threeDActive = false;
 
+    isDragged: boolean = false;
+
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
 
@@ -26,7 +28,9 @@ export class BodenrichtwertKarteComponent implements OnInit {
     marker: Marker = new Marker({
         color: '#c4153a',
         draggable: true
-    });
+    }).on('dragstart', () => {
+        this.isDragged = true;
+    } );
 
     zoom = 18;
 
@@ -91,7 +95,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     }
 
     onDragEnd() {
-        if (this.marker.getLngLat()) {
+        if (this.marker.getLngLat() && this.isDragged === true) {
             this.lat = this.marker.getLngLat().lat;
             this.lng = this.marker.getLngLat().lng;
 
@@ -104,6 +108,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
                 curve: 1,
                 bearing: 0
             });
+            this.isDragged = false;
         }
     }
 
