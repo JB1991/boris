@@ -20,7 +20,7 @@ export class ImmobilienExport {
     static geoJsonHeader = {
         'type': 'FeatureCollection',
         'name': 'womareg',
-        'crs': {'type': 'name', 'properties': {'name': 'urn:ogc:def:crs:EPSG::3044'}},
+        'crs': { 'type': 'name', 'properties': { 'name': 'urn:ogc:def:crs:EPSG::3044' } },
         'features': []
     };
 
@@ -34,7 +34,7 @@ export class ImmobilienExport {
      */
     public exportAsImage() {
         this.exportChart = true;
-        this.nipixRuntime.chart.obj.resize({width: this.nipixStatic.chartExportWidth});
+        this.nipixRuntime.chart.obj.resize({ width: this.nipixStatic.chartExportWidth });
         this.nipixRuntime.chart.obj.setOption(ImmobilienChartOptions.mergeHide);
 
     }
@@ -49,7 +49,7 @@ export class ImmobilienExport {
             backgroundColor: '#fff'
         });
 
-        this.nipixRuntime.chart.obj.resize({width: 'auto'});
+        this.nipixRuntime.chart.obj.resize({ width: 'auto' });
         this.nipixRuntime.chart.obj.setOption(ImmobilienChartOptions.mergeShow);
 
         ImmobilienHelper.downloadFile(img, 'nipix.png', '', true);

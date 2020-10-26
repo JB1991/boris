@@ -241,7 +241,7 @@ export class ImmobilienUtils {
             shape: {
                 cx: -2 * radius + posX * radius * 4,
                 cy: position * 1.5 * ImmobilienHelper.convertRemToPixels(fontSizeBase)
-                + ImmobilienHelper.convertRemToPixels(fontSizeBase) / 2,
+                    + ImmobilienHelper.convertRemToPixels(fontSizeBase) / 2,
                 r: radius
             },
             style: {

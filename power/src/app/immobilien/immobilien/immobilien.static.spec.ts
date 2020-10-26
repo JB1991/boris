@@ -1,19 +1,14 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
-import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienStatic from './immobilien.static';
-import * as ImmobilienRuntime from './immobilien.runtime';
 
 describe('Immobilien.Immobilien.ImmobilienStatic', () => {
 
     let component: ImmobilienStatic.NipixStatic;
 
-
     beforeEach(() => {
         component = new ImmobilienStatic.NipixStatic();
     });
 
-    it('loadConfig works', function() {
+    it('loadConfig works', function () {
         const conf = {
             'layoutRtl': true,
             'agnbUrl': 'foo.bar',
@@ -23,7 +18,7 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
             'regionen': ['foo'],
             'presets': ['bar'],
             'items': ['foobar'],
-            'shortNames': {'foo': 'bar'},
+            'shortNames': { 'foo': 'bar' },
             'selections': ['barfoo']
         };
 
@@ -36,21 +31,21 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         expect(component.data.regionen).toEqual(['foo']);
         expect(component.data.presets).toEqual(['bar']);
         expect(component.data.allItems).toEqual(['foobar']);
-        expect(component.data.shortNames).toEqual({'foo': 'bar'});
+        expect(component.data.shortNames).toEqual({ 'foo': 'bar' });
         expect(component.data.selections).toEqual(['barfoo']);
     });
 
-    it('parseGemeinden works', function() {
+    it('parseGemeinden works', function () {
         const gem = '\r\n1234567;4411;bla\r\n';
 
         const res = component.parseGemeinden(gem);
 
         expect(res).toEqual(true);
-        expect(component.data.gemeinden).toEqual({'4411': 'bla'});
+        expect(component.data.gemeinden).toEqual({ '4411': 'bla' });
     });
 
 
-    it('parseNipix works', function() {
+    it('parseNipix works', function () {
         const npx = '\r\ngebrauchte Eigenheime;4101;2000_2;1037;111,640' +
             '\r\ngebrauchte Eigenheime;4101_bla;2000_3;1000;120,640' +
             '\r\n';
@@ -60,7 +55,7 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         expect(res).toEqual(true);
         expect(component.data.nipix).toEqual({
             'gebrauchte Eigenheime': {
-                '4101' : {
+                '4101': {
                     '2000_2': {
                         'index': '111,640',
                         'faelle': 1037
