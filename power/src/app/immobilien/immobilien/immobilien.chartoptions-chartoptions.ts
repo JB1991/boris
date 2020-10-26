@@ -69,8 +69,8 @@ export const chartOptions = {
             type: 'category',
             boundaryGap: false,
             data: null,
-            axisLine: {onZero: false},
-            splitLine: {show: false},
+            axisLine: { onZero: false },
+            splitLine: { show: false },
             axisLabel: {
                 show: true,
                 fontSize: null
@@ -82,10 +82,10 @@ export const chartOptions = {
             type: 'value',
             gridIndex: 1,
             boundaryGap: false,
-            axisLine: {show: false},
-            axisTick: {show: false},
-            splitLine: {show: false},
-            axisLabel: {show: false},
+            axisLine: { show: false },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: { show: false },
             min: 0,
             max: 100,
             silent: true
@@ -115,10 +115,10 @@ export const chartOptions = {
             min: -1,
             max: 0,
             silent: true,
-            axisLabel: {show: false},
-            axisLine: {show: false},
-            axisTick: {show: false},
-            splitLine: {show: false}
+            axisLabel: { show: false },
+            axisLine: { show: false },
+            axisTick: { show: false },
+            splitLine: { show: false }
         }
     ],
     dataZoom: [

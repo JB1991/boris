@@ -1,17 +1,17 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImmobilienHelper } from './immobilien.helper';
 import { ImmobilienUtils } from './immobilien.utils';
 
 describe('Immobilien.Immobilien.ImmobilienUtils', () => {
 
-    it('getDateArray works', function() {
+    it('getDateArray works', function () {
         const res = ImmobilienUtils.getDateArray(2000, 2);
         expect(res).toEqual(['2000/2']);
     });
 
-    it('getMyMapRegionen works', function() {
-        const res = ImmobilienUtils.getMyMapRegionen({'foo': {}});
+    it('getMyMapRegionen works', function () {
+        const res = ImmobilienUtils.getMyMapRegionen({ 'foo': {} });
         expect(res).toEqual([{
             'name': 'foo',
             'itemStyle': {
@@ -29,8 +29,8 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         }]);
     });
 
-    it('getMyMapRegionen with selected works', function() {
-        const res = ImmobilienUtils.getMyMapRegionen({'foo': {}}, 'foo');
+    it('getMyMapRegionen with selected works', function () {
+        const res = ImmobilienUtils.getMyMapRegionen({ 'foo': {} }, 'foo');
         expect(res).toEqual([{
             'name': 'foo',
             'itemStyle': {
@@ -48,8 +48,8 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         }]);
     });
 
-    it('getMyMapRegionen with selectionList works', function() {
-        const res = ImmobilienUtils.getMyMapRegionen({'foo': {}}, null, ['foo']);
+    it('getMyMapRegionen with selectionList works', function () {
+        const res = ImmobilienUtils.getMyMapRegionen({ 'foo': {} }, null, ['foo']);
         expect(res).toEqual([{
             'name': 'foo',
             'selected': true,
@@ -69,8 +69,8 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
     });
 
 
-    it('getMyMapRegionen with lighten works', function() {
-        const res = ImmobilienUtils.getMyMapRegionen({'foo': {'color': '#ffffff'}}, null, null, true);
+    it('getMyMapRegionen with lighten works', function () {
+        const res = ImmobilienUtils.getMyMapRegionen({ 'foo': { 'color': '#ffffff' } }, null, null, true);
         expect(res).toEqual([{
             'name': 'foo',
             'itemStyle': {
@@ -88,7 +88,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         }]);
     });
 
-    it('generateSeries works', function() {
+    it('generateSeries works', function () {
         const res = ImmobilienUtils.generateSeries('foo', [], '#ffffff', null, '-');
         expect(res).toEqual({
             'name': 'foo',
@@ -120,7 +120,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         });
     });
 
-    it('generateSeries with parameters works', function() {
+    it('generateSeries with parameters works', function () {
         const res = ImmobilienUtils.generateSeries('foo', [], '#ffffff', 'bar', 'foo', 1, 2, 'bar');
         expect(res).toEqual({
             'name': 'foo',
@@ -152,36 +152,36 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         });
     });
 
-    it('generateDrawSeriesData empty works', function() {
-        const data = {'2000_1': {'value': 1}, '2000_2': {'value': '1.0'}};
+    it('generateDrawSeriesData empty works', function () {
+        const data = { '2000_1': { 'value': 1 }, '2000_2': { 'value': '1.0' } };
         const res = ImmobilienUtils.generateDrawSeriesData(data);
         expect(res).toEqual([]);
     });
 
-    it('generateDrawSeriesData works', function() {
-        const data = {'2000_1': {'value': 1}, '2000_2': {'value': '1.0'}};
+    it('generateDrawSeriesData works', function () {
+        const data = { '2000_1': { 'value': 1 }, '2000_2': { 'value': '1.0' } };
         const date = ['2000/1', '2000/2'];
         const res = ImmobilienUtils.generateDrawSeriesData(data, date, 'value', 80);
         expect(res).toEqual([21, 21]);
     });
 
-    it('generateDrawSeriesData empty field works', function() {
+    it('generateDrawSeriesData empty field works', function () {
         const data = [1, '1.0'];
         const date = ['2000/1', '2000/2'];
         const res = ImmobilienUtils.generateDrawSeriesData(data, date);
         expect(res).toEqual([1, 1]);
     });
 
-    it('generateDrawSeriesData with no data works', function() {
+    it('generateDrawSeriesData with no data works', function () {
         const data = {};
         const date = ['2000/1', '2000/2'];
         const res = ImmobilienUtils.generateDrawSeriesData(data, date, 'value', 80);
         expect(res).toEqual([undefined, undefined]);
     });
 
-    it('generateTextElement works', function() {
+    it('generateTextElement works', function () {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function(elt: Element, pseudoElt?: string) {
+            function (elt: Element, pseudoElt?: string) {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;
@@ -201,9 +201,9 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         });
     });
 
-    it('generateTextElement with parameter works', function() {
+    it('generateTextElement with parameter works', function () {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function(elt: Element, pseudoElt?: string) {
+            function (elt: Element, pseudoElt?: string) {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;
@@ -223,9 +223,9 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         });
     });
 
-    it('generateDotElement works', function() {
+    it('generateDotElement works', function () {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function(elt: Element, pseudoElt?: string) {
+            function (elt: Element, pseudoElt?: string) {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;
@@ -248,9 +248,9 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         });
     });
 
-    it('generateDotElement with parameter works', function() {
+    it('generateDotElement with parameter works', function () {
         spyOn(window, 'getComputedStyle').and.callFake(
-            function(elt: Element, pseudoElt?: string) {
+            function (elt: Element, pseudoElt?: string) {
                 const val = Object.create(CSSStyleDeclaration.prototype);
                 val.fontSize = '1';
                 return val;
@@ -273,7 +273,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         });
     });
 
-    it('nodifyRegionen works', function() {
+    it('nodifyRegionen works', function () {
         const regionen = {
             'foo': {
                 'color': '#000000'
@@ -293,7 +293,7 @@ describe('Immobilien.Immobilien.ImmobilienUtils', () => {
         });
     });
 
-    it('dispatchMapSelect works', function() {
+    it('dispatchMapSelect works', function () {
         const obj = {
             'dispatchAction': jasmine.createSpy()
         };

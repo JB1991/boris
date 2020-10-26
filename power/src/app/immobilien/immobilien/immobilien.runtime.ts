@@ -75,17 +75,29 @@ export class NipixRuntime {
         'legendText': {}
     };
 
-    public locale = {};
+    public locale = {
+        'Preisentwicklung Niedersachsen, gesamt': $localize`Preisentwicklung Niedersachsen, gesamt`,
+        'gebrauchte Eigenheime': $localize`gebrauchte Eigenheime`,
+        'EH': $localize`EH`,
+        'gebrauchte Eigentumswohnungen': $localize`gebrauchte Eigentumswohnungen`,
+        'EW': $localize`EW`,
+        'Vergleich Preisentwicklung von städtischen und ländlichen Regionen': $localize`Vergleich Preisentwicklung von städtischen und ländlichen Regionen`,
+        'Preisentwicklung nach städtischen und ländlichen Regionen': $localize`Preisentwicklung nach städtischen und ländlichen Regionen`,
+        'Vergleich zusammengefasster Regionen': $localize`Vergleich zusammengefasster Regionen`,
+        'städtische Regionen': $localize`städtische Regionen`,
+        'SR': $localize`SR`,
+        'ländliche Regionen': $localize`ländliche Regionen`,
+        'LR': $localize`LR`,
+        'Hannover': $localize`Hannover`,
+        'Braunschweig': $localize`Braunschweig`,
+        'Hannover - Braunschweig - Wolfsburg': $localize`Hannover - Braunschweig - Wolfsburg`
+    };
 
     public constructor(niStatic: ImmobilenNipixStatic.NipixStatic) {
         this.nipixStatic = niStatic;
         this.formatter = new ImmobilienFormatter.ImmobilienFormatter(this.nipixStatic, this);
         this.export = new ImmobilienExport.ImmobilienExport(this.nipixStatic, this);
         this.calculator = new ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator(this.nipixStatic, this);
-    }
-
-    public setLocale(newLocale) {
-        this.locale = newLocale;
     }
 
     public translate(defaultID: string) {
@@ -97,9 +109,9 @@ export class NipixRuntime {
     }
 
     public translateArray(input, key = 'name') {
-        let cpy = JSON.parse(JSON.stringify(input));
+        const cpy = JSON.parse(JSON.stringify(input));
 
-        for (let i=0; i<cpy.length; i++) {
+        for (let i = 0; i < cpy.length; i++) {
             if (cpy[i][key] !== undefined) {
                 cpy[i][key] = this.translate(cpy[i][key]);
             }

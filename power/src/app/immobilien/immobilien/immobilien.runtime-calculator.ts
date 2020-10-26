@@ -1,10 +1,7 @@
-import * as echarts from 'echarts';
 import * as ImmobilenNipixStatic from './immobilien.static';
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
-import * as ImmobilienFormatter from './immobilien.formatter';
-import * as ImmobilienExport from './immobilien.export';
 import { ImmobilienUtils } from './immobilien.utils';
-import {ImmobilienHelper } from './immobilien.helper';
+import { ImmobilienHelper } from './immobilien.helper';
 
 export class NipixRuntimeCalculator {
 
@@ -25,7 +22,7 @@ export class NipixRuntimeCalculator {
             this.nipixStatic.referenceDate)) {
             reference = parseFloat(
                 this.nipixStatic.data.nipix[drawitem.nipixCategory][value][this.nipixStatic.referenceDate]
-                .index.replace(',', '.')
+                    .index.replace(',', '.')
             );
         }
 

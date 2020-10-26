@@ -56,10 +56,21 @@ ingress:
       - path: /geoserver/
         serviceName: presentation-geoserver
         servicePort: 8080
+    - host: power.niedersachsen.dev
+      paths:
+      - path: /
+        serviceName: power
+        servicePort: 80
+      - path: /geoserver/
+        serviceName: presentation-geoserver
+        servicePort: 8080
   tls:
    - secretName: power-cluster-65655d4c73bf47a3300821aa2939abf4-0001
      hosts:
        - power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+   - secretName: power-niedersachsen-dev
+     hosts:
+       - power.niedersachsen.dev
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
