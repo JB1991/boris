@@ -17,7 +17,7 @@ export class PreviewComponent {
     @Input() public form: any;
     @Input() public data: any = null;
     public surveyjs_style = Bootstrap4_CSS;
-    public mode = 'edit';
+    public mode = 'display';
     public language = 'de';
     public showInvisible = false;
     public isVisible = false;

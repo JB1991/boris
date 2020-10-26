@@ -73,6 +73,10 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
             point: {
                 'x': 566,
                 'y': 376
+            },
+            lngLat: {
+                lng: 9.706822,
+                lat: 52.373787
             }
         };
         component.onMapClickEvent(event);

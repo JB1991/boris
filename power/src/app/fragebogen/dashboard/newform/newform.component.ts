@@ -1,20 +1,20 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '../../formapi.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
 @Component({
     selector: 'power-forms-dashboard-newform',
     templateUrl: './newform.component.html',
     styleUrls: ['./newform.component.css']
 })
-export class NewformComponent implements OnInit {
-    @ViewChild('modalnewform') public modal: ModalDirective;
+export class NewformComponent {
+    @ViewChild('newformmodal') public modal: ModalminiComponent;
     @Input() public data = {
         tags: <string[]>[],
         forms: [],
@@ -28,15 +28,10 @@ export class NewformComponent implements OnInit {
     public searchText: string;
     public test: string;
 
-    constructor(public modalService: BsModalService,
-        public router: Router,
+    constructor(public router: Router,
         public alerts: AlertsService,
         public formAPI: FormAPIService,
-    ) {
-    }
-
-    ngOnInit() {
-    }
+    ) { }
 
     /**
      * Opens new form modal
@@ -46,14 +41,14 @@ export class NewformComponent implements OnInit {
         this.title = '';
         this.tagList = [];
         this.templateList = [];
-        this.modal.show();
+        this.modal.open($localize`Neues Formular`);
     }
 
     /**
      * Closes new form modal
      */
     public close() {
-        this.modal.hide();
+        this.modal.close();
     }
 
     /**

@@ -1940,7 +1940,7 @@
     </unit>
     <unit id="8224586107695869644">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:40</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:39</note>
       </notes>
       <segment state="initial">
         <source>Öffentliche Formulare</source>
@@ -1949,7 +1949,7 @@
     </unit>
     <unit id="7089232483674344715">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:49</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:48</note>
       </notes>
       <segment state="initial">
         <source>Auf- und absteigende Sortierung möglich.</source>
@@ -1958,7 +1958,7 @@
     </unit>
     <unit id="2728359226136161685">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:52,53</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:51</note>
       </notes>
       <segment state="initial">
         <source>Titel </source>
@@ -1976,7 +1976,7 @@
     </unit>
     <unit id="2688283467752225426">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:100</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:97</note>
       </notes>
       <segment state="translated">
         <source>Veröffentlicht</source>
@@ -1985,7 +1985,7 @@
     </unit>
     <unit id="4524423874106616060">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:160</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:155</note>
       </notes>
       <segment state="initial">
         <source>Formularanzahl pro Seite</source>
@@ -1994,7 +1994,7 @@
     </unit>
     <unit id="9145163141794594385">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:161</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:156</note>
       </notes>
       <segment state="initial">
         <source>Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen.</source>
@@ -2003,7 +2003,7 @@
     </unit>
     <unit id="1147413164438278837">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:180</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:175</note>
       </notes>
       <segment state="initial">
         <source>Pagination</source>
@@ -2012,7 +2012,7 @@
     </unit>
     <unit id="1073191942891868626">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:57</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:56</note>
       </notes>
       <segment state="initial">
         <source>Aufsteigend sortiert.</source>
@@ -2021,7 +2021,7 @@
     </unit>
     <unit id="2277815689896097575">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:121</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:117</note>
       </notes>
       <segment state="initial">
         <source>Absteigend sortiert.</source>
@@ -2030,7 +2030,7 @@
     </unit>
     <unit id="2319824520635416840">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:483</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:471</note>
       </notes>
       <segment state="translated">
         <source>Keine Formulare gefunden</source>
@@ -2075,7 +2075,7 @@
     </unit>
     <unit id="8953940785817491538">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.ts:66</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.ts:65</note>
       </notes>
       <segment state="translated">
         <source>Formular gespeichert</source>
@@ -2084,7 +2084,7 @@
     </unit>
     <unit id="7810020688490288269">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.ts:67</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.ts:66</note>
       </notes>
       <segment state="translated">
         <source>Das Formular wurde erfolgreich gespeichert.</source>
@@ -2102,7 +2102,7 @@
     </unit>
     <unit id="7886570921510760899">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:397</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:387</note>
       </notes>
       <segment state="translated">
         <source>Tags</source>
@@ -2111,7 +2111,7 @@
     </unit>
     <unit id="4626002947369124112">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:394</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:384</note>
       </notes>
       <segment state="translated">
         <source>Besitzer</source>
@@ -2120,7 +2120,7 @@
     </unit>
     <unit id="2057709581925448431">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.html:60</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:17</note>
       </notes>
       <segment state="translated">
         <source>Leseberechtigte</source>
@@ -2129,7 +2129,7 @@
     </unit>
     <unit id="6296453444800494674">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.html:69</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:25</note>
       </notes>
       <segment state="translated">
         <source>Formular teilen</source>
@@ -2138,7 +2138,7 @@
     </unit>
     <unit id="3282960248553286648">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:50</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:49</note>
       </notes>
       <segment state="translated">
         <source>Möchten Sie dieses Formular wirklich veröffentlichen?
@@ -2149,7 +2149,7 @@
     </unit>
     <unit id="2137405200624328487">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:102</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:100</note>
       </notes>
       <segment state="translated">
         <source>Kommentar</source>
@@ -2158,7 +2158,7 @@
     </unit>
     <unit id="6015221729910186784">
       <notes>
-        <note category="location">src/app/fragebogen/details/comment/comment.component.html:65</note>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.html:21</note>
       </notes>
       <segment state="translated">
         <source>Kommentar speichern</source>
@@ -2167,7 +2167,7 @@
     </unit>
     <unit id="2854123663314832793">
       <notes>
-        <note category="location">src/app/fragebogen/details/comment/comment.component.html:81</note>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.html:37</note>
       </notes>
       <segment state="translated">
         <source>Speichern</source>
@@ -2176,7 +2176,7 @@
     </unit>
     <unit id="7045718201948539195">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:69</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:68</note>
       </notes>
       <segment state="translated">
         <source>Veröffentlichen fehlgeschlagen</source>
@@ -2194,7 +2194,7 @@
     </unit>
     <unit id="1333796698883815409">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:64</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:63</note>
       </notes>
       <segment state="translated">
         <source>Formular veröffentlicht</source>
@@ -2203,7 +2203,7 @@
     </unit>
     <unit id="4271491079612886596">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:65</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:64</note>
       </notes>
       <segment state="translated">
         <source>Das Formular wurde erfolgreich veröffentlicht.</source>
@@ -2212,7 +2212,7 @@
     </unit>
     <unit id="153541716325950562">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:47</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:6</note>
       </notes>
       <segment state="translated">
         <source>Zugangsschutz</source>
@@ -2221,7 +2221,7 @@
     </unit>
     <unit id="92152990194442672">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:55</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:14</note>
       </notes>
       <segment state="translated">
         <source>Öffentlich</source>
@@ -2230,7 +2230,7 @@
     </unit>
     <unit id="1593201256931919296">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:57</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:16</note>
       </notes>
       <segment state="translated">
         <source>6-stellige PIN</source>
@@ -2239,7 +2239,7 @@
     </unit>
     <unit id="7984545901488378361">
       <notes>
-        <note category="location">src/app/fragebogen/details/publish/publish.component.html:59</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:18</note>
       </notes>
       <segment state="translated">
         <source>8-stellige PIN</source>
@@ -2257,7 +2257,7 @@
     </unit>
     <unit id="6753318560504296925">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.ts:57</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.ts:56</note>
       </notes>
       <segment state="translated">
         <source>Ungültige Eingabe</source>
@@ -2266,7 +2266,7 @@
     </unit>
     <unit id="4223480731813357720">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.ts:58</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.ts:57</note>
       </notes>
       <segment state="translated">
         <source>Bitte generieren Sie nur zwischen 1 und 100 PINs.</source>
@@ -2275,25 +2275,16 @@
     </unit>
     <unit id="2001137006078143875">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:131</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:126</note>
       </notes>
       <segment state="translated">
         <source>Erstellen fehlgeschlagen</source>
         <target>作成の失敗</target>
       </segment>
     </unit>
-    <unit id="7227765461588462158">
-      <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:25</note>
-      </notes>
-      <segment state="translated">
-        <source>PIN Generator</source>
-        <target>PIN ジェネレーター</target>
-      </segment>
-    </unit>
     <unit id="8610693548852405446">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:47</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:6</note>
       </notes>
       <segment state="translated">
         <source>Anzahl PINs</source>
@@ -2302,7 +2293,7 @@
     </unit>
     <unit id="7897642684892254234">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:68</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:27</note>
       </notes>
       <segment state="translated">
         <source>Kopiere PIN(s) in die Zwischenablage</source>
@@ -2311,7 +2302,7 @@
     </unit>
     <unit id="7650064767892495053">
       <notes>
-        <note category="location">src/app/fragebogen/details/maketask/maketask.component.html:86</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.ts:40</note>
       </notes>
       <segment state="translated">
         <source>PINs erstellen</source>
@@ -2383,6 +2374,15 @@ Dies lässt sich nicht mehr umkehren!</source>
         <target>アーカイブ失敗</target>
       </segment>
     </unit>
+    <unit id="4052043295364910954">
+      <notes>
+        <note category="location">src/app/fragebogen/details/details.component.ts:157</note>
+      </notes>
+      <segment state="initial">
+        <source>Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.</source>
+        <target>Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.</target>
+      </segment>
+    </unit>
     <unit id="4018735454945884382">
       <notes>
         <note category="location">src/app/fragebogen/details/details.component.ts:142</note>
@@ -2403,7 +2403,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7293756355878993771">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:171</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:173</note>
       </notes>
       <segment state="translated">
         <source>Download fehlgeschlagen</source>
@@ -2412,7 +2412,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2908879179796145625">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:188</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:190</note>
       </notes>
       <segment state="translated">
         <source>Möchten Sie diese Antwort wirklich löschen?</source>
@@ -2421,7 +2421,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6105229413905166645">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:195</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:197</note>
       </notes>
       <segment state="translated">
         <source>Antwort gelöscht</source>
@@ -2430,7 +2430,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4168664506109423502">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:196</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:198</note>
       </notes>
       <segment state="translated">
         <source>Die Antwort wurde erfolgreich gelöscht.</source>
@@ -2466,7 +2466,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1133378173705582866">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:159</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:155</note>
       </notes>
       <segment state="translated">
         <source>Erstellt</source>
@@ -2475,7 +2475,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5611592591303869712">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:99</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:97</note>
       </notes>
       <segment state="translated">
         <source>Status</source>
@@ -2484,7 +2484,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3710766590975810780">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:452</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:440</note>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</source>
@@ -2583,7 +2583,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4085873167168807139">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:461</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:449</note>
       </notes>
       <segment state="translated">
         <source>Formular löschen</source>
@@ -2673,7 +2673,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2911941681969480793">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:226</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:220</note>
       </notes>
       <segment state="translated">
         <source>Keine Antworten vorhanden</source>
@@ -2916,11 +2916,29 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5630731892828039251">
       <notes>
-        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:14</note>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:16</note>
       </notes>
       <segment state="translated">
         <source>Sichtbarkeitsbedingung für Antwort oder Unterfrage</source>
         <target>回答またはサブ質問の可視性条件</target>
+      </segment>
+    </unit>
+    <unit id="6622873968841840307">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:21</note>
+      </notes>
+      <segment state="initial">
+        <source>Änderungen übernommen</source>
+        <target>Änderungen übernommen</target>
+      </segment>
+    </unit>
+    <unit id="573391330390490773">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:22</note>
+      </notes>
+      <segment state="initial">
+        <source>Ihre Änderungen wurden erfolgreich zwischen gespeichert.</source>
+        <target>Ihre Änderungen wurden erfolgreich zwischen gespeichert.</target>
       </segment>
     </unit>
     <unit id="4874905878981423123">
@@ -2930,6 +2948,15 @@ Dies lässt sich nicht mehr umkehren!</source>
       <segment state="initial">
         <source>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</source>
         <target>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</target>
+      </segment>
+    </unit>
+    <unit id="932876642658778900">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:32</note>
+      </notes>
+      <segment state="initial">
+        <source>Änderungen speichern</source>
+        <target>Änderungen speichern</target>
       </segment>
     </unit>
     <unit id="7879816504576872670">
@@ -4833,7 +4860,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8852250703686567498">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:94</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:89</note>
       </notes>
       <segment state="translated">
         <source>Ungültige Einstellungen</source>
@@ -4842,7 +4869,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9111265276371777280">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:95</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:90</note>
       </notes>
       <segment state="translated">
         <source>Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.</source>
@@ -4851,7 +4878,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6154523979033512876">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:58</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:14</note>
       </notes>
       <segment state="translated">
         <source>Mein Formular</source>
@@ -4860,7 +4887,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5610425955750546094">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:81</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:37</note>
       </notes>
       <segment state="translated">
         <source>Template</source>
@@ -4869,7 +4896,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8496502695397194982">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:94</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:50</note>
       </notes>
       <segment state="translated">
         <source>Suchen</source>
@@ -4878,7 +4905,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3367843544810442794">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:110</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:65</note>
       </notes>
       <segment state="translated">
         <source>Formular erstellen</source>
@@ -4887,7 +4914,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2961538958334556025">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:127</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:82</note>
       </notes>
       <segment state="translated">
         <source>Erstellen</source>
@@ -4959,7 +4986,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2418500321333956842">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:96</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:94</note>
       </notes>
       <segment state="translated">
         <source>Formular</source>
@@ -4968,7 +4995,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3906234135081295833">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:112</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:110</note>
       </notes>
       <segment state="translated">
         <source>Abgeschlossen</source>
@@ -4977,7 +5004,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8999417070988208750">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:208</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:202</note>
       </notes>
       <segment state="translated">
         <source>Formular öffnen</source>
@@ -4986,7 +5013,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1875629595072033230">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:212</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:206</note>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</source>
@@ -4995,7 +5022,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8902031064230548096">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:286</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:280</note>
       </notes>
       <segment state="translated">
         <source>Status: Veröffentlicht</source>
@@ -5004,7 +5031,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6006001086469034825">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:288</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:282</note>
       </notes>
       <segment state="translated">
         <source>Status: Geschlossen</source>
@@ -5013,7 +5040,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3516494453193947151">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:296</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:291</note>
       </notes>
       <segment state="translated">
         <source>Titel</source>
@@ -5022,7 +5049,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1330299988060557700">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:490</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:478</note>
       </notes>
       <segment state="translated">
         <source>Neues Formular erstellen</source>
@@ -5031,7 +5058,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2877409751096310292">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:28</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:44</note>
       </notes>
       <segment state="translated">
         <source>Neues Formular</source>
@@ -5049,7 +5076,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3451297314722320142">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:512</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:500</note>
       </notes>
       <segment state="translated">
         <source>Formular importieren</source>

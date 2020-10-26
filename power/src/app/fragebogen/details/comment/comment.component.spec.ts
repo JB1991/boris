@@ -1,10 +1,10 @@
 import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
-import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CommentComponent } from './comment.component';
+import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '@app/fragebogen/formapi.service';
 
@@ -19,11 +19,10 @@ describe('Fragebogen.Details.CommentComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 FormsModule,
-                ModalModule.forRoot(),
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                SharedModule
             ],
             providers: [
-                BsModalService,
                 AlertsService,
                 FormAPIService
             ],
@@ -50,9 +49,9 @@ describe('Fragebogen.Details.CommentComponent', () => {
     it('should open and close', () => {
         component.data.tasksList.push({ id: '123', description: '' });
         component.open(0);
-        expect(component.modal.isShown).toBeTrue();
+        expect(component.modal.isOpen).toBeTrue();
         component.close();
-        expect(component.modal.isShown).toBeFalse();
+        expect(component.modal.isOpen).toBeFalse();
     });
 
     it('should fail open', () => {

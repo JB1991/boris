@@ -248,9 +248,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
             }
         } else if (event.target.value === 'regex') {
             if (!this.struct[i].text) {
-                this.struct[i].text = {
-                    default: 'Ihre Antwort entspricht nicht dem gefordertem Format.'
-                };
+                this.struct[i].text = {};
             }
         }
     }

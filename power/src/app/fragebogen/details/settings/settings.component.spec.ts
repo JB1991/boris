@@ -1,12 +1,11 @@
 import { waitForAsync, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
-import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SettingsComponent } from './settings.component';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { SharedModule } from '@app/shared/shared.module';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '@app/fragebogen/formapi.service';
 
 describe('Fragebogen.Details.SettingsComponent', () => {
@@ -20,12 +19,10 @@ describe('Fragebogen.Details.SettingsComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 FormsModule,
-                ModalModule.forRoot(),
                 RouterTestingModule.withRoutes([]),
                 SharedModule
             ],
             providers: [
-                BsModalService,
                 AlertsService,
                 FormAPIService
             ],
@@ -40,7 +37,6 @@ describe('Fragebogen.Details.SettingsComponent', () => {
             spyOn(component.alerts, 'NewAlert');
             fixture.detectChanges(); // onInit
         });
-
     }));
 
     it('should create', () => {
@@ -53,9 +49,9 @@ describe('Fragebogen.Details.SettingsComponent', () => {
     it('should open and close', () => {
         component.data.form = { 'id': '123' };
         component.open();
-        expect(component.modal.isShown).toBeTrue();
+        expect(component.modal.isOpen).toBeTrue();
         component.close();
-        expect(component.modal.isShown).toBeFalse();
+        expect(component.modal.isOpen).toBeFalse();
     });
 
     /**
@@ -88,8 +84,4 @@ describe('Fragebogen.Details.SettingsComponent', () => {
         expect(component.alerts.NewAlert)
             .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Failed to update form');
     }));
-
-    afterEach(() => {
-
-    });
 });

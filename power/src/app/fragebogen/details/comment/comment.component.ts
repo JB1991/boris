@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { FormAPIService } from '../../formapi.service';
 
 @Component({
@@ -16,12 +16,11 @@ export class CommentComponent implements OnInit {
         tasksCountTotal: 0,
         tasksPerPage: 5,
     };
-    @ViewChild('modalcomment') public modal: ModalDirective;
+    @ViewChild('commentmodal') public modal: ModalminiComponent;
     public tasknr = -1;
     public comment: string;
 
-    constructor(public modalService: BsModalService,
-        public alerts: AlertsService,
+    constructor(public alerts: AlertsService,
         public formapi: FormAPIService) {
     }
 
@@ -41,14 +40,14 @@ export class CommentComponent implements OnInit {
         // open
         this.comment = this.data.tasksList[i].description;
         this.tasknr = i;
-        this.modal.show();
+        this.modal.open($localize`Kommentar`);
     }
 
     /**
      * Closes make task modal
      */
     public close() {
-        this.modal.hide();
+        this.modal.close();
         this.tasknr = -1;
         this.comment = '';
     }

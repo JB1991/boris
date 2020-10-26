@@ -64,7 +64,7 @@ export class PublicDashboardComponent implements OnInit {
             const response = await this.formAPI.getPublicForms(params);
             this.data = response.data;
             this.total = response.total;
-            this.totalPages = Math.ceil(this.total/this.perPage);
+            this.totalPages = Math.ceil(this.total / this.perPage);
             let maxPages = Math.floor(this.total / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
