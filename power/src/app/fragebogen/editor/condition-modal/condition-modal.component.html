@@ -20,7 +20,8 @@
 </button>
 
 <power-modalmini #conditionmodal
-                 (closing)="close()">
+                 checkInvalid="true"
+                 (closing)="close($event)">
     <power-forms-editor-conditions [model]="model"
                                    [(data)]="data">
     </power-forms-editor-conditions>

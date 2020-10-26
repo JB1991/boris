@@ -32,6 +32,7 @@ describe('Fragebogen.Editor.ConditionModalComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-        component.close();
+        component.close(true);
+        component.close(false);
     });
 });

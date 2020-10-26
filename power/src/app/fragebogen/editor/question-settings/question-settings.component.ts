@@ -46,20 +46,26 @@ export class QuestionSettingsComponent {
 
     /**
      * Modal close callback
+     * @param value True if no invalid forms found
      */
-    public close() {
-        // changed something
-        if (this.copy && this.copy !== JSON.stringify(this.model)) {
-            this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
-                $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
-            this.history.makeHistory(JSON.parse(this.copy));
-            this.storage.setUnsavedChanges(true);
-            this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
+    public close(value: boolean) {
+        if (value) {
+            // changed something
+            if (this.copy && this.copy !== JSON.stringify(this.model)) {
+                this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
+                    $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
+                this.history.makeHistory(JSON.parse(this.copy));
+                this.storage.setUnsavedChanges(true);
+                this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
+            }
+            this.page = null;
+            this.question = null;
+            this.copy = '';
+            this.storage.setAutoSaveEnabled(true);
+        } else {
+            // invalid input
+            this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`, $localize`Bitte prüfen Sie Ihre Eingaben.`);
         }
-        this.page = null;
-        this.question = null;
-        this.copy = '';
-        this.storage.setAutoSaveEnabled(true);
     }
 
     /**
