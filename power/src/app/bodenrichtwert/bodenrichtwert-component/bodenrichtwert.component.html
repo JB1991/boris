@@ -7,14 +7,14 @@
             <ng-template ngbPanelHeader>
                 <div>
                     <div *ngIf="!adresse" class="text-center">
-                        <h5 class="m-0 mx-center">Wählen Sie eine Position</h5>
+                        <h5 class="m-0 mx-center" i18n>Wählen Sie eine Position</h5>
                     </div>
                     <div *ngIf="adresse" class="text-center">
                         <h5 class="m-0 mx-center">{{adresse.properties.text}}
                             <button type="button" (click)="map.classList.toggle('small')" class="btn btn-link p-0">
                                 <img src="{{ detailArrow ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
                                      width="25" height="25"
-                                     alt="Einklappen/ausklappen"
+                                     alt="Einklappen/ausklappen" i18n-alt
                                      (click)="toggleDetailArrow()">
                             </button>
                         </h5>
@@ -22,6 +22,9 @@
                 </div>
             </ng-template>
             <ng-template ngbPanelContent>
+                <ng-container *ngIf="!adresse || adresse.properties.bundesland !== 'Niedersachsen'">
+                    <p class="text-center">Keine gültige Adresse! <br> Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen aus.</p>
+                </ng-container>
                 <power-bodenrichtwert-liste [stichtag]="stichtag"
                                             [teilmarkt]="teilmarkt"
                                             [features]="features">

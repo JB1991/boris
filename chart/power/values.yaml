@@ -56,22 +56,33 @@ ingress:
       - path: /geoserver/
         serviceName: presentation-geoserver
         servicePort: 8080
+    - host: power.niedersachsen.dev
+      paths:
+      - path: /
+        serviceName: power
+        servicePort: 80
+      - path: /geoserver/
+        serviceName: presentation-geoserver
+        servicePort: 8080
   tls:
    - secretName: power-cluster-65655d4c73bf47a3300821aa2939abf4-0001
      hosts:
        - power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+   - secretName: power-niedersachsen-dev
+     hosts:
+       - power.niedersachsen.dev
 
-resources: {}
+resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  #   cpu: 1000m
+  #   memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 128Mi
 
 nodeSelector: {}
 
@@ -82,7 +93,8 @@ affinity: {}
 config:
   modules:
     - "bodenrichtwerte"
-    - "bodenwerte"
-    - "immobilien"
-    - "fragebogen"
+    - "bodenwertkalkulator"
+    - "immobilienpreisindex"
+    - "forms"
+    - "feedback"
   authentication: true

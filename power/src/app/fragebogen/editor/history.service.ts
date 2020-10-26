@@ -8,8 +8,8 @@ import { StorageService } from './storage.service';
     providedIn: 'root'
 })
 export class HistoryService {
-    public undoBuffer: any = [];
-    public redoBuffer: any = [];
+    public undoBuffer = [];
+    public redoBuffer = [];
 
     constructor(public storage: StorageService) { }
 

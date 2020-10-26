@@ -76,8 +76,8 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 3. Vorhandene Übersetzungen updaten
    ```
-   cd power/src/locales
-   xliffmerge -p .\config.json
+   cd src/locales
+   xliffmerge -p ./config.json
    ```
 
 4. [Übersetzung anfertigen](https://martinroob.github.io/tiny-translator/de/#/home)

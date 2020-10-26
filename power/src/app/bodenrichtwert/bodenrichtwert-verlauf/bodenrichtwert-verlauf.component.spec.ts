@@ -34,12 +34,17 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component).toBeTruthy();
     });
 
-    it('generate should insert data into chart options', () => {
+    it('filterByStichtag should filter the features by Stichtag', () => {
+        const result = component.filterByStichtag(features);
+        expect(result.length).toBe(8);
+    });
+
+    it('generateChart should insert data into chart options', () => {
         component.echartsInstance = echarts.init(document.getElementById('time-series'));
         component.echartsInstance.setOption(component.chartOption);
         expect(component.chartOption.legend.data.length).toBe(0);
         expect(component.chartOption.series.length).toBe(0);
-        component.generate(features);
+        component.generateChart(features);
         expect(component.chartOption.legend.data.length).toBe(3);
         expect(component.chartOption.series.length).toBe(3);
     });

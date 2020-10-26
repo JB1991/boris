@@ -1,16 +1,30 @@
 <div class="card">
-    <h5 class="card-header">
-        {{feature.properties.brzname | umlautCorrection}}
-        {{feature.properties.wnum}}
-    </h5>
+    <div class="card-header">
+        <div class="row">
+            <h5 class="col-md-5 mb-0"><b>{{brzStrings.brz | hyphenate}}</b></h5>
+            <h5 class="col-md-7 mb-0">{{feature.properties.brzname | umlautCorrection}} {{feature.properties.wnum}}</h5>
+        </div>
+    </div>
     <div class="card-body">
         <dl class="row">
-            <dt class="col-md-5">{{'Art der Nutzung' | hyphenate}}</dt>
-            <dd class="col-md-7">{{feature.properties.nutzung | nutzung | hyphenate}}</dd>
-            <dt class="col-md-5">{{'Bodenrichtwert' | hyphenate}}</dt>
-            <dd class="col-md-7">{{feature.properties.brw | number}} &euro; / m&#178;</dd>
-            <dt class="col-md-5" *ngIf="feature.properties.beit">{{'Beitragsabgabenrechtlicher Zustand' | hyphenate}}</dt>
-            <dd class="col-md-7" *ngIf="feature.properties.beit">{{feature.properties.beit | beitrag | hyphenate}}</dd>
+            <dt class="col-md-5">
+                {{brzStrings.usage | hyphenate}}
+            </dt>
+            <dd class="col-md-7">
+                {{feature.properties.nutzung | nutzung | hyphenate}}
+            </dd>
+            <dt class="col-md-5">
+                {{brzStrings.value | hyphenate}}
+            </dt>
+            <dd class="col-md-7">
+                {{feature.properties.brw | number}} &euro; / m&#178;
+            </dd>
+            <dt class="col-md-5" *ngIf="feature.properties.beit">
+                {{brzStrings.state | hyphenate}}
+            </dt>
+            <dd class="col-md-7" *ngIf="feature.properties.beit">
+                {{feature.properties.beit | beitrag | hyphenate}}
+            </dd>
         </dl>
     </div>
 </div>

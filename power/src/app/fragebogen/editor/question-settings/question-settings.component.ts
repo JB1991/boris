@@ -50,6 +50,8 @@ export class QuestionSettingsComponent {
     public close() {
         // changed something
         if (this.copy && this.copy !== JSON.stringify(this.model)) {
+            this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
+                $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
             this.history.makeHistory(JSON.parse(this.copy));
             this.storage.setUnsavedChanges(true);
             this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
@@ -70,6 +72,13 @@ export class QuestionSettingsComponent {
             .includes(this.model.pages[this.page].elements[this.question].type)) {
             if (!this.model.pages[this.page].elements[this.question].commentText) {
                 this.model.pages[this.page].elements[this.question]['commentText'] = {};
+            }
+        }
+
+        // add otherText
+        if (['radiogroup', 'checkbox'].includes(this.model.pages[this.page].elements[this.question].type)) {
+            if (!this.model.pages[this.page].elements[this.question].otherText) {
+                this.model.pages[this.page].elements[this.question]['otherText'] = {};
             }
         }
 

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StaticModule } from '@app/static/static.module';
 
+import { ModuleGuard } from './module.guard';
+
 /* istanbul ignore next */
 const routes: Routes = [
     {
@@ -11,22 +13,26 @@ const routes: Routes = [
     {
         path: 'immobilienpreisindex',
         loadChildren: () => import('./immobilien/immobilien.module')
-            .then(m => m.ImmobilienModule)
+            .then(m => m.ImmobilienModule),
+        canActivate: [ModuleGuard]
     },
     {
         path: 'bodenrichtwerte',
         loadChildren: () => import('./bodenrichtwert/bodenrichtwert.module')
-            .then(m => m.BodenrichtwertModule)
+            .then(m => m.BodenrichtwertModule),
+        canActivate: [ModuleGuard]
     },
     {
         path: 'bodenwertkalkulator',
         loadChildren: () => import('./bodenwert-kalkulator/bodenwert-kalkulator.module')
-            .then(m => m.BodenwertKalkulatorModule)
+            .then(m => m.BodenwertKalkulatorModule),
+        canActivate: [ModuleGuard]
     },
     {
         path: 'forms',
         loadChildren: () => import('./fragebogen/fragebogen.module')
-            .then(m => m.FragebogenModule)
+            .then(m => m.FragebogenModule),
+        canActivate: [ModuleGuard]
     },
     {
         path: '**',

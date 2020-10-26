@@ -13,20 +13,27 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     state: any;
 
-    series_template = [
-        {stag: '2012', brw: 0, nutzung: ''},
-        {stag: '2013', brw: 0, nutzung: ''},
-        {stag: '2014', brw: 0, nutzung: ''},
-        {stag: '2015', brw: 0, nutzung: ''},
-        {stag: '2016', brw: 0, nutzung: ''},
-        {stag: '2017', brw: 0, nutzung: ''},
-        {stag: '2018', brw: 0, nutzung: ''},
-        {stag: '2019', brw: 0, nutzung: ''},
+    seriesTemplate = [
+        {stag: '2012', brw: null, nutzung: ''},
+        {stag: '2013', brw: null, nutzung: ''},
+        {stag: '2014', brw: null, nutzung: ''},
+        {stag: '2015', brw: null, nutzung: ''},
+        {stag: '2016', brw: null, nutzung: ''},
+        {stag: '2017', brw: null, nutzung: ''},
+        {stag: '2018', brw: null, nutzung: ''},
+        {stag: '2019', brw: null, nutzung: ''},
     ];
 
     chartOption: EChartOption = {
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            backgroundColor: 'rgba(245, 245, 245, 0.8)',
+            borderWidth: 1,
+            borderColor: '#ccc',
+            padding: 10,
+            textStyle: {
+                color: '#000'
+            }
         },
         legend: {
             data: []
@@ -65,57 +72,87 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.features) {
-            this.generate(this.features.features);
+            this.clearChart();
+            this.features.features = this.filterByStichtag(this.features.features);
+            this.generateChart(this.features.features);
         }
     }
 
-    generate(features) {
-        // Gruppieren nach WNUM
-        const grouped_by_wnum = this.groupBy(features, item => item.properties.wnum);
-
+    clearChart() {
+        this.chartOption.legend.data = [];
         this.chartOption.series = [];
+    }
 
-        for (const [key, value] of grouped_by_wnum.entries()) {
+    filterByStichtag(features) {
+        const filteredFeatures = [];
+        for (const feature of features) {
+            const year = feature.properties.stag.substring(0, 4);
+            if (year >= 2012 && year <= 2019) {
+                filteredFeatures.push(feature);
+            }
+        }
+        return filteredFeatures;
+    }
 
+    generateChart(features) {
+        const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+
+        for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
+            const series = this.deepCopy(this.seriesTemplate);
 
-            const x = this.series_template;
-
-            for (let i = 0; i < x.length; i++) {
-                const tmp = features.find(f => f.properties.stag.includes(x[i].stag));
-                if (tmp) {
-                    x[i].brw = tmp.properties.brw;
-                    x[i].nutzung = this.nutzungPipe.transform(tmp.properties.nutzung, null);
+            for (let i = 0; i < series.length; i++) {
+                const feature = features.find(f => f.properties.stag.includes(series[i].stag));
+                if (feature) {
+                    series[i].brw = feature.properties.brw;
+                    series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
                 }
             }
-            this.chartOption.legend.data.push(x[0].nutzung);
+
+            const nutzung = this.getNutzung(series);
+            this.chartOption.legend.data.push(nutzung);
             this.chartOption.series.push({
-                name: x[0].nutzung,
+                name: nutzung,
                 type: 'line',
                 step: 'end',
-                data: x.map(t => t.brw)
-            }
-            );
+                data: series.map(t => t.brw)
+            });
         }
-        this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true, true);
+        this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
     groupBy(list, keyGetter) {
-        const m = new Map();
+        const map = new Map();
         list.forEach((item) => {
             const key = keyGetter(item);
-            const collection = m.get(key);
-            if (!collection) {
-                m.set(key, [item]);
-            } else {
-                collection.push(item);
+            if (key !== null) {
+                const collection = map.get(key);
+                if (!collection) {
+                    map.set(key, [item]);
+                } else {
+                    collection.push(item);
+                }
             }
         });
-        return m;
+        return map;
+    }
+
+    deepCopy(data) {
+        return JSON.parse(JSON.stringify(data));
+    }
+
+    getNutzung(series) {
+        for (const entry of series) {
+            if (entry.nutzung !== '') {
+                return entry.nutzung;
+            }
+        }
+        return '';
     }
 
     onChartInit(event: any) {
         this.echartsInstance = event;
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

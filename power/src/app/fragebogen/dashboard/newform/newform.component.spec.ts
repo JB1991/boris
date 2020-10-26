@@ -3,7 +3,6 @@ import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angul
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { By } from '@angular/platform-browser';
 import { NewformComponent } from './newform.component';
 import { SharedModule } from '@app/shared/shared.module';
@@ -22,7 +21,6 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 FormsModule,
-                ModalModule.forRoot(),
                 RouterTestingModule.withRoutes([
                     { path: 'forms/details/:id', component: MockDetailsComponent }
                 ]),
@@ -30,7 +28,6 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 TypeaheadModule
             ],
             providers: [
-                BsModalService,
                 AlertsService,
                 FormAPIService,
             ],
@@ -53,9 +50,9 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.templateList).toEqual([]);
         expect(component.tagList).toEqual([]);
         expect(component.searchText).toEqual('');
-        expect(component.modal.isShown).toBeTrue();
+        expect(component.modal.isOpen).toBeTrue();
         component.close();
-        expect(component.modal.isShown).toBeFalse();
+        expect(component.modal.isOpen).toBeFalse();
     });
 
     it('should set template', () => {
@@ -125,6 +122,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                 default: 'example'
             }
         }).then(() => {
+            expect(component.data.forms.length).toEqual(1);
             done();
         });
     });

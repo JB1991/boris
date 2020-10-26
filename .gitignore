@@ -4,6 +4,7 @@
 power/coverage/
 power/dist/
 power/output/
+power/debug.log
 /tmp
 /out-tsc
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { FormAPIService } from '../../formapi.service';
 
 @Component({
@@ -19,13 +19,12 @@ export class MaketaskComponent implements OnInit {
         taskPage: 1,
         taskPageSizes: [],
     };
-    @ViewChild('modalmaketask') public modal: ModalDirective;
+    @ViewChild('maketaskmodal') public modal: ModalminiComponent;
     public amount = 1;
     public pinList = [];
     public copy = false;
 
-    constructor(public modalService: BsModalService,
-        public alerts: AlertsService,
+    constructor(public alerts: AlertsService,
         public formapi: FormAPIService) {
     }
 
@@ -38,14 +37,14 @@ export class MaketaskComponent implements OnInit {
     public open() {
         this.amount = 1;
         this.pinList = [];
-        this.modal.show();
+        this.modal.open($localize`PINs erstellen`);
     }
 
     /**
      * Closes make task modal
      */
     public close() {
-        this.modal.hide();
+        this.modal.close();
     }
 
     /**

@@ -13,8 +13,7 @@
                     <label for="question-name"
                            (click)="questionsettingsmodal.scrollToFooter()"
                            role="button"
-                           i18n>Fragen ID *
-                    </label>
+                           i18n>Fragen ID *</label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].name"
@@ -29,8 +28,7 @@
                            class="form-text text-muted">
                         <span i18n>Dieser Wert muss im Formular einmalig sein. Die ID lässt
                             sich als Variable nutzen, diese enthält die Antwort der Frage:</span>
-                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code>
-                    </small>
+                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code></small>
                 </div>
 
                 <!-- question-title -->
@@ -38,34 +36,33 @@
                     <label for="question-title"
                            (click)="questionsettingsmodal.scrollToFooter()"
                            role="button"
-                           i18n>Fragen Titel *
-                    </label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].title.default"
-                           [class.is-invalid]="!model.pages[page].elements[question].title.default"
-                           maxlength="200"
-                           name="question-title"
-                           id="question-title"
-                           required>
+                           i18n>Fragen Titel *</label>
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].title"
+                                                    eid="question-title"
+                                                    required="true"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-description -->
                 <div class="form-group">
                     <label for="question-description"
                            i18n>Fragen Beschreibung</label>
-                    <textarea class="form-control"
-                              [(ngModel)]="model.pages[page].elements[question].description.default"
-                              id="question-description"
-                              name="question-description"
-                              rows="5"
-                              aria-describedby="question-descriptionHelp"
-                              maxlength="5000">
-                    </textarea>
+                    <power-forms-editor-localeinput textarea="true"
+                                                    [(locale)]="model.pages[page].elements[question].description"
+                                                    eid="question-description"
+                                                    describedby="question-descriptionHelp">
+                    </power-forms-editor-localeinput>
                     <small id="question-descriptionHelp"
                            class="form-text text-muted"
                            i18n>Dieser Text wird unter der Frage angezeigt.</small>
                 </div>
+
+                <span i18n>Sichtbarkeitsbedingungen für die Frage</span>
+                <hr>
+                <power-forms-editor-conditions [model]="model"
+                                               [(data)]="model.pages[page].elements[question].visibleIf">
+                </power-forms-editor-conditions>
+                <hr>
 
                 <!-- question-isRequired -->
                 <div class="custom-control custom-checkbox mb-3">
@@ -84,12 +81,9 @@
                      *ngIf="model.pages[page].elements[question].isRequired">
                     <label for="question-requiredErrorText"
                            i18n>Pflichtfeld Fehlertext</label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].requiredErrorText.default"
-                           maxlength="200"
-                           name="question-requiredErrorText"
-                           id="question-requiredErrorText">
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].requiredErrorText"
+                                                    eid="question-requiredErrorText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-hasComment -->
@@ -115,12 +109,9 @@
                      *ngIf="model.pages[page].elements[question].hasComment">
                     <label for="question-commentText"
                            i18n>Kommentar Eingabefeld Text</label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].commentText.default"
-                           maxlength="200"
-                           name="question-commentText"
-                           id="question-commentText">
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].commentText"
+                                                    eid="question-commentText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-visible -->
@@ -268,12 +259,9 @@
                     <div class="form-group">
                         <label for="question-minRateDescription"
                                i18n>Anzeigetext Minimum</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].minRateDescription.default"
-                               maxlength="200"
-                               name="question-minRateDescription"
-                               id="question-minRateDescription">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].minRateDescription"
+                                                        eid="question-minRateDescription"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-rateMin -->
@@ -291,12 +279,9 @@
                     <div class="form-group">
                         <label for="question-maxRateDescription"
                                i18n>Anzeigetext Maximum</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].maxRateDescription.default"
-                               maxlength="200"
-                               name="question-maxRateDescription"
-                               id="question-maxRateDescription">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].maxRateDescription"
+                                                        eid="question-maxRateDescription"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-rateMax -->
@@ -377,24 +362,18 @@
                     <div class="form-group">
                         <label for="question-labelFalse"
                                i18n>Anzeigetext links</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].labelFalse.default"
-                               maxlength="200"
-                               name="question-labelFalse"
-                               id="question-labelFalse">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelFalse"
+                                                        eid="question-labelFalse"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-labelTrue -->
                     <div class="form-group">
                         <label for="question-labelTrue"
                                i18n>Anzeigetext rechts</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].labelTrue.default"
-                               maxlength="200"
-                               name="question-labelTrue"
-                               id="question-labelTrue">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelTrue"
+                                                        eid="question-labelTrue"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
                 </div>
 
@@ -412,21 +391,19 @@
                     </div>
 
                     <!-- question-acceptedTypes-->
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="form-acceptedTypes"
                                i18n>Erlaubte Dateitypen</label>
                         <select class="custom-select"
                                 [(ngModel)]="model.pages[page].elements[question].acceptedTypes"
                                 id="form-acceptedTypes"
                                 name="form-acceptedTypes">
-                            <!--<option value=""
-                                        i18n>Alles erlauben</option>-->
                             <option value="application/pdf"
                                     i18n>PDF-Dokumente</option>
-                            <option value="image/*"
+                            <option value="image/png,image/jpeg,image/gif"
                                     i18n>Bilder</option>
                         </select>
-                    </div>
+                    </div>-->
 
                     <!-- question-maxSize -->
                     <div class="form-group">
@@ -523,7 +500,7 @@
 
                 <hr>
                 <span i18n>Unterfrage Sichtbarkeitsbedingung</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].rowsVisibleIf">
                 </power-forms-editor-conditions>
@@ -558,6 +535,16 @@
                     <small id="question-hasOtherHelp"
                            class="form-text text-muted"
                            i18n>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</small>
+                </div>
+
+                <!-- question-otherText -->
+                <div class="form-group"
+                     *ngIf="model.pages[page].elements[question].hasOther">
+                    <label for="question-otherText"
+                           i18n>Anderes Eingabefeld Text</label>
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].otherText"
+                                                    eid="question-otherText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-showClearButton -->
@@ -706,8 +693,11 @@
                 </div>
 
                 <hr>
-                <span i18n>Antwortbedingungen</span>
+                <span i18n>Generische Sichtbarkeitsbedingung für die Antworten</span>
                 <br>
+                <small class="text-muted"
+                       i18n>Wird für jede Antwort einzeln evaluiert.</small>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].choicesVisibleIf">
                 </power-forms-editor-conditions>
@@ -726,48 +716,74 @@
 
                 <hr>
                 <span i18n>Antwortbedingungen</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].columnsVisibleIf">
                 </power-forms-editor-conditions>
             </accordion-group>
 
             <!-- conditions -->
-            <accordion-group i18n-heading
+            <!-- <accordion-group i18n-heading
                              heading="Bedingungen"
                              class="mb-1 mb-lg-3">
-                <span i18n>Sichtbarkeitsbedingung</span>
-                <br>
+                <span i18n>Sichtbarkeitsbedingung für die Frage</span>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].visibleIf">
                 </power-forms-editor-conditions>
 
                 <hr>
-                <span i18n>Aktivierungsbedingung</span>
+                <span i18n>Aktivierungsbedingung für alle Antworten</span>
                 <br>
+                <small class="text-muted"
+                       i18n>Wird für jede Antwort einzeln evaluiert.</small>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].enableIf">
                 </power-forms-editor-conditions>
 
                 <hr>
                 <span i18n>Pflichtbedingung</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].requiredIf">
                 </power-forms-editor-conditions>
-            </accordion-group>
+            </accordion-group> -->
 
             <!-- validators -->
             <accordion-group i18n-heading
                              heading="Validatoren"
                              class="mb-1 mb-lg-3">
-                Validatoren
-                <br>
+                <span i18n>Validatoren</span>
+                <hr>
                 <power-forms-editor-validators [model]="model"
                                                [(data)]="model.pages[page].elements[question]">
                 </power-forms-editor-validators>
-
             </accordion-group>
         </accordion>
+
+        <hr>
+        <button type="button"
+                class="btn btn-success mr-2"
+                i18n-title
+                title="Änderungen speichern"
+                (click)="modal.close()">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-hdd align-baseline"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 focusable="false"
+                 aria-hidden="true">
+                <path fill-rule="evenodd"
+                      d="M14 9H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1zM2 8a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2z" />
+                <path d="M5 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                <path fill-rule="evenodd"
+                      d="M4.094 4a.5.5 0 0 0-.44.26l-2.47 4.532A1.5 1.5 0 0 0 1 9.51v.99H0v-.99c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198v.99h-1v-.99a1.5 1.5 0 0 0-.183-.718L12.345 4.26a.5.5 0 0 0-.439-.26H4.094z" />
+            </svg>
+            <span class="ml-1"
+                  i18n>Änderungen speichern</span>
+        </button>
     </div>
 </power-modal>

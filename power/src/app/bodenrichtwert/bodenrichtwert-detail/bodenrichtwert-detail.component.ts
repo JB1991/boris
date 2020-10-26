@@ -7,7 +7,15 @@ import { Component, Input } from '@angular/core';
 })
 export class BodenrichtwertDetailComponent {
 
+    brzStrings = {
+        'brz': $localize`Bodenrichtwertzone`,
+        'state' : $localize`Beitragsabgabenrechtlicher Zustand`,
+        'usage': $localize`Art der Nutzung`,
+        'value': $localize`Bodenrichtwert`
+    };
+
     @Input() feature: any;
 
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

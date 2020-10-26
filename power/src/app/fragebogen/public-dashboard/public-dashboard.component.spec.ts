@@ -60,7 +60,19 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         });
     });
 
-    it('should succeed', (done) => {
+    it('should succeed 2', (done) => {
+        spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve({
+            data: [],
+            total: 100
+        }));
+        component.title = 'something';
+        component.update(false).then(() => {
+            expect(component.pageSizes.length).toBe(10);
+            done();
+        });
+    });
+
+    it('should changeSort', (done) => {
         spyOn(component, 'update');
         component.changeSort('published');
         expect(component.sort).toBe('published');

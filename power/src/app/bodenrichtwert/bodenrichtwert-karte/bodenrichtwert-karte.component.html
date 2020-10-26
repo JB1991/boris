@@ -8,7 +8,7 @@
                         <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
                              aria-label="Button group with nested dropdown">
                             <button type="button" class="btn btn-block" ngbDropdownToggle>
-                                Stichtag: {{stichtag | date:"yyyy"}}
+                                <span i18n>Stichtag</span>: {{stichtag | date:"yyyy"}}
                             </button>
                             <div class="dropdown-menu" ngbDropdownMenu>
                                 <button type="button" *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)"
@@ -20,7 +20,7 @@
                         <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
                              aria-label="Button group with nested dropdown">
                             <button type="button" class="btn btn-block" ngbDropdownToggle>
-                                Teilmarkt: {{teilmarkt.viewValue}}
+                                <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}}
                             </button>
                             <div class="dropdown-menu" ngbDropdownMenu>
                                 <button type="button" *ngFor="let tm of TEILMAERKTE" (click)="onTeilmarktChange(tm)"
@@ -36,13 +36,16 @@
                 </div>
                 <div class="nav">
                     <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung">
+                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" title="Ortung" i18n-alt
+                             i18n-title>
                     </a>
                     <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren">
+                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren"
+                             title="3D aktivieren/deaktivieren" i18n-alt i18n-title>
                     </a>
                     <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen">
+                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen"
+                             title="Karte zurücksetzen" i18n-alt i18n-title>
                     </a>
                 </div>
             </nav>
@@ -55,21 +58,26 @@
             <nav class="nav nav-underline">
                 <div class="nav mr-auto">
                     <a class="nav-link" (click)="toggleFilterActive()">
-                        <img src="/assets/icons/filter.svg" width="25" height="25" alt="Filtern">
+                        <img src="/assets/icons/filter.svg" width="25" height="25" alt="Filtern" title="Filtern"
+                             i18n-alt i18n-title>
                     </a>
                 </div>
                 <div class="nav ml-auto">
                     <a class="nav-link" (click)="toggleSearchActive()">
-                        <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche">
+                        <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche" title="Suche" i18n-alt
+                             i18n-title>
                     </a>
                     <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung">
+                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" title="Ortung" i18n-alt
+                             i18n-title>
                     </a>
                     <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren">
+                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren"
+                             title="3D aktivieren/deaktivieren" i18n-alt i18n-title>
                     </a>
                     <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen">
+                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen"
+                             title="Karte zurücksetzen" i18n-alt i18n-title>
                     </a>
                 </div>
             </nav>
@@ -82,10 +90,11 @@
             <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
                  aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-block" ngbDropdownToggle>
-                    Stichtag: {{stichtag}}
+                    <span i18n>Stichtag</span>: {{stichtag}}
                 </button>
                 <div class="dropdown-menu" ngbDropdownMenu>
-                    <button type="button" *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)" ngbDropdownItem>
+                    <button type="button" *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)"
+                            ngbDropdownItem>
                         {{stag}}
                     </button>
                 </div>
@@ -93,7 +102,7 @@
             <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
                  aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-block" ngbDropdownToggle>
-                    Teilmarkt: {{teilmarkt.viewValue}}
+                    <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}}
                 </button>
                 <div class="dropdown-menu" ngbDropdownMenu>
                     <button type="button" *ngFor="let tm of TEILMAERKTE" (click)="onTeilmarktChange(tm)" ngbDropdownItem
@@ -221,6 +230,5 @@
         </mgl-layer>
 
         <mgl-control [position]="'bottom-left'" mglScale unit="metric"></mgl-control>
-
     </mgl-map>
 </div>

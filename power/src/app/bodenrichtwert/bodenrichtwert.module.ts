@@ -17,7 +17,6 @@ import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
-import { HyphenatePipe } from './pipes/hyphenate.pipe';
 import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
 
 /**
@@ -39,7 +38,6 @@ import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
         BodenrichtwertListeComponent,
         NutzungPipe,
         BeitragPipe,
-        HyphenatePipe,
         UmlautCorrectionPipe
     ],
     imports: [

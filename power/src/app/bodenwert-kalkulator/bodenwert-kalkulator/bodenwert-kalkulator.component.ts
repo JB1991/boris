@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
-import { LngLat, LngLatBounds, MapboxGeoJSONFeature, MapMouseEvent, Marker, Point } from 'mapbox-gl';
+import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point } from 'mapbox-gl';
 import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -35,13 +35,13 @@ export class BodenwertKalkulatorComponent implements OnInit {
     @ViewChild('acc') acc: NgbAccordion;
 
     constructor(private titleService: Title) {
-        this.titleService.setTitle('Bodenwerte - POWER.NI');
+        this.titleService.setTitle($localize`Bodenwerte - POWER.NI`);
     }
 
     ngOnInit() {
     }
 
-    onMapClickEvent(event: MapMouseEvent) {
+    onMapClickEvent(event: any) {
         if (event.point) {
             const point: Point = new Point(event.point.x, event.point.y);
             const features: MapboxGeoJSONFeature[] =
@@ -52,6 +52,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
             }
             this.showOrHideFlurstueckPanel();
             this.updateFlurstueckHighlighting();
+            this.map.flyTo({center: [event.lngLat.lng, event.lngLat.lat - 0.00235], zoom: 15, speed: 1});
         }
     }
 
@@ -74,9 +75,9 @@ export class BodenwertKalkulatorComponent implements OnInit {
     updateFlurstueckHighlighting() {
         this.map.setFilter('flurstuecke-highlighted', null);
 
-        const filter = ['in', 'gml_id'];
-        for (const l of Array.from(this.flurstueckSelection.values())) {
-            filter.push(l.properties.gml_id);
+        const filter: string[] = ['in', 'gml_id'];
+        for (const flurstueck of Array.from(this.flurstueckSelection.values())) {
+            filter.push(flurstueck.properties.gml_id);
         }
         this.map.setFilter('flurstuecke-highlighted', filter);
     }
@@ -115,7 +116,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     }
 
     activate3dView() {
-        const layers = this.map.getStyle().layers;
+        const layers: Layer[] = this.map.getStyle().layers;
         let firstSymbolId;
         for (let i = 0; i < layers.length; i++) {
             if (layers[i].type === 'symbol') {

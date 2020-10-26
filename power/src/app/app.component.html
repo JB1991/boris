@@ -25,22 +25,14 @@
                 style="border: none; padding-right: 0;"
                 type="button"
                 (click)="isCollapsed = !isCollapsed"
-                [attr.aria-expanded]="!isCollapsed"
-                [class.active]="!isCollapsed"
-                aria-controls="navbarToggler"
-                i18n-aria-label
                 aria-label="Navigation umschalten">
             <span class="navbar-toggler-icon"
                   aria-hidden="true"></span>
-            <span class="sr-only"
-                  i18n>Navigation umschalten</span>
         </button>
 
         <div class="collapse navbar-collapse"
-             style="z-index: 2000;"
              id="navbarToggler"
-             [collapse]="isCollapsed"
-             [isAnimated]="true">
+             [ngbCollapse]="isCollapsed">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"
                     *ngIf="config.modules.includes('bodenrichtwerte')">
@@ -51,7 +43,7 @@
                        i18n>Bodenrichtwerte</a>
                 </li>
                 <li class="nav-item"
-                    *ngIf="config.modules.includes('bodenwerte')">
+                    *ngIf="config.modules.includes('bodenwertkalkulator')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/bodenwertkalkulator']"
@@ -59,7 +51,7 @@
                        i18n>Bodenwerte</a>
                 </li>
                 <li class="nav-item"
-                    *ngIf="config.modules.includes('immobilien')">
+                    *ngIf="config.modules.includes('immobilienpreisindex')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/immobilienpreisindex']"
@@ -67,14 +59,15 @@
                        i18n>Immobilien</a>
                 </li>
                 <li class="nav-item"
-                    *ngIf="config.modules.includes('fragebogen')">
+                    *ngIf="config.modules.includes('forms')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/forms']"
                        routerLinkActive="active"
                        i18n>Formulare</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item"
+                    *ngIf="config.modules.includes('feedback')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/feedback']"
@@ -106,6 +99,7 @@
                              class="bi bi-file-person align-top"
                              fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
                              aria-hidden="true">
                             <path fill-rule="evenodd"
                                   d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z" />
@@ -124,6 +118,7 @@
                            [routerLink]="">{{ auth.user.data.email }}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
+                           *ngIf="config.modules.includes('forms')"
                            (click)="isCollapsed = true; isCollapsedAcc = true"
                            [routerLink]="['/forms/dashboard']"
                            routerLinkActive="active"
@@ -152,18 +147,24 @@
             </div>
             <div class="row justify-content-around">
                 <div class="col-md-4 text-center">
-                    <div class="h5"
-                         i18n>Sprache</div>
+                    <h5 id="languages"
+                        aria-label="Sprachauswahl"
+                        i18n-aria-label
+                        i18n>Sprache</h5>
                     <a href="{{ baseurl }}"
-                       class="footer-link">Deutsch</a>
+                       id="de"
+                       class="footer-link"
+                       aria-labelledby="languages de">Deutsch</a>
                     - <a href="/en{{ baseurl }}"
-                       class="footer-link">English</a>
+                       id="en"
+                       class="footer-link"
+                       aria-labelledby="languages en">English</a>
                     - <a href="/ja{{ baseurl }}"
-                       class="footer-link">日本語</a>
+                       id="ja"
+                       class="footer-link"
+                       aria-labelledby="languages ja">日本語</a>
                     <hr>
-
-                    <div class="h5"
-                         i18n>Informationen</div>
+                    <h5 i18n>Informationen</h5>
                     <ul class="list-unstyled text-small">
                         <li class="m-2"><a
                                href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"

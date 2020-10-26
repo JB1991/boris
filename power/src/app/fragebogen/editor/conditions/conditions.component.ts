@@ -18,8 +18,8 @@ export class ConditionsComponent implements OnInit, OnChanges {
     @Input() public data: any;
     @Output() public dataChange = new EventEmitter<any>();
 
-    public struct: any = [];
-    public questions: any = [];
+    public struct = [];
+    public questions = [];
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
@@ -29,22 +29,22 @@ export class ConditionsComponent implements OnInit, OnChanges {
         for (let i = 0; i < this.model.pages.length; i++) {
             for (const element of this.model.pages[i].elements) {
                 // add to list
-                if (element.type !== 'matrix') {
-                    this.questions.push({
-                        name: element.name,
-                        title: element.name + ': ' + element.title.default,
-                        type: element.type,
-                        choices: (element.choices ? element.choices : null)
-                    });
-                } else {
+                if (element.type === 'matrix') {
                     for (const q of element.rows) {
                         this.questions.push({
                             name: element.name + '.' + q.value,
-                            title: element.name + ': ' + (q.text.default ? q.text.default : q.value),
+                            title: q.text.default ? q.text.default : '',
                             type: element.type,
                             choices: element.columns
                         });
                     }
+                } else {
+                    this.questions.push({
+                        name: element.name,
+                        title: element.title.default ? element.title.default : '',
+                        type: element.type,
+                        choices: element.choices
+                    });
                 }
             }
         }
@@ -53,7 +53,8 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         // check if data exists
-        if (!this.data) {
+        if (!this.data || this.struct.length > 0) {
+            this.loadChoices(null);
             return;
         }
 
@@ -77,11 +78,11 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
             // get question
             if (split[i].startsWith('{')) {
-                tmp.question = split[i].substring(1, split[i].length - 1);
-                i++;
+                tmp.question = split[i];
             } else {
-                throw new Error('Expected parameter to be variable');
+                tmp.question = split[i].substring(1, split[i].length - 1);
             }
+            i++;
 
             // get operator
             tmp.operator = split[i];
@@ -117,15 +118,24 @@ export class ConditionsComponent implements OnInit, OnChanges {
         // convert form to condition object
         this.data = '';
         for (const item of this.struct) {
-            if (!item.question) { continue; }
-            if (this.data) { this.data += ' '; }
+            if (!item.question) {
+                continue;
+            }
+            if (this.data) {
+                this.data += ' ';
+            }
 
             // add condition
             if (item.condition) {
                 this.data += item.condition + ' ';
             }
+
             // add question and operator
-            this.data += '{' + item.question + '} ' + item.operator;
+            if (item.question.startsWith('{')) {
+                this.data += item.question + ' ' + item.operator;
+            } else {
+                this.data += '\'' + item.question + '\' ' + item.operator;
+            }
 
             // add values
             if (item.operator === 'empty' || item.operator === 'notempty') {
@@ -134,13 +144,14 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 // array
                 this.data += ' [';
                 for (let i = 0; i < item.value.length; i++) {
-                    if (!item.value[i]) { continue; }
                     this.data += '\'' + item.value[i] + '\'' + (i + 1 >= item.value.length ? '' : ',');
                 }
                 this.data += ']';
             } else {
                 // string
-                if (!item.value) { item.value = ''; }
+                if (!item.value) {
+                    item.value = '';
+                }
                 if (!item.value.startsWith('{')) {
                     // text
                     this.data += ' \'' + item.value + '\'';
@@ -161,7 +172,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
         for (const item of this.struct) {
             item.choices = null;
             for (const question of this.questions) {
-                if (item.question === question.name) {
+                if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
                 }
             }

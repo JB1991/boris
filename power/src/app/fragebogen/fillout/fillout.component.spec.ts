@@ -141,7 +141,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     it('should fail to load data', fakeAsync(() => {
         spyOn(component.formapi, 'getPublicAccess').and.returnValue(Promise.reject('Failed to load data'));
-        component.loadData('123', 'factor');
+        component.loadData('123');
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
@@ -153,7 +153,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      */
     it('should submit data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(accessSample.data));
-        component.data.task = taskSample.data;
+        component.data.task = JSON.parse(JSON.stringify(taskSample.data));
         component.submit(accessSample.data);
         fixture.detectChanges();
         tick();
@@ -165,7 +165,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     it('should fail to submit data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
-        component.data.task = taskSample.data;
+        component.data.task = JSON.parse(JSON.stringify(taskSample.data));
         component.submit({ result: submitSample, options: { showDataSavingError: () => { } } });
         fixture.detectChanges();
         tick();
@@ -179,7 +179,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      */
     it('should progress result', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(accessSample.data));
-        component.data.task = taskSample.data;
+        component.data.task = JSON.parse(JSON.stringify(taskSample.data));
         component.progress(accessSample.data);
         fixture.detectChanges();
         tick();
@@ -188,7 +188,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     it('should fail to progress data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
-        component.data.task = taskSample.data;
+        component.data.task = JSON.parse(JSON.stringify(taskSample.data));
         component.progress(submitSample);
         fixture.detectChanges();
         tick();
