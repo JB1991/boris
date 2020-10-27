@@ -5,8 +5,8 @@
         <div echarts [options]="this.nipixRuntime.chart.options" (chartInit)="onChartChartInit($event)"
              (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)"
              (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>
-        <div style="text-align: center;" [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}" i18n>
-            HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</div>
+        <div style="text-align: center;" [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}"
+            i18n>HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</div>
     </div>
     <div class="col-sm-4">
         <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)"
@@ -64,8 +64,8 @@
                         </div>
                     </div>
 
-                    <div *ngIf="select['type'] == 'multiSelect'" style="padding-left: 40px; margin-bottom: 1rem;" i18n>
-                         HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</div>
+                    <div *ngIf="select['type'] == 'multiSelect'" style="padding-left: 40px; margin-bottom: 1rem;"
+                        i18n>HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</div>
 
                     <!-- Select DrawValues-->
                     <ul *ngIf="select['type'] == 'single' || select['type'] == 'multiSelect'">
@@ -113,16 +113,16 @@
                                         </label>
                                     </span>
                                     <span class="dotlabel" style="vertical-align: middle;"
-                                        *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length == 0" i18n>
-                                        alle auswählen</span>
+                                        *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length == 0"
+                                        i18n>alle auswählen</span>
                                     <span class="dotlabel" style="vertical-align: middle;"
-                                        *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length > 0" i18n>
-                                        Auswahl aufheben</span>
+                                        *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length > 0"
+                                        i18n>Auswahl aufheben</span>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="select['type'] == 'multiSelect'">
-                                <span class="dotlabel" style="padding-left: 0.5rem; vertical-align: middle;" i18n>
-                                    alle/keine auswählen</span>
+                                <span class="dotlabel" style="padding-left: 0.5rem; vertical-align: middle;"
+                                    i18n>alle/keine auswählen</span>
                             </ng-container>
 
                         </li>
@@ -207,9 +207,9 @@
 
         </ngb-accordion>
         <div style="text-align: center; margin-top: 1rem;">
-            <ng-container i18n="AGNB Start">Es gelten die</ng-container> <a href="{{nipixStatic.agnbUrl}}" target="_blank" rel="noreferrer" i18n="AGNB">
-                Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB)
-            </a><ng-container i18n="AGNB Ende">.</ng-container>
+            <ng-container i18n="AGNB Start">Es gelten die</ng-container> <a href="{{nipixStatic.agnbUrl}}" target="_blank" rel="noreferrer"
+                i18n="AGNB">Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB)</a>
+            <ng-container i18n="AGNB Ende">.</ng-container>
         </div>
     </div>
 </div>
