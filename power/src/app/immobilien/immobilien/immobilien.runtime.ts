@@ -87,8 +87,34 @@ export class NipixRuntime {
         'SR': $localize`SR`,
         'ländliche Regionen': $localize`Ländliche Regionen`,
         'LR': $localize`LR`,
+        'Mitte': $localize`Mitte`,
+        'Nord': $localize`Nord`,
+        'Ost': $localize`Ost`,
+        'Süd': $localize`Süd`,
+        'West': $localize`West`,
         'Hannover': $localize`Hannover`,
         'Braunschweig': $localize`Braunschweig`,
+        'Osnabrück': $localize`Osnabrück`,
+        'Lüneburg': $localize`Lüneburg`,
+        'Göttingen': $localize`Göttingen`,
+        'Aurich': $localize`Aurich`,
+        'Wolfsburg': $localize`Wolfsburg`,
+        'Oldenburg': $localize`Oldenburg`,
+        'Hamburger Umland': $localize`Hamburger Umland`,
+        'Küste u. weiteres Umland': $localize`Küste u. weiteres Umland`,
+        'Ostfriesische Inseln': $localize`Ostfriesische Inseln`,
+        'Westliches Niedersachsen': $localize`Westliches Niedersachsen`,
+        'Oldenburg - Münsterland - Osnabrück': $localize`Oldenburg - Münsterland - Osnabrück`,
+        'Stadt Oldenburg': $localize`Stadt Oldenburg`,
+        'Stadt Osnabrück u. städt. Gemeinden': $localize`Stadt Osnabrück u. städt. Gemeinden`,
+        'Bremer Umland': $localize`Bremer Umland`,
+        'Mittleres Niedersachsen': $localize`Mittleres Niedersachsen`,
+        'Südliches Niedersachsen': $localize`Südliches Niedersachsen`,
+        'Stadt Göttingen u. städt. Gemeinden': $localize`Stadt Göttingen u. städt. Gemeinden`,
+        'Östliches Niedersachsen': $localize`Östliches Niedersachsen`,
+        'Stadt Hannover': $localize`Stadt Hannover`,
+        'Stadt Wolfsburg': $localize`Stadt Wolfsburg`,
+        'Stadt Braunschweig': $localize`Stadt Braunschweig`,
         'Hannover - Braunschweig - Wolfsburg': $localize`Hannover - Braunschweig - Wolfsburg`
     };
 
@@ -103,6 +129,7 @@ export class NipixRuntime {
         if (this.locale.hasOwnProperty(defaultID)) {
             return this.locale[defaultID];
         } else {
+            // console.log('Missing translation: ' + defaultID);
             return defaultID;
         }
     }

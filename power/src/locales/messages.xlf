@@ -227,7 +227,7 @@
     </unit>
     <unit id="2254299917153630149">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:211</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:210</note>
         <note category="description">AGNB</note>
       </notes>
       <segment>
@@ -292,10 +292,34 @@
     </unit>
     <unit id="2085014848861395847">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:202</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:201</note>
       </notes>
       <segment>
         <source>Ihre Wohnungsmarktregion</source>
+      </segment>
+    </unit>
+    <unit id="4802502751287439621">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:3</note>
+      </notes>
+      <segment>
+        <source>Zeitliche Entwicklung</source>
+      </segment>
+    </unit>
+    <unit id="8227910877649689310">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:4,5</note>
+      </notes>
+      <segment>
+        <source>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</source>
+      </segment>
+    </unit>
+    <unit id="5677984979625201937">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:10,12</note>
+      </notes>
+      <segment>
+        <source>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt.</source>
       </segment>
     </unit>
     <unit id="8329545165404152883">
@@ -360,30 +384,6 @@
       </notes>
       <segment>
         <source>Einklappen/ausklappen</source>
-      </segment>
-    </unit>
-    <unit id="4802502751287439621">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:3</note>
-      </notes>
-      <segment>
-        <source>Zeitliche Entwicklung</source>
-      </segment>
-    </unit>
-    <unit id="8227910877649689310">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:4,5</note>
-      </notes>
-      <segment>
-        <source>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</source>
-      </segment>
-    </unit>
-    <unit id="5677984979625201937">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:10,12</note>
-      </notes>
-      <segment>
-        <source>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt.</source>
       </segment>
     </unit>
     <unit id="9117142324442802101">
@@ -1434,9 +1434,49 @@
         <source>LR</source>
       </segment>
     </unit>
-    <unit id="6519912233918863557">
+    <unit id="3388332358579879286">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:90</note>
+      </notes>
+      <segment>
+        <source>Mitte</source>
+      </segment>
+    </unit>
+    <unit id="2789207481544807989">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:91</note>
+      </notes>
+      <segment>
+        <source>Nord</source>
+      </segment>
+    </unit>
+    <unit id="8794887162113076785">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:92</note>
+      </notes>
+      <segment>
+        <source>Ost</source>
+      </segment>
+    </unit>
+    <unit id="5837018710603363590">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:93</note>
+      </notes>
+      <segment>
+        <source>Süd</source>
+      </segment>
+    </unit>
+    <unit id="4057359344329666188">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:94</note>
+      </notes>
+      <segment>
+        <source>West</source>
+      </segment>
+    </unit>
+    <unit id="6519912233918863557">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:95</note>
       </notes>
       <segment>
         <source>Hannover</source>
@@ -1444,15 +1484,183 @@
     </unit>
     <unit id="5860480415256546602">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:91</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:96</note>
       </notes>
       <segment>
         <source>Braunschweig</source>
       </segment>
     </unit>
+    <unit id="8511484523092736404">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:97</note>
+      </notes>
+      <segment>
+        <source>Osnabrück</source>
+      </segment>
+    </unit>
+    <unit id="976998893860750173">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:98</note>
+      </notes>
+      <segment>
+        <source>Lüneburg</source>
+      </segment>
+    </unit>
+    <unit id="8296231011779311293">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:99</note>
+      </notes>
+      <segment>
+        <source>Göttingen</source>
+      </segment>
+    </unit>
+    <unit id="2936321043632265920">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:100</note>
+      </notes>
+      <segment>
+        <source>Aurich</source>
+      </segment>
+    </unit>
+    <unit id="7675196495548807372">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:101</note>
+      </notes>
+      <segment>
+        <source>Wolfsburg</source>
+      </segment>
+    </unit>
+    <unit id="8010516237975412504">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:102</note>
+      </notes>
+      <segment>
+        <source>Oldenburg</source>
+      </segment>
+    </unit>
+    <unit id="6257430719628757672">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:103</note>
+      </notes>
+      <segment>
+        <source>Hamburger Umland</source>
+      </segment>
+    </unit>
+    <unit id="8589744724892453102">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:104</note>
+      </notes>
+      <segment>
+        <source>Küste u. weiteres Umland</source>
+      </segment>
+    </unit>
+    <unit id="74411590963274094">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:105</note>
+      </notes>
+      <segment>
+        <source>Ostfriesische Inseln</source>
+      </segment>
+    </unit>
+    <unit id="2063781320179266734">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:106</note>
+      </notes>
+      <segment>
+        <source>Westliches Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="7342049953990522162">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:107</note>
+      </notes>
+      <segment>
+        <source>Oldenburg - Münsterland - Osnabrück</source>
+      </segment>
+    </unit>
+    <unit id="3719284401757459904">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:108</note>
+      </notes>
+      <segment>
+        <source>Stadt Oldenburg</source>
+      </segment>
+    </unit>
+    <unit id="3363358637395135076">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:109</note>
+      </notes>
+      <segment>
+        <source>Stadt Osnabrück u. städt. Gemeinden</source>
+      </segment>
+    </unit>
+    <unit id="243351215746505043">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:110</note>
+      </notes>
+      <segment>
+        <source>Bremer Umland</source>
+      </segment>
+    </unit>
+    <unit id="5791002275701455824">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:111</note>
+      </notes>
+      <segment>
+        <source>Mittleres Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="2338211622984590677">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:112</note>
+      </notes>
+      <segment>
+        <source>Südliches Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="5036543807952967053">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:113</note>
+      </notes>
+      <segment>
+        <source>Stadt Göttingen u. städt. Gemeinden</source>
+      </segment>
+    </unit>
+    <unit id="475852323306912649">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:114</note>
+      </notes>
+      <segment>
+        <source>Östliches Niedersachsen</source>
+      </segment>
+    </unit>
+    <unit id="7921378844397608717">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:115</note>
+      </notes>
+      <segment>
+        <source>Stadt Hannover</source>
+      </segment>
+    </unit>
+    <unit id="7030014027431608792">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:116</note>
+      </notes>
+      <segment>
+        <source>Stadt Wolfsburg</source>
+      </segment>
+    </unit>
+    <unit id="504779653745270187">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:117</note>
+      </notes>
+      <segment>
+        <source>Stadt Braunschweig</source>
+      </segment>
+    </unit>
     <unit id="7296884130288172531">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:92</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:118</note>
       </notes>
       <segment>
         <source>Hannover - Braunschweig - Wolfsburg</source>
@@ -2640,9 +2848,17 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Eingabewert</source>
       </segment>
     </unit>
+    <unit id="5076633116931203629">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:43</note>
+      </notes>
+      <segment>
+        <source>Fragen Einstellungen</source>
+      </segment>
+    </unit>
     <unit id="6622873968841840307">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:44</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:55</note>
       </notes>
       <segment>
         <source>Änderungen übernommen</source>
@@ -2650,7 +2866,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="573391330390490773">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:45</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:56</note>
       </notes>
       <segment>
         <source>Ihre Änderungen wurden erfolgreich zwischen gespeichert.</source>
@@ -2658,7 +2874,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8852250703686567498">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:54</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:67</note>
       </notes>
       <segment>
         <source>Ungültige Einstellungen</source>
@@ -2666,7 +2882,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6908314331075628072">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:54</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:67</note>
       </notes>
       <segment>
         <source>Bitte prüfen Sie Ihre Eingaben.</source>
@@ -2674,626 +2890,10 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2258060347097525516">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:10</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:10</note>
       </notes>
       <segment>
         <source>Allgemein</source>
-      </segment>
-    </unit>
-    <unit id="515361261308847185">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:17</note>
-      </notes>
-      <segment>
-        <source>Formular Titel *</source>
-      </segment>
-    </unit>
-    <unit id="8617378541577598232">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:23</note>
-      </notes>
-      <segment>
-        <source>Formular Titel</source>
-      </segment>
-    </unit>
-    <unit id="4100707199422330681">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:35</note>
-      </notes>
-      <segment>
-        <source>Titel anzeigen</source>
-      </segment>
-    </unit>
-    <unit id="3833317435714673084">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:41</note>
-      </notes>
-      <segment>
-        <source>Formular Beschreibung</source>
-      </segment>
-    </unit>
-    <unit id="1760256603507464336">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:48</note>
-      </notes>
-      <segment>
-        <source>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</source>
-      </segment>
-    </unit>
-    <unit id="5666267213246612821">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:54</note>
-      </notes>
-      <segment>
-        <source>Standardsprache</source>
-      </segment>
-    </unit>
-    <unit id="6272317054799422136">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:67,69</note>
-      </notes>
-      <segment>
-        <source>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
-      </segment>
-    </unit>
-    <unit id="1372482459728345325">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:75</note>
-      </notes>
-      <segment>
-        <source>Fragen Nummerierung</source>
-      </segment>
-    </unit>
-    <unit id="8481579963208403613">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:81</note>
-      </notes>
-      <segment>
-        <source>Durchgängig nummerieren</source>
-      </segment>
-    </unit>
-    <unit id="3639076766141137848">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:83</note>
-      </notes>
-      <segment>
-        <source>Seitenweise nummerieren</source>
-      </segment>
-    </unit>
-    <unit id="2434918029138704338">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:85</note>
-      </notes>
-      <segment>
-        <source>Keine Nummern anzeigen</source>
-      </segment>
-    </unit>
-    <unit id="9158296968384637533">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:92</note>
-      </notes>
-      <segment>
-        <source>Fragen Reihenfolge</source>
-      </segment>
-    </unit>
-    <unit id="276184332300045619">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:98</note>
-      </notes>
-      <segment>
-        <source>Wie definiert</source>
-      </segment>
-    </unit>
-    <unit id="5748078469472297200">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:100</note>
-      </notes>
-      <segment>
-        <source>Zufällig</source>
-      </segment>
-    </unit>
-    <unit id="4629833376050881075">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:108</note>
-      </notes>
-      <segment>
-        <source>Abschlusstext</source>
-      </segment>
-    </unit>
-    <unit id="7027469161598572792">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:117</note>
-      </notes>
-      <segment>
-        <source>Umleitungs URL</source>
-      </segment>
-    </unit>
-    <unit id="330655507364677006">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:128</note>
-      </notes>
-      <segment>
-        <source>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</source>
-      </segment>
-    </unit>
-    <unit id="4550958265168690830">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:134</note>
-      </notes>
-      <segment>
-        <source>Logo</source>
-      </segment>
-    </unit>
-    <unit id="5229120071979656638">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:139</note>
-      </notes>
-      <segment>
-        <source>Formular Logo</source>
-      </segment>
-    </unit>
-    <unit id="2501314743594284688">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:150</note>
-      </notes>
-      <segment>
-        <source>Eine URL zu einem Logo angeben.</source>
-      </segment>
-    </unit>
-    <unit id="1172866303261737245">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:156</note>
-      </notes>
-      <segment>
-        <source>Position</source>
-      </segment>
-    </unit>
-    <unit id="5556435091490236322">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:162</note>
-      </notes>
-      <segment>
-        <source>Nicht anzeigen</source>
-      </segment>
-    </unit>
-    <unit id="7565716024468232322">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:164</note>
-      </notes>
-      <segment>
-        <source>Links</source>
-      </segment>
-    </unit>
-    <unit id="2593178093887078258">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:166</note>
-      </notes>
-      <segment>
-        <source>Rechts</source>
-      </segment>
-    </unit>
-    <unit id="7729339462879047946">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:168</note>
-      </notes>
-      <segment>
-        <source>Oben</source>
-      </segment>
-    </unit>
-    <unit id="6261398890082020172">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:170</note>
-      </notes>
-      <segment>
-        <source>Unten</source>
-      </segment>
-    </unit>
-    <unit id="7096759547174459513">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:177</note>
-      </notes>
-      <segment>
-        <source>Breite in Pixel</source>
-      </segment>
-    </unit>
-    <unit id="6463726515236192057">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:190</note>
-      </notes>
-      <segment>
-        <source>Höhe in Pixel</source>
-      </segment>
-    </unit>
-    <unit id="3681264497760339705">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:203</note>
-      </notes>
-      <segment>
-        <source>Größenanpassung</source>
-      </segment>
-    </unit>
-    <unit id="4728532590739893418">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:209</note>
-      </notes>
-      <segment>
-        <source>Keine Anpassung</source>
-      </segment>
-    </unit>
-    <unit id="4710626519203410106">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:211</note>
-      </notes>
-      <segment>
-        <source>Verkleinern</source>
-      </segment>
-    </unit>
-    <unit id="7766735261673100646">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:213</note>
-      </notes>
-      <segment>
-        <source>Abschneiden</source>
-      </segment>
-    </unit>
-    <unit id="2067326968798044785">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:215</note>
-      </notes>
-      <segment>
-        <source>Füllen</source>
-      </segment>
-    </unit>
-    <unit id="1348774649041038169">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:222</note>
-      </notes>
-      <segment>
-        <source>Navigation</source>
-      </segment>
-    </unit>
-    <unit id="3791397886649466581">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:234</note>
-      </notes>
-      <segment>
-        <source>Erste Seite ist Startseite</source>
-      </segment>
-    </unit>
-    <unit id="2082107161153819759">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:237</note>
-      </notes>
-      <segment>
-        <source>Die erste Seite erhält einen Start Button für das Formular.</source>
-      </segment>
-    </unit>
-    <unit id="6178833123766704127">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:249</note>
-      </notes>
-      <segment>
-        <source>Zurück Button erlauben</source>
-      </segment>
-    </unit>
-    <unit id="7695508861104987850">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:262</note>
-      </notes>
-      <segment>
-        <source>Nächste Seite automatisch öffnen</source>
-      </segment>
-    </unit>
-    <unit id="8766608425941978130">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:265</note>
-      </notes>
-      <segment>
-        <source>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</source>
-      </segment>
-    </unit>
-    <unit id="8815755568322473340">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:271</note>
-      </notes>
-      <segment>
-        <source>Vorschau vor dem absenden</source>
-      </segment>
-    </unit>
-    <unit id="4048724896199851116">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:278</note>
-      </notes>
-      <segment>
-        <source>Keine Vorschau</source>
-      </segment>
-    </unit>
-    <unit id="3116521044657277687">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:280</note>
-      </notes>
-      <segment>
-        <source>Alle Fragen</source>
-      </segment>
-    </unit>
-    <unit id="8088636398432806268">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:282</note>
-      </notes>
-      <segment>
-        <source>Alle ausgefüllten Fragen</source>
-      </segment>
-    </unit>
-    <unit id="838952338592474932">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:286,287</note>
-      </notes>
-      <segment>
-        <source>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular final absendet.</source>
-      </segment>
-    </unit>
-    <unit id="9183727284848549860">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:293</note>
-      </notes>
-      <segment>
-        <source>Fortschrittsbalken Anzeigen</source>
-      </segment>
-    </unit>
-    <unit id="4185383975352174936">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:305</note>
-      </notes>
-      <segment>
-        <source>Oben und unten</source>
-      </segment>
-    </unit>
-    <unit id="503802866275364170">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:312</note>
-      </notes>
-      <segment>
-        <source>Fortschrittsbalken Berechnung</source>
-      </segment>
-    </unit>
-    <unit id="5884518565866049278">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:318</note>
-      </notes>
-      <segment>
-        <source>Sichtbare Seiten</source>
-      </segment>
-    </unit>
-    <unit id="8170033538072466570">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:320</note>
-      </notes>
-      <segment>
-        <source>Sichtbare Pflichtfragen</source>
-      </segment>
-    </unit>
-    <unit id="6268991995109043706">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:322</note>
-      </notes>
-      <segment>
-        <source>Alle sichtbaren Fragen</source>
-      </segment>
-    </unit>
-    <unit id="4672431604235348857">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:324</note>
-      </notes>
-      <segment>
-        <source>Korrekt beantwortete Fragen (Quiz)</source>
-      </segment>
-    </unit>
-    <unit id="235619957920177805">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:331</note>
-      </notes>
-      <segment>
-        <source>Seiten</source>
-      </segment>
-    </unit>
-    <unit id="8842099329146114445">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:510</note>
-      </notes>
-      <segment>
-        <source>Timer/Quiz</source>
-      </segment>
-    </unit>
-    <unit id="1939472793559014594">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:515</note>
-      </notes>
-      <segment>
-        <source>Zeitlimit in Sekunden für das Formular</source>
-      </segment>
-    </unit>
-    <unit id="2813735869096234149">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:527</note>
-      </notes>
-      <segment>
-        <source>Zeitlimit in Sekunden pro Seite</source>
-      </segment>
-    </unit>
-    <unit id="7133964056789991209">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:539</note>
-      </notes>
-      <segment>
-        <source>Zeitlimit anzeigen</source>
-      </segment>
-    </unit>
-    <unit id="2491849397970098376">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:556</note>
-      </notes>
-      <segment>
-        <source>Timer anzeigen</source>
-      </segment>
-    </unit>
-    <unit id="8224626603237394009">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:562</note>
-      </notes>
-      <segment>
-        <source>Zeit auf dieser Seite und das gesamte Formular</source>
-      </segment>
-    </unit>
-    <unit id="3070058222143457362">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:564</note>
-      </notes>
-      <segment>
-        <source>Zeit auf dieser Seite</source>
-      </segment>
-    </unit>
-    <unit id="5906479838476211239">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:566</note>
-      </notes>
-      <segment>
-        <source>Zeit für das gesamte Formular</source>
-      </segment>
-    </unit>
-    <unit id="932876642658778900">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:576</note>
-      </notes>
-      <segment>
-        <source>Änderungen speichern</source>
-      </segment>
-    </unit>
-    <unit id="4728525257317174639">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:345</note>
-      </notes>
-      <segment>
-        <source>Seite</source>
-      </segment>
-    </unit>
-    <unit id="3714125747806279899">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:351</note>
-      </notes>
-      <segment>
-        <source>Nach oben verschieben</source>
-      </segment>
-    </unit>
-    <unit id="603389987382112463">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:372</note>
-      </notes>
-      <segment>
-        <source>Nach unten verschieben</source>
-      </segment>
-    </unit>
-    <unit id="2471765562897109795">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:395</note>
-      </notes>
-      <segment>
-        <source>Seiten Titel</source>
-      </segment>
-    </unit>
-    <unit id="6320380037348531310">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:407</note>
-      </notes>
-      <segment>
-        <source>Seiten Beschreibung</source>
-      </segment>
-    </unit>
-    <unit id="2798807656507405918">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:424</note>
-      </notes>
-      <segment>
-        <source>Standard</source>
-      </segment>
-    </unit>
-    <unit id="7620481386125449624">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:432</note>
-      </notes>
-      <segment>
-        <source>Diese Option überschreibt den Standardwert aus dem Reiter Allgemein.</source>
-      </segment>
-    </unit>
-    <unit id="2465969235242735880">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:445</note>
-      </notes>
-      <segment>
-        <source>Sichtbar</source>
-      </segment>
-    </unit>
-    <unit id="4418869254061112387">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:448</note>
-      </notes>
-      <segment>
-        <source>Diese Option stellt ein, ob die Seite standardmäßig sichtbar ist.</source>
-      </segment>
-    </unit>
-    <unit id="5564872229726777752">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:461</note>
-      </notes>
-      <segment>
-        <source>Deaktiviert</source>
-      </segment>
-    </unit>
-    <unit id="3393167416522495063">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:464</note>
-      </notes>
-      <segment>
-        <source>Diese Option stellt ein, ob die Seite standardmäßig ausfüllbar ist.</source>
-      </segment>
-    </unit>
-    <unit id="7030772613006934299">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:470</note>
-      </notes>
-      <segment>
-        <source>Zeitlimit in Sekunden für die Seite</source>
-      </segment>
-    </unit>
-    <unit id="5288017806656387875">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:480,481</note>
-      </notes>
-      <segment>
-        <source>Diese Option überschreibt den Standardwert pro Seite aus dem Reiter Timer/Quiz.</source>
-      </segment>
-    </unit>
-    <unit id="2409494154701983500">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:485</note>
-      </notes>
-      <segment>
-        <source>Sichtbarkeitsbedingung</source>
-      </segment>
-    </unit>
-    <unit id="2123058190140167354">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:492</note>
-      </notes>
-      <segment>
-        <source>Aktivierungsbedingung</source>
-      </segment>
-    </unit>
-    <unit id="5076633116931203629">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:43</note>
-      </notes>
-      <segment>
-        <source>Fragen Einstellungen</source>
       </segment>
     </unit>
     <unit id="9115339589157259145">
@@ -3352,12 +2952,28 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Pflichtfeld</source>
       </segment>
     </unit>
+    <unit id="2465969235242735880">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:128</note>
+      </notes>
+      <segment>
+        <source>Sichtbar</source>
+      </segment>
+    </unit>
     <unit id="1043150964998466029">
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:131</note>
       </notes>
       <segment>
         <source>Diese Option stellt ein, ob das Feld standardmäßig sichtbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="5564872229726777752">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:144</note>
+      </notes>
+      <segment>
+        <source>Deaktiviert</source>
       </segment>
     </unit>
     <unit id="5629269951933356095">
@@ -3398,6 +3014,14 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Validatoren</source>
+      </segment>
+    </unit>
+    <unit id="932876642658778900">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:770</note>
+      </notes>
+      <segment>
+        <source>Änderungen speichern</source>
       </segment>
     </unit>
     <unit id="2899899258573669142">
@@ -3696,6 +3320,22 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Unterfragen Reihenfolge</source>
       </segment>
     </unit>
+    <unit id="276184332300045619">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:496</note>
+      </notes>
+      <segment>
+        <source>Wie definiert</source>
+      </segment>
+    </unit>
+    <unit id="5748078469472297200">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:498</note>
+      </notes>
+      <segment>
+        <source>Zufällig</source>
+      </segment>
+    </unit>
     <unit id="3410376041034296385">
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:503</note>
@@ -3816,12 +3456,580 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Mehrfachauswahl erlauben</source>
       </segment>
     </unit>
+    <unit id="7096759547174459513">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:606</note>
+      </notes>
+      <segment>
+        <source>Breite in Pixel</source>
+      </segment>
+    </unit>
+    <unit id="6463726515236192057">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:619</note>
+      </notes>
+      <segment>
+        <source>Höhe in Pixel</source>
+      </segment>
+    </unit>
+    <unit id="3681264497760339705">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:632</note>
+      </notes>
+      <segment>
+        <source>Größenanpassung</source>
+      </segment>
+    </unit>
+    <unit id="4728532590739893418">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:638</note>
+      </notes>
+      <segment>
+        <source>Keine Anpassung</source>
+      </segment>
+    </unit>
+    <unit id="4710626519203410106">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:640</note>
+      </notes>
+      <segment>
+        <source>Verkleinern</source>
+      </segment>
+    </unit>
+    <unit id="7766735261673100646">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:642</note>
+      </notes>
+      <segment>
+        <source>Abschneiden</source>
+      </segment>
+    </unit>
+    <unit id="2067326968798044785">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:644</note>
+      </notes>
+      <segment>
+        <source>Füllen</source>
+      </segment>
+    </unit>
     <unit id="1855713545021520634">
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:719</note>
       </notes>
       <segment>
         <source>Antwortbedingungen</source>
+      </segment>
+    </unit>
+    <unit id="515361261308847185">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:17</note>
+      </notes>
+      <segment>
+        <source>Formular Titel *</source>
+      </segment>
+    </unit>
+    <unit id="8617378541577598232">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:23</note>
+      </notes>
+      <segment>
+        <source>Formular Titel</source>
+      </segment>
+    </unit>
+    <unit id="4100707199422330681">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:35</note>
+      </notes>
+      <segment>
+        <source>Titel anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="3833317435714673084">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:41</note>
+      </notes>
+      <segment>
+        <source>Formular Beschreibung</source>
+      </segment>
+    </unit>
+    <unit id="1760256603507464336">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:48</note>
+      </notes>
+      <segment>
+        <source>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</source>
+      </segment>
+    </unit>
+    <unit id="5666267213246612821">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:54</note>
+      </notes>
+      <segment>
+        <source>Standardsprache</source>
+      </segment>
+    </unit>
+    <unit id="6272317054799422136">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:67,69</note>
+      </notes>
+      <segment>
+        <source>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
+      </segment>
+    </unit>
+    <unit id="1372482459728345325">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:75</note>
+      </notes>
+      <segment>
+        <source>Fragen Nummerierung</source>
+      </segment>
+    </unit>
+    <unit id="8481579963208403613">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:81</note>
+      </notes>
+      <segment>
+        <source>Durchgängig nummerieren</source>
+      </segment>
+    </unit>
+    <unit id="3639076766141137848">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:83</note>
+      </notes>
+      <segment>
+        <source>Seitenweise nummerieren</source>
+      </segment>
+    </unit>
+    <unit id="2434918029138704338">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:85</note>
+      </notes>
+      <segment>
+        <source>Keine Nummern anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="9158296968384637533">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:92</note>
+      </notes>
+      <segment>
+        <source>Fragen Reihenfolge</source>
+      </segment>
+    </unit>
+    <unit id="4629833376050881075">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:108</note>
+      </notes>
+      <segment>
+        <source>Abschlusstext</source>
+      </segment>
+    </unit>
+    <unit id="7027469161598572792">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:117</note>
+      </notes>
+      <segment>
+        <source>Umleitungs URL</source>
+      </segment>
+    </unit>
+    <unit id="330655507364677006">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:128</note>
+      </notes>
+      <segment>
+        <source>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</source>
+      </segment>
+    </unit>
+    <unit id="4550958265168690830">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:134</note>
+      </notes>
+      <segment>
+        <source>Logo</source>
+      </segment>
+    </unit>
+    <unit id="5229120071979656638">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:139</note>
+      </notes>
+      <segment>
+        <source>Formular Logo</source>
+      </segment>
+    </unit>
+    <unit id="2501314743594284688">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:150</note>
+      </notes>
+      <segment>
+        <source>Eine URL zu einem Logo angeben.</source>
+      </segment>
+    </unit>
+    <unit id="1172866303261737245">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:156</note>
+      </notes>
+      <segment>
+        <source>Position</source>
+      </segment>
+    </unit>
+    <unit id="5556435091490236322">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:162</note>
+      </notes>
+      <segment>
+        <source>Nicht anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="7565716024468232322">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:164</note>
+      </notes>
+      <segment>
+        <source>Links</source>
+      </segment>
+    </unit>
+    <unit id="2593178093887078258">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:166</note>
+      </notes>
+      <segment>
+        <source>Rechts</source>
+      </segment>
+    </unit>
+    <unit id="7729339462879047946">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:168</note>
+      </notes>
+      <segment>
+        <source>Oben</source>
+      </segment>
+    </unit>
+    <unit id="6261398890082020172">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:170</note>
+      </notes>
+      <segment>
+        <source>Unten</source>
+      </segment>
+    </unit>
+    <unit id="1348774649041038169">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:222</note>
+      </notes>
+      <segment>
+        <source>Navigation</source>
+      </segment>
+    </unit>
+    <unit id="3791397886649466581">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:234</note>
+      </notes>
+      <segment>
+        <source>Erste Seite ist Startseite</source>
+      </segment>
+    </unit>
+    <unit id="2082107161153819759">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:237</note>
+      </notes>
+      <segment>
+        <source>Die erste Seite erhält einen Start Button für das Formular.</source>
+      </segment>
+    </unit>
+    <unit id="6178833123766704127">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:249</note>
+      </notes>
+      <segment>
+        <source>Zurück Button erlauben</source>
+      </segment>
+    </unit>
+    <unit id="7695508861104987850">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:262</note>
+      </notes>
+      <segment>
+        <source>Nächste Seite automatisch öffnen</source>
+      </segment>
+    </unit>
+    <unit id="8766608425941978130">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:265</note>
+      </notes>
+      <segment>
+        <source>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</source>
+      </segment>
+    </unit>
+    <unit id="8815755568322473340">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:271</note>
+      </notes>
+      <segment>
+        <source>Vorschau vor dem absenden</source>
+      </segment>
+    </unit>
+    <unit id="4048724896199851116">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:278</note>
+      </notes>
+      <segment>
+        <source>Keine Vorschau</source>
+      </segment>
+    </unit>
+    <unit id="3116521044657277687">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:280</note>
+      </notes>
+      <segment>
+        <source>Alle Fragen</source>
+      </segment>
+    </unit>
+    <unit id="8088636398432806268">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:282</note>
+      </notes>
+      <segment>
+        <source>Alle ausgefüllten Fragen</source>
+      </segment>
+    </unit>
+    <unit id="838952338592474932">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:286,287</note>
+      </notes>
+      <segment>
+        <source>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular final absendet.</source>
+      </segment>
+    </unit>
+    <unit id="9183727284848549860">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:293</note>
+      </notes>
+      <segment>
+        <source>Fortschrittsbalken Anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="4185383975352174936">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:305</note>
+      </notes>
+      <segment>
+        <source>Oben und unten</source>
+      </segment>
+    </unit>
+    <unit id="503802866275364170">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:312</note>
+      </notes>
+      <segment>
+        <source>Fortschrittsbalken Berechnung</source>
+      </segment>
+    </unit>
+    <unit id="5884518565866049278">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:318</note>
+      </notes>
+      <segment>
+        <source>Sichtbare Seiten</source>
+      </segment>
+    </unit>
+    <unit id="8170033538072466570">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:320</note>
+      </notes>
+      <segment>
+        <source>Sichtbare Pflichtfragen</source>
+      </segment>
+    </unit>
+    <unit id="6268991995109043706">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:322</note>
+      </notes>
+      <segment>
+        <source>Alle sichtbaren Fragen</source>
+      </segment>
+    </unit>
+    <unit id="4672431604235348857">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:324</note>
+      </notes>
+      <segment>
+        <source>Korrekt beantwortete Fragen (Quiz)</source>
+      </segment>
+    </unit>
+    <unit id="235619957920177805">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:331</note>
+      </notes>
+      <segment>
+        <source>Seiten</source>
+      </segment>
+    </unit>
+    <unit id="8842099329146114445">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:510</note>
+      </notes>
+      <segment>
+        <source>Timer/Quiz</source>
+      </segment>
+    </unit>
+    <unit id="1939472793559014594">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:515</note>
+      </notes>
+      <segment>
+        <source>Zeitlimit in Sekunden für das Formular</source>
+      </segment>
+    </unit>
+    <unit id="2813735869096234149">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:527</note>
+      </notes>
+      <segment>
+        <source>Zeitlimit in Sekunden pro Seite</source>
+      </segment>
+    </unit>
+    <unit id="7133964056789991209">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:539</note>
+      </notes>
+      <segment>
+        <source>Zeitlimit anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="2491849397970098376">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:556</note>
+      </notes>
+      <segment>
+        <source>Timer anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="8224626603237394009">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:562</note>
+      </notes>
+      <segment>
+        <source>Zeit auf dieser Seite und das gesamte Formular</source>
+      </segment>
+    </unit>
+    <unit id="3070058222143457362">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:564</note>
+      </notes>
+      <segment>
+        <source>Zeit auf dieser Seite</source>
+      </segment>
+    </unit>
+    <unit id="5906479838476211239">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:566</note>
+      </notes>
+      <segment>
+        <source>Zeit für das gesamte Formular</source>
+      </segment>
+    </unit>
+    <unit id="4728525257317174639">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:345</note>
+      </notes>
+      <segment>
+        <source>Seite</source>
+      </segment>
+    </unit>
+    <unit id="3714125747806279899">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:351</note>
+      </notes>
+      <segment>
+        <source>Nach oben verschieben</source>
+      </segment>
+    </unit>
+    <unit id="603389987382112463">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:372</note>
+      </notes>
+      <segment>
+        <source>Nach unten verschieben</source>
+      </segment>
+    </unit>
+    <unit id="2471765562897109795">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:395</note>
+      </notes>
+      <segment>
+        <source>Seiten Titel</source>
+      </segment>
+    </unit>
+    <unit id="6320380037348531310">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:407</note>
+      </notes>
+      <segment>
+        <source>Seiten Beschreibung</source>
+      </segment>
+    </unit>
+    <unit id="2798807656507405918">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:424</note>
+      </notes>
+      <segment>
+        <source>Standard</source>
+      </segment>
+    </unit>
+    <unit id="7620481386125449624">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:432</note>
+      </notes>
+      <segment>
+        <source>Diese Option überschreibt den Standardwert aus dem Reiter Allgemein.</source>
+      </segment>
+    </unit>
+    <unit id="4418869254061112387">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:448</note>
+      </notes>
+      <segment>
+        <source>Diese Option stellt ein, ob die Seite standardmäßig sichtbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="3393167416522495063">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:464</note>
+      </notes>
+      <segment>
+        <source>Diese Option stellt ein, ob die Seite standardmäßig ausfüllbar ist.</source>
+      </segment>
+    </unit>
+    <unit id="7030772613006934299">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:470</note>
+      </notes>
+      <segment>
+        <source>Zeitlimit in Sekunden für die Seite</source>
+      </segment>
+    </unit>
+    <unit id="5288017806656387875">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:480,481</note>
+      </notes>
+      <segment>
+        <source>Diese Option überschreibt den Standardwert pro Seite aus dem Reiter Timer/Quiz.</source>
+      </segment>
+    </unit>
+    <unit id="2409494154701983500">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:485</note>
+      </notes>
+      <segment>
+        <source>Sichtbarkeitsbedingung</source>
+      </segment>
+    </unit>
+    <unit id="2123058190140167354">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:492</note>
+      </notes>
+      <segment>
+        <source>Aktivierungsbedingung</source>
       </segment>
     </unit>
     <unit id="5327356321137513330">
@@ -3878,6 +4086,14 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Bild Hochladen</source>
+      </segment>
+    </unit>
+    <unit id="4148353123071676032">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/value/value.component.html:13</note>
+      </notes>
+      <segment>
+        <source>Zurücksetzen</source>
       </segment>
     </unit>
     <unit id="4723836104354899512">
@@ -4146,7 +4362,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1962054522708788552">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:122</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:196</note>
       </notes>
       <segment>
         <source>Referenziert die ausgewählten Antwort(en) dieser Frage</source>
@@ -4154,7 +4370,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4385299558992356242">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:124</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:198</note>
       </notes>
       <segment>
         <source>Aktuelle Seitennummer</source>
@@ -4162,7 +4378,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1121698781112319659">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:126</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:200</note>
       </notes>
       <segment>
         <source>Seitenanzahl</source>
@@ -4170,7 +4386,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2459932623301375710">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:128</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:202</note>
       </notes>
       <segment>
         <source>Sprache des Benutzers in Kurzform (z.B. de)</source>
@@ -4178,7 +4394,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4522389108270627226">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:130</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:204</note>
       </notes>
       <segment>
         <source>Anzahl korrekter Antworten (Quiz)</source>
@@ -4186,7 +4402,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4899934062989743703">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:132</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:206</note>
       </notes>
       <segment>
         <source>Anzahl falscher Antworten (Quiz)</source>
@@ -4194,7 +4410,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2526753972840271572">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:134</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:208</note>
       </notes>
       <segment>
         <source>Anzahl an Fragen</source>
@@ -4202,7 +4418,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7183502370201855335">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:136</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:210</note>
       </notes>
       <segment>
         <source>Gibt das heutige Datum zurück. Anstelle der 0 kann ein Offset für den Tag übergeben werden.</source>
@@ -4210,7 +4426,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5286365491403074964">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:138</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:212</note>
       </notes>
       <segment>
         <source>Berechnet das Alter aus einem Datum</source>
@@ -4218,7 +4434,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="338864769185896785">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:140</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:214</note>
       </notes>
       <segment>
         <source>Summiert mehrere Werte zusammen</source>
@@ -4226,7 +4442,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4783263896329020731">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:142</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:216</note>
       </notes>
       <segment>
         <source>Gibt den kleinsten Wert aus einer Liste zurück</source>
@@ -4234,7 +4450,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5932654571166469820">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:144</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:218</note>
       </notes>
       <segment>
         <source>Gibt den größten Wert aus einer Liste zurück</source>
@@ -4242,7 +4458,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1028500361155779706">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:146</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:220</note>
       </notes>
       <segment>
         <source>Zählt die Werte aus einer Liste</source>
@@ -4250,122 +4466,10 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2802897794792728034">
       <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:148</note>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:222</note>
       </notes>
       <segment>
         <source>Berechnet den Mittelwert aus einer Liste</source>
-      </segment>
-    </unit>
-    <unit id="7879816504576872670">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:155</note>
-      </notes>
-      <segment>
-        <source>Bedingung entfernen</source>
-      </segment>
-    </unit>
-    <unit id="7929073975769097788">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:174</note>
-      </notes>
-      <segment>
-        <source>Bedingung hinzufügen</source>
-      </segment>
-    </unit>
-    <unit id="8609937274244410240">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:6</note>
-      </notes>
-      <segment>
-        <source>Verknüpfung*</source>
-      </segment>
-    </unit>
-    <unit id="6496415064530389125">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:16</note>
-      </notes>
-      <segment>
-        <source>Und</source>
-      </segment>
-    </unit>
-    <unit id="7030282443677019965">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:18</note>
-      </notes>
-      <segment>
-        <source>Oder</source>
-      </segment>
-    </unit>
-    <unit id="4107960379440332335">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:25</note>
-      </notes>
-      <segment>
-        <source>Formularfeld*</source>
-      </segment>
-    </unit>
-    <unit id="8125848263204191046">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:35</note>
-      </notes>
-      <segment>
-        <source>Wert oder Variabel</source>
-      </segment>
-    </unit>
-    <unit id="5848610628261856643">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:43</note>
-      </notes>
-      <segment>
-        <source>Operator*</source>
-      </segment>
-    </unit>
-    <unit id="4333733863543260974">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:52</note>
-      </notes>
-      <segment>
-        <source>Leer</source>
-      </segment>
-    </unit>
-    <unit id="447306477246144131">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:54</note>
-      </notes>
-      <segment>
-        <source>Nicht leer</source>
-      </segment>
-    </unit>
-    <unit id="5337456151430247073">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:56</note>
-      </notes>
-      <segment>
-        <source>Enthält</source>
-      </segment>
-    </unit>
-    <unit id="5450837182765876340">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:58</note>
-      </notes>
-      <segment>
-        <source>Enthält nicht</source>
-      </segment>
-    </unit>
-    <unit id="3682885931610428519">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:67</note>
-      </notes>
-      <segment>
-        <source>Enthält mindestens eines</source>
-      </segment>
-    </unit>
-    <unit id="5531218639276023450">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:70</note>
-      </notes>
-      <segment>
-        <source>Enthält alle</source>
       </segment>
     </unit>
     <unit id="4550688755259900759">
@@ -4520,6 +4624,78 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Fehlermeldung für Benutzer</source>
       </segment>
     </unit>
+    <unit id="4107960379440332335">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:98</note>
+      </notes>
+      <segment>
+        <source>Formularfeld*</source>
+      </segment>
+    </unit>
+    <unit id="8125848263204191046">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:108</note>
+      </notes>
+      <segment>
+        <source>Wert oder Variabel</source>
+      </segment>
+    </unit>
+    <unit id="5848610628261856643">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:117</note>
+      </notes>
+      <segment>
+        <source>Operator*</source>
+      </segment>
+    </unit>
+    <unit id="4333733863543260974">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:126</note>
+      </notes>
+      <segment>
+        <source>Leer</source>
+      </segment>
+    </unit>
+    <unit id="447306477246144131">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:128</note>
+      </notes>
+      <segment>
+        <source>Nicht leer</source>
+      </segment>
+    </unit>
+    <unit id="5337456151430247073">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:130</note>
+      </notes>
+      <segment>
+        <source>Enthält</source>
+      </segment>
+    </unit>
+    <unit id="5450837182765876340">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:132</note>
+      </notes>
+      <segment>
+        <source>Enthält nicht</source>
+      </segment>
+    </unit>
+    <unit id="3682885931610428519">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:141</note>
+      </notes>
+      <segment>
+        <source>Enthält mindestens eines</source>
+      </segment>
+    </unit>
+    <unit id="5531218639276023450">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/validators/validators.component.html:144</note>
+      </notes>
+      <segment>
+        <source>Enthält alle</source>
+      </segment>
+    </unit>
     <unit id="1453810865398829587">
       <notes>
         <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:12</note>
@@ -4536,12 +4712,44 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Englisch</source>
       </segment>
     </unit>
-    <unit id="4148353123071676032">
+    <unit id="7879816504576872670">
       <notes>
-        <note category="location">src/app/fragebogen/editor/value/value.component.html:13</note>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:155</note>
       </notes>
       <segment>
-        <source>Zurücksetzen</source>
+        <source>Bedingung entfernen</source>
+      </segment>
+    </unit>
+    <unit id="7929073975769097788">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:174</note>
+      </notes>
+      <segment>
+        <source>Bedingung hinzufügen</source>
+      </segment>
+    </unit>
+    <unit id="8609937274244410240">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:6</note>
+      </notes>
+      <segment>
+        <source>Verknüpfung*</source>
+      </segment>
+    </unit>
+    <unit id="6496415064530389125">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:16</note>
+      </notes>
+      <segment>
+        <source>Und</source>
+      </segment>
+    </unit>
+    <unit id="7030282443677019965">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:18</note>
+      </notes>
+      <segment>
+        <source>Oder</source>
       </segment>
     </unit>
     <unit id="5630731892828039251">
