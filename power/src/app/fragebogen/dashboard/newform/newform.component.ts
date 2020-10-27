@@ -7,7 +7,7 @@ import { FormAPIService, GetFormsParams } from '../../formapi.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { Form } from '../../formapi.model';
+import { Form, User } from '../../formapi.model';
 
 @Component({
     selector: 'power-forms-dashboard-newform',
@@ -18,6 +18,8 @@ export class NewformComponent {
     @ViewChild('newformmodal') public modal: ModalminiComponent;
     @Input() public tags: Array<string>;
     @Input() public forms: Array<Form>;
+    @Input() public formOwners: Record<string, User>;
+    @Input() public formPerPage: number;
 
     public title: string;
     public service = '';
@@ -60,8 +62,8 @@ export class NewformComponent {
      */
     public fetchTemplates() {
         const queryParams: GetFormsParams = {
-            fields: ['id'],
-            'owner-fields': ['id'],
+            fields: ['id', 'content', 'owner'],
+            'owner-fields': ['id', 'name'],
             filter: {
                 or: [
                     { content: { path: ['title', 'de'], text: { lower: true, contains: this.searchText } } },
@@ -119,6 +121,7 @@ export class NewformComponent {
      * Makes new formular
      * @param template SurveyJS Template
      */
+    // tslint:disable-next-line: max-func-body-length
     public async makeForm(template: any) {
         try {
             if (!template) {
@@ -131,11 +134,15 @@ export class NewformComponent {
             const response = await this.formAPI.createForm({ tags: this.tagList, content: template, access: 'public' });
 
             const resp = await this.formAPI.getForm(response.id, {
-                fields: ['id', 'tags', 'access', 'group', 'status', 'created', 'updated'],
+                fields: ['id', 'owner', 'tags', 'access', 'group', 'status', 'created', 'updated'],
+                'owner-fields': ['id', 'name', 'given-name', 'family-name', 'groups'],
                 extra: ['title.de', 'title.default'],
             });
-
-            this.forms.push(resp.form);
+            this.forms.unshift(resp.form);
+            this.formOwners[resp.owner.id] = resp.owner;
+            if (this.forms.length > this.formPerPage) {
+                this.forms.pop();
+            }
         } catch (error) {
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
         }

@@ -1,5 +1,5 @@
 <!-- details page -->
-<main class="mainpage p-1 p-lg-3" id="content" tabindex="-1" *ngIf="data.form">
+<main class="mainpage p-1 p-lg-3" id="content" tabindex="-1" *ngIf="form">
     <!-- title -->
     <div class="h4">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-medical align-baseline"
@@ -10,7 +10,7 @@
             <path fill-rule="evenodd"
                 d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
         </svg>
-        {{ data.form.title }}
+        {{ form.extra }}
 
         <button type="button" class="btn btn-secondary btn-sm float-right d-none d-md-inline" i18n-title
             title="Zurück zum Dashboard" [routerLink]="['/forms/dashboard']">
@@ -31,44 +31,35 @@
     <div class="row m-0 mb-3">
         <div class="col-12 col-md-6 pl-0">
             <p class="font-weight-light mb-1">
-                <span i18n>ID</span>: {{ data.form.id }}
+                <span i18n>ID</span>: {{ form.id }}
             </p>
             <p class="font-weight-light mb-1">
-                <span i18n>Erstellt</span>: {{ data.form.created | date:'short' }}
+                <span i18n>Erstellt</span>: {{ form.created | date:'short' }}
             </p>
-            <p class="font-weight-light mb-1" *ngIf="data.form.published">
-                <span i18n>Veröffentlicht</span>: {{ data.form.published | date:'short' }}
+            <p class="font-weight-light mb-1">
+                <span i18n>Verändert</span>: {{ form.updated | date:'short' }}
             </p>
-            <p class="font-weight-light mb-1" *ngIf="data.form.cancelled">
-                <span i18n>Archiviert</span>: {{ data.form.cancelled | date:'short' }}
+            <p class="font-weight-light mb-1" *ngIf="form.status === 'published'">
+                <span i18n>Zugriff</span>: {{ form.access }}
             </p>
-            <p class="font-weight-light mb-1" *ngIf="data.form.status === 'published'">
-                <span i18n>Zugriff</span>: {{ data.form.access }}
-            </p>
-            <!--<p class="font-weight-light mb-1" *ngIf="data.form.status === 'published'">
-                      Zugriffszeit</span>: {{ data.form['access-minutes'] }} Minuten
+            <!--<p class="font-weight-light mb-1" *ngIf="form.status === 'published'">
+                      Zugriffszeit</span>: {{ form['access-minutes'] }} Minuten
                   </p>-->
         </div>
         <div class="col-12 col-md-6 pl-0">
             <p class="font-weight-light mb-1">
-                <span i18n>Status</span>: {data.form.status, select, created {Erstellt} published {Veröffentlicht}
+                <span i18n>Status</span>: {form.status, select, created {Erstellt} published {Veröffentlicht}
                 cancelled
                 {Geschlossen}}
             </p>
             <p class="font-weight-light mb-1">
-                <span i18n>Besitzer</span>: {{ data.form.owners }}
-            </p>
-            <p class="font-weight-light mb-1">
-                <span i18n>Leser</span>: {{ data.form.readers }}
-            </p>
-            <p class="font-weight-light mb-1">
-                <span i18n>Tags</span>: {{ data.form.tags }}
+                <span i18n>Tags</span>: {{ form.tags }}
             </p>
         </div>
         <div class="col-12 pl-0 pt-2">
             <button type="button" class="btn btn-primary btn-sm mr-2" i18n-title title="Formular bearbeiten"
-                [routerLink]="['/forms/editor', data.form.id]"
-                *ngIf="data.form.status === 'created' && (!auth.IsAuthEnabled() || data.form.owners.includes(auth.user.data.email))">
+                [routerLink]="['/forms/editor', form.id]"
+                *ngIf="form.status === 'created' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square align-baseline"
                     fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                     <path
@@ -108,7 +99,7 @@
             </button>
             <button type="button" class="btn btn-primary btn-sm mr-2" i18n-title title="Formular Einstellungen"
                 (click)="settings.open()"
-                *ngIf="!auth.IsAuthEnabled() || data.form.owners.includes(auth.user.data.email)">
+                *ngIf="!auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -120,7 +111,7 @@
             </button>
             <button type="button" class="btn btn-success btn-sm mr-2" i18n-title title="Formular veröffentlichen"
                 (click)="publish.open()"
-                *ngIf="data.form.status === 'created' && (!auth.IsAuthEnabled() || data.form.owners.includes(auth.user.data.email))">
+                *ngIf="form.status === 'created' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-globe2 align-baseline"
                     fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -130,7 +121,7 @@
             </button>
             <button type="button" class="btn btn-secondary btn-sm mr-2" i18n-title title="Formular archivieren"
                 (click)="archiveForm()"
-                *ngIf="data.form.status === 'published' && (!auth.IsAuthEnabled() || data.form.owners.includes(auth.user.data.email))">
+                *ngIf="form.status === 'published' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive-fill align-baseline"
                     fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -140,7 +131,7 @@
             </button>
             <button type="button" class="btn btn-danger btn-sm" i18n-title title="Formular löschen"
                 (click)="deleteForm()"
-                *ngIf="data.form.status !== 'published' && (!auth.IsAuthEnabled() || data.form.owners.includes(auth.user.data.email))">
+                *ngIf="form.status !== 'published' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill align-baseline"
                     fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -152,7 +143,7 @@
     </div>
 
     <!-- tasks list -->
-    <div class="card bg-light" *ngIf="data.tasksList && data.form.status !== 'created'">
+    <div class="card bg-light" *ngIf="tasks && form.status !== 'created'">
         <div class="card-header h5">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list-ul" fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
@@ -189,7 +180,7 @@
                                 </span>
                             </span>
                         </th>
-                        <th scope="col" class="border-top-0" *ngIf="data.form.access !== 'public'" i18n>PIN</th>
+                        <th scope="col" class="border-top-0" *ngIf="form.access !== 'public'" i18n>PIN</th>
                         <th scope="col" class="border-top-0" i18n>Status</th>
                         <th scope="col" class="border-top-0" i18n>Kommentar</th>
                         <th scope="col" (click)="changeTaskSort('created')" class="border-top-0">
@@ -219,9 +210,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let task of data.tasksList; index as i">
+                    <tr *ngFor="let task of tasks; index as i">
                         <td>{{ task.id }}</td>
-                        <td *ngIf="data.form.access !== 'public'">
+                        <td *ngIf="form.access !== 'public'">
                             <a [routerLink]="['/forms/fillout', task.pin]" *ngIf="task.status !== 'submitted'">
                                 {{ task.pin }}
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-link-45deg"
@@ -270,7 +261,7 @@
                             </button>
                             <button type="button" class="btn btn-danger btn-sm" i18n-title title="Antwort löschen"
                                 (click)="deleteTask(i)"
-                                *ngIf="!auth.IsAuthEnabled() || data.form.owners.includes(auth.user.data.email)">
+                                *ngIf="!auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
                                 <svg width="1em" height="1em" viewBox="0 0 16 16"
                                     class="bi bi-trash-fill align-baseline" fill="currentColor"
                                     xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
@@ -283,13 +274,13 @@
                     </tr>
                 </tbody>
             </table>
-            <span class="m-3" *ngIf="!data.tasksList.length" i18n>Keine Antworten vorhanden</span>
+            <span class="m-3" *ngIf="!tasks.length" i18n>Keine Antworten vorhanden</span>
         </div>
 
         <div class="card-footer">
             <button type="button" class="btn btn-success btn-sm mr-2" i18n-title title="Neue PIN erstellen"
                 (click)="maketask.open()"
-                *ngIf="data.form.status === 'published' && data.form.access !== 'public' && (!auth.IsAuthEnabled() || data.form.owners.includes(auth.user.data.email))">
+                *ngIf="form.status === 'published' && form.access !== 'public' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus align-top" fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -316,14 +307,14 @@
                 <div class="form-inline well">
                     <div class="form-group mx-2">
                         <select class="custom-select"
-                            (change)="data.tasksPerPage = $event.target.value; updateTasks(false)">
-                            <option *ngFor=" let size of data.taskPageSizes ">
+                            (change)="taskPerPage = $event.target.value; updateTasks(false)">
+                            <option *ngFor=" let size of taskPageSizes ">
                                 {{ size }}
                             </option>
                         </select>
                     </div>
-                    <pagination [boundaryLinks]="true" [itemsPerPage]="data.tasksPerPage" [maxSize]="10"
-                        [totalItems]="data.tasksCountTotal"
+                    <pagination [boundaryLinks]="true" [itemsPerPage]="taskPerPage" [maxSize]="10"
+                        [totalItems]="taskTotal"
                         (pageChanged)="data.taskPage = $event.page; updateTasks(false)" previousText="&lsaquo;"
                         nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
                     </pagination>
@@ -334,17 +325,17 @@
 </main>
 
 <!-- new task modal -->
-<power-forms-details-maketask #maketask [(data)]="data"></power-forms-details-maketask>
+<power-forms-details-maketask #maketask [(form)]="form" [(tasks)]="tasks" [(taskTotal)]="taskTotal" [(taskPerPage)]="taskPerPage"></power-forms-details-maketask>
 
 <!-- publish modal -->
-<power-forms-details-publish #publish [(data)]="data"></power-forms-details-publish>
+<power-forms-details-publish #publish [(form)]="form" [(owner)]="owner" [(tasks)]="tasks" [(taskTotal)]="taskTotal" [(taskPerPage)]="taskPerPage"></power-forms-details-publish>
 
 <!-- comment modal -->
-<power-forms-details-comment #comment [(data)]="data"></power-forms-details-comment>
+<power-forms-details-comment #comment [(form)]="form" [(tasks)]="tasks" [(taskTotal)]="taskTotal" [(taskPerPage)]="taskPerPage"></power-forms-details-comment>
 
 <!-- preview modal -->
-<power-forms-surveyjs-preview *ngIf="data.form" [form]="data.form.content" #preview>
+<power-forms-surveyjs-preview *ngIf="form && form.content" [form]="form.content" #preview>
 </power-forms-surveyjs-preview>
 
 <!-- share form modal -->
-<power-forms-details-settings #settings [(data)]="data"></power-forms-details-settings>
+<power-forms-details-settings #settings [(form)]="form" [(tasks)]="tasks" [(taskTotal)]="taskTotal" [(taskPerPage)]="taskPerPage"></power-forms-details-settings>

@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService, GetFormsParams, GetTasksParams } from '../formapi.service';
-import { FormStatus, Access, Order, TaskStatus, FormFilter, FormSortField, TaskSortField, Task, Form } from '../formapi.model';
+import { FormStatus, Access, Order, TaskStatus, FormFilter, FormSortField, TaskSortField, Task, Form, User } from '../formapi.model';
 
 @Component({
     selector: 'power-forms-dashboard',
@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     public tags: Array<string>;
 
     public forms: Array<Form>;
+    public formOwners: Record<string, User>;
     public formTotal: number;
     public formPage = 1;
     public formPerPage = 5;
@@ -26,16 +27,17 @@ export class DashboardComponent implements OnInit {
     public formStatus: FormStatus | 'all' = 'all';
     public formAccess: Access | 'all' = 'all';
     public formSort: FormSortField | 'title' = 'updated';
-    public formSortOrder: Order = 'asc';
+    public formSortOrder: Order = 'desc';
 
     public tasks: Array<Task>;
+    public taskForms: Record<string, Form>;
     public taskTotal: number;
     public taskPage = 1;
     public taskPerPage = 5;
     public taskPageSizes: number[];
 
-    public taskStatus: TaskStatus | 'all';
-    public taskSort: TaskSortField = 'updated';
+    public taskStatus: TaskStatus | 'all' = 'all';
+    public taskSort: TaskSortField | 'form.title' = 'updated';
     public taskSortOrder: Order = 'desc';
     public taskSortPath?: Array<string>;
 
@@ -125,7 +127,8 @@ export class DashboardComponent implements OnInit {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetFormsParams = {
-                fields: ['id', 'tags', 'access', 'group', 'status', 'created', 'updated'],
+                fields: ['id', 'owner', 'tags', 'access', 'group', 'status', 'created', 'updated'],
+                'owner-fields': ['id', 'name', 'given-name', 'family-name', 'groups'],
                 extra: ['title.de', 'title.default'],
                 limit: this.formPerPage,
                 offset: (this.formPage - 1) * this.formPerPage,
@@ -152,6 +155,7 @@ export class DashboardComponent implements OnInit {
                 or.push({ content: { path: ['title', 'de'], text: search } });
                 or.push({ content: { path: ['title', 'default'], text: search } });
                 or.push({ tag: search });
+                or.push({ 'has-owner-with': { name: search } });
                 filters.push({ or: or });
             }
             if (filters.length > 0) {
@@ -159,6 +163,7 @@ export class DashboardComponent implements OnInit {
             }
             const response = await this.formAPI.getForms(params);
             this.forms = response.forms;
+            this.formOwners = response.owners;
             this.formTotal = response['total-forms'];
             let maxPages = Math.floor(this.formTotal / 5) + 1;
             if (maxPages > 10) {
@@ -178,7 +183,7 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public changeTaskSort(sort: TaskSortField) {
+    public changeTaskSort(sort: TaskSortField | 'form.title') {
         if (this.taskSort === sort) {
             if (this.taskSortOrder === 'asc') {
                 this.taskSortOrder = 'desc';
@@ -197,15 +202,30 @@ export class DashboardComponent implements OnInit {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetTasksParams = {
-                fields: ['id', 'pin', 'description', 'status', 'updated', 'created'],
+                fields: ['id', 'form', 'pin', 'description', 'status', 'updated', 'created'],
+                'form-fields': ['id'],
+                'form-extra': ['title.de', 'title.default'],
                 limit: this.taskPerPage,
                 offset: (this.taskPage - 1) * this.taskPerPage,
             };
-            if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
-                params['status'] = this.taskStatus;
+
+            if (this.taskStatus !== 'all') {
+                params.filter = {
+                    status: this.taskStatus,
+                };
+            }
+            if (this.taskSort === 'form.title') {
+                params.sort = {
+                    orderBy: { field: 'form.content', path: ['title', 'de'] },
+                    alternative: { field: 'form.content', path: ['title', 'default'] },
+                    order: this.formSortOrder,
+                };
+            } else {
+                params.sort = { orderBy: { field: this.taskSort }, order: this.taskSortOrder };
             }
             const response = await this.formAPI.getTasks(params);
             this.tasks = response.tasks;
+            this.taskForms = response.forms;
             this.taskTotal = response['total-tasks'];
             let maxPages = Math.floor(this.taskTotal / 5) + 1;
             if (maxPages > 10) {

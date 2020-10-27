@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { AuthService } from '@app/shared/auth/auth.service';
+import { AuthService, User } from '@app/shared/auth/auth.service';
 import { FormAPIService } from '../formapi.service';
-import { TaskStatus, TaskSortField } from '../formapi.model';
+import { TaskStatus, TaskSortField, Form, Task } from '../formapi.model';
 
 @Component({
     selector: 'power-forms-details',
@@ -16,17 +16,15 @@ import { TaskStatus, TaskSortField } from '../formapi.model';
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-    public data: any = {
-        form: null,
-        tasksList: [],
-        tasksCountTotal: 0,
-        tasksPerPage: 5,
-        taskTotal: 0,
-        taskPage: 1,
-        taskPageSizes: [],
-    };
-
     public id: string;
+
+    public form: Form;
+    public owner: User;
+    public tasks: Array<Task>;
+    public taskTotal = 0;
+    public taskPerPage = 5;
+    public taskPage = 1;
+    public taskPageSizes: Array<number> = [];
 
     public taskStatus: TaskStatus | 'all' = 'all';
     public taskSort: TaskSortField = 'updated';
@@ -71,16 +69,19 @@ export class DetailsComponent implements OnInit {
             throw new Error('id is required');
         }
         try {
-            const result = await this.formapi.getForm(id, { fields: ['all'] });
-            this.data.form = result;
+            const result = await this.formapi.getForm(id, {
+                fields: ['all'],
+                'owner-fields': ['all'],
+            });
+            this.form = result.form;
             if (result.form.status !== 'created') {
                 const results = await this.formapi.getTasks({
                     fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
                     filter: { 'has-form-with': { id: result.form.id } },
                 });
-                this.data.tasksList = results.tasks;
-                this.data.tasksCountTotal = results['total-tasks'];
-                this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
+                this.tasks = results.tasks;
+                this.taskTotal = results['total-tasks'];
+                this.tasks = this.tasks.slice(0, this.taskPerPage);
                 this.loadingscreen.setVisible(false);
             } else {
                 this.loadingscreen.setVisible(false);
@@ -97,10 +98,10 @@ export class DetailsComponent implements OnInit {
     }
 
     public resetService() {
-        this.data.form = null;
-        this.data.tasksList = [];
-        this.data.tasksCountTotal = 0;
-        this.data.tasksPerPage = 5;
+        this.form = null;
+        this.tasks = [];
+        this.taskTotal = 0;
+        this.taskPerPage = 5;
     }
     /**
      * Deletes form
@@ -112,7 +113,7 @@ export class DetailsComponent implements OnInit {
         }
 
         // delete form
-        this.formapi.deleteForm(this.data.form.id).then(() => {
+        this.formapi.deleteForm(this.form.id).then(() => {
             // success
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
@@ -141,8 +142,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
 
 
         // archive form
-        this.formapi.updateForm(this.data.form.id, { status: 'cancelled' }).then(result => {
-            this.data.form = result;
+        this.formapi.updateForm(this.form.id, { status: 'cancelled' }).then(result => {
+            this.form.status = 'cancelled';
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
         }).catch((error: Error) => {
@@ -161,7 +162,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
 
         // load csv results
-        this.formapi.getCSV(this.data.form.id).then(result => {
+        this.formapi.getCSV(this.form.id).then(result => {
             const blob = new Blob([result.toString()], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
@@ -186,7 +187,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public deleteTask(i: number) {
         // check data
-        if (i < 0 || i >= this.data.tasksList.length) {
+        if (i < 0 || i >= this.tasks.length) {
             throw new Error('invalid i');
         }
 
@@ -196,11 +197,11 @@ Dies lässt sich nicht mehr umkehren!`)) {
         }
 
         // delete task
-        this.formapi.deleteTask(this.data.tasksList[i].id).then(() => {
-            this.data.tasksList.splice(i, 1);
+        this.formapi.deleteTask(this.tasks[i].id).then(() => {
+            this.tasks.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
-            if (this.data.tasksList.length === 0) {
+            if (this.tasks.length === 0) {
                 this.updateTasks(false);
             }
         }).catch((error: Error) => {
@@ -231,11 +232,11 @@ Dies lässt sich nicht mehr umkehren!`)) {
      */
     public openTask(i: number) {
         // check data
-        if (i < 0 || i >= this.data.tasksList.length) {
+        if (i < 0 || i >= this.tasks.length) {
             throw new Error('invalid i');
         }
 
-        this.preview.open('display', this.data.tasksList[i].content);
+        this.preview.open('display', this.tasks[i].content);
     }
 
     /**
@@ -244,7 +245,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
     /* istanbul ignore next */
     public exportForm() {
         // load form
-        this.formapi.getForm(this.data.form.id, { fields: ['content'] }).then(result => {
+        this.formapi.getForm(this.form.id, { fields: ['content'] }).then(result => {
             // download json
             const pom = document.createElement('a');
             const encodedURIComponent = encodeURIComponent(JSON.stringify(result.form.content));
@@ -264,8 +265,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
-                limit: this.data.tasksPerPage,
-                offset: (this.data.taskPage - 1) * this.data.tasksPerPage,
+                limit: this.taskPerPage,
+                offset: (this.taskPage - 1) * this.taskPerPage,
                 sort: this.taskSort,
                 order: this.taskSortOrder,
             };
@@ -276,14 +277,14 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
                 filter: { 'has-form-with': { id: this.id } },
             });
-            this.data.tasksCountTotal = response['total-tasks'];
-            this.data.tasksList = response.tasks;
-            let maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
+            this.taskTotal = response['total-tasks'];
+            this.tasks = response.tasks;
+            let maxPages = Math.floor(this.taskTotal / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
-                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             } else {
-                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             }
             this.loadingscreen.setVisible(false);
         } catch (error) {

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Form, Task } from '@app/fragebogen/formapi.model';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
@@ -10,15 +11,12 @@ import { FormAPIService } from '../../formapi.service';
     styleUrls: ['./maketask.component.css']
 })
 export class MaketaskComponent {
-    @Input() public data = {
-        form: null,
-        tasksList: [],
-        tasksCountTotal: 0,
-        tasksPerPage: 5,
-        taskTotal: 0,
-        taskPage: 1,
-        taskPageSizes: [],
-    };
+    @Input() public form: Form;
+    @Input() public tasks: Array<Task> = [];
+    @Input() public taskTotal = 0;
+    @Input() public taskPerPage = 5;
+    @Input() public taskPageSizes: Array<number> = [];
+
     @ViewChild('maketaskmodal') public modal: ModalminiComponent;
     public amount = 1;
     public pinList = [];
@@ -58,19 +56,19 @@ export class MaketaskComponent {
 
         for (let i = 0; i++; i < this.amount) {
             try {
-                const createResult = await this.formapi.createTask(this.data.form.id, {});
+                const createResult = await this.formapi.createTask(this.form.id, {});
                 const findResult = await this.formapi.getTask(createResult.id, { fields: ['all'] });
-                this.data.tasksCountTotal++;
+                this.taskTotal++;
                 this.pinList.push(findResult.task.pin);
-                if (this.data.tasksList.length < this.data.tasksPerPage) {
-                    this.data.tasksList.push(findResult.task);
+                if (this.tasks.length < this.taskPerPage) {
+                    this.tasks.push(findResult.task);
                 }
-                let maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
+                let maxPages = Math.floor(this.taskTotal / 5) + 1;
                 if (maxPages > 10) {
                     maxPages = 10;
-                    this.data.taskPageSizes = Array.from(Array(maxPages), (_, j) => (j + 1) * 5);
+                    this.taskPageSizes = Array.from(Array(maxPages), (_, j) => (j + 1) * 5);
                 } else {
-                    this.data.taskPageSizes = Array.from(Array(maxPages), (_, j) => (j + 1) * 5);
+                    this.taskPageSizes = Array.from(Array(maxPages), (_, j) => (j + 1) * 5);
                 }
 
             } catch (error) {

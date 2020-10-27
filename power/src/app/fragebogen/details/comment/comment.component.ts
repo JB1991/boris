@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Form, Task } from '@app/fragebogen/formapi.model';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
@@ -10,12 +11,11 @@ import { FormAPIService } from '../../formapi.service';
     styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
-    @Input() public data = {
-        form: null,
-        tasksList: [],
-        tasksCountTotal: 0,
-        tasksPerPage: 5,
-    };
+    @Input() form: Form;
+    @Input() tasks: Array<Task>;
+    @Input() taskTotal = 0;
+    @Input() taskPerPage = 5;
+
     @ViewChild('commentmodal') public modal: ModalminiComponent;
     public tasknr = -1;
     public comment: string;
@@ -33,12 +33,12 @@ export class CommentComponent implements OnInit {
      */
     public open(i: number) {
         // check data
-        if (i < 0 || i >= this.data.tasksList.length) {
+        if (i < 0 || i >= this.tasks.length) {
             throw new Error('invalid i');
         }
 
         // open
-        this.comment = this.data.tasksList[i].description;
+        this.comment = this.tasks[i].description;
         this.tasknr = i;
         this.modal.open($localize`Kommentar`);
     }
@@ -57,7 +57,7 @@ export class CommentComponent implements OnInit {
      */
     public save() {
         // check data
-        if (this.tasknr < 0 || this.tasknr >= this.data.tasksList.length) {
+        if (this.tasknr < 0 || this.tasknr >= this.tasks.length) {
             throw new Error('invalid i');
         }
 
@@ -66,11 +66,11 @@ export class CommentComponent implements OnInit {
         };
 
         // save
-        this.formapi.updateTask(this.data.tasksList[this.tasknr].id, {
+        this.formapi.updateTask(this.tasks[this.tasknr].id, {
             description: this.comment,
         }).then(() => {
             // success
-            this.data.tasksList[this.tasknr].description = this.comment;
+            this.tasks[this.tasknr].description = this.comment;
             this.close();
         }).catch((error: Error) => {
             // failed to create task

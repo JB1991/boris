@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 
-import { AuthService, User } from '@app/shared/auth/auth.service';
+import { AuthService } from '@app/shared/auth/auth.service';
 import {
     Access, ElementField, ElementFilter, ElementSort,
     Form, FormField, FormFilter, FormSort, FormStatus,
     Permission, PublicForm, PublicFormField, PublicFormFilter,
     PublicFormSort, PublicTask, PublicTaskField, Task, TaskField,
-    TaskFilter, TaskSort, TaskStatus, UserField
+    TaskFilter, TaskSort, TaskStatus, UserField, User
 } from './formapi.model';
 import { ElementFilterToString, FormFilterToString, SortToString, TaskFilterToString } from './formapi.converter';
+import { Observable } from 'rxjs';
 
 enum Method {
     GET,
@@ -34,42 +35,33 @@ export class FormAPIService {
      * @param body Body for POST
      */
     // tslint:disable-next-line: max-func-body-length
-    private async Do(required: Array<string>, method: Method, uri: string, params: Record<string, string>, body?: any) {
+    private async Do(method: Method, uri: string, params: Record<string, string>, body?: any) {
         const p = new URLSearchParams(params);
         const url = environment.formAPI + uri + (p.toString() ? '?' + p.toString() : '');
 
         console.log(url);
 
-        let data: ArrayBuffer;
+        let obs: Observable<ArrayBuffer>;
+        switch (method) {
+            case Method.POST:
+                obs = this.httpClient.post(url, body, this.auth.getHeaders());
+                break;
+            case Method.PUT:
+                obs = this.httpClient.put(url, body, this.auth.getHeaders());
+                break;
+            case Method.DELETE:
+                obs = this.httpClient.delete(url, this.auth.getHeaders());
+                break;
+            default:
+                obs = this.httpClient.get(url, this.auth.getHeaders());
+        }
+        let data: Promise<ArrayBuffer>;
         try {
-            switch (method) {
-                case Method.POST:
-                    data = await this.httpClient.post(url, body, this.auth.getHeaders()).toPromise();
-                    break;
-                case Method.PUT:
-                    data = await this.httpClient.put(url, body, this.auth.getHeaders()).toPromise();
-                    break;
-                case Method.DELETE:
-                    data = await this.httpClient.delete(url, this.auth.getHeaders()).toPromise();
-                    break;
-                default:
-                    data = await this.httpClient.get(url, this.auth.getHeaders()).toPromise();
-            }
+            data = obs.toPromise();
         } catch (error) {
-            throw new Error(error['message']);
+            throw new Error('API returned error: ' + error['message']);
         }
-        // check for error
-        if (!data) {
-            throw new Error('API returned an empty response');
-        }
-        if (data['error']) {
-            throw new Error('API returned error: ' + data['error']);
-        }
-        for (const r of required) {
-            if (!data[r]) {
-                throw new Error('API returned an invalid response');
-            }
-        }
+
         return <any>data;
     }
 
@@ -77,14 +69,14 @@ export class FormAPIService {
      * Returns tag list
      */
     public async getTags(): Promise<string[]> {
-        return (await this.Do(['tags'], Method.GET, 'tags', {}))['tags'];
+        return (await this.Do(Method.GET, 'tags', {}))['tags'];
     }
 
     /**
      * Returns group list
      */
     public async getGroups(): Promise<string[]> {
-        return (await this.Do(['groups'], Method.GET, 'groups', {}))['groups'];
+        return (await this.Do(Method.GET, 'groups', {}))['groups'];
     }
 
     // tslint:disable-next-line: cyclomatic-complexity
@@ -94,6 +86,7 @@ export class FormAPIService {
         forms: Array<Form>;
         'total-forms': number;
         owners: Record<string, User>;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
@@ -117,7 +110,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(['forms', 'owners', 'total-forms'], Method.GET, 'forms', p);
+        return this.Do(Method.GET, 'forms', p);
     }
 
     public async getForm(
@@ -126,6 +119,7 @@ export class FormAPIService {
     ): Promise<{
         form: Form;
         owner: User;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
@@ -137,7 +131,7 @@ export class FormAPIService {
         if (params.extra) {
             p.extra = params['extra'].join(',');
         }
-        return this.Do(['form', 'owner'], Method.GET, 'forms/' + encodeURIComponent(id), p);
+        return this.Do(Method.GET, 'forms/' + encodeURIComponent(id), p);
     }
 
     public async createForm(body: {
@@ -149,8 +143,9 @@ export class FormAPIService {
         'other-permissions'?: Array<Permission>;
     }): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.POST, 'forms/', {}, body);
+        return this.Do(Method.POST, 'forms/', {}, body);
     }
 
     public async updateForm(
@@ -166,16 +161,18 @@ export class FormAPIService {
         }
     ): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.PUT, 'forms/' + encodeURIComponent(id), {}, body);
+        return this.Do(Method.PUT, 'forms/' + encodeURIComponent(id), {}, body);
     }
 
     public async deleteForm(
         id: string
     ): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.DELETE, 'forms/' + encodeURIComponent(id), {});
+        return this.Do(Method.DELETE, 'forms/' + encodeURIComponent(id), {});
     }
 
     // tslint:disable-next-line: max-func-body-length
@@ -187,6 +184,7 @@ export class FormAPIService {
         'total-tasks': number;
         forms: Record<string, Form>;
         owners: Record<string, User>;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
@@ -216,7 +214,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(['forms', 'tasks', 'owners', 'total-tasks'], Method.GET, 'tasks', p);
+        return this.Do(Method.GET, 'tasks', p);
     }
 
     public async getTask(
@@ -226,6 +224,7 @@ export class FormAPIService {
         task: Task;
         form: Form;
         owner: User;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
@@ -243,7 +242,7 @@ export class FormAPIService {
         if (params['form-extra']) {
             p['form-extra'] = params['form-extra'].join(',');
         }
-        return this.Do(['task', 'form', 'owner'], Method.GET, 'tasks/' + encodeURIComponent(id), p);
+        return this.Do(Method.GET, 'tasks/' + encodeURIComponent(id), p);
     }
 
     public async createTask(
@@ -254,8 +253,9 @@ export class FormAPIService {
         }
     ): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.POST, 'forms/' + encodeURIComponent(formID), {}, body);
+        return this.Do(Method.POST, 'forms/' + encodeURIComponent(formID), {}, body);
     }
 
     public async updateTask(
@@ -267,16 +267,18 @@ export class FormAPIService {
         }
     ): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.PUT, 'tasks/' + encodeURIComponent(id), {}, body);
+        return this.Do(Method.PUT, 'tasks/' + encodeURIComponent(id), {}, body);
     }
 
     public async deleteTask(
         id: string
     ): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.DELETE, 'tasks/' + encodeURIComponent(id), {});
+        return this.Do(Method.DELETE, 'tasks/' + encodeURIComponent(id), {});
     }
 
     public async getElements(
@@ -284,6 +286,7 @@ export class FormAPIService {
     ): Promise<{
         elements: Array<Element>;
         'total-elements': number;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields && params.fields.length > 0) {
@@ -304,7 +307,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(['elements', 'total-elements'], Method.GET, 'elements', p);
+        return this.Do(Method.GET, 'elements', p);
     }
 
     public async getElement(
@@ -313,6 +316,7 @@ export class FormAPIService {
     ): Promise<{
         element: Element;
         owner: User;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
@@ -321,15 +325,16 @@ export class FormAPIService {
         if (params.extra) {
             p.extra = params.extra.join(',');
         }
-        return this.Do(['element', 'owner'], Method.GET, 'elements/' + encodeURIComponent(id), p);
+        return this.Do(Method.GET, 'elements/' + encodeURIComponent(id), p);
     }
 
     public async createElement(body: {
         content?: any;
     }): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.POST, 'elements/', {}, body);
+        return this.Do(Method.POST, 'elements/', {}, body);
     }
 
     public async updateElement(
@@ -339,16 +344,18 @@ export class FormAPIService {
         }
     ): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.PUT, 'elements/' + encodeURIComponent(id), {}, body);
+        return this.Do(Method.PUT, 'elements/' + encodeURIComponent(id), {}, body);
     }
 
     public async deleteElement(
         id: string
     ): Promise<{
         id: string;
+        status: number;
     }> {
-        return this.Do(['id'], Method.DELETE, 'elements/' + encodeURIComponent(id), {});
+        return this.Do(Method.DELETE, 'elements/' + encodeURIComponent(id), {});
     }
 
     public async getPublicForms(
@@ -356,6 +363,7 @@ export class FormAPIService {
     ): Promise<{
         forms: Array<PublicForm>;
         'total-forms': number;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
@@ -376,7 +384,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(['forms', 'total-forms'], Method.GET, 'public/forms/', p);
+        return this.Do(Method.GET, 'public/forms/', p);
     }
 
     public async getPublicForm(
@@ -384,6 +392,7 @@ export class FormAPIService {
         params: GetPublicFormParams
     ): Promise<{
         form: PublicForm;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
@@ -392,7 +401,7 @@ export class FormAPIService {
         if (params.extra) {
             p.extra = params['extra'].join(',');
         }
-        return this.Do(['form'], Method.GET, 'public/forms/' + encodeURIComponent(id), p);
+        return this.Do(Method.GET, 'public/forms/' + encodeURIComponent(id), p);
     }
 
     public async createPublicTask(
@@ -400,8 +409,9 @@ export class FormAPIService {
         content: any,
     ): Promise<{
         message: string;
+        status: number;
     }> {
-        return this.Do(['message'], Method.POST, 'public/forms/' + encodeURIComponent(formID), { content: content });
+        return this.Do(Method.POST, 'public/forms/' + encodeURIComponent(formID), { content: content });
     }
 
     public async getPublicTask(
@@ -410,6 +420,7 @@ export class FormAPIService {
     ): Promise<{
         task: PublicTask;
         form: PublicForm;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (params.fields) {
@@ -427,7 +438,7 @@ export class FormAPIService {
         if (params['form-extra']) {
             p['form-extra'] = params['form-extra'].join(',');
         }
-        return this.Do(['task', 'form'], Method.GET, 'public/tasks/' + encodeURIComponent(pin), p);
+        return this.Do(Method.GET, 'public/tasks/' + encodeURIComponent(pin), p);
     }
 
     public async updatePublicTask(
@@ -437,12 +448,13 @@ export class FormAPIService {
     ): Promise<{
         task: PublicTask;
         form: PublicForm;
+        status: number;
     }> {
         const p: Record<string, string> = {};
         if (submit) {
             p.submit = 'true';
         }
-        return this.Do(['task', 'form'], Method.GET, 'public/tasks/' + encodeURIComponent(pin), p, {
+        return this.Do(Method.GET, 'public/tasks/' + encodeURIComponent(pin), p, {
             content: content,
         });
     }

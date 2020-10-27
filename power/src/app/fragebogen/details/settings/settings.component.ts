@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { FormAPIService } from '../../formapi.service';
+import { Form, Task, User } from '@app/fragebogen/formapi.model';
 
 @Component({
     selector: 'power-forms-details-settings',
@@ -11,12 +12,11 @@ import { FormAPIService } from '../../formapi.service';
     styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-    @Input() public data = {
-        form: null,
-        tasksList: [],
-        tasksCountTotal: 0,
-        tasksPerPage: 5,
-    };
+    @Input() form: Form;
+    @Input() tasks: Array<Task>;
+    @Input() taskTotal = 0;
+    @Input() taskPerPage = 5;
+
     @ViewChild('settingsmodal') public modal: ModalminiComponent;
 
     public tagList = [];
@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
      * Opens settings modal
      */
     public open() {
-        this.tagList = Object.assign([], this.data.form.tags);
+        this.tagList = Object.assign([], this.form.tags);
         this.modal.open($localize`Einstellungen`);
     }
 
@@ -48,11 +48,11 @@ export class SettingsComponent implements OnInit {
      * Update Form with tags, owners and readers
      */
     public updateForm() {
-        this.formapi.updateForm(this.data.form.id, {
+        this.formapi.updateForm(this.form.id, {
             tags: this.tagList,
         }).then(result => {
             //     // success
-            this.data.form = result;
+            this.form.tags = this.tagList;
             this.alerts.NewAlert('success', $localize`Formular gespeichert`,
                 $localize`Das Formular wurde erfolgreich gespeichert.`);
             this.close();

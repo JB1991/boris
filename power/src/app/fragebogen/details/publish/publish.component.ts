@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '../../formapi.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { Access } from '../../formapi.model';
+import { Access, Form, Task, User } from '../../formapi.model';
 
 @Component({
     selector: 'power-forms-details-publish',
@@ -11,12 +11,12 @@ import { Access } from '../../formapi.model';
     styleUrls: ['./publish.component.css']
 })
 export class PublishComponent implements OnInit {
-    @Input() public data = {
-        form: null,
-        tasksList: [],
-        tasksCountTotal: 0,
-        tasksPerPage: 5,
-    };
+    @Input() form: Form;
+    @Input() owner: User;
+    @Input() tasks: Array<Task>;
+    @Input() taskTotal = 0;
+    @Input() taskPerPage = 5;
+
     @ViewChild('publishmodal') public modal: ModalminiComponent;
     public access: Access = 'pin8';
 
@@ -52,12 +52,12 @@ export class PublishComponent implements OnInit {
             return;
         }
 
-        this.formapi.updateForm(this.data.form.id, {
+        this.formapi.updateForm(this.form.id, {
             access: this.access,
             status: 'published',
         }).then(result => {
             // success
-            this.data.form = result;
+            this.form.status = 'published';
             this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,
                 $localize`Das Formular wurde erfolgreich veröffentlicht.`);
             this.close();

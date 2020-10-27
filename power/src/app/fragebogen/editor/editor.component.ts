@@ -170,7 +170,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         try {
             const result = await this.formapi.getForm(id, { fields: ['content'] });
-            this.storage.model = result.form;
+            this.storage.model = result.form.content;
 
             const elements = await this.formapi.getElements({ fields: ['all'] });
             this.favorites = elements.elements;
@@ -455,7 +455,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
         }).catch((error: Error) => {
             // failed to save
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['error']['message']);
             this.loadingscreen.setVisible(false);
 
             console.log(error);

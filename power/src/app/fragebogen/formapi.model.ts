@@ -147,7 +147,7 @@ export type TaskFilter =
         description: TextFilter;
     }
     | {
-        status: FormStatus;
+        status: TaskStatus;
     }
     | {
         created: TimeFilter;
