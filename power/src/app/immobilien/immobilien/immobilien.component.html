@@ -195,8 +195,7 @@
                         [ngbTypeahead]="search"
                         (focus)="focus$.next($event.target.value)"
                         (click)="click$.next($event.target.value)"
-                        #searchWoMaReg="ngbTypeahead"
-                        >
+                        #searchWoMaReg="ngbTypeahead">
                         <ng-container *ngIf="regionName(nipixStatic.data.gemeinden[model]) !== ''">
                             <hr>
                             <ng-container i18n>Ihre Wohnungsmarktregion</ng-container>: {{ regionName(nipixStatic.data.gemeinden[model]) }}
