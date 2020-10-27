@@ -65,7 +65,7 @@ export class GeosearchService {
      */
     private static handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-            console.error($localize`Es ist ein Fehler aufgetreten: ` + error.message);
+            console.error($localize`Es ist ein Fehler aufgetreten` + `: ${error.message}`);
         } else {
             console.error(
                 $localize`Return-Code vom Backend` + `: ${error.status}, ` +

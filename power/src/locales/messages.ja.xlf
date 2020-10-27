@@ -1489,6 +1489,15 @@
         <target>Erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz</target>
       </segment>
     </unit>
+    <unit id="6013256967591081588">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.service.ts:68</note>
+      </notes>
+      <segment state="initial">
+        <source>Es ist ein Fehler aufgetreten</source>
+        <target>Es ist ein Fehler aufgetreten</target>
+      </segment>
+    </unit>
     <unit id="4247324030645335768">
       <notes>
         <note category="location">src/app/static/feedback/feedback.component.ts:15</note>
@@ -1962,7 +1971,7 @@
     </unit>
     <unit id="8488547527396922136">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.ts:86</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:97</note>
       </notes>
       <segment state="translated">
         <source>Laden fehlgeschlagen</source>
@@ -1971,7 +1980,7 @@
     </unit>
     <unit id="2688283467752225426">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:60</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:96</note>
       </notes>
       <segment state="translated">
         <source>Veröffentlicht</source>
@@ -2061,7 +2070,7 @@
     </unit>
     <unit id="4028295370197925352">
       <notes>
-        <note category="location">src/app/fragebogen/details/settings/settings.component.ts:70</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:130</note>
       </notes>
       <segment state="translated">
         <source>Speichern fehlgeschlagen</source>
@@ -3341,13 +3350,13 @@ Dies lässt sich nicht mehr umkehren!</source>
         <target>日付</target>
       </segment>
     </unit>
-    <unit id="2278763268677546133">
+    <unit id="3804190189687550549">
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:201</note>
       </notes>
-      <segment state="translated">
-        <source>Datum &amp; Uhrzeit</source>
-        <target>日付と時刻</target>
+      <segment state="initial">
+        <source>Datum und Uhrzeit</source>
+        <target>Datum und Uhrzeit</target>
       </segment>
     </unit>
     <unit id="8115083664628466958">
@@ -5269,43 +5278,43 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8862057317659190614">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:79</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:78</note>
       </notes>
       <segment state="initial">
         <source>Preisentwicklung Niedersachsen, gesamt</source>
         <target>Preisentwicklung Niedersachsen, gesamt</target>
       </segment>
     </unit>
-    <unit id="3407170915745399663">
+    <unit id="5307623643760357941">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:80</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:79</note>
       </notes>
       <segment state="initial">
-        <source>gebrauchte Eigenheime</source>
-        <target>gebrauchte Eigenheime</target>
+        <source>Gebrauchte Eigenheime</source>
+        <target>Gebrauchte Eigenheime</target>
       </segment>
     </unit>
     <unit id="1088042577119915820">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:81</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:80</note>
       </notes>
       <segment state="initial">
         <source>EH</source>
         <target>EH</target>
       </segment>
     </unit>
-    <unit id="8465384391201708412">
+    <unit id="6062453738307472931">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:82</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:81</note>
       </notes>
       <segment state="initial">
-        <source>gebrauchte Eigentumswohnungen</source>
-        <target>gebrauchte Eigentumswohnungen</target>
+        <source>Gebrauchte Eigentumswohnungen</source>
+        <target>Gebrauchte Eigentumswohnungen</target>
       </segment>
     </unit>
     <unit id="6354661807949531329">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:83</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:82</note>
       </notes>
       <segment state="initial">
         <source>EW</source>
@@ -5314,7 +5323,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1551858290218147096">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:84</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:83</note>
       </notes>
       <segment state="initial">
         <source>Vergleich Preisentwicklung von städtischen und ländlichen Regionen</source>
@@ -5323,7 +5332,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4316260054616310474">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:85</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:84</note>
       </notes>
       <segment state="initial">
         <source>Preisentwicklung nach städtischen und ländlichen Regionen</source>
@@ -5332,43 +5341,43 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6512166400814631812">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:86</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:85</note>
       </notes>
       <segment state="initial">
         <source>Vergleich zusammengefasster Regionen</source>
         <target>Vergleich zusammengefasster Regionen</target>
       </segment>
     </unit>
-    <unit id="1582871385728865172">
+    <unit id="6448279684130108067">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:87</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:86</note>
       </notes>
       <segment state="initial">
-        <source>städtische Regionen</source>
-        <target>städtische Regionen</target>
+        <source>Städtische Regionen</source>
+        <target>Städtische Regionen</target>
       </segment>
     </unit>
     <unit id="4753259279067371249">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:88</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:87</note>
       </notes>
       <segment state="initial">
         <source>SR</source>
         <target>SR</target>
       </segment>
     </unit>
-    <unit id="2851454544784459698">
+    <unit id="2165887996252736733">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:89</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:88</note>
       </notes>
       <segment state="initial">
-        <source>ländliche Regionen</source>
-        <target>ländliche Regionen</target>
+        <source>Ländliche Regionen</source>
+        <target>Ländliche Regionen</target>
       </segment>
     </unit>
     <unit id="2561517474553080273">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:90</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:89</note>
       </notes>
       <segment state="initial">
         <source>LR</source>
@@ -5377,7 +5386,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6519912233918863557">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:91</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:90</note>
       </notes>
       <segment state="initial">
         <source>Hannover</source>
@@ -5386,7 +5395,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5860480415256546602">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:92</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:91</note>
       </notes>
       <segment state="initial">
         <source>Braunschweig</source>
@@ -5395,7 +5404,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7296884130288172531">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:93</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:92</note>
       </notes>
       <segment state="initial">
         <source>Hannover - Braunschweig - Wolfsburg</source>
@@ -5411,15 +5420,6 @@ Dies lässt sich nicht mehr umkehren!</source>
 Grundstückswerte in Niedersachsen</source>
         <target>Quelle: Oberer Gutachterausschuss für
 Grundstückswerte in Niedersachsen</target>
-      </segment>
-    </unit>
-    <unit id="605904030458936187">
-      <notes>
-        <note category="location">src/app/shared/geosearch/geosearch.service.ts:68</note>
-      </notes>
-      <segment state="initial">
-        <source>Es ist ein Fehler aufgetreten: </source>
-        <target>Es ist ein Fehler aufgetreten: </target>
       </segment>
     </unit>
     <unit id="2331129654501752489">

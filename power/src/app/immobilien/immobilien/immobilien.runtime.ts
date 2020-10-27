@@ -4,7 +4,6 @@ import * as ImmobilienNipixRuntimeCalculator from './immobilien.runtime-calculat
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienExport from './immobilien.export';
 import { ImmobilienUtils } from './immobilien.utils';
-import { ImmobilienHelper } from './immobilien.helper';
 
 interface NipixRuntimeMap {
     obj?: any;
@@ -77,16 +76,16 @@ export class NipixRuntime {
 
     public locale = {
         'Preisentwicklung Niedersachsen, gesamt': $localize`Preisentwicklung Niedersachsen, gesamt`,
-        'gebrauchte Eigenheime': $localize`gebrauchte Eigenheime`,
+        'gebrauchte Eigenheime': $localize`Gebrauchte Eigenheime`,
         'EH': $localize`EH`,
-        'gebrauchte Eigentumswohnungen': $localize`gebrauchte Eigentumswohnungen`,
+        'gebrauchte Eigentumswohnungen': $localize`Gebrauchte Eigentumswohnungen`,
         'EW': $localize`EW`,
         'Vergleich Preisentwicklung von städtischen und ländlichen Regionen': $localize`Vergleich Preisentwicklung von städtischen und ländlichen Regionen`,
         'Preisentwicklung nach städtischen und ländlichen Regionen': $localize`Preisentwicklung nach städtischen und ländlichen Regionen`,
         'Vergleich zusammengefasster Regionen': $localize`Vergleich zusammengefasster Regionen`,
-        'städtische Regionen': $localize`städtische Regionen`,
+        'städtische Regionen': $localize`Städtische Regionen`,
         'SR': $localize`SR`,
-        'ländliche Regionen': $localize`ländliche Regionen`,
+        'ländliche Regionen': $localize`Ländliche Regionen`,
         'LR': $localize`LR`,
         'Hannover': $localize`Hannover`,
         'Braunschweig': $localize`Braunschweig`,
