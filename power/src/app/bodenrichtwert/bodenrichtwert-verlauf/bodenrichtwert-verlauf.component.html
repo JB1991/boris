@@ -1,16 +1,29 @@
 <div class="col-md-12">
+    <ng-container *ngIf="chartOption?.series.length != 0">
+        <h3 i18n>Zeitliche Entwicklung</h3>
+        <p i18n>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des
+            jeweiligen
+            Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
 
-    <h3 i18n>Zeitliche Entwicklung</h3>
-    <p i18n>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen
-        Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+        <div echarts
+             (chartInit)="onChartInit($event)"
+             [options]="chartOption"
+             class="time-series"
+             id="time-series"></div>
 
-    <div echarts (chartInit)="onChartInit($event)" [options]="chartOption" class="time-series" id="time-series"></div>
+    </ng-container>
+
+    <ng-container *ngIf="!echartsInstance">
+        <div echarts
+             (chartInit)="onChartInit($event)"
+             [options]="chartOption"></div>
+    </ng-container>
 
     <div>
-        <p i18n *ngIf="chartOption?.series.length >= 2">Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere
+        <p i18n
+           *ngIf="chartOption?.series.length >= 2">Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere
             Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer
             Gültigkeit dargestellt. </p>
     </div>
 
 </div>
-

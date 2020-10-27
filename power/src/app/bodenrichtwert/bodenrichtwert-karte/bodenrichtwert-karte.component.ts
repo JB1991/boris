@@ -16,7 +16,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     filterActive = false;
     threeDActive = false;
 
-    isDragged: boolean = false;
+    isDragged = false;
     previousZoomFactor: number;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
@@ -30,7 +30,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
         color: '#c4153a',
         draggable: true
     }).on('dragstart', () => {
-        this.isDragged = true;       
+        this.isDragged = true;
     });
     zoom = 18;
 
