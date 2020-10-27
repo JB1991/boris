@@ -465,7 +465,7 @@
     </unit>
     <unit id="5063541446028843345">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:39</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:15</note>
       </notes>
       <segment state="initial">
         <source>Ortung</source>
@@ -474,7 +474,7 @@
     </unit>
     <unit id="6052049272309725871">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:43</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:19</note>
       </notes>
       <segment state="initial">
         <source>3D aktivieren/deaktivieren</source>
@@ -483,7 +483,7 @@
     </unit>
     <unit id="3959786746681776209">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:47</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:23</note>
       </notes>
       <segment state="initial">
         <source>Karte zurücksetzen</source>
@@ -501,7 +501,7 @@
     </unit>
     <unit id="9098454119754693999">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:67</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:37</note>
       </notes>
       <segment state="initial">
         <source>Suche</source>
@@ -573,7 +573,7 @@
     </unit>
     <unit id="4580399730639224598">
       <notes>
-        <note category="location">src/app/shared/tagbox/tagbox.component.html:31</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:241</note>
       </notes>
       <segment state="translated">
         <source>Löschen</source>
@@ -1701,22 +1701,40 @@
         <target>正常にログアウトしました。</target>
       </segment>
     </unit>
-    <unit id="1946558389178190335">
+    <unit id="4177395589093342239">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:126</note>
+      </notes>
+      <segment state="initial">
+        <source>Immobilienmarktbericht 2020</source>
+        <target>Immobilienmarktbericht 2020</target>
+      </segment>
+    </unit>
+    <unit id="1702834368412695399">
       <notes>
         <note category="location">src/app/static/start/start.component.html:127</note>
       </notes>
       <segment state="initial">
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Immobilienmarktbericht 2020' | hyphenate }}"/> </source>
-        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Immobilienmarktbericht 2020' | hyphenate }}"/> </target>
+        <source>Eine Dekade steigender Preise in Niedersachsen...</source>
+        <target>Eine Dekade steigender Preise in Niedersachsen...</target>
       </segment>
     </unit>
-    <unit id="3974100718867668399">
+    <unit id="4980082766864057233">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:130</note>
+      </notes>
+      <segment state="initial">
+        <source>Bodenrichtwerte 2021</source>
+        <target>Bodenrichtwerte 2021</target>
+      </segment>
+    </unit>
+    <unit id="6326925902432622347">
       <notes>
         <note category="location">src/app/static/start/start.component.html:131</note>
       </notes>
       <segment state="initial">
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Bodenrichtwerte 2021' | hyphenate }}"/> </source>
-        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Bodenrichtwerte 2021' | hyphenate }}"/> </target>
+        <source>Die neuen Bodenrichtwerte sind jetzt verfügbar...</source>
+        <target>Die neuen Bodenrichtwerte sind jetzt verfügbar...</target>
       </segment>
     </unit>
     <unit id="7110617334146423425">
@@ -1728,26 +1746,22 @@
         <target>BORIS.NI</target>
       </segment>
     </unit>
-    <unit id="3714767208349194088">
+    <unit id="2078906062700177291">
       <notes>
         <note category="location">src/app/static/start/start.component.html:16</note>
       </notes>
       <segment state="initial">
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Bodenrichtwertinformationssystem Niedersachsen' | hyphenate }}"/></source>
-        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Bodenrichtwertinformationssystem Niedersachsen' | hyphenate }}"/></target>
+        <source>Bodenrichtwertinformationssystem Niedersachsen</source>
+        <target>Bodenrichtwertinformationssystem Niedersachsen</target>
       </segment>
     </unit>
-    <unit id="634244390629979408">
+    <unit id="7229056857605155330">
       <notes>
         <note category="location">src/app/static/start/start.component.html:19,21</note>
       </notes>
       <segment state="initial">
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte' +
-                    ' in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und' +
-                    ' für Flächen der Land- und Forstw"/> </source>
-        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte' +
-                    ' in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und' +
-                    ' für Flächen der Land- und Forstw"/> </target>
+        <source>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft zur Verfügung.</source>
+        <target>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft zur Verfügung.</target>
       </segment>
     </unit>
     <unit id="3780495839469833614">
@@ -1759,28 +1773,22 @@
         <target>NIPIX</target>
       </segment>
     </unit>
-    <unit id="7337852448544901493">
+    <unit id="2295421029143589974">
       <notes>
         <note category="location">src/app/static/start/start.component.html:36</note>
       </notes>
       <segment state="initial">
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Niedersächsischer Immobilienpreisindex' | hyphenate }}"/></source>
-        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Niedersächsischer Immobilienpreisindex' | hyphenate }}"/></target>
+        <source>Niedersächsischer Immobilienpreisindex</source>
+        <target>Niedersächsischer Immobilienpreisindex</target>
       </segment>
     </unit>
-    <unit id="7234420257669452242">
+    <unit id="9057177461134699500">
       <notes>
         <note category="location">src/app/static/start/start.component.html:39,42</note>
       </notes>
       <segment state="initial">
-        <source><ph id="0" equiv="INTERPOLATION" disp="{{ 'Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser,' +
-                    ' Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen' +
-                    ' „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die' +
-                    ' Gutachterausschüsse und der Ob"/></source>
-        <target><ph id="0" equiv="INTERPOLATION" disp="{{ 'Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser,' +
-                    ' Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen' +
-                    ' „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die' +
-                    ' Gutachterausschüsse und der Ob"/></target>
+        <source>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</source>
+        <target>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</target>
       </segment>
     </unit>
     <unit id="2237919460029267172">
@@ -1792,20 +1800,18 @@
         <target>オンライン・フォーム</target>
       </segment>
     </unit>
-    <unit id="3385467352340598089">
+    <unit id="4687874577741048821">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:63,65</note>
+        <note category="location">src/app/static/start/start.component.html:62,64</note>
       </notes>
       <segment state="initial">
-        <source> <ph id="0" equiv="INTERPOLATION" disp="{ 'Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. ' +
-                   'Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfülle"/> </source>
-        <target> <ph id="0" equiv="INTERPOLATION" disp="{ 'Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. ' +
-                   'Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfülle"/> </target>
+        <source>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.</source>
+        <target>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.</target>
       </segment>
     </unit>
     <unit id="2145326859393600164">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:71</note>
+        <note category="location">src/app/static/start/start.component.html:70</note>
       </notes>
       <segment state="initial">
         <source>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</source>
@@ -1814,7 +1820,7 @@
     </unit>
     <unit id="7567341863769679266">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:97</note>
+        <note category="location">src/app/static/start/start.component.html:96</note>
       </notes>
       <segment state="initial">
         <source>Die PIN absenden</source>
@@ -1967,7 +1973,7 @@
     </unit>
     <unit id="8488547527396922136">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:77</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.ts:78</note>
       </notes>
       <segment state="translated">
         <source>Laden fehlgeschlagen</source>
@@ -2030,7 +2036,7 @@
     </unit>
     <unit id="2319824520635416840">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:471</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:148</note>
       </notes>
       <segment state="translated">
         <source>Keine Formulare gefunden</source>
@@ -2039,7 +2045,7 @@
     </unit>
     <unit id="380575489674159475">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:455</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:126</note>
       </notes>
       <segment state="translated">
         <source>Speichern erfolgreich</source>
@@ -2066,7 +2072,7 @@
     </unit>
     <unit id="4028295370197925352">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:458</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:130</note>
       </notes>
       <segment state="translated">
         <source>Speichern fehlgeschlagen</source>
@@ -2093,7 +2099,7 @@
     </unit>
     <unit id="4435703504669117699">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:181</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.ts:41</note>
       </notes>
       <segment state="translated">
         <source>Einstellungen</source>
@@ -2102,7 +2108,7 @@
     </unit>
     <unit id="7886570921510760899">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:387</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:6</note>
       </notes>
       <segment state="translated">
         <source>Tags</source>
@@ -2111,7 +2117,7 @@
     </unit>
     <unit id="4626002947369124112">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:384</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:11</note>
       </notes>
       <segment state="translated">
         <source>Besitzer</source>
@@ -2149,7 +2155,7 @@
     </unit>
     <unit id="2137405200624328487">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:100</note>
+        <note category="location">src/app/fragebogen/details/comment/comment.component.ts:43</note>
       </notes>
       <segment state="translated">
         <source>Kommentar</source>
@@ -2185,7 +2191,7 @@
     </unit>
     <unit id="4636978523362061571">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:201</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.ts:34</note>
       </notes>
       <segment state="translated">
         <source>Veröffentlichen</source>
@@ -2248,7 +2254,7 @@
     </unit>
     <unit id="5652205002901618415">
       <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:186</note>
+        <note category="location">src/app/fragebogen/details/publish/publish.component.html:46</note>
       </notes>
       <segment state="translated">
         <source>Formular veröffentlichen</source>
@@ -2275,7 +2281,7 @@
     </unit>
     <unit id="2001137006078143875">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:126</note>
+        <note category="location">src/app/fragebogen/details/maketask/maketask.component.ts:99</note>
       </notes>
       <segment state="translated">
         <source>Erstellen fehlgeschlagen</source>
@@ -2329,7 +2335,7 @@
     </unit>
     <unit id="3149526115468934989">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.ts:66</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:118</note>
       </notes>
       <segment state="translated">
         <source>Löschen fehlgeschlagen</source>
@@ -2457,7 +2463,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8040881171107393560">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:56</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:53</note>
       </notes>
       <segment state="translated">
         <source>ID</source>
@@ -2466,7 +2472,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1133378173705582866">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:155</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:56</note>
       </notes>
       <segment state="translated">
         <source>Erstellt</source>
@@ -2475,7 +2481,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5611592591303869712">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:97</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:76</note>
       </notes>
       <segment state="translated">
         <source>Status</source>
@@ -2484,7 +2490,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3710766590975810780">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:440</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:76</note>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</source>
@@ -2556,7 +2562,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5895799308050944719">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:33</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:164</note>
       </notes>
       <segment state="translated">
         <source>Formular Einstellungen</source>
@@ -2583,7 +2589,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4085873167168807139">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:449</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:226</note>
       </notes>
       <segment state="translated">
         <source>Formular löschen</source>
@@ -2637,7 +2643,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6920196637619975735">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:529</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:111</note>
       </notes>
       <segment state="translated">
         <source>Bearbeiten</source>
@@ -2673,7 +2679,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2911941681969480793">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:220</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:471</note>
       </notes>
       <segment state="translated">
         <source>Keine Antworten vorhanden</source>
@@ -2691,7 +2697,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1453810865398829587">
       <notes>
-        <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:11</note>
+        <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:12</note>
       </notes>
       <segment state="initial">
         <source>Deutsch (Standard)</source>
@@ -2700,7 +2706,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8957931169022166336">
       <notes>
-        <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:13</note>
+        <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:14</note>
       </notes>
       <segment state="initial">
         <source>Englisch</source>
@@ -2925,7 +2931,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6622873968841840307">
       <notes>
-        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:21</note>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:26</note>
       </notes>
       <segment state="initial">
         <source>Änderungen übernommen</source>
@@ -2934,7 +2940,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="573391330390490773">
       <notes>
-        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:22</note>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:27</note>
       </notes>
       <segment state="initial">
         <source>Ihre Änderungen wurden erfolgreich zwischen gespeichert.</source>
@@ -2952,7 +2958,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="932876642658778900">
       <notes>
-        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:32</note>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:33</note>
       </notes>
       <segment state="initial">
         <source>Änderungen speichern</source>
@@ -3114,7 +3120,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2258060347097525516">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:9</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:10</note>
       </notes>
       <segment state="translated">
         <source>Allgemein</source>
@@ -3123,7 +3129,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9115339589157259145">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:16</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:17</note>
       </notes>
       <segment state="initial">
         <source>Fragen ID *</source>
@@ -3132,7 +3138,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2695337957296458234">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:29</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:30</note>
       </notes>
       <segment state="translated">
         <source>Dieser Wert muss im Formular einmalig sein. Die ID lässt sich als Variable nutzen, diese enthält die Antwort der Frage:</source>
@@ -3141,7 +3147,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6503869606788153330">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:39</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:40</note>
       </notes>
       <segment state="initial">
         <source>Fragen Titel *</source>
@@ -3150,7 +3156,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8079987278225698865">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:49</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:50</note>
       </notes>
       <segment state="translated">
         <source>Fragen Beschreibung</source>
@@ -3159,7 +3165,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4535567108770324879">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:57</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:58</note>
       </notes>
       <segment state="translated">
         <source>Dieser Text wird unter der Frage angezeigt.</source>
@@ -3168,7 +3174,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1600536931782855933">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:60</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:61</note>
       </notes>
       <segment state="initial">
         <source>Sichtbarkeitsbedingungen für die Frage</source>
@@ -3177,7 +3183,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2633103922838468705">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:76</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:77</note>
       </notes>
       <segment state="translated">
         <source>Pflichtfeld</source>
@@ -3186,7 +3192,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2465969235242735880">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:127</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:128</note>
       </notes>
       <segment state="translated">
         <source>Sichtbar</source>
@@ -3195,7 +3201,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1043150964998466029">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:130</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:131</note>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob das Feld standardmäßig sichtbar ist.</source>
@@ -3204,7 +3210,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5564872229726777752">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:143</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:144</note>
       </notes>
       <segment state="translated">
         <source>Deaktiviert</source>
@@ -3213,7 +3219,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5629269951933356095">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:146</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:147</note>
       </notes>
       <segment state="translated">
         <source>Diese Option stellt ein, ob das Feld standardmäßig ausfüllbar ist.</source>
@@ -3222,7 +3228,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1000474965396519246">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:158</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:159</note>
       </notes>
       <segment state="translated">
         <source>Fragennummer verstecken</source>
@@ -3231,7 +3237,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="696701674056104184">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:170</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:171</note>
       </notes>
       <segment state="translated">
         <source>Frage startet auf neuer Zeile</source>
@@ -3240,7 +3246,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2787708308943566133">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:177</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:178</note>
       </notes>
       <segment state="translated">
         <source>Breite der Frage in Pixel</source>
@@ -3249,7 +3255,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="281433735310730701">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:425</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:426</note>
       </notes>
       <segment state="translated">
         <source>Standardwert</source>
@@ -3267,7 +3273,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2909264081763608567">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:755</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:756</note>
       </notes>
       <segment state="translated">
         <source>Validatoren</source>
@@ -3276,7 +3282,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2899899258573669142">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:83</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:84</note>
       </notes>
       <segment state="translated">
         <source>Pflichtfeld Fehlertext</source>
@@ -3285,7 +3291,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3105030069974657046">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:101</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:102</note>
       </notes>
       <segment state="translated">
         <source>Kommentar Eingabefeld aktivieren</source>
@@ -3294,7 +3300,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2282551280196521788">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:104</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:105</note>
       </notes>
       <segment state="translated">
         <source>Diese Option ist deaktiviert, wenn das "Anderes Eingabefeld" aktiviert ist.</source>
@@ -3303,7 +3309,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7665047802410449230">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:111</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:112</note>
       </notes>
       <segment state="translated">
         <source>Kommentar Eingabefeld Text</source>
@@ -3312,7 +3318,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8648957206736539595">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:190</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:191</note>
       </notes>
       <segment state="translated">
         <source>Eingabetyp</source>
@@ -3321,7 +3327,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="431976875835451828">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:196</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:197</note>
       </notes>
       <segment state="translated">
         <source>Farbe</source>
@@ -3330,7 +3336,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="935267939147271845">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:198</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:199</note>
       </notes>
       <segment state="translated">
         <source>Datum</source>
@@ -3339,7 +3345,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2278763268677546133">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:200</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:201</note>
       </notes>
       <segment state="translated">
         <source>Datum &amp; Uhrzeit</source>
@@ -3366,7 +3372,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2298141652517601203">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:204</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:205</note>
       </notes>
       <segment state="translated">
         <source>Monat</source>
@@ -3375,7 +3381,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8415078453524192234">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:206</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:207</note>
       </notes>
       <segment state="translated">
         <source>Ganzzahl</source>
@@ -3384,7 +3390,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="681866609203884162">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:208</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:209</note>
       </notes>
       <segment state="translated">
         <source>Telefonnummer</source>
@@ -3573,7 +3579,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7897216764489223339">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:212</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:213</note>
       </notes>
       <segment state="translated">
         <source>Uhrzeit</source>
@@ -3582,7 +3588,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2375260419993138758">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:214</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:215</note>
       </notes>
       <segment state="translated">
         <source>URL</source>
@@ -3591,7 +3597,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6264380877246584426">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:216</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:217</note>
       </notes>
       <segment state="translated">
         <source>Woche</source>
@@ -3600,7 +3606,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3335825202752630529">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:236</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:237</note>
       </notes>
       <segment state="translated">
         <source>Zeilen des Eingabefeldes</source>
@@ -3609,7 +3615,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1783931905141779260">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:249</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:250</note>
       </notes>
       <segment state="translated">
         <source>Wert Schritte</source>
@@ -3618,7 +3624,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2884070345504600057">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:261</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:262</note>
       </notes>
       <segment state="translated">
         <source>Anzeigetext Minimum</source>
@@ -3627,7 +3633,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3235518685482283884">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:270</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:271</note>
       </notes>
       <segment state="translated">
         <source>Minimaler Wert</source>
@@ -3636,7 +3642,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1919934867677848930">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:281</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:282</note>
       </notes>
       <segment state="translated">
         <source>Anzeigetext Maximum</source>
@@ -3645,7 +3651,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4044856277132637349">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:290</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:291</note>
       </notes>
       <segment state="translated">
         <source>Maximaler Wert</source>
@@ -3654,7 +3660,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7301845257544939728">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:309</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:310</note>
       </notes>
       <segment state="translated">
         <source>Zusätzliches Eingabefeld aktivieren</source>
@@ -3663,7 +3669,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5110740723354501274">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:315</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:316</note>
       </notes>
       <segment state="translated">
         <source>Skala Schritte</source>
@@ -3672,7 +3678,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5306332341695056473">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:349</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:350</note>
       </notes>
       <segment state="translated">
         <source>Nachkommastellen</source>
@@ -3681,7 +3687,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3406135397633818536">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:364</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:365</note>
       </notes>
       <segment state="translated">
         <source>Anzeigetext links</source>
@@ -3690,7 +3696,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5558176899213566695">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:373</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:374</note>
       </notes>
       <segment state="translated">
         <source>Anzeigetext rechts</source>
@@ -3699,7 +3705,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4037439038235710994">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:390</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:391</note>
       </notes>
       <segment state="translated">
         <source>Mehrere Dateien erlauben</source>
@@ -3708,7 +3714,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="924135540804019092">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:411</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:412</note>
       </notes>
       <segment state="translated">
         <source>Maximale Dateigröße in Bytes</source>
@@ -3717,7 +3723,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2009978670427997964">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:435</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:436</note>
       </notes>
       <segment state="translated">
         <source>Korrekte Antwort (Quiz)</source>
@@ -3726,7 +3732,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3779344425702119911">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:444</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:445</note>
       </notes>
       <segment state="translated">
         <source>Unterfragen</source>
@@ -3735,7 +3741,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4793302653467568534">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:464</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:465</note>
       </notes>
       <segment state="translated">
         <source>Jede Unterfrage ist Pflichtfeld</source>
@@ -3744,7 +3750,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5373486674031991069">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:467</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:468</note>
       </notes>
       <segment state="translated">
         <source>Diese Option erzwingt, dass jede Unterfrage beantwort werden muss.</source>
@@ -3753,7 +3759,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7227476185175598244">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:480</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:481</note>
       </notes>
       <segment state="translated">
         <source>Unsichtbar ohne sichtbare Fragen</source>
@@ -3762,7 +3768,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2879018139997145543">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:483</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:484</note>
       </notes>
       <segment state="translated">
         <source>Sind alle Unterfragen unsichtbar, dann wird die Frage ausgeblendet.</source>
@@ -3771,7 +3777,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6882061501622662520">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:489</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:490</note>
       </notes>
       <segment state="translated">
         <source>Unterfragen Reihenfolge</source>
@@ -3780,7 +3786,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="276184332300045619">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:495</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:496</note>
       </notes>
       <segment state="translated">
         <source>Wie definiert</source>
@@ -3789,7 +3795,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5748078469472297200">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:497</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:498</note>
       </notes>
       <segment state="translated">
         <source>Zufällig</source>
@@ -3798,7 +3804,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3410376041034296385">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:502</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:503</note>
       </notes>
       <segment state="translated">
         <source>Unterfrage Sichtbarkeitsbedingung</source>
@@ -3807,7 +3813,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2918457483295577227">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:511</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:512</note>
       </notes>
       <segment state="translated">
         <source>Antwortmöglichkeiten</source>
@@ -3816,7 +3822,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3643065623582513222">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:20</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:262</note>
       </notes>
       <segment state="translated">
         <source>Antworten</source>
@@ -3825,7 +3831,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6756465483742901259">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:658</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:659</note>
       </notes>
       <segment state="translated">
         <source>Unsichtbar ohne sichtbare Antworten</source>
@@ -3834,7 +3840,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1824561744575281085">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:661</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:662</note>
       </notes>
       <segment state="translated">
         <source>Sind alle Antworten unsichtbar, dann wird die Frage ausgeblendet.</source>
@@ -3843,7 +3849,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3740504915156757002">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:667</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:668</note>
       </notes>
       <segment state="translated">
         <source>Darstellung in Spalten</source>
@@ -3852,7 +3858,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8079868020998407724">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:679</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:680</note>
       </notes>
       <segment state="translated">
         <source>Antworten Reihenfolge</source>
@@ -3861,7 +3867,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8209303407900443094">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:696</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:697</note>
       </notes>
       <segment state="initial">
         <source>Generische Sichtbarkeitsbedingung für die Antworten</source>
@@ -3870,7 +3876,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2952670019708328939">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:699</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:700</note>
       </notes>
       <segment state="initial">
         <source>Wird für jede Antwort einzeln evaluiert.</source>
@@ -3879,7 +3885,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1855713545021520634">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:718</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:719</note>
       </notes>
       <segment state="translated">
         <source>Antwortbedingungen</source>
@@ -3888,7 +3894,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8691548970191506667">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:60</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:289</note>
       </notes>
       <segment state="translated">
         <source>Aufsteigend sortiert</source>
@@ -3897,7 +3903,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1947750218509794653">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:76</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:305</note>
       </notes>
       <segment state="translated">
         <source>Absteigend sortiert</source>
@@ -3906,7 +3912,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8045928720268721680">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:534</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:535</note>
       </notes>
       <segment state="translated">
         <source>Anderes Eingabefeld aktivieren</source>
@@ -3915,7 +3921,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2772784062511473861">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:537</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:538</note>
       </notes>
       <segment state="translated">
         <source>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</source>
@@ -3924,7 +3930,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2924022988184830034">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:544</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:545</note>
       </notes>
       <segment state="initial">
         <source>Anderes Eingabefeld Text</source>
@@ -3933,7 +3939,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2412317594447763128">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:560</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:561</note>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf um Auswahl rückgängig zu machen</source>
@@ -3942,7 +3948,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4799237165177498998">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:573</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:574</note>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf um alles auszuwählen</source>
@@ -3951,7 +3957,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7915859704986171168">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:585</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:586</note>
       </notes>
       <segment state="translated">
         <source>Zeige Knopf für nichts trifft zu</source>
@@ -3960,7 +3966,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2158488422074241298">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:599</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:600</note>
       </notes>
       <segment state="translated">
         <source>Mehrfachauswahl erlauben</source>
@@ -3969,7 +3975,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7096759547174459513">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:605</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:606</note>
       </notes>
       <segment state="translated">
         <source>Breite in Pixel</source>
@@ -3978,7 +3984,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6463726515236192057">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:618</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:619</note>
       </notes>
       <segment state="translated">
         <source>Höhe in Pixel</source>
@@ -3987,7 +3993,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3681264497760339705">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:631</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:632</note>
       </notes>
       <segment state="translated">
         <source>Größenanpassung</source>
@@ -3996,7 +4002,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4728532590739893418">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:637</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:638</note>
       </notes>
       <segment state="translated">
         <source>Keine Anpassung</source>
@@ -4005,7 +4011,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4710626519203410106">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:639</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:640</note>
       </notes>
       <segment state="translated">
         <source>Verkleinern</source>
@@ -4014,7 +4020,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7766735261673100646">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:641</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:642</note>
       </notes>
       <segment state="translated">
         <source>Abschneiden</source>
@@ -4023,7 +4029,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2067326968798044785">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:643</note>
+        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:644</note>
       </notes>
       <segment state="translated">
         <source>Füllen</source>
@@ -4032,7 +4038,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8617378541577598232">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:22</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:23</note>
       </notes>
       <segment state="translated">
         <source>Formular Titel</source>
@@ -4041,7 +4047,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4100707199422330681">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:34</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:35</note>
       </notes>
       <segment state="translated">
         <source>Titel anzeigen</source>
@@ -4050,7 +4056,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3833317435714673084">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:40</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:41</note>
       </notes>
       <segment state="translated">
         <source>Formular Beschreibung</source>
@@ -4059,7 +4065,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1760256603507464336">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:47</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:48</note>
       </notes>
       <segment state="translated">
         <source>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</source>
@@ -4068,7 +4074,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5666267213246612821">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:53</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:54</note>
       </notes>
       <segment state="translated">
         <source>Standardsprache</source>
@@ -4077,7 +4083,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6272317054799422136">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:66</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:67</note>
       </notes>
       <segment state="initial">
         <source>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
@@ -4086,7 +4092,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1372482459728345325">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:74</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:75</note>
       </notes>
       <segment state="translated">
         <source>Fragen Nummerierung</source>
@@ -4095,7 +4101,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8481579963208403613">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:80</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:81</note>
       </notes>
       <segment state="translated">
         <source>Durchgängig nummerieren</source>
@@ -4104,7 +4110,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3639076766141137848">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:82</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:83</note>
       </notes>
       <segment state="translated">
         <source>Seitenweise nummerieren</source>
@@ -4113,7 +4119,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2434918029138704338">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:84</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:85</note>
       </notes>
       <segment state="translated">
         <source>Keine Nummern anzeigen</source>
@@ -4122,7 +4128,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9158296968384637533">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:91</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:92</note>
       </notes>
       <segment state="translated">
         <source>Fragen Reihenfolge</source>
@@ -4131,7 +4137,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4629833376050881075">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:107</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:108</note>
       </notes>
       <segment state="initial">
         <source>Abschlusstext</source>
@@ -4140,7 +4146,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7027469161598572792">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:116</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:117</note>
       </notes>
       <segment state="translated">
         <source>Umleitungs URL</source>
@@ -4149,7 +4155,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="330655507364677006">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:127</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:128</note>
       </notes>
       <segment state="translated">
         <source>Der Benutzer wird nach Abschluss des Formulares an diese Adresse weitergeleitet.</source>
@@ -4158,7 +4164,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4550958265168690830">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:133</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:134</note>
       </notes>
       <segment state="translated">
         <source>Logo</source>
@@ -4167,7 +4173,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5229120071979656638">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:138</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:139</note>
       </notes>
       <segment state="translated">
         <source>Formular Logo</source>
@@ -4176,7 +4182,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2501314743594284688">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:149</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:150</note>
       </notes>
       <segment state="translated">
         <source>Eine URL zu einem Logo angeben.</source>
@@ -4185,7 +4191,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1172866303261737245">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:155</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:156</note>
       </notes>
       <segment state="translated">
         <source>Position</source>
@@ -4194,7 +4200,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5556435091490236322">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:161</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:162</note>
       </notes>
       <segment state="translated">
         <source>Nicht anzeigen</source>
@@ -4203,7 +4209,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7565716024468232322">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:163</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:164</note>
       </notes>
       <segment state="translated">
         <source>Links</source>
@@ -4212,7 +4218,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2593178093887078258">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:165</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:166</note>
       </notes>
       <segment state="translated">
         <source>Rechts</source>
@@ -4221,7 +4227,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7729339462879047946">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:167</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:168</note>
       </notes>
       <segment state="translated">
         <source>Oben</source>
@@ -4230,7 +4236,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6261398890082020172">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:169</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:170</note>
       </notes>
       <segment state="translated">
         <source>Unten</source>
@@ -4239,7 +4245,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1348774649041038169">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:221</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:222</note>
       </notes>
       <segment state="translated">
         <source>Navigation</source>
@@ -4248,7 +4254,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3791397886649466581">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:233</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:234</note>
       </notes>
       <segment state="translated">
         <source>Erste Seite ist Startseite</source>
@@ -4257,7 +4263,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2082107161153819759">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:236</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:237</note>
       </notes>
       <segment state="translated">
         <source>Die erste Seite erhält einen Start Button für das Formular.</source>
@@ -4266,7 +4272,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6178833123766704127">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:248</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:249</note>
       </notes>
       <segment state="translated">
         <source>Zurück Button erlauben</source>
@@ -4275,7 +4281,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7695508861104987850">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:261</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:262</note>
       </notes>
       <segment state="translated">
         <source>Nächste Seite automatisch öffnen</source>
@@ -4284,7 +4290,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8766608425941978130">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:264</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:265</note>
       </notes>
       <segment state="translated">
         <source>Nach abschließen einer Seite wird automatisch die nächste geöffnet.</source>
@@ -4293,7 +4299,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8815755568322473340">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:270</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:271</note>
       </notes>
       <segment state="translated">
         <source>Vorschau vor dem absenden</source>
@@ -4302,7 +4308,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4048724896199851116">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:277</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:278</note>
       </notes>
       <segment state="translated">
         <source>Keine Vorschau</source>
@@ -4311,7 +4317,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3116521044657277687">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:279</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:280</note>
       </notes>
       <segment state="translated">
         <source>Alle Fragen</source>
@@ -4320,7 +4326,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8088636398432806268">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:281</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:282</note>
       </notes>
       <segment state="translated">
         <source>Alle ausgefüllten Fragen</source>
@@ -4329,7 +4335,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="838952338592474932">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:285</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:286</note>
       </notes>
       <segment state="translated">
         <source>Dem Benutzer kann eine Vorschau angezeigt werden seiner Antworten, bevor er das Formular final absendet.</source>
@@ -4338,7 +4344,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="9183727284848549860">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:292</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:293</note>
       </notes>
       <segment state="translated">
         <source>Fortschrittsbalken Anzeigen</source>
@@ -4347,7 +4353,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4185383975352174936">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:304</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:305</note>
       </notes>
       <segment state="translated">
         <source>Oben und unten</source>
@@ -4356,7 +4362,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="503802866275364170">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:311</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:312</note>
       </notes>
       <segment state="translated">
         <source>Fortschrittsbalken Berechnung</source>
@@ -4365,7 +4371,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5884518565866049278">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:317</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:318</note>
       </notes>
       <segment state="translated">
         <source>Sichtbare Seiten</source>
@@ -4374,7 +4380,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8170033538072466570">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:319</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:320</note>
       </notes>
       <segment state="translated">
         <source>Sichtbare Pflichtfragen</source>
@@ -4383,7 +4389,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6268991995109043706">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:321</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:322</note>
       </notes>
       <segment state="translated">
         <source>Alle sichtbaren Fragen</source>
@@ -4392,7 +4398,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4672431604235348857">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:323</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:324</note>
       </notes>
       <segment state="translated">
         <source>Korrekt beantwortete Fragen (Quiz)</source>
@@ -4401,7 +4407,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="235619957920177805">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:330</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:331</note>
       </notes>
       <segment state="translated">
         <source>Seiten</source>
@@ -4482,7 +4488,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3653220996715334574">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:344</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:345</note>
       </notes>
       <segment state="translated">
         <source>Seite <ph id="0" equiv="INTERPOLATION" disp="{{ i + 1 }}"/></source>
@@ -4491,7 +4497,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2471765562897109795">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:394</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:395</note>
       </notes>
       <segment state="translated">
         <source>Seiten Titel</source>
@@ -4860,20 +4866,20 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8852250703686567498">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:89</note>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:31</note>
       </notes>
       <segment state="translated">
         <source>Ungültige Einstellungen</source>
         <target>無効な設定</target>
       </segment>
     </unit>
-    <unit id="9111265276371777280">
+    <unit id="6908314331075628072">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:90</note>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:31</note>
       </notes>
-      <segment state="translated">
-        <source>Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.</source>
-        <target>一部の設定が正しくないため、事前に訂正する必要があります。</target>
+      <segment state="initial">
+        <source>Bitte prüfen Sie Ihre Eingaben.</source>
+        <target>Bitte prüfen Sie Ihre Eingaben.</target>
       </segment>
     </unit>
     <unit id="6154523979033512876">
@@ -5040,7 +5046,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3516494453193947151">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:291</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:29</note>
       </notes>
       <segment state="translated">
         <source>Titel</source>
@@ -5067,7 +5073,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="515361261308847185">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:5</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:17</note>
       </notes>
       <segment state="translated">
         <source>Formular Titel *</source>
@@ -5081,6 +5087,15 @@ Dies lässt sich nicht mehr umkehren!</source>
       <segment state="translated">
         <source>Formular importieren</source>
         <target>インポート・フォーム</target>
+      </segment>
+    </unit>
+    <unit id="619007474365621684">
+      <notes>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:90</note>
+      </notes>
+      <segment state="initial">
+        <source>Bitte geben Sie einen Titel an.</source>
+        <target>Bitte geben Sie einen Titel an.</target>
       </segment>
     </unit>
     <unit id="623768782436568030">
