@@ -41,9 +41,9 @@
       <notes>
         <note category="location">src/app/app.component.html:151</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sprachauswahl</source>
-        <target>Sprachauswahl</target>
+        <target>言語選択</target>
       </segment>
     </unit>
     <unit id="8429316238784832901">
@@ -95,9 +95,9 @@
       <notes>
         <note category="location">src/app/app.component.html:180</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Allgemeine Geschäfts- und Nutzungsbedingungen</source>
-        <target>Allgemeine Geschäfts- und Nutzungsbedingungen</target>
+        <target>ビジネスおよび使用の一般的なご利用条件</target>
       </segment>
     </unit>
     <unit id="2724055831234181057">
@@ -115,7 +115,7 @@
       </notes>
       <segment state="translated">
         <source>Bodenrichtwerte</source>
-        <target>標準土地価値</target>
+        <target>標準土地の値</target>
       </segment>
     </unit>
     <unit id="4783586120320798427">
@@ -169,7 +169,7 @@
       </notes>
       <segment state="translated">
         <source>Meine Formulare</source>
-        <target>ミーン・フォーミュア</target>
+        <target>マイ・フォーム</target>
       </segment>
     </unit>
     <unit id="3797778920049399855">
@@ -212,36 +212,36 @@
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:49</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Immobilienpreisindex - POWER.NI</source>
-        <target>Immobilienpreisindex - POWER.NI</target>
+        <target>不動産価格指数 - POWER.NI</target>
       </segment>
     </unit>
     <unit id="1534912079502587880">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:410</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Zeitraum von </source>
-        <target>Zeitraum von </target>
+        <target>期間</target>
       </segment>
     </unit>
     <unit id="3512731915705693257">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:412</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source> bis </source>
-        <target> bis </target>
+        <target>に対する</target>
       </segment>
     </unit>
     <unit id="7808833799378668610">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:9</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</source>
-        <target>HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</target>
+        <target>注: 索引系列計算の基準年は、以下の選択項目によって異なり、スライダーを使用して動的に調整できます。</target>
       </segment>
     </unit>
     <unit id="3896770541274170506">
@@ -249,9 +249,9 @@
         <note category="description">AGNB Start</note>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:210</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Es gelten die</source>
-        <target>Es gelten die</target>
+        <target>ザ・</target>
       </segment>
     </unit>
     <unit id="2254299917153630149">
@@ -259,9 +259,9 @@
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:211</note>
         <note category="description">AGNB</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB)</source>
-        <target>Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB)</target>
+        <target>ビジネスおよび使用に関する一般的な条件 (AGNB)</target>
       </segment>
     </unit>
     <unit id="8060976976079359371">
@@ -269,306 +269,306 @@
         <note category="description">AGNB Ende</note>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:212</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>.</source>
-        <target>.</target>
+        <target>適用する。</target>
       </segment>
     </unit>
     <unit id="30907226667156700">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:57</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Vergleiche</source>
-        <target>Vergleiche</target>
+        <target>比較</target>
       </segment>
     </unit>
     <unit id="7847590320561047617">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:68</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</source>
-        <target>HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</target>
+        <target>注: マップを介した選択は残念ながら比較できません。</target>
       </segment>
     </unit>
     <unit id="368570970011594887">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:117</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Alles auswählen</source>
-        <target>Alles auswählen</target>
+        <target>すべて選択</target>
       </segment>
     </unit>
     <unit id="7269047785736878362">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:120</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Auswahl aufheben</source>
-        <target>Auswahl aufheben</target>
+        <target>選択のキャンセル</target>
       </segment>
     </unit>
     <unit id="3406696066634988187">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:125</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Alles/Nichts auswählen</source>
-        <target>Alles/Nichts auswählen</target>
+        <target>すべて選択 /なし</target>
       </segment>
     </unit>
     <unit id="3527049829860901630">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:186</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</source>
-        <target>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</target>
+        <target>どの住宅市場地域が私の自治体に属しているのか ?</target>
       </segment>
     </unit>
     <unit id="3910267627180135548">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:189</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Suchen Sie Ihre Gemeinde</source>
-        <target>Suchen Sie Ihre Gemeinde</target>
+        <target>コミュニティーの検索</target>
       </segment>
     </unit>
     <unit id="2085014848861395847">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:202</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Ihre Wohnungsmarktregion</source>
-        <target>Ihre Wohnungsmarktregion</target>
+        <target>住宅市場地域</target>
       </segment>
     </unit>
     <unit id="8329545165404152883">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:27</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bauland</source>
-        <target>Bauland</target>
+        <target>宅地</target>
       </segment>
     </unit>
     <unit id="5604265057128591701">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:28</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Landwirtschaft</source>
-        <target>Landwirtschaft</target>
+        <target>農業</target>
       </segment>
     </unit>
     <unit id="9194025495383271508">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:29</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sonstige Flächen</source>
-        <target>Sonstige Flächen</target>
+        <target>その他の地域</target>
       </segment>
     </unit>
     <unit id="7994737100939253729">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:30</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Rohbauland</source>
-        <target>Rohbauland</target>
+        <target>グリーンフィールド・サイト</target>
       </segment>
     </unit>
     <unit id="7862698021378725781">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:31</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bauerwartungsland</source>
-        <target>Bauerwartungsland</target>
+        <target>建設地</target>
       </segment>
     </unit>
     <unit id="2823852046748418240">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:89</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bodenrichtwerte - POWER.NI</source>
-        <target>Bodenrichtwerte - POWER.NI</target>
+        <target>標準陸地値 - POWER.NI</target>
       </segment>
     </unit>
     <unit id="3534291329002652546">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:10</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wählen Sie eine Position</source>
-        <target>Wählen Sie eine Position</target>
+        <target>位置の選択</target>
       </segment>
     </unit>
     <unit id="5547133809440902634">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:17</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Einklappen/ausklappen</source>
-        <target>Einklappen/ausklappen</target>
+        <target>展開 /折りたたみ</target>
       </segment>
     </unit>
     <unit id="4802502751287439621">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:3</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Zeitliche Entwicklung</source>
-        <target>Zeitliche Entwicklung</target>
+        <target>時間とともに開発</target>
       </segment>
     </unit>
     <unit id="8227910877649689310">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:4,5</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</source>
-        <target>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</target>
+        <target>年代順の開発シリーズは、それぞれの年の 12 月 31 日の報告日に決定される標準的な土地の値のみを考慮しています。 同紙は、 97 年の経済状況を考慮していない、としている。</target>
       </segment>
     </unit>
     <unit id="5677984979625201937">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:10,12</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt.</source>
-        <target>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt.</target>
+        <target>選択した座標に対して、 2012年から複数の接地参照ゾーンが使用可能になりました。 年代順の開発シリーズには、有効期間のすべてのゾーンが表示されます。</target>
       </segment>
     </unit>
     <unit id="9117142324442802101">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:11</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Stichtag</source>
-        <target>Stichtag</target>
+        <target>目標日</target>
       </segment>
     </unit>
     <unit id="6238610718217601006">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:23</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Teilmarkt</source>
-        <target>Teilmarkt</target>
+        <target>サブマーケット</target>
       </segment>
     </unit>
     <unit id="5063541446028843345">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:39</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Ortung</source>
-        <target>Ortung</target>
+        <target>ジオロケーション</target>
       </segment>
     </unit>
     <unit id="6052049272309725871">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:43</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>3D aktivieren/deaktivieren</source>
-        <target>3D aktivieren/deaktivieren</target>
+        <target>3D をアクティブ/非活動</target>
       </segment>
     </unit>
     <unit id="3959786746681776209">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:47</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Karte zurücksetzen</source>
-        <target>Karte zurücksetzen</target>
+        <target>マップのリセット</target>
       </segment>
     </unit>
     <unit id="3906533541170541583">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:61</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Filtern</source>
-        <target>Filtern</target>
+        <target>フィルター</target>
       </segment>
     </unit>
     <unit id="9098454119754693999">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:67</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Suche</source>
-        <target>Suche</target>
+        <target>サーチ</target>
       </segment>
     </unit>
     <unit id="7478201324644826913">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:11</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bodenrichtwertzone</source>
-        <target>Bodenrichtwertzone</target>
+        <target>標準地価値ゾーン</target>
       </segment>
     </unit>
     <unit id="5763537713323428568">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:13</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Art der Nutzung</source>
-        <target>Art der Nutzung</target>
+        <target>使用のタイプ</target>
       </segment>
     </unit>
     <unit id="4858894794380558995">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:14</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bodenrichtwert</source>
-        <target>Bodenrichtwert</target>
+        <target>標準土地価値</target>
       </segment>
     </unit>
     <unit id="5682599121859154301">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:12</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Beitragsabgabenrechtlicher Zustand</source>
-        <target>Beitragsabgabenrechtlicher Zustand</target>
+        <target>拠出金の状況</target>
       </segment>
     </unit>
     <unit id="3576285261904159823">
       <notes>
         <note category="location">src/app/shared/geosearch/geosearch.component.html:5</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bitte Ort eingeben ...</source>
-        <target>Bitte Ort eingeben ...</target>
+        <target>ロケーションを入力してください ...</target>
       </segment>
     </unit>
     <unit id="625064919933078273">
       <notes>
         <note category="location">src/app/shared/geosearch/geosearch.component.html:7</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Ort</source>
-        <target>Ort</target>
+        <target>所在地</target>
       </segment>
     </unit>
     <unit id="2587314051151324611">
       <notes>
         <note category="location">src/app/shared/tagbox/tagbox.component.html:14</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Mit ENTER bestätigen</source>
-        <target>Mit ENTER bestätigen</target>
+        <target>ENTER で確認</target>
       </segment>
     </unit>
     <unit id="4580399730639224598">
@@ -584,54 +584,54 @@
       <notes>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:38</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bodenwerte - POWER.NI</source>
-        <target>Bodenwerte - POWER.NI</target>
+        <target>土地の値 - POWER.NI</target>
       </segment>
     </unit>
     <unit id="4300090619021279969">
       <notes>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:61</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Testdaten</source>
-        <target>Testdaten</target>
+        <target>テスト・データ</target>
       </segment>
     </unit>
     <unit id="2536156425034607770">
       <notes>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:122</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wählen Sie Flurstücke auf der Karte aus</source>
-        <target>Wählen Sie Flurstücke auf der Karte aus</target>
+        <target>マップ上のパーセルの選択</target>
       </segment>
     </unit>
     <unit id="1889515159201485012">
       <notes>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:130</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Amtliche Fläche</source>
-        <target>Amtliche Fläche</target>
+        <target>公用</target>
       </segment>
     </unit>
     <unit id="5422814021855947257">
       <notes>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:131</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wert</source>
-        <target>Wert</target>
+        <target>価値</target>
       </segment>
     </unit>
     <unit id="6941480264920362873">
       <notes>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:141</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Summe</source>
-        <target>Summe</target>
+        <target>サム</target>
       </segment>
     </unit>
     <unit id="6267893735675184411">
@@ -665,9 +665,9 @@
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:38,39</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</source>
-        <target>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</target>
+        <target>フォーム PIN の入力フィールド。対応するフォームに到達します。</target>
       </segment>
     </unit>
     <unit id="3438075409129621721">
@@ -683,9 +683,9 @@
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:51</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>PIN absenden</source>
-        <target>PIN absenden</target>
+        <target>PIN の送信</target>
       </segment>
     </unit>
     <unit id="4392993924409588244">
@@ -710,18 +710,18 @@
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:92</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wenn Sie ein Formular einreichen wollen, finden Sie hier unsere öffentlichen Formulare.</source>
-        <target>Wenn Sie ein Formular einreichen wollen, finden Sie hier unsere öffentlichen Formulare.</target>
+        <target>フォームを送信したい場合は、ここで公開フォームを検索できます。</target>
       </segment>
     </unit>
     <unit id="4088965861946680266">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:97</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Über diesen Link gelangen Sie zu den öffentlichen Formularen.</source>
-        <target>Über diesen Link gelangen Sie zu den öffentlichen Formularen.</target>
+        <target>このリンクにより、公開フォームが表示されます。</target>
       </segment>
     </unit>
     <unit id="5711849175900703108">
@@ -773,9 +773,9 @@
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:182</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Über diesen Link gelangen Sie zum Mitarbeiterportal.</source>
-        <target>Über diesen Link gelangen Sie zum Mitarbeiterportal.</target>
+        <target>このリンクにより、社員ポータルに移動します。</target>
       </segment>
     </unit>
     <unit id="6949567012632159210">
@@ -791,711 +791,711 @@
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:9</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wohnbaufläche</source>
-        <target>Wohnbaufläche</target>
+        <target>一般住宅建築面積</target>
       </segment>
     </unit>
     <unit id="1934697071238483728">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:10</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Kleinsiedlungsgebiet</source>
-        <target>Kleinsiedlungsgebiet</target>
+        <target>小住宅地</target>
       </segment>
     </unit>
     <unit id="6798650949201776336">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:11</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Reines Wohngebiet</source>
-        <target>Reines Wohngebiet</target>
+        <target>浄土真宗</target>
       </segment>
     </unit>
     <unit id="3582173993797014873">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:12</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Allgemeines Wohngebiet</source>
-        <target>Allgemeines Wohngebiet</target>
+        <target>一般住宅地域</target>
       </segment>
     </unit>
     <unit id="4122406384179715979">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:13</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Besonderes Wohngebiet</source>
-        <target>Besonderes Wohngebiet</target>
+        <target>特別住宅地</target>
       </segment>
     </unit>
     <unit id="907298596850983792">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:14</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Urbanes Gebiet</source>
-        <target>Urbanes Gebiet</target>
+        <target>都市圏</target>
       </segment>
     </unit>
     <unit id="7950447362043930766">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:15</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gemischte Baufläche</source>
-        <target>Gemischte Baufläche</target>
+        <target>混合建築面積</target>
       </segment>
     </unit>
     <unit id="5735114100345323111">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:16</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Dorfgebiet</source>
-        <target>Dorfgebiet</target>
+        <target>ヴィレッジエリア</target>
       </segment>
     </unit>
     <unit id="3320939576531631157">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:17</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Mischgebiet</source>
-        <target>Mischgebiet</target>
+        <target>混合使用領域</target>
       </segment>
     </unit>
     <unit id="2187900019732733514">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:18</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Kerngebiet</source>
-        <target>Kerngebiet</target>
+        <target>中央</target>
       </segment>
     </unit>
     <unit id="8197581721313063876">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:19</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gewerbliche Baufläche</source>
-        <target>Gewerbliche Baufläche</target>
+        <target>商業ビル地域</target>
       </segment>
     </unit>
     <unit id="5782195038206381885">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:20</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gewerbegebiet</source>
-        <target>Gewerbegebiet</target>
+        <target>ビジネスパーク</target>
       </segment>
     </unit>
     <unit id="6187691016661117888">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:21</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Industriegebiet</source>
-        <target>Industriegebiet</target>
+        <target>工業地域</target>
       </segment>
     </unit>
     <unit id="2315713807788912482">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:22</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sonderbaufläche</source>
-        <target>Sonderbaufläche</target>
+        <target>特別建築面積</target>
       </segment>
     </unit>
     <unit id="1296274433637973890">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:23</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sondergebiet für Erholung</source>
-        <target>Sondergebiet für Erholung</target>
+        <target>回復のための特別な領域</target>
       </segment>
     </unit>
     <unit id="439037924215870402">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:24</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sonstige Sondergebiete</source>
-        <target>Sonstige Sondergebiete</target>
+        <target>その他の特別地域</target>
       </segment>
     </unit>
     <unit id="250728197738412053">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:25</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Baufläche für Gemeinbedarf</source>
-        <target>Baufläche für Gemeinbedarf</target>
+        <target>共同使用のための建物面積</target>
       </segment>
     </unit>
     <unit id="9146477794686693262">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:26</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Landwirtschaftliche Fläche</source>
-        <target>Landwirtschaftliche Fläche</target>
+        <target>農業地域</target>
       </segment>
     </unit>
     <unit id="9195449413560624696">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:27</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Acker</source>
-        <target>Acker</target>
+        <target>フィールド</target>
       </segment>
     </unit>
     <unit id="326958539468328829">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:28</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Grünland</source>
-        <target>Grünland</target>
+        <target>グラスランド</target>
       </segment>
     </unit>
     <unit id="2975244100425369386">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:29</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Erwerbsgartenanbaufläche</source>
-        <target>Erwerbsgartenanbaufläche</target>
+        <target>商業園芸地域</target>
       </segment>
     </unit>
     <unit id="934720702481956030">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:30</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Anbaufläche für Sonderkulturen</source>
-        <target>Anbaufläche für Sonderkulturen</target>
+        <target>特別作物の栽培面積</target>
       </segment>
     </unit>
     <unit id="2663918106472060703">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:31</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Weingarten</source>
-        <target>Weingarten</target>
+        <target>ヴィニヤード</target>
       </segment>
     </unit>
     <unit id="6274978844841258379">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:32</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Kurzumtriebsplantagen/Agroforst</source>
-        <target>Kurzumtriebsplantagen/Agroforst</target>
+        <target>短い回転プランテーション/アグロレスト</target>
       </segment>
     </unit>
     <unit id="2245771305378095635">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:33</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Unland, Geringstland, Bergweide, Moor</source>
-        <target>Unland, Geringstland, Bergweide, Moor</target>
+        <target>低地、山の牧草、 moor</target>
       </segment>
     </unit>
     <unit id="8560846121493735569">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:34</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Forstwirtschaftliche Fläche</source>
-        <target>Forstwirtschaftliche Fläche</target>
+        <target>森林地帯</target>
       </segment>
     </unit>
     <unit id="3095297259851332286">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:35</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Private Grünfläche</source>
-        <target>Private Grünfläche</target>
+        <target>専用グリーン・スペース</target>
       </segment>
     </unit>
     <unit id="3186821120942074679">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:36</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Kleingartenfläche</source>
-        <target>Kleingartenfläche</target>
+        <target>ガーデン・エリア</target>
       </segment>
     </unit>
     <unit id="8645015050513177022">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:37</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Freizeitgartenfläche</source>
-        <target>Freizeitgartenfläche</target>
+        <target>レジャーガーデン</target>
       </segment>
     </unit>
     <unit id="4333837908822348935">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:38</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Campingplatz</source>
-        <target>Campingplatz</target>
+        <target>キャンプ場</target>
       </segment>
     </unit>
     <unit id="5383065386730837628">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:39</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sportfläche</source>
-        <target>Sportfläche</target>
+        <target>運動圏</target>
       </segment>
     </unit>
     <unit id="2353535484058081518">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:40</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sonstige private Fläche</source>
-        <target>Sonstige private Fläche</target>
+        <target>その他の専用面積</target>
       </segment>
     </unit>
     <unit id="901399518108774764">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:41</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Friedhof</source>
-        <target>Friedhof</target>
+        <target>墓地</target>
       </segment>
     </unit>
     <unit id="8499998807958805830">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:42</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wasserfläche</source>
-        <target>Wasserfläche</target>
+        <target>水の表面</target>
       </segment>
     </unit>
     <unit id="1151949559128906261">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:43</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Flughafen, Flugplatz</source>
-        <target>Flughafen, Flugplatz</target>
+        <target>空港、飛行場</target>
       </segment>
     </unit>
     <unit id="2957967519400105673">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:44</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Private Parkplätze, Stellplatzfläche</source>
-        <target>Private Parkplätze, Stellplatzfläche</target>
+        <target>専用駐車場、駐車場</target>
       </segment>
     </unit>
     <unit id="426938245653560695">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:45</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Lagerfläche</source>
-        <target>Lagerfläche</target>
+        <target>ストレージ域</target>
       </segment>
     </unit>
     <unit id="3816895539137369065">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:46</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Abbauland</source>
-        <target>Abbauland</target>
+        <target>トラクション・ランド</target>
       </segment>
     </unit>
     <unit id="5845848448903115775">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:47</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gemeinbedarfsfläche (kein Bauland)</source>
-        <target>Gemeinbedarfsfläche (kein Bauland)</target>
+        <target>一般用途地域 ( 建築用地なし )</target>
       </segment>
     </unit>
     <unit id="3627960659261417823">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:48</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sondernutzungsfläche</source>
-        <target>Sondernutzungsfläche</target>
+        <target>特殊用途領域</target>
       </segment>
     </unit>
     <unit id="6302473731485840190">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:52</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Ein- und Zweifamilienhäuser</source>
-        <target>Ein- und Zweifamilienhäuser</target>
+        <target>一戸建て・二家</target>
       </segment>
     </unit>
     <unit id="4046860761410870572">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:53</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Mehrfamilienhäuser</source>
-        <target>Mehrfamilienhäuser</target>
+        <target>多世帯住宅</target>
       </segment>
     </unit>
     <unit id="8459691521363587437">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:54</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Geschäftshäuser</source>
-        <target>Geschäftshäuser</target>
+        <target>コメルシールズ</target>
       </segment>
     </unit>
     <unit id="2129116147128562947">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:55</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wohn- und Geschäftshäuser</source>
-        <target>Wohn- und Geschäftshäuser</target>
+        <target>住宅及び商業用建築物</target>
       </segment>
     </unit>
     <unit id="8225522313081419869">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:56</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Büro- und Geschäftshäuser</source>
-        <target>Büro- und Geschäftshäuser</target>
+        <target>オフィス・オフィスビル</target>
       </segment>
     </unit>
     <unit id="8724558564508796305">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:57</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bürohäuser</source>
-        <target>Bürohäuser</target>
+        <target>オフィスビル</target>
       </segment>
     </unit>
     <unit id="718356833920296551">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:58</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Produktion und Logistik</source>
-        <target>Produktion und Logistik</target>
+        <target>生産・物流</target>
       </segment>
     </unit>
     <unit id="1965311344074408534">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:59</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wochenendhäuser</source>
-        <target>Wochenendhäuser</target>
+        <target>週末住宅</target>
       </segment>
     </unit>
     <unit id="4295501522613548962">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:60</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Ferienhäuser</source>
-        <target>Ferienhäuser</target>
+        <target>バケーション・ホーム</target>
       </segment>
     </unit>
     <unit id="9080377334379464003">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:61</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Freizeit und Touristik</source>
-        <target>Freizeit und Touristik</target>
+        <target>レジャー &amp; ツーリズム</target>
       </segment>
     </unit>
     <unit id="8838443511619253514">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:62</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Läden (eingeschossig)</source>
-        <target>Läden (eingeschossig)</target>
+        <target>店舗 (単一ストア)</target>
       </segment>
     </unit>
     <unit id="647205834645172838">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:63</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Einkaufszentren</source>
-        <target>Einkaufszentren</target>
+        <target>ショッピング・センター</target>
       </segment>
     </unit>
     <unit id="1398267539365941562">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:64</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Messen, Ausstellungen, Kongresse, Großveranstaltungen aller Art</source>
-        <target>Messen, Ausstellungen, Kongresse, Großveranstaltungen aller Art</target>
+        <target>取引フェア、展示会、議会、あらゆる種類の主要イベント</target>
       </segment>
     </unit>
     <unit id="3353673812524426333">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:65</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bildungseinrichtungen</source>
-        <target>Bildungseinrichtungen</target>
+        <target>教育機関</target>
       </segment>
     </unit>
     <unit id="6228312886973462025">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:66</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gesundheitseinrichtungen</source>
-        <target>Gesundheitseinrichtungen</target>
+        <target>医療施設</target>
       </segment>
     </unit>
     <unit id="7544988430182853917">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:67</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Hafen</source>
-        <target>Hafen</target>
+        <target>ポート</target>
       </segment>
     </unit>
     <unit id="6962755390521002796">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:68</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Garagen, Stellplatzanlagen, Parkhäuser</source>
-        <target>Garagen, Stellplatzanlagen, Parkhäuser</target>
+        <target>- ガレージ、駐車場、駐車場</target>
       </segment>
     </unit>
     <unit id="5278420004463645282">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:69</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Militär</source>
-        <target>Militär</target>
+        <target>軍事</target>
       </segment>
     </unit>
     <unit id="6193278872529551070">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:70</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Landwirtschaftliche Produktion</source>
-        <target>Landwirtschaftliche Produktion</target>
+        <target>農業生産</target>
       </segment>
     </unit>
     <unit id="4688523918241886367">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:71</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Außenbereich</source>
-        <target>Außenbereich</target>
+        <target>外域</target>
       </segment>
     </unit>
     <unit id="5062919037564307861">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:72</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Obstanbaufläche</source>
-        <target>Obstanbaufläche</target>
+        <target>フルーツ成長地域</target>
       </segment>
     </unit>
     <unit id="3506399344496489706">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:73</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gemüseanbaufläche</source>
-        <target>Gemüseanbaufläche</target>
+        <target>野菜栽培面積</target>
       </segment>
     </unit>
     <unit id="4271313728166358446">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:74</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Blumen- und Zierpflanzenanbaufläche</source>
-        <target>Blumen- und Zierpflanzenanbaufläche</target>
+        <target>成長する花と観賞植物のための面積</target>
       </segment>
     </unit>
     <unit id="6617953362408992172">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:75</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Baumschulfläche</source>
-        <target>Baumschulfläche</target>
+        <target>ツリー・コドリー領域</target>
       </segment>
     </unit>
     <unit id="6832249817769107192">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:76</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Spargelanbaufläche</source>
-        <target>Spargelanbaufläche</target>
+        <target>アスパラガス栽培地域</target>
       </segment>
     </unit>
     <unit id="3886942514191763025">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:77</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Hopfenanbaufläche</source>
-        <target>Hopfenanbaufläche</target>
+        <target>ホープ成長地域</target>
       </segment>
     </unit>
     <unit id="1244513933004404683">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:78</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Tabakanbaufläche</source>
-        <target>Tabakanbaufläche</target>
+        <target>タバコ栽培地域</target>
       </segment>
     </unit>
     <unit id="7031902290900045455">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:79</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Weingarten in Flachlage</source>
-        <target>Weingarten in Flachlage</target>
+        <target>ワインヤード・イン・フラット・ポジション</target>
       </segment>
     </unit>
     <unit id="2841329862474047093">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:80</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Weingarten in Hanglage</source>
-        <target>Weingarten in Hanglage</target>
+        <target>ヴィニヤード・オン・ヒルズ</target>
       </segment>
     </unit>
     <unit id="2793003165781304611">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:81</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Weingarten in Steillage</source>
-        <target>Weingarten in Steillage</target>
+        <target>急斜面のヴィニヤード</target>
       </segment>
     </unit>
     <unit id="3099739538119123995">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:82</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Abbauland von Sand und Kies</source>
-        <target>Abbauland von Sand und Kies</target>
+        <target>砂と砂利の採掘地</target>
       </segment>
     </unit>
     <unit id="1254157501951070242">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:83</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Abbauland von Ton und Mergel</source>
-        <target>Abbauland von Ton und Mergel</target>
+        <target>粘土と丸の鉱石</target>
       </segment>
     </unit>
     <unit id="150048695518631753">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:84</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Abbauland von Torf</source>
-        <target>Abbauland von Torf</target>
+        <target>ピート抽出地</target>
       </segment>
     </unit>
     <unit id="6055560016988889097">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:85</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Steinbruch</source>
-        <target>Steinbruch</target>
+        <target>クォーリー</target>
       </segment>
     </unit>
     <unit id="2275619324101199940">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/nutzung.pipe.ts:86</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Braunkohletagebau</source>
-        <target>Braunkohletagebau</target>
+        <target>リグナイト・オープンキャスト鉱山</target>
       </segment>
     </unit>
     <unit id="1279564565030115671">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:9</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Erschließungsbeitrags- und kostenerstattungsbetragsfrei</source>
-        <target>Erschließungsbeitrags- und kostenerstattungsbetragsfrei</target>
+        <target>開発費の無料と費用の償還</target>
       </segment>
     </unit>
     <unit id="4364985666336009061">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:10</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Erschließungsbeitrags-/kostenerstattungsbetragsfrei und abgabenpflichtig nach Kommunalabgabengesetz</source>
-        <target>Erschließungsbeitrags-/kostenerstattungsbetragsfrei und abgabenpflichtig nach Kommunalabgabengesetz</target>
+        <target>開発寄与/費用払い戻しは無料で、地方税法に従って料金を支払う義務があります。</target>
       </segment>
     </unit>
     <unit id="4017046019966127783">
       <notes>
         <note category="location">src/app/bodenrichtwert/pipes/beitrag.pipe.ts:11</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz</source>
-        <target>Erschließungsbeitrags-/kostenerstattungsbetragspflichtig und abgabenpflichtig nach Kommunalabgabengesetz</target>
+        <target>市町村税法による開発費/費用の払い戻し義務および課税</target>
       </segment>
     </unit>
     <unit id="6013256967591081588">
       <notes>
         <note category="location">src/app/shared/geosearch/geosearch.service.ts:68</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Es ist ein Fehler aufgetreten</source>
-        <target>Es ist ein Fehler aufgetreten</target>
+        <target>エラーが発生しました</target>
       </segment>
     </unit>
     <unit id="4247324030645335768">
@@ -1511,20 +1511,19 @@
       <notes>
         <note category="location">src/app/static/feedback/feedback.component.html:8,9</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sie haben ein Problem? Oder wollen einen Vorschlag machen? Bitte
                formulieren Sie ihr Anliegen so exakt wie möglich.</source>
-        <target>Sie haben ein Problem? Oder wollen einen Vorschlag machen? Bitte
-               formulieren Sie ihr Anliegen so exakt wie möglich.</target>
+        <target>何か問題でも ? それとも提案したいのか ? できるだけ正確に要求を定式化してください。</target>
       </segment>
     </unit>
     <unit id="184328120176588704">
       <notes>
         <note category="location">src/app/static/feedback/feedback.component.html:11,12</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sie haben ein Problem? Oder wollen einen Vorschlag machen? Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</source>
-        <target>Sie haben ein Problem? Oder wollen einen Vorschlag machen? Bitte formulieren Sie ihren Vorschlag so exakt wie möglich und bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</target>
+        <target>何か問題でも ? それとも提案したいのか ? できるだけ正確に提示し、問題がある場合は、以下のキーポイントをガイドとして使用してください。</target>
       </segment>
     </unit>
     <unit id="973296511127857819">
@@ -1541,9 +1540,9 @@
       <notes>
         <note category="location">src/app/static/feedback/feedback.component.html:44</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an nachfolgenden E-Mail Adresse.</source>
-        <target>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an nachfolgenden E-Mail Adresse.</target>
+        <target>E メール・プログラムが開かれていない場合は、 E メールを以下の E メール・アドレスに送信してください</target>
       </segment>
     </unit>
     <unit id="7367328173535829935">
@@ -1621,6 +1620,15 @@
     <unit id="1399354247773521386">
       <notes>
         <note category="location">src/app/static/feedback/feedback.component.html:51</note>
+      </notes>
+      <segment state="translated">
+        <source>Email-Adresse kopieren</source>
+        <target>メールアドレスのコピー</target>
+      </segment>
+    </unit>
+    <unit id="1399354247773521386">
+      <notes>
+        <note category="location">src/app/static/feedback/feedback.component.html:33</note>
       </notes>
       <segment state="translated">
         <source>Email-Adresse kopieren</source>
@@ -1712,90 +1720,90 @@
       <notes>
         <note category="location">src/app/static/start/start.component.html:126</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Immobilienmarktbericht 2020</source>
-        <target>Immobilienmarktbericht 2020</target>
+        <target>不動産市場報告書 2020</target>
       </segment>
     </unit>
     <unit id="1702834368412695399">
       <notes>
         <note category="location">src/app/static/start/start.component.html:127</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Eine Dekade steigender Preise in Niedersachsen...</source>
-        <target>Eine Dekade steigender Preise in Niedersachsen...</target>
+        <target>ニーダーザクセン州では 10 年になる物価上昇が</target>
       </segment>
     </unit>
     <unit id="4980082766864057233">
       <notes>
         <note category="location">src/app/static/start/start.component.html:130</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bodenrichtwerte 2021</source>
-        <target>Bodenrichtwerte 2021</target>
+        <target>標準接地値 2021</target>
       </segment>
     </unit>
     <unit id="6326925902432622347">
       <notes>
         <note category="location">src/app/static/start/start.component.html:131</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Die neuen Bodenrichtwerte sind jetzt verfügbar...</source>
-        <target>Die neuen Bodenrichtwerte sind jetzt verfügbar...</target>
+        <target>新しい接地参照値が使用可能になりました ...</target>
       </segment>
     </unit>
     <unit id="7110617334146423425">
       <notes>
         <note category="location">src/app/static/start/start.component.html:14</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>BORIS.NI</source>
-        <target>BORIS.NI</target>
+        <target>ボリス・ニ</target>
       </segment>
     </unit>
     <unit id="2078906062700177291">
       <notes>
         <note category="location">src/app/static/start/start.component.html:16</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bodenrichtwertinformationssystem Niedersachsen</source>
-        <target>Bodenrichtwertinformationssystem Niedersachsen</target>
+        <target>地上参照値情報システムのニーダーザクセン</target>
       </segment>
     </unit>
     <unit id="7229056857605155330">
       <notes>
         <note category="location">src/app/static/start/start.component.html:19,21</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft zur Verfügung.</source>
-        <target>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft zur Verfügung.</target>
+        <target>ニーダーザクセン州の土地の価値に関する専門委員会と専門家委員会は、 BORIS.NI の下で、土地の建設や農業・林業の分野における標準的な土地の価値に関心を示している。</target>
       </segment>
     </unit>
     <unit id="3780495839469833614">
       <notes>
         <note category="location">src/app/static/start/start.component.html:34</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>NIPIX</source>
-        <target>NIPIX</target>
+        <target>ニピックス</target>
       </segment>
     </unit>
     <unit id="2295421029143589974">
       <notes>
         <note category="location">src/app/static/start/start.component.html:36</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Niedersächsischer Immobilienpreisindex</source>
-        <target>Niedersächsischer Immobilienpreisindex</target>
+        <target>ニーダーザクセンの不動産価格指数</target>
       </segment>
     </unit>
     <unit id="9057177461134699500">
       <notes>
         <note category="location">src/app/static/start/start.component.html:39,42</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</source>
-        <target>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</target>
+        <target>住宅 (一戸建て・二戸建て・二戸建て・二戸建て住宅・準一戸建て住宅 ) とコンドミニアムの価格動向を示すために、上位の専門家委員会は「所有者が占有するホームレスとコンドミニアム (NIPIX) のための、低いザクセンの不動産価格指数」を策定している。 専門家委員会及び財産価値の上級委員会。</target>
       </segment>
     </unit>
     <unit id="2237919460029267172">
@@ -1811,124 +1819,124 @@
       <notes>
         <note category="location">src/app/static/start/start.component.html:62,64</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.</source>
-        <target>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.</target>
+        <target>ここでは、 LGLN のパブリック・フォームとプライベート・フォームを記入して、オンラインにすることができます。 フォームの PIN を受信した場合は、 PINを使用して、その PIN を取得して直接入力することができます。</target>
       </segment>
     </unit>
     <unit id="2145326859393600164">
       <notes>
         <note category="location">src/app/static/start/start.component.html:70</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</source>
-        <target>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</target>
+        <target>フォーム PIN の入力フィールド。対応するフォームに到達します。</target>
       </segment>
     </unit>
     <unit id="7567341863769679266">
       <notes>
         <note category="location">src/app/static/start/start.component.html:96</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Die PIN absenden</source>
-        <target>Die PIN absenden</target>
+        <target>PIN の送信</target>
       </segment>
     </unit>
     <unit id="1701380331708164107">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:49</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Preisentwicklung seit </source>
-        <target>Preisentwicklung seit </target>
+        <target>以降の価格開発</target>
       </segment>
     </unit>
     <unit id="6992806450133789005">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:51</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Zugrunde liegende Fälle</source>
-        <target>Zugrunde liegende Fälle</target>
+        <target>基礎となる事例</target>
       </segment>
     </unit>
     <unit id="2929422577222561800">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:149</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source> (ohne Daten)</source>
-        <target> (ohne Daten)</target>
+        <target>( データなし )</target>
       </segment>
     </unit>
     <unit id="419177917405783754">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:164</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>[ohne Daten] </source>
-        <target>[ohne Daten] </target>
+        <target>[ データなし ]</target>
       </segment>
     </unit>
     <unit id="6048412675100908725">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-mapoptions.ts:33</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wohnungsmarktregionen in Niedersachsen</source>
-        <target>Wohnungsmarktregionen in Niedersachsen</target>
+        <target>ニーダーザクセン州の住宅市場地域</target>
       </segment>
     </unit>
     <unit id="488018968147373869">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:165</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bild</source>
-        <target>Bild</target>
+        <target>イメージ</target>
       </segment>
     </unit>
     <unit id="6782744539751451451">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:177</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>GeoJSON</source>
-        <target>GeoJSON</target>
+        <target>ジオJSON</target>
       </segment>
     </unit>
     <unit id="1857718811662681434">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:25</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Niedersächsischer Immobilienpreisindex (NIPIX)</source>
-        <target>Niedersächsischer Immobilienpreisindex (NIPIX)</target>
+        <target>ニーダーザクセン不動産価格指数 ( NIPIX)</target>
       </segment>
     </unit>
     <unit id="6148922370359130527">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:78</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Quartal</source>
-        <target>Quartal</target>
+        <target>四半期</target>
       </segment>
     </unit>
     <unit id="8799324919469174670">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:104</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Preisentwicklung</source>
-        <target>Preisentwicklung</target>
+        <target>価格開発</target>
       </segment>
     </unit>
     <unit id="7926143511350598250">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions-chartoptions.ts:171</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>CSV</source>
         <target>CSV</target>
       </segment>
@@ -1946,27 +1954,27 @@
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:30</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Suchen Sie hier nach einem Formular-Titel.</source>
-        <target>Suchen Sie hier nach einem Formular-Titel.</target>
+        <target>ここでフォーム・タイトルを検索します。</target>
       </segment>
     </unit>
     <unit id="8224586107695869644">
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:39</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Öffentliche Formulare</source>
-        <target>Öffentliche Formulare</target>
+        <target>パブリック・フォーム</target>
       </segment>
     </unit>
     <unit id="7089232483674344715">
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:48</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Auf- und absteigende Sortierung möglich.</source>
-        <target>Auf- und absteigende Sortierung möglich.</target>
+        <target>昇順と降順のソートを実行できます。</target>
       </segment>
     </unit>
     <unit id="8488547527396922136">
@@ -1991,45 +1999,45 @@
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:154</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Formularanzahl pro Seite</source>
-        <target>Formularanzahl pro Seite</target>
+        <target>ページ当たりの用紙の数</target>
       </segment>
     </unit>
     <unit id="9145163141794594385">
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:155</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen.</source>
-        <target>Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen.</target>
+        <target>1 ページに表示するフォームの数を選択します。</target>
       </segment>
     </unit>
     <unit id="1147413164438278837">
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:174</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Pagination</source>
-        <target>Pagination</target>
+        <target>ページ編集</target>
       </segment>
     </unit>
     <unit id="1073191942891868626">
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:55</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Aufsteigend sortiert.</source>
-        <target>Aufsteigend sortiert.</target>
+        <target>昇順にソートされます。</target>
       </segment>
     </unit>
     <unit id="2277815689896097575">
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:116</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Absteigend sortiert.</source>
-        <target>Absteigend sortiert.</target>
+        <target>降順でソートされます。</target>
       </segment>
     </unit>
     <unit id="2319824520635416840">
@@ -2382,9 +2390,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/details/details.component.ts:157</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.</source>
-        <target>Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.</target>
+        <target>以下の CSV ダウンロードの場合は、 UTF-8 文字エンコードを使用してください。</target>
       </segment>
     </unit>
     <unit id="4018735454945884382">
@@ -2697,225 +2705,225 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:12</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Deutsch (Standard)</source>
-        <target>Deutsch (Standard)</target>
+        <target>ドイツ語 (標準)</target>
       </segment>
     </unit>
     <unit id="8957931169022166336">
       <notes>
         <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:14</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Englisch</source>
-        <target>Englisch</target>
+        <target>英語</target>
       </segment>
     </unit>
     <unit id="1962054522708788552">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:122</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Referenziert die ausgewählten Antwort(en) dieser Frage</source>
-        <target>Referenziert die ausgewählten Antwort(en) dieser Frage</target>
+        <target>選択した回答をこの質問に参照します</target>
       </segment>
     </unit>
     <unit id="4385299558992356242">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:124</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Aktuelle Seitennummer</source>
-        <target>Aktuelle Seitennummer</target>
+        <target>現行ページ番号</target>
       </segment>
     </unit>
     <unit id="1121698781112319659">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:126</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Seitenanzahl</source>
-        <target>Seitenanzahl</target>
+        <target>ページ数</target>
       </segment>
     </unit>
     <unit id="2459932623301375710">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:128</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sprache des Benutzers in Kurzform (z.B. de)</source>
-        <target>Sprache des Benutzers in Kurzform (z.B. de)</target>
+        <target>ユーザーの言語 ( 短形式 ) ( 例: )</target>
       </segment>
     </unit>
     <unit id="4522389108270627226">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:130</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Anzahl korrekter Antworten (Quiz)</source>
-        <target>Anzahl korrekter Antworten (Quiz)</target>
+        <target>正しい回答の数 (クイズ)</target>
       </segment>
     </unit>
     <unit id="4899934062989743703">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:132</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Anzahl falscher Antworten (Quiz)</source>
-        <target>Anzahl falscher Antworten (Quiz)</target>
+        <target>正しくない回答の数 (クイズ)</target>
       </segment>
     </unit>
     <unit id="2526753972840271572">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:134</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Anzahl an Fragen</source>
-        <target>Anzahl an Fragen</target>
+        <target>質問の数</target>
       </segment>
     </unit>
     <unit id="7183502370201855335">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:136</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gibt das heutige Datum zurück. Anstelle der 0 kann ein Offset für den Tag übergeben werden.</source>
-        <target>Gibt das heutige Datum zurück. Anstelle der 0 kann ein Offset für den Tag übergeben werden.</target>
+        <target>現在の日付を返します。 この日のオフセットを 0 ではなく、渡すことができます。</target>
       </segment>
     </unit>
     <unit id="5286365491403074964">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:138</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Berechnet das Alter aus einem Datum</source>
-        <target>Berechnet das Alter aus einem Datum</target>
+        <target>日付から経過日数を計算します。</target>
       </segment>
     </unit>
     <unit id="338864769185896785">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:140</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Summiert mehrere Werte zusammen</source>
-        <target>Summiert mehrere Werte zusammen</target>
+        <target>複数の値の合計</target>
       </segment>
     </unit>
     <unit id="4783263896329020731">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:142</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gibt den kleinsten Wert aus einer Liste zurück</source>
-        <target>Gibt den kleinsten Wert aus einer Liste zurück</target>
+        <target>リストから最小の値を戻します。</target>
       </segment>
     </unit>
     <unit id="5932654571166469820">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:144</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gibt den größten Wert aus einer Liste zurück</source>
-        <target>Gibt den größten Wert aus einer Liste zurück</target>
+        <target>リストから最大の値を戻します。</target>
       </segment>
     </unit>
     <unit id="1028500361155779706">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:146</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Zählt die Werte aus einer Liste</source>
-        <target>Zählt die Werte aus einer Liste</target>
+        <target>リストから値をカウントします。</target>
       </segment>
     </unit>
     <unit id="2802897794792728034">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:148</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Berechnet den Mittelwert aus einer Liste</source>
-        <target>Berechnet den Mittelwert aus einer Liste</target>
+        <target>リストから平均値を計算します。</target>
       </segment>
     </unit>
     <unit id="4550688755259900759">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:229</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Validator entfernen</source>
-        <target>Validator entfernen</target>
+        <target>バリデーターの削除</target>
       </segment>
     </unit>
     <unit id="8806290211366185339">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:248</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Validator hinzufügen</source>
-        <target>Validator hinzufügen</target>
+        <target>バリデーターの追加</target>
       </segment>
     </unit>
     <unit id="6209159556487284356">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:273</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Standard Validator hinzufügen</source>
-        <target>Standard Validator hinzufügen</target>
+        <target>標準バリデーターの追加</target>
       </segment>
     </unit>
     <unit id="1486818173512343117">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:282</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Validator Auswählen</source>
-        <target>Validator Auswählen</target>
+        <target>バリデーターの選択</target>
       </segment>
     </unit>
     <unit id="6952684160362722423">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:284</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Datum (yyyy-mm-dd)</source>
-        <target>Datum (yyyy-mm-dd)</target>
+        <target>日付 (yyyy-mm-dd)</target>
       </segment>
     </unit>
     <unit id="5935220739341314160">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:286</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Datum (dd.mm.yyyy)</source>
-        <target>Datum (dd.mm.yyyy)</target>
+        <target>日付 (dd.mm.yyyy)</target>
       </segment>
     </unit>
     <unit id="8436397319015927050">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:6</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Typ*</source>
-        <target>Typ*</target>
+        <target>タイプ*</target>
       </segment>
     </unit>
     <unit id="3161459175867304033">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:15</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Numerisch</source>
-        <target>Numerisch</target>
+        <target>数値</target>
       </segment>
     </unit>
     <unit id="919627206380178326">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:17</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Anzahl Antworten</source>
-        <target>Anzahl Antworten</target>
+        <target>回答の数</target>
       </segment>
     </unit>
     <unit id="5630731892828039251">
@@ -2931,90 +2939,90 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:44</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Änderungen übernommen</source>
-        <target>Änderungen übernommen</target>
+        <target>変更が受け入れ</target>
       </segment>
     </unit>
     <unit id="573391330390490773">
       <notes>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:45</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Ihre Änderungen wurden erfolgreich zwischen gespeichert.</source>
-        <target>Ihre Änderungen wurden erfolgreich zwischen gespeichert.</target>
+        <target>変更は正常に保存されました。</target>
       </segment>
     </unit>
     <unit id="4874905878981423123">
       <notes>
         <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:4</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</source>
-        <target>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</target>
+        <target>この回答または副質問の可視性条件を設定します</target>
       </segment>
     </unit>
     <unit id="932876642658778900">
       <notes>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:576</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Änderungen speichern</source>
-        <target>Änderungen speichern</target>
+        <target>変更の保存</target>
       </segment>
     </unit>
     <unit id="4728525257317174639">
       <notes>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:345</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Seite</source>
-        <target>Seite</target>
+        <target>ページ</target>
       </segment>
     </unit>
     <unit id="7879816504576872670">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:155</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bedingung entfernen</source>
-        <target>Bedingung entfernen</target>
+        <target>条件の削除</target>
       </segment>
     </unit>
     <unit id="7929073975769097788">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:174</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bedingung hinzufügen</source>
-        <target>Bedingung hinzufügen</target>
+        <target>条件の追加</target>
       </segment>
     </unit>
     <unit id="8609937274244410240">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:6</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Verknüpfung*</source>
-        <target>Verknüpfung*</target>
+        <target>リンク*</target>
       </segment>
     </unit>
     <unit id="6496415064530389125">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:16</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Und</source>
-        <target>Und</target>
+        <target>アンド</target>
       </segment>
     </unit>
     <unit id="7030282443677019965">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:18</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Oder</source>
-        <target>Oder</target>
+        <target>それとも</target>
       </segment>
     </unit>
     <unit id="2409494154701983500">
@@ -3138,9 +3146,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:17</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Fragen ID *</source>
-        <target>Fragen ID *</target>
+        <target>質問 ID *</target>
       </segment>
     </unit>
     <unit id="2695337957296458234">
@@ -3156,9 +3164,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:40</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Fragen Titel *</source>
-        <target>Fragen Titel *</target>
+        <target>質問のタイトル *</target>
       </segment>
     </unit>
     <unit id="8079987278225698865">
@@ -3183,9 +3191,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:61</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Sichtbarkeitsbedingungen für die Frage</source>
-        <target>Sichtbarkeitsbedingungen für die Frage</target>
+        <target>質問の可視性条件</target>
       </segment>
     </unit>
     <unit id="2633103922838468705">
@@ -3354,9 +3362,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:201</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Datum und Uhrzeit</source>
-        <target>Datum und Uhrzeit</target>
+        <target>日付と時刻</target>
       </segment>
     </unit>
     <unit id="8115083664628466958">
@@ -3372,9 +3380,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:23</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Regulärer Ausdruck</source>
-        <target>Regulärer Ausdruck</target>
+        <target>正規表現</target>
       </segment>
     </unit>
     <unit id="2298141652517601203">
@@ -3417,171 +3425,171 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:25</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bedingung</source>
-        <target>Bedingung</target>
+        <target>条件</target>
       </segment>
     </unit>
     <unit id="1692671155405046002">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:33</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Minimaler Wert/Länge/Anzahl*</source>
-        <target>Minimaler Wert/Länge/Anzahl*</target>
+        <target>最小値/長さ / 数値*</target>
       </segment>
     </unit>
     <unit id="6422292494498184969">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:42</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Minimaler Wert/Länge/Anzahl</source>
-        <target>Minimaler Wert/Länge/Anzahl</target>
+        <target>最小値/長さ / 数</target>
       </segment>
     </unit>
     <unit id="3059286755361938545">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:50</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Maximaler Wert/Länge/Anzahl*</source>
-        <target>Maximaler Wert/Länge/Anzahl*</target>
+        <target>最大値/長さ / 数値*</target>
       </segment>
     </unit>
     <unit id="4427712352605106073">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:59</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Maximaler Wert/Länge/Anzahl</source>
-        <target>Maximaler Wert/Länge/Anzahl</target>
+        <target>最大値/長さ / 数</target>
       </segment>
     </unit>
     <unit id="103619226146181343">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:67</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Regulärerausdruck*</source>
-        <target>Regulärerausdruck*</target>
+        <target>正規表現*</target>
       </segment>
     </unit>
     <unit id="3660200870312194667">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:76</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Regulärerausdruck z.B.: ^\d*$</source>
-        <target>Regulärerausdruck z.B.: ^\d*$</target>
+        <target>正規表現。例: ^\d*$</target>
       </segment>
     </unit>
     <unit id="2303562825333576149">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:85</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Fehlermeldung für Benutzer*</source>
-        <target>Fehlermeldung für Benutzer*</target>
+        <target>ユーザー* のエラー・メッセージ</target>
       </segment>
     </unit>
     <unit id="2751219676326045504">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:91</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Fehlermeldung für Benutzer</source>
-        <target>Fehlermeldung für Benutzer</target>
+        <target>ユーザーのエラー・メッセージ</target>
       </segment>
     </unit>
     <unit id="4107960379440332335">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:25</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Formularfeld*</source>
-        <target>Formularfeld*</target>
+        <target>フォーム・フィールド*</target>
       </segment>
     </unit>
     <unit id="4129820936220292343">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:35</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wert oder Variabel {e1}</source>
-        <target>Wert oder Variabel {e1}</target>
+        <target>値または変数 {e1}</target>
       </segment>
     </unit>
     <unit id="5848610628261856643">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:43</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Operator*</source>
-        <target>Operator*</target>
+        <target>オペレーター*</target>
       </segment>
     </unit>
     <unit id="4333733863543260974">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:52</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Leer</source>
-        <target>Leer</target>
+        <target>空</target>
       </segment>
     </unit>
     <unit id="447306477246144131">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:54</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Nicht leer</source>
-        <target>Nicht leer</target>
+        <target>空でない</target>
       </segment>
     </unit>
     <unit id="5337456151430247073">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:56</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Enthält</source>
-        <target>Enthält</target>
+        <target>インクルード</target>
       </segment>
     </unit>
     <unit id="5450837182765876340">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:58</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Enthält nicht</source>
-        <target>Enthält nicht</target>
+        <target>含まない</target>
       </segment>
     </unit>
     <unit id="3682885931610428519">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:67</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Enthält mindestens eines</source>
-        <target>Enthält mindestens eines</target>
+        <target>少なくとも 1 つを含む</target>
       </segment>
     </unit>
     <unit id="5531218639276023450">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:70</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Enthält alle</source>
-        <target>Enthält alle</target>
+        <target>すべてを含む</target>
       </segment>
     </unit>
     <unit id="8259468771853264984">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:78</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wert oder Variabel %7Be1%7D</source>
-        <target>Wert oder Variabel %7Be1%7D</target>
+        <target>値または変数 %7Be1%7D</target>
       </segment>
     </unit>
     <unit id="7897216764489223339">
@@ -3876,18 +3884,18 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:697</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Generische Sichtbarkeitsbedingung für die Antworten</source>
-        <target>Generische Sichtbarkeitsbedingung für die Antworten</target>
+        <target>回答の一般的な可視性条件</target>
       </segment>
     </unit>
     <unit id="2952670019708328939">
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:700</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Wird für jede Antwort einzeln evaluiert.</source>
-        <target>Wird für jede Antwort einzeln evaluiert.</target>
+        <target>各回答について別々に評価されます。</target>
       </segment>
     </unit>
     <unit id="1855713545021520634">
@@ -3939,9 +3947,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:545</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Anderes Eingabefeld Text</source>
-        <target>Anderes Eingabefeld Text</target>
+        <target>その他の入力フィールド・テキスト</target>
       </segment>
     </unit>
     <unit id="2412317594447763128">
@@ -4092,9 +4100,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:67</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</source>
-        <target>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit die Sprache zu wechseln.</target>
+        <target>ユーザーに表示されるデフォルト言語。 ユーザーが言語を変更する可能性があります。</target>
       </segment>
     </unit>
     <unit id="1372482459728345325">
@@ -4146,9 +4154,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:108</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Abschlusstext</source>
-        <target>Abschlusstext</target>
+        <target>最終テキスト</target>
       </segment>
     </unit>
     <unit id="7027469161598572792">
@@ -4821,9 +4829,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/editor.component.html:393</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Fragen ID:</source>
-        <target>Fragen ID:</target>
+        <target>質問 ID:</target>
       </segment>
     </unit>
     <unit id="7897211246412919659">
@@ -4875,9 +4883,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:54</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bitte prüfen Sie Ihre Eingaben.</source>
-        <target>Bitte prüfen Sie Ihre Eingaben.</target>
+        <target>入力内容を確認してください。</target>
       </segment>
     </unit>
     <unit id="6154523979033512876">
@@ -4974,18 +4982,18 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:44</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Antworten zu den ausgefüllten Formularen</source>
-        <target>Antworten zu den ausgefüllten Formularen</target>
+        <target>完成したフォームへの回答</target>
       </segment>
     </unit>
     <unit id="3984435809098000979">
       <notes>
         <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:51</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Aufsteigend oder Absteigend sortieren.</source>
-        <target>Aufsteigend oder Absteigend sortieren.</target>
+        <target>昇順または降順にソートします。</target>
       </segment>
     </unit>
     <unit id="2418500321333956842">
@@ -5091,9 +5099,9 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:90</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Bitte geben Sie einen Titel an.</source>
-        <target>Bitte geben Sie einen Titel an.</target>
+        <target>タイトルを入力してください。</target>
       </segment>
     </unit>
     <unit id="623768782436568030">
@@ -5280,173 +5288,172 @@ Dies lässt sich nicht mehr umkehren!</source>
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:78</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Preisentwicklung Niedersachsen, gesamt</source>
-        <target>Preisentwicklung Niedersachsen, gesamt</target>
+        <target>価格開発のニーダーザクセン、全体</target>
       </segment>
     </unit>
     <unit id="5307623643760357941">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:79</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gebrauchte Eigenheime</source>
-        <target>Gebrauchte Eigenheime</target>
+        <target>中古住宅</target>
       </segment>
     </unit>
     <unit id="1088042577119915820">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:80</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>EH</source>
-        <target>EH</target>
+        <target>あー</target>
       </segment>
     </unit>
     <unit id="6062453738307472931">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:81</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Gebrauchte Eigentumswohnungen</source>
-        <target>Gebrauchte Eigentumswohnungen</target>
+        <target>使用されたコンドミニアム</target>
       </segment>
     </unit>
     <unit id="6354661807949531329">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:82</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>EW</source>
-        <target>EW</target>
+        <target>UC</target>
       </segment>
     </unit>
     <unit id="1551858290218147096">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:83</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Vergleich Preisentwicklung von städtischen und ländlichen Regionen</source>
-        <target>Vergleich Preisentwicklung von städtischen und ländlichen Regionen</target>
+        <target>都市・農村地域の価格動向の比較</target>
       </segment>
     </unit>
     <unit id="4316260054616310474">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:84</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Preisentwicklung nach städtischen und ländlichen Regionen</source>
-        <target>Preisentwicklung nach städtischen und ländlichen Regionen</target>
+        <target>都市部・農村部による価格開発</target>
       </segment>
     </unit>
     <unit id="6512166400814631812">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:85</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Vergleich zusammengefasster Regionen</source>
-        <target>Vergleich zusammengefasster Regionen</target>
+        <target>要約領域の比較</target>
       </segment>
     </unit>
     <unit id="6448279684130108067">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:86</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Städtische Regionen</source>
-        <target>Städtische Regionen</target>
+        <target>都市圏</target>
       </segment>
     </unit>
     <unit id="4753259279067371249">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:87</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>SR</source>
-        <target>SR</target>
+        <target>ウール</target>
       </segment>
     </unit>
     <unit id="2165887996252736733">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:88</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Ländliche Regionen</source>
-        <target>Ländliche Regionen</target>
+        <target>農村地域</target>
       </segment>
     </unit>
     <unit id="2561517474553080273">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:89</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>LR</source>
-        <target>LR</target>
+        <target>RR</target>
       </segment>
     </unit>
     <unit id="6519912233918863557">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:90</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Hannover</source>
-        <target>Hannover</target>
+        <target>ハノーファー</target>
       </segment>
     </unit>
     <unit id="5860480415256546602">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:91</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Braunschweig</source>
-        <target>Braunschweig</target>
+        <target>ブランズウィック</target>
       </segment>
     </unit>
     <unit id="7296884130288172531">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:92</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Hannover - Braunschweig - Wolfsburg</source>
-        <target>Hannover - Braunschweig - Wolfsburg</target>
+        <target>ハノーファー = ブランズウィック = ヴォルフスブルク</target>
       </segment>
     </unit>
     <unit id="2684344054646048111">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions.ts:25</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Quelle: Oberer Gutachterausschuss für
 Grundstückswerte in Niedersachsen</source>
-        <target>Quelle: Oberer Gutachterausschuss für
-Grundstückswerte in Niedersachsen</target>
+        <target>出典: ニーダーザクセン州における財産価値の上級諮問委員会</target>
       </segment>
     </unit>
     <unit id="2331129654501752489">
       <notes>
         <note category="location">src/app/shared/geosearch/geosearch.service.ts:71</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Return-Code vom Backend</source>
-        <target>Return-Code vom Backend</target>
+        <target>バックエンドからの戻りコード</target>
       </segment>
     </unit>
     <unit id="5644795770167690835">
       <notes>
         <note category="location">src/app/shared/geosearch/geosearch.service.ts:72</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Nachricht</source>
-        <target>Nachricht</target>
+        <target>メッセージ</target>
       </segment>
     </unit>
     <unit id="7608695348965743146">
       <notes>
         <note category="location">src/app/shared/geosearch/geosearch.service.ts:74</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>Es ist ein Fehler aufgetreten.</source>
-        <target>Es ist ein Fehler aufgetreten.</target>
+        <target>エラーが発生しました。</target>
       </segment>
     </unit>
   </file>
