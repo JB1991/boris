@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '../../formapi.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+import { Access } from '../../formapi.model';
 
 @Component({
     selector: 'power-forms-details-publish',
@@ -17,8 +18,7 @@ export class PublishComponent implements OnInit {
         tasksPerPage: 5,
     };
     @ViewChild('publishmodal') public modal: ModalminiComponent;
-    public pin = 'pin8';
-    public accesstime = 60;
+    public access: Access = 'pin8';
 
     constructor(public alerts: AlertsService,
         public formapi: FormAPIService) {
@@ -52,12 +52,10 @@ export class PublishComponent implements OnInit {
             return;
         }
 
-        const queryParams: Object = {
-            access: this.pin,
-            'access-minutes': this.accesstime,
-            publish: true,
-        };
-        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
+        this.formapi.updateForm(this.data.form.id, {
+            access: this.access,
+            status: 'published',
+        }).then(result => {
             // success
             this.data.form = result;
             this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,

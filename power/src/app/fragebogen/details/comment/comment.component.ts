@@ -66,9 +66,11 @@ export class CommentComponent implements OnInit {
         };
 
         // save
-        this.formapi.updateInternTask(this.data.tasksList[this.tasknr].id, null, queryParams).then(result => {
+        this.formapi.updateTask(this.data.tasksList[this.tasknr].id, {
+            description: this.comment,
+        }).then(() => {
             // success
-            this.data.tasksList[this.tasknr].description = result.description;
+            this.data.tasksList[this.tasknr].description = this.comment;
             this.close();
         }).catch((error: Error) => {
             // failed to create task

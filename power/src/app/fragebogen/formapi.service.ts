@@ -2,61 +2,73 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
 
-import { AuthService } from '@app/shared/auth/auth.service';
+import { AuthService, User } from '@app/shared/auth/auth.service';
+import {
+    Access, ElementField, ElementFilter, ElementSort,
+    Form, FormField, FormFilter, FormSort, FormStatus,
+    Permission, PublicForm, PublicFormField, PublicFormFilter,
+    PublicFormSort, PublicTask, PublicTaskField, Task, TaskField,
+    TaskFilter, TaskSort, TaskStatus, UserField
+} from './formapi.model';
+import { ElementFilterToString, FormFilterToString, SortToString, TaskFilterToString } from './formapi.converter';
+
+enum Method {
+    GET,
+    POST,
+    PUT,
+    DELETE,
+}
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class FormAPIService {
-
-    constructor(private httpClient: HttpClient,
-        public auth: AuthService) { }
+    constructor(private httpClient: HttpClient, public auth: AuthService) { }
 
     /**
      * Helper function to reduce code duplication
+     * @param required Required json keys from response
+     * @param method Http method
      * @param uri URL
-     * @param required Required json key from response
-     * @param queryParams Query parameters
+     * @param params Query parameters
      * @param body Body for POST
-     * @param del True to send DELETE
      */
-    private async getData(uri: string,
-        required?: string,
-        queryParams?: Object,
-        body?: any,
-        del?: boolean): Promise<any> {
-        // craft url
-        let data: ArrayBuffer;
-        const params = new URLSearchParams({});
-        if (queryParams) {
-            for (const key of Object.keys(queryParams)) {
-                params.append(key, queryParams[key].toString());
-            }
-        }
-        const url = environment.formAPI + uri +
-            (params.toString() ? '?' + params.toString() : '');
+    // tslint:disable-next-line: max-func-body-length
+    private async Do(required: Array<string>, method: Method, uri: string, params: Record<string, string>, body?: any) {
+        const p = new URLSearchParams(params);
+        const url = environment.formAPI + uri + (p.toString() ? '?' + p.toString() : '');
 
-        // get data
+        console.log(url);
+
+        let data: ArrayBuffer;
         try {
-            if (del) {
-                data = await this.httpClient.delete(url, this.auth.getHeaders()).toPromise();
-            } else if (typeof body !== 'undefined') {
-                data = await this.httpClient.post(url, body, this.auth.getHeaders()).toPromise();
-            } else {
-                data = await this.httpClient.get(url, this.auth.getHeaders()).toPromise();
+            switch (method) {
+                case Method.POST:
+                    data = await this.httpClient.post(url, body, this.auth.getHeaders()).toPromise();
+                    break;
+                case Method.PUT:
+                    data = await this.httpClient.put(url, body, this.auth.getHeaders()).toPromise();
+                    break;
+                case Method.DELETE:
+                    data = await this.httpClient.delete(url, this.auth.getHeaders()).toPromise();
+                    break;
+                default:
+                    data = await this.httpClient.get(url, this.auth.getHeaders()).toPromise();
             }
         } catch (error) {
-            // failed
             throw new Error(error['message']);
         }
-
         // check for error
         if (!data) {
             throw new Error('API returned an empty response');
-        } else if (data['error']) {
+        }
+        if (data['error']) {
             throw new Error('API returned error: ' + data['error']);
-        } else if (required && !data[required]) {
-            throw new Error('API returned an invalid response');
+        }
+        for (const r of required) {
+            if (!data[r]) {
+                throw new Error('API returned an invalid response');
+            }
         }
         return <any>data;
     }
@@ -64,568 +76,461 @@ export class FormAPIService {
     /**
      * Returns tag list
      */
-    public async getInternTags(): Promise<string[]> {
-        return (await this.getData('intern/tags', 'data'))['data'];
+    public async getTags(): Promise<string[]> {
+        return (await this.Do(['tags'], Method.GET, 'tags', {}))['tags'];
     }
 
     /**
-     * Returns form list
-     * @param queryParams Query parameters
+     * Returns group list
      */
-    public async getInternForms(queryParams?: {
-        fields?: string;
-        access?: 'public' | 'pin6' | 'pin8' | 'pin6-factor';
-        'title-contains'?: string;
-        tag?: string;
-        'created-before'?: string;
-        'created-after'?: string;
-        'published-before'?: string;
-        'published-after'?: string;
-        'cancelled-before'?: string;
-        'cancelled-after'?: string;
-        status?: 'created' | 'published' | 'cancelled';
-        sort?: 'id' | 'title' | 'created' | 'published' | 'cancelled';
-        order?: 'asc' | 'desc';
-        limit?: number;
-        offset?: number;
-    }): Promise<{
-        data: Form[];
-        total: number;
+    public async getGroups(): Promise<string[]> {
+        return (await this.Do(['groups'], Method.GET, 'groups', {}))['groups'];
+    }
+
+    // tslint:disable-next-line: cyclomatic-complexity
+    public async getForms(
+        params: GetFormsParams
+    ): Promise<{
+        forms: Array<Form>;
+        'total-forms': number;
+        owners: Record<string, User>;
     }> {
-        return (await this.getData('intern/forms', 'data', queryParams));
+        const p: Record<string, string> = {};
+        if (params.fields && params.fields.length > 0) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['owner-fields'] && params['owner-fields'].length > 0) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra && params.extra.length > 0) {
+            p.extra = params.extra.join(',');
+        }
+        if (params.filter) {
+            p.filter = FormFilterToString(params.filter);
+        }
+        if (params.sort) {
+            p.sort = SortToString(params.sort);
+        }
+        if (params.limit) {
+            p.limit = params.limit.toString();
+        }
+        if (params.offset) {
+            p.offset = params.offset.toString();
+        }
+        return this.Do(['forms', 'owners', 'total-forms'], Method.GET, 'forms', p);
     }
 
-    /**
-     * Creates new form
-     * @param form Formular json
-     * @param queryParams Query parameters
-     */
-    public async createInternForm(form: Object, queryParams?: {
-        fields?: string;
-        access?: 'public' | 'pin6' | 'pin8' | 'pin6-factor';
-        'access-minutes'?: number;
-        tags?: string[];
-        owners?: string[];
-        readers?: string[];
-    }): Promise<Form> {
-        // check data
-        if (!form) {
-            throw new Error('form is required');
-        }
-
-        return (await this.getData('intern/forms', 'data', queryParams, form))['data'];
-    }
-
-    /**
-     * Returns form by id
-     * @param id Form id
-     * @param queryParams Query parameters
-     */
-    public async getInternForm(id: string, queryParams?: {
-        fields?: string;
-    }): Promise<Form> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        return (await this.getData('intern/forms/' + encodeURIComponent(id), 'data', queryParams))['data'];
-    }
-
-    /**
-     * Updates form by id
-     * @param id Form id
-     * @param form Formular json
-     * @param queryParams Query parameters
-     */
-    public async updateInternForm(id: string, form?: Object, queryParams?: {
-        fields?: string;
-        access?: 'public' | 'pin6' | 'pin8' | 'pin6-factor';
-        'access-minutes'?: number;
-        tags?: string[];
-        owners?: string[];
-        readers?: string[];
-        'add-tags'?: string[];
-        'add-owners'?: string[];
-        'add-readers'?: string[];
-        'remove-tags'?: string[];
-        'remove-owners'?: string[];
-        'remove-readers'?: string[];
-        publish?: boolean;
-        cancel?: boolean;
-    }): Promise<Form> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-        /* istanbul ignore else */
-        if (!form) {
-            form = '';
-        }
-
-        return (await this.getData('intern/forms/' + encodeURIComponent(id), 'data', queryParams, form))['data'];
-    }
-
-    /**
-     * Deletes form by id
-     * @param id Form id
-     */
-    public async deleteInternForm(id: string): Promise<string> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        return (await this.getData('intern/forms/' + encodeURIComponent(id), 'message', null, null, true))['message'];
-    }
-
-    /**
-     * Returns task list by form-id
-     * @param id Form id
-     * @param queryParams Query parameters
-     */
-    public async getInternFormTasks(id: string, queryParams?: {
-        fields?: string;
-        status?: 'created' | 'accessed' | 'submitted';
-        'created-before'?: string;
-        'created-after'?: string;
-        'accessed-before'?: string;
-        'accessed-after'?: string;
-        'submitted-before'?: string;
-        'submitted-after'?: string;
-        sort?: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted';
-        order?: 'asc' | 'desc';
-        limit?: number;
-        offset?: number;
-    }): Promise<{
-        data: Task[];
-        total: number;
+    public async getForm(
+        id: string,
+        params: GetFormParams
+    ): Promise<{
+        form: Form;
+        owner: User;
     }> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
         }
-
-        return (await this.getData('intern/forms/' + encodeURIComponent(id) + '/tasks', 'data', queryParams));
+        if (params['owner-fields']) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra) {
+            p.extra = params['extra'].join(',');
+        }
+        return this.Do(['form', 'owner'], Method.GET, 'forms/' + encodeURIComponent(id), p);
     }
 
-    /**
-     * Creates new tasks for form-id
-     * @param id Form id
-     * @param results Formular result json
-     * @param queryParams Query parameters
-     */
-    public async createInternFormTasks(id: string, results: Object, queryParams?: {
-        fields?: string;
-        factor?: string;
-        description?: string;
-        number?: number;
+    public async createForm(body: {
+        content?: any;
+        tags?: Array<string>;
+        access?: Access;
+        group?: string;
+        'group-permissions'?: Array<Permission>;
+        'other-permissions'?: Array<Permission>;
     }): Promise<{
-        data: Task[];
-        total: number;
+        id: string;
     }> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-        if (!results) {
-            throw new Error('results is required');
-        }
-
-        return (await this.getData('intern/forms/' + encodeURIComponent(id) + '/tasks', 'data', queryParams, results));
+        return this.Do(['id'], Method.POST, 'forms/', {}, body);
     }
 
-    /**
-     * Returns CSV results
-     * @param id Form id
-     * @param queryParams Query parameters
-     */
-    public async getInternFormCSV(id: string, queryParams?: {
-        fields?: string;
-        status?: 'created' | 'accessed' | 'submitted';
-        'created-before'?: string;
-        'created-after'?: string;
-        'accessed-before'?: string;
-        'accessed-after'?: string;
-        'submitted-before'?: string;
-        'submitted-after'?: string;
-        sort?: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted';
-        order?: 'asc' | 'desc';
-        limit?: number;
-        offset?: number;
-    }): Promise<string> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
+    public async updateForm(
+        id: string,
+        body: {
+            content?: any;
+            tags?: Array<string>;
+            access?: Access;
+            group?: string;
+            'group-permissions'?: Array<Permission>;
+            'other-permissions'?: Array<Permission>;
+            status?: FormStatus;
         }
+    ): Promise<{
+        id: string;
+    }> {
+        return this.Do(['id'], Method.PUT, 'forms/' + encodeURIComponent(id), {}, body);
+    }
 
-        // craft url
+    public async deleteForm(
+        id: string
+    ): Promise<{
+        id: string;
+    }> {
+        return this.Do(['id'], Method.DELETE, 'forms/' + encodeURIComponent(id), {});
+    }
+
+    // tslint:disable-next-line: max-func-body-length
+    // tslint:disable-next-line: cyclomatic-complexity
+    public async getTasks(
+        params: GetTasksParams
+    ): Promise<{
+        tasks: Array<Task>;
+        'total-tasks': number;
+        forms: Record<string, Form>;
+        owners: Record<string, User>;
+    }> {
+        const p: Record<string, string> = {};
+        if (params.fields && params.fields.length > 0) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['form-fields'] && params['form-fields'].length > 0) {
+            p['form-fields'] = params['form-fields'].join(',');
+        }
+        if (params['owner-fields'] && params['owner-fields'].length > 0) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra && params.extra.length > 0) {
+            p.extra = params.extra.join(',');
+        }
+        if (params['form-extra'] && params['form-extra'].length > 0) {
+            p['form-extra'] = params['form-extra'].join(',');
+        }
+        if (params.filter) {
+            p.filter = TaskFilterToString(params.filter);
+        }
+        if (params.sort) {
+            p.sort = SortToString(params.sort);
+        }
+        if (params.limit) {
+            p.limit = params.limit.toString();
+        }
+        if (params.offset) {
+            p.offset = params.offset.toString();
+        }
+        return this.Do(['forms', 'tasks', 'owners', 'total-tasks'], Method.GET, 'tasks', p);
+    }
+
+    public async getTask(
+        id: string,
+        params: GetTasksParams
+    ): Promise<{
+        task: Task;
+        form: Form;
+        owner: User;
+    }> {
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['form-fields']) {
+            p['form-fields'] = params['form-fields'].join(',');
+        }
+        if (params['owner-fields']) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        if (params['form-extra']) {
+            p['form-extra'] = params['form-extra'].join(',');
+        }
+        return this.Do(['task', 'form', 'owner'], Method.GET, 'tasks/' + encodeURIComponent(id), p);
+    }
+
+    public async createTask(
+        formID: string,
+        body: {
+            content?: any;
+            description?: string;
+        }
+    ): Promise<{
+        id: string;
+    }> {
+        return this.Do(['id'], Method.POST, 'forms/' + encodeURIComponent(formID), {}, body);
+    }
+
+    public async updateTask(
+        id: string,
+        body: {
+            content?: any;
+            description?: string;
+            status?: TaskStatus;
+        }
+    ): Promise<{
+        id: string;
+    }> {
+        return this.Do(['id'], Method.PUT, 'tasks/' + encodeURIComponent(id), {}, body);
+    }
+
+    public async deleteTask(
+        id: string
+    ): Promise<{
+        id: string;
+    }> {
+        return this.Do(['id'], Method.DELETE, 'tasks/' + encodeURIComponent(id), {});
+    }
+
+    public async getElements(
+        params: GetElementsParams
+    ): Promise<{
+        elements: Array<Element>;
+        'total-elements': number;
+    }> {
+        const p: Record<string, string> = {};
+        if (params.fields && params.fields.length > 0) {
+            p.fields = params.fields.join(',');
+        }
+        if (params.extra && params.extra.length > 0) {
+            p.extra = params.extra.join(',');
+        }
+        if (params.filter) {
+            p.filter = ElementFilterToString(params.filter);
+        }
+        if (params.sort) {
+            p.sort = SortToString(params.sort);
+        }
+        if (params.limit) {
+            p.limit = params.limit.toString();
+        }
+        if (params.offset) {
+            p.offset = params.offset.toString();
+        }
+        return this.Do(['elements', 'total-elements'], Method.GET, 'elements', p);
+    }
+
+    public async getElement(
+        id: string,
+        params: GetElementParams
+    ): Promise<{
+        element: Element;
+        owner: User;
+    }> {
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        return this.Do(['element', 'owner'], Method.GET, 'elements/' + encodeURIComponent(id), p);
+    }
+
+    public async createElement(body: {
+        content?: any;
+    }): Promise<{
+        id: string;
+    }> {
+        return this.Do(['id'], Method.POST, 'elements/', {}, body);
+    }
+
+    public async updateElement(
+        id: string,
+        body: {
+            content?: any;
+        }
+    ): Promise<{
+        id: string;
+    }> {
+        return this.Do(['id'], Method.PUT, 'elements/' + encodeURIComponent(id), {}, body);
+    }
+
+    public async deleteElement(
+        id: string
+    ): Promise<{
+        id: string;
+    }> {
+        return this.Do(['id'], Method.DELETE, 'elements/' + encodeURIComponent(id), {});
+    }
+
+    public async getPublicForms(
+        params: GetPublicFormsParams
+    ): Promise<{
+        forms: Array<PublicForm>;
+        'total-forms': number;
+    }> {
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        if (params.filter) {
+            p.filter = FormFilterToString(params.filter);
+        }
+        if (params.sort) {
+            p.sort = SortToString(params.sort);
+        }
+        if (params.limit) {
+            p.limit = params.limit.toString();
+        }
+        if (params.offset) {
+            p.offset = params.offset.toString();
+        }
+        return this.Do(['forms', 'total-forms'], Method.GET, 'public/forms/', p);
+    }
+
+    public async getPublicForm(
+        id: string,
+        params: GetPublicFormParams
+    ): Promise<{
+        form: PublicForm;
+    }> {
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params.extra) {
+            p.extra = params['extra'].join(',');
+        }
+        return this.Do(['form'], Method.GET, 'public/forms/' + encodeURIComponent(id), p);
+    }
+
+    public async createPublicTask(
+        formID: string,
+        content: any,
+    ): Promise<{
+        message: string;
+    }> {
+        return this.Do(['message'], Method.POST, 'public/forms/' + encodeURIComponent(formID), { content: content });
+    }
+
+    public async getPublicTask(
+        pin: string,
+        params: GetPublicTaskParams
+    ): Promise<{
+        task: PublicTask;
+        form: PublicForm;
+    }> {
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['form-fields']) {
+            p['form-fields'] = params['form-fields'].join(',');
+        }
+        if (params['owner-fields']) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        if (params['form-extra']) {
+            p['form-extra'] = params['form-extra'].join(',');
+        }
+        return this.Do(['task', 'form'], Method.GET, 'public/tasks/' + encodeURIComponent(pin), p);
+    }
+
+    public async updatePublicTask(
+        pin: string,
+        content: any,
+        submit: boolean
+    ): Promise<{
+        task: PublicTask;
+        form: PublicForm;
+    }> {
+        const p: Record<string, string> = {};
+        if (submit) {
+            p.submit = 'true';
+        }
+        return this.Do(['task', 'form'], Method.GET, 'public/tasks/' + encodeURIComponent(pin), p, {
+            content: content,
+        });
+    }
+
+    public async getCSV(formID: string): Promise<string> {
         let data: ArrayBuffer;
-        const params = new URLSearchParams({});
-        if (queryParams) {
-            for (const key of Object.keys(queryParams)) {
-                params.append(key, queryParams[key].toString());
-            }
-        }
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(id) + '/tasks/csv' +
-            (params.toString() ? '?' + params.toString() : '');
+        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(formID) + '/csv';
 
-        // get data
         try {
             data = await this.httpClient.get(url, this.auth.getHeaders('text', 'text/csv')).toPromise();
         } catch (error) {
-            // failed
             throw new Error(error['message']);
         }
 
-        // check for error
         if (!data) {
             throw new Error('API returned an empty response');
         }
         return <any>data;
     }
-
-    /**
-     * Returns task list
-     * @param queryParams Query parameters
-     */
-    public async getInternTasks(queryParams?: {
-        fields?: string;
-        status?: 'created' | 'accessed' | 'submitted';
-        'created-before'?: string;
-        'created-after'?: string;
-        'accessed-before'?: string;
-        'accessed-after'?: string;
-        'submitted-before'?: string;
-        'submitted-after'?: string;
-        sort?: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted';
-        order?: 'asc' | 'desc';
-        limit?: number;
-        offset?: number;
-    }): Promise<{
-        data: Task[];
-        total: number;
-    }> {
-        return (await this.getData('intern/tasks', 'data', queryParams));
-    }
-
-    /**
-     * Returns task by id
-     * @param id Task id
-     * @param queryParams Query parameters
-     */
-    public async getInternTask(id: string, queryParams?: {
-        fields?: string;
-    }): Promise<Task> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        return (await this.getData('intern/tasks/' + encodeURIComponent(id), 'data', queryParams))['data'];
-    }
-
-    /**
-     * Updates tasks by id
-     * @param id Task id
-     * @param results Formular result json
-     * @param queryParams Query parameters
-     */
-    public async updateInternTask(id: string, results?: Object, queryParams?: {
-        fields?: string;
-        factor?: string;
-        description?: string;
-        submit?: boolean;
-    }): Promise<Task> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-        /* istanbul ignore else */
-        if (!results) {
-            results = '';
-        }
-
-        return (await this.getData('intern/tasks/' + encodeURIComponent(id), 'data', queryParams, results))['data'];
-    }
-
-    /**
-     * Deletes task by id
-     * @param id Task id
-     */
-    public async deleteInternTask(id: string): Promise<string> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        return (await this.getData('intern/tasks/' + encodeURIComponent(id), 'message', null, null, true))['message'];
-    }
-
-    /**
-     * Returns element list
-     * @param queryParams Query parameters
-     */
-    public async getInternElements(queryParams?: {
-        fields?: string;
-        'name-contains'?: string;
-        name?: string;
-        'type-contains'?: string;
-        type?: string;
-        'title-contains'?: string;
-        title?: string;
-        'created-before'?: string;
-        'created-after'?: string;
-        sort?: 'id' | 'name' | 'type' | 'title' | 'created';
-        order?: 'asc' | 'desc';
-        limit?: number;
-        offset?: number;
-    }): Promise<{
-        data: Question[];
-        total: number;
-    }> {
-        return (await this.getData('intern/elements', 'data', queryParams));
-    }
-
-    /**
-     * Creates new element
-     * @param element SurveyJS Question
-     * @param queryParams Query parameters
-     */
-    public async createInternElement(element: Object, queryParams?: {
-        fields?: string;
-        owners?: string[];
-        readers?: string[];
-    }): Promise<Question> {
-        // check data
-        if (!element) {
-            throw new Error('element is required');
-        }
-
-        return (await this.getData('intern/elements', 'data', queryParams, element))['data'];
-    }
-
-    /**
-     * Returns element by id
-     * @param id Element id
-     * @param queryParams Query parameters
-     */
-    public async getInternElement(id: string, queryParams?: {
-        fields?: string;
-    }): Promise<Question> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        return (await this.getData('intern/elements/' + encodeURIComponent(id), 'data', queryParams))['data'];
-    }
-
-    /**
-     * Updates element by id
-     * @param id Element id
-     * @param element SurveyJS Question
-     * @param queryParams Query parameters
-     */
-    public async updateInternElement(id: string, element?: Object, queryParams?: {
-        fields?: string;
-        owners?: string[];
-        readers?: string[];
-        'add-owners'?: string[];
-        'add-readers'?: string[];
-        'remove-owners'?: string[];
-        'remove-readers'?: string[];
-    }): Promise<Question> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-        /* istanbul ignore else */
-        if (!element) {
-            element = '';
-        }
-
-        return (await this.getData('intern/elements/' + encodeURIComponent(id), 'data', queryParams, element))['data'];
-    }
-
-    /**
-     * Deletes element by id
-     * @param id Task id
-     */
-    public async deleteInternElement(id: string): Promise<string> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        return (await this.getData('intern/elements/' + encodeURIComponent(id),
-            'message', null, null, true))['message'];
-    }
-
-    /**
-     * Returns form list
-     * @param queryParams Query parameters
-     */
-    public async getPublicForms(queryParams?: {
-        fields?: string;
-        'title-contains'?: string;
-        'published-before'?: string;
-        'published-after'?: string;
-        sort?: 'id' | 'title' | 'published';
-        order?: 'asc' | 'desc';
-        limit?: number;
-        offset?: number;
-    }): Promise<{
-        data: PublicForm[];
-        total: number;
-    }> {
-        return (await this.getData('public/forms', 'data', queryParams));
-    }
-
-    /**
-     * Returns form by id
-     * @param id Form id
-     * @param queryParams Query parameters
-     */
-    public async getPublicForm(id: string, queryParams?: {
-        fields?: string;
-    }): Promise<PublicForm> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        return (await this.getData('public/forms/' + encodeURIComponent(id), 'data', queryParams))['data'];
-    }
-
-    /**
-     * Creates new task for form-id
-     * @param id Form id
-     * @param results Formular result json
-     * @param queryParams Query parameters
-     */
-    public async createPublicTask(id: string, results: Object, queryParams?: {
-        fields?: string;
-        submit?: boolean;
-    }): Promise<PublicTask> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-        if (!results) {
-            throw new Error('results is required');
-        }
-
-        return (await this.getData('public/forms/' + encodeURIComponent(id) + '/tasks', 'data', queryParams, results))['data'];
-    }
-
-    /**
-     * Returns task by id
-     * @param id Task id
-     * @param queryParams Query parameters
-     */
-    public async getPublicTask(id: string, queryParams?: {
-        fields?: string;
-    }): Promise<PublicTask> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
-        return (await this.getData('public/tasks/' + encodeURIComponent(id), 'data', queryParams))['data'];
-    }
-
-    /**
-     * Updates task by id
-     * @param id Task id
-     * @param results Formular result json
-     * @param queryParams Query parameters
-     */
-    public async updatePublicTask(id: string, results?: Object, queryParams?: {
-        fields?: string;
-        submit?: boolean;
-    }): Promise<PublicTask> {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-        /* istanbul ignore else */
-        if (!results) {
-            results = '';
-        }
-
-        return (await this.getData('public/tasks/' + encodeURIComponent(id), 'data', queryParams, results))['data'];
-    }
-
-    /**
-     * Grants access
-     * @param pin Formular pin
-     * @param factor Two factor value
-     */
-    public async getPublicAccess(pin: string, factor?: string): Promise<PublicAccess> {
-        // check data
-        if (!pin) {
-            throw new Error('pin is required');
-        }
-
-        return (await this.getData('public/access?pin=' + encodeURIComponent(pin) +
-            (factor ? '&factor=' + encodeURIComponent(factor) : ''), 'data'))['data'];
-    }
 }
 
-export interface Form {
-    id: string;
-    content: Object;
-    title: string;
-    access?: 'public' | 'pin6' | 'pin8' | 'pin6-factor';
-    'access-minutes'?: number;
-    tags: string[];
-    owners: string[];
-    readers: string[];
-    created: string;
-    published?: string;
-    cancelled?: string;
-    status: 'created' | 'published' | 'cancelled';
+export interface GetFormsParams {
+    fields: Array<FormField>;
+    'owner-fields'?: Array<UserField>;
+    extra?: Array<string>;
+    filter?: FormFilter;
+    sort?: FormSort;
+    limit?: number;
+    offset?: number;
 }
 
-export interface PublicForm {
-    id: string;
-    content: Object;
-    title: string;
-    access?: 'public' | 'pin6' | 'pin8' | 'pin6-factor';
-    'access-minutes'?: number;
-    published?: string;
+export interface GetPublicFormsParams {
+    fields: Array<PublicFormField>;
+    extra?: Array<string>;
+    filter?: PublicFormFilter;
+    sort?: PublicFormSort;
+    limit?: number;
+    offset?: number;
 }
 
-export interface Task {
-    id: string;
-    'form-id': string;
-    factor?: string;
-    pin?: string;
-    content: Object;
-    created: string;
-    accessed?: string;
-    submitted?: string;
-    status: 'created' | 'accessed' | 'submitted';
-    description: string;
+export interface GetFormParams {
+    fields: Array<FormField>;
+    'owner-fields'?: Array<UserField>;
+    extra?: Array<string>;
 }
 
-export interface PublicTask {
-    id: string;
-    'form-id': string;
-    content: Object;
+export interface GetPublicFormParams {
+    fields: Array<PublicFormField>;
+    extra?: Array<string>;
 }
 
-export interface PublicAccess {
-    id: string;
-    'form-id': string;
-    content: Object;
+export interface GetTasksParams {
+    fields: Array<TaskField>;
+    'form-fields'?: Array<FormField>;
+    'owner-fields'?: Array<UserField>;
+    extra?: Array<string>;
+    'form-extra'?: Array<string>;
+    filter?: TaskFilter;
+    sort?: TaskSort;
+    limit?: number;
+    offset?: number;
 }
 
-export interface Question {
-    id: string;
-    content: Object;
-    owners: string[];
-    readers: string[];
-    created: string;
+export interface GetTaskParams {
+    fields: Array<TaskField>;
+    'form-fields'?: Array<FormField>;
+    'owner-fields'?: Array<UserField>;
+    extra?: Array<string>;
+    'form-extra'?: Array<string>;
+}
+
+export interface GetPublicTaskParams {
+    fields: Array<PublicTaskField>;
+    'form-fields'?: Array<PublicFormField>;
+    extra?: Array<string>;
+    'form-extra'?: Array<string>;
+}
+
+export interface GetElementsParams {
+    fields: Array<ElementField>;
+    extra?: Array<string>;
+    filter?: ElementFilter;
+    sort?: ElementSort;
+    limit?: number;
+    offset?: number;
+}
+
+export interface GetElementParams {
+    fields: Array<ElementField>;
+    extra?: Array<string>;
 }

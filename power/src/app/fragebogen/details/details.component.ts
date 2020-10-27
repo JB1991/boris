@@ -8,6 +8,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { FormAPIService } from '../formapi.service';
+import { TaskStatus, TaskSortField } from '../formapi.model';
 
 @Component({
     selector: 'power-forms-details',
@@ -27,9 +28,9 @@ export class DetailsComponent implements OnInit {
 
     public id: string;
 
-    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
-    public taskSort: 'id' | 'pin' | 'created' | 'submitted' = 'submitted';
-    public taskOrder: 'asc' | 'desc' = 'desc';
+    public taskStatus: TaskStatus | 'all' = 'all';
+    public taskSort: TaskSortField = 'updated';
+    public taskSortOrder: 'asc' | 'desc' = 'desc';
 
     @ViewChild('preview') public preview: PreviewComponent;
     component: any;
@@ -63,19 +64,22 @@ export class DetailsComponent implements OnInit {
      * Load form data
      * @param id Form id
      */
+    // tslint:disable-next-line: max-func-body-length
     public async loadData(id: string) {
         // check data
         if (!id) {
             throw new Error('id is required');
         }
-
         try {
-            const result = await this.formapi.getInternForm(id);
+            const result = await this.formapi.getForm(id, { fields: ['all'] });
             this.data.form = result;
-            if (result.status !== 'created') {
-                const results = await this.formapi.getInternFormTasks(id);
-                this.data.tasksList = results.data;
-                this.data.tasksCountTotal = results.total;
+            if (result.form.status !== 'created') {
+                const results = await this.formapi.getTasks({
+                    fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
+                    filter: { 'has-form-with': { id: result.form.id } },
+                });
+                this.data.tasksList = results.tasks;
+                this.data.tasksCountTotal = results['total-tasks'];
                 this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
                 this.loadingscreen.setVisible(false);
             } else {
@@ -108,7 +112,7 @@ export class DetailsComponent implements OnInit {
         }
 
         // delete form
-        this.formapi.deleteInternForm(this.data.form.id).then(() => {
+        this.formapi.deleteForm(this.data.form.id).then(() => {
             // success
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
@@ -137,7 +141,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
 
 
         // archive form
-        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
+        this.formapi.updateForm(this.data.form.id, { status: 'cancelled' }).then(result => {
             this.data.form = result;
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
@@ -157,7 +161,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
 
         // load csv results
-        this.formapi.getInternFormCSV(this.data.form.id).then(result => {
+        this.formapi.getCSV(this.data.form.id).then(result => {
             const blob = new Blob([result.toString()], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
@@ -192,7 +196,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         }
 
         // delete task
-        this.formapi.deleteInternTask(this.data.tasksList[i].id).then(() => {
+        this.formapi.deleteTask(this.data.tasksList[i].id).then(() => {
             this.data.tasksList.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
@@ -209,13 +213,13 @@ Dies lässt sich nicht mehr umkehren!`)) {
 
     public changeTaskSort(sort: 'id' | 'pin' | 'created') {
         if (this.taskSort === sort) {
-            if (this.taskOrder === 'asc') {
-                this.taskOrder = 'desc';
+            if (this.taskSortOrder === 'asc') {
+                this.taskSortOrder = 'desc';
             } else {
-                this.taskOrder = 'asc';
+                this.taskSortOrder = 'asc';
             }
         } else {
-            this.taskOrder = 'asc';
+            this.taskSortOrder = 'asc';
         }
         this.taskSort = sort;
         this.updateTasks(false);
@@ -240,10 +244,10 @@ Dies lässt sich nicht mehr umkehren!`)) {
     /* istanbul ignore next */
     public exportForm() {
         // load form
-        this.formapi.getInternForm(this.data.form.id).then(result => {
+        this.formapi.getForm(this.data.form.id, { fields: ['content'] }).then(result => {
             // download json
             const pom = document.createElement('a');
-            const encodedURIComponent = encodeURIComponent(JSON.stringify(result.content));
+            const encodedURIComponent = encodeURIComponent(JSON.stringify(result.form.content));
             const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
             pom.setAttribute('href', href);
             pom.setAttribute('download', 'formular.json');
@@ -255,6 +259,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         });
     }
 
+    // tslint:disable-next-line: max-func-body-length
     public async updateTasks(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
@@ -262,14 +267,17 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 limit: this.data.tasksPerPage,
                 offset: (this.data.taskPage - 1) * this.data.tasksPerPage,
                 sort: this.taskSort,
-                order: this.taskOrder,
+                order: this.taskSortOrder,
             };
             if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
                 params['status'] = this.taskStatus;
             }
-            const response = await this.formapi.getInternFormTasks(this.id, params);
-            this.data.tasksCountTotal = response.total;
-            this.data.tasksList = response.data;
+            const response = await this.formapi.getTasks({
+                fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
+                filter: { 'has-form-with': { id: this.id } },
+            });
+            this.data.tasksCountTotal = response['total-tasks'];
+            this.data.tasksList = response.tasks;
             let maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;

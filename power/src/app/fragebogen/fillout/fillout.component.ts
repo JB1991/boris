@@ -76,7 +76,7 @@ export class FilloutComponent implements OnInit {
     // tslint:disable-next-line: max-func-body-length
     public loadForm(id: string) {
         // load form by id
-        this.formapi.getPublicForm(id).then(result => {
+        this.formapi.getPublicForm(id, { fields: ['all'] }).then(result => {
             // store form
             this.data.form = result;
             this.language = this.data.form.content.locale;
@@ -119,10 +119,7 @@ export class FilloutComponent implements OnInit {
             throw new Error('no data provided');
         }
 
-        const queryParams: Object = {
-            submit: true,
-        };
-        this.formapi.createPublicTask(id, result.result, queryParams).then(() => {
+        this.formapi.createPublicTask(id, result.result).then(() => {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
@@ -143,12 +140,10 @@ export class FilloutComponent implements OnInit {
             throw new Error('pin is required');
         }
 
-        this.formapi.getPublicAccess(pin, factor).then(result => {
+        this.formapi.getPublicTask(pin, { fields: ['all'], 'form-fields': ['all'] }).then(result => {
             // store task data
-            this.data.task = result;
-
-            // load form by id
-            this.loadForm(this.data.task['form-id']);
+            this.data.task = result.task;
+            this.data.form = result.form;
         }).catch((error: Error) => {
             // failed to load task
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
@@ -171,11 +166,8 @@ export class FilloutComponent implements OnInit {
         }
         this.submitted = true;
 
-        const queryParams: Object = {
-            submit: true
-        };
         // complete
-        this.formapi.updatePublicTask(this.data.task.id, result.result, queryParams).then(() => {
+        this.formapi.updatePublicTask(this.data.task.id, result.result, true).then(() => {
             this.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
@@ -201,7 +193,7 @@ export class FilloutComponent implements OnInit {
         }
 
         // interim results
-        this.formapi.updatePublicTask(this.data.task.id, result).then(() => {
+        this.formapi.updatePublicTask(this.data.task.id, result, false).then(() => {
             this.setUnsavedChanges(false);
         }).catch((error: Error) => {
             // failed to save task

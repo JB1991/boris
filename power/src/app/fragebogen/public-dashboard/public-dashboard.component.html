@@ -1,131 +1,75 @@
 <!-- dashboard page -->
-<main class="mainpage p-1 p-lg-3"
-      id="content">
-    <section class="card bg-light"
-             *ngIf="data">
+<main class="mainpage p-1 p-lg-3" id="content">
+    <section class="card bg-light" *ngIf="data">
         <div class="card-header h5">
-            <svg width="1em"
-                 height="1em"
-                 viewBox="0 0 16 16"
-                 class="bi bi-file-earmark-medical align-baseline"
-                 fill="currentColor"
-                 xmlns="http://www.w3.org/2000/svg"
-                 focusable="false"
-                 aria-hidden="true">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-medical align-baseline"
+                fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                 <path
-                      d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
+                    d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
                 <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z" />
                 <path fill-rule="evenodd"
-                      d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                    d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
             </svg>
-            <span class="ml-1"
-                  aria-hidden="true"
-                  i18n>Formulare</span>
+            <span class="ml-1" aria-hidden="true" i18n>Formulare</span>
             <div class="float-right">
-                <input class="form-control"
-                       id="form-title-search"
-                       type="text"
-                       role="search"
-                       placeholder="Titel"
-                       aria-description="Suchen Sie hier nach einem Formular-Titel."
-                       i18n-placeholder
-                       i18n-aria-description
-                       (change)="title = $event.target.value; update(false)">
+                <input class="form-control" id="form-title-search" type="text" role="search" placeholder="Titel"
+                    aria-description="Suchen Sie hier nach einem Formular-Titel." i18n-placeholder i18n-aria-description
+                    (change)="title = $event.target.value; update(false)">
             </div>
         </div>
         <div class="card-body table-responsive p-0">
             <table class="table table-hover m-0">
-                <caption class="sr-only"
-                         i18n>Öffentliche Formulare</caption>
+                <caption class="sr-only" i18n>Öffentliche Formulare</caption>
                 <thead>
                     <tr>
-                        <th scope="col"
-                            (click)="changeSort('title')"
-                            class="border-top-0 w-50">
-                            <span role="button"
-                                  tabindex="0"
-                                  (keydown.enter)="changeSort('title')"
-                                  aria-roledescription="Auf- und absteigende Sortierung möglich."
-                                  aria-describedby="ascSortedTitle descSortedTitle noForms"
-                                  i18n
-                                  i18n-aria-roledescription>Titel
+                        <th scope="col" (click)="changeSort('title')" class="border-top-0 w-50">
+                            <span role="button" tabindex="0" (keydown.enter)="changeSort('title')"
+                                aria-roledescription="Auf- und absteigende Sortierung möglich."
+                                aria-describedby="ascSortedTitle descSortedTitle noForms" i18n
+                                i18n-aria-roledescription>Titel
                             </span>
                             <span *ngIf="sort && sort === 'title'">
-                                <span *ngIf="order === 'asc'"
-                                      id="ascSortedTitle"
-                                      aria-label="Aufsteigend sortiert."
-                                      i18n-aria-label>
-                                    <svg width="1em"
-                                         height="0.8em"
-                                         viewBox="0 1.2 16 16"
-                                         class="bi bi-arrow-up"
-                                         fill="currentColor"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         focusable="false"
-                                         aria-hidden="true">
+                                <span *ngIf="order === 'asc'" id="ascSortedTitle" aria-label="Aufsteigend sortiert."
+                                    i18n-aria-label>
+                                    <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                                        aria-hidden="true">
                                         <path
-                                              d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                            d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
                                 </span>
-                                <span *ngIf="order === 'desc'"
-                                      id="descSortedTitle"
-                                      aria-label="Absteigend sortiert.">
-                                    <svg width="1em"
-                                         height="0.8em"
-                                         viewBox="0 1.2 16 16"
-                                         class="bi bi-arrow-down"
-                                         fill="currentColor"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         focusable="false"
-                                         aria-hidden="true">
+                                <span *ngIf="order === 'desc'" id="descSortedTitle" aria-label="Absteigend sortiert.">
+                                    <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                                        aria-hidden="true">
                                         <path
-                                              d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                            d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                     </svg>
                                 </span>
                             </span>
                         </th>
-                        <th scope="col"
-                            (click)="changeSort('published')"
-                            class="border-top-0">
-                            <span role="button"
-                                  tabindex="0"
-                                  (keydown.enter)="changeSort('published')"
-                                  aria-roledescription="Auf- und absteigende Sortierung möglich."
-                                  aria-describedby="ascSortedPublished descSortedPublished"
-                                  i18n
-                                  i18n-roledescription
-                                  i18n-describedby>Veröffentlicht</span>
-                            <span *ngIf="sort && sort === 'published'">
-                                <span *ngIf="order === 'asc'"
-                                      id="ascSortedPublished"
-                                      aria-label="Aufsteigend sortiert."
-                                      i18n-aria-label>
-                                    <svg width="1em"
-                                         height="0.8em"
-                                         viewBox="0 1.2 16 16"
-                                         class="bi bi-arrow-up"
-                                         fill="currentColor"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         focusable="false"
-                                         aria-hidden="true">
+                        <th scope="col" (click)="changeSort('tags')" class="border-top-0">
+                            <span role="button" tabindex="0" (keydown.enter)="changeSort('tags')"
+                                aria-roledescription="Auf- und absteigende Sortierung möglich."
+                                aria-describedby="ascSortedTags descSortedTags" i18n i18n-roledescription
+                                i18n-describedby>Tags</span>
+                            <span *ngIf="sort && sort === 'tags'">
+                                <span *ngIf="order === 'asc'" id="ascSortedTags" aria-label="Aufsteigend sortiert."
+                                    i18n-aria-label>
+                                    <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                                        aria-hidden="true">
                                         <path
-                                              d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                            d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
                                 </span>
-                                <span *ngIf="order === 'desc'"
-                                      id="descSortedPublished"
-                                      aria-label="Absteigend sortiert."
-                                      i18n-aria-label>
-                                    <svg width="1em"
-                                         height="0.8em"
-                                         viewBox="0 1.2 16 16"
-                                         class="bi bi-arrow-down"
-                                         fill="currentColor"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         focusable="false"
-                                         aria-hidden="true">
+                                <span *ngIf="order === 'desc'" id="descSortedTags" aria-label="Absteigend sortiert."
+                                    i18n-aria-label>
+                                    <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
+                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                                        aria-hidden="true">
                                         <path
-                                              d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                            d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                                     </svg>
                                 </span>
                             </span>
@@ -136,47 +80,33 @@
                     <tr *ngFor="let form of data; index as i">
                         <td>
                             <a [routerLink]="['/forms/fillout/form', form.id]"
-                               [attr.aria-describedby]="i">{{ form.title }}</a>
+                                [attr.aria-describedby]="i">{{ form.extra }}</a>
                         </td>
-                        <td [id]="i">{{ form.published | date:'short' }}</td>
+                        <td [id]="i">{{ form.tags.join(', ') }}</td>
                     </tr>
                 </tbody>
             </table>
-            <span class="m-3"
-                  *ngIf="!data.length"
-                  id="noForms"
-                  i18n>Keine Formulare gefunden</span>
+            <span class="m-3" *ngIf="data.length < 1" id="noForms" i18n>Keine Formulare gefunden</span>
         </div>
         <div class="card-footer">
             <div class="float-right">
                 <div class="form-inline well">
                     <div class="form-group mx-2">
-                        <select class="custom-select"
-                                aria-label="Formularanzahl pro Seite"
-                                aria-description="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen."
-                                i18n-aria-label
-                                i18n-aria-description
-                                (change)="perPage = $event.target.value; update(false)">
+                        <select class="custom-select" aria-label="Formularanzahl pro Seite"
+                            aria-description="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen."
+                            i18n-aria-label i18n-aria-description
+                            (change)="perPage = $event.target.value; update(false)">
                             <option *ngFor=" let size of pageSizes">
                                 {{ size }}
                             </option>
                         </select>
                     </div>
-                    <pagination [boundaryLinks]="true"
-                                [itemsPerPage]="perPage"
-                                [maxSize]="10"
-                                [totalItems]="total"
-                                (pageChanged)="page = $event.page; update(false)"
-                                previousText="&lsaquo;"
-                                nextText="&rsaquo;"
-                                firstText="&laquo;"
-                                lastText="&raquo;"
-                                role="navigation"
-                                aria-label="Pagination"
-                                [attr.aria-description]="'Derzeit ist Seite ' + page +
-                                                    ' von ' + totalPages + ' Seiten ausgewählt.'"
-                                i18n-aria-label
-                                i18n-aria-description>
+                    <pagination [boundaryLinks]="true" [itemsPerPage]="perPage" [maxSize]="10" [totalItems]="total"
+                        (pageChanged)="page = $event.page; update(false)" previousText="&lsaquo;" nextText="&rsaquo;"
+                        firstText="&laquo;" lastText="&raquo;" role="navigation" aria-label="Pagination"
+                        [attr.aria-description]="'Derzeit ist Seite ' + page +
+                                                    ' von ' + totalPages + ' Seiten ausgewählt.'" i18n-aria-label
+                        i18n-aria-description>
                     </pagination>
                 </div>
             </div>

@@ -77,32 +77,32 @@ describe('Fragebogen.Details.CommentComponent', () => {
         }).toThrowError('invalid i');
     });
 
-    it('should save', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternTask').and.returnValue(Promise.resolve(taskSample.data));
-        component.data.tasksList.push({ id: '123', description: '' });
-        component.tasknr = 0;
-        component.comment = 'Toast';
+    // it('should save', fakeAsync(() => {
+    //     spyOn(component.formapi, 'updateInternTask').and.returnValue(Promise.resolve(taskSample.data));
+    //     component.data.tasksList.push({ id: '123', description: '' });
+    //     component.tasknr = 0;
+    //     component.comment = 'Toast';
 
-        component.save();
-        tick();
+    //     component.save();
+    //     tick();
 
-        expect(component.tasknr).toEqual(-1);
-        expect(component.data.tasksList[0].description).toEqual('Toast');
-    }));
+    //     expect(component.tasknr).toEqual(-1);
+    //     expect(component.data.tasksList[0].description).toEqual('Toast');
+    // }));
 
-    it('should error', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternTask').and.returnValue(Promise.reject('Toast failed'));
-        component.data.tasksList.push({ id: '123', description: '' });
-        component.tasknr = 0;
-        component.comment = 'Toast';
+    // it('should error', fakeAsync(() => {
+    //     spyOn(component.formapi, 'updateInternTask').and.returnValue(Promise.reject('Toast failed'));
+    //     component.data.tasksList.push({ id: '123', description: '' });
+    //     component.tasknr = 0;
+    //     component.comment = 'Toast';
 
-        component.save();
-        tick();
+    //     component.save();
+    //     tick();
 
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert)
-            .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Toast failed');
-    }));
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert)
+    //         .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Toast failed');
+    // }));
 
     afterEach(() => {
 

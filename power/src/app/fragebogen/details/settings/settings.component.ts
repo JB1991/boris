@@ -20,8 +20,6 @@ export class SettingsComponent implements OnInit {
     @ViewChild('settingsmodal') public modal: ModalminiComponent;
 
     public tagList = [];
-    public ownerList = [];
-    public readerList = [];
 
     constructor(public router: Router,
         public alerts: AlertsService,
@@ -36,8 +34,6 @@ export class SettingsComponent implements OnInit {
      */
     public open() {
         this.tagList = Object.assign([], this.data.form.tags);
-        this.ownerList = Object.assign([], this.data.form.owners);
-        this.readerList = Object.assign([], this.data.form.readers);
         this.modal.open($localize`Einstellungen`);
     }
 
@@ -52,14 +48,9 @@ export class SettingsComponent implements OnInit {
      * Update Form with tags, owners and readers
      */
     public updateForm() {
-
-        const queryParams: Object = {
-            tags: this.tagList.toString(),
-            owners: this.ownerList.toString(),
-            readers: this.readerList.toString()
-        };
-
-        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
+        this.formapi.updateForm(this.data.form.id, {
+            tags: this.tagList,
+        }).then(result => {
             //     // success
             this.data.form = result;
             this.alerts.NewAlert('success', $localize`Formular gespeichert`,

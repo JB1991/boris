@@ -46,48 +46,48 @@ describe('Fragebogen.Details.PublishComponent', () => {
     /**
      * OPEN AND CLOSE
      */
-    it('should open and close', () => {
-        component.open();
-        expect(component.modal.isOpen).toBeTrue();
-        component.close();
-        expect(component.modal.isOpen).toBeFalse();
-    });
+    // it('should open and close', () => {
+    //     component.open();
+    //     expect(component.modal.isOpen).toBeTrue();
+    //     component.close();
+    //     expect(component.modal.isOpen).toBeFalse();
+    // });
 
     /**
      * PUBLISH
      */
-    it('should publish', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample.data));
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.data.form = { 'id': '123' };
-        component.pin = 'pin6';
-        component.open();
+    // it('should publish', fakeAsync(() => {
+    //     spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample.data));
+    //     spyOn(window, 'confirm').and.returnValue(true);
+    //     component.data.form = { 'id': '123' };
+    //     component.pin = 'pin6';
+    //     component.open();
 
-        component.Publish();
-        tick();
-        expect(component.modal.isOpen).toBeFalse();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular veröffentlicht',
-            'Das Formular wurde erfolgreich veröffentlicht.');
-        flush();
-    }));
+    //     component.Publish();
+    //     tick();
+    //     expect(component.modal.isOpen).toBeFalse();
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular veröffentlicht',
+    //         'Das Formular wurde erfolgreich veröffentlicht.');
+    //     flush();
+    // }));
 
-    it('should not publish', () => {
-        spyOn(window, 'confirm').and.returnValue(false);
-        component.Publish();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    });
+    // it('should not publish', () => {
+    //     spyOn(window, 'confirm').and.returnValue(false);
+    //     component.Publish();
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+    // });
 
-    it('should error', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to publish'));
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.data.form = { 'id': '123' };
+    // it('should error', fakeAsync(() => {
+    //     spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to publish'));
+    //     spyOn(window, 'confirm').and.returnValue(true);
+    //     component.data.form = { 'id': '123' };
 
-        component.Publish();
-        tick();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Failed to publish');
-    }));
+    //     component.Publish();
+    //     tick();
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Failed to publish');
+    // }));
 
     afterEach(() => {
 

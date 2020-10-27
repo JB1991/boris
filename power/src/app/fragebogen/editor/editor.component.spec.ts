@@ -118,25 +118,25 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     /**
      * LOAD DATA
      */
-    it('shoul to load data', (done) => {
-        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSample.data));
-        spyOn(component.formapi, 'getInternElements').and.returnValue(Promise.resolve({ data: [], total: 0 }));
-        component.loadData('123').then(() => {
-            clearTimeout(component.timerHandle);
-            expect(component.storage.model).toEqual(formSample.data.content);
-            done();
-        });
-    });
+    // it('shoul to load data', (done) => {
+    //     spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSample.data));
+    //     spyOn(component.formapi, 'getInternElements').and.returnValue(Promise.resolve({ data: [], total: 0 }));
+    //     component.loadData('123').then(() => {
+    //         clearTimeout(component.timerHandle);
+    //         expect(component.storage.model).toEqual(formSample.data.content);
+    //         done();
+    //     });
+    // });
 
-    it('should error to load data', (done) => {
-        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed to load data'));
-        component.loadData('123').then(() => {
-            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
-                'Failed to load data');
-            done();
-        });
-    });
+    // it('should error to load data', (done) => {
+    //     spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed to load data'));
+    //     component.loadData('123').then(() => {
+    //         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+    //             'Failed to load data');
+    //         done();
+    //     });
+    // });
 
     it('should fail to load data', (done) => {
         // expect crash
@@ -413,23 +413,23 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     /**
      * wsSave
      */
-    it('should save formular', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample));
-        component.storage.setUnsavedChanges(true);
-        component.wsSave();
-        tick();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich', '');
-    }));
+    // it('should save formular', fakeAsync(() => {
+    //     spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample));
+    //     component.storage.setUnsavedChanges(true);
+    //     component.wsSave();
+    //     tick();
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich', '');
+    // }));
 
-    it('should fail to save formular', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to save formular'));
-        component.storage.setUnsavedChanges(true);
-        component.wsSave();
-        tick();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Failed to save formular');
-    }));
+    // it('should fail to save formular', fakeAsync(() => {
+    //     spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to save formular'));
+    //     component.storage.setUnsavedChanges(true);
+    //     component.wsSave();
+    //     tick();
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Failed to save formular');
+    // }));
 
     it('should not save formular', fakeAsync(() => {
         // no changes
@@ -585,37 +585,37 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         }).toThrowError('i is invalid');
     });
 
-    it('should not add favorite', () => {
-        spyOn(component.formapi, 'createInternElement');
-        component.storage.model.pages[0].elements[0].title.default = '';
-        component.addFavorite(0);
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.formapi.createInternElement).toHaveBeenCalledTimes(0);
-    });
+    // it('should not add favorite', () => {
+    //     spyOn(component.formapi, 'createInternElement');
+    //     component.storage.model.pages[0].elements[0].title.default = '';
+    //     component.addFavorite(0);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.formapi.createInternElement).toHaveBeenCalledTimes(0);
+    // });
 
-    it('should add favorite', fakeAsync(() => {
-        spyOn(component.formapi, 'createInternElement').and.returnValue(Promise.resolve({
-            id: '123',
-            content: {},
-            owners: [],
-            readers: [],
-            created: ''
-        }));
+    // it('should add favorite', fakeAsync(() => {
+    //     spyOn(component.formapi, 'createInternElement').and.returnValue(Promise.resolve({
+    //         id: '123',
+    //         content: {},
+    //         owners: [],
+    //         readers: [],
+    //         created: ''
+    //     }));
 
-        component.addFavorite(0);
-        tick();
+    //     component.addFavorite(0);
+    //     tick();
 
-        expect(component.favorites.length).toEqual(1);
-    }));
+    //     expect(component.favorites.length).toEqual(1);
+    // }));
 
-    it('should fail add favorite', fakeAsync(() => {
-        spyOn(component.formapi, 'createInternElement').and.returnValue(Promise.reject('Failed'));
+    // it('should fail add favorite', fakeAsync(() => {
+    //     spyOn(component.formapi, 'createInternElement').and.returnValue(Promise.reject('Failed'));
 
-        component.addFavorite(0);
-        tick();
+    //     component.addFavorite(0);
+    //     tick();
 
-        expect(component.favorites.length).toEqual(0);
-    }));
+    //     expect(component.favorites.length).toEqual(0);
+    // }));
 
     it('should crash add favorite', () => {
         expect(() => {
@@ -632,37 +632,37 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         }).toThrowError('page is invalid');
     });
 
-    it('should del favorite', fakeAsync(() => {
-        spyOn(component.formapi, 'deleteInternElement').and.returnValue(Promise.resolve('OK'));
-        component.favorites = [
-            { content: JSON.parse(JSON.stringify(component.storage.model.pages[0].elements[0])) }
-        ];
-        component.favorites[0].content.name = '';
-        expect(component.favorites.length).toEqual(1);
+    // it('should del favorite', fakeAsync(() => {
+    //     spyOn(component.formapi, 'deleteInternElement').and.returnValue(Promise.resolve('OK'));
+    //     component.favorites = [
+    //         { content: JSON.parse(JSON.stringify(component.storage.model.pages[0].elements[0])) }
+    //     ];
+    //     component.favorites[0].content.name = '';
+    //     expect(component.favorites.length).toEqual(1);
 
-        component.delFavorite(0);
-        tick();
-        expect(component.favorites.length).toEqual(0);
-    }));
+    //     component.delFavorite(0);
+    //     tick();
+    //     expect(component.favorites.length).toEqual(0);
+    // }));
 
-    it('should fail del favorite', fakeAsync(() => {
-        spyOn(component.formapi, 'deleteInternElement').and.returnValue(Promise.reject('Failed'));
-        component.favorites = [
-            { content: JSON.parse(JSON.stringify(component.storage.model.pages[0].elements[0])) }
-        ];
-        component.favorites[0].content.name = '';
-        expect(component.favorites.length).toEqual(1);
+    // it('should fail del favorite', fakeAsync(() => {
+    //     spyOn(component.formapi, 'deleteInternElement').and.returnValue(Promise.reject('Failed'));
+    //     component.favorites = [
+    //         { content: JSON.parse(JSON.stringify(component.storage.model.pages[0].elements[0])) }
+    //     ];
+    //     component.favorites[0].content.name = '';
+    //     expect(component.favorites.length).toEqual(1);
 
-        component.delFavorite(0);
-        tick();
-        expect(component.favorites.length).toEqual(1);
-    }));
+    //     component.delFavorite(0);
+    //     tick();
+    //     expect(component.favorites.length).toEqual(1);
+    // }));
 
-    it('should not del favorite', () => {
-        spyOn(component.formapi, 'deleteInternElement');
-        component.delFavorite(0);
-        expect(component.formapi.deleteInternElement).toHaveBeenCalledTimes(0);
-    });
+    // it('should not del favorite', () => {
+    //     spyOn(component.formapi, 'deleteInternElement');
+    //     component.delFavorite(0);
+    //     expect(component.formapi.deleteInternElement).toHaveBeenCalledTimes(0);
+    // });
 
     it('should crash del favorite', () => {
         expect(() => {

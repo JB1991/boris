@@ -9,7 +9,7 @@ import { FormAPIService } from '../../formapi.service';
     templateUrl: './maketask.component.html',
     styleUrls: ['./maketask.component.css']
 })
-export class MaketaskComponent implements OnInit {
+export class MaketaskComponent {
     @Input() public data = {
         form: null,
         tasksList: [],
@@ -26,9 +26,6 @@ export class MaketaskComponent implements OnInit {
 
     constructor(public alerts: AlertsService,
         public formapi: FormAPIService) {
-    }
-
-    ngOnInit() {
     }
 
     /**
@@ -50,7 +47,8 @@ export class MaketaskComponent implements OnInit {
     /**
      * Generates PINs
      */
-    public Generate() {
+    // tslint:disable-next-line: max-func-body-length
+    public async Generate() {
         // check amount bounds
         if (this.amount < 1 || this.amount > 100) {
             this.alerts.NewAlert('danger', $localize`Ungültige Eingabe`,
@@ -58,48 +56,48 @@ export class MaketaskComponent implements OnInit {
             throw new Error('Invalid bounds for variable amount');
         }
 
-        const queryParams: Object = {
-            number: this.amount
-        };
-        // make pins
-        this.formapi.createInternFormTasks(this.data.form.id, this.data.form, queryParams).then((result) => {
-            // success
-            for (let i = 0; i < result.data.length; i++) {
-                this.pinList.push(result.data[i].pin);
-                this.data.tasksList.splice(0, 0, result.data[i]);
+        for (let i = 0; i++; i < this.amount) {
+            try {
+                const createResult = await this.formapi.createTask(this.data.form.id, {});
+                const findResult = await this.formapi.getTask(createResult.id, { fields: ['all'] });
                 this.data.tasksCountTotal++;
-                this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
-            }
-            let maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
-            if (maxPages > 10) {
-                maxPages = 10;
-                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
-            } else {
-                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
-            }
-            // copy to clipboard
-            if (this.copy) {
-                const selBox = document.createElement('textarea');
-                selBox.style.position = 'fixed';
-                selBox.style.left = '0';
-                selBox.style.top = '0';
-                selBox.style.opacity = '0';
-                selBox.value = this.pinList.join('\n');
-                document.body.appendChild(selBox);
-                selBox.focus();
-                selBox.select();
-                document.execCommand('copy');
-                document.body.removeChild(selBox);
-            }
+                this.pinList.push(findResult.task.pin);
+                if (this.data.tasksList.length < this.data.tasksPerPage) {
+                    this.data.tasksList.push(findResult.task);
+                }
+                let maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
+                if (maxPages > 10) {
+                    maxPages = 10;
+                    this.data.taskPageSizes = Array.from(Array(maxPages), (_, j) => (j + 1) * 5);
+                } else {
+                    this.data.taskPageSizes = Array.from(Array(maxPages), (_, j) => (j + 1) * 5);
+                }
 
-            // close modal
-            this.close();
-        }).catch((error: Error) => {
-            // failed to create task
-            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
-            console.log(error);
-            return;
-        });
+            } catch (error) {
+                // failed to create task
+                this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
+                console.log(error);
+                return;
+            }
+        }
+
+        // copy to clipboard
+        if (this.copy) {
+            const selBox = document.createElement('textarea');
+            selBox.style.position = 'fixed';
+            selBox.style.left = '0';
+            selBox.style.top = '0';
+            selBox.style.opacity = '0';
+            selBox.value = this.pinList.join('\n');
+            document.body.appendChild(selBox);
+            selBox.focus();
+            selBox.select();
+            document.execCommand('copy');
+            document.body.removeChild(selBox);
+        }
+
+        // close modal
+        this.close();
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

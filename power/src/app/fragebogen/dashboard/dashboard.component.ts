@@ -4,42 +4,43 @@ import { Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { FormAPIService } from '../formapi.service';
+import { FormAPIService, GetFormsParams, GetTasksParams } from '../formapi.service';
+import { FormStatus, Access, Order, TaskStatus, FormFilter, FormSortField, TaskSortField, Task, Form } from '../formapi.model';
 
 @Component({
     selector: 'power-forms-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.css'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
-    public data = {
-        tags: <string[]>[],
-        forms: [],
-        tasks: []
-    };
+    public tags: Array<string>;
 
+    public forms: Array<Form>;
     public formTotal: number;
     public formPage = 1;
     public formPerPage = 5;
     public formPageSizes: number[];
 
-    public formTitle?: string;
-    public formStatus?: 'created' | 'published' | 'cancelled' | 'all';
-    public formAccess?: 'public' | 'pin6' | 'pin8' | 'pin6-factor' | 'all';
-    public formSort: 'id' | 'title' | 'created' | 'published' | 'cancelled' = 'title';
-    public formOrder: 'asc' | 'desc' = 'asc';
+    public formSearch = '';
+    public formStatus: FormStatus | 'all' = 'all';
+    public formAccess: Access | 'all' = 'all';
+    public formSort: FormSortField | 'title' = 'updated';
+    public formSortOrder: Order = 'asc';
 
+    public tasks: Array<Task>;
     public taskTotal: number;
     public taskPage = 1;
     public taskPerPage = 5;
     public taskPageSizes: number[];
 
-    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
-    public taskSort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted' = 'submitted';
-    public taskOrder: 'asc' | 'desc' = 'desc';
+    public taskStatus: TaskStatus | 'all';
+    public taskSort: TaskSortField = 'updated';
+    public taskSortOrder: Order = 'desc';
+    public taskSortPath?: Array<string>;
 
-    constructor(public titleService: Title,
+    constructor(
+        public titleService: Title,
         public router: Router,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
@@ -57,7 +58,7 @@ export class DashboardComponent implements OnInit {
     public async deleteForm(id: string) {
         try {
             this.loadingscreen.setVisible(true);
-            const response = await this.formAPI.deleteInternForm(id);
+            const response = await this.formAPI.deleteForm(id);
             this.updateForms(false);
             this.updateTasks(false);
             this.loadingscreen.setVisible(false);
@@ -71,6 +72,7 @@ export class DashboardComponent implements OnInit {
      * Imports form from JSON
      */
     /* istanbul ignore next */
+    // tslint:disable-next-line: max-func-body-length
     public importForm() {
         const input = document.createElement('input');
         input.id = 'file-upload';
@@ -89,11 +91,14 @@ export class DashboardComponent implements OnInit {
 
             // Upload success
             reader.onload = () => {
-                this.formAPI.createInternForm(reader.result).then(() => {
-                    this.updateForms(false);
-                }).catch((error) => {
-                    this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error);
-                });
+                this.formAPI
+                    .createForm(reader.result.valueOf())
+                    .then(() => {
+                        this.updateForms(false);
+                    })
+                    .catch((error) => {
+                        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error);
+                    });
             };
             // FileReader is async -> call readAsText() after declaring the onload handler
             reader.readAsText(file);
@@ -101,41 +106,60 @@ export class DashboardComponent implements OnInit {
         input.click();
     }
 
-    public changeFormSort(sort: 'id' | 'title' | 'created' | 'published' | 'cancelled') {
+    public changeFormSort(sort: FormSortField | 'title') {
         if (this.formSort === sort) {
-            if (this.formOrder === 'asc') {
-                this.formOrder = 'desc';
+            if (this.formSortOrder === 'asc') {
+                this.formSortOrder = 'desc';
             } else {
-                this.formOrder = 'asc';
+                this.formSortOrder = 'asc';
             }
         } else {
-            this.formOrder = 'asc';
+            this.formSortOrder = 'asc';
         }
         this.formSort = sort;
         this.updateForms(false);
     }
 
+    // tslint:disable-next-line: max-func-body-length
     public async updateForms(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
-            const params = {
+            const params: GetFormsParams = {
+                fields: ['id', 'tags', 'access', 'group', 'status', 'created', 'updated'],
+                extra: ['title.de', 'title.default'],
                 limit: this.formPerPage,
                 offset: (this.formPage - 1) * this.formPerPage,
-                sort: this.formSort,
-                order: this.formOrder,
             };
-            if (this.formStatus !== undefined && this.formStatus !== 'all') {
-                params['status'] = this.formStatus;
+            if (this.formSort === 'title') {
+                params.sort = {
+                    orderBy: { field: 'content', path: ['title', 'de'] },
+                    alternative: { field: 'content', path: ['title', 'default'] },
+                    order: this.formSortOrder,
+                };
+            } else {
+                params.sort = { orderBy: { field: this.formSort }, order: this.formSortOrder };
             }
-            if (this.formAccess !== undefined && this.formAccess !== 'all') {
-                params['access'] = this.formAccess;
+            const filters: Array<FormFilter> = [];
+            if (this.formStatus !== 'all') {
+                filters.push({ status: this.formStatus });
             }
-            if (this.formTitle !== undefined) {
-                params['title-contains'] = this.formTitle;
+            if (this.formAccess !== 'all') {
+                filters.push({ access: this.formAccess });
             }
-            const response = await this.formAPI.getInternForms(params);
-            this.data.forms = response.data;
-            this.formTotal = response.total;
+            if (this.formSearch !== '') {
+                const or: Array<FormFilter> = [];
+                const search = { lower: true, contains: this.formSearch };
+                or.push({ content: { path: ['title', 'de'], text: search } });
+                or.push({ content: { path: ['title', 'default'], text: search } });
+                or.push({ tag: search });
+                filters.push({ or: or });
+            }
+            if (filters.length > 0) {
+                params.filter = { and: filters };
+            }
+            const response = await this.formAPI.getForms(params);
+            this.forms = response.forms;
+            this.formTotal = response['total-forms'];
             let maxPages = Math.floor(this.formTotal / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
@@ -145,6 +169,7 @@ export class DashboardComponent implements OnInit {
             }
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             if (navigate) {
@@ -153,35 +178,35 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public changeTaskSort(sort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted') {
+    public changeTaskSort(sort: TaskSortField) {
         if (this.taskSort === sort) {
-            if (this.taskOrder === 'asc') {
-                this.taskOrder = 'desc';
+            if (this.taskSortOrder === 'asc') {
+                this.taskSortOrder = 'desc';
             } else {
-                this.taskOrder = 'asc';
+                this.taskSortOrder = 'asc';
             }
         } else {
-            this.taskOrder = 'asc';
+            this.taskSortOrder = 'asc';
         }
         this.taskSort = sort;
         this.updateTasks(false);
     }
 
+    // tslint:disable-next-line: max-func-body-length
     public async updateTasks(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
-            const params = {
+            const params: GetTasksParams = {
+                fields: ['id', 'pin', 'description', 'status', 'updated', 'created'],
                 limit: this.taskPerPage,
                 offset: (this.taskPage - 1) * this.taskPerPage,
-                sort: this.taskSort,
-                order: this.taskOrder,
             };
             if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
                 params['status'] = this.taskStatus;
             }
-            const response = await this.formAPI.getInternTasks(params);
-            this.data.tasks = response.data;
-            this.taskTotal = response.total;
+            const response = await this.formAPI.getTasks(params);
+            this.tasks = response.tasks;
+            this.taskTotal = response['total-tasks'];
             let maxPages = Math.floor(this.taskTotal / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
@@ -202,7 +227,7 @@ export class DashboardComponent implements OnInit {
     public async updateTags(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
-            this.data.tags = await this.formAPI.getInternTags();
+            this.tags = await this.formAPI.getTags();
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);

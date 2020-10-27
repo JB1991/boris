@@ -3,11 +3,16 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
+
+export function increment() {
+    return () => id++;
+}
+
 @Component({
     providers: [
         {
             provide: UNIQ_ID_TOKEN,
-            useFactory: () => id++
+            useFactory: increment,
         }
     ],
     selector: 'power-forms-editor-answers',
@@ -117,6 +122,7 @@ export class AnswersComponent {
      * @param i Answer number
      */
     /* istanbul ignore next */
+    // tslint:disable-next-line: max-func-body-length
     public uploadImage(i: number) {
         // check data
         if (i < 0 || i >= this.data.length) {
@@ -136,6 +142,7 @@ export class AnswersComponent {
             reader.onload = () => {
                 // downscale image
                 const img = new Image();
+                // tslint:disable-next-line: max-func-body-length
                 img.onload = () => {
                     const canvas = document.createElement('canvas'),
                         ctx = canvas.getContext('2d'),

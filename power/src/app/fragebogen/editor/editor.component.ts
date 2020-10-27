@@ -169,11 +169,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
 
         try {
-            const result = await this.formapi.getInternForm(id);
-            this.storage.model = result.content;
+            const result = await this.formapi.getForm(id, { fields: ['content'] });
+            this.storage.model = result.form;
 
-            const elements = await this.formapi.getInternElements();
-            this.favorites = elements.data;
+            const elements = await this.formapi.getElements({ fields: ['all'] });
+            this.favorites = elements.elements;
 
             // auto save
             /* istanbul ignore next */
@@ -229,6 +229,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Handles drag and drop into workspace zone
      * @param dropResult Event
      */
+    // tslint:disable-next-line: max-func-body-length
     public onDropWorkspace(dropResult: DropResult) {
         if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }
@@ -393,16 +394,13 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
         }
-
         // ask user to confirm
         if (!confirm($localize`Möchten Sie diese Seite wirklich löschen?`)) {
             return;
         }
-
         // delete
         this.history.makeHistory(this.storage.model);
         this.storage.model.pages.splice(page, 1);
-
         // ensure that at least one page exists
         if (this.storage.model.pages.length < 1) {
             this.storage.model.pages.splice(0, 0, {
@@ -449,7 +447,9 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
 
-        this.formapi.updateInternForm(id, this.storage.model).then(() => {
+        this.formapi.updateForm(id, {
+            content: this.storage.model,
+        }).then(() => {
             // success
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
@@ -603,7 +603,9 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         question.name = '';
 
         // add favorite
-        this.formapi.createInternElement(question).then((data) => {
+        this.formapi.createElement({
+            content: question,
+        }).then((data) => {
             this.favorites.push(data);
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
                 $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);
@@ -633,7 +635,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
 
         // delete favorite
-        this.formapi.deleteInternElement(this.favorites[index - 1].id)
+        this.formapi.deleteElement(this.favorites[index - 1].id)
             .then((data) => {
                 this.favorites.splice(index - 1, 1);
                 this.alerts.NewAlert('success', $localize`Favoriten gelöscht`,
