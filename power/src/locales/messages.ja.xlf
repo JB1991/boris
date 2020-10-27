@@ -210,7 +210,7 @@
     </unit>
     <unit id="7195844454508171367">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:50</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:49</note>
       </notes>
       <segment state="initial">
         <source>Immobilienpreisindex - POWER.NI</source>
@@ -219,7 +219,7 @@
     </unit>
     <unit id="1534912079502587880">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:422</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:410</note>
       </notes>
       <segment state="initial">
         <source>Zeitraum von </source>
@@ -228,26 +228,26 @@
     </unit>
     <unit id="3512731915705693257">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:424</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:412</note>
       </notes>
       <segment state="initial">
         <source> bis </source>
         <target> bis </target>
       </segment>
     </unit>
-    <unit id="5616702469514807074">
+    <unit id="6142088964139089817">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:9,10</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:9</note>
       </notes>
       <segment state="initial">
-        <source> HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </source>
-        <target> HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen. </target>
+        <source> HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</source>
+        <target> HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</target>
       </segment>
     </unit>
     <unit id="3896770541274170506">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:215</note>
         <note category="description">AGNB Start</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:210</note>
       </notes>
       <segment state="initial">
         <source>Es gelten die</source>
@@ -256,8 +256,8 @@
     </unit>
     <unit id="1619432944706390012">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:216,217</note>
         <note category="description">AGNB</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:211</note>
       </notes>
       <segment state="initial">
         <source> Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB) </source>
@@ -266,8 +266,8 @@
     </unit>
     <unit id="8060976976079359371">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:217</note>
         <note category="description">AGNB Ende</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:212</note>
       </notes>
       <segment state="initial">
         <source>.</source>
@@ -276,52 +276,52 @@
     </unit>
     <unit id="30907226667156700">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:58</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:57</note>
       </notes>
       <segment state="initial">
         <source>Vergleiche</source>
         <target>Vergleiche</target>
       </segment>
     </unit>
-    <unit id="8989264670726719114">
+    <unit id="4985767709958335645">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:69,70</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:68</note>
       </notes>
       <segment state="initial">
-        <source> HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich. </source>
-        <target> HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich. </target>
+        <source> HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</source>
+        <target> HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</target>
       </segment>
     </unit>
-    <unit id="4756214614417949543">
+    <unit id="3147918986551624162">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:119,120</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:117</note>
       </notes>
       <segment state="initial">
-        <source> alle auswählen </source>
-        <target> alle auswählen </target>
+        <source> alle auswählen</source>
+        <target> alle auswählen</target>
       </segment>
     </unit>
-    <unit id="113911435119961071">
+    <unit id="3537524314230510597">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:123,124</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:120</note>
       </notes>
       <segment state="initial">
-        <source> Auswahl aufheben </source>
-        <target> Auswahl aufheben </target>
+        <source> Auswahl aufheben</source>
+        <target> Auswahl aufheben</target>
       </segment>
     </unit>
-    <unit id="1751509647881708009">
+    <unit id="535206278987862622">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:129,130</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:125</note>
       </notes>
       <segment state="initial">
-        <source> alle/keine auswählen </source>
-        <target> alle/keine auswählen </target>
+        <source> alle/keine auswählen</source>
+        <target> alle/keine auswählen</target>
       </segment>
     </unit>
     <unit id="3527049829860901630">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:191</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:186</note>
       </notes>
       <segment state="initial">
         <source>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</source>
@@ -330,7 +330,7 @@
     </unit>
     <unit id="6982726396008717823">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:194</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:189</note>
       </notes>
       <segment state="initial">
         <source>Suchen Sie ihre Gemeinde:</source>
@@ -339,7 +339,7 @@
     </unit>
     <unit id="7846860601179790148">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:207</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:202</note>
       </notes>
       <segment state="initial">
         <source>Ihre Wohnungsmarktregion:</source>
@@ -1832,7 +1832,7 @@
     </unit>
     <unit id="6992806450133789005">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:50</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:51</note>
       </notes>
       <segment state="initial">
         <source>Zugrunde liegende Fälle</source>
@@ -1841,7 +1841,7 @@
     </unit>
     <unit id="2929422577222561800">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:148</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:149</note>
       </notes>
       <segment state="initial">
         <source> (ohne Daten)</source>
@@ -1850,7 +1850,7 @@
     </unit>
     <unit id="419177917405783754">
       <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:163</note>
+        <note category="location">src/app/immobilien/immobilien/immobilien.formatter.ts:164</note>
       </notes>
       <segment state="initial">
         <source>[ohne Daten] </source>
@@ -1967,7 +1967,7 @@
     </unit>
     <unit id="8488547527396922136">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:186</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.ts:77</note>
       </notes>
       <segment state="translated">
         <source>Laden fehlgeschlagen</source>
@@ -2167,7 +2167,7 @@
     </unit>
     <unit id="2854123663314832793">
       <notes>
-        <note category="location">src/app/fragebogen/details/comment/comment.component.html:37</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.html:41</note>
       </notes>
       <segment state="translated">
         <source>Speichern</source>
@@ -3816,7 +3816,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3643065623582513222">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:514</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:20</note>
       </notes>
       <segment state="translated">
         <source>Antworten</source>
@@ -3888,7 +3888,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8691548970191506667">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:687</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:60</note>
       </notes>
       <segment state="translated">
         <source>Aufsteigend sortiert</source>
@@ -3897,7 +3897,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1947750218509794653">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:689</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:76</note>
       </notes>
       <segment state="translated">
         <source>Absteigend sortiert</source>
@@ -5067,7 +5067,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="515361261308847185">
       <notes>
-        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:16</note>
+        <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:5</note>
       </notes>
       <segment state="translated">
         <source>Formular Titel *</source>
@@ -5263,6 +5263,152 @@ Dies lässt sich nicht mehr umkehren!</source>
         <target>入力値</target>
       </segment>
     </unit>
+    <unit id="8862057317659190614">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:79</note>
+      </notes>
+      <segment state="initial">
+        <source>Preisentwicklung Niedersachsen, gesamt</source>
+        <target>Preisentwicklung Niedersachsen, gesamt</target>
+      </segment>
+    </unit>
+    <unit id="3407170915745399663">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:80</note>
+      </notes>
+      <segment state="initial">
+        <source>gebrauchte Eigenheime</source>
+        <target>gebrauchte Eigenheime</target>
+      </segment>
+    </unit>
+    <unit id="1088042577119915820">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:81</note>
+      </notes>
+      <segment state="initial">
+        <source>EH</source>
+        <target>EH</target>
+      </segment>
+    </unit>
+    <unit id="8465384391201708412">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:82</note>
+      </notes>
+      <segment state="initial">
+        <source>gebrauchte Eigentumswohnungen</source>
+        <target>gebrauchte Eigentumswohnungen</target>
+      </segment>
+    </unit>
+    <unit id="6354661807949531329">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:83</note>
+      </notes>
+      <segment state="initial">
+        <source>EW</source>
+        <target>EW</target>
+      </segment>
+    </unit>
+    <unit id="1551858290218147096">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:84</note>
+      </notes>
+      <segment state="initial">
+        <source>Vergleich Preisentwicklung von städtischen und ländlichen Regionen</source>
+        <target>Vergleich Preisentwicklung von städtischen und ländlichen Regionen</target>
+      </segment>
+    </unit>
+    <unit id="4316260054616310474">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:85</note>
+      </notes>
+      <segment state="initial">
+        <source>Preisentwicklung nach städtischen und ländlichen Regionen</source>
+        <target>Preisentwicklung nach städtischen und ländlichen Regionen</target>
+      </segment>
+    </unit>
+    <unit id="6512166400814631812">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:86</note>
+      </notes>
+      <segment state="initial">
+        <source>Vergleich zusammengefasster Regionen</source>
+        <target>Vergleich zusammengefasster Regionen</target>
+      </segment>
+    </unit>
+    <unit id="1582871385728865172">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:87</note>
+      </notes>
+      <segment state="initial">
+        <source>städtische Regionen</source>
+        <target>städtische Regionen</target>
+      </segment>
+    </unit>
+    <unit id="4753259279067371249">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:88</note>
+      </notes>
+      <segment state="initial">
+        <source>SR</source>
+        <target>SR</target>
+      </segment>
+    </unit>
+    <unit id="2851454544784459698">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:89</note>
+      </notes>
+      <segment state="initial">
+        <source>ländliche Regionen</source>
+        <target>ländliche Regionen</target>
+      </segment>
+    </unit>
+    <unit id="2561517474553080273">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:90</note>
+      </notes>
+      <segment state="initial">
+        <source>LR</source>
+        <target>LR</target>
+      </segment>
+    </unit>
+    <unit id="6519912233918863557">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:91</note>
+      </notes>
+      <segment state="initial">
+        <source>Hannover</source>
+        <target>Hannover</target>
+      </segment>
+    </unit>
+    <unit id="5860480415256546602">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:92</note>
+      </notes>
+      <segment state="initial">
+        <source>Braunschweig</source>
+        <target>Braunschweig</target>
+      </segment>
+    </unit>
+    <unit id="7296884130288172531">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.runtime.ts:93</note>
+      </notes>
+      <segment state="initial">
+        <source>Hannover - Braunschweig - Wolfsburg</source>
+        <target>Hannover - Braunschweig - Wolfsburg</target>
+      </segment>
+    </unit>
+    <unit id="2684344054646048111">
+      <notes>
+        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions.ts:25</note>
+      </notes>
+      <segment state="initial">
+        <source>Quelle: Oberer Gutachterausschuss für
+Grundstückswerte in Niedersachsen</source>
+        <target>Quelle: Oberer Gutachterausschuss für
+Grundstückswerte in Niedersachsen</target>
+      </segment>
+    </unit>
     <unit id="605904030458936187">
       <notes>
         <note category="location">src/app/shared/geosearch/geosearch.service.ts:68</note>
@@ -5297,17 +5443,6 @@ Dies lässt sich nicht mehr umkehren!</source>
       <segment state="initial">
         <source>Es ist ein Fehler aufgetreten.</source>
         <target>Es ist ein Fehler aufgetreten.</target>
-      </segment>
-    </unit>
-    <unit id="9121502791322086638">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.chartoptions.ts:25</note>
-      </notes>
-      <segment state="initial">
-        <source>Quelle: Oberer Gutachterausschuss für
-Grundstückswerte in Niedersachsen, </source>
-        <target>Quelle: Oberer Gutachterausschuss für
-Grundstückswerte in Niedersachsen, </target>
       </segment>
     </unit>
   </file>

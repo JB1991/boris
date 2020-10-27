@@ -54,7 +54,7 @@ export class ImmobilienHelper {
             if (color.slice(0, 3) === 'rgb') {
                 const cc = color.slice(4).replace(')', '').split(',');
                 return this.rgbToHex(parseInt(cc[0], 10), parseInt(cc[1], 10), parseInt(cc[2], 10));
-            } else if (Array.isArray(color) && color.length === 3 ) {
+            } else if (Array.isArray(color) && color.length === 3) {
                 return this.rgbToHex(color[0], color[1], color[2]);
             } else if (color.slice(0, 1) === '#') {
                 return color;
@@ -88,11 +88,11 @@ export class ImmobilienHelper {
         const B = f & 0x0000FF; // eslint-disable-line no-bitwise
         /* tslint:enable:no-bitwise */
 
-        return  '#' + (
+        return '#' + (
             0x1000000
-            + (Math.round( (t - R) * p) + R) * 0x10000
-            + (Math.round( (t - G) * p) + G) * 0x100
-            + (Math.round( (t - B) * p) + B)
+            + (Math.round((t - R) * p) + R) * 0x10000
+            + (Math.round((t - G) * p) + G) * 0x100
+            + (Math.round((t - B) * p) + B)
         ).toString(16).slice(1);
     }
 
@@ -182,7 +182,7 @@ export class ImmobilienHelper {
      *
      * @return CSV String
      */
-    static convertArrayToCSV(array, keys, split = ';', feld= '"') {
+    static convertArrayToCSV(array, keys, split = ';', feld = '"') {
         const tmp = [];
 
         for (let i = 0; i < array.length; i++) {

@@ -90,12 +90,9 @@ export class NewformComponent {
      */
     public NewForm() {
         // check if form is filled incorrect
-        if (document.getElementsByClassName('is-invalid').length > 0) {
-            this.alerts.NewAlert(
-                'danger',
-                $localize`Ungültige Einstellungen`,
-                $localize`Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.`
-            );
+        if (!this.title) {
+            this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`,
+                $localize`Bitte geben Sie einen Titel an.`);
             return;
         }
         // load template

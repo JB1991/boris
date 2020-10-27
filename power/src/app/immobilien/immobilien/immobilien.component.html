@@ -6,8 +6,7 @@
              (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)"
              (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>
         <div style="text-align: center;" [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}" i18n>
-            HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.
-        </div>
+            HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</div>
     </div>
     <div class="col-sm-4">
         <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)"
@@ -66,8 +65,7 @@
                     </div>
 
                     <div *ngIf="select['type'] == 'multiSelect'" style="padding-left: 40px; margin-bottom: 1rem;" i18n>
-                         HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.
-                    </div>
+                         HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</div>
 
                     <!-- Select DrawValues-->
                     <ul *ngIf="select['type'] == 'single' || select['type'] == 'multiSelect'">
@@ -116,18 +114,15 @@
                                     </span>
                                     <span class="dotlabel" style="vertical-align: middle;"
                                         *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length == 0" i18n>
-                                        alle auswählen
-                                    </span>
+                                        alle auswählen</span>
                                     <span class="dotlabel" style="vertical-align: middle;"
                                         *ngIf="select['type'] == 'single' && nipixRuntime.getDrawPreset(itm).values.length > 0" i18n>
-                                        Auswahl aufheben
-                                    </span>
+                                        Auswahl aufheben</span>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="select['type'] == 'multiSelect'">
                                 <span class="dotlabel" style="padding-left: 0.5rem; vertical-align: middle;" i18n>
-                                    alle/keine auswählen
-                                </span>
+                                    alle/keine auswählen</span>
                             </ng-container>
 
                         </li>

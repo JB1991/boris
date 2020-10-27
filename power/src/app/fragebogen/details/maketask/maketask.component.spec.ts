@@ -27,14 +27,14 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
             declarations: [
                 MaketaskComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(MaketaskComponent);
-            component = fixture.componentInstance;
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.alerts, 'NewAlert');
-            fixture.detectChanges();
-        });
+        fixture = TestBed.createComponent(MaketaskComponent);
+        component = fixture.componentInstance;
+
+        spyOn(console, 'log');
+        spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

@@ -34,16 +34,20 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             declarations: [
                 NewformComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(NewformComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges(); // onInit
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.router, 'navigate');
-            spyOn(component.alerts, 'NewAlert');
-        });
+        fixture = TestBed.createComponent(NewformComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
     }));
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
     it('should open and close', () => {
         component.open();
@@ -220,6 +224,51 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen',
     //         'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
     // });
+    // it('should create new form with template', fakeAsync(() => {
+    //     spyOn(component, 'close').and.callThrough();
+    //     spyOn(component.formAPI, 'getInternForm').and.returnValue(Promise.resolve(formSample));
+    //     spyOn(component.formAPI, 'createInternForm');
+    //     component.template = '123';
+    //     component.title = 'Test';
+    //     fixture.detectChanges();
+    //     component.NewForm();
+    //     tick();
+    //     expect(component.close).toHaveBeenCalledTimes(1);
+    // }));
+
+    // it('should create new form without template', fakeAsync(() => {
+    //     spyOn(component, 'close').and.callThrough();
+    //     spyOn(component, 'makeForm').and.callThrough();
+    //     spyOn(component.formAPI, 'createInternForm');
+    //     component.title = 'Test';
+    //     fixture.detectChanges();
+    //     component.NewForm();
+    //     tick();
+    //     expect(component.makeForm).toHaveBeenCalledTimes(1);
+    //     expect(component.close).toHaveBeenCalledTimes(1);
+    // }));
+
+    // it('should fail to create new form', fakeAsync(() => {
+    //     spyOn(component.formAPI, 'getInternForm').and.callFake(() => {
+    //         return Promise.reject(new Error('Failed to create form'));
+    //     });
+    //     component.title = 'Test';
+    //     component.template = '123';
+    //     fixture.detectChanges();
+    //     component.NewForm();
+    //     tick();
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+    //         'Error: Failed to create form');
+    // }));
+
+    it('should not create new form (missing title)', () => {
+        component.title = null;
+        component.NewForm();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen',
+            'Bitte geben Sie einen Titel an.');
+    });
 });
 
 @Component({

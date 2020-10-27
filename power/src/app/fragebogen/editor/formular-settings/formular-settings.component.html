@@ -1,5 +1,6 @@
 <power-modal #formsettingsmodal
-             (closing)="close()">
+             checkInvalid="true"
+             (closing)="close($event)">
     <div class="container px-1 px-lg-3"
          *ngIf="model">
         <accordion [isAnimated]="true"
@@ -394,7 +395,6 @@
                                    i18n>Seiten Titel</label>
                             <power-forms-editor-localeinput [(locale)]="page.title"
                                                             eid="page-title-{{ i }}"
-                                                            required="true"
                                                             maxlength="200"
                                                             i18n-placeholder
                                                             placeholder="Seiten Titel">

@@ -16,6 +16,9 @@ export class BodenrichtwertKarteComponent implements OnInit {
     filterActive = false;
     threeDActive = false;
 
+    isDragged: boolean = false;
+    previousZoomFactor: number;
+
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
 
@@ -26,20 +29,9 @@ export class BodenrichtwertKarteComponent implements OnInit {
     marker: Marker = new Marker({
         color: '#c4153a',
         draggable: true
-    }).on('dragend', () => {
-        this.lat = this.marker.getLngLat().lat
-        this.lng = this.marker.getLngLat().lng
-        this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
-        this.getAddressFromLatLng(this.lat, this.lng);
-        this.map.flyTo({
-            center: [this.lng, this.lat],
-            zoom: 14,
-            speed: 1,
-            curve: 1,
-            bearing: 0
-        });
-    })
-
+    }).on('dragstart', () => {
+        this.isDragged = true;       
+    });
     zoom = 18;
 
     lat: number;
@@ -76,19 +68,22 @@ export class BodenrichtwertKarteComponent implements OnInit {
         this.filterActive = !this.filterActive;
     }
 
-    flyTo(event: any) {
+    selectSearchResult(event: any) {
         this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
+        const lng: number = event.geometry.coordinates[0];
+        const lat: number = event.geometry.coordinates[1];
+        this.flyTo(lat, lng);
+        this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
+    }
+
+    flyTo(lat: number, lng: number) {
         this.map.flyTo({
-            center: event.geometry.coordinates,
+            center: [lng, lat],
             zoom: 14,
             speed: 1,
             curve: 1,
             bearing: 0
         });
-        this.getBodenrichtwertzonen(
-            event.geometry.coordinates[1],
-            event.geometry.coordinates[0],
-            this.teilmarkt.value);
     }
 
     getBodenrichtwertzonen(lat: number, lng: number, entw: string) {
@@ -102,6 +97,18 @@ export class BodenrichtwertKarteComponent implements OnInit {
             .subscribe(res => this.geosearchService.updateFeatures(res.features[0]));
     }
 
+    onDragEnd() {
+        if (this.marker.getLngLat() && this.isDragged === true) {
+            this.lat = this.marker.getLngLat().lat;
+            this.lng = this.marker.getLngLat().lng;
+
+            this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+            this.getAddressFromLatLng(this.lat, this.lng);
+            this.flyTo(this.lat, this.lng);
+            this.isDragged = false;
+        }
+    }
+
     onMapClickEvent(event: any) {
         if (event.lngLat) {
             this.lat = event.lngLat.lat;
@@ -110,26 +117,16 @@ export class BodenrichtwertKarteComponent implements OnInit {
             this.marker.setLngLat([this.lng, this.lat]).addTo(this.map);
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
             this.getAddressFromLatLng(this.lat, this.lng);
-            this.map.flyTo({
-                center: [this.lng, this.lat],
-                zoom: 14,
-                speed: 1,
-                curve: 1,
-                bearing: 0
-            });
+            this.flyTo(this.lat, this.lng);
         }
     }
 
     onSearchSelect(event: any) {
         this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
-        this.map.flyTo({
-            center: event.geometry.coordinates,
-            zoom: 14,
-            speed: 1,
-            curve: 1,
-            bearing: 0
-        });
-        this.getBodenrichtwertzonen(event.geometry.coordinates[1], event.geometry.coordinates[0], 'B');
+        const lng: number = event.geometry.coordinates[0];
+        const lat: number = event.geometry.coordinates[1];
+        this.flyTo(lat, lng);
+        this.getBodenrichtwertzonen(lat, lng, 'B');
     }
 
     toggle3dView() {
@@ -142,6 +139,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     }
 
     private activate3dView() {
+        this.previousZoomFactor = this.map.getZoom();
         this.map.addLayer({
             id: 'building-extrusion',
             type: 'fill-extrusion',
@@ -168,7 +166,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     private deactivate3dView() {
         this.map.easeTo({
             pitch: 0,
-            zoom: 14,
+            zoom: this.previousZoomFactor,
             center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
@@ -214,4 +212,5 @@ export class BodenrichtwertKarteComponent implements OnInit {
         }
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */
