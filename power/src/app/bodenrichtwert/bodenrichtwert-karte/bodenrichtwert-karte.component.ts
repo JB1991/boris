@@ -17,6 +17,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     threeDActive = false;
 
     isDragged: boolean = false;
+    previousZoomFactor: number;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
@@ -29,9 +30,8 @@ export class BodenrichtwertKarteComponent implements OnInit {
         color: '#c4153a',
         draggable: true
     }).on('dragstart', () => {
-        this.isDragged = true;
-    } );
-
+        this.isDragged = true;       
+    });
     zoom = 18;
 
     lat: number;
@@ -152,6 +152,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     }
 
     private activate3dView() {
+        this.previousZoomFactor = this.map.getZoom();
         this.map.addLayer({
             id: 'building-extrusion',
             type: 'fill-extrusion',
@@ -178,7 +179,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     private deactivate3dView() {
         this.map.easeTo({
             pitch: 0,
-            zoom: 14,
+            zoom: this.previousZoomFactor,
             center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
