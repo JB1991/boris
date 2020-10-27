@@ -465,7 +465,7 @@
     </unit>
     <unit id="5063541446028843345">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:39</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:15</note>
       </notes>
       <segment state="translated">
         <source>Ortung</source>
@@ -474,7 +474,7 @@
     </unit>
     <unit id="6052049272309725871">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:43</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:19</note>
       </notes>
       <segment state="translated">
         <source>3D aktivieren/deaktivieren</source>
@@ -483,7 +483,7 @@
     </unit>
     <unit id="3959786746681776209">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:47</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:23</note>
       </notes>
       <segment state="translated">
         <source>Karte zurücksetzen</source>
@@ -501,7 +501,7 @@
     </unit>
     <unit id="9098454119754693999">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:67</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:37</note>
       </notes>
       <segment state="translated">
         <source>Suche</source>
@@ -1979,7 +1979,7 @@
     </unit>
     <unit id="8488547527396922136">
       <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:97</note>
+        <note category="location">src/app/fragebogen/details/details.component.ts:86</note>
       </notes>
       <segment state="translated">
         <source>Laden fehlgeschlagen</source>
@@ -1988,7 +1988,7 @@
     </unit>
     <unit id="2688283467752225426">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:96</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:60</note>
       </notes>
       <segment state="translated">
         <source>Veröffentlicht</source>
@@ -2067,18 +2067,18 @@
         <target>データが正常に保存されました。</target>
       </segment>
     </unit>
-    <unit id="5728737389036894478">
+    <unit id="2319467674133503336">
       <notes>
         <note category="location">src/app/fragebogen/fillout/fillout.component.ts:129</note>
       </notes>
       <segment state="translated">
-        <source>Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}</source>
-        <target>サーバーへの保存に失敗しました : {error.toString()}</target>
+        <source>Das Speichern auf dem Server ist fehlgeschlagen</source>
+        <target>サーバーへの保存に失敗しました</target>
       </segment>
     </unit>
     <unit id="4028295370197925352">
       <notes>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.ts:130</note>
+        <note category="location">src/app/fragebogen/details/settings/settings.component.ts:70</note>
       </notes>
       <segment state="translated">
         <source>Speichern fehlgeschlagen</source>
@@ -2500,7 +2500,7 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}</source>
-        <target>{VAR_SELECT、選択、作成された {作成された } {公開された } { 公開済み } { キャンセルされた } {</target>
+        <target>{VAR_SELECT, select, created {作成された} published {公開された} cancelled {完成した}}</target>
       </segment>
     </unit>
     <unit id="8022684452981881720">
@@ -2636,15 +2636,6 @@ Dies lässt sich nicht mehr umkehren!</source>
       <segment state="translated">
         <source>PIN</source>
         <target>ピン</target>
-      </segment>
-    </unit>
-    <unit id="1294029994729525960">
-      <notes>
-        <note category="location">src/app/fragebogen/details/details.component.html:392</note>
-      </notes>
-      <segment state="translated">
-        <source>{VAR_SELECT, select, created {Erstellt} accessed {In bearbeitung} submitted {Abgeschlossen}}</source>
-        <target>{VAR_SELECT、選択、作成された { 作成済み } {アクセスされた } {アクセスされた } {実行依頼された } {</target>
       </segment>
     </unit>
     <unit id="6920196637619975735">
@@ -3511,13 +3502,13 @@ Dies lässt sich nicht mehr umkehren!</source>
         <target>フォーム・フィールド*</target>
       </segment>
     </unit>
-    <unit id="4129820936220292343">
+    <unit id="8125848263204191046">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:35</note>
       </notes>
       <segment state="translated">
-        <source>Wert oder Variabel {e1}</source>
-        <target>値または変数 {e1}</target>
+        <source>Wert oder Variabel</source>
+        <target>値または変数</target>
       </segment>
     </unit>
     <unit id="5848610628261856643">
@@ -3581,15 +3572,6 @@ Dies lässt sich nicht mehr umkehren!</source>
       <segment state="translated">
         <source>Enthält alle</source>
         <target>すべてを含む</target>
-      </segment>
-    </unit>
-    <unit id="8259468771853264984">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:78</note>
-      </notes>
-      <segment state="translated">
-        <source>Wert oder Variabel %7Be1%7D</source>
-        <target>値または変数 %7Be1%7D</target>
       </segment>
     </unit>
     <unit id="7897216764489223339">
@@ -5025,11 +5007,11 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="1875629595072033230">
       <notes>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:206</note>
+        <note category="location">src/app/fragebogen/details/details.component.html:392</note>
       </notes>
       <segment state="translated">
         <source>{VAR_SELECT, select, created {Erstellt} accessed {In Bearbeitung} submitted {Abgeschlossen}}</source>
-        <target>{VAR_SELECT、選択、作成された { 作成済み } {アクセスされた } {アクセスされた } {実行依頼された } {</target>
+        <target>{VAR_SELECT, select, created {作成された} accessed {アクセスされた} submitted {完成した}}</target>
       </segment>
     </unit>
     <unit id="8902031064230548096">

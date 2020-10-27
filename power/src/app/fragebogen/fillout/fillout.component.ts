@@ -126,7 +126,7 @@ export class FilloutComponent implements OnInit {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen` + `: {error.toString()}`);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             return;
         });
@@ -180,7 +180,7 @@ export class FilloutComponent implements OnInit {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen` + `: {error.toString()}`);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             console.log(error);
             return;
