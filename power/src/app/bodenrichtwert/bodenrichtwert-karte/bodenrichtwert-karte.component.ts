@@ -68,19 +68,22 @@ export class BodenrichtwertKarteComponent implements OnInit {
         this.filterActive = !this.filterActive;
     }
 
-    flyTo(event: any) {
+    selectSearchResult(event: any) {
         this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
+        const lng: number = event.geometry.coordinates[0];
+        const lat: number = event.geometry.coordinates[1];
+        this.flyTo(lat, lng);
+        this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
+    }
+
+    flyTo(lat: number, lng: number) {
         this.map.flyTo({
-            center: event.geometry.coordinates,
+            center: [lng, lat],
             zoom: 14,
             speed: 1,
             curve: 1,
             bearing: 0
         });
-        this.getBodenrichtwertzonen(
-            event.geometry.coordinates[1],
-            event.geometry.coordinates[0],
-            this.teilmarkt.value);
     }
 
     getBodenrichtwertzonen(lat: number, lng: number, entw: string) {
@@ -101,13 +104,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
             this.getAddressFromLatLng(this.lat, this.lng);
-            this.map.flyTo({
-                center: [this.lng, this.lat],
-                zoom: 14,
-                speed: 1,
-                curve: 1,
-                bearing: 0
-            });
+            this.flyTo(this.lat, this.lng);
             this.isDragged = false;
         }
     }
@@ -120,26 +117,16 @@ export class BodenrichtwertKarteComponent implements OnInit {
             this.marker.setLngLat([this.lng, this.lat]).addTo(this.map);
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
             this.getAddressFromLatLng(this.lat, this.lng);
-            this.map.flyTo({
-                center: [this.lng, this.lat],
-                zoom: 14,
-                speed: 1,
-                curve: 1,
-                bearing: 0
-            });
+            this.flyTo(this.lat, this.lng);
         }
     }
 
     onSearchSelect(event: any) {
         this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
-        this.map.flyTo({
-            center: event.geometry.coordinates,
-            zoom: 14,
-            speed: 1,
-            curve: 1,
-            bearing: 0
-        });
-        this.getBodenrichtwertzonen(event.geometry.coordinates[1], event.geometry.coordinates[0], 'B');
+        const lng: number = event.geometry.coordinates[0];
+        const lat: number = event.geometry.coordinates[1];
+        this.flyTo(lat, lng);
+        this.getBodenrichtwertzonen(lat, lng, 'B');
     }
 
     toggle3dView() {
@@ -225,4 +212,5 @@ export class BodenrichtwertKarteComponent implements OnInit {
         }
     }
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

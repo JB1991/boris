@@ -34,16 +34,20 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             declarations: [
                 NewformComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(NewformComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges(); // onInit
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.router, 'navigate');
-            spyOn(component.alerts, 'NewAlert');
-        });
+        fixture = TestBed.createComponent(NewformComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
     }));
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
     it('should open and close', () => {
         component.open();
@@ -219,7 +223,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         component.NewForm();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen',
-            'Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.');
+            'Bitte geben Sie einen Titel an.');
     });
 });
 

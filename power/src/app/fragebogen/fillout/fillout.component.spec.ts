@@ -36,15 +36,15 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             declarations: [
                 FilloutComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(FilloutComponent);
-            component = fixture.componentInstance;
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.router, 'navigate');
-            spyOn(component.alerts, 'NewAlert');
-            fixture.detectChanges(); // onInit
-        });
+        fixture = TestBed.createComponent(FilloutComponent);
+        component = fixture.componentInstance;
+
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges(); // onInit
     }));
 
     /**

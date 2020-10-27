@@ -85,9 +85,9 @@ export class NewformComponent {
      */
     public NewForm() {
         // check if form is filled incorrect
-        if (document.getElementsByClassName('is-invalid').length > 0) {
+        if (!this.title) {
             this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`,
-                $localize`Einige Einstellungen sind fehlerhaft und müssen zuvor korrigiert werden.`);
+                $localize`Bitte geben Sie einen Titel an.`);
             return;
         }
 
