@@ -292,13 +292,13 @@
         <target>HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</target>
       </segment>
     </unit>
-    <unit id="1819023009432746413">
+    <unit id="368570970011594887">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:117</note>
       </notes>
       <segment state="initial">
-        <source>alle auswählen</source>
-        <target>alle auswählen</target>
+        <source>Alles auswählen</source>
+        <target>Alles auswählen</target>
       </segment>
     </unit>
     <unit id="7269047785736878362">
@@ -310,13 +310,13 @@
         <target>Auswahl aufheben</target>
       </segment>
     </unit>
-    <unit id="821535896692585906">
+    <unit id="3406696066634988187">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:125</note>
       </notes>
       <segment state="initial">
-        <source>alle/keine auswählen</source>
-        <target>alle/keine auswählen</target>
+        <source>Alles/Nichts auswählen</source>
+        <target>Alles/Nichts auswählen</target>
       </segment>
     </unit>
     <unit id="3527049829860901630">
@@ -328,22 +328,22 @@
         <target>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</target>
       </segment>
     </unit>
-    <unit id="6982726396008717823">
+    <unit id="3910267627180135548">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:189</note>
       </notes>
       <segment state="initial">
-        <source>Suchen Sie ihre Gemeinde:</source>
-        <target>Suchen Sie ihre Gemeinde:</target>
+        <source>Suchen Sie Ihre Gemeinde</source>
+        <target>Suchen Sie Ihre Gemeinde</target>
       </segment>
     </unit>
-    <unit id="7846860601179790148">
+    <unit id="2085014848861395847">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:202</note>
       </notes>
       <segment state="initial">
-        <source>Ihre Wohnungsmarktregion:</source>
-        <target>Ihre Wohnungsmarktregion:</target>
+        <source>Ihre Wohnungsmarktregion</source>
+        <target>Ihre Wohnungsmarktregion</target>
       </segment>
     </unit>
     <unit id="8329545165404152883">
@@ -436,13 +436,13 @@
         <target>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</target>
       </segment>
     </unit>
-    <unit id="4890544763204306749">
+    <unit id="5677984979625201937">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-verlauf/bodenrichtwert-verlauf.component.html:10,12</note>
       </notes>
       <segment state="initial">
-        <source>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt. </source>
-        <target>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt. </target>
+        <source>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt.</source>
+        <target>Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer Gültigkeit dargestellt.</target>
       </segment>
     </unit>
     <unit id="9117142324442802101">
@@ -1960,15 +1960,6 @@
         <target>Auf- und absteigende Sortierung möglich.</target>
       </segment>
     </unit>
-    <unit id="2728359226136161685">
-      <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:51</note>
-      </notes>
-      <segment state="initial">
-        <source>Titel </source>
-        <target>Titel </target>
-      </segment>
-    </unit>
     <unit id="8488547527396922136">
       <notes>
         <note category="location">src/app/fragebogen/details/details.component.ts:86</note>
@@ -1989,7 +1980,7 @@
     </unit>
     <unit id="4524423874106616060">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:155</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:154</note>
       </notes>
       <segment state="initial">
         <source>Formularanzahl pro Seite</source>
@@ -1998,7 +1989,7 @@
     </unit>
     <unit id="9145163141794594385">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:156</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:155</note>
       </notes>
       <segment state="initial">
         <source>Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen.</source>
@@ -2007,7 +1998,7 @@
     </unit>
     <unit id="1147413164438278837">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:175</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:174</note>
       </notes>
       <segment state="initial">
         <source>Pagination</source>
@@ -2016,7 +2007,7 @@
     </unit>
     <unit id="1073191942891868626">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:56</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:55</note>
       </notes>
       <segment state="initial">
         <source>Aufsteigend sortiert.</source>
@@ -2025,7 +2016,7 @@
     </unit>
     <unit id="2277815689896097575">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:117</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:116</note>
       </notes>
       <segment state="initial">
         <source>Absteigend sortiert.</source>
@@ -2034,7 +2025,7 @@
     </unit>
     <unit id="2319824520635416840">
       <notes>
-        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:148</note>
+        <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:147</note>
       </notes>
       <segment state="translated">
         <source>Keine Formulare gefunden</source>
@@ -2929,7 +2920,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6622873968841840307">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:55</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:44</note>
       </notes>
       <segment state="initial">
         <source>Änderungen übernommen</source>
@@ -2938,7 +2929,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="573391330390490773">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:56</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:45</note>
       </notes>
       <segment state="initial">
         <source>Ihre Änderungen wurden erfolgreich zwischen gespeichert.</source>
@@ -2956,7 +2947,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="932876642658778900">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:770</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:576</note>
       </notes>
       <segment state="initial">
         <source>Änderungen speichern</source>
@@ -3082,7 +3073,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3714125747806279899">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:423</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:351</note>
       </notes>
       <segment state="translated">
         <source>Nach oben verschieben</source>
@@ -3091,7 +3082,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="603389987382112463">
       <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:444</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:372</note>
       </notes>
       <segment state="translated">
         <source>Nach unten verschieben</source>
@@ -3127,7 +3118,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2258060347097525516">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:10</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:10</note>
       </notes>
       <segment state="translated">
         <source>Allgemein</source>
@@ -3199,7 +3190,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2465969235242735880">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:128</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:445</note>
       </notes>
       <segment state="translated">
         <source>Sichtbar</source>
@@ -3217,7 +3208,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5564872229726777752">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:144</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:461</note>
       </notes>
       <segment state="translated">
         <source>Deaktiviert</source>
@@ -3793,7 +3784,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="276184332300045619">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:496</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:98</note>
       </notes>
       <segment state="translated">
         <source>Wie definiert</source>
@@ -3802,7 +3793,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="5748078469472297200">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:498</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:100</note>
       </notes>
       <segment state="translated">
         <source>Zufällig</source>
@@ -3982,7 +3973,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7096759547174459513">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:606</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:177</note>
       </notes>
       <segment state="translated">
         <source>Breite in Pixel</source>
@@ -3991,7 +3982,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6463726515236192057">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:619</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:190</note>
       </notes>
       <segment state="translated">
         <source>Höhe in Pixel</source>
@@ -4000,7 +3991,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="3681264497760339705">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:632</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:203</note>
       </notes>
       <segment state="translated">
         <source>Größenanpassung</source>
@@ -4009,7 +4000,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4728532590739893418">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:638</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:209</note>
       </notes>
       <segment state="translated">
         <source>Keine Anpassung</source>
@@ -4018,7 +4009,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="4710626519203410106">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:640</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:211</note>
       </notes>
       <segment state="translated">
         <source>Verkleinern</source>
@@ -4027,7 +4018,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="7766735261673100646">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:642</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:213</note>
       </notes>
       <segment state="translated">
         <source>Abschneiden</source>
@@ -4036,7 +4027,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="2067326968798044785">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.html:644</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.html:215</note>
       </notes>
       <segment state="translated">
         <source>Füllen</source>
@@ -4864,7 +4855,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="8852250703686567498">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:67</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:54</note>
       </notes>
       <segment state="translated">
         <source>Ungültige Einstellungen</source>
@@ -4873,7 +4864,7 @@ Dies lässt sich nicht mehr umkehren!</source>
     </unit>
     <unit id="6908314331075628072">
       <notes>
-        <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:67</note>
+        <note category="location">src/app/fragebogen/editor/formular-settings/formular-settings.component.ts:54</note>
       </notes>
       <segment state="initial">
         <source>Bitte prüfen Sie Ihre Eingaben.</source>
