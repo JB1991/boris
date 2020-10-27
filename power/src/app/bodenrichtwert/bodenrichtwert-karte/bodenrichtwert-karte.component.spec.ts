@@ -81,7 +81,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.filterActive).toBe(true);
     });
 
-    it('selectResult should update the map', () => {
+    it('selectSearchResult should update the map', () => {
         spyOn(component, 'getBodenrichtwertzonen');
         component.selectSearchResult(feature);
         expect(component.map.flyTo).toHaveBeenCalledTimes(1);
