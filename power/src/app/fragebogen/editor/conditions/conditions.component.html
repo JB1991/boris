@@ -32,7 +32,7 @@
                    id="conditionQuestion{{ i }}{{ uniqId }}"
                    name="conditionQuestion{{ i }}{{ uniqId }}"
                    i18n-placeholder
-                   placeholder="Wert oder Variabel {e1}"
+                   placeholder="Wert oder Variabel"
                    maxlength="200"
                    required>
         </div>
@@ -75,7 +75,7 @@
              *ngIf="!(item.operator === 'empty' || item.operator === 'notempty')">
             <label for="conditionValueA{{ i }}{{ uniqId }}"
                    class="sr-only"
-                   i18n>Wert oder Variabel %7Be1%7D</label>
+                   i18n>Wert oder Variabel</label>
             <input type="text"
                    class="form-control"
                    [attr.list]="'conditionlist-' + uniqId"
@@ -86,7 +86,7 @@
                    id="conditionValueA{{ i }}{{ uniqId }}"
                    name="conditionValueA{{ i }}{{ uniqId }}"
                    i18n-placeholder
-                   placeholder="Wert oder Variabel {e1}"
+                   placeholder="Wert oder Variabel"
                    maxlength="200"
                    required>
 
