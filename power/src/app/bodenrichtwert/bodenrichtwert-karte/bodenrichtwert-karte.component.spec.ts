@@ -7,7 +7,7 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { Map } from 'mapbox-gl';
+import { LngLat, Map } from 'mapbox-gl';
 import { Feature } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
@@ -98,6 +98,18 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.geosearchService, 'getAddressFromCoordinates').and.callThrough();
         component.getAddressFromLatLng(lat, lon);
         expect(component.geosearchService.getAddressFromCoordinates).toHaveBeenCalledTimes(1);
+    });
+
+    it('onDragEnd should process the drag', () => {
+        const lngLat: LngLat = {lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null};
+        spyOn(component.marker, 'getLngLat').and.returnValue(lngLat);
+        component.isDragged = true;
+        spyOn(component, 'getBodenrichtwertzonen');
+        spyOn(component, 'getAddressFromLatLng');
+        component.onDragEnd();
+        expect(component.map.flyTo).toHaveBeenCalledTimes(1);
+        expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(1);
+        expect(component.getAddressFromLatLng).toHaveBeenCalledTimes(1);
     });
 
     it('onMapClickEvent should process the event', () => {
