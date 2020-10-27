@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import * as Survey from 'survey-angular';
 
@@ -11,7 +11,8 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 @Component({
     selector: 'power-forms-editor-formular-settings',
     templateUrl: './formular-settings.component.html',
-    styleUrls: ['./formular-settings.component.scss']
+    styleUrls: ['./formular-settings.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormularSettingsComponent {
     @ViewChild('formsettingsmodal') public modal: ModalComponent;

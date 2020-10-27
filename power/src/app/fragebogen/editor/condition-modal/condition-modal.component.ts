@@ -1,4 +1,4 @@
-import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ViewChild, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
@@ -6,7 +6,8 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 @Component({
     selector: 'power-forms-editor-condition-modal',
     templateUrl: './condition-modal.component.html',
-    styleUrls: ['./condition-modal.component.scss']
+    styleUrls: ['./condition-modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConditionModalComponent {
     @ViewChild('conditionmodal') public modal: ModalminiComponent;

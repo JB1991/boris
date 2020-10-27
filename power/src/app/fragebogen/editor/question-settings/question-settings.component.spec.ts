@@ -1,3 +1,4 @@
+import { LOCALE_ID } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,6 +12,7 @@ import { HistoryService } from '../history.service';
 import { ConditionsComponent } from '../conditions/conditions.component';
 import { ValidatorsComponent } from '../validators/validators.component';
 import { ValueComponent } from '../value/value.component';
+import { LocaleInputComponent } from '../localeinput/localeinput.component';
 
 import { SharedModule } from '@app/shared/shared.module';
 import { AnswersComponent } from '../answers/answers.component';
@@ -32,6 +34,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
                 SharedModule
             ],
             providers: [
+                { provide: LOCALE_ID, useValue: 'de' },
                 StorageService,
                 HistoryService
             ],
@@ -40,7 +43,8 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
                 ConditionsComponent,
                 ValidatorsComponent,
                 ValueComponent,
-                AnswersComponent
+                AnswersComponent,
+                LocaleInputComponent
             ]
         }).compileComponents();
 

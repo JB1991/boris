@@ -1,10 +1,14 @@
-import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
+import {
+    Component, OnDestroy, ViewChild, ElementRef, Output,
+    EventEmitter, Input, ChangeDetectionStrategy
+} from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'power-modalmini',
     templateUrl: './modalmini.component.html',
-    styleUrls: ['./modalmini.component.scss']
+    styleUrls: ['./modalmini.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalminiComponent implements OnDestroy {
     @ViewChild('modalmini') public modal: ModalDirective;

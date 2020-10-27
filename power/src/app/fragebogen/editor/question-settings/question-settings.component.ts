@@ -1,4 +1,7 @@
-import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Component, ViewChild, Input, Output, EventEmitter,
+    ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
@@ -9,7 +12,8 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 @Component({
     selector: 'power-forms-editor-question-settings',
     templateUrl: './question-settings.component.html',
-    styleUrls: ['./question-settings.component.scss']
+    styleUrls: ['./question-settings.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuestionSettingsComponent {
     @ViewChild('questionsettingsmodal') public modal: ModalComponent;
@@ -22,7 +26,8 @@ export class QuestionSettingsComponent {
 
     constructor(public alerts: AlertsService,
         public storage: StorageService,
-        public history: HistoryService) { }
+        public history: HistoryService,
+        public cdr: ChangeDetectorRef) { }
 
     /**
      * Opens modal
@@ -40,6 +45,7 @@ export class QuestionSettingsComponent {
         this.question = question;
         this.copy = JSON.stringify(this.model);
         this.storage.setAutoSaveEnabled(false);
+        this.cdr.detectChanges();
         this.modal.open($localize`Fragen Einstellungen`);
         this.migration();
     }
