@@ -10,13 +10,14 @@
              [options]="chartOption"
              class="time-series"
              id="time-series"></div>
-
     </ng-container>
 
     <ng-container *ngIf="!echartsInstance">
-        <div echarts
-             (chartInit)="onChartInit($event)"
-             [options]="chartOption"></div>
+        <div 
+            id="eChartInstance"
+            echarts
+            (chartInit)="onChartInit($event)"
+            [options]="chartOption"></div>
     </ng-container>
 
     <div>

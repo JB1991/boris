@@ -40,7 +40,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('generateChart should insert data into chart options', () => {
-        component.echartsInstance = echarts.init(document.getElementById('time-series'));
+        component.echartsInstance = echarts.init(document.getElementById('eChartInstance'));
         component.echartsInstance.setOption(component.chartOption);
         expect(component.chartOption.legend.data.length).toBe(0);
         expect(component.chartOption.series.length).toBe(0);
