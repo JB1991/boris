@@ -164,10 +164,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return '';
     }
 
-    test() {
-        console.log('test');
-    }
-
     onChartInit(event: any) {
         this.echartsInstance = event;
     }
