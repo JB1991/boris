@@ -181,8 +181,8 @@
             <!-- Find Woma-Region -->
             <ngb-panel id="static-99">
                 <ng-template ngbPanelTitle>
-                    <i-bs name="plus-circle" *ngIf="staticExpand(99) === false" aria-hidden="true"></i-bs>
-                    <i-bs name="dash-circle" *ngIf="staticExpand(99) === true" aria-hidden="true"></i-bs>
+                    <i-bs name="plus-circle" *ngIf="staticExpand(99) === false" aria-hidden="true" class="mr-1"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticExpand(99) === true" aria-hidden="true" class="mr-1"></i-bs>
                     <ng-container i18n>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</ng-container>
                 </ng-template>
                 <ng-template ngbPanelContent>
@@ -204,12 +204,11 @@
 
                 </ng-template>
             </ngb-panel>
-
         </ngb-accordion>
+
         <div style="text-align: center; margin-top: 1rem;">
-            <ng-container i18n="AGNB Start">Es gelten die</ng-container> <a href="{{nipixStatic.agnbUrl}}" target="_blank" rel="noreferrer"
+            <a href="{{nipixStatic.agnbUrl}}" target="_blank" rel="noreferrer"
                 i18n="AGNB">Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB)</a>
-            <ng-container i18n="AGNB Ende">.</ng-container>
         </div>
     </div>
 </div>

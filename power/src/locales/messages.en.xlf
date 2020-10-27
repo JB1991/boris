@@ -75,7 +75,7 @@
     </unit>
     <unit id="1547876271716599756">
       <notes>
-        <note category="location">src/app/app.component.html:172</note>
+        <note category="location">src/app/app.component.html:174</note>
       </notes>
       <segment state="translated">
         <source>Impressum</source>
@@ -84,7 +84,7 @@
     </unit>
     <unit id="4082114936887396529">
       <notes>
-        <note category="location">src/app/app.component.html:176</note>
+        <note category="location">src/app/app.component.html:180</note>
       </notes>
       <segment state="translated">
         <source>Datenschutz</source>
@@ -93,7 +93,7 @@
     </unit>
     <unit id="7873929056259616146">
       <notes>
-        <note category="location">src/app/app.component.html:180</note>
+        <note category="location">src/app/app.component.html:186</note>
       </notes>
       <segment state="translated">
         <source>Allgemeine Geschäfts- und Nutzungsbedingungen</source>
@@ -102,7 +102,7 @@
     </unit>
     <unit id="2724055831234181057">
       <notes>
-        <note category="location">src/app/app.component.html:183</note>
+        <note category="location">src/app/app.component.html:189</note>
       </notes>
       <segment state="translated">
         <source>Version</source>
@@ -244,16 +244,6 @@
         <target>NOTE: The base year of the index series calculation depends on the selection below and can be dynamically adjusted using the sliders.</target>
       </segment>
     </unit>
-    <unit id="3896770541274170506">
-      <notes>
-        <note category="description">AGNB Start</note>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:210</note>
-      </notes>
-      <segment state="translated">
-        <source>Es gelten die</source>
-        <target>The</target>
-      </segment>
-    </unit>
     <unit id="2254299917153630149">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:211</note>
@@ -262,16 +252,6 @@
       <segment state="translated">
         <source>Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB)</source>
         <target>General Terms of Business and Use (AGNB)</target>
-      </segment>
-    </unit>
-    <unit id="8060976976079359371">
-      <notes>
-        <note category="description">AGNB Ende</note>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:212</note>
-      </notes>
-      <segment state="translated">
-        <source>.</source>
-        <target>apply.</target>
       </segment>
     </unit>
     <unit id="30907226667156700">
@@ -465,7 +445,7 @@
     </unit>
     <unit id="5063541446028843345">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:15</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:39</note>
       </notes>
       <segment state="translated">
         <source>Ortung</source>
@@ -474,7 +454,7 @@
     </unit>
     <unit id="6052049272309725871">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:19</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:43</note>
       </notes>
       <segment state="translated">
         <source>3D aktivieren/deaktivieren</source>
@@ -483,7 +463,7 @@
     </unit>
     <unit id="3959786746681776209">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:23</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:47</note>
       </notes>
       <segment state="translated">
         <source>Karte zurücksetzen</source>
@@ -501,7 +481,7 @@
     </unit>
     <unit id="9098454119754693999">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:37</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:67</note>
       </notes>
       <segment state="translated">
         <source>Suche</source>
@@ -1714,6 +1694,15 @@
       <segment state="translated">
         <source>Sie wurden erfolgreich ausgeloggt.</source>
         <target>You have been logged out successfully.</target>
+      </segment>
+    </unit>
+    <unit id="841934696444961534">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:121</note>
+      </notes>
+      <segment state="translated">
+        <source>News</source>
+        <target>News</target>
       </segment>
     </unit>
     <unit id="4177395589093342239">

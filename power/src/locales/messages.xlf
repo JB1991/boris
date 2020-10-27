@@ -59,7 +59,7 @@
     </unit>
     <unit id="1547876271716599756">
       <notes>
-        <note category="location">src/app/app.component.html:172</note>
+        <note category="location">src/app/app.component.html:174</note>
       </notes>
       <segment>
         <source>Impressum</source>
@@ -67,7 +67,7 @@
     </unit>
     <unit id="4082114936887396529">
       <notes>
-        <note category="location">src/app/app.component.html:176</note>
+        <note category="location">src/app/app.component.html:180</note>
       </notes>
       <segment>
         <source>Datenschutz</source>
@@ -75,7 +75,7 @@
     </unit>
     <unit id="7873929056259616146">
       <notes>
-        <note category="location">src/app/app.component.html:180</note>
+        <note category="location">src/app/app.component.html:186</note>
       </notes>
       <segment>
         <source>Allgemeine Geschäfts- und Nutzungsbedingungen</source>
@@ -83,7 +83,7 @@
     </unit>
     <unit id="2724055831234181057">
       <notes>
-        <note category="location">src/app/app.component.html:183</note>
+        <note category="location">src/app/app.component.html:189</note>
       </notes>
       <segment>
         <source>Version</source>
@@ -225,15 +225,6 @@
         <source>HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</source>
       </segment>
     </unit>
-    <unit id="3896770541274170506">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:210</note>
-        <note category="description">AGNB Start</note>
-      </notes>
-      <segment>
-        <source>Es gelten die</source>
-      </segment>
-    </unit>
     <unit id="2254299917153630149">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:211</note>
@@ -241,15 +232,6 @@
       </notes>
       <segment>
         <source>Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB)</source>
-      </segment>
-    </unit>
-    <unit id="8060976976079359371">
-      <notes>
-        <note category="location">src/app/immobilien/immobilien/immobilien.component.html:212</note>
-        <note category="description">AGNB Ende</note>
-      </notes>
-      <segment>
-        <source>.</source>
       </segment>
     </unit>
     <unit id="30907226667156700">
@@ -314,86 +296,6 @@
       </notes>
       <segment>
         <source>Ihre Wohnungsmarktregion</source>
-      </segment>
-    </unit>
-    <unit id="7813295753346997362">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:38</note>
-      </notes>
-      <segment>
-        <source>Bodenwerte - POWER.NI</source>
-      </segment>
-    </unit>
-    <unit id="5063541446028843345">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:15</note>
-      </notes>
-      <segment>
-        <source>Ortung</source>
-      </segment>
-    </unit>
-    <unit id="6052049272309725871">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:19</note>
-      </notes>
-      <segment>
-        <source>3D aktivieren/deaktivieren</source>
-      </segment>
-    </unit>
-    <unit id="3959786746681776209">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:23</note>
-      </notes>
-      <segment>
-        <source>Karte zurücksetzen</source>
-      </segment>
-    </unit>
-    <unit id="9098454119754693999">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:37</note>
-      </notes>
-      <segment>
-        <source>Suche</source>
-      </segment>
-    </unit>
-    <unit id="4300090619021279969">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:61</note>
-      </notes>
-      <segment>
-        <source>Testdaten</source>
-      </segment>
-    </unit>
-    <unit id="2536156425034607770">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:122</note>
-      </notes>
-      <segment>
-        <source>Wählen Sie Flurstücke auf der Karte aus</source>
-      </segment>
-    </unit>
-    <unit id="1889515159201485012">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:130</note>
-      </notes>
-      <segment>
-        <source>Amtliche Fläche</source>
-      </segment>
-    </unit>
-    <unit id="5422814021855947257">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:131</note>
-      </notes>
-      <segment>
-        <source>Wert</source>
-      </segment>
-    </unit>
-    <unit id="6941480264920362873">
-      <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:141</note>
-      </notes>
-      <segment>
-        <source>Summe</source>
       </segment>
     </unit>
     <unit id="8329545165404152883">
@@ -500,12 +402,44 @@
         <source>Teilmarkt</source>
       </segment>
     </unit>
+    <unit id="5063541446028843345">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:39</note>
+      </notes>
+      <segment>
+        <source>Ortung</source>
+      </segment>
+    </unit>
+    <unit id="6052049272309725871">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:43</note>
+      </notes>
+      <segment>
+        <source>3D aktivieren/deaktivieren</source>
+      </segment>
+    </unit>
+    <unit id="3959786746681776209">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:47</note>
+      </notes>
+      <segment>
+        <source>Karte zurücksetzen</source>
+      </segment>
+    </unit>
     <unit id="3906533541170541583">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:61</note>
       </notes>
       <segment>
         <source>Filtern</source>
+      </segment>
+    </unit>
+    <unit id="9098454119754693999">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:67</note>
+      </notes>
+      <segment>
+        <source>Suche</source>
       </segment>
     </unit>
     <unit id="7478201324644826913">
@@ -570,6 +504,54 @@
       </notes>
       <segment>
         <source>Löschen</source>
+      </segment>
+    </unit>
+    <unit id="7813295753346997362">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:38</note>
+      </notes>
+      <segment>
+        <source>Bodenwerte - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="4300090619021279969">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:61</note>
+      </notes>
+      <segment>
+        <source>Testdaten</source>
+      </segment>
+    </unit>
+    <unit id="2536156425034607770">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:122</note>
+      </notes>
+      <segment>
+        <source>Wählen Sie Flurstücke auf der Karte aus</source>
+      </segment>
+    </unit>
+    <unit id="1889515159201485012">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:130</note>
+      </notes>
+      <segment>
+        <source>Amtliche Fläche</source>
+      </segment>
+    </unit>
+    <unit id="5422814021855947257">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:131</note>
+      </notes>
+      <segment>
+        <source>Wert</source>
+      </segment>
+    </unit>
+    <unit id="6941480264920362873">
+      <notes>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:141</note>
+      </notes>
+      <segment>
+        <source>Summe</source>
       </segment>
     </unit>
     <unit id="6267893735675184411">
@@ -1669,6 +1651,14 @@ Grundstückswerte in Niedersachsen</source>
       </notes>
       <segment>
         <source>Sie wurden erfolgreich ausgeloggt.</source>
+      </segment>
+    </unit>
+    <unit id="841934696444961534">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:121</note>
+      </notes>
+      <segment>
+        <source>News</source>
       </segment>
     </unit>
     <unit id="4177395589093342239">
@@ -3298,270 +3288,6 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Aktivierungsbedingung</source>
       </segment>
     </unit>
-    <unit id="4723836104354899512">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:37</note>
-      </notes>
-      <segment>
-        <source>Formular Editor - POWER.NI</source>
-      </segment>
-    </unit>
-    <unit id="1846940666050448274">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:398</note>
-      </notes>
-      <segment>
-        <source>Möchten Sie diese Seite wirklich löschen?</source>
-      </segment>
-    </unit>
-    <unit id="4083098439898145242">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:482</note>
-      </notes>
-      <segment>
-        <source>Erfolgreich kopiert</source>
-      </segment>
-    </unit>
-    <unit id="6844731081276396216">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:483</note>
-      </notes>
-      <segment>
-        <source>Sie finden Ihre Zwischenablage ganz unten in der Toolbox.</source>
-      </segment>
-    </unit>
-    <unit id="827004122415134621">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:510</note>
-      </notes>
-      <segment>
-        <source>Möchten Sie das Element wirklich löschen?</source>
-      </segment>
-    </unit>
-    <unit id="8308742862340480417">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:596</note>
-      </notes>
-      <segment>
-        <source>Kein Titel vorhanden</source>
-      </segment>
-    </unit>
-    <unit id="7992701910216700161">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:597</note>
-      </notes>
-      <segment>
-        <source>Bitte geben Sie erst einen Fragetitel ein, um die Favoritenfunktion mit dieser Frage nutzen zu können.</source>
-      </segment>
-    </unit>
-    <unit id="7703604397816691419">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:608</note>
-      </notes>
-      <segment>
-        <source>Favoriten hinzugefügt</source>
-      </segment>
-    </unit>
-    <unit id="6554859241404673322">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:609</note>
-      </notes>
-      <segment>
-        <source>Die Frage wurde erfolgreich als Favoriten hinzugefügt.</source>
-      </segment>
-    </unit>
-    <unit id="3725407762902324146">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:611</note>
-      </notes>
-      <segment>
-        <source>Favoriten hinzufügen fehlgeschlagen</source>
-      </segment>
-    </unit>
-    <unit id="8790959798803024488">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:639</note>
-      </notes>
-      <segment>
-        <source>Favoriten gelöscht</source>
-      </segment>
-    </unit>
-    <unit id="8437124138358195643">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:640</note>
-      </notes>
-      <segment>
-        <source>Die Frage wurde erfolgreich aus den Favoriten entfernt.</source>
-      </segment>
-    </unit>
-    <unit id="5857557357218947756">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.ts:642</note>
-      </notes>
-      <segment>
-        <source>Favorite löschen fehlgeschlagen</source>
-      </segment>
-    </unit>
-    <unit id="8213233138195056757">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:29</note>
-      </notes>
-      <segment>
-        <source>Toolbox</source>
-      </segment>
-    </unit>
-    <unit id="4459038419001492449">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:109</note>
-      </notes>
-      <segment>
-        <source>Favoriten</source>
-      </segment>
-    </unit>
-    <unit id="9011837343127283352">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:143</note>
-      </notes>
-      <segment>
-        <source>Formular page navigation</source>
-      </segment>
-    </unit>
-    <unit id="1557196698790782207">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:173</note>
-      </notes>
-      <segment>
-        <source>Neue Seite hinzufügen</source>
-      </segment>
-    </unit>
-    <unit id="5744410059698672022">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:200</note>
-      </notes>
-      <segment>
-        <source>Ausgewählte Seite löschen</source>
-      </segment>
-    </unit>
-    <unit id="457974053481573035">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:227</note>
-      </notes>
-      <segment>
-        <source>Letzte Änderung wiederholen</source>
-      </segment>
-    </unit>
-    <unit id="9184754693751559474">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:250</note>
-      </notes>
-      <segment>
-        <source>Letzte Änderung rückgängig machen</source>
-      </segment>
-    </unit>
-    <unit id="1984014520885532931">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:273</note>
-      </notes>
-      <segment>
-        <source>Formular Vorschau öffnen</source>
-      </segment>
-    </unit>
-    <unit id="8074982956026936752">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:301</note>
-      </notes>
-      <segment>
-        <source>Formular Einstellungen öffnen</source>
-      </segment>
-    </unit>
-    <unit id="1757132388528868196">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:323</note>
-      </notes>
-      <segment>
-        <source>Formular speichern</source>
-      </segment>
-    </unit>
-    <unit id="90895410484051873">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:347</note>
-      </notes>
-      <segment>
-        <source>Zurück zu den Details</source>
-      </segment>
-    </unit>
-    <unit id="8696865147554603290">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:62</note>
-      </notes>
-      <segment>
-        <source>Zwischenablage</source>
-      </segment>
-    </unit>
-    <unit id="9065639806315315313">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:132</note>
-      </notes>
-      <segment>
-        <source>Sie haben keine Favoriten</source>
-      </segment>
-    </unit>
-    <unit id="5063140447217153857">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:161</note>
-      </notes>
-      <segment>
-        <source>Zeige Seite <ph id="0" equiv="INTERPOLATION" disp="           "/></source>
-      </segment>
-    </unit>
-    <unit id="3225144225680546881">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:375</note>
-      </notes>
-      <segment>
-        <source>Ziehen Sie etwas in den Arbeitsbereich...</source>
-      </segment>
-    </unit>
-    <unit id="2010348647719233142">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:393</note>
-      </notes>
-      <segment>
-        <source>Fragen ID:</source>
-      </segment>
-    </unit>
-    <unit id="7897211246412919659">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:404</note>
-      </notes>
-      <segment>
-        <source>Verschieben</source>
-      </segment>
-    </unit>
-    <unit id="6421015407864399648">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:465</note>
-      </notes>
-      <segment>
-        <source>Kopieren</source>
-      </segment>
-    </unit>
-    <unit id="9141378190271389476">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:487</note>
-      </notes>
-      <segment>
-        <source>Als Favoriten speichern</source>
-      </segment>
-    </unit>
-    <unit id="7055050626756411310">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/editor.component.html:508</note>
-      </notes>
-      <segment>
-        <source>Favoriten löschen</source>
-      </segment>
-    </unit>
     <unit id="5076633116931203629">
       <notes>
         <note category="location">src/app/fragebogen/editor/question-settings/question-settings.component.ts:43</note>
@@ -4154,6 +3880,270 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Bild Hochladen</source>
       </segment>
     </unit>
+    <unit id="4723836104354899512">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:37</note>
+      </notes>
+      <segment>
+        <source>Formular Editor - POWER.NI</source>
+      </segment>
+    </unit>
+    <unit id="1846940666050448274">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:398</note>
+      </notes>
+      <segment>
+        <source>Möchten Sie diese Seite wirklich löschen?</source>
+      </segment>
+    </unit>
+    <unit id="4083098439898145242">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:482</note>
+      </notes>
+      <segment>
+        <source>Erfolgreich kopiert</source>
+      </segment>
+    </unit>
+    <unit id="6844731081276396216">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:483</note>
+      </notes>
+      <segment>
+        <source>Sie finden Ihre Zwischenablage ganz unten in der Toolbox.</source>
+      </segment>
+    </unit>
+    <unit id="827004122415134621">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:510</note>
+      </notes>
+      <segment>
+        <source>Möchten Sie das Element wirklich löschen?</source>
+      </segment>
+    </unit>
+    <unit id="8308742862340480417">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:596</note>
+      </notes>
+      <segment>
+        <source>Kein Titel vorhanden</source>
+      </segment>
+    </unit>
+    <unit id="7992701910216700161">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:597</note>
+      </notes>
+      <segment>
+        <source>Bitte geben Sie erst einen Fragetitel ein, um die Favoritenfunktion mit dieser Frage nutzen zu können.</source>
+      </segment>
+    </unit>
+    <unit id="7703604397816691419">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:608</note>
+      </notes>
+      <segment>
+        <source>Favoriten hinzugefügt</source>
+      </segment>
+    </unit>
+    <unit id="6554859241404673322">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:609</note>
+      </notes>
+      <segment>
+        <source>Die Frage wurde erfolgreich als Favoriten hinzugefügt.</source>
+      </segment>
+    </unit>
+    <unit id="3725407762902324146">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:611</note>
+      </notes>
+      <segment>
+        <source>Favoriten hinzufügen fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="8790959798803024488">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:639</note>
+      </notes>
+      <segment>
+        <source>Favoriten gelöscht</source>
+      </segment>
+    </unit>
+    <unit id="8437124138358195643">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:640</note>
+      </notes>
+      <segment>
+        <source>Die Frage wurde erfolgreich aus den Favoriten entfernt.</source>
+      </segment>
+    </unit>
+    <unit id="5857557357218947756">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.ts:642</note>
+      </notes>
+      <segment>
+        <source>Favorite löschen fehlgeschlagen</source>
+      </segment>
+    </unit>
+    <unit id="8213233138195056757">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:29</note>
+      </notes>
+      <segment>
+        <source>Toolbox</source>
+      </segment>
+    </unit>
+    <unit id="4459038419001492449">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:109</note>
+      </notes>
+      <segment>
+        <source>Favoriten</source>
+      </segment>
+    </unit>
+    <unit id="9011837343127283352">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:143</note>
+      </notes>
+      <segment>
+        <source>Formular page navigation</source>
+      </segment>
+    </unit>
+    <unit id="1557196698790782207">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:173</note>
+      </notes>
+      <segment>
+        <source>Neue Seite hinzufügen</source>
+      </segment>
+    </unit>
+    <unit id="5744410059698672022">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:200</note>
+      </notes>
+      <segment>
+        <source>Ausgewählte Seite löschen</source>
+      </segment>
+    </unit>
+    <unit id="457974053481573035">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:227</note>
+      </notes>
+      <segment>
+        <source>Letzte Änderung wiederholen</source>
+      </segment>
+    </unit>
+    <unit id="9184754693751559474">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:250</note>
+      </notes>
+      <segment>
+        <source>Letzte Änderung rückgängig machen</source>
+      </segment>
+    </unit>
+    <unit id="1984014520885532931">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:273</note>
+      </notes>
+      <segment>
+        <source>Formular Vorschau öffnen</source>
+      </segment>
+    </unit>
+    <unit id="8074982956026936752">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:301</note>
+      </notes>
+      <segment>
+        <source>Formular Einstellungen öffnen</source>
+      </segment>
+    </unit>
+    <unit id="1757132388528868196">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:323</note>
+      </notes>
+      <segment>
+        <source>Formular speichern</source>
+      </segment>
+    </unit>
+    <unit id="90895410484051873">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:347</note>
+      </notes>
+      <segment>
+        <source>Zurück zu den Details</source>
+      </segment>
+    </unit>
+    <unit id="8696865147554603290">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:62</note>
+      </notes>
+      <segment>
+        <source>Zwischenablage</source>
+      </segment>
+    </unit>
+    <unit id="9065639806315315313">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:132</note>
+      </notes>
+      <segment>
+        <source>Sie haben keine Favoriten</source>
+      </segment>
+    </unit>
+    <unit id="5063140447217153857">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:161</note>
+      </notes>
+      <segment>
+        <source>Zeige Seite <ph id="0" equiv="INTERPOLATION" disp="           "/></source>
+      </segment>
+    </unit>
+    <unit id="3225144225680546881">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:375</note>
+      </notes>
+      <segment>
+        <source>Ziehen Sie etwas in den Arbeitsbereich...</source>
+      </segment>
+    </unit>
+    <unit id="2010348647719233142">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:393</note>
+      </notes>
+      <segment>
+        <source>Fragen ID:</source>
+      </segment>
+    </unit>
+    <unit id="7897211246412919659">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:404</note>
+      </notes>
+      <segment>
+        <source>Verschieben</source>
+      </segment>
+    </unit>
+    <unit id="6421015407864399648">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:465</note>
+      </notes>
+      <segment>
+        <source>Kopieren</source>
+      </segment>
+    </unit>
+    <unit id="9141378190271389476">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:487</note>
+      </notes>
+      <segment>
+        <source>Als Favoriten speichern</source>
+      </segment>
+    </unit>
+    <unit id="7055050626756411310">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/editor.component.html:508</note>
+      </notes>
+      <segment>
+        <source>Favoriten löschen</source>
+      </segment>
+    </unit>
     <unit id="1962054522708788552">
       <notes>
         <note category="location">src/app/fragebogen/editor/conditions/conditions.component.html:122</note>
@@ -4378,30 +4368,6 @@ Dies lässt sich nicht mehr umkehren!</source>
         <source>Enthält alle</source>
       </segment>
     </unit>
-    <unit id="4148353123071676032">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/value/value.component.html:13</note>
-      </notes>
-      <segment>
-        <source>Zurücksetzen</source>
-      </segment>
-    </unit>
-    <unit id="5630731892828039251">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:16</note>
-      </notes>
-      <segment>
-        <source>Sichtbarkeitsbedingung für Antwort oder Unterfrage</source>
-      </segment>
-    </unit>
-    <unit id="4874905878981423123">
-      <notes>
-        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:4</note>
-      </notes>
-      <segment>
-        <source>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</source>
-      </segment>
-    </unit>
     <unit id="4550688755259900759">
       <notes>
         <note category="location">src/app/fragebogen/editor/validators/validators.component.html:229</note>
@@ -4568,6 +4534,30 @@ Dies lässt sich nicht mehr umkehren!</source>
       </notes>
       <segment>
         <source>Englisch</source>
+      </segment>
+    </unit>
+    <unit id="4148353123071676032">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/value/value.component.html:13</note>
+      </notes>
+      <segment>
+        <source>Zurücksetzen</source>
+      </segment>
+    </unit>
+    <unit id="5630731892828039251">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.ts:16</note>
+      </notes>
+      <segment>
+        <source>Sichtbarkeitsbedingung für Antwort oder Unterfrage</source>
+      </segment>
+    </unit>
+    <unit id="4874905878981423123">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/condition-modal/condition-modal.component.html:4</note>
+      </notes>
+      <segment>
+        <source>Sichtbarkeitsbedingung für diese Antwort oder Unterfrage einstellen</source>
       </segment>
     </unit>
     <unit id="4827703385144532970">
