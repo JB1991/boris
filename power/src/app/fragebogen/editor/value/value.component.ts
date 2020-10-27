@@ -2,7 +2,6 @@ import {
     Component, OnChanges, Input, Output, EventEmitter,
     InjectionToken, Inject, ChangeDetectionStrategy
 } from '@angular/core';
-const clone = require('rfdc')();
 
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 
@@ -26,7 +25,7 @@ export class ValueComponent implements OnChanges {
     @Input() public value: any;
     @Output() public valueChange = new EventEmitter<any>();
     public data = {};
-    public css_style = clone(Bootstrap4_CSS);
+    public css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) {
         // overwrite style class
