@@ -1,4 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewChild, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, Input, Output, EventEmitter, ViewChild,
+    InjectionToken, Inject, ChangeDetectionStrategy
+} from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
@@ -12,7 +15,8 @@ let id = 0;
     ],
     selector: 'power-forms-editor-answers',
     templateUrl: './answers.component.html',
-    styleUrls: ['./answers.component.scss']
+    styleUrls: ['./answers.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnswersComponent {
     @ViewChild('answersForm') public myForm;

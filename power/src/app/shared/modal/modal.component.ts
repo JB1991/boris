@@ -1,6 +1,6 @@
 import {
-    Component, OnDestroy, ViewChild, ElementRef,
-    Output, EventEmitter, HostListener, InjectionToken, Inject, Input
+    Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter,
+    HostListener, InjectionToken, Inject, Input, ChangeDetectionStrategy
 } from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
@@ -15,7 +15,8 @@ let id = 0;
     ],
     selector: 'power-modal',
     templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss']
+    styleUrls: ['./modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent implements OnDestroy {
     @ViewChild('mymodal') public div: ElementRef;

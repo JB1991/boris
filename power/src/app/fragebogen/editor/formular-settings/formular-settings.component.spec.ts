@@ -9,6 +9,7 @@ import { FormularSettingsComponent } from './formular-settings.component';
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
 import { ConditionsComponent } from '../conditions/conditions.component';
+import { LocaleInputComponent } from '../localeinput/localeinput.component';
 
 import { SharedModule } from '@app/shared/shared.module';
 
@@ -32,7 +33,8 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
             ],
             declarations: [
                 FormularSettingsComponent,
-                ConditionsComponent
+                ConditionsComponent,
+                LocaleInputComponent
             ]
         }).compileComponents();
 

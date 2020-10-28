@@ -1,6 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValidatorsComponent } from './validators.component';
+import { LocaleInputComponent } from '../localeinput/localeinput.component';
 
 describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
     let component: ValidatorsComponent;
@@ -9,7 +10,8 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ValidatorsComponent
+                ValidatorsComponent,
+                LocaleInputComponent
             ]
         }).compileComponents();
 
