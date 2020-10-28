@@ -52,6 +52,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
         public geosearchService: GeosearchService
     ) {
     }
+    @Input() isCollapsed;
 
     ngOnInit() {
     }
@@ -196,6 +197,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
     }
 
     resetMap() {
+        console.log(this.isCollapsed);
         this.map.resize();
 
         if (this.threeDActive) {

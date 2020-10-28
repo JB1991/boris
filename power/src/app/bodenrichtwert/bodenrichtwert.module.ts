@@ -18,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
 import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -50,7 +51,8 @@ import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
         NgxMapboxGLModule,
         NgxEchartsModule.forRoot({ echarts }),
         SharedModule,
-        NgbDropdownModule
+        NgbDropdownModule,
+        CollapseModule
     ],
     providers: [BodenrichtwertService]
 })

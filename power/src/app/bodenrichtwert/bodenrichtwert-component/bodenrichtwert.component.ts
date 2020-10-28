@@ -1,10 +1,10 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { Feature } from 'geojson';
 import { Subscription } from 'rxjs';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
+import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 
 /**
  * Possible selections of Stichtage
@@ -24,11 +24,11 @@ export const STICHTAGE = [
  * Possible selections of Teilmärkte
  */
 export const TEILMAERKTE = [
-    {value: 'B', viewValue: $localize`Bauland`},
-    {value: 'LF', viewValue: $localize`Landwirtschaft`},
-    {value: 'SF', viewValue: $localize`Sonstige Flächen`},
-    {value: 'R', viewValue: $localize`Rohbauland`},
-    {value: 'E', viewValue: $localize`Bauerwartungsland`},
+    { value: 'B', viewValue: $localize`Bauland` },
+    { value: 'LF', viewValue: $localize`Landwirtschaft` },
+    { value: 'SF', viewValue: $localize`Sonstige Flächen` },
+    { value: 'R', viewValue: $localize`Rohbauland` },
+    { value: 'E', viewValue: $localize`Bauerwartungsland` },
 ];
 
 /**
@@ -54,7 +54,7 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * Features (Bodenrichtwerte as GeoJSON) to be shown
      */
-    features;
+    public features = null;
 
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
@@ -76,10 +76,15 @@ export class BodenrichtwertComponent implements OnDestroy {
      */
     detailArrow = false;
 
+    isCollapsed = true;
     /**
      * Div-ViewChild contains Bodenrichtwert-List, Bodenrichtwert-Detail and Bodenrichtwert-Verlauf
      */
-    @ViewChild('acc', {static: true}) acc: NgbAccordion;
+    // @ViewChild('acc', { static: true }) acc: NgbAccordion;
+
+    @ViewChild('map') map: BodenrichtwertKarteComponent;
+
+    @ViewChild('collapse') collapse: ElementRef;
 
     constructor(
         private geosearchService: GeosearchService,
@@ -89,18 +94,12 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.titleService.setTitle($localize`Bodenrichtwerte - POWER.NI`);
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
-            this.acc.expandAll();
             this.features = ft;
+            this.isCollapsed = false;
+
         });
         this.stichtag = STICHTAGE[0];
         this.teilmarkt = TEILMAERKTE[0];
-    }
-
-    /**
-     * Toggles the state of the details arrow (up or down)
-     */
-    toggleDetailArrow() {
-        this.detailArrow = !this.detailArrow;
     }
 
     /**
@@ -110,6 +109,31 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.adresseSubscription.unsubscribe();
         this.featureSubscription.unsubscribe();
     }
+
+    public onExpands() {
+        // console.log('expands', this.collapse.nativeElement);
+        // const mapCanvas = document.getElementsByClassName('mapboxgl-canvas')[0];
+        // const map = document.getElementById('map');
+        // const mapWrapper = document.getElementById('mapWrapper');
+        // mapWrapper.style.width = 'calc(100vw-50%)';
+        // map.style.width = 'calc(100vw-50%)';
+        // mapCanvas.style.width = 'calc(100vw-50%)';
+        // this.map.map.resize();
+        // this.collapse.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    public expanded() {
+        this.map.map.resize();
+        console.log('expanded');
+    }
+
+    public collapsed() {
+        if (this.map) {
+            console.log('collapsed');
+            this.map.map.resize();
+        }
+    }
+
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
