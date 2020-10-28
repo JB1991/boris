@@ -1,6 +1,6 @@
 import {
     Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter,
-    HostListener, InjectionToken, Inject, Input, ChangeDetectionStrategy
+    HostListener, InjectionToken, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
@@ -26,7 +26,8 @@ export class ModalComponent implements OnDestroy {
     public isOpen = false;
     public title = '';
 
-    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
+        public cdr: ChangeDetectorRef) { }
 
     ngOnDestroy() {
         if (this.isOpen) {
@@ -55,6 +56,7 @@ export class ModalComponent implements OnDestroy {
         this.isOpen = true;
         document.body.classList.add('overflow-hidden');
         this.div.nativeElement.style.display = 'block';
+        this.cdr.detectChanges();
 
         // focus
         this.focusedElement = document.activeElement;
@@ -82,6 +84,7 @@ export class ModalComponent implements OnDestroy {
         this.isOpen = false;
         document.body.classList.remove('overflow-hidden');
         this.div.nativeElement.style.display = 'none';
+        this.cdr.detectChanges();
 
         // focus
         if (this.focusedElement) {
