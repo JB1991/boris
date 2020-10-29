@@ -4,6 +4,7 @@
              [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-6 map'">
             <power-bodenrichtwertkarte #map
                                        [isCollapsed]="isCollapsed"
+                                       [isExpanded]="isExpanded"
                                        [(stichtag)]="stichtag"
                                        [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
         </div>
@@ -33,10 +34,8 @@
                      id="collapseBasic"
                      class="p-0 col-12"
                      [collapse]="isCollapsed"
-                     [isAnimated]="true"
-                     (expands)="onExpands()"
-                     (expanded)="expanded()"
-                     (collapsed)="collapsed()">
+                     (expanded)="isExpanded = !isExpanded"
+                     [isAnimated]="true">
                     <div *ngIf="!adresse || adresse.properties.bundesland !== 'Niedersachsen'">
                         <p class="text-center">Keine gültige Adresse! <br> Bitte wählen Sie eine gültige Adresse
                             innerhalb

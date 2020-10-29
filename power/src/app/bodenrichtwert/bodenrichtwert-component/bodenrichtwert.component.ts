@@ -1,10 +1,9 @@
-import { Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { Feature } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 
 /**
  * Possible selections of Stichtage
@@ -77,12 +76,8 @@ export class BodenrichtwertComponent implements OnDestroy {
     detailArrow = false;
 
     isCollapsed = true;
-    /**
-     * Div-ViewChild contains Bodenrichtwert-List, Bodenrichtwert-Detail and Bodenrichtwert-Verlauf
-     */
-    // @ViewChild('acc', { static: true }) acc: NgbAccordion;
 
-    @ViewChild('map') map: BodenrichtwertKarteComponent;
+    isExpanded = true;
 
     @ViewChild('collapse') collapse: ElementRef;
 
@@ -109,31 +104,6 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.adresseSubscription.unsubscribe();
         this.featureSubscription.unsubscribe();
     }
-
-    public onExpands() {
-        // console.log('expands', this.collapse.nativeElement);
-        // const mapCanvas = document.getElementsByClassName('mapboxgl-canvas')[0];
-        // const map = document.getElementById('map');
-        // const mapWrapper = document.getElementById('mapWrapper');
-        // mapWrapper.style.width = 'calc(100vw-50%)';
-        // map.style.width = 'calc(100vw-50%)';
-        // mapCanvas.style.width = 'calc(100vw-50%)';
-        // this.map.map.resize();
-        // this.collapse.nativeElement.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    public expanded() {
-        this.map.map.resize();
-        console.log('expanded');
-    }
-
-    public collapsed() {
-        if (this.map) {
-            console.log('collapsed');
-            this.map.map.resize();
-        }
-    }
-
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
