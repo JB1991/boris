@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { environment } from '@env/environment';
 import * as Survey from 'survey-angular';
 
@@ -9,7 +9,8 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 @Component({
     selector: 'power-forms-surveyjs-preview',
     templateUrl: './preview.component.html',
-    styleUrls: ['./preview.component.css']
+    styleUrls: ['./preview.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreviewComponent {
     @ViewChild('previewmodal') public modal: ModalComponent;
@@ -23,7 +24,7 @@ export class PreviewComponent {
     public isVisible = false;
     public languages = Survey.surveyLocalization.localeNames;
 
-    constructor() { }
+    constructor(public cdr: ChangeDetectorRef) { }
 
     /**
      * Opens full formular preview
@@ -44,6 +45,7 @@ export class PreviewComponent {
         // show modal
         this.language = this.form.locale;
         this.isVisible = true;
+        this.cdr.detectChanges();
         if (this.data) {
             this.modal.open($localize`Ergebnisvorschau`);
         } else {
@@ -57,6 +59,7 @@ export class PreviewComponent {
     public close() {
         this.data = null;
         this.isVisible = false;
+        this.cdr.detectChanges();
     }
 
     /**

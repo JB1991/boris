@@ -1,6 +1,6 @@
 import {
     Component, OnDestroy, ViewChild, ElementRef, Output,
-    EventEmitter, Input, ChangeDetectionStrategy
+    EventEmitter, Input, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
@@ -19,7 +19,8 @@ export class ModalminiComponent implements OnDestroy {
     public isOpen = false;
     public title = '';
 
-    constructor(public modalService: BsModalService) { }
+    constructor(public modalService: BsModalService,
+        public cdr: ChangeDetectorRef) { }
 
     ngOnDestroy() {
         if (this.isOpen) {
@@ -38,6 +39,7 @@ export class ModalminiComponent implements OnDestroy {
         this.isOpen = true;
         this.modal.show();
         document.body.appendChild(this.div.nativeElement);
+        this.cdr.detectChanges();
 
         // focus
         this.focusedElement = document.activeElement;
@@ -64,6 +66,7 @@ export class ModalminiComponent implements OnDestroy {
         // close modal
         this.isOpen = false;
         this.modal.hide();
+        this.cdr.detectChanges();
 
         // focus
         if (this.focusedElement) {
