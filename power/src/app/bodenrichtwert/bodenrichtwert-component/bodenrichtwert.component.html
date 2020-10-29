@@ -1,80 +1,63 @@
-<div class="wrapper">
-    <div class="height-minus-header-map"
-         #map
-         [class.small]="features">
-        <power-bodenrichtwertkarte [(stichtag)]="stichtag"
-                                   [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
-    </div>
-    <ngb-accordion #acc="ngbAccordion">
-        <ngb-panel>
-            <ng-template ngbPanelHeader>
-                <div>
-                    <div *ngIf="!adresse"
-                         class="text-center">
-                        <h5 class="m-0 mx-center"
-                            i18n>Wählen Sie eine Position</h5>
+<div class="container-fluid p-0 m-0">
+    <div class="row m-0">
+        <div id="mapWrapper"
+             [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-lg-6 map'">
+            <power-bodenrichtwertkarte #map
+                                       [isCollapsed]="isCollapsed"
+                                       [isExpanded]="isExpanded"
+                                       [(stichtag)]="stichtag"
+                                       [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
+        </div>
+        <div [class]="isCollapsed ? 'col-12' : 'col-lg-6'">
+            <div class="row">
+                <div *ngIf="!adresse"
+                     class="text-center border-top col-12">
+                    <h5 class="m-3 mx-center"
+                        i18n>Wählen Sie eine Position</h5>
+                </div>
+                <button *ngIf="adresse"
+                        type="button"
+                        class="btn btn-collapse border col-12 p-0"
+                        (click)="isCollapsed = !isCollapsed"
+                        [attr.aria-expanded]="!isCollapsed"
+                        aria-controls="collapseBasic">{{ adresse.properties.text }} <img
+                         src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                         width="25"
+                         height="25"
+                         alt="Einklappen/ausklappen"
+                         i18n-alt>
+                </button>
+            </div>
+            <div class="row overflow-auto details">
+                <div #collapse
+                     id="collapseBasic"
+                     class="p-0 col-12"
+                     [collapse]="isCollapsed"
+                     (expanded)="isExpanded = !isExpanded"
+                     [isAnimated]="true">
+                    <div *ngIf="!adresse || adresse.properties.bundesland !== 'Niedersachsen'">
+                        <p class="text-center">Keine gültige Adresse! <br> Bitte wählen Sie eine gültige Adresse
+                            innerhalb
+                            von
+                            Niedersachsen aus.</p>
                     </div>
-                    <div *ngIf="adresse"
-                         class="text-center">
-                        <h5 class="m-0 mx-center">{{adresse.properties.text}}
-                            <button type="button"
-                                    (click)="map.classList.toggle('small')"
-                                    class="btn btn-link p-0">
-                                <img src="{{ detailArrow ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
-                                     width="25"
-                                     height="25"
-                                     alt="Einklappen/ausklappen"
-                                     i18n-alt
-                                     (click)="toggleDetailArrow()">
-                            </button>
-                        </h5>
+                    <div class="well well-lg card card-block card-header verlauf">
+                        <div class="row p-0"
+                             *ngIf="features">
+                            <power-bodenrichtwert-liste [stichtag]="stichtag"
+                                                        [teilmarkt]="teilmarkt"
+                                                        [features]="features">
+                            </power-bodenrichtwert-liste>
+                        </div>
+                        <div class="row p-0"
+                             [class.d-none]="!features">
+                            <power-bodenrichtwert-verlauf class="col-md-12 p-0"
+                                                          [features]="features"></power-bodenrichtwert-verlauf>
+                        </div>
                     </div>
-                </div>
-            </ng-template>
-            <ng-template ngbPanelContent>
-                <div
-                     *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen') && !features.features.length">
-                    <p class="text-center"
-                       i18n>Keine gültige Adresse!</p>
-                    <br>
-                    <p class="text-center"
-                       i18n>Hinweis: </p>
-                    <p class="text-center"
-                       i18n>Bitte wählen Sie eine gültige Adresse innerhalb
-                        von Niedersachsen aus.</p>
-                    <p class="text-center"
-                       i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50
-                        Meter. </p>
-                </div>
-                <div *ngIf="adresse && adresse.properties.bundesland == 'Niedersachsen' && !features.features.length">
-                    <p class="text-center"
-                       i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
-                </div>
-                <div *ngIf="!adresse && features.features.length">
-                    <p class="text-center"
-                       i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. </p>
-                    <p class="text-center"
-                       i18n>
-                        Jedoch konnte keine Adresse für diesen Standort gefunden werden.
-                    </p>
-                    <p class="text-center"
-                       i18n>
-                        Die Genauigkeit des Suchradius für die Adresse beträgt 50
-                        Meter.
-                    </p>
                 </div>
 
-                <power-bodenrichtwert-liste [stichtag]="stichtag"
-                                            [teilmarkt]="teilmarkt"
-                                            [features]="features">
-                </power-bodenrichtwert-liste>
-            </ng-template>
-        </ngb-panel>
-    </ngb-accordion>
-    <div class="row m-1 pt-3"
-         [class.d-none]="!features">
-        <power-bodenrichtwert-verlauf class="col-md-12 p-0"
-                                      [features]="features">
-        </power-bodenrichtwert-verlauf>
+            </div>
+        </div>
     </div>
 </div>

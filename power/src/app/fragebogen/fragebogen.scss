@@ -52,9 +52,15 @@ td {
     white-space: nowrap;
 }
 
-/* imagepicker: checked color */
+/* LGLN colors */
 .imagepicker-checked div {
-    background-color: #ccc !important;
+    background-color: #d3d3d3 !important;
+}
+.sv_main .sv-boolean__switch {
+    background-color: #007bff !important;
+}
+.noUi-connect {
+    background: #007bff !important;
 }
 
 .sv_q_imagepicker_inline {

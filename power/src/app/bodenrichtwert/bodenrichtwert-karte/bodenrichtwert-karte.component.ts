@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { LngLat, LngLatBounds, Map, Marker } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
@@ -10,7 +10,7 @@ import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-compo
     templateUrl: './bodenrichtwert-karte.component.html',
     styleUrls: ['./bodenrichtwert-karte.component.scss']
 })
-export class BodenrichtwertKarteComponent implements OnInit {
+export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     searchActive = false;
     filterActive = false;
@@ -47,10 +47,21 @@ export class BodenrichtwertKarteComponent implements OnInit {
 
     STICHTAGE = STICHTAGE;
 
+    @Input() isCollapsed: () => void;
+
+    @Input() isExpanded: () => void;
+
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
         public geosearchService: GeosearchService
     ) {
+    }
+
+    ngOnChanges() {
+        if (this.map) {
+            this.map.resize();
+            this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
+        }
     }
 
     ngOnInit() {
