@@ -49,10 +49,12 @@ export class GeosearchService {
      * Translate geo coordinates to an address
      * @param lat Latitude
      * @param lon Longitude
+     * Sollte sich der Parameter distance ändern, müssen der HTML-Text (bodenrichtwert.component) angespasst werden.
      */
     getAddressFromCoordinates(lat, lon): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {
-            params: new HttpParams().set('query', 'typ: haus').append('lat', lat).append('lon', lon)
+            params: new HttpParams().set('query', 'typ: haus').append('lat', lat)
+                .append('lon', lon).append('distance', '50')
         }).pipe(
             catchError(GeosearchService.handleError)
         );

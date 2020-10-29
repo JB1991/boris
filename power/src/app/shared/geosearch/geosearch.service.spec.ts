@@ -73,7 +73,7 @@ describe('Shared.Geosearch.GeosearchService', () => {
     it('getAddressFromCoordinates should return a feature collection', (done) => {
         const lat = 52.40739733323747;
         const lon = 9.80183706843431;
-        const url = '/geocoding/geosearch/?query=typ:%20haus&lat=' + lat + '&lon=' + lon;
+        const url = '/geocoding/geosearch/?query=typ:%20haus&lat=' + lat + '&lon=' + lon + '&distance=' + '50';
 
         service.getAddressFromCoordinates(lat, lon).subscribe(result => {
             expect(result.type).toEqual('FeatureCollection');

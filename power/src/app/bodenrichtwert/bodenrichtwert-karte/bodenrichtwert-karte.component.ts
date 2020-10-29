@@ -30,7 +30,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
         color: '#c4153a',
         draggable: true
     }).on('dragstart', () => {
-        this.isDragged = true;
+        this.isDragged = !this.isDragged;
     });
     zoom = 18;
 
@@ -105,7 +105,7 @@ export class BodenrichtwertKarteComponent implements OnInit {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
             this.getAddressFromLatLng(this.lat, this.lng);
             this.flyTo(this.lat, this.lng);
-            this.isDragged = false;
+            this.isDragged = !this.isDragged;
         }
     }
 
