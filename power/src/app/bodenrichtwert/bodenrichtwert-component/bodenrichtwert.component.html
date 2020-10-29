@@ -15,7 +15,21 @@
                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie eine Position</h5>
                 </div>
-                <div *ngIf="!adresse && features"
+                <div *ngIf="!adresse && features && features.features.length"
+                     class="text-center border-top col-12 p-0">
+                    <button type="button"
+                            class="btn btn-collapse border col-12"
+                            (click)="isCollapsed = !isCollapsed"
+                            [attr.aria-expanded]="!isCollapsed"
+                            aria-controls="collapseBasic">{{ features.features[0].properties.brzname}}
+                        <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                             width="25"
+                             height="25"
+                             alt="Einklappen/ausklappen"
+                             i18n-alt>
+                    </button>
+                </div>
+                <div *ngIf="!adresse && features && !features.features.length"
                      class="text-center border-top col-12 p-0">
                     <button type="button"
                             class="btn btn-collapse border col-12"
