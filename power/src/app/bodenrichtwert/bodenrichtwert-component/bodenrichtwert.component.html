@@ -10,18 +10,32 @@
         </div>
         <div [class]="isCollapsed ? 'col-12' : 'col-lg-6'">
             <div class="row">
-                <div *ngIf="!adresse"
+                <div *ngIf="!adresse && !features"
                      class="text-center border-top col-12">
                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie eine Position</h5>
+                </div>
+                <div *ngIf="!adresse && features"
+                     class="text-center border-top col-12">
+                    <button type="button"
+                            class="btn btn-collapse border col-12 p-0"
+                            (click)="isCollapsed = !isCollapsed"
+                            [attr.aria-expanded]="!isCollapsed"
+                            aria-controls="collapseBasic">Wählen Sie eine Position
+                        <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                             width="25"
+                             height="25"
+                             alt="Einklappen/ausklappen"
+                             i18n-alt>
+                    </button>
                 </div>
                 <button *ngIf="adresse"
                         type="button"
                         class="btn btn-collapse border col-12 p-0"
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
-                        aria-controls="collapseBasic">{{ adresse.properties.text }} <img
-                         src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                        aria-controls="collapseBasic">{{ adresse.properties.text }}
+                    <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
                          width="25"
                          height="25"
                          alt="Einklappen/ausklappen"
