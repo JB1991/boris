@@ -14,6 +14,7 @@ import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 import { SvgPipe } from './pipes/svg.pipe';
 import { HyphenatePipe } from './pipes/hyphenate.pipe';
+import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { HyphenatePipe } from './pipes/hyphenate.pipe';
         ModalminiComponent,
         TagboxComponent,
         SvgPipe,
-        HyphenatePipe
+        HyphenatePipe,
+        ModalminiFooterDirective
     ],
     exports: [
         GeosearchComponent,
@@ -33,7 +35,8 @@ import { HyphenatePipe } from './pipes/hyphenate.pipe';
         AlertsModule,
         LoadingscreenModule,
         SvgPipe,
-        HyphenatePipe
+        HyphenatePipe,
+        ModalminiFooterDirective
     ],
     imports: [
         CommonModule,

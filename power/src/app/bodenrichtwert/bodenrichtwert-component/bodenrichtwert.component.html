@@ -28,7 +28,8 @@
                          i18n-alt>
                 </button>
             </div>
-            <div class="row overflow-auto details">
+            <div class="row overflow-auto"
+                 [class]="isCollapsed ? '' : 'details'">
                 <div #collapse
                      id="collapseBasic"
                      class="p-0 col-12"
