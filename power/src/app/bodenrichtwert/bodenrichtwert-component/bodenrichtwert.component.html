@@ -28,7 +28,8 @@
                          i18n-alt>
                 </button>
             </div>
-            <div class="row overflow-auto details">
+            <div class="row overflow-auto"
+                 [class]="isCollapsed ? '' : 'details'">
                 <div #collapse
                      id="collapseBasic"
                      class="p-0 col-12"
@@ -41,7 +42,8 @@
                             von
                             Niedersachsen aus.</p>
                     </div>
-                    <div class="well well-lg card card-block card-header verlauf">
+                    <div class="well well-lg card card-block card-header"
+                         [class]="isCollapsed ? '' : 'verlauf'">
                         <div class="row p-0"
                              *ngIf="features">
                             <power-bodenrichtwert-liste [stichtag]="stichtag"
