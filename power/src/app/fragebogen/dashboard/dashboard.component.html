@@ -19,22 +19,20 @@
             <span class="ml-1"
                   i18n>Antworten</span>
 
-            <div class="float-md-right row">
-                <div class="col-sm">
-                    <select class="browser-default custom-select"
-                            (change)="taskStatus = $event.target.value; updateTasks(false)"
-                            aria-roledescription="Antworten filtern nach Status.">
-                        <option value="all"
-                                selected
-                                i18n>Status: Alle</option>
-                        <option value="created"
-                                i18n>Status: Erstellt</option>
-                        <option value="accessed"
-                                i18n>Status: In Bearbeitung</option>
-                        <option value="submitted"
-                                i18n>Status: Abgeschlossen</option>
-                    </select>
-                </div>
+            <div class="float-md-right">
+                <select class="browser-default custom-select"
+                        (change)="taskStatus = $event.target.value; updateTasks(false)"
+                        aria-roledescription="Antworten filtern nach Status.">
+                    <option value="all"
+                            selected
+                            i18n>Status: Alle</option>
+                    <option value="created"
+                            i18n>Status: Erstellt</option>
+                    <option value="accessed"
+                            i18n>Status: In Bearbeitung</option>
+                    <option value="submitted"
+                            i18n>Status: Abgeschlossen</option>
+                </select>
             </div>
         </div>
 
@@ -222,7 +220,7 @@
 
         <div class="card-footer">
             <div class="float-right">
-                <div class="form-inline well">
+                <div class="form-inline">
                     <div class="form-group mx-2">
                         <select class="custom-select"
                                 (change)="taskPerPage = $event.target.value; updateTasks(false)">
@@ -518,7 +516,7 @@
 
             <!-- Forms Pagination -->
             <div class="float-right">
-                <div class="form-inline well">
+                <div class="form-inline">
                     <div class="form-group mx-2">
                         <select class="custom-select"
                                 (change)="formPerPage = $event.target.value; updateForms(false)">
