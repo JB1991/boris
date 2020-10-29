@@ -1,6 +1,6 @@
 .map {
-    height: calc(100vh - 106px);
-    max-height: calc(100vh - 106px);
+    height: calc(100vh - 57px);
+    max-height: calc(100vh - 57px);
     padding: 0rem;
 }
 
@@ -9,16 +9,12 @@
     padding: 0rem;
 }
 
-.description {
-    /* height: calc(100vh - 106px); */
-}
-
-.description-collapsed {
-    
-}
-
 .verlauf {
     min-height: calc(100vh -106px);
+}
+
+.details {
+    height: calc(100vh - 101px);
 }
 
 .btn-collapse {

@@ -70,11 +70,6 @@ export class BodenrichtwertComponent implements OnDestroy {
      */
     teilmarkt;
 
-    /**
-     * State of the detail arrow (whether the arrow should point up or down)
-     */
-    detailArrow = false;
-
     isCollapsed = true;
 
     isExpanded = true;
@@ -91,7 +86,6 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
             this.isCollapsed = false;
-
         });
         this.stichtag = STICHTAGE[0];
         this.teilmarkt = TEILMAERKTE[0];

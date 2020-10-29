@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class="row">
+<div class="container-fluid p-0 m-0">
+    <div class="row m-0">
         <div id="mapWrapper"
              [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-6 map'">
             <power-bodenrichtwertkarte #map
@@ -9,7 +9,7 @@
                                        [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
         </div>
         <div class="col-6"
-             [class]="isCollapsed ? 'col-12 description-collapsed' : 'col-6 description'">
+             [class]="isCollapsed ? 'col-12' : 'col-6'">
             <div class="row">
                 <div *ngIf="!adresse"
                      class="text-center border-top col-12">
@@ -22,14 +22,14 @@
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseBasic">{{ adresse.properties.text }} <img
-                         src="{{ isCollapsed ? '/assets/icons/chevron-down.svg' : '/assets/icons/chevron-up.svg'}}"
+                         src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
                          width="25"
                          height="25"
                          alt="Einklappen/ausklappen"
                          i18n-alt>
                 </button>
             </div>
-            <div class="row h-100">
+            <div class="row overflow-auto details">
                 <div #collapse
                      id="collapseBasic"
                      class="p-0 col-12"
@@ -43,14 +43,14 @@
                             Niedersachsen aus.</p>
                     </div>
                     <div class="well well-lg card card-block card-header verlauf">
-                        <div class="row pt-3"
+                        <div class="row p-0"
                              *ngIf="features">
                             <power-bodenrichtwert-liste [stichtag]="stichtag"
                                                         [teilmarkt]="teilmarkt"
                                                         [features]="features">
                             </power-bodenrichtwert-liste>
                         </div>
-                        <div class="row pt-3"
+                        <div class="row p-0"
                              [class.d-none]="!features">
                             <power-bodenrichtwert-verlauf class="col-md-12 p-0"
                                                           [features]="features"></power-bodenrichtwert-verlauf>

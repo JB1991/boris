@@ -59,8 +59,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         if (this.map) {
-            console.log('resize', 'collapsed: ' + this.isCollapsed, 'expanded: ' + this.isExpanded);
             this.map.resize();
+            this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
         }
     }
 
