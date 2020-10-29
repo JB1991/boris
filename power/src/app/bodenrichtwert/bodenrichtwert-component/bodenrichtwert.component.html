@@ -8,8 +8,7 @@
                                        [(stichtag)]="stichtag"
                                        [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
         </div>
-        <div class="col-6"
-             [class]="isCollapsed ? 'col-12' : 'col-lg-6'">
+        <div [class]="isCollapsed ? 'col-12' : 'col-lg-6'">
             <div class="row">
                 <div *ngIf="!adresse"
                      class="text-center border-top col-12">
