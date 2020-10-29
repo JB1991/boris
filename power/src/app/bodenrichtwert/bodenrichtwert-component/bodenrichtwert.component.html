@@ -55,17 +55,14 @@
                              *ngIf="features">
                             <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen') && !features.features.length"
                                  class="text-center border-top col-12">
-                                <p class="m-3 mx-center"
+                                <p class="m-3 mx-center lead"
                                    i18n>Keine gültige Adresse!</p>
-                                <br>
-                                <p class="m-3 mx-center"
+                                <p class="m-3 mx-center lead"
                                    i18n>Hinweis: </p>
                                 <p class="m-3 mx-center"
                                    i18n>Bitte wählen Sie eine gültige Adresse innerhalb
-                                    von Niedersachsen aus.</p>
-                                <p class="m-3 mx-center"
-                                   i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50
-                                    Meter. </p>
+                                    von Niedersachsen aus. Die Genauigkeit des Suchradius für die Adresse beträgt 50
+                                    Meter.</p>
                             </div>
                             <div *ngIf="adresse && adresse.properties.bundesland == 'Niedersachsen' && !features.features.length"
                                  class="text-center border-top col-12">
@@ -75,16 +72,10 @@
                             <div *ngIf="!adresse && features.features.length"
                                  class="text-center border-top col-12">
                                 <p class="m-3 mx-center"
-                                   i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. </p>
+                                   i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
+                                    Adresse für diesen Standort gefunden werden.</p>
                                 <p class="m-3 mx-center"
-                                   i18n>
-                                    Jedoch konnte keine Adresse für diesen Standort gefunden werden.
-                                </p>
-                                <p class="m-3 mx-center"
-                                   i18n>
-                                    Die Genauigkeit des Suchradius für die Adresse beträgt 50
-                                    Meter.
-                                </p>
+                                   i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
                             </div>
                             <power-bodenrichtwert-liste [stichtag]="stichtag"
                                                         [teilmarkt]="teilmarkt"

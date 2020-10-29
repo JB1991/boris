@@ -49,7 +49,7 @@ export class GeosearchService {
      * Translate geo coordinates to an address
      * @param lat Latitude
      * @param lon Longitude
-     * Sollte sich der Parameter distance ändern, müssen der HTML-Text (bodenrichtwert.component) angespasst werden.
+     * Sollte sich der Parameter distance ändern, muss der HTML-Text (bodenrichtwert.component) angespasst werden.
      */
     getAddressFromCoordinates(lat, lon): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {
