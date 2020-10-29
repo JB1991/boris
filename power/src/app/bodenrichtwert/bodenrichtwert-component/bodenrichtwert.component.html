@@ -11,14 +11,14 @@
         <div [class]="isCollapsed ? 'col-12' : 'col-lg-6'">
             <div class="row">
                 <div *ngIf="!adresse && !features"
-                     class="text-center border-top col-12">
+                     class="text-center border-top col-12 p-0">
                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie eine Position</h5>
                 </div>
                 <div *ngIf="!adresse && features"
-                     class="text-center border-top col-12">
+                     class="text-center border-top col-12 p-0">
                     <button type="button"
-                            class="btn btn-collapse border col-12 p-0"
+                            class="btn btn-collapse border col-12"
                             (click)="isCollapsed = !isCollapsed"
                             [attr.aria-expanded]="!isCollapsed"
                             aria-controls="collapseBasic">Wählen Sie eine Position
@@ -54,7 +54,7 @@
                         <div class="row p-0"
                              *ngIf="features">
                             <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen') && !features.features.length"
-                                 class="text-center border-top col-12">
+                                 class="text-center col-12">
                                 <p class="m-3 mx-center lead"
                                    i18n>Keine gültige Adresse!</p>
                                 <p class="m-3 mx-center lead"
@@ -65,12 +65,12 @@
                                     Meter.</p>
                             </div>
                             <div *ngIf="adresse && adresse.properties.bundesland == 'Niedersachsen' && !features.features.length"
-                                 class="text-center border-top col-12">
+                                 class="text-center col-12">
                                 <p class="m-3 mx-center"
                                    i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
                             </div>
                             <div *ngIf="!adresse && features.features.length"
-                                 class="text-center border-top col-12">
+                                 class="text-center col-12">
                                 <p class="m-3 mx-center"
                                    i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
                                     Adresse für diesen Standort gefunden werden.</p>
