@@ -1,16 +1,16 @@
 .map {
     height: calc(100vh - 57px);
     max-height: calc(100vh - 57px);
-    padding: 0rem;
+    padding: 0;
 }
 
 .map-collapsed {
     height: calc(100vh - 106px);
-    padding: 0rem;
+    padding: 0;
 }
 
 .verlauf {
-    min-height: calc(100vh -106px);
+    min-height: calc(100vh - 106px);
 }
 
 .details {
