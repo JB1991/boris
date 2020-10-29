@@ -1,51 +1,88 @@
-<div class="wrapper">
+<div class="wrapper"
+     [class]="isCollapsed ? '' : 'border'">
     <!-- desktop -->
-    <div class="d-none d-md-block">
+    <div [class]="isCollapsed ? 'd-none d-md-block' : 'd-none d-xl-block'">
         <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline d-flex justify-content-between">
                 <div class="nav">
                     <div class="btn-group d-flex">
-                        <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
+                        <div class="btn-group"
+                             style="flex: 1;"
+                             ngbDropdown
+                             role="group"
                              aria-label="Button group with nested dropdown">
-                            <button type="button" class="btn btn-block" ngbDropdownToggle>
+                            <button type="button"
+                                    class="btn btn-block"
+                                    ngbDropdownToggle>
                                 <span i18n>Stichtag</span>: {{stichtag | date:"yyyy"}}
                             </button>
-                            <div class="dropdown-menu" ngbDropdownMenu>
-                                <button type="button" *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)"
+                            <div class="dropdown-menu"
+                                 ngbDropdownMenu>
+                                <button type="button"
+                                        *ngFor="let stag of STICHTAGE"
+                                        (click)="onStichtagChange(stag)"
                                         ngbDropdownItem>
-                                    {{stag  | date:"yyyy"}}
+                                    {{stag | date:"yyyy"}}
                                 </button>
                             </div>
                         </div>
-                        <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
+                        <div class="btn-group"
+                             style="flex: 1;"
+                             ngbDropdown
+                             role="group"
                              aria-label="Button group with nested dropdown">
-                            <button type="button" class="btn btn-block" ngbDropdownToggle>
+                            <button type="button"
+                                    class="btn btn-block"
+                                    ngbDropdownToggle>
                                 <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}}
                             </button>
-                            <div class="dropdown-menu" ngbDropdownMenu>
-                                <button type="button" *ngFor="let tm of TEILMAERKTE" (click)="onTeilmarktChange(tm)"
-                                        ngbDropdownItem class="btn-block">
+                            <div class="dropdown-menu"
+                                 ngbDropdownMenu>
+                                <button type="button"
+                                        *ngFor="let tm of TEILMAERKTE"
+                                        (click)="onTeilmarktChange(tm)"
+                                        ngbDropdownItem
+                                        class="btn-block">
                                     {{tm.viewValue}}
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="nav px-auto" style="position: relative;">
+                <div class="nav px-auto"
+                     style="position: relative;">
                     <power-geosearch (selectResult)="onSearchSelect($event)"></power-geosearch>
                 </div>
                 <div class="nav">
-                    <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" title="Ortung" i18n-alt
+                    <a class="nav-link"
+                       (click)="enableLocationTracking()">
+                        <img src="/assets/icons/geo.svg"
+                             width="25"
+                             height="25"
+                             alt="Ortung"
+                             title="Ortung"
+                             i18n-alt
                              i18n-title>
                     </a>
-                    <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren"
-                             title="3D aktivieren/deaktivieren" i18n-alt i18n-title>
+                    <a class="nav-link"
+                       (click)="toggle3dView()">
+                        <img src="/assets/icons/building.svg"
+                             width="25"
+                             height="25"
+                             alt="3D aktivieren/deaktivieren"
+                             title="3D aktivieren/deaktivieren"
+                             i18n-alt
+                             i18n-title>
                     </a>
-                    <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/globe.svg" width="25" height="25" alt="Karte zurücksetzen"
-                             title="Karte zurücksetzen" i18n-alt i18n-title>
+                    <a class="nav-link"
+                       (click)="resetMap()">
+                        <img src="/assets/icons/globe.svg"
+                             width="25"
+                             height="25"
+                             alt="Karte zurücksetzen"
+                             title="Karte zurücksetzen"
+                             i18n-alt
+                             i18n-title>
                     </a>
                 </div>
             </nav>
@@ -53,59 +90,107 @@
     </div>
 
     <!-- mobile -->
-    <div class="d-md-none">
+    <div [class]="isCollapsed ? 'd-md-none' : 'd-xl-none'">
         <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline">
                 <div class="nav mr-auto">
-                    <a class="nav-link" (click)="toggleFilterActive()">
-                        <img src="/assets/icons/filter.svg" width="25" height="25" alt="Filtern" title="Filtern"
-                             i18n-alt i18n-title>
+                    <a class="nav-link"
+                       (click)="toggleFilterActive()">
+                        <img src="/assets/icons/filter.svg"
+                             width="25"
+                             height="25"
+                             alt="Filtern"
+                             title="Filtern"
+                             i18n-alt
+                             i18n-title>
                     </a>
                 </div>
                 <div class="nav ml-auto">
-                    <a class="nav-link" (click)="toggleSearchActive()">
-                        <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche" title="Suche" i18n-alt
+                    <a class="nav-link"
+                       (click)="toggleSearchActive()">
+                        <img src="/assets/icons/search.svg"
+                             width="25"
+                             height="25"
+                             alt="Suche"
+                             title="Suche"
+                             i18n-alt
                              i18n-title>
                     </a>
-                    <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" title="Ortung" i18n-alt
+                    <a class="nav-link"
+                       (click)="enableLocationTracking()">
+                        <img src="/assets/icons/geo.svg"
+                             width="25"
+                             height="25"
+                             alt="Ortung"
+                             title="Ortung"
+                             i18n-alt
                              i18n-title>
                     </a>
-                    <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren"
-                             title="3D aktivieren/deaktivieren" i18n-alt i18n-title>
+                    <a class="nav-link"
+                       (click)="toggle3dView()">
+                        <img src="/assets/icons/building.svg"
+                             width="25"
+                             height="25"
+                             alt="3D aktivieren/deaktivieren"
+                             title="3D aktivieren/deaktivieren"
+                             i18n-alt
+                             i18n-title>
                     </a>
-                    <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen"
-                             title="Karte zurücksetzen" i18n-alt i18n-title>
+                    <a class="nav-link"
+                       (click)="resetMap()">
+                        <img src="/assets/icons/globe.svg"
+                             width="25"
+                             height="25"
+                             alt="Karte zurücksetzen"
+                             title="Karte zurücksetzen"
+                             i18n-alt
+                             i18n-title>
                     </a>
                 </div>
             </nav>
         </div>
     </div>
 
-    <power-geosearch [class.d-none]="!searchActive" (selectResult)="selectSearchResult($event)"></power-geosearch>
+    <power-geosearch [class.d-none]="!searchActive"
+                     (selectResult)="selectSearchResult($event)"></power-geosearch>
     <div [class.d-none]="!filterActive">
         <div class="btn-group d-flex w-100">
-            <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
+            <div class="btn-group"
+                 style="flex: 1;"
+                 ngbDropdown
+                 role="group"
                  aria-label="Button group with nested dropdown">
-                <button type="button" class="btn btn-block" ngbDropdownToggle>
+                <button type="button"
+                        class="btn btn-block"
+                        ngbDropdownToggle>
                     <span i18n>Stichtag</span>: {{stichtag}}
                 </button>
-                <div class="dropdown-menu" ngbDropdownMenu>
-                    <button type="button" *ngFor="let stag of STICHTAGE" (click)="onStichtagChange(stag)"
+                <div class="dropdown-menu"
+                     ngbDropdownMenu>
+                    <button type="button"
+                            *ngFor="let stag of STICHTAGE"
+                            (click)="onStichtagChange(stag)"
                             ngbDropdownItem>
                         {{stag}}
                     </button>
                 </div>
             </div>
-            <div class="btn-group" style="flex: 1;" ngbDropdown role="group"
+            <div class="btn-group"
+                 style="flex: 1;"
+                 ngbDropdown
+                 role="group"
                  aria-label="Button group with nested dropdown">
-                <button type="button" class="btn btn-block" ngbDropdownToggle>
+                <button type="button"
+                        class="btn btn-block"
+                        ngbDropdownToggle>
                     <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}}
                 </button>
-                <div class="dropdown-menu" ngbDropdownMenu>
-                    <button type="button" *ngFor="let tm of TEILMAERKTE" (click)="onTeilmarktChange(tm)" ngbDropdownItem
+                <div class="dropdown-menu"
+                     ngbDropdownMenu>
+                    <button type="button"
+                            *ngFor="let tm of TEILMAERKTE"
+                            (click)="onTeilmarktChange(tm)"
+                            ngbDropdownItem
                             class="btn-block">
                         {{tm.viewValue}}
                     </button>
@@ -114,25 +199,24 @@
         </div>
     </div>
 
-    <mgl-map
-        (click)="onMapClickEvent($event)"
-        (mouseUp)="onDragEnd()"
-        (touchEnd)="onDragEnd()"
-        (load)="loadMap($event)"
-        [bounds]="bounds"
-        [maxZoom]="20"
-        [minZoom]="5"
-        [style]="MAP_STYLE_URL"
-        [trackResize]="true"
-        id="map">
+    <mgl-map (click)="onMapClickEvent($event)"
+             (mouseUp)="onDragEnd()"
+             (touchEnd)="onDragEnd()"
+             (load)="loadMap($event)"
+             [bounds]="bounds"
+             [maxZoom]="20"
+             [minZoom]="5"
+             [style]="MAP_STYLE_URL"
+             [trackResize]="true"
+             id="map">
 
-        <mgl-geojson-source id="ndsgeojson" [data]="baseUrl+'/assets/boden/niedersachsen.geojson'"></mgl-geojson-source>
+        <mgl-geojson-source id="ndsgeojson"
+                            [data]="baseUrl+'/assets/boden/niedersachsen.geojson'"></mgl-geojson-source>
 
-        <mgl-layer
-            id="nds"
-            type="line"
-            [source]="'ndsgeojson'"
-            [paint]="{
+        <mgl-layer id="nds"
+                   type="line"
+                   [source]="'ndsgeojson'"
+                   [paint]="{
       'line-color': '#c4153a',
       'line-width': {
         'stops': [[8,1],[10,1],[18,1]]
@@ -140,22 +224,18 @@
       'line-opacity': {
         'stops':[[8,1],[10,1],[12,0]]
       }
-    }"
-        ></mgl-layer>
+    }"></mgl-layer>
 
-        <mgl-vector-source
-            id="geoserver"
-            [tiles]="[baseUrl+'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=boris:br_brzone_flat&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']"
-        >
+        <mgl-vector-source id="geoserver"
+                           [tiles]="[baseUrl+'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=boris:br_brzone_flat&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
         </mgl-vector-source>
 
-        <mgl-layer
-            id="bauland"
-            type="line"
-            [source]="'geoserver'"
-            [minzoom]="11"
-            [sourceLayer]="'br_brzone_flat'"
-            [paint]="{
+        <mgl-layer id="bauland"
+                   type="line"
+                   [source]="'geoserver'"
+                   [minzoom]="11"
+                   [sourceLayer]="'br_brzone_flat'"
+                   [paint]="{
       'line-color': '#c4153a',
       'line-width': {
         'stops': [[11,0],[13,1],[18,2]]
@@ -164,16 +244,14 @@
         'stops' : [[11,0],[13,1]]
       }
     }"
-            [filter]="['all',['==', 'entw', 'B'],['==','stag',stichtag]]"
-        ></mgl-layer>
+                   [filter]="['all',['==', 'entw', 'B'],['==','stag',stichtag]]"></mgl-layer>
 
-        <mgl-layer
-            id="landwirtschaft"
-            type="line"
-            [source]="'geoserver'"
-            [sourceLayer]="'br_brzone_flat'"
-            [minzoom]="10"
-            [paint]="{
+        <mgl-layer id="landwirtschaft"
+                   type="line"
+                   [source]="'geoserver'"
+                   [sourceLayer]="'br_brzone_flat'"
+                   [minzoom]="10"
+                   [paint]="{
       'line-color': '#009900',
       'line-width': {
         'stops': [[8,0],[10,1],[11,2]]
@@ -182,55 +260,52 @@
         'stops' : [[8,0],[10,1]]
       }
     }"
-            [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"
-        ></mgl-layer>
+                   [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
 
-        <mgl-layer
-            id="appto_bauland"
-            type="symbol"
-            [source]="'geoserver'"
-            [sourceLayer]="'br_brzone_flat'"
-            [minzoom]="13"
-            [paint]="{
+        <mgl-layer id="appto_bauland"
+                   type="symbol"
+                   [source]="'geoserver'"
+                   [sourceLayer]="'br_brzone_flat'"
+                   [minzoom]="13"
+                   [paint]="{
       'text-halo-color' : '#fff',
       'text-halo-width' : 2,
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-            [layout]="{
+                   [layout]="{
       'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
       'text-size': {
         'stops': [[12,10],[15,16]]
         },
       'text-font': ['Klokantech Noto Sans Regular']
     }"
-            [filter]="['all',['==','stag',stichtag],['in','entw','B','SF'],['==','entw', teilmarkt.value]]"
-        >
+                   [filter]="['all',['==','stag',stichtag],['in','entw','B','SF'],['==','entw', teilmarkt.value]]">
         </mgl-layer>
 
-        <mgl-layer
-            id="appto_landwirtschaft"
-            type="symbol"
-            [source]="'geoserver'"
-            [sourceLayer]="'br_brzone_flat'"
-            [minzoom]="10"
-            [paint]="{
+        <mgl-layer id="appto_landwirtschaft"
+                   type="symbol"
+                   [source]="'geoserver'"
+                   [sourceLayer]="'br_brzone_flat'"
+                   [minzoom]="10"
+                   [paint]="{
       'text-halo-color' : '#fff',
       'text-halo-width' : 2,
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-            [layout]="{
+                   [layout]="{
       'text-field': '{brw}',
       'text-size': {
         'stops': [[10,20],[15,24]]
         },
       'text-font': ['Klokantech Noto Sans Regular']
     }"
-            [filter]="['all',['==','stag',stichtag],['==','entw','L'],['==','entw', teilmarkt.value]]"
-        >
+                   [filter]="['all',['==','stag',stichtag],['==','entw','L'],['==','entw', teilmarkt.value]]">
         </mgl-layer>
 
-        <mgl-control [position]="'bottom-left'" mglScale unit="metric"></mgl-control>
+        <mgl-control [position]="'bottom-left'"
+                     mglScale
+                     unit="metric"></mgl-control>
     </mgl-map>
 </div>
