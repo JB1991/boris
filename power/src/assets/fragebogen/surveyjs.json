@@ -1,14 +1,5 @@
 {
-    "calculatedValues": [
-        {
-            "expression": "50000",
-            "name": "preis"
-        },
-        {
-            "expression": "2019",
-            "name": "kaufjahr"
-        }
-    ],
+    "calculatedValues": [],
     "checkErrorsMode": "onValueChanged",
     "completedHtml": {
         "default": "Vielen Dank *für* das Abschließen von diesem Formular."
@@ -49,6 +40,8 @@
                     },
                     "isRequired": true,
                     "name": "e1",
+					"commentText": {},
+					"otherText": {},
                     "requiredErrorText": {
                         "default": "Sie müssen die __Datenschutzerklärung__ akzeptieren um fortzufahren."
                     },

@@ -596,7 +596,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     it('should add favorite', fakeAsync(() => {
         spyOn(component.formapi, 'createInternElement').and.returnValue(Promise.resolve({
             id: '123',
-            content: {},
+            content: { type: 'text', title: {}, description: {}, name: '', requiredErrorText: {} },
             owners: [],
             readers: [],
             created: ''
