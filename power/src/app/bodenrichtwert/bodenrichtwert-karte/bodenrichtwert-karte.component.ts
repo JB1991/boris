@@ -98,9 +98,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     getBodenrichtwertzonen(lat: number, lng: number, entw: string) {
-        this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw).subscribe(res => {
-            this.bodenrichtwertService.updateFeatures(res);
-        });
+        this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
+            .subscribe(res => this.bodenrichtwertService.updateFeatures(res));
     }
 
     getAddressFromLatLng(lat: number, lng: number) {
