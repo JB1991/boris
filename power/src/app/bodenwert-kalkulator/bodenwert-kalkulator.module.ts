@@ -7,8 +7,8 @@ import { BodenwertKalkulatorRoutingModule } from '@app/bodenwert-kalkulator/bode
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -20,10 +20,10 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbAccordionModule,
         NgxMapboxGLModule,
         SharedModule,
-        CollapseModule
+        CollapseModule,
+        BrowserAnimationsModule
     ],
     exports: []
 })

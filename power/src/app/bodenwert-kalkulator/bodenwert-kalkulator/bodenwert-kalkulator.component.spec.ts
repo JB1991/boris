@@ -8,6 +8,8 @@ import { SharedModule } from '@app/shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Map } from 'mapbox-gl';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlurstueckPipe } from '../flurstueck-pipe.pipe';
 
 describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
     const feature = require('../../../assets/boden/bodenwert-samples/feature.json');
@@ -23,6 +25,7 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
+                FlurstueckPipe,
                 BodenwertKalkulatorComponent
             ],
             imports: [
@@ -32,7 +35,8 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
                 FormsModule,
                 ReactiveFormsModule,
                 SharedModule,
-                CollapseModule
+                CollapseModule,
+                BrowserAnimationsModule
             ]
         }).compileComponents();
     }));
@@ -66,6 +70,16 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
 
     it('should be created', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('onExpanded should resize map', () => {
+        component.onExpanded();
+        expect(component.map.resize).toHaveBeenCalledTimes(1);
+    });
+
+    it('onCollapsed should resize map', () => {
+        component.onCollapsed();
+        expect(component.map.resize).toHaveBeenCalledTimes(1);
     });
 
     it('onMapClickEvent should process the event', () => {
@@ -124,6 +138,14 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         expect(component.filterActive).toBe(false);
         component.toggleFilterActive();
         expect(component.filterActive).toBe(true);
+    });
+
+    it('resetSelection should clear flurstueckSelection', () => {
+        expect(component.flurstueckSelection.size).toBe(0);
+        component.updateFlurstueckSelection(flurstueck.value);
+        component.resetSelection();
+        expect(component.flurstueckSelection.size).toBe(0);
+        expect(component.isCollapsed).toBeTrue();
     });
 
     it('resetMap should reset the map', () => {
