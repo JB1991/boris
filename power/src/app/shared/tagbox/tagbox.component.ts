@@ -2,11 +2,15 @@ import { Component, Input, Output, EventEmitter, InjectionToken, Inject } from '
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
+
+export function increment() {
+    return () => id++;
+}
 @Component({
     providers: [
         {
             provide: UNIQ_ID_TOKEN,
-            useFactory: () => id++
+            useFactory: increment,
         }
     ],
     selector: 'power-tagbox',
@@ -16,9 +20,8 @@ let id = 0;
 export class TagboxComponent {
     @Input() public tagboxLabel: string;
     @Input() public displayBlock = false;
-    @Input() public dataList: string[] = [];
-    @Input() public tagList: string[] = [];
-    @Output() public tagListChange = new EventEmitter<string[]>();
+    @Input() public dataList: string[];
+    @Input() public tagList: string[];
     public tagInput: string;
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
@@ -32,7 +35,6 @@ export class TagboxComponent {
         }
         if (!this.tagList.includes(this.tagInput)) {
             this.tagList.push(this.tagInput);
-            this.tagListChange.emit(this.tagList);
             this.tagInput = '';
         } else {
             this.tagInput = '';
@@ -48,6 +50,5 @@ export class TagboxComponent {
             throw new Error('Invalid i');
         }
         this.tagList.splice(i, 1);
-        this.tagListChange.emit(this.tagList);
     }
 }

@@ -39,8 +39,6 @@ export class FormAPIService {
         const p = new URLSearchParams(params);
         const url = environment.formAPI + uri + (p.toString() ? '?' + p.toString() : '');
 
-        console.log(url);
-
         let obs: Observable<ArrayBuffer>;
         switch (method) {
             case Method.POST:
@@ -102,7 +100,9 @@ export class FormAPIService {
             p.filter = FormFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort);
+            p.sort = SortToString(params.sort) + ',id';
+        } else {
+            p.sort = 'id';
         }
         if (params.limit) {
             p.limit = params.limit.toString();
@@ -134,7 +134,7 @@ export class FormAPIService {
         return this.Do(Method.GET, 'forms/' + encodeURIComponent(id), p);
     }
 
-    public async createForm(body: {
+    public async createForm(params: GetFormParams, body: {
         content?: any;
         tags?: Array<string>;
         access?: Access;
@@ -142,14 +142,26 @@ export class FormAPIService {
         'group-permissions'?: Array<Permission>;
         'other-permissions'?: Array<Permission>;
     }): Promise<{
-        id: string;
+        form: Form;
+        owner: User;
         status: number;
     }> {
-        return this.Do(Method.POST, 'forms/', {}, body);
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['owner-fields']) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra) {
+            p.extra = params['extra'].join(',');
+        }
+        return this.Do(Method.POST, 'forms/', p, body);
     }
 
     public async updateForm(
         id: string,
+        params: GetFormParams,
         body: {
             content?: any;
             tags?: Array<string>;
@@ -160,10 +172,21 @@ export class FormAPIService {
             status?: FormStatus;
         }
     ): Promise<{
-        id: string;
+        form: Form;
+        owner: User;
         status: number;
     }> {
-        return this.Do(Method.PUT, 'forms/' + encodeURIComponent(id), {}, body);
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['owner-fields']) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra) {
+            p.extra = params['extra'].join(',');
+        }
+        return this.Do(Method.PUT, 'forms/' + encodeURIComponent(id), p, body);
     }
 
     public async deleteForm(
@@ -175,11 +198,9 @@ export class FormAPIService {
         return this.Do(Method.DELETE, 'forms/' + encodeURIComponent(id), {});
     }
 
-    // tslint:disable-next-line: max-func-body-length
     // tslint:disable-next-line: cyclomatic-complexity
-    public async getTasks(
-        params: GetTasksParams
-    ): Promise<{
+    // tslint:disable-next-line: max-func-body-length
+    public async getTasks(params: GetTasksParams): Promise<{
         tasks: Array<Task>;
         'total-tasks': number;
         forms: Record<string, Form>;
@@ -206,7 +227,9 @@ export class FormAPIService {
             p.filter = TaskFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort);
+            p.sort = SortToString(params.sort) + ',pin';
+        } else {
+            p.sort = 'pin';
         }
         if (params.limit) {
             p.limit = params.limit.toString();
@@ -214,12 +237,13 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
+        console.log(p);
         return this.Do(Method.GET, 'tasks', p);
     }
 
     public async getTask(
         id: string,
-        params: GetTasksParams
+        params: GetTaskParams
     ): Promise<{
         task: Task;
         form: Form;
@@ -227,7 +251,7 @@ export class FormAPIService {
         status: number;
     }> {
         const p: Record<string, string> = {};
-        if (params.fields) {
+        if (params.fields && params.fields.length > 0) {
             p.fields = params.fields.join(',');
         }
         if (params['form-fields']) {
@@ -247,29 +271,71 @@ export class FormAPIService {
 
     public async createTask(
         formID: string,
+        params: GetTaskParams,
         body: {
             content?: any;
             description?: string;
-        }
+        },
+        number?: number,
     ): Promise<{
-        id: string;
+        tasks: Array<Task>;
+        form: Form;
+        owner: User;
         status: number;
     }> {
-        return this.Do(Method.POST, 'forms/' + encodeURIComponent(formID), {}, body);
+        const p: Record<string, string> = {};
+        if (params.fields && params.fields.length > 0) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['form-fields']) {
+            p['form-fields'] = params['form-fields'].join(',');
+        }
+        if (params['owner-fields']) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        if (params['form-extra']) {
+            p['form-extra'] = params['form-extra'].join(',');
+        }
+        if (number && number > 0) {
+            p.number = '' + number;
+        }
+        return this.Do(Method.POST, 'forms/' + encodeURIComponent(formID), p, body);
     }
 
     public async updateTask(
         id: string,
+        params: GetTaskParams,
         body: {
             content?: any;
             description?: string;
             status?: TaskStatus;
         }
     ): Promise<{
-        id: string;
+        task: Task;
+        form: Form;
+        owner: User;
         status: number;
     }> {
-        return this.Do(Method.PUT, 'tasks/' + encodeURIComponent(id), {}, body);
+        const p: Record<string, string> = {};
+        if (params.fields && params.fields.length > 0) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['form-fields']) {
+            p['form-fields'] = params['form-fields'].join(',');
+        }
+        if (params['owner-fields']) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        if (params['form-extra']) {
+            p['form-extra'] = params['form-extra'].join(',');
+        }
+        return this.Do(Method.PUT, 'tasks/' + encodeURIComponent(id), p, body);
     }
 
     public async deleteTask(
@@ -299,7 +365,9 @@ export class FormAPIService {
             p.filter = ElementFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort);
+            p.sort = SortToString(params.sort) + ',id';
+        } else {
+            p.sort = 'id';
         }
         if (params.limit) {
             p.limit = params.limit.toString();
@@ -328,25 +396,44 @@ export class FormAPIService {
         return this.Do(Method.GET, 'elements/' + encodeURIComponent(id), p);
     }
 
-    public async createElement(body: {
-        content?: any;
-    }): Promise<{
-        id: string;
-        status: number;
-    }> {
-        return this.Do(Method.POST, 'elements/', {}, body);
+    public async createElement(
+        params: GetElementParams,
+        body: {
+            content?: any;
+        }): Promise<{
+            element: Element;
+            owner: User;
+            status: number;
+        }> {
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        return this.Do(Method.POST, 'elements/', p, body);
     }
 
     public async updateElement(
         id: string,
+        params: GetElementParams,
         body: {
             content?: any;
         }
     ): Promise<{
-        id: string;
+        element: Element;
+        owner: User;
         status: number;
     }> {
-        return this.Do(Method.PUT, 'elements/' + encodeURIComponent(id), {}, body);
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        return this.Do(Method.PUT, 'elements/' + encodeURIComponent(id), p, body);
     }
 
     public async deleteElement(
@@ -366,7 +453,7 @@ export class FormAPIService {
         status: number;
     }> {
         const p: Record<string, string> = {};
-        if (params.fields) {
+        if (params.fields && params.fields.length > 0) {
             p.fields = params.fields.join(',');
         }
         if (params.extra) {
@@ -376,7 +463,9 @@ export class FormAPIService {
             p.filter = FormFilterToString(params.filter);
         }
         if (params.sort) {
-            p.sort = SortToString(params.sort);
+            p.sort = SortToString(params.sort) + ',id';
+        } else {
+            p.sort = 'id';
         }
         if (params.limit) {
             p.limit = params.limit.toString();
@@ -406,12 +495,21 @@ export class FormAPIService {
 
     public async createPublicTask(
         formID: string,
+        params: GetPublicTaskParams,
         content: any,
     ): Promise<{
-        message: string;
+        task: PublicTask;
+        form: PublicForm;
         status: number;
     }> {
-        return this.Do(Method.POST, 'public/forms/' + encodeURIComponent(formID), { content: content });
+        const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params.extra) {
+            p.extra = params['extra'].join(',');
+        }
+        return this.Do(Method.POST, 'public/forms/' + encodeURIComponent(formID), p, { content: content });
     }
 
     public async getPublicTask(
@@ -443,6 +541,7 @@ export class FormAPIService {
 
     public async updatePublicTask(
         pin: string,
+        params: GetPublicTaskParams,
         content: any,
         submit: boolean
     ): Promise<{
@@ -451,17 +550,32 @@ export class FormAPIService {
         status: number;
     }> {
         const p: Record<string, string> = {};
+        if (params.fields) {
+            p.fields = params.fields.join(',');
+        }
+        if (params['form-fields']) {
+            p['form-fields'] = params['form-fields'].join(',');
+        }
+        if (params['owner-fields']) {
+            p['owner-fields'] = params['owner-fields'].join(',');
+        }
+        if (params.extra) {
+            p.extra = params.extra.join(',');
+        }
+        if (params['form-extra']) {
+            p['form-extra'] = params['form-extra'].join(',');
+        }
         if (submit) {
             p.submit = 'true';
         }
-        return this.Do(Method.GET, 'public/tasks/' + encodeURIComponent(pin), p, {
+        return this.Do(Method.PUT, 'public/tasks/' + encodeURIComponent(pin), p, {
             content: content,
         });
     }
 
     public async getCSV(formID: string): Promise<string> {
         let data: ArrayBuffer;
-        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(formID) + '/csv';
+        const url = environment.formAPI + 'forms/' + encodeURIComponent(formID) + '/csv';
 
         try {
             data = await this.httpClient.get(url, this.auth.getHeaders('text', 'text/csv')).toPromise();
@@ -477,7 +591,7 @@ export class FormAPIService {
 }
 
 export interface GetFormsParams {
-    fields: Array<FormField>;
+    fields?: Array<FormField>;
     'owner-fields'?: Array<UserField>;
     extra?: Array<string>;
     filter?: FormFilter;
@@ -487,7 +601,7 @@ export interface GetFormsParams {
 }
 
 export interface GetPublicFormsParams {
-    fields: Array<PublicFormField>;
+    fields?: Array<PublicFormField>;
     extra?: Array<string>;
     filter?: PublicFormFilter;
     sort?: PublicFormSort;
@@ -496,18 +610,18 @@ export interface GetPublicFormsParams {
 }
 
 export interface GetFormParams {
-    fields: Array<FormField>;
+    fields?: Array<FormField>;
     'owner-fields'?: Array<UserField>;
     extra?: Array<string>;
 }
 
 export interface GetPublicFormParams {
-    fields: Array<PublicFormField>;
+    fields?: Array<PublicFormField>;
     extra?: Array<string>;
 }
 
 export interface GetTasksParams {
-    fields: Array<TaskField>;
+    fields?: Array<TaskField>;
     'form-fields'?: Array<FormField>;
     'owner-fields'?: Array<UserField>;
     extra?: Array<string>;
@@ -519,7 +633,7 @@ export interface GetTasksParams {
 }
 
 export interface GetTaskParams {
-    fields: Array<TaskField>;
+    fields?: Array<TaskField>;
     'form-fields'?: Array<FormField>;
     'owner-fields'?: Array<UserField>;
     extra?: Array<string>;
@@ -527,14 +641,14 @@ export interface GetTaskParams {
 }
 
 export interface GetPublicTaskParams {
-    fields: Array<PublicTaskField>;
+    fields?: Array<PublicTaskField>;
     'form-fields'?: Array<PublicFormField>;
     extra?: Array<string>;
     'form-extra'?: Array<string>;
 }
 
 export interface GetElementsParams {
-    fields: Array<ElementField>;
+    fields?: Array<ElementField>;
     extra?: Array<string>;
     filter?: ElementFilter;
     sort?: ElementSort;
@@ -543,6 +657,6 @@ export interface GetElementsParams {
 }
 
 export interface GetElementParams {
-    fields: Array<ElementField>;
+    fields?: Array<ElementField>;
     extra?: Array<string>;
 }

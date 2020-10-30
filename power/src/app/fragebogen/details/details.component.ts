@@ -6,9 +6,11 @@ import { Router } from '@angular/router';
 import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { AuthService, User } from '@app/shared/auth/auth.service';
-import { FormAPIService } from '../formapi.service';
-import { TaskStatus, TaskSortField, Form, Task } from '../formapi.model';
+import { AuthService } from '@app/shared/auth/auth.service';
+import { FormAPIService, GetTasksParams } from '../formapi.service';
+import { TaskStatus, TaskSortField, Form, Task, User, Access } from '../formapi.model';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
 @Component({
     selector: 'power-forms-details',
@@ -16,7 +18,12 @@ import { TaskStatus, TaskSortField, Form, Task } from '../formapi.model';
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+    @ViewChild('commentmodal') public modal: ModalminiComponent;
+    @ViewChild('pagination') pagination: PaginationComponent;
+
     public id: string;
+
+    public availableTags: Array<string>;
 
     public form: Form;
     public owner: User;
@@ -45,13 +52,13 @@ export class DetailsComponent implements OnInit {
         this.id = this.route.snapshot.paramMap.get('id');
     }
 
-    ngOnInit() {
-        this.updateTasks(true);
-        this.loadingscreen.setVisible(true);
-        // get idform
+    async ngOnInit() {
+        this.availableTags = await this.formapi.getTags();
+
         if (this.id) {
             // load data
-            this.loadData(this.id);
+            this.updateForm(true);
+            this.updateTasks();
         } else {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -62,37 +69,27 @@ export class DetailsComponent implements OnInit {
      * Load form data
      * @param id Form id
      */
-    // tslint:disable-next-line: max-func-body-length
-    public async loadData(id: string) {
-        // check data
-        if (!id) {
+    public async updateForm(navigate: boolean) {
+        if (!this.id) {
             throw new Error('id is required');
         }
         try {
-            const result = await this.formapi.getForm(id, {
+            this.loadingscreen.setVisible(true);
+            const result = await this.formapi.getForm(this.id, {
                 fields: ['all'],
                 'owner-fields': ['all'],
             });
             this.form = result.form;
-            if (result.form.status !== 'created') {
-                const results = await this.formapi.getTasks({
-                    fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
-                    filter: { 'has-form-with': { id: result.form.id } },
-                });
-                this.tasks = results.tasks;
-                this.taskTotal = results['total-tasks'];
-                this.tasks = this.tasks.slice(0, this.taskPerPage);
-                this.loadingscreen.setVisible(false);
-            } else {
-                this.loadingscreen.setVisible(false);
-            }
+            this.owner = result.owner;
+            this.loadingscreen.setVisible(false);
         } catch (error) {
-            // failed to load form
+            console.log(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             this.loadingscreen.setVisible(false);
 
-            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-            console.log(error);
+            if (navigate) {
+                this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+            }
             return;
         }
     }
@@ -120,8 +117,8 @@ export class DetailsComponent implements OnInit {
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         }).catch((error: Error) => {
             // failed to delete form
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
-            // console.log(error);
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, $localize`Bitte löschen Sie zuvor die zugehörigen Antworten`);
+            console.log(error);
             return;
         });
     }
@@ -142,8 +139,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
 
 
         // archive form
-        this.formapi.updateForm(this.form.id, { status: 'cancelled' }).then(result => {
-            this.form.status = 'cancelled';
+        this.formapi.updateForm(this.form.id, {}, { status: 'cancelled' }).then(r => {
+            this.form = r.form;
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
         }).catch((error: Error) => {
@@ -202,7 +199,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
             if (this.tasks.length === 0) {
-                this.updateTasks(false);
+                this.updateTasks();
             }
         }).catch((error: Error) => {
             // failed to delete task
@@ -223,20 +220,27 @@ Dies lässt sich nicht mehr umkehren!`)) {
             this.taskSortOrder = 'asc';
         }
         this.taskSort = sort;
-        this.updateTasks(false);
+        this.updateTasks();
     }
 
     /**
      * Opens preview of task results
      * @param i Number of task
      */
-    public openTask(i: number) {
+    public async openTask(i: number) {
         // check data
         if (i < 0 || i >= this.tasks.length) {
             throw new Error('invalid i');
         }
-
-        this.preview.open('display', this.tasks[i].content);
+        try {
+            const r = await this.formapi.getTask(this.tasks[i].id, { fields: ['content'] });
+            this.preview.open('display', r.task.content);
+        } catch (error) {
+            // failed to delete task
+            this.alerts.NewAlert('danger', $localize`Öffnen fehlgeschlagen`, error.toString());
+            console.log(error);
+            return;
+        }
     }
 
     /**
@@ -261,24 +265,24 @@ Dies lässt sich nicht mehr umkehren!`)) {
     }
 
     // tslint:disable-next-line: max-func-body-length
-    public async updateTasks(navigate: boolean) {
+    public async updateTasks() {
         try {
             this.loadingscreen.setVisible(true);
-            const params = {
-                limit: this.taskPerPage,
-                offset: (this.taskPage - 1) * this.taskPerPage,
-                sort: this.taskSort,
-                order: this.taskSortOrder,
-            };
-            if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
-                params['status'] = this.taskStatus;
-            }
-            const response = await this.formapi.getTasks({
+            const params: GetTasksParams = {
                 fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
                 filter: { 'has-form-with': { id: this.id } },
-            });
-            this.taskTotal = response['total-tasks'];
-            this.tasks = response.tasks;
+                limit: this.taskPerPage,
+                offset: (this.taskPage - 1) * this.taskPerPage,
+                sort: { orderBy: { field: this.taskSort }, order: this.taskSortOrder },
+            };
+            if (this.taskStatus !== 'all') {
+                params.filter = {
+                    status: this.taskStatus,
+                };
+            }
+            const r = await this.formapi.getTasks(params);
+            this.taskTotal = r['total-tasks'];
+            this.tasks = r.tasks;
             let maxPages = Math.floor(this.taskTotal / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
@@ -288,11 +292,75 @@ Dies lässt sich nicht mehr umkehren!`)) {
             }
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            if (navigate) {
-                this.router.navigate(['/forms'], { replaceUrl: true });
+        }
+    }
+
+    public updateFormEvent(event: { id: string, tags: Array<string> }) {
+        this.formapi.updateForm(event.id, {}, { tags: event.tags }).then(() => {
+            this.updateForm(false);
+        }).catch((error) => {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`, error.toString());
+        });
+    }
+
+    public publishFormEvent(event: { id: string, access: Access }) {
+        this.formapi.updateForm(event.id, {}, { access: event.access, status: 'published' }).then(() => {
+            this.updateForm(false);
+        }).catch((error) => {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Veröffentlichen des Formulars fehlgeschlagen`, error.toString());
+        });
+    }
+
+    public commentTaskEvent(event: { id: string, description: string }) {
+        this.formapi.updateTask(event.id, {}, { description: event.description }).then(() => {
+            this.updateTasks();
+        }).catch((error) => {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Änderung des Kommentars fehlgeschlagen`, error.toString());
+        });
+    }
+
+    /**
+     * createTaskEvent
+     */
+    // tslint:disable-next-line: max-func-body-length
+    public async createTaskEvent(event: { amount: number, copy: boolean }) {
+        const pinList: Array<string> = [];
+        try {
+            const r = await this.formapi.createTask(this.form.id, {
+                fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
+            }, {}, event.amount);
+            for (const task of r.tasks) {
+                pinList.push(task.pin);
             }
+            this.taskSort = 'created';
+            this.taskSortOrder = 'desc';
+            this.pagination.page = 1;
+            this.updateTasks();
+            // copy to clipboard
+            if (event.copy) {
+                const selBox = document.createElement('textarea');
+                selBox.style.position = 'fixed';
+                selBox.style.left = '0';
+                selBox.style.top = '0';
+                selBox.style.opacity = '0';
+                selBox.value = pinList.join('\n');
+                document.body.appendChild(selBox);
+                selBox.focus();
+                selBox.select();
+                document.execCommand('copy');
+                document.body.removeChild(selBox);
+            }
+        } catch (error) {
+            // failed to create task
+            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
+            console.log(error);
+            return;
         }
     }
 }

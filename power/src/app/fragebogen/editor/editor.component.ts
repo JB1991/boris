@@ -447,7 +447,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
 
-        this.formapi.updateForm(id, {
+        this.formapi.updateForm(id, { fields: ['content'] }, {
             content: this.storage.model,
         }).then(() => {
             // success
@@ -458,8 +458,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             console.log(error);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error['error']['message']);
             this.loadingscreen.setVisible(false);
-
-            console.log(error);
             return;
         });
     }
@@ -586,7 +584,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param page Page number
      */
     public addFavorite(element: number, page: number = this.storage.selectedPageID) {
-        // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
         }
@@ -604,9 +601,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         question.name = '';
 
         // add favorite
-        this.formapi.createElement({
-            content: question,
-        }).then((data) => {
+        this.formapi.createElement({ fields: ['all'] }, { content: question }).then((data) => {
             this.favorites.push(data);
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
                 $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);

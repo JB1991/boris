@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard.component';
 import { NewformComponent } from './newform/newform.component';
 
 import { SharedModule } from '@app/shared/shared.module';
+import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 @NgModule({
     declarations: [

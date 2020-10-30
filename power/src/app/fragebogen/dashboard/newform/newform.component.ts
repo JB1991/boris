@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
@@ -16,10 +16,8 @@ import { Form, User } from '../../formapi.model';
 })
 export class NewformComponent {
     @ViewChild('newformmodal') public modal: ModalminiComponent;
-    @Input() public tags: Array<string>;
-    @Input() public forms: Array<Form>;
-    @Input() public formOwners: Record<string, User>;
-    @Input() public formPerPage: number;
+    @Output() out = new EventEmitter<Form>();
+    @Input() tags: Array<string>;
 
     public title: string;
     public service = '';
@@ -131,19 +129,14 @@ export class NewformComponent {
                 throw new Error('title is required');
             }
             template.title.default = this.title;
-            const response = await this.formAPI.createForm({ tags: this.tagList, content: template, access: 'public' });
-
-            const resp = await this.formAPI.getForm(response.id, {
+            const r = await this.formAPI.createForm({
                 fields: ['id', 'owner', 'tags', 'access', 'group', 'status', 'created', 'updated'],
                 'owner-fields': ['id', 'name', 'given-name', 'family-name', 'groups'],
                 extra: ['title.de', 'title.default'],
-            });
-            this.forms.unshift(resp.form);
-            this.formOwners[resp.owner.id] = resp.owner;
-            if (this.forms.length > this.formPerPage) {
-                this.forms.pop();
-            }
+            }, { tags: this.tagList, content: template, access: 'public' });
+            this.out.emit(r.form);
         } catch (error) {
+            console.log(error);
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
         }
     }

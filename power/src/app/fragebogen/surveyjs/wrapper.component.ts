@@ -1,4 +1,7 @@
-import { Component, Input, ElementRef, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
+import {
+    Component, Input, ElementRef, ViewChild, Output,
+    EventEmitter, OnChanges, ChangeDetectionStrategy
+} from '@angular/core';
 import { ShowdownConverter } from 'ngx-showdown';
 import * as Survey from 'survey-angular';
 import * as Slider from './nouislider';
@@ -6,7 +9,8 @@ import * as Slider from './nouislider';
 @Component({
     selector: 'power-forms-surveyjs-wrapper',
     template: `<div #surveyjsDiv></div>`,
-    styleUrls: ['./wrapper.component.scss']
+    styleUrls: ['./wrapper.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WrapperComponent implements OnChanges {
     @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv: ElementRef;

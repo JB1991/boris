@@ -1,10 +1,10 @@
 <power-modalmini #settingsmodal>
     <!-- tags -->
-    <power-tagbox [(tagList)]="tagList" [dataList]="tagList" i18n-tagboxLabel tagboxLabel="Tags"></power-tagbox>
+    <power-tagbox *ngIf="form && form.tags" [(tagList)]="form.tags" [dataList]="availableTags" i18n-tagboxLabel tagboxLabel="Tags"></power-tagbox>
 
     <!-- modal buttons -->
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" i18n-title title="Formular teilen" (click)="updateForm()">
+        <button type="button" class="btn btn-success" i18n-title title="Formular teilen" (click)="this.out.emit({id: form.id, tags: form.tags}); modal.close();">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                 <path fill-rule="evenodd"

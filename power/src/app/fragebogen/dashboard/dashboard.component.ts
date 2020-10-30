@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -6,6 +6,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService, GetFormsParams, GetTasksParams } from '../formapi.service';
 import { FormStatus, Access, Order, TaskStatus, FormFilter, FormSortField, TaskSortField, Task, Form, User } from '../formapi.model';
+import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
 @Component({
     selector: 'power-forms-dashboard',
@@ -14,6 +15,8 @@ import { FormStatus, Access, Order, TaskStatus, FormFilter, FormSortField, TaskS
     encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
+    @ViewChild('formPagination') formPagination: PaginationComponent;
+
     public tags: Array<string>;
 
     public forms: Array<Form>;
@@ -31,6 +34,7 @@ export class DashboardComponent implements OnInit {
 
     public tasks: Array<Task>;
     public taskForms: Record<string, Form>;
+    public taskOwners: Record<string, User>;
     public taskTotal: number;
     public taskPage = 1;
     public taskPerPage = 5;
@@ -60,13 +64,22 @@ export class DashboardComponent implements OnInit {
     public async deleteForm(id: string) {
         try {
             this.loadingscreen.setVisible(true);
-            const response = await this.formAPI.deleteForm(id);
+            await this.formAPI.deleteForm(id);
             this.updateForms(false);
             this.updateTasks(false);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
+        }
+    }
+
+    public formCreated() {
+        this.formSort = 'created';
+        this.formSortOrder = 'desc';
+        this.updateForms(false);
+        if (this.formPagination) {
+            this.formPagination.page = 1;
         }
     }
 
@@ -90,11 +103,10 @@ export class DashboardComponent implements OnInit {
         input.onchange = (event: Event) => {
             const file = event.target['files'][0];
             const reader = new FileReader();
-
             // Upload success
             reader.onload = () => {
                 this.formAPI
-                    .createForm(reader.result.valueOf())
+                    .createForm({ fields: ['id'] }, reader.result.valueOf())
                     .then(() => {
                         this.updateForms(false);
                     })
@@ -160,12 +172,14 @@ export class DashboardComponent implements OnInit {
             }
             if (filters.length > 0) {
                 params.filter = { and: filters };
+            } else if (filters.length === 1) {
+                params.filter = filters[0];
             }
             const response = await this.formAPI.getForms(params);
             this.forms = response.forms;
             this.formOwners = response.owners;
             this.formTotal = response['total-forms'];
-            let maxPages = Math.floor(this.formTotal / 5) + 1;
+            let maxPages = Math.floor((this.formTotal - 1) / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
                 this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
@@ -203,7 +217,8 @@ export class DashboardComponent implements OnInit {
             this.loadingscreen.setVisible(true);
             const params: GetTasksParams = {
                 fields: ['id', 'form', 'pin', 'description', 'status', 'updated', 'created'],
-                'form-fields': ['id'],
+                'form-fields': ['id', 'tags', 'owner', 'access', 'status', 'created', 'updated'],
+                'owner-fields': ['all'],
                 'form-extra': ['title.de', 'title.default'],
                 limit: this.taskPerPage,
                 offset: (this.taskPage - 1) * this.taskPerPage,
@@ -226,6 +241,7 @@ export class DashboardComponent implements OnInit {
             const response = await this.formAPI.getTasks(params);
             this.tasks = response.tasks;
             this.taskForms = response.forms;
+            this.taskOwners = response.owners;
             this.taskTotal = response['total-tasks'];
             let maxPages = Math.floor(this.taskTotal / 5) + 1;
             if (maxPages > 10) {
@@ -236,6 +252,7 @@ export class DashboardComponent implements OnInit {
             }
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             if (navigate) {
@@ -250,6 +267,7 @@ export class DashboardComponent implements OnInit {
             this.tags = await this.formAPI.getTags();
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
             if (navigate) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService } from '../../formapi.service';
@@ -10,27 +10,21 @@ import { Access, Form, Task, User } from '../../formapi.model';
     templateUrl: './publish.component.html',
     styleUrls: ['./publish.component.css']
 })
-export class PublishComponent implements OnInit {
-    @Input() form: Form;
-    @Input() owner: User;
-    @Input() tasks: Array<Task>;
-    @Input() taskTotal = 0;
-    @Input() taskPerPage = 5;
+export class PublishComponent {
+    @Output() out = new EventEmitter<{
+        id: string,
+        access: Access,
+    }>();
+    public id: string;
 
     @ViewChild('publishmodal') public modal: ModalminiComponent;
     public access: Access = 'pin8';
 
-    constructor(public alerts: AlertsService,
-        public formapi: FormAPIService) {
-    }
-
-    ngOnInit() {
-    }
-
     /**
      * Opens modal
      */
-    public open() {
+    public open(id: string) {
+        this.id = id;
         this.modal.open($localize`Veröffentlichen`);
     }
 
@@ -52,21 +46,12 @@ export class PublishComponent implements OnInit {
             return;
         }
 
-        this.formapi.updateForm(this.form.id, {
+        this.out.emit({
+            id: this.id,
             access: this.access,
-            status: 'published',
-        }).then(result => {
-            // success
-            this.form.status = 'published';
-            this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,
-                $localize`Das Formular wurde erfolgreich veröffentlicht.`);
-            this.close();
-        }).catch((error: Error) => {
-            // failed to publish form
-            this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, error.toString());
-            console.log(error);
-            return;
         });
+        this.id = '';
+        this.access = 'pin8';
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

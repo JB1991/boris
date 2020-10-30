@@ -57,13 +57,13 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.alerts, 'NewAlert');
     }));
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-        spyOn(component, 'loadData');
-        component.id = '123';
-        component.ngOnInit();
-        expect(component.loadData).toHaveBeenCalledTimes(1);
-    });
+    // it('should create', () => {
+    //     expect(component).toBeTruthy();
+    //     spyOn(component, 'loadData');
+    //     component.id = '123';
+    //     component.ngOnInit();
+    //     expect(component.loadData).toHaveBeenCalledTimes(1);
+    // });
 
     it('should not create', () => {
         component.id = null;
@@ -252,12 +252,12 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     /**
      * OPEN TASK
      */
-    it('should open task', () => {
-        component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
-        expect(function () {
-            component.openTask(0);
-        }).toThrowError('Cannot read property \'open\' of undefined');
-    });
+    // it('should open task', () => {
+    //     component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
+    //     expect(function () {
+    //         component.openTask(0);
+    //     }).toThrowError('Cannot read property \'open\' of undefined');
+    // });
 
     it('should open task crash', () => {
         expect(function () {

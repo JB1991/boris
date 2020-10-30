@@ -10,6 +10,7 @@ import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
+import { PublicForm, PublicTask } from '../formapi.model';
 
 @Component({
     selector: 'power-forms-fillout',
@@ -22,10 +23,11 @@ export class FilloutComponent implements OnInit {
     public submitted = false;
     public languages = Survey.surveyLocalization.localeNames;
 
+    public pin = '';
+    public form: PublicForm;
+
     public data = {
         css_style: JSON.parse(JSON.stringify(Bootstrap4_CSS)),
-        task: null,
-        form: null,
         UnsavedChanges: false
     };
 
@@ -42,11 +44,10 @@ export class FilloutComponent implements OnInit {
 
     ngOnInit() {
         // get pin
-        this.loadingscreen.setVisible(true);
-        const pin = this.route.snapshot.paramMap.get('pin');
-        if (pin) {
+        this.pin = this.route.snapshot.paramMap.get('pin');
+        if (this.pin) {
             // load data
-            this.loadData(pin);
+            this.loadData();
         } else {
             const id = this.route.snapshot.paramMap.get('id');
             if (id) {
@@ -76,10 +77,11 @@ export class FilloutComponent implements OnInit {
     // tslint:disable-next-line: max-func-body-length
     public loadForm(id: string) {
         // load form by id
+        this.loadingscreen.setVisible(true);
         this.formapi.getPublicForm(id, { fields: ['all'] }).then(result => {
             // store form
-            this.data.form = result;
-            this.language = this.data.form.content.locale;
+            this.form = result.form;
+            this.language = this.form.content.locale;
 
             // check if user language exists in survey
             /* istanbul ignore next */
@@ -119,12 +121,14 @@ export class FilloutComponent implements OnInit {
             throw new Error('no data provided');
         }
 
-        this.formapi.createPublicTask(id, result.result).then(() => {
+        this.formapi.createPublicTask(id, {}, result.result).then(() => {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
             result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+
+            console.log(error);
             return;
         });
     }
@@ -134,16 +138,12 @@ export class FilloutComponent implements OnInit {
      * @param pin Task pin
      * @param factor Task factor
      */
-    public loadData(pin: string, factor: string = null) {
-        // check data
-        if (!pin) {
-            throw new Error('pin is required');
-        }
-
-        this.formapi.getPublicTask(pin, { fields: ['all'], 'form-fields': ['all'] }).then(result => {
+    public loadData() {
+        this.loadingscreen.setVisible(true);
+        this.formapi.getPublicTask(this.pin, { fields: ['all'], 'form-fields': ['all'] }).then(result => {
             // store task data
-            this.data.task = result.task;
-            this.data.form = result.form;
+            this.form = result.form;
+            this.loadingscreen.setVisible(false);
         }).catch((error: Error) => {
             // failed to load task
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
@@ -167,13 +167,13 @@ export class FilloutComponent implements OnInit {
         this.submitted = true;
 
         // complete
-        this.formapi.updatePublicTask(this.data.task.id, result.result, true).then(() => {
+        this.formapi.updatePublicTask(this.pin, {}, result.result, true).then(() => {
             this.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
             result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.message);
             console.log(error);
             return;
         });
@@ -193,7 +193,7 @@ export class FilloutComponent implements OnInit {
         }
 
         // interim results
-        this.formapi.updatePublicTask(this.data.task.id, result, false).then(() => {
+        this.formapi.updatePublicTask(this.pin, {}, result, false).then(() => {
             this.setUnsavedChanges(false);
         }).catch((error: Error) => {
             // failed to save task
@@ -213,8 +213,8 @@ export class FilloutComponent implements OnInit {
 
     public resetService() {
         this.data.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
-        this.data.task = null;
-        this.data.form = null;
+        this.pin = '';
+        this.form = null;
         this.data.UnsavedChanges = false;
     }
 

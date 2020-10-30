@@ -69,7 +69,9 @@ export class PublicDashboardComponent implements OnInit {
             } else {
                 params.sort = { orderBy: { field: this.sort }, order: this.order };
             }
-            const filters: Array<PublicFormFilter> = [];
+            const filters: Array<PublicFormFilter> = [
+                { access: 'public' }
+            ];
             if (this.search !== '') {
                 const or: Array<PublicFormFilter> = [];
                 const search = { lower: true, contains: this.search };
@@ -80,7 +82,10 @@ export class PublicDashboardComponent implements OnInit {
             }
             if (filters.length > 0) {
                 params.filter = { and: filters };
+            } else if (filters.length === 1) {
+                params.filter = filters[0];
             }
+
             const response = await this.formAPI.getPublicForms(params);
             this.data = response.forms;
             this.total = response['total-forms'];
