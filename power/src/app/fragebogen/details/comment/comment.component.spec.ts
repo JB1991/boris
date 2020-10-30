@@ -12,7 +12,7 @@ describe('Fragebogen.Details.CommentComponent', () => {
     let component: CommentComponent;
     let fixture: ComponentFixture<CommentComponent>;
 
-    const taskSample = require('../../../../assets/fragebogen/intern-get-tasks-id.json');
+    // const taskSample = require('../../../../assets/fragebogen/intern-get-tasks-id.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

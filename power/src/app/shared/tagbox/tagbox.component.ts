@@ -34,7 +34,7 @@ export class TagboxComponent {
      * Adds tag to list
      */
     public addTag() {
-        if (!this.tagInput || !this.tagInput.trim()) {
+        if (!this.tagInput || !this.tagInput.trim() || !this.tagList) {
             return;
         }
         if (!this.tagList.includes(this.tagInput)) {
@@ -50,6 +50,9 @@ export class TagboxComponent {
      * @param i Tag number
      */
     public removeTag(i: number) {
+        if (!this.tagList) {
+            return;
+        }
         if (i < 0 || i >= this.tagList.length) {
             throw new Error('Invalid i');
         }

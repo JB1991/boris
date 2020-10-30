@@ -1,0 +1,17 @@
+{
+    "choices": [
+        "Engineering Lead",
+        "Project Manager",
+        "Software Developer",
+        "Designer",
+        "Product Manager",
+        "CEO / Founder",
+        "Customer Support"
+    ],
+    "colCount": 3,
+    "hasOther": true,
+    "name": "customer_role",
+    "otherText": "Other",
+    "title": "What best describes your role?",
+    "type": "radiogroup"
+}

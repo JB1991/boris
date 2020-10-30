@@ -1,0 +1,114 @@
+{
+    "forms": {
+        "751c7f76-967d-49fc-a195-9a4bbad2552d": {
+            "access": "public",
+            "content": {
+                "pages": [{
+                    "elements": [{
+                            "isRequired": true,
+                            "maxRateDescription": "(Most likely)",
+                            "minRateDescription": "(Most unlikely)",
+                            "name": "nps_score",
+                            "rateMax": 10,
+                            "rateMin": 0,
+                            "title": "On a scale of zero to ten, how likely are you to recommend our product to a friend or colleague?",
+                            "type": "rating"
+                        },
+                        {
+                            "choices": [
+                                "Performance",
+                                "Stability",
+                                "User Interface",
+                                "Complete Functionality"
+                            ],
+                            "colCount": 2,
+                            "hasOther": true,
+                            "isRequired": true,
+                            "name": "promoter_features",
+                            "otherText": "Other feature:",
+                            "title": "What features do you value the most?",
+                            "type": "checkbox",
+                            "validators": [{
+                                "maxCount": 2,
+                                "text": "Please select two features maximum.",
+                                "type": "answercount"
+                            }],
+                            "visibleIf": "{nps_score} >= 9"
+                        },
+                        {
+                            "name": "passive_experience",
+                            "title": "What is the primary reason for your score?",
+                            "type": "comment",
+                            "visibleIf": "{nps_score} > 6  and {nps_score} < 9"
+                        },
+                        {
+                            "name": "disappointed_experience",
+                            "title": "What do you miss and what was disappointing in your experience with us?",
+                            "type": "comment",
+                            "visibleIf": "{nps_score} notempty"
+                        }
+                    ],
+                    "name": "page1"
+                }],
+                "title": {
+                    "de": "Hallo Welt",
+                    "default": "Hello World"
+                }
+            },
+            "created": "2020-10-30T11:52:22Z",
+            "group": "/public",
+            "group-permissions": [
+                "read-form"
+            ],
+            "id": "751c7f76-967d-49fc-a195-9a4bbad2552d",
+            "other-permissions": [
+                "read-form"
+            ],
+            "owner": "8b3f0087-41c0-4652-96bf-cce298eb881d",
+            "status": "published",
+            "tags": [
+                "Tag1",
+                "Tag2"
+            ],
+            "updated": "2020-10-30T14:01:45Z"
+        }
+    },
+    "owners": {
+        "8b3f0087-41c0-4652-96bf-cce298eb881d": {
+            "family-name": "User",
+            "given-name": "Local",
+            "groups": [
+                "/Public/Locals"
+            ],
+            "id": "8b3f0087-41c0-4652-96bf-cce298eb881d",
+            "name": "local_user"
+        }
+    },
+    "status": 200,
+    "tasks": [{
+            "content": {
+                "disappointed_experience": "Everything is okay :)",
+                "nps_score": 4
+            },
+            "created": "2020-10-30T14:04:35Z",
+            "description": "This is a description",
+            "form": "751c7f76-967d-49fc-a195-9a4bbad2552d",
+            "id": "cd2dba26-296a-4907-a663-f95ed4e19b17",
+            "status": "created",
+            "updated": "2020-10-30T14:04:35Z"
+        },
+        {
+            "content": {
+                "disappointed_experience": "Everything is okay :)",
+                "nps_score": 4
+            },
+            "created": "2020-10-30T14:04:37Z",
+            "description": "This is a description",
+            "form": "751c7f76-967d-49fc-a195-9a4bbad2552d",
+            "id": "eb0c14ef-6c7b-4a5b-9a45-b017232c77be",
+            "status": "created",
+            "updated": "2020-10-30T14:04:37Z"
+        }
+    ],
+    "total-tasks": 2
+}

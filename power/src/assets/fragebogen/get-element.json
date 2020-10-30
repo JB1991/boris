@@ -1,0 +1,25 @@
+{
+    "element": {
+        "content": {
+            "choices": [
+                "Engineering Lead",
+                "Project Manager",
+                "Software Developer",
+                "Designer",
+                "Product Manager",
+                "CEO / Founder",
+                "Customer Support"
+            ],
+            "colCount": 3,
+            "hasOther": true,
+            "name": "customer_role",
+            "otherText": "Other",
+            "title": "What best describes your role?",
+            "type": "radiogroup"
+        },
+        "created": "2020-10-30T14:21:27Z",
+        "id": "b1a1eb52-53d3-4cba-9a82-01a6569029c4",
+        "updated": "2020-10-30T14:21:27Z"
+    },
+    "status": 200
+}

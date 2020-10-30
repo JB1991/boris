@@ -12,7 +12,7 @@ describe('Fragebogen.Details.PublishComponent', () => {
     let component: PublishComponent;
     let fixture: ComponentFixture<PublishComponent>;
 
-    const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
+    // const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -35,7 +35,6 @@ describe('Fragebogen.Details.PublishComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
-        spyOn(component.alerts, 'NewAlert');
         fixture.detectChanges(); // onInit
     }));
 

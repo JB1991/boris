@@ -16,10 +16,10 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
     let fixture: ComponentFixture<DetailsComponent>;
 
-    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
-    const formSampleCreated = require('../../../assets/fragebogen/intern-get-forms-id-created.json');
-    const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
-    const taskSample = require('../../../assets/fragebogen/intern-get-tasks.json');
+    // const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
+    // const formSampleCreated = require('../../../assets/fragebogen/intern-get-forms-id-created.json');
+    // const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
+    // const taskSample = require('../../../assets/fragebogen/intern-get-tasks.json');
 
     // tslint:disable-next-line: max-func-body-length
     beforeEach(waitForAsync(() => {
@@ -65,11 +65,11 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     //     expect(component.loadData).toHaveBeenCalledTimes(1);
     // });
 
-    it('should not create', () => {
-        component.id = null;
-        component.ngOnInit();
-        expect(component.router.navigate).toHaveBeenCalledTimes(1);
-    });
+    // it('should not create', () => {
+    //     component.id = null;
+    //     component.ngOnInit();
+    //     expect(component.router.navigate).toHaveBeenCalledTimes(1);
+    // });
 
     /**
      * LOAD DATA
@@ -259,14 +259,14 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     //     }).toThrowError('Cannot read property \'open\' of undefined');
     // });
 
-    it('should open task crash', () => {
-        expect(function () {
-            component.openTask(-1);
-        }).toThrowError('invalid i');
-        expect(function () {
-            component.openTask(2);
-        }).toThrowError('invalid i');
-    });
+    // it('should open task crash', () => {
+    //     expect(function () {
+    //         component.openTask(-1);
+    //     }).toThrowError('invalid i');
+    //     expect(function () {
+    //         component.openTask(2);
+    //     }).toThrowError('invalid i');
+    // });
 
     /**
      * UPDATE TASK

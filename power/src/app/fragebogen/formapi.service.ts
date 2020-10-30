@@ -156,7 +156,7 @@ export class FormAPIService {
         if (params.extra) {
             p.extra = params['extra'].join(',');
         }
-        return this.Do(Method.POST, 'forms/', p, body);
+        return this.Do(Method.POST, 'forms', p, body);
     }
 
     public async updateForm(

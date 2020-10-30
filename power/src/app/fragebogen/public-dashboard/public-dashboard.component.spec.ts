@@ -13,7 +13,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let component: PublicDashboardComponent;
     let fixture: ComponentFixture<PublicDashboardComponent>;
 
-    const publicForms = require('../../../assets/fragebogen/public-get-forms.json');
+    // const publicForms = require('../../../assets/fragebogen/public-get-forms.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -89,17 +89,17 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     /*
         Error
     */
-    it('should fail', (done) => {
-        spyOn(component.formAPI, 'getPublicForms').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
-        component.update(true).then(() => {
-            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-            expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
-            done();
-        });
-    });
+    // it('should fail', (done) => {
+    //     spyOn(component.formAPI, 'getPublicForms').and.callFake(() => {
+    //         return Promise.reject(new Error('fail'));
+    //     });
+    //     component.update(true).then(() => {
+    //         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+    //         expect(component.alerts.NewAlert)
+    //             .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+    //         done();
+    //     });
+    // });
 });
 
 @Component({

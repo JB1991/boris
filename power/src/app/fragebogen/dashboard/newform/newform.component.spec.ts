@@ -14,7 +14,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
     let fixture: ComponentFixture<NewformComponent>;
 
-    const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
+    // const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
