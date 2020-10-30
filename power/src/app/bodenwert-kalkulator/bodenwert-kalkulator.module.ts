@@ -22,8 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         ReactiveFormsModule,
         NgxMapboxGLModule,
         SharedModule,
-        CollapseModule,
-        BrowserAnimationsModule
+        CollapseModule
     ],
     exports: []
 })

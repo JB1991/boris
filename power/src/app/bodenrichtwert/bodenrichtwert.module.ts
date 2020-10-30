@@ -53,8 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         NgxEchartsModule.forRoot({ echarts }),
         SharedModule,
         NgbDropdownModule,
-        CollapseModule,
-        BrowserAnimationsModule
+        CollapseModule
     ],
     providers: [BodenrichtwertService]
 })
