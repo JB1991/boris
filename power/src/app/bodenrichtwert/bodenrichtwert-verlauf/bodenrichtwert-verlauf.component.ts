@@ -75,13 +75,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     @Input() features: FeatureCollection;
 
-
     echartsInstance;
 
-    constructor(
-        private nutzungPipe: NutzungPipe
-    ) {
-
+    constructor(private nutzungPipe: NutzungPipe) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {

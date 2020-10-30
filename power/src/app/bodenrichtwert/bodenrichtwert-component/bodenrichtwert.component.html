@@ -10,18 +10,46 @@
         </div>
         <div [class]="isCollapsed ? 'col-12' : 'col-lg-6'">
             <div class="row">
-                <div *ngIf="!adresse"
-                     class="text-center border-top col-12">
+                <div *ngIf="!adresse && !features"
+                     class="text-center border-top col-12 p-0">
                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie eine Position</h5>
+                </div>
+                <div *ngIf="!adresse && features && features.features.length"
+                     class="text-center border-top col-12 p-0">
+                    <button type="button"
+                            class="btn btn-collapse border col-12"
+                            (click)="isCollapsed = !isCollapsed"
+                            [attr.aria-expanded]="!isCollapsed"
+                            aria-controls="collapseBasic">{{ features.features[0].properties.brzname}}
+                        <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                             width="25"
+                             height="25"
+                             alt="Einklappen/ausklappen"
+                             i18n-alt>
+                    </button>
+                </div>
+                <div *ngIf="!adresse && features && !features.features.length"
+                     class="text-center border-top col-12 p-0">
+                    <button type="button"
+                            class="btn btn-collapse border col-12"
+                            (click)="isCollapsed = !isCollapsed"
+                            [attr.aria-expanded]="!isCollapsed"
+                            aria-controls="collapseBasic">Wählen Sie eine Position
+                        <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                             width="25"
+                             height="25"
+                             alt="Einklappen/ausklappen"
+                             i18n-alt>
+                    </button>
                 </div>
                 <button *ngIf="adresse"
                         type="button"
                         class="btn btn-collapse border col-12 p-0"
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
-                        aria-controls="collapseBasic">{{ adresse.properties.text }} <img
-                         src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                        aria-controls="collapseBasic">{{ adresse.properties.text }}
+                    <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
                          width="25"
                          height="25"
                          alt="Einklappen/ausklappen"
@@ -36,16 +64,33 @@
                      [collapse]="isCollapsed"
                      (expanded)="isExpanded = !isExpanded"
                      [isAnimated]="true">
-                    <div *ngIf="!adresse || adresse.properties.bundesland !== 'Niedersachsen'">
-                        <p class="text-center">Keine gültige Adresse! <br> Bitte wählen Sie eine gültige Adresse
-                            innerhalb
-                            von
-                            Niedersachsen aus.</p>
-                    </div>
-                    <div class="well well-lg card card-block card-header"
-                         [class]="isCollapsed ? '' : 'verlauf'">
+                    <div class="well well-lg card card-block card-header verlauf">
                         <div class="row p-0"
                              *ngIf="features">
+                            <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen') && !features.features.length"
+                                 class="text-center col-12">
+                                <p class="m-3 mx-center lead"
+                                   i18n>Keine gültige Adresse!</p>
+                                <p class="m-3 mx-center lead"
+                                   i18n>Hinweis: </p>
+                                <p class="m-3 mx-center"
+                                   i18n>Bitte wählen Sie eine gültige Adresse innerhalb
+                                    von Niedersachsen aus. Die Genauigkeit des Suchradius für die Adresse beträgt 50
+                                    Meter.</p>
+                            </div>
+                            <div *ngIf="adresse && adresse.properties.bundesland == 'Niedersachsen' && !features.features.length"
+                                 class="text-center col-12">
+                                <p class="m-3 mx-center"
+                                   i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
+                            </div>
+                            <div *ngIf="!adresse && features.features.length"
+                                 class="text-center col-12">
+                                <p class="m-3 mx-center"
+                                   i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
+                                    Adresse für diesen Standort gefunden werden.</p>
+                                <p class="m-3 mx-center"
+                                   i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
+                            </div>
                             <power-bodenrichtwert-liste [stichtag]="stichtag"
                                                         [teilmarkt]="teilmarkt"
                                                         [features]="features">
