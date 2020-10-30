@@ -55,6 +55,7 @@ export class ModalminiComponent implements OnDestroy {
         }
 
         // dont close if invalid inputs exists
+        /* istanbul ignore next */
         if (this.checkInvalid && this.div.nativeElement.getElementsByClassName('is-invalid').length > 0) {
             this.closing.emit(false);
             return;

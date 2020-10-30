@@ -63,6 +63,7 @@ import '@angular/localize/init';
 (window as any).global = window;
 
 // Add remove() to ChildNode
+/* istanbul ignore next */
 (function (arr) {
     arr.forEach(function (item) {
         if (item.hasOwnProperty('remove')) {

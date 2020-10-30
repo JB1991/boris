@@ -66,6 +66,9 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
         expect(component.modal.isVisible()).toBeTrue();
         component.modal.close();
         expect(component.modal.isVisible()).toBeFalse();
+
+        component.close(false);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     });
 
     it('should update model', () => {

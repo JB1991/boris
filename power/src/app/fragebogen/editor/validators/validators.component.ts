@@ -366,5 +366,19 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         event.target['value'] = '';
         this.modelChanged(null);
     }
+
+    /**
+     * Validates if a regular expression compiles
+     * @param regex Regular expression
+     */
+    public isRegExInvalid(regex: string): boolean {
+        try {
+            var re = new RegExp(regex);
+            re.exec('Hallo Welt');
+        } catch (error) {
+            return true;
+        }
+        return false;
+    }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

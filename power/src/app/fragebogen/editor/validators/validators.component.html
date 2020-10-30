@@ -69,7 +69,7 @@
                    class="form-control"
                    [(ngModel)]="item.regex"
                    (change)="modelChanged($event)"
-                   [class.is-invalid]="!item.regex"
+                   [class.is-invalid]="!item.regex || isRegExInvalid(item.regex)"
                    id="validatorData{{ i }}{{ uniqId }}"
                    name="validatorData{{ i }}{{ uniqId }}"
                    i18n-placeholder
