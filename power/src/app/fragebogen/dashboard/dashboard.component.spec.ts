@@ -122,10 +122,13 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         });
     });
 
-    it('should decline deleteForm', () => {
+    it('should decline deleteForm', (done) => {
         spyOn(window, 'confirm').and.returnValue(false);
         spyOn(component.formAPI, 'deleteInternForm');
-        expect(component.formAPI.deleteInternForm).toHaveBeenCalledTimes(0);
+        component.deleteForm('abc').then(() => {
+            expect(component.formAPI.deleteInternForm).toHaveBeenCalledTimes(0);
+            done();
+        })
     });
 
     it('should succeed changeFormSort', (done) => {
