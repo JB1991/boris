@@ -373,7 +373,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
      */
     public isRegExInvalid(regex: string): boolean {
         try {
-            var re = new RegExp(regex);
+            const re = new RegExp(regex);
             re.exec('Hallo Welt');
         } catch (error) {
             return true;

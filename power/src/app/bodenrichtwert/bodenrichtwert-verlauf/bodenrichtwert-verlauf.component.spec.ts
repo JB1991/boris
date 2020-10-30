@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import * as echarts from 'echarts';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.component';
 import { SimpleChanges } from '@angular/core';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
     const changes: SimpleChanges = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-changes.json');
@@ -19,7 +20,8 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         TestBed.configureTestingModule({
             declarations: [BodenrichtwertVerlaufComponent],
             imports: [
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                NgxEchartsModule.forRoot({ echarts }),
             ]
         }).compileComponents();
     }));
