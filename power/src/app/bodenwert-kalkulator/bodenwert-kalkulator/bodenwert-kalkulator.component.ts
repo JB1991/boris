@@ -13,6 +13,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     threeDActive = false;
     searchActive = false;
     filterActive = false;
+    locationTrackingActive = false;
     isCollapsed = true;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
@@ -131,7 +132,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
         this.map.easeTo({
             pitch: 60,
             zoom: 17,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.locationTrackingActive ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
     }
@@ -158,7 +159,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
         this.map.easeTo({
             pitch: 0,
             zoom: 14,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.locationTrackingActive ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
         this.map.removeLayer('building-extrusion');
@@ -191,7 +192,16 @@ export class BodenwertKalkulatorComponent implements OnInit {
         });
     }
 
-    enableLocationTracking() {
+    public toggleLocationTracking() {
+        if (!this.locationTrackingActive) {
+            this.enableLocationTracking();
+        } else {
+            this.removeLocation();
+        }
+        this.locationTrackingActive = !this.locationTrackingActive;
+    }
+
+    public enableLocationTracking() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(location => {
                 const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
@@ -203,6 +213,10 @@ export class BodenwertKalkulatorComponent implements OnInit {
                 this.marker.setLngLat(lngLat).addTo(this.map);
             });
         }
+    }
+
+    public removeLocation() {
+        this.marker.remove();
     }
 }
 

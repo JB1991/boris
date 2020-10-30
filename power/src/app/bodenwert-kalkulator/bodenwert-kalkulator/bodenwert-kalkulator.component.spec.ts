@@ -155,6 +155,14 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         expect(component.map.fitBounds).toHaveBeenCalledTimes(1);
     });
 
+    it('toggleLocationTracking should toggle the state of locationTrackingActive', () => {
+        expect(component.locationTrackingActive).toBeFalse();
+        component.toggleLocationTracking();
+        expect(component.locationTrackingActive).toBeTrue();
+        component.toggleLocationTracking();
+        expect(component.locationTrackingActive).toBeFalse();
+    });
+
     it('enableLocationTracking should get the current position', () => {
         spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake(function () {
             const position = {
