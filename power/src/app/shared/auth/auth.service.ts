@@ -136,7 +136,12 @@ export class AuthService {
      * @param contenttype Content-Type of file expected
      */
     public getHeaders(responsetype = 'json', contenttype = 'application/json'): any {
-        let header = new HttpHeaders().set('Content-Type', contenttype);
+        let header = new HttpHeaders().set('Content-Type', contenttype)
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
+
         // check if user is authenticated
         if (this.IsAuthenticated()) {
             header = header.set('Authorization', this.getBearer());
