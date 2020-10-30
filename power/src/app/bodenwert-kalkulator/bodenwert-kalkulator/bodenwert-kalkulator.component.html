@@ -1,85 +1,152 @@
-<div class="wrapper">
-    <!-- desktop -->
-    <div class="d-none d-md-block">
-        <div class="nav-scroller bg-white shadow-sm border-top">
-            <nav class="nav nav-underline d-flex justify-content-between">
-                <div class="nav">
-                    <div class="btn-group d-flex">
+<div class="container-fluid p-0 m-0">
+    <div class="row m-0">
+        <div id="mapWrapper"
+             [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-lg-6 map'">
+            <div class="wrapper"
+                 #map>
+                <!-- desktop -->
+                <div [class]="isCollapsed ? 'd-none d-md-block' : 'd-none d-xl-block'">
+                    <div class="nav-scroller bg-white shadow-sm border-top">
+                        <nav class="nav nav-underline d-flex justify-content-between">
+                            <div class="nav">
+                                <div class="btn-group d-flex">
+                                </div>
+                            </div>
+                            <div class="nav px-auto"
+                                 style="position: relative;">
+                                <power-geosearch (selectResult)="flyTo($event)"></power-geosearch>
+                            </div>
+                            <div class="nav">
+                                <a class="nav-link"
+                                   (click)="resetSelection()">
+                                    <img src="/assets/icons/trash.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="Selektion löschen"
+                                         title="Selektion löschen"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                                <a class="nav-link"
+                                   (click)="enableLocationTracking()">
+                                    <img src="/assets/icons/geo.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="Ortung"
+                                         title="Ortung"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                                <a class="nav-link"
+                                   (click)="toggle3dView()">
+                                    <img src="/assets/icons/building.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="3D aktivieren/deaktivieren"
+                                         title="3D aktivieren/deaktivieren"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                                <a class="nav-link"
+                                   (click)="resetMap()">
+                                    <img src="/assets/icons/globe.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="Karte zurücksetzen"
+                                         title="Karte zurücksetzen"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                            </div>
+                        </nav>
                     </div>
                 </div>
-                <div class="nav px-auto" style="position: relative;">
-                    <power-geosearch (selectResult)="flyTo($event)"></power-geosearch>
+
+                <!-- mobile -->
+                <div [class]="isCollapsed ? 'd-md-none' : 'd-xl-none'">
+                    <div class="nav-scroller bg-white shadow-sm border-top">
+                        <nav class="nav nav-underline">
+                            <div class="nav ml-auto">
+                                <a class="nav-link"
+                                   (click)="toggleSearchActive()">
+                                    <img src="/assets/icons/search.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="Suche"
+                                         title="Suche"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                                <a class="nav-link"
+                                   (click)="resetSelection()">
+                                    <img src="/assets/icons/trash.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="Selektion löschen"
+                                         title="Selektion löschen"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                                <a class="nav-link"
+                                   (click)="enableLocationTracking()">
+                                    <img src="/assets/icons/geo.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="Ortung"
+                                         title="Ortung"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                                <a class="nav-link"
+                                   (click)="toggle3dView()">
+                                    <img src="/assets/icons/building.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="3D aktivieren/deaktivieren"
+                                         title="3D aktivieren/deaktivieren"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                                <a class="nav-link"
+                                   (click)="resetMap()">
+                                    <img src="/assets/icons/globe.svg"
+                                         width="25"
+                                         height="25"
+                                         alt="Karte zurücksetzen"
+                                         title="Karte zurücksetzen"
+                                         i18n-alt
+                                         i18n-title>
+                                </a>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
-                <div class="nav">
-                    <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" title="Ortung" i18n-alt
-                             i18n-title>
-                    </a>
-                    <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren"
-                             title="3D aktivieren/deaktivieren" i18n-alt i18n-title>
-                    </a>
-                    <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen"
-                             title="Karte zurücksetzen" i18n-alt i18n-title>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </div>
 
-    <!-- mobile -->
-    <div class="d-md-none">
-        <div class="nav-scroller bg-white shadow-sm border-top">
-            <nav class="nav nav-underline">
-                <div class="nav ml-auto">
-                    <a class="nav-link" (click)="toggleSearchActive()">
-                        <img src="/assets/icons/search.svg" width="25" height="25" alt="Suche" title="Suche" i18n-alt
-                             i18n-title>
-                    </a>
-                    <a class="nav-link" (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg" width="25" height="25" alt="Ortung" title="Ortung" i18n-alt
-                             i18n-title>
-                    </a>
-                    <a class="nav-link" (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg" width="25" height="25" alt="3D aktivieren/deaktivieren"
-                             title="3D aktivieren/deaktivieren" i18n-alt i18n-title>
-                    </a>
-                    <a class="nav-link" (click)="resetMap()">
-                        <img src="/assets/icons/arrows-fullscreen.svg" width="25" height="25" alt="Karte zurücksetzen"
-                             title="Karte zurücksetzen" i18n-alt i18n-title>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </div>
+                <power-geosearch [class.d-none]="!searchActive"
+                                 (selectResult)="flyTo($event)"></power-geosearch>
 
-    <power-geosearch [class.d-none]="!searchActive" (selectResult)="flyTo($event)"></power-geosearch>
 
-    <div class="height-minus-header-map" [class.small]="flurstueckSelection.size > 0" #map>
+                <div class="corner-ribbon top-left sticky shadow"
+                     i18n>Testdaten</div>
 
-        <div class="corner-ribbon top-left sticky shadow" i18n>Testdaten</div>
+                <mgl-map id="map"
+                         (click)="onMapClickEvent($event)"
+                         (load)="loadMap($event)"
+                         [bounds]="bounds"
+                         [maxZoom]="20"
+                         [minZoom]="5"
+                         [style]="MAP_STYLE_URL"
+                         [trackResize]="true">
 
-        <mgl-map
-            id="map"
-            (click)="onMapClickEvent($event)"
-            (load)="loadMap($event)"
-            [bounds]="bounds"
-            [maxZoom]="20"
-            [minZoom]="5"
-            [style]="MAP_STYLE_URL"
-            [trackResize]="true">
+                    <mgl-vector-source id="geoserver"
+                                       [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=alkis:ax_flurstueck&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
+                    </mgl-vector-source>
 
-            <mgl-vector-source id="geoserver"
-                               [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=alkis:ax_flurstueck&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
-            </mgl-vector-source>
-
-            <mgl-layer
-                id="flurstuecke"
-                type="line"
-                [source]="'geoserver'"
-                [sourceLayer]="'ax_flurstueck'"
-                [paint]="{
+                    <mgl-layer id="flurstuecke"
+                               type="line"
+                               [source]="'geoserver'"
+                               [sourceLayer]="'ax_flurstueck'"
+                               [paint]="{
       'line-color': '#c4153a',
       'line-width': {
         'stops': [[14,0],[16,1],[18,2]]
@@ -87,63 +154,81 @@
       'line-opacity': {
         'stops' : [[14,0],[15,1]]
       }
-    }"
-            ></mgl-layer>
+    }"></mgl-layer>
 
-            <mgl-layer
-                id="flurstuecke-fill"
-                type="fill"
-                [source]="'geoserver'"
-                [sourceLayer]="'ax_flurstueck'"
-                [paint]="{
+                    <mgl-layer id="flurstuecke-fill"
+                               type="fill"
+                               [source]="'geoserver'"
+                               [sourceLayer]="'ax_flurstueck'"
+                               [paint]="{
       'fill-color': 'rgba(255,255,255,0)'
-    }"
-            ></mgl-layer>
+    }"></mgl-layer>
 
-            <mgl-layer
-                id="flurstuecke-highlighted"
-                type="fill"
-                [source]="'geoserver'"
-                [sourceLayer]="'ax_flurstueck'"
-                [paint]="{
+                    <mgl-layer id="flurstuecke-highlighted"
+                               type="fill"
+                               [source]="'geoserver'"
+                               [sourceLayer]="'ax_flurstueck'"
+                               [paint]="{
       'fill-color': 'rgba(255,0,0,0.4)'
     }"
-                [filter]="['in', '', '']"
-            ></mgl-layer>
-        </mgl-map>
-    </div>
+                               [filter]="['in', '', '']"></mgl-layer>
+                </mgl-map>
+            </div>
+        </div>
+        <div [class]="isCollapsed ? 'col-12' : 'col-lg-6'">
+            <div class="row">
+                <div *ngIf="flurstueckSelection.size === 0"
+                     class="text-center border-top col-12 p-0">
+                    <h5 class="m-3 mx-center"
+                        i18n>Wählen Sie Flurstücke auf der Karte aus</h5>
+                </div>
+                <div *ngIf="flurstueckSelection.size >= 1"
+                     class="text-center border-top col-12 p-0">
+                    <button type="button"
+                            class="btn btn-collapse border col-12"
+                            (click)="isCollapsed = !isCollapsed"
+                            [attr.aria-expanded]="!isCollapsed"
+                            aria-controls="collapseBasic">Flurstücksauswahl
+                        <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                             width="25"
+                             height="25"
+                             alt="Einklappen/ausklappen"
+                             i18n-alt>
+                    </button>
+                </div>
+            </div>
+            <div class="row overflow-auto"
+                 [class]="isCollapsed ? '' : 'selection'">
+                <div #collapse
+                     id="collapseBasic"
+                     class="p-0 col-12"
+                     [collapse]="isCollapsed"
+                     (expanded)="onExpanded()"
+                     (collapsed)="onCollapsed()"
+                     [isAnimated]="true">
+                    <div class="well well-lg card card-block card-header">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="col"
+                                        i18n>Amtliche Fläche</th>
+                                    <th scope="col"
+                                        i18n>Wert</th>
+                                </tr>
+                                <tr *ngFor="let feature of this.flurstueckSelection | keyvalue">
+                                    <td>{{feature.value.properties.amtlicheflaeche | number }} m&#178;</td>
+                                    <td>{{feature.value.properties.wert | currency:'EUR':"symbol" : '1.2-2'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-    <div class="">
-        <ngb-accordion #acc="ngbAccordion" style="background-color: white !important;">
-            <ngb-panel>
-                <ng-template ngbPanelHeader>
-                    <div>
-                        <div class="text-center">
-                            <h5 class="m-0 mx-center" i18n>Wählen Sie Flurstücke auf der Karte aus</h5>
-                        </div>
+                        <h3>
+                            <span i18n>Summe</span>:
+                            {{ flurstueckSelection | keyvalue | flurstueckPipe | currency:'EUR':"symbol" : '1.2-2'}}
+                        </h3>
                     </div>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <th scope="col" i18n>Amtliche Fläche</th>
-                                <th scope="col" i18n>Wert</th>
-                            </tr>
-                            <tr *ngFor="let feature of this.flurstueckSelection | keyvalue">
-                                <td>{{feature.value.properties.amtlicheflaeche | number }} m&#178;</td>
-                                <td>{{feature.value.properties.wert | currency:'EUR':"symbol" : '1.2-2'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>
-                        <span i18n>Summe</span>:
-                        {{ flurstueckSelection | keyvalue | flurstueckPipe | currency:'EUR':"symbol" : '1.2-2'}}
-                    </h3>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>

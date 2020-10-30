@@ -91,19 +91,6 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         expect(component.flurstueckSelection.size).toBe(0);
     });
 
-    it('showOrHideFlurstueckPanel should collapse', () => {
-        spyOn(component.acc, 'collapseAll');
-        component.showOrHideFlurstueckPanel();
-        expect(component.acc.collapseAll).toHaveBeenCalledTimes(1);
-    });
-
-    it('showOrHideFlurstueckPanel should expand', () => {
-        spyOn(component.acc, 'expandAll');
-        component.flurstueckSelection.set(flurstueck.key, flurstueck.value);
-        component.showOrHideFlurstueckPanel();
-        expect(component.acc.expandAll).toHaveBeenCalledTimes(1);
-    });
-
     it('updateFlurstueckHighlighting should call setFilter', () => {
         component.flurstueckSelection.set(flurstueck.key, flurstueck.value);
         component.updateFlurstueckHighlighting();
