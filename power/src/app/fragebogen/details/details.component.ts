@@ -259,7 +259,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
-                limit: this.data.tasksPerPage,
+                limit: Number(this.data.tasksPerPage),
                 offset: (this.data.taskPage - 1) * this.data.tasksPerPage,
                 sort: this.taskSort,
                 order: this.taskOrder,

@@ -53,7 +53,7 @@ export class PublicDashboardComponent implements OnInit {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
-                limit: this.perPage,
+                limit: Number(this.perPage),
                 offset: (this.page - 1) * this.perPage,
                 sort: this.sort,
                 order: this.order,
