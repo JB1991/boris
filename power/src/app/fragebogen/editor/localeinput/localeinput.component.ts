@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter, Inject, LOCALE_ID } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Inject, LOCALE_ID, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'power-forms-editor-localeinput',
     templateUrl: './localeinput.component.html',
-    styleUrls: ['./localeinput.component.scss']
+    styleUrls: ['./localeinput.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LocaleInputComponent {
     @Input() public required = false;

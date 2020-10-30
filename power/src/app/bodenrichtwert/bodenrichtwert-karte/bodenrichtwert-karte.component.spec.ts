@@ -56,6 +56,9 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.map, 'removeLayer');
         spyOn(component.map, 'resize');
 
+        const lngLat: LngLat = {lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null};
+        spyOn(component.marker, 'getLngLat').and.returnValue(lngLat);
+
         httpClient = TestBed.inject(HttpClient);
         httpTestingController = TestBed.inject(HttpTestingController);
     });
@@ -67,6 +70,13 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('should be created', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('ngOnChanges should work', () => {
+        spyOn(component, 'flyTo');
+        component.ngOnChanges();
+        expect(component.map.resize).toHaveBeenCalledTimes(1);
+        expect(component.flyTo).toHaveBeenCalledTimes(1);
     });
 
     it('toggleSearchActive should toggle the state of searchActive', () => {
@@ -81,7 +91,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.filterActive).toBe(true);
     });
 
-    it('selectResult should update the map', () => {
+    it('selectSearchResult should update the map', () => {
         spyOn(component, 'getBodenrichtwertzonen');
         component.selectSearchResult(feature);
         expect(component.map.flyTo).toHaveBeenCalledTimes(1);
@@ -101,8 +111,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     });
 
     it('onDragEnd should process the drag', () => {
-        const lngLat: LngLat = {lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null};
-        spyOn(component.marker, 'getLngLat').and.returnValue(lngLat);
         component.isDragged = true;
         spyOn(component, 'getBodenrichtwertzonen');
         spyOn(component, 'getAddressFromLatLng');

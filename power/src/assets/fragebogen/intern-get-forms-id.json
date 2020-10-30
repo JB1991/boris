@@ -3,16 +3,7 @@
         "access": "public",
         "access-minutes": 60,
         "content": {
-            "calculatedValues": [
-                {
-                    "expression": "50000",
-                    "name": "preis"
-                },
-                {
-                    "expression": "2019",
-                    "name": "kaufjahr"
-                }
-            ],
+            "calculatedValues": [],
             "checkErrorsMode": "onValueChanged",
             "completedHtml": {
                 "default": "Vielen Dank für das Abschließen von diesem Formular."
@@ -29,10 +20,12 @@
                         {
                             "inputType": "text",
                             "isRequired": true,
+							"requiredErrorText": {},
                             "name": "e2",
                             "title": {
                                 "default": "# Titel der Frage"
                             },
+							"description": {},
                             "type": "text"
                         },
                         {
@@ -50,6 +43,8 @@
                             },
                             "isRequired": true,
                             "name": "e1",
+							"commentText": {},
+							"otherText": {},
                             "requiredErrorText": {
                                 "default": "Sie müssen die Datenschutzerklärung akzeptieren um fortzufahren."
                             },
@@ -71,7 +66,8 @@
             "storeOthersAsComment": false,
             "title": {
                 "default": "Minimal"
-            }
+            },
+			"description": {}
         },
         "created": "2020-07-13T10:23:07.259574Z",
         "id": "bs63c2os5bcus8t5q0kg",

@@ -1,6 +1,3 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ImmobilienHelper } from './immobilien.helper';
 import { ImmobilienUtils } from './immobilien.utils';
 
 describe('Immobilien.Immobilien.ImmobilienUtils', () => {

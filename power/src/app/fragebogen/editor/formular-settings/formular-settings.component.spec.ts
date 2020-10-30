@@ -9,6 +9,7 @@ import { FormularSettingsComponent } from './formular-settings.component';
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
 import { ConditionsComponent } from '../conditions/conditions.component';
+import { LocaleInputComponent } from '../localeinput/localeinput.component';
 
 import { SharedModule } from '@app/shared/shared.module';
 
@@ -32,7 +33,8 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
             ],
             declarations: [
                 FormularSettingsComponent,
-                ConditionsComponent
+                ConditionsComponent,
+                LocaleInputComponent
             ]
         }).compileComponents();
 
@@ -53,6 +55,9 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
         expect(component.modal.isVisible()).toBeTrue();
         component.modal.close();
         expect(component.modal.isVisible()).toBeFalse();
+
+        component.close(false);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     });
 
     it('should move pages', () => {

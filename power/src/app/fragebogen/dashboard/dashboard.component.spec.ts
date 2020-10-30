@@ -112,6 +112,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     //     });
     // });
 
+<<<<<<< HEAD
     // it('should succeed deleteForm', (done) => {
     //     spyOn(component.formAPI, 'deleteInternForm').and.returnValue(Promise.resolve('123'));
     //     spyOn(component, 'updateForms');
@@ -137,6 +138,43 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     //     expect(component.formOrder).toBe('asc');
     //     done();
     // });
+=======
+    it('should succeed deleteForm', (done) => {
+        spyOn(window, 'confirm').and.returnValue(true);
+        spyOn(component.formAPI, 'deleteInternForm').and.returnValue(Promise.resolve('123'));
+        spyOn(component, 'updateForms');
+        component.deleteForm('123').then(() => {
+            expect(component.updateForms).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should decline deleteForm', (done) => {
+        spyOn(window, 'confirm').and.returnValue(false);
+        spyOn(component.formAPI, 'deleteInternForm');
+        component.deleteForm('abc').then(() => {
+            expect(component.formAPI.deleteInternForm).toHaveBeenCalledTimes(0);
+            done();
+        });
+    });
+
+    it('should succeed changeFormSort', (done) => {
+        spyOn(component, 'updateForms');
+        component.changeFormSort('published');
+        expect(component.formSort).toBe('published');
+        expect(component.formOrder).toBe('asc');
+        component.changeFormSort('published');
+        expect(component.formSort).toBe('published');
+        expect(component.formOrder).toBe('desc');
+        component.changeFormSort('published');
+        expect(component.formSort).toBe('published');
+        expect(component.formOrder).toBe('asc');
+        component.changeFormSort('title');
+        expect(component.formSort).toBe('title');
+        expect(component.formOrder).toBe('asc');
+        done();
+    });
+>>>>>>> dev
 
     // it('should succeed changeTaskSort', (done) => {
     //     spyOn(component, 'updateTasks');
@@ -227,6 +265,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     //     });
     // });
 
+<<<<<<< HEAD
     // it('should fail deleteForm', (done) => {
     //     spyOn(component.formAPI, 'deleteInternForm').and.callFake(() => {
     //         return Promise.reject(new Error('fail'));
@@ -239,6 +278,21 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     //         done();
     //     });
     // });
+=======
+    it('should fail deleteForm', (done) => {
+        spyOn(window, 'confirm').and.returnValue(true);
+        spyOn(component.formAPI, 'deleteInternForm').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        spyOn(component, 'updateForms');
+        component.deleteForm('').then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert)
+                .toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Error: fail');
+            done();
+        });
+    });
+>>>>>>> dev
 });
 
 @Component({

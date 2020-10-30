@@ -24,7 +24,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         {stag: '2019', brw: null, nutzung: ''},
     ];
 
-    chartOption: EChartOption = {
+    public chartOption: EChartOption = {
         tooltip: {
             trigger: 'axis',
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
@@ -47,12 +47,25 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         xAxis: {
             type: 'category',
             data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-            nameLocation: 'start'
+            nameLocation: 'start',
+            axisLine: {
+                symbol: ['none', 'arrow'],
+                symbolSize: [10, 9],
+                symbolOffset: [0, 6]
+            },
+            axisTick: {
+                alignWithLabel: true
+            }
         },
         yAxis: {
             type: 'value',
             axisLabel: {
-                formatter: '{value} €/m²'
+                formatter: '{value} €/m²',
+            },
+            axisLine: {
+                symbol: ['none', 'arrow'],
+                symbolSize: [10, 9],
+                symbolOffset: [0, 11]
             }
         },
         series: []
@@ -64,10 +77,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     echartsInstance;
 
-    constructor(
-        private nutzungPipe: NutzungPipe
-    ) {
-
+    constructor(private nutzungPipe: NutzungPipe) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {

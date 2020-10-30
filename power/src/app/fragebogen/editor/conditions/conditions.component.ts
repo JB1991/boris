@@ -1,4 +1,7 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, OnInit, OnChanges, Input, Output, EventEmitter,
+    SimpleChanges, InjectionToken, Inject, ChangeDetectionStrategy
+} from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
@@ -11,7 +14,8 @@ let id = 0;
     ],
     selector: 'power-forms-editor-conditions',
     templateUrl: './conditions.component.html',
-    styleUrls: ['./conditions.component.css']
+    styleUrls: ['./conditions.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConditionsComponent implements OnInit, OnChanges {
     @Input() public model: any;

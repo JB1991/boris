@@ -20,8 +20,7 @@
                 <thead>
                     <tr>
                         <th scope="col" (click)="changeSort('title')" class="border-top-0 w-50">
-                            <span role="button" tabindex="0" (keydown.enter)="changeSort('title')" aria-roledescription="Auf- und absteigende Sortierung möglich." aria-describedby="ascSortedTitle descSortedTitle noForms" i18n i18n-aria-roledescription>Titel
-                            </span>
+                            <span role="button" tabindex="0" (keydown.enter)="changeSort('title')" aria-roledescription="Auf- und absteigende Sortierung möglich." aria-describedby="ascSortedTitle descSortedTitle noForms" i18n i18n-aria-roledescription>Titel</span>
                             <span *ngIf="sort && sort === 'title'">
                                 <span *ngIf="order === 'asc'" id="ascSortedTitle" aria-label="Aufsteigend sortiert."
                                     i18n-aria-label>

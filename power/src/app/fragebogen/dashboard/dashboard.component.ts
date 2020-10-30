@@ -62,6 +62,11 @@ export class DashboardComponent implements OnInit {
     }
 
     public async deleteForm(id: string) {
+        // Ask user to confirm deletion
+        if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
+            return;
+        }
+
         try {
             this.loadingscreen.setVisible(true);
             await this.formAPI.deleteForm(id);

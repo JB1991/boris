@@ -20,7 +20,7 @@
 
 /** IE11 requires the following for NgClass support on SVG elements */
 import 'classlist.js';  // Run `npm install --save classlist.js`.
-import 'core-js/es/array'; // required for Array.includes()
+import 'core-js/es/array'; // required for Array.includes() and Array.form()
 import 'core-js/features/url-search-params'; // required for URLSearchParams
 
 /**
@@ -63,6 +63,7 @@ import '@angular/localize/init';
 (window as any).global = window;
 
 // Add remove() to ChildNode
+/* istanbul ignore next */
 (function (arr) {
     arr.forEach(function (item) {
         if (item.hasOwnProperty('remove')) {

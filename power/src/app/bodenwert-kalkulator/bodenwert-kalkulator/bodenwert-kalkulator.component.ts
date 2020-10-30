@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point } from 'mapbox-gl';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'power-bodenwert-kalkulator',
@@ -14,6 +13,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     threeDActive = false;
     searchActive = false;
     filterActive = false;
+    isCollapsed = true;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
@@ -32,8 +32,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     features: any;
 
-    @ViewChild('acc') acc: NgbAccordion;
-
     constructor(private titleService: Title) {
         this.titleService.setTitle($localize`Bodenwerte - POWER.NI`);
     }
@@ -41,18 +39,31 @@ export class BodenwertKalkulatorComponent implements OnInit {
     ngOnInit() {
     }
 
+    public onExpanded() {
+        this.map.resize();
+    }
+
+    public onCollapsed() {
+        if (this.map) {
+            this.map.resize();
+        }
+    }
+
     onMapClickEvent(event: any) {
         if (event.point) {
+            this.isCollapsed = false;
             const point: Point = new Point(event.point.x, event.point.y);
             const features: MapboxGeoJSONFeature[] =
-                this.map.queryRenderedFeatures(point, {layers: ['flurstuecke-fill']});
+                this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
 
             for (const feature of features) {
                 this.updateFlurstueckSelection(feature);
             }
-            this.showOrHideFlurstueckPanel();
             this.updateFlurstueckHighlighting();
-            this.map.flyTo({center: [event.lngLat.lng, event.lngLat.lat - 0.00235], zoom: 15, speed: 1});
+            // if (this.flurstueckSelection.size === 1) {
+            //     const zoom = this.map.getZoom();
+            //     this.map.flyTo({ center: [event.lngLat.lng, event.lngLat.lat], zoom: zoom, speed: 1 });
+            // }
         }
     }
 
@@ -61,14 +72,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
             this.flurstueckSelection.delete(feature.properties.gml_id);
         } else {
             this.flurstueckSelection.set(feature.properties.gml_id, feature);
-        }
-    }
-
-    showOrHideFlurstueckPanel() {
-        if (this.flurstueckSelection.size > 0) {
-            this.acc.expandAll();
-        } else {
-            this.acc.collapseAll();
         }
     }
 
@@ -167,6 +170,12 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     toggleFilterActive() {
         this.filterActive = !this.filterActive;
+    }
+
+    public resetSelection() {
+        this.flurstueckSelection.clear();
+        this.updateFlurstueckHighlighting();
+        this.isCollapsed = true;
     }
 
     resetMap() {

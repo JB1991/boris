@@ -33,6 +33,7 @@ describe('Static.Start.StartComponent', () => {
     });
 
     it('should create', () => {
+        component.ngOnInit();
         expect(component).toBeTruthy();
     });
 

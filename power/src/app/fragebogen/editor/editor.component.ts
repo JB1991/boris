@@ -1,4 +1,7 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
+import {
+    Component, OnInit, OnDestroy, HostListener,
+    ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -17,7 +20,8 @@ import { PreviewComponent } from '../surveyjs/preview/preview.component';
 @Component({
     selector: 'power-formulars-editor',
     templateUrl: './editor.component.html',
-    styleUrls: ['./editor.component.css']
+    styleUrls: ['./editor.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
     @ViewChild('preview') public preview: PreviewComponent;
@@ -33,7 +37,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         public loadingscreen: LoadingscreenService,
         public storage: StorageService,
         public formapi: FormAPIService,
-        public history: HistoryService) {
+        public history: HistoryService,
+        public cdr: ChangeDetectorRef) {
         this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
         this.storage.resetService();
         this.history.resetService();
@@ -174,6 +179,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
             const elements = await this.formapi.getElements({ fields: ['all'] });
             this.favorites = elements.elements;
+            this.cdr.detectChanges();
 
             // auto save
             /* istanbul ignore next */
@@ -478,6 +484,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         // copy
         this.elementCopy = JSON.stringify(this.storage.model.pages[page].elements[element]);
+        this.cdr.detectChanges();
         this.alerts.NewAlert('success', $localize`Erfolgreich kopiert`,
             $localize`Sie finden Ihre Zwischenablage ganz unten in der Toolbox.`);
 
@@ -603,6 +610,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // add favorite
         this.formapi.createElement({ fields: ['all'] }, { content: question }).then((data) => {
             this.favorites.push(data);
+            this.cdr.detectChanges();
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
                 $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);
         }).catch((error) => {
@@ -634,6 +642,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         this.formapi.deleteElement(this.favorites[index - 1].id)
             .then((data) => {
                 this.favorites.splice(index - 1, 1);
+                this.cdr.detectChanges();
                 this.alerts.NewAlert('success', $localize`Favoriten gelöscht`,
                     $localize`Die Frage wurde erfolgreich aus den Favoriten entfernt.`);
             }).catch((error) => {

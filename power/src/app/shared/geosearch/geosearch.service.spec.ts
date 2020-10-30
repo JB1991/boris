@@ -9,8 +9,7 @@ describe('Shared.Geosearch.GeosearchService', () => {
     const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
 
     const searchQuery = 'podbi';
-    const searchUrl = '/geocoding/geosearch/?query=text:(' + searchQuery + ')%20AND%20typ:haus%20AND%20bundesland:Niedersachsen';
-
+    const searchUrl = '/geocoding/geosearch/?query=text:(' + searchQuery + ')%20AND%20(typ:ort%20OR%20typ:strasse%20OR%20typ:haus%5E0.2)%20AND%20bundesland:Niedersachsen&minScore=1';
     let service: GeosearchService;
     let httpController: HttpTestingController;
 
@@ -73,7 +72,7 @@ describe('Shared.Geosearch.GeosearchService', () => {
     it('getAddressFromCoordinates should return a feature collection', (done) => {
         const lat = 52.40739733323747;
         const lon = 9.80183706843431;
-        const url = '/geocoding/geosearch/?query=typ:%20haus&lat=' + lat + '&lon=' + lon;
+        const url = '/geocoding/geosearch/?query=typ:%20haus&lat=' + lat + '&lon=' + lon + '&distance=' + '50';
 
         service.getAddressFromCoordinates(lat, lon).subscribe(result => {
             expect(result.type).toEqual('FeatureCollection');

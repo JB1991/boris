@@ -1,4 +1,3 @@
-
 /**
  * Chart Options (Merge) for hideing view components and show print components
  */

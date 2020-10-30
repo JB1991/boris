@@ -1,6 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValidatorsComponent } from './validators.component';
+import { LocaleInputComponent } from '../localeinput/localeinput.component';
 
 describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
     let component: ValidatorsComponent;
@@ -9,7 +10,8 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
-                ValidatorsComponent
+                ValidatorsComponent,
+                LocaleInputComponent
             ]
         }).compileComponents();
 
@@ -245,6 +247,11 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
 
         component.modelChanged(null);
         expect(component.data.validators).toEqual(testdata);
+    });
+
+    it('should validate regular expression', () => {
+        expect(component.isRegExInvalid('^\\d*$')).toBeFalse();
+        expect(component.isRegExInvalid('^((?:19|20)\\d{2})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9')).toBeTrue();
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

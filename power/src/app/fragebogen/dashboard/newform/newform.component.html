@@ -2,8 +2,7 @@
     <!-- title -->
     <div class="form-group">
         <label for="formtitle" i18n>Formular Titel *</label>
-        <input type="text" class="form-control" [(ngModel)]="title" [class.is-invalid]="!title" id="formtitle"
-            name="formtitle" maxlength="200" i18n-placeholder placeholder="Mein Formular" required>
+        <input type="text" class="form-control" [(ngModel)]="title" [class.is-invalid]="!title" id="formtitle" name="formtitle" maxlength="200" i18n-placeholder placeholder="Mein Formular" required>
     </div>
 
     <!-- service -->
@@ -25,10 +24,8 @@
     <!-- template -->
     <div class="form-group">
         <label for="searchtemplate" i18n>Template</label>
-        <input type="text" class="form-control" id="searchtemplate" name="searchtemplate" [(ngModel)]="searchText"
-            [typeahead]="templateList" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5"
-            typeaheadOptionField="extra" (typeaheadOnSelect)="setTemplate($event)" (keyup)="fetchTemplates()"
-            i18n-placeholder placeholder="Suchen">
+        <input type="text" class="form-control" id="searchtemplate" name="searchtemplate" [(ngModel)]="searchText" [typeahead]="templateList" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5" typeaheadOptionField="extra" (typeaheadOnSelect)="setTemplate($event)"
+            (keyup)="fetchTemplates()" i18n-placeholder placeholder="Suchen">
     </div>
 
     <!-- tags -->
