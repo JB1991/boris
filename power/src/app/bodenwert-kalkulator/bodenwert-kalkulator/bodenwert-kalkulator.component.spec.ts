@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator.component';
 import { CommonModule } from '@angular/common';
@@ -8,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Map } from 'mapbox-gl';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
     const feature = require('../../../assets/boden/bodenwert-samples/feature.json');
@@ -28,11 +28,11 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
             imports: [
                 CommonModule,
                 HttpClientTestingModule,
-                NgbAccordionModule,
                 NgxMapboxGLModule,
                 FormsModule,
                 ReactiveFormsModule,
-                SharedModule
+                SharedModule,
+                CollapseModule
             ]
         }).compileComponents();
     }));
