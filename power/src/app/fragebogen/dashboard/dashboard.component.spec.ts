@@ -128,7 +128,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         component.deleteForm('abc').then(() => {
             expect(component.formAPI.deleteInternForm).toHaveBeenCalledTimes(0);
             done();
-        })
+        });
     });
 
     it('should succeed changeFormSort', (done) => {
