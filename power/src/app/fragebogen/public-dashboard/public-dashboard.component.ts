@@ -57,7 +57,7 @@ export class PublicDashboardComponent implements OnInit {
             const params: GetPublicFormsParams = {
                 fields: ['all'],
                 extra: ['title.de', 'title.default'],
-                limit: this.perPage,
+                limit: Number(this.perPage),
                 offset: (this.page - 1) * this.perPage,
             };
             if (this.sort === 'title') {

@@ -271,7 +271,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
             const params: GetTasksParams = {
                 fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
                 filter: { 'has-form-with': { id: this.id } },
-                limit: this.taskPerPage,
+                limit: Number(this.taskPerPage),
                 offset: (this.taskPage - 1) * this.taskPerPage,
                 sort: { orderBy: { field: this.taskSort }, order: this.taskSortOrder },
             };

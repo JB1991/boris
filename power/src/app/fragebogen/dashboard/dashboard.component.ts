@@ -147,7 +147,7 @@ export class DashboardComponent implements OnInit {
                 fields: ['id', 'owner', 'tags', 'access', 'group', 'status', 'created', 'updated'],
                 'owner-fields': ['id', 'name', 'given-name', 'family-name', 'groups'],
                 extra: ['title.de', 'title.default'],
-                limit: this.formPerPage,
+                limit: Number(this.formPerPage),
                 offset: (this.formPage - 1) * this.formPerPage,
             };
             if (this.formSort === 'title') {
@@ -225,7 +225,7 @@ export class DashboardComponent implements OnInit {
                 'form-fields': ['id', 'tags', 'owner', 'access', 'status', 'created', 'updated'],
                 'owner-fields': ['all'],
                 'form-extra': ['title.de', 'title.default'],
-                limit: this.taskPerPage,
+                limit: Number(this.taskPerPage),
                 offset: (this.taskPage - 1) * this.taskPerPage,
             };
 
