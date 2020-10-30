@@ -19,6 +19,7 @@ import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
 import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -52,7 +53,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
         NgxEchartsModule.forRoot({ echarts }),
         SharedModule,
         NgbDropdownModule,
-        CollapseModule
+        CollapseModule,
+        BrowserAnimationsModule
     ],
     providers: [BodenrichtwertService]
 })

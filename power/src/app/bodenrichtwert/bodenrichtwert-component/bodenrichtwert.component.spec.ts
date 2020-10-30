@@ -9,6 +9,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -30,7 +31,8 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 FormsModule,
                 ReactiveFormsModule,
                 SharedModule,
-                CollapseModule
+                CollapseModule,
+                BrowserAnimationsModule
             ]
         })
             .compileComponents();
