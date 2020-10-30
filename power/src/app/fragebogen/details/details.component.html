@@ -522,7 +522,7 @@
                 <div class="form-inline well">
                     <div class="form-group mx-2">
                         <select class="custom-select"
-                                (change)="data.tasksPerPage = $event.target.value; updateTasks(false)">
+                                (change)="data.tasksPerPage = Number($event.target.value); updateTasks(false)">
                             <option *ngFor=" let size of data.taskPageSizes ">
                                 {{ size }}
                             </option>
