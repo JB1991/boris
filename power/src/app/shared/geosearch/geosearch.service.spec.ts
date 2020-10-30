@@ -9,7 +9,7 @@ describe('Shared.Geosearch.GeosearchService', () => {
     const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
 
     const searchQuery = 'podbi';
-    const searchUrl = '/geocoding/geosearch/?query=text:(' + searchQuery + ')%20AND%20(typ:ort%20OR%20typ:strasse%5E1.4%20OR%20typ:haus%5E0.2%20OR%20typ:Geoname%5E0.005)%20AND%20bundesland:Niedersachsen&minScore=1';
+    const searchUrl = '/geocoding/geosearch/?query=text:(' + searchQuery + ')%20AND%20(typ:ort%20OR%20typ:strasse%20OR%20typ:haus%5E0.2)%20AND%20bundesland:Niedersachsen&minScore=1';
     let service: GeosearchService;
     let httpController: HttpTestingController;
 
