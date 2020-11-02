@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
 import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point } from 'mapbox-gl';
 
@@ -33,7 +34,8 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     features: any;
 
-    constructor(private titleService: Title) {
+    constructor(private titleService: Title,
+        public alerts: AlertsService) {
         this.titleService.setTitle($localize`Bodenwerte - POWER.NI`);
     }
 
@@ -51,20 +53,25 @@ export class BodenwertKalkulatorComponent implements OnInit {
     }
 
     onMapClickEvent(event: any) {
-        if (event.point) {
-            this.isCollapsed = false;
-            const point: Point = new Point(event.point.x, event.point.y);
-            const features: MapboxGeoJSONFeature[] =
-                this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
+        // Click event fires twice (naming conflict)
+        if (event.lngLat) {
+            const zoomlvl = this.map.getZoom();
+            if (event.point && zoomlvl >= 14) {
+                this.isCollapsed = false;
+                const point: Point = new Point(event.point.x, event.point.y);
+                const features: MapboxGeoJSONFeature[] =
+                    this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
 
-            for (const feature of features) {
-                this.updateFlurstueckSelection(feature);
+                for (const feature of features) {
+                    this.updateFlurstueckSelection(feature);
+                }
+                this.updateFlurstueckHighlighting();
+            } else if (zoomlvl <= 14) {
+                this.alerts.NewAlert('warning',
+                    $localize`Auswahl fehlgeschlagen`,
+                    $localize`Zur Selektion von Flurstücken bitte weiter heranzoomen.`
+                );
             }
-            this.updateFlurstueckHighlighting();
-            // if (this.flurstueckSelection.size === 1) {
-            //     const zoom = this.map.getZoom();
-            //     this.map.flyTo({ center: [event.lngLat.lng, event.lngLat.lat], zoom: zoom, speed: 1 });
-            // }
         }
     }
 

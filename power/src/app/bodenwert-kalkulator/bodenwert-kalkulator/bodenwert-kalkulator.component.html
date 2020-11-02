@@ -168,10 +168,13 @@
                                type="fill"
                                [source]="'geoserver'"
                                [sourceLayer]="'ax_flurstueck'"
+                               [filter]="['in', '', '']"
                                [paint]="{
-      'fill-color': 'rgba(255,0,0,0.4)'
-    }"
-                               [filter]="['in', '', '']"></mgl-layer>
+      'fill-color': 'rgba(255,0,0,0.4)',
+      'fill-opacity': {
+        'stops' : [[14,0],[15,1]]
+    }
+    }"></mgl-layer>
                 </mgl-map>
             </div>
         </div>
