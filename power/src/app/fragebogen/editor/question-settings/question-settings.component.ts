@@ -45,9 +45,9 @@ export class QuestionSettingsComponent {
         this.question = question;
         this.copy = JSON.stringify(this.model);
         this.storage.setAutoSaveEnabled(false);
+        this.migration();
         this.cdr.detectChanges();
         this.modal.open($localize`Fragen Einstellungen`);
-        this.migration();
     }
 
     /**
@@ -64,9 +64,9 @@ export class QuestionSettingsComponent {
                 this.storage.setUnsavedChanges(true);
                 this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
             }
+            this.copy = '';
             this.page = null;
             this.question = null;
-            this.copy = '';
             this.storage.setAutoSaveEnabled(true);
         } else {
             // invalid input
