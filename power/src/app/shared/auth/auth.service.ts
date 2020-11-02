@@ -58,7 +58,8 @@ export class AuthService {
 
             try {
                 // post login data
-                const data = await this.httpClient.post(environment.auth.url + 'token', body).toPromise();
+                const data = await this.httpClient.post(environment.auth.url + 'token', body,
+                    this.getHeaders('json', 'application/x-www-form-urlencoded', false)).toPromise();
                 // check for error
                 if (!data || data['error']) {
                     console.log('Could not refresh: ' + data);
@@ -134,8 +135,9 @@ export class AuthService {
      * Returns http options
      * @param responsetype How to parse file
      * @param contenttype Content-Type of file expected
+     * @param auth True to send authoriziation
      */
-    public getHeaders(responsetype = 'json', contenttype = 'application/json'): any {
+    public getHeaders(responsetype = 'json', contenttype = 'application/json', auth = true): any {
         let header = new HttpHeaders().set('Content-Type', contenttype)
             .set('Cache-Control', 'no-cache')
             .set('Pragma', 'no-cache')
@@ -143,7 +145,7 @@ export class AuthService {
             .set('If-Modified-Since', '0');
 
         // check if user is authenticated
-        if (this.IsAuthenticated()) {
+        if (auth && this.IsAuthenticated()) {
             header = header.set('Authorization', this.getBearer());
         }
         return { 'headers': header, 'responseType': responsetype };
@@ -171,7 +173,8 @@ export class AuthService {
 
         // post login data
         try {
-            const data = await this.httpClient.post(environment.auth.url + 'token', body).toPromise();
+            const data = await this.httpClient.post(environment.auth.url + 'token', body,
+                this.getHeaders('json', 'application/x-www-form-urlencoded', false)).toPromise();
             // check for error
             if (!data || data['error']) {
                 console.log('Could not get token: ' + data);

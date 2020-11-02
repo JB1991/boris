@@ -204,7 +204,7 @@
                             <option value="month"
                                     i18n>Monat</option>
                             <option value="number"
-                                    i18n>Ganzzahl</option>
+                                    i18n>Zahl</option>
                             <option value="tel"
                                     i18n>Telefonnummer</option>
                             <option value="text"
@@ -216,6 +216,19 @@
                             <option value="week"
                                     i18n>Woche</option>
                         </select>
+                    </div>
+
+                    <!-- question-step -->
+                    <div class="form-group"
+                         *ngIf="model.pages[page].elements[question].inputType === 'number'">
+                        <label for="question-step2"
+                               i18n>Skala Schritte</label>
+                        <input type="number"
+                               class="form-control"
+                               min="0"
+                               [(ngModel)]="model.pages[page].elements[question].step"
+                               name="question-step2"
+                               id="question-step2">
                     </div>
 
                     <!--<span i18n>Minimaler Wert</span>
@@ -368,6 +381,17 @@
                                                         maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
+                    <!-- question-valueFalse -->
+                    <div class="form-group">
+                        <label for="question-valueFalse"
+                               i18n>Datenwert links</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="model.pages[page].elements[question].valueFalse"
+                               name="question-valueFalse"
+                               id="question-valueFalse">
+                    </div>
+
                     <!-- question-labelTrue -->
                     <div class="form-group">
                         <label for="question-labelTrue"
@@ -375,6 +399,17 @@
                         <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelTrue"
                                                         eid="question-labelTrue"
                                                         maxlength="200"></power-forms-editor-localeinput>
+                    </div>
+
+                    <!-- question-valueTrue -->
+                    <div class="form-group">
+                        <label for="question-valueTrue"
+                               i18n>Datenwert rechts</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="model.pages[page].elements[question].valueTrue"
+                               name="question-valueTrue"
+                               id="question-valueTrue">
                     </div>
                 </div>
 

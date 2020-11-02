@@ -158,7 +158,8 @@ Dies lässt sich nicht mehr umkehren!`)) {
 
         // load csv results
         this.formapi.getInternFormCSV(this.data.form.id).then(result => {
-            const blob = new Blob([result.toString()], { type: 'text/csv;charset=utf-8;' });
+            const bytes = new TextEncoder().encode(result);
+            const blob = new Blob([bytes], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'results.csv');
@@ -242,12 +243,18 @@ Dies lässt sich nicht mehr umkehren!`)) {
         // load form
         this.formapi.getInternForm(this.data.form.id).then(result => {
             // download json
-            const pom = document.createElement('a');
-            const encodedURIComponent = encodeURIComponent(JSON.stringify(result.content));
-            const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
-            pom.setAttribute('href', href);
-            pom.setAttribute('download', 'formular.json');
-            pom.click();
+            const str = JSON.stringify(result);
+            const bytes = new TextEncoder().encode(str);
+            const blob = new Blob([bytes], { type: 'application/json;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(blob, 'formular.json');
+            } else {
+                const pom = document.createElement('a');
+                pom.setAttribute('href', url);
+                pom.setAttribute('download', 'formular.json');
+                pom.click();
+            }
         }).catch((error: Error) => {
             // failed to load form
             this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error.toString());

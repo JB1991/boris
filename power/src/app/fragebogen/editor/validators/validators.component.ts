@@ -137,6 +137,9 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         } else if (split[2].startsWith('{')) {
                             // variable
                             data.value = split[2];
+                        } else if (split[2] === 'true' || split[2] === 'false') {
+                            // boolean
+                            data.value = split[2] === 'true';
                         }
                     }
                     break;
@@ -216,16 +219,20 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         }
                         data.expression += ']';
                     } else {
-                        // string
-                        if (!item.value) {
+                        // check if value is set
+                        if (item.value === null) {
                             item.value = '';
                         }
-                        if (!item.value.startsWith('{')) {
-                            // text
-                            data.expression += ' \'' + item.value + '\'';
-                        } else {
+
+                        if (typeof item.value === 'boolean') {
+                            // boolean
+                            data.expression += ' ' + item.value;
+                        } else if (item.value.startsWith('{')) {
                             // variable
                             data.expression += ' ' + item.value;
+                        } else {
+                            // text
+                            data.expression += ' \'' + item.value + '\'';
                         }
                     }
                     break;
