@@ -82,8 +82,8 @@ export function init(Survey) {
         },
         afterRender: function (question, el) {
             el.style.paddingBottom = '19px';
-            el.style.paddingLeft = '20px';
-            el.style.paddingRight = '20px';
+            el.style.paddingLeft = '22px';
+            el.style.paddingRight = '22px';
             el.style.paddingTop = '44px';
             if (question.inputbox) {
                 el.style.paddingTop = '19px';

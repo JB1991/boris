@@ -265,32 +265,35 @@
             <span class="ml-1"
                   i18n>Formulare</span>
 
-            <div class="float-md-right row">
-                <div class="col-sm">
-                    <select class="browser-default custom-select"
-                            (change)="formStatus = $event.target.value; updateForms(false)">
-                        <option value="all"
-                                selected
-                                i18n>Status: Alle</option>
-                        <option value="created"
-                                i18n>Status: Erstellt</option>
-                        <option value="published"
-                                i18n>Status: Veröffentlicht</option>
-                        <option value="cancelled"
-                                i18n>Status: Geschlossen</option>
-                    </select>
-                </div>
-                <div class="col-sm ml-sm-1">
-                    <input class="form-control"
-                           id="form-title-search"
-                           type="text"
-                           role="search"
-                           i18n-placeholder
-                           placeholder="Titel"
-                           i18n-aria-label
-                           aria-label="Titel"
-                           (change)="formTitle = $event.target.value; updateForms(false)">
-                </div>
+            <div class="float-md-right">
+                <form class="form-inline">
+                    <div class="form-group mb-1 mb-lg-0 mr-1">
+                        <select class="browser-default custom-select"
+                                (change)="formStatus = $event.target.value; updateForms(false)">
+                            <option value="all"
+                                    selected
+                                    i18n>Status: Alle</option>
+                            <option value="created"
+                                    i18n>Status: Erstellt</option>
+                            <option value="published"
+                                    i18n>Status: Veröffentlicht</option>
+                            <option value="cancelled"
+                                    i18n>Status: Geschlossen</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <input class="form-control"
+                               id="form-title-search"
+                               type="text"
+                               role="search"
+                               i18n-placeholder
+                               placeholder="Titel"
+                               i18n-aria-label
+                               aria-label="Titel"
+                               (change)="formTitle = $event.target.value; updateForms(false)">
+                    </div>
+                </form>
             </div>
         </div>
 
