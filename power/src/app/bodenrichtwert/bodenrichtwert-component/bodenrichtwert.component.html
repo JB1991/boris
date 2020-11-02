@@ -3,8 +3,10 @@
         <div id="mapWrapper"
              [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-lg-6 map'">
             <power-bodenrichtwertkarte #map
-                                       [isCollapsed]="isCollapsed"
+                                       [(isCollapsed)]="isCollapsed"
                                        [isExpanded]="isExpanded"
+                                       [(adresse)]="adresse"
+                                       [(features)]="features"
                                        [(stichtag)]="stichtag"
                                        [(teilmarkt)]="teilmarkt"></power-bodenrichtwertkarte>
         </div>
