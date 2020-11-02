@@ -58,10 +58,13 @@ export class BodenwertKalkulatorComponent implements OnInit {
             const zoomlvl = this.map.getZoom();
             if (event.point && zoomlvl >= 14) {
                 this.isCollapsed = false;
+                this.map.flyTo({
+                    center: event.lngLat
+                });
+
                 const point: Point = new Point(event.point.x, event.point.y);
                 const features: MapboxGeoJSONFeature[] =
                     this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
-
                 for (const feature of features) {
                     this.updateFlurstueckSelection(feature);
                 }
@@ -78,6 +81,9 @@ export class BodenwertKalkulatorComponent implements OnInit {
     updateFlurstueckSelection(feature: MapboxGeoJSONFeature) {
         if (this.flurstueckSelection.has(feature.properties.gml_id)) {
             this.flurstueckSelection.delete(feature.properties.gml_id);
+            if (this.flurstueckSelection.size === 0) {
+                this.isCollapsed = true;
+            }
         } else {
             this.flurstueckSelection.set(feature.properties.gml_id, feature);
         }
