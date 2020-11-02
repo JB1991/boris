@@ -10,6 +10,7 @@ import { Map } from 'mapbox-gl';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlurstueckPipe } from '../flurstueck-pipe.pipe';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
     const feature = require('../../../assets/boden/bodenwert-samples/feature.json');
@@ -37,6 +38,9 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
                 SharedModule,
                 CollapseModule,
                 BrowserAnimationsModule
+            ],
+            providers: [
+                AlertsService
             ]
         }).compileComponents();
     }));
@@ -61,6 +65,7 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         spyOn(component.map, 'resize');
         spyOn(component.map, 'setFilter');
         spyOn(component.map, 'setPaintProperty');
+        spyOn(component.alerts, 'NewAlert');
     });
 
     afterEach(() => {
@@ -83,6 +88,7 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
     });
 
     it('onMapClickEvent should process the event', () => {
+        spyOn(component.map, 'getZoom').and.returnValue(14);
         const event = {
             point: {
                 'x': 566,
@@ -95,6 +101,25 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         };
         component.onMapClickEvent(event);
         expect(component.map.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+        expect(component.isCollapsed).toBeFalse();
+    });
+
+    it('onMapClickEvent should fire warning alert', () => {
+        spyOn(component.map, 'getZoom').and.returnValue(13);
+        const event = {
+            point: {
+                'x': 566,
+                'y': 376
+            },
+            lngLat: {
+                lng: 9.706822,
+                lat: 52.373787
+            }
+        };
+        component.onMapClickEvent(event);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert)
+        .toHaveBeenCalledWith('warning', 'Auswahl fehlgeschlagen', 'Zur Selektion von Flurstücken bitte weiter heranzoomen.');
     });
 
     it('updateFlurstueckSelection should add and delete a Flurstueck from the selection', () => {
