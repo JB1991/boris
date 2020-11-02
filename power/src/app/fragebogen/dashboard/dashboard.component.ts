@@ -79,15 +79,6 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public formCreated() {
-        this.formSort = 'created';
-        this.formSortOrder = 'desc';
-        this.updateForms(false);
-        if (this.formPagination) {
-            this.formPagination.page = 1;
-        }
-    }
-
     /**
      * Imports form from JSON
      */
@@ -175,11 +166,7 @@ export class DashboardComponent implements OnInit {
                 or.push({ 'has-owner-with': { name: search } });
                 filters.push({ or: or });
             }
-            if (filters.length > 0) {
-                params.filter = { and: filters };
-            } else if (filters.length === 1) {
-                params.filter = filters[0];
-            }
+            params.filter = { and: filters };
             const response = await this.formAPI.getForms(params);
             this.forms = response.forms;
             this.formOwners = response.owners;

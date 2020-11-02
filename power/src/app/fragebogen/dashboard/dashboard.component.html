@@ -466,4 +466,4 @@
     </div>
 </main>
 
-<power-forms-dashboard-newform #newform [tags]="tags" (out)="formCreated()"></power-forms-dashboard-newform>
+<power-forms-dashboard-newform #newform [tags]="tags" (out)="this.formSort = 'created'; this.formSortOrder = 'desc'; this.formSort = 'created';"></power-forms-dashboard-newform>

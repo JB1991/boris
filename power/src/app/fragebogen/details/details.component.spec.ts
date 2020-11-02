@@ -3,7 +3,7 @@ import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angul
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { PaginationModule, PaginationComponent } from 'ngx-bootstrap/pagination';
 
 import { DetailsComponent } from './details.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -11,15 +11,17 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 import { AuthService } from '@app/shared/auth/auth.service';
 import { FormAPIService } from '../formapi.service';
 import { SurveyjsModule } from '../surveyjs/surveyjs.module';
+import { throwError } from 'rxjs';
+import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
 describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
     let fixture: ComponentFixture<DetailsComponent>;
 
-    // const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
-    // const formSampleCreated = require('../../../assets/fragebogen/intern-get-forms-id-created.json');
-    // const deleteSample = require('../../../assets/fragebogen/intern-delete-forms-id.json');
-    // const taskSample = require('../../../assets/fragebogen/intern-get-tasks.json');
+    const getTags = require('../../../assets/fragebogen/get-tags.json');
+    const getForm = require('../../../assets/fragebogen/get-form.json');
+    const getTasks = require('../../../assets/fragebogen/get-tasks.json');
+    const getTask = require('../../../assets/fragebogen/get-task.json');
 
     // tslint:disable-next-line: max-func-body-length
     beforeEach(waitForAsync(() => {
@@ -44,12 +46,17 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 MockMaketaskComponent,
                 MockPublishComponent,
                 MockCommentComponent,
-                MockSettingsComponent
+                MockSettingsComponent,
+                PreviewComponent
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(DetailsComponent);
         component = fixture.componentInstance;
+        const previewFixture = TestBed.createComponent(PreviewComponent);
+        component.preview = previewFixture.componentInstance;
+        const paginationFixture = TestBed.createComponent(PaginationComponent);
+        component.pagination = paginationFixture.componentInstance;
         // fixture.detectChanges();
 
         spyOn(console, 'log');
@@ -57,278 +64,451 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.alerts, 'NewAlert');
     }));
 
-    // it('should create', () => {
-    //     expect(component).toBeTruthy();
-    //     spyOn(component, 'loadData');
-    //     component.id = '123';
-    //     component.ngOnInit();
-    //     expect(component.loadData).toHaveBeenCalledTimes(1);
-    // });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+        spyOn(component, 'updateTasks');
+        spyOn(component, 'updateForm');
+        component.id = '123';
+        component.ngOnInit();
+        expect(component.updateTasks).toHaveBeenCalledTimes(1);
+    });
 
-    // it('should not create', () => {
-    //     component.id = null;
-    //     component.ngOnInit();
-    //     expect(component.router.navigate).toHaveBeenCalledTimes(1);
-    // });
+    it('should not create', () => {
+        expect(component).toBeTruthy();
+        component.id = null;
+        component.ngOnInit();
+        expect(component.router.navigate).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not create 2', () => {
+        expect(component).toBeTruthy();
+        component.ngOnInit();
+        expect(component.router.navigate).toHaveBeenCalledTimes(1);
+    });
 
     /**
-     * LOAD DATA
+     * UPDATE FORM
      */
-    // it('should load data with tasks', (done) => {
-    //     spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSample.data));
-    //     spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.resolve(taskSample));
+    it('should updateForm', (done) => {
+        spyOn(component.formapi, 'getForm').and.callFake(() => {
+            return Promise.resolve(getForm);
+        });
+        component.id = '123';
+        component.updateForm(false).then(() => {
+            expect(component.form).toEqual(getForm.form);
+            done();
+        });
+    });
 
-    //     component.loadData('bs63c2os5bcus8t5q0kg').then(() => {
-    //         expect(component.data.form).toEqual(formSample.data);
-    //         expect(component.data.form.status).toEqual('published');
-    //         expect(component.data.tasksList).toEqual(taskSample.data);
-    //         done();
-    //     });
-    // });
 
-    // it('should load data without tasks', (done) => {
-    //     spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSampleCreated.data));
+    it('should fail updateForm', (done) => {
+        spyOn(component.formapi, 'getForm').and.returnValue(Promise.reject('Failed'));
 
-    //     component.loadData('bs63c2os5bcus8t5q0kg').then(() => {
-    //         expect(component.data.form).toEqual(formSampleCreated.data);
-    //         expect(component.data.form.status).toEqual('created');
-    //         expect(component.data.tasksList.length).toEqual(0);
-    //         done();
-    //     });
-    // });
+        component.updateForm(true).then(() => {
+            expect(component.form).toBeNull();
+            expect(component.tasks.length).toEqual(0);
+            done();
+        });
+    });
 
-    // it('should fail load data', (done) => {
-    //     spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed'));
+    /**
+     * DELETE FORM
+     */
+    it('should delete form', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'deleteForm').and.callFake(() => {
+            return Promise.resolve({
+                id: '123',
+                status: 200,
+            });
+        });
 
-    //     component.loadData('bs63c2os5bcus8t5q0kg').then(() => {
-    //         expect(component.data.form).toBeNull();
-    //         expect(component.data.tasksList.length).toEqual(0);
-    //         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-    //             'Laden fehlgeschlagen', 'Failed');
-    //         done();
-    //     });
-    // });
+        spyOn(window, 'confirm').and.returnValue(true);
 
-    // it('should crash', () => {
-    //     component.loadData(null).catch(() => {
-    //         return new Error('id is required');
-    //     });
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    // });
+        component.deleteForm().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
+                'Das Formular wurde erfolgreich gelöscht.');
+            done();
+        });
+    });
 
-    // /**
-    //  * DELETE FORM
-    //  */
-    // it('should delete form', fakeAsync(() => {
-    //     component.data.form = JSON.parse(JSON.stringify(formSample.data));
-    //     const spy = spyOn(component.formapi, 'deleteInternForm').and.callFake(() => {
-    //         return Promise.resolve(deleteSample.data);
-    //     });
+    it('should not delete form', (done) => {
+        spyOn(window, 'confirm').and.returnValue(false);
+        component.deleteForm().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+            done();
+        });
+    });
 
-    //     spyOn(window, 'confirm').and.returnValue(true);
+    it('should fail delete form', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'deleteForm').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
 
-    //     component.deleteForm();
+        spyOn(window, 'confirm').and.returnValue(true);
 
-    //     tick();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gelöscht',
-    //         'Das Formular wurde erfolgreich gelöscht.');
-    // }));
-
-    // it('should not delete form', () => {
-    //     spyOn(window, 'confirm').and.returnValue(false);
-    //     component.deleteForm();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    // });
-
-    // it('should fail delete form', fakeAsync(() => {
-    //     component.data.form = JSON.parse(JSON.stringify(formSample.data));
-    //     spyOn(component.formapi, 'deleteInternForm').and
-    //         .returnValue(Promise.reject('Failed'));
-    //     spyOn(window, 'confirm').and.returnValue(true);
-    //     component.deleteForm();
-
-    //     tick();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-    //         'Löschen fehlgeschlagen', 'Failed');
-    // }));
+        component.deleteForm().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
+                'Löschen fehlgeschlagen', 'Bitte löschen Sie zuvor die zugehörigen Antworten');
+            done();
+        });
+    });
 
     // /**
     //  * ARCHIVE FORM
     //  */
-    // it('should archive form', fakeAsync(() => {
-    //     component.data.form = JSON.parse(JSON.stringify(formSample.data));
-    //     const spy = spyOn(component.formapi, 'updateInternForm').and
-    //         .returnValue(Promise.resolve(formSample.data));
+    it('should archive form', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'updateForm').and.callFake(() => {
+            return Promise.resolve(getForm.form);
+        });
 
-    //     spyOn(window, 'confirm').and.returnValue(true);
+        spyOn(window, 'confirm').and.returnValue(true);
 
-    //     component.archiveForm();
+        component.archiveForm().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular archiviert',
+                'Das Formular wurde erfolgreich archiviert.');
+            done();
+        });
+    });
 
-    //     tick();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular archiviert',
-    //         'Das Formular wurde erfolgreich archiviert.');
-    // }));
+    it('should not archive form', (done) => {
+        spyOn(window, 'confirm').and.returnValue(false);
+        component.archiveForm().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+            done();
+        });
+    });
 
-    // it('should not archive form', () => {
-    //     spyOn(window, 'confirm').and.returnValue(false);
-    //     component.archiveForm();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    // });
-
-    // it('should fail archive form', fakeAsync(() => {
-    //     component.data.form = JSON.parse(JSON.stringify(formSample.data));
-    //     spyOn(component.formapi, 'updateInternForm').and
-    //         .returnValue(Promise.reject('Failed'));
-    //     spyOn(window, 'confirm').and.returnValue(true);
-    //     component.archiveForm();
-
-    //     tick();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-    //         'Archivieren fehlgeschlagen', 'Failed');
-    // }));
+    it('should fail archive form', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'updateForm').and
+            .returnValue(Promise.reject('Failed'));
+        spyOn(window, 'confirm').and.returnValue(true);
+        component.archiveForm().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
+                'Archivieren fehlgeschlagen', 'Failed');
+            done();
+        });
+    });
 
     /**
      * DELETE TASK
      */
-    // it('should delete task', fakeAsync(() => {
-    //     component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
-    //     spyOn(component, 'updateTasks');
-    //     spyOn(component.formapi, 'deleteInternTask').and.returnValue(Promise.resolve('deleted task'));
+    it('should delete task', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(component, 'updateTasks');
+        spyOn(component.formapi, 'deleteTask').and.returnValue(Promise.resolve({
+            id: '123',
+            status: 200,
+        }));
 
-    //     spyOn(window, 'confirm').and.returnValue(true);
+        spyOn(window, 'confirm').and.returnValue(true);
 
-    //     component.deleteTask(0);
-    //     tick();
-    //     expect(component.data.tasksList.length).toEqual(1);
+        component.deleteTask(0).then(() => {
+            expect(component.tasks.length).toEqual(1);
+            component.deleteTask(0).then(() => {
+                expect(component.tasks.length).toEqual(0);
+                expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
+                expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort gelöscht',
+                    'Die Antwort wurde erfolgreich gelöscht.');
+                done();
+            });
+        });
+    });
 
-    //     component.deleteTask(0);
-    //     tick();
-    //     expect(component.data.tasksList.length).toEqual(0);
+    it('should not delete task', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(window, 'confirm').and.returnValue(false);
+        component.deleteTask(0).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+            done();
+        });
+    });
 
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(2);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort gelöscht',
-    //         'Die Antwort wurde erfolgreich gelöscht.');
-    // }));
+    it('should fail delete task', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
-    // it('should not delete task', () => {
-    //     component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
-    //     spyOn(window, 'confirm').and.returnValue(false);
-    //     component.deleteTask(0);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    // });
+        component.deleteTask(-1).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
 
-    // it('should fail delete task', () => {
-    //     component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
+    it('should fail delete task 2', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
 
-    //     expect(function () {
-    //         component.deleteTask(-1);
-    //     }).toThrowError('invalid i');
+        component.deleteTask(-1).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
 
-    //     expect(function () {
-    //         component.deleteTask(3);
-    //     }).toThrowError('invalid i');
-    // });
+    it('should fail delete task 404', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(component.formapi, 'deleteTask').and.callFake(() => {
+            return Promise.reject(new Error('Failed'));
+        });
 
-    // it('should fail delete task 404', fakeAsync(() => {
-    //     component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
-    //     spyOn(component.formapi, 'deleteInternTask').and.callFake(() => {
-    //         return Promise.reject(new Error('Failed'));
-    //     });
+        spyOn(window, 'confirm').and.returnValue(true);
 
-    //     spyOn(window, 'confirm').and.returnValue(true);
-
-    //     component.deleteTask(0);
-    //     tick();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-    //         'Löschen fehlgeschlagen', 'Error: Failed');
-    // }));
+        component.deleteTask(0).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
+                'Löschen fehlgeschlagen', 'Error: Failed');
+            done();
+        });
+    });
 
     /**
      * OPEN TASK
      */
-    // it('should open task', () => {
-    //     component.data.tasksList = JSON.parse(JSON.stringify(taskSample.data));
-    //     expect(function () {
-    //         component.openTask(0);
-    //     }).toThrowError('Cannot read property \'open\' of undefined');
-    // });
+    it('should open task', () => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(component.preview, 'open');
+        component.openTask(0);
+        expect(component.preview.open).toHaveBeenCalled();
+    });
 
-    // it('should open task crash', () => {
-    //     expect(function () {
-    //         component.openTask(-1);
-    //     }).toThrowError('invalid i');
-    //     expect(function () {
-    //         component.openTask(2);
-    //     }).toThrowError('invalid i');
-    // });
+    it('should open task crash', () => {
+        try {
+            component.openTask(-1);
+        } catch (error) {
+            expect(error.toString()).toEqual('Error: invalid i');
+        }
+    });
 
     /**
      * UPDATE TASK
      */
-    // it('should update tasks', (done) => {
-    //     spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.resolve(taskSample));
-    //     component.taskStatus = 'created';
-    //     component.id = '123';
+    it('should update tasks', (done) => {
+        spyOn(component.formapi, 'getTasks').and.returnValue(Promise.resolve(getTasks));
+        component.id = '123';
 
-    //     component.updateTasks(true).then(() => {
-    //         expect(component.data.tasksCountTotal).toEqual(2);
-    //         done();
-    //     });
-    // });
+        component.updateTasks().then(() => {
+            expect(component.taskTotal).toEqual(2);
+            done();
+        });
+    });
 
-    // it('should update tasks 2', (done) => {
-    //     spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.resolve({
-    //         data: [],
-    //         total: 100
-    //     }));
-    //     component.taskStatus = 'created';
-    //     component.id = '123';
+    it('should update tasks 2', (done) => {
+        spyOn(component.formapi, 'getTasks').and.returnValue(Promise.resolve({
+            tasks: [],
+            'total-tasks': 100,
+            status: 200,
+            forms: {},
+            owners: {},
+        }));
+        component.taskStatus = 'created';
+        component.id = '123';
 
-    //     component.updateTasks(true).then(() => {
-    //         expect(component.data.taskPageSizes.length).toEqual(10);
-    //         done();
-    //     });
-    // });
+        component.updateTasks().then(() => {
+            expect(component.taskPageSizes.length).toEqual(10);
+            done();
+        });
+    });
 
-    // it('should fail to update tasks', (done) => {
-    //     spyOn(component.formapi, 'getInternFormTasks').and.returnValue(Promise.reject('Failed to update tasks'));
-    //     component.taskStatus = 'created';
-    //     component.id = '123';
+    it('should fail to update tasks', (done) => {
+        spyOn(component.formapi, 'getTasks').and.callFake(() => {
+            return Promise.reject('Failed to update tasks');
+        });
+        component.id = '123';
 
-    //     component.updateTasks(false).then(() => {
-    //         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
-    //             'Failed to update tasks');
-    //         done();
-    //     });
-    // });
+        component.updateTasks().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+                'Failed to update tasks');
+            done();
+        });
+    });
 
-    // it('should change sort order', () => {
-    //     spyOn(component, 'updateTasks');
-    //     component.taskOrder = 'asc';
-    //     component.taskSort = 'id';
+    it('should change sort order', () => {
+        spyOn(component, 'updateTasks');
+        component.taskSortOrder = 'asc';
+        component.taskSort = 'id';
 
-    //     component.changeTaskSort('id');
-    //     expect(component.taskOrder).toEqual('desc');
-    //     component.changeTaskSort('id');
-    //     expect(component.taskOrder).toEqual('asc');
-    // });
+        component.changeTaskSort('id');
+        expect(component.taskSortOrder).toEqual('desc');
+        component.changeTaskSort('id');
+        expect(component.taskSortOrder).toEqual('asc');
+        component.changeTaskSort('pin');
+        expect(component.taskSortOrder).toEqual('asc');
+    });
 
-    // it('should reset sort order', () => {
-    //     spyOn(component, 'updateTasks');
-    //     component.taskOrder = 'desc';
-    //     component.taskSort = 'id';
+    it('should reset sort order', () => {
+        spyOn(component, 'updateTasks');
+        component.taskSortOrder = 'desc';
+        component.taskSort = 'id';
 
-    //     component.changeTaskSort('pin');
-    //     expect(component.taskOrder).toEqual('asc');
-    //     expect(component.taskSort).toEqual('pin');
-    // });
+        component.changeTaskSort('pin');
+        expect(component.taskSortOrder).toEqual('asc');
+        expect(component.taskSort).toEqual('pin');
+    });
+
+    /**
+     * UPDATE TAGS
+     */
+    it('should update tags', (done) => {
+        spyOn(component.formapi, 'getTags').and.callFake(() => {
+            return Promise.resolve(getTags.tags);
+        });
+        component.updateTags().then(() => {
+            expect(component.availableTags.length).toEqual(2);
+            done();
+        });
+    });
+
+    it('should not update tags', (done) => {
+        spyOn(component.formapi, 'getTags').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        component.updateTags().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalled();
+            done();
+        });
+    });
+
+    /**
+     * UPDATE Form event
+     */
+    it('should updateFormEvent', (done) => {
+        spyOn(component.formapi, 'updateForm').and.callFake(() => {
+            return Promise.resolve(getForm);
+        });
+        spyOn(component, 'updateForm');
+        component.updateFormEvent({
+            id: '123',
+            tags: ['Hello'],
+        }).then(() => {
+            expect(component.updateForm).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should not updateFormEvent', (done) => {
+        spyOn(component.formapi, 'updateForm').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        spyOn(component, 'updateForm');
+        component.updateFormEvent({
+            id: '123',
+            tags: ['Hello'],
+        }).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    /**
+     * PUBLISH Form Event
+     */
+    it('should publishFormEvent', (done) => {
+        spyOn(component.formapi, 'updateForm').and.callFake(() => {
+            return Promise.resolve(getForm);
+        });
+        spyOn(component, 'updateForm');
+        component.publishFormEvent({
+            id: '123',
+            access: 'public',
+        }).then(() => {
+            expect(component.updateForm).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should not publishFormEvent', (done) => {
+        spyOn(component.formapi, 'updateForm').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        spyOn(component, 'updateForm');
+        component.publishFormEvent({
+            id: '123',
+            access: 'public',
+        }).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    /**
+     * COMMENT Task Event
+     */
+    it('should commentTaskEvent', (done) => {
+        spyOn(component.formapi, 'updateTask').and.callFake(() => {
+            return Promise.resolve(getTask);
+        });
+        spyOn(component, 'updateTasks');
+        component.commentTaskEvent({
+            id: '123',
+            description: 'text',
+        }).then(() => {
+            expect(component.updateTasks).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should not commentTaskEvent', (done) => {
+        spyOn(component.formapi, 'updateTask').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        spyOn(component, 'updateTasks');
+        component.commentTaskEvent({
+            id: '123',
+            description: 'text',
+        }).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    /**
+     * CREATE Task Event
+     */
+    it('should createTaskEvent', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'createTask').and.callFake(() => {
+            return Promise.resolve({
+                tasks: [{
+                    id: '123',
+                    pin: '123456',
+                }],
+                form: {
+                    id: '123'
+                },
+                owner: {
+                    id: '123'
+                },
+                status: 200,
+            });
+        });
+        spyOn(component, 'updateTasks');
+        component.createTaskEvent({
+            amount: 10,
+            copy: true,
+        }).then(() => {
+            expect(component.updateTasks).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should not createTaskEvent', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'createTask').and.callFake(() => {
+            return Promise.reject(new Error('fail'));
+        });
+        spyOn(component, 'updateTasks');
+        component.createTaskEvent({
+            amount: 10,
+            copy: true,
+        }).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
 });
 
 @Component({
