@@ -6,6 +6,7 @@ import { environment } from '@env/environment';
 import { FormAPIService } from './formapi.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { Access } from './formapi.model';
+import { ElementFilterToString, FormFilterToString, TaskFilterToString, UserFilterToString } from './formapi.converter';
 
 describe('Fragebogen.FormAPIService', () => {
     let service: FormAPIService;
@@ -22,6 +23,9 @@ describe('Fragebogen.FormAPIService', () => {
     const elementContent = require('../../assets/fragebogen/element-content.json');
     const getTags = require('../../assets/fragebogen/get-tags.json');
     const getGroups = require('../../assets/fragebogen/get-groups.json');
+    const getPublicTask = require('../../assets/fragebogen/get-public-task.json');
+    const getPublicForms = require('../../assets/fragebogen/get-public-forms.json');
+    const getPublicForm = require('../../assets/fragebogen/get-public-form.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -302,12 +306,319 @@ describe('Fragebogen.FormAPIService', () => {
             'DELETE', { id: '123', status: 200 });
     });
 
+    it('getPublicForms should succeed', (done) => {
+        service.getPublicForms({}).then((value) => {
+            expect(value).toEqual(getPublicForms);
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'public/forms?sort=id',
+            'GET', getPublicForms);
+    });
+
+    it('getPublicForms should succeed', (done) => {
+        service.getPublicForms({
+            fields: ['id'],
+            extra: ['title.de', 'title.default'],
+            filter: { id: '123' },
+            sort: { orderBy: { field: 'content', path: ['title', 'de'] }, order: 'asc' },
+            limit: 10,
+            offset: 2,
+        }).then((value) => {
+            expect(value).toEqual(getPublicForms);
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'public/forms?fields=id&extra=title.de%2Ctitle.default&filter=id%3D123&sort=content.title.de%2Cid&limit=10&offset=2',
+            'GET', getPublicForms);
+    });
+
+    it('getPublicForm should succeed', (done) => {
+        service.getPublicForm('123', {
+            fields: ['id'],
+            extra: ['title.de', 'title.default'],
+        }).then((value) => {
+            expect(value).toEqual(getPublicForm);
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'public/forms/123?fields=id&extra=title.de%2Ctitle.default',
+            'GET', getPublicForm);
+    });
+
+    it('createPublicTask should succeed', (done) => {
+        service.createPublicTask('123', {
+            fields: ['id'],
+            extra: ['title.de', 'title.default'],
+        }, {}).then((value) => {
+            expect(value).toEqual(getPublicTask);
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'public/forms/123?fields=id&extra=title.de%2Ctitle.default',
+            'POST', getPublicTask);
+    });
+
+    it('getPublicTask should succeed', (done) => {
+        service.getPublicTask('123', {
+            fields: ['id'],
+            'form-fields': ['id'],
+            extra: ['e1'],
+            'form-extra': ['title.default'],
+        }).then((value) => {
+            expect(value).toEqual(getPublicTask);
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'public/tasks/123?fields=id&form-fields=id&extra=e1&form-extra=title.default',
+            'GET', getPublicTask);
+    });
+
+    it('updatePublicTask should succeed', (done) => {
+        service.updatePublicTask('123', {
+            fields: ['id'],
+            'form-fields': ['id'],
+            extra: ['e1'],
+            'form-extra': ['title.default'],
+        }, {}, true).then((value) => {
+            expect(value).toEqual(getPublicTask);
+            done();
+        });
+        answerHTTPRequest(environment.formAPI + 'public/tasks/123?fields=id&form-fields=id&extra=e1&form-extra=title.default&submit=true',
+            'PUT', getPublicTask);
+    });
+
     it('getCSV should succeed', (done) => {
         service.getCSV('123').then((value) => {
             expect(value).toEqual('Toast');
             done();
         });
         answerHTTPRequest(environment.formAPI + 'forms/123/csv', 'GET', 'Toast');
+    });
+
+    // tslint:disable-next-line: max-func-body-length
+    it('FormFilterToString should succeed', () => {
+        const out = FormFilterToString({
+            and: [
+                {
+                    or: [
+                        {
+                            group: 'Hello',
+                        },
+                        {
+                            "group-permission": 'read-form'
+                        },
+                        {
+                            "other-permission": 'update-form'
+                        },
+                        {
+                            content: {
+                                path: ['title'],
+                                text: {
+                                    equals: 'Hello',
+                                    lower: true,
+                                },
+                            }
+                        },
+                        {
+                            content: {
+                                path: ['count'],
+                                number: {
+                                    less: 100
+                                },
+                            }
+                        },
+                        {
+                            tag: {
+                                contains: 'World',
+                                lower: false,
+                            }
+                        },
+                        {
+                            access: 'public'
+                        },
+                        {
+                            status: 'published'
+                        },
+                        {
+                            created: {
+                                before: '2020-10-31T21:26:30Z'
+                            }
+                        },
+                        {
+                            updated: {
+                                after: '2020-10-31T21:26:30Z'
+                            }
+                        },
+                        {
+                            "has-owner-with": {
+                                id: '123'
+                            }
+                        }
+                    ]
+                },
+                {
+                    not: {
+                        id: '123',
+                    }
+                },
+                {
+                    and: [{ tag: { contains: 'Hello', lower: false } }]
+                },
+                {
+                    or: [{ tag: { contains: 'World', lower: false } }]
+                }
+            ]
+        });
+
+        expect(out).toEqual('and(or(group=Hello,group-permission=read-form,other-permission=update-form,content.title-text-lower-equals=Hello,content.count-number-less=100,tag-contains=World,access=public,status=published,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z,has-owner-with(id=123)),not(id=123),tag-contains=Hello,tag-contains=World)');
+    });
+
+    // tslint:disable-next-line: max-func-body-length
+    it('TaskFilterToString should succeed', () => {
+        const out = TaskFilterToString({
+            and: [
+                {
+                    or: [
+                        {
+                            pin: '123456',
+                        },
+                        {
+                            "description": {
+                                contains: "Hello",
+                                lower: false,
+                            }
+                        },
+                        {
+                            content: {
+                                path: ['count'],
+                                number: {
+                                    greater: 100,
+                                },
+                            }
+                        },
+                        {
+                            status: 'created'
+                        },
+                        {
+                            created: {
+                                before: '2020-10-31T21:26:30Z'
+                            }
+                        },
+                        {
+                            updated: {
+                                after: '2020-10-31T21:26:30Z'
+                            }
+                        },
+                        {
+                            'has-form-with': {
+                                id: '123'
+                            }
+                        }
+                    ]
+                },
+                {
+                    not: {
+                        id: '123',
+                    }
+                },
+                {
+                    and: [{ status: 'submitted' }]
+                },
+                {
+                    or: [{ description: { contains: 'World', lower: false } }]
+                }
+            ]
+        });
+
+        expect(out).toEqual('and(or(pin=123456,description-contains=Hello,content.count-number-greater=100,status=created,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z,has-form-with(id=123)),not(id=123),status=submitted,description-contains=World)');
+    });
+
+    // tslint:disable-next-line: max-func-body-length
+    it('UserFilterToString should succeed', () => {
+        const out = UserFilterToString({
+            and: [
+                {
+                    or: [
+                        {
+                            name: {
+                                contains: 'World',
+                                lower: false,
+                            }
+                        },
+                        {
+                            "given-name": {
+                                contains: 'World',
+                                lower: false,
+                            }
+                        },
+                        {
+                            "family-name": {
+                                contains: 'World',
+                                lower: false,
+                            }
+                        },
+                        {
+                            group: {
+                                contains: 'World',
+                                lower: false,
+                            }
+                        },
+                    ]
+                },
+                {
+                    not: {
+                        id: '123',
+                    }
+                },
+                {
+                    and: [{ name: { contains: 'Hello', lower: false } }]
+                },
+                {
+                    or: [{ group: { contains: 'World', lower: false } }]
+                }
+            ]
+        });
+
+        expect(out).toEqual('and(or(name-contains=World,given-name-contains=World,family-name-contains=World,group-contains=World),not(id=123),name-contains=Hello,group-contains=World)');
+    });
+
+    // tslint:disable-next-line: max-func-body-length
+    it('ElementFilterToString should succeed', () => {
+        const out = ElementFilterToString({
+            and: [
+                {
+                    or: [
+                        {
+                            content: {
+                                path: ['count'],
+                                number: {
+                                    equals: 100,
+                                },
+                            }
+                        },
+                        {
+                            created: {
+                                before: '2020-10-31T21:26:30Z'
+                            }
+                        },
+                        {
+                            updated: {
+                                after: '2020-10-31T21:26:30Z'
+                            }
+                        },
+                    ]
+                },
+                {
+                    not: {
+                        id: '123',
+                    }
+                },
+                {
+                    and: [{ id: '456' }]
+                },
+                {
+                    or: [{ id: '456' }]
+                }
+            ]
+        });
+
+        expect(out).toEqual('and(or(content.count-number-equals=100,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z),not(id=123),id=456,id=456)');
     });
 
     /*
@@ -329,6 +640,18 @@ describe('Fragebogen.FormAPIService', () => {
         });
         answerHTTPRequest(environment.formAPI + 'forms/123/csv', 'GET', '',
             { status: 404, statusText: 'Not Found' });
+    });
+
+    it('getTags should fail', (done) => {
+        service.getTags().catch(error => {
+            expect(error.status).toEqual(400);
+            done();
+        });
+        const request = httpTestingController.expectOne(environment.formAPI + 'tags');
+        request.flush({}, {
+            status: 400,
+            statusText: 'bad request'
+        });
     });
 
     /**

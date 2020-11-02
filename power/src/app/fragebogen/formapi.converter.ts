@@ -20,8 +20,7 @@ export function FormFilterToString(f: FormFilter): string {
             }
         }
         return 'and(' + out + ')';
-    }
-    if (f.hasOwnProperty('or')) {
+    } else if (f.hasOwnProperty('or')) {
         const or = f['or'] as Array<FormFilter>;
         if (f['or'].length === 1) {
             return FormFilterToString(f['or'][0]);
@@ -35,44 +34,31 @@ export function FormFilterToString(f: FormFilter): string {
             }
         }
         return 'or(' + out + ')';
-    }
-    if (f.hasOwnProperty('not')) {
+    } else if (f.hasOwnProperty('not')) {
         return 'not(' + FormFilterToString(f['not']) + ')';
-    }
-    if (f.hasOwnProperty('id')) {
+    } else if (f.hasOwnProperty('id')) {
         return 'id=' + f['id'];
-    }
-    if (f.hasOwnProperty('has-owner-with')) {
+    } else if (f.hasOwnProperty('has-owner-with')) {
         return 'has-owner-with(' + UserFilterToString(f['has-owner-with']) + ')';
-    }
-    if (f.hasOwnProperty('group')) {
+    } else if (f.hasOwnProperty('group')) {
         return 'group=' + f['group'];
-    }
-    if (f.hasOwnProperty('group-permission')) {
+    } else if (f.hasOwnProperty('group-permission')) {
         return 'group-permission=' + f['group-permission'];
-    }
-    if (f.hasOwnProperty('other-permission')) {
+    } else if (f.hasOwnProperty('other-permission')) {
         return 'other-permission=' + f['other-permission'];
-    }
-    if (f.hasOwnProperty('content')) {
+    } else if (f.hasOwnProperty('content')) {
         return 'content.' + PathFilterToString(f['content']);
-    }
-    if (f.hasOwnProperty('tag')) {
+    } else if (f.hasOwnProperty('tag')) {
         return 'tag-' + TextFilterToString(f['tag']);
-    }
-    if (f.hasOwnProperty('access')) {
+    } else if (f.hasOwnProperty('access')) {
         return 'access=' + f['access'];
-    }
-    if (f.hasOwnProperty('status')) {
+    } else if (f.hasOwnProperty('status')) {
         return `status=${f['status']}`;
-    }
-    if (f.hasOwnProperty('created')) {
+    } else if (f.hasOwnProperty('created')) {
         return 'created-' + TimeFilterToString(f['created']);
-    }
-    if (f.hasOwnProperty('updated')) {
+    } else {
         return 'updated-' + TimeFilterToString(f['updated']);
-    }
-    return '';
+    };
 }
 
 // tslint:disable-next-line: max-func-body-length
@@ -92,8 +78,7 @@ export function TaskFilterToString(f: TaskFilter): string {
             }
         }
         return 'and(' + out + ')';
-    }
-    if (f.hasOwnProperty('or')) {
+    } else if (f.hasOwnProperty('or')) {
         const or = f['or'] as Array<TaskFilter>;
         if (f['or'].length === 1) {
             return TaskFilterToString(f['or'][0]);
@@ -107,35 +92,25 @@ export function TaskFilterToString(f: TaskFilter): string {
             }
         }
         return 'or(' + out + ')';
-    }
-    if (f.hasOwnProperty('not')) {
+    } else if (f.hasOwnProperty('not')) {
         return 'not(' + TaskFilterToString(f['not']) + ')';
-    }
-    if (f.hasOwnProperty('id')) {
+    } else if (f.hasOwnProperty('id')) {
         return 'id=' + f['id'];
-    }
-    if (f.hasOwnProperty('has-form-with')) {
+    } else if (f.hasOwnProperty('has-form-with')) {
         return 'has-form-with(' + FormFilterToString(f['has-form-with']) + ')';
-    }
-    if (f.hasOwnProperty('content')) {
+    } else if (f.hasOwnProperty('content')) {
         return 'content.' + PathFilterToString(f['content']);
-    }
-    if (f.hasOwnProperty('pin')) {
+    } else if (f.hasOwnProperty('pin')) {
         return 'pin=' + f['pin'];
-    }
-    if (f.hasOwnProperty('description')) {
+    } else if (f.hasOwnProperty('description')) {
         return 'description-' + TextFilterToString(f['description']);
-    }
-    if (f.hasOwnProperty('status')) {
+    } else if (f.hasOwnProperty('status')) {
         return 'status=' + f['status'];
-    }
-    if (f.hasOwnProperty('created')) {
+    } else if (f.hasOwnProperty('created')) {
         return 'created-' + TimeFilterToString(f['created']);
-    }
-    if (f.hasOwnProperty('updated')) {
+    } else {
         return 'updated-' + TimeFilterToString(f['updated']);
     }
-    return '';
 }
 
 // tslint:disable-next-line: max-func-body-length
@@ -155,8 +130,7 @@ export function UserFilterToString(f: UserFilter): string {
             }
         }
         return 'and(' + out + ')';
-    }
-    if (f.hasOwnProperty('or')) {
+    } else if (f.hasOwnProperty('or')) {
         const or = f['or'] as Array<UserFilter>;
         if (f['or'].length === 1) {
             return UserFilterToString(f['or'][0]);
@@ -170,26 +144,19 @@ export function UserFilterToString(f: UserFilter): string {
             }
         }
         return 'or(' + out + ')';
-    }
-    if (f.hasOwnProperty('not')) {
+    } else if (f.hasOwnProperty('not')) {
         return 'not(' + UserFilterToString(f['not']) + ')';
-    }
-    if (f.hasOwnProperty('id')) {
+    } else if (f.hasOwnProperty('id')) {
         return 'id=' + f['id'];
-    }
-    if (f.hasOwnProperty('name')) {
+    } else if (f.hasOwnProperty('name')) {
         return 'name-' + TextFilterToString(f['name']);
-    }
-    if (f.hasOwnProperty('given-name')) {
+    } else if (f.hasOwnProperty('given-name')) {
         return 'given-name-' + TextFilterToString(f['given-name']);
-    }
-    if (f.hasOwnProperty('family-name')) {
+    } else if (f.hasOwnProperty('family-name')) {
         return 'family-name-' + TextFilterToString(f['family-name']);
-    }
-    if (f.hasOwnProperty('group')) {
+    } else {
         return 'group-' + TextFilterToString(f['group']);
     }
-    return '';
 }
 
 // tslint:disable-next-line: max-func-body-length
@@ -197,6 +164,9 @@ export function UserFilterToString(f: UserFilter): string {
 export function ElementFilterToString(f: ElementFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<ElementFilter>;
+        if (f['and'].length === 1) {
+            return ElementFilterToString(f['and'][0]);
+        }
         let out = '';
         for (const each of and) {
             if (out === '') {
@@ -206,9 +176,11 @@ export function ElementFilterToString(f: ElementFilter): string {
             }
         }
         return 'and(' + out + ')';
-    }
-    if (f.hasOwnProperty('or')) {
+    } else if (f.hasOwnProperty('or')) {
         const or = f['or'] as Array<ElementFilter>;
+        if (f['or'].length === 1) {
+            return ElementFilterToString(f['or'][0]);
+        }
         let out = '';
         for (const each of or) {
             if (out === '') {
@@ -218,66 +190,48 @@ export function ElementFilterToString(f: ElementFilter): string {
             }
         }
         return 'or(' + out + ')';
-    }
-    if (f.hasOwnProperty('not')) {
+    } else if (f.hasOwnProperty('not')) {
         return 'not(' + ElementFilterToString(f['not']) + ')';
-    }
-    if (f.hasOwnProperty('id')) {
+    } else if (f.hasOwnProperty('id')) {
         return 'id=' + f['id'];
-    }
-    if (f.hasOwnProperty('content')) {
+    } else if (f.hasOwnProperty('content')) {
         return 'content.' + PathFilterToString(f['content']);
-    }
-    if (f.hasOwnProperty('created')) {
+    } else if (f.hasOwnProperty('created')) {
         return 'created-' + TimeFilterToString(f['created']);
-    }
-    if (f.hasOwnProperty('updated')) {
+    } else {
         return 'updated-' + TimeFilterToString(f['updated']);
     }
-    return '';
 }
 
 export function TextFilterToString(f: TextFilter): string {
-    if (f.hasOwnProperty('equals')) {
-        return (f.lower ? 'lower-' : '') + 'equals=' + f['equals'];
-    }
     if (f.hasOwnProperty('contains')) {
         return (f.lower ? 'lower-' : '') + 'contains=' + f['contains'];
     }
-    return '';
+    return (f.lower ? 'lower-' : '') + 'equals=' + f['equals'];
 }
 
 export function NumberFilterToString(f: NumberFilter): string {
-    if (f.hasOwnProperty('equals')) {
-        return 'equals=' + f['equals'];
-    }
     if (f.hasOwnProperty('greater')) {
         return 'greater=' + f['greater'];
     }
     if (f.hasOwnProperty('less')) {
         return 'less=' + f['less'];
     }
-    return '';
+    return 'equals=' + f['equals'];
 }
 
 export function TimeFilterToString(f: TimeFilter): string {
     if (f.hasOwnProperty('after')) {
         return 'after=' + f['after'];
     }
-    if (f.hasOwnProperty('before')) {
-        return 'before=' + f['before'];
-    }
-    return '';
+    return 'before=' + f['before'];
 }
 
 export function PathFilterToString(f: PathFilter): string {
-    if (f.hasOwnProperty('text')) {
-        return f.path.join('.') + '-text-' + TextFilterToString(f['text']);
-    }
     if (f.hasOwnProperty('number')) {
         return f.path.join('.') + '-number-' + NumberFilterToString(f['number']);
     }
-    return '';
+    return f.path.join('.') + '-text-' + TextFilterToString(f['text']);
 }
 
 export function SortToString(s: {

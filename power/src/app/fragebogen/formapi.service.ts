@@ -34,11 +34,11 @@ export class FormAPIService {
      * @param params Query parameters
      * @param body Body for POST
      */
-    // tslint:disable-next-line: max-func-body-length
     private async Do(method: Method, uri: string, params: Record<string, string>, body?: any) {
         const p = new URLSearchParams(params);
         const url = environment.formAPI + uri + (p.toString() ? '?' + p.toString() : '');
 
+        let data: Promise<ArrayBuffer>;
         let obs: Observable<ArrayBuffer>;
         switch (method) {
             case Method.POST:
@@ -53,13 +53,7 @@ export class FormAPIService {
             default:
                 obs = this.httpClient.get(url, this.auth.getHeaders());
         }
-        let data: Promise<ArrayBuffer>;
-        try {
-            data = obs.toPromise();
-        } catch (error) {
-            throw new Error('API returned error: ' + error['message']);
-        }
-
+        data = obs.toPromise();
         return <any>data;
     }
 
@@ -473,7 +467,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(Method.GET, 'public/forms/', p);
+        return this.Do(Method.GET, 'public/forms', p);
     }
 
     public async getPublicForm(
@@ -527,9 +521,6 @@ export class FormAPIService {
         if (params['form-fields']) {
             p['form-fields'] = params['form-fields'].join(',');
         }
-        if (params['owner-fields']) {
-            p['owner-fields'] = params['owner-fields'].join(',');
-        }
         if (params.extra) {
             p.extra = params.extra.join(',');
         }
@@ -555,9 +546,6 @@ export class FormAPIService {
         }
         if (params['form-fields']) {
             p['form-fields'] = params['form-fields'].join(',');
-        }
-        if (params['owner-fields']) {
-            p['owner-fields'] = params['owner-fields'].join(',');
         }
         if (params.extra) {
             p.extra = params.extra.join(',');
