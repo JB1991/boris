@@ -48,8 +48,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     STICHTAGE = STICHTAGE;
 
     @Input() isCollapsed: () => void;
+    @Output() isCollapsedChange = new EventEmitter();
 
     @Input() isExpanded: () => void;
+
+    @Input() adresse;
+    @Output() adresseChange = new EventEmitter();
+
+    @Input() features;
+    @Output() featuresChange = new EventEmitter();
+
+    markerRemoving: boolean;
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
@@ -58,9 +67,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        if (this.map) {
+        if (this.map && !this.markerRemoving) {
             this.map.resize();
             this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
+
+        } else if (this.map) {
+            this.map.resize();
+            this.map.fitBounds(this.bounds, {
+                pitch: 0,
+                bearing: 0
+            });
+            this.markerRemoving = false;
         }
     }
 
@@ -108,7 +125,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     onDragEnd() {
-        if (this.marker.getLngLat() && this.isDragged === true) {
+        if (this.marker.getLngLat() && this.isDragged) {
             this.lat = this.marker.getLngLat().lat;
             this.lng = this.marker.getLngLat().lng;
 
@@ -200,6 +217,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.deactivate3dView();
         }
 
+        if (this.marker) {
+            this.marker.remove();
+            this.isCollapsedChange.emit(true);
+            if (this.adresse) {
+                this.adresseChange.emit(false);
+            }
+            if (this.features) {
+                this.featuresChange.emit(false);
+            }
+            this.markerRemoving = true;
+        }
         this.map.fitBounds(this.bounds, {
             pitch: 0,
             bearing: 0
