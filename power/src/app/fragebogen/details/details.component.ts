@@ -242,7 +242,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         // load form
         this.formapi.getInternForm(this.data.form.id).then(result => {
             // download json
-            const blob = new Blob([JSON.stringify(result)], { type: 'application/json;charset=utf-8;' });
+            const blob = new Blob([JSON.stringify(result.content)], { type: 'application/json;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'formular.json');
