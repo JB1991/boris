@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
 import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point } from 'mapbox-gl';
 
@@ -13,6 +14,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     threeDActive = false;
     searchActive = false;
     filterActive = false;
+    locationTrackingActive = false;
     isCollapsed = true;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
@@ -32,7 +34,8 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     features: any;
 
-    constructor(private titleService: Title) {
+    constructor(private titleService: Title,
+        public alerts: AlertsService) {
         this.titleService.setTitle($localize`Bodenwerte - POWER.NI`);
     }
 
@@ -50,26 +53,37 @@ export class BodenwertKalkulatorComponent implements OnInit {
     }
 
     onMapClickEvent(event: any) {
-        if (event.point) {
-            this.isCollapsed = false;
-            const point: Point = new Point(event.point.x, event.point.y);
-            const features: MapboxGeoJSONFeature[] =
-                this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
+        // Click event fires twice (naming conflict)
+        if (event.lngLat) {
+            const zoomlvl = this.map.getZoom();
+            if (event.point && zoomlvl >= 14) {
+                this.isCollapsed = false;
+                this.map.flyTo({
+                    center: event.lngLat
+                });
 
-            for (const feature of features) {
-                this.updateFlurstueckSelection(feature);
+                const point: Point = new Point(event.point.x, event.point.y);
+                const features: MapboxGeoJSONFeature[] =
+                    this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
+                for (const feature of features) {
+                    this.updateFlurstueckSelection(feature);
+                }
+                this.updateFlurstueckHighlighting();
+            } else if (zoomlvl <= 14) {
+                this.alerts.NewAlert('warning',
+                    $localize`Auswahl fehlgeschlagen`,
+                    $localize`Zur Selektion von Flurstücken bitte weiter heranzoomen.`
+                );
             }
-            this.updateFlurstueckHighlighting();
-            // if (this.flurstueckSelection.size === 1) {
-            //     const zoom = this.map.getZoom();
-            //     this.map.flyTo({ center: [event.lngLat.lng, event.lngLat.lat], zoom: zoom, speed: 1 });
-            // }
         }
     }
 
     updateFlurstueckSelection(feature: MapboxGeoJSONFeature) {
         if (this.flurstueckSelection.has(feature.properties.gml_id)) {
             this.flurstueckSelection.delete(feature.properties.gml_id);
+            if (this.flurstueckSelection.size === 0) {
+                this.isCollapsed = true;
+            }
         } else {
             this.flurstueckSelection.set(feature.properties.gml_id, feature);
         }
@@ -131,7 +145,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
         this.map.easeTo({
             pitch: 60,
             zoom: 17,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.locationTrackingActive ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
     }
@@ -158,7 +172,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
         this.map.easeTo({
             pitch: 0,
             zoom: 14,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.locationTrackingActive ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
         this.map.removeLayer('building-extrusion');
@@ -191,7 +205,16 @@ export class BodenwertKalkulatorComponent implements OnInit {
         });
     }
 
-    enableLocationTracking() {
+    public toggleLocationTracking() {
+        if (!this.locationTrackingActive) {
+            this.enableLocationTracking();
+        } else {
+            this.removeLocation();
+        }
+        this.locationTrackingActive = !this.locationTrackingActive;
+    }
+
+    public enableLocationTracking() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(location => {
                 const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
@@ -203,6 +226,10 @@ export class BodenwertKalkulatorComponent implements OnInit {
                 this.marker.setLngLat(lngLat).addTo(this.map);
             });
         }
+    }
+
+    public removeLocation() {
+        this.marker.remove();
     }
 }
 

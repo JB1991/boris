@@ -148,7 +148,7 @@ export class DetailsComponent implements OnInit {
         try {
             alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
             const r = await this.formapi.getCSV(this.form.id);
-            const blob = new Blob([r.toString()], { type: 'text/csv;charset=utf-8;' });
+            const blob = new Blob([r], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'results.csv');
@@ -235,12 +235,16 @@ export class DetailsComponent implements OnInit {
         // load form
         this.formapi.getForm(this.form.id, { fields: ['content'] }).then(result => {
             // download json
-            const pom = document.createElement('a');
-            const encodedURIComponent = encodeURIComponent(JSON.stringify(result.form.content));
-            const href = 'data:application/octet-stream;charset=utf-8,' + encodedURIComponent;
-            pom.setAttribute('href', href);
-            pom.setAttribute('download', 'formular.json');
-            pom.click();
+            const blob = new Blob([JSON.stringify(result.form.content)], { type: 'application/json;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(blob, 'formular.json');
+            } else {
+                const pom = document.createElement('a');
+                pom.setAttribute('href', url);
+                pom.setAttribute('download', 'formular.json');
+                pom.click();
+            }
         }).catch((error: Error) => {
             // failed to load form
             this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error.toString());

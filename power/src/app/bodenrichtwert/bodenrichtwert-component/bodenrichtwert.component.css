@@ -1,11 +1,35 @@
 .map {
     height: calc(100vh - 57px);
-    max-height: calc(100vh - 57px);
     padding: 0;
 }
 
+@media (max-width: 992px) {
+    .map {
+        height: calc(100vh - 101px);
+        padding: 0;
+    }
+
+    .verlauf {
+        min-height: calc(100vh - 101px);
+        min-height: 100% !important;
+    }
+
+    .details {
+        min-height: calc(100vh - 101px);
+        height: 100% !important;
+    }
+
+    .overflow-auto {
+        overflow: unset !important;
+    }
+
+    .height-lg {
+        height: 100%;
+    }
+}
+
 .map-collapsed {
-    height: calc(100vh - 106px);
+    height: calc(100vh - 101px);
     padding: 0;
 }
 

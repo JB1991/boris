@@ -107,6 +107,9 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 } else if (split[i].startsWith('{')) {
                     // variable
                     tmp.value = split[i];
+                } else if (split[i] === 'true' || split[i] === 'false') {
+                    // boolean
+                    tmp.value = split[i] === 'true';
                 }
             }
             this.struct.push(tmp);
@@ -152,16 +155,20 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 }
                 this.data += ']';
             } else {
-                // string
-                if (!item.value) {
+                // check if value is set
+                if (item.value === null) {
                     item.value = '';
                 }
-                if (!item.value.startsWith('{')) {
-                    // text
-                    this.data += ' \'' + item.value + '\'';
-                } else {
+
+                if (typeof item.value === 'boolean') {
+                    // boolean
+                    this.data += ' ' + item.value;
+                } else if (item.value.startsWith('{')) {
                     // variable
                     this.data += ' ' + item.value;
+                } else {
+                    // text
+                    this.data += ' \'' + item.value + '\'';
                 }
             }
         }

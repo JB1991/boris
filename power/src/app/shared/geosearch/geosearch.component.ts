@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GeosearchService } from './geosearch.service';
@@ -10,10 +10,13 @@ import { Feature } from 'geojson';
     templateUrl: './geosearch.component.html',
     styleUrls: ['./geosearch.component.scss'],
 })
-export class GeosearchComponent implements OnInit {
+export class GeosearchComponent implements OnInit, OnChanges {
 
     constructor(private formBuilder: FormBuilder, public geosearchService: GeosearchService) {
     }
+
+    @Input() resetGeosearch: boolean;
+    @Output() resetGeosearchChange = new EventEmitter();
 
     @Output() selectResult = new EventEmitter();
 
@@ -32,6 +35,14 @@ export class GeosearchComponent implements OnInit {
     /**
      * Initialization of the search form
      */
+
+    ngOnChanges() {
+        if (this.resetGeosearch && this.model) {
+            this.model = undefined;
+            this.resetGeosearchChange.emit(false);
+        }
+    }
+
     ngOnInit() {
         this.searchForm = this.formBuilder.group({
             searchInput: null

@@ -22,18 +22,18 @@
                                     <img src="/assets/icons/trash.svg"
                                          width="25"
                                          height="25"
-                                         alt="Selektion löschen"
-                                         title="Selektion löschen"
+                                         alt="Selektion aufheben"
+                                         title="Selektion aufheben"
                                          i18n-alt
                                          i18n-title>
                                 </a>
                                 <a class="nav-link"
-                                   (click)="enableLocationTracking()">
+                                   (click)="toggleLocationTracking()">
                                     <img src="/assets/icons/geo.svg"
                                          width="25"
                                          height="25"
-                                         alt="Ortung"
-                                         title="Ortung"
+                                         alt="Standort aktivieren/deaktivieren"
+                                         title="Standort aktivieren/deaktivieren"
                                          i18n-alt
                                          i18n-title>
                                 </a>
@@ -168,10 +168,13 @@
                                type="fill"
                                [source]="'geoserver'"
                                [sourceLayer]="'ax_flurstueck'"
+                               [filter]="['in', '', '']"
                                [paint]="{
-      'fill-color': 'rgba(255,0,0,0.4)'
-    }"
-                               [filter]="['in', '', '']"></mgl-layer>
+      'fill-color': 'rgba(255,0,0,0.4)',
+      'fill-opacity': {
+        'stops' : [[14,0],[15,1]]
+    }
+    }"></mgl-layer>
                 </mgl-map>
             </div>
         </div>
@@ -179,7 +182,7 @@
             <div class="row">
                 <div *ngIf="flurstueckSelection.size === 0"
                      class="text-center border-top col-12 p-0">
-                    <h5 class="m-3 mx-center"
+                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie Flurstücke auf der Karte aus</h5>
                 </div>
                 <div *ngIf="flurstueckSelection.size >= 1"
