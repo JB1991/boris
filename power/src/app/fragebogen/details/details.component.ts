@@ -216,7 +216,6 @@ export class DetailsComponent implements OnInit {
         try {
             // check data
             if (i < 0 || i >= this.tasks.length) {
-                console.error('throw error');
                 throw new Error('invalid i');
             }
             this.preview.open('display', this.tasks[i].content);
@@ -357,7 +356,7 @@ export class DetailsComponent implements OnInit {
         } catch (error) {
             // failed to create task
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
-            console.error(error);
+            console.log(error);
             return;
         }
     }

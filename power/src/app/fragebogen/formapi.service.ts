@@ -231,7 +231,6 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        console.log(p);
         return this.Do(Method.GET, 'tasks', p);
     }
 

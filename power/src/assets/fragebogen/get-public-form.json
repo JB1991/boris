@@ -1,6 +1,7 @@
 {
     "form": {
         "access": "public",
+        "locale": "en",
         "content": {
             "pages": [{
                 "elements": [{
@@ -10,7 +11,9 @@
                         "name": "nps_score",
                         "rateMax": 10,
                         "rateMin": 0,
-                        "title": "On a scale of zero to ten, how likely are you to recommend our product to a friend or colleague?",
+                        "title": {
+                            "default": "On a scale of zero to ten, how likely are you to recommend our product to a friend or colleague?"
+                        },
                         "type": "rating"
                     },
                     {
@@ -25,7 +28,9 @@
                         "isRequired": true,
                         "name": "promoter_features",
                         "otherText": "Other feature:",
-                        "title": "What features do you value the most?",
+                        "title": {
+                            "default": "What features do you value the most?"
+                        },
                         "type": "checkbox",
                         "validators": [{
                             "maxCount": 2,
@@ -36,13 +41,17 @@
                     },
                     {
                         "name": "passive_experience",
-                        "title": "What is the primary reason for your score?",
+                        "title": {
+                            "default": "What is the primary reason for your score?"
+                        },
                         "type": "comment",
                         "visibleIf": "{nps_score} > 6  and {nps_score} < 9"
                     },
                     {
                         "name": "disappointed_experience",
-                        "title": "What do you miss and what was disappointing in your experience with us?",
+                        "title": {
+                            "default": "What do you miss and what was disappointing in your experience with us?"
+                        },
                         "type": "comment",
                         "visibleIf": "{nps_score} notempty"
                     }

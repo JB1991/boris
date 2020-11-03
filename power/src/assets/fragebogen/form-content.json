@@ -22,7 +22,9 @@
                 "isRequired": true,
                 "name": "promoter_features",
                 "otherText": "Other feature:",
-                "title": "What features do you value the most?",
+                "title": {
+                    "default": "What features do you value the most?"
+                },
                 "type": "checkbox",
                 "validators": [{
                     "maxCount": 2,

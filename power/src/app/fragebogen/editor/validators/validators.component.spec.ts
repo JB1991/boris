@@ -26,6 +26,7 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    // tslint:disable-next-line: max-func-body-length
     it('should load question list', () => {
         component.model = {
             pages: [
@@ -122,6 +123,7 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
         }).toThrowError('Unkown validator type');
     });
 
+    // tslint:disable-next-line: max-func-body-length
     it('should parse validators', () => {
         component.data = {
             validators: [
@@ -190,6 +192,7 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
         }).toThrowError('Unkown validator type');
     });
 
+    // tslint:disable-next-line: max-func-body-length
     it('should create validators', () => {
         const testdata = [
             {

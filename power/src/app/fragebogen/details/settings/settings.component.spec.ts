@@ -12,8 +12,6 @@ describe('Fragebogen.Details.SettingsComponent', () => {
     let component: SettingsComponent;
     let fixture: ComponentFixture<SettingsComponent>;
 
-    // const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
-
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -45,13 +43,14 @@ describe('Fragebogen.Details.SettingsComponent', () => {
     /**
      * OPEN AND CLOSE
      */
-    // it('should open and close', () => {
-    //     component.data.form = { 'id': '123' };
-    //     component.open();
-    //     expect(component.modal.isOpen).toBeTrue();
-    //     component.close();
-    //     expect(component.modal.isOpen).toBeFalse();
-    // });
+    it('should open and close', () => {
+        component.open({
+            id: '123',
+        });
+        expect(component.modal.isOpen).toBeTrue();
+        component.modal.close();
+        expect(component.modal.isOpen).toBeFalse();
+    });
 
     /**
      * UPDATE FORM

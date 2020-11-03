@@ -24,7 +24,7 @@
     <!-- template -->
     <div class="form-group">
         <label for="searchtemplate" i18n>Template</label>
-        <input type="text" class="form-control" id="searchtemplate" name="searchtemplate" [(ngModel)]="searchText" [typeahead]="templateList" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5" typeaheadOptionField="extra" (typeaheadOnSelect)="setTemplate($event)"
+        <input type="text" class="form-control" id="searchtemplate" name="searchtemplate" [(ngModel)]="searchText" [typeahead]="templateList" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5" typeaheadOptionField="extra" (typeaheadOnSelect)="template = $event.item.id;"
             (keyup)="fetchTemplates()" i18n-placeholder placeholder="Suchen">
     </div>
 

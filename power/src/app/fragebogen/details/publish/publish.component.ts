@@ -29,13 +29,6 @@ export class PublishComponent {
     }
 
     /**
-     * Closes modal
-     */
-    public close() {
-        this.modal.close();
-    }
-
-    /**
      * Publishes form
      */
     public Publish() {

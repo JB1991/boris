@@ -6,6 +6,7 @@ import {
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
 
+/* istanbul ignore next */
 export function increment() {
     return () => id++;
 }
@@ -26,7 +27,7 @@ export class TagboxComponent {
     @Input() public displayBlock = false;
     @Input() public dataList: string[];
     @Input() public tagList: string[];
-    public tagInput: string;
+    public tagInput = '';
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
@@ -34,7 +35,10 @@ export class TagboxComponent {
      * Adds tag to list
      */
     public addTag() {
-        if (!this.tagInput || !this.tagInput.trim() || !this.tagList) {
+        if (!this.tagList) {
+            this.tagList = [];
+        }
+        if (!this.tagInput || !this.tagInput.trim()) {
             return;
         }
         if (!this.tagList.includes(this.tagInput)) {
@@ -50,12 +54,11 @@ export class TagboxComponent {
      * @param i Tag number
      */
     public removeTag(i: number) {
-        if (!this.tagList) {
-            return;
+        if (this.tagList) {
+            if (i < 0 || i >= this.tagList.length) {
+                throw new Error('Invalid i');
+            }
+            this.tagList.splice(i, 1);
         }
-        if (i < 0 || i >= this.tagList.length) {
-            throw new Error('Invalid i');
-        }
-        this.tagList.splice(i, 1);
     }
 }

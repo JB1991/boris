@@ -135,14 +135,16 @@ export class FilloutComponent implements OnInit {
 
     /**
      * Load form data
-     * @param pin Task pin
-     * @param factor Task factor
      */
     public loadData() {
+        if (!this.pin) {
+            throw new Error('pin is required');
+        }
         this.loadingscreen.setVisible(true);
         this.formapi.getPublicTask(this.pin, { fields: ['all'], 'form-fields': ['all'] }).then(result => {
             // store task data
             this.form = result.form;
+            this.language = result.form.content.locale;
             this.loadingscreen.setVisible(false);
         }).catch((error: Error) => {
             // failed to load task
@@ -173,7 +175,7 @@ export class FilloutComponent implements OnInit {
         }).catch((error: Error) => {
             // failed to complete task
             result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.message);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
             console.log(error);
             return;
         });

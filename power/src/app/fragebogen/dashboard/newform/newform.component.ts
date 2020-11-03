@@ -7,7 +7,7 @@ import { FormAPIService, GetFormsParams } from '../../formapi.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { Form, User } from '../../formapi.model';
+import { Form } from '../../formapi.model';
 
 @Component({
     selector: 'power-forms-dashboard-newform',
@@ -16,8 +16,8 @@ import { Form, User } from '../../formapi.model';
 })
 export class NewformComponent {
     @ViewChild('newformmodal') public modal: ModalminiComponent;
-    @Output() out = new EventEmitter<Form>();
-    @Input() tags: Array<string>;
+    @Output() public out = new EventEmitter<Form>();
+    @Input() public tags: Array<string>;
 
     public title: string;
     public service = '';
@@ -38,21 +38,6 @@ export class NewformComponent {
         this.tagList = [];
         this.templateList = [];
         this.modal.open($localize`Neues Formular`);
-    }
-
-    /**
-     * Closes new form modal
-     */
-    public close() {
-        this.modal.close();
-    }
-
-    /**
-     * Set template to selected id
-     * @param event selected typeahead item
-     */
-    public setTemplate(event: TypeaheadMatch) {
-        this.template = event.item.id;
     }
 
     /**
@@ -103,7 +88,7 @@ export class NewformComponent {
                 })
                 .then((data) => {
                     this.makeForm(data.form.content);
-                    this.close();
+                    this.modal.close();
                 })
                 .catch((error) => {
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
@@ -112,7 +97,7 @@ export class NewformComponent {
         }
         // make new form
         this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
-        this.close();
+        this.modal.close();
     }
 
     /**

@@ -55,21 +55,8 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.tagList).toEqual([]);
         expect(component.searchText).toEqual('');
         expect(component.modal.isOpen).toBeTrue();
-        component.close();
+        component.modal.close();
         expect(component.modal.isOpen).toBeFalse();
-    });
-
-    it('should set template', () => {
-        const event = new TypeaheadMatch(
-            {
-                id: '123',
-                title: 'Template'
-            },
-            'Template'
-        );
-
-        component.setTemplate(event);
-        expect(component.template).toEqual('123');
     });
 
     it('should fail to fetch templates', fakeAsync(() => {
@@ -184,7 +171,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
      * NEW FORM
      */
     it('should create new form with template', fakeAsync(() => {
-        spyOn(component, 'close').and.callThrough();
+        spyOn(component.modal, 'close').and.callThrough();
         spyOn(component.formAPI, 'getForm').and.callFake(() => {
             return Promise.resolve(getForm);
         });
@@ -193,17 +180,17 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         fixture.detectChanges();
         component.NewForm();
         tick();
-        expect(component.close).toHaveBeenCalledTimes(1);
+        expect(component.modal.close).toHaveBeenCalledTimes(1);
     }));
 
     it('should create new form without template', () => {
-        spyOn(component, 'close').and.callThrough();
+        spyOn(component.modal, 'close').and.callThrough();
         spyOn(component, 'makeForm').and.callThrough();
         component.title = 'Test';
         fixture.detectChanges();
         component.NewForm();
         expect(component.makeForm).toHaveBeenCalledTimes(1);
-        expect(component.close).toHaveBeenCalledTimes(1);
+        expect(component.modal.close).toHaveBeenCalledTimes(1);
     });
 
     it('should fail to create new form', fakeAsync(() => {
@@ -228,14 +215,14 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             'Bitte geben Sie einen Titel an.');
     });
     it('should create new form with template', fakeAsync(() => {
-        spyOn(component, 'close').and.callThrough();
+        spyOn(component.modal, 'close').and.callThrough();
         spyOn(component.formAPI, 'getForm').and.returnValue(Promise.resolve(getForm));
         component.template = '123';
         component.title = 'Test';
         fixture.detectChanges();
         component.NewForm();
         tick();
-        expect(component.close).toHaveBeenCalledTimes(1);
+        expect(component.modal.close).toHaveBeenCalledTimes(1);
     }));
 
     it('should not create new form (missing title)', () => {

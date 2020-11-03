@@ -12,6 +12,8 @@
     "hasOther": true,
     "name": "customer_role",
     "otherText": "Other",
-    "title": "What best describes your role?",
+    "title": {
+        "default": "What best describes your role?"
+    },
     "type": "radiogroup"
 }

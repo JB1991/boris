@@ -24,6 +24,7 @@ describe('Fragebogen.Editor.Conditions.ConditionsComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    // tslint:disable-next-line: max-func-body-length
     it('should load question list', () => {
         component.model = {
             pages: [

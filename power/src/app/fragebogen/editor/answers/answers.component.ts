@@ -7,6 +7,7 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
 
+/* istanbul ignore next */
 export function increment() {
     return () => id++;
 }

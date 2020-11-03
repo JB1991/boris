@@ -26,35 +26,35 @@ describe('Shared.TagboxComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    // it('should add tag', () => {
-    //     component.tagInput = 'MyTag';
-    //     component.addTag();
-    //     expect(component.tagList.length).toEqual(1);
-    //     expect(component.tagList[0]).toEqual('MyTag');
+    it('should add tag', () => {
+        component.tagInput = 'MyTag';
+        component.addTag();
+        expect(component.tagList.length).toEqual(1);
+        expect(component.tagList[0]).toEqual('MyTag');
 
-    //     component.removeTag(0);
-    //     expect(component.tagList.length).toEqual(0);
-    // });
+        component.removeTag(0);
+        expect(component.tagList.length).toEqual(0);
+    });
 
-    // it('should fail tag', () => {
-    //     component.tagInput = '';
-    //     component.addTag();
-    //     expect(component.tagList.length).toEqual(0);
+    it('should fail tag', () => {
+        component.tagInput = '';
+        component.addTag();
+        expect(component.tagList.length).toEqual(0);
 
-    //     component.tagInput = 'MyTag';
-    //     component.addTag();
-    //     expect(function () {
-    //         component.removeTag(-1);
-    //     }).toThrowError('Invalid i');
-    //     expect(function () {
-    //         component.removeTag(1);
-    //     }).toThrowError('Invalid i');
-    // });
+        component.tagInput = 'MyTag';
+        component.addTag();
+        expect(function () {
+            component.removeTag(-1);
+        }).toThrowError('Invalid i');
+        expect(function () {
+            component.removeTag(1);
+        }).toThrowError('Invalid i');
+    });
 
-    // it('should not add same tag', () => {
-    //     component.tagList = ['MyTag'];
-    //     component.tagInput = 'MyTag';
-    //     component.addTag();
-    //     expect(component.tagList.length).toEqual(1);
-    // });
+    it('should not add same tag', () => {
+        component.tagList = ['MyTag'];
+        component.tagInput = 'MyTag';
+        component.addTag();
+        expect(component.tagList.length).toEqual(1);
+    });
 });

@@ -5,7 +5,6 @@ import { environment } from '@env/environment';
 
 import { FormAPIService } from './formapi.service';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { Access } from './formapi.model';
 import { ElementFilterToString, FormFilterToString, TaskFilterToString, UserFilterToString } from './formapi.converter';
 
 describe('Fragebogen.FormAPIService', () => {

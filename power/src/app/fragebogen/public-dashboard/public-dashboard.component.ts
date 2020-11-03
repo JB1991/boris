@@ -80,11 +80,7 @@ export class PublicDashboardComponent implements OnInit {
                 or.push({ tag: search });
                 filters.push({ or: or });
             }
-            if (filters.length > 0) {
-                params.filter = { and: filters };
-            } else if (filters.length === 1) {
-                params.filter = filters[0];
-            }
+            params.filter = { and: filters };
 
             const response = await this.formAPI.getPublicForms(params);
             this.data = response.forms;

@@ -14,7 +14,9 @@
                 "hasOther": true,
                 "name": "customer_role",
                 "otherText": "Other",
-                "title": "What best describes your role?",
+                "title": {
+                    "default": "What best describes your role?"
+                },
                 "type": "radiogroup"
             },
             "created": "2020-10-30T14:21:24Z",
@@ -37,7 +39,9 @@
                 "hasOther": true,
                 "name": "customer_role",
                 "otherText": "Other",
-                "title": "What best describes your role?",
+                "title": {
+                    "default": "What best describes your role?"
+                },
                 "type": "radiogroup"
             },
             "created": "2020-10-30T14:21:27Z",
