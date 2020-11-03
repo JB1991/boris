@@ -158,8 +158,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
 
         // load csv results
         this.formapi.getInternFormCSV(this.data.form.id).then(result => {
-            const bytes = new TextEncoder().encode(result);
-            const blob = new Blob([bytes], { type: 'text/csv;charset=utf-8;' });
+            const blob = new Blob([result], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'results.csv');
@@ -243,9 +242,7 @@ Dies lässt sich nicht mehr umkehren!`)) {
         // load form
         this.formapi.getInternForm(this.data.form.id).then(result => {
             // download json
-            const str = JSON.stringify(result);
-            const bytes = new TextEncoder().encode(str);
-            const blob = new Blob([bytes], { type: 'application/json;charset=utf-8;' });
+            const blob = new Blob([JSON.stringify(result)], { type: 'application/json;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'formular.json');
