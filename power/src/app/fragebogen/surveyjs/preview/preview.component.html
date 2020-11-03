@@ -4,7 +4,8 @@
          *ngIf="isVisible">
         <div class="form-row">
             <!-- display mode -->
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-4"
+                 *ngIf="!data">
                 <div class="form-group">
                     <label for="mode"
                            i18n>Anzeigemodus</label>
