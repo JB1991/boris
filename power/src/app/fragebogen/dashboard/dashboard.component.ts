@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         }
     }
 
@@ -182,7 +182,8 @@ export class DashboardComponent implements OnInit {
         } catch (error) {
             console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }
@@ -246,7 +247,8 @@ export class DashboardComponent implements OnInit {
         } catch (error) {
             console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }
@@ -261,7 +263,8 @@ export class DashboardComponent implements OnInit {
         } catch (error) {
             console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }

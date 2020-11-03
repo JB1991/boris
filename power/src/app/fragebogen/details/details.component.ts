@@ -81,7 +81,8 @@ export class DetailsComponent implements OnInit {
             this.loadingscreen.setVisible(false);
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
             if (navigate) {
                 this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -134,7 +135,7 @@ export class DetailsComponent implements OnInit {
                 $localize`Das Formular wurde erfolgreich archiviert.`)
         } catch (error) {
             // failed to publish form
-            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
         }
@@ -160,7 +161,7 @@ export class DetailsComponent implements OnInit {
             }
         } catch (error) {
             // failed to load results
-            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
         }
@@ -186,7 +187,7 @@ export class DetailsComponent implements OnInit {
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
         } catch (error) {
             // failed to delete task
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
         }
         if (this.tasks.length === 0) {
@@ -247,18 +248,19 @@ export class DetailsComponent implements OnInit {
             }
         }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error.toString());
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             throw error;
         });
     }
 
     public async updateTags() {
         try {
-            const r = await this.formapi.getTags()
+            const r = await this.formapi.getTags();
             this.availableTags = r;
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         }
     }
 
@@ -292,7 +294,8 @@ export class DetailsComponent implements OnInit {
         } catch (error) {
             console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         }
     }
 
@@ -302,7 +305,8 @@ export class DetailsComponent implements OnInit {
             this.updateForm(false);
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         }
     }
 
@@ -312,7 +316,8 @@ export class DetailsComponent implements OnInit {
             this.updateForm(false);
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Veröffentlichen des Formulars fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Veröffentlichen des Formulars fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         }
     }
 
@@ -322,7 +327,8 @@ export class DetailsComponent implements OnInit {
             this.updateTasks();
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Änderung des Kommentars fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Änderung des Kommentars fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         }
     }
 
@@ -359,7 +365,8 @@ export class DetailsComponent implements OnInit {
             }
         } catch (error) {
             // failed to create task
-            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
         }

@@ -96,7 +96,8 @@ export class FilloutComponent implements OnInit {
             this.loadingscreen.setVisible(false);
         }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
@@ -126,7 +127,7 @@ export class FilloutComponent implements OnInit {
         }).catch((error: Error) => {
             // failed to complete task
             result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen` + `: {error.toString()}`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
 
             console.log(error);
             return;
@@ -148,7 +149,8 @@ export class FilloutComponent implements OnInit {
             this.loadingscreen.setVisible(false);
         }).catch((error: Error) => {
             // failed to load task
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
@@ -175,7 +177,7 @@ export class FilloutComponent implements OnInit {
         }).catch((error: Error) => {
             // failed to complete task
             result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
         });
@@ -199,7 +201,7 @@ export class FilloutComponent implements OnInit {
             this.setUnsavedChanges(false);
         }).catch((error: Error) => {
             // failed to save task
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
         });

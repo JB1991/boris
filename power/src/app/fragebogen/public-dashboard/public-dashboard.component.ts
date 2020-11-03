@@ -96,7 +96,8 @@ export class PublicDashboardComponent implements OnInit {
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             /* istanbul ignore else */
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
