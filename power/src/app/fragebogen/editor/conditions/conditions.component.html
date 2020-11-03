@@ -114,10 +114,12 @@
 <datalist id="{{ 'conditionlist-' + uniqId }}">
     <option *ngFor="let question of questions; index as j"
             value="{{ '&#123;' + question.name + '&#125;' }}">
-        {{ question.title }}
+        {{ '&#123;' + question.name + '&#125;' }}: {{ question.title }}
     </option>
     <option *ngFor="let variable of model.calculatedValues; index as j"
-            value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
+            value="{{ '&#123;' + variable.name + '&#125;' }}">
+        {{ '&#123;' + variable.name + '&#125;' }}
+    </option>
     <option value="{item}"
             i18n>Referenziert die ausgewählten Antwort(en) dieser Frage</option>
     <option value="{pageno}"
