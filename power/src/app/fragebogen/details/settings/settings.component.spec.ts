@@ -52,34 +52,4 @@ describe('Fragebogen.Details.SettingsComponent', () => {
         expect(component.modal.isOpen).toBeFalse();
     });
 
-    /**
-     * UPDATE FORM
-     */
-    // it('should update form', fakeAsync(() => {
-    //     spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample.data));
-    //     component.data.form = { 'id': '123' };
-    //     component.tagList = [];
-    //     component.ownerList = [];
-    //     component.readerList = [];
-    //     fixture.detectChanges();
-
-    //     component.updateForm();
-    //     tick();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular gespeichert', 'Das Formular wurde erfolgreich gespeichert.');
-    // }));
-
-    // it('should fail update form - data', fakeAsync(() => {
-    //     spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to update form'));
-    //     component.data.form = { 'id': '123' };
-    //     component.tagList = [];
-    //     component.ownerList = [];
-    //     component.readerList = [];
-    //     fixture.detectChanges();
-    //     component.updateForm();
-    //     tick();
-    //     expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-    //     expect(component.alerts.NewAlert)
-    //         .toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen', 'Failed to update form');
-    // }));
 });
