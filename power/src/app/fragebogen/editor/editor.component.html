@@ -157,8 +157,7 @@
                                    tabindex="0"
                                    (click)="wsPageSelect(i)"
                                    (keyup.enter)="wsPageSelect(i)"
-                                   i18n-title
-                                   title="Zeige Seite {{ i + 1 }}"
+                                   title="{{ i + 1 }}"
                                    [attr.data-id]="i">
                                     {{ i + 1 }}
                                 </a>
