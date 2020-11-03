@@ -59,6 +59,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Output() featuresChange = new EventEmitter();
 
     markerRemoving: boolean;
+    resetGeosearch: boolean;
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
@@ -228,6 +229,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             }
             this.markerRemoving = true;
         }
+        this.resetGeosearch = !this.resetGeosearch;
         this.map.fitBounds(this.bounds, {
             pitch: 0,
             bearing: 0

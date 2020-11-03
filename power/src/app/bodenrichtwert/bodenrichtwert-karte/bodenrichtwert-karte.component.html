@@ -51,7 +51,9 @@
                 </div>
                 <div class="nav px-auto"
                      style="position: relative;">
-                    <power-geosearch (selectResult)="onSearchSelect($event)"></power-geosearch>
+                    <power-geosearch 
+                        [(resetGeosearch)]="resetGeosearch"
+                        (selectResult)="onSearchSelect($event)"></power-geosearch>
                 </div>
                 <div class="nav">
                     <a class="nav-link"
