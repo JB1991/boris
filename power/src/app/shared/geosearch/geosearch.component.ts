@@ -17,7 +17,6 @@ export class GeosearchComponent implements OnInit, OnChanges {
 
     @Input() resetGeosearch: boolean;
     @Output() resetGeosearchChange = new EventEmitter();
-    @ViewChild('geosearch', {static: true}) geosearch: ElementRef;
 
     @Output() selectResult = new EventEmitter();
 
@@ -38,8 +37,8 @@ export class GeosearchComponent implements OnInit, OnChanges {
      */
 
     ngOnChanges() {
-        if (this.resetGeosearch) {
-            this.geosearch.nativeElement.value = '';
+        if (this.resetGeosearch && this.model) {
+            this.model = undefined;
             this.resetGeosearchChange.emit(false);
         }
     }
