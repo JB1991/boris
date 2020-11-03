@@ -190,11 +190,17 @@ export class ConditionsComponent implements OnInit, OnChanges {
                     item.choices = question.choices;
 
                     // check values
-                    for (const val of item.value) {
+                    skip: for (const val of item.value) {
                         for (let i = 0; i < item.choices.length; i++) {
                             if (val === item.choices[i].value) {
-                                item.value.splice(i, 1);
+                                continue skip;
                             }
+                        }
+
+                        // delete
+                        const index = item.value.indexOf(val);
+                        if (index >= 0) {
+                            item.value.splice(index, 1);
                         }
                     }
                 }
