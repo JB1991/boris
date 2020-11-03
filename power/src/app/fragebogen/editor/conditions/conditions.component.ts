@@ -64,7 +64,9 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
         // convert condition to form
         this.struct = [];
-        const split = this.data.split(' ');
+        const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm; // /[^\s"']+|"([^"]*)"|'([^']*)'/gm;
+        const split = this.data.match(regex);
+
         for (let i = 0; i < split.length; i++) {
             const tmp = {
                 condition: '',
@@ -99,9 +101,10 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
                 if (split[i].startsWith('[')) {
                     // list
-                    const tmp2 = split[i].substring(1, split[i].length - 1);
                     tmp.value = [];
-                    for (const item of tmp2.split(',')) {
+                    const tmp2 = split[i].substring(1, split[i].length - 1);
+                    const regex2 = /[^\s',]+|'([^']*)'/gm;
+                    for (const item of tmp2.match(regex2)) {
                         tmp.value.push(item.substring(1, item.length - 1));
                     }
                 } else if (split[i].startsWith('{')) {
@@ -185,6 +188,15 @@ export class ConditionsComponent implements OnInit, OnChanges {
             for (const question of this.questions) {
                 if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
+
+                    // check values
+                    for (const val of item.value) {
+                        for (let i = 0; i < item.choices.length; i++) {
+                            if (val === item.choices[i].value) {
+                                item.value.splice(i, 1);
+                            }
+                        }
+                    }
                 }
             }
         }
