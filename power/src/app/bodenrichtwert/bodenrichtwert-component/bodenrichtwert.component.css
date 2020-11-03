@@ -4,22 +4,22 @@
 }
 
 @media (max-width: 992px) {
-    .map-lg {
+    .map {
         height: calc(100vh - 101px);
         padding: 0;
     }
 
-    .verlauf-lg {
+    .verlauf {
         min-height: calc(100vh - 101px);
         min-height: 100% !important;
     }
 
-    .details-lg {
+    .details {
         min-height: calc(100vh - 101px);
         height: 100% !important;
     }
 
-    .overflow-auto-lg {
+    .overflow-auto {
         overflow: unset !important;
     }
 

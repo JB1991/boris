@@ -1,7 +1,7 @@
 <div class="container-fluid p-0 m-0">
     <div class="row m-0">
         <div id="mapWrapper"
-             [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-lg-6 map map-lg'">
+             [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-lg-6 map'">
             <power-bodenrichtwertkarte #map
                                        [(isCollapsed)]="isCollapsed"
                                        [isExpanded]="isExpanded"
@@ -58,15 +58,15 @@
                          i18n-alt>
                 </button>
             </div>
-            <div class="row overflow-auto overflow-auto-lg"
-                 [class]="isCollapsed ? '' : 'details details-lg'">
+            <div class="row overflow-auto"
+                 [class]="isCollapsed ? '' : 'details'">
                 <div #collapse
                      id="collapseBasic"
                      class="p-0 col-12"
                      [collapse]="isCollapsed"
                      (expanded)="isExpanded = !isExpanded"
                      [isAnimated]="true">
-                    <div class="well well-lg card card-block card-header verlauf verlauf-lg">
+                    <div class="well well-lg card card-block card-header verlauf">
                         <div class="row p-0"
                              *ngIf="features">
                             <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen') && !features.features.length"
