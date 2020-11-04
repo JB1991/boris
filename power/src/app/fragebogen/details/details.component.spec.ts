@@ -276,11 +276,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should open task crash', () => {
-        try {
-            component.openTask(-1);
-        } catch (error) {
-            expect(error.toString()).toEqual('Error: invalid i');
-        }
+        component.openTask(-1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     });
 
     /**

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { PublicForm, PublicTask } from '../formapi.model';
     templateUrl: './fillout.component.html',
     styleUrls: ['./fillout.component.css']
 })
-export class FilloutComponent implements OnInit {
+export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper: WrapperComponent;
     public language = 'de';
     public submitted = false;
@@ -42,7 +42,7 @@ export class FilloutComponent implements OnInit {
         this.resetService();
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         // get pin
         this.pin = this.route.snapshot.paramMap.get('pin');
         if (this.pin) {
@@ -84,13 +84,10 @@ export class FilloutComponent implements OnInit {
             this.language = this.form.content.locale;
 
             // check if user language exists in survey
-            /* istanbul ignore next */
-            setTimeout(() => {
-                if (this.wrapper && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
-                    this.language = this.locale;
-                    this.setLanguage();
-                }
-            }, 100);
+            if (this.wrapper && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
+                this.language = this.locale;
+                this.setLanguage();
+            }
 
             // display form
             this.loadingscreen.setVisible(false);

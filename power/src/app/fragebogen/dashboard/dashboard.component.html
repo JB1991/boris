@@ -462,7 +462,6 @@
                         <select class="custom-select" (change)="formPerPage = $event.target.value; updateForms(false)">
                             <option *ngFor="let size of formPageSizes">
                                 {{ size }}
-                            </option>
                         </select>
                     </div>
                     <pagination #formPagination [boundaryLinks]="true" [itemsPerPage]="formPerPage" [maxSize]="10" page="formPage" [totalItems]="formTotal" (pageChanged)="formPage = $event.page; updateForms(false)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"

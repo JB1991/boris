@@ -1,6 +1,5 @@
 import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FormAPIService, GetFormsParams } from '../../formapi.service';
@@ -15,7 +14,7 @@ import { Form } from '../../formapi.model';
     styleUrls: ['./newform.component.css'],
 })
 export class NewformComponent {
-    @ViewChild('newformmodal') public modal: ModalminiComponent;
+    @ViewChild('modal') public modal: ModalminiComponent;
     @Output() public out = new EventEmitter<Form>();
     @Input() public tags: Array<string>;
 

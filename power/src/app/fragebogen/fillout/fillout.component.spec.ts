@@ -53,7 +53,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         expect(component).toBeTruthy();
         spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
         spyOn(component, 'loadData');
-        component.ngOnInit();
+        component.ngAfterViewInit();
         expect(component.loadData).toHaveBeenCalledTimes(1);
         expect(component.pin).toBe('123');
     });
@@ -68,7 +68,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             return null;
         });
         spyOn(component, 'loadForm');
-        component.ngOnInit();
+        component.ngAfterViewInit();
         expect(component.loadForm).toHaveBeenCalledTimes(1);
         expect(component.loadForm).toHaveBeenCalledWith('123');
     });
