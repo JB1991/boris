@@ -407,9 +407,9 @@ export class ImmobilienComponent implements OnInit {
         }
         this.nipixRuntime.updateRange(range_start, range_end);
 
-        const range_text = $localize`Zeitraum von ` +
+        const range_text = $localize`Zeitraum von` + ' ' +
             this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex] +
-            $localize` bis ` +
+            ' ' + $localize`bis` + ' ' +
             this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeEndIndex];
 
         this.nipixRuntime.calculateDrawData();
