@@ -1,8 +1,11 @@
 <!-- Keine Nutzung des <table>-Elements, da fehlendes responsive-Verhalten  -->
 <div class="card m-0"
-     role="table">
+     role="table"
+     aria-colcount="2"
+     aria-rowcount="4">
     <div class="card-header">
-        <caption class="sr-only">Tabelle Bodenrichtwertzone</caption>
+        <caption class="sr-only"
+                 i18n>Tabelle Bodenrichtwertzone</caption>
         <div class="row">
             <h5 class="col-md-5 mb-0"
                 role="rowheader"><b>{{brzStrings.brz | hyphenate}}</b></h5>
@@ -12,7 +15,8 @@
         </div>
     </div>
     <div class="card-body">
-        <dl class="row">
+        <dl class="row"
+            role="rowgroup">
             <dt class="col-md-5"
                 role="rowheader">
                 {{brzStrings.usage | hyphenate}}
