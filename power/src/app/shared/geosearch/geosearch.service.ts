@@ -40,7 +40,7 @@ export class GeosearchService {
     search(search: string): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {
             params: new HttpParams().set('query', `text:(${search}) AND (typ:ort OR typ:strasse OR typ:haus^0.2) AND bundesland:Niedersachsen`)
-            .append('minScore', '1')
+            .append('minScore', '1').append('count', '10')
         }).pipe(
             catchError(GeosearchService.handleError)
         );

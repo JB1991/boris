@@ -50,7 +50,7 @@
                 </div>
                 <div class="nav">
                     <button class="nav-link btn"
-                       (click)="enableLocationTracking()">
+                            (click)="enableLocationTracking()">
                         <img src="/assets/icons/geo.svg"
                              width="25"
                              height="25"
@@ -60,7 +60,7 @@
                              i18n-title>
                     </button>
                     <button class="nav-link btn"
-                       (click)="toggle3dView()">
+                            (click)="toggle3dView()">
                         <img src="/assets/icons/building.svg"
                              width="25"
                              height="25"
@@ -68,9 +68,9 @@
                              title="3D aktivieren/deaktivieren"
                              i18n-alt
                              i18n-title>
-                </button>
+                    </button>
                     <button class="nav-link btn"
-                       (click)="resetMap()">
+                            (click)="resetMap()">
                         <img src="/assets/icons/globe.svg"
                              width="25"
                              height="25"
@@ -90,7 +90,7 @@
             <nav class="nav nav-underline">
                 <div class="nav mr-auto">
                     <button class="nav-link btn"
-                       (click)="toggleFilterActive()">
+                            (click)="toggleFilterActive()">
                         <img src="/assets/icons/filter.svg"
                              width="25"
                              height="25"
@@ -102,7 +102,7 @@
                 </div>
                 <div class="nav ml-auto">
                     <button class="nav-link btn"
-                       (click)="toggleSearchActive()">
+                            (click)="toggleSearchActive()">
                         <img src="/assets/icons/search.svg"
                              width="25"
                              height="25"
@@ -112,7 +112,7 @@
                              i18n-title>
                     </button>
                     <button class="nav-link btn"
-                       (click)="enableLocationTracking()">
+                            (click)="enableLocationTracking()">
                         <img src="/assets/icons/geo.svg"
                              width="25"
                              height="25"
@@ -122,7 +122,7 @@
                              i18n-title>
                     </button>
                     <button class="nav-link btn"
-                       (click)="toggle3dView()">
+                            (click)="toggle3dView()">
                         <img src="/assets/icons/building.svg"
                              width="25"
                              height="25"
@@ -132,7 +132,7 @@
                              i18n-title>
                     </button>
                     <button class="nav-link btn"
-                       (click)="resetMap()">
+                            (click)="resetMap()">
                         <img src="/assets/icons/globe.svg"
                              width="25"
                              height="25"
@@ -147,7 +147,9 @@
     </div>
 
     <power-geosearch [class.d-none]="!searchActive"
+                     [(resetGeosearch)]="resetGeosearch"
                      (selectResult)="selectSearchResult($event)"></power-geosearch>
+                     
     <div [class.d-none]="!filterActive">
         <div class="btn-group d-flex w-100">
             <div class="btn-group"
