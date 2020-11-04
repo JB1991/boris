@@ -110,7 +110,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         value: '',
                         choices: null
                     };
-                    const split = validator.expression.split(' ');
+                    const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm;
+                    const split = validator.expression.match(regex);
 
                     // get question
                     if (split[0].startsWith('{')) {
@@ -129,9 +130,10 @@ export class ValidatorsComponent implements OnInit, OnChanges {
 
                         if (split[2].startsWith('[')) {
                             // list
-                            const tmp2 = split[2].substring(1, split[2].length - 1);
                             data.value = [];
-                            for (const item of tmp2.split(',')) {
+                            const tmp2 = split[2].substring(1, split[2].length - 1);
+                            const regex2 = /[^\s',]+|'([^']*)'/gm;
+                            for (const item of tmp2.match(regex2)) {
                                 data.value.push(item.substring(1, item.length - 1));
                             }
                         } else if (split[2].startsWith('{')) {
@@ -274,6 +276,21 @@ export class ValidatorsComponent implements OnInit, OnChanges {
             for (const question of this.questions) {
                 if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
+
+                    // check values
+                    skip: for (const val of item.value) {
+                        for (let i = 0; i < item.choices.length; i++) {
+                            if (val === item.choices[i].value) {
+                                continue skip;
+                            }
+                        }
+
+                        // delete
+                        const index = item.value.indexOf(val);
+                        if (index >= 0) {
+                            item.value.splice(index, 1);
+                        }
+                    }
                 }
             }
         }

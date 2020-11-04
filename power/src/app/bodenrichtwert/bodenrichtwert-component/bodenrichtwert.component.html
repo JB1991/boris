@@ -19,8 +19,7 @@
                 </div>
                 <div *ngIf="!adresse && features && features.features.length"
                      class="text-center border-top col-12 p-0">
-                    <button type="button"
-                            class="btn btn-collapse border col-12"
+                    <button class="btn btn-collapse border col-12"
                             (click)="isCollapsed = !isCollapsed"
                             [attr.aria-expanded]="!isCollapsed"
                             aria-controls="collapseBasic">{{ features.features[0].properties.brzname}}
@@ -33,11 +32,11 @@
                 </div>
                 <div *ngIf="!adresse && features && !features.features.length"
                      class="text-center border-top col-12 p-0">
-                    <button type="button"
-                            class="btn btn-collapse border col-12"
+                    <button class="btn btn-collapse border col-12"
                             (click)="isCollapsed = !isCollapsed"
                             [attr.aria-expanded]="!isCollapsed"
-                            aria-controls="collapseBasic">Wählen Sie eine Position
+                            aria-controls="collapseBasic">
+                        <span i18n>Wählen Sie eine Position</span>
                         <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
                              width="25"
                              height="25"
@@ -46,7 +45,6 @@
                     </button>
                 </div>
                 <button *ngIf="adresse"
-                        type="button"
                         class="btn btn-collapse border col-12 p-0"
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
@@ -74,7 +72,7 @@
                                 <p class="m-3 mx-center lead"
                                    i18n>Keine gültige Adresse!</p>
                                 <p class="m-3 mx-center lead"
-                                   i18n>Hinweis: </p>
+                                   i18n>Hinweis:</p>
                                 <p class="m-3 mx-center"
                                    i18n>Bitte wählen Sie eine gültige Adresse innerhalb
                                     von Niedersachsen aus. Die Genauigkeit des Suchradius für die Adresse beträgt 50

@@ -9,17 +9,14 @@
                         <div class="btn-group"
                              style="flex: 1;"
                              ngbDropdown
-                             role="group"
-                             aria-label="Button group with nested dropdown">
-                            <button type="button"
-                                    class="btn btn-block"
+                             role="group">
+                            <button class="btn btn-block"
                                     ngbDropdownToggle>
                                 <span i18n>Stichtag</span>: {{stichtag | date:"yyyy"}}
                             </button>
                             <div class="dropdown-menu"
                                  ngbDropdownMenu>
-                                <button type="button"
-                                        *ngFor="let stag of STICHTAGE"
+                                <button *ngFor="let stag of STICHTAGE"
                                         (click)="onStichtagChange(stag)"
                                         ngbDropdownItem>
                                     {{stag | date:"yyyy"}}
@@ -29,17 +26,14 @@
                         <div class="btn-group"
                              style="flex: 1;"
                              ngbDropdown
-                             role="group"
-                             aria-label="Button group with nested dropdown">
-                            <button type="button"
-                                    class="btn btn-block"
+                             role="group">
+                            <button class="btn btn-block"
                                     ngbDropdownToggle>
                                 <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}}
                             </button>
                             <div class="dropdown-menu"
                                  ngbDropdownMenu>
-                                <button type="button"
-                                        *ngFor="let tm of TEILMAERKTE"
+                                <button *ngFor="let tm of TEILMAERKTE"
                                         (click)="onTeilmarktChange(tm)"
                                         ngbDropdownItem
                                         class="btn-block">
@@ -51,12 +45,11 @@
                 </div>
                 <div class="nav px-auto"
                      style="position: relative;">
-                    <power-geosearch 
-                        [(resetGeosearch)]="resetGeosearch"
-                        (selectResult)="onSearchSelect($event)"></power-geosearch>
+                    <power-geosearch [(resetGeosearch)]="resetGeosearch"
+                                     (selectResult)="onSearchSelect($event)"></power-geosearch>
                 </div>
                 <div class="nav">
-                    <a class="nav-link"
+                    <button class="nav-link btn"
                        (click)="enableLocationTracking()">
                         <img src="/assets/icons/geo.svg"
                              width="25"
@@ -65,8 +58,8 @@
                              title="Ortung"
                              i18n-alt
                              i18n-title>
-                    </a>
-                    <a class="nav-link"
+                    </button>
+                    <button class="nav-link btn"
                        (click)="toggle3dView()">
                         <img src="/assets/icons/building.svg"
                              width="25"
@@ -75,8 +68,8 @@
                              title="3D aktivieren/deaktivieren"
                              i18n-alt
                              i18n-title>
-                    </a>
-                    <a class="nav-link"
+                </button>
+                    <button class="nav-link btn"
                        (click)="resetMap()">
                         <img src="/assets/icons/globe.svg"
                              width="25"
@@ -85,7 +78,7 @@
                              title="Karte zurücksetzen"
                              i18n-alt
                              i18n-title>
-                    </a>
+                    </button>
                 </div>
             </nav>
         </div>
@@ -96,7 +89,7 @@
         <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline">
                 <div class="nav mr-auto">
-                    <a class="nav-link"
+                    <button class="nav-link btn"
                        (click)="toggleFilterActive()">
                         <img src="/assets/icons/filter.svg"
                              width="25"
@@ -105,10 +98,10 @@
                              title="Filtern"
                              i18n-alt
                              i18n-title>
-                    </a>
+                    </button>
                 </div>
                 <div class="nav ml-auto">
-                    <a class="nav-link"
+                    <button class="nav-link btn"
                        (click)="toggleSearchActive()">
                         <img src="/assets/icons/search.svg"
                              width="25"
@@ -117,8 +110,8 @@
                              title="Suche"
                              i18n-alt
                              i18n-title>
-                    </a>
-                    <a class="nav-link"
+                    </button>
+                    <button class="nav-link btn"
                        (click)="enableLocationTracking()">
                         <img src="/assets/icons/geo.svg"
                              width="25"
@@ -127,8 +120,8 @@
                              title="Ortung"
                              i18n-alt
                              i18n-title>
-                    </a>
-                    <a class="nav-link"
+                    </button>
+                    <button class="nav-link btn"
                        (click)="toggle3dView()">
                         <img src="/assets/icons/building.svg"
                              width="25"
@@ -137,8 +130,8 @@
                              title="3D aktivieren/deaktivieren"
                              i18n-alt
                              i18n-title>
-                    </a>
-                    <a class="nav-link"
+                    </button>
+                    <button class="nav-link btn"
                        (click)="resetMap()">
                         <img src="/assets/icons/globe.svg"
                              width="25"
@@ -147,7 +140,7 @@
                              title="Karte zurücksetzen"
                              i18n-alt
                              i18n-title>
-                    </a>
+                    </button>
                 </div>
             </nav>
         </div>
@@ -162,15 +155,13 @@
                  ngbDropdown
                  role="group"
                  aria-label="Button group with nested dropdown">
-                <button type="button"
-                        class="btn btn-block"
+                <button class="btn btn-block"
                         ngbDropdownToggle>
                     <span i18n>Stichtag</span>: {{stichtag}}
                 </button>
                 <div class="dropdown-menu"
                      ngbDropdownMenu>
-                    <button type="button"
-                            *ngFor="let stag of STICHTAGE"
+                    <button *ngFor="let stag of STICHTAGE"
                             (click)="onStichtagChange(stag)"
                             ngbDropdownItem>
                         {{stag}}
@@ -182,15 +173,13 @@
                  ngbDropdown
                  role="group"
                  aria-label="Button group with nested dropdown">
-                <button type="button"
-                        class="btn btn-block"
+                <button class="btn btn-block"
                         ngbDropdownToggle>
                     <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}}
                 </button>
                 <div class="dropdown-menu"
                      ngbDropdownMenu>
-                    <button type="button"
-                            *ngFor="let tm of TEILMAERKTE"
+                    <button *ngFor="let tm of TEILMAERKTE"
                             (click)="onTeilmarktChange(tm)"
                             ngbDropdownItem
                             class="btn-block">
