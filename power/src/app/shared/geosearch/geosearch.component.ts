@@ -35,8 +35,6 @@ export class GeosearchComponent implements OnChanges {
 
     resultFormatter = (feature) => feature.properties.text;
 
-    resultFormatterMobile = (feature) => feature.properties.text.substr(0, 40) + '...';
-
     /**
      * Initialization of the search form
      */
