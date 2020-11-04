@@ -3,7 +3,7 @@
               type="text"
               class="form-control"
               placement="bottom"
-              placeholder="Bitte Ort eingeben ..."
+              placeholder="Bitte Ort eingeben large..."
               i18n-placeholder
               aria-label="Ort"
               i18n-aria-label
@@ -17,14 +17,39 @@
               type="text"
               class="form-control"
               placement="bottom-left"
-              placeholder="Bitte Ort eingeben ..."
+              placeholder="Bitte Ort eingeben small..."
               i18n-placeholder
               aria-label="Ort"
               i18n-aria-label
               [(ngModel)]="model"
               [ngbTypeahead]="search"
               [inputFormatter]="inputFormatter"
-              [resultFormatter]="resultFormatterMobile"
+              [resultTemplate]="results"
               [focusFirst]="false"
               (selectItem)="onSelect($event)">
 </div>
+<ng-template #results
+             class="template"
+             let-p="result.properties"
+             let-t="term">
+       <div *ngIf="p.typ === 'Ort'">
+              <ngb-highlight [result]="p.text"
+                             [term]="t"></ngb-highlight>
+       </div>
+       <div *ngIf="p.typ === 'Strasse'">
+              <ngb-highlight [result]="p.strasse"
+                             [term]="t"></ngb-highlight>
+              <br>
+              <ngb-highlight class="template-item-strasse"
+                             [result]="p.plz + ' ' + p.ort"
+                             [term]="t"></ngb-highlight>
+       </div>
+       <div *ngIf="p.typ === 'Haus'">
+              <ngb-highlight [result]="p.strasse + ' ' + p.haus"
+                             [term]="t"></ngb-highlight>
+              <br>
+              <ngb-highlight class="template-item-haus"
+                             [result]="p.plz + ' ' + p.ort"
+                             [term]="t"></ngb-highlight>
+       </div>
+</ng-template>

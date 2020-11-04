@@ -20,17 +20,18 @@ export class GeosearchComponent implements OnChanges {
 
     @Output() selectResult = new EventEmitter();
 
+    @Input() isCollapsed: boolean;
+
     public model: any;
 
     filteredResults: Feature[];
     searchFailed = false;
-    isCollapsed = false;
 
     /**
      * Return the text property
      * @param feature GeoJSON feature
      */
-    inputFormatter = (feature) => feature.properties.text;
+    inputFormatter = (feature: Feature) => feature.properties.text;
 
     resultFormatter = (feature) => feature.properties.text;
 
