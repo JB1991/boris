@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService } from '../formapi.service';
+import { Form } from '@angular/forms';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let component: DashboardComponent;
@@ -35,7 +37,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             ],
             declarations: [
                 DashboardComponent,
-                MockNewformComponent
+                MockNewformComponent,
             ]
         }).compileComponents();
 
@@ -293,7 +295,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     template: ''
 })
 class MockNewformComponent {
-    @Input() public data: string;
+    @ViewChild('modal') public modal: ModalminiComponent;
+    @Output() public out = new EventEmitter<Form>();
+    @Input() public tags: Array<string>;
 }
 @Component({
     selector: 'power-forms-home',
