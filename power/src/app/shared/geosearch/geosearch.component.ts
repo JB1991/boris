@@ -30,11 +30,11 @@ export class GeosearchComponent implements OnChanges {
      * Return the text property
      * @param feature GeoJSON feature
      */
-    formatter = (feature) => feature.properties.text;
+    inputFormatter = (feature) => feature.properties.text;
 
-    resultFormatterLarge = (feature) => feature.properties.text;
+    resultFormatter = (feature) => feature.properties.text;
 
-    resultFormatterSmall = (feature) => feature.properties.text.substr(0, 40) + '...';
+    resultFormatterMobile = (feature) => feature.properties.text.substr(0, 40) + '...';
 
     /**
      * Initialization of the search form

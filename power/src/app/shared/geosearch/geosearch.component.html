@@ -3,28 +3,28 @@
               type="text"
               class="form-control"
               placement="bottom"
-              placeholder="Bitte Ort eingeben large..."
+              placeholder="Bitte Ort eingeben ..."
               i18n-placeholder
               aria-label="Ort"
               i18n-aria-label
               [(ngModel)]="model"
               [ngbTypeahead]="search"
-              [inputFormatter]="formatter"
-              [resultFormatter]="resultFormatterLarge"
+              [inputFormatter]="inputFormatter"
+              [resultFormatter]="resultFormatter"
               [focusFirst]="false"
               (selectItem)="onSelect($event)">
        <input [class]="isCollapsed ? 'd-md-none' : 'd-xl-none'"
               type="text"
               class="form-control"
               placement="bottom-left"
-              placeholder="Bitte Ort eingeben small..."
+              placeholder="Bitte Ort eingeben ..."
               i18n-placeholder
               aria-label="Ort"
               i18n-aria-label
               [(ngModel)]="model"
               [ngbTypeahead]="search"
-              [inputFormatter]="formatter"
-              [resultFormatter]="resultFormatterSmall"
+              [inputFormatter]="inputFormatter"
+              [resultFormatter]="resultFormatterMobile"
               [focusFirst]="false"
               (selectItem)="onSelect($event)">
 </div>
