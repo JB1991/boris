@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
 import { Feature } from 'geojson';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'power-geosearch',
@@ -40,7 +39,6 @@ export class GeosearchComponent implements OnChanges {
      */
 
     ngOnChanges() {
-        console.log('change');
         if (this.resetGeosearch && this.model) {
             this.model = undefined;
             this.resetGeosearchChange.emit(false);
@@ -70,9 +68,9 @@ export class GeosearchComponent implements OnChanges {
      * Select an item from the search result list
      * @param item GeoJSON feature
      */
-    onSelect(event: NgbTypeaheadSelectItemEvent) {
-        this.selectResult.next(event.item);
-        this.geosearchService.updateFeatures(event.item);
+    onSelect(item: any) {
+        this.selectResult.next(item);
+        this.geosearchService.updateFeatures(item);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

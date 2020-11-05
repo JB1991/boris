@@ -26,7 +26,7 @@
               [inputFormatter]="inputFormatter"
               [resultTemplate]="results"
               [focusFirst]="false"
-              (selectItem)="onSelect($event)">
+              (selectItem)="onSelect($event.item)">
 </div>
 <ng-template #results
              class="template"
