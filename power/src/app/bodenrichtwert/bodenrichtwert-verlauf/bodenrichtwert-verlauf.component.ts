@@ -133,8 +133,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
             if (lastElement < series.length - 1) {
                 series[lastElement + 1].brw = series[lastElement].brw;
-                console.log(series[lastElement + 1].brw);
-                console.log(series[lastElement + 1].stag);
             }
 
             this.srTableData.push({ series });
