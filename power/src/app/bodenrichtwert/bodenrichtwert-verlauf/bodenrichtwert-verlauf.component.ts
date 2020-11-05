@@ -13,6 +13,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     state: any;
 
+    // screenreader
+    srTableData: any = [];
+    srTableHeader = [];
+
     seriesTemplate = [
         {stag: '2012', brw: null, nutzung: ''},
         {stag: '2013', brw: null, nutzung: ''},
@@ -106,10 +110,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+        this.srTableData = [];
+        this.srTableHeader = [];
 
         for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
             const series = this.deepCopy(this.seriesTemplate);
+
+            // table for screenreader
+            this.srTableHeader.push(key);
 
             for (let i = 0; i < series.length; i++) {
                 const feature = features.find(f => f.properties.stag.includes(series[i].stag));
@@ -118,6 +127,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
                 }
             }
+            
+            this.srTableData.push({series});
 
             const nutzung = this.getNutzung(series);
             this.chartOption.legend.data.push(nutzung);
