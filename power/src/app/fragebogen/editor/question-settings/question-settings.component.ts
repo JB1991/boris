@@ -98,5 +98,14 @@ export class QuestionSettingsComponent {
         if (typeof this.model.pages[this.page].elements[this.question].startWithNewLine === 'undefined') {
             this.model.pages[this.page].elements[this.question].startWithNewLine = true;
         }
+
+        // RegEx validators
+        if (typeof this.model.pages[this.page].elements[this.question].validators === 'object') {
+            for (const validator of this.model.pages[this.page].elements[this.question].validators) {
+                if (validator.type === 'regex' && typeof validator.text === 'string') {
+                    validator.text = { default: validator.text };
+                }
+            }
+        }
     }
 }
