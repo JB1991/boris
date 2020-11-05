@@ -120,13 +120,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
             // table for screenreader
             this.srTableHeader.push(key);
+            let lastElement;
 
             for (let i = 0; i < series.length; i++) {
                 const feature = features.find(f => f.properties.stag.includes(series[i].stag));
                 if (feature) {
                     series[i].brw = feature.properties.brw;
                     series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
-                    var lastElement = i;
+                    lastElement = i;
                 }
             }
 
