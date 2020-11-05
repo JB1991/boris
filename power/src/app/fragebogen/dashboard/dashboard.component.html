@@ -221,7 +221,7 @@
         <div class="card-footer">
             <div class="float-right">
                 <div class="form-inline">
-                    <div class="form-group mx-2">
+                    <div class="form-group m-0 mr-2">
                         <select class="custom-select"
                                 (change)="taskPerPage = $event.target.value; updateTasks(false)">
                             <option *ngFor=" let size of taskPageSizes">
@@ -251,7 +251,7 @@
             <svg width="1em"
                  height="1em"
                  viewBox="0 0 16 16"
-                 class="bi bi-file-earmark-medical align-baseline"
+                 class="bi bi-file-earmark-medical"
                  fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg"
                  focusable="false"
@@ -452,7 +452,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-trash-fill align-baseline"
+                                     class="bi bi-trash-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -478,10 +478,10 @@
                     i18n-title
                     title="Neues Formular erstellen"
                     (click)="newform.open()">
-                <svg width="1.5em"
-                     height="1.5em"
+                <svg width="1.2em"
+                     height="1.2em"
                      viewBox="0 0 16 16"
-                     class="bi bi-plus align-top"
+                     class="bi bi-plus"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
                      focusable="false"
@@ -500,10 +500,10 @@
                     i18n-title
                     title="Formular importieren"
                     (click)="importForm()">
-                <svg width="1.5em"
-                     height="1.5em"
+                <svg width="1em"
+                     height="1em"
                      viewBox="0 0 16 16"
-                     class="bi bi-cloud-arrow-up align-top"
+                     class="bi bi-cloud-arrow-up"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
                      focusable="false"
@@ -518,9 +518,9 @@
             </button>
 
             <!-- Forms Pagination -->
-            <div class="float-right">
+            <div class="float-lg-right mt-2 mt-lg-0">
                 <div class="form-inline">
-                    <div class="form-group mx-2">
+                    <div class="form-group m-0 mr-2">
                         <select class="custom-select"
                                 (change)="formPerPage = $event.target.value; updateForms(false)">
                             <option *ngFor=" let size of formPageSizes">

@@ -5,7 +5,7 @@
             <div class="boris-img col-lg-12 p-0"></div>
         </div>
         <div class="col-lg-6 px-0 pl-lg-5 pt-2 pt-lg-0">
-            <div class="content col-lg-12 text-dark p-5 rounded-left">
+            <div class="content col-lg-12 text-dark p-3 p-lg-5 rounded-left">
                 <a class="h2 btn-link text-dark font-weight-bold"
                    id="boris"
                    [routerLink]="['/bodenrichtwerte']"
@@ -21,7 +21,7 @@
     <section *ngIf="config.modules.includes('immobilienpreisindex')"
              class="row pr-lg-5 pt-lg-5 pl-lg-0 pb-lg-0 p-2">
         <div class="col-lg-9 p-0 pr-lg-5 pt-2 pt-lg-0">
-            <div class="content col-lg-12 text-dark p-5 rounded-right">
+            <div class="content col-lg-12 text-dark p-3 p-lg-5 rounded-right">
                 <a class="h2 btn-link text-dark font-weight-bold"
                    id="nipix"
                    [routerLink]="['/immobilienpreisindex']"
@@ -44,7 +44,7 @@
             <div class="form-img col-lg-12 p-0"></div>
         </div>
         <div class="col-lg-6 pr-lg-0 pr-0 pl-lg-5 pl-0 pt-2 pt-lg-0">
-            <div class="content col-lg-12 text-dark p-5 rounded-left">
+            <div class="content col-lg-12 text-dark p-3 p-lg-5 rounded-left">
                 <a class="h2 btn-link text-dark font-weight-bold"
                    [routerLink]="['/forms']"
                    i18n>Online Formulare</a>
@@ -71,10 +71,10 @@
                             class="btn btn-success"
                             i18n-title
                             title="Absenden">
-                        <svg width="1.5em"
-                             height="1.5em"
+                        <svg width="1.2em"
+                             height="1.2em"
                              viewBox="0 0 16 16"
-                             class="bi bi-play-fill align-top"
+                             class="bi bi-play-fill"
                              fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg"
                              focusable="false"
@@ -91,7 +91,7 @@
     </section>
 </div>
 <section class="container-xl mt-5">
-    <div class="row jumbotron mb-0">
+    <div class="row jumbotron mb-0 p-0 p-lg-5">
         <div class="col-lg-12">
             <h2 id="news"
                 aria-label="News">
@@ -108,7 +108,8 @@
                     <path fill-rule="evenodd"
                           d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
                 </svg>
-                <span i18n>News</span>
+                <span class="ml-1"
+                      i18n>News</span>
             </h2>
             <hr class="my-4">
         </div>
