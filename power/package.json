@@ -49,6 +49,7 @@
         "nouislider": "^14.6.2",
         "rxjs": "^6.6.3",
         "rxjs-compat": "^6.6.3",
+        "semver": "^7.3.2",
         "showdown": "^1.9.1",
         "survey-angular": "^1.8.12",
         "tslib": "^2.0.3",

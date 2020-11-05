@@ -12,7 +12,7 @@
               [inputFormatter]="inputFormatter"
               [resultFormatter]="resultFormatter"
               [focusFirst]="false"
-              (selectItem)="onSelect($event)">
+              (selectItem)="onSelect($event.item)">
        <input [class]="isCollapsed ? 'd-md-none' : 'd-xl-none'"
               type="text"
               class="form-control"

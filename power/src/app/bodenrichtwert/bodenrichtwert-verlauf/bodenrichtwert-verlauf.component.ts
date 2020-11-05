@@ -18,14 +18,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     srTableHeader = [];
 
     seriesTemplate = [
-        {stag: '2012', brw: null, nutzung: ''},
-        {stag: '2013', brw: null, nutzung: ''},
-        {stag: '2014', brw: null, nutzung: ''},
-        {stag: '2015', brw: null, nutzung: ''},
-        {stag: '2016', brw: null, nutzung: ''},
-        {stag: '2017', brw: null, nutzung: ''},
-        {stag: '2018', brw: null, nutzung: ''},
-        {stag: '2019', brw: null, nutzung: ''},
+        { stag: '2012', brw: null, nutzung: '' },
+        { stag: '2013', brw: null, nutzung: '' },
+        { stag: '2014', brw: null, nutzung: '' },
+        { stag: '2015', brw: null, nutzung: '' },
+        { stag: '2016', brw: null, nutzung: '' },
+        { stag: '2017', brw: null, nutzung: '' },
+        { stag: '2018', brw: null, nutzung: '' },
+        { stag: '2019', brw: null, nutzung: '' },
     ];
 
     public chartOption: EChartOption = {
@@ -108,6 +108,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return filteredFeatures;
     }
 
+    // tslint:disable-next-line: max-func-body-length
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.srTableData = [];
@@ -125,10 +126,17 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 if (feature) {
                     series[i].brw = feature.properties.brw;
                     series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
+                    var lastElement = i;
                 }
             }
-            
-            this.srTableData.push({series});
+
+            if (lastElement < 7) {
+                series[lastElement + 1].brw = series[lastElement].brw;
+                console.log(series[lastElement + 1].brw);
+                console.log(series[lastElement + 1].stag);
+            }
+
+            this.srTableData.push({ series });
 
             const nutzung = this.getNutzung(series);
             this.chartOption.legend.data.push(nutzung);
