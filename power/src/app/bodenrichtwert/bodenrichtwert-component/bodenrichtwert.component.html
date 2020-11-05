@@ -20,6 +20,7 @@
                 <div *ngIf="!adresse && features && features.features.length"
                      class="text-center border-top col-12 p-0">
                     <button class="btn btn-collapse border col-12"
+                            type="button"
                             (click)="isCollapsed = !isCollapsed"
                             [attr.aria-expanded]="!isCollapsed"
                             aria-controls="collapseBasic">{{ features.features[0].properties.brzname}}
@@ -33,6 +34,7 @@
                 <div *ngIf="!adresse && features && !features.features.length"
                      class="text-center border-top col-12 p-0">
                     <button class="btn btn-collapse border col-12"
+                            type="button"
                             (click)="isCollapsed = !isCollapsed"
                             [attr.aria-expanded]="!isCollapsed"
                             aria-controls="collapseBasic">
@@ -46,6 +48,7 @@
                 </div>
                 <button *ngIf="adresse"
                         class="btn btn-collapse border col-12 p-0"
+                        type="button"
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseBasic">{{ adresse.properties.text }}
