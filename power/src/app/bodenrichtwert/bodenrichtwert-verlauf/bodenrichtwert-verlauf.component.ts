@@ -131,7 +131,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 }
             }
 
-            if (lastElement < 7) {
+            if (lastElement < series.length - 1) {
                 series[lastElement + 1].brw = series[lastElement].brw;
                 console.log(series[lastElement + 1].brw);
                 console.log(series[lastElement + 1].stag);
