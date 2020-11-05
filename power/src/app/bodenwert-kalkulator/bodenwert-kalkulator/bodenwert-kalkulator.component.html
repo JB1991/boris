@@ -14,7 +14,9 @@
                             </div>
                             <div class="nav px-auto"
                                  style="position: relative;">
-                                <power-geosearch (selectResult)="flyTo($event)"></power-geosearch>
+                                <power-geosearch [(resetGeosearch)]="resetGeosearch"
+                                                 [isCollapsed]="isCollapsed"
+                                                 (selectResult)="flyTo($event)"></power-geosearch>
                             </div>
                             <div class="nav">
                                 <a class="nav-link"
@@ -123,6 +125,8 @@
                 </div>
 
                 <power-geosearch [class.d-none]="!searchActive"
+                                 [(resetGeosearch)]="resetGeosearch"
+                                 [isCollapsed]="isCollapsed"
                                  (selectResult)="flyTo($event)"></power-geosearch>
 
 

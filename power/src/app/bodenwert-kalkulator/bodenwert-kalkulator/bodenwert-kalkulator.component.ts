@@ -16,6 +16,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     filterActive = false;
     locationTrackingActive = false;
     isCollapsed = true;
+    resetGeosearch: boolean;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;

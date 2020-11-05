@@ -46,24 +46,32 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('ngOnChanges should work', () => {
+        component.resetGeosearch = true;
+        component.model = feature;
+        component.ngOnChanges();
+        expect(component.model).toBeUndefined();
+    });
+
     it('selectItem selects an item from the result list', (done) => {
         spyOn(component.geosearchService, 'updateFeatures');
         component.selectResult.subscribe(next => {
             expect(next).toEqual(feature);
             done();
         });
-        component.selectItem(feature);
+        component.onSelect(feature);
         expect(component.geosearchService.updateFeatures).toHaveBeenCalled();
+        expect(component.inputFormatter(feature)).toEqual('Podbielskistraße 331, 30659 Hannover - Bothfeld');
     });
 
     it('formatter should return the text property', () => {
-        expect(component.formatter(feature)).toEqual('Podbielskistraße 331, 30659 Hannover - Bothfeld');
+        expect(component.resultFormatter(feature)).toEqual('Podbielskistraße 331, 30659 Hannover - Bothfeld');
     });
 
     it('search should successfully call the Geosearch service', () => {
         spyOn(component.geosearchService, 'search').and.returnValue(of(featureCollection));
 
-        testScheduler.run(({expectObservable}) => {
+        testScheduler.run(({ expectObservable }) => {
             const input$ = of('podbi');
             expectObservable(component.search(input$));
         });
@@ -72,19 +80,14 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     });
 
     it('search should unsuccessfully call the Geosearch service', () => {
-        spyOn(component.geosearchService, 'search').and.returnValue(throwError({status: 404}));
+        spyOn(component.geosearchService, 'search').and.returnValue(throwError({ status: 404 }));
 
-        testScheduler.run(({expectObservable}) => {
+        testScheduler.run(({ expectObservable }) => {
             const input$ = of('podbi');
             expectObservable(component.search(input$));
         });
         expect(component.geosearchService.search).toHaveBeenCalled();
         expect(component.searchFailed).toBe(true);
-    });
-
-    it('ngOnInit should initialize the search form', () => {
-        component.searchForm.controls['searchInput'].setValue('podbi');
-        expect(component.searchForm.value.searchInput).toBe('podbi');
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
