@@ -41,7 +41,7 @@
                              [term]="t"></ngb-highlight>
               <br>
               <ngb-highlight class="template-item-strasse"
-                             [result]="p.plz + ' ' + p.ort"
+                             [result]="p.plz + ' ' + p.ort + ' ' + p.ortsteil"
                              [term]="t"></ngb-highlight>
        </div>
        <div *ngIf="p.typ === 'Haus'">
@@ -49,7 +49,7 @@
                              [term]="t"></ngb-highlight>
               <br>
               <ngb-highlight class="template-item-haus"
-                             [result]="p.plz + ' ' + p.ort"
+                             [result]="p.plz + ' ' + p.ort + ' ' + p.ortsteil"
                              [term]="t"></ngb-highlight>
        </div>
 </ng-template>
