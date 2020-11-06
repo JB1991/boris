@@ -20,7 +20,7 @@
                 "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/{z}/{x}/{y}.pbf"
             ],
             "maxzoom": 14,
-            "attribution": "<a href=\"https://openmaptiles.org/\" target=\"_blank\">© OpenMapTiles</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">© OpenStreetMap Mitwirkende</a>"
+            "attribution": "<a href=\"https://openmaptiles.org/\" target=\"_blank\" rel=\"noopener\">© OpenMapTiles</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener\">© OpenStreetMap Mitwirkende</a>"
         }
     },
     "glyphs": "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/fonts/{fontstack}/{range}.pbf",
