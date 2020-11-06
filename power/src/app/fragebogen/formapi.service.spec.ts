@@ -400,10 +400,10 @@ describe('Fragebogen.FormAPIService', () => {
                             group: 'Hello',
                         },
                         {
-                            "group-permission": 'read-form'
+                            'group-permission': 'read-form'
                         },
                         {
-                            "other-permission": 'update-form'
+                            'other-permission': 'update-form'
                         },
                         {
                             content: {
@@ -445,7 +445,7 @@ describe('Fragebogen.FormAPIService', () => {
                             }
                         },
                         {
-                            "has-owner-with": {
+                            'has-owner-with': {
                                 id: '123'
                             }
                         }
@@ -478,8 +478,8 @@ describe('Fragebogen.FormAPIService', () => {
                             pin: '123456',
                         },
                         {
-                            "description": {
-                                contains: "Hello",
+                            'description': {
+                                contains: 'Hello',
                                 lower: false,
                             }
                         },
@@ -541,13 +541,13 @@ describe('Fragebogen.FormAPIService', () => {
                             }
                         },
                         {
-                            "given-name": {
+                            'given-name': {
                                 contains: 'World',
                                 lower: false,
                             }
                         },
                         {
-                            "family-name": {
+                            'family-name': {
                                 contains: 'World',
                                 lower: false,
                             }
@@ -677,4 +677,5 @@ describe('Fragebogen.FormAPIService', () => {
         // Verify that no requests are remaining
         httpTestingController.verify();
     });
+// tslint:disable-next-line: max-file-line-count
 });
