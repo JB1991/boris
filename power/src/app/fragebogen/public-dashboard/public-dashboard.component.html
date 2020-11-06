@@ -2,7 +2,14 @@
 <main class="mainpage p-1 p-lg-3" id="content">
     <section class="card bg-light" *ngIf="data">
         <div class="card-header h5">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-medical align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-file-earmark-medical"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 focusable="false"
+                 aria-hidden="true">
                 <path
                     d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
                 <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z" />
@@ -78,9 +85,14 @@
         </div>
         <div class="card-footer">
             <div class="float-right">
-                <div class="form-inline well" *ngIf="total > perPage">
-                    <div class="form-group mx-2">
-                        <select class="custom-select" aria-label="Formularanzahl pro Seite" aria-description="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen." i18n-aria-label i18n-aria-description (change)="perPage = $event.target.value; update(false)">
+                <div class="form-inline" *ngIf="total > perPage">
+                    <div class="form-group m-0 mr-2">
+                        <select class="custom-select"
+                                aria-label="Formularanzahl pro Seite"
+                                aria-description="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen."
+                                i18n-aria-label
+                                i18n-aria-description
+                                (change)="perPage = $event.target.value; update(false)">
                             <option *ngFor=" let size of pageSizes">
                                 {{ size }}
                             </option>

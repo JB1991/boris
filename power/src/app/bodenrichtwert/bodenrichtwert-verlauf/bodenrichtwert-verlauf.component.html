@@ -5,6 +5,41 @@
             jeweiligen
             Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
 
+        <!-- eChart in table-form for accessibility -->
+        <table class="table table-responsive sr-only">
+            <caption i18n>Zeitliche Entwicklung Bodenrichtwerte</caption>
+            <thead>
+                <tr>
+                    <th role="columnheader"
+                        scope="col"
+                        i18n> Nutzungsart </th>
+                    <th role="columnheader"
+                        scope="col">{{ seriesTemplate[0].stag }}</th>
+                    <th role="columnheader"
+                        scope="col">{{ seriesTemplate[1].stag }}</th>
+                    <th role="columnheader"
+                        scope="col">{{ seriesTemplate[2].stag }}</th>
+                    <th role="columnheader"
+                        scope="col">{{ seriesTemplate[3].stag }}</th>
+                    <th role="columnheader"
+                        scope="col">{{ seriesTemplate[4].stag }}</th>
+                    <th role="columnheader"
+                        scope="col">{{ seriesTemplate[5].stag }}</th>
+                    <th role="columnheader"
+                        scope="col">{{ seriesTemplate[6].stag }}</th>
+                    <th role="columnheader"
+                        scope="col">{{ seriesTemplate[7].stag }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of srTableData; let i=index">
+                    <th role="rowheader"
+                        scope="row">{{ srTableHeader[i] }}</th>
+                    <td *ngFor="let serie of t.series">{{ serie.brw }}</td>
+                </tr>
+            </tbody>
+        </table>
+
         <div echarts
              (chartInit)="onChartInit($event)"
              [options]="chartOption"
@@ -13,11 +48,10 @@
     </ng-container>
 
     <ng-container *ngIf="!echartsInstance">
-        <div 
-            id="eChartInstance"
-            echarts
-            (chartInit)="onChartInit($event)"
-            [options]="chartOption"></div>
+        <div id="eChartInstance"
+             echarts
+             (chartInit)="onChartInit($event)"
+             [options]="chartOption"></div>
     </ng-container>
 
     <div>

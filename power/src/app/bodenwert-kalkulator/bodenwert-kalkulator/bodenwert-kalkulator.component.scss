@@ -1,9 +1,3 @@
-#map {
-    flex-grow: 1;
-    height: 100%;
-    width: 100%;
-}
-
 .wrapper {
     height: 100%;
     width: 100%;
@@ -18,7 +12,6 @@ mgl-map {
 
 .map {
     height: calc(100vh - 57px);
-    max-height: calc(100vh - 57px);
     padding: 0;
 }
 
@@ -34,6 +27,26 @@ mgl-map {
 .btn-collapse {
     font-size: large;
     height: 2.75rem;
+}
+
+@media (max-width: 992px) {
+    .map {
+        height: calc(100vh - 301px);
+        padding: 0;
+    }
+
+    .overflow-auto {
+        overflow: unset !important;
+    }
+
+    .selection {
+        min-height: calc(100vh - 101px);
+        height: 100% !important;
+    }
+
+    .height-lg {
+        height: 100%;
+    }
 }
 
 .nav-scroller {

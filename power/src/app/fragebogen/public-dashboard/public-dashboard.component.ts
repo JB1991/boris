@@ -70,7 +70,7 @@ export class PublicDashboardComponent implements OnInit {
                 params.sort = { orderBy: { field: this.sort }, order: this.order };
             }
             const filters: Array<PublicFormFilter> = [
-                { access: 'public' }
+                { access: 'public' },
             ];
             if (this.search !== '') {
                 const or: Array<PublicFormFilter> = [];

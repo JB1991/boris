@@ -2,7 +2,14 @@
 <main class="mainpage p-1 p-lg-3" id="content" tabindex="-1" *ngIf="form">
     <!-- title -->
     <div class="h4">
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-medical align-baseline" fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+        <svg width="1em"
+             height="1em"
+             viewBox="0 0 16 16"
+             class="bi bi-file-earmark-medical"
+             fill="currentColor"
+             xmlns="http://www.w3.org/2000/svg"
+             focusable="false"
+             aria-hidden="true">
             <path
                 d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
             <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z" />
@@ -10,9 +17,19 @@
                 d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
         </svg> {{ form.extra }}
 
-        <button type="button" class="btn btn-secondary btn-sm float-right d-none d-md-inline" i18n-title title="Zurück zum Dashboard" [routerLink]="['/forms/dashboard']">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-backspace align-baseline" fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+        <button type="button"
+                class="btn btn-secondary btn-sm float-right d-none d-md-inline"
+                i18n-title
+                title="Zurück zum Dashboard"
+                [routerLink]="['/forms/dashboard']">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-backspace"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 focusable="false"
+                 aria-hidden="true">
                 <path fill-rule="evenodd"
                     d="M6.603 2h7.08a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-7.08a1 1 0 0 1-.76-.35L1 8l4.844-5.65A1 1 0 0 1 6.603 2zm7.08-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08z" />
                 <path fill-rule="evenodd"
@@ -49,9 +66,20 @@
             </p>
         </div>
         <div class="col-12 pl-0 pt-2">
-            <button type="button" class="btn btn-primary btn-sm mr-2" i18n-title title="Formular bearbeiten" [routerLink]="['/forms/editor', form.id]" *ngIf="form.status === 'created' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square align-baseline"
-                    fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <button type="button"
+                    class="btn btn-primary btn-sm mr-2"
+                    i18n-title
+                    title="Formular bearbeiten"
+                    [routerLink]="['/forms/editor', form.id]"
+                    *ngIf="form.status === 'created' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-pencil-square"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
                     <path
                         d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                     <path fill-rule="evenodd"
@@ -59,9 +87,19 @@
                 </svg>
                 <span class="d-none d-sm-inline ml-1" i18n>Bearbeiten</span>
             </button>
-            <button type="button" class="btn btn-primary btn-sm mr-2" i18n-title title="Formular Vorschau" (click)="preview.open()">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-fullscreen align-baseline"
-                    fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <button type="button"
+                    class="btn btn-primary btn-sm mr-2"
+                    i18n-title
+                    title="Formular Vorschau"
+                    (click)="preview.open()">
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-arrows-fullscreen"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
                     <path fill-rule="evenodd"
                         d="M1.464 10.536a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5a.5.5 0 0 1 .5-.5z" />
                     <path fill-rule="evenodd"
@@ -75,9 +113,19 @@
                 </svg>
                 <span class="d-none d-sm-inline ml-1" i18n>Vorschau</span>
             </button>
-            <button type="button" class="btn btn-primary btn-sm mr-2" i18n-title title="Formular exportieren" (click)="exportForm()">
-                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cloud-arrow-down" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <button type="button"
+                    class="btn btn-primary btn-sm mr-2"
+                    i18n-title
+                    title="Formular exportieren"
+                    (click)="exportForm()">
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-cloud-arrow-down"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
                     <path fill-rule="evenodd"
                         d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
                     <path fill-rule="evenodd"
@@ -95,25 +143,58 @@
                 </svg>
                 <span class="d-none d-sm-inline ml-1" i18n>Einstellungen</span>
             </button>
-            <button type="button" class="btn btn-success btn-sm mr-2" i18n-title title="Formular veröffentlichen" (click)="publish.open(form.id)" *ngIf="form.status === 'created' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-globe2 align-baseline"
-                    fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <button type="button"
+                    class="btn btn-success btn-sm mr-2"
+                    i18n-title
+                    title="Formular veröffentlichen"
+                    (click)="publish.open(form.id)"
+                    *ngIf="form.status === 'created' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-globe2"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
                     <path fill-rule="evenodd"
                         d="M1.018 7.5h2.49c.037-1.07.189-2.087.437-3.008a9.124 9.124 0 0 1-1.565-.667A6.964 6.964 0 0 0 1.018 7.5zM3.05 3.049c.362.184.763.349 1.198.49.142-.384.304-.744.481-1.078a6.7 6.7 0 0 1 .597-.933A7.01 7.01 0 0 0 3.051 3.05zM8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm-.5 1.077c-.67.204-1.335.82-1.887 1.855-.143.268-.276.56-.395.872.705.157 1.473.257 2.282.287V1.077zm0 4.014c-.91-.03-1.783-.145-2.591-.332a12.344 12.344 0 0 0-.4 2.741H7.5V5.091zm1 2.409V5.091c.91-.03 1.783-.145 2.591-.332.223.827.364 1.754.4 2.741H8.5zm-1 1H4.51c.035.987.176 1.914.399 2.741A13.596 13.596 0 0 1 7.5 10.91V8.5zm1 2.409V8.5h2.99a12.343 12.343 0 0 1-.399 2.741A13.596 13.596 0 0 0 8.5 10.91zm-1 1c-.81.03-1.577.13-2.282.287.12.312.252.604.395.872.552 1.035 1.218 1.65 1.887 1.855V11.91zm-2.173 2.563a6.695 6.695 0 0 1-.597-.933 8.857 8.857 0 0 1-.481-1.078 8.356 8.356 0 0 0-1.198.49 7.01 7.01 0 0 0 2.276 1.52zM2.38 12.175c.47-.258.995-.482 1.565-.667A13.36 13.36 0 0 1 3.508 8.5h-2.49a6.964 6.964 0 0 0 1.362 3.675zm8.293 2.297a7.01 7.01 0 0 0 2.275-1.521 8.353 8.353 0 0 0-1.197-.49 8.859 8.859 0 0 1-.481 1.078 6.688 6.688 0 0 1-.597.933zm.11-2.276A12.63 12.63 0 0 0 8.5 11.91v3.014c.67-.204 1.335-.82 1.887-1.855.143-.268.276-.56.395-.872zm1.272-.688c.57.185 1.095.409 1.565.667A6.964 6.964 0 0 0 14.982 8.5h-2.49a13.355 13.355 0 0 1-.437 3.008zm.437-4.008h2.49a6.963 6.963 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008zm-.74-3.96a8.854 8.854 0 0 0-.482-1.079 6.692 6.692 0 0 0-.597-.933c.857.355 1.63.875 2.275 1.521a8.368 8.368 0 0 1-1.197.49zm-.97.264c-.705.157-1.473.257-2.282.287V1.077c.67.204 1.335.82 1.887 1.855.143.268.276.56.395.872z" />
                 </svg>
                 <span class="d-none d-sm-inline ml-1" i18n>Veröffentlichen</span>
             </button>
-            <button type="button" class="btn btn-secondary btn-sm mr-2" i18n-title title="Formular archivieren" (click)="archiveForm()" *ngIf="form.status === 'published' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive-fill align-baseline"
-                    fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <button type="button"
+                    class="btn btn-secondary btn-sm mr-2"
+                    i18n-title
+                    title="Formular archivieren"
+                    (click)="archiveForm()"
+                    *ngIf="form.status === 'published' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-archive-fill"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
                     <path fill-rule="evenodd"
                         d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z" />
                 </svg>
                 <span class="d-none d-sm-inline ml-1" i18n>Archivieren</span>
             </button>
-            <button type="button" class="btn btn-danger btn-sm" i18n-title title="Formular löschen" (click)="deleteForm()" *ngIf="form.status !== 'published' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill align-baseline"
-                    fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <button type="button"
+                    class="btn btn-danger btn-sm"
+                    i18n-title
+                    title="Formular löschen"
+                    (click)="deleteForm()"
+                    *ngIf="form.status !== 'published' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-trash-fill"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
                     <path fill-rule="evenodd"
                         d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
                 </svg>
@@ -305,19 +386,39 @@
                         <td>{{ task.created | date:'short' }}</td>
                         <td>{{ task.updated | date:'short' }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm mr-2" i18n-title title="Ergebnisse anzeigen" (click)="openTask(i)" *ngIf="task.status === 'submitted'">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                    class="bi bi-binoculars-fill align-baseline" fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                            <button type="button"
+                                    class="btn btn-primary btn-sm mr-2"
+                                    i18n-title
+                                    title="Ergebnisse anzeigen"
+                                    (click)="openTask(i)"
+                                    *ngIf="task.status === 'submitted'">
+                                <svg width="1em"
+                                     height="1em"
+                                     viewBox="0 0 16 16"
+                                     class="bi bi-binoculars-fill"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
+                                     aria-hidden="true">
                                     <path
                                         d="M4.5 1A1.5 1.5 0 0 0 3 2.5V3h4v-.5A1.5 1.5 0 0 0 5.5 1h-1zM7 4v1h2V4h4v.882a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V13H9v-1.5a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5V13H1V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V4h4zM1 14v.5A1.5 1.5 0 0 0 2.5 16h3A1.5 1.5 0 0 0 7 14.5V14H1zm8 0v.5a1.5 1.5 0 0 0 1.5 1.5h3a1.5 1.5 0 0 0 1.5-1.5V14H9zm4-11H9v-.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5V3z" />
                                 </svg>
                                 <span class="d-none d-sm-inline ml-1" i18n>Ergebnisse</span>
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm" i18n-title title="Antwort löschen" (click)="deleteTask(i)" *ngIf="!auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
-                                <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                    class="bi bi-trash-fill align-baseline" fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
+                                    i18n-title
+                                    title="Antwort löschen"
+                                    (click)="deleteTask(i)"
+                                    *ngIf="!auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
+                                <svg width="1em"
+                                     height="1em"
+                                     viewBox="0 0 16 16"
+                                     class="bi bi-trash-fill"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
+                                     aria-hidden="true">
                                     <path fill-rule="evenodd"
                                         d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
                                 </svg>
@@ -331,9 +432,22 @@
         </div>
 
         <div class="card-footer">
-            <button type="button" class="btn btn-success btn-sm mr-2" i18n-title title="Neue PIN erstellen" (click)="maketask.open()" *ngIf="form.status === 'published' && form.access !== 'public' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
-                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus align-top" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <button type="button"
+                    class="btn btn-success btn-sm mr-2"
+                    i18n-title
+                    title="Neue PIN erstellen"
+                    (click)="maketask.open()"
+                    *ngIf="form.status === 'published' && form.access !== 'public' && !auth.IsAuthEnabled()"> <!-- TODO: Autorisierungsfunktion -->
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-plus"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z" />
                     <path fill-rule="evenodd"
                         d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z" />
                     <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
@@ -341,9 +455,19 @@
                 <span class="d-none d-sm-inline ml-1" i18n>Neue PIN erstellen</span>
             </button>
 
-            <button type="button" class="btn btn-primary btn-sm mr-2" i18n-title title="Ergebnisse als CSV herunterladen" (click)="getCSV()">
-                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cloud-arrow-down align-top"
-                    fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+            <button type="button"
+                    class="btn btn-primary btn-sm mr-2"
+                    i18n-title
+                    title="Ergebnisse als CSV herunterladen"
+                    (click)="getCSV()">
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-cloud-arrow-down"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
                     <path fill-rule="evenodd"
                         d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
                     <path fill-rule="evenodd"
@@ -353,10 +477,11 @@
             </button>
 
             <!-- Tasks Pagination -->
-            <div class="float-right">
-                <div class="form-inline well">
-                    <div class="form-group mx-2">
-                        <select class="custom-select" (change)="taskPerPage = $event.target.value; this.updateTasks()">
+            <div class="float-lg-right mt-2 mt-lg-0">
+                <div class="form-inline">
+                    <div class="form-group m-0 mr-2">
+                        <select class="custom-select"
+                                (change)="tasksPerPage = $event.target.value; updateTasks(false)">
                             <option *ngFor=" let size of taskPageSizes ">
                                 {{ size }}
                             </option>

@@ -15,7 +15,7 @@
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
-                     class="bi bi-tools align-baseline"
+                     class="bi bi-tools"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
                      focusable="false"
@@ -46,8 +46,7 @@
                         (keyup.enter)="wsNewElement(item.type)">
                         <span [innerHtml]="item.icon | svg"
                               focusable="false"
-                              aria-hidden="true"
-                              class="align-baseline"></span>
+                              aria-hidden="true"></span>
                         <span class="pl-2 d-none d-lg-inline"
                               aria-hidden="true">{{ item.name }}</span>
                         <span class="sr-only">{{ item.name }}</span>
@@ -62,22 +61,19 @@
                         title="Zwischenablage"
                         (click)="wsNewElement('elementcopy')"
                         (keyup.enter)="wsNewElement('elementcopy')">
-                        <span aria-hidden="true"
-                              class="align-baseline">
-                            <svg width="1em"
-                                 height="1em"
-                                 viewBox="0 0 16 16"
-                                 class="bi bi-clipboard"
-                                 fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg"
-                                 focusable="false"
-                                 aria-hidden="true">
-                                <path fill-rule="evenodd"
-                                      d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                <path fill-rule="evenodd"
-                                      d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                            </svg>
-                        </span>
+                        <svg width="1em"
+                             height="1em"
+                             viewBox="0 0 16 16"
+                             class="bi bi-clipboard"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                  d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                            <path fill-rule="evenodd"
+                                  d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                        </svg>
                         <span class="pl-2 d-none d-lg-inline"
                               i18n>Zwischenablage</span>
                     </li>
@@ -97,7 +93,7 @@
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
-                     class="bi bi-star-fill align-baseline"
+                     class="bi bi-star-fill"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
                      focusable="false"
@@ -175,7 +171,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-file-earmark-plus align-bottom"
+                                     class="bi bi-file-earmark-plus"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -202,7 +198,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-trash-fill align-bottom"
+                                     class="bi bi-trash-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -229,7 +225,7 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-arrow-clockwise align-baseline"
+                         class="bi bi-arrow-clockwise"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
                          focusable="false"
@@ -252,7 +248,7 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-arrow-counterclockwise align-baseline"
+                         class="bi bi-arrow-counterclockwise"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
                          focusable="false"
@@ -274,7 +270,7 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-arrows-fullscreen align-baseline"
+                         class="bi bi-arrows-fullscreen"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
                          focusable="false"
@@ -302,7 +298,7 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-gear align-baseline custom-animation"
+                         class="bi bi-gear custom-animation"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
                          focusable="false"
@@ -325,7 +321,7 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-hdd align-baseline"
+                         class="bi bi-hdd"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
                          focusable="false"
@@ -348,7 +344,7 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-backspace align-baseline"
+                         class="bi bi-backspace"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
                          focusable="false"
@@ -386,8 +382,7 @@
                     <div class="card-body p-1 p-lg-2">
                         <div class="float-lg-left">
                             <span [innerHtml]="getIcon(container.type) | svg"
-                                  aria-hidden="true"
-                                  class="align-baseline"></span>
+                                  aria-hidden="true"></span>
                             <span class="ml-1"
                                   i18n>Fragen ID:</span>
                             <code>{{ ' &#123;' + container.name + '&#125;' }}</code>
@@ -404,7 +399,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-grip-vertical align-baseline"
+                                     class="bi bi-grip-vertical"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -425,7 +420,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-caret-up align-baseline"
+                                     class="bi bi-caret-up"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -446,7 +441,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-caret-down align-baseline"
+                                     class="bi bi-caret-down"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -466,7 +461,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-clipboard align-baseline"
+                                     class="bi bi-clipboard"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -489,7 +484,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-star align-baseline"
+                                     class="bi bi-star"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -510,7 +505,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-star-fill align-baseline"
+                                     class="bi bi-star-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -530,7 +525,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-pencil-square align-baseline"
+                                     class="bi bi-pencil-square"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
@@ -552,7 +547,7 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-trash-fill align-baseline"
+                                     class="bi bi-trash-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
                                      focusable="false"
