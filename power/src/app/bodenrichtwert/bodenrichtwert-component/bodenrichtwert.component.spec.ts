@@ -8,6 +8,8 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -28,7 +30,9 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 NgxMapboxGLModule,
                 FormsModule,
                 ReactiveFormsModule,
-                SharedModule
+                SharedModule,
+                CollapseModule,
+                BrowserAnimationsModule
             ]
         })
             .compileComponents();
@@ -45,12 +49,5 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     it('should be created', () => {
         expect(component).toBeTruthy();
     });
-
-    it('toggleDetail should toggle the state of the detail arrow', () => {
-        expect(component.detailArrow).toBe(false);
-        component.toggleDetailArrow();
-        expect(component.detailArrow).toBe(true);
-    });
-
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

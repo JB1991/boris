@@ -1,4 +1,7 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, OnInit, OnChanges, Input, Output, EventEmitter,
+    SimpleChanges, InjectionToken, Inject, ChangeDetectionStrategy
+} from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
@@ -11,7 +14,8 @@ let id = 0;
     ],
     selector: 'power-forms-editor-conditions',
     templateUrl: './conditions.component.html',
-    styleUrls: ['./conditions.component.css']
+    styleUrls: ['./conditions.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConditionsComponent implements OnInit, OnChanges {
     @Input() public model: any;
@@ -60,7 +64,9 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
         // convert condition to form
         this.struct = [];
-        const split = this.data.split(' ');
+        const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm; // /[^\s"']+|"([^"]*)"|'([^']*)'/gm;
+        const split = this.data.match(regex);
+
         for (let i = 0; i < split.length; i++) {
             const tmp = {
                 condition: '',
@@ -95,14 +101,18 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
                 if (split[i].startsWith('[')) {
                     // list
-                    const tmp2 = split[i].substring(1, split[i].length - 1);
                     tmp.value = [];
-                    for (const item of tmp2.split(',')) {
+                    const tmp2 = split[i].substring(1, split[i].length - 1);
+                    const regex2 = /[^\s',]+|'([^']*)'/gm;
+                    for (const item of tmp2.match(regex2)) {
                         tmp.value.push(item.substring(1, item.length - 1));
                     }
                 } else if (split[i].startsWith('{')) {
                     // variable
                     tmp.value = split[i];
+                } else if (split[i] === 'true' || split[i] === 'false') {
+                    // boolean
+                    tmp.value = split[i] === 'true';
                 }
             }
             this.struct.push(tmp);
@@ -148,16 +158,20 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 }
                 this.data += ']';
             } else {
-                // string
-                if (!item.value) {
+                // check if value is set
+                if (item.value === null) {
                     item.value = '';
                 }
-                if (!item.value.startsWith('{')) {
-                    // text
-                    this.data += ' \'' + item.value + '\'';
-                } else {
+
+                if (typeof item.value === 'boolean') {
+                    // boolean
+                    this.data += ' ' + item.value;
+                } else if (item.value.startsWith('{')) {
                     // variable
                     this.data += ' ' + item.value;
+                } else {
+                    // text
+                    this.data += ' \'' + item.value + '\'';
                 }
             }
         }
@@ -174,6 +188,21 @@ export class ConditionsComponent implements OnInit, OnChanges {
             for (const question of this.questions) {
                 if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
+
+                    // check values
+                    skip: for (const val of item.value) {
+                        for (let i = 0; i < item.choices.length; i++) {
+                            if (val === item.choices[i].value) {
+                                continue skip;
+                            }
+                        }
+
+                        // delete
+                        const index = item.value.indexOf(val);
+                        if (index >= 0) {
+                            item.value.splice(index, 1);
+                        }
+                    }
                 }
             }
         }

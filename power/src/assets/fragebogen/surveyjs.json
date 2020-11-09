@@ -1,14 +1,5 @@
 {
-    "calculatedValues": [
-        {
-            "expression": "50000",
-            "name": "preis"
-        },
-        {
-            "expression": "2019",
-            "name": "kaufjahr"
-        }
-    ],
+    "calculatedValues": [],
     "checkErrorsMode": "onValueChanged",
     "completedHtml": {
         "default": "Vielen Dank *für* das Abschließen von diesem Formular."
@@ -29,6 +20,8 @@
                     "title": {
                         "default": "# Titel der Frage"
                     },
+					"description": {},
+					"requiredErrorText": {},
                     "type": "text",
 					"startWithNewLine": true
                 },
@@ -47,17 +40,22 @@
                     },
                     "isRequired": true,
                     "name": "e1",
+					"commentText": {},
+					"otherText": {},
                     "requiredErrorText": {
                         "default": "Sie müssen die __Datenschutzerklärung__ akzeptieren um fortzufahren."
                     },
                     "title": {
                         "default": "Datenschutzerklärung"
                     },
+					"description": {},
                     "type": "checkbox"
                 }
             ],
             "name": "p1",
-            "title": "Startseite"
+            "title": {
+				"default": "Startseite"
+			}
         }
     ],
     "sendResultOnPageNext": true,
@@ -66,5 +64,6 @@
     "storeOthersAsComment": false,
     "title": {
         "default": "Minimal"
-    }
+    },
+	"description": {}
 }

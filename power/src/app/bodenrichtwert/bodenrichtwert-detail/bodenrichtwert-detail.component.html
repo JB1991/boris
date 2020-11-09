@@ -1,28 +1,46 @@
-<div class="card">
+<!-- Keine Nutzung des <table>-Elements, da fehlendes responsive-Verhalten  -->
+<div class="card m-0"
+     role="table"
+     aria-colcount="2"
+     aria-rowcount="4">
     <div class="card-header">
+        <div class="sr-only caption"
+                 i18n>Tabelle Bodenrichtwertzone {{ feature.properties.nutzung | nutzung }}</div>
         <div class="row">
-            <h5 class="col-md-5 mb-0"><b>{{brzStrings.brz | hyphenate}}</b></h5>
-            <h5 class="col-md-7 mb-0">{{feature.properties.brzname | umlautCorrection}} {{feature.properties.wnum}}</h5>
+            <h5 class="col-md-5 mb-0"
+                role="rowheader"><b>{{brzStrings.brz | hyphenate}}</b></h5>
+            <h5 class="col-md-7 mb-0"
+                role="cell">{{feature.properties.brzname | umlautCorrection}} {{feature.properties.wnum}}
+            </h5>
         </div>
     </div>
     <div class="card-body">
-        <dl class="row">
-            <dt class="col-md-5">
+        <dl class="row"
+            role="rowgroup">
+            <dt class="col-md-5"
+                role="rowheader">
                 {{brzStrings.usage | hyphenate}}
             </dt>
-            <dd class="col-md-7">
+            <dd class="col-md-7"
+                role="cell">
                 {{feature.properties.nutzung | nutzung | hyphenate}}
             </dd>
-            <dt class="col-md-5">
+            <dt class="col-md-5"
+                role="rowheader">
                 {{brzStrings.value | hyphenate}}
             </dt>
-            <dd class="col-md-7">
+            <dd class="col-md-7"
+                role="cell">
                 {{feature.properties.brw | number}} &euro; / m&#178;
             </dd>
-            <dt class="col-md-5" *ngIf="feature.properties.beit">
+            <dt class="col-md-5"
+                role="rowheader"
+                *ngIf="feature.properties.beit">
                 {{brzStrings.state | hyphenate}}
             </dt>
-            <dd class="col-md-7" *ngIf="feature.properties.beit">
+            <dd class="col-md-7"
+                role="cell"
+                *ngIf="feature.properties.beit">
                 {{feature.properties.beit | beitrag | hyphenate}}
             </dd>
         </dl>

@@ -113,10 +113,20 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should succeed deleteForm', (done) => {
+        spyOn(window, 'confirm').and.returnValue(true);
         spyOn(component.formAPI, 'deleteInternForm').and.returnValue(Promise.resolve('123'));
         spyOn(component, 'updateForms');
         component.deleteForm('123').then(() => {
             expect(component.updateForms).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should decline deleteForm', (done) => {
+        spyOn(window, 'confirm').and.returnValue(false);
+        spyOn(component.formAPI, 'deleteInternForm');
+        component.deleteForm('abc').then(() => {
+            expect(component.formAPI.deleteInternForm).toHaveBeenCalledTimes(0);
             done();
         });
     });
@@ -228,6 +238,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should fail deleteForm', (done) => {
+        spyOn(window, 'confirm').and.returnValue(true);
         spyOn(component.formAPI, 'deleteInternForm').and.callFake(() => {
             return Promise.reject(new Error('fail'));
         });

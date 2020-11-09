@@ -48,15 +48,15 @@ describe('Fragebogen.Editor.EditorComponent', () => {
                 MockElementModalComponent,
                 MockFormularModalComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(EditorComponent);
-            component = fixture.componentInstance;
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.router, 'navigate');
-            spyOn(component.alerts, 'NewAlert');
-            fixture.detectChanges();
-        });
+        fixture = TestBed.createComponent(EditorComponent);
+        component = fixture.componentInstance;
+
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     /**
@@ -596,7 +596,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     it('should add favorite', fakeAsync(() => {
         spyOn(component.formapi, 'createInternElement').and.returnValue(Promise.resolve({
             id: '123',
-            content: {},
+            content: { type: 'text', title: {}, description: {}, name: '', requiredErrorText: {} },
             owners: [],
             readers: [],
             created: ''

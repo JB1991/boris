@@ -1,4 +1,4 @@
-import {ImmobilienModule} from './immobilien.module';
+import { ImmobilienModule } from './immobilien.module';
 
 describe('Immobilien.ImmobilienModule', () => {
     let immobilienModule: ImmobilienModule;

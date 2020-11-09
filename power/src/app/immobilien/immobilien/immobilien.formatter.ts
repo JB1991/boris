@@ -46,7 +46,8 @@ export class ImmobilienFormatter {
         printName = this.nipixRuntime.translate(printName);
 
         return '<b>' + (<any>params).marker + printName + '</b><br>' +
-            $localize`Preisentwicklung seit ` + this.nipixStatic.referenceDate.replace('_', '/') + ': ' + entw + '%<br>' +
+            $localize`Preisentwicklung seit` + ' ' + this.nipixStatic.referenceDate.replace('_', '/')
+            + ': ' + entw + '%<br>' +
             $localize`Zugrunde liegende Fälle` + ' (' + params.name + '): ' + faelle;
     }
 
@@ -65,9 +66,9 @@ export class ImmobilienFormatter {
             }
 
             let printlegend = true;
-            const pixel = Math.round(this.nipixRuntime.chart.obj.convertToPixel({'yAxisIndex': 0}, params.data));
+            const pixel = Math.round(this.nipixRuntime.chart.obj.convertToPixel({ 'yAxisIndex': 0 }, params.data));
             const fontSizeInPx = ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage);
-            const clearance = Math.round( (fontSizeInPx + 2) / 2 );
+            const clearance = Math.round((fontSizeInPx + 2) / 2);
 
             for (let i = 0; i < this.legendposition.length; i++) {
                 if ((pixel > this.legendposition[i] - clearance) &&
@@ -145,7 +146,7 @@ export class ImmobilienFormatter {
         const legend = [];
         for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
             if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
-                legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + $localize` (ohne Daten)`);
+                legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + ' ' + $localize`(ohne Daten)`);
             } else {
                 legend.push(this.nipixRuntime.calculated.drawData[i]['name']);
             }
@@ -160,17 +161,17 @@ export class ImmobilienFormatter {
             const element = this.nipixStatic.data.regionen[this.nipixRuntime.calculated.drawData[i]['name']];
 
             if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
-                addText = $localize`[ohne Daten] `;
+                addText = $localize`[ohne Daten]` + ' ';
             }
 
             if (this.nipixStatic.data.regionen.hasOwnProperty(this.nipixRuntime.calculated.drawData[i]['name'])) {
-                obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+                obj.infoLegend.push(ImmobilienUtils.generateTextElement(
                     addText + element['name'] + ' (' + element['short'] + ')',
                     '#000',
                     this.nipixStatic.textOptions.fontSizeBase,
                     obj.infoLegendPosition
                 ));
-                obj.infoLegend.push( ImmobilienUtils.generateDotElement(
+                obj.infoLegend.push(ImmobilienUtils.generateDotElement(
                     4,
                     element['color'],
                     this.nipixStatic.textOptions.fontSizeBase,
@@ -184,12 +185,12 @@ export class ImmobilienFormatter {
     private graphicLegendMulti(obj: any) {
         const ccat = this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'];
         for (let i = 0; i < ccat.length; i++) {
-            obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+            obj.infoLegend.push(ImmobilienUtils.generateTextElement(
                 ccat[i] + ' (' + this.nipixStatic.data.shortNames[ccat[i]] + ')',
                 '#000',
                 this.nipixStatic.textOptions.fontSizeBase,
                 obj.infoLegendPosition
-            ) );
+            ));
             obj.infoLegend.push(ImmobilienUtils.generateDotElement(
                 4,
                 this.nipixRuntime.getDrawPreset(ccat[i]).colors,
@@ -218,13 +219,13 @@ export class ImmobilienFormatter {
                     }
                 }
             }
-            obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+            obj.infoLegend.push(ImmobilienUtils.generateTextElement(
                 this.getSeriesLabel(this.nipixStatic.data.allItems[i]),
                 '#000',
                 this.nipixStatic.textOptions.fontSizeBase,
                 obj.infoLegendPosition,
                 4 * 4 * 4
-            ) );
+            ));
 
             obj.infoLegendPosition++;
         }

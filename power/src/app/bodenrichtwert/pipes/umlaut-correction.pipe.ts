@@ -11,6 +11,8 @@ export class UmlautCorrectionPipe implements PipeTransform {
         ['Hoever', 'Höver'],
         ['Muehlenberg', 'Mühlenberg'],
         ['Muellingen', 'Müllingen'],
+        ['QuakenbrÃ¼ck', 'Quakenbrück'],
+        ['QuakenbrÃƒÂ¼ck', 'Quakenbrück'],
         ['Stoecken', 'Stöcken'],
         ['Sued', 'Süd'],
         ['Universitaet', 'Universität'],

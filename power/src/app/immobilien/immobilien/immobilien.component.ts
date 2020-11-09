@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild, Inject, LOCALE_ID} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {HttpClient} from '@angular/common/http';
-import {NgbAccordion, NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
-import {merge, Observable, Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { NgbAccordion, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { merge, Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { ImmobilienChartOptions } from './immobilien.chartoptions';
 import { ImmobilienHelper } from './immobilien.helper';
@@ -31,7 +31,7 @@ export class ImmobilienComponent implements OnInit {
     // Nipix Runtime Data
     nipixRuntime = new ImmobilenNipixRuntime.NipixRuntime(this.nipixStatic);
 
-    @ViewChild('acc', {static: true}) accordionComponent: NgbAccordion;
+    @ViewChild('acc', { static: true }) accordionComponent: NgbAccordion;
     model: any;
 
     @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
@@ -43,7 +43,6 @@ export class ImmobilienComponent implements OnInit {
      * @param titleService Service for settings the title of the HTML document
      */
     constructor(
-        @Inject(LOCALE_ID) public locale: string,
         private http: HttpClient,
         private titleService: Title
     ) {
@@ -91,21 +90,10 @@ export class ImmobilienComponent implements OnInit {
      * Load external Config File
      */
     initNipix() {
-        // Load Language
-        this.loadLanguage('assets/data/i18n/'+this.locale+'.json');
         // Load Config
         this.loadConfig(this.configUrl);
     }
 
-    loadLanguage(url) {
-        this.http.get(url)
-            .subscribe(
-                data => {
-                    this.nipixRuntime.setLocale(data);
-                },
-                error => {}
-            );
-    }
     /**
      * Handle Load Configuration
      *
@@ -132,9 +120,9 @@ export class ImmobilienComponent implements OnInit {
                     'text': this.nipixStatic.textOptions,
                     'date': this.nipixRuntime.availableQuartal,
                     'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
-                    'exportAsImage': function() { this.nipixRuntime.export.exportAsImage(); }.bind(this),
-                    'exportCSV': function() { this.nipixRuntime.export.exportNiPixGeoJson(false); }.bind(this),
-                    'exportNiPixGeoJson': function() { this.nipixRuntime.export.exportNiPixGeoJson(true); }.bind(this)
+                    'exportAsImage': function () { this.nipixRuntime.export.exportAsImage(); }.bind(this),
+                    'exportCSV': function () { this.nipixRuntime.export.exportNiPixGeoJson(false); }.bind(this),
+                    'exportNiPixGeoJson': function () { this.nipixRuntime.export.exportNiPixGeoJson(true); }.bind(this)
                 });
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(json['mapUrl']);
@@ -152,7 +140,7 @@ export class ImmobilienComponent implements OnInit {
      */
     loadGemeinden(url) {
         // Load nipix
-        this.http.get(url, {responseType: 'text'})
+        this.http.get(url, { responseType: 'text' })
             .subscribe(gem => {
                 this.nipixStatic.parseGemeinden(gem);
 
@@ -196,7 +184,7 @@ export class ImmobilienComponent implements OnInit {
     loadNiPix(url) {
 
         // Load nipix
-        this.http.get(url, {responseType: 'text'})
+        this.http.get(url, { responseType: 'text' })
             .subscribe(nipix => {
 
                 this.nipixStatic.parseNipix(nipix);
@@ -205,7 +193,7 @@ export class ImmobilienComponent implements OnInit {
                 // InitState
                 this.nipixRuntime.state.initState++;
 
-                setTimeout(this.onPanelChange.bind(this), 50, {'nextState': true, 'panelId': 'static-0'});
+                setTimeout(this.onPanelChange.bind(this), 50, { 'nextState': true, 'panelId': 'static-0' });
             });
     }
 
@@ -226,7 +214,7 @@ export class ImmobilienComponent implements OnInit {
         this.nipixRuntime.map.options = ImmobilienChartOptions.getMapOptions.bind(this)({
             'text': this.nipixStatic.textOptions,
             'tooltipFormatter': this.nipixRuntime.formatter.mapTooltipFormatter,
-            'exportGeoJSON': function() { this.nipixRuntime.export.exportGeoJSON(); }.bind(this),
+            'exportGeoJSON': function () { this.nipixRuntime.export.exportGeoJSON(); }.bind(this),
             'mapRegionen': this.nipixRuntime.calculated.mapRegionen,
             'geoCoordMapLeft': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['left']),
             'geoCoordMapRight': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['right']),
@@ -268,7 +256,7 @@ export class ImmobilienComponent implements OnInit {
             if (this.nipixRuntime.drawPresets[i].show === true) {
                 if ((this.nipixRuntime.drawPresets[i].type === 'aggr') &&
                     (this.nipixRuntime.drawPresets[i].name.length > 2) &&
-                    (nval.length == 0)) {
+                    (nval.length === 0)) {
                     this.nipixRuntime.drawPresets[i].values =
                         JSON.parse(JSON.stringify(this.nipixStatic.data.presets[i].values));
                 } else if ((this.nipixRuntime.drawPresets[i].type === 'aggr') &&
@@ -419,9 +407,9 @@ export class ImmobilienComponent implements OnInit {
         }
         this.nipixRuntime.updateRange(range_start, range_end);
 
-        const range_text = $localize`Zeitraum von ` +
+        const range_text = $localize`Zeitraum von` + ' ' +
             this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex] +
-            $localize` bis ` +
+            ' ' + $localize`bis` + ' ' +
             this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeEndIndex];
 
         this.nipixRuntime.calculateDrawData();
@@ -449,7 +437,7 @@ export class ImmobilienComponent implements OnInit {
             'graphic2fontsize': ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage),
             'graphic2text': range_text,
             'legenddata': this.nipixRuntime.formatter.simpleLegend(),
-            'legendformatter':  this.nipixRuntime.formatter.formatLegend,
+            'legendformatter': this.nipixRuntime.formatter.formatLegend,
             'subtitle': this.nipixRuntime.calculated.chartTitle + subAdd,
             'series': this.nipixRuntime.calculated.drawData,
             'datastart': range_start,
@@ -538,7 +526,7 @@ export class ImmobilienComponent implements OnInit {
             (this.nipixStatic.data.selections[selection_id]['type'] === 'multiIndex')) {
             this.setMapOptions();
         } else if (this.nipixStatic.data.selections[selection_id]['type'] === 'multi') {
-            this.setMapOptions('single')
+            this.setMapOptions('single');
         } else {
             this.setMapOptions(false);
         }
@@ -551,11 +539,11 @@ export class ImmobilienComponent implements OnInit {
         // False will not be fired unless manual accordeon close
         if (event.nextState === true) {
 
-            this.nipixRuntime.state.activeSelection = parseInt( event.panelId.replace('static-', ''), 10);
+            this.nipixRuntime.state.activeSelection = parseInt(event.panelId.replace('static-', ''), 10);
 
             // Disable all; exclude WomaDiscover
             if (event.panelId !== 'static-99') {
-                this.onPanelChangeIndex(parseInt( event.panelId.replace('static-', ''), 10));
+                this.onPanelChangeIndex(parseInt(event.panelId.replace('static-', ''), 10));
             } else {
                 this.onPanelChangeWoMa();
             }

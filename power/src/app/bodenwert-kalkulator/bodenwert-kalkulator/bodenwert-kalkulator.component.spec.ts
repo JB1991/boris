@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator.component';
 import { CommonModule } from '@angular/common';
@@ -8,6 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Map } from 'mapbox-gl';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlurstueckPipe } from '../flurstueck-pipe.pipe';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
     const feature = require('../../../assets/boden/bodenwert-samples/feature.json');
@@ -23,16 +26,21 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
+                FlurstueckPipe,
                 BodenwertKalkulatorComponent
             ],
             imports: [
                 CommonModule,
                 HttpClientTestingModule,
-                NgbAccordionModule,
                 NgxMapboxGLModule,
                 FormsModule,
                 ReactiveFormsModule,
-                SharedModule
+                SharedModule,
+                CollapseModule,
+                BrowserAnimationsModule
+            ],
+            providers: [
+                AlertsService
             ]
         }).compileComponents();
     }));
@@ -57,6 +65,7 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         spyOn(component.map, 'resize');
         spyOn(component.map, 'setFilter');
         spyOn(component.map, 'setPaintProperty');
+        spyOn(component.alerts, 'NewAlert');
     });
 
     afterEach(() => {
@@ -68,7 +77,18 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         expect(component).toBeTruthy();
     });
 
+    it('onExpanded should resize map', () => {
+        component.onExpanded();
+        expect(component.map.resize).toHaveBeenCalledTimes(1);
+    });
+
+    it('onCollapsed should resize map', () => {
+        component.onCollapsed();
+        expect(component.map.resize).toHaveBeenCalledTimes(1);
+    });
+
     it('onMapClickEvent should process the event', () => {
+        spyOn(component.map, 'getZoom').and.returnValue(14);
         const event = {
             point: {
                 'x': 566,
@@ -81,6 +101,25 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         };
         component.onMapClickEvent(event);
         expect(component.map.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+        expect(component.isCollapsed).toBeFalse();
+    });
+
+    it('onMapClickEvent should fire warning alert', () => {
+        spyOn(component.map, 'getZoom').and.returnValue(13);
+        const event = {
+            point: {
+                'x': 566,
+                'y': 376
+            },
+            lngLat: {
+                lng: 9.706822,
+                lat: 52.373787
+            }
+        };
+        component.onMapClickEvent(event);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert)
+        .toHaveBeenCalledWith('warning', 'Auswahl fehlgeschlagen', 'Zur Selektion von Flurstücken bitte weiter heranzoomen.');
     });
 
     it('updateFlurstueckSelection should add and delete a Flurstueck from the selection', () => {
@@ -89,19 +128,6 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         expect(component.flurstueckSelection.size).toBe(1);
         component.updateFlurstueckSelection(flurstueck.value);
         expect(component.flurstueckSelection.size).toBe(0);
-    });
-
-    it('showOrHideFlurstueckPanel should collapse', () => {
-        spyOn(component.acc, 'collapseAll');
-        component.showOrHideFlurstueckPanel();
-        expect(component.acc.collapseAll).toHaveBeenCalledTimes(1);
-    });
-
-    it('showOrHideFlurstueckPanel should expand', () => {
-        spyOn(component.acc, 'expandAll');
-        component.flurstueckSelection.set(flurstueck.key, flurstueck.value);
-        component.showOrHideFlurstueckPanel();
-        expect(component.acc.expandAll).toHaveBeenCalledTimes(1);
     });
 
     it('updateFlurstueckHighlighting should call setFilter', () => {
@@ -139,11 +165,27 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         expect(component.filterActive).toBe(true);
     });
 
+    it('resetSelection should clear flurstueckSelection', () => {
+        expect(component.flurstueckSelection.size).toBe(0);
+        component.updateFlurstueckSelection(flurstueck.value);
+        component.resetSelection();
+        expect(component.flurstueckSelection.size).toBe(0);
+        expect(component.isCollapsed).toBeTrue();
+    });
+
     it('resetMap should reset the map', () => {
         component.threeDActive = true;
         component.resetMap();
         expect(component.map.resize).toHaveBeenCalledTimes(1);
         expect(component.map.fitBounds).toHaveBeenCalledTimes(1);
+    });
+
+    it('toggleLocationTracking should toggle the state of locationTrackingActive', () => {
+        expect(component.locationTrackingActive).toBeFalse();
+        component.toggleLocationTracking();
+        expect(component.locationTrackingActive).toBeTrue();
+        component.toggleLocationTracking();
+        expect(component.locationTrackingActive).toBeFalse();
     });
 
     it('enableLocationTracking should get the current position', () => {

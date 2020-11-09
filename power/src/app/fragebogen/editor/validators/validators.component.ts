@@ -1,4 +1,7 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, OnInit, OnChanges, Input, Output, EventEmitter,
+    SimpleChanges, InjectionToken, Inject, ChangeDetectionStrategy
+} from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
@@ -11,7 +14,8 @@ let id = 0;
     ],
     selector: 'power-forms-editor-validators',
     templateUrl: './validators.component.html',
-    styleUrls: ['./validators.component.css']
+    styleUrls: ['./validators.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValidatorsComponent implements OnInit, OnChanges {
     @Input() public model: any;
@@ -106,7 +110,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         value: '',
                         choices: null
                     };
-                    const split = validator.expression.split(' ');
+                    const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm;
+                    const split = validator.expression.match(regex);
 
                     // get question
                     if (split[0].startsWith('{')) {
@@ -125,14 +130,18 @@ export class ValidatorsComponent implements OnInit, OnChanges {
 
                         if (split[2].startsWith('[')) {
                             // list
-                            const tmp2 = split[2].substring(1, split[2].length - 1);
                             data.value = [];
-                            for (const item of tmp2.split(',')) {
+                            const tmp2 = split[2].substring(1, split[2].length - 1);
+                            const regex2 = /[^\s',]+|'([^']*)'/gm;
+                            for (const item of tmp2.match(regex2)) {
                                 data.value.push(item.substring(1, item.length - 1));
                             }
                         } else if (split[2].startsWith('{')) {
                             // variable
                             data.value = split[2];
+                        } else if (split[2] === 'true' || split[2] === 'false') {
+                            // boolean
+                            data.value = split[2] === 'true';
                         }
                     }
                     break;
@@ -212,16 +221,20 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         }
                         data.expression += ']';
                     } else {
-                        // string
-                        if (!item.value) {
+                        // check if value is set
+                        if (item.value === null) {
                             item.value = '';
                         }
-                        if (!item.value.startsWith('{')) {
-                            // text
-                            data.expression += ' \'' + item.value + '\'';
-                        } else {
+
+                        if (typeof item.value === 'boolean') {
+                            // boolean
+                            data.expression += ' ' + item.value;
+                        } else if (item.value.startsWith('{')) {
                             // variable
                             data.expression += ' ' + item.value;
+                        } else {
+                            // text
+                            data.expression += ' \'' + item.value + '\'';
                         }
                     }
                     break;
@@ -263,6 +276,21 @@ export class ValidatorsComponent implements OnInit, OnChanges {
             for (const question of this.questions) {
                 if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
+
+                    // check values
+                    skip: for (const val of item.value) {
+                        for (let i = 0; i < item.choices.length; i++) {
+                            if (val === item.choices[i].value) {
+                                continue skip;
+                            }
+                        }
+
+                        // delete
+                        const index = item.value.indexOf(val);
+                        if (index >= 0) {
+                            item.value.splice(index, 1);
+                        }
+                    }
                 }
             }
         }
@@ -361,6 +389,20 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         // reset select
         event.target['value'] = '';
         this.modelChanged(null);
+    }
+
+    /**
+     * Validates if a regular expression compiles
+     * @param regex Regular expression
+     */
+    public isRegExInvalid(regex: string): boolean {
+        try {
+            const re = new RegExp(regex);
+            re.exec('Hallo Welt');
+        } catch (error) {
+            return true;
+        }
+        return false;
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

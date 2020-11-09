@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import * as Survey from 'survey-angular';
 
@@ -11,7 +11,8 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 @Component({
     selector: 'power-forms-editor-formular-settings',
     templateUrl: './formular-settings.component.html',
-    styleUrls: ['./formular-settings.component.scss']
+    styleUrls: ['./formular-settings.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormularSettingsComponent {
     @ViewChild('formsettingsmodal') public modal: ModalComponent;
@@ -35,18 +36,24 @@ export class FormularSettingsComponent {
 
     /**
      * Modal close callback
+     * @param value True if no invalid forms found
      */
-    public close() {
-        // changed something
-        if (this.copy && this.copy !== JSON.stringify(this.model)) {
-            this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
-                $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
-            this.history.makeHistory(JSON.parse(this.copy));
-            this.storage.setUnsavedChanges(true);
-            this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
+    public close(value: boolean) {
+        if (value) {
+            // changed something
+            if (this.copy && this.copy !== JSON.stringify(this.model)) {
+                this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
+                    $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
+                this.history.makeHistory(JSON.parse(this.copy));
+                this.storage.setUnsavedChanges(true);
+                this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
+            }
+            this.copy = '';
+            this.storage.setAutoSaveEnabled(true);
+        } else {
+            // invalid input
+            this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`, $localize`Bitte prüfen Sie Ihre Eingaben.`);
         }
-        this.copy = '';
-        this.storage.setAutoSaveEnabled(true);
     }
 
     /**

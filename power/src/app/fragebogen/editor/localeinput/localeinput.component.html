@@ -6,11 +6,14 @@
         <select class="custom-select"
                 id="localeInput-{{ eid }}"
                 name="localeInput-{{ eid }}"
-                [(ngModel)]="displayLang">
+                [(ngModel)]="displayLang"
+                [disabled]="displayLang === 'default' && !locale[displayLang]">
             <option value="default"
                     i18n>Deutsch (Standard)</option>
             <option value="en"
                     i18n>Englisch</option>
+            <option value="fr"
+                    i18n>Französisch</option>
         </select>
     </div>
 

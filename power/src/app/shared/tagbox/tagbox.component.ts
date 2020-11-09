@@ -1,4 +1,7 @@
-import { Component, Input, Output, EventEmitter, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, Input, Output, EventEmitter,
+    InjectionToken, Inject, ChangeDetectionStrategy
+} from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
@@ -11,7 +14,8 @@ let id = 0;
     ],
     selector: 'power-tagbox',
     templateUrl: './tagbox.component.html',
-    styleUrls: ['./tagbox.component.scss']
+    styleUrls: ['./tagbox.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TagboxComponent {
     @Input() public tagboxLabel: string;

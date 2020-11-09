@@ -1,6 +1,3 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
-import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienStatic from './immobilien.static';
 import * as ImmobilienRuntime from './immobilien.runtime';
 import { ImmobilienUtils } from './immobilien.utils';
@@ -36,15 +33,15 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
         'shortNames': {
             'shortName': 'short'
         },
-        'selections' : {
-            'single' : {
+        'selections': {
+            'single': {
                 'type': 'single'
             },
-            'multi' : {
+            'multi': {
                 'type': 'multi',
                 'preset': ['foo']
             },
-            'multiIndex' : {
+            'multiIndex': {
                 'type': 'multiIndex'
             },
             'multiSelect': {
@@ -58,14 +55,14 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
         'nipix': {
             'foobar': {
                 '4102': {
-                    '2000_2': {'index': 1, 'faelle': 1},
-                    '2000_3': {'index': '42', 'faelle': 42},
-                    '2000_4': {'index': 100, 'faelle': 100}
+                    '2000_2': { 'index': 1, 'faelle': 1 },
+                    '2000_3': { 'index': '42', 'faelle': 42 },
+                    '2000_4': { 'index': 100, 'faelle': 100 }
                 },
                 '4104': {
-                    '2000_2': {'index': 100, 'faelle': 100},
-                    '2000_3': {'index': 42, 'faelle': 42},
-                    '2000_4': {'index': 1, 'faelle': 1}
+                    '2000_2': { 'index': 100, 'faelle': 100 },
+                    '2000_3': { 'index': 42, 'faelle': 42 },
+                    '2000_4': { 'index': 1, 'faelle': 1 }
                 }
             }
         },
@@ -84,7 +81,8 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
                 'data': [],
                 'name': 'dd'
             },
-            {   'data': [0],
+            {
+                'data': [0],
                 'name': 'draw'
             }
         ]
@@ -106,18 +104,18 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
             'activeSelection': 'na'
         };
         niRuntime.calculated = JSON.parse(JSON.stringify(niRuntimeCalculated));
-        niRuntime.highlightSeries = function(seriesName) {};
+        niRuntime.highlightSeries = function (seriesName) { };
         niRuntime.chart = {
             'obj': {
-                'convertToPixel': function(par1, par2) { return 1; }
+                'convertToPixel': function (par1, par2) { return 1; }
             }
         };
 
         niRuntime.formatter = {
-            'formatLabel': function() {}
+            'formatLabel': function () { }
         };
 
-        niRuntime.getDrawPreset = function(name) {
+        niRuntime.getDrawPreset = function (name) {
             return {
                 'show': true,
                 'values': ['foo'],
@@ -147,7 +145,7 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
         component = new ImmobilienRuntimeCalculator.NipixRuntimeCalculator(niStatic, niRuntime);
 
         spyOn(ImmobilienUtils, 'generateSeries').and.callFake(
-            function(
+            function (
                 name,
                 data,
                 color,
@@ -163,9 +161,9 @@ describe('Immobilien.Immobilien.ImmobilienRuntimeCalculator', () => {
 
     });
 
-    it('RuntimeCalculator works', function() {
+    it('RuntimeCalculator works', function () {
         component.calculateDrawData();
-        expect(niRuntime.calculated.drawData).toEqual([ '4102', '4103', 'fooaggr' ]);
+        expect(niRuntime.calculated.drawData).toEqual(['4102', '4103', 'fooaggr']);
     });
 
 

@@ -1,5 +1,5 @@
 function getScatter(position) {
-    return  {
+    return {
         'type': 'effectScatter',
         'coordinateSystem': 'geo',
         'zlevel': 2,

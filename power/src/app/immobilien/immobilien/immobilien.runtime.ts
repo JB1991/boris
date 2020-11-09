@@ -4,7 +4,6 @@ import * as ImmobilienNipixRuntimeCalculator from './immobilien.runtime-calculat
 import * as ImmobilienFormatter from './immobilien.formatter';
 import * as ImmobilienExport from './immobilien.export';
 import { ImmobilienUtils } from './immobilien.utils';
-import { ImmobilienHelper } from './immobilien.helper';
 
 interface NipixRuntimeMap {
     obj?: any;
@@ -75,7 +74,49 @@ export class NipixRuntime {
         'legendText': {}
     };
 
-    public locale = {};
+    public locale = {
+        'Preisentwicklung Niedersachsen, gesamt': $localize`Preisentwicklung Niedersachsen, gesamt`,
+        'gebrauchte Eigenheime': $localize`Gebrauchte Eigenheime`,
+        'EH': $localize`EH`,
+        'gebrauchte Eigentumswohnungen': $localize`Gebrauchte Eigentumswohnungen`,
+        'EW': $localize`EW`,
+        'Vergleich Preisentwicklung von städtischen und ländlichen Regionen': $localize`Vergleich Preisentwicklung von städtischen und ländlichen Regionen`,
+        'Preisentwicklung nach städtischen und ländlichen Regionen': $localize`Preisentwicklung nach städtischen und ländlichen Regionen`,
+        'Vergleich zusammengefasster Regionen': $localize`Vergleich zusammengefasster Regionen`,
+        'städtische Regionen': $localize`Städtische Regionen`,
+        'SR': $localize`SR`,
+        'ländliche Regionen': $localize`Ländliche Regionen`,
+        'LR': $localize`LR`,
+        'Mitte': $localize`Mitte`,
+        'Nord': $localize`Nord`,
+        'Ost': $localize`Ost`,
+        'Süd': $localize`Süd`,
+        'West': $localize`West`,
+        'Hannover': $localize`Hannover`,
+        'Braunschweig': $localize`Braunschweig`,
+        'Osnabrück': $localize`Osnabrück`,
+        'Lüneburg': $localize`Lüneburg`,
+        'Göttingen': $localize`Göttingen`,
+        'Aurich': $localize`Aurich`,
+        'Wolfsburg': $localize`Wolfsburg`,
+        'Oldenburg': $localize`Oldenburg`,
+        'Hamburger Umland': $localize`Hamburger Umland`,
+        'Küste u. weiteres Umland': $localize`Küste u. weiteres Umland`,
+        'Ostfriesische Inseln': $localize`Ostfriesische Inseln`,
+        'Westliches Niedersachsen': $localize`Westliches Niedersachsen`,
+        'Oldenburg - Münsterland - Osnabrück': $localize`Oldenburg - Münsterland - Osnabrück`,
+        'Stadt Oldenburg': $localize`Stadt Oldenburg`,
+        'Stadt Osnabrück u. städt. Gemeinden': $localize`Stadt Osnabrück u. städt. Gemeinden`,
+        'Bremer Umland': $localize`Bremer Umland`,
+        'Mittleres Niedersachsen': $localize`Mittleres Niedersachsen`,
+        'Südliches Niedersachsen': $localize`Südliches Niedersachsen`,
+        'Stadt Göttingen u. städt. Gemeinden': $localize`Stadt Göttingen u. städt. Gemeinden`,
+        'Östliches Niedersachsen': $localize`Östliches Niedersachsen`,
+        'Stadt Hannover': $localize`Stadt Hannover`,
+        'Stadt Wolfsburg': $localize`Stadt Wolfsburg`,
+        'Stadt Braunschweig': $localize`Stadt Braunschweig`,
+        'Hannover - Braunschweig - Wolfsburg': $localize`Hannover - Braunschweig - Wolfsburg`
+    };
 
     public constructor(niStatic: ImmobilenNipixStatic.NipixStatic) {
         this.nipixStatic = niStatic;
@@ -84,22 +125,19 @@ export class NipixRuntime {
         this.calculator = new ImmobilienNipixRuntimeCalculator.NipixRuntimeCalculator(this.nipixStatic, this);
     }
 
-    public setLocale(newLocale) {
-        this.locale = newLocale;
-    }
-
     public translate(defaultID: string) {
         if (this.locale.hasOwnProperty(defaultID)) {
             return this.locale[defaultID];
         } else {
+            // console.log('Missing translation: ' + defaultID);
             return defaultID;
         }
     }
 
     public translateArray(input, key = 'name') {
-        let cpy = JSON.parse(JSON.stringify(input));
+        const cpy = JSON.parse(JSON.stringify(input));
 
-        for (let i=0; i<cpy.length; i++) {
+        for (let i = 0; i < cpy.length; i++) {
             if (cpy[i][key] !== undefined) {
                 cpy[i][key] = this.translate(cpy[i][key]);
             }

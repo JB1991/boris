@@ -55,6 +55,11 @@ export class DashboardComponent implements OnInit {
     }
 
     public async deleteForm(id: string) {
+        // Ask user to confirm deletion
+        if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
+            return;
+        }
+
         try {
             this.loadingscreen.setVisible(true);
             const response = await this.formAPI.deleteInternForm(id);
@@ -119,7 +124,7 @@ export class DashboardComponent implements OnInit {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
-                limit: this.formPerPage,
+                limit: Number(this.formPerPage),
                 offset: (this.formPage - 1) * this.formPerPage,
                 sort: this.formSort,
                 order: this.formOrder,
@@ -171,7 +176,7 @@ export class DashboardComponent implements OnInit {
         try {
             this.loadingscreen.setVisible(true);
             const params = {
-                limit: this.taskPerPage,
+                limit: Number(this.taskPerPage),
                 offset: (this.taskPage - 1) * this.taskPerPage,
                 sort: this.taskSort,
                 order: this.taskOrder,

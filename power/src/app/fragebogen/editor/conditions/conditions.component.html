@@ -32,7 +32,7 @@
                    id="conditionQuestion{{ i }}{{ uniqId }}"
                    name="conditionQuestion{{ i }}{{ uniqId }}"
                    i18n-placeholder
-                   placeholder="Wert oder Variabel {e1}"
+                   placeholder="Wert oder Variabel"
                    maxlength="200"
                    required>
         </div>
@@ -75,7 +75,7 @@
              *ngIf="!(item.operator === 'empty' || item.operator === 'notempty')">
             <label for="conditionValueA{{ i }}{{ uniqId }}"
                    class="sr-only"
-                   i18n>Wert oder Variabel %7Be1%7D</label>
+                   i18n>Wert oder Variabel</label>
             <input type="text"
                    class="form-control"
                    [attr.list]="'conditionlist-' + uniqId"
@@ -86,7 +86,7 @@
                    id="conditionValueA{{ i }}{{ uniqId }}"
                    name="conditionValueA{{ i }}{{ uniqId }}"
                    i18n-placeholder
-                   placeholder="Wert oder Variabel {e1}"
+                   placeholder="Wert oder Variabel"
                    maxlength="200"
                    required>
 
@@ -114,10 +114,12 @@
 <datalist id="{{ 'conditionlist-' + uniqId }}">
     <option *ngFor="let question of questions; index as j"
             value="{{ '&#123;' + question.name + '&#125;' }}">
-        {{ question.title }}
+        {{ '&#123;' + question.name + '&#125;' }}: {{ question.title }}
     </option>
     <option *ngFor="let variable of model.calculatedValues; index as j"
-            value="{{ '&#123;' + variable.name + '&#125;' }}"></option>
+            value="{{ '&#123;' + variable.name + '&#125;' }}">
+        {{ '&#123;' + variable.name + '&#125;' }}
+    </option>
     <option value="{item}"
             i18n>Referenziert die ausgewählten Antwort(en) dieser Frage</option>
     <option value="{pageno}"
@@ -154,10 +156,10 @@
             i18n-title
             title="Bedingung entfernen"
             (click)="ConditionDel()">
-        <svg width="1em"
-             height="1em"
+        <svg width="1.2em"
+             height="1.2em"
              viewBox="0 0 16 16"
-             class="bi bi-dash align-baseline"
+             class="bi bi-dash"
              fill="currentColor"
              xmlns="http://www.w3.org/2000/svg"
              focusable="false"
@@ -173,10 +175,10 @@
             i18n-title
             title="Bedingung hinzufügen"
             (click)="ConditionAdd()">
-        <svg width="1em"
-             height="1em"
+        <svg width="1.2em"
+             height="1.2em"
              viewBox="0 0 16 16"
-             class="bi bi-plus align-baseline"
+             class="bi bi-plus"
              fill="currentColor"
              xmlns="http://www.w3.org/2000/svg"
              focusable="false"

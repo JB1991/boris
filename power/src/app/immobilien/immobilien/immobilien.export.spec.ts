@@ -1,5 +1,3 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import * as ImmobilienExport from './immobilien.export';
 import * as ImmobilienStatic from './immobilien.static';
 import * as ImmobilienRuntime from './immobilien.runtime';
@@ -13,7 +11,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
     let niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
     let niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
 
-    const prepareNiStatic = function() {
+    const prepareNiStatic = function () {
         niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
         niStatic.data = {
             'regionen': {
@@ -24,7 +22,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         };
     };
 
-    const prepareNiRuntime = function() {
+    const prepareNiRuntime = function () {
         niRuntime = Object.create(ImmobilienRuntime.NipixRuntime.prototype);
         niRuntime.state = {
             'activeSelection': 'na',
@@ -48,30 +46,32 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
 
     };
 
-    const prepareNiRuntimeChart = function() {
+    const prepareNiRuntimeChart = function () {
         niRuntime.chart = {
             'obj': {
-                'convertToPixel': function(par1, par2) { return 1; },
+                'convertToPixel': function (par1, par2) { return 1; },
                 'resize': jasmine.createSpy(),
                 'setOption': jasmine.createSpy(),
-                'getOption': function() { return {
-                    'series': [
-                        {
-                            'name': '4102',
-                            'data': [1, 42, 100]
-                        }
-                    ],
-                    'dataZoom': [
-                        {
-                            'start': 0,
-                            'end': 100
-                        }
-                    ],
-                    'xAxis': [
-                        { 'data': ['2000/2', '2000/3', '2000/4'] }
-                    ]
-                }; },
-                'getDataURL': function(par1) {
+                'getOption': function () {
+                    return {
+                        'series': [
+                            {
+                                'name': '4102',
+                                'data': [1, 42, 100]
+                            }
+                        ],
+                        'dataZoom': [
+                            {
+                                'start': 0,
+                                'end': 100
+                            }
+                        ],
+                        'xAxis': [
+                            { 'data': ['2000/2', '2000/3', '2000/4'] }
+                        ]
+                    };
+                },
+                'getDataURL': function (par1) {
                     return 'data';
                 }
             }
@@ -88,12 +88,12 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         component = new ImmobilienExport.ImmobilienExport(niStatic, niRuntime);
 
         spyOn(echarts, 'getMap').and.callFake(
-            function(name) {
+            function (name) {
                 return {
                     'geoJson': {
                         'features': [
 
-                            { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {  } }
+                            { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {} }
 
                         ]
                     }
@@ -102,25 +102,25 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         );
 
         spyOn(ImmobilienHelper, 'downloadFile').and.callFake(
-            function(data, filename, filetype = 'text/csv', isurl = false): any {
-                return ;
+            function (data, filename, filetype = 'text/csv', isurl = false): any {
+                return;
             }
         );
 
     });
 
 
-    it('exportAsImage works', function() {
+    it('exportAsImage works', function () {
         component.exportAsImage();
         expect(component.exportChart).toEqual(true);
     });
 
-    it('exportNiPixGeoJson returns without object', function() {
+    it('exportNiPixGeoJson returns without object', function () {
         niRuntime.chart.obj = null;
         component.exportNiPixGeoJson();
     });
 
-    it('exportNiPixGeoJson (geoJSON) single works', function() {
+    it('exportNiPixGeoJson (geoJSON) single works', function () {
         niRuntime.drawPresets[0]['type'] = 'single';
         component.exportNiPixGeoJson();
         expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(
@@ -128,7 +128,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                 {
                     'type': 'FeatureCollection',
                     'name': 'womareg',
-                    'crs': {'type': 'name', 'properties': {'name': 'urn:ogc:def:crs:EPSG::3044'}},
+                    'crs': { 'type': 'name', 'properties': { 'name': 'urn:ogc:def:crs:EPSG::3044' } },
                     'features': [
                         {
                             'type': 'Feature',
@@ -159,7 +159,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                                     ]
                                 }
                             },
-                            'geometry': {  }
+                            'geometry': {}
                         }
                     ]
                 }
@@ -168,10 +168,10 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
 
     });
 
-    it('exportNiPixGeoJson (geoJSON) aggr works', function() {
+    it('exportNiPixGeoJson (geoJSON) aggr works', function () {
         niRuntime.drawPresets[0]['type'] = 'aggr';
         spyOn(ImmobilienHelper, 'getGeometryArray').and.callFake(
-            function(data, features) {
+            function (data, features) {
                 return { 'type': 'foo', 'geometries': ['bar'] };
             }
         );
@@ -182,7 +182,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                 {
                     'type': 'FeatureCollection',
                     'name': 'womareg',
-                    'crs': {'type': 'name', 'properties': {'name': 'urn:ogc:def:crs:EPSG::3044'}},
+                    'crs': { 'type': 'name', 'properties': { 'name': 'urn:ogc:def:crs:EPSG::3044' } },
                     'features': [
                         {
                             'type': 'Feature',
@@ -209,7 +209,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
                                     ]
                                 }
                             },
-                            'geometry':  { 'type': 'foo', 'geometries': ['bar'] }
+                            'geometry': { 'type': 'foo', 'geometries': ['bar'] }
                         }
                     ]
                 }
@@ -218,7 +218,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
 
     });
 
-    it('exportNiPixGeoJson (CSV) single works', function() {
+    it('exportNiPixGeoJson (CSV) single works', function () {
         niRuntime.drawPresets[0]['type'] = 'single';
         component.exportNiPixGeoJson(false);
         expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(
@@ -230,7 +230,7 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         );
     });
 
-    it('exportNiPixGeoJson (CSV) aggr works', function() {
+    it('exportNiPixGeoJson (CSV) aggr works', function () {
         niRuntime.drawPresets[0]['type'] = 'aggr';
         component.exportNiPixGeoJson(false);
         expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(
@@ -242,23 +242,23 @@ describe('Immobilien.Immobilien.ImmobilenExport', () => {
         );
     });
 
-    it('exportGeoJson selected works', function() {
+    it('exportGeoJson selected works', function () {
         niRuntime.state.activeSelection = 99;
         niRuntime.state.selectedMyRegion = 'foo';
         component.exportGeoJSON();
-        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(JSON.stringify({'features': [ ] }), 'Wohnungsmarktregionen.geojson');
+        expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(JSON.stringify({ 'features': [] }), 'Wohnungsmarktregionen.geojson');
     });
 
-    it('exportGeoJSON works', function() {
+    it('exportGeoJSON works', function () {
         const res = component.exportGeoJSON();
         expect(ImmobilienHelper.downloadFile).toHaveBeenCalledWith(JSON.stringify({
             'features': [
-                { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {  } }
+                { 'type': 'Feature', 'properties': { 'WOMAREGIO': 'Nds_West', 'WOMA_NAME': 'Westliches Niedersachsen', 'WMRE': 2, 'WMRS': 0, 'name': '4102' }, 'geometry': {} }
             ]
         }), 'Wohnungsmarktregionen.geojson');
     });
 
-    it('exportChartImage finish works', function() {
+    it('exportChartImage finish works', function () {
         component.exportChart = true;
         component.chartRenderFinished();
         expect(niRuntime.chart.obj.resize).toHaveBeenCalled();

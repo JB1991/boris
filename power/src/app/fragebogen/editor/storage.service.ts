@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '@env/environment';
 
 import * as templates from './data';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';

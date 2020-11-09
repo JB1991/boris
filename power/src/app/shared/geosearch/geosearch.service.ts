@@ -34,12 +34,13 @@ export class GeosearchService {
     }
 
     /**
-     * Search for houses in lower saxony
+     * Search for locations in lower saxony
      * @param search The search string to be passed to the GeoCoder
      */
     search(search: string): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {
-            params: new HttpParams().set('query', `text:(${search}) AND typ:haus AND bundesland:Niedersachsen`)
+            params: new HttpParams().set('query', `text:(${search}) AND (typ:ort OR typ:strasse OR typ:haus^0.2) AND bundesland:Niedersachsen`)
+                .append('minScore', '1').append('count', '10')
         }).pipe(
             catchError(GeosearchService.handleError)
         );
@@ -49,10 +50,12 @@ export class GeosearchService {
      * Translate geo coordinates to an address
      * @param lat Latitude
      * @param lon Longitude
+     * Sollte sich der Parameter distance ändern, muss der HTML-Text (bodenrichtwert.component) angespasst werden.
      */
     getAddressFromCoordinates(lat, lon): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {
-            params: new HttpParams().set('query', 'typ: haus').append('lat', lat).append('lon', lon)
+            params: new HttpParams().set('query', 'typ: haus').append('lat', lat)
+                .append('lon', lon).append('distance', '50')
         }).pipe(
             catchError(GeosearchService.handleError)
         );
@@ -65,7 +68,7 @@ export class GeosearchService {
      */
     private static handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-            console.error($localize`Es ist ein Fehler aufgetreten: ` + error.message);
+            console.error($localize`Es ist ein Fehler aufgetreten` + `: ${error.message}`);
         } else {
             console.error(
                 $localize`Return-Code vom Backend` + `: ${error.status}, ` +

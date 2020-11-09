@@ -179,7 +179,7 @@ export const Bootstrap4_CSS = {
     signaturepad: {
         root: 'sv_q_signaturepad sjs_sp_container',
         controls: 'sjs_sp_controls',
-        clearButton: 'sjs_sp_clear',
+        clearButton: 'sjs_sp_clear bg-lgln',
     },
     saveData: {
         root: '',

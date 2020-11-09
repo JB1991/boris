@@ -13,18 +13,22 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     state: any;
 
+    // screenreader
+    srTableData: any = [];
+    srTableHeader = [];
+
     seriesTemplate = [
-        {stag: '2012', brw: null, nutzung: ''},
-        {stag: '2013', brw: null, nutzung: ''},
-        {stag: '2014', brw: null, nutzung: ''},
-        {stag: '2015', brw: null, nutzung: ''},
-        {stag: '2016', brw: null, nutzung: ''},
-        {stag: '2017', brw: null, nutzung: ''},
-        {stag: '2018', brw: null, nutzung: ''},
-        {stag: '2019', brw: null, nutzung: ''},
+        { stag: '2012', brw: null, nutzung: '' },
+        { stag: '2013', brw: null, nutzung: '' },
+        { stag: '2014', brw: null, nutzung: '' },
+        { stag: '2015', brw: null, nutzung: '' },
+        { stag: '2016', brw: null, nutzung: '' },
+        { stag: '2017', brw: null, nutzung: '' },
+        { stag: '2018', brw: null, nutzung: '' },
+        { stag: '2019', brw: null, nutzung: '' },
     ];
 
-    chartOption: EChartOption = {
+    public chartOption: EChartOption = {
         tooltip: {
             trigger: 'axis',
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
@@ -47,12 +51,25 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         xAxis: {
             type: 'category',
             data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-            nameLocation: 'start'
+            nameLocation: 'start',
+            axisLine: {
+                symbol: ['none', 'arrow'],
+                symbolSize: [10, 9],
+                symbolOffset: [0, 6]
+            },
+            axisTick: {
+                alignWithLabel: true
+            }
         },
         yAxis: {
             type: 'value',
             axisLabel: {
-                formatter: '{value} €/m²'
+                formatter: '{value} €/m²',
+            },
+            axisLine: {
+                symbol: ['none', 'arrow'],
+                symbolSize: [10, 9],
+                symbolOffset: [0, 11]
             }
         },
         series: []
@@ -64,10 +81,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     echartsInstance;
 
-    constructor(
-        private nutzungPipe: NutzungPipe
-    ) {
-
+    constructor(private nutzungPipe: NutzungPipe) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -94,20 +108,34 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return filteredFeatures;
     }
 
+    // tslint:disable-next-line: max-func-body-length
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+        this.srTableData = [];
+        this.srTableHeader = [];
 
         for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
             const series = this.deepCopy(this.seriesTemplate);
+
+            // table for screenreader
+            this.srTableHeader.push(key);
+            let lastElement;
 
             for (let i = 0; i < series.length; i++) {
                 const feature = features.find(f => f.properties.stag.includes(series[i].stag));
                 if (feature) {
                     series[i].brw = feature.properties.brw;
                     series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
+                    lastElement = i;
                 }
             }
+
+            if (lastElement < series.length - 1) {
+                series[lastElement + 1].brw = series[lastElement].brw;
+            }
+
+            this.srTableData.push({ series });
 
             const nutzung = this.getNutzung(series);
             this.chartOption.legend.data.push(nutzung);

@@ -1,6 +1,6 @@
 import {
-    Component, OnDestroy, ViewChild, ElementRef,
-    Output, EventEmitter, HostListener, InjectionToken, Inject
+    Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter,
+    HostListener, InjectionToken, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
@@ -15,16 +15,19 @@ let id = 0;
     ],
     selector: 'power-modal',
     templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss']
+    styleUrls: ['./modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent implements OnDestroy {
     @ViewChild('mymodal') public div: ElementRef;
-    @Output() public closing: EventEmitter<void> = new EventEmitter();
+    @Input() public checkInvalid = false;
+    @Output() public closing: EventEmitter<boolean> = new EventEmitter();
     public focusedElement: any;
     public isOpen = false;
     public title = '';
 
-    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
+    constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
+        public cdr: ChangeDetectorRef) { }
 
     ngOnDestroy() {
         if (this.isOpen) {
@@ -53,6 +56,7 @@ export class ModalComponent implements OnDestroy {
         this.isOpen = true;
         document.body.classList.add('overflow-hidden');
         this.div.nativeElement.style.display = 'block';
+        this.cdr.detectChanges();
 
         // focus
         this.focusedElement = document.activeElement;
@@ -67,13 +71,21 @@ export class ModalComponent implements OnDestroy {
             return;
         }
 
+        // dont close if invalid inputs exists
+        /* istanbul ignore next */
+        if (this.checkInvalid && this.div.nativeElement.getElementsByClassName('is-invalid').length > 0) {
+            this.closing.emit(false);
+            return;
+        }
+
         // close callback
-        this.closing.emit();
+        this.closing.emit(true);
 
         // close modal
         this.isOpen = false;
         document.body.classList.remove('overflow-hidden');
         this.div.nativeElement.style.display = 'none';
+        this.cdr.detectChanges();
 
         // focus
         if (this.focusedElement) {

@@ -7,7 +7,7 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { Map } from 'mapbox-gl';
+import { LngLat, Map } from 'mapbox-gl';
 import { Feature } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
@@ -56,6 +56,9 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.map, 'removeLayer');
         spyOn(component.map, 'resize');
 
+        const lngLat: LngLat = {lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null};
+        spyOn(component.marker, 'getLngLat').and.returnValue(lngLat);
+
         httpClient = TestBed.inject(HttpClient);
         httpTestingController = TestBed.inject(HttpTestingController);
     });
@@ -67,6 +70,13 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('should be created', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('ngOnChanges should work', () => {
+        spyOn(component, 'flyTo');
+        component.ngOnChanges();
+        expect(component.map.resize).toHaveBeenCalledTimes(1);
+        expect(component.flyTo).toHaveBeenCalledTimes(1);
     });
 
     it('toggleSearchActive should toggle the state of searchActive', () => {
@@ -81,9 +91,9 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.filterActive).toBe(true);
     });
 
-    it('flyTo should update the map', () => {
+    it('selectSearchResult should update the map', () => {
         spyOn(component, 'getBodenrichtwertzonen');
-        component.flyTo(feature);
+        component.selectSearchResult(feature);
         expect(component.map.flyTo).toHaveBeenCalledTimes(1);
         expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(1);
     });
@@ -98,6 +108,16 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.geosearchService, 'getAddressFromCoordinates').and.callThrough();
         component.getAddressFromLatLng(lat, lon);
         expect(component.geosearchService.getAddressFromCoordinates).toHaveBeenCalledTimes(1);
+    });
+
+    it('onDragEnd should process the drag', () => {
+        component.isDragged = true;
+        spyOn(component, 'getBodenrichtwertzonen');
+        spyOn(component, 'getAddressFromLatLng');
+        component.onDragEnd();
+        expect(component.map.flyTo).toHaveBeenCalledTimes(1);
+        expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(1);
+        expect(component.getAddressFromLatLng).toHaveBeenCalledTimes(1);
     });
 
     it('onMapClickEvent should process the event', () => {
