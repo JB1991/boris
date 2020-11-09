@@ -43,6 +43,17 @@
                 *ngIf="feature.properties.beit">
                 {{feature.properties.beit | beitrag | hyphenate}}
             </dd>
+            <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte">
+                <dt class="col-md-5"
+                    role="rowheader">
+                    {{brzStrings.conversion | hyphenate}}
+                </dt>
+                <dd class="col-md-7"
+                    role="cell">
+                    {{umrechnung.objid | objectId}}
+                    ({{umrechnung.text | einflussgroesse}})
+                </dd>
+            </ng-container>
         </dl>
     </div>
 </div>
