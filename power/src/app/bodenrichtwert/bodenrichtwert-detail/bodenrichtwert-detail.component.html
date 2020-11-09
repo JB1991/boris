@@ -36,12 +36,30 @@
             <dt *ngIf="feature.properties.flae"
                 class="col-md-5"
                 role="rowheader">
-                {{brzStrings.area | hyphenate}}
+                {{brzStrings.flae | hyphenate}}
             </dt>
             <dd *ngIf="feature.properties.flae"
                 class="col-md-7"
                 role="cell">
                 {{feature.properties.flae | number}} m&#178;
+            </dd>
+            <dt class="col-md-5"
+                role="rowheader">
+                {{brzStrings.entw | hyphenate}}
+            </dt>
+            <dd class="col-md-7"
+                role="cell">
+                {{feature.properties.entw | entwicklungszustand | hyphenate}}
+            </dd>
+            <dt *ngIf="feature.properties.verf"
+                class="col-md-5"
+                role="rowheader">
+                {{brzStrings.verf | hyphenate}}
+            </dt>
+            <dd *ngIf="feature.properties.verf"
+                class="col-md-7"
+                role="cell">
+                {{feature.properties.verf | entwicklungszusatz | hyphenate}}
             </dd>
             <dt class="col-md-5"
                 role="rowheader"
