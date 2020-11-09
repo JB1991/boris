@@ -5,7 +5,7 @@
      aria-rowcount="4">
     <div class="card-header">
         <div class="sr-only caption"
-                 i18n>Tabelle Bodenrichtwertzone {{ feature.properties.nutzung | nutzung }}</div>
+             i18n>Tabelle Bodenrichtwertzone {{ feature.properties.nutzung | nutzung }}</div>
         <div class="row">
             <h5 class="col-md-5 mb-0"
                 role="rowheader"><b>{{brzStrings.brz | hyphenate}}</b></h5>
@@ -33,6 +33,34 @@
                 role="cell">
                 {{feature.properties.brw | number}} &euro; / m&#178;
             </dd>
+            <dt *ngIf="feature.properties.flae"
+                class="col-md-5"
+                role="rowheader">
+                {{brzStrings.flae | hyphenate}}
+            </dt>
+            <dd *ngIf="feature.properties.flae"
+                class="col-md-7"
+                role="cell">
+                {{feature.properties.flae | number}} m&#178;
+            </dd>
+            <dt class="col-md-5"
+                role="rowheader">
+                {{brzStrings.entw | hyphenate}}
+            </dt>
+            <dd class="col-md-7"
+                role="cell">
+                {{feature.properties.entw | entwicklungszustand | hyphenate}}
+            </dd>
+            <dt *ngIf="feature.properties.verf"
+                class="col-md-5"
+                role="rowheader">
+                {{brzStrings.verf | hyphenate}}
+            </dt>
+            <dd *ngIf="feature.properties.verf"
+                class="col-md-7"
+                role="cell">
+                {{feature.properties.verf | entwicklungszusatz | hyphenate}}
+            </dd>
             <dt class="col-md-5"
                 role="rowheader"
                 *ngIf="feature.properties.beit">
@@ -43,6 +71,17 @@
                 *ngIf="feature.properties.beit">
                 {{feature.properties.beit | beitrag | hyphenate}}
             </dd>
+            <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte">
+                <dt class="col-md-5"
+                    role="rowheader">
+                    {{brzStrings.conversion | hyphenate}}
+                </dt>
+                <dd class="col-md-7"
+                    role="cell">
+                    {{umrechnung.objid | objectId}}
+                    ({{umrechnung.text | einflussgroesse}})
+                </dd>
+            </ng-container>
         </dl>
     </div>
 </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
@@ -18,8 +19,10 @@ import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
 import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EntwicklungszustandPipe } from './pipes/entwicklungszustand.pipe';
+import { EntwicklungszusatzPipe } from './pipes/entwicklungszusatz.pipe';
+import { ObjectIdPipe } from './pipes/object-id.pipe';
+import { EinflussgroessePipe } from './pipes/einflussgroesse.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -40,7 +43,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         BodenrichtwertListeComponent,
         NutzungPipe,
         BeitragPipe,
-        UmlautCorrectionPipe
+        UmlautCorrectionPipe,
+        EntwicklungszustandPipe,
+        EntwicklungszusatzPipe,
+        ObjectIdPipe,
+        EinflussgroessePipe
     ],
     imports: [
         BodenrichtwertRoutingModule,
