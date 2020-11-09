@@ -282,7 +282,7 @@ export class DetailsComponent implements OnInit {
         try {
             const r = await this.formapi.getTasks(params);
             this.tasks = r.tasks;
-            this.taskTotal = r['total-tasks']
+            this.taskTotal = r['total-tasks'];
             let maxPages = Math.floor(this.taskTotal / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
