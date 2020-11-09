@@ -19,7 +19,6 @@ import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
 import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EntwicklungszustandPipe } from './pipes/entwicklungszustand.pipe';
 import { EntwicklungszusatzPipe } from './pipes/entwicklungszusatz.pipe';
 
