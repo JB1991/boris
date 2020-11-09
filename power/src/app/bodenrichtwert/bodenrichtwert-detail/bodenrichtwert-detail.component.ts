@@ -1,15 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'power-bodenrichtwert-detail',
     templateUrl: './bodenrichtwert-detail.component.html',
     styleUrls: ['./bodenrichtwert-detail.component.css'],
 })
-export class BodenrichtwertDetailComponent {
+export class BodenrichtwertDetailComponent implements OnInit {
 
     brzStrings = {
         'brz': $localize`Bodenrichtwertzone`,
-        'state': $localize`Beitragsabgabenrechtlicher Zustand`,
+        'conversion': $localize`Umrechnung`,
+        'state' : $localize`Beitragsabgabenrechtlicher Zustand`,
         'usage': $localize`Art der Nutzung`,
         'value': $localize`Bodenrichtwert`,
         'flae': $localize`Grundstücksfläche`,
@@ -20,6 +21,9 @@ export class BodenrichtwertDetailComponent {
     };
 
     @Input() feature: any;
+
+    ngOnInit() {
+    }
 
 }
 
