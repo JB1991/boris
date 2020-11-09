@@ -11,7 +11,8 @@ export class BodenrichtwertDetailComponent {
         'brz': $localize`Bodenrichtwertzone`,
         'state' : $localize`Beitragsabgabenrechtlicher Zustand`,
         'usage': $localize`Art der Nutzung`,
-        'value': $localize`Bodenrichtwert`
+        'value': $localize`Bodenrichtwert`,
+        'area': $localize`Fläche`
     };
 
     @Input() feature: any;
