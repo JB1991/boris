@@ -10,12 +10,12 @@
     }
 
     .verlauf {
-        min-height: calc(100vh - 101px);
+        min-height: calc(100vh - 114px);
         min-height: 100% !important;
     }
 
     .details {
-        min-height: calc(100vh - 101px);
+        min-height: calc(100vh - 114px);
         height: 100% !important;
     }
 
@@ -29,19 +29,19 @@
 }
 
 .map-collapsed {
-    height: calc(100vh - 101px);
+    height: calc(100vh - 114px);
     padding: 0;
 }
 
 .verlauf {
-    min-height: calc(100vh - 101px);
+    min-height: calc(100vh - 114px);
 }
 
 .details {
-    height: calc(100vh - 101px);
+    height: calc(100vh - 114px);
 }
 
 .btn-collapse {
     font-size: large;
-    height: 2.75rem;
+    height: 57px;
 }

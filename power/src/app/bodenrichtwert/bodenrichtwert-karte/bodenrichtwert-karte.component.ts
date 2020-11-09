@@ -71,7 +71,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         if (this.map && !this.markerRemoving) {
             this.map.resize();
             this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
-
         } else if (this.map) {
             this.map.resize();
             this.map.fitBounds(this.bounds, {
