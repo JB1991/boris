@@ -14,6 +14,7 @@ import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenri
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertListeComponent } from './bodenrichtwert-liste/bodenrichtwert-liste.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
+import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
@@ -41,6 +42,7 @@ import { EinflussgroessePipe } from './pipes/einflussgroesse.pipe';
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
         BodenrichtwertListeComponent,
+        UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,
         UmlautCorrectionPipe,

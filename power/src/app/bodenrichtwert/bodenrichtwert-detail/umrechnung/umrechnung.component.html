@@ -1,0 +1,16 @@
+<power-modalmini #umrechnung_modal>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">{{einflussgroesse}}</th>
+                <th scope="col">Umrechnungskoeffizient</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let wert of data.werte">
+                <td>{{wert.bzwt}}</td>
+                <td>{{wert.koef}}</td>
+            </tr>
+        </tbody>
+    </table>
+</power-modalmini>

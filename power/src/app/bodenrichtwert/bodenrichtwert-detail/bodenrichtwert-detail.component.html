@@ -78,8 +78,16 @@
                 </dt>
                 <dd class="col-md-7"
                     role="cell">
-                    {{umrechnung.objid | objectId}}
-                    ({{umrechnung.text | einflussgroesse}})
+                    <a class="btn-link"
+                       title="Umrechnung"
+                       i18n-title
+                       [routerLink]=""
+                       (click)="umrechnungstabelle.open()">
+                        {{umrechnung.objid | objectId}}
+                        ({{umrechnung.text | einflussgroesse}})
+                    </a>
+                    <power-bodenrichtwert-detail-umrechnung #umrechnungstabelle
+                                                            [data]="umrechnung"></power-bodenrichtwert-detail-umrechnung>
                 </dd>
             </ng-container>
         </dl>
