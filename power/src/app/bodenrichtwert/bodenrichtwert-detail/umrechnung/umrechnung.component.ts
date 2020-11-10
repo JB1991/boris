@@ -25,11 +25,15 @@ export class UmrechnungComponent implements OnInit {
 
     ngOnInit(): void {
         this.einflussgroesse = this.pipe.transform(this.data.text);
+        this.data.werte = this.sortBezugswerte(this.data.werte);
+    }
+
+    sortBezugswerte(array) {
+        return array.sort((a, b) => a.bzwt - b.bzwt);
     }
 
     public open() {
-        this.modal.open($localize`Umrechnungskoeffizienten mit Bezug auf die` + ' ' +
-            this.einflussgroesse);
+        this.modal.open($localize`Umrechnungskoeffizient:` + ' ' + this.einflussgroesse);
     }
 
     public close() {
