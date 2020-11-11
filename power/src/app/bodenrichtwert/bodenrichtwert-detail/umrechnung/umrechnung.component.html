@@ -1,4 +1,36 @@
 <power-modalmini #umrechnung_modal>
+    <b>Erklärungen</b>:
+    <ng-container [ngSwitch]="data.text">
+        <ul *ngSwitchCase="'ACZA'">
+            <li>Die vom Gutachterausschuss ermittelten Bodenrichtwerte beziehen sich auf eine durchschnittliche, gebietstypische Bodengüte, die als Acker- bzw. Grünlandzahl definiert ist.</li>
+            <li>Diese auch als Bodenpunkte bezeichneten Werte sind nach dem Bodenschätzungsgesetz ermittelte Verhältniszahlen über die natürliche Ertragsfähigkeit landwirtschaftlicher Grundstücke.</li>
+            <li>Zur Berücksichtigung der Abhängigkeit des Bodenwertes (€/m²) von der Bodengüte (Ackerzahl) können die nachfolgend dargestellten Umrechnungskoeffizienten angewendet werden.</li>
+        </ul>
+        <ul *ngSwitchCase="'Art der Bebauung'">
+            <li>Der Bodenwert von Grundstücken wird neben der Lage auch von der nach der von der Bauleitplanung eingeräumten Möglichkeit der baulichen Ausnutzung des Baugrundstücks beeinflusst.</li>
+            <li>Als Maß für die bauliche Ausnutzung gilt die Möglichkeit der Bebauung mit Ein- bzw. Zweifamilienhäuser (EFH) oder die Möglichkeit der Bebauung mit Wohn- und Geschäftshäuser bzw. Mehrfamilienhäuser (MFH).</li>
+            <li>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung (EFH/MFH).</li>
+        </ul>
+        <ul *ngSwitchCase="'BEIT'">
+            <li>...</li>
+        </ul>
+        <ul *ngSwitchCase="'FLAE'">
+            <li>Der Bodenwert von Grundstücken wird neben der Lage auch von der Größe des Baugrundstücks beeinflusst.</li>
+            <li>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlichen Grundstücksflächen.</li>
+        </ul>
+        <ul *ngSwitchCase="'GRZA'">
+            <li>Die vom Gutachterausschuss ermittelten Bodenrichtwerte beziehen sich auf eine durchschnittliche, gebietstypische Bodengüte, die als Acker- bzw. Grünlandzahl definiert ist.</li>
+            <li>Diese auch als Bodenpunkte bezeichneten Werte sind nach dem Bodenschätzungsgesetz ermittelte Verhältniszahlen über die natürliche Ertragsfähigkeit landwirtschaftlicher Grundstücke.</li>
+            <li>Zur Berücksichtigung der Abhängigkeit des Bodenwertes (€/m²) von der Bodengüte (Grünlandzahl) können die nachfolgend dargestellten Umrechnungskoeffizienten angewendet werden.</li>
+        </ul>
+        <ul *ngSwitchCase="'WGFZ'">
+            <li>Der Bodenwert von Grundstücken wird neben der Lage auch von der baulichen Ausnutzung des Baugrundstücks beeinflusst.</li>
+            <li>Als Maß für die bauliche Ausnutzung gilt die wertrelevante Geschoßflächenzahl (WGFZ), die das Verhältnis zwischen Grundstücksgröße und wertrelevanter Geschoßfläche festlegt (WGFZ 1,0 bedeutet, dass 100 % der Grundstücksfläche als wertrelevante Geschoßfläche auf dem Baugrundstück realisiert werden soll bzw. bereits vorhanden ist).</li>
+            <li>Die wertrelevante Geschossfläche ist nach den Außenmaßen der Gebäude in allen Vollgeschossen zu ermitteln.</li>
+            <li>Die Flächen von Aufenthaltsräumen in anderen Geschossen einschließlich der zu ihnen gehörenden Treppenräume und ihrer Umfassungswände sind mitzurechnen.</li>
+            <li>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung.</li>
+        </ul>
+    </ng-container>
     <table class="table table-bordered">
         <thead>
             <tr>
