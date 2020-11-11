@@ -83,8 +83,8 @@
                        i18n-title
                        [routerLink]=""
                        (click)="umrechnungstabelle.open()">
-                        {{umrechnung.objid | objectId}}
-                        ({{umrechnung.text | einflussgroesse}})
+                        {{umrechnung.text | einflussgroesse}}
+                        ({{umrechnung.objid | objectId}})
                     </a>
                     <power-bodenrichtwert-detail-umrechnung #umrechnungstabelle
                                                             [data]="umrechnung"></power-bodenrichtwert-detail-umrechnung>
