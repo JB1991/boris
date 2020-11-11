@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
+import { forEach } from '@angular-devkit/schematics';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
@@ -31,13 +32,24 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     public chartOption: EChartOption = {
         tooltip: {
             trigger: 'axis',
+            confine: 'true',
+            formatter: function (params) {
+                const res = [];
+                const year = params[0].axisValue;
+                for (let j = 0; j < params.length; j++) {
+                    if (params[j].value !== undefined) {
+                        res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} <br />`);
+                    }
+                }
+                return ([year, '<br />' , res.join('')].join(''));
+            },
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
             borderWidth: 1,
             borderColor: '#ccc',
             padding: 10,
             textStyle: {
                 color: '#000'
-            }
+            },
         },
         legend: {
             data: []
@@ -59,7 +71,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             },
             axisTick: {
                 alignWithLabel: true
-            }
+            },
         },
         yAxis: {
             type: 'value',
@@ -107,7 +119,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         return filteredFeatures;
     }
-
     // tslint:disable-next-line: max-func-body-length
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
@@ -130,11 +141,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     lastElement = i;
                 }
             }
-
             if (lastElement < series.length - 1) {
                 series[lastElement + 1].brw = series[lastElement].brw;
             }
-
             this.srTableData.push({ series });
 
             const nutzung = this.getNutzung(series);
