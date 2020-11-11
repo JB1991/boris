@@ -53,7 +53,7 @@ export class GeosearchComponent implements OnChanges {
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
-            switchMap(term =>
+            switchMap(term => term.length < 1 ? of([]) :
                 this.geosearchService.search(term).pipe(
                     catchError(() => {
                         this.searchFailed = true;
