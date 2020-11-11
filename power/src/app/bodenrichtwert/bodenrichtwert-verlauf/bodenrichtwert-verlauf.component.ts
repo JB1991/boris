@@ -34,7 +34,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             trigger: 'axis',
             confine: 'true',
             formatter: function (params) {
-                console.log(params);
                 const res = [];
                 const year = params[0].axisValue;
                 for (let j = 0; j < params.length; j++) {
