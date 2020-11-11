@@ -13,7 +13,7 @@ export class EinflussgroessePipe implements PipeTransform {
         'WGFZ': $localize`Wertrelevante Geschossflächenzahl`,
         'GRZ': $localize`Grundflächenzahl`,
         'BMZ': $localize`Baumassenzahl`,
-        'FLAE': $localize`Fläche`,
+        'FLAE': $localize`Fläche in m²`,
         'GTIE': $localize`Tiefe`,
         'GBREI': $localize`Breite`,
         'ACZA': $localize`Ackerzahl`,

@@ -11,8 +11,8 @@ describe('Bodenrichtwert.Pipes.EinflussgroessePipe', () => {
         expect(pipe).toBeTruthy();
     });
 
-    it('should transform "FLAE" to "Fläche"', () => {
-        expect(pipe.transform('FLAE')).toEqual('Fläche');
+    it('should transform "BAUW" to "Bauweise"', () => {
+        expect(pipe.transform('BAUW')).toEqual('Bauweise');
     });
 
     it('should do nothing if the string is empty', () => {

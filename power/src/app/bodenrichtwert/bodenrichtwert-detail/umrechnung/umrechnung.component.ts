@@ -1,12 +1,13 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { EinflussgroessePipe } from '@app/bodenrichtwert/pipes/einflussgroesse.pipe';
+import { ObjectIdPipe } from '@app/bodenrichtwert/pipes/object-id.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-detail-umrechnung',
     templateUrl: './umrechnung.component.html',
     styleUrls: ['./umrechnung.component.scss'],
-    providers: [EinflussgroessePipe]
+    providers: [EinflussgroessePipe, ObjectIdPipe]
 })
 export class UmrechnungComponent implements OnInit {
     @ViewChild('umrechnung_modal') public modal: ModalminiComponent;
@@ -18,13 +19,16 @@ export class UmrechnungComponent implements OnInit {
         werte: []
     };
 
-    einflussgroesse;
+    einflussgroesse: string;
+    objectId: string;
 
-    constructor(private pipe: EinflussgroessePipe) {
+    constructor(private einflussgroessePipe: EinflussgroessePipe,
+                private objectIdPipe: ObjectIdPipe) {
     }
 
     ngOnInit(): void {
-        this.einflussgroesse = this.pipe.transform(this.data.text);
+        this.einflussgroesse = this.einflussgroessePipe.transform(this.data.text);
+        this.objectId = this.objectIdPipe.transform(this.data.objid);
         this.data.werte = this.sortBezugswerte(this.data.werte);
     }
 
@@ -33,11 +37,11 @@ export class UmrechnungComponent implements OnInit {
     }
 
     public open() {
-        this.modal.open($localize`Umrechnungskoeffizient:` + ' ' + this.einflussgroesse);
+        const title = $localize`Umrechnungskoeffizient:` + ' ' + this.einflussgroesse + ' (' + this.objectId + ')';
+        this.modal.open(title);
     }
 
     public close() {
         this.modal.close();
     }
-
 }
