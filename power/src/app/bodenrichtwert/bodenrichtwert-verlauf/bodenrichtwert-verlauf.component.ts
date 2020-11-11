@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
-import { forEach } from '@angular-devkit/schematics';
+import { last } from 'rxjs/operators';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
@@ -34,14 +34,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             trigger: 'axis',
             confine: 'true',
             formatter: function (params) {
+                console.log(params);
                 const res = [];
                 const year = params[0].axisValue;
                 for (let j = 0; j < params.length; j++) {
-                    if (params[j].value !== undefined) {
+                    if (params[j].value !== undefined && typeof(params[j].value) !== 'string') {
                         res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} <br />`);
                     }
                 }
-                return ([year, '<br />' , res.join('')].join(''));
+                return ([year, '<br />', res.join('')].join(''));
             },
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
             borderWidth: 1,
@@ -142,7 +143,17 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 }
             }
             if (lastElement < series.length - 1) {
-                series[lastElement + 1].brw = series[lastElement].brw;
+                switch (series[lastElement].nutzung) {
+                    case 'Allgemeines Wohngebiet':
+                        if (groupedByNutzung.get('Allgemeines Wohngebiet (Ein- und Zweifamilienhäuser)')) {
+                            const values = groupedByNutzung.get('Allgemeines Wohngebiet (Ein- und Zweifamilienhäuser)');
+                            const val = values.find(v => v.properties.stag.includes(series[lastElement + 1].stag));
+                            series[lastElement + 1].brw = (val.properties.brw).toString();
+                        }
+                        break;
+                    default:
+                        series[lastElement + 1].brw = (series[lastElement].brw).toString();
+                }
             }
             this.srTableData.push({ series });
 
