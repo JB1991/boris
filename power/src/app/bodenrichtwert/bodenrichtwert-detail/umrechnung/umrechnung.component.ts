@@ -17,8 +17,14 @@ export class UmrechnungComponent implements OnInit {
         text: '',
         umstet: '',
         umart: '',
-        werte: []
+        werte: [
+            {
+                bzwt: 0,
+                koef: 0
+            }
+        ]
     };
+    @Input() public brw: number;
 
     einflussgroesse: string;
     objectId: string;

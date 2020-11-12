@@ -31,18 +31,32 @@
             <li>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung.</li>
         </ul>
     </ng-container>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th scope="col">{{einflussgroesse}}</th>
-                <th scope="col">Umrechnungskoeffizient</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let wert of data.werte">
-                <td>{{wert.bzwt}}</td>
-                <td>{{wert.koef}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{einflussgroesse}}</th>
+                        <th scope="col">Umrechnungskoeffizient</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let wert of data.werte">
+                        <td>{{wert.bzwt}}</td>
+                        <td>{{wert.koef}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm">
+                <b>Beispielrechnung</b>:
+                <ul>
+                    <li>Bodenrichtwert: {{brw}} € / m²</li>
+                    <li>Individueller Wert: {{data.werte[0].bzwt}}</li>
+                    <li>Individueller Bodenrichtwert: {{brw}} € / m² * {{data.werte[0].koef}} ≈ {{brw * data.werte[0].koef | number:'1.0-0'}} € / m²</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </power-modalmini>
