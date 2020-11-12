@@ -53,7 +53,8 @@
                 <b>Beispielrechnung</b>:
                 <ul>
                     <li>Bodenrichtwert: {{brw}} € / m²</li>
-                    <li>Individueller Wert: {{data.werte[0].bzwt}}</li>
+                    <li>Individueller Wert für {{einflussgroesse}}: {{data.werte[0].bzwt}}</li>
+                    <li>Dazugehöriger Umrechnungskoeffizient: {{data.werte[0].koef}}</li>
                     <li>Individueller Bodenrichtwert: {{brw}} € / m² * {{data.werte[0].koef}} ≈ {{brw * data.werte[0].koef | number:'1.0-0'}} € / m²</li>
                 </ul>
             </div>
