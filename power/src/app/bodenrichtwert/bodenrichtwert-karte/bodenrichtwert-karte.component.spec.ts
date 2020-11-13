@@ -13,7 +13,7 @@ import { Feature } from 'geojson';
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
     const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
 
-    const entw = 'B';
+    const entw = ['B'];
     const lat = 52.40729;
     const lon = 9.80205;
 
@@ -40,7 +40,10 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
         component = fixture.componentInstance;
-        component.teilmarkt = '';
+        component.teilmarkt = {
+            'value': [''],
+            'viewValue': ''
+        };
         fixture.detectChanges();
 
         const map = new Map({
@@ -56,7 +59,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.map, 'removeLayer');
         spyOn(component.map, 'resize');
 
-        const lngLat: LngLat = {lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null};
+        const lngLat: LngLat = { lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null };
         spyOn(component.marker, 'getLngLat').and.returnValue(lngLat);
 
         httpClient = TestBed.inject(HttpClient);
@@ -160,7 +163,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('onTeilmarktChange should update the Teilmarkt attribute and call getBodenrichtwertzonen', () => {
         const teilmarkt = {
-            'value': 'LF',
+            'value': ['LF'],
             'viewValue': 'Landwirtschaft'
         };
         spyOn(component, 'getBodenrichtwertzonen');
