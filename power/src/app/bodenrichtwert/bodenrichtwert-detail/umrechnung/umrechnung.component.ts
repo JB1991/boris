@@ -26,6 +26,10 @@ export class UmrechnungComponent implements OnInit {
     };
     @Input() public brw: number;
 
+    strings = {
+        'koef': $localize`Umrechnungskoeffizient`,
+    };
+
     einflussgroesse: string;
     objectId: string;
 
