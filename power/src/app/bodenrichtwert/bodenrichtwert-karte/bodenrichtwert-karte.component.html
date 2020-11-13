@@ -242,7 +242,8 @@
                            [tiles]="[baseUrl+'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=boris:br_brzone_flat&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
         </mgl-vector-source>
 
-        <mgl-layer id="bauland"
+        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
+                   id="bauland"
                    type="line"
                    [source]="'geoserver'"
                    [minzoom]="11"
@@ -256,9 +257,11 @@
         'stops' : [[11,0],[13,1]]
       }
     }"
-                   [filter]="['all',['==', 'entw', 'B'],['==','stag',stichtag]]"></mgl-layer>
+                   [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
+        </mgl-layer>
 
-        <mgl-layer id="landwirtschaft"
+        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
+                   id="landwirtschaft"
                    type="line"
                    [source]="'geoserver'"
                    [sourceLayer]="'br_brzone_flat'"
@@ -274,7 +277,8 @@
     }"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
 
-        <mgl-layer id="appto_bauland"
+        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
+                   id="appto_bauland"
                    type="symbol"
                    [source]="'geoserver'"
                    [sourceLayer]="'br_brzone_flat'"
@@ -292,10 +296,11 @@
         },
       'text-font': ['Klokantech Noto Sans Regular']
     }"
-                   [filter]="['all',['==','stag',stichtag],['in','entw','B','SF'],['==','entw', teilmarkt.value]]">
+                   [filter]="['all',['in', 'entw', 'B','SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer id="appto_landwirtschaft"
+        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
+                   id="appto_landwirtschaft"
                    type="symbol"
                    [source]="'geoserver'"
                    [sourceLayer]="'br_brzone_flat'"
@@ -313,7 +318,7 @@
         },
       'text-font': ['Klokantech Noto Sans Regular']
     }"
-                   [filter]="['all',['==','stag',stichtag],['==','entw','L'],['==','entw', teilmarkt.value]]">
+                   [filter]="['all',['==','stag', stichtag],['in','entw', teilmarkt.value[0]]]">
         </mgl-layer>
 
         <mgl-control [position]="'bottom-left'"

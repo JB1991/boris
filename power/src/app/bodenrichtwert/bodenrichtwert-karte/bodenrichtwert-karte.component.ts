@@ -37,7 +37,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     lat: number;
     lng: number;
 
-    @Input() teilmarkt;
+    @Input() teilmarkt: any;
     @Output() teilmarktChange = new EventEmitter();
 
     TEILMAERKTE = TEILMAERKTE;
@@ -114,7 +114,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         });
     }
 
-    getBodenrichtwertzonen(lat: number, lng: number, entw: string) {
+    getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>) {
         this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
             .subscribe(res => this.bodenrichtwertService.updateFeatures(res));
     }
@@ -153,7 +153,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         const lng: number = event.geometry.coordinates[0];
         const lat: number = event.geometry.coordinates[1];
         this.flyTo(lat, lng);
-        this.getBodenrichtwertzonen(lat, lng, 'B');
+        this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
     }
 
     toggle3dView() {
@@ -246,7 +246,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 });
                 this.marker.setLngLat(lngLat).addTo(this.map);
                 this.getAddressFromLatLng(lngLat.lat, lngLat.lng);
-                this.getBodenrichtwertzonen(lngLat.lat, lngLat.lng, 'B');
+                this.getBodenrichtwertzonen(lngLat.lat, lngLat.lng, this.teilmarkt.value);
             });
         }
     }
