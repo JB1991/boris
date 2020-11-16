@@ -23,8 +23,8 @@ export const STICHTAGE = [
  * Possible selections of Teilmärkte
  */
 export const TEILMAERKTE = [
-    { value: ['B', 'SF', 'R', 'E'], viewValue: $localize`Bauland` },
-    { value: ['LF'], viewValue: $localize`Land- und forstwirtschaftliche Flächen` },
+    { value: ['B', 'SF', 'R', 'E'], viewValue: $localize`Bauland`, color: '#c4153a'},
+    { value: ['LF'], viewValue: $localize`Land- und forstwirtschaftliche Flächen`, color: '#009900' },
 ];
 
 /**

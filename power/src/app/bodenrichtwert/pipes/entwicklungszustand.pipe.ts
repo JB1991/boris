@@ -9,7 +9,7 @@ export class EntwicklungszustandPipe implements PipeTransform {
         'B': $localize`Baureifes Land`,
         'R': $localize`Rohbauland`,
         'E': $localize`Bauerwartungsland`,
-        'LF': $localize`Flächer der Land- und Forstwirtschaft`,
+        'LF': $localize`Fläche der Land- und Forstwirtschaft`,
         'SF': $localize`Sonstige Fläche`
     };
 
