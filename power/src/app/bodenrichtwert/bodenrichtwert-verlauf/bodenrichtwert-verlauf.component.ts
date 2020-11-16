@@ -27,6 +27,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         { stag: '2017', brw: null, nutzung: '' },
         { stag: '2018', brw: null, nutzung: '' },
         { stag: '2019', brw: null, nutzung: '' },
+        { stag: 'heute', brw: null, nutzung: '' }
     ];
 
     public chartOption: EChartOption = {
@@ -142,17 +143,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 }
             }
             if (lastElement < series.length - 1) {
-                switch (series[lastElement].nutzung) {
-                    case 'Allgemeines Wohngebiet':
-                        if (groupedByNutzung.get('Allgemeines Wohngebiet (Ein- und Zweifamilienhäuser)')) {
-                            const values = groupedByNutzung.get('Allgemeines Wohngebiet (Ein- und Zweifamilienhäuser)');
-                            const val = values.find(v => v.properties.stag.includes(series[lastElement + 1].stag));
-                            series[lastElement + 1].brw = (val.properties.brw).toString();
-                        }
-                        break;
-                    default:
-                        series[lastElement + 1].brw = (series[lastElement].brw).toString();
-                }
+                series[lastElement + 1].brw = (series[lastElement].brw).toString();
             }
             this.srTableData.push({ series });
 
