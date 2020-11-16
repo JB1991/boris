@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { SharedModule } from '@app/shared/shared.module';
 import { UmrechnungComponent } from './umrechnung.component';
 import { HyphenatePipe } from '@app/shared/pipes/hyphenate.pipe';
 
@@ -12,6 +12,9 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
             declarations: [
                 UmrechnungComponent,
                 HyphenatePipe
+            ],
+            imports: [
+                SharedModule
             ]
         })
             .compileComponents();
@@ -25,5 +28,13 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should open and close the modal', () => {
+        expect(component.modal.isVisible()).toBeFalse();
+        component.open();
+        expect(component.modal.isVisible()).toBeTrue();
+        component.close();
+        expect(component.modal.isVisible()).toBeFalse();
     });
 });
