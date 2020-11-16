@@ -1,7 +1,7 @@
 <div class="wrapper"
      [class]="isCollapsed ? '' : 'border'">
     <!-- desktop -->
-    <div [class]="isCollapsed ? 'd-none d-md-block' : 'd-none d-xl-block'">
+    <div [class]="isCollapsed ? 'd-none d-lg-block' : 'd-none d-xl-block'">
         <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline d-flex justify-content-between">
                 <div class="nav">
@@ -104,7 +104,7 @@
     </div>
 
     <!-- mobile -->
-    <div [class]="isCollapsed ? 'd-md-none' : 'd-xl-none'">
+    <div [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'">
         <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline">
                 <div class="nav mr-auto">
@@ -171,11 +171,13 @@
     </div>
 
     <power-geosearch [class.d-none]="!searchActive"
+                     [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'"
                      [(resetGeosearch)]="resetGeosearch"
                      [isCollapsed]="isCollapsed"
                      (selectResult)="selectSearchResult($event)"></power-geosearch>
 
-    <div [class.d-none]="!filterActive">
+    <div [class.d-none]="!filterActive"
+         [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'">
         <div class="btn-group d-flex w-100">
             <div class="btn-group"
                  style="flex: 1;"
@@ -214,6 +216,16 @@
                             (click)="onTeilmarktChange(tm)"
                             ngbDropdownItem
                             class="btn-block">
+                        <svg width="0.75em"
+                             height="0.75em"
+                             viewBox="0 0 16 16"
+                             class="bi bi-circle-fill"
+                             [attr.fill]="tm.color"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8"
+                                    cy="8"
+                                    r="8" />
+                        </svg>
                         {{tm.viewValue}}
                     </button>
                 </div>
