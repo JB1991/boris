@@ -27,6 +27,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         { stag: '2017', brw: null, nutzung: '' },
         { stag: '2018', brw: null, nutzung: '' },
         { stag: '2019', brw: null, nutzung: '' },
+        { stag: 'heute', brw: null, nutzung: '' }
     ];
 
     public chartOption: EChartOption = {
