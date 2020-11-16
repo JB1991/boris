@@ -35,7 +35,17 @@
                 role="cell">
                 {{feature.properties.entw | entwicklungszustand | hyphenate}}
             </dd>
-            <!-- Entwicklungszustandzusatz (verf)-->
+            <!-- Entwicklungszustandzusatz (verf, verg)-->
+            <dt *ngIf="feature.properties.verg"
+                class="col-md-5"
+                role="rowheader">
+                {{brzStrings.verg | hyphenate}}
+            </dt>
+            <dd *ngIf="feature.properties.verg"
+                class="col-md-7"
+                role="cell">
+                {{feature.properties.verg | verfahrensart | hyphenate}}
+            </dd>
             <dt *ngIf="feature.properties.verf"
                 class="col-md-5"
                 role="rowheader">

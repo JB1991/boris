@@ -27,6 +27,7 @@ import { EinflussgroessePipe } from './pipes/einflussgroesse.pipe';
 import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
 import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
+import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -55,7 +56,8 @@ import { BodenartPipe } from './pipes/bodenart.pipe';
         EinflussgroessePipe,
         ArtDerBebauungPipe,
         BauweisePipe,
-        BodenartPipe
+        BodenartPipe,
+        VerfahrensartPipe
     ],
     imports: [
         BodenrichtwertRoutingModule,
