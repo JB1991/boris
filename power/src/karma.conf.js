@@ -17,12 +17,12 @@ module.exports = function (config) {
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
         coverageReporter: {
-			dir: require('path').join(__dirname, '../coverage'),
-			reporters: [
-				{ type: 'html' },
-				{ type: 'lcovonly' },
-				{ type: 'text-summary' },
-			]
+            dir: require('path').join(__dirname, '../coverage'),
+            reporters: [
+                { type: 'html' },
+                { type: 'lcovonly' },
+                { type: 'text-summary' },
+            ]
         },
         reporters: ['progress', 'kjhtml', 'coverage', 'junit'],
         port: 9876,
