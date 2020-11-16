@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
@@ -7,7 +7,8 @@ import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point } from
 @Component({
     selector: 'power-bodenwert-kalkulator',
     templateUrl: './bodenwert-kalkulator.component.html',
-    styleUrls: ['./bodenwert-kalkulator.component.scss']
+    styleUrls: ['./bodenwert-kalkulator.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenwertKalkulatorComponent implements OnInit {
 
