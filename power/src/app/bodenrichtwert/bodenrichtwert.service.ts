@@ -87,7 +87,7 @@ export class BodenrichtwertService {
             '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
             '  service="WFS" version="1.1.0">\n' +
             '</wfs:GetCapabilities>';
-        const options = {responseType: 'text' as 'json'};
+        const options = { responseType: 'text' as 'json' };
         return this.http.post(this.url, body, options)
             .pipe(catchError(BodenrichtwertService.handleError));
     }
@@ -167,7 +167,14 @@ export class BodenrichtwertService {
      * @param entw Teilmarkt
      */
     // tslint:disable-next-line:max-func-body-length
-    getFeatureByLatLonEntw(lat: any, lon: any, entw: any): Observable<FeatureCollection> {
+    getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>): Observable<FeatureCollection> {
+        let ogcFilter: string;
+        entw.forEach(entwType => {
+            ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
+                '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
+                '            <ogc:Literal>' + entwType + '</ogc:Literal>\n' +
+                '        </ogc:PropertyIsEqualTo>\n';
+        });
         const filter =
             '<wfs:GetFeature \n' +
             '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
@@ -177,10 +184,7 @@ export class BodenrichtwertService {
             '  <wfs:Query typeName="boris:br_brzone_flat" srsName="EPSG:3857" >\n' +
             '    <ogc:Filter>\n' +
             '      <ogc:And>\n' +
-            '        <ogc:PropertyIsEqualTo>\n' +
-            '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
-            '            <ogc:Literal>' + entw + '</ogc:Literal>\n' +
-            '        </ogc:PropertyIsEqualTo>\n' +
+            '        <ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
             '        <ogc:Intersects>\n' +
             '        <ogc:PropertyName>geom</ogc:PropertyName>\n' +
             '          <gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">\n' +

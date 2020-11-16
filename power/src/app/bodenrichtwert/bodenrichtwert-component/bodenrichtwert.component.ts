@@ -23,11 +23,8 @@ export const STICHTAGE = [
  * Possible selections of Teilmärkte
  */
 export const TEILMAERKTE = [
-    { value: 'B', viewValue: $localize`Bauland` },
-    { value: 'LF', viewValue: $localize`Landwirtschaft` },
-    { value: 'SF', viewValue: $localize`Sonstige Flächen` },
-    { value: 'R', viewValue: $localize`Rohbauland` },
-    { value: 'E', viewValue: $localize`Bauerwartungsland` },
+    { value: ['B', 'SF', 'R', 'E'], viewValue: $localize`Bauland` },
+    { value: ['LF'], viewValue: $localize`Land- und forstwirtschaftliche Flächen` },
 ];
 
 /**
@@ -43,12 +40,12 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * Adresse to be shown
      */
-    adresse: Feature;
+    public adresse: Feature;
 
     /**
      * Subscription to adresse, loaded by Geosearch-Service
      */
-    adresseSubscription: Subscription;
+    public adresseSubscription: Subscription;
 
     /**
      * Features (Bodenrichtwerte as GeoJSON) to be shown
@@ -58,21 +55,21 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
      */
-    featureSubscription: Subscription;
+    public featureSubscription: Subscription;
 
     /**
      * Actual selected Stichtag
      */
-    stichtag;
+    public stichtag;
 
     /**
      * Actual selected Teilmarkt
      */
-    teilmarkt;
+    public teilmarkt: any;
 
-    isCollapsed = true;
+    public isCollapsed = true;
 
-    isExpanded = true;
+    public isExpanded = true;
 
     @ViewChild('collapse') collapse: ElementRef;
 

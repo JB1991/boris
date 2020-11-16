@@ -25,6 +25,8 @@ import { EntwicklungszusatzPipe } from './pipes/entwicklungszusatz.pipe';
 import { ObjectIdPipe } from './pipes/object-id.pipe';
 import { EinflussgroessePipe } from './pipes/einflussgroesse.pipe';
 import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
+import { BauweisePipe } from './pipes/bauweise.pipe';
+import { BodenartPipe } from './pipes/bodenart.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -51,7 +53,9 @@ import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
         EntwicklungszusatzPipe,
         ObjectIdPipe,
         EinflussgroessePipe,
-        ArtDerBebauungPipe
+        ArtDerBebauungPipe,
+        BauweisePipe,
+        BodenartPipe
     ],
     imports: [
         BodenrichtwertRoutingModule,

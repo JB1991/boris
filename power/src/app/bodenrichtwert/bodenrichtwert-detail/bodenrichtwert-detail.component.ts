@@ -14,10 +14,20 @@ export class BodenrichtwertDetailComponent implements OnInit {
         'usage': $localize`Art der Nutzung`,
         'value': $localize`Bodenrichtwert`,
         'flae': $localize`Grundstücksfläche`,
+        'gbrei': $localize`Grundstücksbreite`,
+        'gtie': $localize`Grundstückstiefe`,
         'entw': $localize`Entwicklungszustand`,
         'stag': $localize`Stichtag`,
         'verf': $localize`Entwicklungs- und Sanierungszusatz`,
-        'verg': $localize`Verfahrensgrund`
+        'verg': $localize`Verfahrensgrund`,
+        'bauw': $localize`Bauweise`,
+        'bmz': $localize`Baumassenzahl`,
+        'gez': $localize`Geschosszahl`,
+        'grz': $localize`Grundflächenzahl`,
+        'wgfz': $localize`Wertrelevante Geschossflächenzahl`,
+        'acza': $localize`Ackerzahl`,
+        'bod': $localize`Bodenart`,
+        'grza': $localize`Grünlandzahl`
     };
 
     @Input() feature: any;
