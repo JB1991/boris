@@ -57,8 +57,8 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let wert of data.werte">
-                            <td>{{wert.bzwt}}</td>
-                            <td>{{wert.koef}}</td>
+                            <td>{{wert.bzwt | number}}</td>
+                            <td>{{wert.koef | number}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -72,9 +72,9 @@
                 </div>
                 <div class="card-body">
                     <p>Bodenrichtwert: {{brw}} € / m²</p>
-                    <p>Individueller Wert für {{einflussgroesse}}: {{data.werte[0].bzwt}}</p>
-                    <p>Dazugehöriger Umrechnungskoeffizient: {{data.werte[0].koef}}</p>
-                    <p>Individueller Bodenrichtwert: {{brw}} € / m² * {{data.werte[0].koef}} ≈ {{brw * data.werte[0].koef | number:'1.0-0'}} € / m²</p>
+                    <p>Individueller Wert für {{einflussgroesse}}: {{data.werte[0].bzwt | number}}</p>
+                    <p>Dazugehöriger Umrechnungskoeffizient: {{data.werte[0].koef | number}}</p>
+                    <p>Individueller Bodenrichtwert: {{brw}} € / m² * {{data.werte[0].koef | number}} ≈ {{brw * data.werte[0].koef | number:'1.0-0'}} € / m²</p>
                 </div>
             </div>
         </div>
