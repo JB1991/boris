@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { ArtDerBebauungPipe } from '@app/bodenrichtwert/pipes/art-der-bebauung.pipe';
 import { EinflussgroessePipe } from '@app/bodenrichtwert/pipes/einflussgroesse.pipe';
@@ -8,7 +8,8 @@ import { ObjectIdPipe } from '@app/bodenrichtwert/pipes/object-id.pipe';
     selector: 'power-bodenrichtwert-detail-umrechnung',
     templateUrl: './umrechnung.component.html',
     styleUrls: ['./umrechnung.component.scss'],
-    providers: [ArtDerBebauungPipe, EinflussgroessePipe, ObjectIdPipe]
+    providers: [ArtDerBebauungPipe, EinflussgroessePipe, ObjectIdPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UmrechnungComponent implements OnInit {
     @ViewChild('umrechnung_modal') public modal: ModalminiComponent;

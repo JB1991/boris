@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { LngLat, LngLatBounds, Map, Marker } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
@@ -8,7 +8,8 @@ import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-compo
 @Component({
     selector: 'power-bodenrichtwertkarte',
     templateUrl: './bodenrichtwert-karte.component.html',
-    styleUrls: ['./bodenrichtwert-karte.component.scss']
+    styleUrls: ['./bodenrichtwert-karte.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
