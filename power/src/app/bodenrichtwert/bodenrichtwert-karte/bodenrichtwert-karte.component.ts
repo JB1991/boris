@@ -69,7 +69,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        console.log('change');
         if (this.map && !this.markerRemoving) {
             this.map.resize();
             this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
