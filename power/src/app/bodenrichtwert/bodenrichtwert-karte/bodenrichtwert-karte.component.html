@@ -171,13 +171,13 @@
     </div>
 
     <power-geosearch [class.d-none]="!searchActive"
-                     [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'"
+                     [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
                      [(resetGeosearch)]="resetGeosearch"
                      [isCollapsed]="isCollapsed"
                      (selectResult)="selectSearchResult($event)"></power-geosearch>
 
     <div [class.d-none]="!filterActive"
-         [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'">
+         [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
         <div class="btn-group d-flex w-100">
             <div class="btn-group"
                  style="flex: 1;"
