@@ -73,7 +73,7 @@ export class FilloutComponent implements OnInit {
     }
 
 
-    // tslint:disable-next-line: max-func-body-length
+    // eslint-disable-next-line 
     public loadForm(id: string) {
         // load form by id
         this.formapi.getPublicForm(id).then(result => {
@@ -109,7 +109,7 @@ export class FilloutComponent implements OnInit {
      * @param result Task result
      */
 
-    // tslint:disable-next-line: max-func-body-length
+    // eslint-disable-next-line
     public submitTask(id: string, result: any) {
         // check data
         if (!id) {

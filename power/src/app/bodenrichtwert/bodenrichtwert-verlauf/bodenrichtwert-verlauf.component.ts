@@ -121,7 +121,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         return filteredFeatures;
     }
-    // tslint:disable-next-line: max-func-body-length
+    // eslint-disable-next-line
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.srTableData = [];
