@@ -82,11 +82,11 @@ export class ImmobilienHelper {
         const t = percent < 0 ? 0 : 255;
         const p = percent < 0 ? percent * -1 : percent;
 
-        /* tslint:disable:no-bitwise */
+        /* eslint-disable no-bitwise */
         const R = f >> 16; // eslint-disable-line no-bitwise
         const G = f >> 8 & 0x00FF; // eslint-disable-line no-bitwise
         const B = f & 0x0000FF; // eslint-disable-line no-bitwise
-        /* tslint:enable:no-bitwise */
+        /* eslint-enable no-bitwise */
 
         return '#' + (
             0x1000000

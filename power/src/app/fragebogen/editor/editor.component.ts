@@ -166,7 +166,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Load form data
      * @param id Form id
      */
-    // tslint:disable-next-line: max-func-body-length
+    // eslint-disable-next-line
     public async loadData(id: string) {
         // check data
         if (!id) {

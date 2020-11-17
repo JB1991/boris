@@ -111,7 +111,7 @@ test:lint:
   allow_failure: true
   script:
     - cd power
-    - npm run lint
+    - node_modules/@angular/cli/bin/ng lint power
   only:
     - merge_requests
     - tags

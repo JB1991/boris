@@ -30,6 +30,13 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
         expect(component).toBeTruthy();
     });
 
+    it('sortBezugswerte should sort the array', () => {
+        const array = [{bzwt: 200, koef: 1.2}, {bzwt: 100, koef: 1.1}, {bzwt: 300, koef: 1.3}];
+        const sorted = [{bzwt: 100, koef: 1.1}, {bzwt: 200, koef: 1.2}, {bzwt: 300, koef: 1.3}];
+        const result = component.sortBezugswerte(array);
+        expect(result).toEqual(sorted);
+    });
+
     it('should open and close the modal', () => {
         expect(component.modal.isVisible()).toBeFalse();
         component.open();
