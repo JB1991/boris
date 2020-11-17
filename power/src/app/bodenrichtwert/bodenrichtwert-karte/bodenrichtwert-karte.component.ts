@@ -216,6 +216,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
         if (this.threeDActive) {
             this.deactivate3dView();
+            this.threeDActive = !this.threeDActive;
         }
 
         if (this.marker) {
