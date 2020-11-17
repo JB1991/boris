@@ -62,7 +62,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
                 this.map.flyTo({
                     center: event.lngLat
                 });
-
                 const point: Point = new Point(event.point.x, event.point.y);
                 const features: MapboxGeoJSONFeature[] =
                     this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
@@ -75,6 +74,26 @@ export class BodenwertKalkulatorComponent implements OnInit {
                     $localize`Auswahl fehlgeschlagen`,
                     $localize`Zur Selektion von Flurstücken bitte weiter heranzoomen.`
                 );
+            }
+        }
+    }
+
+    selectingFlurstueck() {
+        if (this.marker.getLngLat) {
+            console.log(this.marker);
+            const zoomlvl = this.map.getZoom();
+            if (this.marker && zoomlvl >= 14) {
+                this.isCollapsed = false;
+                this.map.flyTo({
+                    center: this.marker.getLngLat()
+                });
+                // const point: Point = new Point(this.marker.getPos(), this.marker.getPos());
+                // const features: MapboxGeoJSONFeature[] =
+                //     this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
+                // for (const feature of features) {
+                //     this.updateFlurstueckSelection(feature);
+                // }
+                // this.updateFlurstueckHighlighting();
             }
         }
     }
@@ -114,7 +133,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
         })
             .setLngLat(event.geometry.coordinates)
             .addTo(this.map);
-        this.marker.togglePopup();
         this.map.flyTo({
             center: event.geometry.coordinates,
             zoom: 17,
