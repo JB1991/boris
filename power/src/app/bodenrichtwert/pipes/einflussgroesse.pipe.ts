@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class EinflussgroessePipe implements PipeTransform {
 
     einflussgroesse = {
+        'Art der Bebauung': $localize`Art der Bebauung`,
         'BEIT': $localize`Beitrags- und abgabenrechtlicher Zustand`,
         'NUTA': $localize`Art der Nutzung`,
         'BAUW': $localize`Bauweise`,

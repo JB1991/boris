@@ -29,9 +29,13 @@
                            class="form-text text-muted">
                         <span i18n>Dieser Wert muss im Formular einmalig sein. Die ID lässt
                             sich als Variable nutzen, diese enthält die Antwort der Frage:</span>
-                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code></small>
-                </div>
+                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code><br>
+                        <!-- ToDo: Passende Formatierung finden -->
 
+                    </small>
+
+                </div>
+                <button type="button"class="btn btn-sm btn-link" (click)="formattinghelpmodal.open()"><label i18n>Hilfe zur Formatierung</label></button>
                 <!-- question-title -->
                 <div class="form-group">
                     <label for="question-title"
@@ -823,3 +827,6 @@
         </button>
     </div>
 </power-modal>
+
+<!-- configure element modal -->
+<power-markdown-instructions #formattinghelpmodal></power-markdown-instructions>

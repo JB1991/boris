@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
@@ -8,6 +8,7 @@ import { Feature } from 'geojson';
     selector: 'power-geosearch',
     templateUrl: './geosearch.component.html',
     styleUrls: ['./geosearch.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeosearchComponent implements OnChanges {
 

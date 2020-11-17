@@ -32,16 +32,34 @@ mgl-map {
 .nav-underline .nav-link {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    font-size: 0.875rem;
-    color: #6c757d;
+    font-size: 1em;
+    color: black;
 }
 
 .nav-underline .nav-link:hover {
-    color: #007bff;
+    color: #c4153a;
     cursor: pointer;
 }
 
-.nav-underline .active {
-    font-weight: 500;
-    color: #343a40;
+.active {
+    color: #c4153a !important;
 }
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1700px
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1660px
+);
+
+@import '~bootstrap/scss/bootstrap.scss';

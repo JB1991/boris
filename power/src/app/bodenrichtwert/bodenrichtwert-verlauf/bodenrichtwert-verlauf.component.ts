@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
@@ -7,7 +7,8 @@ import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
     selector: 'power-bodenrichtwert-verlauf',
     templateUrl: './bodenrichtwert-verlauf.component.html',
     styleUrls: ['./bodenrichtwert-verlauf.component.scss'],
-    providers: [NutzungPipe]
+    providers: [NutzungPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges {
 
@@ -121,7 +122,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         return filteredFeatures;
     }
-    // tslint:disable-next-line: max-func-body-length
+    // eslint-disable-next-line
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.srTableData = [];

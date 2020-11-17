@@ -1,19 +1,18 @@
 <div class="wrapper"
      [class]="isCollapsed ? '' : 'border'">
     <!-- desktop -->
-    <div [class]="isCollapsed ? 'd-none d-lg-block' : 'd-none d-xl-block'">
+    <div [class]="isCollapsed ? 'd-none d-lg-block' : 'd-none d-xxl-block'">
         <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline d-flex justify-content-between">
                 <div class="nav">
                     <div class="btn-group d-flex">
                         <div class="btn-group"
-                             style="flex: 1;"
                              ngbDropdown
                              role="group">
                             <button class="btn btn-block"
                                     type="button"
                                     ngbDropdownToggle>
-                                <span i18n>Stichtag</span>: {{stichtag | date:"yyyy"}}
+                                <span i18n>Stichtag</span>: {{stichtag | date:'yyyy'}}
                             </button>
                             <div class="dropdown-menu"
                                  ngbDropdownMenu>
@@ -21,12 +20,11 @@
                                         type="button"
                                         (click)="onStichtagChange(stag)"
                                         ngbDropdownItem>
-                                    {{stag | date:"yyyy"}}
+                                    {{stag | date:'yyyy'}}
                                 </button>
                             </div>
                         </div>
                         <div class="btn-group"
-                             style="flex: 1;"
                              ngbDropdown
                              role="group">
                             <button class="btn btn-block"
@@ -66,37 +64,58 @@
                 <div class="nav">
                     <button class="nav-link btn"
                             type="button"
-                            (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg"
-                             width="25"
-                             height="25"
-                             alt="Eigenen Standort anzeigen"
-                             title="Eigenen Standort anzeigen"
-                             i18n-alt
-                             i18n-title>
+                            (click)="enableLocationTracking()"
+                            alt="Eigenen Standort anzeigen"
+                            title="Eigenen Standort anzeigen"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-geo-fill"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z" />
+                        </svg>
+                    </button>
+                    <button class="nav-link btn"
+                            [ngClass]="{'active': threeDActive}"
+                            type="button"
+                            (click)="toggle3dView()"
+                            alt="3D aktivieren/deaktivieren"
+                            title="3D aktivieren/deaktivieren"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-building"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
+                            <path
+                                  d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
+                        </svg>
                     </button>
                     <button class="nav-link btn"
                             type="button"
-                            (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg"
-                             width="25"
-                             height="25"
-                             alt="3D aktivieren/deaktivieren"
-                             title="3D aktivieren/deaktivieren"
-                             i18n-alt
-                             i18n-title>
-                    </button>
-                    <button class="nav-link btn"
-                            type="button"
-                            (click)="resetMap()">
-                        <img src="/assets/icons/globe.svg"
-                             width="25"
-                             height="25"
-                             alt="Karte zurücksetzen"
-                             title="Karte zurücksetzen"
-                             aria-label="Karte und Adresseingabe zurücksetzen"
-                             i18n-alt
-                             i18n-title>
+                            (click)="resetMap()"
+                            alt="Karte zurücksetzen"
+                            title="Karte zurücksetzen"
+                            aria-label="Karte und Adresseingabe zurücksetzen"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-globe"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4H2.255a7.025 7.025 0 0 1 3.072-2.472 6.7 6.7 0 0 0-.597.933c-.247.464-.462.98-.64 1.539zm-.582 3.5h-2.49c.062-.89.291-1.733.656-2.5H3.82a13.652 13.652 0 0 0-.312 2.5zM4.847 5H7.5v2.5H4.51A12.5 12.5 0 0 1 4.846 5zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5H7.5V11H4.847a12.5 12.5 0 0 1-.338-2.5zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12H7.5v2.923c-.67-.204-1.335-.82-1.887-1.855A7.97 7.97 0 0 1 5.145 12zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11H1.674a6.958 6.958 0 0 1-.656-2.5h2.49c.03.877.138 1.718.312 2.5zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12h2.355a7.967 7.967 0 0 1-.468 1.068c-.552 1.035-1.218 1.65-1.887 1.855V12zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5h-2.49A13.65 13.65 0 0 0 12.18 5h2.146c.365.767.594 1.61.656 2.5zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4H8.5V1.077c.67.204 1.335.82 1.887 1.855.173.324.33.682.468 1.068z" />
+                        </svg>
                     </button>
                 </div>
             </nav>
@@ -104,66 +123,103 @@
     </div>
 
     <!-- mobile -->
-    <div [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'">
+    <div [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
         <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline">
                 <div class="nav mr-auto">
                     <button class="nav-link btn"
+                            [ngClass]="{'active': filterActive}"
                             type="button"
-                            (click)="toggleFilterActive()">
-                        <img src="/assets/icons/filter.svg"
-                             width="25"
-                             height="25"
-                             alt="Filtern"
-                             title="Filtern"
-                             i18n-alt
-                             i18n-title>
+                            (click)="toggleFilterActive()"
+                            alt="Filtern"
+                            title="Filtern"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="1em"
+                             height="1em"
+                             viewBox="0 0 16 16"
+                             class="bi bi-filter"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                        </svg>
                     </button>
                 </div>
                 <div class="nav ml-auto">
                     <button class="nav-link btn"
+                            [ngClass]="{'active': searchActive}"
                             type="button"
-                            (click)="toggleSearchActive()">
-                        <img src="/assets/icons/search.svg"
-                             width="25"
-                             height="25"
-                             alt="Suche"
-                             title="Suche"
-                             i18n-alt
-                             i18n-title>
+                            (click)="toggleSearchActive()"
+                            alt="Suche"
+                            title="Suche"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-search"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                            <path fill-rule="evenodd"
+                                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                        </svg>
                     </button>
                     <button class="nav-link btn"
                             type="button"
-                            (click)="enableLocationTracking()">
-                        <img src="/assets/icons/geo.svg"
-                             width="25"
-                             height="25"
-                             alt="Ortung"
-                             title="Ortung"
-                             i18n-alt
-                             i18n-title>
+                            (click)="enableLocationTracking()"
+                            alt="Eigenen Standort anzeigen"
+                            title="Eigenen Standort anzeigen"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-geo-fill"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z" />
+                        </svg>
+                    </button>
+                    <button class="nav-link btn"
+                            [ngClass]="{'active': threeDActive}"
+                            type="button"
+                            (click)="toggle3dView()"
+                            alt="3D aktivieren/deaktivieren"
+                            title="3D aktivieren/deaktivieren"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-building"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
+                            <path
+                                  d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
+                        </svg>
                     </button>
                     <button class="nav-link btn"
                             type="button"
-                            (click)="toggle3dView()">
-                        <img src="/assets/icons/building.svg"
-                             width="25"
-                             height="25"
-                             alt="3D aktivieren/deaktivieren"
-                             title="3D aktivieren/deaktivieren"
-                             i18n-alt
-                             i18n-title>
-                    </button>
-                    <button class="nav-link btn"
-                            type="button"
-                            (click)="resetMap()">
-                        <img src="/assets/icons/globe.svg"
-                             width="25"
-                             height="25"
-                             alt="Karte zurücksetzen"
-                             title="Karte zurücksetzen"
-                             i18n-alt
-                             i18n-title>
+                            (click)="resetMap()"
+                            alt="Karte zurücksetzen"
+                            title="Karte zurücksetzen"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-globe"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4H2.255a7.025 7.025 0 0 1 3.072-2.472 6.7 6.7 0 0 0-.597.933c-.247.464-.462.98-.64 1.539zm-.582 3.5h-2.49c.062-.89.291-1.733.656-2.5H3.82a13.652 13.652 0 0 0-.312 2.5zM4.847 5H7.5v2.5H4.51A12.5 12.5 0 0 1 4.846 5zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5H7.5V11H4.847a12.5 12.5 0 0 1-.338-2.5zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12H7.5v2.923c-.67-.204-1.335-.82-1.887-1.855A7.97 7.97 0 0 1 5.145 12zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11H1.674a6.958 6.958 0 0 1-.656-2.5h2.49c.03.877.138 1.718.312 2.5zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12h2.355a7.967 7.967 0 0 1-.468 1.068c-.552 1.035-1.218 1.65-1.887 1.855V12zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5h-2.49A13.65 13.65 0 0 0 12.18 5h2.146c.365.767.594 1.61.656 2.5zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4H8.5V1.077c.67.204 1.335.82 1.887 1.855.173.324.33.682.468 1.068z" />
+                        </svg>
                     </button>
                 </div>
             </nav>
@@ -171,13 +227,13 @@
     </div>
 
     <power-geosearch [class.d-none]="!searchActive"
-                     [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'"
+                     [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
                      [(resetGeosearch)]="resetGeosearch"
                      [isCollapsed]="isCollapsed"
                      (selectResult)="selectSearchResult($event)"></power-geosearch>
 
     <div [class.d-none]="!filterActive"
-         [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'">
+         [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
         <div class="btn-group d-flex w-100">
             <div class="btn-group"
                  style="flex: 1;"
@@ -187,7 +243,7 @@
                 <button class="btn btn-block"
                         type="button"
                         ngbDropdownToggle>
-                    <span i18n>Stichtag</span>: {{stichtag}}
+                    <span i18n>Stichtag</span>: {{stichtag | date:'yyyy'}}
                 </button>
                 <div class="dropdown-menu"
                      ngbDropdownMenu>
@@ -195,13 +251,14 @@
                             type="button"
                             (click)="onStichtagChange(stag)"
                             ngbDropdownItem>
-                        {{stag}}
+                        {{stag | date:'yyyy'}}
                     </button>
                 </div>
             </div>
             <div class="btn-group"
                  style="flex: 1;"
                  ngbDropdown
+                 placement="bottom-right"
                  role="group"
                  aria-label="Button group with nested dropdown">
                 <button class="btn btn-block"

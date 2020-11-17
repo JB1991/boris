@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'power-bodenrichtwert-detail',
     templateUrl: './bodenrichtwert-detail.component.html',
     styleUrls: ['./bodenrichtwert-detail.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertDetailComponent implements OnInit {
 

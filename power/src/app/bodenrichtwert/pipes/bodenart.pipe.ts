@@ -7,17 +7,31 @@ export class BodenartPipe implements PipeTransform {
 
     bod = {
         'S': $localize`Sand`,
-        'SI': $localize`anlehmiger Sand`,
-        'IS': $localize`lehmiger Sand`,
-        'SL': $localize`stark lehmiger Sand`,
-        'sL': $localize`sandiger Lehm`,
         'L': $localize`Lehm`,
-        'LT': $localize`schwerer Lehm`,
         'T': $localize`Ton`,
         'Mo': $localize`Moor`,
     };
 
     transform(value: any, ...args: any[]): any {
-        return this.bod[value];
+
+        let res = '';
+
+        if (value.includes(',')) {
+            const bodenarten = value.split(',');
+            bodenarten.forEach(bodenart => {
+                res += this.bod[bodenart] + ' und ';
+            });
+            res = res.slice(0, res.length - 5);
+        } else if (value.includes('/')) {
+            const bodenarten = value.split('/');
+            bodenarten.forEach(bodenart => {
+                res += this.bod[bodenart] + ' auf ';
+            });
+            res = res.slice(0, res.length - 5);
+        } else {
+            res = this.bod[value];
+        }
+
+        return res;
     }
 }

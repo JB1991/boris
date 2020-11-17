@@ -3,7 +3,7 @@
   <file id="ngi18n" original="ng.template">
     <unit id="5693309902155405103">
       <notes>
-        <note category="location">src/app/app.component.html:11</note>
+        <note category="location">src/app/app.component.html:12</note>
       </notes>
       <segment state="translated">
         <source>LGLN Logo</source>
@@ -12,7 +12,7 @@
     </unit>
     <unit id="6352019999410584828">
       <notes>
-        <note category="location">src/app/app.component.html:13</note>
+        <note category="location">src/app/app.component.html:14</note>
       </notes>
       <segment state="translated">
         <source>Portal für Wertermittlung</source>
@@ -21,8 +21,8 @@
     </unit>
     <unit id="4234420133257512194">
       <notes>
-        <note category="location">src/app/app.component.html:15</note>
-        <note category="location">src/app/app.component.html:20</note>
+        <note category="location">src/app/app.component.html:16</note>
+        <note category="location">src/app/app.component.html:21</note>
       </notes>
       <segment state="translated">
         <source>.niedersachsen</source>
@@ -31,7 +31,7 @@
     </unit>
     <unit id="1960371191469910628">
       <notes>
-        <note category="location">src/app/app.component.html:18</note>
+        <note category="location">src/app/app.component.html:19</note>
       </notes>
       <segment state="translated">
         <source>POWER</source>
@@ -40,7 +40,7 @@
     </unit>
     <unit id="6523585524940820841">
       <notes>
-        <note category="location">src/app/app.component.html:151</note>
+        <note category="location">src/app/app.component.html:152</note>
       </notes>
       <segment state="translated">
         <source>Sprachauswahl</source>
@@ -49,7 +49,7 @@
     </unit>
     <unit id="8429316238784832901">
       <notes>
-        <note category="location">src/app/app.component.html:75</note>
+        <note category="location">src/app/app.component.html:76</note>
         <note category="location">src/app/static/feedback/feedback.component.html:5</note>
         <note category="location">src/app/static/feedback/feedback.component.html:41</note>
       </notes>
@@ -60,7 +60,7 @@
     </unit>
     <unit id="7911002864553844497">
       <notes>
-        <note category="location">src/app/app.component.html:145</note>
+        <note category="location">src/app/app.component.html:146</note>
         <note category="location">src/app/shared/modal/modal.component.html:33</note>
         <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:62</note>
       </notes>
@@ -71,7 +71,7 @@
     </unit>
     <unit id="2354045805420094700">
       <notes>
-        <note category="location">src/app/app.component.html:167</note>
+        <note category="location">src/app/app.component.html:168</note>
       </notes>
       <segment state="translated">
         <source>Informationen</source>
@@ -80,7 +80,7 @@
     </unit>
     <unit id="1547876271716599756">
       <notes>
-        <note category="location">src/app/app.component.html:174</note>
+        <note category="location">src/app/app.component.html:175</note>
       </notes>
       <segment state="translated">
         <source>Impressum</source>
@@ -89,7 +89,7 @@
     </unit>
     <unit id="4082114936887396529">
       <notes>
-        <note category="location">src/app/app.component.html:180</note>
+        <note category="location">src/app/app.component.html:181</note>
       </notes>
       <segment state="translated">
         <source>Datenschutz</source>
@@ -98,7 +98,7 @@
     </unit>
     <unit id="7873929056259616146">
       <notes>
-        <note category="location">src/app/app.component.html:186</note>
+        <note category="location">src/app/app.component.html:187</note>
       </notes>
       <segment state="translated">
         <source>Allgemeine Geschäfts- und Nutzungsbedingungen</source>
@@ -107,7 +107,7 @@
     </unit>
     <unit id="2724055831234181057">
       <notes>
-        <note category="location">src/app/app.component.html:189</note>
+        <note category="location">src/app/app.component.html:190</note>
       </notes>
       <segment state="translated">
         <source>Version</source>
@@ -116,7 +116,7 @@
     </unit>
     <unit id="4654226818601672329">
       <notes>
-        <note category="location">src/app/app.component.html:43</note>
+        <note category="location">src/app/app.component.html:44</note>
       </notes>
       <segment state="translated">
         <source>Bodenrichtwerte</source>
@@ -125,7 +125,7 @@
     </unit>
     <unit id="4783586120320798427">
       <notes>
-        <note category="location">src/app/app.component.html:51</note>
+        <note category="location">src/app/app.component.html:52</note>
       </notes>
       <segment state="translated">
         <source>Bodenwerte</source>
@@ -134,7 +134,7 @@
     </unit>
     <unit id="192194816728870761">
       <notes>
-        <note category="location">src/app/app.component.html:59</note>
+        <note category="location">src/app/app.component.html:60</note>
       </notes>
       <segment state="translated">
         <source>Immobilien</source>
@@ -143,9 +143,9 @@
     </unit>
     <unit id="8530560792297920136">
       <notes>
-        <note category="location">src/app/app.component.html:67</note>
-        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:266</note>
+        <note category="location">src/app/app.component.html:68</note>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:23</note>
+        <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:266</note>
       </notes>
       <segment state="translated">
         <source>Formulare</source>
@@ -154,7 +154,7 @@
     </unit>
     <unit id="2454050363478003966">
       <notes>
-        <note category="location">src/app/app.component.html:84</note>
+        <note category="location">src/app/app.component.html:85</note>
       </notes>
       <segment state="translated">
         <source>Login</source>
@@ -163,7 +163,7 @@
     </unit>
     <unit id="4086606389696938932">
       <notes>
-        <note category="location">src/app/app.component.html:111</note>
+        <note category="location">src/app/app.component.html:112</note>
       </notes>
       <segment state="translated">
         <source>Account</source>
@@ -172,7 +172,7 @@
     </unit>
     <unit id="8353670871689367892">
       <notes>
-        <note category="location">src/app/app.component.html:125</note>
+        <note category="location">src/app/app.component.html:126</note>
       </notes>
       <segment state="translated">
         <source>Meine Formulare</source>
@@ -181,7 +181,7 @@
     </unit>
     <unit id="3797778920049399855">
       <notes>
-        <note category="location">src/app/app.component.html:130</note>
+        <note category="location">src/app/app.component.html:131</note>
       </notes>
       <segment state="translated">
         <source>Logout</source>
@@ -341,34 +341,25 @@
     </unit>
     <unit id="8329545165404152883">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:26</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:29</note>
       </notes>
       <segment state="translated">
         <source>Bauland</source>
         <target>Bâtiment des terres</target>
       </segment>
     </unit>
-    <unit id="5604265057128591701">
+    <unit id="4257784264753741968">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:27</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:30</note>
       </notes>
-      <segment state="translated">
-        <source>Landwirtschaft</source>
-        <target>Agriculture</target>
-      </segment>
-    </unit>
-    <unit id="9194025495383271508">
-      <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:28</note>
-      </notes>
-      <segment state="translated">
-        <source>Sonstige Flächen</source>
-        <target>Autres domaines</target>
+      <segment state="initial">
+        <source>Land- und forstwirtschaftliche Flächen</source>
+        <target>Land- und forstwirtschaftliche Flächen</target>
       </segment>
     </unit>
     <unit id="7994737100939253729">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:29</note>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszustand.pipe.ts:10</note>
       </notes>
       <segment state="translated">
         <source>Rohbauland</source>
@@ -377,16 +368,313 @@
     </unit>
     <unit id="7862698021378725781">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:30</note>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszustand.pipe.ts:11</note>
       </notes>
       <segment state="translated">
         <source>Bauerwartungsland</source>
         <target>Terrains pour la construction</target>
       </segment>
     </unit>
+    <unit id="6301725737662087334">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszustand.pipe.ts:12</note>
+      </notes>
+      <segment state="initial">
+        <source>Fläche der Land- und Forstwirtschaft</source>
+        <target>Fläche der Land- und Forstwirtschaft</target>
+      </segment>
+    </unit>
+    <unit id="557375825882458617">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszustand.pipe.ts:13</note>
+      </notes>
+      <segment state="initial">
+        <source>Sonstige Fläche</source>
+        <target>Sonstige Fläche</target>
+      </segment>
+    </unit>
+    <unit id="6123996497001032473">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszusatz.pipe.ts:9</note>
+      </notes>
+      <segment state="initial">
+        <source>Sanierungsbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung</source>
+        <target>Sanierungsbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung</target>
+      </segment>
+    </unit>
+    <unit id="2630397152590237770">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszusatz.pipe.ts:10</note>
+      </notes>
+      <segment state="initial">
+        <source>Sanierungsbeeinflusster Bodenrichtwert, unter Berücksichtigung der rechtlichen und tatsächlichen Neuordnung</source>
+        <target>Sanierungsbeeinflusster Bodenrichtwert, unter Berücksichtigung der rechtlichen und tatsächlichen Neuordnung</target>
+      </segment>
+    </unit>
+    <unit id="1652601606278472257">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszusatz.pipe.ts:11</note>
+      </notes>
+      <segment state="initial">
+        <source>Entwicklungsbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung</source>
+        <target>Entwicklungsbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung</target>
+      </segment>
+    </unit>
+    <unit id="6040123423446589904">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszusatz.pipe.ts:12</note>
+      </notes>
+      <segment state="initial">
+        <source>Entwicklungsbeeinflusster Bodenrichtwert, unter Berücksichtigung der rechtlichen und tatsächlichen Neuordnung</source>
+        <target>Entwicklungsbeeinflusster Bodenrichtwert, unter Berücksichtigung der rechtlichen und tatsächlichen Neuordnung</target>
+      </segment>
+    </unit>
+    <unit id="8661838621807654327">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:9</note>
+      </notes>
+      <segment state="initial">
+        <source>Art der Bebauung</source>
+        <target>Art der Bebauung</target>
+      </segment>
+    </unit>
+    <unit id="2429896523262046279">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:10</note>
+      </notes>
+      <segment state="initial">
+        <source>Beitrags- und abgabenrechtlicher Zustand</source>
+        <target>Beitrags- und abgabenrechtlicher Zustand</target>
+      </segment>
+    </unit>
+    <unit id="6031341016856477234">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:17</note>
+      </notes>
+      <segment state="initial">
+        <source>Fläche in m²</source>
+        <target>Fläche in m²</target>
+      </segment>
+    </unit>
+    <unit id="2250588955173863090">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:18</note>
+      </notes>
+      <segment state="initial">
+        <source>Tiefe</source>
+        <target>Tiefe</target>
+      </segment>
+    </unit>
+    <unit id="5503135058173767791">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:19</note>
+      </notes>
+      <segment state="initial">
+        <source>Breite</source>
+        <target>Breite</target>
+      </segment>
+    </unit>
+    <unit id="4786635944804520150">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:23</note>
+      </notes>
+      <segment state="initial">
+        <source>Hinweis</source>
+        <target>Hinweis</target>
+      </segment>
+    </unit>
+    <unit id="2333601902530130255">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/art-der-bebauung.pipe.ts:9</note>
+      </notes>
+      <segment state="initial">
+        <source>EFH</source>
+        <target>EFH</target>
+      </segment>
+    </unit>
+    <unit id="1596892935486808600">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/art-der-bebauung.pipe.ts:10</note>
+      </notes>
+      <segment state="initial">
+        <source>MFH</source>
+        <target>MFH</target>
+      </segment>
+    </unit>
+    <unit id="8338530887536042106">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:9</note>
+      </notes>
+      <segment state="initial">
+        <source>offene Bauweise</source>
+        <target>offene Bauweise</target>
+      </segment>
+    </unit>
+    <unit id="8398883045272518906">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:10</note>
+      </notes>
+      <segment state="initial">
+        <source>geschlossene Bauweise</source>
+        <target>geschlossene Bauweise</target>
+      </segment>
+    </unit>
+    <unit id="4687567069499952685">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:11</note>
+      </notes>
+      <segment state="initial">
+        <source>abweichende Bauweise</source>
+        <target>abweichende Bauweise</target>
+      </segment>
+    </unit>
+    <unit id="3378769357287942998">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:12</note>
+      </notes>
+      <segment state="initial">
+        <source>Einzelhäuser</source>
+        <target>Einzelhäuser</target>
+      </segment>
+    </unit>
+    <unit id="7053341497501928795">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:13</note>
+      </notes>
+      <segment state="initial">
+        <source>Einzel- und Doppelhäuser</source>
+        <target>Einzel- und Doppelhäuser</target>
+      </segment>
+    </unit>
+    <unit id="7482516444735802985">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:14</note>
+      </notes>
+      <segment state="initial">
+        <source>Doppelhaushälften</source>
+        <target>Doppelhaushälften</target>
+      </segment>
+    </unit>
+    <unit id="4645231632856388067">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:15</note>
+      </notes>
+      <segment state="initial">
+        <source>Reihenhäuser</source>
+        <target>Reihenhäuser</target>
+      </segment>
+    </unit>
+    <unit id="9180540659496736025">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:16</note>
+      </notes>
+      <segment state="initial">
+        <source>Reihenmittelhäuser</source>
+        <target>Reihenmittelhäuser</target>
+      </segment>
+    </unit>
+    <unit id="3032403857816339490">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bauweise.pipe.ts:17</note>
+      </notes>
+      <segment state="initial">
+        <source>Reihenendhäuser</source>
+        <target>Reihenendhäuser</target>
+      </segment>
+    </unit>
+    <unit id="8422182871365147245">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bodenart.pipe.ts:9</note>
+      </notes>
+      <segment state="initial">
+        <source>Sand</source>
+        <target>Sand</target>
+      </segment>
+    </unit>
+    <unit id="32908349912384961">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bodenart.pipe.ts:10</note>
+      </notes>
+      <segment state="initial">
+        <source>Lehm</source>
+        <target>Lehm</target>
+      </segment>
+    </unit>
+    <unit id="4962798112365530059">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bodenart.pipe.ts:11</note>
+      </notes>
+      <segment state="initial">
+        <source>Ton</source>
+        <target>Ton</target>
+      </segment>
+    </unit>
+    <unit id="2165381830316503066">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/bodenart.pipe.ts:12</note>
+      </notes>
+      <segment state="initial">
+        <source>Moor</source>
+        <target>Moor</target>
+      </segment>
+    </unit>
+    <unit id="3209114361941503669">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/verfahrensart.pipe.ts:9</note>
+      </notes>
+      <segment state="initial">
+        <source>Sanierungsgebiet</source>
+        <target>Sanierungsgebiet</target>
+      </segment>
+    </unit>
+    <unit id="7948240092287640608">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/verfahrensart.pipe.ts:10</note>
+      </notes>
+      <segment state="initial">
+        <source>Entwicklungsbereich</source>
+        <target>Entwicklungsbereich</target>
+      </segment>
+    </unit>
+    <unit id="5086463606676370808">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/verfahrensart.pipe.ts:11</note>
+      </notes>
+      <segment state="initial">
+        <source>Soziale Stadt</source>
+        <target>Soziale Stadt</target>
+      </segment>
+    </unit>
+    <unit id="4975905837304162947">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/verfahrensart.pipe.ts:12</note>
+      </notes>
+      <segment state="initial">
+        <source>Stadtumbau</source>
+        <target>Stadtumbau</target>
+      </segment>
+    </unit>
+    <unit id="5602642681257625568">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.component.html:5</note>
+      </notes>
+      <segment state="initial">
+        <source>Bitte Adresse eingeben...</source>
+        <target>Bitte Adresse eingeben...</target>
+      </segment>
+    </unit>
+    <unit id="6662846888544785291">
+      <notes>
+        <note category="location">src/app/shared/geosearch/geosearch.component.html:8</note>
+      </notes>
+      <segment state="initial">
+        <source>Bitte geben Sie eine Adresse ein.</source>
+        <target>Bitte geben Sie eine Adresse ein.</target>
+      </segment>
+    </unit>
     <unit id="2823852046748418240">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:84</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:86</note>
       </notes>
       <segment state="translated">
         <source>Bodenrichtwerte - POWER.NI</source>
@@ -516,8 +804,9 @@
     </unit>
     <unit id="9117142324442802101">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:16</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:177</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:15</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:246</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:21</note>
       </notes>
       <segment state="translated">
         <source>Stichtag</source>
@@ -526,20 +815,28 @@
     </unit>
     <unit id="6238610718217601006">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:35</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:197</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:33</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:267</note>
       </notes>
       <segment state="translated">
         <source>Teilmarkt</source>
         <target>Sous-marché</target>
       </segment>
     </unit>
+    <unit id="1542781823697244610">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:68</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:69</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:173</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:174</note>
+      </notes>
+      <segment state="initial">
+        <source>Eigenen Standort anzeigen</source>
+        <target>Eigenen Standort anzeigen</target>
+      </segment>
+    </unit>
     <unit id="5063541446028843345">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:63</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:64</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:130</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:131</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:97</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:98</note>
       </notes>
@@ -550,10 +847,10 @@
     </unit>
     <unit id="6052049272309725871">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:74</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:75</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:141</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:142</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:86</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:87</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:191</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:192</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:47</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:48</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:107</note>
@@ -566,10 +863,10 @@
     </unit>
     <unit id="3959786746681776209">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:85</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:86</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:152</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:153</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:105</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:106</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:210</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:211</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:57</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:58</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:117</note>
@@ -582,8 +879,8 @@
     </unit>
     <unit id="3906533541170541583">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:106</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:107</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:134</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:135</note>
       </notes>
       <segment state="translated">
         <source>Filtern</source>
@@ -592,8 +889,8 @@
     </unit>
     <unit id="9098454119754693999">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:119</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:120</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:154</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.html:155</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:77</note>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.html:78</note>
       </notes>
@@ -604,16 +901,27 @@
     </unit>
     <unit id="7478201324644826913">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:11</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:12</note>
       </notes>
       <segment state="translated">
         <source>Bodenrichtwertzone</source>
         <target>Zone de valeur foncière standard</target>
       </segment>
     </unit>
-    <unit id="5763537713323428568">
+    <unit id="2493979633086052887">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:13</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:202</note>
+      </notes>
+      <segment state="initial">
+        <source>Umrechnung</source>
+        <target>Umrechnung</target>
+      </segment>
+    </unit>
+    <unit id="5763537713323428568">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:15</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:11</note>
       </notes>
       <segment state="translated">
         <source>Art der Nutzung</source>
@@ -622,11 +930,146 @@
     </unit>
     <unit id="4858894794380558995">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:14</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:16</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:81</note>
       </notes>
       <segment state="translated">
         <source>Bodenrichtwert</source>
         <target>Valeur foncière standard</target>
+      </segment>
+    </unit>
+    <unit id="2309876295643105795">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:17</note>
+      </notes>
+      <segment state="initial">
+        <source>Grundstücksfläche</source>
+        <target>Grundstücksfläche</target>
+      </segment>
+    </unit>
+    <unit id="7781801517579441483">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:18</note>
+      </notes>
+      <segment state="initial">
+        <source>Grundstücksbreite</source>
+        <target>Grundstücksbreite</target>
+      </segment>
+    </unit>
+    <unit id="1770058711894501301">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:19</note>
+      </notes>
+      <segment state="initial">
+        <source>Grundstückstiefe</source>
+        <target>Grundstückstiefe</target>
+      </segment>
+    </unit>
+    <unit id="1873336630134316025">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:20</note>
+      </notes>
+      <segment state="initial">
+        <source>Entwicklungszustand</source>
+        <target>Entwicklungszustand</target>
+      </segment>
+    </unit>
+    <unit id="5778902075645265227">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:22</note>
+      </notes>
+      <segment state="initial">
+        <source>Entwicklungs- und Sanierungszusatz</source>
+        <target>Entwicklungs- und Sanierungszusatz</target>
+      </segment>
+    </unit>
+    <unit id="3812165646699694104">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:23</note>
+      </notes>
+      <segment state="initial">
+        <source>Verfahrensgrund</source>
+        <target>Verfahrensgrund</target>
+      </segment>
+    </unit>
+    <unit id="4677136894764728051">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:24</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:12</note>
+      </notes>
+      <segment state="initial">
+        <source>Bauweise</source>
+        <target>Bauweise</target>
+      </segment>
+    </unit>
+    <unit id="2202125221512046184">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:25</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:16</note>
+      </notes>
+      <segment state="initial">
+        <source>Baumassenzahl</source>
+        <target>Baumassenzahl</target>
+      </segment>
+    </unit>
+    <unit id="6991669467850187421">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:26</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:13</note>
+      </notes>
+      <segment state="initial">
+        <source>Geschosszahl</source>
+        <target>Geschosszahl</target>
+      </segment>
+    </unit>
+    <unit id="1953961852866147898">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:27</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:15</note>
+      </notes>
+      <segment state="initial">
+        <source>Grundflächenzahl</source>
+        <target>Grundflächenzahl</target>
+      </segment>
+    </unit>
+    <unit id="4325552835561654025">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:28</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:14</note>
+      </notes>
+      <segment state="initial">
+        <source>Wertrelevante Geschossflächenzahl</source>
+        <target>Wertrelevante Geschossflächenzahl</target>
+      </segment>
+    </unit>
+    <unit id="8281014869239346075">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:29</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:20</note>
+      </notes>
+      <segment state="initial">
+        <source>Ackerzahl</source>
+        <target>Ackerzahl</target>
+      </segment>
+    </unit>
+    <unit id="853913780480853618">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:30</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:22</note>
+      </notes>
+      <segment state="initial">
+        <source>Bodenart</source>
+        <target>Bodenart</target>
+      </segment>
+    </unit>
+    <unit id="1514173728193547055">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:31</note>
+        <note category="location">src/app/bodenrichtwert/pipes/einflussgroesse.pipe.ts:21</note>
+      </notes>
+      <segment state="initial">
+        <source>Grünlandzahl</source>
+        <target>Grünlandzahl</target>
       </segment>
     </unit>
     <unit id="4968596440448573968">
@@ -638,31 +1081,232 @@
         <target>Tableau de la zone de valeur foncière standard <ph id="0" equiv="INTERPOLATION" disp="{{ feature.properties.nutzung | nutzung }}"/></target>
       </segment>
     </unit>
-    <unit id="1124836042224815442">
+    <unit id="1523510831261227697">
       <notes>
-        <note category="location">src/app/shared/geosearch/geosearch.component.html:5</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.ts:30</note>
       </notes>
       <segment state="initial">
-        <source>Bitte Ort eingeben...</source>
-        <target>Veuillez entrer un lieu...</target>
+        <source>Umrechnungskoeffizient</source>
+        <target>Umrechnungskoeffizient</target>
+      </segment>
+    </unit>
+    <unit id="6172186102719597098">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.ts:51</note>
+      </notes>
+      <segment state="initial">
+        <source>Umrechnungskoeffizient:</source>
+        <target>Umrechnungskoeffizient:</target>
+      </segment>
+    </unit>
+    <unit id="1021493442371747516">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:6</note>
+      </notes>
+      <segment state="initial">
+        <source>Erklärungen</source>
+        <target>Erklärungen</target>
+      </segment>
+    </unit>
+    <unit id="753450862881021795">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:49</note>
+      </notes>
+      <segment state="initial">
+        <source>Umrechnungstabelle</source>
+        <target>Umrechnungstabelle</target>
+      </segment>
+    </unit>
+    <unit id="4080878931370689471">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:78</note>
+      </notes>
+      <segment state="initial">
+        <source>Beispielrechnung</source>
+        <target>Beispielrechnung</target>
+      </segment>
+    </unit>
+    <unit id="4353408078738319193">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:88</note>
+      </notes>
+      <segment state="initial">
+        <source>Dazugehöriger Umrechnungskoeffizient</source>
+        <target>Dazugehöriger Umrechnungskoeffizient</target>
+      </segment>
+    </unit>
+    <unit id="6503839905687768342">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:89</note>
+      </notes>
+      <segment state="initial">
+        <source>Individueller Bodenrichtwert</source>
+        <target>Individueller Bodenrichtwert</target>
+      </segment>
+    </unit>
+    <unit id="3538586696878756122">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:11</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:29</note>
+      </notes>
+      <segment state="initial">
+        <source>Die vom Gutachterausschuss ermittelten Bodenrichtwerte beziehen sich auf eine durchschnittliche, gebietstypische Bodengüte, die als Acker- bzw. Grünlandzahl definiert ist.</source>
+        <target>Die vom Gutachterausschuss ermittelten Bodenrichtwerte beziehen sich auf eine durchschnittliche, gebietstypische Bodengüte, die als Acker- bzw. Grünlandzahl definiert ist.</target>
+      </segment>
+    </unit>
+    <unit id="2328987404664427754">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:12</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:30</note>
+      </notes>
+      <segment state="initial">
+        <source>Diese auch als Bodenpunkte bezeichneten Werte sind nach dem Bodenschätzungsgesetz ermittelte Verhältniszahlen über die natürliche Ertragsfähigkeit landwirtschaftlicher Grundstücke.</source>
+        <target>Diese auch als Bodenpunkte bezeichneten Werte sind nach dem Bodenschätzungsgesetz ermittelte Verhältniszahlen über die natürliche Ertragsfähigkeit landwirtschaftlicher Grundstücke.</target>
+      </segment>
+    </unit>
+    <unit id="4247033374121740308">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:13</note>
+      </notes>
+      <segment state="initial">
+        <source>Zur Berücksichtigung der Abhängigkeit des Bodenwertes (€/m²) von der Bodengüte (Ackerzahl) können die nachfolgend dargestellten Umrechnungskoeffizienten angewendet werden.</source>
+        <target>Zur Berücksichtigung der Abhängigkeit des Bodenwertes (€/m²) von der Bodengüte (Ackerzahl) können die nachfolgend dargestellten Umrechnungskoeffizienten angewendet werden.</target>
+      </segment>
+    </unit>
+    <unit id="2866287296038870872">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:16</note>
+      </notes>
+      <segment state="initial">
+        <source>Der Bodenwert von Grundstücken wird neben der Lage auch von der nach der von der Bauleitplanung eingeräumten Möglichkeit der baulichen Ausnutzung des Baugrundstücks beeinflusst.</source>
+        <target>Der Bodenwert von Grundstücken wird neben der Lage auch von der nach der von der Bauleitplanung eingeräumten Möglichkeit der baulichen Ausnutzung des Baugrundstücks beeinflusst.</target>
+      </segment>
+    </unit>
+    <unit id="2563108171571230518">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:17</note>
+      </notes>
+      <segment state="initial">
+        <source>Als Maß für die bauliche Ausnutzung gilt die Möglichkeit der Bebauung mit Ein- bzw. Zweifamilienhäuser (EFH) oder die Möglichkeit der Bebauung mit Wohn- und Geschäftshäuser bzw. Mehrfamilienhäuser (MFH).</source>
+        <target>Als Maß für die bauliche Ausnutzung gilt die Möglichkeit der Bebauung mit Ein- bzw. Zweifamilienhäuser (EFH) oder die Möglichkeit der Bebauung mit Wohn- und Geschäftshäuser bzw. Mehrfamilienhäuser (MFH).</target>
+      </segment>
+    </unit>
+    <unit id="2117056200031001904">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:18</note>
+      </notes>
+      <segment state="initial">
+        <source>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung (EFH/MFH).</source>
+        <target>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung (EFH/MFH).</target>
+      </segment>
+    </unit>
+    <unit id="2651076259655476201">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:21</note>
+      </notes>
+      <segment state="initial">
+        <source>Der Bodenwert von Grundstücken wird neben der Lage auch von der Größe des Baugrundstücks beeinflusst.</source>
+        <target>Der Bodenwert von Grundstücken wird neben der Lage auch von der Größe des Baugrundstücks beeinflusst.</target>
+      </segment>
+    </unit>
+    <unit id="6147153783512264785">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:22</note>
+      </notes>
+      <segment state="initial">
+        <source>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlichen Grundstücksflächen.</source>
+        <target>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlichen Grundstücksflächen.</target>
+      </segment>
+    </unit>
+    <unit id="3068780103289553393">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:25</note>
+      </notes>
+      <segment state="initial">
+        <source>Der Bodenwert von Grundstücken wird neben der Lage auch durch die von der Bauleitplanung eingeräumten Möglichkeiten der baulichen Ausnutzung des Baugrundstücks beeinflusst. Als Maß für die bauliche Ausnutzung gilt unter anderem die Geschosszahl (GEZ).</source>
+        <target>Der Bodenwert von Grundstücken wird neben der Lage auch durch die von der Bauleitplanung eingeräumten Möglichkeiten der baulichen Ausnutzung des Baugrundstücks beeinflusst. Als Maß für die bauliche Ausnutzung gilt unter anderem die Geschosszahl (GEZ).</target>
+      </segment>
+    </unit>
+    <unit id="8147649476036721564">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:26</note>
+      </notes>
+      <segment state="initial">
+        <source>Die Angabe gibt hier die überwiegend vorhandene Geschosszahl wieder (III bedeutet drei Vollgeschosse) und dient ggf. zur Unterscheidung der Bodenrichtwerte bei überlagernden Zonen.</source>
+        <target>Die Angabe gibt hier die überwiegend vorhandene Geschosszahl wieder (III bedeutet drei Vollgeschosse) und dient ggf. zur Unterscheidung der Bodenrichtwerte bei überlagernden Zonen.</target>
+      </segment>
+    </unit>
+    <unit id="3085984190877401151">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:31</note>
+      </notes>
+      <segment state="initial">
+        <source>Zur Berücksichtigung der Abhängigkeit des Bodenwertes (€/m²) von der Bodengüte (Grünlandzahl) können die nachfolgend dargestellten Umrechnungskoeffizienten angewendet werden.</source>
+        <target>Zur Berücksichtigung der Abhängigkeit des Bodenwertes (€/m²) von der Bodengüte (Grünlandzahl) können die nachfolgend dargestellten Umrechnungskoeffizienten angewendet werden.</target>
+      </segment>
+    </unit>
+    <unit id="444155130281320339">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:34</note>
+      </notes>
+      <segment state="initial">
+        <source>Der Bodenwert von Grundstücken wird neben der Lage auch von der baulichen Ausnutzung des Baugrundstücks beeinflusst.</source>
+        <target>Der Bodenwert von Grundstücken wird neben der Lage auch von der baulichen Ausnutzung des Baugrundstücks beeinflusst.</target>
+      </segment>
+    </unit>
+    <unit id="2537428382610361673">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:35</note>
+      </notes>
+      <segment state="initial">
+        <source>Als Maß für die bauliche Ausnutzung gilt die wertrelevante Geschoßflächenzahl (WGFZ), die das Verhältnis zwischen Grundstücksgröße und wertrelevanter Geschoßfläche festlegt (WGFZ 1,0 bedeutet, dass 100 % der Grundstücksfläche als wertrelevante Geschoßfläche auf dem Baugrundstück realisiert werden soll bzw. bereits vorhanden ist).</source>
+        <target>Als Maß für die bauliche Ausnutzung gilt die wertrelevante Geschoßflächenzahl (WGFZ), die das Verhältnis zwischen Grundstücksgröße und wertrelevanter Geschoßfläche festlegt (WGFZ 1,0 bedeutet, dass 100 % der Grundstücksfläche als wertrelevante Geschoßfläche auf dem Baugrundstück realisiert werden soll bzw. bereits vorhanden ist).</target>
+      </segment>
+    </unit>
+    <unit id="3148023517429004786">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:36</note>
+      </notes>
+      <segment state="initial">
+        <source>Die wertrelevante Geschossfläche ist nach den Außenmaßen der Gebäude in allen Vollgeschossen zu ermitteln.</source>
+        <target>Die wertrelevante Geschossfläche ist nach den Außenmaßen der Gebäude in allen Vollgeschossen zu ermitteln.</target>
+      </segment>
+    </unit>
+    <unit id="1782642482346994658">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:37</note>
+      </notes>
+      <segment state="initial">
+        <source>Die Flächen von Aufenthaltsräumen in anderen Geschossen einschließlich der zu ihnen gehörenden Treppenräume und ihrer Umfassungswände sind mitzurechnen.</source>
+        <target>Die Flächen von Aufenthaltsräumen in anderen Geschossen einschließlich der zu ihnen gehörenden Treppenräume und ihrer Umfassungswände sind mitzurechnen.</target>
+      </segment>
+    </unit>
+    <unit id="6330609479928863975">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:38</note>
+      </notes>
+      <segment state="initial">
+        <source>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung.</source>
+        <target>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung.</target>
+      </segment>
+    </unit>
+    <unit id="1533600124295294291">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:83</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:86</note>
+      </notes>
+      <segment state="initial">
+        <source>Individueller Wert für</source>
+        <target>Individueller Wert für</target>
       </segment>
     </unit>
     <unit id="5682599121859154301">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:12</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.ts:14</note>
       </notes>
       <segment state="translated">
         <source>Beitragsabgabenrechtlicher Zustand</source>
         <target>Statut de la taxe de contribution</target>
-      </segment>
-    </unit>
-    <unit id="625064919933078273">
-      <notes>
-        <note category="location">src/app/shared/geosearch/geosearch.component.html:7</note>
-      </notes>
-      <segment state="translated">
-        <source>Ort</source>
-        <target>Emplacement</target>
       </segment>
     </unit>
     <unit id="2587314051151324611">
@@ -692,7 +1336,7 @@
     </unit>
     <unit id="7813295753346997362">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:40</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:41</note>
       </notes>
       <segment state="translated">
         <source>Bodenwerte - POWER.NI</source>
@@ -701,7 +1345,7 @@
     </unit>
     <unit id="4100522363376874265">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:75</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:76</note>
       </notes>
       <segment state="translated">
         <source>Auswahl fehlgeschlagen</source>
@@ -710,7 +1354,7 @@
     </unit>
     <unit id="6425237191868185957">
       <notes>
-        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:76</note>
+        <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:77</note>
       </notes>
       <segment state="translated">
         <source>Zur Selektion von Flurstücken bitte weiter heranzoomen.</source>
@@ -803,8 +1447,8 @@
     </unit>
     <unit id="6267893735675184411">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.ts:16</note>
         <note category="location">src/app/fragebogen/fillout/fillout.component.ts:39</note>
+        <note category="location">src/app/fragebogen/home/home.component.ts:18</note>
       </notes>
       <segment state="translated">
         <source>Formulare - POWER.NI</source>
@@ -840,8 +1484,8 @@
     </unit>
     <unit id="3438075409129621721">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:65</note>
-        <note category="location">src/app/fragebogen/home/home.component.html:43</note>
+        <note category="location">src/app/static/start/start.component.html:70</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:48</note>
       </notes>
       <segment state="translated">
         <source>Formular PIN</source>
@@ -850,8 +1494,8 @@
     </unit>
     <unit id="1902096491646310955">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:51</note>
-        <note category="location">src/app/fragebogen/home/home.component.html:52</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:54</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:55</note>
       </notes>
       <segment state="translated">
         <source>PIN absenden</source>
@@ -860,7 +1504,7 @@
     </unit>
     <unit id="4392993924409588244">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:73</note>
+        <note category="location">src/app/static/start/start.component.html:77</note>
         <note category="location">src/app/fragebogen/editor/answers/answers.component.html:179</note>
       </notes>
       <segment state="translated">
@@ -870,7 +1514,7 @@
     </unit>
     <unit id="8191576719702905998">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:88</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:91</note>
       </notes>
       <segment state="translated">
         <source>Formular finden</source>
@@ -879,7 +1523,7 @@
     </unit>
     <unit id="5149017028156590000">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:92</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:95</note>
       </notes>
       <segment state="translated">
         <source>Wenn Sie ein Formular einreichen wollen, finden Sie hier unsere öffentlichen Formulare.</source>
@@ -888,7 +1532,7 @@
     </unit>
     <unit id="4088965861946680266">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:97</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:100</note>
       </notes>
       <segment state="translated">
         <source>Über diesen Link gelangen Sie zu den öffentlichen Formularen.</source>
@@ -897,7 +1541,7 @@
     </unit>
     <unit id="5711849175900703108">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:115</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:118</note>
       </notes>
       <segment state="translated">
         <source>Zu den öffentlichen Formularen</source>
@@ -906,7 +1550,7 @@
     </unit>
     <unit id="6489685542013391299">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:141</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:144</note>
       </notes>
       <segment state="translated">
         <source>Notarportal</source>
@@ -915,7 +1559,7 @@
     </unit>
     <unit id="4785299248596372755">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:145</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:148</note>
       </notes>
       <segment state="translated">
         <source>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen.</source>
@@ -924,7 +1568,7 @@
     </unit>
     <unit id="3867605560596531339">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:173</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:176</note>
       </notes>
       <segment state="translated">
         <source>Mitarbeiter</source>
@@ -933,7 +1577,7 @@
     </unit>
     <unit id="7585378083307211134">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:177</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:180</note>
       </notes>
       <segment state="translated">
         <source>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</source>
@@ -942,7 +1586,7 @@
     </unit>
     <unit id="6421628257570379080">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:182</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:185</note>
       </notes>
       <segment state="translated">
         <source>Über diesen Link gelangen Sie zum Mitarbeiterportal.</source>
@@ -951,7 +1595,7 @@
     </unit>
     <unit id="6949567012632159210">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:200</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:203</note>
       </notes>
       <segment state="translated">
         <source>Zum Mitarbeiterportal</source>
@@ -1669,6 +2313,15 @@
         <target>Contribution au développement / remboursement des coûts redevable et imposable selon la Loi de l'impôt sur les municipalités</target>
       </segment>
     </unit>
+    <unit id="6531769363841561135">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/pipes/entwicklungszustand.pipe.ts:9</note>
+      </notes>
+      <segment state="initial">
+        <source>Baureifes Land</source>
+        <target>Baureifes Land</target>
+      </segment>
+    </unit>
     <unit id="6013256967591081588">
       <notes>
         <note category="location">src/app/shared/geosearch/geosearch.service.ts:71</note>
@@ -1896,9 +2549,19 @@
         <target>Vous avez été déconnecté avec succès.</target>
       </segment>
     </unit>
+    <unit id="1569573869577674759">
+      <notes>
+        <note category="location">src/app/static/start/start.component.ts:44</note>
+        <note category="location">src/app/fragebogen/home/home.component.ts:32</note>
+      </notes>
+      <segment state="initial">
+        <source>Bitte Pin eingeben</source>
+        <target>Bitte Pin eingeben</target>
+      </segment>
+    </unit>
     <unit id="841934696444961534">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:112</note>
+        <note category="location">src/app/static/start/start.component.html:116</note>
       </notes>
       <segment state="translated">
         <source>News</source>
@@ -1907,7 +2570,7 @@
     </unit>
     <unit id="4177395589093342239">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:117</note>
+        <note category="location">src/app/static/start/start.component.html:121</note>
       </notes>
       <segment state="translated">
         <source>Immobilienmarktbericht 2020</source>
@@ -1916,7 +2579,7 @@
     </unit>
     <unit id="1702834368412695399">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:118</note>
+        <note category="location">src/app/static/start/start.component.html:122</note>
       </notes>
       <segment state="translated">
         <source>Eine Dekade steigender Preise in Niedersachsen...</source>
@@ -1925,7 +2588,7 @@
     </unit>
     <unit id="4980082766864057233">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:121</note>
+        <note category="location">src/app/static/start/start.component.html:125</note>
       </notes>
       <segment state="translated">
         <source>Bodenrichtwerte 2021</source>
@@ -1934,7 +2597,7 @@
     </unit>
     <unit id="6326925902432622347">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:122</note>
+        <note category="location">src/app/static/start/start.component.html:126</note>
       </notes>
       <segment state="translated">
         <source>Die neuen Bodenrichtwerte sind jetzt verfügbar...</source>
@@ -2024,7 +2687,7 @@
     </unit>
     <unit id="7567341863769679266">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:86</note>
+        <note category="location">src/app/static/start/start.component.html:90</note>
       </notes>
       <segment state="translated">
         <source>Die PIN absenden</source>
@@ -5545,10 +6208,10 @@ Cela ne peut pas être inversé !</target>
     </unit>
     <unit id="51574765818008149">
       <notes>
-        <note category="location">src/app/app.component.html:153</note>
-        <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:5</note>
-        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.html:28</note>
+        <note category="location">src/app/app.component.html:154</note>
         <note category="location">src/app/fragebogen/fillout/fillout.component.html:12</note>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.html:28</note>
+        <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:5</note>
       </notes>
       <segment state="translated">
         <source>Sprache</source>
