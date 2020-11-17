@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { ArtDerBebauungPipe } from '@app/bodenrichtwert/pipes/art-der-bebauung.pipe';
 import { EinflussgroessePipe } from '@app/bodenrichtwert/pipes/einflussgroesse.pipe';
 import { ObjectIdPipe } from '@app/bodenrichtwert/pipes/object-id.pipe';
 
@@ -8,7 +7,7 @@ import { ObjectIdPipe } from '@app/bodenrichtwert/pipes/object-id.pipe';
     selector: 'power-bodenrichtwert-detail-umrechnung',
     templateUrl: './umrechnung.component.html',
     styleUrls: ['./umrechnung.component.scss'],
-    providers: [ArtDerBebauungPipe, EinflussgroessePipe, ObjectIdPipe],
+    providers: [EinflussgroessePipe, ObjectIdPipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UmrechnungComponent implements OnInit {
@@ -34,8 +33,7 @@ export class UmrechnungComponent implements OnInit {
     einflussgroesse: string;
     objectId: string;
 
-    constructor(private artDerBebauungPipe: ArtDerBebauungPipe,
-                private einflussgroessePipe: EinflussgroessePipe,
+    constructor(private einflussgroessePipe: EinflussgroessePipe,
                 private objectIdPipe: ObjectIdPipe) {
     }
 
@@ -43,19 +41,10 @@ export class UmrechnungComponent implements OnInit {
         this.einflussgroesse = this.einflussgroessePipe.transform(this.data.text);
         this.objectId = this.objectIdPipe.transform(this.data.objid);
         this.data.werte = this.sortBezugswerte(this.data.werte);
-        this.transformArtDerBebauung();
     }
 
     sortBezugswerte(array) {
         return array.sort((a, b) => a.bzwt - b.bzwt);
-    }
-
-    transformArtDerBebauung() {
-        if (this.data.text === 'Art der Bebauung') {
-            this.data.werte.forEach(wert => {
-                wert.bzwt = this.artDerBebauungPipe.transform(wert.bzwt);
-            });
-        }
     }
 
     public open() {
