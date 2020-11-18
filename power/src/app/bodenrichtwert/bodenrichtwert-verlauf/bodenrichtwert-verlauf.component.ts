@@ -153,7 +153,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 series[lastElement + 1].nutzung = (series[lastElement].nutzung);
                 series[lastElement + 1].verf = (series[lastElement].verf);
             }
-            this.srTableData.push({ series });
+            this.srTableData.push({ series: series });
 
             const nutzung = this.getNutzung(series);
             // const color = this.setLineColor(nutzung);

@@ -21,12 +21,21 @@
                 "plugin:@angular-eslint/template/process-inline-templates"
             ],
             "rules": {
+                "arrow-body-style": "off",
+                "camelCase": "off",
                 "complexity": [
                     "error",
                     {
                         "max": 10
                     }
                 ],
+                "eqeqeq": "error",
+                "indent": [
+                    "error",
+                    4
+                ],
+                "jsdoc/newline-after-description": "off",
+                "jsdoc/no-types": "off",
                 "max-len": [
                     "error",
                     {
@@ -37,18 +46,35 @@
                     "error",
                     300
                 ],
-                "camelCase": "off",
-                "@typescript-eslint/naming-convention": "off",
+                "no-irregular-whitespace": "error",
+                "no-multi-spaces": "error",
+                "no-trailing-spaces": "error",
+                "no-underscore-dangle": "off",
+                "object-shorthand": [
+                    "error",
+                    "never"
+                ],
+                "prefer-arrow/prefer-arrow-functions": "off",
+                "quotes": [
+                    "error",
+                    "single"
+                ],
+                "quote-props": "off",
+                "semi": [
+                    "error",
+                    "always"
+                ],
+                "space-before-function-paren": "off",
+                "spaced-comment": [
+                    "error",
+                    "always"
+                ],
                 "@angular-eslint/component-selector": "off",
                 "@angular-eslint/directive-selector": "off",
-                "space-before-function-paren": "off",
-                "@typescript-eslint/member-ordering": "off",
-                "prefer-arrow/prefer-arrow-functions": "off",
+                "@typescript-eslint/consistent-type-assertions": "off",
                 "@typescript-eslint/dot-notation": "off",
-                "no-underscore-dangle": "off",
-                "jsdoc/newline-after-description": "off",
-                "jsdoc/no-types": "off",
-                "quote-props": "off",
+                "@typescript-eslint/member-ordering": "off",
+                "@typescript-eslint/naming-convention": "off",
                 "@typescript-eslint/prefer-for-of": "off"
             }
         },

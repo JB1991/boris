@@ -67,7 +67,7 @@ import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
         NgbAccordionModule,
         NgbPaginationModule,
         NgxMapboxGLModule,
-        NgxEchartsModule.forRoot({ echarts }),
+        NgxEchartsModule.forRoot({ echarts: echarts }),
         SharedModule,
         NgbDropdownModule,
         CollapseModule

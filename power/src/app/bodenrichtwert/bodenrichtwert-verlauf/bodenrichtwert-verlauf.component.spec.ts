@@ -21,7 +21,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
             declarations: [BodenrichtwertVerlaufComponent],
             imports: [
                 HttpClientTestingModule,
-                NgxEchartsModule.forRoot({ echarts }),
+                NgxEchartsModule.forRoot({ echarts: echarts }),
             ]
         }).compileComponents();
     }));
