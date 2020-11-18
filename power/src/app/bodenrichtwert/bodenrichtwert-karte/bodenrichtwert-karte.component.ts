@@ -129,14 +129,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.filterActive = !this.filterActive;
     }
 
-    selectSearchResult(event: any) {
-        this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
-        const lng: number = event.geometry.coordinates[0];
-        const lat: number = event.geometry.coordinates[1];
-        this.flyTo(lat, lng);
-        this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
-    }
-
     flyTo(lat: number, lng: number) {
         this.map.flyTo({
             center: [lng, lat],
@@ -185,10 +177,12 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     onSearchSelect(event: any) {
         this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
-        const lng: number = event.geometry.coordinates[0];
-        const lat: number = event.geometry.coordinates[1];
-        this.flyTo(lat, lng);
-        this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
+        this.lat = event.geometry.coordinates[1];
+        this.lng = event.geometry.coordinates[0];
+        this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        this.getAddressFromLatLng(this.lat, this.lng);
+        this.flyTo(this.lat, this.lng);
+        this.changeURL();
     }
 
     toggle3dView() {
@@ -255,14 +249,15 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     onStichtagChange(stichtag: any) {
         this.stichtag = stichtag;
-        this.changeURL();
         this.stichtagChange.next(stichtag);
+        this.changeURL();
     }
 
     onTeilmarktChange(teilmarkt: any) {
         this.teilmarkt = teilmarkt;
-        this.changeURL();
+        this.teilmarktChange.emit(this.teilmarkt);
         this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        this.changeURL();
     }
 
     resetMap() {
@@ -289,6 +284,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             pitch: 0,
             bearing: 0
         });
+        this.location.replaceState('/bodenrichtwerte');
     }
 
     enableLocationTracking() {
@@ -300,9 +296,12 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                     zoom: 14,
                     center: lngLat
                 });
+                this.lat = lngLat.lat;
+                this.lng = lngLat.lng;
                 this.marker.setLngLat(lngLat).addTo(this.map);
-                this.getAddressFromLatLng(lngLat.lat, lngLat.lng);
-                this.getBodenrichtwertzonen(lngLat.lat, lngLat.lng, this.teilmarkt.value);
+                this.getAddressFromLatLng(this.lat, this.lng);
+                this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+                this.changeURL();
             });
         }
     }

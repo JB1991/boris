@@ -230,7 +230,7 @@
                      [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
                      [(resetGeosearch)]="resetGeosearch"
                      [isCollapsed]="isCollapsed"
-                     (selectResult)="selectSearchResult($event)"></power-geosearch>
+                     (selectResult)="onSearchSelect($event)"></power-geosearch>
 
     <div [class.d-none]="!filterActive"
          [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
