@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } f
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
-import { Circle } from 'ngx-bootstrap-icons';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
@@ -156,9 +155,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.srTableData.push({ series: series });
 
             const nutzung = this.getNutzung(series);
-            // const color = this.setLineColor(nutzung);
-            this.chartOption.legend.data.push({ name: nutzung });
-            this.setChartOptions(series, nutzung,);
+            this.chartOption.legend.data.push(nutzung);
+            this.setChartOptions(series, nutzung);
             this.setVerfChartOptions(series);
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
@@ -199,11 +197,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             type: 'line',
             step: 'end',
             data: series.map(t => t.brw),
-            // color: color
         });
     }
 
-    // tslint:disable-next-line: max-func-body-length
     setVerfChartOptions(series) {
         const array = [];
         for (let i = 0; i < series.length; i++) {
