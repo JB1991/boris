@@ -68,9 +68,16 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         component.echartsInstance.setOption(component.chartOption);
         expect(component.chartOption.legend.data.length).toBe(0);
         expect(component.chartOption.series.length).toBe(0);
+        spyOn(component, 'setChartOptions').and.callThrough();
+        spyOn(component, 'setVerfChartOptions').and.callThrough();
         component.generateChart(features);
         expect(component.chartOption.legend.data.length).toBe(3);
         expect(component.chartOption.series.length).toBe(3);
+        expect(component.chartOption.visualMap.pieces.length).toBe(1);
+        expect(component.chartOption.visualMap.inRange.color[0]).toBe("#0080FF");
+        expect(component.chartOption.visualMap.outOfRange.color).toBe("rgba(24, 14, 88, 1)");
+        expect(component.setChartOptions).toHaveBeenCalledTimes(3);
+        expect(component.setVerfChartOptions).toHaveBeenCalledTimes(3);
     });
 
     it('onChartInit should set the echartsInstance', () => {
@@ -79,5 +86,6 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.echartsInstance).toEqual(echartsInstance);
 
     });
+
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

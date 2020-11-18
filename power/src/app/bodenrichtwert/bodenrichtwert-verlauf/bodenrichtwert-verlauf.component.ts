@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } f
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
-import { last } from 'rxjs/operators';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
@@ -20,15 +19,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     srTableHeader = [];
 
     seriesTemplate = [
-        { stag: '2012', brw: null, nutzung: '' },
-        { stag: '2013', brw: null, nutzung: '' },
-        { stag: '2014', brw: null, nutzung: '' },
-        { stag: '2015', brw: null, nutzung: '' },
-        { stag: '2016', brw: null, nutzung: '' },
-        { stag: '2017', brw: null, nutzung: '' },
-        { stag: '2018', brw: null, nutzung: '' },
-        { stag: '2019', brw: null, nutzung: '' },
-        { stag: 'heute', brw: null, nutzung: '' }
+        { stag: '2012', brw: null, nutzung: '', verf: '' },
+        { stag: '2013', brw: null, nutzung: '', verf: '' },
+        { stag: '2014', brw: null, nutzung: '', verf: '' },
+        { stag: '2015', brw: null, nutzung: '', verf: '' },
+        { stag: '2016', brw: null, nutzung: '', verf: '' },
+        { stag: '2017', brw: null, nutzung: '', verf: '' },
+        { stag: '2018', brw: null, nutzung: '', verf: '' },
+        { stag: '2019', brw: null, nutzung: '', verf: '' },
+        { stag: 'heute', brw: null, nutzung: '', verf: '' }
     ];
 
     public chartOption: EChartOption = {
@@ -39,7 +38,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 const res = [];
                 const year = params[0].axisValue;
                 for (let j = 0; j < params.length; j++) {
-                    if (params[j].value !== undefined && typeof(params[j].value) !== 'string') {
+                    if (params[j].value !== undefined && typeof (params[j].value) !== 'string') {
                         res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} <br />`);
                     }
                 }
@@ -54,7 +53,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             },
         },
         legend: {
-            data: []
+            data: [],
+            type: 'scroll'
         },
         grid: {
             left: '3%',
@@ -86,7 +86,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 symbolOffset: [0, 11]
             }
         },
-        series: []
+        series: [],
+        visualMap: {}
     };
 
     @Input() adresse: Feature;
@@ -121,12 +122,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         return filteredFeatures;
     }
+
     // eslint-disable-next-line
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.srTableData = [];
         this.srTableHeader = [];
 
+        this.chartOption.visualMap = '';
         for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
             const series = this.deepCopy(this.seriesTemplate);
@@ -140,22 +143,21 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 if (feature) {
                     series[i].brw = feature.properties.brw;
                     series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
+                    series[i].verf = feature.properties.verf;
                     lastElement = i;
                 }
             }
             if (lastElement < series.length - 1) {
                 series[lastElement + 1].brw = (series[lastElement].brw).toString();
+                series[lastElement + 1].nutzung = (series[lastElement].nutzung);
+                series[lastElement + 1].verf = (series[lastElement].verf);
             }
             this.srTableData.push({ series: series });
 
             const nutzung = this.getNutzung(series);
             this.chartOption.legend.data.push(nutzung);
-            this.chartOption.series.push({
-                name: nutzung,
-                type: 'line',
-                step: 'end',
-                data: series.map(t => t.brw)
-            });
+            this.setChartOptions(series, nutzung);
+            this.setVerfChartOptions(series);
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
@@ -187,6 +189,57 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
         return '';
+    }
+
+    setChartOptions(series, nutzung) {
+        this.chartOption.series.push({
+            name: nutzung,
+            type: 'line',
+            step: 'end',
+            data: series.map(t => t.brw),
+        });
+    }
+
+    setVerfChartOptions(series) {
+        const array = [];
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].verf === 'SU' || series[i].verf === 'EU') {
+                array.push(i);
+            }
+        }
+        const r = [array[0], array[array.length - 1]];
+        const seriesIndex = this.chartOption.series.length - 1;
+        if (r[0] !== undefined) {
+            this.chartOption.visualMap = {
+                type: 'piecewise',
+                showLabel: true,
+                pieces: [
+                    { min: r[0], max: r[1], label: 'Sanierungsgebiet' },
+                ],
+                left: 'right',
+                top: '5%',
+                dimension: 0,
+                seriesIndex: seriesIndex,
+                inRange: {
+                    color: ['#0080FF'],
+                },
+                outOfRange: {
+                    color: 'rgba(24, 14, 88, 1)'
+                }
+            };
+            this.setColorVerfSeries(series);
+        }
+    }
+
+    setColorVerfSeries(series) {
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].nutzung !== '') {
+                var nutzung = series[i].nutzung;
+                break
+            }
+        }
+        const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
+        this.chartOption.series[idx].color = 'rgba(24, 14, 88, 1)';
     }
 
     onChartInit(event: any) {
