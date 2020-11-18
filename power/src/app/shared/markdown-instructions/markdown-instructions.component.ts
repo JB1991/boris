@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild,
-    ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { ModalComponent } from '@app/shared/modal/modal.component';
 
@@ -8,13 +7,10 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
     templateUrl: './markdown-instructions.component.html',
     styleUrls: ['./markdown-instructions.component.scss']
 })
-export class MarkdownInstructionsComponent implements OnInit {
+export class MarkdownInstructionsComponent {
     @ViewChild('formattinghelpmodal') public modal: ModalComponent;
 
-    constructor(public cdr: ChangeDetectorRef) { }
-
-    ngOnInit() {
-    }
+    constructor() { }
 
     /**
      * Opens modal

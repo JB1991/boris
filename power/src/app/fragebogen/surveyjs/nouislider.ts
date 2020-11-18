@@ -51,7 +51,7 @@ export function init(Survey) {
                 {
                     name: 'pipsDensity:number',
                     category: 'slider',
-                    default: 5,
+                    default: 100,
                 },
                 {
                     name: 'orientation:string',
