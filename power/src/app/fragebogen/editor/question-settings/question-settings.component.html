@@ -29,13 +29,17 @@
                            class="form-text text-muted">
                         <span i18n>Dieser Wert muss im Formular einmalig sein. Die ID lässt
                             sich als Variable nutzen, diese enthält die Antwort der Frage:</span>
-                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code><br>
-                        <!-- ToDo: Passende Formatierung finden -->
-
+                        <code>{{ ' &#123;' + model.pages[page].elements[question].name + '&#125;' }}</code>
                     </small>
-
                 </div>
-                <button type="button"class="btn btn-sm btn-link" (click)="formattinghelpmodal.open()"><label i18n>Hilfe zur Formatierung</label></button>
+
+                <!-- ToDo: Passende Formatierung finden -->
+                <button type="button"
+                        class="btn btn-sm btn-link"
+                        (click)="formattinghelpmodal.open()">
+                    <label i18n>Hilfe zur Formatierung</label>
+                </button>
+
                 <!-- question-title -->
                 <div class="form-group">
                     <label for="question-title"
@@ -339,6 +343,19 @@
                                id="question-step">
                     </div>
 
+                    <!-- question-decimals -->
+                    <div class="form-group">
+                        <label for="question-decimals"
+                               i18n>Nachkommastellen</label>
+                        <input type="number"
+                               class="form-control"
+                               min="0"
+                               max="2"
+                               [(ngModel)]="model.pages[page].elements[question].decimals"
+                               name="question-decimals"
+                               id="question-decimals">
+                    </div>
+
                     <!-- question-rangeMin -->
                     <div class="form-group">
                         <label for="question-rangeMin"
@@ -359,19 +376,6 @@
                                [(ngModel)]="model.pages[page].elements[question].rangeMax"
                                name="question-rangeMax"
                                id="question-rangeMax">
-                    </div>
-
-                    <!-- question-decimals -->
-                    <div class="form-group">
-                        <label for="question-decimals"
-                               i18n>Nachkommastellen</label>
-                        <input type="number"
-                               class="form-control"
-                               min="0"
-                               max="2"
-                               [(ngModel)]="model.pages[page].elements[question].decimals"
-                               name="question-decimals"
-                               id="question-decimals">
                     </div>
                 </div>
 

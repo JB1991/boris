@@ -19,7 +19,6 @@ import { ConditionsComponent } from './conditions/conditions.component';
 import { ConditionModalComponent } from './condition-modal/condition-modal.component';
 import { ValidatorsComponent } from './validators/validators.component';
 import { LocaleInputComponent } from './localeinput/localeinput.component';
-import { MarkdownInstructionsComponent } from '../../shared/markdown-instructions/markdown-instructions.component'
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 import { SharedModule } from '@app/shared/shared.module';
@@ -34,8 +33,7 @@ import { SharedModule } from '@app/shared/shared.module';
         ConditionsComponent,
         ConditionModalComponent,
         ValidatorsComponent,
-        LocaleInputComponent,
-        MarkdownInstructionsComponent,
+        LocaleInputComponent
     ],
     imports: [
         EditorRoutingModule,
