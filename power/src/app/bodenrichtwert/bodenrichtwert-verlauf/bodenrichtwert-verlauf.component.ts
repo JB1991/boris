@@ -146,7 +146,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             if (lastElement < series.length - 1) {
                 series[lastElement + 1].brw = (series[lastElement].brw).toString();
             }
-            this.srTableData.push({ series });
+            this.srTableData.push({ series: series });
 
             const nutzung = this.getNutzung(series);
             this.chartOption.legend.data.push(nutzung);

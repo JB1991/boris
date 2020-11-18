@@ -119,7 +119,8 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
         component.onMapClickEvent(event);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert)
-        .toHaveBeenCalledWith('warning', 'Auswahl fehlgeschlagen', 'Zur Selektion von Flurstücken bitte weiter heranzoomen.');
+            .toHaveBeenCalledWith('warning', 'Auswahl fehlgeschlagen',
+                'Zur Selektion von Flurstücken bitte weiter heranzoomen.');
     });
 
     it('updateFlurstueckSelection should add and delete a Flurstueck from the selection', () => {

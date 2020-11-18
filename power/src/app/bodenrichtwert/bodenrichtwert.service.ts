@@ -124,7 +124,7 @@ export class BodenrichtwertService {
      * @param stag Stichtag
      * @param entw Teilmarkt
      */
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
     getFeatureByLatLonStagEntw(lat: any, lon: any, stag: Date, entw: any): Observable<FeatureCollection> {
         const filter =
             '<wfs:GetFeature \n' +
