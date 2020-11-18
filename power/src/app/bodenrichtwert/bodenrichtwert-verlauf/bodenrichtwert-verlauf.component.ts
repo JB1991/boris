@@ -163,7 +163,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 color: color
             });
 
-            this.setVerfLine(series, color);
+            this.setVerfOptions(series, color);
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
@@ -198,7 +198,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     // tslint:disable-next-line: max-func-body-length
-    setVerfLine(series, color) {
+    setVerfOptions(series, color) {
         const array = [];
         for (let i = 0; i < series.length; i++) {
             if (series[i].verf === 'SU' || series[i].verf === 'EU') {
@@ -218,8 +218,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 top: '5%',
                 dimension: 0,
                 seriesIndex: seriesIndex,
-                min: r[0],
-                max: r[1],
                 inRange: {
                     color: ['#0080FF'],
                 },
