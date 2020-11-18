@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } f
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
+import { Circle } from 'ngx-bootstrap-icons';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
@@ -122,6 +123,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         return filteredFeatures;
     }
+
     // eslint-disable-next-line
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
@@ -152,18 +154,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 series[lastElement + 1].verf = (series[lastElement].verf);
             }
             this.srTableData.push({ series });
-            const nutzung = this.getNutzung(series);
-            const color = this.setLineColor(nutzung);
-            this.chartOption.legend.data.push(nutzung);
-            this.chartOption.series.push({
-                name: nutzung,
-                type: 'line',
-                step: 'end',
-                data: series.map(t => t.brw),
-                color: color
-            });
 
-            this.setVerfOptions(series, color);
+            const nutzung = this.getNutzung(series);
+            // const color = this.setLineColor(nutzung);
+            this.chartOption.legend.data.push({ name: nutzung });
+            this.setChartOptions(series, nutzung,);
+            this.setVerfChartOptions(series);
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
@@ -197,8 +193,18 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return '';
     }
 
+    setChartOptions(series, nutzung) {
+        this.chartOption.series.push({
+            name: nutzung,
+            type: 'line',
+            step: 'end',
+            data: series.map(t => t.brw),
+            // color: color
+        });
+    }
+
     // tslint:disable-next-line: max-func-body-length
-    setVerfOptions(series, color) {
+    setVerfChartOptions(series) {
         const array = [];
         for (let i = 0; i < series.length; i++) {
             if (series[i].verf === 'SU' || series[i].verf === 'EU') {
@@ -210,7 +216,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         if (r[0] !== undefined) {
             this.chartOption.visualMap = {
                 type: 'piecewise',
-                show: true,
+                showLabel: true,
                 pieces: [
                     { min: r[0], max: r[1], label: 'Sanierungsgebiet' },
                 ],
@@ -222,71 +228,26 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     color: ['#0080FF'],
                 },
                 outOfRange: {
-                    color: color
+                    color: 'rgba(24, 14, 88, 1)'
                 }
             };
+            this.setColorVerfSeries(series);
         }
+    }
+
+    setColorVerfSeries(series) {
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].nutzung !== '') {
+                var nutzung = series[i].nutzung;
+                break
+            }
+        }
+        const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
+        this.chartOption.series[idx].color = 'rgba(24, 14, 88, 1)';
     }
 
     onChartInit(event: any) {
         this.echartsInstance = event;
-    }
-
-    // tslint:disable-next-line: max-func-body-length
-    // tslint:disable-next-line: cyclomatic-complexity
-    setLineColor(nutzung) {
-        switch (nutzung) {
-            case 'Allgemeines Wohngebiet': {
-                return '#c4153a';
-            }
-            case 'Allgemeines Wohngebiet (Ein- und Zweifamilienhäuser)': {
-                return 'rgba(255, 140, 0, 0.94)';
-            }
-            case 'Allgemeines Wohngebiet (Mehrfamilienhäuser)': {
-                return 'rgba(144, 11, 245, 1)';
-            }
-            case 'Gewerbegebiet': {
-                return 'rgba(3, 126, 71, 1)';
-            }
-            case 'Industriegebiet': {
-                return 'rgba(11, 44, 231, 1)';
-            }
-            case 'Allgemeines Wohngebiet (Außenbereich)': {
-                return 'rgba(11, 167, 245, 1)';
-            }
-            case 'Wohnbaufläche (Außenbereich)': {
-                return 'rgba(59, 122, 129, 1)';
-            }
-            case 'Wohnbaufläche (Mehrfamilienhäuser)': {
-                return 'rgba(126, 62, 3, 1)';
-            }
-            case 'Wohnbaufläche (Ein- und Zweifamilienhäuser)': {
-                return 'rgba(101, 3, 126, 1)';
-            }
-            case 'Wohnbaufläche (Wohn- und Geschäftshäuser)': {
-                return 'rgba(31, 91, 154, 1)';
-            }
-            case 'Gewerbliche Baufläche': {
-                return 'rgba(208, 87, 87, 1)';
-            }
-            case 'Kerngebiet': {
-                return 'rgba(24, 14, 88, 1)';
-            }
-            case 'Gewerbliche Baufläche': {
-                return 'rgba(255, 214, 127, 1)';
-            }
-            case 'Wohnbaufläche': {
-                return 'rgba(30, 148, 221, 1)';
-            }
-            case 'Mischgebiet': {
-                return 'rgba(176, 1, 115, 1)';
-            }
-            default: {
-                const random = Math.floor(Math.random() * ((this.seriesTemplate.length - 1) - 0 + 1));
-                const color = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3']
-                return color[random];
-            }
-        }
     }
 }
 
