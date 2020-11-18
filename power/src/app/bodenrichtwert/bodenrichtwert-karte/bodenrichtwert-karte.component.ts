@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Location } from '@angular/common';
 import { LngLat, LngLatBounds, Map, Marker } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { environment } from '@env/environment';
 import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'power-bodenrichtwertkarte',
@@ -64,9 +66,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
-        public geosearchService: GeosearchService
-    ) {
-    }
+        public geosearchService: GeosearchService,
+        private route: ActivatedRoute,
+        private location: Location,
+        private cdr: ChangeDetectorRef
+    ) { }
 
     ngOnChanges() {
         if (this.map && !this.markerRemoving) {
@@ -87,6 +91,34 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     loadMap(event: Map) {
         this.map = event;
+
+        this.route.queryParams.subscribe(params => {
+            // lat and lat
+            if (params['lat'] && params['lng']) {
+                this.lat = params['lat'];
+                this.lng = params['lng'];
+                this.marker.setLngLat([this.lng, this.lat]).addTo(this.map);
+                this.getAddressFromLatLng(this.lat, this.lng);
+                this.flyTo(this.lat, this.lng);
+            }
+
+            // teilmarkt
+            if (params['teilmarkt']) {
+                const tmp = TEILMAERKTE.filter(p => p.viewValue === params['teilmarkt'])[0];
+                if (tmp) {
+                    this.onTeilmarktChange(tmp);
+                }
+            }
+
+            // stichtag
+            if (params['stichtag']) {
+                if (STICHTAGE.includes(params['stichtag'])) {
+                    this.onStichtagChange(params['stichtag']);
+                }
+            }
+            this.cdr.detectChanges();
+
+        });
     }
 
     toggleSearchActive() {
@@ -133,6 +165,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
             this.getAddressFromLatLng(this.lat, this.lng);
             this.flyTo(this.lat, this.lng);
+            this.changeURL();
             this.isDragged = !this.isDragged;
         }
     }
@@ -146,6 +179,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
             this.getAddressFromLatLng(this.lat, this.lng);
             this.flyTo(this.lat, this.lng);
+            this.changeURL();
         }
     }
 
@@ -164,6 +198,24 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.deactivate3dView();
         }
         this.threeDActive = !this.threeDActive;
+        this.changeURL();
+    }
+
+    private changeURL() {
+        const params = new URLSearchParams({});
+        if (this.lat) {
+            params.append('lat', this.lat.toString());
+        }
+        if (this.lng) {
+            params.append('lng', this.lng.toString());
+        }
+        if (this.teilmarkt) {
+            params.append('teilmarkt', this.teilmarkt.viewValue.toString());
+        }
+        if (this.stichtag) {
+            params.append('stichtag', this.stichtag.toString());
+        }
+        this.location.replaceState('/bodenrichtwerte', params.toString());
     }
 
     private activate3dView() {
@@ -203,11 +255,13 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     onStichtagChange(stichtag: any) {
         this.stichtag = stichtag;
+        this.changeURL();
         this.stichtagChange.next(stichtag);
     }
 
     onTeilmarktChange(teilmarkt: any) {
         this.teilmarkt = teilmarkt;
+        this.changeURL();
         this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
     }
 

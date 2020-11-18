@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+
+import { ModalComponent } from '../modal/modal.component';
 import { MarkdownInstructionsComponent } from './markdown-instructions.component';
 
 describe('MarkdownInstructionsComponent', () => {
@@ -7,7 +9,10 @@ describe('MarkdownInstructionsComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [MarkdownInstructionsComponent]
+            declarations: [
+                MarkdownInstructionsComponent,
+                ModalComponent
+            ]
         })
             .compileComponents();
     }));

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
@@ -31,7 +32,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
                 NgxMapboxGLModule,
                 FormsModule,
                 ReactiveFormsModule,
-                SharedModule
+                SharedModule,
+                RouterModule.forRoot([]),
             ]
         })
             .compileComponents();
