@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
@@ -23,6 +23,8 @@ export class GeosearchComponent implements OnChanges {
 
     @Input() isCollapsed: boolean;
 
+    @Input() adresse: string;
+
     public model: any;
 
     filteredResults: Feature[];
@@ -39,10 +41,21 @@ export class GeosearchComponent implements OnChanges {
      * Initialization of the search form
      */
 
-    ngOnChanges() {
-        if (this.resetGeosearch && this.model) {
-            this.model = undefined;
-            this.resetGeosearchChange.emit(false);
+    ngOnChanges(changes: SimpleChanges) {
+        for (const propName in changes) {
+            if (changes.hasOwnProperty(propName)) {
+                switch (propName) {
+                    case 'adresse': {
+                        this.model = this.adresse;
+                        return;
+                    }
+                    case 'resetGeosearch': {
+                        this.model = undefined;
+                        this.resetGeosearchChange.emit(false);
+                        return;
+                    }
+                }
+            }
         }
     }
 
