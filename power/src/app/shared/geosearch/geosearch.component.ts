@@ -3,6 +3,7 @@ import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from '
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
 import { Feature } from 'geojson';
+import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
     selector: 'power-geosearch',
@@ -12,7 +13,7 @@ import { Feature } from 'geojson';
 })
 export class GeosearchComponent implements OnChanges {
 
-    constructor(public geosearchService: GeosearchService) {
+    constructor(public geosearchService: GeosearchService, public alerts: AlertsService) {
     }
 
     @Input() resetGeosearch: boolean;
@@ -25,7 +26,6 @@ export class GeosearchComponent implements OnChanges {
     public model: any;
 
     filteredResults: Feature[];
-    searchFailed = false;
 
     /**
      * Return the text property
@@ -56,8 +56,9 @@ export class GeosearchComponent implements OnChanges {
             distinctUntilChanged(),
             switchMap(term => term.length < 1 ? of([]) :
                 this.geosearchService.search(term).pipe(
-                    catchError(() => {
-                        this.searchFailed = true;
+                    catchError((error) => {
+                        console.log(error);
+                        this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([]);
                     })
                 )
