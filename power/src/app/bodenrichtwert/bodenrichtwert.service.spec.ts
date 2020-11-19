@@ -88,11 +88,9 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     });
 
     it('getCapabilities should handle errors', (done) => {
-        spyOn(console, 'error');
         service.getCapabilities().subscribe(() => {
         }, error => {
-            expect(error).toEqual('Something bad happened; please try again later.');
-            expect(console.error).toHaveBeenCalledTimes(1);
+            expect(error.error.type).toEqual('error');
             done();
         });
         const request = httpTestingController.expectOne(url);

@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { GeosearchService } from './geosearch.service';
 import { Observable } from 'rxjs';
 import { Feature, FeatureCollection } from 'geojson';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('Shared.Geosearch.GeosearchService', () => {
     const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
@@ -58,11 +59,9 @@ describe('Shared.Geosearch.GeosearchService', () => {
     });
 
     it('search should handle errors', (done) => {
-        spyOn(console, 'error');
         service.search(searchQuery).subscribe(() => {
         }, error => {
-            expect(error).toEqual('Es ist ein Fehler aufgetreten.');
-            expect(console.error).toHaveBeenCalledTimes(1);
+            expect(error.error.type).toEqual('error');
             done();
         });
         const request = httpController.expectOne(searchUrl);
