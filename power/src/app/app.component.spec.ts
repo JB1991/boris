@@ -42,7 +42,7 @@ describe('AppComponent', () => {
         app.ngAfterViewChecked();
     }));
 
-    it(`should have 'power' as title`, waitForAsync(() => {
+    it('should have "power" as title', waitForAsync(() => {
         expect(app.title).toContain('power');
     }));
 

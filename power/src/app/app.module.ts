@@ -26,7 +26,7 @@ export function load(httpClient: HttpClient, configService: ConfigService) {
                         configService.config = x;
                         resolve(true);
                     }),
-                    catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
+                    catchError((x: { status: number }, caught: Observable<void>): ObservableInput<any> => {
                         console.error('could not load config.json');
                         if (x.status !== 404) {
                             resolve(false);
