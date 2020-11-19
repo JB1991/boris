@@ -95,9 +95,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         Error
     */
     it('should fail', (done) => {
-        spyOn(component.formAPI, 'getPublicForms').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'getPublicForms').and.callFake(() => Promise.reject(new Error('fail')));
         component.update(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)

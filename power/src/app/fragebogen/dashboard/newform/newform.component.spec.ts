@@ -124,9 +124,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         Error
     */
     it('should fail', (done) => {
-        spyOn(component.formAPI, 'createForm').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'createForm').and.returnValue(Promise.reject(new Error('fail')));
         component.title = 'something';
         component.makeForm({
             title: {
@@ -171,9 +169,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
      */
     it('should create new form with template', fakeAsync(() => {
         spyOn(component.modal, 'close').and.callThrough();
-        spyOn(component.formAPI, 'getForm').and.callFake(() => {
-            return Promise.resolve(getForm);
-        });
+        spyOn(component.formAPI, 'getForm').and.returnValue(Promise.resolve(getForm));
         component.template = '123';
         component.title = 'Test';
         fixture.detectChanges();
@@ -193,9 +189,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     });
 
     it('should fail to create new form', fakeAsync(() => {
-        spyOn(component.formAPI, 'getForm').and.callFake(() => {
-            return Promise.reject('Failed to create form');
-        });
+        spyOn(component.formAPI, 'getForm').and.returnValue(Promise.reject('Failed to create form'));
         component.title = 'Test';
         component.template = '123';
         fixture.detectChanges();

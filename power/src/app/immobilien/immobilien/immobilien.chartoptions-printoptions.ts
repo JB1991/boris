@@ -9,7 +9,7 @@ export const mergeHide = {
         show: false
     },
     dataZoom: [
-        <any>{
+        {
             type: 'slider',
             show: false
         }
@@ -67,7 +67,7 @@ export const mergeShow = {
         show: true
     },
     dataZoom: [
-        <any>{
+        {
             type: 'slider',
             show: true
         }

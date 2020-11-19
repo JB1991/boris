@@ -38,14 +38,14 @@ export class ImmobilienFormatter {
 
         let entw = (Math.round((params.data - 100) * 10) / 10);
         if (entw > 0) {
-            entw = <any>('+' + entw);
+            entw = ('+' + entw) as any;
         }
 
         this.nipixRuntime.highlightSeries(params.seriesName);
 
         printName = this.nipixRuntime.translate(printName);
 
-        return '<b>' + (<any>params).marker + printName + '</b><br>' +
+        return '<b>' + (params).marker + printName + '</b><br>' +
             $localize`Preisentwicklung seit` + ' ' + this.nipixStatic.referenceDate.replace('_', '/')
             + ': ' + entw + '%<br>' +
             $localize`Zugrunde liegende Fälle` + ' (' + params.name + '): ' + faelle;
@@ -114,9 +114,7 @@ export class ImmobilienFormatter {
         return this.nipixRuntime.translate(myname);
     };
 
-    public formatLegend = (name: string) => {
-        return this.findName(name, true);
-    };
+    public formatLegend = (name: string) => this.findName(name, true);
 
     /**
      * Get Label for a specific Series

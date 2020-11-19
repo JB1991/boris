@@ -47,7 +47,7 @@ describe('Fragebogen.Home.HomeComponent', () => {
     });
 
     it('should not redirect', () => {
-        expect(function () {
+        expect(() => {
             component.submitPIN('');
         }).toThrowError('pin is required');
     });

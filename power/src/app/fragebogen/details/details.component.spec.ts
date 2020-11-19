@@ -89,9 +89,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * UPDATE FORM
      */
     it('should updateForm', (done) => {
-        spyOn(component.formapi, 'getForm').and.callFake(() => {
-            return Promise.resolve(getForm);
-        });
+        spyOn(component.formapi, 'getForm').and.returnValue(Promise.resolve(getForm));
         component.id = '123';
         component.updateForm(false).then(() => {
             expect(component.form).toEqual(getForm.form);
@@ -115,12 +113,10 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      */
     it('should delete form', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
-        spyOn(component.formapi, 'deleteForm').and.callFake(() => {
-            return Promise.resolve({
-                id: '123',
-                status: 200,
-            });
-        });
+        spyOn(component.formapi, 'deleteForm').and.returnValue(Promise.resolve({
+            id: '123',
+            status: 200,
+        }));
 
         spyOn(window, 'confirm').and.returnValue(true);
 
@@ -142,9 +138,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should fail delete form', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
-        spyOn(component.formapi, 'deleteForm').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formapi, 'deleteForm').and.returnValue(Promise.reject(new Error('fail')));
 
         spyOn(window, 'confirm').and.returnValue(true);
 
@@ -161,9 +155,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     //  */
     it('should archive form', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
-        spyOn(component.formapi, 'updateForm').and.callFake(() => {
-            return Promise.resolve(getForm.form);
-        });
+        spyOn(component.formapi, 'updateForm').and.returnValue(Promise.resolve(getForm.form));
 
         spyOn(window, 'confirm').and.returnValue(true);
 
@@ -250,9 +242,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should fail delete task 404', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
-        spyOn(component.formapi, 'deleteTask').and.callFake(() => {
-            return Promise.reject(new Error('Failed'));
-        });
+        spyOn(component.formapi, 'deleteTask').and.returnValue(Promise.reject(new Error('Failed')));
 
         spyOn(window, 'confirm').and.returnValue(true);
 
@@ -308,9 +298,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should fail to update tasks', (done) => {
-        spyOn(component.formapi, 'getTasks').and.callFake(() => {
-            return Promise.reject('Failed to update tasks');
-        });
+        spyOn(component.formapi, 'getTasks').and.returnValue(Promise.reject('Failed to update tasks'));
         component.id = '123';
 
         component.updateTasks().then(() => {
@@ -347,9 +335,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * UPDATE TAGS
      */
     it('should update tags', (done) => {
-        spyOn(component.formapi, 'getTags').and.callFake(() => {
-            return Promise.resolve(getTags);
-        });
+        spyOn(component.formapi, 'getTags').and.returnValue(Promise.resolve(getTags));
         component.updateTags().then(() => {
             expect(component.availableTags.length).toEqual(2);
             done();
@@ -357,9 +343,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should not update tags', (done) => {
-        spyOn(component.formapi, 'getTags').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formapi, 'getTags').and.returnValue(Promise.reject(new Error('fail')));
         component.updateTags().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalled();
             done();
@@ -370,9 +354,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * UPDATE Form event
      */
     it('should updateFormEvent', (done) => {
-        spyOn(component.formapi, 'updateForm').and.callFake(() => {
-            return Promise.resolve(getForm);
-        });
+        spyOn(component.formapi, 'updateForm').and.returnValue(Promise.resolve(getForm));
         spyOn(component, 'updateForm');
         component.updateFormEvent({
             id: '123',
@@ -384,9 +366,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should not updateFormEvent', (done) => {
-        spyOn(component.formapi, 'updateForm').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formapi, 'updateForm').and.returnValue(Promise.reject(new Error('fail')));
         spyOn(component, 'updateForm');
         component.updateFormEvent({
             id: '123',
@@ -401,9 +381,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * PUBLISH Form Event
      */
     it('should publishFormEvent', (done) => {
-        spyOn(component.formapi, 'updateForm').and.callFake(() => {
-            return Promise.resolve(getForm);
-        });
+        spyOn(component.formapi, 'updateForm').and.returnValue(Promise.resolve(getForm));
         spyOn(component, 'updateForm');
         component.publishFormEvent({
             id: '123',
@@ -415,9 +393,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should not publishFormEvent', (done) => {
-        spyOn(component.formapi, 'updateForm').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formapi, 'updateForm').and.returnValue(Promise.reject(new Error('fail')));
         spyOn(component, 'updateForm');
         component.publishFormEvent({
             id: '123',
@@ -432,9 +408,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * COMMENT Task Event
      */
     it('should commentTaskEvent', (done) => {
-        spyOn(component.formapi, 'updateTask').and.callFake(() => {
-            return Promise.resolve(getTask);
-        });
+        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.resolve(getTask));
         spyOn(component, 'updateTasks');
         component.commentTaskEvent({
             id: '123',
@@ -446,9 +420,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     it('should not commentTaskEvent', (done) => {
-        spyOn(component.formapi, 'updateTask').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.reject(new Error('fail')));
         spyOn(component, 'updateTasks');
         component.commentTaskEvent({
             id: '123',
@@ -464,13 +436,11 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      */
     it('should createTaskEvent', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
-        spyOn(component.formapi, 'createTask').and.callFake(() => {
-            return Promise.resolve({
-                ids: ['123'],
-                pins: ['123456'],
-                status: 200,
-            });
-        });
+        spyOn(component.formapi, 'createTask').and.returnValue(Promise.resolve({
+            ids: ['123'],
+            pins: ['123456'],
+            status: 200,
+        }));
         spyOn(component, 'updateTasks');
         component.createTaskEvent({
             amount: 10,
@@ -483,9 +453,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should not createTaskEvent', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
-        spyOn(component.formapi, 'createTask').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formapi, 'createTask').and.returnValue(Promise.reject(new Error('fail')));
         spyOn(component, 'updateTasks');
         component.createTaskEvent({
             amount: 10,

@@ -77,7 +77,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      * SET LANGUAGE
      */
     it('should set language', () => {
-        component.wrapper = <any>{ survey: { locale: 'de', getUsedLocales: () => [] } };
+        component.wrapper = { survey: { locale: 'de', getUsedLocales: () => [] } } as any;
         component.language = 'en';
         component.setLanguage();
         expect(component.wrapper.survey.locale).toEqual('en');
@@ -220,16 +220,16 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      */
     it('should throw error', async () => {
         await expectAsync(component.loadData()).toBeRejectedWith(new Error('pin is required'));
-        expect(function () {
+        expect(() => {
             component.submitTask(null, {});
         }).toThrowError('id is required');
-        expect(function () {
+        expect(() => {
             component.submitTask('123', null);
         }).toThrowError('no data provided');
-        expect(function () {
+        expect(() => {
             component.submit('');
         }).toThrowError('no data provided');
-        expect(function () {
+        expect(() => {
             component.progress(null);
         }).toThrowError('no data provided');
     });
