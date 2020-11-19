@@ -225,8 +225,8 @@ export class AuthService {
 
     private getRole(): Role {
         let role: Role = 'user';
-        if (this.user.token && this.user.token.roles && Array.isArray(this.user.token.roles)) {
-            for (const r of this.user.token.roles) {
+        if (this.user.data && this.user.data.roles && Array.isArray(this.user.data.roles)) {
+            for (const r of this.user.data.roles) {
                 if (r === 'form_api_admin') {
                     return 'admin';
                 }
@@ -244,8 +244,8 @@ export class AuthService {
     }
 
     private getGroups(): Array<string> {
-        if (this.user.token && this.user.token.groups && Array.isArray(this.user.token.groups)) {
-            return this.user.token.groups;
+        if (this.user.data && this.user.data.groups && Array.isArray(this.user.data.groups)) {
+            return this.user.data.groups;
         }
         return [];
     }
@@ -270,7 +270,7 @@ export class AuthService {
         const userRole = this.getRole();
         const userGroups = this.getGroups();
 
-        if (owner === this.user.token.sub || userRole === 'admin') {
+        if (owner === this.user.data.sub || userRole === 'admin') {
             return true;
         }
 
