@@ -63,7 +63,7 @@ export class GeosearchComponent implements OnChanges {
                 )
             ),
             map(result => result['features'])
-        )
+        );
 
     /**
      * Select an item from the search result list
