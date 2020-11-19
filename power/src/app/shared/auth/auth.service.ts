@@ -260,6 +260,10 @@ export class AuthService {
     }
 
     public IsAuthorized(roles: Array<Role>, owner: string, groups: Array<string>): boolean {
+        console.log(owner, groups);
+        if (!this.IsAuthEnabled()) {
+            return true;
+        }
         if (!this.IsAuthenticated()) {
             return false
         }
