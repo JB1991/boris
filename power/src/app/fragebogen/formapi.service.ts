@@ -55,7 +55,7 @@ export class FormAPIService {
                 obs = this.httpClient.get(url, this.auth.getHeaders());
         }
         const data = obs.toPromise();
-        return <any>data;
+        return data as any;
     }
 
     /**
@@ -454,7 +454,7 @@ export class FormAPIService {
         if (!data) {
             throw new Error('API returned an empty response');
         }
-        return <any>data;
+        return data as any;
     }
 }
 

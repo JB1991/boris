@@ -76,9 +76,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     });
 
     it('should destroy', () => {
-        component.timerHandle = setTimeout(() => {
-            return;
-        }, 100);
+        component.timerHandle = setTimeout(() => null, 100);
         component.ngOnDestroy();
         expect(component.timerHandle).toBeNull();
     });
@@ -102,19 +100,19 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         const tb = document.getElementById('toolbox').parentElement;
 
         // small screen, not scrolled
-        (<any>window).innerWidth = 450;
+        (window as any).innerWidth = 450;
         component.onScroll(null);
         component.onResize(null);
         expect(tb.style.marginTop).toEqual('0px');
 
         // wide screen, scrolled
-        (<any>window).innerWidth = 1024;
-        (<any>window).pageYOffset = 10000;
+        (window as any).innerWidth = 1024;
+        (window as any).pageYOffset = 10000;
         component.onScroll(null);
         component.onResize(null);
 
         // wide screen, not scrolled
-        (<any>window).pageYOffset = 0;
+        (window as any).pageYOffset = 0;
         component.onScroll(null);
         expect(tb.style.marginTop).toEqual('0px');
     });

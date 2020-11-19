@@ -23,10 +23,10 @@ describe('Shared.Alerts.AlertsService', () => {
     });
 
     it('should add invalid alert', () => {
-        expect(function () {
+        expect(() => {
             service.NewAlert(null, '', '');
         }).toThrowError('Type is required');
-        expect(function () {
+        expect(() => {
             service.NewAlert('success', 'Test Title', 'Test Body', 500);
         }).toThrowError('timeout too big or small');
     });

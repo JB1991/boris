@@ -97,6 +97,6 @@ export class FormularSettingsComponent {
      */
     /* istanbul ignore next */
     public openPage() {
-        (<any>document.activeElement).click();
+        (document.activeElement as any).click();
     }
 }

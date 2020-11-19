@@ -21,7 +21,7 @@
                 "plugin:@angular-eslint/template/process-inline-templates"
             ],
             "rules": {
-                "arrow-body-style": "off",
+                "arrow-body-style": "error",
                 "camelCase": "off",
                 "complexity": [
                     "error",
@@ -73,7 +73,7 @@
                 ],
                 "@angular-eslint/component-selector": "off",
                 "@angular-eslint/directive-selector": "off",
-                "@typescript-eslint/consistent-type-assertions": "off",
+                "@typescript-eslint/consistent-type-assertions": "error",
                 "@typescript-eslint/dot-notation": "off",
                 "@typescript-eslint/member-ordering": "off",
                 "@typescript-eslint/naming-convention": "off",
