@@ -51,7 +51,7 @@
         "sass": "^1.29.0",
         "semver": "^7.3.2",
         "showdown": "^1.9.1",
-        "survey-angular": "^1.8.13",
+        "survey-angular": "^1.8.14",
         "tslib": "^2.0.3",
         "web-animations-js": "^2.3.2",
         "zone.js": "^0.11.3"
