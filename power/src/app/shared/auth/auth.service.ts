@@ -76,7 +76,6 @@ export class AuthService {
                 this.user.expires.setSeconds(this.user.expires.getSeconds() + (data['expires_in'] / 2));
                 this.user.token = data;
                 this.user.data = this.parseUserinfo();
-                console.log(this.user.data);
                 localStorage.setItem('user', JSON.stringify(this.user));
                 this.sessionCheck();
                 return;
@@ -188,7 +187,6 @@ export class AuthService {
             expire.setSeconds(expire.getSeconds() + (data['expires_in'] / 2));
             this.user = { 'expires': expire, 'token': data, 'data': null };
             this.user.data = this.parseUserinfo();
-            console.log(this.user.data);
             localStorage.setItem('user', JSON.stringify(this.user));
         } catch (error) {
             // failed to login
@@ -233,11 +231,11 @@ export class AuthService {
                     return 'admin';
                 }
                 if (r === 'form_api_manager') {
-                    role = 'manager'
+                    role = 'manager';
                 }
                 if (r === 'form_api_editor') {
                     if (role !== 'manager') {
-                        role = 'editor'
+                        role = 'editor';
                     }
                 }
             }
@@ -255,7 +253,7 @@ export class AuthService {
     private hasRole(role: Role, allowed: Array<Role>): boolean {
         for (const r of allowed) {
             if (r === role) {
-                return true
+                return true;
             }
         }
         return false;
@@ -266,7 +264,7 @@ export class AuthService {
             return true;
         }
         if (!this.IsAuthenticated()) {
-            return false
+            return false;
         }
         const userRole = this.getRole();
         const userGroups = this.getGroups();
@@ -290,7 +288,7 @@ export class AuthService {
     }
 }
 
-export type Role = 'user' | 'editor' | 'manager' | 'admin'
+export type Role = 'user' | 'editor' | 'manager' | 'admin';
 
 /**
  * Represents userdata
