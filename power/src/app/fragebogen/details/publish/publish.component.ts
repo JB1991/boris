@@ -1,44 +1,29 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 
-import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { FormAPIService } from '../../formapi.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+import { Access } from '../../formapi.model';
 
 @Component({
     selector: 'power-forms-details-publish',
     templateUrl: './publish.component.html',
     styleUrls: ['./publish.component.css']
 })
-export class PublishComponent implements OnInit {
-    @Input() public data = {
-        form: null,
-        tasksList: [],
-        tasksCountTotal: 0,
-        tasksPerPage: 5,
-    };
+export class PublishComponent {
+    @Output() out = new EventEmitter<{
+        id: string;
+        access: Access;
+    }>();
+    public id: string;
+
     @ViewChild('publishmodal') public modal: ModalminiComponent;
-    public pin = 'pin8';
-    public accesstime = 60;
-
-    constructor(public alerts: AlertsService,
-        public formapi: FormAPIService) {
-    }
-
-    ngOnInit() {
-    }
+    public access: Access = 'pin8';
 
     /**
      * Opens modal
      */
-    public open() {
+    public open(id: string) {
+        this.id = id;
         this.modal.open($localize`Veröffentlichen`);
-    }
-
-    /**
-     * Closes modal
-     */
-    public close() {
-        this.modal.close();
     }
 
     /**
@@ -52,23 +37,12 @@ export class PublishComponent implements OnInit {
             return;
         }
 
-        const queryParams: Object = {
-            access: this.pin,
-            'access-minutes': this.accesstime,
-            publish: true,
-        };
-        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
-            // success
-            this.data.form = result;
-            this.alerts.NewAlert('success', $localize`Formular veröffentlicht`,
-                $localize`Das Formular wurde erfolgreich veröffentlicht.`);
-            this.close();
-        }).catch((error: Error) => {
-            // failed to publish form
-            this.alerts.NewAlert('danger', $localize`Veröffentlichen fehlgeschlagen`, error.toString());
-            console.log(error);
-            return;
+        this.out.emit({
+            id: this.id,
+            access: this.access,
         });
+        this.id = '';
+        this.access = 'pin8';
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

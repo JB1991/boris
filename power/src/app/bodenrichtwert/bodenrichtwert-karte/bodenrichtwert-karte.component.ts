@@ -8,6 +8,7 @@ import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-compo
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-bodenrichtwertkarte',
     templateUrl: './bodenrichtwert-karte.component.html',

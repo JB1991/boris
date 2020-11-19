@@ -21,7 +21,7 @@ export class ImmobilienFormatter {
         } else {
             return this.nipixRuntime.translate(params.name);
         }
-    }
+    };
 
     public chartTooltipFormatter = (params, ticket, callback) => {
 
@@ -49,7 +49,7 @@ export class ImmobilienFormatter {
             $localize`Preisentwicklung seit` + ' ' + this.nipixStatic.referenceDate.replace('_', '/')
             + ': ' + entw + '%<br>' +
             $localize`Zugrunde liegende Fälle` + ' (' + params.name + '): ' + faelle;
-    }
+    };
 
     /**
      * Format Series Label
@@ -58,6 +58,7 @@ export class ImmobilienFormatter {
      *
      * @return Formatted String
      */
+    /* eslint-disable-next-line complexity */
     public formatLabel = (params) => {
         if (params.dataIndex === this.nipixRuntime.state.rangeEndIndex) {
             if ((this.legendposition.length > params.seriesIndex) ||
@@ -93,7 +94,7 @@ export class ImmobilienFormatter {
             }
         }
         return '';
-    }
+    };
 
     private findName = (name: string, legend = false, shortregion = false): string => {
         let myname = '';
@@ -111,11 +112,11 @@ export class ImmobilienFormatter {
         }
 
         return this.nipixRuntime.translate(myname);
-    }
+    };
 
     public formatLegend = (name: string) => {
         return this.findName(name, true);
-    }
+    };
 
     /**
      * Get Label for a specific Series

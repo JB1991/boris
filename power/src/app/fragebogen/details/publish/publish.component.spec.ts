@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed, tick, fakeAsync, flush } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -12,7 +12,7 @@ describe('Fragebogen.Details.PublishComponent', () => {
     let component: PublishComponent;
     let fixture: ComponentFixture<PublishComponent>;
 
-    const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
+    // const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -35,7 +35,6 @@ describe('Fragebogen.Details.PublishComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
-        spyOn(component.alerts, 'NewAlert');
         fixture.detectChanges(); // onInit
     }));
 
@@ -47,50 +46,29 @@ describe('Fragebogen.Details.PublishComponent', () => {
      * OPEN AND CLOSE
      */
     it('should open and close', () => {
-        component.open();
+        component.open('123');
         expect(component.modal.isOpen).toBeTrue();
-        component.close();
+        component.modal.close();
         expect(component.modal.isOpen).toBeFalse();
     });
 
     /**
      * PUBLISH
      */
-    it('should publish', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample.data));
+    it('should publish', () => {
         spyOn(window, 'confirm').and.returnValue(true);
-        component.data.form = { 'id': '123' };
-        component.pin = 'pin6';
-        component.open();
-
+        component.id = '123';
+        spyOn(component.out, 'emit');
         component.Publish();
-        tick();
-        expect(component.modal.isOpen).toBeFalse();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Formular veröffentlicht',
-            'Das Formular wurde erfolgreich veröffentlicht.');
-        flush();
-    }));
+        expect(component.out.emit).toHaveBeenCalledTimes(1);
+    });
 
     it('should not publish', () => {
         spyOn(window, 'confirm').and.returnValue(false);
+        component.id = '123';
+        spyOn(component.out, 'emit');
         component.Publish();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
-    });
-
-    it('should error', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to publish'));
-        spyOn(window, 'confirm').and.returnValue(true);
-        component.data.form = { 'id': '123' };
-
-        component.Publish();
-        tick();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Veröffentlichen fehlgeschlagen', 'Failed to publish');
-    }));
-
-    afterEach(() => {
-
+        expect(component.out.emit).toHaveBeenCalledTimes(0);
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -27,7 +27,8 @@ describe('Static.Feedback.FeedbackComponent', () => {
     });
 
     it('should show the mail address', () => {
-        expect(document.body.innerHTML).toContain('incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com');
+        expect(document.body.innerHTML)
+            .toContain('incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com');
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

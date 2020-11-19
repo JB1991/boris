@@ -32,14 +32,20 @@
                 "eqeqeq": "error",
                 "indent": [
                     "error",
-                    4
+                    4,
+                    {
+                        "SwitchCase": 1
+                    }
                 ],
                 "jsdoc/newline-after-description": "off",
                 "jsdoc/no-types": "off",
                 "max-len": [
                     "error",
                     {
-                        "code": 120
+                        "code": 120,
+                        "ignoreUrls": true,
+                        "ignoreStrings": true,
+                        "ignoreTemplateLiterals": true
                     }
                 ],
                 "max-lines": [

@@ -1,5 +1,6 @@
 import { ImmobilienUtils } from './immobilien.utils';
 
+/* eslint-disable max-lines */
 describe('Immobilien.Immobilien.ImmobilienUtils', () => {
 
     it('getDateArray works', function () {

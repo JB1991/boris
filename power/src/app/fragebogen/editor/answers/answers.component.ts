@@ -6,11 +6,17 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
+
+/* istanbul ignore next */
+export function increment() {
+    return () => id++;
+}
+
 @Component({
     providers: [
         {
             provide: UNIQ_ID_TOKEN,
-            useFactory: () => id++
+            useFactory: increment,
         }
     ],
     selector: 'power-forms-editor-answers',
@@ -141,10 +147,10 @@ export class AnswersComponent {
                 // downscale image
                 const img = new Image();
                 img.onload = () => {
-                    const canvas = document.createElement('canvas'),
-                        ctx = canvas.getContext('2d'),
-                        oc = document.createElement('canvas'),
-                        octx = oc.getContext('2d');
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const oc = document.createElement('canvas');
+                    const octx = oc.getContext('2d');
 
                     canvas.width = 300; // destination canvas size
                     canvas.height = canvas.width * img.height / img.width;
