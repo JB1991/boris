@@ -74,7 +74,7 @@ export class DetailsComponent implements OnInit {
             }
             this.loadingscreen.setVisible(true);
             const r = await this.formapi.getForm(this.id, {
-                fields: ['id', 'extract', 'content', 'status', 'access', 'created', 'updated', 'tags', 'owner.name', 'groups'],
+                fields: ['id', 'extract', 'content', 'status', 'access', 'created', 'updated', 'tags', 'owner.name', 'owner.id', 'groups'],
                 extract: ['title.de', 'title.default'],
             });
             this.form = r.form;

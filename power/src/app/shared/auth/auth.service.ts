@@ -222,7 +222,74 @@ export class AuthService {
         }
         return false;
     }
+
+    private getRole(): Role {
+        let role: Role = 'user';
+        if (this.user.token && this.user.token.roles && Array.isArray(this.user.token.roles)) {
+            for (const r of this.user.token.roles) {
+                if (r === 'form_api_admin') {
+                    return 'admin';
+                }
+                if (r === 'form_api_manager') {
+                    role = 'manager'
+                }
+                if (r === 'form_api_editor') {
+                    if (role !== 'manager') {
+                        role = 'editor'
+                    }
+                }
+            }
+        }
+        return role;
+    }
+
+    private getGroups(): Array<string> {
+        if (this.user.token && this.user.token.groups && Array.isArray(this.user.token.groups)) {
+            return this.user.token.groups;
+        }
+        return [];
+    }
+
+    private hasRole(role: Role, allowed: Array<Role>): boolean {
+        for (const r of allowed) {
+            if (r === role) {
+                return true
+            }
+        }
+        return false;
+    }
+
+    public IsAuthorized(roles: Array<Role>, owner: string, groups: Array<string>): boolean {
+        console.log(owner, groups);
+        if (!this.IsAuthEnabled()) {
+            return true;
+        }
+        if (!this.IsAuthenticated()) {
+            return false
+        }
+        const userRole = this.getRole();
+        const userGroups = this.getGroups();
+
+        if (owner === this.user.token.sub || userRole === 'admin') {
+            return true;
+        }
+
+        if (!this.hasRole(userRole, roles)) {
+            return false;
+        }
+
+        for (const g of groups) {
+            for (const ug of userGroups) {
+                if (g == ug) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
+
+export type Role = 'user' | 'editor' | 'manager' | 'admin'
 
 /**
  * Represents userdata
