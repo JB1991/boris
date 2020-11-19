@@ -20,7 +20,7 @@
                 "type": "radiogroup"
             },
             "created": "2020-10-30T14:21:24Z",
-            "extra": "radiogroup",
+            "extract": "radiogroup",
             "id": "75cdfb70-48b3-4d2d-9c3d-90549e9ae646",
             "updated": "2020-10-30T14:21:24Z"
         },
@@ -45,11 +45,11 @@
                 "type": "radiogroup"
             },
             "created": "2020-10-30T14:21:27Z",
-            "extra": "radiogroup",
+            "extract": "radiogroup",
             "id": "b1a1eb52-53d3-4cba-9a82-01a6569029c4",
             "updated": "2020-10-30T14:21:27Z"
         }
     ],
     "status": 200,
-    "total-elements": 2
+    "total": 2
 }

@@ -78,7 +78,7 @@ export class FilloutComponent implements AfterViewInit {
     public loadForm(id: string) {
         // load form by id
         this.loadingscreen.setVisible(true);
-        this.formapi.getPublicForm(id, { fields: ['all'] }).then(result => {
+        this.formapi.getPublicForm(id, { fields: ['id', 'content'] }).then(result => {
             // store form
             this.form = result.form;
             this.language = this.form.content.locale;
@@ -119,7 +119,7 @@ export class FilloutComponent implements AfterViewInit {
             throw new Error('no data provided');
         }
 
-        this.formapi.createPublicTask(id, {}, result.result).then(() => {
+        this.formapi.createPublicTask(id, result.result).then(() => {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
@@ -134,26 +134,28 @@ export class FilloutComponent implements AfterViewInit {
     /**
      * Load form data
      */
-    public loadData() {
+    public async loadData() {
         if (!this.pin) {
             throw new Error('pin is required');
         }
-        this.loadingscreen.setVisible(true);
-        this.formapi.getPublicTask(this.pin, { fields: ['all'], 'form-fields': ['all'] }).then(result => {
-            // store task data
-            this.form = result.form;
-            this.language = result.form.content.locale;
+
+        try {
+            this.loadingscreen.setVisible(true);
+            const t = await this.formapi.getPublicTask(this.pin, { fields: ['id', 'content', 'form.id'] });
+            const f = await this.formapi.getPublicForm(t.task.form.id, {fields: ['content']});
+            this.form = f.form;
+            this.language = f.form.content.locale;
             this.loadingscreen.setVisible(false);
-        }).catch((error: Error) => {
+        } catch (error) {
             // failed to load task
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
             console.log(error);
             return;
-        });
+        }
     }
 
     /**
@@ -168,7 +170,7 @@ export class FilloutComponent implements AfterViewInit {
         this.submitted = true;
 
         // complete
-        this.formapi.updatePublicTask(this.pin, {}, result.result, true).then(() => {
+        this.formapi.updatePublicTask(this.pin, result.result, true).then(() => {
             this.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
@@ -194,7 +196,7 @@ export class FilloutComponent implements AfterViewInit {
         }
 
         // interim results
-        this.formapi.updatePublicTask(this.pin, {}, result, false).then(() => {
+        this.formapi.updatePublicTask(this.pin, result, false).then(() => {
             this.setUnsavedChanges(false);
         }).catch((error: Error) => {
             // failed to save task

@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService, GetFormsParams, GetTasksParams } from '../formapi.service';
-import { FormStatus, Access, Order, TaskStatus, FormFilter, FormSortField, TaskSortField, Task, Form, User } from '../formapi.model';
+import { FormStatus, Access, TaskStatus, FormFilter, Task, Form, User, FormField, TaskField } from '../formapi.model';
 import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
 @Component({
@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
     public tags: Array<string>;
 
     public forms: Array<Form>;
-    public formOwners: Record<string, User>;
     public formTotal: number;
     public formPage = 1;
     public formPerPage = 5;
@@ -29,21 +28,18 @@ export class DashboardComponent implements OnInit {
     public formSearch = '';
     public formStatus: FormStatus | 'all' = 'all';
     public formAccess: Access | 'all' = 'all';
-    public formSort: FormSortField | 'title' = 'updated';
-    public formSortOrder: Order = 'desc';
+    public formSort: FormField = 'updated';
+    public formSortDesc: boolean;
 
     public tasks: Array<Task>;
-    public taskForms: Record<string, Form>;
-    public taskOwners: Record<string, User>;
     public taskTotal: number;
     public taskPage = 1;
     public taskPerPage = 5;
     public taskPageSizes: number[];
 
     public taskStatus: TaskStatus | 'all' = 'all';
-    public taskSort: TaskSortField | 'form.title' = 'updated';
-    public taskSortOrder: Order = 'desc';
-    public taskSortPath?: Array<string>;
+    public taskSort: TaskField = 'updated';
+    public taskSortDesc: boolean;
 
     constructor(
         public titleService: Title,
@@ -102,7 +98,7 @@ export class DashboardComponent implements OnInit {
             // Upload success
             reader.onload = () => {
                 this.formAPI
-                    .createForm({ fields: ['id'] }, reader.result.valueOf())
+                    .createForm(reader.result.valueOf())
                     .then(() => {
                         this.updateForms(false);
                     })
@@ -116,40 +112,17 @@ export class DashboardComponent implements OnInit {
         input.click();
     }
 
-    public changeFormSort(sort: FormSortField | 'title') {
-        if (this.formSort === sort) {
-            if (this.formSortOrder === 'asc') {
-                this.formSortOrder = 'desc';
-            } else {
-                this.formSortOrder = 'asc';
-            }
-        } else {
-            this.formSortOrder = 'asc';
-        }
-        this.formSort = sort;
-        this.updateForms(false);
-    }
-
     // tslint:disable-next-line: max-func-body-length
     public async updateForms(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetFormsParams = {
-                fields: ['id', 'owner', 'tags', 'access', 'group', 'status', 'created', 'updated'],
-                'owner-fields': ['id', 'name', 'given-name', 'family-name', 'groups'],
-                extra: ['title.de', 'title.default'],
+                fields: ['id', 'owner.name', 'extract', 'access', 'status', 'created', 'updated'],
+                extract: ['title.de', 'title.default'],
                 limit: Number(this.formPerPage),
                 offset: (this.formPage - 1) * this.formPerPage,
             };
-            if (this.formSort === 'title') {
-                params.sort = {
-                    orderBy: { field: 'content', path: ['title', 'de'] },
-                    alternative: { field: 'content', path: ['title', 'default'] },
-                    order: this.formSortOrder,
-                };
-            } else {
-                params.sort = { orderBy: { field: this.formSort }, order: this.formSortOrder };
-            }
+            params.sort = { desc: this.formSortDesc, field: this.formSort };
             const filters: Array<FormFilter> = [];
             if (this.formStatus !== 'all') {
                 filters.push({ status: this.formStatus });
@@ -160,24 +133,20 @@ export class DashboardComponent implements OnInit {
             if (this.formSearch !== '') {
                 const or: Array<FormFilter> = [];
                 const search = { lower: true, contains: this.formSearch };
-                or.push({ content: { path: ['title', 'de'], text: search } });
-                or.push({ content: { path: ['title', 'default'], text: search } });
+                or.push({ extract: search });
                 or.push({ tag: search });
-                or.push({ 'has-owner-with': { name: search } });
+                or.push({ owner: { name: search } });
                 filters.push({ or: or });
             }
             params.filter = { and: filters };
             const response = await this.formAPI.getForms(params);
             this.forms = response.forms;
-            this.formOwners = response.owners;
-            this.formTotal = response['total-forms'];
+            this.formTotal = response.total;
             let maxPages = Math.floor((this.formTotal - 1) / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
-                this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
-            } else {
-                this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             }
+            this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             console.log(error);
@@ -190,29 +159,13 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public changeTaskSort(sort: TaskSortField | 'form.title') {
-        if (this.taskSort === sort) {
-            if (this.taskSortOrder === 'asc') {
-                this.taskSortOrder = 'desc';
-            } else {
-                this.taskSortOrder = 'asc';
-            }
-        } else {
-            this.taskSortOrder = 'asc';
-        }
-        this.taskSort = sort;
-        this.updateTasks(false);
-    }
-
     // tslint:disable-next-line: max-func-body-length
     public async updateTasks(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetTasksParams = {
-                fields: ['id', 'form', 'pin', 'description', 'status', 'updated', 'created'],
-                'form-fields': ['id', 'tags', 'owner', 'access', 'status', 'created', 'updated'],
-                'owner-fields': ['all'],
-                'form-extra': ['title.de', 'title.default'],
+                fields: ['id', 'form.id', 'form.extract', 'pin', 'description', 'status', 'updated', 'created'],
+                'form.extract': ['title.de', 'title.default'],
                 limit: Number(this.taskPerPage),
                 offset: (this.taskPage - 1) * this.taskPerPage,
             };
@@ -222,27 +175,15 @@ export class DashboardComponent implements OnInit {
                     status: this.taskStatus,
                 };
             }
-            if (this.taskSort === 'form.title') {
-                params.sort = {
-                    orderBy: { field: 'form.content', path: ['title', 'de'] },
-                    alternative: { field: 'form.content', path: ['title', 'default'] },
-                    order: this.formSortOrder,
-                };
-            } else {
-                params.sort = { orderBy: { field: this.taskSort }, order: this.taskSortOrder };
-            }
+            params.sort = { field: this.taskSort, desc: this.taskSortDesc };
             const response = await this.formAPI.getTasks(params);
             this.tasks = response.tasks;
-            this.taskForms = response.forms;
-            this.taskOwners = response.owners;
-            this.taskTotal = response['total-tasks'];
-            let maxPages = Math.floor(this.taskTotal / 5) + 1;
+            this.taskTotal = response.total;
+            let maxPages = Math.floor((this.taskTotal - 1) / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
-                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
-            } else {
-                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             }
+            this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             console.log(error);
@@ -258,7 +199,8 @@ export class DashboardComponent implements OnInit {
     public async updateTags(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
-            this.tags = await this.formAPI.getTags();
+            const response = await this.formAPI.getTags();
+            this.tags = response.tags;
             this.loadingscreen.setVisible(false);
         } catch (error) {
             console.log(error);
@@ -270,6 +212,27 @@ export class DashboardComponent implements OnInit {
             }
         }
     }
+
+    public changeFormSort(sort: FormField) {
+        if (this.formSort === sort) {
+            this.formSortDesc = !this.formSortDesc;
+        } else {
+            this.formSortDesc = false;
+        }
+        this.formSort = sort;
+        this.updateForms(false);
+    }
+
+    public changeTaskSort(sort: TaskField) {
+        if (this.taskSort === sort) {
+            this.taskSortDesc = !this.taskSortDesc;
+        } else {
+            this.taskSortDesc = false;
+        }
+        this.taskSort = sort;
+        this.updateTasks(false);
+    }
+
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

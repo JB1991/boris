@@ -1,6 +1,5 @@
 import {
-    ElementFilter, FormFilter, NumberFilter,
-    Order, PathFilter, TaskFilter, TextFilter, TimeFilter, UserFilter
+    ElementFilter, FormFilter, TaskFilter, TextFilter, TimeFilter, UserFilter
 } from './formapi.model';
 
 // tslint:disable-next-line: cyclomatic-complexity
@@ -38,22 +37,18 @@ export function FormFilterToString(f: FormFilter): string {
         return 'not(' + FormFilterToString(f['not']) + ')';
     } else if (f.hasOwnProperty('id')) {
         return 'id=' + f['id'];
-    } else if (f.hasOwnProperty('has-owner-with')) {
-        return 'has-owner-with(' + UserFilterToString(f['has-owner-with']) + ')';
+    } else if (f.hasOwnProperty('owner')) {
+        return 'owner(' + UserFilterToString(f['owner']) + ')';
     } else if (f.hasOwnProperty('group')) {
-        return 'group=' + f['group'];
-    } else if (f.hasOwnProperty('group-permission')) {
-        return 'group-permission=' + f['group-permission'];
-    } else if (f.hasOwnProperty('other-permission')) {
-        return 'other-permission=' + f['other-permission'];
-    } else if (f.hasOwnProperty('content')) {
-        return 'content.' + PathFilterToString(f['content']);
+        return 'group=' + TextFilterToString(f['group']);
+    } else if (f.hasOwnProperty('extract')) {
+        return 'extract-' + TextFilterToString(f['extract']);
     } else if (f.hasOwnProperty('tag')) {
         return 'tag-' + TextFilterToString(f['tag']);
     } else if (f.hasOwnProperty('access')) {
         return 'access=' + f['access'];
     } else if (f.hasOwnProperty('status')) {
-        return `status=${f['status']}`;
+        return 'status=' + f['status'];
     } else if (f.hasOwnProperty('created')) {
         return 'created-' + TimeFilterToString(f['created']);
     } else {
@@ -96,10 +91,10 @@ export function TaskFilterToString(f: TaskFilter): string {
         return 'not(' + TaskFilterToString(f['not']) + ')';
     } else if (f.hasOwnProperty('id')) {
         return 'id=' + f['id'];
-    } else if (f.hasOwnProperty('has-form-with')) {
-        return 'has-form-with(' + FormFilterToString(f['has-form-with']) + ')';
-    } else if (f.hasOwnProperty('content')) {
-        return 'content.' + PathFilterToString(f['content']);
+    } else if (f.hasOwnProperty('form')) {
+        return 'form(' + FormFilterToString(f['form']) + ')';
+    } else if (f.hasOwnProperty('extract')) {
+        return 'extract-' + TextFilterToString(f['extract']);
     } else if (f.hasOwnProperty('pin')) {
         return 'pin=' + f['pin'];
     } else if (f.hasOwnProperty('description')) {
@@ -150,10 +145,8 @@ export function UserFilterToString(f: UserFilter): string {
         return 'id=' + f['id'];
     } else if (f.hasOwnProperty('name')) {
         return 'name-' + TextFilterToString(f['name']);
-    } else if (f.hasOwnProperty('given-name')) {
-        return 'given-name-' + TextFilterToString(f['given-name']);
-    } else if (f.hasOwnProperty('family-name')) {
-        return 'family-name-' + TextFilterToString(f['family-name']);
+    } else if (f.hasOwnProperty('role')) {
+        return 'role=' + f['role'];
     } else {
         return 'group-' + TextFilterToString(f['group']);
     }
@@ -192,10 +185,14 @@ export function ElementFilterToString(f: ElementFilter): string {
         return 'or(' + out + ')';
     } else if (f.hasOwnProperty('not')) {
         return 'not(' + ElementFilterToString(f['not']) + ')';
+    } else if (f.hasOwnProperty('owner')) {
+        return 'owner(' + UserFilterToString(f['owner']) + ')';
     } else if (f.hasOwnProperty('id')) {
         return 'id=' + f['id'];
-    } else if (f.hasOwnProperty('content')) {
-        return 'content.' + PathFilterToString(f['content']);
+    } else if (f.hasOwnProperty('extract')) {
+        return 'extract' + TextFilterToString(f['extract']);
+    } else if (f.hasOwnProperty('group')) {
+        return 'group' + TextFilterToString(f['group']);
     } else if (f.hasOwnProperty('created')) {
         return 'created-' + TimeFilterToString(f['created']);
     } else {
@@ -210,16 +207,6 @@ export function TextFilterToString(f: TextFilter): string {
     return (f.lower ? 'lower-' : '') + 'equals=' + f['equals'];
 }
 
-export function NumberFilterToString(f: NumberFilter): string {
-    if (f.hasOwnProperty('greater')) {
-        return 'greater=' + f['greater'];
-    }
-    if (f.hasOwnProperty('less')) {
-        return 'less=' + f['less'];
-    }
-    return 'equals=' + f['equals'];
-}
-
 export function TimeFilterToString(f: TimeFilter): string {
     if (f.hasOwnProperty('after')) {
         return 'after=' + f['after'];
@@ -227,31 +214,9 @@ export function TimeFilterToString(f: TimeFilter): string {
     return 'before=' + f['before'];
 }
 
-export function PathFilterToString(f: PathFilter): string {
-    if (f.hasOwnProperty('number')) {
-        return f.path.join('.') + '-number-' + NumberFilterToString(f['number']);
-    }
-    return f.path.join('.') + '-text-' + TextFilterToString(f['text']);
-}
-
 export function SortToString(s: {
-    orderBy: {
-        field: string,
-        path?: Array<string>,
-    };
-    alternative?: {
-        field: string,
-        path?: Array<string>,
-    };
-    order: Order;
+    field: string;
+    desc: boolean
 }): string {
-    if (s.alternative) {
-        return (s.order === 'desc' ? '-' : '') + '(' +
-            OrderByToString(s.orderBy) + ',' + OrderByToString(s.alternative) + ')';
-    }
-    return (s.order === 'desc' ? '-' : '') + OrderByToString(s.orderBy);
-}
-
-export function OrderByToString(o: { field: string, path?: Array<string> }): string {
-    return o.field + (o.path && o.path.length > 0 ? '.' + o.path.join('.') : '');
+    return (s.desc ? '-' : '') + s.field;
 }

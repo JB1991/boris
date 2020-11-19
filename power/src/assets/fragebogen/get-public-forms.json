@@ -2,6 +2,7 @@
     "forms": [{
         "access": "public",
         "content": {
+            "locale": "en",
             "pages": [{
                 "elements": [{
                         "isRequired": true,
@@ -69,5 +70,5 @@
         ]
     }],
     "status": 200,
-    "total-forms": 1
+    "total": 1
 }

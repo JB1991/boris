@@ -176,7 +176,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         try {
             const result = await this.formapi.getForm(id, { fields: ['content'] });
             this.storage.model = result.form.content;
-            const elements = await this.formapi.getElements({ fields: ['all'] });
+            const elements = await this.formapi.getElements({ fields: ['id', 'content'] });
             this.favorites = elements.elements;
             this.cdr.detectChanges();
 
@@ -453,7 +453,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
 
-        this.formapi.updateForm(id, { fields: ['content'] }, {
+        this.formapi.updateForm(id, {
             content: this.storage.model,
         }).then(() => {
             // success
@@ -608,7 +608,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         question.name = '';
 
         // add favorite
-        this.formapi.createElement({ fields: ['all'] }, { content: question }).then((data) => {
+        this.formapi.createElement({ content: question }).then((data) => {
             this.favorites.push(data);
             this.cdr.detectChanges();
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,

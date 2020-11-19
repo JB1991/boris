@@ -296,10 +296,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should update tasks 2', (done) => {
         spyOn(component.formapi, 'getTasks').and.returnValue(Promise.resolve({
             tasks: [],
-            'total-tasks': 100,
+            total: 100,
             status: 200,
-            forms: {},
-            owners: {},
         }));
         component.taskStatus = 'created';
         component.id = '123';
@@ -325,24 +323,24 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should change sort order', () => {
         spyOn(component, 'updateTasks');
-        component.taskSortOrder = 'asc';
+        component.taskSortDesc = false;
         component.taskSort = 'id';
 
         component.changeTaskSort('id');
-        expect(component.taskSortOrder).toEqual('desc');
+        expect(component.taskSortDesc).toEqual(true);
         component.changeTaskSort('id');
-        expect(component.taskSortOrder).toEqual('asc');
+        expect(component.taskSortDesc).toEqual(false);
         component.changeTaskSort('pin');
-        expect(component.taskSortOrder).toEqual('asc');
+        expect(component.taskSortDesc).toEqual(false);
     });
 
     it('should reset sort order', () => {
         spyOn(component, 'updateTasks');
-        component.taskSortOrder = 'desc';
+        component.taskSortDesc = true;
         component.taskSort = 'id';
 
         component.changeTaskSort('pin');
-        expect(component.taskSortOrder).toEqual('asc');
+        expect(component.taskSortDesc).toEqual(false);
         expect(component.taskSort).toEqual('pin');
     });
 
@@ -351,7 +349,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      */
     it('should update tags', (done) => {
         spyOn(component.formapi, 'getTags').and.callFake(() => {
-            return Promise.resolve(getTags.tags);
+            return Promise.resolve(getTags);
         });
         component.updateTags().then(() => {
             expect(component.availableTags.length).toEqual(2);
@@ -469,16 +467,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         spyOn(component.formapi, 'createTask').and.callFake(() => {
             return Promise.resolve({
-                tasks: [{
-                    id: '123',
-                    pin: '123456',
-                }],
-                form: {
-                    id: '123'
-                },
-                owner: {
-                    id: '123'
-                },
+                ids: ['123'],
+                pins: ['123456'],
                 status: 200,
             });
         });

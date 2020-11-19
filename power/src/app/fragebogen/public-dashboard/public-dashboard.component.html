@@ -26,10 +26,10 @@
                 <caption class="sr-only" i18n>Öffentliche Formulare</caption>
                 <thead>
                     <tr>
-                        <th scope="col" (click)="changeSort('title')" class="border-top-0 w-50">
-                            <span role="button" tabindex="0" (keydown.enter)="changeSort('title')" aria-roledescription="Auf- und absteigende Sortierung möglich." aria-describedby="ascSortedTitle descSortedTitle noForms" i18n i18n-aria-roledescription>Titel</span>
+                        <th scope="col" (click)="changeFormSort('extract')" class="border-top-0 w-50">
+                            <span role="button" tabindex="0" (keydown.enter)="changeFormSort('extract')" aria-roledescription="Auf- und absteigende Sortierung möglich." aria-describedby="ascSortedTitle descSortedTitle noForms" i18n i18n-aria-roledescription>Titel</span>
                             <span *ngIf="sort && sort === 'title'">
-                                <span *ngIf="order === 'asc'" id="ascSortedTitle" aria-label="Aufsteigend sortiert."
+                                <span *ngIf="!desc" id="ascSortedTitle" aria-label="Aufsteigend sortiert."
                                     i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
@@ -38,7 +38,7 @@
                                             d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
                                 </span>
-                            <span *ngIf="order === 'desc'" id="descSortedTitle" aria-label="Absteigend sortiert.">
+                            <span *ngIf="desc" id="descSortedTitle" aria-label="Absteigend sortiert.">
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         aria-hidden="true">
@@ -48,10 +48,10 @@
                                 </span>
                             </span>
                         </th>
-                        <th scope="col" (click)="changeSort('tags')" class="border-top-0">
-                            <span role="button" tabindex="0" (keydown.enter)="changeSort('tags')" aria-roledescription="Auf- und absteigende Sortierung möglich." aria-describedby="ascSortedTags descSortedTags" i18n i18n-roledescription i18n-describedby>Tags</span>
+                        <th scope="col" (click)="changeFormSort('tags')" class="border-top-0">
+                            <span role="button" tabindex="0" (keydown.enter)="changeFormSort('tags')" aria-roledescription="Auf- und absteigende Sortierung möglich." aria-describedby="ascSortedTags descSortedTags" i18n i18n-roledescription i18n-describedby>Tags</span>
                             <span *ngIf="sort && sort === 'tags'">
-                                <span *ngIf="order === 'asc'" id="ascSortedTags" aria-label="Aufsteigend sortiert."
+                                <span *ngIf="!desc" id="ascSortedTags" aria-label="Aufsteigend sortiert."
                                     i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
@@ -60,7 +60,7 @@
                                             d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
                                     </svg>
                                 </span>
-                            <span *ngIf="order === 'desc'" id="descSortedTags" aria-label="Absteigend sortiert." i18n-aria-label>
+                            <span *ngIf="desc" id="descSortedTags" aria-label="Absteigend sortiert." i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         aria-hidden="true">
@@ -75,7 +75,7 @@
                 <tbody aria-live="polite">
                     <tr *ngFor="let form of data; index as i">
                         <td>
-                            <a [routerLink]="['/forms/fillout/form', form.id]" [attr.aria-describedby]="i">{{ form.extra }}</a>
+                            <a [routerLink]="['/forms/fillout/form', form.id]" [attr.aria-describedby]="i">{{ form.extract }}</a>
                         </td>
                         <td [id]="i"><span *ngIf="form.tags">{{ form.tags.join(', ') }}</span></td>
                     </tr>

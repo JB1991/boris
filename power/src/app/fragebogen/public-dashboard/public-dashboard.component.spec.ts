@@ -56,7 +56,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         component.sort = 'id';
         component.update(false).then(() => {
             expect(component.data).toBe(getPublicForms.forms);
-            expect(component.total).toBe(getPublicForms['total-forms']);
+            expect(component.total).toBe(getPublicForms.total);
             done();
         });
     });
@@ -64,7 +64,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     it('should succeed 2', (done) => {
         spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve({
             forms: [],
-            'total-forms': 100,
+            total: 100,
             status: 200,
         }));
         component.search = 'something';
@@ -76,18 +76,18 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
 
     it('should changeSort', (done) => {
         spyOn(component, 'update');
-        component.changeSort('id');
+        component.changeFormSort('id');
         expect(component.sort).toBe('id');
-        expect(component.order).toBe('asc');
-        component.changeSort('id');
+        expect(component.desc).toBe(false);
+        component.changeFormSort('id');
         expect(component.sort).toBe('id');
-        expect(component.order).toBe('desc');
-        component.changeSort('id');
+        expect(component.desc).toBe(true);
+        component.changeFormSort('id');
         expect(component.sort).toBe('id');
-        expect(component.order).toBe('asc');
-        component.changeSort('title');
-        expect(component.sort).toBe('title');
-        expect(component.order).toBe('asc');
+        expect(component.desc).toBe(false);
+        component.changeFormSort('extract');
+        expect(component.sort).toBe('extract');
+        expect(component.desc).toBe(false);
         done();
     });
 

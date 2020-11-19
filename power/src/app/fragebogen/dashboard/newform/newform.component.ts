@@ -15,7 +15,7 @@ import { Form } from '../../formapi.model';
 })
 export class NewformComponent {
     @ViewChild('modal') public modal: ModalminiComponent;
-    @Output() public out = new EventEmitter<Form>();
+    @Output() public out = new EventEmitter<string>();
     @Input() public tags: Array<string>;
 
     public title: string;
@@ -44,16 +44,12 @@ export class NewformComponent {
      */
     public fetchTemplates() {
         const queryParams: GetFormsParams = {
-            fields: ['id', 'content', 'owner'],
-            'owner-fields': ['id', 'name'],
+            fields: ['id', 'content', 'owner.name', 'extract'],
             filter: {
-                or: [
-                    { content: { path: ['title', 'de'], text: { lower: true, contains: this.searchText } } },
-                    { content: { path: ['title', 'default'], text: { lower: true, contains: this.searchText } } },
-                ],
+                extract: { lower: true, contains: this.searchText },
             },
-            extra: ['title.de', 'title.default'],
-            sort: { orderBy: { field: 'content', path: ['title', 'default'] }, order: 'asc' },
+            extract: ['title.de', 'title.default'],
+            sort: { field: 'extract', desc: false },
         };
 
         this.formAPI
@@ -114,12 +110,8 @@ export class NewformComponent {
                 throw new Error('title is required');
             }
             template.title.default = this.title;
-            const r = await this.formAPI.createForm({
-                fields: ['id', 'owner', 'tags', 'access', 'group', 'status', 'created', 'updated'],
-                'owner-fields': ['id', 'name', 'given-name', 'family-name', 'groups'],
-                extra: ['title.de', 'title.default'],
-            }, { tags: this.tagList, content: template, access: 'public' });
-            this.out.emit(r.form);
+            const r = await this.formAPI.createForm({ tags: this.tagList, content: template, access: 'public' });
+            this.out.emit(r.id);
         } catch (error) {
             console.log(error);
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));

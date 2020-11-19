@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { PublicForm, PublicFormFilter } from '../formapi.model';
+import { PublicForm, PublicFormFilter, PublicFormField, TaskSort } from '../formapi.model';
 import { FormAPIService, GetPublicFormsParams } from '../formapi.service';
 
 @Component({
@@ -21,8 +21,8 @@ export class PublicDashboardComponent implements OnInit {
     public pageSizes: number[];
     public totalPages: number;
     public search = '';
-    public sort: 'id' | 'title' | 'tags' | 'access' = 'title';
-    public order: 'asc' | 'desc' = 'asc';
+    public sort: PublicFormField = 'extract';
+    public desc: boolean = true;
 
     constructor(public titleService: Title,
         public router: Router,
@@ -36,15 +36,11 @@ export class PublicDashboardComponent implements OnInit {
         this.update(true);
     }
 
-    public changeSort(sort: 'id' | 'title' | 'tags' | 'access') {
+    public changeFormSort(sort: PublicFormField) {
         if (this.sort === sort) {
-            if (this.order === 'asc') {
-                this.order = 'desc';
-            } else {
-                this.order = 'asc';
-            }
+            this.desc = !this.desc;
         } else {
-            this.order = 'asc';
+            this.desc = false;
         }
         this.sort = sort;
         this.update(false);
@@ -55,28 +51,19 @@ export class PublicDashboardComponent implements OnInit {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetPublicFormsParams = {
-                fields: ['all'],
-                extra: ['title.de', 'title.default'],
+                fields: ['id', 'content', 'tags', 'access', 'extract'],
+                extract: ['title.de', 'title.default'],
                 limit: Number(this.perPage),
                 offset: (this.page - 1) * this.perPage,
             };
-            if (this.sort === 'title') {
-                params.sort = {
-                    orderBy: { field: 'content', path: ['title', 'de'] },
-                    alternative: { field: 'content', path: ['title', 'default'] },
-                    order: this.order,
-                };
-            } else {
-                params.sort = { orderBy: { field: this.sort }, order: this.order };
-            }
+            params.sort = { field: this.sort, desc: this.desc };
             const filters: Array<PublicFormFilter> = [
                 { access: 'public' },
             ];
             if (this.search !== '') {
                 const or: Array<PublicFormFilter> = [];
                 const search = { lower: true, contains: this.search };
-                or.push({ content: { path: ['title', 'de'], text: search } });
-                or.push({ content: { path: ['title', 'default'], text: search } });
+                or.push({ extract: search });
                 or.push({ tag: search });
                 filters.push({ or: or });
             }
@@ -84,7 +71,7 @@ export class PublicDashboardComponent implements OnInit {
 
             const response = await this.formAPI.getPublicForms(params);
             this.data = response.forms;
-            this.total = response['total-forms'];
+            this.total = response.total;
             this.totalPages = Math.ceil(this.total / this.perPage);
             let maxPages = Math.floor(this.total / 5) + 1;
             if (maxPages > 10) {

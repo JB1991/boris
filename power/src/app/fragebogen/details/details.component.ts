@@ -8,7 +8,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { FormAPIService, GetTasksParams } from '../formapi.service';
-import { TaskStatus, TaskSortField, Form, Task, User, Access } from '../formapi.model';
+import { TaskStatus, TaskField, Form, Task, User, Access } from '../formapi.model';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
@@ -35,8 +35,8 @@ export class DetailsComponent implements OnInit {
     public taskPageSizes: Array<number> = [];
 
     public taskStatus: TaskStatus | 'all' = 'all';
-    public taskSort: TaskSortField = 'updated';
-    public taskSortOrder: 'asc' | 'desc' = 'desc';
+    public taskSort: TaskField = 'updated';
+    public taskSortDesc: boolean;
 
     constructor(public titleService: Title,
         public router: Router,
@@ -73,11 +73,11 @@ export class DetailsComponent implements OnInit {
             }
             this.loadingscreen.setVisible(true);
             const r = await this.formapi.getForm(this.id, {
-                fields: ['all'],
-                'owner-fields': ['all'],
+                fields: ['id', 'extract', 'content', 'status', 'access', 'created', 'updated'],
+                extract: ['title.de', 'title.default'],
             });
             this.form = r.form;
-            this.owner = r.owner;
+            this.owner = r.form.owner;
             this.loadingscreen.setVisible(false);
         } catch (error) {
             console.log(error);
@@ -129,8 +129,7 @@ export class DetailsComponent implements OnInit {
         Dies lässt sich nicht mehr umkehren!`)) {
                 return;
             }
-            const r = await this.formapi.updateForm(this.form.id, {}, { status: 'cancelled' })
-            this.form = r.form;
+            await this.formapi.updateForm(this.form.id, { status: 'cancelled' });
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`)
         } catch (error) {
@@ -195,20 +194,6 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public changeTaskSort(sort: 'id' | 'pin' | 'created') {
-        if (this.taskSort === sort) {
-            if (this.taskSortOrder === 'asc') {
-                this.taskSortOrder = 'desc';
-            } else {
-                this.taskSortOrder = 'asc';
-            }
-        } else {
-            this.taskSortOrder = 'asc';
-        }
-        this.taskSort = sort;
-        this.updateTasks();
-    }
-
     /**
      * Opens preview of task results
      * @param i Number of task
@@ -256,7 +241,7 @@ export class DetailsComponent implements OnInit {
     public async updateTags() {
         try {
             const r = await this.formapi.getTags();
-            this.availableTags = r;
+            this.availableTags = r.tags;
         } catch (error) {
             console.log(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
@@ -268,11 +253,11 @@ export class DetailsComponent implements OnInit {
     public async updateTasks() {
         this.loadingscreen.setVisible(true);
         const params: GetTasksParams = {
-            fields: ['all'],
-            filter: { 'has-form-with': { id: this.id } },
+            fields: ['id', 'pin', 'description', 'created', 'updated'],
+            filter: { form: { id: this.id } },
             limit: Number(this.taskPerPage),
             offset: (this.taskPage - 1) * this.taskPerPage,
-            sort: { orderBy: { field: this.taskSort }, order: this.taskSortOrder },
+            sort: { field: this.taskSort, desc: this.taskSortDesc },
         };
         if (this.taskStatus !== 'all') {
             params.filter = {
@@ -282,7 +267,7 @@ export class DetailsComponent implements OnInit {
         try {
             const r = await this.formapi.getTasks(params);
             this.tasks = r.tasks;
-            this.taskTotal = r['total-tasks'];
+            this.taskTotal = r.total;
             let maxPages = Math.floor(this.taskTotal / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
@@ -299,9 +284,19 @@ export class DetailsComponent implements OnInit {
         }
     }
 
+    public changeTaskSort(sort: TaskField) {
+        if (this.taskSort === sort) {
+            this.taskSortDesc = !this.taskSortDesc;
+        } else {
+            this.taskSortDesc = false;
+        }
+        this.taskSort = sort;
+        this.updateTasks();
+    }
+
     public async updateFormEvent(event: { id: string, tags: Array<string> }) {
         try {
-            await this.formapi.updateForm(event.id, {}, { tags: event.tags });
+            await this.formapi.updateForm(event.id, { tags: event.tags });
             this.updateForm(false);
         } catch (error) {
             console.log(error);
@@ -312,7 +307,7 @@ export class DetailsComponent implements OnInit {
 
     public async publishFormEvent(event: { id: string, access: Access }) {
         try {
-            await this.formapi.updateForm(event.id, {}, { access: event.access, status: 'published' });
+            await this.formapi.updateForm(event.id, { access: event.access, status: 'published' });
             this.updateForm(false);
         } catch (error) {
             console.log(error);
@@ -323,7 +318,7 @@ export class DetailsComponent implements OnInit {
 
     public async commentTaskEvent(event: { id: string, description: string }) {
         try {
-            await this.formapi.updateTask(event.id, {}, { description: event.description });
+            await this.formapi.updateTask(event.id, { description: event.description });
             this.updateTasks();
         } catch (error) {
             console.log(error);
@@ -335,18 +330,11 @@ export class DetailsComponent implements OnInit {
     /**
      * createTaskEvent
      */
-    // tslint:disable-next-line: max-func-body-length
     public async createTaskEvent(event: { amount: number, copy: boolean }) {
-        const pinList: Array<string> = [];
         try {
-            const r = await this.formapi.createTask(this.form.id, {
-                fields: ['id', 'pin', 'description', 'status', 'created', 'updated'],
-            }, {}, event.amount);
-            for (const task of r.tasks) {
-                pinList.push(task.pin);
-            }
+            const r = await this.formapi.createTask(this.form.id, {}, event.amount);
             this.taskSort = 'created';
-            this.taskSortOrder = 'desc';
+            this.taskSortDesc = true;
             this.pagination.page = 1;
             this.updateTasks();
             // copy to clipboard
@@ -356,7 +344,7 @@ export class DetailsComponent implements OnInit {
                 selBox.style.left = '0';
                 selBox.style.top = '0';
                 selBox.style.opacity = '0';
-                selBox.value = pinList.join('\n');
+                selBox.value = r.pins.join('\n');
                 document.body.appendChild(selBox);
                 selBox.focus();
                 selBox.select();

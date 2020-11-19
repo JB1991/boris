@@ -51,7 +51,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('getTags should succeed', (done) => {
         service.getTags().then((value) => {
-            expect(value).toEqual(getTags['tags']);
+            expect(value.tags).toEqual(getTags.tags);
             done();
         });
         answerHTTPRequest(environment.formAPI + 'tags',
@@ -60,7 +60,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('getGroups should succeed', (done) => {
         service.getGroups().then((value) => {
-            expect(value).toEqual(getGroups['groups']);
+            expect(value.groups).toEqual(getGroups.groups);
             done();
         });
         answerHTTPRequest(environment.formAPI + 'groups',
@@ -78,61 +78,51 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('getForms should succeed', (done) => {
         service.getForms({
-            fields: ['id'],
-            'owner-fields': ['id'],
-            extra: ['title.de', 'title.default'],
+            fields: ['id', 'owner.id'],
+            extract: ['title.de', 'title.default'],
             filter: { id: '123' },
-            sort: { orderBy: { field: 'content', path: ['title', 'de'] }, alternative: { field: 'content', path: ['title', 'de'] }, order: 'desc' },
+            sort: { field: 'extract', desc: true },
             limit: 10,
             offset: 2,
         }).then((value) => {
             expect(value).toEqual(getForms);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms?fields=id&owner-fields=id&extra=title.de%2Ctitle.default&filter=id%3D123&sort=-%28content.title.de%2Ccontent.title.de%29%2Cid&limit=10&offset=2',
+        answerHTTPRequest(environment.formAPI + 'forms?fields=id%2Cowner.id&extract=title.de%2Ctitle.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
             'GET', getForms);
     });
 
     it('getForm should succeed', (done) => {
         service.getForm('123', {
-            fields: ['id'],
-            'owner-fields': ['id'],
-            extra: ['title.de', 'title.default'],
+            fields: ['id', 'owner.id'],
+            extract: ['title.de', 'title.default'],
         }).then((value) => {
             expect(value).toEqual(getForm);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123?fields=id&owner-fields=id&extra=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'forms/123?fields=id%2Cowner.id&extract=title.de%2Ctitle.default',
             'GET', getForm);
     });
 
     it('createForm should succeed', (done) => {
         service.createForm({
-            fields: ['id'],
-            'owner-fields': ['id'],
-            extra: ['title.de', 'title.default'],
-        }, {
             content: formContent,
         }).then((value) => {
             expect(value).toEqual(getForm);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms?fields=id&owner-fields=id&extra=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'forms',
             'POST', getForm);
     });
 
     it('updateForm should succeed', (done) => {
         service.updateForm('123', {
-            fields: ['id'],
-            'owner-fields': ['id'],
-            extra: ['title.de', 'title.default'],
-        }, {
             content: formContent,
         }).then((value) => {
             expect(value).toEqual(getForm);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123?fields=id&owner-fields=id&extra=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'forms/123',
             'PUT', getForm);
     });
 
@@ -150,75 +140,59 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getTasks);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks?sort=pin',
+        answerHTTPRequest(environment.formAPI + 'tasks?sort=id',
             'GET', getTasks);
     });
 
     it('getTasks should succeed', (done) => {
         service.getTasks({
             fields: ['id'],
-            'form-fields': ['id'],
-            'owner-fields': ['id'],
-            extra: ['e1'],
-            'form-extra': ['title.default'],
+            extract: ['e1'],
+            'form.extract': ['title.default'],
             filter: { id: '123' },
-            sort: { orderBy: { field: 'content', path: ['e1'] }, alternative: { field: 'content', path: ['e2'] }, order: 'desc' },
+            sort: { field: 'extract', desc: true },
             limit: 10,
             offset: 2,
         }).then((value) => {
             expect(value).toEqual(getTasks);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks?fields=id&form-fields=id&owner-fields=id&extra=e1&form-extra=title.default&filter=id%3D123&sort=-%28content.e1%2Ccontent.e2%29%2Cpin&limit=10&offset=2',
+        answerHTTPRequest(environment.formAPI + 'tasks?fields=id&extract=e1&form.extract=title.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
             'GET', getTasks);
     });
 
     it('getTask should succeed', (done) => {
         service.getTask('123', {
             fields: ['id'],
-            'form-fields': ['id'],
-            'owner-fields': ['id'],
-            extra: ['e1'],
-            'form-extra': ['title.default'],
+            extract: ['e1'],
+            'form.extract': ['title.default'],
         }).then((value) => {
             expect(value).toEqual(getTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks/123?fields=id&form-fields=id&owner-fields=id&extra=e1&form-extra=title.default',
+        answerHTTPRequest(environment.formAPI + 'tasks/123?fields=id&extract=e1&form.extract=title.default',
             'GET', getTask);
     });
 
     it('createTask should succeed', (done) => {
         service.createTask('123', {
-            fields: ['id'],
-            'form-fields': ['id'],
-            'owner-fields': ['id'],
-            extra: ['e1'],
-            'form-extra': ['title.default'],
-        }, {
             content: taskContent,
         }, 10).then((value) => {
             expect(value).toEqual(getTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123?fields=id&form-fields=id&owner-fields=id&extra=e1&form-extra=title.default&number=10',
+        answerHTTPRequest(environment.formAPI + 'forms/123?number=10',
             'POST', getTask);
     });
 
     it('updateTask should succeed', (done) => {
         service.updateTask('123', {
-            fields: ['id'],
-            'form-fields': ['id'],
-            'owner-fields': ['id'],
-            extra: ['e1'],
-            'form-extra': ['title.default'],
-        }, {
             content: taskContent,
         }).then((value) => {
             expect(value).toEqual(getTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks/123?fields=id&form-fields=id&owner-fields=id&extra=e1&form-extra=title.default',
+        answerHTTPRequest(environment.formAPI + 'tasks/123',
             'PUT', getTask);
     });
 
@@ -243,56 +217,50 @@ describe('Fragebogen.FormAPIService', () => {
     it('getElements should succeed', (done) => {
         service.getElements({
             fields: ['id'],
-            extra: ['title.de', 'title.default'],
+            extract: ['title.de', 'title.default'],
             filter: { id: '123' },
-            sort: { orderBy: { field: 'content', path: ['title', 'de'] }, alternative: { field: 'content', path: ['title', 'de'] }, order: 'desc' },
+            sort: { field: 'extract', desc: true },
             limit: 10,
             offset: 2,
         }).then((value) => {
             expect(value).toEqual(getElements);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements?fields=id&extra=title.de%2Ctitle.default&filter=id%3D123&sort=-%28content.title.de%2Ccontent.title.de%29%2Cid&limit=10&offset=2',
+        answerHTTPRequest(environment.formAPI + 'elements?fields=id&extract=title.de%2Ctitle.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
             'GET', getElements);
     });
 
     it('getElement should succeed', (done) => {
         service.getElement('123', {
             fields: ['id'],
-            extra: ['title.de', 'title.default'],
+            extract: ['title.de', 'title.default'],
         }).then((value) => {
             expect(value).toEqual(getElement);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements/123?fields=id&extra=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'elements/123?fields=id&extract=title.de%2Ctitle.default',
             'GET', getElement);
     });
 
     it('createElement should succeed', (done) => {
         service.createElement({
-            fields: ['id'],
-            extra: ['title.de', 'title.default'],
-        }, {
             content: elementContent,
         }).then((value) => {
             expect(value).toEqual(getElement);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements/?fields=id&extra=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'elements',
             'POST', getElement);
     });
 
     it('updateElement should succeed', (done) => {
         service.updateElement('123', {
-            fields: ['id'],
-            extra: ['title.de', 'title.default'],
-        }, {
             content: elementContent,
         }).then((value) => {
             expect(value).toEqual(getElement);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements/123?fields=id&extra=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'elements/123',
             'PUT', getElement);
     });
 
@@ -317,68 +285,59 @@ describe('Fragebogen.FormAPIService', () => {
     it('getPublicForms should succeed', (done) => {
         service.getPublicForms({
             fields: ['id'],
-            extra: ['title.de', 'title.default'],
+            extract: ['title.de', 'title.default'],
             filter: { id: '123' },
-            sort: { orderBy: { field: 'content', path: ['title', 'de'] }, order: 'asc' },
+            sort: { field: 'extract', desc: true },
             limit: 10,
             offset: 2,
         }).then((value) => {
             expect(value).toEqual(getPublicForms);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'public/forms?fields=id&extra=title.de%2Ctitle.default&filter=id%3D123&sort=content.title.de%2Cid&limit=10&offset=2',
+        answerHTTPRequest(environment.formAPI + 'public/forms?fields=id&extract=title.de%2Ctitle.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
             'GET', getPublicForms);
     });
 
     it('getPublicForm should succeed', (done) => {
         service.getPublicForm('123', {
             fields: ['id'],
-            extra: ['title.de', 'title.default'],
+            extract: ['title.de', 'title.default'],
         }).then((value) => {
             expect(value).toEqual(getPublicForm);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'public/forms/123?fields=id&extra=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'public/forms/123?fields=id&extract=title.de%2Ctitle.default',
             'GET', getPublicForm);
     });
 
     it('createPublicTask should succeed', (done) => {
-        service.createPublicTask('123', {
-            fields: ['id'],
-            extra: ['title.de', 'title.default'],
-        }, {}).then((value) => {
+        service.createPublicTask('123', {}).then((value) => {
             expect(value).toEqual(getPublicTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'public/forms/123?fields=id&extra=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'public/forms/123',
             'POST', getPublicTask);
     });
 
     it('getPublicTask should succeed', (done) => {
         service.getPublicTask('123', {
             fields: ['id'],
-            'form-fields': ['id'],
-            extra: ['e1'],
-            'form-extra': ['title.default'],
+            extract: ['e1'],
+            'form.extract': ['title.default'],
         }).then((value) => {
             expect(value).toEqual(getPublicTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'public/tasks/123?fields=id&form-fields=id&extra=e1&form-extra=title.default',
+        answerHTTPRequest(environment.formAPI + 'public/tasks/123?fields=id&extract=e1&form.extract=title.default',
             'GET', getPublicTask);
     });
 
     it('updatePublicTask should succeed', (done) => {
-        service.updatePublicTask('123', {
-            fields: ['id'],
-            'form-fields': ['id'],
-            extra: ['e1'],
-            'form-extra': ['title.default'],
-        }, {}, true).then((value) => {
+        service.updatePublicTask('123', {}, true).then((value) => {
             expect(value).toEqual(getPublicTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'public/tasks/123?fields=id&form-fields=id&extra=e1&form-extra=title.default&submit=true',
+        answerHTTPRequest(environment.formAPI + 'public/tasks/123?submit=true',
             'PUT', getPublicTask);
     });
 
@@ -397,30 +356,16 @@ describe('Fragebogen.FormAPIService', () => {
                 {
                     or: [
                         {
-                            group: 'Hello',
+                            group: {
+                                contains: 'World',
+                                lower: false,
+                            },
                         },
                         {
-                            'group-permission': 'read-form'
-                        },
-                        {
-                            'other-permission': 'update-form'
-                        },
-                        {
-                            content: {
-                                path: ['title'],
-                                text: {
-                                    equals: 'Hello',
-                                    lower: true,
-                                },
-                            }
-                        },
-                        {
-                            content: {
-                                path: ['count'],
-                                number: {
-                                    less: 100
-                                },
-                            }
+                            extract: {
+                                contains: 'World',
+                                lower: false,
+                            },
                         },
                         {
                             tag: {
@@ -445,7 +390,7 @@ describe('Fragebogen.FormAPIService', () => {
                             }
                         },
                         {
-                            'has-owner-with': {
+                            owner: {
                                 id: '123'
                             }
                         }
@@ -465,7 +410,7 @@ describe('Fragebogen.FormAPIService', () => {
             ]
         });
 
-        expect(out).toEqual('and(or(group=Hello,group-permission=read-form,other-permission=update-form,content.title-text-lower-equals=Hello,content.count-number-less=100,tag-contains=World,access=public,status=published,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z,has-owner-with(id=123)),not(id=123),tag-contains=Hello,tag-contains=World)');
+        expect(out).toEqual('and(or(group=contains=World,extract-contains=World,tag-contains=World,access=public,status=published,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z,owner(id=123)),not(id=123),tag-contains=Hello,tag-contains=World)');
     });
 
     // tslint:disable-next-line: max-func-body-length
@@ -484,14 +429,6 @@ describe('Fragebogen.FormAPIService', () => {
                             }
                         },
                         {
-                            content: {
-                                path: ['count'],
-                                number: {
-                                    greater: 100,
-                                },
-                            }
-                        },
-                        {
                             status: 'created'
                         },
                         {
@@ -505,7 +442,7 @@ describe('Fragebogen.FormAPIService', () => {
                             }
                         },
                         {
-                            'has-form-with': {
+                            form: {
                                 id: '123'
                             }
                         }
@@ -525,7 +462,7 @@ describe('Fragebogen.FormAPIService', () => {
             ]
         });
 
-        expect(out).toEqual('and(or(pin=123456,description-contains=Hello,content.count-number-greater=100,status=created,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z,has-form-with(id=123)),not(id=123),status=submitted,description-contains=World)');
+        expect(out).toEqual('and(or(pin=123456,description-contains=Hello,status=created,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z,form(id=123)),not(id=123),status=submitted,description-contains=World)');
     });
 
     // tslint:disable-next-line: max-func-body-length
@@ -541,16 +478,7 @@ describe('Fragebogen.FormAPIService', () => {
                             }
                         },
                         {
-                            'given-name': {
-                                contains: 'World',
-                                lower: false,
-                            }
-                        },
-                        {
-                            'family-name': {
-                                contains: 'World',
-                                lower: false,
-                            }
+                            role: 'editor'
                         },
                         {
                             group: {
@@ -574,7 +502,7 @@ describe('Fragebogen.FormAPIService', () => {
             ]
         });
 
-        expect(out).toEqual('and(or(name-contains=World,given-name-contains=World,family-name-contains=World,group-contains=World),not(id=123),name-contains=Hello,group-contains=World)');
+        expect(out).toEqual('and(or(name-contains=World,role=editor,group-contains=World),not(id=123),name-contains=Hello,group-contains=World)');
     });
 
     // tslint:disable-next-line: max-func-body-length
@@ -583,14 +511,6 @@ describe('Fragebogen.FormAPIService', () => {
             and: [
                 {
                     or: [
-                        {
-                            content: {
-                                path: ['count'],
-                                number: {
-                                    equals: 100,
-                                },
-                            }
-                        },
                         {
                             created: {
                                 before: '2020-10-31T21:26:30Z'
@@ -617,7 +537,7 @@ describe('Fragebogen.FormAPIService', () => {
             ]
         });
 
-        expect(out).toEqual('and(or(content.count-number-equals=100,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z),not(id=123),id=456,id=456)');
+        expect(out).toEqual('and(or(created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z),not(id=123),id=456,id=456)');
     });
 
     /*

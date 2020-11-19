@@ -64,7 +64,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         component.formSearch = 'something';
         component.updateForms(false).then(() => {
             expect(component.forms).toEqual(getForms.forms);
-            expect(component.formTotal).toEqual(getForms['total-forms']);
+            expect(component.formTotal).toEqual(getForms.total);
             done();
         });
     });
@@ -72,10 +72,10 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed updateForms', (done) => {
         spyOn(component.formAPI, 'getForms').and.returnValue(Promise.resolve(getForms));
         component.formStatus = 'created';
-        component.formSort = 'title';
+        component.formSort = 'extract';
         component.updateForms(false).then(() => {
             expect(component.forms).toEqual(getForms.forms);
-            expect(component.formTotal).toEqual(getForms['total-forms']);
+            expect(component.formTotal).toEqual(getForms.total);
             done();
         });
     });
@@ -83,9 +83,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed updateForms 2', (done) => {
         spyOn(component.formAPI, 'getForms').and.returnValue(Promise.resolve({
             forms: [],
-            owners: {},
             status: 200,
-            'total-forms': 100
+            total: 100
         }));
         component.updateForms(false).then(() => {
             expect(component.formPageSizes.length).toEqual(10);
@@ -98,17 +97,17 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         component.taskStatus = 'created';
         component.updateTasks(false).then(() => {
             expect(component.tasks).toEqual(getTasks.tasks);
-            expect(component.taskTotal).toEqual(getTasks['total-tasks']);
+            expect(component.taskTotal).toEqual(getTasks.total);
             done();
         });
     });
 
     it('should succeed updateTasks', (done) => {
         spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.resolve(getTasks));
-        component.taskSort = 'form.title';
+        component.taskSort = 'form.extract';
         component.updateTasks(false).then(() => {
             expect(component.tasks).toEqual(getTasks.tasks);
-            expect(component.taskTotal).toEqual(getTasks['total-tasks']);
+            expect(component.taskTotal).toEqual(getTasks.total);
             done();
         });
     });
@@ -116,10 +115,8 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     it('should succeed updateTasks 2', (done) => {
         spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.resolve({
             tasks: [],
-            'total-tasks': 100,
+            total: 100,
             status: 200,
-            forms: {},
-            owners: {},
         }));
         component.taskStatus = 'created';
         component.updateTasks(false).then(() => {
@@ -129,7 +126,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should succeed updateTags', (done) => {
-        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.resolve(getTags.tags));
+        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.resolve(getTags));
         component.taskStatus = 'created';
         component.updateTags(false).then(() => {
             expect(component.tags).toEqual(getTags.tags);
@@ -171,16 +168,13 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component, 'updateForms');
         component.changeFormSort('updated');
         expect(component.formSort).toBe('updated');
-        expect(component.formSortOrder).toBe('asc');
+        expect(component.formSortDesc).toBe(true);
         component.changeFormSort('updated');
         expect(component.formSort).toBe('updated');
-        expect(component.formSortOrder).toBe('desc');
-        component.changeFormSort('updated');
-        expect(component.formSort).toBe('updated');
-        expect(component.formSortOrder).toBe('asc');
-        component.changeFormSort('title');
-        expect(component.formSort).toBe('title');
-        expect(component.formSortOrder).toBe('asc');
+        expect(component.formSortDesc).toBe(false);
+        component.changeFormSort('extract');
+        expect(component.formSort).toBe('extract');
+        expect(component.formSortDesc).toBe(false);
         done();
     });
 
@@ -188,13 +182,13 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component, 'updateTasks');
         component.changeTaskSort('updated');
         expect(component.taskSort).toBe('updated');
-        expect(component.taskSortOrder).toBe('asc');
+        expect(component.taskSortDesc).toBe(true);
         component.changeTaskSort('updated');
         expect(component.taskSort).toBe('updated');
-        expect(component.taskSortOrder).toBe('desc');
-        component.changeTaskSort('form.title');
-        expect(component.taskSort).toBe('form.title');
-        expect(component.taskSortOrder).toBe('asc');
+        expect(component.taskSortDesc).toBe(false);
+        component.changeTaskSort('form.extract');
+        expect(component.taskSort).toBe('form.extract');
+        expect(component.taskSortDesc).toBe(false);
         done();
     });
 

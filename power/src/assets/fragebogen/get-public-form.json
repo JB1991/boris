@@ -1,8 +1,8 @@
 {
     "form": {
         "access": "public",
-        "locale": "en",
         "content": {
+            "locale": "en",
             "pages": [{
                 "elements": [{
                         "isRequired": true,

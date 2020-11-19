@@ -63,16 +63,20 @@
             }
         },
         "created": "2020-10-30T11:52:22Z",
-        "extra": "Hello World",
-        "group": "/public",
-        "group-permissions": [
-            "read-form"
-        ],
+        "extract": "Hello World",
+        "groups": ["/public"],
+        "owner": {
+            "8b3f0087-41c0-4652-96bf-cce298eb881d": {
+                "family-name": "User",
+                "given-name": "Local",
+                "groups": [
+                    "/Public/Locals"
+                ],
+                "id": "8b3f0087-41c0-4652-96bf-cce298eb881d",
+                "name": "local_user"
+            }
+        },
         "id": "751c7f76-967d-49fc-a195-9a4bbad2552d",
-        "other-permissions": [
-            "read-form"
-        ],
-        "owner": "8b3f0087-41c0-4652-96bf-cce298eb881d",
         "status": "created",
         "tags": [
             "Tag1",
@@ -80,17 +84,6 @@
         ],
         "updated": "2020-10-30T11:52:22Z"
     }],
-    "owners": {
-        "8b3f0087-41c0-4652-96bf-cce298eb881d": {
-            "family-name": "User",
-            "given-name": "Local",
-            "groups": [
-                "/Public/Locals"
-            ],
-            "id": "8b3f0087-41c0-4652-96bf-cce298eb881d",
-            "name": "local_user"
-        }
-    },
     "status": 200,
-    "total-forms": 1
+    "total": 1
 }

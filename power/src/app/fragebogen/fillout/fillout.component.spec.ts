@@ -109,25 +109,27 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     /**
      * LOAD Data
      */
-    it('should load data', fakeAsync(() => {
+    it('should load data', (done) => {
         spyOn(component.formapi, 'getPublicTask').and.returnValue(Promise.resolve(getPublicTask));
+        spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.resolve(getPublicForm));
         component.pin = '123';
-        component.loadData();
-        tick();
-        expect(component.form).toEqual(getPublicTask.form);
-        expect(component.language).toEqual(getPublicTask.form.content.locale);
-        flush();
-    }));
+        component.loadData().then(() => {
+            expect(component.language).toEqual(getPublicForm.form.content.locale);
+            done();
+        });
+    });
 
-    it('should fail to load data', fakeAsync(() => {
-        spyOn(component.formapi, 'getPublicTask').and.returnValue(Promise.reject('Failed to load form'));
+    it('should fail to load data', (done) => {
+        spyOn(component.formapi, 'getPublicTask').and.returnValue(Promise.resolve(getPublicTask));
+        spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.reject('Failed to load form'));
         component.pin = '123';
-        component.loadData();
-        tick();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
-            'Failed to load form');
-    }));
+        component.loadData().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+                'Failed to load form');
+            done();
+        });
+    });
 
     /**
      * SUBMIT TASK
@@ -216,10 +218,8 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     /**
      * ERROR for submitTask, loadData, submit, progress
      */
-    it('should throw error', () => {
-        expect(function () {
-            component.loadData();
-        }).toThrowError('pin is required');
+    it('should throw error', async () => {
+        await expectAsync(component.loadData()).toBeRejectedWith(new Error('pin is required'));
         expect(function () {
             component.submitTask(null, {});
         }).toThrowError('id is required');

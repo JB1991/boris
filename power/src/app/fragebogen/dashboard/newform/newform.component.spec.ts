@@ -72,16 +72,15 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
             {
                 forms: [
                     {
-                        id: '123', content: null, title: 'Template', tags: [], owners: [], readers: [],
+                        id: '123', content: null, title: 'Template', tags: [], groups: [],
                         created: null, status: 'created'
                     },
                     {
-                        id: '321', content: null, title: 'Template', tags: [], owners: [], readers: [],
+                        id: '321', content: null, title: 'Template', tags: [], groups: [],
                         created: null, status: 'created'
                     }
                 ],
-                'total-forms': 2,
-                owners: {},
+                total: 2,
                 status: 200,
             }
         ));

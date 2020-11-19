@@ -15,7 +15,7 @@
             <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z" />
             <path fill-rule="evenodd"
                 d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
-        </svg> {{ form.extra }}
+        </svg> {{ form.extract }}
 
         <button type="button"
                 class="btn btn-secondary btn-sm float-right d-none d-md-inline"
@@ -229,9 +229,9 @@
                 <thead>
                     <tr>
                         <th scope="col" (click)="changeTaskSort('pin')" class="border-top-0">
-                            <span role="button" aria-roledescription="Aufsteigend oder Absteigend sortieren." aria-describedby="ascPin descPin" i18n-aria-roledescription tabindex="0" (keydown.enter)="changeTaskSort('pin')" i18n>Pin</span>
+                            <span role="button" (keyup.enter)="changeTaskSort('pin')" aria-roledescription="Aufsteigend oder Absteigend sortieren." aria-describedby="ascPin descPin" i18n-aria-roledescription tabindex="0" i18n>Pin</span>
                             <span *ngIf="taskSort && taskSort === 'pin'">
-                                <span *ngIf="taskSortOrder === 'asc'" id="ascPin" aria-label="Aufsteigend sortiert"
+                                <span *ngIf="!taskSortDesc" id="ascPin" aria-label="Aufsteigend sortiert"
                                     i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
@@ -241,7 +241,7 @@
                                     </svg>
                                     <span class="sr-only" i18n>Aufsteigend sortiert</span>
                             </span>
-                            <span *ngIf="taskSortOrder === 'desc'" id="descPin" aria-label="Absteigend sortiert" i18n-aria-label>
+                            <span *ngIf="taskSortDesc" id="descPin" aria-label="Absteigend sortiert" i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         aria-hidden="true">
@@ -252,10 +252,10 @@
                             </span>
                             </span>
                         </th>
-                        <th scope="col" (click)="changeTaskSort('description')" class="border-top-0">
-                            <span role="button" aria-roledescription="Aufsteigend oder Absteigend sortieren." aria-describedby="ascDescription descDescription" i18n-aria-roledescription tabindex="0" (keydown.enter)="changeTaskSort('description')" i18n>Kommentar</span>
+                        <th scope="col" (click)="changeTaskSort('pin')" class="border-top-0">
+                            <span role="button" (keyup.enter)="changeTaskSort('pin')" aria-roledescription="Aufsteigend oder Absteigend sortieren." aria-describedby="ascDescription descDescription" i18n-aria-roledescription tabindex="0" i18n>Kommentar</span>
                             <span *ngIf="taskSort && taskSort === 'description'">
-                                <span *ngIf="taskSortOrder === 'asc'" id="ascDescription" aria-label="Aufsteigend sortiert"
+                                <span *ngIf="!taskSortDesc" id="ascDescription" aria-label="Aufsteigend sortiert"
                                     i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
@@ -265,7 +265,7 @@
                                     </svg>
                                     <span class="sr-only" i18n>Aufsteigend sortiert</span>
                             </span>
-                            <span *ngIf="taskSortOrder === 'desc'" id="descDescription" aria-label="Absteigend sortiert" i18n-aria-label>
+                            <span *ngIf="taskSortDesc" id="descDescription" aria-label="Absteigend sortiert" i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         aria-hidden="true">
@@ -276,10 +276,10 @@
                             </span>
                             </span>
                         </th>
-                        <th scope="col" (click)="changeTaskSort('status')" class="border-top-0">
-                            <span role="button" aria-roledescription="Aufsteigend oder Absteigend sortieren." aria-describedby="ascStatus descStatus" i18n-aria-roledescription tabindex="0" (keydown.enter)="changeTaskSort('status')" i18n>Status</span>
+                        <th scope="col" (click)="changeTaskSort('pin')" class="border-top-0">
+                            <span role="button" (keyup.enter)="changeTaskSort('pin')" aria-roledescription="Aufsteigend oder Absteigend sortieren." aria-describedby="ascStatus descStatus" i18n-aria-roledescription tabindex="0" i18n>Status</span>
                             <span *ngIf="taskSort && taskSort === 'status'">
-                                <span *ngIf="taskSortOrder === 'asc'" id="ascStatus" aria-label="Aufsteigend sortiert"
+                                <span *ngIf="!taskSortDesc" id="ascStatus" aria-label="Aufsteigend sortiert"
                                     i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
@@ -289,7 +289,7 @@
                                     </svg>
                                     <span class="sr-only" i18n>Aufsteigend sortiert</span>
                             </span>
-                            <span *ngIf="taskSortOrder === 'desc'" id="descStatus" aria-label="Absteigend sortiert" i18n-aria-label>
+                            <span *ngIf="taskSortDesc" id="descStatus" aria-label="Absteigend sortiert" i18n-aria-label>
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         aria-hidden="true">
@@ -300,10 +300,10 @@
                             </span>
                             </span>
                         </th>
-                        <th scope="col" (click)="changeTaskSort('created')" class="border-top-0">
-                            <span role="button" i18n>Erstellt</span>
+                        <th scope="col" (click)="changeTaskSort('pin')" class="border-top-0">
+                            <span role="button" (keyup.enter)="changeTaskSort('pin')" i18n>Erstellt</span>
                             <span *ngIf="taskSort && taskSort === 'created'">
-                                <span *ngIf="taskSortOrder === 'asc'">
+                                <span *ngIf="!taskSortDesc">
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         role="button" aria-hidden="true">
@@ -312,7 +312,7 @@
                                     </svg>
                                     <span class="sr-only" i18n>Aufsteigend sortiert</span>
                             </span>
-                            <span *ngIf="taskSortOrder === 'desc'">
+                            <span *ngIf="taskSortDesc">
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         role="button" aria-hidden="true">
@@ -323,10 +323,10 @@
                             </span>
                             </span>
                         </th>
-                        <th scope="col" (click)="changeTaskSort('updated')" class="border-top-0">
-                            <span role="button" i18n>Verändert</span>
+                        <th scope="col" (click)="changeTaskSort('pin')" class="border-top-0">
+                            <span role="button" (keyup.enter)="changeTaskSort('pin')" i18n>Verändert</span>
                             <span *ngIf="taskSort && taskSort === 'updated'">
-                                <span *ngIf="taskSortOrder === 'asc'">
+                                <span *ngIf="!taskSortDesc">
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         role="button" aria-hidden="true">
@@ -335,7 +335,7 @@
                                     </svg>
                                     <span class="sr-only" i18n>Aufsteigend sortiert</span>
                             </span>
-                            <span *ngIf="taskSortOrder === 'desc'">
+                            <span *ngIf="taskSortDesc">
                                     <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                         role="button" aria-hidden="true">
@@ -370,7 +370,7 @@
                         </td>
                         <td>
                             {{ task.description }}
-                            <span class="ml-1 text-primary clickable" i18n-title title="Bearbeiten" role="button" tabindex="0" (click)="comment.open(task)" (keyup.enter)="comment.open(i)">
+                            <span class="ml-1 text-primary clickable" i18n-title title="Bearbeiten" role="button" tabindex="0" (click)="comment.open(task)" (keyup.enter)="comment.open(task)">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                     aria-hidden="true">
