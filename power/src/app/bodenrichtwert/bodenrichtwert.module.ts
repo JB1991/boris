@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
@@ -13,13 +14,20 @@ import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenri
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertListeComponent } from './bodenrichtwert-liste/bodenrichtwert-liste.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
+import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
 import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EntwicklungszustandPipe } from './pipes/entwicklungszustand.pipe';
+import { EntwicklungszusatzPipe } from './pipes/entwicklungszusatz.pipe';
+import { ObjectIdPipe } from './pipes/object-id.pipe';
+import { EinflussgroessePipe } from './pipes/einflussgroesse.pipe';
+import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
+import { BauweisePipe } from './pipes/bauweise.pipe';
+import { BodenartPipe } from './pipes/bodenart.pipe';
+import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -38,9 +46,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
         BodenrichtwertListeComponent,
+        UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,
-        UmlautCorrectionPipe
+        UmlautCorrectionPipe,
+        EntwicklungszustandPipe,
+        EntwicklungszusatzPipe,
+        ObjectIdPipe,
+        EinflussgroessePipe,
+        ArtDerBebauungPipe,
+        BauweisePipe,
+        BodenartPipe,
+        VerfahrensartPipe
     ],
     imports: [
         BodenrichtwertRoutingModule,
@@ -50,7 +67,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         NgbAccordionModule,
         NgbPaginationModule,
         NgxMapboxGLModule,
-        NgxEchartsModule.forRoot({ echarts }),
+        NgxEchartsModule.forRoot({ echarts: echarts }),
         SharedModule,
         NgbDropdownModule,
         CollapseModule

@@ -14,7 +14,7 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     const wfsCapabilities = require('!raw-loader!../../assets/boden/bodenrichtwert-samples/wfs-capabilities.xml');
 
     const date = new Date('2018-12-31');
-    const entw = 'B';
+    const entw = ['B'];
     const lat = 52.40729;
     const lon = 9.80205;
     const url = '/geoserver/boris/ows?';

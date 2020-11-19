@@ -1,6 +1,6 @@
 {
     "extends": [
-        "htmlvalidate:recommended"
+        "html-validate:recommended"
     ],
     "rules": {
         "attr-case": "off",

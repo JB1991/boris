@@ -68,7 +68,7 @@
                      (expanded)="isExpanded = !isExpanded"
                      [isAnimated]="true">
                     <div class="well well-lg card card-block card-header verlauf">
-                        <div class="row p-0"
+                        <div class="p-0"
                              *ngIf="features">
                             <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen') && !features.features.length"
                                  class="text-center col-12">
@@ -99,7 +99,7 @@
                                                         [features]="features">
                             </power-bodenrichtwert-liste>
                         </div>
-                        <div class="row p-0"
+                        <div class="p-0"
                              [class.d-none]="!features">
                             <power-bodenrichtwert-verlauf class="col-md-12 p-0"
                                                           [features]="features"></power-bodenrichtwert-verlauf>

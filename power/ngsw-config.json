@@ -20,7 +20,7 @@
             "resources": {
                 "files": [
                     "/assets/**",
-                    "!/assets/config.json",
+                    "!/assets/config/config.json",
                     "/mvt/**"
                 ]
             }

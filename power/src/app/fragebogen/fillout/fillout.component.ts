@@ -74,7 +74,7 @@ export class FilloutComponent implements AfterViewInit {
     }
 
 
-    // tslint:disable-next-line: max-func-body-length
+    // eslint-disable-next-line 
     public loadForm(id: string) {
         // load form by id
         this.loadingscreen.setVisible(true);
@@ -109,7 +109,7 @@ export class FilloutComponent implements AfterViewInit {
      * @param result Task result
      */
 
-    // tslint:disable-next-line: max-func-body-length
+    // eslint-disable-next-line
     public submitTask(id: string, result: any) {
         // check data
         if (!id) {

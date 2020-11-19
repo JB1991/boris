@@ -33,7 +33,7 @@ import { SharedModule } from '@app/shared/shared.module';
         ConditionsComponent,
         ConditionModalComponent,
         ValidatorsComponent,
-        LocaleInputComponent,
+        LocaleInputComponent
     ],
     imports: [
         EditorRoutingModule,

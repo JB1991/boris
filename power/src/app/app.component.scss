@@ -2,6 +2,10 @@
     padding-top: 5px;
 }
 
+.navbar-brand:hover {
+    text-decoration: underline grey;
+}
+
 .navbar-toggler {
     outline: none;
 }

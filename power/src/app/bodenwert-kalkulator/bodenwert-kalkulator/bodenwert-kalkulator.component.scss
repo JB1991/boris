@@ -72,17 +72,21 @@ mgl-map {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     font-size: 0.875rem;
-    color: #6c757d;
+    color: black;
 }
 
 .nav-underline .nav-link:hover {
-    color: #007bff;
+    color: #c4153a;
     cursor: pointer;
+}
+
+.active {
+    color: #c4153a !important;
 }
 
 .nav-underline .active {
     font-weight: 500;
-    color: #343a40;
+    color: #c4153a;
 }
 
 :host ::ng-deep .card-header {
@@ -123,3 +127,5 @@ a.nav-link img {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
 }
+
+@import '~bootstrap/scss/bootstrap.scss';

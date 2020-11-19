@@ -5,6 +5,8 @@ import { BeitragPipe } from '@app/bodenrichtwert/pipes/beitrag.pipe';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { UmlautCorrectionPipe } from '@app/bodenrichtwert/pipes/umlaut-correction.pipe';
 import { HyphenatePipe } from '@app/shared/pipes/hyphenate.pipe';
+import { EntwicklungszusatzPipe } from '../pipes/entwicklungszusatz.pipe';
+import { EntwicklungszustandPipe } from '../pipes/entwicklungszustand.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
     let component: BodenrichtwertDetailComponent;
@@ -17,7 +19,9 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
                 BeitragPipe,
                 NutzungPipe,
                 HyphenatePipe,
-                UmlautCorrectionPipe
+                UmlautCorrectionPipe,
+                EntwicklungszusatzPipe,
+                EntwicklungszustandPipe
             ]
         })
             .compileComponents();
@@ -28,7 +32,9 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
         component = fixture.componentInstance;
         component.feature = {
             properties: {
-                nutzung: [{nutz: 'W', 'enuta': ['EFH']}]
+                nutzung: [{nutz: 'W', 'enuta': ['EFH']}],
+                entw: 'B',
+                verf: 'SU'
             }
         };
         fixture.detectChanges();

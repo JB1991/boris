@@ -71,8 +71,10 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 2. Sprachstrings exportieren
    ```
    cd power
-   ng xi18n --format=xlf2 --ivy --output-path src/locales
+   ng extract-i18n --format=xlf2 --ivy --output-path src/locales
    ```
+   * Bitte die Datei `messages.xlf` nach dem String `node_modules` durchsuchen und die entsprechenden Einträge entfernen.
+   Leider gibt es derzeit keinen `exclude`-Parameter (siehe https://github.com/angular/angular-cli/issues/18885).
 
 3. Vorhandene Übersetzungen updaten
    ```
@@ -81,6 +83,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    ```
 
 4. [Übersetzung anfertigen](https://martinroob.github.io/tiny-translator/de/#/home)
+    * Falls es Darstellungsprobleme auf der Website gibt, dann einfach die Cookies für die Website löschen.
 
 5. Sprache testen
    ```

@@ -41,17 +41,17 @@ export function init(Survey) {
                 {
                     name: 'pipsValues:itemvalues',
                     category: 'slider',
-                    default: [0, 25, 50, 75, 100],
+                    default: [0, 100],
                 },
                 {
                     name: 'pipsText:itemvalues',
                     category: 'slider',
-                    default: [0, 25, 50, 75, 100],
+                    default: [0, 100],
                 },
                 {
                     name: 'pipsDensity:number',
                     category: 'slider',
-                    default: 5,
+                    default: 100,
                 },
                 {
                     name: 'orientation:string',
