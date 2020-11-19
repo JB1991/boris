@@ -167,7 +167,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Load form data
      * @param id Form id
      */
-    // eslint-disable-next-line
     public async loadData(id: string) {
         // check data
         if (!id) {
@@ -236,7 +235,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Handles drag and drop into workspace zone
      * @param dropResult Event
      */
-    // tslint:disable-next-line: max-func-body-length
     public onDropWorkspace(dropResult: DropResult) {
         if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }

@@ -23,7 +23,6 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
 
     const formContent = require('../../../../assets/fragebogen/form-content.json');
 
-    // tslint:disable-next-line: max-func-body-length
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [

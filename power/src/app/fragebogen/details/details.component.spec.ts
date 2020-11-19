@@ -23,7 +23,6 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     const getTasks = require('../../../assets/fragebogen/get-tasks.json');
     const getTask = require('../../../assets/fragebogen/get-task.json');
 
-    // tslint:disable-next-line: max-func-body-length
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [

@@ -79,7 +79,6 @@ export class DashboardComponent implements OnInit {
      * Imports form from JSON
      */
     /* istanbul ignore next */
-    // tslint:disable-next-line: max-func-body-length
     public importForm() {
         const input = document.createElement('input');
         input.id = 'file-upload';
@@ -112,7 +111,6 @@ export class DashboardComponent implements OnInit {
         input.click();
     }
 
-    // tslint:disable-next-line: max-func-body-length
     public async updateForms(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
@@ -159,7 +157,6 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    // tslint:disable-next-line: max-func-body-length
     public async updateTasks(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);

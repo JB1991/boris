@@ -44,7 +44,6 @@ export class WrapperComponent implements OnChanges {
         });
     }
 
-    // tslint:disable-next-line: max-func-body-length
     ngOnChanges() {
         Survey.StylesManager.applyTheme(this.theme);
         Survey.surveyLocalization.defaultLocale = 'de';

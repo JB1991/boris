@@ -350,7 +350,6 @@ describe('Fragebogen.FormAPIService', () => {
         answerHTTPRequest(environment.formAPI + 'forms/123/csv', 'GET', 'Toast');
     });
 
-    // tslint:disable-next-line: max-func-body-length
     it('FormFilterToString should succeed', () => {
         const out = FormFilterToString({
             and: [
@@ -414,7 +413,6 @@ describe('Fragebogen.FormAPIService', () => {
         expect(out).toEqual('and(or(group=contains=World,extract-contains=World,tag-contains=World,access=public,status=published,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z,owner(id=123)),not(id=123),tag-contains=Hello,tag-contains=World)');
     });
 
-    // tslint:disable-next-line: max-func-body-length
     it('TaskFilterToString should succeed', () => {
         const out = TaskFilterToString({
             and: [
@@ -466,7 +464,6 @@ describe('Fragebogen.FormAPIService', () => {
         expect(out).toEqual('and(or(pin=123456,description-contains=Hello,status=created,created-before=2020-10-31T21:26:30Z,updated-after=2020-10-31T21:26:30Z,form(id=123)),not(id=123),status=submitted,description-contains=World)');
     });
 
-    // tslint:disable-next-line: max-func-body-length
     it('UserFilterToString should succeed', () => {
         const out = UserFilterToString({
             and: [
@@ -506,7 +503,6 @@ describe('Fragebogen.FormAPIService', () => {
         expect(out).toEqual('and(or(name-contains=World,role=editor,group-contains=World),not(id=123),name-contains=Hello,group-contains=World)');
     });
 
-    // tslint:disable-next-line: max-func-body-length
     it('ElementFilterToString should succeed', () => {
         const out = ElementFilterToString({
             and: [
@@ -598,5 +594,4 @@ describe('Fragebogen.FormAPIService', () => {
         // Verify that no requests are remaining
         httpTestingController.verify();
     });
-// tslint:disable-next-line: max-file-line-count
 });

@@ -27,7 +27,6 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     const getElements = require('../../../assets/fragebogen/get-elements.json');
     const getElement = require('../../../assets/fragebogen/get-element.json');
 
-    // tslint:disable-next-line: max-func-body-length
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -503,7 +502,6 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     /**
      * onDropWorkspace
      */
-    // tslint:disable-next-line: max-func-body-length
     it('should drag and drop workspace', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
         expect(component.storage.model.pages[0].elements.length).toEqual(4);

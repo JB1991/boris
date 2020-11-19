@@ -127,7 +127,6 @@ export class AnswersComponent {
      * @param i Answer number
      */
     /* istanbul ignore next */
-    // tslint:disable-next-line: max-func-body-length
     public uploadImage(i: number) {
         // check data
         if (i < 0 || i >= this.data.length) {
@@ -147,7 +146,6 @@ export class AnswersComponent {
             reader.onload = () => {
                 // downscale image
                 const img = new Image();
-                // tslint:disable-next-line: max-func-body-length
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');

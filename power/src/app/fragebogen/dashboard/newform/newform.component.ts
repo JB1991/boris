@@ -99,7 +99,6 @@ export class NewformComponent {
      * Makes new formular
      * @param template SurveyJS Template
      */
-    // tslint:disable-next-line: max-func-body-length
     public async makeForm(template: any) {
         try {
             if (!template) {

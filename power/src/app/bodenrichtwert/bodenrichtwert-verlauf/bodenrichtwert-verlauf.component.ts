@@ -123,7 +123,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return filteredFeatures;
     }
 
-    // eslint-disable-next-line
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.srTableData = [];

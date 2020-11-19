@@ -73,8 +73,6 @@ export class FilloutComponent implements AfterViewInit {
         this.wrapper.survey.locale = this.language;
     }
 
-
-    // eslint-disable-next-line
     public loadForm(id: string) {
         // load form by id
         this.loadingscreen.setVisible(true);
@@ -108,8 +106,6 @@ export class FilloutComponent implements AfterViewInit {
      * @param id Form pin
      * @param result Task result
      */
-
-    // eslint-disable-next-line
     public submitTask(id: string, result: any) {
         // check data
         if (!id) {

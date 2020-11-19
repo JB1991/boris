@@ -46,7 +46,6 @@ export class PublicDashboardComponent implements OnInit {
         this.update(false);
     }
 
-    // tslint:disable-next-line: max-func-body-length
     public async update(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);

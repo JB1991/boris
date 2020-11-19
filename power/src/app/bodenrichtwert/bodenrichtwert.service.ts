@@ -124,7 +124,6 @@ export class BodenrichtwertService {
      * @param stag Stichtag
      * @param entw Teilmarkt
      */
-    // eslint-disable-next-line
     getFeatureByLatLonStagEntw(lat: any, lon: any, stag: Date, entw: any): Observable<FeatureCollection> {
         const filter =
             '<wfs:GetFeature \n' +
@@ -166,7 +165,6 @@ export class BodenrichtwertService {
      * @param lon Longitude
      * @param entw Teilmarkt
      */
-    // eslint-disable-next-line
     getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>): Observable<FeatureCollection> {
         let ogcFilter: string;
         entw.forEach(entwType => {

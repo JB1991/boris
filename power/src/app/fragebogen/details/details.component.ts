@@ -250,7 +250,6 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    // tslint:disable-next-line: max-func-body-length
     public async updateTasks() {
         this.loadingscreen.setVisible(true);
         const params: GetTasksParams = {

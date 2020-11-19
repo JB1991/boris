@@ -13,6 +13,7 @@ import {
 import { ElementFilterToString, FormFilterToString, SortToString, TaskFilterToString } from './formapi.converter';
 import { Observable } from 'rxjs';
 
+/* eslint-disable-next-line no-shadow */
 export enum Method {
     GET,
     POST,
@@ -79,7 +80,6 @@ export class FormAPIService {
         return this.Do(Method.GET, 'groups', {});
     }
 
-    // tslint:disable-next-line: cyclomatic-complexity
     public async getForms(
         params: GetFormsParams
     ): Promise<{
