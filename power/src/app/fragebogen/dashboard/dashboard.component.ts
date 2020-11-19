@@ -117,7 +117,7 @@ export class DashboardComponent implements OnInit {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetFormsParams = {
-                fields: ['id', 'owner.name', 'extract', 'access', 'status', 'created', 'updated'],
+                fields: ['id', 'owner.name', 'extract', 'access', 'status', 'created', 'updated', 'tags', 'groups'],
                 extract: ['title.de', 'title.default'],
                 limit: Number(this.formPerPage),
                 offset: (this.formPage - 1) * this.formPerPage,

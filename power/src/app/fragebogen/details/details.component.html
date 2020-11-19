@@ -48,6 +48,9 @@
                 <span i18n>ID</span>: {{ form.id }}
             </p>
             <p class="font-weight-light mb-1">
+                <span i18n>Besitzer</span>: {{ form.owner.name }}
+            </p>
+            <p class="font-weight-light mb-1">
                 <span i18n>Erstellt</span>: {{ form.created | date:'short' }}
             </p>
             <p class="font-weight-light mb-1">
@@ -62,7 +65,10 @@
                 <span i18n>Status</span>: {form.status, select, created {Erstellt} published {Veröffentlicht} cancelled {Geschlossen}}
             </p>
             <p *ngIf="form.tags && form.tags.length > 0" class="font-weight-light mb-1">
-                <span i18n>Tags</span>: {{ form.tags }}
+                <span i18n>Tags</span>: {{ form.tags.join(', ') }}
+            </p>
+            <p *ngIf="form.groups && form.groups.length > 0" class="font-weight-light mb-1">
+                <span i18n>Groups</span>: {{ form.groups }}
             </p>
         </div>
         <div class="col-12 pl-0 pt-2">
