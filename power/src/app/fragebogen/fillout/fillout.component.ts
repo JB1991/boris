@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -10,22 +10,24 @@ import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
+import { PublicForm, PublicTask } from '../formapi.model';
 
 @Component({
     selector: 'power-forms-fillout',
     templateUrl: './fillout.component.html',
     styleUrls: ['./fillout.component.css']
 })
-export class FilloutComponent implements OnInit {
+export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper: WrapperComponent;
     public language = 'de';
     public submitted = false;
     public languages = Survey.surveyLocalization.localeNames;
 
+    public pin = '';
+    public form: PublicForm;
+
     public data = {
         css_style: JSON.parse(JSON.stringify(Bootstrap4_CSS)),
-        task: null,
-        form: null,
         UnsavedChanges: false
     };
 
@@ -40,13 +42,12 @@ export class FilloutComponent implements OnInit {
         this.resetService();
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         // get pin
-        this.loadingscreen.setVisible(true);
-        const pin = this.route.snapshot.paramMap.get('pin');
-        if (pin) {
+        this.pin = this.route.snapshot.paramMap.get('pin');
+        if (this.pin) {
             // load data
-            this.loadData(pin);
+            this.loadData();
         } else {
             const id = this.route.snapshot.paramMap.get('id');
             if (id) {
@@ -76,25 +77,24 @@ export class FilloutComponent implements OnInit {
     // eslint-disable-next-line 
     public loadForm(id: string) {
         // load form by id
-        this.formapi.getPublicForm(id).then(result => {
+        this.loadingscreen.setVisible(true);
+        this.formapi.getPublicForm(id, { fields: ['id', 'content'] }).then(result => {
             // store form
-            this.data.form = result;
-            this.language = this.data.form.content.locale;
+            this.form = result.form;
+            this.language = this.form.content.locale;
 
             // check if user language exists in survey
-            /* istanbul ignore next */
-            setTimeout(() => {
-                if (this.wrapper && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
-                    this.language = this.locale;
-                    this.setLanguage();
-                }
-            }, 100);
+            if (this.wrapper && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
+                this.language = this.locale;
+                this.setLanguage();
+            }
 
             // display form
             this.loadingscreen.setVisible(false);
         }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
@@ -119,45 +119,43 @@ export class FilloutComponent implements OnInit {
             throw new Error('no data provided');
         }
 
-        const queryParams: Object = {
-            submit: true,
-        };
-        this.formapi.createPublicTask(id, result.result, queryParams).then(() => {
+        this.formapi.createPublicTask(id, result.result).then(() => {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
             result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen` + `: {error.toString()}`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+
+            console.log(error);
             return;
         });
     }
 
     /**
      * Load form data
-     * @param pin Task pin
-     * @param factor Task factor
      */
-    public loadData(pin: string, factor: string = null) {
-        // check data
-        if (!pin) {
+    public async loadData() {
+        if (!this.pin) {
             throw new Error('pin is required');
         }
 
-        this.formapi.getPublicAccess(pin, factor).then(result => {
-            // store task data
-            this.data.task = result;
-
-            // load form by id
-            this.loadForm(this.data.task['form-id']);
-        }).catch((error: Error) => {
+        try {
+            this.loadingscreen.setVisible(true);
+            const t = await this.formapi.getPublicTask(this.pin, { fields: ['id', 'content', 'form.id'] });
+            const f = await this.formapi.getPublicForm(t.task.form.id, {fields: ['content']});
+            this.form = f.form;
+            this.language = f.form.content.locale;
+            this.loadingscreen.setVisible(false);
+        } catch (error) {
             // failed to load task
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+            (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });
             console.log(error);
             return;
-        });
+        }
     }
 
     /**
@@ -171,17 +169,14 @@ export class FilloutComponent implements OnInit {
         }
         this.submitted = true;
 
-        const queryParams: Object = {
-            submit: true
-        };
         // complete
-        this.formapi.updatePublicTask(this.data.task.id, result.result, queryParams).then(() => {
+        this.formapi.updatePublicTask(this.pin, result.result, true).then(() => {
             this.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen` + `: {error.toString()}`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
         });
@@ -201,11 +196,11 @@ export class FilloutComponent implements OnInit {
         }
 
         // interim results
-        this.formapi.updatePublicTask(this.data.task.id, result).then(() => {
+        this.formapi.updatePublicTask(this.pin, result, false).then(() => {
             this.setUnsavedChanges(false);
         }).catch((error: Error) => {
             // failed to save task
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
         });
@@ -221,8 +216,8 @@ export class FilloutComponent implements OnInit {
 
     public resetService() {
         this.data.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
-        this.data.task = null;
-        this.data.form = null;
+        this.pin = '';
+        this.form = null;
         this.data.UnsavedChanges = false;
     }
 

@@ -13,7 +13,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let component: PublicDashboardComponent;
     let fixture: ComponentFixture<PublicDashboardComponent>;
 
-    const publicForms = require('../../../assets/fragebogen/public-get-forms.json');
+    const getPublicForms = require('../../../assets/fragebogen/get-public-forms.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -51,21 +51,23 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         SUCCESS
     */
     it('should succeed', (done) => {
-        spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve(publicForms));
-        component.title = 'something';
+        spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve(getPublicForms));
+        component.search = 'something';
+        component.sort = 'id';
         component.update(false).then(() => {
-            expect(component.data).toBe(publicForms.data);
-            expect(component.total).toBe(publicForms.total);
+            expect(component.data).toBe(getPublicForms.forms);
+            expect(component.total).toBe(getPublicForms.total);
             done();
         });
     });
 
     it('should succeed 2', (done) => {
         spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve({
-            data: [],
-            total: 100
+            forms: [],
+            total: 100,
+            status: 200,
         }));
-        component.title = 'something';
+        component.search = 'something';
         component.update(false).then(() => {
             expect(component.pageSizes.length).toBe(10);
             done();
@@ -74,15 +76,18 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
 
     it('should changeSort', (done) => {
         spyOn(component, 'update');
-        component.changeSort('published');
-        expect(component.sort).toBe('published');
-        expect(component.order).toBe('asc');
-        component.changeSort('published');
-        expect(component.sort).toBe('published');
-        expect(component.order).toBe('desc');
-        component.changeSort('published');
-        expect(component.sort).toBe('published');
-        expect(component.order).toBe('asc');
+        component.changeFormSort('id');
+        expect(component.sort).toBe('id');
+        expect(component.desc).toBe(false);
+        component.changeFormSort('id');
+        expect(component.sort).toBe('id');
+        expect(component.desc).toBe(true);
+        component.changeFormSort('id');
+        expect(component.sort).toBe('id');
+        expect(component.desc).toBe(false);
+        component.changeFormSort('extract');
+        expect(component.sort).toBe('extract');
+        expect(component.desc).toBe(false);
         done();
     });
 

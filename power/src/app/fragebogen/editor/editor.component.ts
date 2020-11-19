@@ -174,11 +174,10 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
 
         try {
-            const result = await this.formapi.getInternForm(id);
-            this.storage.model = result.content;
-
-            const elements = await this.formapi.getInternElements();
-            this.favorites = elements.data;
+            const result = await this.formapi.getForm(id, { fields: ['content'] });
+            this.storage.model = result.form.content;
+            const elements = await this.formapi.getElements({ fields: ['id', 'content'] });
+            this.favorites = elements.elements;
             this.cdr.detectChanges();
 
             // auto save
@@ -189,7 +188,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.loadingscreen.setVisible(false);
         } catch (error) {
             //     // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -235,6 +235,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Handles drag and drop into workspace zone
      * @param dropResult Event
      */
+    // tslint:disable-next-line: max-func-body-length
     public onDropWorkspace(dropResult: DropResult) {
         if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }
@@ -399,16 +400,13 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
         }
-
         // ask user to confirm
         if (!confirm($localize`Möchten Sie diese Seite wirklich löschen?`)) {
             return;
         }
-
         // delete
         this.history.makeHistory(this.storage.model);
         this.storage.model.pages.splice(page, 1);
-
         // ensure that at least one page exists
         if (this.storage.model.pages.length < 1) {
             this.storage.model.pages.splice(0, 0, {
@@ -455,16 +453,17 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
 
-        this.formapi.updateInternForm(id, this.storage.model).then(() => {
+        this.formapi.updateForm(id, {
+            content: this.storage.model,
+        }).then(() => {
             // success
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
         }).catch((error: Error) => {
             // failed to save
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
-            this.loadingscreen.setVisible(false);
-
             console.log(error);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.loadingscreen.setVisible(false);
             return;
         });
     }
@@ -592,7 +591,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param page Page number
      */
     public addFavorite(element: number, page: number = this.storage.selectedPageID) {
-        // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
         }
@@ -610,13 +608,14 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         question.name = '';
 
         // add favorite
-        this.formapi.createInternElement(question).then((data) => {
+        this.formapi.createElement({ content: question }).then((data) => {
             this.favorites.push(data);
             this.cdr.detectChanges();
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
                 $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);
         }).catch((error) => {
-            this.alerts.NewAlert('danger', $localize`Favoriten hinzufügen fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Favoriten hinzufügen fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         });
     }
 
@@ -641,14 +640,15 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
 
         // delete favorite
-        this.formapi.deleteInternElement(this.favorites[index - 1].id)
+        this.formapi.deleteElement(this.favorites[index - 1].id)
             .then((data) => {
                 this.favorites.splice(index - 1, 1);
                 this.cdr.detectChanges();
                 this.alerts.NewAlert('success', $localize`Favoriten gelöscht`,
                     $localize`Die Frage wurde erfolgreich aus den Favoriten entfernt.`);
             }).catch((error) => {
-                this.alerts.NewAlert('danger', $localize`Favorite löschen fehlgeschlagen`, error.toString());
+                this.alerts.NewAlert('danger', $localize`Favorite löschen fehlgeschlagen`,
+                    (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             });
     }
 

@@ -14,7 +14,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
     let fixture: ComponentFixture<NewformComponent>;
 
-    const formSample = require('../../../../assets/fragebogen/intern-get-forms-id.json');
+    const getForm = require('../../../../assets/fragebogen/get-form.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -55,25 +55,12 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.tagList).toEqual([]);
         expect(component.searchText).toEqual('');
         expect(component.modal.isOpen).toBeTrue();
-        component.close();
+        component.modal.close();
         expect(component.modal.isOpen).toBeFalse();
     });
 
-    it('should set template', () => {
-        const event = new TypeaheadMatch(
-            {
-                id: '123',
-                title: 'Template'
-            },
-            'Template'
-        );
-
-        component.setTemplate(event);
-        expect(component.template).toEqual('123');
-    });
-
     it('should fail to fetch templates', fakeAsync(() => {
-        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.reject('Failure'));
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject('Failure'));
 
         component.fetchTemplates();
         tick();
@@ -81,19 +68,20 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     }));
 
     it('should fetch templates', fakeAsync(() => {
-        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve(
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.resolve(
             {
-                data: [
+                forms: [
                     {
-                        id: '123', content: null, title: 'Template', tags: [], owners: [], readers: [],
+                        id: '123', content: null, title: 'Template', tags: [], groups: [],
                         created: null, status: 'created'
                     },
                     {
-                        id: '321', content: null, title: 'Template', tags: [], owners: [], readers: [],
+                        id: '321', content: null, title: 'Template', tags: [], groups: [],
                         created: null, status: 'created'
                     }
                 ],
-                total: 2
+                total: 2,
+                status: 200,
             }
         ));
 
@@ -119,14 +107,15 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         SUCCESS
     */
     it('should succeed', (done) => {
-        spyOn(component.formAPI, 'createInternForm').and.returnValue(Promise.resolve(formSample.data));
+        spyOn(component.formAPI, 'createForm').and.returnValue(Promise.resolve(getForm));
+        spyOn(component.out, 'emit');
         component.title = 'something';
         component.makeForm({
             title: {
                 default: 'example'
             }
         }).then(() => {
-            expect(component.data.forms.length).toEqual(1);
+            expect(component.out.emit).toHaveBeenCalled();
             done();
         });
     });
@@ -135,7 +124,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         Error
     */
     it('should fail', (done) => {
-        spyOn(component.formAPI, 'createInternForm').and.callFake(() => {
+        spyOn(component.formAPI, 'createForm').and.callFake(() => {
             return Promise.reject(new Error('fail'));
         });
         component.title = 'something';
@@ -152,7 +141,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     });
 
     it('should fail', (done) => {
-        spyOn(component.formAPI, 'createInternForm');
+        spyOn(component.formAPI, 'createForm');
         component.title = undefined;
         component.makeForm({
             title: {
@@ -167,7 +156,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     });
 
     it('should fail', (done) => {
-        spyOn(component.formAPI, 'createInternForm');
+        spyOn(component.formAPI, 'createForm');
         component.title = undefined;
         component.makeForm(null).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -181,32 +170,31 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
      * NEW FORM
      */
     it('should create new form with template', fakeAsync(() => {
-        spyOn(component, 'close').and.callThrough();
-        spyOn(component.formAPI, 'getInternForm').and.returnValue(Promise.resolve(formSample));
-        spyOn(component.formAPI, 'createInternForm');
+        spyOn(component.modal, 'close').and.callThrough();
+        spyOn(component.formAPI, 'getForm').and.callFake(() => {
+            return Promise.resolve(getForm);
+        });
         component.template = '123';
         component.title = 'Test';
         fixture.detectChanges();
         component.NewForm();
         tick();
-        expect(component.close).toHaveBeenCalledTimes(1);
+        expect(component.modal.close).toHaveBeenCalledTimes(1);
     }));
 
-    it('should create new form without template', fakeAsync(() => {
-        spyOn(component, 'close').and.callThrough();
+    it('should create new form without template', () => {
+        spyOn(component.modal, 'close').and.callThrough();
         spyOn(component, 'makeForm').and.callThrough();
-        spyOn(component.formAPI, 'createInternForm');
         component.title = 'Test';
         fixture.detectChanges();
         component.NewForm();
-        tick();
         expect(component.makeForm).toHaveBeenCalledTimes(1);
-        expect(component.close).toHaveBeenCalledTimes(1);
-    }));
+        expect(component.modal.close).toHaveBeenCalledTimes(1);
+    });
 
     it('should fail to create new form', fakeAsync(() => {
-        spyOn(component.formAPI, 'getInternForm').and.callFake(() => {
-            return Promise.reject(new Error('Failed to create form'));
+        spyOn(component.formAPI, 'getForm').and.callFake(() => {
+            return Promise.reject('Failed to create form');
         });
         component.title = 'Test';
         component.template = '123';
@@ -215,7 +203,25 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
-            'Error: Failed to create form');
+            'Failed to create form');
+    }));
+
+    it('should not create new form (missing title)', () => {
+        component.title = null;
+        component.NewForm();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen',
+            'Bitte geben Sie einen Titel an.');
+    });
+    it('should create new form with template', fakeAsync(() => {
+        spyOn(component.modal, 'close').and.callThrough();
+        spyOn(component.formAPI, 'getForm').and.returnValue(Promise.resolve(getForm));
+        component.template = '123';
+        component.title = 'Test';
+        fixture.detectChanges();
+        component.NewForm();
+        tick();
+        expect(component.modal.close).toHaveBeenCalledTimes(1);
     }));
 
     it('should not create new form (missing title)', () => {
