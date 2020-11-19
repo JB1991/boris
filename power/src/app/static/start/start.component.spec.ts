@@ -45,7 +45,7 @@ describe('Static.Start.StartComponent', () => {
     });
 
     it('should not redirect', () => {
-        expect(function () {
+        expect(() => {
             component.submitPIN('');
         }).toThrowError('pin is required');
     });

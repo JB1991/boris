@@ -5,16 +5,11 @@ import {
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
-
-/* istanbul ignore next */
-export function increment() {
-    return () => id++;
-}
 @Component({
     providers: [
         {
             provide: UNIQ_ID_TOKEN,
-            useFactory: increment,
+            useFactory: () => id++
         }
     ],
     selector: 'power-tagbox',
