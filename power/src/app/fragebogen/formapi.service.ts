@@ -8,12 +8,12 @@ import {
     Form, FormField, FormFilter, FormSort, FormStatus,
     PublicForm, PublicFormField, PublicFormFilter,
     PublicFormSort, PublicTask, PublicTaskField, Task, TaskField,
-    TaskFilter, TaskSort, TaskStatus, UserField, User
+    TaskFilter, TaskSort, TaskStatus
 } from './formapi.model';
 import { ElementFilterToString, FormFilterToString, SortToString, TaskFilterToString } from './formapi.converter';
 import { Observable } from 'rxjs';
 
-enum Method {
+export enum Method {
     GET,
     POST,
     PUT,
@@ -39,7 +39,6 @@ export class FormAPIService {
         const p = new URLSearchParams(params);
         const url = environment.formAPI + uri + (p.toString() ? '?' + p.toString() : '');
 
-        let data: Promise<ArrayBuffer>;
         let obs: Observable<ArrayBuffer>;
         switch (method) {
             case Method.POST:
@@ -54,7 +53,7 @@ export class FormAPIService {
             default:
                 obs = this.httpClient.get(url, this.auth.getHeaders());
         }
-        data = obs.toPromise();
+        const data = obs.toPromise();
         return <any>data;
     }
 
@@ -230,15 +229,15 @@ export class FormAPIService {
             description?: string;
             status?: TaskStatus;
         },
-        number?: number,
+        number?: number // eslint-disable-line id-blacklist
     ): Promise<{
         ids: Array<string>;
         pins: Array<string>;
         status: number;
     }> {
         const p: Record<string, string> = {};
-        if (number && number > 0) {
-            p.number = '' + number;
+        if (number && number > 0) { // eslint-disable-line id-blacklist
+            p.number = '' + number; // eslint-disable-line id-blacklist
         }
         return this.Do(Method.POST, 'forms/' + encodeURIComponent(formID), p, body);
     }

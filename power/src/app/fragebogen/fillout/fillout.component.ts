@@ -10,7 +10,7 @@ import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
-import { PublicForm, PublicTask } from '../formapi.model';
+import { PublicForm } from '../formapi.model';
 
 @Component({
     selector: 'power-forms-fillout',
@@ -123,7 +123,7 @@ export class FilloutComponent implements AfterViewInit {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen` + `: {error.toString()}`);
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen` + ': ' + error.toString());
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
 
             console.log(error);

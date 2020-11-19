@@ -2,7 +2,6 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { AnswersComponent } from './answers.component';
-import { increment } from '../../../shared/tagbox/tagbox.component';
 
 describe('Fragebogen.Editor.AnswersComponent', () => {
     let component: AnswersComponent;

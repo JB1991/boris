@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { PublicForm, PublicFormFilter, PublicFormField, TaskSort } from '../formapi.model';
+import { PublicForm, PublicFormFilter, PublicFormField } from '../formapi.model';
 import { FormAPIService, GetPublicFormsParams } from '../formapi.service';
 
 @Component({

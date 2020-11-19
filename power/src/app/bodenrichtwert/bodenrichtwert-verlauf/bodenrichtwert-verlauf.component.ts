@@ -232,10 +232,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     setColorVerfSeries(series) {
+        let nutzung: any;
         for (let i = 0; i < series.length; i++) {
             if (series[i].nutzung !== '') {
-                var nutzung = series[i].nutzung;
-                break
+                nutzung = series[i].nutzung;
+                break;
             }
         }
         const idx = this.chartOption.series.findIndex(el => el.name === nutzung);

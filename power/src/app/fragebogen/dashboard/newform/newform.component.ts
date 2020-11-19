@@ -6,7 +6,6 @@ import { FormAPIService, GetFormsParams } from '../../formapi.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { Form } from '../../formapi.model';
 
 @Component({
     selector: 'power-forms-dashboard-newform',

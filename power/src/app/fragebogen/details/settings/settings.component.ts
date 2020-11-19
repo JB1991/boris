@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { FormAPIService } from '../../formapi.service';
-import { Form, Task, User } from '@app/fragebogen/formapi.model';
+import { Form } from '@app/fragebogen/formapi.model';
 
 @Component({
     selector: 'power-forms-details-settings',

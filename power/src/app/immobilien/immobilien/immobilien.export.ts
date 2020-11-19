@@ -97,7 +97,8 @@ export class ImmobilienExport {
             return;
         }
         const chartoptions = this.nipixRuntime.chart.obj.getOption();
-        const date = chartoptions['xAxis'][0]['data'], series = chartoptions['series'];
+        const date = chartoptions['xAxis'][0]['data'];
+        const series = chartoptions['series'];
         const istart = Math.trunc(date.length * chartoptions['dataZoom'][0]['start'] / 100);
         const iend = Math.trunc(date.length * chartoptions['dataZoom'][0]['end'] / 100);
         let tmp = [];
@@ -116,7 +117,7 @@ export class ImmobilienExport {
             const geoJson = JSON.parse(JSON.stringify(ImmobilienExport.geoJsonHeader));
             geoJson.features = tmp;
             ImmobilienHelper.downloadFile(JSON.stringify(geoJson), 'Immobilienpreisindex.geojson');
-        } else {  // CSV
+        } else { // CSV
             let csv = '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n';
             csv += ImmobilienHelper.convertArrayToCSV(
                 tmp,

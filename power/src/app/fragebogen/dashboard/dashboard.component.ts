@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService, GetFormsParams, GetTasksParams } from '../formapi.service';
-import { FormStatus, Access, TaskStatus, FormFilter, Task, Form, User, FormField, TaskField } from '../formapi.model';
+import { FormStatus, Access, TaskStatus, FormFilter, Task, Form, FormField, TaskField } from '../formapi.model';
 import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
 @Component({

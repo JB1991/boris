@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { NewformComponent } from './newform.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { TypeaheadMatch, TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormAPIService } from '@app/fragebogen/formapi.service';
 
 describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {

@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 
-import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { FormAPIService } from '../../formapi.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { Access, Form, Task, User } from '../../formapi.model';
+import { Access } from '../../formapi.model';
 
 @Component({
     selector: 'power-forms-details-publish',

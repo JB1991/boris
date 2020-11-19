@@ -16,13 +16,16 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
 
 // Select some icons (use an object, not an array)
+/* eslint-disable object-shorthand */
 const icons = {
     Building,
     HouseFill,
     PlusCircle,
     DashCircle
 };
+/* eslint-enable object-shorthand */
 
+/* eslint-disable max-lines */
 describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     let component: ImmobilienComponent;
     let fixture: ComponentFixture<ImmobilienComponent>;
@@ -79,7 +82,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 NgxBootstrapIconsModule.pick(icons),
-                NgxEchartsModule.forRoot({ echarts })
+                NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
             providers: [
                 ImmobilienUtils,

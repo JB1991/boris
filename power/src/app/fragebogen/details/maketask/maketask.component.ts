@@ -1,9 +1,6 @@
-import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
-import { Form, Task } from '@app/fragebogen/formapi.model';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import { FormAPIService } from '../../formapi.service';
 
 @Component({
     selector: 'power-forms-details-maketask',

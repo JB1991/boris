@@ -43,7 +43,9 @@
                     "error",
                     {
                         "code": 120,
-                        "ignoreUrls": true
+                        "ignoreUrls": true,
+                        "ignoreStrings": true,
+                        "ignoreTemplateLiterals": true
                     }
                 ],
                 "max-lines": [
