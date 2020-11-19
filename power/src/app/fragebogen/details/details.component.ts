@@ -12,6 +12,7 @@ import { TaskStatus, TaskField, Form, Task, User, Access } from '../formapi.mode
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-forms-details',
     templateUrl: './details.component.html',
@@ -131,7 +132,7 @@ export class DetailsComponent implements OnInit {
             }
             await this.formapi.updateForm(this.form.id, { status: 'cancelled' });
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
-                $localize`Das Formular wurde erfolgreich archiviert.`)
+                $localize`Das Formular wurde erfolgreich archiviert.`);
         } catch (error) {
             // failed to publish form
             this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
@@ -294,7 +295,7 @@ export class DetailsComponent implements OnInit {
         this.updateTasks();
     }
 
-    public async updateFormEvent(event: { id: string, tags: Array<string> }) {
+    public async updateFormEvent(event: { id: string; tags: Array<string> }) {
         try {
             await this.formapi.updateForm(event.id, { tags: event.tags });
             this.updateForm(false);
@@ -305,7 +306,7 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public async publishFormEvent(event: { id: string, access: Access }) {
+    public async publishFormEvent(event: { id: string; access: Access }) {
         try {
             await this.formapi.updateForm(event.id, { access: event.access, status: 'published' });
             this.updateForm(false);
@@ -316,7 +317,7 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public async commentTaskEvent(event: { id: string, description: string }) {
+    public async commentTaskEvent(event: { id: string; description: string }) {
         try {
             await this.formapi.updateTask(event.id, { description: event.description });
             this.updateTasks();
@@ -330,7 +331,7 @@ export class DetailsComponent implements OnInit {
     /**
      * createTaskEvent
      */
-    public async createTaskEvent(event: { amount: number, copy: boolean }) {
+    public async createTaskEvent(event: { amount: number; copy: boolean }) {
         try {
             const r = await this.formapi.createTask(this.form.id, {}, event.amount);
             this.taskSort = 'created';

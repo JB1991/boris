@@ -17,6 +17,7 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { FormAPIService } from '../formapi.service';
 
+/* eslint-disable max-lines */
 describe('Fragebogen.Editor.EditorComponent', () => {
     let component: EditorComponent;
     let fixture: ComponentFixture<EditorComponent>;

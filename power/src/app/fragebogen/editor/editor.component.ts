@@ -17,6 +17,7 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 import { FormAPIService } from '../formapi.service';
 import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-formulars-editor',
     templateUrl: './editor.component.html',
@@ -311,7 +312,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Sets drop from infos
      * @param index id
      */
-    public getPayloadToolbox(index: number): Object {
+    public getPayloadToolbox(index: number): any {
         return { from: 'toolbox', index: index };
     }
 
@@ -319,7 +320,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Sets drop from infos
      * @param index id
      */
-    public getPayloadFavorites(index: number): Object {
+    public getPayloadFavorites(index: number): any {
         return { from: 'favorites', index: index };
     }
 
@@ -327,7 +328,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Sets drop from infos
      * @param index id
      */
-    public getPayloadPagination(index: number): Object {
+    public getPayloadPagination(index: number): any {
         return { from: 'pagination', index: index };
     }
 
@@ -335,7 +336,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Sets drop from infos
      * @param index id
      */
-    public getPayloadWorkspace(index: number): Object {
+    public getPayloadWorkspace(index: number): any {
         return { from: 'workspace', index: index };
     }
 

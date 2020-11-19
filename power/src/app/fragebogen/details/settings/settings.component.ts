@@ -13,8 +13,8 @@ import { Form, Task, User } from '@app/fragebogen/formapi.model';
 })
 export class SettingsComponent {
     @Output() out = new EventEmitter<{
-        id: string,
-        tags: Array<string>,
+        id: string;
+        tags: Array<string>;
     }>();
     @Input() public availableTags: Array<string>;
     @ViewChild('settingsmodal') public modal: ModalminiComponent;

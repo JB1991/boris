@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
@@ -11,9 +11,9 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 import { AuthService } from '@app/shared/auth/auth.service';
 import { FormAPIService } from '../formapi.service';
 import { SurveyjsModule } from '../surveyjs/surveyjs.module';
-import { throwError } from 'rxjs';
 import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
+/* eslint-disable max-lines */
 describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
     let fixture: ComponentFixture<DetailsComponent>;

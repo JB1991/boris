@@ -74,7 +74,7 @@ export class FilloutComponent implements AfterViewInit {
     }
 
 
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
     public loadForm(id: string) {
         // load form by id
         this.loadingscreen.setVisible(true);
@@ -142,14 +142,14 @@ export class FilloutComponent implements AfterViewInit {
         try {
             this.loadingscreen.setVisible(true);
             const t = await this.formapi.getPublicTask(this.pin, { fields: ['id', 'content', 'form.id'] });
-            const f = await this.formapi.getPublicForm(t.task.form.id, {fields: ['content']});
+            const f = await this.formapi.getPublicForm(t.task.form.id, { fields: ['content'] });
             this.form = f.form;
             this.language = f.form.content.locale;
             this.loadingscreen.setVisible(false);
         } catch (error) {
             // failed to load task
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-            (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
 
             this.router.navigate(['/forms'], { replaceUrl: true });

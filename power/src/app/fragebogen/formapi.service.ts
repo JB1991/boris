@@ -20,6 +20,7 @@ enum Method {
     DELETE,
 }
 
+/* eslint-disable max-lines */
 @Injectable({
     providedIn: 'root',
 })
@@ -169,8 +170,7 @@ export class FormAPIService {
         return this.Do(Method.DELETE, 'forms/' + encodeURIComponent(id), {});
     }
 
-    // tslint:disable-next-line: cyclomatic-complexity
-    // tslint:disable-next-line: max-func-body-length
+    /* eslint-disable-next-line complexity */
     public async getTasks(params: GetTasksParams): Promise<{
         tasks: Array<Task>;
         total: number;

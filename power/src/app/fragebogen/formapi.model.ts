@@ -245,14 +245,14 @@ export type Role = 'admin' | 'manager' | 'editor' | 'user';
 export type Access = 'public' | 'pin6' | 'pin8';
 export type FormStatus = 'created' | 'published' | 'cancelled';
 export type TaskStatus = 'created' | 'accessed' | 'submitted' | 'completed';
-export type FormField = 'id' | 'owner.id' | 'owner.name' | 'owner.role' | 'owner.groups' |
+export type FormField = 'id' | 'owner.id' | 'owner.name' | 'owner.role' | 'owner.groups' |
     'groups' | 'tags' | 'extract' | 'content' | 'access' | 'status' | 'created' | 'updated';
 export type PublicFormField = 'id' | 'content' | 'tags' | 'access' | 'extract';
 export type UserField = 'id' | 'name' | 'role' | 'groups';
-export type TaskField = 'id' | 'form.id' | 'form.owner.id' | 'form.owner.name' | 'form.owner.role' |
+export type TaskField = 'id' | 'form.id' | 'form.owner.id' | 'form.owner.name' | 'form.owner.role' |
     'form.owner.groups' | 'form.groups' | 'form.tags' | 'form.extract' | 'form.access' | 'form.status' |
     'form.created' | 'form.updated' | 'content' | 'extract' | 'pin' | 'description' | 'status' | 'created' | 'updated';
 export type PublicTaskField = 'id' | 'form.id' | 'form.content' | 'form.tags' | 'form.access' | 'form.extract' | 'content';
-export type ElementField = 'id' | 'owner.id' | 'owner.name' | 'owner.role' | 'owner.groups' |
+export type ElementField = 'id' | 'owner.id' | 'owner.name' | 'owner.role' | 'owner.groups' |
     'groups' | 'extract' | 'content' | 'created' | 'updated';
 

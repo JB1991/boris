@@ -27,6 +27,7 @@ export class AuthService {
      * Loads session from localStorage
      * @param refresh should refresh token if expired
      */
+    /* eslint-disable complexity */
     public async loadSession(refresh = true) {
         // check if session is loaded and still valid
         if (this.IsAuthenticated()) {

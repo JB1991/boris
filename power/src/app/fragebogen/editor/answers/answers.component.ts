@@ -149,10 +149,10 @@ export class AnswersComponent {
                 const img = new Image();
                 // tslint:disable-next-line: max-func-body-length
                 img.onload = () => {
-                    const canvas = document.createElement('canvas'),
-                        ctx = canvas.getContext('2d'),
-                        oc = document.createElement('canvas'),
-                        octx = oc.getContext('2d');
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const oc = document.createElement('canvas');
+                    const octx = oc.getContext('2d');
 
                     canvas.width = 300; // destination canvas size
                     canvas.height = canvas.width * img.height / img.width;

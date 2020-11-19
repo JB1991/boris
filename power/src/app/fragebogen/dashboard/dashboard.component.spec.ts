@@ -12,6 +12,7 @@ import { FormAPIService } from '../formapi.service';
 import { Form } from '@angular/forms';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
+/* eslint-disable max-lines */
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;

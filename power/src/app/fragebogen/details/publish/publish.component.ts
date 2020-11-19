@@ -12,8 +12,8 @@ import { Access, Form, Task, User } from '../../formapi.model';
 })
 export class PublishComponent {
     @Output() out = new EventEmitter<{
-        id: string,
-        access: Access,
+        id: string;
+        access: Access;
     }>();
     public id: string;
 

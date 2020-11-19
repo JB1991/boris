@@ -32,7 +32,10 @@
                 "eqeqeq": "error",
                 "indent": [
                     "error",
-                    4
+                    4,
+                    {
+                        "SwitchCase": 1
+                    }
                 ],
                 "jsdoc/newline-after-description": "off",
                 "jsdoc/no-types": "off",

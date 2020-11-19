@@ -2,8 +2,7 @@ import {
     ElementFilter, FormFilter, TaskFilter, TextFilter, TimeFilter, UserFilter
 } from './formapi.model';
 
-// tslint:disable-next-line: cyclomatic-complexity
-// tslint:disable-next-line: max-func-body-length
+/* eslint-disable-next-line complexity */
 export function FormFilterToString(f: FormFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<FormFilter>;
@@ -56,8 +55,7 @@ export function FormFilterToString(f: FormFilter): string {
     };
 }
 
-// tslint:disable-next-line: max-func-body-length
-// tslint:disable-next-line: cyclomatic-complexity
+/* eslint-disable-next-line complexity */
 export function TaskFilterToString(f: TaskFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<TaskFilter>;
@@ -108,8 +106,7 @@ export function TaskFilterToString(f: TaskFilter): string {
     }
 }
 
-// tslint:disable-next-line: max-func-body-length
-// tslint:disable-next-line: cyclomatic-complexity
+/* eslint-disable-next-line complexity */
 export function UserFilterToString(f: UserFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<UserFilter>;
@@ -152,8 +149,7 @@ export function UserFilterToString(f: UserFilter): string {
     }
 }
 
-// tslint:disable-next-line: max-func-body-length
-// tslint:disable-next-line: cyclomatic-complexity
+/* eslint-disable-next-line complexity */
 export function ElementFilterToString(f: ElementFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<ElementFilter>;
@@ -216,7 +212,7 @@ export function TimeFilterToString(f: TimeFilter): string {
 
 export function SortToString(s: {
     field: string;
-    desc: boolean
+    desc: boolean;
 }): string {
     return (s.desc ? '-' : '') + s.field;
 }

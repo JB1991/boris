@@ -1,6 +1,7 @@
 /**
  * surveyjs style object for bootstrap 4
  */
+/* eslint-disable id-blacklist */
 export const Bootstrap4_CSS = {
     root: 'sv_main sv_bootstrap_css mb-1 mb-lg-3',
     container: 'card',

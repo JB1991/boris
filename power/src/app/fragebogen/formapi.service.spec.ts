@@ -7,6 +7,7 @@ import { FormAPIService } from './formapi.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { ElementFilterToString, FormFilterToString, TaskFilterToString, UserFilterToString } from './formapi.converter';
 
+/* eslint-disable max-lines */
 describe('Fragebogen.FormAPIService', () => {
     let service: FormAPIService;
     let httpTestingController: HttpTestingController;
