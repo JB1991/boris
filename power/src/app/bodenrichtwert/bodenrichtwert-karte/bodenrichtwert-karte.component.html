@@ -12,7 +12,7 @@
                             <button class="btn btn-block"
                                     type="button"
                                     ngbDropdownToggle>
-                                <span i18n>Stichtag</span>: {{stichtag | date:'yyyy'}}
+                                <span i18n>Stichtag</span>: {{stichtag}}
                             </button>
                             <div class="dropdown-menu"
                                  ngbDropdownMenu>
@@ -20,7 +20,7 @@
                                         type="button"
                                         (click)="onStichtagChange(stag)"
                                         ngbDropdownItem>
-                                    {{stag | date:'yyyy'}}
+                                    {{stag}}
                                 </button>
                             </div>
                         </div>
@@ -261,7 +261,7 @@
                 <button class="btn btn-block"
                         type="button"
                         ngbDropdownToggle>
-                    <span i18n>Stichtag</span>: {{stichtag | date:'yyyy'}}
+                    <span i18n>Stichtag</span>: {{stichtag}}
                 </button>
                 <div class="dropdown-menu"
                      ngbDropdownMenu>
@@ -269,7 +269,7 @@
                             type="button"
                             (click)="onStichtagChange(stag)"
                             ngbDropdownItem>
-                        {{stag | date:'yyyy'}}
+                        {{stag}}
                     </button>
                 </div>
             </div>
