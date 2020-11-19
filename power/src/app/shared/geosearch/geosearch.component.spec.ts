@@ -76,7 +76,6 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
             expectObservable(component.search(input$));
         });
         expect(component.geosearchService.search).toHaveBeenCalled();
-        expect(component.searchFailed).toBe(false);
     });
 
     it('search should unsuccessfully call the Geosearch service', () => {
@@ -87,7 +86,6 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
             expectObservable(component.search(input$));
         });
         expect(component.geosearchService.search).toHaveBeenCalled();
-        expect(component.searchFailed).toBe(true);
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
