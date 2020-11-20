@@ -138,7 +138,9 @@ export class DashboardComponent implements OnInit {
                 or.push({ owner: { name: search } });
                 filters.push({ or: or });
             }
-            params.filter = { and: filters };
+            if (filters.length > 0) {
+                params.filter = { and: filters };
+            }
             const response = await this.formAPI.getForms(params);
             this.forms = response.forms;
             this.formTotal = response.total;
