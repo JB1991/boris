@@ -60,7 +60,6 @@
                 <div class="nav px-auto"
                      style="position: relative;">
                     <power-geosearch [(resetGeosearch)]="resetGeosearch"
-                                     [isCollapsed]="isCollapsed"
                                      [adresse]="adresse"
                                      (selectResult)="onSearchSelect($event)"></power-geosearch>
                 </div>
@@ -248,7 +247,6 @@
     <power-geosearch [class.d-none]="!searchActive"
                      [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
                      [(resetGeosearch)]="resetGeosearch"
-                     [isCollapsed]="isCollapsed"
                      [adresse]="adresse"
                      (selectResult)="onSearchSelect($event)"></power-geosearch>
 
