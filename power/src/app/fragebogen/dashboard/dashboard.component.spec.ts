@@ -173,7 +173,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         component.changeFormSort('updated');
         expect(component.formSort).toBe('updated');
         expect(component.formSortDesc).toBe(true);
-        
+
         expect(component.updateForms).toHaveBeenCalledTimes(2);
     });
 
