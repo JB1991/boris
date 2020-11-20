@@ -74,18 +74,20 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         });
     });
 
-    it('should changeSort', (done) => {
+    it('should changeSort', () => {
         spyOn(component, 'update');
+        component.sort = 'content';
+        component.desc = true;
+
+        component.changeFormSort('extract');
+        expect(component.sort).toBe('extract');
+        expect(component.desc).toBe(false);
+
         component.changeFormSort('extract');
         expect(component.sort).toBe('extract');
         expect(component.desc).toBe(true);
-        component.changeFormSort('extract');
-        expect(component.sort).toBe('extract');
-        expect(component.desc).toBe(false);
-        component.changeFormSort('id');
-        expect(component.sort).toBe('id');
-        expect(component.desc).toBe(false);
-        done();
+
+        expect(component.update).toHaveBeenCalledTimes(2);
     });
 
     /*

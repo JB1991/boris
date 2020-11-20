@@ -161,38 +161,36 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         });
     });
 
-    it('should succeed changeFormSort', (done) => {
+    it('should succeed changeFormSort', () => {
         spyOn(component, 'updateForms');
+        component.formSort = 'content';
+        component.formSortDesc = true;
+
         component.changeFormSort('updated');
         expect(component.formSort).toBe('updated');
         expect(component.formSortDesc).toBe(false);
+
         component.changeFormSort('updated');
         expect(component.formSort).toBe('updated');
         expect(component.formSortDesc).toBe(true);
-        component.changeFormSort('updated');
-        expect(component.formSort).toBe('updated');
-        expect(component.formSortDesc).toBe(false);
-        component.changeFormSort('extract');
-        expect(component.formSort).toBe('extract');
-        expect(component.formSortDesc).toBe(false);
-        done();
+        
+        expect(component.updateForms).toHaveBeenCalledTimes(2);
     });
 
-    it('should succeed changeTaskSort', (done) => {
+    it('should succeed changeTaskSort', () => {
         spyOn(component, 'updateTasks');
+        component.taskSort = 'content';
+        component.taskSortDesc = true;
+
         component.changeTaskSort('updated');
         expect(component.taskSort).toBe('updated');
         expect(component.taskSortDesc).toBe(false);
+
         component.changeTaskSort('updated');
         expect(component.taskSort).toBe('updated');
         expect(component.taskSortDesc).toBe(true);
-        component.changeTaskSort('updated');
-        expect(component.taskSort).toBe('updated');
-        expect(component.taskSortDesc).toBe(false);
-        component.changeTaskSort('form.extract');
-        expect(component.taskSort).toBe('form.extract');
-        expect(component.taskSortDesc).toBe(false);
-        done();
+
+        expect(component.updateTasks).toHaveBeenCalledTimes(2);
     });
 
     /*
