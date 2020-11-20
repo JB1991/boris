@@ -37,7 +37,7 @@ export class DetailsComponent implements OnInit {
 
     public taskStatus: TaskStatus | 'all' = 'all';
     public taskSort: TaskField = 'updated';
-    public taskSortDesc: boolean = false;
+    public taskSortDesc = false;
 
     constructor(public titleService: Title,
         public router: Router,
@@ -131,7 +131,7 @@ export class DetailsComponent implements OnInit {
                 return;
             }
             await this.formapi.updateForm(this.form.id, { status: 'cancelled' });
-            this.form.status = 'cancelled'
+            this.form.status = 'cancelled';
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
         } catch (error) {
