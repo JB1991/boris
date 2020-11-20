@@ -76,7 +76,7 @@ export class FilloutComponent implements AfterViewInit {
     public loadForm(id: string) {
         // load form by id
         this.loadingscreen.setVisible(true);
-        this.formapi.getPublicForm(id, { fields: ['id', 'content'] }).then(result => {
+        this.formapi.getPublicForm(id, { fields: ['id', 'content', 'access'] }).then(result => {
             // store form
             this.form = result.form;
             this.language = this.form.content.locale;
@@ -138,7 +138,7 @@ export class FilloutComponent implements AfterViewInit {
         try {
             this.loadingscreen.setVisible(true);
             const t = await this.formapi.getPublicTask(this.pin, { fields: ['id', 'content', 'form.id'] });
-            const f = await this.formapi.getPublicForm(t.task.form.id, { fields: ['content', 'access'] });
+            const f = await this.formapi.getPublicForm(t.task.form.id, { fields: ['id', 'content', 'access'] });
             this.form = f.form;
             this.language = f.form.content.locale;
             this.loadingscreen.setVisible(false);
@@ -171,7 +171,7 @@ export class FilloutComponent implements AfterViewInit {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen: {error.toString()}`);
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen`);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;

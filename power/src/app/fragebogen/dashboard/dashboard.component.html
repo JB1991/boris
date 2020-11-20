@@ -431,7 +431,7 @@
                     <tr *ngFor="let form of forms; index as i">
                         <td>
                             <a i18n-title title="Formular öffnen" [routerLink]="['/forms/details', form.id]">
-                                {{ form.extract }}
+                                {{ form.extract ? form.extract: 'no title' }}
                             </a>
                         </td>
                         <td><span *ngIf="form.tags && form.tags.length > 0">{{ form.tags.join(', ') }}</span></td>
