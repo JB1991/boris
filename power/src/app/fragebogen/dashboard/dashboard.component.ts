@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
     public formStatus: FormStatus | 'all' = 'all';
     public formAccess: Access | 'all' = 'all';
     public formSort: FormField = 'updated';
-    public formSortDesc = false;
+    public formSortDesc = true;
 
     public tasks: Array<Task>;
     public taskTotal: number;
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
     public taskStatus: TaskStatus | 'all' = 'all';
     public taskSort: TaskField = 'updated';
-    public taskSortDesc = false;
+    public taskSortDesc = true;
 
     constructor(
         public titleService: Title,
