@@ -173,7 +173,7 @@
                     i18n-title
                     title="Formular archivieren"
                     (click)="archiveForm()"
-                    *ngIf="form.status === 'published' && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
+                    *ngIf="form.status !== 'cancelled' && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -192,7 +192,7 @@
                     i18n-title
                     title="Formular löschen"
                     (click)="deleteForm()"
-                    *ngIf="form.status !== 'published' && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
+                    *ngIf="form.status === 'cancelled' && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"

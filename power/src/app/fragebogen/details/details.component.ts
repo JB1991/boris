@@ -131,6 +131,7 @@ export class DetailsComponent implements OnInit {
                 return;
             }
             await this.formapi.updateForm(this.form.id, { status: 'cancelled' });
+            this.form.status = 'cancelled'
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
         } catch (error) {
