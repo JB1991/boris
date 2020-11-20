@@ -100,10 +100,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (this.features) {
-            this.clearChart();
-            this.features.features = this.filterByStichtag(this.features.features);
-            this.generateChart(this.features.features);
+        if (changes.features) {
+            if (this.features) {
+                this.clearChart();
+                this.features.features = this.filterByStichtag(this.features.features);
+                this.generateChart(this.features.features);
+            }
         }
     }
 

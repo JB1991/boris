@@ -21,9 +21,10 @@ export class BodenrichtwertListeComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z');
+        if (changes.features || changes.stichtag || changes.teilmarkt) {
+            this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z');
+        }
     }
-
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

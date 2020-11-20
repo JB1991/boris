@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
 import { LngLat, LngLatBounds, Map, Marker } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
@@ -63,7 +63,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() features;
     @Output() featuresChange = new EventEmitter();
 
-    markerRemoving: boolean;
+    resetMapFired: Boolean = false;
     resetGeosearch: boolean;
 
     constructor(
@@ -75,17 +75,24 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         public alerts: AlertsService
     ) { }
 
-    ngOnChanges() {
-        if (this.map && !this.markerRemoving) {
-            this.map.resize();
-            this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
-        } else if (this.map) {
-            this.map.resize();
-            this.map.fitBounds(this.bounds, {
-                pitch: 0,
-                bearing: 0
-            });
-            this.markerRemoving = false;
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.isExpanded) {
+            if (this.map) {
+                this.map.resize();
+                this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
+            }
+        }
+        if (changes.isCollapsed) {
+            if (this.map && !this.resetMapFired) {
+                this.map.resize();
+            } else if (this.resetMapFired) {
+                this.map.resize();
+                this.map.fitBounds(this.bounds, {
+                    pitch: 0,
+                    bearing: 0
+                });
+                this.resetMapFired = !this.resetMapFired
+            }
         }
     }
 
@@ -276,20 +283,18 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     resetMap() {
+        this.resetMapFired = true;
         this.map.resize();
-
         if (this.threeDActive) {
             this.deactivate3dView();
             this.threeDActive = !this.threeDActive;
         }
-
         if (this.marker) {
             this.marker.remove();
             this.isCollapsedChange.emit(true);
             if (this.features) {
                 this.featuresChange.emit(false);
             }
-            this.markerRemoving = true;
         }
         this.resetGeosearch = !this.resetGeosearch;
         this.map.fitBounds(this.bounds, {

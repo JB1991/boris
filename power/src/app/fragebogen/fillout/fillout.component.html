@@ -27,11 +27,10 @@
             </select>
         </div>
     </div>
-
     <power-forms-surveyjs-wrapper *ngIf="form.access !== 'public'"
                                   [model]="form.content"
                                   [css]="data.css_style"
-                                  (submitResult)="submit($event)"
+                                  (submitResult)="submit($event);"
                                   (interimResult)="progress($event)"
                                   (changes)="changed($event)"
                                   #wrapper>
