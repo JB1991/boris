@@ -34,20 +34,17 @@ export class AuthService {
             this.sessionCheck();
             return;
         }
-
         // load session from localstorage
         this.user = JSON.parse(localStorage.getItem('user'));
         // fix wrong timezone after parsing from json
         if (this.user && this.user.expires) {
             this.user.expires = new Date(this.user.expires);
         }
-
         // check if session is still valid
         if (this.IsAuthenticated()) {
             this.sessionCheck();
             return;
         }
-
         // session needs refresh
         if (refresh && this.user && this.user.token && this.user.token.refresh_token) {
             // craft post object
@@ -70,7 +67,6 @@ export class AuthService {
                     this.user = null;
                     return;
                 }
-
                 // save data
                 this.user.expires = new Date();
                 this.user.expires.setSeconds(this.user.expires.getSeconds() + (data['expires_in'] / 2));
@@ -269,7 +265,7 @@ export class AuthService {
         const userRole = this.getRole();
         const userGroups = this.getGroups();
 
-        if (owner === this.user.data.sub || userRole === 'admin') {
+        if (owner === this.user.data.sub || userRole === 'admin') {
             return true;
         }
 
@@ -279,7 +275,7 @@ export class AuthService {
 
         for (const g of groups) {
             for (const ug of userGroups) {
-                if (g == ug) {
+                if (g === ug) {
                     return true;
                 }
             }
