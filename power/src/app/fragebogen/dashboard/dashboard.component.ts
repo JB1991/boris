@@ -97,7 +97,9 @@ export class DashboardComponent implements OnInit {
             // Upload success
             reader.onload = () => {
                 this.formAPI
-                    .createForm(reader.result.valueOf())
+                    .createForm({
+                        content: reader.result.valueOf(),
+                    })
                     .then(() => {
                         this.updateForms(false);
                     })
