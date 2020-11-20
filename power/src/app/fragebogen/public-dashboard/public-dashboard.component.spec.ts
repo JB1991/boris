@@ -76,17 +76,14 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
 
     it('should changeSort', (done) => {
         spyOn(component, 'update');
-        component.changeFormSort('id');
-        expect(component.sort).toBe('id');
-        expect(component.desc).toBe(false);
-        component.changeFormSort('id');
-        expect(component.sort).toBe('id');
-        expect(component.desc).toBe(true);
-        component.changeFormSort('id');
-        expect(component.sort).toBe('id');
-        expect(component.desc).toBe(false);
         component.changeFormSort('extract');
         expect(component.sort).toBe('extract');
+        expect(component.desc).toBe(true);
+        component.changeFormSort('extract');
+        expect(component.sort).toBe('extract');
+        expect(component.desc).toBe(false);
+        component.changeFormSort('id');
+        expect(component.sort).toBe('id');
         expect(component.desc).toBe(false);
         done();
     });
