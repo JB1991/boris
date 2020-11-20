@@ -218,8 +218,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     /**
      * ERROR for submitTask, loadData, submit, progress
      */
-    it('should throw error', async () => {
-        await expectAsync(component.loadData()).toBeRejectedWith(new Error('pin is required'));
+    it('should throw error', () => {
         expect(() => {
             component.submitTask(null, {});
         }).toThrowError('id is required');

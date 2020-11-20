@@ -124,7 +124,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         Error
     */
     it('should fail', (done) => {
-        spyOn(component.formAPI, 'createForm').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'createForm').and.returnValue(Promise.reject('fail'));
         component.title = 'something';
         component.makeForm({
             title: {
@@ -133,7 +133,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Erstellen fehlgeschlagen', 'fail');
             done();
         });
     });

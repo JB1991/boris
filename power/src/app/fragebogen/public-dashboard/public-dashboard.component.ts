@@ -22,7 +22,7 @@ export class PublicDashboardComponent implements OnInit {
     public totalPages: number;
     public search = '';
     public sort: PublicFormField = 'extract';
-    public desc = true;
+    public desc = false;
 
     constructor(public titleService: Title,
         public router: Router,

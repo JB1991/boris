@@ -193,73 +193,73 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         Error
     */
     it('should fail updateForms', (done) => {
-        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject('fail'));
         component.updateForms(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateForms 2', (done) => {
-        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject('fail'));
         component.updateForms(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateTasks', (done) => {
-        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.reject('fail'));
         component.updateTasks(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateTasks 2', (done) => {
-        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.reject('fail'));
         component.updateTasks(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateTags', (done) => {
-        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.reject('fail'));
         component.updateTags(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateTags 2', (done) => {
-        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.reject('fail'));
         component.updateTags(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail deleteForm', (done) => {
-        spyOn(component.formAPI, 'deleteForm').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'deleteForm').and.returnValue(Promise.reject('fail'));
         spyOn(component, 'updateForms');
         spyOn(window, 'confirm').and.returnValue(true);
         component.deleteForm('').then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'fail');
             done();
         });
     });

@@ -95,11 +95,11 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         Error
     */
     it('should fail', (done) => {
-        spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.reject(new Error('fail')));
+        spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.reject('fail'));
         component.update(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
