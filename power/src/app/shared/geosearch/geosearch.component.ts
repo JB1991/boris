@@ -35,6 +35,7 @@ export class GeosearchComponent implements OnChanges {
      */
     inputFormatter = (feature) => feature.properties.text;
 
+
     resultFormatter = (feature) => feature.properties.text;
 
     /**
@@ -44,15 +45,16 @@ export class GeosearchComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         for (const propName in changes) {
             if (changes.hasOwnProperty(propName)) {
+                let change = changes[propName];
                 switch (propName) {
                     case 'adresse': {
-                        this.model = this.adresse;
-                        return;
+                        this.model = change.currentValue;
+                        break;
                     }
                     case 'resetGeosearch': {
                         this.model = undefined;
                         this.resetGeosearchChange.emit(false);
-                        return;
+                        break;
                     }
                 }
             }

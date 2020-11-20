@@ -6,6 +6,7 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Feature, FeatureCollection } from 'geojson';
 import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { SimpleChange, SimpleChanges } from '@angular/core';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
     const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
@@ -49,8 +50,14 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     it('ngOnChanges should work', () => {
         component.resetGeosearch = true;
         component.model = feature;
-        component.ngOnChanges();
+        component.adresse = 'Hannover';
+        let changes: SimpleChanges = {
+            resetGeosearch: new SimpleChange(null, 'Test', false),
+            adresse: new SimpleChange(null, 'Stade', false)
+        }
+        component.ngOnChanges(changes);
         expect(component.model).toBeUndefined();
+        expect(component.adresse).toEqual('Stade');
     });
 
     it('selectItem selects an item from the result list', (done) => {
