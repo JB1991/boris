@@ -17,45 +17,47 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 })
 export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
-    searchActive = false;
-    filterActive = false;
-    threeDActive = false;
+    public searchActive = false;
+    public filterActive = false;
+    public threeDActive = false;
 
-    isDragged = false;
-    previousZoomFactor: number;
+    public isDragged = false;
+    public previousZoomFactor: number;
 
-    baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
-    MAP_STYLE_URL = environment.basemap;
+    public baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+    public MAP_STYLE_URL = environment.basemap;
 
-    map: Map;
-    bounds = new LngLatBounds([
+    public map: Map;
+    public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
     ]);
-    marker: Marker = new Marker({
+    public marker: Marker = new Marker({
         color: '#c4153a',
         draggable: true
     }).on('dragstart', () => {
         this.isDragged = !this.isDragged;
     });
-    zoom = 18;
+    public zoom = 18;
 
-    lat: number;
-    lng: number;
+    public lat: number;
+    public lng: number;
 
     @Input() teilmarkt: any;
     @Output() teilmarktChange = new EventEmitter();
 
-    TEILMAERKTE = TEILMAERKTE;
+    public TEILMAERKTE = TEILMAERKTE;
 
     @Input() stichtag;
     @Output() stichtagChange = new EventEmitter();
 
-    STICHTAGE = STICHTAGE;
+    public STICHTAGE = STICHTAGE;
 
-    @Input() isCollapsed: () => void;
+    @Input() isCollapsed;
     @Output() isCollapsedChange = new EventEmitter();
 
-    @Input() isExpanded: () => void;
+    @Input() expanded;
+
+    @Input() collapsed;
 
     @Input() adresse;
     @Output() adresseChange = new EventEmitter();
@@ -63,8 +65,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() features;
     @Output() featuresChange = new EventEmitter();
 
-    resetMapFired = false;
-    resetGeosearch: boolean;
+    public resetMapFired = false;
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
@@ -76,22 +77,18 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     ) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.isExpanded) {
-            if (this.map) {
-                this.map.resize();
-                this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
-            }
-        }else if (changes.isCollapsed) {
-            if (this.map && !this.resetMapFired) {
-                this.map.resize();
-            } else if (this.resetMapFired) {
-                this.map.resize();
+        if (changes.isCollapsed && this.map) {
+            this.map.resize();
+            this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
+            if (this.resetMapFired) {
                 this.map.fitBounds(this.bounds, {
                     pitch: 0,
                     bearing: 0
                 });
                 this.resetMapFired = !this.resetMapFired;
             }
+        } else if ((changes.collapsed || changes.expanded || changes.adresse) && this.map) {
+            this.map.resize();
         }
     }
 
@@ -281,29 +278,30 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.changeURL();
     }
 
-    resetMap() {
+    public resetMap() {
         this.resetMapFired = true;
-        this.map.resize();
+        this.location.replaceState('/bodenrichtwerte');
         if (this.threeDActive) {
             this.deactivate3dView();
             this.threeDActive = !this.threeDActive;
         }
         if (this.marker) {
             this.marker.remove();
-            this.isCollapsedChange.emit(true);
-            if (this.adresse) {
-                this.adresseChange.emit(undefined);
-            }
-            if (this.features) {
-                this.featuresChange.emit(false);
-            }
         }
-        this.resetGeosearch = !this.resetGeosearch;
+        if (this.adresse) {
+            this.adresseChange.emit(undefined);
+        }
+        if (this.features) {
+            this.featuresChange.emit(false);
+        }
+        if (!this.isCollapsed) {
+            this.isCollapsedChange.emit(true);
+        }
+        this.map.resize();
         this.map.fitBounds(this.bounds, {
             pitch: 0,
             bearing: 0
         });
-        this.location.replaceState('/bodenrichtwerte');
     }
 
     enableLocationTracking() {

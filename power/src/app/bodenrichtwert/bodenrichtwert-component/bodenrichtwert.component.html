@@ -4,7 +4,8 @@
              [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-lg-6 map'">
             <power-bodenrichtwertkarte #map
                                        [(isCollapsed)]="isCollapsed"
-                                       [isExpanded]="isExpanded"
+                                       [collapsed]="collapsed"
+                                       [expanded]="expanded"
                                        [(adresse)]="adresse"
                                        [(features)]="features"
                                        [(stichtag)]="stichtag"
@@ -65,7 +66,8 @@
                      id="collapseBasic"
                      class="p-0 col-12"
                      [collapse]="isCollapsed"
-                     (expanded)="isExpanded = !isExpanded"
+                     (collapsed)="onCollapsingEnds()"
+                     (expanded)="onExpandingEnds()"
                      [isAnimated]="true">
                     <div class="well well-lg card card-block card-header verlauf">
                         <div class="p-0"

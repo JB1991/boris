@@ -73,9 +73,9 @@ export class BodenrichtwertComponent implements OnDestroy {
 
     public isCollapsed = true;
 
-    public isExpanded = true;
+    public collapsed = false;
 
-    @ViewChild('collapse') collapse: ElementRef;
+    public expanded = true;
 
     constructor(
         private geosearchService: GeosearchService,
@@ -90,8 +90,8 @@ export class BodenrichtwertComponent implements OnDestroy {
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
-            this.isCollapsed = false;
             this.cdr.detectChanges();
+            this.isCollapsed = false;
         });
         this.stichtag = STICHTAGE[0];
         this.teilmarkt = TEILMAERKTE[0];
@@ -103,6 +103,16 @@ export class BodenrichtwertComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.adresseSubscription.unsubscribe();
         this.featureSubscription.unsubscribe();
+    }
+
+    public onCollapsingEnds() {
+        this.collapsed = !this.collapsed;
+        this.expanded = false;
+    }
+
+    public onExpandingEnds() {
+        this.expanded = !this.expanded;
+        this.collapsed = false;
     }
 }
 

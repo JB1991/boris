@@ -16,8 +16,8 @@ export class GeosearchComponent implements OnChanges {
     constructor(public geosearchService: GeosearchService, public alerts: AlertsService) {
     }
 
-    @Input() resetGeosearch: boolean;
-    @Output() resetGeosearchChange = new EventEmitter();
+    // @Input() resetGeosearch: boolean;
+    // @Output() resetGeosearchChange = new EventEmitter();
 
     @Output() selectResult = new EventEmitter();
 
@@ -45,7 +45,7 @@ export class GeosearchComponent implements OnChanges {
             this.model = changes.adresse.currentValue;
         } else if (changes.resetGeosearch) {
             this.model = undefined;
-            this.resetGeosearchChange.emit(false);
+            // this.resetGeosearchChange.emit(false);
         }
     }
 
