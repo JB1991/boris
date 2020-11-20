@@ -63,7 +63,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() features;
     @Output() featuresChange = new EventEmitter();
 
+<<<<<<< HEAD
     resetMapFired: boolean = false;
+=======
+    resetMapFired = false;
+>>>>>>> 5faf0a556fb1f976c40bb71d80847958d46ea4ea
     resetGeosearch: boolean;
 
     constructor(
@@ -90,7 +94,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                     pitch: 0,
                     bearing: 0
                 });
-                this.resetMapFired = !this.resetMapFired
+                this.resetMapFired = !this.resetMapFired;
             }
         }
     }
@@ -291,6 +295,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         if (this.marker) {
             this.marker.remove();
             this.isCollapsedChange.emit(true);
+            if (this.adresse) {
+                this.adresseChange.emit(undefined);
+            }
             if (this.features) {
                 this.featuresChange.emit(false);
             }
