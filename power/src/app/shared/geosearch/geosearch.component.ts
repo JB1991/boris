@@ -21,6 +21,10 @@ export class GeosearchComponent implements OnChanges {
 
     @Output() selectResult = new EventEmitter();
 
+    @Input() isCollapsed: boolean;
+
+    @Input() adresse: string;
+
     public model: any;
 
     filteredResults: Feature[];
@@ -31,6 +35,7 @@ export class GeosearchComponent implements OnChanges {
      */
     inputFormatter = (feature) => feature.properties.text;
 
+
     resultFormatter = (feature) => feature.properties.text;
 
     /**
@@ -38,9 +43,21 @@ export class GeosearchComponent implements OnChanges {
      */
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.resetGeosearch) {
-            this.model = undefined;
-            this.resetGeosearchChange.emit(false);
+        for (const propName in changes) {
+            if (changes.hasOwnProperty(propName)) {
+                let change = changes[propName];
+                switch (propName) {
+                    case 'adresse': {
+                        this.model = change.currentValue;
+                        break;
+                    }
+                    case 'resetGeosearch': {
+                        this.model = undefined;
+                        this.resetGeosearchChange.emit(false);
+                        break;
+                    }
+                }
+            }
         }
     }
 

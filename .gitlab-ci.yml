@@ -90,7 +90,6 @@ test:audit:
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
   script:
     - cd power
     - npm audit
@@ -108,7 +107,6 @@ test:lint:
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
   script:
     - cd power
     - node_modules/@angular/cli/bin/ng lint power
@@ -126,7 +124,6 @@ test:lint:html:
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
   script:
     - cd power
     - npm run lint:html
@@ -144,7 +141,6 @@ test:lint:styles:
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
   script:
     - cd power
     - npm run lint:styles
