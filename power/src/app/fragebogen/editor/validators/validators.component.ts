@@ -5,6 +5,7 @@ import {
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
 let id = 0;
+/* eslint-disable max-lines */
 @Component({
     providers: [
         {
@@ -55,6 +56,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         this.loadChoices(null);
     }
 
+    /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
         // check if data exists
         if (!this.data || !this.data.validators || this.struct.length > 0) {
@@ -157,6 +159,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
      * Handles changes to forms
      * @param event Event
      */
+    /* eslint-disable-next-line complexity */
     public modelChanged(event: Event) {
         // convert form to validator object
         this.data.validators = [];

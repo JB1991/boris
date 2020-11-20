@@ -21,7 +21,7 @@
                 "plugin:@angular-eslint/template/process-inline-templates"
             ],
             "rules": {
-                "arrow-body-style": "off",
+                "arrow-body-style": "error",
                 "camelCase": "off",
                 "complexity": [
                     "error",
@@ -32,14 +32,20 @@
                 "eqeqeq": "error",
                 "indent": [
                     "error",
-                    4
+                    4,
+                    {
+                        "SwitchCase": 1
+                    }
                 ],
                 "jsdoc/newline-after-description": "off",
                 "jsdoc/no-types": "off",
                 "max-len": [
                     "error",
                     {
-                        "code": 120
+                        "code": 120,
+                        "ignoreUrls": true,
+                        "ignoreStrings": true,
+                        "ignoreTemplateLiterals": true
                     }
                 ],
                 "max-lines": [
@@ -67,7 +73,7 @@
                 ],
                 "@angular-eslint/component-selector": "off",
                 "@angular-eslint/directive-selector": "off",
-                "@typescript-eslint/consistent-type-assertions": "off",
+                "@typescript-eslint/consistent-type-assertions": "error",
                 "@typescript-eslint/dot-notation": "off",
                 "@typescript-eslint/member-ordering": "off",
                 "@typescript-eslint/naming-convention": "off",

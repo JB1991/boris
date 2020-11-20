@@ -15,6 +15,7 @@ import * as echarts from 'echarts';
 
 declare const require: any;
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-immobilien',
     templateUrl: './immobilien.component.html',
@@ -76,7 +77,7 @@ export class ImmobilienComponent implements OnInit {
             map(term => (term === '' ? Object.keys(gem)
                 : Object.keys(gem).filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
         );
-    }
+    };
 
     /**
      * Init the Application.
@@ -229,6 +230,7 @@ export class ImmobilienComponent implements OnInit {
     /**
      * Handle the Change of an Selection in the Map
      */
+    /* eslint-disable-next-line complexity */
     onMapSelectChange(param) {
 
         // Get List of selected items in map
@@ -492,6 +494,7 @@ export class ImmobilienComponent implements OnInit {
         this.updateMapSelect(this.nipixRuntime.state.selectedMyRegion);
     }
 
+    /* eslint-disable-next-line complexity */
     onPanelChangeIndex(selection_id: number) {
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if ((this.nipixRuntime.drawPresets[i].show) &&

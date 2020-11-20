@@ -49,7 +49,7 @@ export class NipixStatic {
     public constructor() {
     }
 
-    public loadConfig(json: Object): boolean {
+    public loadConfig(json: any): boolean {
         // Layout
         this.layoutRtl = json['layoutRtl'];
 

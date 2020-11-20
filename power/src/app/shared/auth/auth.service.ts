@@ -27,6 +27,7 @@ export class AuthService {
      * Loads session from localStorage
      * @param refresh should refresh token if expired
      */
+    /* eslint-disable complexity */
     public async loadSession(refresh = true) {
         // check if session is loaded and still valid
         if (this.IsAuthenticated()) {
@@ -221,7 +222,73 @@ export class AuthService {
         }
         return false;
     }
+
+    private getRole(): Role {
+        let role: Role = 'user';
+        if (this.user.data && this.user.data.roles && Array.isArray(this.user.data.roles)) {
+            for (const r of this.user.data.roles) {
+                if (r === 'form_api_admin') {
+                    return 'admin';
+                }
+                if (r === 'form_api_manager') {
+                    role = 'manager';
+                }
+                if (r === 'form_api_editor') {
+                    if (role !== 'manager') {
+                        role = 'editor';
+                    }
+                }
+            }
+        }
+        return role;
+    }
+
+    private getGroups(): Array<string> {
+        if (this.user.data && this.user.data.groups && Array.isArray(this.user.data.groups)) {
+            return this.user.data.groups;
+        }
+        return [];
+    }
+
+    private hasRole(role: Role, allowed: Array<Role>): boolean {
+        for (const r of allowed) {
+            if (r === role) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public IsAuthorized(roles: Array<Role>, owner: string, groups: Array<string>): boolean {
+        if (!this.IsAuthEnabled()) {
+            return true;
+        }
+        if (!this.IsAuthenticated()) {
+            return false;
+        }
+        const userRole = this.getRole();
+        const userGroups = this.getGroups();
+
+        if (owner === this.user.data.sub || userRole === 'admin') {
+            return true;
+        }
+
+        if (!this.hasRole(userRole, roles)) {
+            return false;
+        }
+
+        for (const g of groups) {
+            for (const ug of userGroups) {
+                if (g == ug) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
+
+export type Role = 'user' | 'editor' | 'manager' | 'admin';
 
 /**
  * Represents userdata

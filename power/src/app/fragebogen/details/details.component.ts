@@ -7,32 +7,37 @@ import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.compo
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { FormAPIService } from '../formapi.service';
+import { FormAPIService, GetTasksParams } from '../formapi.service';
+import { TaskStatus, TaskField, Form, Task, User, Access } from '../formapi.model';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-forms-details',
     templateUrl: './details.component.html',
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-    public data: any = {
-        form: null,
-        tasksList: [],
-        tasksCountTotal: 0,
-        tasksPerPage: 5,
-        taskTotal: 0,
-        taskPage: 1,
-        taskPageSizes: [],
-    };
+    @ViewChild('commentmodal') public modal: ModalminiComponent;
+    @ViewChild('pagination') pagination: PaginationComponent;
+    @ViewChild('preview') public preview: PreviewComponent;
 
     public id: string;
 
-    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
-    public taskSort: 'id' | 'pin' | 'created' | 'submitted' = 'submitted';
-    public taskOrder: 'asc' | 'desc' = 'desc';
+    public availableTags: Array<string>;
 
-    @ViewChild('preview') public preview: PreviewComponent;
-    component: any;
+    public form: Form;
+    public owner: User;
+    public tasks: Array<Task>;
+    public taskTotal = 0;
+    public taskPerPage = 5;
+    public taskPage = 1;
+    public taskPageSizes: Array<number> = [];
+
+    public taskStatus: TaskStatus | 'all' = 'all';
+    public taskSort: TaskField = 'updated';
+    public taskSortDesc: boolean;
 
     constructor(public titleService: Title,
         public router: Router,
@@ -47,12 +52,11 @@ export class DetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.updateTasks(true);
-        this.loadingscreen.setVisible(true);
-        // get idform
         if (this.id) {
             // load data
-            this.loadData(this.id);
+            this.updateForm(true);
+            this.updateTasks();
+            this.updateTags();
         } else {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -63,102 +67,89 @@ export class DetailsComponent implements OnInit {
      * Load form data
      * @param id Form id
      */
-    public async loadData(id: string) {
-        // check data
-        if (!id) {
-            throw new Error('id is required');
-        }
-
+    public async updateForm(navigate: boolean) {
         try {
-            const result = await this.formapi.getInternForm(id);
-            this.data.form = result;
-            if (result.status !== 'created') {
-                const results = await this.formapi.getInternFormTasks(id);
-                this.data.tasksList = results.data;
-                this.data.tasksCountTotal = results.total;
-                this.data.tasksList = this.data.tasksList.slice(0, this.data.tasksPerPage);
-                this.loadingscreen.setVisible(false);
-            } else {
-                this.loadingscreen.setVisible(false);
+            if (!this.id) {
+                throw new Error('id is required');
             }
-        } catch (error) {
-            // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.loadingscreen.setVisible(true);
+            const r = await this.formapi.getForm(this.id, {
+                fields: ['id', 'extract', 'content', 'status', 'access', 'created', 'updated', 'tags', 'owner.name', 'owner.id', 'groups'],
+                extract: ['title.de', 'title.default'],
+            });
+            this.form = r.form;
+            this.owner = r.form.owner;
             this.loadingscreen.setVisible(false);
-
-            this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+        } catch (error) {
             console.log(error);
-            return;
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.loadingscreen.setVisible(false);
+            if (navigate) {
+                this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
+            }
         }
     }
 
     public resetService() {
-        this.data.form = null;
-        this.data.tasksList = [];
-        this.data.tasksCountTotal = 0;
-        this.data.tasksPerPage = 5;
+        this.form = null;
+        this.tasks = [];
+        this.taskTotal = 0;
+        this.taskPerPage = 5;
     }
     /**
      * Deletes form
      */
-    public deleteForm() {
-        // Ask user to confirm deletion
-        if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
-            return;
-        }
-
-        // delete form
-        this.formapi.deleteInternForm(this.data.form.id).then(() => {
+    public async deleteForm() {
+        try {
+            // Ask user to confirm deletion
+            if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
+                return;
+            }
             // success
+            await this.formapi.deleteForm(this.form.id);
             this.alerts.NewAlert('success', $localize`Formular gelöscht`,
                 $localize`Das Formular wurde erfolgreich gelöscht.`);
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-        }).catch((error: Error) => {
+
+        } catch (error) {
             // failed to delete form
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
-            // console.log(error);
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, $localize`Bitte löschen Sie zuvor die zugehörigen Antworten`);
+            console.log(error);
             return;
-        });
+        }
     }
 
     /**
      * Archives form
      */
-    public archiveForm() {
-        // Ask user to confirm achivation
-        if (!confirm($localize`Möchten Sie dieses Formular wirklich archivieren?\n\
-Dies lässt sich nicht mehr umkehren!`)) {
-            return;
-        }
-
-        const queryParams: Object = {
-            cancel: true,
-        };
-
-
-        // archive form
-        this.formapi.updateInternForm(this.data.form.id, null, queryParams).then(result => {
-            this.data.form = result;
+    public async archiveForm() {
+        try {
+            // Ask user to confirm achivation
+            if (!confirm($localize`Möchten Sie dieses Formular wirklich archivieren?\n\
+        Dies lässt sich nicht mehr umkehren!`)) {
+                return;
+            }
+            await this.formapi.updateForm(this.form.id, { status: 'cancelled' });
             this.alerts.NewAlert('success', $localize`Formular archiviert`,
                 $localize`Das Formular wurde erfolgreich archiviert.`);
-        }).catch((error: Error) => {
+        } catch (error) {
             // failed to publish form
-            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
-        });
+        }
     }
 
     /**
      * Downloads results as csv
      */
     /* istanbul ignore next */
-    public getCSV() {
-        alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
-
-        // load csv results
-        this.formapi.getInternFormCSV(this.data.form.id).then(result => {
-            const blob = new Blob([result], { type: 'text/csv;charset=utf-8;' });
+    public async getCSV() {
+        try {
+            alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
+            const r = await this.formapi.getCSV(this.form.id);
+            const blob = new Blob([r], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'results.csv');
@@ -168,57 +159,40 @@ Dies lässt sich nicht mehr umkehren!`)) {
                 pom.setAttribute('download', 'results.csv');
                 pom.click();
             }
-        }).catch((error: Error) => {
+        } catch (error) {
             // failed to load results
-            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
             return;
-        });
+        }
     }
 
     /**
      * Deletes an existing task
      * @param i Number of task
      */
-    public deleteTask(i: number) {
-        // check data
-        if (i < 0 || i >= this.data.tasksList.length) {
-            throw new Error('invalid i');
-        }
-
-        // Ask user to confirm deletion
-        if (!confirm($localize`Möchten Sie diese Antwort wirklich löschen?`)) {
-            return;
-        }
-
-        // delete task
-        this.formapi.deleteInternTask(this.data.tasksList[i].id).then(() => {
-            this.data.tasksList.splice(i, 1);
+    public async deleteTask(i: number) {
+        try {
+            // check data
+            if (i < 0 || i >= this.tasks.length) {
+                throw new Error('invalid i');
+            }
+            // Ask user to confirm deletion
+            if (!confirm($localize`Möchten Sie diese Antwort wirklich löschen?`)) {
+                return;
+            }
+            const r = await this.formapi.deleteTask(this.tasks[i].id);
+            this.tasks.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
-            if (this.data.tasksList.length === 0) {
-                this.updateTasks(false);
-            }
-        }).catch((error: Error) => {
+        } catch (error) {
             // failed to delete task
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
-            return;
-        });
-    }
-
-    public changeTaskSort(sort: 'id' | 'pin' | 'created') {
-        if (this.taskSort === sort) {
-            if (this.taskOrder === 'asc') {
-                this.taskOrder = 'desc';
-            } else {
-                this.taskOrder = 'asc';
-            }
-        } else {
-            this.taskOrder = 'asc';
         }
-        this.taskSort = sort;
-        this.updateTasks(false);
+        if (this.tasks.length === 0) {
+            this.updateTasks();
+        }
     }
 
     /**
@@ -226,12 +200,18 @@ Dies lässt sich nicht mehr umkehren!`)) {
      * @param i Number of task
      */
     public openTask(i: number) {
-        // check data
-        if (i < 0 || i >= this.data.tasksList.length) {
-            throw new Error('invalid i');
+        try {
+            // check data
+            if (i < 0 || i >= this.tasks.length) {
+                throw new Error('invalid i');
+            }
+            this.preview.open('display', this.tasks[i].content);
+        } catch (error) {
+            // failed to delete task
+            this.alerts.NewAlert('danger', $localize`Öffnen fehlgeschlagen`, error.toString());
+            console.log(error);
+            return;
         }
-
-        this.preview.open('display', this.data.tasksList[i].content);
     }
 
     /**
@@ -240,9 +220,9 @@ Dies lässt sich nicht mehr umkehren!`)) {
     /* istanbul ignore next */
     public exportForm() {
         // load form
-        this.formapi.getInternForm(this.data.form.id).then(result => {
+        this.formapi.getForm(this.form.id, { fields: ['content'] }).then(result => {
             // download json
-            const blob = new Blob([JSON.stringify(result.content)], { type: 'application/json;charset=utf-8;' });
+            const blob = new Blob([JSON.stringify(result.form.content)], { type: 'application/json;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(blob, 'formular.json');
@@ -254,40 +234,129 @@ Dies lässt sich nicht mehr umkehren!`)) {
             }
         }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', error.toString());
+            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             throw error;
         });
     }
 
-    public async updateTasks(navigate: boolean) {
+    public async updateTags() {
         try {
-            this.loadingscreen.setVisible(true);
-            const params = {
-                limit: Number(this.data.tasksPerPage),
-                offset: (this.data.taskPage - 1) * this.data.tasksPerPage,
-                sort: this.taskSort,
-                order: this.taskOrder,
+            const r = await this.formapi.getTags();
+            this.availableTags = r.tags;
+        } catch (error) {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    public async updateTasks() {
+        this.loadingscreen.setVisible(true);
+        const params: GetTasksParams = {
+            fields: ['id', 'pin', 'description', 'created', 'updated'],
+            filter: { form: { id: this.id } },
+            limit: Number(this.taskPerPage),
+            offset: (this.taskPage - 1) * this.taskPerPage,
+            sort: { field: this.taskSort, desc: this.taskSortDesc },
+        };
+        if (this.taskStatus !== 'all') {
+            params.filter = {
+                status: this.taskStatus,
             };
-            if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
-                params['status'] = this.taskStatus;
-            }
-            const response = await this.formapi.getInternFormTasks(this.id, params);
-            this.data.tasksCountTotal = response.total;
-            this.data.tasksList = response.data;
-            let maxPages = Math.floor(this.data.tasksCountTotal / 5) + 1;
+        }
+        try {
+            const r = await this.formapi.getTasks(params);
+            this.tasks = r.tasks;
+            this.taskTotal = r.total;
+            let maxPages = Math.floor(this.taskTotal / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
-                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             } else {
-                this.data.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
+                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             }
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            if (navigate) {
-                this.router.navigate(['/forms'], { replaceUrl: true });
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    public changeTaskSort(sort: TaskField) {
+        if (this.taskSort === sort) {
+            this.taskSortDesc = !this.taskSortDesc;
+        } else {
+            this.taskSortDesc = false;
+        }
+        this.taskSort = sort;
+        this.updateTasks();
+    }
+
+    public async updateFormEvent(event: { id: string; tags: Array<string> }) {
+        try {
+            await this.formapi.updateForm(event.id, { tags: event.tags });
+            this.updateForm(false);
+        } catch (error) {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    public async publishFormEvent(event: { id: string; access: Access }) {
+        try {
+            await this.formapi.updateForm(event.id, { access: event.access, status: 'published' });
+            this.updateForm(false);
+        } catch (error) {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Veröffentlichen des Formulars fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    public async commentTaskEvent(event: { id: string; description: string }) {
+        try {
+            await this.formapi.updateTask(event.id, { description: event.description });
+            this.updateTasks();
+        } catch (error) {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Änderung des Kommentars fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    /**
+     * createTaskEvent
+     */
+    public async createTaskEvent(event: { amount: number; copy: boolean }) {
+        try {
+            const r = await this.formapi.createTask(this.form.id, {}, event.amount);
+            this.taskSort = 'created';
+            this.taskSortDesc = true;
+            this.pagination.page = 1;
+            this.updateTasks();
+            // copy to clipboard
+            if (event.copy) {
+                const selBox = document.createElement('textarea');
+                selBox.style.position = 'fixed';
+                selBox.style.left = '0';
+                selBox.style.top = '0';
+                selBox.style.opacity = '0';
+                selBox.value = r.pins.join('\n');
+                document.body.appendChild(selBox);
+                selBox.focus();
+                selBox.select();
+                document.execCommand('copy');
+                document.body.removeChild(selBox);
             }
+        } catch (error) {
+            // failed to create task
+            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            console.log(error);
+            return;
         }
     }
 }

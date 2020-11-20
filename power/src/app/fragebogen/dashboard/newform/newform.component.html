@@ -1,18 +1,8 @@
-<power-modalmini #newformmodal>
+<power-modalmini #modal>
     <!-- title -->
     <div class="form-group">
-        <label for="formtitle"
-               i18n>Formular Titel *</label>
-        <input type="text"
-               class="form-control"
-               [(ngModel)]="title"
-               [class.is-invalid]="!title"
-               id="formtitle"
-               name="formtitle"
-               maxlength="200"
-               i18n-placeholder
-               placeholder="Mein Formular"
-               required>
+        <label for="formtitle" i18n>Formular Titel *</label>
+        <input type="text" class="form-control" [(ngModel)]="title" [class.is-invalid]="!title" id="formtitle" name="formtitle" maxlength="200" i18n-placeholder placeholder="Mein Formular" required>
     </div>
 
     <!-- service -->
@@ -33,27 +23,13 @@
 
     <!-- template -->
     <div class="form-group">
-        <label for="searchtemplate"
-               i18n>Template</label>
-        <input type="text"
-               class="form-control"
-               id="searchtemplate"
-               name="searchtemplate"
-               [(ngModel)]="searchText"
-               [typeahead]="templateList"
-               [typeaheadScrollable]="true"
-               [typeaheadOptionsInScrollableView]="5"
-               typeaheadOptionField="title"
-               (typeaheadOnSelect)="setTemplate($event)"
-               (keyup)="fetchTemplates()"
-               i18n-placeholder
-               placeholder="Suchen">
+        <label for="searchtemplate" i18n>Template</label>
+        <input type="text" class="form-control" id="searchtemplate" name="searchtemplate" [(ngModel)]="searchText" [typeahead]="templateList" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5" typeaheadOptionField="extra" (typeaheadOnSelect)="template = $event.item.id;"
+            (keyup)="fetchTemplates()" i18n-placeholder placeholder="Suchen">
     </div>
 
     <!-- tags -->
-    <power-tagbox [(tagList)]="tagList"
-                  [dataList]="data.tags"
-                  tagboxLabel="Tags"></power-tagbox>
+    <power-tagbox [(tagList)]="tagList" [dataList]="tags" tagboxLabel="Tags"></power-tagbox>
 
     <!-- modal buttons -->
     <div class="modal-footer"
@@ -74,13 +50,12 @@
                  focusable="false"
                  aria-hidden="true">
                 <path
-                      d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
+                    d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" />
                 <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z" />
                 <path fill-rule="evenodd"
-                      d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                    d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
             </svg>
-            <span class="ml-1"
-                  i18n>Erstellen</span>
+            <span class="ml-1" i18n>Erstellen</span>
         </button>
     </div>
 </power-modalmini>

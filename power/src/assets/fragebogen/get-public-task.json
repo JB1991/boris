@@ -1,0 +1,18 @@
+{
+    "status": 200,
+    "task": {
+        "content": {
+            "disappointed_experience": "Everything is okay :)",
+            "nps_score": 4
+        },
+        "created": "2020-10-31T21:26:30Z",
+        "description": "This is a description",
+        "extra": "4",
+        "form": {
+            "id": "751c7f76-967d-49fc-a195-9a4bbad2552d"
+        },
+        "id": "d2ce867f-9de3-4b45-b13f-274e820eec2e",
+        "status": "created",
+        "updated": "2020-10-31T21:26:30Z"
+    }
+}

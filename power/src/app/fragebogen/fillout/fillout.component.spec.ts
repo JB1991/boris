@@ -3,21 +3,20 @@ import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick, flush } from 
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
-import { environment } from '@env/environment';
 
 import { FilloutComponent } from './fillout.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService } from '../formapi.service';
+import { environment } from '@env/environment';
 
 describe('Fragebogen.Fillout.FilloutComponent', () => {
     let component: FilloutComponent;
     let fixture: ComponentFixture<FilloutComponent>;
 
-    const accessSample = require('../../../assets/fragebogen/public-get-access.json');
-    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
-    const taskSample = require('../../../assets/fragebogen/intern-get-tasks-id.json');
-    const submitSample = require('../../../assets/fragebogen/public-post-tasks.json');
+    const getPublicForm = require('../../../assets/fragebogen/get-public-form.json');
+    const getPublicTask = require('../../../assets/fragebogen/get-public-task.json');
+    const taskContent = require('../../../assets/fragebogen/task-content.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -54,9 +53,9 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         expect(component).toBeTruthy();
         spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
         spyOn(component, 'loadData');
-        component.ngOnInit();
+        component.ngAfterViewInit();
         expect(component.loadData).toHaveBeenCalledTimes(1);
-        expect(component.loadData).toHaveBeenCalledWith('123');
+        expect(component.pin).toBe('123');
     });
 
 
@@ -69,7 +68,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
             return null;
         });
         spyOn(component, 'loadForm');
-        component.ngOnInit();
+        component.ngAfterViewInit();
         expect(component.loadForm).toHaveBeenCalledTimes(1);
         expect(component.loadForm).toHaveBeenCalledWith('123');
     });
@@ -78,7 +77,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      * SET LANGUAGE
      */
     it('should set language', () => {
-        component.wrapper = <any>{ survey: { locale: 'de', getUsedLocales: () => [] } };
+        component.wrapper = { survey: { locale: 'de', getUsedLocales: () => [] } } as any;
         component.language = 'en';
         component.setLanguage();
         expect(component.wrapper.survey.locale).toEqual('en');
@@ -88,12 +87,12 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      * LOAD FORM
      */
     it('should load form', fakeAsync(() => {
-        spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.resolve(formSample.data));
+        spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.resolve(getPublicForm));
 
         component.loadForm('123');
         tick();
-        expect(component.data.form).toEqual(formSample.data);
-        expect(component.language).toEqual(formSample.data.content.locale);
+        expect(component.form).toEqual(getPublicForm.form);
+        expect(component.language).toEqual(getPublicForm.form.content.locale);
         flush();
     }));
 
@@ -108,11 +107,36 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     }));
 
     /**
+     * LOAD Data
+     */
+    it('should load data', (done) => {
+        spyOn(component.formapi, 'getPublicTask').and.returnValue(Promise.resolve(getPublicTask));
+        spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.resolve(getPublicForm));
+        component.pin = '123';
+        component.loadData().then(() => {
+            expect(component.language).toEqual(getPublicForm.form.content.locale);
+            done();
+        });
+    });
+
+    it('should fail to load data', (done) => {
+        spyOn(component.formapi, 'getPublicTask').and.returnValue(Promise.resolve(getPublicTask));
+        spyOn(component.formapi, 'getPublicForm').and.returnValue(Promise.reject('Failed to load form'));
+        component.pin = '123';
+        component.loadData().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
+                'Failed to load form');
+            done();
+        });
+    });
+
+    /**
      * SUBMIT TASK
      */
     it('should submit task', fakeAsync(() => {
-        spyOn(component.formapi, 'createPublicTask').and.returnValue(Promise.resolve(taskSample.data));
-        component.submitTask('123', taskSample.data.content);
+        spyOn(component.formapi, 'createPublicTask').and.returnValue(Promise.resolve(getPublicTask));
+        component.submitTask('123', getPublicTask.task.content);
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich',
@@ -122,7 +146,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     it('should fail to submit task', fakeAsync(() => {
         spyOn(component.formapi, 'createPublicTask').and.returnValue(Promise.reject('Failed to submit task'));
         component.submitTask('123',
-            { result: taskSample.data.content, options: { showDataSavingError: () => { } } });
+            { result: getPublicTask.task.content, options: { showDataSavingError: () => { } } });
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen',
@@ -130,31 +154,11 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     }));
 
     /**
-     * LOAD DATA
-     */
-    it('should load data', fakeAsync(() => {
-        spyOn(component.formapi, 'getPublicAccess').and.returnValue(Promise.resolve(accessSample.data));
-        component.loadData('123', 'factor');
-        tick();
-        expect(component.data.task).toEqual(accessSample.data);
-    }));
-
-    it('should fail to load data', fakeAsync(() => {
-        spyOn(component.formapi, 'getPublicAccess').and.returnValue(Promise.reject('Failed to load data'));
-        component.loadData('123');
-        tick();
-        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
-        expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
-            'Failed to load data');
-    }));
-
-    /**
      * SUBMIT
      */
     it('should submit data', fakeAsync(() => {
-        spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(accessSample.data));
-        component.data.task = JSON.parse(JSON.stringify(taskSample.data));
-        component.submit(accessSample.data);
+        spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(getPublicTask));
+        component.submit({ result: taskContent });
         fixture.detectChanges();
         tick();
         expect(component.data.UnsavedChanges).toBeFalse();
@@ -165,8 +169,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     it('should fail to submit data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
-        component.data.task = JSON.parse(JSON.stringify(taskSample.data));
-        component.submit({ result: submitSample, options: { showDataSavingError: () => { } } });
+        component.submit({ result: taskContent, options: { showDataSavingError: () => { } } });
         fixture.detectChanges();
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -178,9 +181,8 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      * PROGRESS
      */
     it('should progress result', fakeAsync(() => {
-        spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(accessSample.data));
-        component.data.task = JSON.parse(JSON.stringify(taskSample.data));
-        component.progress(accessSample.data);
+        spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(getPublicTask));
+        component.progress(taskContent);
         fixture.detectChanges();
         tick();
         expect(component.data.UnsavedChanges).toBeFalse();
@@ -188,8 +190,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     it('should fail to progress data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
-        component.data.task = JSON.parse(JSON.stringify(taskSample.data));
-        component.progress(submitSample);
+        component.progress(taskContent);
         fixture.detectChanges();
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
@@ -201,7 +202,7 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         spyOn(component.formapi, 'updatePublicTask');
         component.submitted = true;
         fixture.detectChanges();
-        component.progress(submitSample);
+        component.progress(taskContent);
         expect(component.formapi.updatePublicTask).toHaveBeenCalledTimes(0);
     });
 
@@ -217,20 +218,18 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     /**
      * ERROR for submitTask, loadData, submit, progress
      */
-    it('should throw error', () => {
-        expect(function () {
-            component.loadData('', '123');
-        }).toThrowError('pin is required');
-        expect(function () {
+    it('should throw error', async () => {
+        await expectAsync(component.loadData()).toBeRejectedWith(new Error('pin is required'));
+        expect(() => {
             component.submitTask(null, {});
         }).toThrowError('id is required');
-        expect(function () {
+        expect(() => {
             component.submitTask('123', null);
         }).toThrowError('no data provided');
-        expect(function () {
+        expect(() => {
             component.submit('');
         }).toThrowError('no data provided');
-        expect(function () {
+        expect(() => {
             component.progress(null);
         }).toThrowError('no data provided');
     });

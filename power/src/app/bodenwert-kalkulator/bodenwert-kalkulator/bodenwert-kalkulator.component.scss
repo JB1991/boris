@@ -80,6 +80,10 @@ mgl-map {
     cursor: pointer;
 }
 
+.active {
+    color: #c4153a !important;
+}
+
 .nav-underline .active {
     font-weight: 500;
     color: #c4153a;
@@ -122,10 +126,6 @@ a.nav-link img {
     left: -50px;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
-}
-
-.active {
-    color: #c4153a !important;
 }
 
 @import '~bootstrap/scss/bootstrap.scss';

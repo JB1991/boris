@@ -1,9 +1,8 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { FormAPIService } from '../../formapi.service';
+import { FormAPIService, GetFormsParams } from '../../formapi.service';
 
 import { defaultTemplate } from '@app/fragebogen/editor/data';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
@@ -11,15 +10,13 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 @Component({
     selector: 'power-forms-dashboard-newform',
     templateUrl: './newform.component.html',
-    styleUrls: ['./newform.component.css']
+    styleUrls: ['./newform.component.css'],
 })
 export class NewformComponent {
-    @ViewChild('newformmodal') public modal: ModalminiComponent;
-    @Input() public data = {
-        tags: <string[]>[],
-        forms: [],
-        tasks: []
-    };
+    @ViewChild('modal') public modal: ModalminiComponent;
+    @Output() public out = new EventEmitter<string>();
+    @Input() public tags: Array<string>;
+
     public title: string;
     public service = '';
     public template = '';
@@ -28,10 +25,7 @@ export class NewformComponent {
     public searchText: string;
     public test: string;
 
-    constructor(public router: Router,
-        public alerts: AlertsService,
-        public formAPI: FormAPIService,
-    ) { }
+    constructor(public router: Router, public alerts: AlertsService, public formAPI: FormAPIService) { }
 
     /**
      * Opens new form modal
@@ -45,39 +39,30 @@ export class NewformComponent {
     }
 
     /**
-     * Closes new form modal
-     */
-    public close() {
-        this.modal.close();
-    }
-
-    /**
-     * Set template to selected id
-     * @param event selected typeahead item
-     */
-    public setTemplate(event: TypeaheadMatch) {
-        this.template = event.item.id;
-    }
-
-    /**
      * Fetch all Templates (Forms with id, title) for the current search text
      */
     public fetchTemplates() {
-        const queryParams: Object = {
-            'title-contains': this.searchText,
-            fields: 'id,title',
-            sort: 'title',
-            order: 'asc'
+        const queryParams: GetFormsParams = {
+            fields: ['id', 'content', 'owner.name', 'extract'],
+            filter: {
+                extract: { lower: true, contains: this.searchText },
+            },
+            extract: ['title.de', 'title.default'],
+            sort: { field: 'extract', desc: false },
         };
 
-        this.formAPI.getInternForms(queryParams).then(result => {
-            this.templateList = result.data;
-        }).catch((error: Error) => {
-            // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            console.log(error);
-            return;
-        });
+        this.formAPI
+            .getForms(queryParams)
+            .then((result) => {
+                this.templateList = result.forms;
+            })
+            .catch((error: Error) => {
+                // failed to load form
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                    (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+                console.log(error);
+                return;
+            });
     }
 
     /**
@@ -90,21 +75,24 @@ export class NewformComponent {
                 $localize`Bitte geben Sie einen Titel an.`);
             return;
         }
-
         // load template
         if (this.template) {
-            this.formAPI.getInternForm(this.template).then((data) => {
-                this.makeForm(data.content);
-                this.close();
-            }).catch((error) => {
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
-            });
+            this.formAPI
+                .getForm(this.template, {
+                    fields: ['content'],
+                })
+                .then((data) => {
+                    this.makeForm(data.form.content);
+                    this.modal.close();
+                })
+                .catch((error) => {
+                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+                });
             return;
         }
-
         // make new form
         this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
-        this.close();
+        this.modal.close();
     }
 
     /**
@@ -120,10 +108,11 @@ export class NewformComponent {
                 throw new Error('title is required');
             }
             template.title.default = this.title;
-            const response = await this.formAPI.createInternForm(template, { tags: this.tagList });
-            this.data.forms.push(response);
+            const r = await this.formAPI.createForm({ tags: this.tagList, content: template, access: 'public' });
+            this.out.emit(r.id);
         } catch (error) {
-            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, error.toString());
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         }
     }
 }

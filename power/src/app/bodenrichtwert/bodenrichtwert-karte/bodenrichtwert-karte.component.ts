@@ -6,7 +6,9 @@ import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { environment } from '@env/environment';
 import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { ActivatedRoute } from '@angular/router';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-bodenrichtwertkarte',
     templateUrl: './bodenrichtwert-karte.component.html',
@@ -69,7 +71,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         public geosearchService: GeosearchService,
         private route: ActivatedRoute,
         private location: Location,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        public alerts: AlertsService
     ) { }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -148,12 +151,24 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>) {
         this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
-            .subscribe(res => this.bodenrichtwertService.updateFeatures(res));
+            .subscribe(
+                res => this.bodenrichtwertService.updateFeatures(res),
+                err => {
+                    console.log(err);
+                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
+                }
+            );
     }
 
     getAddressFromLatLng(lat: number, lng: number) {
         this.geosearchService.getAddressFromCoordinates(lat, lng)
-            .subscribe(res => this.geosearchService.updateFeatures(res.features[0]));
+            .subscribe(
+                res => this.geosearchService.updateFeatures(res.features[0]),
+                err => {
+                    console.log(err);
+                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
+                }
+            );
     }
 
     onDragEnd() {

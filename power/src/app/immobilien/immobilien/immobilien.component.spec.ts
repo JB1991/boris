@@ -16,13 +16,16 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
 
 // Select some icons (use an object, not an array)
+/* eslint-disable object-shorthand */
 const icons = {
     Building,
     HouseFill,
     PlusCircle,
     DashCircle
 };
+/* eslint-enable object-shorthand */
 
+/* eslint-disable max-lines */
 describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     let component: ImmobilienComponent;
     let fixture: ComponentFixture<ImmobilienComponent>;
@@ -79,7 +82,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 NgxBootstrapIconsModule.pick(icons),
-                NgxEchartsModule.forRoot({ echarts })
+                NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
             providers: [
                 ImmobilienUtils,
@@ -444,14 +447,16 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
      * @param body The body of the answer
      * @param opts Optional HTTP information of the answer
      */
-    function answerHTTPRequest(url, method, body, opts?) {
+    const answerHTTPRequest = (url, method, body, opts?) => {
         // Take HTTP request from queue
         const request = httpTestingController.expectOne(url);
         expect(request.request.method).toEqual(method);
 
         // Return the answer
-        request.flush(JSON.parse(JSON.stringify(body)), opts);
-    }
+        request.flush(deepCopy(body), opts);
+    };
+
+    const deepCopy = (data) => JSON.parse(JSON.stringify(data));
 
     afterEach(() => {
         // Verify that no requests are remaining

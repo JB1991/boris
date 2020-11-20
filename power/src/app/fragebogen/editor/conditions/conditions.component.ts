@@ -55,6 +55,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
         this.loadChoices(null);
     }
 
+    /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
         // check if data exists
         if (!this.data || this.struct.length > 0) {
@@ -124,6 +125,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
      * Handles changes to forms
      * @param event Event
      */
+    /* eslint-disable-next-line complexity */
     public modelChanged(event: Event) {
         // convert form to condition object
         this.data = '';

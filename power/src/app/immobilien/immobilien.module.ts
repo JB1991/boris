@@ -17,12 +17,14 @@ import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons
 import * as echarts from 'echarts';
 
 // Select some icons (use an object, not an array)
+/* eslint-disable object-shorthand */
 const icons = {
     Building,
     HouseFill,
     PlusCircle,
     DashCircle
 };
+/* eslint-enable object-shorthand */
 
 @NgModule({
     imports: [
@@ -33,7 +35,7 @@ const icons = {
         BsDropdownModule.forRoot(),
         FormsModule,
         NgxBootstrapIconsModule.pick(icons),
-        NgxEchartsModule.forRoot({ echarts })
+        NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
     ],
     declarations: [ImmobilienComponent]
 })

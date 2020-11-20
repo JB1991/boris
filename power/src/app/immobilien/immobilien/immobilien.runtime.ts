@@ -29,6 +29,7 @@ interface NipixRuntimeCalculated {
     legendText?: any;
 }
 
+/* eslint-disable max-lines */
 export class NipixRuntime {
 
     private nipixStatic: ImmobilenNipixStatic.NipixStatic;

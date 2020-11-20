@@ -20,10 +20,9 @@ let id = 0;
 export class TagboxComponent {
     @Input() public tagboxLabel: string;
     @Input() public displayBlock = false;
-    @Input() public dataList: string[] = [];
-    @Input() public tagList: string[] = [];
-    @Output() public tagListChange = new EventEmitter<string[]>();
-    public tagInput: string;
+    @Input() public dataList: string[];
+    @Input() public tagList: string[];
+    public tagInput = '';
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
@@ -31,12 +30,14 @@ export class TagboxComponent {
      * Adds tag to list
      */
     public addTag() {
+        if (!this.tagList) {
+            this.tagList = [];
+        }
         if (!this.tagInput || !this.tagInput.trim()) {
             return;
         }
         if (!this.tagList.includes(this.tagInput)) {
             this.tagList.push(this.tagInput);
-            this.tagListChange.emit(this.tagList);
             this.tagInput = '';
         } else {
             this.tagInput = '';
@@ -48,10 +49,11 @@ export class TagboxComponent {
      * @param i Tag number
      */
     public removeTag(i: number) {
-        if (i < 0 || i >= this.tagList.length) {
-            throw new Error('Invalid i');
+        if (this.tagList) {
+            if (i < 0 || i >= this.tagList.length) {
+                throw new Error('Invalid i');
+            }
+            this.tagList.splice(i, 1);
         }
-        this.tagList.splice(i, 1);
-        this.tagListChange.emit(this.tagList);
     }
 }
