@@ -1,4 +1,10 @@
-<power-modal #formattinghelpmodal>
+<button type="button"
+class="btn btn-sm btn-link"
+(click)="formattinghelpmodal.open()"
+i18n>Hilfe zur Formatierung</button>
+<br>
+
+<power-modalmini #formattinghelpmodal>
     <p>
         <label i18n>Für die Formatierung und Gliederung von Texten verwenden wir Markdown. Eine Einführung finden sie
             auf:</label>
@@ -82,4 +88,4 @@
             </tr>
         </tbody>
     </table>
-</power-modal>
+</power-modalmini>
