@@ -43,9 +43,6 @@ export class GeosearchComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes.adresse) {
             this.model = changes.adresse.currentValue;
-        } else if (changes.resetGeosearch) {
-            this.model = undefined;
-            // this.resetGeosearchChange.emit(false);
         }
     }
 

@@ -50,12 +50,7 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     });
 
     it('ngOnChanges should work', () => {
-        component.resetGeosearch = true;
         component.model = feature;
-        component.ngOnChanges({
-            resetGeosearch: new SimpleChange(null, false, false)
-        });
-        expect(component.model).toBeUndefined();
         component.ngOnChanges({
             adresse: new SimpleChange(null, changedFeature, false)
         });
