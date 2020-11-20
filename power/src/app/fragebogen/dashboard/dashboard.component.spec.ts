@@ -165,6 +165,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         spyOn(component, 'updateForms');
         component.changeFormSort('updated');
         expect(component.formSort).toBe('updated');
+        expect(component.formSortDesc).toBe(false);
+        component.changeFormSort('updated');
+        expect(component.formSort).toBe('updated');
         expect(component.formSortDesc).toBe(true);
         component.changeFormSort('updated');
         expect(component.formSort).toBe('updated');
@@ -177,6 +180,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
     it('should succeed changeTaskSort', (done) => {
         spyOn(component, 'updateTasks');
+        component.changeTaskSort('updated');
+        expect(component.taskSort).toBe('updated');
+        expect(component.taskSortDesc).toBe(false);
         component.changeTaskSort('updated');
         expect(component.taskSort).toBe('updated');
         expect(component.taskSortDesc).toBe(true);
