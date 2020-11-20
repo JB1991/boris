@@ -8,8 +8,21 @@ export class BodenartPipe implements PipeTransform {
     bod = {
         'S': $localize`Sand`,
         'L': $localize`Lehm`,
+        'LG': $localize`Lehm mit starkem Steingehalt`,
         'T': $localize`Ton`,
         'Mo': $localize`Moor`,
+        'Fe': $localize`Felsen`,
+        'IS': $localize`Lehmiger Sand`,
+        'LMo': $localize`Lehm, Moor`,
+        'ISg': $localize`Lehmiger Sand mit starkem Steingehalt`,
+        'SI': $localize`Anlehmiger Sand`,
+        'LT': $localize`Schwerer Lehm`,
+        'ISMo': $localize`Lemiger Sand, Moor`,
+        'St': $localize`Steine und Blöcke`,
+        'MoL': $localize`Moor, Lehm`,
+        'MoIS': $localize`Moor, Lehmiger Sand`,
+        'MoS': $localize`Moor, Sand`,
+        'MoT': $localize`Moor, Ton`,
     };
 
     transform(value: any, ...args: any[]): any {
