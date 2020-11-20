@@ -1,6 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SimpleChange } from '@angular/core';
 import { GeosearchComponent } from './geosearch.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Feature, FeatureCollection } from 'geojson';
@@ -49,7 +50,9 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     it('ngOnChanges should work', () => {
         component.resetGeosearch = true;
         component.model = feature;
-        component.ngOnChanges();
+        component.ngOnChanges({
+            resetGeosearch: new SimpleChange(true, false, true)
+        });
         expect(component.model).toBeUndefined();
     });
 
