@@ -253,7 +253,7 @@ export class DetailsComponent implements OnInit {
     public async updateTasks() {
         this.loadingscreen.setVisible(true);
         const params: GetTasksParams = {
-            fields: ['id', 'pin', 'description', 'created', 'updated'],
+            fields: ['id', 'pin', 'description', 'created', 'updated', 'status'],
             filter: { form: { id: this.id } },
             limit: Number(this.taskPerPage),
             offset: (this.taskPage - 1) * this.taskPerPage,
