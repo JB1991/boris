@@ -97,12 +97,14 @@ export class DashboardComponent implements OnInit {
             // Upload success
             reader.onload = () => {
                 this.formAPI
-                    .createForm(reader.result.valueOf())
+                    .createForm({
+                        content: JSON.parse(reader.result.toString()),
+                    })
                     .then(() => {
                         this.updateForms(false);
                     })
                     .catch((error) => {
-                        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error);
+                        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error.error && error.error['message'] ? error.error['message'] : error.error.toString() );
                     });
             };
             // FileReader is async -> call readAsText() after declaring the onload handler
