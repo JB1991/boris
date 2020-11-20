@@ -10,6 +10,8 @@ import { SimpleChange, SimpleChanges } from '@angular/core';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
     const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
+    const changedFeature: Feature = require('../../../assets/boden/geosearch-samples/featureChange.json');
+
     const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
 
     let component: GeosearchComponent;
@@ -50,14 +52,15 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     it('ngOnChanges should work', () => {
         component.resetGeosearch = true;
         component.model = feature;
-        component.adresse = 'Hannover';
+        // component.adresse = 'Hannover';
         let changes: SimpleChanges = {
-            resetGeosearch: new SimpleChange(null, 'Test', false),
-            adresse: new SimpleChange(null, 'Stade', false)
+            // resetGeosearch: new SimpleChange(null, 'Test', false),
+            adresse: new SimpleChange(null, changedFeature, false)
         }
         component.ngOnChanges(changes);
-        expect(component.model).toBeUndefined();
-        expect(component.adresse).toEqual('Stade');
+        fixture.detectChanges();
+        expect(component.model).toEqual(changedFeature);
+        // expect(component.model).toBeUndefined();
     });
 
     it('selectItem selects an item from the result list', (done) => {
