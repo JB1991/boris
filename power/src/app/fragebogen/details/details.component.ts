@@ -37,7 +37,7 @@ export class DetailsComponent implements OnInit {
 
     public taskStatus: TaskStatus | 'all' = 'all';
     public taskSort: TaskField = 'updated';
-    public taskSortDesc: boolean;
+    public taskSortDesc: boolean = false;
 
     constructor(public titleService: Title,
         public router: Router,
