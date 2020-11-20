@@ -63,7 +63,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() features;
     @Output() featuresChange = new EventEmitter();
 
-    resetMapFired: Boolean = false;
+    resetMapFired = false;
     resetGeosearch: boolean;
 
     constructor(
@@ -91,7 +91,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                     pitch: 0,
                     bearing: 0
                 });
-                this.resetMapFired = !this.resetMapFired
+                this.resetMapFired = !this.resetMapFired;
             }
         }
     }
