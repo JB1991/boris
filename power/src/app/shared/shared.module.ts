@@ -9,6 +9,7 @@ import { GeosearchComponent } from './geosearch/geosearch.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalminiComponent } from './modalmini/modalmini.component';
 import { TagboxComponent } from './tagbox/tagbox.component';
+import { MarkdownInstructionsComponent } from './markdown-instructions/markdown-instructions.component';
 import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
@@ -22,6 +23,7 @@ import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive
         ModalComponent,
         ModalminiComponent,
         TagboxComponent,
+        MarkdownInstructionsComponent,
         SvgPipe,
         HyphenatePipe,
         ModalminiFooterDirective
@@ -31,6 +33,7 @@ import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive
         ModalComponent,
         ModalminiComponent,
         TagboxComponent,
+        MarkdownInstructionsComponent,
         AuthModule,
         AlertsModule,
         LoadingscreenModule,

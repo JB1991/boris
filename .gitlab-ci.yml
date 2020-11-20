@@ -1,4 +1,4 @@
-image: docker:stable-git
+image: docker:stable
 
 services:
   - docker:stable-dind
@@ -18,7 +18,7 @@ cache: &global_cache
 
 install:
   stage: init
-  image: node:15
+  image: node:alpine
   dependencies: []
   cache:
     <<: *global_cache
@@ -85,7 +85,7 @@ test:e2e:
 
 test:audit:
   stage: test
-  image: node:15
+  image: node:alpine
   dependencies: []
   cache:
     <<: *global_cache
@@ -103,7 +103,7 @@ test:audit:
 
 test:lint:
   stage: test
-  image: node:15
+  image: node:alpine
   dependencies: []
   cache:
     <<: *global_cache
@@ -111,7 +111,7 @@ test:lint:
   allow_failure: true
   script:
     - cd power
-    - npm run lint
+    - node_modules/@angular/cli/bin/ng lint power
   only:
     - merge_requests
     - tags
@@ -121,7 +121,7 @@ test:lint:
 
 test:lint:html:
   stage: test
-  image: node:15
+  image: node:alpine
   dependencies: []
   cache:
     <<: *global_cache
@@ -139,7 +139,7 @@ test:lint:html:
 
 test:lint:styles:
   stage: test
-  image: node:15
+  image: node:alpine
   dependencies: []
   cache:
     <<: *global_cache
@@ -157,14 +157,14 @@ test:lint:styles:
 
 build:
   stage: build
-  image: node:15
+  image: node:alpine
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
   script:
     - cd power
-    - npm run build -- --prod --aot=true --output-hashing=none --extract-css=true --buildOptimizer=true --localize
+    - npm run build -- --prod --aot=true --output-hashing=none --buildOptimizer=true --localize
   artifacts:
     name: "compiled dist"
     expire_in: 2 days

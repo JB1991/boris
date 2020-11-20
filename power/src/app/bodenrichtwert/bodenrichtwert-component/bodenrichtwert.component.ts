@@ -1,4 +1,7 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import {
+    Component, ElementRef, OnDestroy, ViewChild,
+    ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { Feature } from 'geojson';
@@ -23,11 +26,8 @@ export const STICHTAGE = [
  * Possible selections of Teilmärkte
  */
 export const TEILMAERKTE = [
-    { value: 'B', viewValue: $localize`Bauland` },
-    { value: 'LF', viewValue: $localize`Landwirtschaft` },
-    { value: 'SF', viewValue: $localize`Sonstige Flächen` },
-    { value: 'R', viewValue: $localize`Rohbauland` },
-    { value: 'E', viewValue: $localize`Bauerwartungsland` },
+    { value: ['B', 'SF', 'R', 'E'], viewValue: $localize`Bauland`, color: '#c4153a' },
+    { value: ['LF'], viewValue: $localize`Land- und forstwirtschaftliche Flächen`, color: '#009900' },
 ];
 
 /**
@@ -36,19 +36,20 @@ export const TEILMAERKTE = [
 @Component({
     selector: 'power-main',
     templateUrl: 'bodenrichtwert.component.html',
-    styleUrls: ['bodenrichtwert.component.css']
+    styleUrls: ['bodenrichtwert.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertComponent implements OnDestroy {
 
     /**
      * Adresse to be shown
      */
-    adresse: Feature;
+    public adresse: Feature;
 
     /**
      * Subscription to adresse, loaded by Geosearch-Service
      */
-    adresseSubscription: Subscription;
+    public adresseSubscription: Subscription;
 
     /**
      * Features (Bodenrichtwerte as GeoJSON) to be shown
@@ -58,34 +59,39 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
      */
-    featureSubscription: Subscription;
+    public featureSubscription: Subscription;
 
     /**
      * Actual selected Stichtag
      */
-    stichtag;
+    public stichtag;
 
     /**
      * Actual selected Teilmarkt
      */
-    teilmarkt;
+    public teilmarkt: any;
 
-    isCollapsed = true;
+    public isCollapsed = true;
 
-    isExpanded = true;
+    public isExpanded = true;
 
     @ViewChild('collapse') collapse: ElementRef;
 
     constructor(
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
-        private titleService: Title
+        private titleService: Title,
+        private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - POWER.NI`);
-        this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => this.adresse = adr);
+        this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
+            this.adresse = adr;
+            this.cdr.detectChanges();
+        });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
             this.isCollapsed = false;
+            this.cdr.detectChanges();
         });
         this.stichtag = STICHTAGE[0];
         this.teilmarkt = TEILMAERKTE[0];

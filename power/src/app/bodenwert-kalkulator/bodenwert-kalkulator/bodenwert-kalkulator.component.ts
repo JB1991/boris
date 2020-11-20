@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
@@ -7,7 +7,8 @@ import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point } from
 @Component({
     selector: 'power-bodenwert-kalkulator',
     templateUrl: './bodenwert-kalkulator.component.html',
-    styleUrls: ['./bodenwert-kalkulator.component.scss']
+    styleUrls: ['./bodenwert-kalkulator.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenwertKalkulatorComponent implements OnInit {
 
@@ -62,7 +63,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
                 this.map.flyTo({
                     center: event.lngLat
                 });
-
                 const point: Point = new Point(event.point.x, event.point.y);
                 const features: MapboxGeoJSONFeature[] =
                     this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
@@ -78,6 +78,26 @@ export class BodenwertKalkulatorComponent implements OnInit {
             }
         }
     }
+
+    // selectingFlurstueck() {
+    //     if (this.marker.getLngLat) {
+    //         console.log(this.marker);
+    //         const zoomlvl = this.map.getZoom();
+    //         if (this.marker && zoomlvl >= 14) {
+    //             this.isCollapsed = false;
+    //             this.map.flyTo({
+    //                 center: this.marker.getLngLat()
+    //             });
+    //             // const point: Point = new Point(this.marker.getPos(), this.marker.getPos());
+    //             // const features: MapboxGeoJSONFeature[] =
+    //             //     this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
+    //             // for (const feature of features) {
+    //             //     this.updateFlurstueckSelection(feature);
+    //             // }
+    //             // this.updateFlurstueckHighlighting();
+    //         }
+    //     }
+    // }
 
     updateFlurstueckSelection(feature: MapboxGeoJSONFeature) {
         if (this.flurstueckSelection.has(feature.properties.gml_id)) {
@@ -114,7 +134,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
         })
             .setLngLat(event.geometry.coordinates)
             .addTo(this.map);
-        this.marker.togglePopup();
         this.map.flyTo({
             center: event.geometry.coordinates,
             zoom: 17,

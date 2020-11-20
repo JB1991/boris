@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
@@ -13,7 +14,7 @@ import { Feature } from 'geojson';
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
     const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
 
-    const entw = 'B';
+    const entw = ['B'];
     const lat = 52.40729;
     const lon = 9.80205;
 
@@ -31,7 +32,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
                 NgxMapboxGLModule,
                 FormsModule,
                 ReactiveFormsModule,
-                SharedModule
+                SharedModule,
+                RouterModule.forRoot([]),
             ]
         })
             .compileComponents();
@@ -40,7 +42,10 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
         component = fixture.componentInstance;
-        component.teilmarkt = '';
+        component.teilmarkt = {
+            'value': [''],
+            'viewValue': ''
+        };
         fixture.detectChanges();
 
         const map = new Map({
@@ -56,7 +61,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.map, 'removeLayer');
         spyOn(component.map, 'resize');
 
-        const lngLat: LngLat = {lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null};
+        const lngLat: LngLat = { lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null };
         spyOn(component.marker, 'getLngLat').and.returnValue(lngLat);
 
         httpClient = TestBed.inject(HttpClient);
@@ -89,13 +94,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.filterActive).toBe(false);
         component.toggleFilterActive();
         expect(component.filterActive).toBe(true);
-    });
-
-    it('selectSearchResult should update the map', () => {
-        spyOn(component, 'getBodenrichtwertzonen');
-        component.selectSearchResult(feature);
-        expect(component.map.flyTo).toHaveBeenCalledTimes(1);
-        expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(1);
     });
 
     it('getBodenrichtwertzonen should call BodenrichtwertService', () => {
@@ -160,7 +158,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('onTeilmarktChange should update the Teilmarkt attribute and call getBodenrichtwertzonen', () => {
         const teilmarkt = {
-            'value': 'LF',
+            'value': ['LF'],
             'viewValue': 'Landwirtschaft'
         };
         spyOn(component, 'getBodenrichtwertzonen');

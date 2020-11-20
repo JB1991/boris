@@ -33,12 +33,15 @@ export class StartComponent implements OnInit {
         this.config = this.configService.config;
     }
 
+    form: any = {};
+
     /**
      * Redirects to formular fillout dialogue
      * @param pin Formular pin
      */
     submitPIN(pin: string) {
         if (!pin) {
+            this.alerts.NewAlert('danger', $localize`Bitte Pin eingeben`, '');
             throw new Error('pin is required');
         }
         this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });

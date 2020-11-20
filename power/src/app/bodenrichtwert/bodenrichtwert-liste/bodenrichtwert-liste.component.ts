@@ -1,10 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Feature, FeatureCollection } from 'geojson';
 
 @Component({
     selector: 'power-bodenrichtwert-liste',
     templateUrl: 'bodenrichtwert-liste.component.html',
     styleUrls: ['./bodenrichtwert-liste.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertListeComponent implements OnChanges {
 

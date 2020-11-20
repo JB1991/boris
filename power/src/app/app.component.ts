@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public config: Config;
     public appVersion: any = { version: 'local', branch: 'dev' };
     public uri = location;
-    public baseurl = location.pathname;
+    public baseurl = location.pathname + location.search;
     private _subscription: Subscription;
 
     private unsubscribe$: Subject<void> = new Subject<void>();
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 this.isCollapsedAcc = true;
 
                 // update baseurl
-                this.baseurl = location.pathname;
+                this.baseurl = location.pathname + location.search;
                 if (this.baseurl.startsWith('/' + this.locale + '/')) {
                     this.baseurl = this.baseurl.substr(this.locale.length + 1);
                 }

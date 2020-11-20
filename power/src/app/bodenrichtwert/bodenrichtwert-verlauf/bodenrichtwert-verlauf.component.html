@@ -40,11 +40,11 @@
             </tbody>
         </table>
 
-        <div echarts
+        <div class="time-series"
+             id="time-series"
+             echarts
              (chartInit)="onChartInit($event)"
-             [options]="chartOption"
-             class="time-series"
-             id="time-series"></div>
+             [options]="chartOption"></div>
     </ng-container>
 
     <ng-container *ngIf="!echartsInstance">

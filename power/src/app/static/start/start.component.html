@@ -60,12 +60,16 @@
                            i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</label>
                     <input type="text"
                            class="form-control mr-2 w-mobile"
+                           name="pin"
+                           [(ngModel)]="form.pin"
+                           #pin="ngModel"
+                           [ngClass]="{ 'is-invalid': pinFormular.submitted && pin.invalid}"
+                           required
                            id="pin"
                            i18n-placeholder
                            placeholder="Formular PIN"
                            aria-labelledby="formPIN"
-                           aria-placeholder=""
-                           #pin>
+                           aria-placeholder="">
 
                     <button type="submit"
                             class="btn btn-success"
