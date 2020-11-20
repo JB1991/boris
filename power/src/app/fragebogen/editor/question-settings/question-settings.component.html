@@ -33,12 +33,6 @@
                     </small>
                 </div>
 
-                <!-- ToDo: Passende Formatierung finden -->
-                <button type="button"
-                        class="btn btn-sm btn-link"
-                        (click)="formattinghelpmodal.open()"
-                        i18n>Hilfe zur Formatierung</button>
-
                 <!-- question-title -->
                 <div class="form-group">
                     <label for="question-title"
@@ -64,6 +58,10 @@
                            class="form-text text-muted"
                            i18n>Dieser Text wird unter der Frage angezeigt.</small>
                 </div>
+
+                <!-- markdown-instructions -->
+                <power-markdown-instructions #formattinghelpmodal>
+                </power-markdown-instructions>
 
                 <span i18n>Sichtbarkeitsbedingungen für die Frage</span>
                 <hr>
@@ -830,6 +828,3 @@
         </button>
     </div>
 </power-modal>
-
-<!-- configure element modal -->
-<power-markdown-instructions #formattinghelpmodal></power-markdown-instructions>
