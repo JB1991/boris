@@ -52,15 +52,14 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     it('ngOnChanges should work', () => {
         component.resetGeosearch = true;
         component.model = feature;
-        // component.adresse = 'Hannover';
-        let changes: SimpleChanges = {
-            // resetGeosearch: new SimpleChange(null, 'Test', false),
+        component.ngOnChanges({
+            resetGeosearch: new SimpleChange(null, false, false)
+        });
+        expect(component.model).toBeUndefined();
+        component.ngOnChanges({
             adresse: new SimpleChange(null, changedFeature, false)
-        }
-        component.ngOnChanges(changes);
-        fixture.detectChanges();
+        });
         expect(component.model).toEqual(changedFeature);
-        // expect(component.model).toBeUndefined();
     });
 
     it('selectItem selects an item from the result list', (done) => {
