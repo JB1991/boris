@@ -9,7 +9,7 @@
              (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)"
              (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>
         <div style="text-align: center;" [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}"
-            i18n>HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</div>
+            i18n aria-hidden="true">HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</div>
     </div>
     <div class="col-sm-4">
         <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)"
