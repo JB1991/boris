@@ -56,7 +56,15 @@ ul {
 }
 
 ::ng-deep svg.bi {
-    margin-bottom: 3px;
+    margin-bottom: inherit;
+    vertical-align: -0.05em;
 }
 
+span.download {
+    cursor: pointer;
+}
+
+span.download:hover {
+    color: #c4153a;
+}
 /* vim: set expandtab ts=4 sw=4 sts=4: */

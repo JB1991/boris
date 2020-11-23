@@ -64,7 +64,7 @@ export const mergeShow = {
         show: false
     },
     toolbox: {
-        show: true
+        show: false
     },
     dataZoom: [
         {

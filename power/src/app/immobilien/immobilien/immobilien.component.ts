@@ -33,6 +33,8 @@ export class ImmobilienComponent implements OnInit {
     nipixRuntime = new ImmobilenNipixRuntime.NipixRuntime(this.nipixStatic);
 
     @ViewChild('acc', { static: true }) accordionComponent: NgbAccordion;
+    @ViewChild('toolacc', { static: true }) accordionTool: NgbAccordion;
+
     model: any;
 
     @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
@@ -675,6 +677,16 @@ export class ImmobilienComponent implements OnInit {
     staticExpand(id) {
         return this.accordionComponent.isExpanded('static-' + id);
     }
+
+    /**
+     * Check Static Tool Expand
+     *
+     * @param id id of the tab
+     */
+    staticToolExpand(id) {
+        return this.accordionTool.isExpanded('static-' + id);
+    }
+
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

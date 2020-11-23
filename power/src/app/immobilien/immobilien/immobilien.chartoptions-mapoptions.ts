@@ -63,7 +63,7 @@ export const mapOptions = {
         }
     },
     'toolbox': {
-        'show': true,
+        'show': false,
         'orient': 'vertical',
         'itemSize': 30,
         'itemGap': 20,

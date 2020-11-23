@@ -178,11 +178,78 @@
                 </ng-template>
             </ngb-panel>
 
+        </ngb-accordion>
+        <br>
+        <!-- SR-Only Content -->
+
+        <!-- Tools -->
+        <ngb-accordion [closeOthers]="true" activeIds="" #toolacc="ngbAccordion">
+
+
+            <!-- Export / Print -->
+            <ngb-panel id="static-98">
+                <ng-template ngbPanelTitle>
+                    <i-bs name="plus-circle" *ngIf="staticToolExpand(98) === false" aria-hidden="true" class="mr-1"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticToolExpand(98) === true" aria-hidden="true" class="mr-1"></i-bs>
+                    <ng-container i18n>Export / Download</ng-container>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    Karte:
+                    <ul>
+                        <li>
+                            <span class="download" role="link" tabindex="0"
+                                (click)="nipixRuntime.export.exportMapAsImage()"
+                                (keydown.enter)="nipixRuntime.export.exportMapAsImage()">
+                                <i-bs name="file-earmark-image" aria-hidden="true"></i-bs>
+                                Export als Bild (png)
+                            </span>
+                        </li>
+                        <li>
+                            <span class="download" role="link" tabindex="0"
+                                (click)="nipixRuntime.export.exportGeoJSON()"
+                                (keydown.enter)="nipixRuntime.export.exportGeoJSON()">
+                                <i-bs name="file-earmark-richtext" aria-hidden="true"></i-bs>
+                                Export als GeoJSON
+                            </span>
+                        </li>
+                    </ul>
+                    Preisentwicklung:
+                    <ul>
+                        <li>
+                            <span class="download" role="link" tabindex="0"
+                                (click)="nipixRuntime.export.exportAsImage()"
+                                (keydown.enter)="nipixRuntime.export.exportAsImage()">
+                                <i-bs name="file-earmark-image" aria-hidden="true"></i-bs>
+                                Export als Bild (png)
+                            </span>
+                        </li>
+                        <li>
+                            <span class="download" role="link" tabindex="0"
+                                (click)="nipixRuntime.export.exportNiPixGeoJson(true)"
+                                (keydown.enter)="nipixRuntime.export.exportNiPixGeoJson(true)">
+                                <i-bs name="file-earmark-richtext" aria-hidden="true"></i-bs>
+                                Export als GeoJSON
+                            </span>
+                        </li>
+                        <li>
+                            <span class="download" role="link" tabindex="0"
+                                (click)="nipixRuntime.export.exportNiPixGeoJson(false)"
+                                (keydown.enter)="nipixRuntime.export.exportNiPixGeoJson(false)">
+                                <i-bs name="file-earmark-spreadsheet" aria-hidden="true"></i-bs>
+                                Export als CSV
+                            </span>
+                        </li>
+                    </ul>
+
+                </ng-template>
+
+            </ngb-panel>
+
             <!-- Find Woma-Region -->
             <ngb-panel id="static-99">
                 <ng-template ngbPanelTitle>
-                    <i-bs name="plus-circle" *ngIf="staticExpand(99) === false" aria-hidden="true" class="mr-1"></i-bs>
-                    <i-bs name="dash-circle" *ngIf="staticExpand(99) === true" aria-hidden="true" class="mr-1"></i-bs>
+                    <i-bs name="plus-circle" *ngIf="staticToolExpand(99) === false" aria-hidden="true" class="mr-1"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticToolExpand(99) === true" aria-hidden="true" class="mr-1"></i-bs>
                     <ng-container i18n>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</ng-container>
                 </ng-template>
                 <ng-template ngbPanelContent>

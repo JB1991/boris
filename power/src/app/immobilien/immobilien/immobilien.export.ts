@@ -29,6 +29,16 @@ export class ImmobilienExport {
         this.nipixRuntime = niRuntime;
     }
 
+    public exportMapAsImage() {
+        const img = this.nipixRuntime.map.obj.getDataURL({
+            type: 'png',
+            pixelRatio: 2,
+            backgroundColor: '#fff'
+        });
+
+        ImmobilienHelper.downloadFile(img, 'Wohnungsmarktregionen.png', '', true);
+    }
+
     /**
      * Download current Diagram Data as csv
      */
