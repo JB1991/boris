@@ -41,6 +41,12 @@ ul {
     text-align: left;
 }
 
+ul.tab {
+    display: table;
+    border-spacing: 0.2em 0;
+}
+
+
 .check {
     width: 1.5rem;
     display: table-cell;
