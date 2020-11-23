@@ -185,6 +185,27 @@
         <br>
         <!-- SR-Only Content -->
 
+        <div class="sr-only" aria-hidden="false">
+            <span i18n>Immobilienpreisentwicklung:</span>
+            <table>
+                <tr>
+                    <th i18n>Quartal</th>
+                    <ng-container *ngFor="let data of nipixRuntime.calculated.drawData; let d = index">
+                        <th *ngIf="d < nipixRuntime.calculated.drawData.length-1">
+                            {{nipixRuntime.formatter.findName(data.name, false, false, false)}}
+                        </th>
+                    </ng-container>
+                </tr>
+                <ng-container *ngFor="let quart of nipixRuntime.availableQuartal; let q = index">
+                    <tr *ngIf="q >= nipixRuntime.state.rangeStartIndex && q <= nipixRuntime.state.rangeEndIndex">
+                        <td>{{ quart }}</td>
+                        <ng-container *ngFor="let data of nipixRuntime.calculated.drawData; let d = index">
+                            <td *ngIf="d < nipixRuntime.calculated.drawData.length-1"> {{data['data'][q]}} </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </table>
+        </div>
         <!-- Tools -->
         <ngb-accordion [closeOthers]="true" activeIds="" #toolacc="ngbAccordion">
 
