@@ -16,6 +16,18 @@
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 45px, #fff 45px);
 }
 
+div.title {
+    border-bottom: 1px solid #c4153a;
+    color: black;
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+}
+
+div.title h1 {
+    margin: auto;
+    font-size: 1.25rem;
+}
+
 ul {
     list-style: none;
 }

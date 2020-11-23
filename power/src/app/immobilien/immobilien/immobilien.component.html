@@ -1,3 +1,6 @@
+<div class="row title">
+    <h1 i18n>Niedersächsischer Immobilienpreisindex</h1>
+</div>
 <div class="row mh-100" [ngClass]="{'rowrtl': nipixStatic.layoutRtl === true}">
     <div class="col-sm-8">
         <div echarts [options]="this.nipixRuntime.map.options" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
