@@ -96,12 +96,12 @@ export class ImmobilienFormatter {
         return '';
     };
 
-    private findName = (name: string, legend = false, shortregion = false): string => {
+    public findName = (name: string, legend = false, shortregion = false, shortname = true): string => {
         let myname = '';
 
         if (legend && this.nipixRuntime.calculated.legendText.hasOwnProperty(name)) {
             myname = this.nipixRuntime.calculated.legendText[name];
-        } else if (this.nipixStatic.data.shortNames.hasOwnProperty(name)) {
+        } else if (shortname && this.nipixStatic.data.shortNames.hasOwnProperty(name)) {
             myname = this.nipixStatic.data.shortNames[name];
         } else if (!shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
             myname = this.nipixStatic.data.regionen[name]['name'];

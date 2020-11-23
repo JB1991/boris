@@ -33,6 +33,8 @@ export class ImmobilienComponent implements OnInit {
     nipixRuntime = new ImmobilenNipixRuntime.NipixRuntime(this.nipixStatic);
 
     @ViewChild('acc', { static: true }) accordionComponent: NgbAccordion;
+    @ViewChild('toolacc', { static: true }) accordionTool: NgbAccordion;
+
     model: any;
 
     @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
@@ -374,6 +376,24 @@ export class ImmobilienComponent implements OnInit {
     }
 
     /**
+     * Manually change Quartal
+     */
+    onChangeQuartal(start, end) {
+        if (start !== null) {
+            this.nipixRuntime.state.rangeStartIndex = start;
+        }
+
+        if (end !== null) {
+            this.nipixRuntime.state.rangeEndIndex = end;
+        }
+
+        this.updateChart(
+            this.nipixRuntime.state.rangeStartIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
+            this.nipixRuntime.state.rangeEndIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1)
+        );
+    }
+
+    /**
      * Switch between multiple Draw Items
      */
     onClickDrawRoot(name) {
@@ -675,6 +695,16 @@ export class ImmobilienComponent implements OnInit {
     staticExpand(id) {
         return this.accordionComponent.isExpanded('static-' + id);
     }
+
+    /**
+     * Check Static Tool Expand
+     *
+     * @param id id of the tab
+     */
+    staticToolExpand(id) {
+        return this.accordionTool.isExpanded('static-' + id);
+    }
+
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
