@@ -26,7 +26,7 @@
                     <!-- NiPix Category Selection -->
                     <div ngbDropdown *ngIf="select['type'] === 'single' || select['type'] === 'multiIndex'"
                          class="d-inline-block btn-block ">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" type="button" ngbDropdownToggle>
+                        <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" type="button" aria-haspopup="listbox" attr.aria-label="Kategorie auswählen. Aktuelle Auswahl {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}" ngbDropdownToggle>
                             <i-bs name="house-fill"
                                   *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory === 'gebrauchte Eigenheime'"
                                   aria-hidden="true">
@@ -37,7 +37,7 @@
                             </i-bs>
                             {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}
                         </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic2-p" class="dropdown-menu">
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic2-{{p}}" class="dropdown-menu">
                             <button type="button" class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories"
                                     (click)="onChangeCat(select['preset'], f)">
                                 <i-bs name="house-fill"
@@ -56,7 +56,7 @@
                     <!-- MultiSelect -->
                     <div ngbDropdown class="d-inline-block btn-block" style="margin-bottom: 1rem;" *ngIf="select['type'] === 'multiSelect'">
                         <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}"
-                                type="button" ngbDropdownToggle>
+                                type="button" aria-haspopup="listbox" ngbDropdownToggle>
                             {{ (select['selected']) }} <ng-container i18n>Vergleiche</ng-container>
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
