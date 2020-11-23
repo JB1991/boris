@@ -46,13 +46,12 @@ ul.tab {
     border-spacing: 0.2em 0;
 }
 
-
 .check {
     width: 1.5rem;
     display: table-cell;
     vertical-align: top;
     padding-left: 2rem;
-    padding-top: 0.2rem
+    padding-top: 0.2rem;
 }
 
 .dot {
@@ -87,7 +86,10 @@ span.download:hover {
     color: #c4153a;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid black;
 }
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

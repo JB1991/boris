@@ -88,7 +88,7 @@
                                            attr.aria-label="{{nipixRuntime.translate(f)}}"
                                            *ngIf="select['preset'].length === 1">
 
-                                        <input type="radio" id="npx{{i}}_{{x}}" name="npx{{i}}"
+                                        <input type="radio" id="npx{{i}}_{{x}}_" name="npx{{i}}"
                                            class="custom-control-input"
                                            [checked]="nipixRuntime.getDrawPreset(itm)['nipixCategory'] === f"
                                            (click)="toggleNipixCategory(itm)"
@@ -96,7 +96,8 @@
                                            *ngIf="select['preset'].length > 1">
 
 
-                                        <label class="custom-control-label" for="npx{{i}}_{{x}}"></label>
+                                        <label class="custom-control-label" for="npx{{i}}_{{x}}" *ngIf="select['preset'].length === 1"></label>
+                                        <label class="custom-control-label" for="npx{{i}}_{{x}}_" *ngIf="select['preset'].length > 1"></label>
 
                                     </span>
                                 </ng-container>
@@ -128,15 +129,18 @@
                                             attr.aria-label="Alles/Nichts auswählen"
                                             *ngIf="select['preset'].length === 1">
 
-                                        <input id="{{i}}vall"
+                                        <input id="{{i}}vall_"
                                             [checked]="nipixRuntime.getDrawPreset(itm).values.length > 0"
                                             type="checkbox" class="custom-control-input"
                                             (click)="toggleAllSelect(itm)"
                                             attr.aria-label="Alles/Nichts auswählen (Vergleich {{i+1}})"
                                             *ngIf="select['preset'].length > 1">
 
-                                        <label for="{{i}}vall" style="margin-bottom: 0;" class="custom-control-label">
+                                        <label for="{{i}}vall" style="margin-bottom: 0;" class="custom-control-label" *ngIf="select['preset'].length === 1">
                                         </label>
+                                        <label for="{{i}}vall_" style="margin-bottom: 0;" class="custom-control-label" *ngIf="select['preset'].length > 1">
+                                        </label>
+
                                     </span>
                                     <span class="dotlabel" style="vertical-align: middle;"
                                         *ngIf="select['type'] === 'single' && nipixRuntime.getDrawPreset(itm).values.length === 0"
@@ -166,7 +170,7 @@
                                         attr.aria-label="{{ nipixRuntime.formatter.getSeriesLabel(subitem) }}"
                                         *ngIf="select['preset'].length === 1">
 
-                                    <input id="{{i}}v1{{subitem}}"
+                                    <input id="{{i}}v1{{subitem}}_"
                                         [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)"
                                         type="checkbox" class="custom-control-input"
                                         (click)="toggleMapSelect(itm, subitem, select['type'])"
@@ -174,7 +178,10 @@
                                         *ngIf="select['preset'].length > 1">
 
                                     <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0;"
-                                        class="custom-control-label"></label>
+                                        class="custom-control-label" *ngIf="select['preset'].length === 1"></label>
+                                    <label for="{{i}}v1{{subitem}}_" style="margin-bottom: 0;"
+                                        class="custom-control-label" *ngIf="select['preset'].length > 1"></label>
+
                                 </span>
                             </ng-container>
                             <span class="dot" *ngIf="select['type'] === 'single'">
@@ -222,22 +229,24 @@
         <div class="sr-only" aria-hidden="false">
             <span i18n>Immobilienpreisentwicklung:</span>
             <table>
-                <tr>
-                    <th i18n>Quartal</th>
-                    <ng-container *ngFor="let data of nipixRuntime.calculated.drawData; let d = index">
-                        <th *ngIf="d < nipixRuntime.calculated.drawData.length-1">
-                            {{nipixRuntime.formatter.findName(data.name, false, false, false)}}
-                        </th>
-                    </ng-container>
-                </tr>
-                <ng-container *ngFor="let quart of nipixRuntime.availableQuartal; let q = index">
-                    <tr *ngIf="q >= nipixRuntime.state.rangeStartIndex && q <= nipixRuntime.state.rangeEndIndex">
-                        <td>{{ quart }}</td>
+                <tbody>
+                    <tr>
+                        <th scope="col" i18n>Quartal</th>
                         <ng-container *ngFor="let data of nipixRuntime.calculated.drawData; let d = index">
-                            <td *ngIf="d < nipixRuntime.calculated.drawData.length-1"> {{data['data'][q]}} </td>
+                            <th scope="col" *ngIf="d < nipixRuntime.calculated.drawData.length-1">
+                                {{nipixRuntime.formatter.findName(data.name, false, false, false)}}
+                            </th>
                         </ng-container>
                     </tr>
-                </ng-container>
+                    <ng-container *ngFor="let quart of nipixRuntime.availableQuartal; let q = index">
+                        <tr *ngIf="q >= nipixRuntime.state.rangeStartIndex && q <= nipixRuntime.state.rangeEndIndex">
+                            <td>{{ quart }}</td>
+                            <ng-container *ngFor="let data of nipixRuntime.calculated.drawData; let d = index">
+                                <td *ngIf="d < nipixRuntime.calculated.drawData.length-1"> {{data['data'][q]}} </td>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
+                </tbody>
             </table>
         </div>
         <!-- Tools -->
@@ -255,22 +264,22 @@
 
                     <span id="dropdownTime1Label" i18n>Zeitraum von </span>
                     <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownTime1" aria-haspopup="listbox" attr.aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}" ngbDropdownToggle>
+                        <button type="button" class="btn btn-block shadow-sm bg-white" id="dropdownTime1" aria-haspopup="listbox" attr.aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}" ngbDropdownToggle>
                             {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownTime1Label">
-                            <button ngbDropdownItem *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(q, null)">{{quart}}</button>
+                            <button type="button" ngbDropdownItem *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(q, null)">{{quart}}</button>
                         </div>
                     </div>
 
                     <span i18n id="dropdownTime2Label"> bis </span>
 
                     <div ngbDropdown class="d-inline-block">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownTime2" aria-haspopup="listbox" attr.aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndtIndex]}}" ngbDropdownToggle>
+                        <button type="button" class="btn btn-block shadow-sm bg-white" id="dropdownTime2" aria-haspopup="listbox" attr.aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndtIndex]}}" ngbDropdownToggle>
                             {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownTime2Label">
-                            <button ngbDropdownItem *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(null, q)">{{quart}}</button>
+                            <button type="button" ngbDropdownItem *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(null, q)">{{quart}}</button>
                         </div>
                     </div>
 
