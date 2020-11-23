@@ -9,10 +9,6 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 })
 export class MarkdownInstructionsComponent {
     @ViewChild('formattinghelpmodal') public modal: ModalminiComponent;
-
+    public title = $localize`Hilfe zur Formatierung`;
     constructor() { }
-
-    public open() {
-        this.modal.open($localize`Formatierungshilfe`);
-    }
 }
