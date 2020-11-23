@@ -209,6 +209,40 @@
         <!-- Tools -->
         <ngb-accordion [closeOthers]="true" activeIds="" #toolacc="ngbAccordion">
 
+            <!-- Quartal asuwählen -->
+            <ngb-panel id="static-97">
+                <ng-template ngbPanelTitle>
+                    <i-bs name="plus-circle" *ngIf="staticToolExpand(97) === false" aria-hidden="true" class="mr-1"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticToolExpand(97) === true" aria-hidden="true" class="mr-1"></i-bs>
+                    <ng-container i18n>Zeitraum auswählen</ng-container>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <span i18n aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem Graphen erfolgen.<br></span>
+
+                    <span id="dropdownTime1Label" i18n>Zeitraum von </span>
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-block shadow-sm bg-white" id="dropdownTime1" aria-haspopup="listbox" attr.aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}" ngbDropdownToggle>
+                            {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownTime1Label">
+                            <button ngbDropdownItem *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(q, null)">{{quart}}</button>
+                        </div>
+                    </div>
+
+                    <span i18n id="dropdownTime2Label"> bis </span>
+
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-block shadow-sm bg-white" id="dropdownTime2" aria-haspopup="listbox" attr.aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndtIndex]}}" ngbDropdownToggle>
+                            {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownTime2Label">
+                            <button ngbDropdownItem *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(null, q)">{{quart}}</button>
+                        </div>
+                    </div>
+
+                </ng-template>
+            </ngb-panel>
+
 
             <!-- Export / Print -->
             <ngb-panel id="static-98">

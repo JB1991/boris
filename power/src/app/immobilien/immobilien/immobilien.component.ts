@@ -376,6 +376,24 @@ export class ImmobilienComponent implements OnInit {
     }
 
     /**
+     * Manually change Quartal
+     */
+    onChangeQuartal(start, end) {
+        if (start !== null) {
+            this.nipixRuntime.state.rangeStartIndex = start;
+        }
+
+        if (end !== null) {
+            this.nipixRuntime.state.rangeEndIndex = end;
+        }
+
+        this.updateChart(
+            this.nipixRuntime.state.rangeStartIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
+            this.nipixRuntime.state.rangeEndIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1)
+        );
+    }
+
+    /**
      * Switch between multiple Draw Items
      */
     onClickDrawRoot(name) {
