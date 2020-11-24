@@ -1,3 +1,4 @@
+import { ValueTransformer } from '@angular/compiler/src/util';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -5,46 +6,141 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class BodenartPipe implements PipeTransform {
 
-    bod = {
-        'S': $localize`Sand`,
-        'L': $localize`Lehm`,
-        'LG': $localize`Lehm mit starkem Steingehalt`,
-        'T': $localize`Ton`,
-        'Mo': $localize`Moor`,
-        'Fe': $localize`Felsen`,
-        'IS': $localize`Lehmiger Sand`,
-        'LMo': $localize`Lehm, Moor`,
-        'ISg': $localize`Lehmiger Sand mit starkem Steingehalt`,
-        'SI': $localize`Anlehmiger Sand`,
-        'LT': $localize`Schwerer Lehm`,
-        'ISMo': $localize`Lemiger Sand, Moor`,
-        'St': $localize`Steine und Blöcke`,
-        'MoL': $localize`Moor, Lehm`,
-        'MoIS': $localize`Moor, Lehmiger Sand`,
-        'MoS': $localize`Moor, Sand`,
-        'MoT': $localize`Moor, Ton`,
-    };
+    bodTypes = [
+        { key: 'S', value: $localize`Sand`, slash: $localize`Sand`, comma: $localize`Sand`, plus: $localize`Sand` },
+        { key: 'sL', value: $localize`Sandiger Lehm`, slash: $localize`sandigem Lehm`, comma: $localize`sandiger Lehm`, plus: $localize`sandigem Lehm` },
+        { key: 'Sl', value: $localize`Anlehmiger Sand`, slash: $localize`anlehmigem Sand`, comma: $localize`anlehmiger Sand`, plus: $localize`anlehmigem Sand` },
+        { key: 'St', value: $localize`Steine und Blöcke`, slash: $localize`Steinen und Blöcken`, comma: $localize`Steine und Blöcke`, plus: $localize`Steinen und Blöcken` },
+        { key: 'lS', value: $localize`Lehmiger Sand`, slash: $localize`lehmigem Sand`, comma: $localize`lehmiger Sand`, plus: $localize`lehmigem Sand` },
+        { key: 'lSg', value: $localize`Lehmiger Sand mit starkem Steingehalt`, slash: $localize`lemigem Sand mit starkem Steingehalt`, comma: $localize`lehmiger Sand mit starkem Steingehalt`, plus: $localize`lehmigem Sand mit starkem Steingehalt` },
+        { key: 'L', value: $localize`Lehm`, slash: $localize`Lehm`, comma: $localize`Lehm`, plus: $localize`Lehm` },
+        { key: 'Lg', value: $localize`Lehm mit starkem Steingehalt`, slash: $localize`Lehm mit starkem Steingehalt`, comma: $localize`Lehm mit starkem Steingehalt`, plus: $localize`Lehm mit starkem Steingehalt` },
+        { key: 'LT', value: $localize`Schwerer Lehm`, slash: $localize`schwerem Lehm`, comma: $localize`schwerer Lehm`, plus: $localize`schwerem Lehm` },
+        { key: 'T', value: $localize`Ton`, slash: $localize`Ton`, comma: $localize`Ton`, plus: $localize`Ton` },
+        { key: 'Fe', value: $localize`Felsen`, slash: $localize`Felsen`, comma: $localize`Felsen`, plus: $localize`Felsen` },
+        { key: 'Mo', value: $localize`Moor`, slash: $localize`Moor`, comma: $localize`Moor`, plus: $localize`Moor` },
+    ];
+
+    regex: RegExp[] = [
+        // 3 chars
+        /^([a-z]{1})([A-Z]{2})/, // aBC , z.B. sLT
+        /^([A-Z]{2})([a-z]{1})/, // ABc , z.B. SMo
+        /^([A-Z]{1}[a-z]{1})([A-Z]{1})/, // AbC , z.B. MoS
+        // 4 chars
+        /^([A-Z]{1}[a-z]{1})([a-z]{1}[A-Z]{1})/, // AbcD , z.B. MolS
+        /^([A-Z]{1}[a-z]{1})([A-Z]{1}[a-z]{1})/, // AbCd , z.B. AbCd
+        /^([a-z]{1}[A-Z]{1})([A-Z]{1}[a-z]{1})/, // aBCd , z.B. lSMo
+        // more expressions ...
+    ];
 
     transform(value: any, ...args: any[]): any {
 
         let res = '';
+        let types: string[] = [];
 
-        if (value.includes(',')) {
-            const bodenarten = value.split(',');
-            bodenarten.forEach(bodenart => {
-                res += this.bod[bodenart] + ' und ';
-            });
-            res = res.slice(0, res.length - 5);
+        if (this.bodTypeExists(value)) {
+            res = this.getBodType(value).value;
+        } else if (value.includes(',')) {
+            types = value.split(',');
+            res = this.buildDisplayValue(types, 'und');
         } else if (value.includes('/')) {
-            const bodenarten = value.split('/');
-            bodenarten.forEach(bodenart => {
-                res += this.bod[bodenart] + ' auf ';
-            });
-            res = res.slice(0, res.length - 5);
+            types = value.split('/');
+            res = this.buildDisplayValue(types, 'auf');
+        } else if (value.includes('+')) {
+            types = value.split('+');
+            res = this.buildDisplayValue(types, 'mit');
         } else {
-            res = this.bod[value];
+            types = this.matchRegExp(value);
+            if (types) {
+                res = this.buildDisplayValue(types, ',');
+            } else {
+                res = ''; // no match
+            }
+        }
+        return res;
+    }
+
+    /**
+     * Checks if a bodenart exists for a given key
+     * 
+     * @param value key einer Bodenart
+     */
+    private bodTypeExists(value: string): boolean {
+        return this.bodTypes.some(b => b.key === value);
+    }
+
+    /**
+     * Returns the bodenart for a given key
+     * 
+     * @param value key einer Bodenart
+     */
+    private getBodType(value: string): any {
+        return this.bodTypes.find(b => b.key === value);
+    }
+
+    /**
+     * Builds the string based on the keys of different bodenarten and
+     * concatenates them to an value for the display
+     * 
+     * @param types keys of given bodenarten
+     * @param operator defines how to combine multiple bodenarten
+     */
+    private buildDisplayValue(types: Array<string>, operator: string): string {
+        let displayValue: string = '';
+        let trimSpaces: number = 2; // default
+        let falseExp: boolean = false;
+
+        if (operator.length === 1) {
+            trimSpaces = 1;
         }
 
-        return res;
+        types.forEach((t: string, i: number) => {
+            let bod = this.getBodType(t);
+            if (bod && !falseExp) {
+                if (i === 0 && operator.length > 1) {
+                    displayValue += bod.value + ' ' + operator + ' ';
+                } else if (i === 0 && operator.length === 1) {
+                    displayValue += bod.value + operator + ' ';
+                } else {
+                    if (operator === 'und') {
+                        displayValue += bod.comma + ' ' + operator + ' ';
+                    } else if (operator === 'auf') {
+                        displayValue += bod.slash + ' ' + operator + ' ';
+                    } else if (operator === 'mit') {
+                        displayValue += bod.plus + ' ' + operator + ' ';
+                    } else if (operator === ',') {
+                        displayValue += bod.value + operator + ' ';
+                    }
+                }
+            } else {
+                falseExp = true;
+            }
+        });
+
+        if (falseExp) {
+            displayValue = '';
+        } else {
+            displayValue = displayValue.slice(0, displayValue.length - (trimSpaces + operator.length));
+        }
+
+        return displayValue;
+    }
+
+    /**
+     * Checks a given string based on regular expressions for
+     * different bodenarten combinations
+     * 
+     * @param value string with multiple bodenarten keys
+     */
+    private matchRegExp(value: string): string[] {
+        let types: string[] = [];
+
+        this.regex.forEach((r: RegExp) => {
+            if (r.test(value)) {
+                let groups = value.match(r);
+                types = groups.slice(1, groups.length);
+            }
+        });
+        return types;
     }
 }
