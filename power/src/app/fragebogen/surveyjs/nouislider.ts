@@ -1,5 +1,6 @@
 import noUiSlider from 'nouislider';
 
+/* eslint-disable complexity */
 /* istanbul ignore next */
 export function init(Survey) {
     const widget = {
@@ -64,6 +65,11 @@ export function init(Survey) {
                     default: false,
                 },
                 {
+                    name: 'double:boolean',
+                    category: 'slider',
+                    default: false,
+                },
+                {
                     name: 'decimals:number',
                     category: 'slider',
                     default: 2,
@@ -98,9 +104,31 @@ export function init(Survey) {
                 }
             }
 
+            // double slider option
+            let start;
+            let connect;
+            if (!question.double) {
+                if (!question.value || typeof question.value.length !== 'undefined') {
+                    start = (question.rangeMin + question.rangeMax) / 2;
+                    question.value = start;
+                } else {
+                    start = question.value || (question.rangeMin + question.rangeMax) / 2;
+                }
+                connect = [true, false];
+            } else {
+                const tmp = (question.rangeMax - question.rangeMin) / 3;
+                if (!question.value || question.value.length !== 2) {
+                    start = [question.rangeMin + tmp, question.rangeMin + tmp * 2];
+                    question.value = start;
+                } else {
+                    start = question.value || [question.rangeMin + tmp, question.rangeMin + tmp * 2];
+                }
+                connect = [false, true, false];
+            }
+
             const slider = noUiSlider.create(el, {
-                start: question.value || (question.rangeMin + question.rangeMax) / 2,
-                connect: [true, false],
+                start: start,
+                connect: connect,
                 step: question.step,
                 tooltips: question.tooltips,
                 pips: {
@@ -143,7 +171,7 @@ export function init(Survey) {
             });
 
             slider.on('change', function () {
-                question.value = Number(slider.get()).toFixed(question.decimals);
+                question.value = slider.get();
             });
 
             if (question.inputbox) {
@@ -163,6 +191,7 @@ export function init(Survey) {
                 el.parentNode.insertBefore(container, el.parentNode.firstChild);
 
                 input.onchange = () => {
+                    question.value = input.value;
                     slider.set(input.value);
                 };
                 slider.on('update', function () {

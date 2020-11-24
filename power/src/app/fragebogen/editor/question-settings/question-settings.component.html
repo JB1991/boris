@@ -316,8 +316,22 @@
                 </div>
 
                 <div *ngIf="model.pages[page].elements[question].type === 'nouislider'">
+                    <!-- question-double -->
+                    <div class="custom-control custom-checkbox mb-3"
+                         *ngIf="!model.pages[page].elements[question].inputbox">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].double"
+                               name="question-double"
+                               id="question-double">
+                        <label class="custom-control-label"
+                               for="question-double"
+                               i18n>Zweiten Handle für Slider aktivieren</label>
+                    </div>
+
                     <!-- question-inputbox -->
-                    <div class="custom-control custom-checkbox mb-3">
+                    <div class="custom-control custom-checkbox mb-3"
+                         *ngIf="!model.pages[page].elements[question].double">
                         <input type="checkbox"
                                class="custom-control-input"
                                [(ngModel)]="model.pages[page].elements[question].inputbox"
