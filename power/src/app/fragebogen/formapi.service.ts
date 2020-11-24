@@ -5,12 +5,18 @@ import { environment } from '@env/environment';
 import { AuthService } from '@app/shared/auth/auth.service';
 import {
     Access, ElementField, ElementFilter, ElementSort,
-    Form, FormField, FormFilter, FormSort, FormStatus,
+    Form, FormField, FormFilter, FormSort, FormStatus, GroupTagFilter,
     PublicForm, PublicFormField, PublicFormFilter,
     PublicFormSort, PublicTask, PublicTaskField, Task, TaskField,
-    TaskFilter, TaskSort, TaskStatus
+    TaskFilter, TaskSort, TaskStatus, User, UserField, UserFilter, UserSort
 } from './formapi.model';
-import { ElementFilterToString, FormFilterToString, SortToString, TaskFilterToString } from './formapi.converter';
+import {
+    ElementFilterToString,
+    FormFilterToString, GroupTagFilterToString,
+    SortToString,
+    TaskFilterToString,
+    UserFilterToString
+} from './formapi.converter';
 import { Observable } from 'rxjs';
 
 /* eslint-disable-next-line no-shadow */
@@ -61,23 +67,95 @@ export class FormAPIService {
     /**
      * Returns tag list
      */
-    public async getTags(): Promise<{
+    public async getTags(
+        params: GetGroupTagParams
+    ): Promise<{
         tags: Array<string>;
         total: number;
         status: number;
     }> {
-        return this.Do(Method.GET, 'tags', {});
+        const p: Record<string, string> = {};
+        if (params.filter) {
+            p.filter = GroupTagFilterToString(params.filter);
+        }
+        if (params.desc && params.desc === true) {
+            p.desc = 'true';
+        }
+        if (params.limit) {
+            p.limit = params.limit.toString();
+        }
+        if (params.offset) {
+            p.offset = params.offset.toString();
+        }
+        return this.Do(Method.GET, 'tags', p);
     }
 
     /**
      * Returns group list
      */
-    public async getGroups(): Promise<{
+    public async getGroups(
+        params: GetGroupTagParams
+    ): Promise<{
         groups: Array<string>;
         total: number;
         status: number;
     }> {
-        return this.Do(Method.GET, 'groups', {});
+        const p: Record<string, string> = {};
+        if (params.filter) {
+            p.filter = GroupTagFilterToString(params.filter);
+        }
+        if (params.desc && params.desc === true) {
+            p.desc = 'true';
+        }
+        if (params.limit) {
+            p.limit = params.limit.toString();
+        }
+        if (params.offset) {
+            p.offset = params.offset.toString();
+        }
+        return this.Do(Method.GET, 'groups', p);
+    }
+
+    public async getUsers(
+        params: GetUsersParams
+    ): Promise<{
+        users: Array<User>;
+        total: number;
+        status: number;
+    }> {
+        const p: Record<string, string> = {};
+        if (params.fields && params.fields.length > 0) {
+            p.fields = params.fields.join(',');
+        }
+        if (params.filter) {
+            p.filter = UserFilterToString(params.filter);
+        }
+        if (params.sort) {
+            p.sort = SortToString(params.sort) + ',id';
+        } else {
+            p.sort = 'id';
+        }
+        if (params.limit) {
+            p.limit = params.limit.toString();
+        }
+        if (params.offset) {
+            p.offset = params.offset.toString();
+        }
+        return this.Do(Method.GET, 'users', p);
+    }
+
+    public async getUser(
+        id: string,
+        fields?: Array<FormField>
+    ): Promise<{
+        user: User;
+        status: number;
+    }> {
+        const p: Record<string, string> = {};
+        if (fields) {
+            p.fields = fields.join(',');
+        }
+        return this.Do(Method.GET, 'users/' + encodeURIComponent(id), p);
     }
 
     public async getForms(
@@ -456,6 +534,21 @@ export class FormAPIService {
         }
         return data as any;
     }
+}
+
+export interface GetGroupTagParams {
+    filter?: GroupTagFilter;
+    desc?: boolean;
+    limit?: number;
+    offset?: number;
+}
+
+export interface GetUsersParams {
+    fields?: Array<UserField>;
+    filter?: UserFilter;
+    sort?: UserSort;
+    limit?: number;
+    offset?: number;
 }
 
 export interface GetFormsParams {

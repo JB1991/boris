@@ -5,7 +5,13 @@ import { environment } from '@env/environment';
 
 import { FormAPIService } from './formapi.service';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { ElementFilterToString, FormFilterToString, TaskFilterToString, UserFilterToString } from './formapi.converter';
+import {
+    ElementFilterToString,
+    FormFilterToString,
+    GroupTagFilterToString,
+    TaskFilterToString,
+    UserFilterToString
+} from './formapi.converter';
 
 /* eslint-disable max-lines */
 describe('Fragebogen.FormAPIService', () => {
@@ -51,7 +57,7 @@ describe('Fragebogen.FormAPIService', () => {
     */
 
     it('getTags should succeed', (done) => {
-        service.getTags().then((value) => {
+        service.getTags({}).then((value) => {
             expect(value.tags).toEqual(getTags.tags);
             done();
         });
@@ -60,7 +66,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getGroups should succeed', (done) => {
-        service.getGroups().then((value) => {
+        service.getGroups({}).then((value) => {
             expect(value.groups).toEqual(getGroups.groups);
             done();
         });
@@ -503,6 +509,39 @@ describe('Fragebogen.FormAPIService', () => {
         expect(out).toEqual('and(or(name-contains=World,role=editor,group-contains=World),not(id=123),name-contains=Hello,group-contains=World)');
     });
 
+    it('GroupTagFilterToString should succeed', () => {
+        const out = GroupTagFilterToString({
+            and: [
+                {
+                    or: [
+                        {
+                            name: {
+                                contains: 'Hello',
+                                lower: false,
+                            }
+                        },
+                        {
+                            name: {
+                                contains: 'World',
+                                lower: false,
+                            }
+                        },
+                    ]
+                },
+                {
+                    not: {
+                        name: {
+                            equals: 'earth',
+                            lower: true,
+                        },
+                    }
+                },
+            ]
+        });
+
+        expect(out).toEqual('and(or(name-contains=Hello,name-contains=World),not(name-lower-equals=earth))');
+    });
+
     it('ElementFilterToString should succeed', () => {
         const out = ElementFilterToString({
             and: [
@@ -559,7 +598,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getTags should fail', (done) => {
-        service.getTags().catch(error => {
+        service.getTags({}).catch(error => {
             expect(error.status).toEqual(400);
             done();
         });

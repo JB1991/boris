@@ -26,6 +26,8 @@ export class DetailsComponent implements OnInit {
     public id: string;
 
     public availableTags: Array<string>;
+    public availableGroups: Array<string>;
+    public availableUsers: Array<User>;
 
     public form: Form;
     public owner: User;
@@ -57,6 +59,8 @@ export class DetailsComponent implements OnInit {
             this.updateForm(true);
             this.updateTasks();
             this.updateTags();
+            this.updateGroups();
+            this.updateUsers();
         } else {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -65,7 +69,7 @@ export class DetailsComponent implements OnInit {
 
     /**
      * Load form data
-     * @param id Form id
+     * @param navigate
      */
     public async updateForm(navigate: boolean) {
         try {
@@ -192,7 +196,63 @@ export class DetailsComponent implements OnInit {
             console.log(error);
         }
         if (this.tasks.length === 0) {
-            this.updateTasks();
+            await this.updateTasks();
+        }
+    }
+
+    /**
+     * Generate a new pin for a task
+     * @param i Number of task
+     */
+    public async newPin(i: number) {
+        try {
+            // check data
+            if (i < 0 || i >= this.tasks.length) {
+                throw new Error('invalid i');
+            }
+            // Ask user to confirm deletion
+            if (!confirm($localize`Möchten Sie eine neue Pin generieren?`)) {
+                return;
+            }
+            await this.formapi.updateTask(this.tasks[i].id, {status: 'created'});
+            await this.updateTasks();
+            this.alerts.NewAlert('success', $localize`Neue Pin generiert`,
+                $localize`Die neue Pin wurde erfolgreich generiert.`);
+        } catch (error) {
+            // failed to delete task
+            this.alerts.NewAlert('danger', $localize`Neue Pin generieren fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            console.log(error);
+        }
+        if (this.tasks.length === 0) {
+            await this.updateTasks();
+        }
+    }
+
+    /**
+     * Make task completed
+     * @param i Number of task
+     */
+    public async completeTask(i: number) {
+        try {
+            // check data
+            if (i < 0 || i >= this.tasks.length) {
+                throw new Error('invalid i');
+            }
+            // Ask user to confirm deletion
+            if (!confirm($localize`Möchten Sie die Antwort abschließen?`)) {
+                return;
+            }
+            await this.formapi.updateTask(this.tasks[i].id, {status: 'completed'});
+            await this.updateTasks();
+            this.alerts.NewAlert('success', $localize`Antwort abgeschlossen`,
+                $localize`Die Antwort wurde erfolgreich abgeschlossen.`);
+        } catch (error) {
+            // failed to delete task
+            this.alerts.NewAlert('danger', $localize`Antwort abschließen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            console.log(error);
+        }
+        if (this.tasks.length === 0) {
+            await this.updateTasks();
         }
     }
 
@@ -242,8 +302,30 @@ export class DetailsComponent implements OnInit {
 
     public async updateTags() {
         try {
-            const r = await this.formapi.getTags();
+            const r = await this.formapi.getTags({});
             this.availableTags = r.tags;
+        } catch (error) {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    public async updateGroups() {
+        try {
+            const r = await this.formapi.getGroups({});
+            this.availableGroups = r.groups;
+        } catch (error) {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    public async updateUsers() {
+        try {
+            const r = await this.formapi.getUsers({fields: ['id', 'name']});
+            this.availableUsers = r.users;
         } catch (error) {
             console.log(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
@@ -254,7 +336,7 @@ export class DetailsComponent implements OnInit {
     public async updateTasks() {
         this.loadingscreen.setVisible(true);
         const params: GetTasksParams = {
-            fields: ['id', 'pin', 'description', 'created', 'updated', 'status'],
+            fields: ['id', 'pin', 'description', 'created', 'updated', 'status', 'content'],
             filter: { form: { id: this.id } },
             limit: Number(this.taskPerPage),
             offset: (this.taskPage - 1) * this.taskPerPage,
@@ -262,7 +344,12 @@ export class DetailsComponent implements OnInit {
         };
         if (this.taskStatus !== 'all') {
             params.filter = {
-                status: this.taskStatus,
+                and: [
+                    params.filter,
+                    {
+                        status: this.taskStatus,
+                    }
+                ]
             };
         }
         try {
@@ -295,9 +382,19 @@ export class DetailsComponent implements OnInit {
         this.updateTasks();
     }
 
-    public async updateFormEvent(event: { id: string; tags: Array<string> }) {
+    public async updateFormEvent(event: { id: string; tags?: Array<string>; groups?: Array<string>; owner?: string }) {
         try {
-            await this.formapi.updateForm(event.id, { tags: event.tags });
+            const b: any = {};
+            if (event.tags) {
+                b.tags = event.tags;
+            }
+            if (event.groups) {
+                b.groups = event.groups;
+            }
+            if (event.owner) {
+                b.owner = event.owner;
+            }
+            await this.formapi.updateForm(event.id, b);
             this.updateForm(false);
         } catch (error) {
             console.log(error);

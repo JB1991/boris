@@ -203,6 +203,19 @@ export type ElementFilter =
         updated: TimeFilter;
     };
 
+export type GroupTagFilter =
+    | {
+    and: Array<GroupTagFilter>;
+}
+    | {
+    or: Array<GroupTagFilter>;
+}
+    | {
+    not: GroupTagFilter;
+} | {
+    name: TextFilter;
+};
+
 export type TextFilter =
     | {
         lower: boolean;
@@ -220,6 +233,11 @@ export type TimeFilter =
     | {
         before: string;
     };
+
+export interface UserSort {
+    field: UserField;
+    desc: boolean;
+}
 
 export interface FormSort {
     field: FormField;
@@ -255,4 +273,3 @@ export type TaskField = 'id' | 'form.id' | 'form.owner.id' | 'form.owner.name' |
 export type PublicTaskField = 'id' | 'form.id' | 'form.content' | 'form.tags' | 'form.access' | 'form.extract' | 'content';
 export type ElementField = 'id' | 'owner.id' | 'owner.name' | 'owner.role' | 'owner.groups' |
     'groups' | 'extract' | 'content' | 'created' | 'updated';
-

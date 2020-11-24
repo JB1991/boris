@@ -30,6 +30,7 @@
     <power-forms-surveyjs-wrapper *ngIf="form.access !== 'public'"
                                   [model]="form.content"
                                   [css]="data.css_style"
+                                  [data]="task.content"
                                   (submitResult)="submit($event);"
                                   (interimResult)="progress($event)"
                                   (changes)="changed($event)"
