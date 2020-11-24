@@ -5,7 +5,13 @@ import { environment } from '@env/environment';
 
 import { FormAPIService } from './formapi.service';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { ElementFilterToString, FormFilterToString, TaskFilterToString, UserFilterToString } from './formapi.converter';
+import {
+    ElementFilterToString,
+    FormFilterToString,
+    GroupTagFilterToString,
+    TaskFilterToString,
+    UserFilterToString
+} from './formapi.converter';
 
 /* eslint-disable max-lines */
 describe('Fragebogen.FormAPIService', () => {
@@ -501,6 +507,39 @@ describe('Fragebogen.FormAPIService', () => {
         });
 
         expect(out).toEqual('and(or(name-contains=World,role=editor,group-contains=World),not(id=123),name-contains=Hello,group-contains=World)');
+    });
+
+    it('GroupTagFilterToString should succeed', () => {
+        const out = GroupTagFilterToString({
+            and: [
+                {
+                    or: [
+                        {
+                            name: {
+                                contains: 'Hello',
+                                lower: false,
+                            }
+                        },
+                        {
+                            name: {
+                                contains: 'World',
+                                lower: false,
+                            }
+                        },
+                    ]
+                },
+                {
+                    not: {
+                        name: {
+                            equals: 'earth',
+                            lower: true,
+                        },
+                    }
+                },
+            ]
+        });
+
+        expect(out).toEqual('and(or(name-contains=Hello,name-contains=World),not(name-lower-equals=earth))');
     });
 
     it('ElementFilterToString should succeed', () => {
