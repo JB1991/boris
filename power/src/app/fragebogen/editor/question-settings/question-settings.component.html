@@ -353,6 +353,19 @@
                                id="question-decimals">
                     </div>
 
+                    <!-- question-pipsDensity -->
+                    <div class="form-group">
+                        <label for="question-pipsDensity"
+                               i18n>Anzahl Werte auf Skala</label>
+                        <input type="number"
+                               class="form-control"
+                               min="0"
+                               max="100"
+                               [(ngModel)]="model.pages[page].elements[question].pipsDensity"
+                               name="question-pipsDensity"
+                               id="question-pipsDensity">
+                    </div>
+
                     <!-- question-rangeMin -->
                     <div class="form-group">
                         <label for="question-rangeMin"

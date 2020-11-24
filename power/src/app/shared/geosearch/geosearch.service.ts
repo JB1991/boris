@@ -39,7 +39,7 @@ export class GeosearchService {
      */
     search(search: string): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {
-            params: new HttpParams().set('query', `text:(${search}) AND (typ:ort OR typ:strasse OR typ:haus^0.2) AND bundesland:Niedersachsen`)
+            params: new HttpParams().set('query', `text:(${search}) AND (typ:ort OR typ:strasse OR typ:haus^0.2) AND (bundesland:Niedersachsen OR bundesland:Bremen)`)
                 .append('minScore', '1').append('count', '10')
         }).pipe(
             catchError(GeosearchService.handleError)
@@ -50,7 +50,7 @@ export class GeosearchService {
      * Translate geo coordinates to an address
      * @param lat Latitude
      * @param lon Longitude
-     * Sollte sich der Parameter distance ändern, muss der HTML-Text (bodenrichtwert.component) angespasst werden.
+     * If the parameter `distance` changes, the html text in `bodenrichtwert.component` must be changed accordingly.
      */
     getAddressFromCoordinates(lat, lon): Observable<FeatureCollection> {
         return this.http.get<FeatureCollection>(this.url, {

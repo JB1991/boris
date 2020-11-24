@@ -109,7 +109,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     it('getBodenrichtwertzonen should call BodenrichtwertService', () => {
         spyOn(component.bodenrichtwertService, 'getFeatureByLatLonEntw').and.callThrough();
         component.getBodenrichtwertzonen(lat, lon, entw);
-        expect(component.bodenrichtwertService.getFeatureByLatLonEntw).toHaveBeenCalledTimes(1);
+        expect(component.bodenrichtwertService.getFeatureByLatLonEntw).toHaveBeenCalledTimes(2);
     });
 
     it('getAddressFromLatLng should call GeosearchService', () => {
