@@ -3,14 +3,13 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { GeosearchService } from './geosearch.service';
 import { Observable } from 'rxjs';
 import { Feature, FeatureCollection } from 'geojson';
-import { HttpErrorResponse } from '@angular/common/http';
 
 describe('Shared.Geosearch.GeosearchService', () => {
     const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
     const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
 
     const searchQuery = 'podbi';
-    const searchUrl = '/geocoding/geosearch/?query=text:(' + searchQuery + ')%20AND%20(typ:ort%20OR%20typ:strasse%20OR%20typ:haus%5E0.2)%20AND%20bundesland:Niedersachsen&minScore=1&count=10';
+    const searchUrl = '/geocoding/geosearch/?query=text:(' + searchQuery + ')%20AND%20(typ:ort%20OR%20typ:strasse%20OR%20typ:haus%5E0.2)%20AND%20(bundesland:Niedersachsen%20OR%20bundesland:Bremen)&minScore=1&count=10';
     let service: GeosearchService;
     let httpController: HttpTestingController;
 
