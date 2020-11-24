@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
+import { Component, HostListener, ViewChild, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
-import { PublicForm } from '../formapi.model';
+import {PublicForm, PublicTask} from '../formapi.model';
 
 @Component({
     selector: 'power-forms-fillout',
@@ -30,6 +30,8 @@ export class FilloutComponent implements AfterViewInit {
         css_style: JSON.parse(JSON.stringify(Bootstrap4_CSS)),
         UnsavedChanges: false
     };
+
+    public task: PublicTask;
 
     constructor(@Inject(LOCALE_ID) public locale: string,
         public titleService: Title,
@@ -138,6 +140,7 @@ export class FilloutComponent implements AfterViewInit {
         try {
             this.loadingscreen.setVisible(true);
             const t = await this.formapi.getPublicTask(this.pin, { fields: ['id', 'content', 'form.id'] });
+            this.task = t.task;
             const f = await this.formapi.getPublicForm(t.task.form.id, { fields: ['id', 'content', 'access'] });
             this.form = f.form;
             this.language = f.form.content.locale;

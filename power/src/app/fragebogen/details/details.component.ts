@@ -65,7 +65,7 @@ export class DetailsComponent implements OnInit {
 
     /**
      * Load form data
-     * @param id Form id
+     * @param navigate
      */
     public async updateForm(navigate: boolean) {
         try {
