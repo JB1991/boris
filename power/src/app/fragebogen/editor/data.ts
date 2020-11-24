@@ -302,6 +302,7 @@ export const FormularFields = [
             rangeMin: 0,
             rangeMax: 100,
             decimals: 0,
+            pipsDensity: 5,
             commentText: {},
             startWithNewLine: true,
             visible: true,

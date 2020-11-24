@@ -39,19 +39,9 @@ export function init(Survey) {
                     default: 'positions',
                 },
                 {
-                    name: 'pipsValues:itemvalues',
-                    category: 'slider',
-                    default: [0, 100],
-                },
-                {
-                    name: 'pipsText:itemvalues',
-                    category: 'slider',
-                    default: [0, 100],
-                },
-                {
                     name: 'pipsDensity:number',
                     category: 'slider',
-                    default: 100,
+                    default: 6,
                 },
                 {
                     name: 'orientation:string',
@@ -95,6 +85,19 @@ export function init(Survey) {
                 el.style.height = '250px';
             }
 
+            // pips
+            question.pipsValues = [];
+            if (question.pipsDensity === 1) {
+                question.pipsValues.splice(0, 0, 0);
+            } else if (question.pipsDensity === 2) {
+                question.pipsValues.splice(0, 0, 0);
+                question.pipsValues.splice(0, 0, 100);
+            } else {
+                for (let i = 0; i < question.pipsDensity; i++) {
+                    question.pipsValues.splice(0, 0, (100 / (question.pipsDensity - 1)) * i);
+                }
+            }
+
             const slider = noUiSlider.create(el, {
                 start: question.value || (question.rangeMin + question.rangeMax) / 2,
                 connect: [true, false],
@@ -110,11 +113,11 @@ export function init(Survey) {
                         }
                         return Number(pipValue).toFixed(question.decimals);
                     }),
-                    density: question.pipsDensity || 5,
+                    density: 100,
                     format: {
                         to: function (pVal) {
                             let pipText = pVal;
-                            question.pipsText.map(function (ele) {
+                            question.pipsValues.map(function (ele) {
                                 if (ele.text !== undefined && pVal === ele.value) {
                                     pipText = ele.text;
                                 }
