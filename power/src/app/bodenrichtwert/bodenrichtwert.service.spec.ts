@@ -9,9 +9,6 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     const feature: Feature = require('../../assets/boden/geosearch-samples/feature.json');
     const features: FeatureCollection = require('../../assets/boden/geosearch-samples/featurecollection.json');
     const featureByLatLonEntw: FeatureCollection = require('../../assets/boden/bodenrichtwert-samples/feature-by-lat-lon-entw.json');
-    const featureByLatLonStagEntw: FeatureCollection = require('../../assets/boden/bodenrichtwert-samples/feature-by-lat-lon-stag-entw.json');
-    const featureByObjektidentifikator: FeatureCollection = require('../../assets/boden/bodenrichtwert-samples/feature-by-objektidentifikator.json');
-    const wfsCapabilities = require('!raw-loader!../../assets/boden/bodenrichtwert-samples/wfs-capabilities.xml');
 
     const date = new Date('2018-12-31');
     const entw = ['B'];
@@ -76,45 +73,6 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
             done();
         });
         service.updateStichtag(date);
-    });
-
-    it('getCapabilities should return an XML object with a list of WFS capabilities', (done) => {
-        service.getCapabilities().subscribe(next => {
-            expect(next).toContain('boris:br_brzone_flat');
-            done();
-        });
-        const request = httpTestingController.expectOne(url);
-        request.flush(wfsCapabilities);
-    });
-
-    it('getCapabilities should handle errors', (done) => {
-        service.getCapabilities().subscribe(() => {
-        }, error => {
-            expect(error.error.type).toEqual('error');
-            done();
-        });
-        const request = httpTestingController.expectOne(url);
-        request.error(new ErrorEvent('error'));
-    });
-
-    it('getFeatureByObjektidentifikator should return a feature collection', (done) => {
-        service.getFeatureByObjektidentifikator('DENIBR0108B10007').subscribe(next => {
-            expect(next).toEqual(featureByObjektidentifikator);
-            expect(next.type).toEqual('FeatureCollection');
-            done();
-        });
-        const request = httpTestingController.expectOne(url);
-        request.flush(featureByObjektidentifikator);
-    });
-
-    it('getFeatureByLatLonStagEntw should return a feature collection', (done) => {
-        service.getFeatureByLatLonStagEntw(lat, lon, date, entw).subscribe(next => {
-            expect(next).toEqual(featureByLatLonStagEntw);
-            expect(next.type).toEqual('FeatureCollection');
-            done();
-        });
-        const request = httpTestingController.expectOne(url);
-        request.flush(featureByLatLonStagEntw);
     });
 
     it('getFeatureByLatLonEntw should return a feature', (done) => {
