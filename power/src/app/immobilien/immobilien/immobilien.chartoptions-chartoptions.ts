@@ -153,7 +153,7 @@ export const chartOptions = {
         formatter: null
     },
     toolbox: {
-        show: true,
+        show: false,
         orient: 'vertical',
         itemSize: 30,
         itemGap: 20,

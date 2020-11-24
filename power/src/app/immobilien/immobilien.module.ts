@@ -12,7 +12,16 @@ import { ImmobilienComponent } from './immobilien/immobilien.component';
 import { FormsModule } from '@angular/forms';
 
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
+
+import {
+    Building,
+    HouseFill,
+    PlusCircle,
+    DashCircle,
+    FileEarmarkImage,
+    FileEarmarkSpreadsheet,
+    FileEarmarkRichtext
+} from 'ngx-bootstrap-icons';
 
 import * as echarts from 'echarts';
 
@@ -22,7 +31,10 @@ const icons = {
     Building,
     HouseFill,
     PlusCircle,
-    DashCircle
+    DashCircle,
+    FileEarmarkImage,
+    FileEarmarkSpreadsheet,
+    FileEarmarkRichtext
 };
 /* eslint-enable object-shorthand */
 
