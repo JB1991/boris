@@ -51,7 +51,7 @@ describe('Fragebogen.FormAPIService', () => {
     */
 
     it('getTags should succeed', (done) => {
-        service.getTags().then((value) => {
+        service.getTags({}).then((value) => {
             expect(value.tags).toEqual(getTags.tags);
             done();
         });
@@ -60,7 +60,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getGroups should succeed', (done) => {
-        service.getGroups().then((value) => {
+        service.getGroups({}).then((value) => {
             expect(value.groups).toEqual(getGroups.groups);
             done();
         });
@@ -559,7 +559,7 @@ describe('Fragebogen.FormAPIService', () => {
     });
 
     it('getTags should fail', (done) => {
-        service.getTags().catch(error => {
+        service.getTags({}).catch(error => {
             expect(error.status).toEqual(400);
             done();
         });

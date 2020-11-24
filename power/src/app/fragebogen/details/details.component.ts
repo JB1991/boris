@@ -26,6 +26,8 @@ export class DetailsComponent implements OnInit {
     public id: string;
 
     public availableTags: Array<string>;
+    public availableGroups: Array<string>;
+    public availableUsers: Array<User>;
 
     public form: Form;
     public owner: User;
@@ -57,6 +59,8 @@ export class DetailsComponent implements OnInit {
             this.updateForm(true);
             this.updateTasks();
             this.updateTags();
+            this.updateGroups();
+            this.updateUsers();
         } else {
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
@@ -298,8 +302,30 @@ export class DetailsComponent implements OnInit {
 
     public async updateTags() {
         try {
-            const r = await this.formapi.getTags();
+            const r = await this.formapi.getTags({});
             this.availableTags = r.tags;
+        } catch (error) {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    public async updateGroups() {
+        try {
+            const r = await this.formapi.getGroups({});
+            this.availableGroups = r.groups;
+        } catch (error) {
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+        }
+    }
+
+    public async updateUsers() {
+        try {
+            const r = await this.formapi.getUsers({fields: ['id', 'name']});
+            this.availableUsers = r.users;
         } catch (error) {
             console.log(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
@@ -356,9 +382,19 @@ export class DetailsComponent implements OnInit {
         this.updateTasks();
     }
 
-    public async updateFormEvent(event: { id: string; tags: Array<string> }) {
+    public async updateFormEvent(event: { id: string; tags?: Array<string>; groups?: Array<string>; owner?: string }) {
         try {
-            await this.formapi.updateForm(event.id, { tags: event.tags });
+            const b: any = {};
+            if (event.tags) {
+                b.tags = event.tags;
+            }
+            if (event.groups) {
+                b.groups = event.groups;
+            }
+            if (event.owner) {
+                b.owner = event.owner;
+            }
+            await this.formapi.updateForm(event.id, b);
             this.updateForm(false);
         } catch (error) {
             console.log(error);

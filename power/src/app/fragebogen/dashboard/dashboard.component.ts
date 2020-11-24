@@ -200,7 +200,7 @@ export class DashboardComponent implements OnInit {
     public async updateTags(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
-            const response = await this.formAPI.getTags();
+            const response = await this.formAPI.getTags({});
             this.tags = response.tags;
             this.loadingscreen.setVisible(false);
         } catch (error) {

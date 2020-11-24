@@ -68,7 +68,7 @@
                 <span i18n>Tags</span>: {{ form.tags.join(', ') }}
             </p>
             <p *ngIf="form.groups && form.groups.length > 0" class="font-weight-light mb-1">
-                <span i18n>Groups</span>: {{ form.groups }}
+                <span i18n>Gruppen</span>: {{ form.groups.join(', ') }}
             </p>
         </div>
         <div class="col-12 pl-0 pt-2">
@@ -236,50 +236,50 @@
                     <tr>
                         <th scope="col" (click)="changeTaskSort('pin')" class="border-top-0">
                             <span role="button" (keyup.enter)="changeTaskSort('pin')" aria-roledescription="Aufsteigend oder Absteigend sortieren." aria-describedby="ascPin descPin" i18n-aria-roledescription tabindex="0" i18n>Pin</span>
-                            <span *ngIf="taskSort && taskSort === 'pin'">
-                                <span *ngIf="!taskSortDesc" id="ascPin" aria-label="Aufsteigend sortiert"
-                                    i18n-aria-label>
-                                    <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
-                                        aria-hidden="true">
-                                        <path
-                                            d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                                    </svg>
-                                    <span class="sr-only" i18n>Aufsteigend sortiert</span>
-                            </span>
-                            <span *ngIf="taskSortDesc" id="descPin" aria-label="Absteigend sortiert" i18n-aria-label>
-                                    <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
-                                        aria-hidden="true">
-                                        <path
-                                            d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
-                                    </svg>
-                                    <span class="sr-only" i18n>Absteigend sortiert</span>
-                            </span>
+                                <span *ngIf="taskSort && taskSort === 'pin'">
+                                    <span *ngIf="!taskSortDesc" id="ascPin" aria-label="Aufsteigend sortiert"
+                                        i18n-aria-label>
+                                        <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                        </svg>
+                                        <span class="sr-only" i18n>Aufsteigend sortiert</span>
+                                </span>
+                                <span *ngIf="taskSortDesc" id="descPin" aria-label="Absteigend sortiert" i18n-aria-label>
+                                        <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                        </svg>
+                                        <span class="sr-only" i18n>Absteigend sortiert</span>
+                                </span>
                             </span>
                         </th>
                         <th scope="col" (click)="changeTaskSort('pin')" class="border-top-0">
                             <span role="button" (keyup.enter)="changeTaskSort('pin')" aria-roledescription="Aufsteigend oder Absteigend sortieren." aria-describedby="ascDescription descDescription" i18n-aria-roledescription tabindex="0" i18n>Kommentar</span>
-                            <span *ngIf="taskSort && taskSort === 'description'">
-                                <span *ngIf="!taskSortDesc" id="ascDescription" aria-label="Aufsteigend sortiert"
-                                    i18n-aria-label>
-                                    <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
-                                        aria-hidden="true">
-                                        <path
-                                            d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                                    </svg>
-                                    <span class="sr-only" i18n>Aufsteigend sortiert</span>
-                            </span>
-                            <span *ngIf="taskSortDesc" id="descDescription" aria-label="Absteigend sortiert" i18n-aria-label>
-                                    <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
-                                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
-                                        aria-hidden="true">
-                                        <path
-                                            d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
-                                    </svg>
-                                    <span class="sr-only" i18n>Absteigend sortiert</span>
-                            </span>
+                                <span *ngIf="taskSort && taskSort === 'description'">
+                                    <span *ngIf="!taskSortDesc" id="ascDescription" aria-label="Aufsteigend sortiert"
+                                        i18n-aria-label>
+                                        <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-up"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                        </svg>
+                                        <span class="sr-only" i18n>Aufsteigend sortiert</span>
+                                </span>
+                                <span *ngIf="taskSortDesc" id="descDescription" aria-label="Absteigend sortiert" i18n-aria-label>
+                                        <svg width="1em" height="0.8em" viewBox="0 1.2 16 16" class="bi bi-arrow-down"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                                        </svg>
+                                        <span class="sr-only" i18n>Absteigend sortiert</span>
+                                </span>
                             </span>
                         </th>
                         <th scope="col" (click)="changeTaskSort('pin')" class="border-top-0">
@@ -376,7 +376,13 @@
                         </td>
                         <td>
                             {{ task.description }}
-                            <span class="ml-1 text-primary clickable" i18n-title title="Bearbeiten" role="button" tabindex="0" (click)="comment.open(task)" (keyup.enter)="comment.open(task)">
+                            <span *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)"
+                                class="ml-1 text-primary clickable"
+                                i18n-title title="Bearbeiten"
+                                role="button"
+                                tabindex="0"
+                                (click)="comment.open(task)"
+                                (keyup.enter)="comment.open(task)">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"
                                     aria-hidden="true">
@@ -499,7 +505,8 @@
                 <span class="d-none d-sm-inline ml-1" i18n>Neue PIN erstellen</span>
             </button>
 
-            <button type="button"
+            <button *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)"
+                    type="button"
                     class="btn btn-primary btn-sm mr-2"
                     i18n-title
                     title="Ergebnisse als CSV herunterladen"
@@ -553,4 +560,5 @@
 </power-forms-surveyjs-preview>
 
 <!-- share form modal -->
-<power-forms-details-settings #settings [availableTags]="availableTags" (out)="updateFormEvent($event)"></power-forms-details-settings>
+<power-forms-details-settings #settings [availableTags]="availableTags" [availableGroups]="availableGroups"
+                              [availableUsers]="availableUsers" (out)="updateFormEvent($event)"></power-forms-details-settings>
