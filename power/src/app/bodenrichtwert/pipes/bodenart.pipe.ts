@@ -62,7 +62,6 @@ export class BodenartPipe implements PipeTransform {
 
     /**
      * Checks if a bodenart exists for a given key
-     * 
      * @param value key einer Bodenart
      */
     private bodTypeExists(value: string): boolean {
@@ -71,7 +70,6 @@ export class BodenartPipe implements PipeTransform {
 
     /**
      * Returns the bodenart for a given key
-     * 
      * @param value key einer Bodenart
      */
     private getBodType(value: string): any {
@@ -81,36 +79,27 @@ export class BodenartPipe implements PipeTransform {
     /**
      * Builds the string based on the keys of different bodenarten and
      * concatenates them to an value for the display
-     * 
      * @param types keys of given bodenarten
      * @param operator defines how to combine multiple bodenarten
      */
     private buildDisplayValue(types: Array<string>, operator: string): string {
-        let displayValue: string = '';
-        let trimSpaces: number = 2; // default
-        let falseExp: boolean = false;
+        let displayValue = '';
+        let trimSpaces = 2; // default
+        let falseExp = false;
 
         if (operator.length === 1) {
             trimSpaces = 1;
         }
 
         types.forEach((t: string, i: number) => {
-            let bod = this.getBodType(t);
+            const bod = this.getBodType(t);
             if (bod && !falseExp) {
                 if (i === 0 && operator.length > 1) {
                     displayValue += bod.value + ' ' + operator + ' ';
                 } else if (i === 0 && operator.length === 1) {
                     displayValue += bod.value + operator + ' ';
                 } else {
-                    if (operator === 'und') {
-                        displayValue += bod.comma + ' ' + operator + ' ';
-                    } else if (operator === 'auf') {
-                        displayValue += bod.slash + ' ' + operator + ' ';
-                    } else if (operator === 'mit') {
-                        displayValue += bod.plus + ' ' + operator + ' ';
-                    } else if (operator === ',') {
-                        displayValue += bod.value + operator + ' ';
-                    }
+                    displayValue += this.getValueByOperator(bod, operator);
                 }
             } else {
                 falseExp = true;
@@ -127,9 +116,36 @@ export class BodenartPipe implements PipeTransform {
     }
 
     /**
+     * Returns the correct valueString of a bodType for a specific operator
+     * @param bodType bodType contains the bodenart with all values
+     * @param operator defines how to combine multiple bodenarten
+     */
+    private getValueByOperator(bodType: any, operator: string): string {
+        let value = '';
+        switch (operator) {
+            case 'und': {
+                value += bodType.comma + ' ' + operator + ' ';
+                break;
+            }
+            case 'auf': {
+                value += bodType.slash + ' ' + operator + ' ';
+                break;
+            }
+            case 'mit': {
+                value += bodType.plus + ' ' + operator + ' ';
+                break;
+            }
+            case ',': {
+                value += bodType.value + operator + ' ';
+                break;
+            }
+        }
+        return value;
+    }
+
+    /**
      * Checks a given string based on regular expressions for
      * different bodenarten combinations
-     * 
      * @param value string with multiple bodenarten keys
      */
     private matchRegExp(value: string): string[] {
@@ -137,7 +153,7 @@ export class BodenartPipe implements PipeTransform {
 
         this.regex.forEach((r: RegExp) => {
             if (r.test(value)) {
-                let groups = value.match(r);
+                const groups = value.match(r);
                 types = groups.slice(1, groups.length);
             }
         });
