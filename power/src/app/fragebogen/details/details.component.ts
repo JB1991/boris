@@ -395,7 +395,7 @@ export class DetailsComponent implements OnInit {
                 b.owner = event.owner;
             }
             await this.formapi.updateForm(event.id, b);
-            this.updateForm(false);
+            this.updateForm(true);
         } catch (error) {
             console.log(error);
             this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`,
