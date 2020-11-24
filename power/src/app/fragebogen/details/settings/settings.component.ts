@@ -21,10 +21,13 @@ export class SettingsComponent {
     @Input() public availableUsers: Array<User>;
     @ViewChild('settingsmodal') public modal: ModalminiComponent;
 
-    public form: Form;
+    public old: Form;
+    public tags: Array<string>;
+    public groups: Array<string>;
+    public owner: string;
 
     constructor(public auth: AuthService) {
-        this.form = {owner: {}};
+        this.old = {owner: {}};
     }
 
     /**
@@ -43,7 +46,10 @@ export class SettingsComponent {
                 name: '',
             };
         }
-        this.form = JSON.parse(JSON.stringify(form));
+        this.old = form;
+        this.tags = form.tags;
+        this.groups = form.groups;
+        this.owner = form.owner.id;
         this.modal.open($localize`Einstellungen`);
     }
 }

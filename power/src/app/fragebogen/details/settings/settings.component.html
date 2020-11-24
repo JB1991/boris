@@ -1,26 +1,26 @@
 <power-modalmini #settingsmodal>
-    <div class="form-group" *ngIf="auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)">
+    <div class="form-group" *ngIf="auth.IsAuthorized(['admin', 'manager'], old.owner.id, old.groups)">
         <label i18n>Besitzer</label>
-        <select class="form-control" [(ngModel)]="form.owner.id">
+        <select class="form-control" [(ngModel)]="owner">
             <option *ngFor="let user of availableUsers" [value]="user.id">
                 {{ user.name }}
             </option>
         </select>
     </div>
-    <power-tagbox *ngIf="form && form.groups && auth.IsAuthorized(['admin', 'manager'], form.owner.id, form.groups)"
-                  [(tagList)]="form.groups"
+    <power-tagbox *ngIf="old && old.groups && auth.IsAuthorized(['admin', 'manager'], old.owner.id, old.groups)"
+                  [(tagList)]="groups"
                   [dataList]="availableGroups"
                   i18n-tagboxLabel tagboxLabel="Gruppen">
     </power-tagbox>
-    <power-tagbox *ngIf="form && form.tags && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)"
-                  [(tagList)]="form.tags"
+    <power-tagbox *ngIf="old && old.tags && auth.IsAuthorized(['admin', 'manager', 'editor'], old.owner.id, old.groups)"
+                  [(tagList)]="tags"
                   [dataList]="availableTags"
                   i18n-tagboxLabel tagboxLabel="Tags">
     </power-tagbox>
 
     <!-- modal buttons -->
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" i18n-title title="Formular teilen" (click)="this.out.emit({id: form.id, tags: form.tags, groups: form.groups, owner: form.owner.id}); modal.close();">
+        <button type="button" class="btn btn-success" i18n-title title="Formular teilen" (click)="this.out.emit({id: old.id, tags: tags, groups: groups, owner: owner}); modal.close();">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
                 <path fill-rule="evenodd"
