@@ -1,5 +1,5 @@
 import {
-    ElementFilter, FormFilter, TaskFilter, TextFilter, TimeFilter, UserFilter
+    ElementFilter, FormFilter, GroupTagFilter, TaskFilter, TextFilter, TimeFilter, UserFilter
 } from './formapi.model';
 
 /* eslint-disable-next-line complexity */
@@ -146,6 +146,43 @@ export function UserFilterToString(f: UserFilter): string {
         return 'role=' + f['role'];
     } else {
         return 'group-' + TextFilterToString(f['group']);
+    }
+}
+
+/* eslint-disable-next-line complexity */
+export function GroupTagFilterToString(f: GroupTagFilter): string {
+    if (f.hasOwnProperty('and')) {
+        const and = f['and'] as Array<GroupTagFilter>;
+        if (f['and'].length === 1) {
+            return GroupTagFilterToString(f['and'][0]);
+        }
+        let out = '';
+        for (const each of and) {
+            if (out === '') {
+                out = GroupTagFilterToString(each);
+            } else {
+                out = out + ',' + GroupTagFilterToString(each);
+            }
+        }
+        return 'and(' + out + ')';
+    } else if (f.hasOwnProperty('or')) {
+        const or = f['or'] as Array<GroupTagFilter>;
+        if (f['or'].length === 1) {
+            return GroupTagFilterToString(f['or'][0]);
+        }
+        let out = '';
+        for (const each of or) {
+            if (out === '') {
+                out = GroupTagFilterToString(each);
+            } else {
+                out = out + ',' + GroupTagFilterToString(each);
+            }
+        }
+        return 'or(' + out + ')';
+    } else if (f.hasOwnProperty('not')) {
+        return 'not(' + UserFilterToString(f['not']) + ')';
+    } else {
+        return 'name-' + TextFilterToString(f['name']);
     }
 }
 

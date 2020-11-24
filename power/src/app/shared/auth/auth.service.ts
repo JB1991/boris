@@ -246,15 +246,6 @@ export class AuthService {
         return [];
     }
 
-    private hasRole(role: Role, allowed: Array<Role>): boolean {
-        for (const r of allowed) {
-            if (r === role) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public IsAuthorized(roles: Array<Role>, owner: string, groups: Array<string>): boolean {
         if (!this.IsAuthEnabled()) {
             return true;
@@ -269,7 +260,7 @@ export class AuthService {
             return true;
         }
 
-        if (!this.hasRole(userRole, roles)) {
+        if (!hasRole(userRole, roles)) {
             return false;
         }
 
@@ -282,6 +273,15 @@ export class AuthService {
         }
         return false;
     }
+}
+
+function hasRole(role: Role, allowed: Array<Role>): boolean {
+    for (const r of allowed) {
+        if (r === role) {
+            return true;
+        }
+    }
+    return false;
 }
 
 export type Role = 'user' | 'editor' | 'manager' | 'admin';

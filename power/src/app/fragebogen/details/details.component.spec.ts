@@ -255,6 +255,128 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     });
 
     /**
+     * NEW PIN
+     */
+    it('should generate new pin', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(component, 'updateTasks');
+        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.resolve({
+            message: 'success',
+            status: 200,
+        }));
+
+        spyOn(window, 'confirm').and.returnValue(true);
+
+        component.newPin(0).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Neue Pin generiert',
+                'Die neue Pin wurde erfolgreich generiert.');
+            done();
+        });
+    });
+
+    it('should not generate new pin', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(window, 'confirm').and.returnValue(false);
+        component.newPin(0).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+            done();
+        });
+    });
+
+    it('should fail generate new pin', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+
+        component.newPin(-1).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should fail generate new pin 2', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+
+        component.newPin(-1).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should fail generate new pin 404', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.reject('Failed'));
+
+        spyOn(window, 'confirm').and.returnValue(true);
+
+        component.newPin(0).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
+                'Neue Pin generieren fehlgeschlagen', 'Failed');
+            done();
+        });
+    });
+
+    /**
+     * COMPLETE TASK
+     */
+    it('should complete task', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(component, 'updateTasks');
+        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.resolve({
+            message: 'success',
+            status: 200,
+        }));
+
+        spyOn(window, 'confirm').and.returnValue(true);
+
+        component.completeTask(0).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Antwort abgeschlossen',
+                'Die Antwort wurde erfolgreich abgeschlossen.');
+            done();
+        });
+    });
+
+    it('should not complete task', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(window, 'confirm').and.returnValue(false);
+        component.completeTask(0).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+            done();
+        });
+    });
+
+    it('should fail complete task', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+
+        component.completeTask(-1).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should fail complete task 2', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+
+        component.completeTask(-1).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should fail complete task 404', (done) => {
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.reject('Failed'));
+
+        spyOn(window, 'confirm').and.returnValue(true);
+
+        component.completeTask(0).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
+                'Antwort abschließen fehlgeschlagen', 'Failed');
+            done();
+        });
+    });
+
+    /**
      * OPEN TASK
      */
     it('should open task', () => {
