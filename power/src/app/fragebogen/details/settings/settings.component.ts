@@ -43,7 +43,7 @@ export class SettingsComponent {
                 name: '',
             };
         }
-        this.form = form;
+        this.form = JSON.parse(JSON.stringify(form));
         this.modal.open($localize`Einstellungen`);
     }
 }
