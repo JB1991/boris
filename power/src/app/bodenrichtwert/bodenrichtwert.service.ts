@@ -83,8 +83,9 @@ export class BodenrichtwertService {
      * @param lat Latitude
      * @param lon Longitude
      * @param entw Teilmarkt
+     * @param state 'Niedersachsen' or 'Bremen'
      */
-    getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>): Observable<FeatureCollection> {
+    getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>, state: string): Observable<FeatureCollection> {
         let ogcFilter: string;
         entw.forEach(entwType => {
             ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
@@ -92,13 +93,21 @@ export class BodenrichtwertService {
                 '            <ogc:Literal>' + entwType + '</ogc:Literal>\n' +
                 '        </ogc:PropertyIsEqualTo>\n';
         });
+
+        let layer: string;
+        if (state === 'Niedersachsen') {
+            layer = 'boris:br_brzone_flat';
+        } else if (state === 'Bremen') {
+            layer = 'boris:br_brzone_flat_bremen';
+        }
+
         const filter =
             '<wfs:GetFeature \n' +
             '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
             '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
             '  xmlns:gml="http://www.opengis.net/gml/3.2" \n' +
             ' service="WFS" version="1.1.0" outputFormat="JSON">\n' +
-            '  <wfs:Query typeName="boris:br_brzone_flat" srsName="EPSG:3857" >\n' +
+            '  <wfs:Query typeName="' + layer + '" srsName="EPSG:3857" >\n' +
             '    <ogc:Filter>\n' +
             '      <ogc:And>\n' +
             '        <ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
