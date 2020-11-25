@@ -335,19 +335,11 @@
       }
     }"></mgl-layer>
 
-        <mgl-vector-source id="geoserver_ni"
-                           [tiles]="[baseUrl+'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=boris:br_brzone_flat&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
-        </mgl-vector-source>
-
-        <mgl-vector-source id="geoserver_br"
-                           [tiles]="[baseUrl+'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=boris:br_brzone_flat_bremen&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
-        </mgl-vector-source>
-
         <!-- Niedersachsen -->
         <mgl-layer *ngIf="teilmarkt.value.includes('B')"
                    id="bauland"
                    type="line"
-                   [source]="'geoserver_ni'"
+                   [source]="ndsSource"
                    [minzoom]="11"
                    [sourceLayer]="'br_brzone_flat'"
                    [paint]="{
@@ -365,7 +357,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('B')"
                    id="sanierungsgebiet"
                    type="line"
-                   [source]="'geoserver_ni'"
+                   [source]="ndsSource"
                    [minzoom]="11"
                    [sourceLayer]="'br_brzone_flat'"
                    [paint]="{
@@ -384,7 +376,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
                    id="landwirtschaft"
                    type="line"
-                   [source]="'geoserver_ni'"
+                   [source]="ndsSource"
                    [sourceLayer]="'br_brzone_flat'"
                    [minzoom]="10"
                    [paint]="{
@@ -401,7 +393,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('B')"
                    id="appto_bauland"
                    type="symbol"
-                   [source]="'geoserver_ni'"
+                   [source]="ndsSource"
                    [sourceLayer]="'br_brzone_flat'"
                    [minzoom]="13"
                    [paint]="{
@@ -423,7 +415,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
                    id="appto_landwirtschaft"
                    type="symbol"
-                   [source]="'geoserver_ni'"
+                   [source]="ndsSource"
                    [sourceLayer]="'br_brzone_flat'"
                    [minzoom]="10"
                    [paint]="{
@@ -446,7 +438,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('B')"
                    id="bauland_bremen"
                    type="line"
-                   [source]="'geoserver_br'"
+                   [source]="bremenSource"
                    [minzoom]="11"
                    [sourceLayer]="'br_brzone_flat_bremen'"
                    [paint]="{
@@ -464,7 +456,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('B')"
                    id="sanierungsgebiet_bremen"
                    type="line"
-                   [source]="'geoserver_br'"
+                   [source]="bremenSource"
                    [minzoom]="11"
                    [sourceLayer]="'br_brzone_flat_bremen'"
                    [paint]="{
@@ -483,7 +475,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
                    id="landwirtschaft_bremen"
                    type="line"
-                   [source]="'geoserver_br'"
+                   [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
                    [minzoom]="10"
                    [paint]="{
@@ -500,7 +492,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('B')"
                    id="appto_bauland_bremen"
                    type="symbol"
-                   [source]="'geoserver_br'"
+                   [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
                    [minzoom]="13"
                    [paint]="{
@@ -522,7 +514,7 @@
         <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
                    id="appto_landwirtschaft_bremen"
                    type="symbol"
-                   [source]="'geoserver_br'"
+                   [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
                    [minzoom]="10"
                    [paint]="{
