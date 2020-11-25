@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
@@ -54,12 +54,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         },
         legend: {
             data: [],
-            type: 'scroll'
+            type: 'scroll',
+            top: '0%'
         },
         grid: {
-            left: '3%',
+            left: '1%',
             right: '4%',
             bottom: '3%',
+            top: '',
             containLabel: true
         },
         xAxis: {
@@ -87,7 +89,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         },
         series: [],
-        visualMap: {}
+        visualMap: []
     };
 
     @Input() adresse: Feature;
@@ -97,6 +99,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     echartsInstance;
 
     constructor(private nutzungPipe: NutzungPipe) {
+        this.onResize();
+    }
+
+    @HostListener('window:resize') onResize() {
+        console.log(window.innerWidth);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -126,11 +133,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     generateChart(features) {
+        console.log('Test');
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.srTableData = [];
         this.srTableHeader = [];
+        this.chartOption.visualMap = [];
 
-        this.chartOption.visualMap = '';
         for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
             let series = this.deepCopy(this.seriesTemplate);
@@ -148,16 +156,16 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     lastElement = i;
                 }
             }
+            this.srTableData.push({ series: series });
 
             series = this.fillLineDuringYear(series, lastElement);
 
-            this.srTableData.push({ series: series });
-
             const nutzung = this.getNutzung(series);
             this.chartOption.legend.data.push(nutzung);
-            this.setChartOptions(series, nutzung);
-            this.setVerfChartOptions(series);
+            this.setChartOptionsSeries(series, nutzung);
+            this.setChartOptionsVerf(series);
         }
+        this.setChartOptionsGrid();
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
@@ -190,13 +198,139 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return '';
     }
 
-    setChartOptions(series, nutzung) {
+    setChartOptionsSeries(series, nutzung) {
         this.chartOption.series.push({
             name: nutzung,
             type: 'line',
             step: 'end',
             data: series.map(t => t.brw),
         });
+    }
+
+    setChartOptionsGrid() {
+        if (this.chartOption.visualMap.length === 0) {
+            this.chartOption.grid.top = '10%';
+        } else if (this.chartOption.visualMap.length < 3) {
+            this.chartOption.grid.top = '15%';
+        } else if (this .chartOption.visualMap.length < 5){
+            this.chartOption.grid.top = '20%';
+        } else {
+            this.chartOption.grid.top = '25%';
+        }
+    }
+
+    setChartOptionsVerf(series) {
+        const verfIdx = [];
+        const seriesIndex = this.chartOption.series.length - 1;
+        let seriesVerf = '';
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].verf === 'SU' || series[i].verf === 'EU' || series[i].verf === 'SB' || series[i].verf === 'EB') {
+                verfIdx.push(i);
+                seriesVerf = series[i].verf;
+            }
+        }
+        const r = [verfIdx[0], verfIdx[verfIdx.length - 1]];
+
+        let [right, top, label, align] = this.setVerfLabel(seriesVerf);
+
+        const colorInRange = this.setVerfColorInRange(seriesVerf);
+        const colorOutOfRange = this.setVerfColorOutofRange();
+
+        if (r[0] !== undefined) {
+            this.chartOption.visualMap.push({
+                type: 'piecewise',
+                showLabel: true,
+                pieces: [{
+                    min: r[0],
+                    max: r[1],
+                    label: label
+                }],
+                itemWidth: 11,
+                itemHeight: 11,
+                align: align,
+                textStyle: {
+                    fontWeigth: 'lighter',
+                    fontSize: 10,
+                    height: '20%',
+                },
+                right: right,
+                top: top,
+                dimension: 0,
+                seriesIndex: seriesIndex,
+                inRange: {
+                    color: colorInRange,
+                },
+                outOfRange: {
+                    color: colorOutOfRange
+                },
+            });
+            this.setColorSeries(series, colorOutOfRange);
+        }
+    }
+
+    setVerfColorInRange(verf) {
+        let color;
+        if (verf === 'SU' || verf === 'EU') {
+            color = '#0080FF';
+        } else {
+            color = '#155796'
+        }
+        return color;
+    }
+
+    setVerfColorOutofRange() {
+        const defaultColors = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3']
+        const random = Math.floor(Math.random() * ((defaultColors.length - 1) - 0 + 1) + 0);
+        const color = defaultColors[random];
+        return color
+    }
+
+    setColorSeries(series, color) {
+        let nutzung: any;
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].nutzung !== '') {
+                nutzung = series[i].nutzung;
+                break;
+            }
+        }
+        const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
+        this.chartOption.series[idx].color = color;
+    }
+
+    setVerfLabel(seriesVerf) {
+        let right = '10%';
+        let top = '5%';
+        let align = '';
+        let label = '';
+
+        if (this.chartOption.visualMap.length === 0) {
+            align = 'left';
+        } else if (this.chartOption.visualMap.length === 1) {
+            right = '28%';
+            align = 'right';
+        } else if (this.chartOption.visualMap.length % 2 === 0) {
+            right = 10 + '%';
+            top = 5 * this.chartOption.visualMap.length + '%';
+            align = 'left';
+        } else {
+            right = '28%';
+            top = 5 * this.chartOption.visualMap.length - 1 + '%';
+        }
+
+        if (this.chartOption.visualMap.length % 2 === 0) {
+            if (seriesVerf === 'SU' || seriesVerf === 'EU') {
+                label = 'Sanierungsgebiet:\nKeine Wertanpassung';
+            } else {
+                label = 'Sanierungsgebiet:\nMit Wertanpassung    ';
+            }
+        } else {
+            if (seriesVerf === 'SU' || seriesVerf === 'EU') {
+                label = 'Sanierungsgebiet:\nKeine Wertanpassung';
+            } else {
+                label = 'Sanierungsgebiet:\n    Mit Wertanpassung';
+            }
+        }
+        return [right, top, label, align];
     }
 
     fillLineDuringYear(series, lastElement) {
@@ -209,7 +343,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 j++;
                 // fill graph
                 if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null) {
-
                     series[i + 1].brw = (series[i].brw).toString();
                     series[i + 1].nutzung = series[i].nutzung;
                     series[i + 1].verf = series[i].verf;
@@ -223,49 +356,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             series[lastElement + 1].verf = (series[lastElement].verf);
         }
         return series;
-    }
-
-    setVerfChartOptions(series) {
-        const array = [];
-        for (let i = 0; i < series.length; i++) {
-            if (series[i].verf === 'SU' || series[i].verf === 'EU') {
-                array.push(i);
-            }
-        }
-        const r = [array[0], array[array.length - 1]];
-        const seriesIndex = this.chartOption.series.length - 1;
-        if (r[0] !== undefined) {
-            this.chartOption.visualMap = {
-                type: 'piecewise',
-                showLabel: true,
-                pieces: [
-                    { min: r[0], max: r[1], label: 'Sanierungsgebiet' },
-                ],
-                left: 'right',
-                top: '6%',
-                dimension: 0,
-                seriesIndex: seriesIndex,
-                inRange: {
-                    color: ['#0080FF'],
-                },
-                outOfRange: {
-                    color: 'rgba(108, 108, 108, 1)'
-                }
-            };
-            this.setColorVerfSeries(series);
-        }
-    }
-
-    setColorVerfSeries(series) {
-        let nutzung: any;
-        for (let i = 0; i < series.length; i++) {
-            if (series[i].nutzung !== '') {
-                nutzung = series[i].nutzung;
-                break;
-            }
-        }
-        const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
-        this.chartOption.series[idx].color = 'rgba(108, 108, 108, 1)';
     }
 
     onChartInit(event: any) {
