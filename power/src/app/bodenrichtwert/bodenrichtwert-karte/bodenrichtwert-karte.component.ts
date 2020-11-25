@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
-import { LngLat, LngLatBounds, Map, Marker } from 'mapbox-gl';
+import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { environment } from '@env/environment';
@@ -25,12 +25,54 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public previousZoomFactor: number;
 
     public baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+
+    // Bremen - Tile Source
+    public brTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=boris:br_brzone_flat_bremen'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public brBounds = [8.483772095325497, 53.01056958991861, 8.990848892958946, 53.61043564706235];
+
+    public bremenSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.brTiles],
+        bounds: this.brBounds,
+    };
+
+    // NDS - Tile Source
+    public ndsTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=boris:br_brzone_flat'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
+
+    public ndsSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.ndsTiles],
+        bounds: this.ndsBounds,
+    };
+
     public MAP_STYLE_URL = environment.basemap;
 
     public map: Map;
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
     ]);
+
     public marker: Marker = new Marker({
         color: '#c4153a',
         draggable: true
@@ -97,6 +139,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     loadMap(event: Map) {
         this.map = event;
+
+        this.map.addSource('geoserver_br', this.bremenSource);
+
+        this.map.addSource('geoserver_nds', this.ndsSource);
 
         this.route.queryParams.subscribe(params => {
             // lat and lat

@@ -1,5 +1,6 @@
 <div class="container-fluid p-0">
-    <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white fixed-top">
+    <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white"
+         style="z-index: 1000;">
         <a class="navbar-brand"
            title="Zur Startseite"
            [routerLink]="['/']"
@@ -15,10 +16,15 @@
                 <span style="color: #c4153a;"
                       i18n>.niedersachsen</span>
             </strong>
-            <strong class="d-md-none">
+            <strong class="d-none d-sm-inline d-md-none">
                 <span i18n>POWER</span>
                 <span style="color: #c4153a;"
                       i18n>.niedersachsen</span>
+            </strong>
+            <strong class="d-inline d-sm-none">
+                <span i18n>POWER</span>
+                <span style="color: #c4153a;"
+                      i18n>.ni</span>
             </strong>
         </a>
 
@@ -94,8 +100,8 @@
                        data-toggle="dropdown"
                        aria-haspopup="true"
                        (click)="isCollapsedAcc = !isCollapsedAcc">
-                        <svg width="1.5em"
-                             height="1.5em"
+                        <svg width="1.3em"
+                             height="1.3em"
                              viewBox="0 0 16 16"
                              class="bi bi-file-person"
                              fill="currentColor"
