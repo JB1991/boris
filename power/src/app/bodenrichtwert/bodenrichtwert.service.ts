@@ -105,7 +105,7 @@ export class BodenrichtwertService {
         let ogcQuery = '';
 
         this.borisLayer.forEach(layer => {
-            ogcQuery += 
+            ogcQuery +=
                 '  <wfs:Query typeName="' + layer + '" srsName="EPSG:3857">\n' +
                 '    <ogc:Filter>\n' +
                 '      <ogc:And>\n' +
