@@ -1,7 +1,7 @@
 <div class="container-fluid p-0 m-0">
     <div class="row m-0">
         <div id="mapWrapper"
-             [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-lg-6 map'">
+             [class]="isCollapsed ? 'col-12 map-collapsed p-0' : 'col-lg-6 map p-0'">
             <div class="wrapper"
                  #map>
                 <!-- desktop -->
@@ -128,6 +128,27 @@
                             <div class="nav ml-auto">
                                 <button class="nav-link btn"
                                         type="button"
+                                        title="Hinweis zu Testdaten"
+                                        alt="Hinweis zu Testdaten"
+                                        i18n-alt
+                                        i18n-title
+                                        (click)="showDataNotice()">
+                                    <svg width="20px"
+                                         height="20px"
+                                         viewBox="0 0 16 16"
+                                         class="bi bi-exclamation-circle"
+                                         fill="currentColor"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         focusable="false"
+                                         aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path
+                                              d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                                    </svg>
+                                </button>
+                                <button class="nav-link btn"
+                                        type="button"
                                         title="Suche"
                                         alt="Suche"
                                         i18n-alt
@@ -239,7 +260,7 @@
                                  (selectResult)="flyTo($event)"></power-geosearch>
 
 
-                <div class="corner-ribbon top-left sticky shadow"
+                <div class="corner-ribbon shadow d-none d-md-inline"
                      i18n>Testdaten</div>
 
                 <mgl-map id="map"
@@ -295,7 +316,7 @@
             <div class="row">
                 <div *ngIf="flurstueckSelection.size === 0"
                      class="text-center border-top col-12 p-0">
-                    <h5 class="m-3 mx-center"
+                    <h5 class="m-1 m-md-3 mx-center"
                         i18n>Wählen Sie Flurstücke auf der Karte aus</h5>
                 </div>
                 <div *ngIf="flurstueckSelection.size >= 1"
@@ -323,7 +344,7 @@
                      (expanded)="onExpanded()"
                      (collapsed)="onCollapsed()"
                      [isAnimated]="true">
-                    <div class="well well-lg card card-block card-header">
+                    <div class="well well-lg card card-block card-header p-1 p-lg-3">
                         <table class="table table-bordered">
                             <caption class="sr-only"
                                      i18n>Flurstücksdaten</caption>

@@ -257,6 +257,10 @@ export class BodenwertKalkulatorComponent implements OnInit {
     public removeLocation() {
         this.marker.remove();
     }
+
+    public showDataNotice() {
+        this.alerts.NewAlert('info', $localize`Hinweis zu Testdaten`, $localize`Hierbei handelt es sich um Testdaten.`);
+    }
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
