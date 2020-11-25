@@ -86,7 +86,7 @@ export class BodenrichtwertService {
      * @param state 'Niedersachsen' or 'Bremen'
      */
     getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>, state: string): Observable<FeatureCollection> {
-        let ogcFilter: string;
+        let ogcFilter = '';
         entw.forEach(entwType => {
             ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
                 '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
