@@ -76,7 +76,7 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     });
 
     it('getFeatureByLatLonEntw should return a feature', (done) => {
-        service.getFeatureByLatLonEntw(lat, lon, entw, 'Niedersachsen').subscribe(next => {
+        service.getFeatureByLatLonEntw(lat, lon, entw).subscribe(next => {
             expect(next).toEqual(featureByLatLonEntw);
             expect(next.type).toEqual('FeatureCollection');
             done();

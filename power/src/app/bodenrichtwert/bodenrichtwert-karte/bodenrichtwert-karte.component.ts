@@ -192,17 +192,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>) {
-        const states: string[] = ['Niedersachsen', 'Bremen'];
-        for (const state of states) {
-            this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw, state)
-                .subscribe(
-                    res => this.bodenrichtwertService.updateFeatures(res),
-                    err => {
-                        console.log(err);
-                        this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
-                    }
-                );
-        }
+        this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
+            .subscribe(
+                res => this.bodenrichtwertService.updateFeatures(res),
+                err => {
+                    console.log(err);
+                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
+                }
+            );
     }
 
     getAddressFromLatLng(lat: number, lng: number) {
