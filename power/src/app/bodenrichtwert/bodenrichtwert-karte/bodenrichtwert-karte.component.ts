@@ -67,12 +67,12 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     };
 
     public MAP_STYLE_URL = environment.basemap;
-    
+
     public map: Map;
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
     ]);
-    
+
     public marker: Marker = new Marker({
         color: '#c4153a',
         draggable: true
@@ -143,7 +143,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.map.addSource('geoserver_br', this.bremenSource);
 
         this.map.addSource('geoserver_nds', this.ndsSource);
-        
+
         this.route.queryParams.subscribe(params => {
             // lat and lat
             if (params['lat'] && params['lng']) {
