@@ -16,6 +16,7 @@ import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 import { SvgPipe } from './pipes/svg.pipe';
 import { HyphenatePipe } from './pipes/hyphenate.pipe';
 import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive';
+import { FlurstueckSearchComponent } from './flurstueck-search/flurstueck-search.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive
         MarkdownInstructionsComponent,
         SvgPipe,
         HyphenatePipe,
-        ModalminiFooterDirective
+        ModalminiFooterDirective,
+        FlurstueckSearchComponent
     ],
     exports: [
         GeosearchComponent,
@@ -39,7 +41,8 @@ import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive
         LoadingscreenModule,
         SvgPipe,
         HyphenatePipe,
-        ModalminiFooterDirective
+        ModalminiFooterDirective,
+        FlurstueckSearchComponent
     ],
     imports: [
         CommonModule,
