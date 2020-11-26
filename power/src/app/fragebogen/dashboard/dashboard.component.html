@@ -10,7 +10,7 @@
                 </svg>
                 <span class="ml-1" i18n>Antworten</span>
             </div>
-            <div class="d-inline-block w-50 float-right" style="min-width:150px; max-width:200px">
+            <div class="d-inline-block w-50 float-right" style="min-width: 150px; max-width: 200px;">
                 <select class="browser-default custom-select" (change)="taskStatus = $event.target.value; updateTasks(false)" aria-roledescription="Antworten filtern nach Status.">
                     <option value="all" selected i18n>Status: Alle</option>
                     <option value="created" i18n>Status: Erstellt</option>
@@ -254,7 +254,7 @@
                 <span class="ml-1" i18n>Formulare</span>
             </div>
             <div class="float-sm-right">
-                <div class="d-inline-block w-50" style="min-width:100px; max-width:200px">
+                <div class="d-inline-block w-50 pr-2" style="min-width: 100px; max-width: 200px;">
                     <input class="form-control"
                            id="form-search"
                            type="text"
@@ -265,7 +265,7 @@
                            aria-label="Suche"
                            (change)="formSearch = $event.target.value; updateForms(false)">
                 </div>
-                <div class="d-inline-block w-50" style="min-width:100px; max-width:200px">
+                <div class="d-inline-block w-50" style="min-width: 100px; max-width: 200px;">
                     <select class="browser-default custom-select" (change)="formStatus = $event.target.value; updateForms(false)">
                         <option value="all"
                                 selected
@@ -493,7 +493,7 @@
                     <span class="d-none d-md-inline ml-1" i18n>Neues Formular</span>
                 </button>
                 <button type="button"
-                        class="btn btn-primary btn-sm mr-2"
+                        class="btn btn-primary btn-sm"
                         id="button-import"
                         i18n-title
                         title="Formular importieren"
