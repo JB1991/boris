@@ -47,9 +47,9 @@ export class SettingsComponent {
             };
         }
         this.old = form;
-        this.tags = form.tags;
-        this.groups = form.groups;
-        this.owner = form.owner.id;
+        this.tags = JSON.parse(JSON.stringify(form.tags));
+        this.groups = JSON.parse(JSON.stringify(form.groups));
+        this.owner = JSON.parse(JSON.stringify(form.owner.id));
         this.modal.open($localize`Einstellungen`);
     }
 }
