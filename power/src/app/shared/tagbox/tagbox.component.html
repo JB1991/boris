@@ -1,19 +1,35 @@
 <!-- tags -->
 <div class="form-group">
-    <input type="text"
-           attr.list="tagList-{{ eid }}"
-           class="form-control"
-           [(ngModel)]="tagInput"
-           (change)="addTag()"
-           [name]="eid"
-           [id]="eid"
-           maxlength="50"
-           [placeholder]="placeholder">
+    <!-- editable = true -->
+    <ng-container *ngIf="editable">
+        <input type="text"
+               attr.list="tagList-{{ eid }}"
+               class="form-control"
+               [(ngModel)]="tagInput"
+               (change)="addTag()"
+               [name]="eid"
+               [id]="eid"
+               maxlength="50"
+               [placeholder]="placeholder">
 
-    <datalist id="tagList-{{ eid }}">
+        <datalist id="tagList-{{ eid }}">
+            <option *ngFor="let tag of dataList; index as i"
+                    [value]="tag"></option>
+        </datalist>
+    </ng-container>
+
+    <!-- editable = false -->
+    <select *ngIf="!editable"
+            class="custom-select"
+            [(ngModel)]="tagInput"
+            (change)="addTag()"
+            [name]="eid"
+            [id]="eid">
+        <option value=""
+                i18n>{{ placeholder }}</option>
         <option *ngFor="let tag of dataList; index as i"
-                value="{{ tag }}"></option>
-    </datalist>
+                [value]="tag">{{ tag }}</option>
+    </select>
 
     <div *ngFor="let tag of tagList; index as i"
          class="d-inline">

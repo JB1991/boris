@@ -19,8 +19,9 @@
         <power-tagbox [(tagList)]="groups"
                       [dataList]="availableGroups"
                       eid="form-groups"
+                      [editable]="false"
                       i18n-placeholder
-                      placeholder="Gruppe mit Enter hinzufügen"></power-tagbox>
+                      placeholder="Gruppe auswählen zum hinzufügen"></power-tagbox>
     </div>
 
     <!-- tags -->
@@ -36,7 +37,8 @@
     </div>
 
     <!-- modal buttons -->
-    <div class="modal-footer">
+    <div class="modal-footer"
+         powerModalminiFooter>
         <button type="button"
                 class="btn btn-success"
                 i18n-title
