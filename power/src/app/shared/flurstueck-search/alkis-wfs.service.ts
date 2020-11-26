@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { XmlParser } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { FlurstueckPipe } from '@app/bodenwert-kalkulator/flurstueck-pipe.pipe';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Flurstueck } from './flurstueck-search.component';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class AlkisWfsService {
     /**
      * Subject with feature object which contains a flurstueck and associated properties
      */
-    private features = new Subject<any>();
+    private features = new Subject<Flurstueck>();
 
     constructor(private http: HttpClient) {
 
@@ -26,7 +27,7 @@ export class AlkisWfsService {
     /**
      * Returns the features as an Observable
      */
-    public getFeatures(): Observable<any> {
+    public getFeatures(): Observable<Flurstueck> {
         return this.features.asObservable();
     }
 
@@ -34,12 +35,7 @@ export class AlkisWfsService {
      * Updates the features by feeding a new value to the Subject
      * @param feature New feature
      */
-    public updateFeatures(feature: any) {
-        console.log(feature);
-        let parser = require('fast-xml-parser');
-        // console.log(parser.validate(feature));
-        let json = parser.parse(feature);
-        console.log(json['wfs:FeatureCollection']['wfs:member']['AX_Flurstueck']['position']);
+    public updateFeatures(feature: Flurstueck) {
         this.features.next(feature);
     }
 

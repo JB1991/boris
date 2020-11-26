@@ -8,6 +8,7 @@ import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service
 import { Feature } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
+import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
 
 /**
  * Possible selections of Stichtage
@@ -66,7 +67,8 @@ export class BodenrichtwertComponent implements OnDestroy {
      * Subscription to features, loaded by AlkisWfs-Service
      */
     public alkisFeatureSubscription: Subscription;
-    public alkisFeatures: any;
+    
+    public alkisFeatures: Flurstueck;
     
     /**
      * Actual selected Stichtag
@@ -103,6 +105,7 @@ export class BodenrichtwertComponent implements OnDestroy {
         });
         this.alkisFeatureSubscription = this.alkisWfsService.getFeatures().subscribe(ft => {
             this.alkisFeatures = ft;
+            console.log(ft);
         });
         this.stichtag = STICHTAGE[0];
         this.teilmarkt = TEILMAERKTE[0];
