@@ -18,8 +18,8 @@ let id = 0;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TagboxComponent {
-    @Input() public tagboxLabel: string;
-    @Input() public displayBlock = false;
+    @Input() public placeholder = '';
+    @Input() public eid: string;
     @Input() public dataList: string[];
     @Input() public tagList: string[];
     public tagInput = '';
@@ -38,10 +38,8 @@ export class TagboxComponent {
         }
         if (!this.tagList.includes(this.tagInput)) {
             this.tagList.push(this.tagInput);
-            this.tagInput = '';
-        } else {
-            this.tagInput = '';
         }
+        this.tagInput = '';
     }
 
     /**
