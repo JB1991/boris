@@ -16,6 +16,11 @@ export class BodenrichtwertService {
     private url = environment.ows;
 
     /**
+     * Boris BRZ Layer
+     */
+    private borisLayer = ['br_brzone_flat', 'br_brzone_flat_bremen'];
+
+    /**
      * FeatureCollection, that can be subscribed to
      */
     private features = new Subject<FeatureCollection>();
@@ -85,8 +90,10 @@ export class BodenrichtwertService {
      * @param entw Teilmarkt
      * @param state 'Niedersachsen' or 'Bremen'
      */
-    getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>, state: string): Observable<FeatureCollection> {
-        let ogcFilter: string;
+    getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>): Observable<FeatureCollection> {
+        // OGC Filter for each teilmarkt/entwicklungszustand
+        let ogcFilter = '';
+
         entw.forEach(entwType => {
             ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
                 '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
@@ -94,33 +101,32 @@ export class BodenrichtwertService {
                 '        </ogc:PropertyIsEqualTo>\n';
         });
 
-        let layer: string;
-        if (state === 'Niedersachsen') {
-            layer = 'boris:br_brzone_flat';
-        } else if (state === 'Bremen') {
-            layer = 'boris:br_brzone_flat_bremen';
-        }
+        // OGC Query for each layer to be searched
+        let ogcQuery = '';
+
+        this.borisLayer.forEach(layer => {
+            ogcQuery +=
+                '  <wfs:Query typeName="' + layer + '" srsName="EPSG:3857">\n' +
+                '    <ogc:Filter>\n' +
+                '      <ogc:And>\n' +
+                '        <ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
+                '        <ogc:Intersects>\n' +
+                '        <ogc:PropertyName>geom</ogc:PropertyName>\n' +
+                '          <gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">\n' +
+                '            <gml:coordinates>' + lon + ',' + lat + '</gml:coordinates>\n' +
+                '          </gml:Point>\n' +
+                '      </ogc:Intersects>\n' +
+                '      </ogc:And>\n' +
+                '    </ogc:Filter>\n' +
+                '  </wfs:Query>\n';
+        });
 
         const filter =
             '<wfs:GetFeature \n' +
             '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
             '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
             '  xmlns:gml="http://www.opengis.net/gml/3.2" \n' +
-            ' service="WFS" version="1.1.0" outputFormat="JSON">\n' +
-            '  <wfs:Query typeName="' + layer + '" srsName="EPSG:3857" >\n' +
-            '    <ogc:Filter>\n' +
-            '      <ogc:And>\n' +
-            '        <ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
-            '        <ogc:Intersects>\n' +
-            '        <ogc:PropertyName>geom</ogc:PropertyName>\n' +
-            '          <gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">\n' +
-            '            <gml:coordinates>' + lon + ',' + lat + '</gml:coordinates>\n' +
-            '          </gml:Point>\n' +
-            '      </ogc:Intersects>\n' +
-            '      </ogc:And>\n' +
-            '    </ogc:Filter>\n' +
-            '  </wfs:Query>\n' +
-            '</wfs:GetFeature>';
+            ' service="WFS" version="1.1.0" outputFormat="JSON">\n' + ogcQuery + '</wfs:GetFeature>';
 
         /*
          * Umrechnuntstabellendatei and Umrechnungstabellenwerte are presented as String not JSON,
