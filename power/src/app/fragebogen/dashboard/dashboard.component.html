@@ -194,7 +194,7 @@
         <div class="card-footer">
             <div class="float-right">
                 <div class="form-inline">
-                    <div class="form-group m-0 mr-2">
+                    <div class="form-group m-0 mr-2" *ngIf="taskTotal > taskPerPage">
                         <select class="custom-select"
                                 (change)="taskPerPage = $event.target.value; updateTasks(false)">
                             <option *ngFor=" let size of taskPageSizes">
@@ -495,7 +495,7 @@
             <!-- Forms Pagination -->
             <div class="float-lg-right mt-2 mt-lg-0">
                 <div class="form-inline">
-                    <div class="form-group m-0 mr-2">
+                    <div class="form-group m-0 mr-2" *ngIf="formTotal > formPerPage">
                         <select class="custom-select"
                                 (change)="formPerPage = $event.target.value; updateForms(false)">
                             <option *ngFor=" let size of formPageSizes">
