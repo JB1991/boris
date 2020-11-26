@@ -1,5 +1,5 @@
 import {
-    Component, ElementRef, OnDestroy, ViewChild,
+    Component, OnDestroy,
     ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
@@ -99,11 +99,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     echartsInstance;
 
     constructor(private nutzungPipe: NutzungPipe) {
-        this.onResize();
-    }
-
-    @HostListener('window:resize') onResize() {
-        console.log(window.innerWidth);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -133,7 +128,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     generateChart(features) {
-        console.log('Test');
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.srTableData = [];
         this.srTableHeader = [];
@@ -167,6 +161,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         this.setChartOptionsGrid();
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        this.onResizeVerf();
     }
 
     groupBy(list, keyGetter) {
@@ -212,8 +207,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.chartOption.grid.top = '10%';
         } else if (this.chartOption.visualMap.length < 3) {
             this.chartOption.grid.top = '15%';
-        } else if (this .chartOption.visualMap.length < 5){
-            this.chartOption.grid.top = '20%';
+        } else if (this.chartOption.visualMap.length < 5) {
+            this.chartOption.grid.top = '22%';
         } else {
             this.chartOption.grid.top = '25%';
         }
@@ -305,16 +300,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
         if (this.chartOption.visualMap.length === 0) {
             align = 'left';
-        } else if (this.chartOption.visualMap.length === 1) {
-            right = '28%';
-            align = 'right';
         } else if (this.chartOption.visualMap.length % 2 === 0) {
-            right = 10 + '%';
             top = 5 * this.chartOption.visualMap.length + '%';
             align = 'left';
-        } else {
-            right = '28%';
-            top = 5 * this.chartOption.visualMap.length - 1 + '%';
         }
 
         if (this.chartOption.visualMap.length % 2 === 0) {
@@ -356,6 +344,68 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             series[lastElement + 1].verf = (series[lastElement].verf);
         }
         return series;
+    }
+
+    onResizeVerf(event?) {
+        let innerWidth
+        if (event) {
+            innerWidth = event.target.innerWidth;
+        } else { innerWidth = window.innerWidth };
+        if (this.chartOption.visualMap.length > 1) {
+            for (let i = 1; i < this.chartOption.visualMap.length; i = i + 2) {
+                if (innerWidth >= 1680 || (innerWidth <= 991 && innerWidth >= 870)) {
+                    this.chartOption.visualMap[i].right = '26%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if (((innerWidth < 1680 && innerWidth >= 1450) || (innerWidth < 870 && innerWidth >= 720))) {
+                    this.chartOption.visualMap[i].right = '30%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if ((innerWidth < 1450 && innerWidth >= 1360) || (innerWidth < 720 && innerWidth >= 650)) {
+                    this.chartOption.visualMap[i].right = '32%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if ((innerWidth < 1360 && innerWidth >= 1180) || (innerWidth < 650 && innerWidth >= 580)) {
+                    this.chartOption.visualMap[i].right = '35%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if ((innerWidth < 1180 && innerWidth >= 1080) || (innerWidth < 580 && innerWidth >= 525)) {
+                    this.chartOption.visualMap[i].right = '38%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if ((innerWidth < 1080 && innerWidth >= 1020) || (innerWidth < 525 && innerWidth >= 495)) {
+                    this.chartOption.visualMap[i].right = '40%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if ((innerWidth < 1020 && innerWidth >= 992) || (innerWidth < 495 && innerWidth >= 450)) {
+                    this.chartOption.visualMap[i].right = '44%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if ((innerWidth < 450 && innerWidth >= 410)) {
+                    this.chartOption.visualMap[i].right = '48%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if ((innerWidth < 410 && innerWidth >= 365)) {
+                    this.chartOption.visualMap[i].right = '54%';
+                    i === 1 ? (this.chartOption.visualMap[i].top = 5 * i + '%') : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                    this.chartOption.visualMap[i].align = 'right';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                } else if (innerWidth < 365) {
+                    this.chartOption.visualMap[i].right = '10%';
+                    this.chartOption.visualMap[i].top = 5 * this.chartOption.visualMap.length + '%';
+                    this.chartOption.visualMap[i].align = 'left';
+                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+                }
+            }
+        }
     }
 
     onChartInit(event: any) {
