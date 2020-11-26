@@ -22,6 +22,7 @@ export class TagboxComponent {
     @Input() public eid: string;
     @Input() public dataList: string[];
     @Input() public tagList: string[];
+    @Input() public editable = true;
     public tagInput = '';
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
