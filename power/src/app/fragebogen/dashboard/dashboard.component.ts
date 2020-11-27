@@ -15,8 +15,6 @@ import { PaginationComponent } from 'ngx-bootstrap/pagination';
     encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
-    @ViewChild('formPagination') formPagination: PaginationComponent;
-
     public tags: Array<string>;
 
     public forms: Array<Form>;
