@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { SimpleChange } from '@angular/core';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
@@ -77,11 +78,20 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component).toBeTruthy();
     });
 
-    it('ngOnChanges should work', () => {
-        spyOn(component, 'flyTo');
-        component.ngOnChanges();
+    it('ngOnChanges should work for expanded', () => {
+        component.ngOnChanges({
+            expanded: new SimpleChange(true, false, false)
+        });
         expect(component.map.resize).toHaveBeenCalledTimes(1);
-        expect(component.flyTo).toHaveBeenCalledTimes(1);
+    });
+
+    it('ngOnChanges should work for isCollapsed', () => {
+        component.resetMapFired = true;
+        component.ngOnChanges({
+            isCollapsed: new SimpleChange(true, false, false)
+        });
+        expect(component.map.resize).toHaveBeenCalledTimes(1);
+        expect(component.map.fitBounds).toHaveBeenCalledTimes(1);
     });
 
     it('toggleSearchActive should toggle the state of searchActive', () => {

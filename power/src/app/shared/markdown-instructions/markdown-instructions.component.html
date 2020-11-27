@@ -1,78 +1,107 @@
-<power-modal #formattinghelpmodal>
+<button type="button"
+class="btn btn-sm btn-link pl-0 pb-4"
+i18n-title
+title="Hilfe zur Formatierung"
+(click)="formattinghelpmodal.open(title)"
+i18n>Hilfe zur Formatierung</button>
+<br>
+
+<power-modalmini #formattinghelpmodal>
     <p>
-        <label i18n>
-            Für die Formatierung und Gliederung von Texten verwenden wir Markdown.
-            Eine Einführung finden sie auf:
-        </label>
-        <a href="https://en.wikipedia.org/wiki/Markdown"> Wikipedia</a>
+        <label i18n>Für die Formatierung und Gliederung von Texten wird "Markdown" verwendet. Eine Einführung finden Sie
+            unter:</label>
+        <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank"> Wikipedia</a>
     </p>
 
     <p>
-        <label i18n>
-            Es ist eine Auszeichnungssprache und ist im Internet im technischen Umfeld verbreitet.
-            Weitere Details findet sind unter der folgenden Seite zu finden:
-        </label>
-        <a href="https://daringfireball.net/projects/markdown/syntax">
+        <label i18n>Es ist eine Auszeichnungssprache und ist im Internet im technischen Umfeld verbreitet. Lesen Sie
+            weitere Details unter der folgenden Seite:</label>
+        <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">
             https://daringfireball.net/projects/markdown/syntax</a>
     </p>
 
-    <h4>Formatierungshilfe</h4>
-    <table>
-        <tr>
-            <td><i><label i18n>kursiv</label></i></td>
-            <td><label>*text*</label></td>
-        </tr>
-        <tr>
-            <td><b><label i18n>kursiv</label></b></td>
-            <td><label>**text**</label></td>
-        </tr>
-        <tr>
-            <td><b><i><label i18n>kursiv und fett</label></i></b></td>
-            <td><label>***text***</label></td>
-        </tr>
-        <tr>
-            <td><ul>
-                <li><label i18n>Ungeordnete Liste</label></li>
-                <li><label i18n>Ungeordnete Liste</label></li>
-            </ul></td>
-            <td><label>* text</label><br>
-                <label>* text</label></td>
-        </tr>
-        <tr>
-            <td><ol>
-                <li><label i18n>Ungeordnete Liste</label></li>
-                <li><label i18n>Ungeordnete Liste</label></li>
-            </ol></td>
-            <td><label>* text</label><br>
-                <label>* text</label>
-            </td>
-        </tr>
-        <tr>
-            <td><h1><label i18n>Überschrift Ebene 1</label></h1></td>
-            <td><label># text</label></td>
-        </tr>
-        <tr>
-            <td><h2><label i18n>Überschrift Ebene 2</label></h2></td>
-            <td><label>## text</label></td>
-        </tr>
-        <tr>
-            <td><h3><label i18n>Überschrift Ebene 3</label></h3></td>
-            <td><label>### text</label></td>
-        </tr>
-        <tr>
-            <td><h4><label i18n>Überschrift Ebene 4</label></h4></td>
-            <td><label>#### text</label></td>
-        </tr>
-        <tr>
-            <td><label><a href="https://en.wikipedia.org/wiki/Markdown">Link</a></label></td>
-            <td><label>[Link](https://en.wikipedia.org/wiki/Markdown)</label></td>
-        </tr>
-        <tr>
-            <td><label i18n>Formatierung verhindern, z.B. *text</label></td>
-            <td><label>\*text</label></td>
-        </tr>
-    </table>
-    <label i18n>
+    <h4>Hilfe zur Formatierung</h4>
+    <table class="table table-striped table-bordered .table-responsive">
+        <thead>
+            <tr>
+                <th scope="col"><label i18n>Formatierung</label></th>
+                <th scope="col"><label i18n>Befehl</label></th>
+            </tr>
+        </thead>
+        <tbody>
 
-    </label>
-</power-modal>
+            <tr>
+                <td><i><label i18n>kursiv</label></i></td>
+                <td><label>*text*</label></td>
+            </tr>
+            <tr>
+                <td><b><label i18n>fett</label></b></td>
+                <td><label>**text**</label></td>
+            </tr>
+            <tr>
+                <td><b><i><label i18n>kursiv und fett</label></i></b></td>
+                <td><label>***text***</label></td>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li><label i18n>Einfache Liste</label></li>
+                        <li><label i18n>Einfache Liste</label></li>
+                    </ul>
+                </td>
+                <td><label>* text</label><br>
+                    <label>* text</label></td>
+            </tr>
+            <tr>
+                <td>
+                    <ol>
+                        <li><label i18n>Nummerierte Liste</label></li>
+                        <li><label i18n>Nummerierte Liste</label></li>
+                    </ol>
+                </td>
+                <td>
+                    <label>1. text</label><br>
+                    <label>2. text</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h1><label i18n>Überschrift Ebene 1</label></h1>
+                </td>
+                <td><label># text</label></td>
+            </tr>
+            <tr>
+                <td>
+                    <h2><label i18n>Überschrift Ebene 2</label></h2>
+                </td>
+                <td><label>## text</label></td>
+            </tr>
+            <tr>
+                <td>
+                    <h3><label i18n>Überschrift Ebene 3</label></h3>
+                </td>
+                <td><label>### text</label></td>
+            </tr>
+            <tr>
+                <td>
+                    <h4><label i18n>Überschrift Ebene 4</label></h4>
+                </td>
+                <td><label>#### text</label></td>
+            </tr>
+            <tr>
+                <td><label><a href="https://en.wikipedia.org/wiki/Markdown">Link</a></label></td>
+                <td><label>[Link](https://en.wikipedia.org/wiki/Markdown)</label></td>
+            </tr>
+            <tr>
+                <td><label i18n>Bild einbinden</label>
+                <img src="/assets/logos/logo.png" alt="Logo" title="Logo LGLN" height="25px">
+                </td>
+                <td><label>![Logo](/assets/logos/logo.png "Logo LGLN")</label></td>
+            </tr>
+            <tr>
+                <td><label i18n>Formatierung verhindern, z.B. "*text"</label></td>
+                <td><label>\*text</label></td>
+            </tr>
+        </tbody>
+    </table>
+</power-modalmini>

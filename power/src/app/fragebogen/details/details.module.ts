@@ -10,8 +10,8 @@ import { DetailsRoutingModule } from './details-routing.module';
 import { DetailsComponent } from './details.component';
 import { MaketaskComponent } from './maketask/maketask.component';
 import { PublishComponent } from './publish/publish.component';
-import { CommentComponent } from './comment/comment.component';
 import { SettingsComponent } from './settings/settings.component';
+import { CommentComponent } from './comment/comment.component';
 
 import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 

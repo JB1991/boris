@@ -93,9 +93,8 @@ describe('Static.Login.LoginComponent', () => {
 
     it('should trim language from redirect url', (done) => {
         // set keycloak return code
-        spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.callFake((name) => {
-            return (name === 'redirect' ? '/en-US/forms' : null);
-        });
+        spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.callFake((name) =>
+            (name === 'redirect' ? '/en-US/forms' : null));
 
         component.authenticate().then((value) => {
             expect(component.redirect).toHaveBeenCalledTimes(2);
@@ -110,18 +109,16 @@ describe('Static.Login.LoginComponent', () => {
      * @param body The body of the answer
      * @param opts Optional HTTP information of the answer
      */
-    function answerHTTPRequest(url, method, body, opts?) {
+    const answerHTTPRequest = (url, method, body, opts?) => {
         // Take HTTP request from queue
         const request = httpTestingController.expectOne(url);
         expect(request.request.method).toEqual(method);
 
         // Return the answer
         request.flush(deepCopy(body), opts);
-    }
+    };
 
-    function deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
+    const deepCopy = (data) => JSON.parse(JSON.stringify(data));
 
     afterEach(waitForAsync(() => {
         // Verify that no requests are remaining

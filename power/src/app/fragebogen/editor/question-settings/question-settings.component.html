@@ -33,13 +33,6 @@
                     </small>
                 </div>
 
-                <!-- ToDo: Passende Formatierung finden -->
-                <button type="button"
-                        class="btn btn-sm btn-link"
-                        (click)="formattinghelpmodal.open()">
-                    <label i18n>Hilfe zur Formatierung</label>
-                </button>
-
                 <!-- question-title -->
                 <div class="form-group">
                     <label for="question-title"
@@ -65,6 +58,10 @@
                            class="form-text text-muted"
                            i18n>Dieser Text wird unter der Frage angezeigt.</small>
                 </div>
+
+                <!-- markdown-instructions -->
+                <power-markdown-instructions #formattinghelpmodal>
+                </power-markdown-instructions>
 
                 <span i18n>Sichtbarkeitsbedingungen für die Frage</span>
                 <hr>
@@ -319,8 +316,22 @@
                 </div>
 
                 <div *ngIf="model.pages[page].elements[question].type === 'nouislider'">
+                    <!-- question-double -->
+                    <div class="custom-control custom-checkbox mb-3"
+                         *ngIf="!model.pages[page].elements[question].inputbox">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].double"
+                               name="question-double"
+                               id="question-double">
+                        <label class="custom-control-label"
+                               for="question-double"
+                               i18n>Zweiten Handle für Slider aktivieren</label>
+                    </div>
+
                     <!-- question-inputbox -->
-                    <div class="custom-control custom-checkbox mb-3">
+                    <div class="custom-control custom-checkbox mb-3"
+                         *ngIf="!model.pages[page].elements[question].double">
                         <input type="checkbox"
                                class="custom-control-input"
                                [(ngModel)]="model.pages[page].elements[question].inputbox"
@@ -354,6 +365,19 @@
                                [(ngModel)]="model.pages[page].elements[question].decimals"
                                name="question-decimals"
                                id="question-decimals">
+                    </div>
+
+                    <!-- question-pipsDensity -->
+                    <div class="form-group">
+                        <label for="question-pipsDensity"
+                               i18n>Anzahl Werte auf Skala</label>
+                        <input type="number"
+                               class="form-control"
+                               min="0"
+                               max="100"
+                               [(ngModel)]="model.pages[page].elements[question].pipsDensity"
+                               name="question-pipsDensity"
+                               id="question-pipsDensity">
                     </div>
 
                     <!-- question-rangeMin -->
@@ -831,6 +855,3 @@
         </button>
     </div>
 </power-modal>
-
-<!-- configure element modal -->
-<power-markdown-instructions #formattinghelpmodal></power-markdown-instructions>

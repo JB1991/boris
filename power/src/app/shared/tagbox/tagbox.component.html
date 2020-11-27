@@ -1,38 +1,48 @@
 <!-- tags -->
 <div class="form-group">
-    <label for="formtag-{{ uniqId }}">{{ tagboxLabel }}</label>
-    <input type="text"
-           [attr.list]="'datalist-' + uniqId"
-           class="form-control"
-           [(ngModel)]="tagInput"
-           (keyup.enter)="addTag()"
-           (change)="addTag()"
-           id="formtag-{{ uniqId }}"
-           name="formtag-{{ uniqId }}"
-           maxlength="50"
-           i18n-placeholder
-           placeholder="Mit ENTER bestätigen">
+    <!-- editable = true -->
+    <ng-container *ngIf="editable">
+        <input type="text"
+               attr.list="tagList-{{ eid }}"
+               class="form-control"
+               [(ngModel)]="tagInput"
+               (change)="addTag()"
+               [name]="eid"
+               [id]="eid"
+               maxlength="50"
+               [placeholder]="placeholder">
 
-    <datalist id="{{ 'datalist-' + uniqId }}">
+        <datalist id="tagList-{{ eid }}">
+            <option *ngFor="let tag of dataList; index as i"
+                    [value]="tag"></option>
+        </datalist>
+    </ng-container>
+
+    <!-- editable = false -->
+    <select *ngIf="!editable"
+            class="custom-select"
+            [(ngModel)]="tagInput"
+            (change)="addTag()"
+            [name]="eid"
+            [id]="eid">
+        <option value=""
+                i18n>{{ placeholder }}</option>
         <option *ngFor="let tag of dataList; index as i"
-                value="{{ tag }}"></option>
-    </datalist>
+                [value]="tag">{{ tag }}</option>
+    </select>
 
-    <div>
-        <div [attr.class]="displayBlock ? 'd-block' : 'd-inline'"
-             *ngFor="let tag of tagList; index as i"
-             title="{{ tag }}">
-            <span class="badge badge-primary mr-1">
-                {{ tag }}
+    <div *ngFor="let tag of tagList; index as i"
+         class="d-inline">
+        <span class="badge badge-primary mr-1">
+            {{ tag }}
 
-                <button type="button"
-                        class="close ml-1"
-                        i18n-title
-                        title="Löschen"
-                        (click)="removeTag(i)">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </span>
-        </div>
+            <button type="button"
+                    class="close ml-1"
+                    i18n-title
+                    title="Löschen"
+                    (click)="removeTag(i)">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </span>
     </div>
 </div>

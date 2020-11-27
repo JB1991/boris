@@ -2,7 +2,7 @@
 <main class="container p-1 p-lg-3"
       id="content"
       tabindex="-1"
-      *ngIf="data.form">
+      *ngIf="form">
 
     <!-- language -->
     <div class="form-group row w-50"
@@ -27,19 +27,19 @@
             </select>
         </div>
     </div>
-
-    <power-forms-surveyjs-wrapper *ngIf="data.form.access !== 'public'"
-                                  [model]="data.form.content"
+    <power-forms-surveyjs-wrapper *ngIf="form.access !== 'public'"
+                                  [model]="form.content"
                                   [css]="data.css_style"
-                                  (submitResult)="submit($event)"
+                                  [data]="task.content"
+                                  (submitResult)="submit($event);"
                                   (interimResult)="progress($event)"
                                   (changes)="changed($event)"
                                   #wrapper>
     </power-forms-surveyjs-wrapper>
-    <power-forms-surveyjs-wrapper *ngIf="data.form.access === 'public'"
-                                  [model]="data.form.content"
+    <power-forms-surveyjs-wrapper *ngIf="form.access === 'public'"
+                                  [model]="form.content"
                                   [css]="data.css_style"
-                                  (submitResult)="submitTask(data.form.id, $event)"
+                                  (submitResult)="submitTask(form.id, $event)"
                                   #wrapper>
     </power-forms-surveyjs-wrapper>
 </main>

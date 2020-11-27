@@ -29,6 +29,16 @@ export class ImmobilienExport {
         this.nipixRuntime = niRuntime;
     }
 
+    public exportMapAsImage() {
+        const img = this.nipixRuntime.map.obj.getDataURL({
+            type: 'png',
+            pixelRatio: 2,
+            backgroundColor: '#fff'
+        });
+
+        ImmobilienHelper.downloadFile(img, 'Wohnungsmarktregionen.png', '', true);
+    }
+
     /**
      * Download current Diagram Data as csv
      */
@@ -97,7 +107,8 @@ export class ImmobilienExport {
             return;
         }
         const chartoptions = this.nipixRuntime.chart.obj.getOption();
-        const date = chartoptions['xAxis'][0]['data'], series = chartoptions['series'];
+        const date = chartoptions['xAxis'][0]['data'];
+        const series = chartoptions['series'];
         const istart = Math.trunc(date.length * chartoptions['dataZoom'][0]['start'] / 100);
         const iend = Math.trunc(date.length * chartoptions['dataZoom'][0]['end'] / 100);
         let tmp = [];
@@ -116,7 +127,7 @@ export class ImmobilienExport {
             const geoJson = JSON.parse(JSON.stringify(ImmobilienExport.geoJsonHeader));
             geoJson.features = tmp;
             ImmobilienHelper.downloadFile(JSON.stringify(geoJson), 'Immobilienpreisindex.geojson');
-        } else {  // CSV
+        } else { // CSV
             let csv = '"Kategorie";"Region";"Jahr_Q";"Index";"Kauffälle"\r\n';
             csv += ImmobilienHelper.convertArrayToCSV(
                 tmp,

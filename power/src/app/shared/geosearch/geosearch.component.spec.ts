@@ -6,9 +6,12 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Feature, FeatureCollection } from 'geojson';
 import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { SimpleChange, SimpleChanges } from '@angular/core';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
     const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
+    const changedFeature: Feature = require('../../../assets/boden/geosearch-samples/featureChange.json');
+
     const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
 
     let component: GeosearchComponent;
@@ -47,10 +50,11 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     });
 
     it('ngOnChanges should work', () => {
-        component.resetGeosearch = true;
         component.model = feature;
-        component.ngOnChanges();
-        expect(component.model).toBeUndefined();
+        component.ngOnChanges({
+            adresse: new SimpleChange(null, changedFeature, false)
+        });
+        expect(component.model).toEqual(changedFeature);
     });
 
     it('selectItem selects an item from the result list', (done) => {
@@ -76,7 +80,6 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
             expectObservable(component.search(input$));
         });
         expect(component.geosearchService.search).toHaveBeenCalled();
-        expect(component.searchFailed).toBe(false);
     });
 
     it('search should unsuccessfully call the Geosearch service', () => {
@@ -87,7 +90,6 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
             expectObservable(component.search(input$));
         });
         expect(component.geosearchService.search).toHaveBeenCalled();
-        expect(component.searchFailed).toBe(true);
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

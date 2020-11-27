@@ -62,4 +62,8 @@ $container-max-widths: (
     xxl: 1660px
 );
 
+.max-search-width {
+    max-width: 500px;
+}
+
 @import '~bootstrap/scss/bootstrap.scss';

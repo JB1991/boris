@@ -89,15 +89,15 @@ describe('Fragebogen.Editor.Validators.ValidatorsComponent', () => {
 
     it('should add standard validators', () => {
         expect(component.struct.length).toEqual(0);
-        component.selectDefaultValidator(<any>{ target: { value: '' } });
+        component.selectDefaultValidator({ target: { value: '' } } as any);
         expect(component.struct.length).toEqual(0);
 
-        component.selectDefaultValidator(<any>{ target: { value: 'date1' } });
+        component.selectDefaultValidator({ target: { value: 'date1' } } as any);
         expect(component.struct.length).toEqual(1);
         expect(component.struct[0].type).toEqual('regex');
         expect(component.struct[0].regex).toEqual('^(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)\\d{2})$');
 
-        component.selectDefaultValidator(<any>{ target: { value: 'date2' } });
+        component.selectDefaultValidator({ target: { value: 'date2' } } as any);
         expect(component.struct.length).toEqual(2);
         expect(component.struct[1].type).toEqual('regex');
         expect(component.struct[1].regex).toEqual('^((?:19|20)\\d{2})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$');

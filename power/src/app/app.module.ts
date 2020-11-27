@@ -17,27 +17,24 @@ import { AuthModule } from '@app/shared/auth/auth.module';
 import { AlertsModule } from '@app/shared/alerts/alerts.module';
 import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
 
-export function load(httpClient: HttpClient, configService: ConfigService) {
-    return (): Promise<boolean> => {
-        return new Promise<boolean>((resolve: (a: boolean) => void): void => {
-            httpClient.get<Config>('/assets/config/config.json')
-                .pipe(
-                    map((x: Config) => {
-                        configService.config = x;
-                        resolve(true);
-                    }),
-                    catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
-                        console.error('could not load config.json');
-                        if (x.status !== 404) {
-                            resolve(false);
-                        }
-                        resolve(true);
-                        return of({});
-                    })
-                ).subscribe();
-        });
-    };
-}
+export const load = (httpClient: HttpClient, configService: ConfigService) =>
+    (): Promise<boolean> => new Promise<boolean>((resolve: (a: boolean) => void): void => {
+        httpClient.get<Config>('/assets/config/config.json')
+            .pipe(
+                map((x: Config) => {
+                    configService.config = x;
+                    resolve(true);
+                }),
+                catchError((x: { status: number }, caught: Observable<void>): ObservableInput<any> => {
+                    console.error('could not load config.json');
+                    if (x.status !== 404) {
+                        resolve(false);
+                    }
+                    resolve(true);
+                    return of({});
+                })
+            ).subscribe();
+    });
 
 @NgModule({
     declarations: [

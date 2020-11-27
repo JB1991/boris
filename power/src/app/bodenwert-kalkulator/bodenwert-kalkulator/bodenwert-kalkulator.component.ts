@@ -17,7 +17,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
     filterActive = false;
     locationTrackingActive = false;
     isCollapsed = true;
-    resetGeosearch: boolean;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
@@ -81,20 +80,27 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     // selectingFlurstueck() {
     //     if (this.marker.getLngLat) {
-    //         console.log(this.marker);
-    //         const zoomlvl = this.map.getZoom();
-    //         if (this.marker && zoomlvl >= 14) {
+    //         if (this.marker !== null) {
     //             this.isCollapsed = false;
     //             this.map.flyTo({
     //                 center: this.marker.getLngLat()
     //             });
-    //             // const point: Point = new Point(this.marker.getPos(), this.marker.getPos());
-    //             // const features: MapboxGeoJSONFeature[] =
-    //             //     this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
-    //             // for (const feature of features) {
-    //             //     this.updateFlurstueckSelection(feature);
-    //             // }
-    //             // this.updateFlurstueckHighlighting();
+    //                 let x = this.marker.getElement().getBoundingClientRect().x;
+    //                 let y = this.marker.getElement().getBoundingClientRect().y;
+    //                 const point: Point = new Point(x, y);
+    //                 const features: MapboxGeoJSONFeature[] =
+    //                     this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
+    //             for (const feature of features) {
+    //                 this.updateFlurstueckSelection(feature);
+    //             }
+    //             console.log(this.marker);
+    //             console.log(x,y);
+    //             this.updateFlurstueckHighlighting();
+    //         } else if (this.marker) {
+    //             this.alerts.NewAlert('warning',
+    //                 $localize`Auswahl fehlgeschlagen`,
+    //                 $localize`Zur Selektion von Flurstücken bitte eine Adresse eingeben und bestätigen.`
+    //             );
     //         }
     //     }
     // }
@@ -250,6 +256,10 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     public removeLocation() {
         this.marker.remove();
+    }
+
+    public showDataNotice() {
+        this.alerts.NewAlert('info', $localize`Hinweis zu Testdaten`, $localize`Hierbei handelt es sich um Testdaten.`);
     }
 }
 

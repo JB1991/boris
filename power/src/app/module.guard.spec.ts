@@ -32,7 +32,7 @@ describe('Shared.Auth.AuthGuard', () => {
         // set config
         guard.config.config = { 'modules': ['forms', 'feedback'], 'authentication': true };
 
-        guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/nipix' }).then((value) => {
+        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/nipix' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeFalse();
             done();
         });
@@ -42,7 +42,7 @@ describe('Shared.Auth.AuthGuard', () => {
         // set config
         guard.config.config = { 'modules': ['forms', 'feedback'], 'authentication': true };
 
-        guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/forms/dashboard' })
+        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/forms/dashboard' } as RouterStateSnapshot)
             .then((value) => {
                 expect(value).toBeTrue();
                 done();

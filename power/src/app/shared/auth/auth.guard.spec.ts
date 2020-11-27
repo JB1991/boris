@@ -40,7 +40,7 @@ describe('Shared.Auth.AuthGuard', () => {
         // auth disabled
         guard.auth.conf.config = { 'modules': [], 'authentication': false };
         environment.production = true;
-        guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/private' }).then((value) => {
+        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeTrue();
             done();
         });
@@ -50,7 +50,7 @@ describe('Shared.Auth.AuthGuard', () => {
         // not in production
         guard.auth.conf.config = { 'modules': [], 'authentication': true };
         environment.production = false;
-        guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/private' }).then((value) => {
+        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeTrue();
             done();
         });
@@ -60,7 +60,7 @@ describe('Shared.Auth.AuthGuard', () => {
         // unauthorized
         guard.auth.conf.config = { 'modules': [], 'authentication': true };
         environment.production = true;
-        guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/private' }).then((value) => {
+        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeFalse();
             done();
         });
@@ -74,7 +74,7 @@ describe('Shared.Auth.AuthGuard', () => {
         expire.setSeconds(expire.getSeconds() + 900);
         guard.auth.user = { 'expires': expire, 'token': 6, 'data': null };
 
-        guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: '/private' }).then((value) => {
+        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeTrue();
             done();
         });

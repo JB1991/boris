@@ -100,10 +100,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (this.features) {
-            this.clearChart();
-            this.features.features = this.filterByStichtag(this.features.features);
-            this.generateChart(this.features.features);
+        if (changes.features) {
+            if (this.features) {
+                this.clearChart();
+                this.features.features = this.filterByStichtag(this.features.features);
+                this.generateChart(this.features.features);
+            }
         }
     }
 
@@ -123,7 +125,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return filteredFeatures;
     }
 
-    // eslint-disable-next-line
     generateChart(features) {
         const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         this.srTableData = [];
@@ -132,7 +133,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.visualMap = '';
         for (const [key, value] of groupedByNutzung.entries()) {
             features = Array.from(value);
-            const series = this.deepCopy(this.seriesTemplate);
+            let series = this.deepCopy(this.seriesTemplate);
 
             // table for screenreader
             this.srTableHeader.push(key);
@@ -147,11 +148,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     lastElement = i;
                 }
             }
-            if (lastElement < series.length - 1) {
-                series[lastElement + 1].brw = (series[lastElement].brw).toString();
-                series[lastElement + 1].nutzung = (series[lastElement].nutzung);
-                series[lastElement + 1].verf = (series[lastElement].verf);
-            }
+
+            series = this.fillLineDuringYear(series, lastElement);
+
             this.srTableData.push({ series: series });
 
             const nutzung = this.getNutzung(series);
@@ -200,6 +199,32 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         });
     }
 
+    fillLineDuringYear(series, lastElement) {
+        // check gap in graph
+        let i = -1;
+        do {
+            i++;
+            let j = i + 1;
+            do {
+                j++;
+                // fill graph
+                if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null) {
+
+                    series[i + 1].brw = (series[i].brw).toString();
+                    series[i + 1].nutzung = series[i].nutzung;
+                    series[i + 1].verf = series[i].verf;
+                }
+            } while (series[j].brw === null && j < (series.length - 1));
+        } while (typeof (series[i + 1].brw) !== 'string' && i < (series.length - 3));
+        // input for seriesElement 'today'
+        if (lastElement < series.length - 1) {
+            series[lastElement + 1].brw = (series[lastElement].brw).toString();
+            series[lastElement + 1].nutzung = (series[lastElement].nutzung);
+            series[lastElement + 1].verf = (series[lastElement].verf);
+        }
+        return series;
+    }
+
     setVerfChartOptions(series) {
         const array = [];
         for (let i = 0; i < series.length; i++) {
@@ -217,14 +242,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     { min: r[0], max: r[1], label: 'Sanierungsgebiet' },
                 ],
                 left: 'right',
-                top: '5%',
+                top: '6%',
                 dimension: 0,
                 seriesIndex: seriesIndex,
                 inRange: {
                     color: ['#0080FF'],
                 },
                 outOfRange: {
-                    color: 'rgba(24, 14, 88, 1)'
+                    color: 'rgba(108, 108, 108, 1)'
                 }
             };
             this.setColorVerfSeries(series);
@@ -232,14 +257,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     setColorVerfSeries(series) {
+        let nutzung: any;
         for (let i = 0; i < series.length; i++) {
             if (series[i].nutzung !== '') {
-                var nutzung = series[i].nutzung;
-                break
+                nutzung = series[i].nutzung;
+                break;
             }
         }
         const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
-        this.chartOption.series[idx].color = 'rgba(24, 14, 88, 1)';
+        this.chartOption.series[idx].color = 'rgba(108, 108, 108, 1)';
     }
 
     onChartInit(event: any) {

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalComponent } from '../modal/modal.component';
 import { MarkdownInstructionsComponent } from './markdown-instructions.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('MarkdownInstructionsComponent', () => {
     let component: MarkdownInstructionsComponent;
@@ -12,6 +13,9 @@ describe('MarkdownInstructionsComponent', () => {
             declarations: [
                 MarkdownInstructionsComponent,
                 ModalComponent
+            ],
+            imports: [
+                SharedModule
             ]
         })
             .compileComponents();

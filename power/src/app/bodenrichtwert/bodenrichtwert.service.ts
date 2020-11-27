@@ -16,6 +16,11 @@ export class BodenrichtwertService {
     private url = environment.ows;
 
     /**
+     * Boris BRZ Layer
+     */
+    private borisLayer = ['br_brzone_flat', 'br_brzone_flat_bremen'];
+
+    /**
      * FeatureCollection, that can be subscribed to
      */
     private features = new Subject<FeatureCollection>();
@@ -79,122 +84,49 @@ export class BodenrichtwertService {
     }
 
     /**
-     * Return the WFS capabilities as an XML object
-     */
-    getCapabilities() {
-        const body =
-            '<wfs:GetCapabilities \n' +
-            '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
-            '  service="WFS" version="1.1.0">\n' +
-            '</wfs:GetCapabilities>';
-        const options = { responseType: 'text' as 'json' };
-        return this.http.post(this.url, body, options)
-            .pipe(catchError(BodenrichtwertService.handleError));
-    }
-
-    /**
-     * Return a FeatureCollection identified by its Objektidentifikator
-     * @param id Objektidentifikator
-     */
-    getFeatureByObjektidentifikator(id: string): Observable<FeatureCollection> {
-        const filter =
-            '<wfs:GetFeature \n' +
-            '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
-            '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
-            ' service="WFS" version="1.1.0" outputFormat="JSON" maxFeatures="1">\n' +
-            '  <wfs:Query typeName="boris:br_brzone_flat" srsName="EPSG:4326" >\n' +
-            '    <ogc:Filter>\n' +
-            '      <ogc:And>\n' +
-            '        <ogc:PropertyIsEqualTo>\n' +
-            '          <ogc:PropertyName>objektidentifikator</ogc:PropertyName>\n' +
-            '            <ogc:Literal>' + id + '</ogc:Literal>\n' +
-            '        </ogc:PropertyIsEqualTo>\n' +
-            '      </ogc:And>\n' +
-            '    </ogc:Filter>\n' +
-            '  </wfs:Query>\n' +
-            '</wfs:GetFeature>';
-
-        return this.http.post<FeatureCollection>(this.url, filter).pipe(catchError(BodenrichtwertService.handleError));
-    }
-
-    /**
-     * Returns the FeatureCollection identified by latitude, longitude, Stichtag and Teilmarkt
-     * @param lat Latitude
-     * @param lon Longitude
-     * @param stag Stichtag
-     * @param entw Teilmarkt
-     */
-    // eslint-disable-next-line
-    getFeatureByLatLonStagEntw(lat: any, lon: any, stag: Date, entw: any): Observable<FeatureCollection> {
-        const filter =
-            '<wfs:GetFeature \n' +
-            '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
-            '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
-            '  xmlns:gml="http://www.opengis.net/gml/3.2" \n' +
-            ' service="WFS" version="1.1.0" outputFormat="JSON" maxFeatures="5">\n' +
-            '  <wfs:Query typeName="boris:br_brzone_flat" srsName="EPSG:3857" >\n' +
-            '    <ogc:Filter>\n' +
-            '      <ogc:And>\n' +
-            '        <ogc:PropertyIsEqualTo>\n' +
-            '          <ogc:PropertyName>stag</ogc:PropertyName>\n' +
-            '          <ogc:Function name="dateParse">\n' +
-            '            <ogc:Literal>yyyy-MM-dd</ogc:Literal>\n' +
-            '            <ogc:Literal>' + stag.toISOString().substring(0, 10) + '</ogc:Literal>\n' +
-            '          </ogc:Function>\n' +
-            '        </ogc:PropertyIsEqualTo>\n' +
-            '        <ogc:PropertyIsEqualTo>\n' +
-            '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
-            '            <ogc:Literal>' + entw + '</ogc:Literal>\n' +
-            '        </ogc:PropertyIsEqualTo>\n' +
-            '        <ogc:Intersects>\n' +
-            '        <ogc:PropertyName>geom</ogc:PropertyName>\n' +
-            '          <gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">\n' +
-            '            <gml:coordinates>' + lon + ',' + lat + '</gml:coordinates>\n' +
-            '          </gml:Point>\n' +
-            '      </ogc:Intersects>\n' +
-            '      </ogc:And>\n' +
-            '    </ogc:Filter>\n' +
-            '  </wfs:Query>\n' +
-            '</wfs:GetFeature>';
-
-        return this.http.post<FeatureCollection>(this.url, filter).pipe(catchError(BodenrichtwertService.handleError));
-    }
-
-    /**
      * Returns the FeatureCollection identified by latitude, longitude and Teilmarkt
      * @param lat Latitude
      * @param lon Longitude
      * @param entw Teilmarkt
+     * @param state 'Niedersachsen' or 'Bremen'
      */
-    // eslint-disable-next-line
     getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>): Observable<FeatureCollection> {
-        let ogcFilter: string;
+        // OGC Filter for each teilmarkt/entwicklungszustand
+        let ogcFilter = '';
+
         entw.forEach(entwType => {
             ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
                 '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
                 '            <ogc:Literal>' + entwType + '</ogc:Literal>\n' +
                 '        </ogc:PropertyIsEqualTo>\n';
         });
+
+        // OGC Query for each layer to be searched
+        let ogcQuery = '';
+
+        this.borisLayer.forEach(layer => {
+            ogcQuery +=
+                '  <wfs:Query typeName="' + layer + '" srsName="EPSG:3857">\n' +
+                '    <ogc:Filter>\n' +
+                '      <ogc:And>\n' +
+                '        <ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
+                '        <ogc:Intersects>\n' +
+                '        <ogc:PropertyName>geom</ogc:PropertyName>\n' +
+                '          <gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">\n' +
+                '            <gml:coordinates>' + lon + ',' + lat + '</gml:coordinates>\n' +
+                '          </gml:Point>\n' +
+                '      </ogc:Intersects>\n' +
+                '      </ogc:And>\n' +
+                '    </ogc:Filter>\n' +
+                '  </wfs:Query>\n';
+        });
+
         const filter =
             '<wfs:GetFeature \n' +
             '  xmlns:ogc="http://www.opengis.net/ogc"\n' +
             '  xmlns:wfs="http://www.opengis.net/wfs"\n' +
             '  xmlns:gml="http://www.opengis.net/gml/3.2" \n' +
-            ' service="WFS" version="1.1.0" outputFormat="JSON">\n' +
-            '  <wfs:Query typeName="boris:br_brzone_flat" srsName="EPSG:3857" >\n' +
-            '    <ogc:Filter>\n' +
-            '      <ogc:And>\n' +
-            '        <ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
-            '        <ogc:Intersects>\n' +
-            '        <ogc:PropertyName>geom</ogc:PropertyName>\n' +
-            '          <gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">\n' +
-            '            <gml:coordinates>' + lon + ',' + lat + '</gml:coordinates>\n' +
-            '          </gml:Point>\n' +
-            '      </ogc:Intersects>\n' +
-            '      </ogc:And>\n' +
-            '    </ogc:Filter>\n' +
-            '  </wfs:Query>\n' +
-            '</wfs:GetFeature>';
+            ' service="WFS" version="1.1.0" outputFormat="JSON">\n' + ogcQuery + '</wfs:GetFeature>';
 
         /*
          * Umrechnuntstabellendatei and Umrechnungstabellenwerte are presented as String not JSON,
@@ -220,14 +152,7 @@ export class BodenrichtwertService {
      * @private
      */
     private static handleError(error: HttpErrorResponse) {
-        if (error.error instanceof ErrorEvent) {
-            console.error('An error occurred:', error.error.message);
-        } else {
-            console.error(
-                `Backend returned code ${error.status}, ` +
-                `body was: ${error.error}`);
-        }
-        return throwError('Something bad happened; please try again later.');
+        return throwError(error);
     }
 }
 

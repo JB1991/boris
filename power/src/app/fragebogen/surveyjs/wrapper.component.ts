@@ -8,17 +8,17 @@ import * as Slider from './nouislider';
 
 @Component({
     selector: 'power-forms-surveyjs-wrapper',
-    template: `<div #surveyjsDiv></div>`,
+    template: '<div #surveyjsDiv></div>',
     styleUrls: ['./wrapper.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WrapperComponent implements OnChanges {
     @ViewChild('surveyjsDiv', { static: true }) public surveyjsDiv: ElementRef;
-    @Input() public model: {};
-    @Input() public data: any = null;
+    @Input() public model: any;
+    @Input() public data: any;
     @Input() public mode: 'edit' | 'display' = 'edit';
     @Input() public theme = 'default';
-    @Input() public css: {};
+    @Input() public css: any;
     @Input() public showInvisible = false;
     @Output() public submitResult: EventEmitter<any> = new EventEmitter();
     @Output() public interimResult: EventEmitter<any> = new EventEmitter();

@@ -18,7 +18,7 @@ cache: &global_cache
 
 install:
   stage: init
-  image: node:alpine
+  image: node:lts-alpine
   dependencies: []
   cache:
     <<: *global_cache
@@ -85,12 +85,11 @@ test:e2e:
 
 test:audit:
   stage: test
-  image: node:alpine
+  image: node:lts-alpine
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
   script:
     - cd power
     - npm audit
@@ -103,12 +102,11 @@ test:audit:
 
 test:lint:
   stage: test
-  image: node:alpine
+  image: node:lts-alpine
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
   script:
     - cd power
     - node_modules/@angular/cli/bin/ng lint power
@@ -121,12 +119,11 @@ test:lint:
 
 test:lint:html:
   stage: test
-  image: node:alpine
+  image: node:lts-alpine
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
   script:
     - cd power
     - npm run lint:html
@@ -139,12 +136,11 @@ test:lint:html:
 
 test:lint:styles:
   stage: test
-  image: node:alpine
+  image: node:lts-alpine
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  allow_failure: true
   script:
     - cd power
     - npm run lint:styles
@@ -157,7 +153,7 @@ test:lint:styles:
 
 build:
   stage: build
-  image: node:alpine
+  image: node:lts-alpine
   dependencies: []
   cache:
     <<: *global_cache

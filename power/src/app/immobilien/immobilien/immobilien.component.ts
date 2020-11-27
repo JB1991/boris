@@ -15,6 +15,7 @@ import * as echarts from 'echarts';
 
 declare const require: any;
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-immobilien',
     templateUrl: './immobilien.component.html',
@@ -32,6 +33,8 @@ export class ImmobilienComponent implements OnInit {
     nipixRuntime = new ImmobilenNipixRuntime.NipixRuntime(this.nipixStatic);
 
     @ViewChild('acc', { static: true }) accordionComponent: NgbAccordion;
+    @ViewChild('toolacc', { static: true }) accordionTool: NgbAccordion;
+
     model: any;
 
     @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
@@ -76,7 +79,7 @@ export class ImmobilienComponent implements OnInit {
             map(term => (term === '' ? Object.keys(gem)
                 : Object.keys(gem).filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
         );
-    }
+    };
 
     /**
      * Init the Application.
@@ -229,6 +232,7 @@ export class ImmobilienComponent implements OnInit {
     /**
      * Handle the Change of an Selection in the Map
      */
+    /* eslint-disable-next-line complexity */
     onMapSelectChange(param) {
 
         // Get List of selected items in map
@@ -372,6 +376,24 @@ export class ImmobilienComponent implements OnInit {
     }
 
     /**
+     * Manually change Quartal
+     */
+    onChangeQuartal(start, end) {
+        if (start !== null) {
+            this.nipixRuntime.state.rangeStartIndex = start;
+        }
+
+        if (end !== null) {
+            this.nipixRuntime.state.rangeEndIndex = end;
+        }
+
+        this.updateChart(
+            this.nipixRuntime.state.rangeStartIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
+            this.nipixRuntime.state.rangeEndIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1)
+        );
+    }
+
+    /**
      * Switch between multiple Draw Items
      */
     onClickDrawRoot(name) {
@@ -492,6 +514,7 @@ export class ImmobilienComponent implements OnInit {
         this.updateMapSelect(this.nipixRuntime.state.selectedMyRegion);
     }
 
+    /* eslint-disable-next-line complexity */
     onPanelChangeIndex(selection_id: number) {
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if ((this.nipixRuntime.drawPresets[i].show) &&
@@ -672,6 +695,16 @@ export class ImmobilienComponent implements OnInit {
     staticExpand(id) {
         return this.accordionComponent.isExpanded('static-' + id);
     }
+
+    /**
+     * Check Static Tool Expand
+     *
+     * @param id id of the tab
+     */
+    staticToolExpand(id) {
+        return this.accordionTool.isExpanded('static-' + id);
+    }
+
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

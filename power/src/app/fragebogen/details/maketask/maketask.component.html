@@ -43,7 +43,7 @@
                 class="btn btn-success"
                 i18n-title
                 title="PINs erstellen"
-                (click)="Generate()">
+                (click)="this.out.emit({amount: amount, copy: copy}); modal.close()">
             <svg width="1em"
                  height="1em"
                  viewBox="0 0 16 16"

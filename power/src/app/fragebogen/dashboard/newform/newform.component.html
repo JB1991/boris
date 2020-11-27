@@ -1,4 +1,4 @@
-<power-modalmini #newformmodal>
+<power-modalmini #modal>
     <!-- title -->
     <div class="form-group">
         <label for="formtitle"
@@ -17,19 +17,22 @@
 
     <!-- service -->
     <!--<div class="form-group">
-                                  <label for="formservice" i18n>Verknüpfter Dienst</label>
-                                  <select class="custom-select"
-                                      [(ngModel)]="service"
-                                      id="formservice"
-                                      name="formservice"
-                                      required disabled>
-                                      <option value="" i18n>Keine Anbindung an andere Dienste</option>
-                                      <option *ngFor="let serv of storage.serviceList; index as i"
-                                          value="{{ serv.value }}">
-                                          {{ serv.name }}
-                                      </option>
-                                  </select>
-                              </div>-->
+        <label for="formservice"
+               i18n>Verknüpfter Dienst</label>
+        <select class="custom-select"
+                [(ngModel)]="service"
+                id="formservice"
+                name="formservice"
+                required
+                disabled>
+            <option value=""
+                    i18n>Keine Anbindung an andere Dienste</option>
+            <option *ngFor="let serv of storage.serviceList; index as i"
+                    value="{{ serv.value }}">
+                {{ serv.name }}
+            </option>
+        </select>
+        </div>-->
 
     <!-- template -->
     <div class="form-group">
@@ -43,17 +46,24 @@
                [typeahead]="templateList"
                [typeaheadScrollable]="true"
                [typeaheadOptionsInScrollableView]="5"
-               typeaheadOptionField="title"
-               (typeaheadOnSelect)="setTemplate($event)"
+               typeaheadOptionField="extract"
+               (typeaheadOnSelect)="template = $event.item.id;"
                (keyup)="fetchTemplates()"
                i18n-placeholder
-               placeholder="Suchen">
+               placeholder="Suchen"
+               autocomplete="off">
     </div>
 
     <!-- tags -->
-    <power-tagbox [(tagList)]="tagList"
-                  [dataList]="data.tags"
-                  tagboxLabel="Tags"></power-tagbox>
+    <div class="form-group">
+        <label for="form-tags"
+               i18n>Tags hinzufügen</label>
+        <power-tagbox [(tagList)]="tagList"
+                      [dataList]="tags"
+                      eid="form-tags"
+                      i18n-placeholder
+                      placeholder="Tag mit Enter hinzufügen"></power-tagbox>
+    </div>
 
     <!-- modal buttons -->
     <div class="modal-footer"

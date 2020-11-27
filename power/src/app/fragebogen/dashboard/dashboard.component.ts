@@ -1,45 +1,46 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
-import { FormAPIService } from '../formapi.service';
+import { FormAPIService, GetFormsParams, GetTasksParams } from '../formapi.service';
+import { FormStatus, Access, TaskStatus, FormFilter, Task, Form, FormField, TaskField } from '../formapi.model';
+import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
 @Component({
     selector: 'power-forms-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.css'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
-    public data = {
-        tags: <string[]>[],
-        forms: [],
-        tasks: []
-    };
+    public tags: Array<string>;
 
+    public forms: Array<Form>;
     public formTotal: number;
     public formPage = 1;
     public formPerPage = 5;
     public formPageSizes: number[];
 
-    public formTitle?: string;
-    public formStatus?: 'created' | 'published' | 'cancelled' | 'all';
-    public formAccess?: 'public' | 'pin6' | 'pin8' | 'pin6-factor' | 'all';
-    public formSort: 'id' | 'title' | 'created' | 'published' | 'cancelled' = 'title';
-    public formOrder: 'asc' | 'desc' = 'asc';
+    public formSearch = '';
+    public formStatus: FormStatus | 'all' = 'all';
+    public formAccess: Access | 'all' = 'all';
+    public formSort: FormField = 'updated';
+    public formSortDesc = true;
 
+    public tasks: Array<Task>;
     public taskTotal: number;
     public taskPage = 1;
     public taskPerPage = 5;
     public taskPageSizes: number[];
 
-    public taskStatus?: 'created' | 'accessed' | 'submitted' | 'all';
-    public taskSort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted' = 'submitted';
-    public taskOrder: 'asc' | 'desc' = 'desc';
+    public taskStatus: TaskStatus | 'all' = 'all';
+    public taskSort: TaskField = 'updated';
+    public taskSortDesc = true;
 
-    constructor(public titleService: Title,
+    constructor(
+        public titleService: Title,
         public router: Router,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
@@ -62,13 +63,13 @@ export class DashboardComponent implements OnInit {
 
         try {
             this.loadingscreen.setVisible(true);
-            const response = await this.formAPI.deleteInternForm(id);
+            await this.formAPI.deleteForm(id);
             this.updateForms(false);
             this.updateTasks(false);
             this.loadingscreen.setVisible(false);
         } catch (error) {
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
         }
     }
 
@@ -91,14 +92,18 @@ export class DashboardComponent implements OnInit {
         input.onchange = (event: Event) => {
             const file = event.target['files'][0];
             const reader = new FileReader();
-
             // Upload success
             reader.onload = () => {
-                this.formAPI.createInternForm(reader.result).then(() => {
-                    this.updateForms(false);
-                }).catch((error) => {
-                    this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error);
-                });
+                this.formAPI
+                    .createForm({
+                        content: JSON.parse(reader.result.toString()),
+                    })
+                    .then(() => {
+                        this.updateForms(false);
+                    })
+                    .catch((error) => {
+                        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error.error && error.error['message'] ? error.error['message'] : error.error.toString() );
+                    });
             };
             // FileReader is async -> call readAsText() after declaring the onload handler
             reader.readAsText(file);
@@ -106,98 +111,84 @@ export class DashboardComponent implements OnInit {
         input.click();
     }
 
-    public changeFormSort(sort: 'id' | 'title' | 'created' | 'published' | 'cancelled') {
-        if (this.formSort === sort) {
-            if (this.formOrder === 'asc') {
-                this.formOrder = 'desc';
-            } else {
-                this.formOrder = 'asc';
-            }
-        } else {
-            this.formOrder = 'asc';
-        }
-        this.formSort = sort;
-        this.updateForms(false);
-    }
-
     public async updateForms(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
-            const params = {
+            const params: GetFormsParams = {
+                fields: ['id', 'owner.name', 'extract', 'access', 'status', 'created', 'updated', 'tags', 'groups'],
+                extract: ['title.de', 'title.default'],
                 limit: Number(this.formPerPage),
                 offset: (this.formPage - 1) * this.formPerPage,
-                sort: this.formSort,
-                order: this.formOrder,
             };
-            if (this.formStatus !== undefined && this.formStatus !== 'all') {
-                params['status'] = this.formStatus;
+            params.sort = { desc: this.formSortDesc, field: this.formSort };
+            const filters: Array<FormFilter> = [];
+            if (this.formStatus !== 'all') {
+                filters.push({ status: this.formStatus });
             }
-            if (this.formAccess !== undefined && this.formAccess !== 'all') {
-                params['access'] = this.formAccess;
+            if (this.formAccess !== 'all') {
+                filters.push({ access: this.formAccess });
             }
-            if (this.formTitle !== undefined) {
-                params['title-contains'] = this.formTitle;
+            if (this.formSearch !== '') {
+                const or: Array<FormFilter> = [];
+                const search = { lower: true, contains: this.formSearch };
+                or.push({ extract: search });
+                or.push({ tag: search });
+                or.push({ owner: { name: search } });
+                filters.push({ or: or });
             }
-            const response = await this.formAPI.getInternForms(params);
-            this.data.forms = response.data;
+            if (filters.length > 0) {
+                params.filter = { and: filters };
+            }
+            const response = await this.formAPI.getForms(params);
+            this.forms = response.forms;
             this.formTotal = response.total;
-            let maxPages = Math.floor(this.formTotal / 5) + 1;
+            let maxPages = Math.floor((this.formTotal - 1) / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
-                this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
-            } else {
-                this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             }
+            this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }
         }
     }
 
-    public changeTaskSort(sort: 'id' | 'form-id' | 'factor' | 'pin' | 'created' | 'submitted') {
-        if (this.taskSort === sort) {
-            if (this.taskOrder === 'asc') {
-                this.taskOrder = 'desc';
-            } else {
-                this.taskOrder = 'asc';
-            }
-        } else {
-            this.taskOrder = 'asc';
-        }
-        this.taskSort = sort;
-        this.updateTasks(false);
-    }
-
     public async updateTasks(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
-            const params = {
+            const params: GetTasksParams = {
+                fields: ['id', 'form.id', 'form.extract', 'pin', 'description', 'status', 'updated', 'created'],
+                'form.extract': ['title.de', 'title.default'],
                 limit: Number(this.taskPerPage),
                 offset: (this.taskPage - 1) * this.taskPerPage,
-                sort: this.taskSort,
-                order: this.taskOrder,
             };
-            if (this.taskStatus !== undefined && this.taskStatus !== 'all') {
-                params['status'] = this.taskStatus;
+
+            if (this.taskStatus !== 'all') {
+                params.filter = {
+                    status: this.taskStatus,
+                };
             }
-            const response = await this.formAPI.getInternTasks(params);
-            this.data.tasks = response.data;
+            params.sort = { field: this.taskSort, desc: this.taskSortDesc };
+            const response = await this.formAPI.getTasks(params);
+            this.tasks = response.tasks;
             this.taskTotal = response.total;
-            let maxPages = Math.floor(this.taskTotal / 5) + 1;
+            let maxPages = Math.floor((this.taskTotal - 1) / 5) + 1;
             if (maxPages > 10) {
                 maxPages = 10;
-                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
-            } else {
-                this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             }
+            this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }
@@ -207,16 +198,40 @@ export class DashboardComponent implements OnInit {
     public async updateTags(navigate: boolean) {
         try {
             this.loadingscreen.setVisible(true);
-            this.data.tags = await this.formAPI.getInternTags();
+            const response = await this.formAPI.getTags({});
+            this.tags = response.tags;
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
+                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }
         }
     }
+
+    public changeFormSort(sort: FormField) {
+        if (this.formSort === sort) {
+            this.formSortDesc = !this.formSortDesc;
+        } else {
+            this.formSortDesc = false;
+        }
+        this.formSort = sort;
+        this.updateForms(false);
+    }
+
+    public changeTaskSort(sort: TaskField) {
+        if (this.taskSort === sort) {
+            this.taskSortDesc = !this.taskSortDesc;
+        } else {
+            this.taskSortDesc = false;
+        }
+        this.taskSort = sort;
+        this.updateTasks(false);
+    }
+
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

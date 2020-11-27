@@ -1,3 +1,4 @@
+/* eslint-disable max-lines, max-len */
 /**
  * default template for new formulars
  */
@@ -85,7 +86,7 @@ export const FormularFields = [
             isRequired: true,
             requiredErrorText: {}
         }
-    }, /*{
+    }, /* {
         type: 'multipletext',
         name: $localize`Mehrfachtext`,
         icon: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list-ul" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
@@ -301,6 +302,7 @@ export const FormularFields = [
             rangeMin: 0,
             rangeMax: 100,
             decimals: 0,
+            pipsDensity: 5,
             commentText: {},
             startWithNewLine: true,
             visible: true,

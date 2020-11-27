@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -9,14 +9,17 @@ import { DashboardComponent } from './dashboard.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService } from '../formapi.service';
+import { Form } from '@angular/forms';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
+/* eslint-disable max-lines */
 describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
 
-    const internForms = require('../../../assets/fragebogen/intern-get-forms.json');
-    const internTasks = require('../../../assets/fragebogen/intern-get-tasks.json');
-    const internTags = require('../../../assets/fragebogen/intern-get-tags.json');
+    const getForms = require('../../../assets/fragebogen/get-forms.json');
+    const getTasks = require('../../../assets/fragebogen/get-tasks.json');
+    const getTags = require('../../../assets/fragebogen/get-tags.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -35,7 +38,7 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
             ],
             declarations: [
                 DashboardComponent,
-                MockNewformComponent
+                MockNewformComponent,
             ]
         }).compileComponents();
 
@@ -56,25 +59,34 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
         SUCCESS
     */
     it('should succeed updateForms', (done) => {
-        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve(internForms));
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.resolve(getForms));
         component.formStatus = 'created';
         component.formAccess = 'public';
-        component.formTitle = 'something';
+        component.formSearch = 'something';
         component.updateForms(false).then(() => {
-            expect(component.data.forms).toEqual(internForms.data);
-            expect(component.formTotal).toEqual(internForms.total);
+            expect(component.forms).toEqual(getForms.forms);
+            expect(component.formTotal).toEqual(getForms.total);
+            done();
+        });
+    });
+
+    it('should succeed updateForms', (done) => {
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.resolve(getForms));
+        component.formStatus = 'created';
+        component.formSort = 'extract';
+        component.updateForms(false).then(() => {
+            expect(component.forms).toEqual(getForms.forms);
+            expect(component.formTotal).toEqual(getForms.total);
             done();
         });
     });
 
     it('should succeed updateForms 2', (done) => {
-        spyOn(component.formAPI, 'getInternForms').and.returnValue(Promise.resolve({
-            data: [],
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.resolve({
+            forms: [],
+            status: 200,
             total: 100
         }));
-        component.formStatus = 'created';
-        component.formAccess = 'public';
-        component.formTitle = 'something';
         component.updateForms(false).then(() => {
             expect(component.formPageSizes.length).toEqual(10);
             done();
@@ -82,19 +94,30 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should succeed updateTasks', (done) => {
-        spyOn(component.formAPI, 'getInternTasks').and.returnValue(Promise.resolve(internTasks));
+        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.resolve(getTasks));
         component.taskStatus = 'created';
         component.updateTasks(false).then(() => {
-            expect(component.data.tasks).toEqual(internTasks.data);
-            expect(component.taskTotal).toEqual(internTasks.total);
+            expect(component.tasks).toEqual(getTasks.tasks);
+            expect(component.taskTotal).toEqual(getTasks.total);
+            done();
+        });
+    });
+
+    it('should succeed updateTasks', (done) => {
+        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.resolve(getTasks));
+        component.taskSort = 'form.extract';
+        component.updateTasks(false).then(() => {
+            expect(component.tasks).toEqual(getTasks.tasks);
+            expect(component.taskTotal).toEqual(getTasks.total);
             done();
         });
     });
 
     it('should succeed updateTasks 2', (done) => {
-        spyOn(component.formAPI, 'getInternTasks').and.returnValue(Promise.resolve({
-            data: [],
-            total: 100
+        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.resolve({
+            tasks: [],
+            total: 100,
+            status: 200,
         }));
         component.taskStatus = 'created';
         component.updateTasks(false).then(() => {
@@ -104,149 +127,143 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     });
 
     it('should succeed updateTags', (done) => {
-        spyOn(component.formAPI, 'getInternTags').and.returnValue(Promise.resolve(internTags.data));
+        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.resolve(getTags));
         component.taskStatus = 'created';
         component.updateTags(false).then(() => {
-            expect(component.data.tags).toEqual(internTags.data);
+            expect(component.tags).toEqual(getTags.tags);
             done();
         });
     });
 
     it('should succeed deleteForm', (done) => {
-        spyOn(window, 'confirm').and.returnValue(true);
-        spyOn(component.formAPI, 'deleteInternForm').and.returnValue(Promise.resolve('123'));
+        spyOn(component.formAPI, 'deleteForm').and.returnValue(Promise.resolve({
+            id: '123',
+            status: 200,
+        }));
         spyOn(component, 'updateForms');
+        spyOn(window, 'confirm').and.returnValue(true);
         component.deleteForm('123').then(() => {
             expect(component.updateForms).toHaveBeenCalledTimes(1);
             done();
         });
     });
 
-    it('should decline deleteForm', (done) => {
+    it('should succeed deleteForm 2', (done) => {
+        spyOn(component.formAPI, 'deleteForm').and.returnValue(Promise.resolve({
+            id: '123',
+            status: 200,
+        }));
+        spyOn(component, 'updateForms');
         spyOn(window, 'confirm').and.returnValue(false);
-        spyOn(component.formAPI, 'deleteInternForm');
-        component.deleteForm('abc').then(() => {
-            expect(component.formAPI.deleteInternForm).toHaveBeenCalledTimes(0);
+        component.deleteForm('123').then(() => {
+            expect(component.updateForms).toHaveBeenCalledTimes(0);
             done();
         });
     });
 
-    it('should succeed changeFormSort', (done) => {
+    it('should succeed changeFormSort', () => {
         spyOn(component, 'updateForms');
-        component.changeFormSort('published');
-        expect(component.formSort).toBe('published');
-        expect(component.formOrder).toBe('asc');
-        component.changeFormSort('published');
-        expect(component.formSort).toBe('published');
-        expect(component.formOrder).toBe('desc');
-        component.changeFormSort('published');
-        expect(component.formSort).toBe('published');
-        expect(component.formOrder).toBe('asc');
-        component.changeFormSort('title');
-        expect(component.formSort).toBe('title');
-        expect(component.formOrder).toBe('asc');
-        done();
+        component.formSort = 'content';
+        component.formSortDesc = true;
+
+        component.changeFormSort('updated');
+        expect(component.formSort).toBe('updated');
+        expect(component.formSortDesc).toBe(false);
+
+        component.changeFormSort('updated');
+        expect(component.formSort).toBe('updated');
+        expect(component.formSortDesc).toBe(true);
+
+        expect(component.updateForms).toHaveBeenCalledTimes(2);
     });
 
-    it('should succeed changeTaskSort', (done) => {
+    it('should succeed changeTaskSort', () => {
         spyOn(component, 'updateTasks');
-        component.changeTaskSort('submitted');
-        expect(component.taskSort).toBe('submitted');
-        expect(component.taskOrder).toBe('asc');
-        component.changeTaskSort('submitted');
-        expect(component.taskSort).toBe('submitted');
-        expect(component.taskOrder).toBe('desc');
-        component.changeTaskSort('factor');
-        expect(component.taskSort).toBe('factor');
-        expect(component.taskOrder).toBe('asc');
-        done();
+        component.taskSort = 'content';
+        component.taskSortDesc = true;
+
+        component.changeTaskSort('updated');
+        expect(component.taskSort).toBe('updated');
+        expect(component.taskSortDesc).toBe(false);
+
+        component.changeTaskSort('updated');
+        expect(component.taskSort).toBe('updated');
+        expect(component.taskSortDesc).toBe(true);
+
+        expect(component.updateTasks).toHaveBeenCalledTimes(2);
     });
 
     /*
         Error
     */
     it('should fail updateForms', (done) => {
-        spyOn(component.formAPI, 'getInternForms').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject('fail'));
         component.updateForms(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateForms 2', (done) => {
-        spyOn(component.formAPI, 'getInternForms').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'getForms').and.returnValue(Promise.reject('fail'));
         component.updateForms(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateTasks', (done) => {
-        spyOn(component.formAPI, 'getInternTasks').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.reject('fail'));
         component.updateTasks(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateTasks 2', (done) => {
-        spyOn(component.formAPI, 'getInternTasks').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'getTasks').and.returnValue(Promise.reject('fail'));
         component.updateTasks(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateTags', (done) => {
-        spyOn(component.formAPI, 'getInternTags').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.reject('fail'));
         component.updateTags(true).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail updateTags 2', (done) => {
-        spyOn(component.formAPI, 'getInternTags').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'getTags').and.returnValue(Promise.reject('fail'));
         component.updateTags(false).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'fail');
             done();
         });
     });
 
     it('should fail deleteForm', (done) => {
-        spyOn(window, 'confirm').and.returnValue(true);
-        spyOn(component.formAPI, 'deleteInternForm').and.callFake(() => {
-            return Promise.reject(new Error('fail'));
-        });
+        spyOn(component.formAPI, 'deleteForm').and.returnValue(Promise.reject('fail'));
         spyOn(component, 'updateForms');
+        spyOn(window, 'confirm').and.returnValue(true);
         component.deleteForm('').then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert)
-                .toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'Error: fail');
+                .toHaveBeenCalledWith('danger', 'Löschen fehlgeschlagen', 'fail');
             done();
         });
     });
@@ -257,7 +274,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     template: ''
 })
 class MockNewformComponent {
-    @Input() public data: string;
+    @ViewChild('modal') public modal: ModalminiComponent;
+    @Output() public out = new EventEmitter<Form>();
+    @Input() public tags: Array<string>;
 }
 @Component({
     selector: 'power-forms-home',
