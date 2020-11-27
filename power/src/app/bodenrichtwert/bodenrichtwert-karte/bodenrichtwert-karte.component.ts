@@ -160,7 +160,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
         this.map.addSource('geoserver_br', this.bremenSource);
 
-        console.log(this.ndsSource, this.bremenSource);
         this.map.addSource('geoserver_nds', this.ndsSource);
 
         this.route.queryParams.subscribe(params => {
