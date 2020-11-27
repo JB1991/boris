@@ -75,7 +75,9 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.chartOption.legend.data.length).toBe(1);
         expect(component.chartOption.series.length).toBe(1);
         expect(component.chartOption.visualMap[0].pieces.length).toBe(1);
+        expect(component.chartOption.visualMap[0].pieces[0].label).toBe('Sanierungsgebiet:\nKeine Wertanpassung');
         expect(component.chartOption.visualMap[0].inRange.color).toBe('#0080FF');
+        expect(component.chartOption.grid.top).toBe('15%');
         expect(typeof 'component.chartOption.visualMap[0].outOfRange.color').toBe('string');
         expect(typeof 'component.chartOption.serie[8].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[3].brw').toBe('string');

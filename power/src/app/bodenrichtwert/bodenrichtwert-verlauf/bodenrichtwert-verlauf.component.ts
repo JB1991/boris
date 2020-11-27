@@ -225,11 +225,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
         const r = [verfIdx[0], verfIdx[verfIdx.length - 1]];
-
         const [right, top, label, align] = this.setVerfLabel(seriesVerf);
-
         const colorInRange = this.setVerfColorInRange(seriesVerf);
         const colorOutOfRange = this.setVerfColorOutofRange();
+        this.setColorSeries(series, colorOutOfRange);
 
         if (r[0] !== undefined) {
             this.chartOption.visualMap.push({
@@ -259,7 +258,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     color: colorOutOfRange
                 },
             });
-            this.setColorSeries(series, colorOutOfRange);
         }
     }
 
@@ -275,9 +273,21 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     setVerfColorOutofRange() {
         const defaultColors = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
-        const random = Math.floor(Math.random() * ((defaultColors.length - 1) - 0 + 1) + 0);
-        const color = defaultColors[random];
-        return color;
+        const visualMapLength = this.chartOption.visualMap.length;
+        let random;
+        if (visualMapLength > 0) {
+            const idx = defaultColors.findIndex(
+                color => color === this.chartOption.visualMap[visualMapLength - 1].outOfRange.color
+            );
+            if (idx > (defaultColors.length - 3)) {
+                random = 0;
+            } else {
+                random = idx + 2;
+            }
+        } else {
+            random = Math.floor(Math.random() * ((defaultColors.length - 1) - 0 + 1) + 0);
+        }
+        return defaultColors[random];
     }
 
     setColorSeries(series, color) {
