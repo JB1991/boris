@@ -54,7 +54,7 @@ export class FlurstueckSearchComponent {
      * @param res response as text/xml
      */
     public handleHttpResponse(res: string) {
-        let ft = this.parseXML(res);
+        const ft = this.parseXML(res);
         if (!ft) {
             this.alerts.NewAlert(
                 'danger',
@@ -93,7 +93,7 @@ export class FlurstueckSearchComponent {
 
         // parse XML if valid
         if (XMLParser.validate(xmlData)) {
-            let obj = XMLParser.parse(xmlData, options);
+            const obj = XMLParser.parse(xmlData, options);
             // check if obj contains features
             if (obj['FeatureCollection']) {
                 fst = this.parseFlurstuecksData(obj);
@@ -109,12 +109,12 @@ export class FlurstueckSearchComponent {
     private parseFlurstuecksData(object: any): Flurstueck {
 
         // AX_Flurstueck node
-        let axFlurstueck = lo.get(object, 'FeatureCollection.member.AX_Flurstueck');
+        const axFlurstueck = lo.get(object, 'FeatureCollection.member.AX_Flurstueck');
 
         // Envelope node with bbox
-        let bounds = lo.get(object, 'FeatureCollection.boundedBy.Envelope');
+        const bounds = lo.get(object, 'FeatureCollection.boundedBy.Envelope');
 
-        let fst: Flurstueck = {
+        const fst: Flurstueck = {
             gemarkung: lo.get(axFlurstueck, 'gemarkung.AX_Gemarkung_Schluessel.gemarkungsnummer'),
             land: lo.get(axFlurstueck, 'gemarkung.AX_Gemarkung_Schluessel.land'),
             flur: lo.get(axFlurstueck, 'flurnummer'),
@@ -123,7 +123,7 @@ export class FlurstueckSearchComponent {
             fsk: lo.get(axFlurstueck, 'flurstueckskennzeichen'),
             flaeche: lo.get(axFlurstueck, 'amtlicheFlaeche'),
             bbox: this.parseFlurstueckBBox(bounds),
-        }
+        };
         return fst;
     }
 
@@ -131,10 +131,10 @@ export class FlurstueckSearchComponent {
      * Transforms coordinates from one projection to another projection (EPSG-Codes)
      * @param from projection from
      * @param to projection to
-     * @param coord coordinates [x, y] 
+     * @param coord coordinates [x, y]
      */
-    private transformCoordinates(from: string, to: string, coord: Number[]) {
-        let result = proj4(from, to).forward(coord);
+    private transformCoordinates(from: string, to: string, coord: number[]) {
+        const result = proj4(from, to).forward(coord);
         return result;
     }
 
@@ -144,20 +144,20 @@ export class FlurstueckSearchComponent {
      */
     private parseFlurstueckBBox(bounds: any): BBox {
         // extract coordinates
-        let lowerCorner = lo.get(bounds, 'lowerCorner').split(' ');
-        let upperCorner = lo.get(bounds, 'upperCorner').split(' ');
-        let lc = [Number(lowerCorner[0]), Number(lowerCorner[1])];
-        let uc = [Number(upperCorner[0]), Number(upperCorner[1])];
+        const lowerCorner = lo.get(bounds, 'lowerCorner').split(' ');
+        const upperCorner = lo.get(bounds, 'upperCorner').split(' ');
+        const lc = [Number(lowerCorner[0]), Number(lowerCorner[1])];
+        const uc = [Number(upperCorner[0]), Number(upperCorner[1])];
 
         // projections
-        let epsg25832 = epsg['EPSG:25832'];
-        let epsg4326 = epsg['EPSG:4326'];
+        const epsg25832 = epsg['EPSG:25832'];
+        const epsg4326 = epsg['EPSG:4326'];
 
         // transform
-        let transLc = this.transformCoordinates(epsg25832, epsg4326, lc);
-        let transUc = this.transformCoordinates(epsg25832, epsg4326, uc);
+        const transLc = this.transformCoordinates(epsg25832, epsg4326, lc);
+        const transUc = this.transformCoordinates(epsg25832, epsg4326, uc);
 
-        let bbox: BBox = [
+        const bbox: BBox = [
             transLc[0],
             transLc[1],
             transUc[0],

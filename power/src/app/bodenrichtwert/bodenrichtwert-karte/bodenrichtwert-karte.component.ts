@@ -121,6 +121,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         public alerts: AlertsService
     ) { }
 
+    /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
         if (changes.isCollapsed && this.map) {
             this.map.resize();
@@ -146,8 +147,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
      * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
      */
     public onFlurstueckChange() {
-        let lat = this.flurstueck.bbox[1];
-        let lon = this.flurstueck.bbox[0];
+        const lat = this.flurstueck.bbox[1];
+        const lon = this.flurstueck.bbox[0];
         this.marker.setLngLat([lon, lat]).addTo(this.map);
         this.getAddressFromLatLng(lat, lon);
         this.getBodenrichtwertzonen(lat, lon, this.teilmarkt.value);

@@ -67,12 +67,12 @@ export class BodenrichtwertComponent implements OnDestroy {
      * Subscription to features, loaded by AlkisWfs-Service
      */
     public flurstueckSubscription: Subscription;
-    
+
     /**
      * Feature as Flurstueck
      */
     public flurstueck: Flurstueck;
-    
+
     /**
      * Actual selected Stichtag
      */
