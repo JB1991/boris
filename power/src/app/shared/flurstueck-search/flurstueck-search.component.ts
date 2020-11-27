@@ -54,6 +54,7 @@ export class FlurstueckSearchComponent {
      * @param res response as text/xml
      */
     public handleHttpResponse(res: string) {
+        console.log(res);
         const ft = this.parseXML(res);
         if (!ft) {
             this.alerts.NewAlert(
@@ -169,14 +170,14 @@ export class FlurstueckSearchComponent {
 }
 
 export interface Flurstueck {
-    gemarkung: number;
-    land: number;
-    flur: number;
-    nenner: number;
-    zaehler: number;
+    gemarkung: string;
+    land: string;
+    flur: string;
+    nenner: string;
+    zaehler: string;
     fsk: string;
     bbox: BBox;
-    flaeche: number;
+    flaeche: string;
 }
 
 export interface Flurstueckskennzeichen {

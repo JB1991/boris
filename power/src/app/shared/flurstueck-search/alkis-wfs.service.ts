@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FlurstueckPipe } from '@app/bodenwert-kalkulator/flurstueck-pipe.pipe';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Flurstueck } from './flurstueck-search.component';
@@ -38,7 +37,8 @@ export class AlkisWfsService {
     public updateFeatures(feature: Flurstueck) {
         this.features.next(feature);
     }
-
+    
+    /* istanbul ignore next */
     public getFlurstueckByFsk(gemarkung: string, flur: string, zaehler: string, nenner: string): any {
         const fsk = '03' // laenderschluessel für NDS
             + gemarkung.padStart(4, '0')
