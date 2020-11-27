@@ -1,74 +1,135 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AlertsService } from '../alerts/alerts.service';
 import { AlkisWfsService } from './alkis-wfs.service';
 import * as XMLParser from 'fast-xml-parser';
 import { BBox } from 'geojson';
 import * as lo from 'lodash';
+import { ModalminiComponent } from '../modalmini/modalmini.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'power-flurstueck-search',
     templateUrl: './flurstueck-search.component.html',
     styleUrls: ['./flurstueck-search.component.scss']
 })
-export class FlurstueckSearchComponent implements OnInit {
+export class FlurstueckSearchComponent {
+    @ViewChild('flurstueckssearchmodal') public modal: ModalminiComponent;
 
-    private gemarkung = '5328';
-    private flur = '003';
-    private zaehler = '00079';
-    private nenner = '0001';
+    public title = $localize`Flurstückssuche`;
+
+    public fsk: Flurstueckskennzeichen;
 
     constructor(
         public alkisWfsService: AlkisWfsService,
         public alerts: AlertsService
-    ) { }
-
-    ngOnInit(): void {
+    ) {
+        this.fsk = {};
     }
 
-    public getFlurstueck() {
-        this.alkisWfsService.getFlurstueckByFsk(this.gemarkung, this.flur, this.zaehler, this.nenner)
+    /**
+     * Reset flurstueckskennzeichen onClose
+     */
+    public onClose() {
+        this.fsk = {};
+    }
+
+    /**
+     * search for flurstueck on form submit
+     * @param value form values as flurstueckskennzeichen
+     */
+    public searchFlurstueck(value: Flurstueckskennzeichen) {
+        this.fsk = value;
+        this.alkisWfsService.getFlurstueckByFsk(this.fsk.gemarkung, this.fsk.flur, this.fsk.zaehler, this.fsk.nenner)
             .subscribe(
-                res => this.alkisWfsService.updateFeatures(this.parseXMLtoFlurstueck(res)),
-                err => {
-                    console.log(err);
-                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
-                }
+                (res: string) => this.handleHttpResponse(res),
+                (err: HttpErrorResponse) => this.handleHttpError(err)
             );
+        this.modal.close();
     }
 
-    private parseXMLtoFlurstueck(xmlData: string): Flurstueck {
+    /**
+     * Handle the HTTP Response
+     * @param res response as text/xml
+     */
+    public handleHttpResponse(res: string) {
+        let ft = this.parseXML(res);
+        if (!ft) {
+            this.alerts.NewAlert(
+                'danger',
+                $localize`Laden fehlgeschlagen`,
+                $localize`Flurstück nicht gefunden.`
+            );
+        } else {
+            this.alkisWfsService.updateFeatures(ft);
+        }
+    }
+
+    /**
+     * Handle the HTTP Error Response
+     * @param err error
+     */
+    public handleHttpError(err: HttpErrorResponse) {
+        console.log(err);
+        this.alerts.NewAlert(
+            'danger',
+            $localize`Laden fehlgeschlagen`,
+            err.message
+        );
+    }
+
+    /**
+     * Parse the XML-Data
+     * @param xmlData xmlData as string
+     */
+    private parseXML(xmlData: string): Flurstueck {
         let fst: Flurstueck;
+
+        // parse options
         const options = {
-            ignoreNameSpace: true
+            ignoreNameSpace: true,
         };
 
-        let result = XMLParser.validate(xmlData);
-        if (result) {
+        // parse XML if valid
+        if (XMLParser.validate(xmlData)) {
             let obj = XMLParser.parse(xmlData, options);
-            fst = this.retrieveFlurstueckData(obj);
+            // check if obj contains features
+            if (obj['FeatureCollection']) {
+                fst = this.parseFlurstuecksData(obj);
+            }
         }
         return fst;
     }
 
-    private retrieveFlurstueckData(object: any): Flurstueck {
+    /**
+     * Parse the object with flurstuecks data
+     * @param object object to parse
+     */
+    private parseFlurstuecksData(object: any): Flurstueck {
 
+        // AX_Flurstueck node
         let axFlurstueck = lo.get(object, 'FeatureCollection.member.AX_Flurstueck');
+
+        // Envelope node with bbox
         let bounds = lo.get(object, 'FeatureCollection.boundedBy.Envelope');
 
         let fst: Flurstueck = {
             gemarkung: lo.get(axFlurstueck, 'gemarkung.AX_Gemarkung_Schluessel.gemarkungsnummer'),
-            land: axFlurstueck['gemarkung']['AX_Gemarkung_Schluessel']['land'],
-            flur: axFlurstueck['flurnummer'],
-            nenner: axFlurstueck['flurstuecksnummer']['AX_Flurstuecksnummer']['nenner'],
-            zaehler: axFlurstueck['flurstuecksnummer']['AX_Flurstuecksnummer']['zaehler'],
-            fsk: axFlurstueck['flurstueckskennzeichen'],
-            flaeche: axFlurstueck['amtlicheFlaeche'],
-            bbox: this.getFstBBox(bounds),
+            land: lo.get(axFlurstueck, 'gemarkung.AX_Gemarkung_Schluessel.land'),
+            flur: lo.get(axFlurstueck, 'flurnummer'),
+            nenner: lo.get(axFlurstueck, 'flurstuecksnummer.AX_Flurstuecksnummer.nenner'),
+            zaehler: lo.get(axFlurstueck, 'flurstuecksnummer.AX_Flurstuecksnummer.zaehler'),
+            fsk: lo.get(axFlurstueck, 'flurstueckskennzeichen'),
+            flaeche: lo.get(axFlurstueck, 'amtlicheFlaeche'),
+            bbox: this.parseFlurstueckBBox(bounds),
         }
         return fst;
     }
 
-    private getFstBBox(bounds: any): BBox {
+    /**
+     * Parse the object with bbox
+     * @param bounds object with bounds
+     */
+    private parseFlurstueckBBox(bounds: any): BBox {
         let lowerCorner: string = lo.get(bounds, 'lowerCorner');
         let upperCorner: string = lo.get(bounds, 'upperCorner');
         let lc = lowerCorner.split(' ')
@@ -93,4 +154,11 @@ export interface Flurstueck {
     fsk: string;
     bbox: BBox;
     flaeche: number;
+}
+
+export interface Flurstueckskennzeichen {
+    gemarkung?: string;
+    flur?: string;
+    nenner?: string;
+    zaehler?: string;
 }

@@ -1,19 +1,94 @@
-<button class="nav-link btn"
-        type="button"
-        (click)="getFlurstueck()"
-        alt="Eigenen Standort anzeigen"
-        title="Eigenen Standort anzeigen"
-        i18n-alt
-        i18n-title>
-    <svg width="20x"
-         height="20px"
-         viewBox="0 0 16 16"
-         class="bi bi-layers-fill"
-         fill="currentColor"
-         xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd"
-              d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4z" />
-        <path fill-rule="evenodd"
-              d="M2.125 8.567l-1.86.992a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882l-1.86-.992-5.17 2.756a1.5 1.5 0 0 1-1.41 0l-5.17-2.756z" />
-    </svg>
-</button>
+<power-modalmini #flurstueckssearchmodal
+                 (closing)="onClose()">
+      <form novalidate
+            (ngSubmit)="searchFlurstueck(form.value)"
+            #form="ngForm">
+            <div class="form-row py-1">
+                  <div class="col-12">
+                        <label for="gem"
+                               i18n>Gemarkung</label>
+                        <input type="text"
+                               class="form-control"
+                               name="gemarkung"
+                               [(ngModel)]="fsk.gemarkung"
+                               [class]="!gemarkung.valid ? 'is-invalid' : 'is-valid'"
+                               required
+                               #gemarkung="ngModel"
+                               maxlength="4"
+                               pattern="[0-9]*"
+                               i18n-placeholder
+                               placeholder="Germarkungsnummer"
+                               aria-labelledby="germarkungsnr">
+                  </div>
+            </div>
+            <div class="form-row py-1">
+                  <div class="col-12">
+                        <label for="flur"
+                               i18n>Flur</label>
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="fsk.flur"
+                               [class]="!flur.valid ? 'is-invalid' : 'is-valid'"
+                               #flur="ngModel"
+                               name="flur"
+                               i18n-placeholder
+                               placeholder="Flurnummer"
+                               required
+                               maxlength="3"
+                               pattern="[0-9]*">
+                  </div>
+            </div>
+            <div class="form-row py-1">
+                  <div class="col-12">
+                        <label for="nenner"
+                               i18n>Flurstücksnummer</label>
+                  </div>
+                  <div class="col-6">
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="fsk.zaehler"
+                               [class]="!zaehler.valid ? 'is-invalid' : 'is-valid'"
+                               name="zaehler"
+                               #zaehler="ngModel"
+                               i18n-placeholder
+                               placeholder="Zähler"
+                               required
+                               maxlength="4"
+                               pattern="[0-9]*">
+                  </div>
+                  <div class="col-6">
+                        <input type="text"
+                               class="form-control"
+                               [(ngModel)]="fsk.nenner"
+                               [class]="!nenner.valid ? 'is-invalid' : 'is-valid'"
+                               #nenner="ngModel"
+                               name="nenner"
+                               i18n-placeholder
+                               placeholder="Nenner"
+                               required
+                               maxlength="5"
+                               pattern="[0-9]*">
+                  </div>
+            </div>
+            <hr>
+            <button type="submit"
+                    class="btn btn-success float-right"
+                    i18n-title
+                    title="Flurstück suchen"
+                    [disabled]="!form.valid">
+                  <svg width="1em"
+                       height="1em"
+                       viewBox="0 0 16 16"
+                       class="bi bi-search"
+                       fill="currentColor"
+                       xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                        <path fill-rule="evenodd"
+                              d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                  </svg>
+                  <span class="ml-1"
+                        i18n>Suchen</span>
+            </button>
+      </form>
+      <power-modalmini>

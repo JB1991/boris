@@ -40,9 +40,14 @@ export class AlkisWfsService {
     }
 
     public getFlurstueckByFsk(gemarkung: string, flur: string, zaehler: string, nenner: string): any {
-        const fsk = '03' + gemarkung + flur + zaehler + nenner + '__';
+        const fsk = '03' // laenderschluessel für NDS
+            + gemarkung.padStart(4, '0')
+            + flur.padStart(3, '0')
+            + zaehler.padStart(5, '0')
+            + nenner.padStart(4, '0')
+            + '__'; // flurstueckskennzeichen suffix
 
-        const fstFskParams = new HttpParams({})
+        const fstFskParams = new HttpParams()
             .set('REQUEST', 'GetFeature')
             .append('SERVICE', 'WFS')
             .append('VERSION', '2.0.0')
