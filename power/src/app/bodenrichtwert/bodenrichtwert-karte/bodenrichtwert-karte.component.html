@@ -370,8 +370,7 @@
     }"></mgl-layer>
 
         <!-- Niedersachsen -->
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="bauland"
+        <mgl-layer id="bauland"
                    type="line"
                    [source]="ndsSource"
                    [minzoom]="11"
@@ -385,11 +384,11 @@
         'stops' : [[11,0],[13,1]]
       }
     }"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="sanierungsgebiet"
+        <mgl-layer id="sanierungsgebiet"
                    type="line"
                    [source]="ndsSource"
                    [minzoom]="11"
@@ -404,11 +403,11 @@
                                 'stops' : [[11,0],[13,.6]]
                             }
                     }"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
-                   id="landwirtschaft"
+        <mgl-layer id="landwirtschaft"
                    type="line"
                    [source]="ndsSource"
                    [sourceLayer]="'br_brzone_flat'"
@@ -422,10 +421,10 @@
         'stops' : [[8,0],[10,1]]
       }
     }"
+                   [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="appto_bauland"
+        <mgl-layer id="appto_bauland"
                    type="symbol"
                    [source]="ndsSource"
                    [sourceLayer]="'br_brzone_flat'"
@@ -436,18 +435,27 @@
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-                   [layout]="{
-      'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
-      'text-size': {
-        'stops': [[12,10],[15,16]]
-        },
-      'text-font': ['Klokantech Noto Sans Regular']
-    }"
+                   [layout]="teilmarkt.value.includes('B') ?
+                   {
+                    'visibility': 'visible',
+                    'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
+                    'text-size': {
+                        'stops': [[12,10],[15,16]]
+                        },
+                    'text-font': ['Klokantech Noto Sans Regular']
+                    } :
+                    {
+                    'visibility': 'none',
+                    'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
+                    'text-size': {
+                        'stops': [[12,10],[15,16]]
+                        },
+                    'text-font': ['Klokantech Noto Sans Regular']
+                    }"
                    [filter]="['all',['in', 'entw', 'B','SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
-                   id="appto_landwirtschaft"
+        <mgl-layer id="appto_landwirtschaft"
                    type="symbol"
                    [source]="ndsSource"
                    [sourceLayer]="'br_brzone_flat'"
@@ -458,19 +466,27 @@
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-                   [layout]="{
-      'text-field': '{brw}',
-      'text-size': {
-        'stops': [[10,20],[15,24]]
-        },
-      'text-font': ['Klokantech Noto Sans Regular']
-    }"
+                   [layout]="teilmarkt.value.includes('LF') ? {
+                    'visibility': 'visible',
+                    'text-field': '{brw}',
+                    'text-size': {
+                        'stops': [[10,20],[15,24]]
+                        },
+                    'text-font': ['Klokantech Noto Sans Regular']
+                    } : 
+                    {
+                        'visibility': 'none',
+                        'text-field': '{brw}',
+                        'text-size': {
+                        'stops': [[10,20],[15,24]]
+                        },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                    }"
                    [filter]="['all',['==','stag', stichtag],['in','entw', teilmarkt.value[0]]]">
         </mgl-layer>
 
         <!-- Bremen -->
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="bauland_bremen"
+        <mgl-layer id="bauland_bremen"
                    type="line"
                    [source]="bremenSource"
                    [minzoom]="11"
@@ -484,11 +500,11 @@
         'stops' : [[11,0],[13,1]]
       }
     }"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="sanierungsgebiet_bremen"
+        <mgl-layer id="sanierungsgebiet_bremen"
                    type="line"
                    [source]="bremenSource"
                    [minzoom]="11"
@@ -503,11 +519,11 @@
                                 'stops' : [[11,0],[13,.6]]
                             }
                     }"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
-                   id="landwirtschaft_bremen"
+        <mgl-layer id="landwirtschaft_bremen"
                    type="line"
                    [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
@@ -521,10 +537,10 @@
         'stops' : [[8,0],[10,1]]
       }
     }"
+                   [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="appto_bauland_bremen"
+        <mgl-layer id="appto_bauland_bremen"
                    type="symbol"
                    [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
@@ -535,18 +551,27 @@
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-                   [layout]="{
-      'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
-      'text-size': {
-        'stops': [[12,10],[15,16]]
-        },
-      'text-font': ['Klokantech Noto Sans Regular']
-    }"
+                   [layout]="teilmarkt.value.includes('LF') ? 
+                   {
+                        'visibility': 'visible',
+                        'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
+                        'text-size': {
+                            'stops': [[12,10],[15,16]]
+                            },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                    } : 
+                    {
+                        'visibility': 'none',
+                        'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
+                        'text-size': {
+                            'stops': [[12,10],[15,16]]
+                            },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                    }"
                    [filter]="['all',['in', 'entw', 'B','SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
-                   id="appto_landwirtschaft_bremen"
+        <mgl-layer id="appto_landwirtschaft_bremen"
                    type="symbol"
                    [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
@@ -557,13 +582,23 @@
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-                   [layout]="{
-      'text-field': '{brw}',
-      'text-size': {
-        'stops': [[10,20],[15,24]]
-        },
-      'text-font': ['Klokantech Noto Sans Regular']
-    }"
+                   [layout]="teilmarkt.value.includes('LF') ? 
+                        {
+                            'visibility': 'visible',
+                            'text-field': '{brw}',
+                            'text-size': {
+                                'stops': [[10,20],[15,24]]
+                                },
+                            'text-font': ['Klokantech Noto Sans Regular']
+                        } : 
+                        {
+                            'visibility': 'none',
+                            'text-field': '{brw}',
+                            'text-size': {
+                                'stops': [[10,20],[15,24]]
+                                },
+                            'text-font': ['Klokantech Noto Sans Regular']
+                        }"
                    [filter]="['all',['==','stag', stichtag],['in','entw', teilmarkt.value[0]]]">
         </mgl-layer>
 

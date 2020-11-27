@@ -75,7 +75,7 @@ export class FlurstueckSearchComponent {
         this.alerts.NewAlert(
             'danger',
             $localize`Laden fehlgeschlagen`,
-            err.message
+            $localize`Anfrage an die WFS-Komponente geschweitert, bitte versuchen Sie es später erneut.`
         );
     }
 
@@ -150,7 +150,7 @@ export class FlurstueckSearchComponent {
         let uc = [Number(upperCorner[0]), Number(upperCorner[1])];
 
         // projections
-        let epsg25832 = epsg['EPSG:25382'];
+        let epsg25832 = epsg['EPSG:25832'];
         let epsg4326 = epsg['EPSG:4326'];
 
         // transform

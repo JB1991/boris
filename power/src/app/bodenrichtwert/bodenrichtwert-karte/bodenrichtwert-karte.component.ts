@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
 
 /* eslint-disable max-lines */
 @Component({
@@ -107,6 +108,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() features;
     @Output() featuresChange = new EventEmitter();
 
+    @Input() flurstueck: Flurstueck;
+
     public resetMapFired = false;
 
     constructor(
@@ -131,10 +134,25 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             }
         } else if ((changes.collapsed || changes.expanded || changes.adresse) && this.map) {
             this.map.resize();
+        } else if (changes.flurstueck && this.flurstueck && this.map) {
+            this.onFlurstueckChange();
         }
     }
 
     ngOnInit() {
+    }
+
+    /**
+     * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
+     */
+    public onFlurstueckChange() {
+        let lat = this.flurstueck.bbox[1];
+        let lon = this.flurstueck.bbox[0];
+        this.marker.setLngLat([lon, lat]).addTo(this.map);
+        this.getAddressFromLatLng(lat, lon);
+        this.getBodenrichtwertzonen(lat, lon, this.teilmarkt.value);
+        this.flyTo(lat, lon);
+        this.changeURL();
     }
 
     loadMap(event: Map) {
@@ -142,6 +160,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
         this.map.addSource('geoserver_br', this.bremenSource);
 
+        console.log(this.ndsSource, this.bremenSource);
         this.map.addSource('geoserver_nds', this.ndsSource);
 
         this.route.queryParams.subscribe(params => {

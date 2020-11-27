@@ -66,9 +66,12 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * Subscription to features, loaded by AlkisWfs-Service
      */
-    public alkisFeatureSubscription: Subscription;
+    public flurstueckSubscription: Subscription;
     
-    public alkisFeatures: Flurstueck;
+    /**
+     * Feature as Flurstueck
+     */
+    public flurstueck: Flurstueck;
     
     /**
      * Actual selected Stichtag
@@ -103,9 +106,9 @@ export class BodenrichtwertComponent implements OnDestroy {
             this.cdr.detectChanges();
             this.isCollapsed = false;
         });
-        this.alkisFeatureSubscription = this.alkisWfsService.getFeatures().subscribe(ft => {
-            this.alkisFeatures = ft;
-            console.log(ft);
+        this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(fst => {
+            this.flurstueck = fst;
+            this.cdr.detectChanges();
         });
         this.stichtag = STICHTAGE[0];
         this.teilmarkt = TEILMAERKTE[0];
