@@ -6,6 +6,8 @@ import { BBox } from 'geojson';
 import * as lo from 'lodash';
 import { ModalminiComponent } from '../modalmini/modalmini.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as epsg from 'epsg';
+import proj4 from 'proj4';
 
 @Component({
     selector: 'power-flurstueck-search',
@@ -126,19 +128,40 @@ export class FlurstueckSearchComponent {
     }
 
     /**
+     * Transforms coordinates from one projection to another projection (EPSG-Codes)
+     * @param from projection from
+     * @param to projection to
+     * @param coord coordinates [x, y] 
+     */
+    private transformCoordinates(from: string, to: string, coord: Number[]) {
+        let result = proj4(from, to).forward(coord);
+        return result;
+    }
+
+    /**
      * Parse the object with bbox
      * @param bounds object with bounds
      */
     private parseFlurstueckBBox(bounds: any): BBox {
-        let lowerCorner: string = lo.get(bounds, 'lowerCorner');
-        let upperCorner: string = lo.get(bounds, 'upperCorner');
-        let lc = lowerCorner.split(' ')
-        let uc = upperCorner.split(' ');
+        // extract coordinates
+        let lowerCorner = lo.get(bounds, 'lowerCorner').split(' ');
+        let upperCorner = lo.get(bounds, 'upperCorner').split(' ');
+        let lc = [Number(lowerCorner[0]), Number(lowerCorner[1])];
+        let uc = [Number(upperCorner[0]), Number(upperCorner[1])];
+
+        // projections
+        let epsg25832 = epsg['EPSG:25382'];
+        let epsg4326 = epsg['EPSG:4326'];
+
+        // transform
+        let transLc = this.transformCoordinates(epsg25832, epsg4326, lc);
+        let transUc = this.transformCoordinates(epsg25832, epsg4326, uc);
+
         let bbox: BBox = [
-            Number(lc[0]),
-            Number(lc[1]),
-            Number(uc[0]),
-            Number(uc[1])
+            transLc[0],
+            transLc[1],
+            transUc[0],
+            transUc[1]
         ];
         return bbox;
     }
