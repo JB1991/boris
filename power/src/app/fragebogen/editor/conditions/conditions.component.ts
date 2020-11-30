@@ -187,29 +187,22 @@ export class ConditionsComponent implements OnInit, OnChanges {
     public loadChoices(event: Event) {
         for (const item of this.struct) {
             item.choices = null;
-
             for (const question of this.questions) {
-                if (!question.choices) {
-                    continue;
-                }
-
                 if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
 
                     // check values
-                    if (typeof item.value === 'object') {
-                        skip: for (const val of item.value) {
-                            for (let i = 0; i < item.choices.length; i++) {
-                                if (val === item.choices[i].value) {
-                                    continue skip;
-                                }
+                    skip: for (const val of item.value) {
+                        for (let i = 0; i < item.choices.length; i++) {
+                            if (val === item.choices[i].value) {
+                                continue skip;
                             }
+                        }
 
-                            // delete
-                            const index = item.value.indexOf(val);
-                            if (index >= 0) {
-                                item.value.splice(index, 1);
-                            }
+                        // delete
+                        const index = item.value.indexOf(val);
+                        if (index >= 0) {
+                            item.value.splice(index, 1);
                         }
                     }
                 }
