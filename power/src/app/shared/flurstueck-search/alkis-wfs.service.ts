@@ -37,9 +37,8 @@ export class AlkisWfsService {
     public updateFeatures(feature: Flurstueck) {
         this.features.next(feature);
     }
-    
+
     /**
-     * 
      * @param gemarkung gemarkungsschlüssel
      * @param flur flurnummer
      * @param zaehler flurstücksnummer - zähler
