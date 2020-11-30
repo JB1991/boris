@@ -236,7 +236,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         let random;
 
         if (!seriesLength) {
-            console.log(seriesLength);
             random = Math.floor(Math.random() * ((defaultColors.length - 1) - 0 + 1) + 0);
         } else {
             const idx = defaultColors.findIndex(
@@ -245,8 +244,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             if (idx > (defaultColors.length - 3)) {
                 random = 0;
             } else {
-                console.log(seriesLength);
-                console.log(defaultColors);
                 random = idx + 2;
             }
         }
