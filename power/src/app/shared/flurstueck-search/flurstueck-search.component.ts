@@ -54,7 +54,6 @@ export class FlurstueckSearchComponent {
      * @param res response as text/xml
      */
     public handleHttpResponse(res: string) {
-        console.log(res);
         const ft = this.parseXML(res);
         if (!ft) {
             this.alerts.NewAlert(
@@ -72,11 +71,10 @@ export class FlurstueckSearchComponent {
      * @param err error
      */
     public handleHttpError(err: HttpErrorResponse) {
-        console.log(err);
         this.alerts.NewAlert(
             'danger',
             $localize`Laden fehlgeschlagen`,
-            $localize`Anfrage an die WFS-Komponente geschweitert, bitte versuchen Sie es später erneut.`
+            $localize`Anfrage an die WFS-Komponente gescheitert, bitte versuchen Sie es später erneut.`
         );
     }
 

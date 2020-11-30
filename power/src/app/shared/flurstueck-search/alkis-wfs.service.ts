@@ -38,6 +38,13 @@ export class AlkisWfsService {
         this.features.next(feature);
     }
     
+    /**
+     * 
+     * @param gemarkung gemarkungsschlüssel
+     * @param flur flurnummer
+     * @param zaehler flurstücksnummer - zähler
+     * @param nenner flurstücksnummer - nenner
+     */
     /* istanbul ignore next */
     public getFlurstueckByFsk(gemarkung: string, flur: string, zaehler: string, nenner: string): any {
         const fsk = '03' // laenderschluessel für NDS
