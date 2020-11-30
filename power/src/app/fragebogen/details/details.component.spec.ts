@@ -99,7 +99,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
 
     it('should fail updateForm', (done) => {
-        spyOn(component.formapi, 'getForm').and.returnValue(Promise.reject('Failed'));
+        component.id = 'abc';
+        spyOn(component.formapi, 'getForm').and.returnValue(Promise.reject('Failed 1'));
 
         component.updateForm(true).then(() => {
             expect(component.form).toBeNull();
@@ -178,12 +179,12 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     it('should fail archive form', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         spyOn(component.formapi, 'updateForm').and
-            .returnValue(Promise.reject('Failed'));
+            .returnValue(Promise.reject('Failed 2'));
         spyOn(window, 'confirm').and.returnValue(true);
         component.archiveForm().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-                'Archivieren fehlgeschlagen', 'Failed');
+                'Archivieren fehlgeschlagen', 'Failed 2');
             done();
         });
     });
@@ -242,14 +243,14 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should fail delete task 404', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
-        spyOn(component.formapi, 'deleteTask').and.returnValue(Promise.reject('Failed'));
+        spyOn(component.formapi, 'deleteTask').and.returnValue(Promise.reject('Failed 3'));
 
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.deleteTask(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-                'Löschen fehlgeschlagen', 'Failed');
+                'Löschen fehlgeschlagen', 'Failed 3');
             done();
         });
     });
@@ -303,14 +304,14 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should fail generate new pin 404', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
-        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.reject('Failed'));
+        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.reject('Failed 4'));
 
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.newPin(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-                'Neue Pin generieren fehlgeschlagen', 'Failed');
+                'Neue Pin generieren fehlgeschlagen', 'Failed 4');
             done();
         });
     });
@@ -364,14 +365,14 @@ describe('Fragebogen.Details.DetailsComponent', () => {
 
     it('should fail complete task 404', (done) => {
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
-        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.reject('Failed'));
+        spyOn(component.formapi, 'updateTask').and.returnValue(Promise.reject('Failed 5'));
 
         spyOn(window, 'confirm').and.returnValue(true);
 
         component.completeTask(0).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-                'Antwort abschließen fehlgeschlagen', 'Failed');
+                'Antwort abschließen fehlgeschlagen', 'Failed 5');
             done();
         });
     });
