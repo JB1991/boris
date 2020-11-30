@@ -49,5 +49,4 @@ server {
     proxy_pass https://sg.geodatenzentrum.de/;
     return 404;
   }
-
 }

@@ -4,9 +4,11 @@ import {
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
+import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import { Feature } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
+import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
 
 /**
  * Possible selections of Stichtage
@@ -62,6 +64,16 @@ export class BodenrichtwertComponent implements OnDestroy {
     public featureSubscription: Subscription;
 
     /**
+     * Subscription to features, loaded by AlkisWfs-Service
+     */
+    public flurstueckSubscription: Subscription;
+
+    /**
+     * Feature as Flurstueck
+     */
+    public flurstueck: Flurstueck;
+
+    /**
      * Actual selected Stichtag
      */
     public stichtag;
@@ -80,6 +92,7 @@ export class BodenrichtwertComponent implements OnDestroy {
     constructor(
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
+        private alkisWfsService: AlkisWfsService,
         private titleService: Title,
         private cdr: ChangeDetectorRef
     ) {
@@ -92,6 +105,10 @@ export class BodenrichtwertComponent implements OnDestroy {
             this.features = ft;
             this.cdr.detectChanges();
             this.isCollapsed = false;
+        });
+        this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(fst => {
+            this.flurstueck = fst;
+            this.cdr.detectChanges();
         });
         this.stichtag = STICHTAGE[0];
         this.teilmarkt = TEILMAERKTE[0];

@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
 
 /* eslint-disable max-lines */
 @Component({
@@ -107,6 +108,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() features;
     @Output() featuresChange = new EventEmitter();
 
+    @Input() flurstueck: Flurstueck;
+
     public resetMapFired = false;
 
     constructor(
@@ -118,6 +121,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         public alerts: AlertsService
     ) { }
 
+    /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
         if (changes.isCollapsed && this.map) {
             this.map.resize();
@@ -131,10 +135,25 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             }
         } else if ((changes.collapsed || changes.expanded || changes.adresse) && this.map) {
             this.map.resize();
+        } else if (changes.flurstueck && this.flurstueck && this.map) {
+            this.onFlurstueckChange();
         }
     }
 
     ngOnInit() {
+    }
+
+    /**
+     * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
+     */
+    public onFlurstueckChange() {
+        const lat = this.flurstueck.bbox[1];
+        const lon = this.flurstueck.bbox[0];
+        this.marker.setLngLat([lon, lat]).addTo(this.map);
+        this.getAddressFromLatLng(lat, lon);
+        this.getBodenrichtwertzonen(lat, lon, this.teilmarkt.value);
+        this.flyTo(lat, lon);
+        this.changeURL();
     }
 
     loadMap(event: Map) {
