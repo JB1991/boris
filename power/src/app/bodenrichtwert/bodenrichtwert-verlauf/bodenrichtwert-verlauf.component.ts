@@ -195,13 +195,77 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     setChartOptionsSeries(series, nutzung) {
+        const seriesColor = this.setSeriesColor();
         this.chartOption.series.push({
             name: nutzung,
             type: 'line',
             step: 'end',
+            color: seriesColor,
             data: series.map(t => t.brw),
         });
     }
+
+    fillLineDuringYear(series, lastElement) {
+        // check gap in graph
+        let i = -1;
+        do {
+            i++;
+            let j = i + 1;
+            do {
+                j++;
+                // fill graph
+                if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null) {
+                    series[i + 1].brw = (series[i].brw).toString();
+                    series[i + 1].nutzung = series[i].nutzung;
+                    series[i + 1].verf = series[i].verf;
+                }
+            } while (series[j].brw === null && j < (series.length - 1));
+        } while (typeof (series[i + 1].brw) !== 'string' && i < (series.length - 3));
+        // input for seriesElement 'today'
+        if (lastElement < series.length - 1) {
+            series[lastElement + 1].brw = (series[lastElement].brw).toString();
+            series[lastElement + 1].nutzung = (series[lastElement].nutzung);
+            series[lastElement + 1].verf = (series[lastElement].verf);
+        }
+        return series;
+    }
+
+    setSeriesColor () {
+        const defaultColors = ['#c4153a', '#2f4554', '#61a0a8', '#d48265', '#5c2b82', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+        const seriesLength = this.chartOption.series.length;
+        let random;
+
+        if (!seriesLength) {
+            console.log(seriesLength);
+            random = Math.floor(Math.random() * ((defaultColors.length - 1) - 0 + 1) + 0);
+        } else {
+            const idx = defaultColors.findIndex(
+                color => color === this.chartOption.series[seriesLength - 1].color
+            );
+            if (idx > (defaultColors.length - 3)) {
+                random = 0;
+            } else {
+                console.log(seriesLength);
+                console.log(defaultColors);
+                random = idx + 2;
+            }
+        }
+        return defaultColors[random];
+    }
+
+    getSeriesColor(series) {
+        let nutzung: any;
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].nutzung !== '') {
+                nutzung = series[i].nutzung;
+                break;
+            }
+        }
+        const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
+        return this.chartOption.series[idx].color;
+    }
+
+    // Following methods are used for the visualMap respectivly "Sanierungsgebiet"
 
     setChartOptionsGrid() {
         if (this.chartOption.visualMap.length === 0) {
@@ -226,12 +290,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
         const r = [verfIdx[0], verfIdx[verfIdx.length - 1]];
-        const [right, top, label, align] = this.setVerfLabel(seriesVerf);
-        const colorInRange = this.setVerfColorInRange(seriesVerf);
-        const colorOutOfRange = this.setVerfColorOutofRange();
-        this.setColorSeries(series, colorOutOfRange);
 
         if (r[0] !== undefined) {
+            const [right, top, label, align] = this.setVerfLabel(seriesVerf);
+            const colorInRange = this.setVerfColorInRange(seriesVerf);
+            const colorOutOfRange = this.getSeriesColor(series);
+
             this.chartOption.visualMap.push({
                 type: 'piecewise',
                 showLabel: true,
@@ -272,36 +336,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return color;
     }
 
-    setVerfColorOutofRange() {
-        const defaultColors = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
-        const visualMapLength = this.chartOption.visualMap.length;
-        let random;
-        if (visualMapLength > 0) {
-            const idx = defaultColors.findIndex(
-                color => color === this.chartOption.visualMap[visualMapLength - 1].outOfRange.color
-            );
-            if (idx > (defaultColors.length - 3)) {
-                random = 0;
-            } else {
-                random = idx + 2;
-            }
-        } else {
-            random = Math.floor(Math.random() * ((defaultColors.length - 1) - 0 + 1) + 0);
-        }
-        return defaultColors[random];
-    }
-
-    setColorSeries(series, color) {
-        let nutzung: any;
-        for (let i = 0; i < series.length; i++) {
-            if (series[i].nutzung !== '') {
-                nutzung = series[i].nutzung;
-                break;
-            }
-        }
-        const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
-        this.chartOption.series[idx].color = color;
-    }
 
     setVerfLabel(seriesVerf) {
         const right = '10%';
@@ -330,31 +364,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
         return [right, top, label, align];
-    }
-
-    fillLineDuringYear(series, lastElement) {
-        // check gap in graph
-        let i = -1;
-        do {
-            i++;
-            let j = i + 1;
-            do {
-                j++;
-                // fill graph
-                if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null) {
-                    series[i + 1].brw = (series[i].brw).toString();
-                    series[i + 1].nutzung = series[i].nutzung;
-                    series[i + 1].verf = series[i].verf;
-                }
-            } while (series[j].brw === null && j < (series.length - 1));
-        } while (typeof (series[i + 1].brw) !== 'string' && i < (series.length - 3));
-        // input for seriesElement 'today'
-        if (lastElement < series.length - 1) {
-            series[lastElement + 1].brw = (series[lastElement].brw).toString();
-            series[lastElement + 1].nutzung = (series[lastElement].nutzung);
-            series[lastElement + 1].verf = (series[lastElement].verf);
-        }
-        return series;
     }
 
     onResizeVerf(event?) {
