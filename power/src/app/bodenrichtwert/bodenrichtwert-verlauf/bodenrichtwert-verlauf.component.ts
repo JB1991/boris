@@ -365,59 +365,44 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         if (this.chartOption.visualMap.length > 1) {
             for (let i = 1; i < this.chartOption.visualMap.length; i = i + 2) {
+                if (i === 1) {
+                    this.chartOption.visualMap[i].top = 5 * i + '%';
+                } else {
+                    this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
+                }
                 if (innerWidth >= 1680 || (innerWidth <= 991 && innerWidth >= 870)) {
                     this.chartOption.visualMap[i].right = '26%';
-                    (i === 1) ?
-                        (this.chartOption.visualMap[i].top = 5 * i + '%') :
-                        (this.chartOption.visualMap[i].top = 5 * i - 1 + '%');
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 } else if (((innerWidth < 1680 && innerWidth >= 1450) || (innerWidth < 870 && innerWidth >= 720))) {
                     this.chartOption.visualMap[i].right = '30%';
-                    i === 1 ? this.chartOption.visualMap[i].top = 5 * i + '%' : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 } else if ((innerWidth < 1450 && innerWidth >= 1360) || (innerWidth < 720 && innerWidth >= 650)) {
                     this.chartOption.visualMap[i].right = '32%';
-                    i === 1 ? this.chartOption.visualMap[i].top = 5 * i + '%' : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 } else if ((innerWidth < 1360 && innerWidth >= 1180) || (innerWidth < 650 && innerWidth >= 580)) {
                     this.chartOption.visualMap[i].right = '35%';
-                    i === 1 ? this.chartOption.visualMap[i].top = 5 * i + '%' : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 } else if ((innerWidth < 1180 && innerWidth >= 1080) || (innerWidth < 580 && innerWidth >= 525)) {
                     this.chartOption.visualMap[i].right = '38%';
-                    i === 1 ? this.chartOption.visualMap[i].top = 5 * i + '%' : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 } else if ((innerWidth < 1080 && innerWidth >= 1020) || (innerWidth < 525 && innerWidth >= 495)) {
                     this.chartOption.visualMap[i].right = '40%';
-                    i === 1 ? this.chartOption.visualMap[i].top = 5 * i + '%' : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 } else if ((innerWidth < 1020 && innerWidth >= 992) || (innerWidth < 495 && innerWidth >= 450)) {
                     this.chartOption.visualMap[i].right = '44%';
-                    i === 1 ? this.chartOption.visualMap[i].top = 5 * i + '%' : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 } else if ((innerWidth < 450 && innerWidth >= 410)) {
                     this.chartOption.visualMap[i].right = '48%';
-                    i === 1 ? this.chartOption.visualMap[i].top = 5 * i + '%' : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 } else if ((innerWidth < 410 && innerWidth >= 365)) {
                     this.chartOption.visualMap[i].right = '54%';
-                    i === 1 ? this.chartOption.visualMap[i].top = 5 * i + '%' : this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
                     this.chartOption.visualMap[i].align = 'right';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
-                } else if (innerWidth < 365) {
+                } else {
                     this.chartOption.visualMap[i].right = '10%';
                     this.chartOption.visualMap[i].top = 5 * this.chartOption.visualMap.length + '%';
                     this.chartOption.visualMap[i].align = 'left';
-                    this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
                 }
+                this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
             }
         }
     }
