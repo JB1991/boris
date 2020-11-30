@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
@@ -363,48 +364,32 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         } else {
             innerWidth = window.innerWidth;
         }
-        if (this.chartOption.visualMap.length > 1) {
-            for (let i = 1; i < this.chartOption.visualMap.length; i = i + 2) {
-                if (i === 1) {
-                    this.chartOption.visualMap[i].top = 5 * i + '%';
-                } else {
-                    this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
-                }
-                if (innerWidth >= 1680 || (innerWidth <= 991 && innerWidth >= 870)) {
-                    this.chartOption.visualMap[i].right = '26%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else if (((innerWidth < 1680 && innerWidth >= 1450) || (innerWidth < 870 && innerWidth >= 720))) {
-                    this.chartOption.visualMap[i].right = '30%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else if ((innerWidth < 1450 && innerWidth >= 1360) || (innerWidth < 720 && innerWidth >= 650)) {
-                    this.chartOption.visualMap[i].right = '32%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else if ((innerWidth < 1360 && innerWidth >= 1180) || (innerWidth < 650 && innerWidth >= 580)) {
-                    this.chartOption.visualMap[i].right = '35%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else if ((innerWidth < 1180 && innerWidth >= 1080) || (innerWidth < 580 && innerWidth >= 525)) {
-                    this.chartOption.visualMap[i].right = '38%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else if ((innerWidth < 1080 && innerWidth >= 1020) || (innerWidth < 525 && innerWidth >= 495)) {
-                    this.chartOption.visualMap[i].right = '40%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else if ((innerWidth < 1020 && innerWidth >= 992) || (innerWidth < 495 && innerWidth >= 450)) {
-                    this.chartOption.visualMap[i].right = '44%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else if ((innerWidth < 450 && innerWidth >= 410)) {
-                    this.chartOption.visualMap[i].right = '48%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else if ((innerWidth < 410 && innerWidth >= 365)) {
-                    this.chartOption.visualMap[i].right = '54%';
-                    this.chartOption.visualMap[i].align = 'right';
-                } else {
-                    this.chartOption.visualMap[i].right = '10%';
-                    this.chartOption.visualMap[i].top = 5 * this.chartOption.visualMap.length + '%';
-                    this.chartOption.visualMap[i].align = 'left';
-                }
-                this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        // Formula calculated using trendline (polynomial 3rd degree - excel)
+        const functionTerms = [];
+        functionTerms[0] = (Math.pow(10, -8) * -8.942807851916) * Math.pow(innerWidth, 3);
+        functionTerms[1] = 0.000293202314619 * Math.pow(innerWidth, 2);
+        functionTerms[2] = 0.304956384617639 * innerWidth;
+        const res = functionTerms[0] + functionTerms[1] - functionTerms[2] + 134.2489932868;
+
+        for (let i = 1; i < this.chartOption.visualMap.length; i = i + 2) {
+            if (i === 1) {
+                this.chartOption.visualMap[i].top = 5 * i + '%';
+            } else {
+                this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
             }
+            if (innerWidth >= 1620) {
+                this.chartOption.visualMap[i].right = '26%';
+            } else if (innerWidth < 1160 && innerWidth >= 992) {
+                this.chartOption.visualMap[i].right = '42%';
+            } else if (innerWidth < 380) {
+                this.chartOption.visualMap[i].right = '10%';
+                this.chartOption.visualMap[i].top = 5 * this.chartOption.visualMap.length + '%';
+            } else {
+                this.chartOption.visualMap[i].right = res + '%';
+            }
+            this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
         }
+
     }
 
     onChartInit(event: any) {

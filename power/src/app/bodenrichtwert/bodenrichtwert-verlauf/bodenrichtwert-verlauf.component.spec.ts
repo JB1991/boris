@@ -71,6 +71,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         spyOn(component, 'setChartOptionsSeries').and.callThrough();
         spyOn(component, 'setChartOptionsVerf').and.callThrough();
         spyOn(component, 'fillLineDuringYear').and.callThrough();
+        spyOn(component, 'onResizeVerf').and.callThrough();;
         component.generateChart(features);
         expect(component.chartOption.legend.data.length).toBe(1);
         expect(component.chartOption.series.length).toBe(1);
@@ -85,6 +86,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.setChartOptionsSeries).toHaveBeenCalledTimes(1);
         expect(component.setChartOptionsVerf).toHaveBeenCalledTimes(1);
         expect(component.fillLineDuringYear).toHaveBeenCalledTimes(1);
+        expect(component.onResizeVerf).toHaveBeenCalledTimes(1);
     });
 
     it('onChartInit should set the echartsInstance', () => {
