@@ -276,11 +276,22 @@ export class ValidatorsComponent implements OnInit, OnChanges {
     public loadChoices(event: Event) {
         for (const item of this.struct) {
             item.choices = null;
+
             for (const question of this.questions) {
+                // check if question has choices
+                if (!question.choices) {
+                    continue;
+                }
+
+                // check if question matches rule
                 if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
 
-                    // check values
+                    if (!Array.isArray(item.value)) {
+                        continue;
+                    }
+
+                    // remove values that do not exist anymore
                     skip: for (const val of item.value) {
                         for (let i = 0; i < item.choices.length; i++) {
                             if (val === item.choices[i].value) {
