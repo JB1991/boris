@@ -608,6 +608,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         // add favorite
         this.formapi.createElement({ content: question }).then((data) => {
+            data['content'] = question;
             this.favorites.push(data);
             this.cdr.detectChanges();
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,

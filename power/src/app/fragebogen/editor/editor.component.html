@@ -35,7 +35,8 @@
                 [isAnimated]="true">
                 <smooth-dnd-container groupName="toolbox"
                                       [getChildPayload]="getPayloadToolbox"
-                                      behaviour="copy">
+                                      behaviour="copy"
+                                      aria-live="polite">
                     <li id="{{ item.type }}"
                         *ngFor="let item of storage.FormularFields"
                         role="button"
@@ -111,7 +112,8 @@
                 [isAnimated]="true">
                 <smooth-dnd-container groupName="favorites"
                                       [getChildPayload]="getPayloadFavorites"
-                                      behaviour="copy">
+                                      behaviour="copy"
+                                      aria-live="polite">
                     <li id="{{ item.content.type }}"
                         *ngFor="let item of favorites; index as i"
                         role="button"
@@ -144,7 +146,8 @@
                                               [getChildPayload]="getPayloadPagination"
                                               [shouldAcceptDrop]="shouldAcceptDropPagination"
                                               orientation="horizontal"
-                                              lockAxis="x">
+                                              lockAxis="x"
+                                              aria-live="polite">
                             <li *ngFor="let page of storage.model.pages; index as i"
                                 class="page-item clickable text-primary smooth-dnd-draggable-wrapper"
                                 [class.active]="i === storage.selectedPageID">
@@ -375,7 +378,7 @@
                               [shouldAcceptDrop]="shouldAcceptDropWorkspace"
                               dragClass="drag-ghost"
                               dragHandleSelector=".drag-handle">
-            <smooth-dnd-draggable
+            <smooth-dnd-draggable aria-live="polite"
                                   *ngFor="let container of storage.model.pages[storage.selectedPageID].elements; index as i">
                 <div class="card bg-light mb-2"
                      [attr.data-id]="i">
