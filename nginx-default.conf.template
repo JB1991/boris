@@ -49,4 +49,13 @@ server {
     proxy_pass https://sg.geodatenzentrum.de/;
     return 404;
   }
+
+  location /wfs/alkis/ {
+    rewrite ^\/wfs\/alkis\/(.*) /doorman/auth/WFS_NI_1311_ALKIS-NAS-konform$1 break;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass https://www.geobasisdaten.niedersachsen.de/;
+    proxy_set_header Authorization "Basic ${WFS_BASIC_AUTH_SECRET}";
+    return 404;
+  }
 }

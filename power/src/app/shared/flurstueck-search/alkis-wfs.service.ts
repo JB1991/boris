@@ -12,7 +12,7 @@ export class AlkisWfsService {
     /**
      * Alkis WFS URL
      */
-    private url = '/wfs';
+    private url = '/wfs/alkis/';
 
     /**
      * Subject with feature object which contains a flurstueck and associated properties
