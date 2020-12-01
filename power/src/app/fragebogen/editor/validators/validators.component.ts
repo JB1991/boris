@@ -116,9 +116,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     const split = validator.expression.match(regex);
 
                     // get question
-                    if (split[0].startsWith('{')) {
-                        data.question = split[0];
-                    } else {
+                    data.question = this.parseValue(split[0]);
+                    if (data.question.startsWith('\'') && data.question.endsWith('\'')) {
                         data.question = split[0].substring(1, split[0].length - 1);
                     }
 
@@ -130,7 +129,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         // get data
                         data.value = split[2].substring(1, split[2].length - 1);
 
-                        if (split[2].startsWith('[')) {
+                        if (data.operator === 'anyof' || data.operator === 'allof') {
                             // list
                             data.value = [];
                             const tmp2 = split[2].substring(1, split[2].length - 1);
@@ -138,12 +137,9 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                             for (const item of tmp2.match(regex2)) {
                                 data.value.push(item.substring(1, item.length - 1));
                             }
-                        } else if (split[2].startsWith('{')) {
-                            // variable
-                            data.value = split[2];
-                        } else if (split[2] === 'true' || split[2] === 'false') {
-                            // boolean
-                            data.value = split[2] === 'true';
+                        } else {
+                            // value
+                            data.value = this.parseValue(split[2]);
                         }
                     }
                     break;
@@ -207,11 +203,7 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                     };
 
                     // add question and operator
-                    if (item.question.startsWith('{')) {
-                        data.expression = item.question + ' ' + item.operator;
-                    } else {
-                        data.expression = '\'' + item.question + '\' ' + item.operator;
-                    }
+                    data.expression = this.parseValue(item.question) + ' ' + item.operator;
 
                     // add values
                     if (item.operator === 'empty' || item.operator === 'notempty') {
@@ -224,21 +216,8 @@ export class ValidatorsComponent implements OnInit, OnChanges {
                         }
                         data.expression += ']';
                     } else {
-                        // check if value is set
-                        if (item.value === null) {
-                            item.value = '';
-                        }
-
-                        if (typeof item.value === 'boolean') {
-                            // boolean
-                            data.expression += ' ' + item.value;
-                        } else if (item.value.startsWith('{')) {
-                            // variable
-                            data.expression += ' ' + item.value;
-                        } else {
-                            // text
-                            data.expression += ' \'' + item.value + '\'';
-                        }
+                        // value
+                        data.expression += ' ' + this.parseValue(item.value);
                     }
                     break;
                 default:
@@ -248,6 +227,36 @@ export class ValidatorsComponent implements OnInit, OnChanges {
         }
         this.dataChange.emit(this.data);
         this.loadChoices(null);
+    }
+
+    /**
+     * Converts value to surveyjs condition
+     * @param val Value
+     */
+    /* eslint-disable-next-line complexity */
+    public parseValue(val: any): string {
+        if (typeof val === 'undefined' || val === null || val === '') {
+            // undefined
+            return '\'\'';
+        } else if (val.startsWith('\'') && val.endsWith('\'')) {
+            // quoted
+            return val;
+        } else if (typeof val === 'boolean' || val.toLowerCase() === 'true' || val.toLowerCase() === 'false') {
+            // boolean
+            return val.toString();
+        } else if (typeof val === 'number' || !isNaN(val)) {
+            // number
+            return val;
+        } else if (val.startsWith('{')) {
+            // variable
+            return val;
+        } else if (val.indexOf('({') >= 0) {
+            // func
+            return val;
+        }
+
+        // text with quotes
+        return '\'' + val.toString() + '\'';
     }
 
     /**
