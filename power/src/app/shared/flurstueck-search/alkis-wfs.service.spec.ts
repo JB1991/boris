@@ -9,7 +9,7 @@ describe('Shared.Flurstueck-search.AlkisWfsService', () => {
     const fst: Flurstueck = require('../../../assets/boden/flurstueck-search-samples/flurstueck.json');
     const xmlData: any = XmlParser.parse('../../../assets/boden/flurstueck-search-samples/xml-data.xml');
 
-    const url = '/wfs?REQUEST=GetFeature&SERVICE=WFS&VERSION=2.0.0&STOREDQUERY_ID=FstFsk&FSK=035328003000790001__';
+    const url = '/wfs/alkis?REQUEST=GetFeature&SERVICE=WFS&VERSION=2.0.0&STOREDQUERY_ID=FstFsk&FSK=035328003000790001__';
 
     let service: AlkisWfsService;
     let httpController: HttpTestingController;
