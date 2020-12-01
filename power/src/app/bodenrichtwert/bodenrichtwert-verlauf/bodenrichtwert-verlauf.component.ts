@@ -3,6 +3,7 @@ import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } f
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
+import { toNumber } from 'lodash';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
@@ -115,6 +116,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     clearChart() {
         this.chartOption.legend.data = [];
         this.chartOption.series = [];
+        this.srTableData = [];
+        this.srTableHeader = [];
+        this.chartOption.visualMap = [];
     }
 
     filterByStichtag(features) {
@@ -129,33 +133,26 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     generateChart(features) {
-        const groupedByNutzung = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
-        this.srTableData = [];
-        this.srTableHeader = [];
-        this.chartOption.visualMap = [];
-
-        for (const [key, value] of groupedByNutzung.entries()) {
-            features = Array.from(value);
-            let series = this.deepCopy(this.seriesTemplate);
-
-            // table for screenreader
-            this.srTableHeader.push(key);
-            let lastElement;
-
-            for (let i = 0; i < series.length; i++) {
-                const feature = features.find(f => f.properties.stag.includes(series[i].stag));
-                if (feature) {
-                    series[i].brw = feature.properties.brw;
-                    series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
-                    series[i].verf = feature.properties.verf;
-                    lastElement = i;
+        let groupedByProperty = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+        for (const [key, value] of groupedByProperty.entries()) {
+            for (const serie of this.seriesTemplate) {
+                const values = value.filter(item => item.properties.stag.substring(0, 4) === serie.stag);
+                if (values.length > 1) {
+                    groupedByProperty = this.groupBy(features, item => item.properties.wnum);
+                    break;
                 }
             }
+        }
+        for (const [key, value] of groupedByProperty.entries()) {
+            features = Array.from(value);
+            let [series, lastElement] = this.getSeriesData(features);
+            // table for screenreader
+            this.srTableHeader.push(key);
             this.srTableData.push({ series: series });
 
             series = this.fillLineDuringYear(series, lastElement);
 
-            const nutzung = this.getNutzung(series);
+            const nutzung = this.getNutzung(key, series);
             this.chartOption.legend.data.push(nutzung);
             this.setChartOptionsSeries(series, nutzung);
             this.setChartOptionsVerf(series);
@@ -164,6 +161,21 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
         this.onResizeVerf();
     }
+
+    getSeriesData(features) {
+        const series = this.deepCopy(this.seriesTemplate);
+        let lastElement;
+        for (let i = 0; i < series.length; i++) {
+            const feature = features.find(f => f.properties.stag.includes(series[i].stag));
+            if (feature) {
+                series[i].brw = feature.properties.brw;
+                series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
+                series[i].verf = feature.properties.verf;
+                lastElement = i;
+            }
+        }
+        return [series, lastElement];
+    };
 
     groupBy(list, keyGetter) {
         const map = new Map();
@@ -185,14 +197,25 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return JSON.parse(JSON.stringify(data));
     }
 
-    getNutzung(series) {
-        for (const entry of series) {
-            if (entry.nutzung !== '') {
-                return entry.nutzung;
+    getNutzung(key, series) {
+        const wnum = Number(key);
+        if (wnum) {
+            for (const entry of series) {
+                if (entry.nutzung !== '') {
+                    return entry.nutzung + '\n' + wnum;
+                }
             }
+            return '';
+        } else {
+            for (const entry of series) {
+                if (entry.nutzung !== '') {
+                    return entry.nutzung;
+                }
+            }
+            return '';
         }
-        return '';
     }
+
 
     setChartOptionsSeries(series, nutzung) {
         const seriesColor = this.setSeriesColor();
@@ -230,7 +253,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return series;
     }
 
-    setSeriesColor () {
+    setSeriesColor() {
         const defaultColors = ['#c4153a', '#2f4554', '#61a0a8', '#d48265', '#5c2b82', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
         const seriesLength = this.chartOption.series.length;
         let random;
@@ -347,18 +370,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             align = 'left';
         }
 
-        if (this.chartOption.visualMap.length % 2 === 0) {
-            if (seriesVerf === 'SU' || seriesVerf === 'EU') {
-                label = 'Sanierungsgebiet:\nKeine Wertanpassung';
-            } else {
-                label = 'Sanierungsgebiet:\nMit Wertanpassung    ';
-            }
+        if (seriesVerf === 'SU' || seriesVerf === 'EU') {
+            label = 'Sanierungsgebiet:\nOhne Wertanpassung';
         } else {
-            if (seriesVerf === 'SU' || seriesVerf === 'EU') {
-                label = 'Sanierungsgebiet:\nKeine Wertanpassung';
-            } else {
-                label = 'Sanierungsgebiet:\n    Mit Wertanpassung';
-            }
+            label = 'Sanierungsgebiet:\nMit Wertanpassung    ';
         }
         return [right, top, label, align];
     }
