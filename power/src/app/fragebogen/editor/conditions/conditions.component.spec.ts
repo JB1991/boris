@@ -86,7 +86,7 @@ describe('Fragebogen.Editor.Conditions.ConditionsComponent', () => {
     });
 
     it('should parse conditions', () => {
-        component.data = '{e1} equals \'5\' and \'k\' notempty or {e2} anyof [\'A\',\'B\'] and {e3} = {items}';
+        component.data = '{e1} equals 5 and \'k\' notempty or {e2} anyof [\'A\',\'B\'] and {e3} = {items}';
         component.ngOnChanges(null);
         expect(component.struct.length).toEqual(4);
         expect(component.struct[0].condition).toEqual('');

@@ -36,6 +36,7 @@
                    [(ngModel)]="item.min"
                    (change)="modelChanged($event)"
                    [class.is-invalid]="!item.min && item.min !== 0 || item.min < 0"
+                   min="0"
                    id="validatorMin{{ i }}{{ uniqId }}"
                    name="validatorMin{{ i }}{{ uniqId }}"
                    i18n-placeholder
@@ -53,6 +54,7 @@
                    [(ngModel)]="item.max"
                    (change)="modelChanged($event)"
                    [class.is-invalid]="!item.max && item.max !== 0 || item.max < 0 || item.min > item.max"
+                   min="0"
                    id="validatorMax{{ i }}{{ uniqId }}"
                    name="validatorMax{{ i }}{{ uniqId }}"
                    i18n-placeholder
@@ -194,6 +196,10 @@
             value="{{ '&#123;' + variable.name + '&#125;' }}">
         {{ '&#123;' + variable.name + '&#125;' }}
     </option>
+    <option value="true"
+            i18n>Für boolesche Vergleiche auf wahr</option>
+    <option value="false"
+            i18n>Für boolesche Vergleiche auf falsch</option>
     <option value="{item}"
             i18n>Referenziert die ausgewählten Antwort(en) dieser Frage</option>
     <option value="{pageno}"
