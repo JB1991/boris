@@ -3,12 +3,13 @@ import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } f
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
+import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
     templateUrl: './bodenrichtwert-verlauf.component.html',
     styleUrls: ['./bodenrichtwert-verlauf.component.scss'],
-    providers: [NutzungPipe],
+    providers: [NutzungPipe, VerfahrensartPipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges {
@@ -57,6 +58,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             data: [],
             type: 'scroll',
             top: '0%',
+            formatter: '',
+            textStyle: {
+                rich: {}
+            },
         },
         grid: {
             left: '1%',
@@ -89,7 +94,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         },
         series: [],
-        visualMap: []
     };
 
     @Input() adresse: Feature;
@@ -98,7 +102,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     echartsInstance;
 
-    constructor(private nutzungPipe: NutzungPipe) {
+    constructor(private nutzungPipe: NutzungPipe, private verfahrensartPipe: VerfahrensartPipe) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -116,7 +120,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.series = [];
         this.srTableData = [];
         this.srTableHeader = [];
-        this.chartOption.visualMap = [];
+        this.chartOption.legend.formatter = '';
+        this.chartOption.legend.textStyle.rich = '';
+        this.chartOption.grid.top = '10%';
     }
 
     filterByStichtag(features) {
@@ -132,6 +138,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     generateChart(features) {
         let groupedByProperty = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+        
         for (const [key, value] of groupedByProperty.entries()) {
             for (const serie of this.seriesTemplate) {
                 const values = value.filter(item => item.properties.stag.substring(0, 4) === serie.stag);
@@ -152,16 +159,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             });
             const nutzung = this.getNutzung(key, seriesArray);
             this.chartOption.legend.data.push(nutzung);
+            this.setLegendFormat(seriesArray);
+
             this.setChartOptionsSeries(seriesArray, nutzung);
-            // this.setChartOptionsVerf(series);
 
             // table for screenreader
-            this.srTableHeader.push(series.nutzung);
+            this.srTableHeader.push(nutzung);
             this.srTableData.push({ series: series });
         }
-        // this.setChartOptionsGrid();
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
-        // this.onResizeVerf();
     }
 
     getSeriesData(features) {
@@ -220,69 +226,37 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         });
         return vergArray;
     }
-
-    groupBy(list, keyGetter) {
-        const map = new Map();
-        list.forEach((item) => {
-            const key = keyGetter(item);
-            if (key !== null) {
-                const collection = map.get(key);
-                if (!collection) {
-                    map.set(key, [item]);
-                } else {
-                    collection.push(item);
-                }
-            }
-        });
-        return map;
-    }
-
-    deepCopy(data) {
-        return JSON.parse(JSON.stringify(data));
-    }
-
+   
     getNutzung(key, series) {
-        const wnum = Number(key);
         console.log(series);
+        let nutzung;
+        const wnum = Number(key);
+        for (const entry of series[0]) {
+            if (entry.nutzung !== '') {
+                nutzung = entry.nutzung;
+            }
+        }
         if (series.length > 1) {
             for (const entry of series[0]) {
                 if (entry.nutzung !== '') {
-                    return entry.nutzung + '\n' + 'Sanierungsgebiet';
+                    let verg = series[0].find(el => el.verg !== '' && el.verg !== null )
+                    verg = this.verfahrensartPipe.transform(verg.verg, null);
+                    console.log(verg);
+                    nutzung += '\n' + verg;
+                    return nutzung;
                 }
             }
             return '';
-        }else if (wnum) {
+        } else if (wnum) {
             for (const entry of series[0]) {
                 if (entry.nutzung !== '') {
-                    return entry.nutzung + '\n' + wnum;
+                    nutzung += '\n' + wnum;
+                    return nutzung;
                 }
             }
             return '';
-        } else {
-            for (const entry of series[0]) {
-                if (entry.nutzung !== '') {
-                    return entry.nutzung;
-                }
-            }
-            return '';
-        }
-    }
-
-
-    setChartOptionsSeries(series, nutzung) {
-        series.forEach((serie, index) => {
-            let seriesColor;
-            if (index) {
-                seriesColor = this.setSeriesColor(serie);
-            }
-            this.chartOption.series.push({
-                name: nutzung,
-                type: 'line',
-                step: 'end',
-                color: seriesColor,
-                data: serie.map(t => t.brw),
-            });
-        });
+        } 
+        return nutzung;
     }
 
     fillLineDuringYear(series, lastElement) {
@@ -311,9 +285,67 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return series;
     }
 
+    setChartOptionsSeries(series, nutzung) {
+        series.forEach((serie, index) => {
+            let seriesColor;
+            if (index) {
+                seriesColor = this.setSeriesColor(serie);
+            }
+            this.chartOption.series.push({
+                name: nutzung,
+                type: 'line',
+                step: 'end',
+                color: seriesColor,
+                data: serie.map(t => t.brw),
+            });
+        });
+    }
+
+    setLegendFormat (seriesArray) {
+        if (seriesArray.length > 1) {
+            this.chartOption.legend.formatter = function (name) {
+                const splittedName = name.split('\n')
+                let text;
+                if (splittedName[1] === 'Sanierungsgebiet' || splittedName[1] === 'Entwicklungsbereich' || splittedName[1] === 'Soziale Stadt' || splittedName[1] === 'Stadtumbau') {
+                    return [`{nutzung|${splittedName[0]}}`,`{hr|  }`,[`{series|  }`,`{verg|${splittedName[1]}}`].join('')].join('\n');
+                }
+                console.log(text);
+                return name;
+            }
+            this.chartOption.legend.textStyle.rich = {
+                'nutzung': {
+                    padding: [5,0,10,0]
+                },
+                'verg': {
+                    fontSize: 10,
+                    padding: [0, 0, 5, 5]
+                },
+                'icon': {
+                    // heigth: '10%',
+                    // width: '10%',
+                    // backgroundColor: '#0080FF'
+                },
+                'hr': {
+                    borderColor: '#777',
+                    width: '40%',
+                    borderWidth: 0.2,
+                    height: 0,
+                    padding: [0,0,0,0]
+                },
+                'series': {
+                    borderColor: '#0080FF',
+                    width: 8,
+                    borderWidth: 0.5,
+                    height: 0,
+                    padding: [0,0,0,0]
+                }
+            }
+            this.chartOption.grid.top = '15%';
+        }
+    }
+    
+
     setSeriesColor(series) {
-        // const proofSeries = series.find(element => element.verg === 'San' || 'Entw' || 'SoSt' || 'StUb');
-        // if (proofSeries) {
         let color;
         const verf = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
         if (verf.verf === 'SU' || verf.verf === 'EU') {
@@ -323,27 +355,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             color = '#155796';
             return color;
         }
-
-        // }
-        // const defaultColors =
-        // ['#c4153a', '#2f4554', '#61a0a8', '#d48265', '#5c2b82',
-        // '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
-        // const seriesLength = this.chartOption.series.length;
-        // let random;
-
-        // if (!seriesLength) {
-        //     random = Math.floor(Math.random() * ((defaultColors.length - 1) - 0 + 1) + 0);
-        // } else {
-        //     const idx = defaultColors.findIndex(
-        //         color => color === this.chartOption.series[seriesLength - 1].color
-        //     );
-        //     if (idx > (defaultColors.length - 3)) {
-        //         random = 0;
-        //     } else {
-        //         random = idx + 2;
-        //     }
-        // }
-        // return defaultColors[random];
     }
 
     getSeriesColor(series) {
@@ -358,135 +369,26 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return this.chartOption.series[idx].color;
     }
 
-    // Following methods are used for the "Verfahrensgrund" respectivly "Entwicklungszusatz"
+    groupBy(list, keyGetter) {
+        const map = new Map();
+        list.forEach((item) => {
+            const key = keyGetter(item);
+            if (key !== null) {
+                const collection = map.get(key);
+                if (!collection) {
+                    map.set(key, [item]);
+                } else {
+                    collection.push(item);
+                }
+            }
+        });
+        return map;
+    }
 
+    deepCopy(data) {
+        return JSON.parse(JSON.stringify(data));
+    }
 
-
-    // setChartOptionsGrid() {
-    //     if (this.chartOption.visualMap.length === 0) {
-    //         this.chartOption.grid.top = '10%';
-    //     } else if (this.chartOption.visualMap.length < 3) {
-    //         this.chartOption.grid.top = '15%';
-    //     } else if (this.chartOption.visualMap.length < 5) {
-    //         this.chartOption.grid.top = '22%';
-    //     } else {
-    //         this.chartOption.grid.top = '25%';
-    //     }
-    // }
-
-    // setChartOptionsVerf(series) {
-    //     const verfIdx = [];
-    //     const seriesIndex = this.chartOption.series.length - 1;
-    //     let seriesVerf = '';
-    //     for (let i = 0; i < series.length; i++) {
-    //         if (series[i].verf === 'SU' || series[i].verf === 'EU' ||
-    // series[i].verf === 'SB' || series[i].verf === 'EB') {
-    //             verfIdx.push(i);
-    //             seriesVerf = series[i].verf;
-    //         }
-    //     }
-    //     const r = [verfIdx[0], verfIdx[verfIdx.length - 1]];
-
-    //     if (r[0] !== undefined) {
-    //         const [right, top, label, align] = this.setVerfLabel(seriesVerf);
-    //         const colorInRange = this.setVerfColorInRange(seriesVerf);
-    //         const colorOutOfRange = this.getSeriesColor(series);
-
-    //         this.chartOption.visualMap.push({
-    //             type: 'piecewise',
-    //             showLabel: true,
-    //             pieces: [{
-    //                 min: r[0],
-    //                 max: r[1],
-    //                 label: label
-    //             }],
-    //             itemWidth: 11,
-    //             itemHeight: 11,
-    //             align: align,
-    //             textStyle: {
-    //                 fontWeigth: 'lighter',
-    //                 fontSize: 10,
-    //                 height: '20%',
-    //             },
-    //             right: right,
-    //             top: top,
-    //             dimension: 0,
-    //             seriesIndex: seriesIndex,
-    //             inRange: {
-    //                 color: colorInRange,
-    //             },
-    //             outOfRange: {
-    //                 color: colorOutOfRange
-    //             },
-    //         });
-    //     }
-    // }
-
-    // setVerfColorInRange(verf) {
-    //     let color;
-    //     if (verf === 'SU' || verf === 'EU') {
-    //         color = '#0080FF';
-    //     } else {
-    //         color = '#155796';
-    //     }
-    //     return color;
-    // }
-
-
-    // setVerfLabel(seriesVerf) {
-    //     const right = '10%';
-    //     let top = '5%';
-    //     let align = '';
-    //     let label = '';
-
-    //     if (this.chartOption.visualMap.length === 0) {
-    //         align = 'left';
-    //     } else if (this.chartOption.visualMap.length % 2 === 0) {
-    //         top = 5 * this.chartOption.visualMap.length + '%';
-    //         align = 'left';
-    //     }
-
-    //     if (seriesVerf === 'SU' || seriesVerf === 'EU') {
-    //         label = 'Sanierungsgebiet:\nOhne Wertanpassung';
-    //     } else {
-    //         label = 'Sanierungsgebiet:\nMit Wertanpassung    ';
-    //     }
-    //     return [right, top, label, align];
-    // }
-
-    // onResizeVerf(event?) {
-    //     let innerWidth;
-    //     if (event) {
-    //         innerWidth = event.target.innerWidth;
-    //     } else {
-    //         innerWidth = window.innerWidth;
-    //     }
-    //     // Formula calculated using trendline (polynomial 3rd degree - excel)
-    //     const functionTerms = [];
-    //     functionTerms[0] = (Math.pow(10, -8) * -8.942807851916) * Math.pow(innerWidth, 3);
-    //     functionTerms[1] = 0.000293202314619 * Math.pow(innerWidth, 2);
-    //     functionTerms[2] = 0.304956384617639 * innerWidth;
-    //     const res = functionTerms[0] + functionTerms[1] - functionTerms[2] + 134.2489932868;
-
-    //     for (let i = 1; i < this.chartOption.visualMap.length; i = i + 2) {
-    //         if (i === 1) {
-    //             this.chartOption.visualMap[i].top = 5 * i + '%';
-    //         } else {
-    //             this.chartOption.visualMap[i].top = 5 * i - 1 + '%';
-    //         }
-    //         if (innerWidth >= 1620) {
-    //             this.chartOption.visualMap[i].right = '26%';
-    //         } else if (innerWidth < 1160 && innerWidth >= 992) {
-    //             this.chartOption.visualMap[i].right = '42%';
-    //         } else if (innerWidth < 380) {
-    //             this.chartOption.visualMap[i].right = '10%';
-    //             this.chartOption.visualMap[i].top = 5 * this.chartOption.visualMap.length + '%';
-    //         } else {
-    //             this.chartOption.visualMap[i].right = res + '%';
-    //         }
-    //         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
-    //     }
-    // }
 
     onChartInit(event: any) {
         this.echartsInstance = event;
