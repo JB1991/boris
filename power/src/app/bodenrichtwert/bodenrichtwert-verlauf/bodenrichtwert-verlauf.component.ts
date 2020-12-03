@@ -229,7 +229,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     getLabel(key, seriesArray) {
         let nutzung = (seriesArray[0].find(seriesItem => seriesItem.nutzung !== '')).nutzung;
         const wnum = Number(key);
-
+        if (wnum) {
+            nutzung += '\n' + wnum;
+        }
         if (seriesArray.length > 1) {
             for (const entry of seriesArray[0]) {
                 if (entry.nutzung !== '') {
@@ -245,24 +247,16 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     nutzung += '\n' + verg;
                     if (verf) {
                         verf.forEach(verfItem => {
-                            switch (verfItem) {
-                                case ('SB' || 'EB'): {
-                                    nutzung += '\n' + 'Mit Wertanpassung';
-                                    break;
-                                }
-                                case ('SU' || 'EU'): {
-                                    nutzung += '\n' + 'Ohne Wertanpassung';
-                                    break;
-                                }
+                            if (verfItem === 'SB' || verfItem === 'EB') {
+                                nutzung += '\n' + 'Mit Wertanpassung';
+                            } else {
+                                nutzung += '\n' + 'Ohne Wertanpassung';
                             }
                         });
                     }
                     return nutzung;
                 }
             }
-        } else if (wnum) {
-            nutzung += '\n' + wnum;
-            return nutzung;
         }
         return nutzung;
     }
@@ -313,21 +307,37 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         });
     }
 
+    /* eslint-disable complexity */
     setLegendFormat(seriesArray) {
         if (seriesArray.length > 1) {
             this.chartOption.legend.formatter = function (name) {
                 const splittedName = name.split('\n');
-                if (splittedName[2] && splittedName[2] !== '') {
-                    switch (splittedName[2]) {
+                const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
+                const verf = splittedName.find(item => item === 'Mit Wertanpassung' || item === 'Ohne Wertanpassung');
+                const wnum = splittedName.find(item => Number(item));
+                if (verf && wnum) {
+                    switch (verf) {
                         case ('Mit Wertanpassung'): {
-                            return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{seriesSbEb|  }', [`{verg|${splittedName[1]}}`, `{verf|(${splittedName[2]})}`].join('\n')].join('')].join('\n');
+                            return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, '{hr|  }', ['{seriesSbEb|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
                         }
                         case ('Ohne Wertanpassung'): {
-                            return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', [`{verg|${splittedName[1]}}`, `{verf|(${splittedName[2]})}`].join('\n')].join('')].join('\n');
+                            return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, '{hr|  }', ['{series|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
                         }
                     }
-                } else if (splittedName[1] === 'Sanierungsgebiet' || splittedName[1] === 'Entwicklungsbereich' || splittedName[1] === 'Soziale Stadt' || splittedName[1] === 'Stadtumbau') {
-                    return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', `{verg|${splittedName[1]}}`].join('')].join('\n');
+                }
+                if (verf && verf !== '') {
+                    switch (verf) {
+                        case ('Mit Wertanpassung'): {
+                            return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{seriesSbEb|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
+                        }
+                        case ('Ohne Wertanpassung'): {
+                            return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
+                        }
+                    }
+                } else if (wnum && (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau')) {
+                    return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}` ,'{hr|  }', ['{series|  }', `{verg|${verg}}`].join('')].join('\n');
+                } else if (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau') {
+                    return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', `{verg|${verg}}`].join('')].join('\n');
                 }
                 return name;
             };
@@ -343,6 +353,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     fontSize: 9,
                     padding: [0, 0, 5, 5]
                 },
+                'wnum': {
+                    fontSize: 10
+                },
                 'hr': {
                     borderColor: '#777',
                     width: '40%',
@@ -353,14 +366,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 'seriesSbEb': {
                     borderColor: '#155796',
                     width: 8,
-                    borderWidth: 1.5,
+                    borderWidth: 2.5,
                     height: 0,
                     padding: [0, 0, 0, 0]
                 },
                 'series': {
                     borderColor: '#0080FF',
                     width: 8,
-                    borderWidth: 1.5,
+                    borderWidth: 2.5,
                     height: 0,
                     padding: [0, 0, 0, 0]
                 }
