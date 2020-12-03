@@ -20,9 +20,8 @@ export class NipixRuntimeCalculator {
         let reference = 100;
         if (this.nipixStatic.data.nipix[drawitem.nipixCategory][value].hasOwnProperty(
             this.nipixStatic.referenceDate)) {
-            reference = parseFloat(
+            reference = ImmobilienHelper.parseStringAsFloat(
                 this.nipixStatic.data.nipix[drawitem.nipixCategory][value][this.nipixStatic.referenceDate]
-                    .index.replace(',', '.')
             );
         }
 
@@ -47,15 +46,17 @@ export class NipixRuntimeCalculator {
     }
 
     private calculateDrawDataSinglePush(drawitem: any, value, nipix) {
-        this.nipixRuntime.calculated.drawData.push(
-            ImmobilienUtils.generateSeries(
-                value,
-                [],
-                this.nipixStatic.data.regionen[value]['color'],
-                this.nipixRuntime.formatter.formatLabel,
-                this.nipixRuntime.state.selectedChartLine
-            )
-        );
+        if (this.nipixStatic.data.regionen[value] !== undefined) {
+            this.nipixRuntime.calculated.drawData.push(
+                ImmobilienUtils.generateSeries(
+                    value,
+                    [],
+                    this.nipixStatic.data.regionen[value]['color'],
+                    this.nipixRuntime.formatter.formatLabel,
+                    this.nipixRuntime.state.selectedChartLine
+                )
+            );
+        }
     }
 
     private calculateDrawDataSingle(drawitem: any) {
@@ -95,7 +96,9 @@ export class NipixRuntimeCalculator {
             if (data !== undefined) { // Data available?
                 workdata['reference'] = 100;
                 if (data.hasOwnProperty(this.nipixStatic.referenceDate)) {
-                    workdata['reference'] = parseFloat(data[this.nipixStatic.referenceDate].index.replace(',', '.'));
+                    workdata['reference'] = ImmobilienHelper.parseStringAsFloat(
+                        data[this.nipixStatic.referenceDate].index
+                    );
                 }
 
                 if (data.hasOwnProperty(this.nipixRuntime.availableQuartal[d].replace('/', '_'))) {

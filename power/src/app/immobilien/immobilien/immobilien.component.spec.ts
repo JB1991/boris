@@ -128,29 +128,22 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('loadConfig works', () => {
-        spyOn(ImmobilienUtils, 'getMyMapRegionen').and.callFake(
-            function (regionen: any, myregion?: any, selectionList?: any, lighten?: boolean) { return []; });
         spyOn(ImmobilienUtils, 'getDateArray').and.callFake(function (par1, par2) { return []; });
         spyOn(ImmobilienChartOptions, 'getChartOptions').and.callFake(function (par) { return {}; });
 
-        niRuntime.resetDrawPresets = jasmine.createSpy();
         niStatic.data.selections = [{ 'name': 'foobar' }];
         component.loadGemeinden = jasmine.createSpy();
         component.loadGeoMap = jasmine.createSpy();
-        component.loadNiPix = jasmine.createSpy();
 
         component.loadConfig(component.configUrl);
 
         answerHTTPRequest(component.configUrl, 'GET', configAnswer);
         expect(niStatic.loadConfig).toHaveBeenCalled();
-        expect(niRuntime.resetDrawPresets).toHaveBeenCalled();
-        expect(ImmobilienUtils.getMyMapRegionen).toHaveBeenCalled();
         expect(niRuntime.calculated.chartTitle).toEqual('foobar');
         expect(ImmobilienUtils.getDateArray).toHaveBeenCalled();
         expect(ImmobilienChartOptions.getChartOptions).toHaveBeenCalled();
         expect(component.loadGemeinden).toHaveBeenCalled();
         expect(component.loadGeoMap).toHaveBeenCalled();
-        expect(component.loadNiPix).toHaveBeenCalled();
     });
 
     it('loadGemeinden works', () => {
@@ -163,34 +156,30 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     });
 
     it('loadGeoMap works', () => {
-        component.setMapOptions = jasmine.createSpy();
 
+        spyOn(ImmobilienUtils, 'getMyMapRegionen').and.callFake(
+            function (regionen: any, myregion?: any, selectionList?: any, lighten?: boolean) { return [
+            ]; });
+
+        component.setMapOptions = jasmine.createSpy();
+        niRuntime.resetDrawPresets = jasmine.createSpy();
+        niRuntime.updateAvailableNipixCategories = jasmine.createSpy();
+
+        spyOn(window, 'setTimeout');
         spyOn(echarts, 'registerMap').and.callFake(function (par1, par2) { });
 
         component.loadGeoMap('geomap.fake');
 
-        answerHTTPRequest('geomap.fake', 'GET', {});
+        answerHTTPRequest('geomap.fake', 'GET', {'features':[]});
 
         expect(echarts.registerMap).toHaveBeenCalled();
+        expect(niRuntime.updateAvailableNipixCategories).toHaveBeenCalled();
+        expect(setTimeout).toHaveBeenCalled();
+        expect(niRuntime.resetDrawPresets).toHaveBeenCalled();
+        expect(ImmobilienUtils.getMyMapRegionen).toHaveBeenCalled();
         expect(component.setMapOptions).toHaveBeenCalled();
 
     });
-
-    it('loadNiPix works', () => {
-        niStatic.parseNipix = jasmine.createSpy();
-        niRuntime.updateAvailableNipixCategories = jasmine.createSpy();
-
-        spyOn(window, 'setTimeout');
-
-        component.loadNiPix('nipix.fake');
-
-        answerHTTPRequest('nipix.fake', 'GET', {});
-
-        expect(niStatic.parseNipix).toHaveBeenCalled();
-        expect(niRuntime.updateAvailableNipixCategories).toHaveBeenCalled();
-        expect(setTimeout).toHaveBeenCalled();
-    });
-
 
     it('setMapOptions works', () => {
         spyOn(window, 'setTimeout');
@@ -241,10 +230,10 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(niRuntime.updateMapSelect).toHaveBeenCalledWith('foobar');
     });
 
-    it('Init with initState=4 works', () => {
+    it('Init with initState=3 works', () => {
         spyOn(component, 'updateChart').and.callFake(function () { });
         spyOn(component, 'updateMapSelect').and.callFake(function () { });
-        niRuntime.state.initState = 4;
+        niRuntime.state.initState = 3;
 
         component.onChartInit(null);
         component.onChartChartInit(null);
