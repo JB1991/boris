@@ -84,6 +84,10 @@ export class NutzungPipe implements PipeTransform {
         'TOF': $localize`Abbauland von Torf`,
         'STN': $localize`Steinbruch`,
         'KOH': $localize`Braunkohletagebau`,
+        'G1' : '',
+        'G2' : 'Büro, hochw. Dienste usw.',
+        'G3' : 'Handel, Geschäfte usw.',
+        'G4' : ''
     };
 
 
