@@ -166,9 +166,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.setLegendFormat(seriesArray);
             this.setChartOptionsSeries(seriesArray, label);
 
-            // table for screenreader
-            this.srTableHeader.push(label);
-            this.srTableData.push({ series: seriesArray[0] });
+            this.generateSrTable(label, seriesArray);
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
@@ -282,6 +280,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     series[i + 1].brw = (series[i].brw).toString();
                     series[i + 1].nutzung = series[i].nutzung;
                     series[i + 1].verf = series[i].verf;
+                    series[i + 1].forwarded = true;
                 }
             } while (series[j].brw === null && j < (series.length - 1));
         } while (typeof (series[i + 1].brw) !== 'string' && i < (series.length - 3));
@@ -293,6 +292,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         series[idx + 1].nutzung = series[idx].nutzung;
         series[idx + 1].verg = series[idx].verg;
         series[idx + 1].verf = series[idx].verf;
+        series[idx + 1].forwarded = true;
 
         return series;
     }
@@ -391,6 +391,18 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
         return this.chartOption.series[idx].color;
+    }
+
+    generateSrTable(label, series: Array<any>) {
+        const indexes = [];
+        for (let i = 0; i < series[0].length; i++) {
+            if (series[0][i].forwarded) {
+                indexes.push(i);
+            }
+        }
+        indexes.forEach(idx => series[0][idx].brw = null);
+        this.srTableHeader.push(label);
+        this.srTableData.push({ series: series[0] });
     }
 
     groupBy(list, keyGetter) {
