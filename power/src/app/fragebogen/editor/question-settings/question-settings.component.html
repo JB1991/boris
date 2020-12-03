@@ -230,8 +230,10 @@
                                i18n>Skala Schritte</label>
                         <input type="number"
                                class="form-control"
-                               min="0"
+                               step="0.01"
+                               min="0.01"
                                [(ngModel)]="model.pages[page].elements[question].step"
+                               [class.is-invalid]="model.pages[page].elements[question].step === '' && model.pages[page].elements[question].step < 0.01"
                                name="question-step2"
                                id="question-step2">
                     </div>
@@ -256,7 +258,10 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].rows"
+                           [class.is-invalid]="model.pages[page].elements[question].rows % 1 !== 0 || model.pages[page].elements[question].rows < 1 || model.pages[page].elements[question].rows > 20"
+                           step="1"
                            min="1"
+                           max="20"
                            name="question-rows"
                            id="question-rows">
                 </div>
@@ -269,6 +274,8 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].rateStep"
+                               [class.is-invalid]="model.pages[page].elements[question].rateStep % 1 !== 0 || model.pages[page].elements[question].rateStep < 1"
+                               step="1"
                                min="1"
                                name="question-rateStep"
                                id="question-rateStep">
@@ -290,6 +297,9 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].rateMin"
+                               [class.is-invalid]="model.pages[page].elements[question].rateMin % 1 !== 0 || model.pages[page].elements[question].rateMin < 0 || model.pages[page].elements[question].rateMin >= model.pages[page].elements[question].rateMax"
+                               step="1"
+                               min="0"
                                name="question-rateMin"
                                id="question-rateMin">
                     </div>
@@ -310,6 +320,9 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].rateMax"
+                               [class.is-invalid]="model.pages[page].elements[question].rateMax % 1 !== 0 || model.pages[page].elements[question].rateMax < 1 || model.pages[page].elements[question].rateMin >= model.pages[page].elements[question].rateMax"
+                               step="1"
+                               min="0"
                                name="question-rateMax"
                                id="question-rateMax">
                     </div>
@@ -345,48 +358,57 @@
                     <!-- question-step -->
                     <div class="form-group">
                         <label for="question-step"
-                               i18n>Skala Schritte</label>
+                               i18n>Skala Schrittinterval</label>
                         <input type="number"
                                class="form-control"
-                               min="0"
+                               step="0.01"
+                               min="0.01"
                                [(ngModel)]="model.pages[page].elements[question].step"
+                               [class.is-invalid]="model.pages[page].elements[question].step < 0.01"
                                name="question-step"
-                               id="question-step">
+                               id="question-step"
+                               aria-describedby="question-stepHelp">
+                        <small id="question-stepHelp"
+                               class="form-text text-muted">
+                            <span i18n>Werte auf Skala</span>
+                            <ng-container *ngFor="let x of [0, 1, 2, 3, 4, 5]; index as i">
+                                {{ x * model.pages[page].elements[question].step | number }},
+                            </ng-container>
+                            ...
+                        </small>
                     </div>
 
                     <!-- question-decimals -->
                     <div class="form-group">
                         <label for="question-decimals"
-                               i18n>Nachkommastellen</label>
+                               i18n>Anzahl Nachkommastellen</label>
                         <input type="number"
                                class="form-control"
+                               step="1"
                                min="0"
                                max="2"
                                [(ngModel)]="model.pages[page].elements[question].decimals"
+                               [class.is-invalid]="model.pages[page].elements[question].decimals % 1 !== 0 || model.pages[page].elements[question].decimals < 0 || model.pages[page].elements[question].decimals > 2"
                                name="question-decimals"
-                               id="question-decimals">
-                    </div>
-
-                    <!-- question-pipsDensity -->
-                    <div class="form-group">
-                        <label for="question-pipsDensity"
-                               i18n>Anzahl Werte auf Skala</label>
-                        <input type="number"
-                               class="form-control"
-                               min="0"
-                               max="100"
-                               [(ngModel)]="model.pages[page].elements[question].pipsDensity"
-                               name="question-pipsDensity"
-                               id="question-pipsDensity">
+                               id="question-decimals"
+                               aria-describedby="question-decimalsHelp">
+                        <small id="question-decimalsHelp"
+                               *ngIf="model.pages[page].elements[question].step % 1 !== 0 && model.pages[page].elements[question].decimals === 0"
+                               class="form-text text-danger"
+                               i18n>Der Schrittinterval erlaubt Nachkommastellen, Sie müssen zur Anzeige von
+                            Nachkommastellen diesen Wert hochstellen.</small>
                     </div>
 
                     <!-- question-rangeMin -->
                     <div class="form-group">
                         <label for="question-rangeMin"
-                               i18n>Minimaler Wert</label>
+                               i18n>Startwert der Skala</label>
                         <input type="number"
                                class="form-control"
+                               step="1"
+                               min="0"
                                [(ngModel)]="model.pages[page].elements[question].rangeMin"
+                               [class.is-invalid]="model.pages[page].elements[question].rangeMin % 1 !== 0 || model.pages[page].elements[question].rangeMin < 0 || model.pages[page].elements[question].rangeMin >= model.pages[page].elements[question].rangeMax"
                                name="question-rangeMin"
                                id="question-rangeMin">
                     </div>
@@ -394,12 +416,48 @@
                     <!-- question-rangeMax -->
                     <div class="form-group">
                         <label for="question-rangeMax"
-                               i18n>Maximaler Wert</label>
+                               i18n>Endwert der Skala</label>
                         <input type="number"
                                class="form-control"
+                               step="1"
+                               min="0"
                                [(ngModel)]="model.pages[page].elements[question].rangeMax"
+                               [class.is-invalid]="model.pages[page].elements[question].rangeMax % 1 !== 0 || model.pages[page].elements[question].rangeMax < 0 || model.pages[page].elements[question].rangeMin >= model.pages[page].elements[question].rangeMax"
                                name="question-rangeMax"
                                id="question-rangeMax">
+                    </div>
+
+                    <!-- question-pipsDensity -->
+                    <div class="form-group">
+                        <label for="question-pipsDensity"
+                               i18n>Anzahl der dargestellten Werte auf der Legende</label>
+                        <input type="number"
+                               class="form-control"
+                               step="1"
+                               min="2"
+                               max="100"
+                               [(ngModel)]="model.pages[page].elements[question].pipsDensity"
+                               [class.is-invalid]="model.pages[page].elements[question].pipsDensity % 1 !== 0 || model.pages[page].elements[question].pipsDensity < 2 || model.pages[page].elements[question].pipsDensity > 100"
+                               name="question-pipsDensity"
+                               id="question-pipsDensity"
+                               aria-describedby="question-pipsDensityHelp">
+                        <small id="question-pipsDensityHelp"
+                               class="form-text text-muted">
+                            <span i18n>Ein zu hoher Wert und große Zahlen verursacht Probleme mit der Mobildarstellung.
+                                Empfohlener Wert</span>
+                            <ng-container
+                                          *ngIf="model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin > 30">
+                                {{ (model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin) / 10 + 1 | number:'1.0-0' }}
+                            </ng-container>
+                            <ng-container
+                                          *ngIf="model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin > 15 && model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin <= 30">
+                                {{ (model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin) / 10 + 3 | number:'1.0-0' }}
+                            </ng-container>
+                            <ng-container
+                                          *ngIf="model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin <= 15">
+                                {{ (model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin) + 1 | number:'1.0-0' }}
+                            </ng-container>
+                        </small>
                     </div>
                 </div>
 
@@ -479,9 +537,11 @@
                                i18n>Maximale Dateigröße in Bytes</label>
                         <input type="number"
                                class="form-control"
+                               step="1"
                                min="0"
                                max="20971520"
                                [(ngModel)]="model.pages[page].elements[question].maxSize"
+                               [class.is-invalid]="model.pages[page].elements[question].maxSize % 1 !== 0 || model.pages[page].elements[question].maxSize < 0 || model.pages[page].elements[question].maxSize > 20971520"
                                name="question-maxSize"
                                id="question-maxSize">
                     </div>
@@ -674,7 +734,9 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].imageWidth"
-                               min="0"
+                               [class.is-invalid]="model.pages[page].elements[question].imageWidth % 1 !== 0 || model.pages[page].elements[question].imageWidth < 16 || model.pages[page].elements[question].imageWidth > 512"
+                               step="1"
+                               min="16"
                                max="512"
                                name="question-imageWidth"
                                id="question-imageWidth">
@@ -687,7 +749,9 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].imageHeight"
-                               min="0"
+                               [class.is-invalid]="model.pages[page].elements[question].imageHeight % 1 !== 0 || model.pages[page].elements[question].imageWidth < 16 || model.pages[page].elements[question].imageWidth > 512"
+                               step="1"
+                               min="16"
                                max="512"
                                name="question-imageHeight"
                                id="question-imageHeight">
@@ -736,7 +800,10 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].colCount"
+                           [class.is-invalid]="model.pages[page].elements[question].colCount % 1 !== 0 || model.pages[page].elements[question].colCount < 0 || model.pages[page].elements[question].colCount > 6"
+                           step="1"
                            min="0"
+                           max="6"
                            name="question-colCount"
                            id="question-colCount">
                 </div>
