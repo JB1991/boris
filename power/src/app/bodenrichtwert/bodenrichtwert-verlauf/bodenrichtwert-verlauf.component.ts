@@ -41,7 +41,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 const year = params[0].axisValue;
                 for (let j = 0; j < params.length; j++) {
                     if (params[j].value !== undefined && typeof (params[j].value) !== 'string' && params[j].color !== '#0080FF' && params[j].color !== '#155796') {
-                        res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} <br />`);
+                        const splittedName = params[j].seriesName.split('\n');
+                        res.push(`${params[j].marker} ${splittedName[0]} : ${params[j].value} <br />`);
                     }
                 }
                 return ([year, '<br />', res.join('')].join(''));
@@ -137,42 +138,43 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     generateChart(features) {
+        // grouped by Nutzungsart
         let groupedByProperty = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
-        
         for (const [key, value] of groupedByProperty.entries()) {
-            for (const serie of this.seriesTemplate) {
-                const values = value.filter(item => item.properties.stag.substring(0, 4) === serie.stag);
+            for (const seriesTuple of this.seriesTemplate) {
+                const values = value.filter(item => item.properties.stag.substring(0, 4) === seriesTuple.stag);
                 if (values.length > 1) {
+                    // grouped by Bodenrichtwertnummer
                     groupedByProperty = this.groupBy(features, item => item.properties.wnum);
                     break;
                 }
             }
         }
         for (const [key, value] of groupedByProperty.entries()) {
-            features = Array.from(value);
             const seriesArray = [];
-            let [series, lastElement] = this.getSeriesData(features);
-            series = this.fillLineDuringYear(series, lastElement);
-            seriesArray.push(series);
-            this.getVergSeries(series).forEach(element => {
+            features = Array.from(value);
+
+            seriesArray[0] = this.getSeriesData(features);
+            seriesArray[0] = this.fillLineDuringYear(seriesArray[0]);
+            this.getVergSeries(seriesArray[0]).forEach(element => {
                 seriesArray.push(element);
             });
-            const nutzung = this.getNutzung(key, seriesArray);
-            this.chartOption.legend.data.push(nutzung);
-            this.setLegendFormat(seriesArray);
 
-            this.setChartOptionsSeries(seriesArray, nutzung);
+            const label = this.getLabel(key, seriesArray);
+
+            this.chartOption.legend.data.push(label);
+            this.setLegendFormat(seriesArray);
+            this.setChartOptionsSeries(seriesArray, label);
 
             // table for screenreader
-            this.srTableHeader.push(nutzung);
-            this.srTableData.push({ series: series });
+            this.srTableHeader.push(label);
+            this.srTableData.push({ series: seriesArray[0] });
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
     getSeriesData(features) {
         const series = this.deepCopy(this.seriesTemplate);
-        let lastElement;
         for (let i = 0; i < series.length; i++) {
             const feature = features.find(f => f.properties.stag.includes(series[i].stag));
             if (feature) {
@@ -180,87 +182,95 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 series[i].nutzung = this.nutzungPipe.transform(feature.properties.nutzung, null);
                 series[i].verg = feature.properties.verg;
                 series[i].verf = feature.properties.verf;
-                lastElement = i;
             }
         }
-        return [series, lastElement];
+        return series;
     };
 
     getVergSeries(series) {
-        const vergArray = [];
-        const vergSeries = this.deepCopy(this.seriesTemplate);
-        const vergList = ['San', 'Entw', 'SoSt', 'StUb'];
-        const verfList = ['SU', 'EU', 'SB', 'EB'];
-        const proofVerfSeries = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
-        vergList.forEach(verg => {
-            if (proofVerfSeries) {
-                verfList.forEach(verf => {
+        const seriesVergValuesTotal = [];
+        const seriesVergValues = this.deepCopy(this.seriesTemplate);
+        const defaultVerg = ['San', 'Entw', 'SoSt', 'StUb'];
+        const defaultVerf = ['SU', 'EU', 'SB', 'EB'];
+        const seriesIncludesVerf = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
+        const copyData = function (i) {
+            seriesVergValues[i].brw = series[i].brw;
+            seriesVergValues[i].nutzung = series[i].nutzung;
+            seriesVergValues[i].verg = series[i].verg;
+            seriesVergValues[i].verf = series[i].verf;
+        };
+        defaultVerg.forEach(verg => {
+            if (seriesIncludesVerf) {
+                defaultVerf.forEach(verf => {
                     for (let i = 0; i < series.length; i++) {
-                        if (series[i].verg === verg && series[i].verf && series[i].verf === verf) {
-                            vergSeries[i].brw = series[i].brw;
-                            vergSeries[i].nutzung = series[i].nutzung;
-                            vergSeries[i].verg = series[i].verg;
-                            vergSeries[i].verf = series[i].verf;
+                        if (series[i].verg === verg && series[i].verf === verf) {
+                            copyData(i);
                         }
                     }
-                    const proofThisVerfSeries = vergSeries.find(element => element.verf === verf);
-                    const proofVergSeries = vergSeries.find(element => element.verg === verg);
-                    if (proofVergSeries && proofThisVerfSeries) {
-                        vergArray.push(vergSeries);
+                    const seriesIncludesCurrentVerf = seriesVergValues.find(element => element.verf === verf);
+                    const seriesIncludesCurrentVerg = seriesVergValues.find(element => element.verg === verg);
+                    if (seriesIncludesCurrentVerg && seriesIncludesCurrentVerf) {
+                        seriesVergValuesTotal.push(seriesVergValues);
                     }
                 });
             } else {
                 for (let i = 0; i < series.length; i++) {
                     if (series[i].verg === verg) {
-                        vergSeries[i].brw = series[i].brw;
-                        vergSeries[i].nutzung = series[i].nutzung;
-                        vergSeries[i].verg = series[i].verg;
-                        vergSeries[i].verf = series[i].verf;
+                        copyData(i);
                     }
                 }
-                const proofVergSeries = vergSeries.find(element => element.verg === verg);
-                if (proofVergSeries) {
-                    vergArray.push(vergSeries);
+                const seriesIncludesCurrentVerg = seriesVergValues.find(element => element.verg === verg);
+                if (seriesIncludesCurrentVerg) {
+                    seriesVergValuesTotal.push(seriesVergValues);
                 }
             }
         });
-        return vergArray;
+        return seriesVergValuesTotal;
     }
-   
-    getNutzung(key, series) {
-        console.log(series);
-        let nutzung;
+
+    getLabel(key, seriesArray) {
+        let nutzung = (seriesArray[0].find(seriesItem => seriesItem.nutzung !== '')).nutzung;
         const wnum = Number(key);
-        for (const entry of series[0]) {
-            if (entry.nutzung !== '') {
-                nutzung = entry.nutzung;
-            }
-        }
-        if (series.length > 1) {
-            for (const entry of series[0]) {
+
+        if (seriesArray.length > 1) {
+            for (const entry of seriesArray[0]) {
                 if (entry.nutzung !== '') {
-                    let verg = series[0].find(el => el.verg !== '' && el.verg !== null )
+                    let verg = seriesArray[0].find(el => el.verg !== '' && el.verg !== null);
+                    let verf = [];
+                    seriesArray[0].filter(el => {
+                        if (el.verf !== '' && el.verf !== null) {
+                            verf.push(el.verf);
+                        }
+                    });
+                    verf = verf.filter((el, idx, self) => idx === self.indexOf(el));
                     verg = this.verfahrensartPipe.transform(verg.verg, null);
-                    console.log(verg);
                     nutzung += '\n' + verg;
+                    if (verf) {
+                        verf.forEach(verfItem => {
+                            switch (verfItem) {
+                                case ('SB' || 'EB'): {
+                                    nutzung += '\n' + 'Mit Wertanpassung';
+                                    break;
+                                }
+                                case ('SU' || 'EU'): {
+                                    nutzung += '\n' + 'Ohne Wertanpassung';
+                                    break;
+                                }
+                            }
+                        });
+                    }
                     return nutzung;
                 }
             }
-            return '';
         } else if (wnum) {
-            for (const entry of series[0]) {
-                if (entry.nutzung !== '') {
-                    nutzung += '\n' + wnum;
-                    return nutzung;
-                }
-            }
-            return '';
-        } 
+            nutzung += '\n' + wnum;
+            return nutzung;
+        }
         return nutzung;
     }
 
-    fillLineDuringYear(series, lastElement) {
-        // check gap in graph
+    fillLineDuringYear(series) {
+        // check gap in same series
         let i = -1;
         do {
             i++;
@@ -275,13 +285,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 }
             } while (series[j].brw === null && j < (series.length - 1));
         } while (typeof (series[i + 1].brw) !== 'string' && i < (series.length - 3));
-        // input for seriesElement 'today'
-        if (lastElement < series.length - 1) {
-            series[lastElement + 1].brw = (series[lastElement].brw).toString();
-            series[lastElement + 1].nutzung = series[lastElement].nutzung;
-            series[lastElement + 1].verg = series[lastElement].verg;
-            series[lastElement + 1].verf = series[lastElement].verf;
-        }
+
+        let seriesValues = series.filter(element => element.brw);
+        seriesValues = seriesValues[seriesValues.length - 1].stag;
+        const idx = series.findIndex(element => element.stag === seriesValues);
+        series[idx + 1].brw = (series[idx].brw).toString();
+        series[idx + 1].nutzung = series[idx].nutzung;
+        series[idx + 1].verg = series[idx].verg;
+        series[idx + 1].verf = series[idx].verf;
+
         return series;
     }
 
@@ -301,58 +313,70 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         });
     }
 
-    setLegendFormat (seriesArray) {
+    setLegendFormat(seriesArray) {
         if (seriesArray.length > 1) {
             this.chartOption.legend.formatter = function (name) {
-                const splittedName = name.split('\n')
-                let text;
-                if (splittedName[1] === 'Sanierungsgebiet' || splittedName[1] === 'Entwicklungsbereich' || splittedName[1] === 'Soziale Stadt' || splittedName[1] === 'Stadtumbau') {
-                    return [`{nutzung|${splittedName[0]}}`,`{hr|  }`,[`{series|  }`,`{verg|${splittedName[1]}}`].join('')].join('\n');
+                const splittedName = name.split('\n');
+                if (splittedName[2] && splittedName[2] !== '') {
+                    switch (splittedName[2]) {
+                        case ('Mit Wertanpassung'): {
+                            return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{seriesSbEb|  }', [`{verg|${splittedName[1]}}`, `{verf|(${splittedName[2]})}`].join('\n')].join('')].join('\n');
+                        }
+                        case ('Ohne Wertanpassung'): {
+                            return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', [`{verg|${splittedName[1]}}`, `{verf|(${splittedName[2]})}`].join('\n')].join('')].join('\n');
+                        }
+                    }
+                } else if (splittedName[1] === 'Sanierungsgebiet' || splittedName[1] === 'Entwicklungsbereich' || splittedName[1] === 'Soziale Stadt' || splittedName[1] === 'Stadtumbau') {
+                    return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', `{verg|${splittedName[1]}}`].join('')].join('\n');
                 }
-                console.log(text);
                 return name;
-            }
+            };
             this.chartOption.legend.textStyle.rich = {
                 'nutzung': {
-                    padding: [5,0,10,0]
+                    padding: [5, 0, 10, 0]
                 },
                 'verg': {
                     fontSize: 10,
                     padding: [0, 0, 5, 5]
                 },
-                'icon': {
-                    // heigth: '10%',
-                    // width: '10%',
-                    // backgroundColor: '#0080FF'
+                'verf': {
+                    fontSize: 9,
+                    padding: [0, 0, 5, 5]
                 },
                 'hr': {
                     borderColor: '#777',
                     width: '40%',
                     borderWidth: 0.2,
                     height: 0,
-                    padding: [0,0,0,0]
+                    padding: [0, 0, 0, 0]
+                },
+                'seriesSbEb': {
+                    borderColor: '#155796',
+                    width: 8,
+                    borderWidth: 1.5,
+                    height: 0,
+                    padding: [0, 0, 0, 0]
                 },
                 'series': {
                     borderColor: '#0080FF',
                     width: 8,
-                    borderWidth: 0.5,
+                    borderWidth: 1.5,
                     height: 0,
-                    padding: [0,0,0,0]
+                    padding: [0, 0, 0, 0]
                 }
-            }
-            this.chartOption.grid.top = '15%';
+            };
+            this.chartOption.grid.top = '17%';
         }
     }
-    
 
     setSeriesColor(series) {
         let color;
         const verf = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
-        if (verf.verf === 'SU' || verf.verf === 'EU') {
-            color = '#0080FF';
+        if (verf && (verf.verf === 'SB' || verf.verf === 'EB')) {
+            color = '#155796';
             return color;
         } else {
-            color = '#155796';
+            color = '#0080FF';
             return color;
         }
     }

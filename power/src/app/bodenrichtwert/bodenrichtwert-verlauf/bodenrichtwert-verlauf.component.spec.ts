@@ -69,24 +69,15 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.chartOption.legend.data.length).toBe(0);
         expect(component.chartOption.series.length).toBe(0);
         spyOn(component, 'setChartOptionsSeries').and.callThrough();
-        spyOn(component, 'setChartOptionsVerf').and.callThrough();
         spyOn(component, 'fillLineDuringYear').and.callThrough();
-        spyOn(component, 'onResizeVerf').and.callThrough();;
         component.generateChart(features);
         expect(component.chartOption.legend.data.length).toBe(1);
         expect(component.chartOption.series.length).toBe(1);
-        expect(component.chartOption.visualMap[0].pieces.length).toBe(1);
-        expect(component.chartOption.visualMap[0].pieces[0].label).toBe('Sanierungsgebiet:\nOhne Wertanpassung');
-        expect(component.chartOption.visualMap[0].inRange.color).toBe('#0080FF');
-        expect(component.chartOption.grid.top).toBe('15%');
-        expect(typeof 'component.chartOption.visualMap[0].outOfRange.color').toBe('string');
         expect(typeof 'component.chartOption.serie[8].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[3].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[6].brw').toBe('string');
         expect(component.setChartOptionsSeries).toHaveBeenCalledTimes(1);
-        expect(component.setChartOptionsVerf).toHaveBeenCalledTimes(1);
         expect(component.fillLineDuringYear).toHaveBeenCalledTimes(1);
-        expect(component.onResizeVerf).toHaveBeenCalledTimes(1);
     });
 
     it('onChartInit should set the echartsInstance', () => {
