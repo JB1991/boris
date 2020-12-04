@@ -55,4 +55,11 @@ server {
     proxy_pass https://www.geobasisdaten.niedersachsen.de/;
     return 404;
   }
+
+  location /feedback-rss/ {
+    rewrite ^\/feedback-rss\/(.*) /Kay-LGLN/power/-/issues.atom$1 break;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass https://gitlab.com/;
+    return 404;
+  }
 }

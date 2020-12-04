@@ -40,5 +40,14 @@
         "headers" : {
             "Authorization": "Basic MDNWS1YyMjNBS1MyOnljVGllazNqOFduRjRCMVI="
         }
+    },
+    "/feedback-rss": {
+        "target": "https://gitlab.com",
+        "pathRewrite": {
+            "^/feedback-rss": "/Kay-LGLN/power/-/issues.atom"
+        },
+        "changeOrigin": true,
+        "secure": false,
+        "debugLevel": "info"
     }
 }

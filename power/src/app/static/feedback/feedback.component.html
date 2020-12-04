@@ -1,80 +1,215 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm text-center pt-3">
-            <h1 id="feedbackHeader"
-                i18n>Feedback</h1>
+<div class="row m-0 mb-4">
+    <div class="col-12 p-0 text-center">
+        <h1 class="display-3"
+            i18n>Feedback</h1>
 
-            <p class="lead mb-3">
-                <span i18n>Eine Übersicht von bereits vorhandenen Feedback finden Sie in unserem</span>
-                <a href="https://gitlab.com/Kay-LGLN/power/-/issues"
-                   class="ml-1"
-                   target="_blank"
-                   rel="noreferrer" i18n>Ticketsystem</a>.
+        <p class="lead mb-3"
+           i18n>Wie können wir Ihnen heute weiterhelfen? Beschreiben Sie Ihr Anliegen.</p>
+
+        <div class="row m-0 justify-content-center">
+            <div class="col-12 p-0 mb-2">
+                <input type="text"
+                       class="form-control d-inline w-75"
+                       list="ticketList"
+                       style="max-width: 500px;"
+                       [(ngModel)]="search"
+                       (change)="doSearch()"
+                       i18n-placeholder
+                       placeholder="Suchen Sie nach einer Lösung">
+
+                <datalist id="ticketList">
+                    <option *ngFor="let ticket of this.rss | slice:5; let i = index;"
+                            value="{{ ticket.children[2].innerHTML }}">
+                        {{ ticket.children[2].innerHTML }}
+                    </option>
+                </datalist>
+
+                <button type="submit"
+                        class="btn btn-success ml-1"
+                        style="vertical-align: 0;"
+                        i18n-title
+                        title="Suchen"
+                        i18n-aria-label
+                        aria-label="Suchen"
+                        (click)="doSearch()">
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-search"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
+                         aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                        <path fill-rule="evenodd"
+                              d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                    </svg>
+                    <span class="sr-only"
+                          i18n>Suchen</span>
+                </button>
+            </div>
+
+            <div class="col-12 p-0 mb-2">
+                <select class="custom-select w-75"
+                        style="max-width: 250px;"
+                        [(ngModel)]="stateFilter">
+                    <option value="all"
+                            i18n>Alle Tickets anzeigen</option>
+                    <option value="opened"
+                            i18n>Offene Tickets anzeigen</option>
+                    <option value="closed"
+                            i18n>Geschlossene Tickets anzeigen</option>
+                </select>
+            </div>
+        </div>
+
+        <a href="javascript:;"
+           *ngIf="showTickets"
+           (click)="hideAll()"
+           i18n>Tickets ausblenden</a>
+    </div>
+</div>
+
+<div class="container mb-4"
+     *ngIf="showTickets">
+    <ng-container *ngFor="let ticket of this.rss | slice:5; let i = index;">
+        <div class="card w-100 mb-2">
+            <div class="card-body">
+                <h5 class="card-title">{{ ticket.children[2].innerHTML }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ ticket.children[3].innerHTML | date:'short' }}</h6>
+                <p class="card-text lineb">{{ ticket.children[7].innerHTML }}</p>
+            </div>
+        </div>
+    </ng-container>
+
+    <div *ngIf="this.rss.length < 5">
+        <div class="text-center">
+            <p i18n>Leider konnten wir zu Ihrer Suchanfrage nichts finden. Bei Bedarf können Sie uns gerne kontaktieren!
             </p>
+        </div>
+    </div>
+</div>
 
-            <p class="lead mb-3"
-               id="feedbackInfo"
-               aria-label="Sie haben ein Problem? Oder wollen einen Vorschlag machen? Bitte
-               formulieren Sie ihr Anliegen so exakt wie möglich."
-               i18n-aria-label
-               i18n>Sie haben ein Problem? Oder wollen einen Vorschlag machen? Bitte formulieren Sie ihren Vorschlag so
-                exakt wie möglich und bei Problemen orientieren Sie sich bitte an den folgenden Stichpunkten:</p>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-12 col-sm-12 col-md-8 col-xl-5 text-left">
-            <ul>
-                <li i18n>Genaue Beschreibung des Fehlers</li>
-                <li i18n>Welche Schritte haben den Fehler ausgelöst?</li>
-                <li i18n>Unter welcher URL (Adresszeile im Browser) ist das Problem aufgetreten?</li>
-                <li i18n>Wenn möglich Bildschirmfotos anhängen</li>
-                <li i18n>Angabe der Versionsnummer (siehe Fußzeile)</li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm text-center">
-            <p class="lead mb-0"
-               id="feedback1"
-               i18n>Dieser Button öffnet Ihr E-Mail-Programm:</p>
-            <p class="text-muted"
-               id="feedback2"
-               i18n>Der Empfänger ist bereits ausgefüllt</p>
-            <a type="button"
-               role="button"
-               class="btn btn-primary"
-               href="mailto:{{ mail }}"
-               aria-labelledby="feedbackHeader feedbackInfo feedback1 feedback2 feedbackManually"
-               i18n-title="Feedback geben"
-               title="Feedback geben"
-               i18n>Feedback</a>
-            <p class="mt-3"
-               id="feedbackManually"
-               aria-label="Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an nachfolgenden E-Mail Adresse."
-               i18n-aria-label
-               i18n>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</p>
-            <code class="mr-2">{{ mail }}</code>
-            <button type="button"
-                    class="btn btn-light btn-circle btn-sm mr-2"
-                    i18n-title
-                    title="Email-Adresse kopieren"
-                    aria-label="Email-Adresse kopieren"
-                    aria-i18n-label
-                    (click)="copyEmailToClipboard()">
+<div class="row m-0 mb-4">
+    <section class="col-12 col-lg-6">
+        <div class="jumbotron m-0">
+            <h1 class="display-4">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
-                     class="bi bi-clipboard"
+                     class="bi bi-bug-fill"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
-                          d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                    <path fill-rule="evenodd"
-                          d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                          d="M4.978.855a.5.5 0 1 0-.956.29l.41 1.352A4.985 4.985 0 0 0 3 6h10a4.985 4.985 0 0 0-1.432-3.503l.41-1.352a.5.5 0 1 0-.956-.29l-.291.956A4.978 4.978 0 0 0 8 1a4.979 4.979 0 0 0-2.731.811l-.29-.956zM13 6v1H8.5v8.975A5 5 0 0 0 13 11h.5a.5.5 0 0 1 .5.5v.5a.5.5 0 1 0 1 0v-.5a1.5 1.5 0 0 0-1.5-1.5H13V9h1.5a.5.5 0 0 0 0-1H13V7h.5A1.5 1.5 0 0 0 15 5.5V5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-.5.5H13zm-5.5 9.975V7H3V6h-.5a.5.5 0 0 1-.5-.5V5a.5.5 0 0 0-1 0v.5A1.5 1.5 0 0 0 2.5 7H3v1H1.5a.5.5 0 0 0 0 1H3v1h-.5A1.5 1.5 0 0 0 1 11.5v.5a.5.5 0 1 0 1 0v-.5a.5.5 0 0 1 .5-.5H3a5 5 0 0 0 4.5 4.975z" />
                 </svg>
-            </button>
+                <span class="ml-2"
+                      i18n>Problem melden</span>
+            </h1>
+
+            <p class="lead text-justify"
+               i18n>Geben Sie bitte eine genaue Beschreibung des Problems an, welche Schritte haben zu diesem Problem
+                geführt? Wenn möglich senden Sie bitte ein Bildschirmfoto und die Adresszeile der Seite mit.</p>
+
+            <a class="btn btn-primary btn-lg"
+               href="mailto:{{ mail }}"
+               role="button"
+               i18n-title
+               title="Feedback über E-Mail geben">
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-envelope"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
+                </svg>
+                <span class="ml-1"
+                      i18n>Kontakt</span>
+            </a>
         </div>
+    </section>
+
+    <section class="col-12 col-lg-6">
+        <div class="jumbotron m-0">
+            <h1 class="display-4">
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-info-circle-fill"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                </svg>
+                <span class="ml-2"
+                      i18n>Feedback geben</span>
+            </h1>
+
+            <p class="lead text-justify"
+               i18n>Bitte formulieren Sie Ihr Feedback so exakt wie möglich. Ihr Feedback wird evaluiert und Sie
+                erhalten in Kürze weitere Informationen von uns.</p>
+
+            <a class="btn btn-primary btn-lg"
+               href="mailto:{{ mail }}"
+               role="button"
+               i18n-title
+               title="Feedback über E-Mail geben">
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-envelope"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
+                </svg>
+                <span class="ml-1"
+                      i18n>Kontakt</span>
+            </a>
+        </div>
+    </section>
+</div>
+
+<div class="row m-0">
+    <div class="col-sm text-center">
+        <p class="mt-3"
+           i18n-aria-label
+           aria-label="Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an nachfolgenden E-Mail Adresse."
+           i18n>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</p>
+        <code class="mr-2">{{ mail }}</code>
+        <button type="button"
+                class="btn btn-light btn-sm"
+                i18n-title
+                title="Email-Adresse kopieren"
+                aria-i18n-label
+                aria-label="Email-Adresse kopieren"
+                (click)="copyEmailToClipboard()">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-clipboard"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 focusable="false"
+                 aria-hidden="true">
+                <path fill-rule="evenodd"
+                      d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                <path fill-rule="evenodd"
+                      d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+            </svg>
+            <span class="sr-only"
+                  i18n>Email-Adresse kopieren</span>
+        </button>
     </div>
 </div>
