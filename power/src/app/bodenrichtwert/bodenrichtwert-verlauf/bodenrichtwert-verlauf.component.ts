@@ -334,9 +334,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                             return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
                         }
                     }
-                } else if (wnum && (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau')) {
-                    return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}` ,'{hr|  }', ['{series|  }', `{verg|${verg}}`].join('')].join('\n');
-                } else if (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau') {
+                }
+                if (wnum && (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau')) {
+                    return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, '{hr|  }', ['{series|  }', `{verg|${verg}}`].join('')].join('\n');
+                }
+                if (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau') {
                     return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', `{verg|${verg}}`].join('')].join('\n');
                 }
                 return name;
@@ -438,9 +440,28 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return JSON.parse(JSON.stringify(data));
     }
 
-
     onChartInit(event: any) {
         this.echartsInstance = event;
+    }
+
+    getBremenStichtag() {
+        const today = new Date();
+        const year = today.getFullYear() - 1;
+        if (year % 2 !== 0) {
+            return ('31.' + '12.' + (year - 2) + '.');
+        } else {
+            return ('31.' + '12.' + (year - 1) + '.');
+        }
+    }
+
+    getBremerhavenStichtag() {
+        const today = new Date();
+        const year = today.getFullYear() - 1;
+        if (year % 2 === 0) {
+            return ('31.' + '12.' + (year - 2) + '.');
+        } else {
+            return ('31.' + '12.' + (year - 1) + '.');
+        }
     }
 }
 

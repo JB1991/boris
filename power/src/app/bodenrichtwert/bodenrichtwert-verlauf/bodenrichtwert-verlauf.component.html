@@ -1,9 +1,29 @@
 <div class="col-md-12 pt-3">
     <ng-container *ngIf="chartOption?.series.length != 0">
         <h3 i18n>Zeitliche Entwicklung</h3>
-        <p i18n>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des
-            jeweiligen
-            Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+        <ng-container *ngIf="features?.features[0].properties.gema == 'Bremerhaven'; else bremen">
+            <p> Die Bodenrichtwerte in Bremerhaven werden in einem zwei Jahres Zyklus mit Stichtag 31.12. festgelegt.
+                Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum diesem Stichtag
+                ermittelt werden.
+                Der letzte Stichtag war der {{ getBremerhavenStichtag() }}
+                Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+        </ng-container>
+        <ng-template #bremen>
+            <ng-container *ngIf="features?.features[0].properties.gabe == 'Gutachterausschuss für Grundstückswerte in Bremen';
+                     else niedersachsen">
+                <p> Die Bremer Bodenrichtwerte werden in einem zwei Jahres Zyklus mit Stichtag 31.12. festgelegt.
+                    Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum diesem Stichtag
+                    ermittelt werden.
+                    Der letzte Stichtag war der {{ getBremenStichtag() }}
+                    Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+            </ng-container>
+        </ng-template>
+        <ng-template #niedersachsen>
+            <p i18n>Die zeitliche Entwicklungsreihe der niedersächsischen Bodenrichtwerte berücksichtigt nur die
+                Bodenrichtwerte, die zum Stichtag 31.12. des
+                jeweiligen
+                Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+        </ng-template>
 
         <!-- eChart in table-form for accessibility -->
         <table class="table table-responsive sr-only">
