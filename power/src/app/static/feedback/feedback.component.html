@@ -158,9 +158,9 @@
             <hr class="my-4">
 
             <ng-container *ngFor="let ticket of this.rss | slice:5; let i = index;">
-                <div class="card w-100 mb-2">
+                <div class="card w-100 mb-2 bg-light">
                     <div class="card-body">
-                        <h5 class="card-title">{{ ticket.children[2].innerHTML }}</h5>
+                        <h5 class="card-title">{{ ticket.children[2].innerHTML.replace('Service Desk: ', '') }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ ticket.children[3].innerHTML | date:'short' }}</h6>
                         <p class="card-text lineb">{{ ticket.children[7].innerHTML }}</p>
                     </div>
