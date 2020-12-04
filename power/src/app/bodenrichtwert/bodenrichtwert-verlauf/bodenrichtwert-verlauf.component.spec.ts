@@ -68,20 +68,15 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         component.echartsInstance.setOption(component.chartOption);
         expect(component.chartOption.legend.data.length).toBe(0);
         expect(component.chartOption.series.length).toBe(0);
-        spyOn(component, 'setChartOptions').and.callThrough();
-        spyOn(component, 'setVerfChartOptions').and.callThrough();
+        spyOn(component, 'setChartOptionsSeries').and.callThrough();
         spyOn(component, 'fillLineDuringYear').and.callThrough();
         component.generateChart(features);
         expect(component.chartOption.legend.data.length).toBe(1);
         expect(component.chartOption.series.length).toBe(1);
-        expect(component.chartOption.visualMap.pieces.length).toBe(1);
-        expect(component.chartOption.visualMap.inRange.color[0]).toBe('#0080FF');
-        expect(component.chartOption.visualMap.outOfRange.color).toBe('rgba(108, 108, 108, 1)');
         expect(typeof 'component.chartOption.serie[8].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[3].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[6].brw').toBe('string');
-        expect(component.setChartOptions).toHaveBeenCalledTimes(1);
-        expect(component.setVerfChartOptions).toHaveBeenCalledTimes(1);
+        expect(component.setChartOptionsSeries).toHaveBeenCalledTimes(1);
         expect(component.fillLineDuringYear).toHaveBeenCalledTimes(1);
     });
 

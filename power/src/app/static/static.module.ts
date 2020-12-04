@@ -15,8 +15,8 @@ import { FormsModule } from '@angular/forms';
     imports: [
         StaticRoutingModule,
         CommonModule,
-        SharedModule,
-        FormsModule
+        FormsModule,
+        SharedModule
     ],
     declarations: [
         StartComponent,

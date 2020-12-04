@@ -84,9 +84,8 @@ export class ConditionsComponent implements OnInit, OnChanges {
             }
 
             // get question
-            if (split[i].startsWith('{')) {
-                tmp.question = split[i];
-            } else {
+            tmp.question = this.parseValue(split[i]);
+            if (tmp.question.startsWith('\'') && tmp.question.endsWith('\'')) {
                 tmp.question = split[i].substring(1, split[i].length - 1);
             }
             i++;
@@ -100,7 +99,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 i++;
                 tmp.value = split[i].substring(1, split[i].length - 1);
 
-                if (split[i].startsWith('[')) {
+                if (tmp.operator === 'anyof' || tmp.operator === 'allof') {
                     // list
                     tmp.value = [];
                     const tmp2 = split[i].substring(1, split[i].length - 1);
@@ -108,12 +107,9 @@ export class ConditionsComponent implements OnInit, OnChanges {
                     for (const item of tmp2.match(regex2)) {
                         tmp.value.push(item.substring(1, item.length - 1));
                     }
-                } else if (split[i].startsWith('{')) {
-                    // variable
-                    tmp.value = split[i];
-                } else if (split[i] === 'true' || split[i] === 'false') {
-                    // boolean
-                    tmp.value = split[i] === 'true';
+                } else {
+                    // value
+                    tmp.value = this.parseValue(split[i]);
                 }
             }
             this.struct.push(tmp);
@@ -143,11 +139,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
             }
 
             // add question and operator
-            if (item.question.startsWith('{')) {
-                this.data += item.question + ' ' + item.operator;
-            } else {
-                this.data += '\'' + item.question + '\' ' + item.operator;
-            }
+            this.data += this.parseValue(item.question) + ' ' + item.operator;
 
             // add values
             if (item.operator === 'empty' || item.operator === 'notempty') {
@@ -160,24 +152,41 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 }
                 this.data += ']';
             } else {
-                // check if value is set
-                if (item.value === null) {
-                    item.value = '';
-                }
-
-                if (typeof item.value === 'boolean') {
-                    // boolean
-                    this.data += ' ' + item.value;
-                } else if (item.value.startsWith('{')) {
-                    // variable
-                    this.data += ' ' + item.value;
-                } else {
-                    // text
-                    this.data += ' \'' + item.value + '\'';
-                }
+                // value
+                this.data += ' ' + this.parseValue(item.value);
             }
         }
         this.dataChange.emit(this.data);
+    }
+
+    /**
+     * Converts value to surveyjs condition
+     * @param val Value
+     */
+    /* eslint-disable-next-line complexity */
+    public parseValue(val: any): string {
+        if (typeof val === 'undefined' || val === null || val === '') {
+            // undefined
+            return '\'\'';
+        } else if (val.startsWith('\'') && val.endsWith('\'')) {
+            // quoted
+            return val;
+        } else if (typeof val === 'boolean' || val.toLowerCase() === 'true' || val.toLowerCase() === 'false') {
+            // boolean
+            return val.toString();
+        } else if (typeof val === 'number' || !isNaN(val)) {
+            // number
+            return val;
+        } else if (val.startsWith('{')) {
+            // variable
+            return val;
+        } else if (val.indexOf('({') >= 0) {
+            // func
+            return val;
+        }
+
+        // text with quotes
+        return '\'' + val.toString() + '\'';
     }
 
     /**
@@ -187,11 +196,22 @@ export class ConditionsComponent implements OnInit, OnChanges {
     public loadChoices(event: Event) {
         for (const item of this.struct) {
             item.choices = null;
+
             for (const question of this.questions) {
+                // check if question has choices
+                if (!question.choices) {
+                    continue;
+                }
+
+                // check if question matches rule
                 if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
 
-                    // check values
+                    if (!Array.isArray(item.value)) {
+                        continue;
+                    }
+
+                    // remove values that do not exist anymore
                     skip: for (const val of item.value) {
                         for (let i = 0; i < item.choices.length; i++) {
                             if (val === item.choices[i].value) {

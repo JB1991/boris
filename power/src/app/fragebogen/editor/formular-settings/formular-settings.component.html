@@ -182,7 +182,9 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.logoWidth"
-                           min="0"
+                           [class.is-invalid]="!!model.logoWidth && (model.logoWidth % 1 !== 0 || model.logoWidth < 16 || model.logoWidth > 512)"
+                           step="1"
+                           min="16"
                            max="512"
                            name="form-logoWidth"
                            id="form-logoWidth">
@@ -195,7 +197,9 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.logoHeight"
-                           min="0"
+                           [class.is-invalid]="!!model.logoHeight && (model.logoHeight % 1 !== 0 || model.logoHeight < 16 || model.logoHeight > 512)"
+                           step="1"
+                           min="16"
                            max="512"
                            name="form-logoHeight"
                            id="form-logoHeight">
@@ -480,6 +484,8 @@
                             <input type="number"
                                    class="form-control"
                                    [(ngModel)]="page.maxTimeToFinish"
+                                   [class.is-invalid]="!!page.maxTimeToFinish && (page.maxTimeToFinish % 1 !== 0 || page.maxTimeToFinish < 0)"
+                                   step="1"
                                    min="0"
                                    name="page-maxTimeToFinish-{{ i }}"
                                    id="page-maxTimeToFinish-{{ i }}"
@@ -487,7 +493,7 @@
                             <small id="page-maxTimeToFinishHelp-{{ i }}"
                                    class="form-text text-muted"
                                    i18n>Diese Option überschreibt den Standardwert pro Seite aus dem Reiter
-                                Timer/Quiz.</small>
+                                Timer/Quiz. Der Wert 0 deaktiviert das Zeitlimit.</small>
                         </div>
 
                         <hr>
@@ -525,6 +531,8 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.maxTimeToFinish"
+                           [class.is-invalid]="!!model.maxTimeToFinish && (model.maxTimeToFinish % 1 !== 0 || model.maxTimeToFinish < 0)"
+                           step="1"
                            min="0"
                            name="form-maxTimeToFinish"
                            id="form-maxTimeToFinish">
@@ -537,6 +545,8 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.maxTimeToFinishPage"
+                           [class.is-invalid]="!!model.maxTimeToFinishPage && (model.maxTimeToFinishPage % 1 !== 0 || model.maxTimeToFinishPage < 0)"
+                           step="1"
                            min="0"
                            name="form-maxTimeToFinishPage"
                            id="form-maxTimeToFinishPage">

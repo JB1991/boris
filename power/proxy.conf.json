@@ -28,5 +28,26 @@
         },
         "secure": false,
         "debugLevel": "info"
+    },
+    "/wfs": {
+        "target": "https://www.geobasisdaten.niedersachsen.de",
+        "pathRewrite": {
+            "^/wfs": "/doorman/auth/WFS_NI_1311_ALKIS-NAS-konform"
+        },
+        "changeOrigin": true,
+        "secure": false,
+        "debugLevel": "info",
+        "headers" : {
+            "Authorization": "Basic MDNWS1YyMjNBS1MyOnljVGllazNqOFduRjRCMVI="
+        }
+    },
+    "/feedback-rss": {
+        "target": "https://gitlab.com",
+        "pathRewrite": {
+            "^/feedback-rss": "/Kay-LGLN/power/-/issues.atom"
+        },
+        "changeOrigin": true,
+        "secure": false,
+        "debugLevel": "info"
     }
 }

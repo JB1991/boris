@@ -65,6 +65,25 @@
                 <div class="nav">
                     <button class="nav-link btn"
                             type="button"
+                            (click)="flurstueckssearch.modal.open(flurstueckssearch.title)"
+                            alt="Flurstückssuche"
+                            title="Flurstückssuche"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-bounding-box-circles"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                  d="M2 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM0 2a2 2 0 0 1 3.937-.5h8.126A2 2 0 1 1 14.5 3.937v8.126a2 2 0 1 1-2.437 2.437H3.937A2 2 0 1 1 1.5 12.063V3.937A2 2 0 0 1 0 2zm2.5 1.937v8.126c.703.18 1.256.734 1.437 1.437h8.126a2.004 2.004 0 0 1 1.437-1.437V3.937A2.004 2.004 0 0 1 12.063 2.5H3.937A2.004 2.004 0 0 1 2.5 3.937zM14 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM2 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg>
+                    </button>
+                    <button class="nav-link btn"
+                            type="button"
                             (click)="enableLocationTracking()"
                             alt="Eigenen Standort anzeigen"
                             title="Eigenen Standort anzeigen"
@@ -176,6 +195,25 @@
                                   d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
                             <path fill-rule="evenodd"
                                   d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                        </svg>
+                    </button>
+                    <button class="nav-link btn"
+                            type="button"
+                            (click)="flurstueckssearch.modal.open(flurstueckssearch.title)"
+                            alt="Flurstückssuche"
+                            title="Flurstückssuche"
+                            i18n-alt
+                            i18n-title>
+                        <svg width="20px"
+                             height="20px"
+                             viewBox="0 0 16 16"
+                             class="bi bi-bounding-box-circles"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                  d="M2 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM0 2a2 2 0 0 1 3.937-.5h8.126A2 2 0 1 1 14.5 3.937v8.126a2 2 0 1 1-2.437 2.437H3.937A2 2 0 1 1 1.5 12.063V3.937A2 2 0 0 1 0 2zm2.5 1.937v8.126c.703.18 1.256.734 1.437 1.437h8.126a2.004 2.004 0 0 1 1.437-1.437V3.937A2.004 2.004 0 0 1 12.063 2.5H3.937A2.004 2.004 0 0 1 2.5 3.937zM14 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM2 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                         </svg>
                     </button>
                     <button class="nav-link btn"
@@ -336,12 +374,11 @@
     }"></mgl-layer>
 
         <!-- Niedersachsen -->
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="bauland"
+        <mgl-layer id="bauland"
                    type="line"
                    [source]="ndsSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat'"
+                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
                    [paint]="{
       'line-color': teilmarkt.color,
       'line-width': {
@@ -351,15 +388,15 @@
         'stops' : [[11,0],[13,1]]
       }
     }"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="sanierungsgebiet"
+        <mgl-layer id="sanierungsgebiet"
                    type="line"
                    [source]="ndsSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat'"
+                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
                    [paint]="{
                         'line-color': '#0080FF',
                         'line-dasharray': [7,5],
@@ -370,14 +407,14 @@
                                 'stops' : [[11,0],[13,.6]]
                             }
                     }"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
-                   id="landwirtschaft"
+        <mgl-layer id="landwirtschaft"
                    type="line"
                    [source]="ndsSource"
-                   [sourceLayer]="'br_brzone_flat'"
+                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
                    [minzoom]="10"
                    [paint]="{
       'line-color': teilmarkt.color,
@@ -388,13 +425,13 @@
         'stops' : [[8,0],[10,1]]
       }
     }"
+                   [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="appto_bauland"
+        <mgl-layer id="appto_bauland"
                    type="symbol"
                    [source]="ndsSource"
-                   [sourceLayer]="'br_brzone_flat'"
+                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
                    [minzoom]="13"
                    [paint]="{
       'text-halo-color' : '#fff',
@@ -402,21 +439,31 @@
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-                   [layout]="{
-      'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
-      'text-size': {
-        'stops': [[12,10],[15,16]]
-        },
-      'text-font': ['Klokantech Noto Sans Regular']
-    }"
+                   [layout]="teilmarkt.value.includes('B') ?
+                   {
+                    'visibility': 'visible',
+                    'text-field': ['get','display'],
+                    'text-max-width': 0,
+                    'text-size': {
+                        'stops': [[12,10],[15,16]]
+                        },
+                    'text-font': ['Klokantech Noto Sans Regular']
+                    } :
+                    {
+                    'visibility': 'none',
+                    'text-field': ['get','display'],
+                    'text-size': {
+                        'stops': [[12,10],[15,16]]
+                        },
+                    'text-font': ['Klokantech Noto Sans Regular']
+                    }"
                    [filter]="['all',['in', 'entw', 'B','SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
-                   id="appto_landwirtschaft"
+        <mgl-layer id="appto_landwirtschaft"
                    type="symbol"
                    [source]="ndsSource"
-                   [sourceLayer]="'br_brzone_flat'"
+                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
                    [minzoom]="10"
                    [paint]="{
       'text-halo-color' : '#fff',
@@ -424,19 +471,28 @@
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-                   [layout]="{
-      'text-field': '{brw}',
-      'text-size': {
-        'stops': [[10,20],[15,24]]
-        },
-      'text-font': ['Klokantech Noto Sans Regular']
-    }"
+                   [layout]="teilmarkt.value.includes('LF') ? {
+                    'visibility': 'visible',
+                    'text-field': ['get','display'],
+                    'text-max-width': 0,
+                    'text-size': {
+                        'stops': [[10,20],[15,24]]
+                        },
+                    'text-font': ['Klokantech Noto Sans Regular']
+                    } :
+                    {
+                        'visibility': 'none',
+                        'text-field': ['get','display'],
+                        'text-size': {
+                        'stops': [[10,20],[15,24]]
+                        },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                    }"
                    [filter]="['all',['==','stag', stichtag],['in','entw', teilmarkt.value[0]]]">
         </mgl-layer>
 
         <!-- Bremen -->
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="bauland_bremen"
+        <mgl-layer id="bauland_bremen"
                    type="line"
                    [source]="bremenSource"
                    [minzoom]="11"
@@ -450,11 +506,11 @@
         'stops' : [[11,0],[13,1]]
       }
     }"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="sanierungsgebiet_bremen"
+        <mgl-layer id="sanierungsgebiet_bremen"
                    type="line"
                    [source]="bremenSource"
                    [minzoom]="11"
@@ -469,11 +525,11 @@
                                 'stops' : [[11,0],[13,.6]]
                             }
                     }"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
-                   id="landwirtschaft_bremen"
+        <mgl-layer id="landwirtschaft_bremen"
                    type="line"
                    [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
@@ -487,10 +543,10 @@
         'stops' : [[8,0],[10,1]]
       }
     }"
+                   [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('B')"
-                   id="appto_bauland_bremen"
+        <mgl-layer id="appto_bauland_bremen"
                    type="symbol"
                    [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
@@ -501,18 +557,27 @@
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-                   [layout]="{
-      'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
-      'text-size': {
-        'stops': [[12,10],[15,16]]
-        },
-      'text-font': ['Klokantech Noto Sans Regular']
-    }"
+                   [layout]="teilmarkt.value.includes('LF') ?
+                   {
+                        'visibility': 'visible',
+                        'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
+                        'text-size': {
+                            'stops': [[12,10],[15,16]]
+                            },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                    } :
+                    {
+                        'visibility': 'none',
+                        'text-field': ['number-format',['to-number', ['get','brw']], { 'locale':'de', 'max-fraction-digits': 0}],
+                        'text-size': {
+                            'stops': [[12,10],[15,16]]
+                            },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                    }"
                    [filter]="['all',['in', 'entw', 'B','SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
-        <mgl-layer *ngIf="teilmarkt.value.includes('LF')"
-                   id="appto_landwirtschaft_bremen"
+        <mgl-layer id="appto_landwirtschaft_bremen"
                    type="symbol"
                    [source]="bremenSource"
                    [sourceLayer]="'br_brzone_flat_bremen'"
@@ -523,13 +588,23 @@
       'text-halo-blur' : 2,
       'text-color' : 'rgb(117, 129, 145)'
      }"
-                   [layout]="{
-      'text-field': '{brw}',
-      'text-size': {
-        'stops': [[10,20],[15,24]]
-        },
-      'text-font': ['Klokantech Noto Sans Regular']
-    }"
+                   [layout]="teilmarkt.value.includes('LF') ?
+                        {
+                            'visibility': 'visible',
+                            'text-field': '{brw}',
+                            'text-size': {
+                                'stops': [[10,20],[15,24]]
+                                },
+                            'text-font': ['Klokantech Noto Sans Regular']
+                        } :
+                        {
+                            'visibility': 'none',
+                            'text-field': '{brw}',
+                            'text-size': {
+                                'stops': [[10,20],[15,24]]
+                                },
+                            'text-font': ['Klokantech Noto Sans Regular']
+                        }"
                    [filter]="['all',['==','stag', stichtag],['in','entw', teilmarkt.value[0]]]">
         </mgl-layer>
 
@@ -538,3 +613,5 @@
                      unit="metric"></mgl-control>
     </mgl-map>
 </div>
+
+<power-flurstueck-search #flurstueckssearch></power-flurstueck-search>

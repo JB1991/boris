@@ -94,6 +94,29 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.map.fitBounds).toHaveBeenCalledTimes(1);
     });
 
+    it('onFlurstueckChange should update map, address, feature, ...', () => {
+        spyOn(component, 'getBodenrichtwertzonen');
+        spyOn(component, 'getAddressFromLatLng');
+        component.flurstueck = {
+            gemarkung: '5',
+            land: '3',
+            flur: '1',
+            nenner: '2',
+            zaehler: '3',
+            fsk: '523432525',
+            bbox: [5,4,3,1],
+            flaeche: '200'
+        };
+        component.teilmarkt = {
+            'value': ['LF'],
+            'viewValue': 'Landwirtschaft'
+        };
+        component.onFlurstueckChange();
+        expect(component.map.flyTo).toHaveBeenCalledTimes(1);
+        expect(component.getAddressFromLatLng).toHaveBeenCalledTimes(1);
+        expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(1);
+    });
+
     it('toggleSearchActive should toggle the state of searchActive', () => {
         expect(component.searchActive).toBe(false);
         component.toggleSearchActive();

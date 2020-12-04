@@ -72,10 +72,11 @@ export class DetailsComponent implements OnInit {
      * @param navigate
      */
     public async updateForm(navigate: boolean) {
+        if (!this.id) {
+            throw new Error('id is required');
+        }
+
         try {
-            if (!this.id) {
-                throw new Error('id is required');
-            }
             this.loadingscreen.setVisible(true);
             const r = await this.formapi.getForm(this.id, {
                 fields: ['id', 'extract', 'content', 'status', 'access', 'created', 'updated', 'tags', 'owner.name', 'owner.id', 'groups'],

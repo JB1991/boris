@@ -135,22 +135,12 @@ export function init(Survey) {
                     mode: question.pipsMode || 'positions',
                     stepped: true,
                     values: question.pipsValues.map(function (pVal) {
-                        let pipValue = pVal;
-                        if (pVal.value !== undefined) {
-                            pipValue = pVal.value;
-                        }
-                        return Number(pipValue).toFixed(question.decimals);
+                        return Number(pVal).toFixed(question.decimals);
                     }),
                     density: 100,
                     format: {
                         to: function (pVal) {
-                            let pipText = pVal;
-                            question.pipsValues.map(function (ele) {
-                                if (ele.text !== undefined && pVal === ele.value) {
-                                    pipText = ele.text;
-                                }
-                            });
-                            return Number(pipText).toFixed(question.decimals);
+                            return Number(pVal).toFixed(question.decimals);
                         },
                     },
                 },
@@ -163,8 +153,8 @@ export function init(Survey) {
                     }
                 },
                 range: {
-                    min: question.rangeMin,
-                    max: question.rangeMax,
+                    min: Number(question.rangeMin),
+                    max: Number(question.rangeMax),
                 },
                 orientation: question.orientation,
                 direction: question.direction,
