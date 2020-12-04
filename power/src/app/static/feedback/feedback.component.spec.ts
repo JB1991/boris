@@ -1,4 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
 
 import { FeedbackComponent } from './feedback.component';
 
@@ -8,18 +11,26 @@ describe('Static.Feedback.FeedbackComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [FeedbackComponent]
+            imports: [
+                HttpClientTestingModule,
+                RouterTestingModule.withRoutes([]),
+                FormsModule
+            ],
+            declarations: [
+                FeedbackComponent
+            ]
         }).compileComponents();
-    }));
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(FeedbackComponent);
         component = fixture.componentInstance;
+        spyOn(component, 'loadRSSFeed');
+
         fixture.detectChanges();
-    });
+    }));
 
     it('should create', () => {
         expect(component).toBeTruthy();
+        expect(component.loadRSSFeed).toHaveBeenCalledTimes(1);
     });
 
     it('should have a title', () => {

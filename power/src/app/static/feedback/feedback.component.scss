@@ -1,14 +1,24 @@
-ul {
-    list-style: url('~assets/icons/arrow-right.svg');
-    list-style-position: outside;
+@media (max-width: 1199px) {
+    .display-4 {
+        font-size: 2.8em !important;
+    }
 }
 
-.btn-circle {
-    width: 30px;
-    height: 30px;
-    padding: 6px 0;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
+@media (max-width: 991px) {
+    .display-4 {
+        font-size: 2em !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .w-mobile {
+        width: 75% !important;
+    }
+}
+
+.lineb {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word !important;
+    white-space: pre-line !important;
 }
