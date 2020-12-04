@@ -5,6 +5,8 @@ server {
   gzip on;
   gzip_types application/javascript application/json application/octet-stream image/x-icon text/css text/html;
   server_tokens off;
+  
+  error_log /var/log/nginx/error.log debug;
 
   # security headers
   proxy_cookie_path / "/; HTTPOnly; Secure";
@@ -57,8 +59,9 @@ server {
   }
 
   location /feedback-rss/ {
-    rewrite ^\/feedback-rss\/(.*) /Kay-LGLN/power/-/issues.atom$1 break;
+    rewrite ^\/feedback-rss\/(.*) /Kay-LGLN/power/-/issues.atom break;
     proxy_set_header X-Real-IP $remote_addr;
+	proxy_ssl_server_name on;
     proxy_pass https://gitlab.com/;
     return 404;
   }

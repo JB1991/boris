@@ -11,7 +11,6 @@ import { AuthService } from '@app/shared/auth/auth.service';
 })
 export class FeedbackComponent implements OnInit {
     public mail = 'incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
-    public showTickets = false;
     public stateFilter = 'all';
     public search = '';
     public rss = [];
@@ -22,8 +21,8 @@ export class FeedbackComponent implements OnInit {
         this.titleService.setTitle($localize`Feedback - POWER.NI`);
     }
 
-    public ngOnInit() {
-        this.loadRSSFeed();
+    public async ngOnInit() {
+        await this.loadRSSFeed();
     }
 
     /**
@@ -46,14 +45,6 @@ export class FeedbackComponent implements OnInit {
      */
     public async doSearch() {
         await this.loadRSSFeed();
-        this.showTickets = true;
-    }
-
-    /**
-     * Hides all tickets
-     */
-    public hideAll() {
-        this.showTickets = false;
     }
 
     /**
