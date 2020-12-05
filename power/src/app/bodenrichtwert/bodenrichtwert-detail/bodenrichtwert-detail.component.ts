@@ -11,7 +11,7 @@ export class BodenrichtwertDetailComponent implements OnInit {
     brzStrings = {
         'brz': $localize`Bodenrichtwertzone`,
         'conversion': $localize`Umrechnung`,
-        'state' : $localize`Beitragsabgabenrechtlicher Zustand`,
+        'state': $localize`Beitragsabgabenrechtlicher Zustand`,
         'usage': $localize`Art der Nutzung`,
         'value': $localize`Bodenrichtwert`,
         'flae': $localize`Grundstücksfläche`,
@@ -34,6 +34,16 @@ export class BodenrichtwertDetailComponent implements OnInit {
     @Input() feature: any;
 
     ngOnInit() {
+    }
+
+    enutaBremen(feature) {
+        if (feature.properties.nutzung[0].enuta[0] === 'G1' ||
+            feature.properties.nutzung[0].enuta[0] === 'G2' ||
+            feature.properties.nutzung[0].enuta[0] === 'G3' ||
+            feature.properties.nutzung[0].enuta[0] === 'G4') {
+            return true;
+        }
+        return false;
     }
 
 }
