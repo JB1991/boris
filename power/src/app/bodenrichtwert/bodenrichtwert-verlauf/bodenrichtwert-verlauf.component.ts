@@ -142,8 +142,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         let groupedByProperty = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         for (const [key, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
-                const values = value.filter(item => item.properties.stag.substring(0, 4) === seriesTuple.stag);
-                if (values.length > 1) {
+                const valuesFiltered = value.filter(item => item.properties.stag.substring(0, 4) === seriesTuple.stag);
+                if (valuesFiltered.length > 1) {
                     // grouped by Bodenrichtwertnummer
                     groupedByProperty = this.groupBy(features, item => item.properties.wnum);
                     break;
@@ -302,6 +302,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 type: 'line',
                 step: 'end',
                 color: seriesColor,
+                symbolSize: function (value) {
+                    if (typeof (value) === 'string') {
+                        return 0;
+                    } else {
+                        return 4;
+                    }
+                },
                 data: serie.map(t => t.brw),
             });
         });

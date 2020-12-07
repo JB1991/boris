@@ -74,6 +74,17 @@
                 role="cell">
                 {{feature.properties.nutzung | nutzung | hyphenate}}
             </dd>
+            <!-- Länderspezifische Angabe - Bremen (enuta)-->
+            <dt *ngIf="enutaBremen(feature)"
+                class="col-md-5"
+                role="rowheader">
+                Länderspezifische Angabe
+            </dt>
+            <dd *ngIf="enutaBremen(feature)"
+                class="col-md-7"
+                role="cell">
+                {{feature.properties.nutzung | nutzungBremen | hyphenate}}
+            </dd>
             <!-- Bauweise oder Anbauart (bauw) -->
             <dt *ngIf="feature.properties.bauw"
                 class="col-md-5"
