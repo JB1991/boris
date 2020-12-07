@@ -195,6 +195,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.generateSrTable(label, seriesArray);
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        console.log(this.chartOption.legend);
     }
 
     getSeriesData(features) {
