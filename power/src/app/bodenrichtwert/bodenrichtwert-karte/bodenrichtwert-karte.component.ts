@@ -359,7 +359,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.adresseChange.emit(undefined);
         }
         if (this.features) {
-            this.featuresChange.emit(false);
+            this.featuresChange.emit(undefined);
         }
         if (!this.isCollapsed) {
             this.isCollapsedChange.emit(true);
