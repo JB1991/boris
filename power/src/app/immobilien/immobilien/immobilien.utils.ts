@@ -259,7 +259,9 @@ export class ImmobilienUtils {
 
         for (let i = 0; i < modifyArray.length; i++) {
             for (let v = 0; v < modifyArray[i]['values'].length; v++) {
-                newRegionen[modifyArray[i]['values'][v]]['color'] = modifyArray[i]['colors'];
+                if (newRegionen[modifyArray[i]['values'][v]] !== undefined) {
+                    newRegionen[modifyArray[i]['values'][v]]['color'] = modifyArray[i]['colors'];
+                }
             }
         }
 

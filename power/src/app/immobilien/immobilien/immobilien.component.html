@@ -157,66 +157,70 @@
 
                         </li>
 
-                        <li *ngFor="let subitem of nipixStatic.data.allItems">
-                            <ng-container *ngFor="let itm of select['preset']; let i = index">
+                        <ng-container *ngFor="let subitem of nipixStatic.data.allItems">
+                            <li *ngIf="nipixStatic.data.regionen[subitem] !== undefined">
+                                <ng-container *ngFor="let itm of select['preset']; let i = index">
 
-                                <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)"
-                                      *ngIf="nipixRuntime.getDrawPreset(itm).show">
+                                    <span class="check custom-checkbox" [style.background-color]="getCustomColor(itm)"
+                                          *ngIf="nipixRuntime.getDrawPreset(itm).show">
 
-                                    <input id="{{i}}v1{{subitem}}"
-                                        [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)"
-                                        type="checkbox" class="custom-control-input"
-                                        (click)="toggleMapSelect(itm, subitem, select['type'])"
-                                        attr.aria-label="{{ nipixRuntime.formatter.getSeriesLabel(subitem) }}"
-                                        *ngIf="select['preset'].length === 1">
+                                        <input id="{{i}}v1{{subitem}}"
+                                               [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)"
+                                               type="checkbox" class="custom-control-input"
+                                                               (click)="toggleMapSelect(itm, subitem, select['type'])"
+                                                               attr.aria-label="{{ nipixRuntime.formatter.getSeriesLabel(subitem) }}"
+                                                               *ngIf="select['preset'].length === 1">
 
-                                    <input id="{{i}}v1{{subitem}}_"
-                                        [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)"
-                                        type="checkbox" class="custom-control-input"
-                                        (click)="toggleMapSelect(itm, subitem, select['type'])"
-                                        attr.aria-label="{{ nipixRuntime.formatter.getSeriesLabel(subitem) }} (Vergleich {{i+1}})"
-                                        *ngIf="select['preset'].length > 1">
+                                        <input id="{{i}}v1{{subitem}}_"
+                                               [checked]="nipixRuntime.getDrawPreset(itm).values.includes(subitem)"
+                                               type="checkbox" class="custom-control-input"
+                                                               (click)="toggleMapSelect(itm, subitem, select['type'])"
+                                                               attr.aria-label="{{ nipixRuntime.formatter.getSeriesLabel(subitem) }} (Vergleich {{i+1}})"
+                                                               *ngIf="select['preset'].length > 1">
 
-                                    <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0;"
-                                        class="custom-control-label" *ngIf="select['preset'].length === 1"></label>
-                                    <label for="{{i}}v1{{subitem}}_" style="margin-bottom: 0;"
-                                        class="custom-control-label" *ngIf="select['preset'].length > 1"></label>
+                                        <label for="{{i}}v1{{subitem}}" style="margin-bottom: 0;"
+                                                                        class="custom-control-label" *ngIf="select['preset'].length === 1"></label>
+                                        <label for="{{i}}v1{{subitem}}_" style="margin-bottom: 0;"
+                                                                         class="custom-control-label" *ngIf="select['preset'].length > 1"></label>
 
+                                    </span>
+                                </ng-container>
+                                <span class="dot" *ngIf="select['type'] === 'single'">
+                                    <span
+                                      style="display: inline-block; border-radius: 10px; width: 10px; height: 10px;"
+                                      [style.background-color]="nipixRuntime.formatter.getSeriesColor(subitem)"></span>
                                 </span>
-                            </ng-container>
-                            <span class="dot" *ngIf="select['type'] === 'single'">
-                                <span
-                                  style="display: inline-block; border-radius: 10px; width: 10px; height: 10px;"
-                                  [style.background-color]="nipixRuntime.formatter.getSeriesColor(subitem)"></span>
-                            </span>
-                            <span class="dotlabel">
-                                {{ nipixRuntime.formatter.getSeriesLabel(subitem) }}
-                            </span>
-                        </li>
+                                <span class="dotlabel">
+                                    {{ nipixRuntime.formatter.getSeriesLabel(subitem) }}
+                                </span>
+                            </li>
+                        </ng-container>
                     </ul>
 
                     <!-- Select DrawShow -->
                     <ul *ngIf="select['type'] === 'multi' || select['type'] === 'multiIndex'">
-                        <li *ngFor="let itm of select['preset']">
-                            <span class="check custom-checkbox">
-                                <input id="{{itm}}" type="checkbox" class="custom-control-input"
-                                       [checked]="nipixRuntime.getDrawPreset(itm).show"
-                                       (change)="onToggleDrawRoot(itm)"
-                                        attr.aria-label="{{nipixRuntime.translate(itm)}}">
-                                <label for="{{itm}}" class="custom-control-label"></label>
-                            </span>
-                            <span (click)="onClickDrawRoot(itm)" class="dot">
-                                <span
-                                    style="display: inline-block; border-radius: 10px; width: 10px; height: 10px;"
-                                    [style.background-color]="nipixRuntime.getDrawPreset(itm).colors"></span>
-                            </span>
-                            <span (click)="onClickDrawRoot(itm)" class="dotlabel">
-                                {{ nipixRuntime.translate(itm) }}
-                                <i-bs name="house-fill" *ngIf="itm === 'gebrauchte Eigenheime'" aria-hidden="true"></i-bs>
-                                <i-bs name="building" *ngIf="itm === 'gebrauchte Eigentumswohnungen'" aria-hidden="true"></i-bs>
-                                ({{ nipixRuntime.translate(nipixStatic.data.shortNames[itm]) }})
-                            </span>
-                        </li>
+                        <ng-container *ngFor="let itm of select['preset']">
+                            <li *ngIf="nipixRuntime.getDrawPreset(itm) !== null">
+                                <span class="check custom-checkbox">
+                                    <input id="{{itm}}" type="checkbox" class="custom-control-input"
+                                                                        [checked]="nipixRuntime.getDrawPreset(itm).show"
+                                                                        (change)="onToggleDrawRoot(itm)"
+                                                                        attr.aria-label="{{nipixRuntime.translate(itm)}}">
+                                    <label for="{{itm}}" class="custom-control-label"></label>
+                                </span>
+                                <span (click)="onClickDrawRoot(itm)" class="dot">
+                                    <span
+                                                                     style="display: inline-block; border-radius: 10px; width: 10px; height: 10px;"
+                                                                     [style.background-color]="nipixRuntime.getDrawPreset(itm).colors"></span>
+                                </span>
+                                <span (click)="onClickDrawRoot(itm)" class="dotlabel">
+                                    {{ nipixRuntime.translate(itm) }}
+                                    <i-bs name="house-fill" *ngIf="itm === 'gebrauchte Eigenheime'" aria-hidden="true"></i-bs>
+                                    <i-bs name="building" *ngIf="itm === 'gebrauchte Eigentumswohnungen'" aria-hidden="true"></i-bs>
+                                    ({{ nipixRuntime.translate(nipixStatic.data.shortNames[itm]) }})
+                                </span>
+                            </li>
+                        </ng-container>
                     </ul>
 
                 </ng-template>
