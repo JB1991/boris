@@ -339,7 +339,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     onTeilmarktChange(teilmarkt: any) {
         this.teilmarkt = teilmarkt;
         this.teilmarktChange.emit(this.teilmarkt);
-        this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        if (this.lat && this.lng) {
+            this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        }
         this.changeURL();
     }
 
@@ -362,6 +364,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         if (!this.isCollapsed) {
             this.isCollapsedChange.emit(true);
         }
+        this.lat = undefined;
+        this.lng = undefined;
         this.map.resize();
         this.map.fitBounds(this.bounds, {
             pitch: 0,
