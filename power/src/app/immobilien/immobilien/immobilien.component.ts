@@ -109,13 +109,7 @@ export class ImmobilienComponent implements OnInit {
             .subscribe(json => {
                 this.nipixRuntime.state.initState = 1;
                 this.nipixStatic.loadConfig(json);
-                this.nipixRuntime.resetDrawPresets();
-                this.nipixRuntime.calculated.mapRegionen = ImmobilienUtils.getMyMapRegionen(
-                    this.nipixStatic.data.regionen,
-                    null,
-                    null,
-                    true
-                );
+
                 this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[0]['name'];
                 this.nipixRuntime.availableQuartal = ImmobilienUtils.getDateArray(json['lastYear'], json['lastPeriod']);
                 this.nipixRuntime.updateAvailableQuartal(json['lastYear'], json['lastPeriod']);
@@ -129,7 +123,6 @@ export class ImmobilienComponent implements OnInit {
                 });
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(json['mapUrl']);
-                this.loadNiPix(json['nipixUrl']);
             });
     }
 
@@ -166,8 +159,20 @@ export class ImmobilienComponent implements OnInit {
                     // hide loading:
                     this.mapLoaded = true;
 
+                    const geoMap = this.nipixStatic.procMap(geoJson);
+
+                    this.nipixRuntime.resetDrawPresets();
+                    this.nipixRuntime.calculated.mapRegionen = ImmobilienUtils.getMyMapRegionen(
+                        this.nipixStatic.data.regionen,
+                        null,
+                        null,
+                        true
+                    );
+                    this.nipixRuntime.updateAvailableNipixCategories();
+                    setTimeout(this.onPanelChange.bind(this), 50, { 'nextState': true, 'panelId': 'static-0' });
+
                     // register map:
-                    echarts.registerMap('NDS', geoJson);
+                    echarts.registerMap('NDS', geoMap);
 
                     // initState
                     this.nipixRuntime.state.initState++;
@@ -175,38 +180,6 @@ export class ImmobilienComponent implements OnInit {
                     this.setMapOptions();
                 });
     }
-
-    /**
-     * Handle Load NiPix
-     *
-     * Format: CSV; Seperator: Semikolon;
-     * Fields: Immobilienart, Region(ID), Zeitabschnitt (YYYY_Q), Anzahl, Index
-     *
-     * @param {string} url Url to Nipix CSV
-     */
-    loadNiPix(url) {
-
-        // Load nipix
-        this.http.get(url, { responseType: 'text' })
-            .subscribe(nipix => {
-
-                this.nipixStatic.parseNipix(nipix);
-                this.nipixRuntime.updateAvailableNipixCategories();
-
-                // InitState
-                this.nipixRuntime.state.initState++;
-
-                setTimeout(this.onPanelChange.bind(this), 50, { 'nextState': true, 'panelId': 'static-0' });
-            });
-    }
-
-
-
-
-
-
-
-
 
 
     /**
@@ -219,10 +192,10 @@ export class ImmobilienComponent implements OnInit {
             'tooltipFormatter': this.nipixRuntime.formatter.mapTooltipFormatter,
             'exportGeoJSON': function () { this.nipixRuntime.export.exportGeoJSON(); }.bind(this),
             'mapRegionen': this.nipixRuntime.calculated.mapRegionen,
-            'geoCoordMapLeft': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['left']),
-            'geoCoordMapRight': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['right']),
-            'geoCoordMapTop': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['top']),
-            'geoCoordMapBottom': this.nipixRuntime.translateArray(this.nipixStatic.data.geoCoordMap['bottom'])
+            'geoCoordMapLeft': this.nipixStatic.data.geoCoordMap['left'],
+            'geoCoordMapRight': this.nipixStatic.data.geoCoordMap['right'],
+            'geoCoordMapTop': this.nipixStatic.data.geoCoordMap['top'],
+            'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
         // Update Map Selection; Wait a little time for browser to render
         setTimeout(this.updateMapSelect.bind(this), 100);
@@ -325,7 +298,7 @@ export class ImmobilienComponent implements OnInit {
     onChartInit(ec) {
         this.nipixRuntime.map.obj = ec;
 
-        if (this.nipixRuntime.state.initState === 4) {
+        if (this.nipixRuntime.state.initState === 3) {
             this.updateMapSelect();
         }
     }
@@ -336,7 +309,7 @@ export class ImmobilienComponent implements OnInit {
     onChartChartInit(ec) {
         this.nipixRuntime.chart.obj = ec;
 
-        if (this.nipixRuntime.state.initState === 4) {
+        if (this.nipixRuntime.state.initState === 3) {
             this.updateChart();
         }
     }

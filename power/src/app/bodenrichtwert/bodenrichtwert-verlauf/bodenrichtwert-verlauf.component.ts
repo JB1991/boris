@@ -41,8 +41,34 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 const year = params[0].axisValue;
                 for (let j = 0; j < params.length; j++) {
                     if (params[j].value !== undefined && typeof (params[j].value) !== 'string' && params[j].color !== '#0080FF' && params[j].color !== '#155796') {
-                        const splittedName = params[j].seriesName.split('\n');
-                        res.push(`${params[j].marker} ${splittedName[0]} : ${params[j].value} <br />`);
+                        let seriesName = params[j].seriesName;
+                        seriesName = seriesName.replace('Sanierungsgebiet', '');
+                        seriesName = seriesName.replace('Entwicklungsbereich', '');
+                        seriesName = seriesName.replace('Soziale Stadt', '');
+                        seriesName = seriesName.replace('Stadtumbau', '');
+                        seriesName = seriesName.replace('Ohne Wertanpassung', '');
+                        seriesName = seriesName.replace('Mit Wertanpassung', '');
+                        if (window.innerWidth < 480 && seriesName.length > 25) {
+                            const splittedNameSmallView = seriesName.split(/(?:\n| )/);
+                            const concatSplittedName = [];
+                            let i = 0;
+                            splittedNameSmallView.forEach((element) => {
+                                if (!concatSplittedName[i]) {
+                                    concatSplittedName[i] = element + ' ';
+                                } else if (concatSplittedName[i].length < 23) {
+                                    concatSplittedName[i] += element + ' ';
+                                } else {
+                                    i++;
+                                    if (!concatSplittedName[i]) {
+                                        concatSplittedName[i] = element + ' ';
+                                    } else { concatSplittedName[i] += element + ' '; }
+                                }
+                            });
+                            const resName = concatSplittedName.join('<br />');
+                            res.push(`${params[j].marker} ${resName} : ${params[j].value} € <br />`);
+                        } else {
+                            res.push(`${params[j].marker} ${seriesName} : ${params[j].value} € <br />`);
+                        }
                     }
                 }
                 return ([year, '<br />', res.join('')].join(''));
