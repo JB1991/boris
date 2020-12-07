@@ -124,10 +124,14 @@ export class ImmobilienFormatter {
      * @return series label (sort)
      */
     public getSeriesLabel(series) {
-        return this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['name']) +
-            ' (' +
-            this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['short']) +
-            ')';
+        if (this.nipixStatic.data.regionen[series] !== undefined) {
+            return this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['name']) +
+                ' (' +
+                this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['short']) +
+                ')';
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -138,7 +142,11 @@ export class ImmobilienFormatter {
      * @return Series Color
      */
     public getSeriesColor(series) {
-        return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
+        if (this.nipixStatic.data.regionen[series] !== undefined) {
+            return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
+        } else {
+            return '#000000';
+        }
     }
 
     public simpleLegend() {

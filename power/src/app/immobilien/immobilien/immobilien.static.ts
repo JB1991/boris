@@ -56,12 +56,6 @@ export class NipixStatic {
         // ABGN
         this.agnbUrl = json['agnbUrl'];
 
-        // Geo Choord
-        this.data.geoCoordMap = json['map']['geoCoordMap'];
-
-        // Regionen
-        this.data.regionen = json['regionen'];
-
         // Draw-Presets
         this.data.presets = json['presets'];
 
@@ -96,34 +90,62 @@ export class NipixStatic {
         return true;
     }
 
-    public parseNipix(nipix: string): boolean {
-        const npx = {};
-        this.data.nipix = {};
-        const lines = nipix.split(/\r\n|\r|\n/g);
+    public procMap(geoJson: any): any {
 
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].split(';');
+        const geoMap = {
+            'type':'FeatureCollection',
+            'totalFeatures':'unknown',
+            'features':[]
+        };
 
-            if (line[0].length > 10) { // If line is valid
-                if (!this.data.nipix.hasOwnProperty(line[0])) {
-                    this.data.nipix[line[0]] = {};
-                }
-                if ((typeof line[1] === 'string') && (line[1].indexOf('_') !== -1)) {
-                    line[1] = line[1].substr(0, line[1].indexOf('_'));
-                }
-                if (!this.data.nipix[line[0]].hasOwnProperty(line[1])) {
-                    this.data.nipix[line[0]][line[1]] = {};
+        const regionenData = {};
+        const geoCoordMap = { 'left': [], 'right': [], 'top': [], 'bottom': [] };
+        const nipixData = {};
+
+        for (let i = 0; i < geoJson['features'].length; i++) {
+
+            const props = geoJson['features'][i]['properties'];
+
+            if (geoJson['features'][i]['geometry']['type'] !== 'Point') {
+
+                // Wohnungsmarktkarte
+                geoMap.features.push(geoJson['features'][i]);
+
+                // Wohnungsmarktregionen
+                regionenData[props['name']] = {
+                    'name': props['WOMA_NAME'],
+                    'short': props['WOMA_SHORT'],
+                    'color': props['WOMA_COLOR'],
+                    'colorh': props['WOMA_COLORH']
+                };
+
+                // Nipix Daten
+                const nipixParse = JSON.parse(props['nipix']);
+                const nkey = Object.keys(nipixParse);
+
+                for (let n = 0; n < nkey.length; n++) {
+
+                    if (!nipixData.hasOwnProperty(nkey[n])) {
+                        nipixData[nkey[n]] = {};
+                    }
+
+                    nipixData[nkey[n]][props['name']] = nipixParse[nkey[n]];
                 }
 
-                const nval = {};
-                nval['index'] = line[4];
-                nval['faelle'] = Math.round(Number(line[3].replace(',', '.')));
-                if (nval['index'] !== '') {
-                    this.data.nipix[line[0]][line[1]][line[2]] = nval;
-                }
+            } else {
+                // Point
+                geoCoordMap[props['position']].push({
+                    'name': props['name'],
+                    'value': geoJson['features'][i]['geometry']['coordinates']
+                });
             }
         }
-        return true;
+
+        this.data.regionen = regionenData;
+        this.data.geoCoordMap = geoCoordMap;
+        this.data.nipix = nipixData;
+
+        return geoMap;
     }
 
 

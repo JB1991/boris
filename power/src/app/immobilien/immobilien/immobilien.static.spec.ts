@@ -15,7 +15,6 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
             'map': {
                 'geoCoordMap': ['foofoo']
             },
-            'regionen': ['foo'],
             'presets': ['bar'],
             'items': ['foobar'],
             'shortNames': { 'foo': 'bar' },
@@ -27,8 +26,6 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         expect(res).toEqual(true);
         expect(component.layoutRtl).toEqual(true);
         expect(component.agnbUrl).toEqual('foo.bar');
-        // expect(component.data.geoCoordMap).toEqual(['foofoo']);
-        expect(component.data.regionen).toEqual(['foo']);
         expect(component.data.presets).toEqual(['bar']);
         expect(component.data.allItems).toEqual(['foobar']);
         expect(component.data.shortNames).toEqual({ 'foo': 'bar' });
@@ -43,32 +40,6 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         expect(res).toEqual(true);
         expect(component.data.gemeinden).toEqual({ '4411': 'bla' });
     });
-
-
-    it('parseNipix works', function () {
-        const npx = '\r\ngebrauchte Eigenheime;4101;2000_2;1037;111,640' +
-            '\r\ngebrauchte Eigenheime;4101_bla;2000_3;1000;120,640' +
-            '\r\n';
-
-        const res = component.parseNipix(npx);
-
-        expect(res).toEqual(true);
-        expect(component.data.nipix).toEqual({
-            'gebrauchte Eigenheime': {
-                '4101': {
-                    '2000_2': {
-                        'index': '111,640',
-                        'faelle': 1037
-                    },
-                    '2000_3': {
-                        'index': '120,640',
-                        'faelle': 1000
-                    }
-                }
-            }
-        });
-    });
-
 
 });
 
