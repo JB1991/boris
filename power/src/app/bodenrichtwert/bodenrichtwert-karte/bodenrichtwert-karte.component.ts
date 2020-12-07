@@ -32,7 +32,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
-        + '&LAYER=boris:br_brzone_flat_bremen'
+        + '&LAYER=boris:br_brzone_flat_bremen_with_whitespace'
         + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
         + '&TILEMATRIXSET=EPSG:900913'
         + '&FORMAT=application/vnd.mapbox-vector-tile'
