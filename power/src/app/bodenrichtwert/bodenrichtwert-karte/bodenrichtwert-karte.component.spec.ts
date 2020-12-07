@@ -194,6 +194,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             'value': ['LF'],
             'viewValue': 'Landwirtschaft'
         };
+        component.lat = lat;
+        component.lng = lon;
         spyOn(component, 'getBodenrichtwertzonen');
         component.onTeilmarktChange(teilmarkt);
         expect(component.teilmarkt).toEqual(teilmarkt);
