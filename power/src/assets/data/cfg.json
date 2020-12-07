@@ -1,6 +1,6 @@
 {
     "layoutRtl": false,
-    "mapUrl": "http://localhost:8600/geoserver/def/wms?service=WMS&version=1.1.0&request=GetMap&layers=nipix&bbox=342803.400687958%2C5682868.20868109%2C674068.083741872%2C5971542.5846593&width=768&height=669&srs=EPSG%3A25832&styles=&format=geojson",
+    "mapUrl": "assets/data/nipix-wms.geojson",
     "gemeindenUrl": "assets/data/gemeinden.csv",
     "agnbUrl": "https://www.lgln.niedersachsen.de/wir_ueber_uns/verwendungs_und_geschaeftsbedingungen/--97401.html",
     "lastYear": 2018,
