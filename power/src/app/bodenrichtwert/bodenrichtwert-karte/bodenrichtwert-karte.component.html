@@ -297,7 +297,7 @@
                 <button class="btn btn-block"
                         type="button"
                         ngbDropdownToggle>
-                    {{stichtag}}
+                    {{stichtag | date}}
                 </button>
                 <div class="dropdown-menu"
                      ngbDropdownMenu>
@@ -305,7 +305,7 @@
                             type="button"
                             (click)="onStichtagChange(stag)"
                             ngbDropdownItem>
-                        {{stag}}
+                        {{stag | date}}
                     </button>
                 </div>
             </div>
