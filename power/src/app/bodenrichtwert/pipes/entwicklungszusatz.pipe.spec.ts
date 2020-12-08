@@ -12,7 +12,7 @@ describe('EntwicklungszusatzPipe', () => {
     });
 
     it('should return the correct value', () => {
-        expect(pipe.transform('SU')).toEqual('Sanierungsbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung');
+        expect(pipe.transform('SU')).toEqual('Sanierungsunbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung');
     });
 
     it('should return undefined when there is no appropriate entry', () => {
