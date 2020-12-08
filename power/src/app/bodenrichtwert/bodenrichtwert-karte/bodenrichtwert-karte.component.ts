@@ -347,7 +347,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     public resetMap() {
         this.resetMapFired = true;
+
+        // reset URL
         this.location.replaceState('/bodenrichtwerte');
+
+        // reset coordinates
+        this.lat = undefined;
+        this.lng = undefined;
+
         if (this.threeDActive) {
             this.deactivate3dView();
             this.threeDActive = !this.threeDActive;
@@ -364,13 +371,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         if (!this.isCollapsed) {
             this.isCollapsedChange.emit(true);
         }
-        this.lat = undefined;
-        this.lng = undefined;
-        this.map.resize();
-        this.map.fitBounds(this.bounds, {
-            pitch: 0,
-            bearing: 0
-        });
     }
 
     enableLocationTracking() {
