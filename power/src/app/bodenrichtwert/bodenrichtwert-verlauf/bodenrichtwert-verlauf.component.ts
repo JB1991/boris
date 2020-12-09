@@ -190,7 +190,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             seriesArray.forEach((series) => {
                 let seriesFillLine;
                 [series, seriesFillLine] = this.fillLineDuringYear(series);
-                console.log(seriesFillLine);
                 label = this.getLabel(key, series);
                 this.chartOption.legend.data.push(label);
                 this.setChartOptionsSeries(series, label);
@@ -398,7 +397,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 align: 'center'
             },
             'verf': {
-                fontSize: 9,
+                fontSize: 10,
                 padding: [0, 0, 3, 0],
                 align: 'center'
             },
