@@ -188,10 +188,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
             let label;
             seriesArray.forEach((series) => {
-                series = this.fillLineDuringYear(series);
+                let seriesFillLine;
+                [series, seriesFillLine] = this.fillLineDuringYear(series);
+                console.log(seriesFillLine);
                 label = this.getLabel(key, series);
                 this.chartOption.legend.data.push(label);
                 this.setChartOptionsSeries(series, label);
+                if (seriesFillLine.find(series => series.brw !== null)) {
+                    this.setChartOptionsSeries(seriesFillLine, label);
+                }
                 this.generateSrTable(label, series);
             });
             this.setLegendFormat();
@@ -262,7 +267,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
         let seriesIncludesVerg;
         series.forEach(element => {
-            if (element.verg !== null && element.verg !== '') {
+            if (element.verg && element.verg !== null && element.verg !== '') {
                 seriesIncludesVerg = true;
             }
         });
@@ -293,6 +298,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     fillLineDuringYear(series) {
         // check gap in same series
+        let seriesFillLine = this.deepCopy(this.seriesTemplate);
         let i = -1;
         do {
             i++;
@@ -301,13 +307,16 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 j++;
                 // fill graph
                 if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null) {
-                    series[i + 1].brw = (series[i].brw).toString();
-                    series[i + 1].nutzung = series[i].nutzung;
-                    series[i + 1].verf = series[i].verf;
-                    series[i + 1].forwarded = true;
+                    seriesFillLine[i].brw = (series[i].brw).toString();
+                    seriesFillLine[i].nutzung = series[i].nutzung;
+                    seriesFillLine[i].verf = series[i].verf;
+                    seriesFillLine[i + 1].brw = (series[i].brw).toString();
+                    seriesFillLine[i + 1].nutzung = series[i].nutzung;
+                    seriesFillLine[i + 1].verf = series[i].verf;
+                    seriesFillLine[i + 1].forwarded = true;
                 }
             } while (series[j].brw === null && j < (series.length - 1));
-        } while (typeof (series[i + 1].brw) !== 'string' && i < (series.length - 3));
+        } while (typeof (seriesFillLine[i + 1].brw) !== 'string' && i < (series.length - 3));
 
         let seriesValues = series.filter(element => element.brw);
         if (seriesValues.length > 0) {
@@ -319,7 +328,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             series[idx + 1].verf = series[idx].verf;
             series[idx + 1].forwarded = true;
         }
-        return series;
+        return [series, seriesFillLine];
     }
 
     deleteSeriesVergItems(series) {
@@ -337,7 +346,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     setChartOptionsSeries(series, label) {
         let seriesColor;
         series.forEach(element => {
-            if (element.verg !== null && element.verg !== '') {
+            if (element.verg && element.verg !== null && element.verg !== '') {
                 seriesColor = this.setVergSeriesColor(series);
             }
         });
