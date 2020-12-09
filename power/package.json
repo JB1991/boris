@@ -82,6 +82,7 @@
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-jsdoc": "^30.7.8",
         "eslint-plugin-prefer-arrow": "^1.2.2",
+        "eslint-plugin-security": "^1.4.0",
         "html-validate": "^4.0.2",
         "jasmine-core": "^3.6.0",
         "jasmine-reporters": "^2.3.2",
