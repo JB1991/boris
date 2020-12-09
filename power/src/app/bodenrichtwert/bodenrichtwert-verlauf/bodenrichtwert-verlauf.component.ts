@@ -384,6 +384,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             if (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau') {
                 return [`{nutzung|${splittedName[0]}}`, `{verg|${verg}}`].join('\n');
             }
+            if (wnum) {
+                return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`].join('\n');
+            }
             return name;
         };
         this.chartOption.legend.textStyle.rich = {
