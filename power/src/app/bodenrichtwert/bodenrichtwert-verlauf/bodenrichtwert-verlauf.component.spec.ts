@@ -72,11 +72,11 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         spyOn(component, 'fillLineDuringYear').and.callThrough();
         component.generateChart(features);
         expect(component.chartOption.legend.data.length).toBe(1);
-        expect(component.chartOption.series.length).toBe(1);
+        expect(component.chartOption.series.length).toBe(2);
         expect(typeof 'component.chartOption.serie[8].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[3].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[6].brw').toBe('string');
-        expect(component.setChartOptionsSeries).toHaveBeenCalledTimes(1);
+        expect(component.setChartOptionsSeries).toHaveBeenCalledTimes(2);
         expect(component.fillLineDuringYear).toHaveBeenCalledTimes(1);
     });
 

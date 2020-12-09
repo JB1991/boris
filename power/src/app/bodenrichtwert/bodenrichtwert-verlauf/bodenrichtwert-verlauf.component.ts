@@ -40,14 +40,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 const res = [];
                 const year = params[0].axisValue;
                 for (let j = 0; j < params.length; j++) {
-                    if (params[j].value !== undefined && typeof (params[j].value) !== 'string' && params[j].color !== '#0080FF' && params[j].color !== '#155796') {
+                    if (params[j].value !== undefined && typeof (params[j].value) !== 'string') {
                         let seriesName = params[j].seriesName;
                         seriesName = seriesName.replace('Sanierungsgebiet', '');
                         seriesName = seriesName.replace('Entwicklungsbereich', '');
                         seriesName = seriesName.replace('Soziale Stadt', '');
                         seriesName = seriesName.replace('Stadtumbau', '');
-                        seriesName = seriesName.replace('Ohne Wertanpassung', '');
-                        seriesName = seriesName.replace('Mit Wertanpassung', '');
+                        seriesName = seriesName.replace('sanierungsunbeeinflusster Wert', '');
+                        seriesName = seriesName.replace('sanierungsbeeinflusster Wert', '');
                         if (window.innerWidth < 480 && seriesName.length > 25) {
                             const splittedNameSmallView = seriesName.split(/(?:\n| )/);
                             const concatSplittedName = [];
@@ -143,13 +143,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     clearChart() {
-        this.chartOption.legend.data = [];
         this.chartOption.series = [];
-        this.srTableData = [];
-        this.srTableHeader = [];
+        this.chartOption.legend.data = [];
         this.chartOption.legend.formatter = '';
         this.chartOption.legend.textStyle.rich = '';
         this.chartOption.grid.top = '10%';
+        this.srTableHeader = [];
+        this.srTableData = [];
     }
 
     filterByStichtag(features) {
@@ -181,18 +181,24 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             features = Array.from(value);
 
             seriesArray[0] = this.getSeriesData(features);
-            seriesArray[0] = this.fillLineDuringYear(seriesArray[0]);
             this.getVergSeries(seriesArray[0]).forEach(element => {
                 seriesArray.push(element);
             });
+            seriesArray[0] = this.deleteSeriesVergItems(seriesArray[0]);
 
-            const label = this.getLabel(key, seriesArray);
-
-            this.chartOption.legend.data.push(label);
-            this.setLegendFormat(seriesArray);
-            this.setChartOptionsSeries(seriesArray, label);
-
-            this.generateSrTable(label, seriesArray);
+            let label;
+            seriesArray.forEach((series) => {
+                let seriesFillLine;
+                [series, seriesFillLine] = this.fillLineDuringYear(series);
+                label = this.getLabel(key, series);
+                this.chartOption.legend.data.push(label);
+                this.setChartOptionsSeries(series, label);
+                if (seriesFillLine.find(item => item.brw !== null)) {
+                    this.setChartOptionsSeries(seriesFillLine, label);
+                }
+                this.generateSrTable(label, series);
+            });
+            this.setLegendFormat();
         }
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
@@ -252,36 +258,38 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return seriesVergValuesTotal;
     }
 
-    getLabel(key, seriesArray) {
-        let nutzung = (seriesArray[0].find(seriesItem => seriesItem.nutzung !== '')).nutzung;
+    getLabel(key, series) {
+        let nutzung = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung;
         const wnum = Number(key);
-        if (wnum) {
+        if (wnum && nutzung) {
             nutzung += '\n' + wnum;
         }
-        if (seriesArray.length > 1) {
-            for (const entry of seriesArray[0]) {
-                if (entry.nutzung !== '') {
-                    let verg = seriesArray[0].find(el => el.verg !== '' && el.verg !== null);
-                    let verf = [];
-                    seriesArray[0].filter(el => {
-                        if (el.verf !== '' && el.verf !== null) {
-                            verf.push(el.verf);
-                        }
-                    });
-                    verf = verf.filter((el, idx, self) => idx === self.indexOf(el));
-                    verg = this.verfahrensartPipe.transform(verg.verg, null);
-                    nutzung += '\n' + verg;
-                    if (verf) {
-                        verf.forEach(verfItem => {
-                            if (verfItem === 'SB' || verfItem === 'EB') {
-                                nutzung += '\n' + 'Mit Wertanpassung';
-                            } else {
-                                nutzung += '\n' + 'Ohne Wertanpassung';
-                            }
-                        });
-                    }
-                    return nutzung;
+        let seriesIncludesVerg;
+        series.forEach(element => {
+            if (element.verg && element.verg !== null && element.verg !== '') {
+                seriesIncludesVerg = true;
+            }
+        });
+        if (seriesIncludesVerg) {
+            let verg = series.find(el => el.verg !== '' && el.verg !== null);
+            let verf = [];
+            series.filter(el => {
+                if (el.verf !== '' && el.verf !== null) {
+                    verf.push(el.verf);
                 }
+            });
+            verf = verf.filter((el, idx, self) => idx === self.indexOf(el));
+            verg = this.verfahrensartPipe.transform(verg.verg, null);
+            nutzung += '\n' + verg;
+            if (verf) {
+                verf.forEach(verfItem => {
+                    if (verfItem === 'SB' || verfItem === 'EB') {
+                        nutzung += '\n' + 'sanierungsbeeinflusster Wert';
+                    } else {
+                        nutzung += '\n' + 'sanierungsunbeeinflusster Wert';
+                    }
+                });
+                return nutzung;
             }
         }
         return nutzung;
@@ -289,6 +297,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     fillLineDuringYear(series) {
         // check gap in same series
+        const seriesFillLine = this.deepCopy(this.seriesTemplate);
         let i = -1;
         do {
             i++;
@@ -297,127 +306,113 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 j++;
                 // fill graph
                 if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null) {
-                    series[i + 1].brw = (series[i].brw).toString();
-                    series[i + 1].nutzung = series[i].nutzung;
-                    series[i + 1].verf = series[i].verf;
-                    series[i + 1].forwarded = true;
+                    seriesFillLine[i].brw = (series[i].brw).toString();
+                    seriesFillLine[i].nutzung = series[i].nutzung;
+                    seriesFillLine[i].verf = series[i].verf;
+                    seriesFillLine[i + 1].brw = (series[i].brw).toString();
+                    seriesFillLine[i + 1].nutzung = series[i].nutzung;
+                    seriesFillLine[i + 1].verf = series[i].verf;
+                    seriesFillLine[i + 1].forwarded = true;
                 }
             } while (series[j].brw === null && j < (series.length - 1));
-        } while (typeof (series[i + 1].brw) !== 'string' && i < (series.length - 3));
+        } while (typeof (seriesFillLine[i + 1].brw) !== 'string' && i < (series.length - 3));
 
         let seriesValues = series.filter(element => element.brw);
-        seriesValues = seriesValues[seriesValues.length - 1].stag;
-        const idx = series.findIndex(element => element.stag === seriesValues);
-        series[idx + 1].brw = (series[idx].brw).toString();
-        series[idx + 1].nutzung = series[idx].nutzung;
-        series[idx + 1].verg = series[idx].verg;
-        series[idx + 1].verf = series[idx].verf;
-        series[idx + 1].forwarded = true;
+        if (seriesValues.length > 0) {
+            seriesValues = seriesValues[seriesValues.length - 1].stag;
+            const idx = series.findIndex(element => element.stag === seriesValues);
+            series[idx + 1].brw = (series[idx].brw).toString();
+            series[idx + 1].nutzung = series[idx].nutzung;
+            series[idx + 1].verg = series[idx].verg;
+            series[idx + 1].verf = series[idx].verf;
+            series[idx + 1].forwarded = true;
+        }
+        return [series, seriesFillLine];
+    }
 
+    deleteSeriesVergItems(series) {
+        series.forEach(element => {
+            if (element.verg !== null) {
+                element.brw = null;
+                element.verg = null;
+                element.verf = null;
+                element.nutzung = null;
+            }
+        });
         return series;
     }
 
-    setChartOptionsSeries(series, nutzung) {
-        series.forEach((serie, index) => {
-            let seriesColor;
-            if (index) {
-                seriesColor = this.setSeriesColor(serie);
+    setChartOptionsSeries(series, label) {
+        let seriesColor;
+        series.forEach(element => {
+            if (element.verg && element.verg !== null && element.verg !== '') {
+                seriesColor = this.setVergSeriesColor(series);
             }
-            this.chartOption.series.push({
-                name: nutzung,
-                type: 'line',
-                step: 'end',
-                color: seriesColor,
-                symbolSize: function (value) {
-                    if (typeof (value) === 'string') {
-                        return 0;
-                    } else {
-                        return 4;
-                    }
-                },
-                data: serie.map(t => t.brw),
-            });
+        });
+        this.chartOption.series.push({
+            name: label,
+            type: 'line',
+            step: 'end',
+            color: seriesColor,
+            symbolSize: function (value) {
+                if (typeof (value) === 'string') {
+                    return 0;
+                } else {
+                    return 4;
+                }
+            },
+            data: series.map(t => t.brw),
         });
     }
 
     /* eslint-disable complexity */
-    setLegendFormat(seriesArray) {
-        if (seriesArray.length > 1) {
-            this.chartOption.legend.formatter = function (name) {
-                const splittedName = name.split('\n');
-                const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
-                const verf = splittedName.find(item => item === 'Mit Wertanpassung' || item === 'Ohne Wertanpassung');
-                const wnum = splittedName.find(item => Number(item));
-                if (verf && wnum) {
-                    switch (verf) {
-                        case ('Mit Wertanpassung'): {
-                            return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, '{hr|  }', ['{seriesSbEb|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
-                        }
-                        case ('Ohne Wertanpassung'): {
-                            return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, '{hr|  }', ['{series|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
-                        }
-                    }
-                }
-                if (verf && verf !== '') {
-                    switch (verf) {
-                        case ('Mit Wertanpassung'): {
-                            return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{seriesSbEb|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
-                        }
-                        case ('Ohne Wertanpassung'): {
-                            return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', [`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
-                        }
-                    }
-                }
-                if (wnum && (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau')) {
-                    return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, '{hr|  }', ['{series|  }', `{verg|${verg}}`].join('')].join('\n');
-                }
-                if (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau') {
-                    return [`{nutzung|${splittedName[0]}}`, '{hr|  }', ['{series|  }', `{verg|${verg}}`].join('')].join('\n');
-                }
-                return name;
-            };
-            this.chartOption.legend.textStyle.rich = {
-                'nutzung': {
-                    padding: [5, 0, 10, 0]
-                },
-                'verg': {
-                    fontSize: 10,
-                    padding: [0, 0, 5, 5]
-                },
-                'verf': {
-                    fontSize: 9,
-                    padding: [0, 0, 5, 5]
-                },
-                'wnum': {
-                    fontSize: 10
-                },
-                'hr': {
-                    borderColor: '#777',
-                    width: '40%',
-                    borderWidth: 0.2,
-                    height: 0,
-                    padding: [0, 0, 0, 0]
-                },
-                'seriesSbEb': {
-                    borderColor: '#155796',
-                    width: 8,
-                    borderWidth: 2.5,
-                    height: 0,
-                    padding: [0, 0, 0, 0]
-                },
-                'series': {
-                    borderColor: '#0080FF',
-                    width: 8,
-                    borderWidth: 2.5,
-                    height: 0,
-                    padding: [0, 0, 0, 0]
-                }
-            };
-            this.chartOption.grid.top = '17%';
-        }
+    setLegendFormat() {
+        this.chartOption.legend.formatter = function (name) {
+            const splittedName = name.split('\n');
+            const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
+            const verf = splittedName.find(item => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert');
+            const wnum = splittedName.find(item => Number(item));
+            if (verf && wnum) {
+                return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, [[`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
+            }
+            if (verf && verf !== '') {
+                return [`{nutzung|${splittedName[0]}}`, `{verg|${verg}}`, `{verf|(${verf})}`].join('\n');
+            }
+            if (wnum && (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau')) {
+                return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, `{verg|${verg}}`].join('\n');
+            }
+            if (verg === 'Sanierungsgebiet' || verg === 'Entwicklungsbereich' || verg === 'Soziale Stadt' || verg === 'Stadtumbau') {
+                return [`{nutzung|${splittedName[0]}}`, `{verg|${verg}}`].join('\n');
+            }
+            if (wnum) {
+                return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`].join('\n');
+            }
+            return name;
+        };
+        this.chartOption.legend.textStyle.rich = {
+            'nutzung': {
+                padding: [0, 0, 0, 0],
+                align: 'center'
+            },
+            'verg': {
+                fontSize: 10,
+                padding: [0, 0, 4, 0],
+                align: 'center'
+            },
+            'verf': {
+                fontSize: 10,
+                padding: [0, 0, 3, 0],
+                align: 'center'
+            },
+            'wnum': {
+                fontSize: 10,
+                align: 'center'
+            },
+        };
+        this.chartOption.grid.top = '15%';
     }
 
-    setSeriesColor(series) {
+    setVergSeriesColor(series) {
         let color;
         const verf = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
         if (verf && (verf.verf === 'SB' || verf.verf === 'EB')) {
@@ -441,16 +436,18 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return this.chartOption.series[idx].color;
     }
 
-    generateSrTable(label, series: Array<any>) {
+    generateSrTable(label, series) {
         const indexes = [];
-        for (let i = 0; i < series[0].length; i++) {
-            if (series[0][i].forwarded) {
+        for (let i = 0; i < series.length; i++) {
+            if (series[i].forwarded) {
                 indexes.push(i);
             }
         }
-        indexes.forEach(idx => series[0][idx].brw = null);
-        this.srTableHeader.push(label);
-        this.srTableData.push({ series: series[0] });
+        indexes.forEach(idx => series[idx].brw = null);
+        if (label) {
+            this.srTableHeader.push(label);
+            this.srTableData.push({ series: series });
+        }
     }
 
     groupBy(list, keyGetter) {
