@@ -107,7 +107,7 @@ td {
     min-height: 100% !important;
 }
 
-.custom-control-label::after,
-.custom-control-label::before {
+label .custom-control-label::after,
+label .custom-control-label::before {
     top: 0.1rem;
 }
