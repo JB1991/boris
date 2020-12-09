@@ -40,6 +40,7 @@
                                   [model]="form.content"
                                   [css]="data.css_style"
                                   (submitResult)="submitTask(form.id, $event)"
+                                  (changes)="changed($event)"
                                   #wrapper>
     </power-forms-surveyjs-wrapper>
 </main>
