@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -104,7 +104,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             nenner: '2',
             zaehler: '3',
             fsk: '523432525',
-            bbox: [5,4,3,1],
+            bbox: [5, 4, 3, 1],
             flaeche: '200'
         };
         component.teilmarkt = {
@@ -204,9 +204,12 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('resetMap should reset the map', () => {
         component.threeDActive = true;
+        component.lat = lat;
+        component.lng = lon;
         component.resetMap();
-        expect(component.map.resize).toHaveBeenCalledTimes(1);
-        expect(component.map.fitBounds).toHaveBeenCalledTimes(1);
+        expect(component.threeDActive).toBeFalse();
+        expect(component.lat).toBeUndefined();
+        expect(component.lng).toBeUndefined();
     });
 
     it('enableLocationTracking should get the current position', () => {
