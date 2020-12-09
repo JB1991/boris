@@ -193,7 +193,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 label = this.getLabel(key, series);
                 this.chartOption.legend.data.push(label);
                 this.setChartOptionsSeries(series, label);
-                if (seriesFillLine.find(series => series.brw !== null)) {
+                if (seriesFillLine.find(item => item.brw !== null)) {
                     this.setChartOptionsSeries(seriesFillLine, label);
                 }
                 this.generateSrTable(label, series);
@@ -297,7 +297,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     fillLineDuringYear(series) {
         // check gap in same series
-        let seriesFillLine = this.deepCopy(this.seriesTemplate);
+        const seriesFillLine = this.deepCopy(this.seriesTemplate);
         let i = -1;
         do {
             i++;
