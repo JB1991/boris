@@ -316,7 +316,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 }
             } while (series[j].brw === null && j < (series.length - 1));
         } while (typeof (seriesFillLine[i + 1].brw) !== 'string' && i < (series.length - 3));
-
+        // Forwarding the last element of the series
         let seriesValues = series.filter(element => element.brw);
         if (seriesValues.length > 0) {
             seriesValues = seriesValues[seriesValues.length - 1].stag;
