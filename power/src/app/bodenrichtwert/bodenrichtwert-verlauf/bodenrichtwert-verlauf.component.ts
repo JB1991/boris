@@ -295,6 +295,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return nutzung;
     }
 
+    /* eslint-disable complexity */
     fillLineDuringYear(series) {
         // check gap in same series
         const seriesFillLine = this.deepCopy(this.seriesTemplate);
@@ -305,7 +306,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             do {
                 j++;
                 // fill graph
-                if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null) {
+                if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null && typeof (series[i].brw) !== 'string') {
                     seriesFillLine[i].brw = (series[i].brw).toString();
                     seriesFillLine[i].nutzung = series[i].nutzung;
                     seriesFillLine[i].verf = series[i].verf;
@@ -318,7 +319,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         } while (typeof (seriesFillLine[i + 1].brw) !== 'string' && i < (series.length - 3));
         // Forwarding the last element of the series
         let seriesValues = series.filter(element => element.brw);
-        if (seriesValues.length > 0) {
+        if (seriesValues.length > 0 && typeof (seriesValues[seriesValues.length - 1]).brw !== 'string') {
             seriesValues = seriesValues[seriesValues.length - 1].stag;
             const idx = series.findIndex(element => element.stag === seriesValues);
             series[idx + 1].brw = (series[idx].brw).toString();
@@ -331,6 +332,19 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     deleteSeriesVergItems(series) {
+        if (series.find(element => (element.verg === '' || element.verg === null) && element.brw !== null)) {
+            for (let i = 0; i < series.length; i++) {
+                if (series[i].verg !== null && series[i].verg !== '') {
+                    console.log(series[i]);
+                    console.log(series[i + 1].brw);
+                    series[i].verg = null;
+                    series[i].verf = null;
+                    series[i].brw = (series[i].brw).toString();
+                    break;
+                }
+            }
+        }
+
         series.forEach(element => {
             if (element.verg !== null) {
                 element.brw = null;
@@ -343,17 +357,17 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     setChartOptionsSeries(series, label) {
-        let seriesColor;
-        series.forEach(element => {
-            if (element.verg && element.verg !== null && element.verg !== '') {
-                seriesColor = this.setVergSeriesColor(series);
-            }
-        });
+        // let seriesColor;
+        // series.forEach(element => {
+        //     if (element.verg && element.verg !== null && element.verg !== '') {
+        //         seriesColor = this.setVergSeriesColor(series);
+        //     }
+        // });
         this.chartOption.series.push({
             name: label,
             type: 'line',
             step: 'end',
-            color: seriesColor,
+            // color: seriesColor,
             symbolSize: function (value) {
                 if (typeof (value) === 'string') {
                     return 0;
