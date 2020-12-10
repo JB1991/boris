@@ -283,10 +283,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             nutzung += '\n' + verg;
             if (verf) {
                 verf.forEach(verfItem => {
-                    if (verfItem === 'SB' || verfItem === 'EB') {
+                    if (verfItem === 'SB') {
                         nutzung += '\n' + 'sanierungsbeeinflusster Wert';
-                    } else {
+                    } else if (verfItem === 'SU') {
                         nutzung += '\n' + 'sanierungsunbeeinflusster Wert';
+                    } else if(verfItem === 'EB') {
+                        nutzung += '\n' + 'entwicklungsbeeinflusster Wert';
+                    } else if (verfItem === 'EU') {
+                        nutzung += '\n' + 'entwicklungsunbeeinflusster Wert';
                     }
                 });
                 return nutzung;
@@ -335,8 +339,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         if (series.find(element => (element.verg === '' || element.verg === null) && element.brw !== null)) {
             for (let i = 0; i < series.length; i++) {
                 if (series[i].verg !== null && series[i].verg !== '') {
-                    console.log(series[i]);
-                    console.log(series[i + 1].brw);
                     series[i].verg = null;
                     series[i].verf = null;
                     series[i].brw = (series[i].brw).toString();
@@ -384,7 +386,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.legend.formatter = function (name) {
             const splittedName = name.split('\n');
             const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
-            const verf = splittedName.find(item => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert');
+            const verf = splittedName.find(item => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert' || item === 'entwicklungsbeeinflusster Wert' || item === 'entwicklungsunbeeinflusster Wert');
             const wnum = splittedName.find(item => Number(item));
             if (verf && wnum) {
                 return [`{nutzung|${splittedName[0]}}`, `{wnum|${wnum}}`, [[`{verg|${verg}}`, `{verf|(${verf})}`].join('\n')].join('')].join('\n');
