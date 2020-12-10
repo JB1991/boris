@@ -21,7 +21,7 @@ export class NipixRuntimeCalculator {
         if (this.nipixStatic.data.nipix[drawitem.nipixCategory][value].hasOwnProperty(
             this.nipixStatic.referenceDate)) {
             reference = ImmobilienHelper.parseStringAsFloat(
-                this.nipixStatic.data.nipix[drawitem.nipixCategory][value][this.nipixStatic.referenceDate]
+                this.nipixStatic.data.nipix[drawitem.nipixCategory][value][this.nipixStatic.referenceDate]['index']
             );
         }
 
