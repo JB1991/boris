@@ -6,7 +6,7 @@
                     <b i18n>Erklärungen</b>
                 </div>
                 <div class="card-body">
-                    <ng-container [ngSwitch]="data.text">
+                    <ng-container [ngSwitch]="table.text">
                         <ng-container *ngSwitchCase="'ACZA'">
                             <p i18n>Die vom Gutachterausschuss ermittelten Bodenrichtwerte beziehen sich auf eine durchschnittliche, gebietstypische Bodengüte, die als Acker- bzw. Grünlandzahl definiert ist.</p>
                             <p i18n>Diese auch als Bodenpunkte bezeichneten Werte sind nach dem Bodenschätzungsgesetz ermittelte Verhältniszahlen über die natürliche Ertragsfähigkeit landwirtschaftlicher Grundstücke.</p>
@@ -57,12 +57,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let wert of data.werte">
-                            <ng-container *ngIf="data.text != 'Art der Bebauung'">
+                        <tr *ngFor="let wert of table.werte">
+                            <ng-container *ngIf="table.text != 'Art der Bebauung'">
                                 <td>{{wert.bzwt | number}}</td>
                                 <td>{{wert.koef | number}}</td>
                             </ng-container>
-                            <ng-container *ngIf="data.text == 'Art der Bebauung'">
+                            <ng-container *ngIf="table.text == 'Art der Bebauung'">
                                 <td>{{wert.bzwt | artDerBebauung}}</td>
                                 <td>{{wert.koef | number}}</td>
                             </ng-container>
@@ -79,14 +79,16 @@
                 </div>
                 <div class="card-body">
                     <p><span i18n>Bodenrichtwert</span>: {{brw}} € / m²</p>
-                    <ng-container *ngIf="data.text != 'Art der Bebauung'">
-                        <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}: {{data.werte[0].bzwt | number}}</p>
+                    <p><span i18n>{{einflussgroesse}} des Richtgrundstücks</span>: {{actualValue | number}}</p>
+                    <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{actualKoef | number}}</p>
+                    <ng-container *ngIf="table.text != 'Art der Bebauung'">
+                        <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}: {{table.werte[0].bzwt | number}}</p>
                     </ng-container>
-                    <ng-container *ngIf="data.text == 'Art der Bebauung'">
-                        <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}: {{data.werte[0].bzwt | artDerBebauung}}</p>
+                    <ng-container *ngIf="table.text == 'Art der Bebauung'">
+                        <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}: {{table.werte[0].bzwt | artDerBebauung}}</p>
                     </ng-container>
-                    <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{data.werte[0].koef | number}}</p>
-                    <p><span i18n>Individueller Bodenrichtwert</span>: {{brw}} € / m² * {{data.werte[0].koef | number}} ≈ {{brw * data.werte[0].koef | number:'1.0-0'}} € / m²</p>
+                    <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{table.werte[0].koef | number}}</p>
+                    <p><span i18n>Individueller Bodenrichtwert</span>: {{brw}} €/m² / {{actualKoef | number}} * {{table.werte[0].koef | number}} ≈ {{brw / actualKoef * table.werte[0].koef | number:'1.0-0'}} € / m²</p>
                 </div>
             </div>
         </div>

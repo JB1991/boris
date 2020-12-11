@@ -12,39 +12,52 @@ import { ObjectIdPipe } from '@app/bodenrichtwert/pipes/object-id.pipe';
 })
 export class UmrechnungComponent implements OnInit {
     @ViewChild('umrechnung_modal') public modal: ModalminiComponent;
-    @Input() public data = {
-        objid: '',
-        text: '',
-        umstet: '',
-        umart: '',
-        werte: [
-            {
-                bzwt: 0,
-                koef: 0
-            }
-        ]
-    };
+    @Input() public table: ConversionTable;
     @Input() public brw: number;
+    @Input() public actualValue: any;
 
     strings = {
         'koef': $localize`Umrechnungskoeffizient`,
     };
 
-    einflussgroesse: string;
-    objectId: string;
+    public einflussgroesse: string;
+    public objectId: string;
+    public actualKoef: any;
 
     constructor(private einflussgroessePipe: EinflussgroessePipe,
-                private objectIdPipe: ObjectIdPipe) {
+        private objectIdPipe: ObjectIdPipe) {
     }
 
     ngOnInit(): void {
-        this.einflussgroesse = this.einflussgroessePipe.transform(this.data.text);
-        this.objectId = this.objectIdPipe.transform(this.data.objid);
-        this.data.werte = this.sortBezugswerte(this.data.werte);
+        this.einflussgroesse = this.einflussgroessePipe.transform(this.table.text);
+        this.objectId = this.objectIdPipe.transform(this.table.objid);
+        this.table.werte = this.sortBezugswerte(this.table.werte);
+        this.actualKoef = this.findActualKoef(this.table.werte);
     }
 
-    sortBezugswerte(array) {
+    public sortBezugswerte(array) {
         return array.sort((a, b) => a.bzwt - b.bzwt);
+    }
+
+    public findActualKoef(werte: Array<ConversionItem>) {
+        let item: ConversionItem;
+        if (this.table.text === 'Art der Bebauung') {
+            if (this.actualValue.toString() === 'EFH') {
+                item = werte.find(i => i.bzwt === 1);
+                return item ? item.koef : item;
+            } else if (this.actualValue.toString() === 'MFH') {
+                item = werte.find(i => i.bzwt === 2);
+                return item ? item.koef : item;
+            }
+        } else if (this.table.text === 'FLAE') {
+            const roundedValue = Math.round(this.actualValue / 100) * 100;
+            item = werte.find(i => i.bzwt === roundedValue);
+            return item ? item.koef : item;
+        } else {
+            item = werte.find(i => i.bzwt.toString() === this.actualValue);
+            return item ? item.koef : item;
+        }
+        return item;
     }
 
     public open() {
@@ -55,4 +68,17 @@ export class UmrechnungComponent implements OnInit {
     public close() {
         this.modal.close();
     }
+}
+
+export interface ConversionTable {
+    objid: string;
+    text: string;
+    umstet: string;
+    umart: string;
+    werte: Array<ConversionItem>;
+}
+
+export interface ConversionItem {
+    bzwt: number;
+    koef: number;
 }

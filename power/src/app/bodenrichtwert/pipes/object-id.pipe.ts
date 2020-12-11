@@ -10,6 +10,6 @@ export class ObjectIdPipe implements PipeTransform {
             return null;
         }
 
-        return value.replace('DENIBR', '');
+        return value.substr(6, value.length);
     }
 }

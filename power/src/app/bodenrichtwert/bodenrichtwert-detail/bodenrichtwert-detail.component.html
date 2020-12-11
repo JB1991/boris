@@ -215,11 +215,11 @@
                        [routerLink]=""
                        (click)="umrechnungstabelle.open()">
                         {{umrechnung.text | einflussgroesse}}
-                        ({{umrechnung.objid | objectId}})
                     </a>
                     <power-bodenrichtwert-detail-umrechnung #umrechnungstabelle
-                                                            [data]="umrechnung"
-                                                            [brw]="feature.properties.brw">
+                                                            [table]="umrechnung"
+                                                            [brw]="feature.properties.brw"
+                                                            [actualValue]="umrechnung.text === 'Art der Bebauung' ? feature.properties.nutzung[0]['enuta'] : feature.properties[umrechnung.text.toLowerCase()]">
                     </power-bodenrichtwert-detail-umrechnung>
                 </dd>
             </ng-container>
