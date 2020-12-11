@@ -99,6 +99,7 @@ test:audit:
     - dev
     - staging
     - production
+  allow_failure: true
 
 test:lint:
   stage: test
