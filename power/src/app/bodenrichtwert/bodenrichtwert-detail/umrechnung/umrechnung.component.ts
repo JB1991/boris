@@ -50,7 +50,7 @@ export class UmrechnungComponent implements OnInit {
                 return item ? item.koef : item;
             }
         } else if (this.table.text === 'FLAE') {
-            let roundedValue = Math.round(this.actualValue / 100) * 100;
+            const roundedValue = Math.round(this.actualValue / 100) * 100;
             item = werte.find(i => i.bzwt === roundedValue);
             return item ? item.koef : item;
         } else {
