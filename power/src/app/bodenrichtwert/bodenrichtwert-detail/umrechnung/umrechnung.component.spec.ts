@@ -10,6 +10,7 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
     const tableWgfz: ConversionTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-wgfz.json');
     const tableArtBebauung: ConversionTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-artbebauung.json');
     const tableFlae: ConversionTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-flae.json');
+    const tableFail: ConversionTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-fail.json');
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -86,8 +87,8 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
         component.ngOnInit();
         expect(component.actualKoef).toEqual(undefined);
 
-        component.table = tableArtBebauung;
-        component.table.text = 'Fail';
+        // Fail
+        component.table = tableFail;
         component.actualValue = 'GH';
         component.ngOnInit();
         expect(component.actualKoef).toEqual(undefined);
