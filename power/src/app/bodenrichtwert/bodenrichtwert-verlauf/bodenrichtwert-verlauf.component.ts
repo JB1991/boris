@@ -224,6 +224,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         const defaultVerf = ['SU', 'EU', 'SB', 'EB'];
         const seriesIncludesVerf = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
         const copyData = function (i) {
+            if (i < 8 && series[i + 1].brw !== null && (series[i + 1].verg === '' || series[i + 1].verg === null)) {
+                seriesVergValues[i + 1].brw = (series[i + 1].brw).toString();
+                seriesVergValues[i + 1].nutzung = series[i + 1].nutzung;
+            }
             seriesVergValues[i].brw = series[i].brw;
             seriesVergValues[i].nutzung = series[i].nutzung;
             seriesVergValues[i].verg = series[i].verg;
@@ -336,8 +340,15 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     deleteSeriesVergItems(series) {
-        if (series.find(element => (element.verg === '' || element.verg === null) && element.brw !== null)) {
-            for (let i = 0; i < series.length; i++) {
+        let i;
+        if (series.find((element, index) => {
+            if ((element.verg === '' || element.verg === null) && element.brw !== null) {
+                i = index;
+                return true;
+            }
+        })
+        ) {
+            for (i; i < series.length; i++) {
                 if (series[i].verg !== null && series[i].verg !== '') {
                     series[i].verg = null;
                     series[i].verf = null;
