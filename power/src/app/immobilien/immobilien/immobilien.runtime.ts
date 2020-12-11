@@ -201,7 +201,7 @@ export class NipixRuntime {
         if (result.length === 1) {
             return result[0];
         } else {
-            return null;
+            return {};
         }
     }
 

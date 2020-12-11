@@ -71,7 +71,7 @@ export class NipixStatic {
 
     public parseGemeinden(gem: string): boolean {
 
-        const rgn = {};
+        const rgn = [];
         const lines = gem.split(/\r\n|\r|\n/g);
 
         // Iterate over all lines
@@ -81,7 +81,7 @@ export class NipixStatic {
             // If line is valid
             if (line[0].length === 7) {
 
-                rgn[line[1]] = line[2];
+                rgn.push({'name': line[1], 'ags': line[0], 'woma_id': line[2]});
             }
         }
 

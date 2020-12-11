@@ -66,7 +66,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
     it('getDrawPreset works', function () {
         const res = component.getDrawPreset('bar');
-        expect(res).toEqual(null);
+        expect(res).toEqual({});
         component.resetDrawPresets();
         const res1 = component.getDrawPreset('foo');
         expect(res1).toEqual(

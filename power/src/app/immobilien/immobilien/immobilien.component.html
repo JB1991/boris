@@ -12,65 +12,80 @@
             i18n aria-hidden="true">HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</div>
     </div>
     <div class="col-sm-4">
-        <ngb-accordion [closeOthers]="true" activeIds="static-0" (panelChange)="onPanelChange($event)"
-                       #acc="ngbAccordion">
 
-            <ngb-panel *ngFor="let select of nipixStatic.data.selections; let p = index" id="static-{{p}}">
-                <ng-template ngbPanelTitle>
+        <!-- Main Accordion -->
+        <accordion [closeOthers]="true" [isAnimated]="true">
+            <accordion-group *ngFor="let select of nipixStatic.data.selections; let p = index" [isOpen]="staticExpand(p)" (isOpenChange)="staticChange(p, $event)">
+
+                <!-- Header -->
+                <button class="btn btn-link btn-block clearfix" accordion-heading type="button">
                     <i-bs name="plus-circle" *ngIf="staticExpand(p) === false" aria-hidden="true"></i-bs>
                     <i-bs name="dash-circle" *ngIf="staticExpand(p) === true" aria-hidden="true"></i-bs>
                     {{nipixRuntime.translate(select['name'])}}
-                </ng-template>
-                <ng-template ngbPanelContent>
+                </button>
 
-                    <!-- NiPix Category Selection -->
-                    <div ngbDropdown *ngIf="select['type'] === 'single' || select['type'] === 'multiIndex'"
-                         class="d-inline-block btn-block ">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownBasic2-{{p}}" type="button" aria-haspopup="listbox" attr.aria-label="Kategorie auswählen. Aktuelle Auswahl {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}" ngbDropdownToggle>
+                <!-- Content: NiPix Category Selection -->
+                <div class="btn-group btn-block" dropdown *ngIf="select['type'] === 'single' || select['type'] === 'multiIndex'">
+                    <button
+                        class="btn btn-block dropdown-toggle"
+                        id="dropdownBasic2-{{p}}"
+                        dropdownToggle
+                        type="button"
+                        aria-controls="dropdown-basic"
+                        aria-haspopup="true"
+                        attr.aria-label="Kategorie auswählen. Aktuelle Auswahl {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}"
+                       >
+                        <i-bs name="house-fill"
+                              *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory === 'gebrauchte Eigenheime'"
+                              aria-hidden="true">
+                        </i-bs>
+                        <i-bs name="building"
+                              *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory === 'gebrauchte Eigentumswohnungen'"
+                              aria-hidden="true">
+                        </i-bs>
+                        {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}
+                        <span class="caret"></span>
+                    </button>
+
+                    <div class="dropdown-menu btn-block" *dropdownMenu aria-labelledby="dropdownBasic2-{{p}}">
+                        <button type="button" class="dropdown-item" (click)="onChangeCat(select['preset'], f)" *ngFor="let f of nipixRuntime.availableNipixCategories">
                             <i-bs name="house-fill"
-                                  *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory === 'gebrauchte Eigenheime'"
+                                  *ngIf="f === 'gebrauchte Eigenheime'"
                                   aria-hidden="true">
                             </i-bs>
                             <i-bs name="building"
-                                  *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory === 'gebrauchte Eigentumswohnungen'"
+                                  *ngIf="f === 'gebrauchte Eigentumswohnungen'"
                                   aria-hidden="true">
                             </i-bs>
-                            {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}
+                            {{nipixRuntime.translate(f)}}
                         </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic2-{{p}}" class="dropdown-menu">
-                            <button type="button" class="dropdown-item" *ngFor="let f of nipixRuntime.availableNipixCategories"
-                                    (click)="onChangeCat(select['preset'], f)">
-                                <i-bs name="house-fill"
-                                      *ngIf="f === 'gebrauchte Eigenheime'"
-                                      aria-hidden="true">
-                                </i-bs>
-                                <i-bs name="building"
-                                      *ngIf="f === 'gebrauchte Eigentumswohnungen'"
-                                      aria-hidden="true">
-                                </i-bs>
-                                {{nipixRuntime.translate(f)}}
-                            </button>
-                        </div>
                     </div>
+                </div>
 
-                    <!-- MultiSelect -->
-                    <div ngbDropdown class="d-inline-block btn-block" style="margin-bottom: 1rem;" *ngIf="select['type'] === 'multiSelect'">
-                        <button class="btn btn-block shadow-sm bg-white" id="dropdownVergleich-{{select['name']}}"
-                                type="button" aria-haspopup="listbox" ngbDropdownToggle>
-                            {{ (select['selected']) }} <ng-container i18n>Vergleiche</ng-container>
+                <!-- Content: MultiSelect - Anzahl Vergleiche -->
+                 <div class="btn-group btn-block" dropdown style="margin-bottom: 1rem;" *ngIf="select['type'] === 'multiSelect'">
+                    <button
+                        class="btn btn-block dropdown-toggle"
+                        id="dropdownVergleich-{{select['name']}}"
+                        dropdownToggle
+                        type="button"
+                        aria-haspopup="true"
+                       >
+                        {{ (select['selected']) }} <ng-container i18n>Vergleiche</ng-container>
+                    </button>
+                    <div *dropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu btn-block">
+                        <button type="button" class="dropdown-item" *ngFor="let f of select['preset']" (click)="onSetNumber(select['name'], f)">
+                            {{f}} <ng-container i18n>Vergleiche</ng-container>
                         </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownVergleich-select['name']" class="dropdown-menu">
-                            <button type="button" class="dropdown-item" *ngFor="let f of select['preset']"
-                                    (click)="onSetNumber(select['name'], f)">
-                                {{f}} <ng-container i18n>Vergleiche</ng-container>
-                            </button>
-                        </div>
                     </div>
+                </div>
 
-                    <div *ngIf="select['type'] === 'multiSelect'" style="padding-left: 40px; margin-bottom: 1rem;"
-                        i18n aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</div>
+                <!-- Content: Hinweis Vergleiche -->
+                <div *ngIf="select['type'] === 'multiSelect'" style="padding-left: 40px; margin-bottom: 1rem;" i18n aria-hidden="true">
+                    HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.
+                </div>
 
-                    <!-- Select DrawValues-->
+              <!-- Select DrawValues: Einzeldarstellung, Vergleiche -->
                     <ul class="tab" *ngIf="select['type'] === 'single' || select['type'] === 'multiSelect'">
 
                         <ng-container *ngIf="select['type'] === 'multiSelect'">
@@ -197,7 +212,7 @@
                         </ng-container>
                     </ul>
 
-                    <!-- Select DrawShow -->
+                    <!-- Select DrawShow: Aggregierte Darstellung -->
                     <ul *ngIf="select['type'] === 'multi' || select['type'] === 'multiIndex'">
                         <ng-container *ngFor="let itm of select['preset']">
                             <li *ngIf="nipixRuntime.getDrawPreset(itm) !== null">
@@ -223,10 +238,9 @@
                         </ng-container>
                     </ul>
 
-                </ng-template>
-            </ngb-panel>
+            </accordion-group>
+        </accordion>
 
-        </ngb-accordion>
         <br>
         <!-- SR-Only Content -->
 
@@ -254,128 +268,130 @@
             </table>
         </div>
         <!-- Tools -->
-        <ngb-accordion [closeOthers]="true" activeIds="" #toolacc="ngbAccordion">
-
-            <!-- Quartal asuwählen -->
-            <ngb-panel id="static-97">
-                <ng-template ngbPanelTitle>
-                    <i-bs name="plus-circle" *ngIf="staticToolExpand(97) === false" aria-hidden="true" class="mr-1"></i-bs>
-                    <i-bs name="dash-circle" *ngIf="staticToolExpand(97) === true" aria-hidden="true" class="mr-1"></i-bs>
-                    <ng-container i18n>Zeitraum auswählen</ng-container>
-                </ng-template>
-                <ng-template ngbPanelContent>
+        <!-- Main Accordion -->
+        <accordion [closeOthers]="false" [isAnimated]="true">
+            <accordion-group [isOpen]="staticExpand(97)" (isOpenChange)="staticChange(97, $event)">
+                <!-- Header -->
+                <button class="btn btn-link btn-block clearfix" accordion-heading type="button">
+                    <i-bs name="plus-circle" *ngIf="staticExpand(97) === false" aria-hidden="true"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticExpand(97) === true" aria-hidden="true"></i-bs>
+                    Zeitraum auswählen
+                </button>
                     <span i18n aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem Graphen erfolgen.<br></span>
 
                     <span id="dropdownTime1Label" i18n>Zeitraum von </span>
-                    <div ngbDropdown class="d-inline-block">
-                        <button type="button" class="btn btn-block shadow-sm bg-white" id="dropdownTime1" aria-haspopup="listbox" attr.aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}" ngbDropdownToggle>
+
+                    <div dropdown class="btn-group" *ngIf="nipixRuntime.availableQuartal !== undefined && nipixRuntime.state.rangeStartIndex !== undefined">
+                       <button
+							type="button"
+							dropdownToggle
+							class="btn dropdown-toggle"
+							id="dropdownTime1"
+							aria-controls="dropdown-basic"
+							aria-haspopup="true"
+							attr.aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}"
+						   >
                             {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}
+							<span class="caret"></span>
                         </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownTime1Label">
-                            <button type="button" ngbDropdownItem *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(q, null)">{{quart}}</button>
+                        <div class="dropdown-menu btn-block" *dropdownMenu aria-labelledby="dropdownTime1Label">
+                            <button type="button" class="dropdown-item" *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(q, null)">{{quart}}</button>
                         </div>
                     </div>
 
                     <span i18n id="dropdownTime2Label"> bis </span>
 
-                    <div ngbDropdown class="d-inline-block">
-                        <button type="button" class="btn btn-block shadow-sm bg-white" id="dropdownTime2" aria-haspopup="listbox" attr.aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndtIndex]}}" ngbDropdownToggle>
+                    <div dropdown class="btn-group" *ngIf="nipixRuntime.availableQuartal !== undefined && nipixRuntime.state.rangeEndIndex !== undefined">
+                        <button
+                            type="button"
+                            dropdownToggle
+                            class="btn dropdown-toggle"
+                            id="dropdownTime2"
+                            aria-haspopup="listbox"
+                            attr.aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}"
+                           >
                             {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}
+							<span class="caret"></span>
                         </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownTime2Label">
-                            <button type="button" ngbDropdownItem *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(null, q)">{{quart}}</button>
+                        <div class="dropdown-menu btn-block" *dropdownMenu aria-labelledby="dropdownTime2Label">
+                            <button type="button" class="dropdown-item" *ngFor="let quart of nipixRuntime.availableQuartal; let q = index" (click)="onChangeQuartal(null, q)">{{quart}}</button>
                         </div>
                     </div>
+            </accordion-group>
+            <accordion-group [isOpen]="staticExpand(98)" (isOpenChange)="staticChange(98, $event)">
+                <!-- Header -->
+                <button class="btn btn-link btn-block clearfix" accordion-heading type="button">
+                    <i-bs name="plus-circle" *ngIf="staticExpand(98) === false" aria-hidden="true"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticExpand(98) === true" aria-hidden="true"></i-bs>
+                    Export / Download
+                </button>
 
-                </ng-template>
-            </ngb-panel>
+                Karte:
+                <ul>
+                    <li>
+                        <span class="download" role="link" tabindex="0"
+                                                           (click)="nipixRuntime.export.exportMapAsImage()"
+                                                           (keydown.enter)="nipixRuntime.export.exportMapAsImage()">
+                            <i-bs name="file-earmark-image" aria-hidden="true"></i-bs>
+                            Export als Bild (png)
+                        </span>
+                    </li>
+                    <li>
+                        <span class="download" role="link" tabindex="0"
+                                                           (click)="nipixRuntime.export.exportGeoJSON()"
+                                                           (keydown.enter)="nipixRuntime.export.exportGeoJSON()">
+                            <i-bs name="file-earmark-richtext" aria-hidden="true"></i-bs>
+                            Export als GeoJSON
+                        </span>
+                    </li>
+                </ul>
+                Preisentwicklung:
+                <ul>
+                    <li>
+                        <span class="download" role="link" tabindex="0"
+                                                           (click)="nipixRuntime.export.exportAsImage()"
+                                                           (keydown.enter)="nipixRuntime.export.exportAsImage()">
+                            <i-bs name="file-earmark-image" aria-hidden="true"></i-bs>
+                            Export als Bild (png)
+                        </span>
+                    </li>
+                    <li>
+                        <span class="download" role="link" tabindex="0"
+                                                           (click)="nipixRuntime.export.exportNiPixGeoJson(true)"
+                                                           (keydown.enter)="nipixRuntime.export.exportNiPixGeoJson(true)">
+                            <i-bs name="file-earmark-richtext" aria-hidden="true"></i-bs>
+                            Export als GeoJSON
+                        </span>
+                    </li>
+                    <li>
+                        <span class="download" role="link" tabindex="0"
+                                                           (click)="nipixRuntime.export.exportNiPixGeoJson(false)"
+                                                           (keydown.enter)="nipixRuntime.export.exportNiPixGeoJson(false)">
+                            <i-bs name="file-earmark-spreadsheet" aria-hidden="true"></i-bs>
+                            Export als CSV
+                        </span>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group [isOpen]="staticExpand(99)" (isOpenChange)="staticChange(99, $event)">
+                <!-- Header -->
+                <button class="btn btn-link btn-block clearfix" accordion-heading type="button">
+                    <i-bs name="plus-circle" *ngIf="staticExpand(99) === false" aria-hidden="true"></i-bs>
+                    <i-bs name="dash-circle" *ngIf="staticExpand(99) === true" aria-hidden="true"></i-bs>
+                    Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
+                </button>
 
-
-            <!-- Export / Print -->
-            <ngb-panel id="static-98">
-                <ng-template ngbPanelTitle>
-                    <i-bs name="plus-circle" *ngIf="staticToolExpand(98) === false" aria-hidden="true" class="mr-1"></i-bs>
-                    <i-bs name="dash-circle" *ngIf="staticToolExpand(98) === true" aria-hidden="true" class="mr-1"></i-bs>
-                    <ng-container i18n>Export / Download</ng-container>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    Karte:
-                    <ul>
-                        <li>
-                            <span class="download" role="link" tabindex="0"
-                                (click)="nipixRuntime.export.exportMapAsImage()"
-                                (keydown.enter)="nipixRuntime.export.exportMapAsImage()">
-                                <i-bs name="file-earmark-image" aria-hidden="true"></i-bs>
-                                Export als Bild (png)
-                            </span>
-                        </li>
-                        <li>
-                            <span class="download" role="link" tabindex="0"
-                                (click)="nipixRuntime.export.exportGeoJSON()"
-                                (keydown.enter)="nipixRuntime.export.exportGeoJSON()">
-                                <i-bs name="file-earmark-richtext" aria-hidden="true"></i-bs>
-                                Export als GeoJSON
-                            </span>
-                        </li>
-                    </ul>
-                    Preisentwicklung:
-                    <ul>
-                        <li>
-                            <span class="download" role="link" tabindex="0"
-                                (click)="nipixRuntime.export.exportAsImage()"
-                                (keydown.enter)="nipixRuntime.export.exportAsImage()">
-                                <i-bs name="file-earmark-image" aria-hidden="true"></i-bs>
-                                Export als Bild (png)
-                            </span>
-                        </li>
-                        <li>
-                            <span class="download" role="link" tabindex="0"
-                                (click)="nipixRuntime.export.exportNiPixGeoJson(true)"
-                                (keydown.enter)="nipixRuntime.export.exportNiPixGeoJson(true)">
-                                <i-bs name="file-earmark-richtext" aria-hidden="true"></i-bs>
-                                Export als GeoJSON
-                            </span>
-                        </li>
-                        <li>
-                            <span class="download" role="link" tabindex="0"
-                                (click)="nipixRuntime.export.exportNiPixGeoJson(false)"
-                                (keydown.enter)="nipixRuntime.export.exportNiPixGeoJson(false)">
-                                <i-bs name="file-earmark-spreadsheet" aria-hidden="true"></i-bs>
-                                Export als CSV
-                            </span>
-                        </li>
-                    </ul>
-
-                </ng-template>
-
-            </ngb-panel>
-
-            <!-- Find Woma-Region -->
-            <ngb-panel id="static-99">
-                <ng-template ngbPanelTitle>
-                    <i-bs name="plus-circle" *ngIf="staticToolExpand(99) === false" aria-hidden="true" class="mr-1"></i-bs>
-                    <i-bs name="dash-circle" *ngIf="staticToolExpand(99) === true" aria-hidden="true" class="mr-1"></i-bs>
-                    <ng-container i18n>Zu welcher Wohnungsmarktregion gehört meine Gemeinde?</ng-container>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <label for="typeahead-focus" i18n>Suchen Sie Ihre Gemeinde</label>:
-                    <input
-                        id="typeahead-focus"
-                        type="text"
-                        class="form-control"
-                        [(ngModel)]="model"
-                        [ngbTypeahead]="search"
-                        (focus)="focus$.next($event.target.value)"
-                        (click)="click$.next($event.target.value)"
-                        #searchWoMaReg="ngbTypeahead">
-                        <ng-container *ngIf="regionName(nipixStatic.data.gemeinden[model]) !== ''">
-                            <hr>
-                            <ng-container i18n>Ihre Wohnungsmarktregion</ng-container>: {{ nipixRuntime.translate(regionName(nipixStatic.data.gemeinden[model])) }}
-                        </ng-container>
-
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+                <input type="text" [(ngModel)]="selectedWoMaValue"
+                                                                               [typeahead]="this.nipixStatic.data.gemeinden"
+                                                                               typeaheadOptionField="name"
+                                                                               (typeaheadOnSelect)="onSelectWoMa($event)"
+                                                                               class="form-control">
+                <ng-container *ngIf="selectedWoMa !== undefined && regionName(selectedWoMa['woma_id']) !== ''">
+                    <hr>
+                    <ng-container i18n>Ihre Wohnungsmarktregion</ng-container>: {{ nipixRuntime.translate(regionName(selectedWoMa['woma_id'])) }}
+                </ng-container>
+            </accordion-group>
+        </accordion>
 
         <div style="text-align: center; margin-top: 1rem;">
             <a href="{{nipixStatic.agnbUrl}}" target="_blank" rel="noreferrer"

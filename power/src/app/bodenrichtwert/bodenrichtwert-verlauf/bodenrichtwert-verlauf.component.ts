@@ -287,7 +287,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                         nutzung += '\n' + 'sanierungsbeeinflusster Wert';
                     } else if (verfItem === 'SU') {
                         nutzung += '\n' + 'sanierungsunbeeinflusster Wert';
-                    } else if(verfItem === 'EB') {
+                    } else if (verfItem === 'EB') {
                         nutzung += '\n' + 'entwicklungsbeeinflusster Wert';
                     } else if (verfItem === 'EU') {
                         nutzung += '\n' + 'entwicklungsunbeeinflusster Wert';
@@ -428,17 +428,18 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.grid.top = '15%';
     }
 
-    setVergSeriesColor(series) {
-        let color;
-        const verf = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
-        if (verf && (verf.verf === 'SB' || verf.verf === 'EB')) {
-            color = '#155796';
-            return color;
-        } else {
-            color = '#0080FF';
-            return color;
-        }
-    }
+    // setVergSeriesColor(series) {
+    //     let color;
+    //     const verf = series.find(element => element.verf === 'SU' || element.verf === 'EU' ||
+    // element.verf === 'SB' || element.verf === 'EB');
+    //     if (verf && (verf.verf === 'SB' || verf.verf === 'EB')) {
+    //         color = '#155796';
+    //         return color;
+    //     } else {
+    //         color = '#0080FF';
+    //         return color;
+    //     }
+    // }
 
     getSeriesColor(series) {
         let nutzung: any;
