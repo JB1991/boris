@@ -28,12 +28,12 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
         fixture = TestBed.createComponent(UmrechnungComponent);
         component = fixture.componentInstance;
         component.table = tableFlae;
-        component.actualValue = 200;
+        component.actualValue = '200';
         fixture.detectChanges();
     });
 
     afterEach(() => {
-        fixture.destroy();
+        component.actualKoef = undefined;
     });
 
     it('should create', () => {
@@ -49,7 +49,7 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
 
     it('ngOninit should initialize the component', () => {
         // FLAE
-        expect(component.actualKoef).toEqual(123.0);
+        expect(component.actualKoef).toEqual({ 'bzwt': 200, 'koef': 123.0 });
         expect(component.objectId).toEqual('0015UW0002');
         expect(component.einflussgroesse).toEqual('Fläche in m²');
 
@@ -57,7 +57,7 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
         component.table = tableWgfz;
         component.actualValue = '2.2';
         component.ngOnInit();
-        expect(component.actualKoef).toEqual(1.04);
+        expect(component.actualKoef).toEqual({ 'bzwt': 2.2, 'koef': 1.04 });
         expect(component.objectId).toEqual('4313UW0007');
         expect(component.einflussgroesse).toEqual('Wertrelevante Geschossflächenzahl');
 
@@ -65,16 +65,21 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
         component.table = tableArtBebauung;
         component.actualValue = 'MFH';
         component.ngOnInit();
-        expect(component.actualKoef).toEqual(1.35);
+        expect(component.actualKoef).toEqual({ 'bzwt': 2, 'koef': 1.35 });
         expect(component.objectId).toEqual('4920UW0099');
         expect(component.einflussgroesse).toEqual('Art der Bebauung');
         component.table = tableArtBebauung;
         component.actualValue = 'EFH';
         component.ngOnInit();
-        expect(component.actualKoef).toEqual(1.0);
+        expect(component.actualKoef).toEqual({ 'bzwt': 1, 'koef': 1 });
     });
 
     it('ngOninit should not intialize actualKoef', () => {
+        // FLAE
+        expect(component.actualKoef).toEqual({ 'bzwt': 200, 'koef': 123.0 });
+        expect(component.objectId).toEqual('0015UW0002');
+        expect(component.einflussgroesse).toEqual('Fläche in m²');
+
         // Art der Bebauung
         component.table = tableArtBebauung;
         component.actualValue = 'GH';

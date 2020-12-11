@@ -123,7 +123,8 @@
                     </ng-container>
                     <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{table.werte[0].koef | number}}</p>
                     <p><span i18n>Individueller Bodenrichtwert</span>: {{brw}} €/m² / {{actualKoef.koef | number}} *
-                        {{table.werte[0].koef | number}} ≈ {{brw / actualKoef.koef * table.werte[0].koef | number:'1.0-0'}} €
+                        {{table.werte[0].koef | number}} ≈
+                        {{brw / actualKoef.koef * table.werte[0].koef | number:'1.0-0'}} €
                         / m²</p>
                 </div>
             </div>
