@@ -14,7 +14,7 @@ export class UmrechnungComponent implements OnInit {
     @ViewChild('umrechnung_modal') public modal: ModalminiComponent;
     @Input() public table: ConversionTable;
     @Input() public brw: number;
-    @Input() public actualValue: any;
+    @Input() public actualValue: string;
 
     strings = {
         'koef': $localize`Umrechnungskoeffizient`,
@@ -22,7 +22,7 @@ export class UmrechnungComponent implements OnInit {
 
     public einflussgroesse: string;
     public objectId: string;
-    public actualKoef: any;
+    public actualKoef: ConversionItem;
 
     constructor(private einflussgroessePipe: EinflussgroessePipe,
         private objectIdPipe: ObjectIdPipe) {
@@ -44,18 +44,18 @@ export class UmrechnungComponent implements OnInit {
         if (this.table.text === 'Art der Bebauung') {
             if (this.actualValue.toString() === 'EFH') {
                 item = werte.find(i => i.bzwt === 1);
-                return item ? item.koef : item;
+                return item;
             } else if (this.actualValue.toString() === 'MFH') {
                 item = werte.find(i => i.bzwt === 2);
-                return item ? item.koef : item;
+                return item;
             }
         } else if (this.table.text === 'FLAE') {
-            const roundedValue = Math.round(this.actualValue / 100) * 100;
+            const roundedValue = Math.round(Number(this.actualValue) / 100) * 100;
             item = werte.find(i => i.bzwt === roundedValue);
-            return item ? item.koef : item;
+            return item;
         } else {
-            item = werte.find(i => i.bzwt.toString() === this.actualValue);
-            return item ? item.koef : item;
+            item = werte.find(i => i.bzwt === Number(this.actualValue));
+            return item;
         }
         return item;
     }
