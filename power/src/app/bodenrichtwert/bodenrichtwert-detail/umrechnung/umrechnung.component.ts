@@ -35,29 +35,29 @@ export class UmrechnungComponent implements OnInit {
         this.actualKoef = this.findActualKoef(this.table.werte);
     }
 
-    sortBezugswerte(array) {
+    public sortBezugswerte(array) {
         return array.sort((a, b) => a.bzwt - b.bzwt);
     }
 
-    private findActualKoef(werte: Array<ConversionItem>) {
+    public findActualKoef(werte: Array<ConversionItem>) {
         let item: ConversionItem;
         if (this.table.text === 'Art der Bebauung') {
             if (this.actualValue.toString() === 'EFH') {
                 item = werte.find(i => i.bzwt === 1);
-                return item ? item.koef : undefined;
+                return item ? item.koef : item;
             } else if (this.actualValue.toString() === 'MFH') {
                 item = werte.find(i => i.bzwt === 2);
-                return item ? item.koef : undefined;
+                return item ? item.koef : item;
             }
         } else if (this.table.text === 'FLAE') {
             let roundedValue = Math.round(this.actualValue / 100) * 100;
             item = werte.find(i => i.bzwt === roundedValue);
-            return item ? item.koef : undefined;
+            return item ? item.koef : item;
         } else {
             item = werte.find(i => i.bzwt.toString() === this.actualValue);
-            return item ? item.koef : undefined;
+            return item ? item.koef : item;
         }
-        return undefined;
+        return item;
     }
 
     public open() {
