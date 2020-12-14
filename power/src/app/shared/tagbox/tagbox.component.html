@@ -7,6 +7,7 @@
                class="form-control"
                [(ngModel)]="tagInput"
                (change)="addTag()"
+               (keyup.enter)="addTag()"
                [name]="eid"
                [id]="eid"
                maxlength="50"
@@ -23,6 +24,7 @@
             class="custom-select"
             [(ngModel)]="tagInput"
             (change)="addTag()"
+            (keyup.enter)="addTag()"
             [name]="eid"
             [id]="eid">
         <option value=""
