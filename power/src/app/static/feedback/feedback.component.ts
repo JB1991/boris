@@ -41,7 +41,8 @@ export class FeedbackComponent implements OnInit {
 
         const tmp = await this.httpClient.get(uri, this.auth.getHeaders('text', 'application/atom+xml', false)).toPromise();
         const parser = new DOMParser();
-        const childs = parser.parseFromString(tmp.toString(), 'application/xml').documentElement.children;
+        const di = parser.parseFromString(tmp.toString(), 'application/xml');
+        const childs = di.getElementsByTagName('entry');
 
         this.rss = [];
         for (let i = 0; i < childs.length; i++) {

@@ -170,7 +170,7 @@
 
             <hr class="my-4">
 
-            <ng-container *ngFor="let ticket of this.rss | slice:5; let i = index;">
+            <ng-container *ngFor="let ticket of this.rss; let i = index;">
                 <div class="card w-100 mb-2 bg-light">
                     <div class="card-body">
                         <h5 class="card-title d-inline">{{ filterTitle(ticket.children[6].innerHTML) }}
