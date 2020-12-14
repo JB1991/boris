@@ -18,7 +18,15 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
+import {
+    Building,
+    HouseFill,
+    PlusCircle,
+    DashCircle,
+    FileEarmarkImage,
+    FileEarmarkSpreadsheet,
+    FileEarmarkRichtext
+} from 'ngx-bootstrap-icons';
 
 // Select some icons (use an object, not an array)
 /* eslint-disable object-shorthand */
@@ -26,7 +34,10 @@ const icons = {
     Building,
     HouseFill,
     PlusCircle,
-    DashCircle
+    DashCircle,
+    FileEarmarkImage,
+    FileEarmarkSpreadsheet,
+    FileEarmarkRichtext
 };
 /* eslint-enable object-shorthand */
 
