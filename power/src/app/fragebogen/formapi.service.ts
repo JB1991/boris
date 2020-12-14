@@ -87,7 +87,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(Method.GET, 'tags', p);
+        return this.Do(Method.GET, 'intern/tags', p);
     }
 
     /**
@@ -113,7 +113,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(Method.GET, 'groups', p);
+        return this.Do(Method.GET, 'intern/groups', p);
     }
 
     public async getUsers(
@@ -141,7 +141,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(Method.GET, 'users', p);
+        return this.Do(Method.GET, 'intern/users', p);
     }
 
     public async getUser(
@@ -155,7 +155,7 @@ export class FormAPIService {
         if (fields) {
             p.fields = fields.join(',');
         }
-        return this.Do(Method.GET, 'users/' + encodeURIComponent(id), p);
+        return this.Do(Method.GET, 'intern/users/' + encodeURIComponent(id), p);
     }
 
     public async getForms(
@@ -186,7 +186,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(Method.GET, 'forms', p);
+        return this.Do(Method.GET, 'intern/forms', p);
     }
 
     public async getForm(
@@ -203,7 +203,7 @@ export class FormAPIService {
         if (params.extract) {
             p.extract = params['extract'].join(',');
         }
-        return this.Do(Method.GET, 'forms/' + encodeURIComponent(id), p);
+        return this.Do(Method.GET, 'intern/forms/' + encodeURIComponent(id), p);
     }
 
     public async createForm(body: {
@@ -217,7 +217,7 @@ export class FormAPIService {
         id: string;
         status: number;
     }> {
-        return this.Do(Method.POST, 'forms', {}, body);
+        return this.Do(Method.POST, 'intern/forms', {}, body);
     }
 
     public async updateForm(
@@ -235,7 +235,7 @@ export class FormAPIService {
         message: string;
         status: number;
     }> {
-        return this.Do(Method.PUT, 'forms/' + encodeURIComponent(id), {}, body);
+        return this.Do(Method.PUT, 'intern/forms/' + encodeURIComponent(id), {}, body);
     }
 
     public async deleteForm(
@@ -244,7 +244,7 @@ export class FormAPIService {
         id: string;
         status: number;
     }> {
-        return this.Do(Method.DELETE, 'forms/' + encodeURIComponent(id), {});
+        return this.Do(Method.DELETE, 'intern/forms/' + encodeURIComponent(id), {});
     }
 
     /* eslint-disable-next-line complexity */
@@ -277,7 +277,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(Method.GET, 'tasks', p);
+        return this.Do(Method.GET, 'intern/tasks', p);
     }
 
     public async getTask(
@@ -297,7 +297,7 @@ export class FormAPIService {
         if (params['form.extract']) {
             p['form.extract'] = params['form.extract'].join(',');
         }
-        return this.Do(Method.GET, 'tasks/' + encodeURIComponent(id), p);
+        return this.Do(Method.GET, 'intern/tasks/' + encodeURIComponent(id), p);
     }
 
     public async createTask(
@@ -317,7 +317,7 @@ export class FormAPIService {
         if (number && number > 0) { // eslint-disable-line id-blacklist
             p.number = '' + number; // eslint-disable-line id-blacklist
         }
-        return this.Do(Method.POST, 'forms/' + encodeURIComponent(formID), p, body);
+        return this.Do(Method.POST, 'intern/forms/' + encodeURIComponent(formID), p, body);
     }
 
     public async updateTask(
@@ -331,7 +331,7 @@ export class FormAPIService {
         message: string;
         status: number;
     }> {
-        return this.Do(Method.PUT, 'tasks/' + encodeURIComponent(id), {}, body);
+        return this.Do(Method.PUT, 'intern/tasks/' + encodeURIComponent(id), {}, body);
     }
 
     public async deleteTask(
@@ -340,7 +340,7 @@ export class FormAPIService {
         id: string;
         status: number;
     }> {
-        return this.Do(Method.DELETE, 'tasks/' + encodeURIComponent(id), {});
+        return this.Do(Method.DELETE, 'intern/tasks/' + encodeURIComponent(id), {});
     }
 
     public async getElements(
@@ -371,7 +371,7 @@ export class FormAPIService {
         if (params.offset) {
             p.offset = params.offset.toString();
         }
-        return this.Do(Method.GET, 'elements', p);
+        return this.Do(Method.GET, 'intern/elements', p);
     }
 
     public async getElement(
@@ -388,7 +388,7 @@ export class FormAPIService {
         if (params.extract) {
             p.extract = params.extract.join(',');
         }
-        return this.Do(Method.GET, 'elements/' + encodeURIComponent(id), p);
+        return this.Do(Method.GET, 'intern/elements/' + encodeURIComponent(id), p);
     }
 
     public async createElement(
@@ -400,7 +400,7 @@ export class FormAPIService {
             id: string;
             status: number;
         }> {
-        return this.Do(Method.POST, 'elements', {}, body);
+        return this.Do(Method.POST, 'intern/elements', {}, body);
     }
 
     public async updateElement(
@@ -412,7 +412,7 @@ export class FormAPIService {
         message: string;
         status: number;
     }> {
-        return this.Do(Method.PUT, 'elements/' + encodeURIComponent(id), {}, body);
+        return this.Do(Method.PUT, 'intern/elements/' + encodeURIComponent(id), {}, body);
     }
 
     public async deleteElement(
@@ -421,7 +421,7 @@ export class FormAPIService {
         id: string;
         status: number;
     }> {
-        return this.Do(Method.DELETE, 'elements/' + encodeURIComponent(id), {});
+        return this.Do(Method.DELETE, 'intern/elements/' + encodeURIComponent(id), {});
     }
 
     public async getPublicForms(

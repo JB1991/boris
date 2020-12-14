@@ -61,7 +61,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value.tags).toEqual(getTags.tags);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tags',
+        answerHTTPRequest(environment.formAPI + 'intern/tags',
             'GET', getTags);
     });
 
@@ -70,7 +70,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value.groups).toEqual(getGroups.groups);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'groups',
+        answerHTTPRequest(environment.formAPI + 'intern/groups',
             'GET', getGroups);
     });
 
@@ -79,7 +79,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getForms);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms?sort=id',
+        answerHTTPRequest(environment.formAPI + 'intern/forms?sort=id',
             'GET', getForms);
     });
 
@@ -95,7 +95,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getForms);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms?fields=id%2Cowner.id&extract=title.de%2Ctitle.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
+        answerHTTPRequest(environment.formAPI + 'intern/forms?fields=id%2Cowner.id&extract=title.de%2Ctitle.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
             'GET', getForms);
     });
 
@@ -107,7 +107,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getForm);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123?fields=id%2Cowner.id&extract=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123?fields=id%2Cowner.id&extract=title.de%2Ctitle.default',
             'GET', getForm);
     });
 
@@ -118,7 +118,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getForm);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms',
+        answerHTTPRequest(environment.formAPI + 'intern/forms',
             'POST', getForm);
     });
 
@@ -129,7 +129,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getForm);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123',
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123',
             'PUT', getForm);
     });
 
@@ -138,7 +138,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual({ id: '123', status: 200 });
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123',
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123',
             'DELETE', { id: '123', status: 200 });
     });
 
@@ -147,7 +147,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getTasks);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks?sort=id',
+        answerHTTPRequest(environment.formAPI + 'intern/tasks?sort=id',
             'GET', getTasks);
     });
 
@@ -164,7 +164,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getTasks);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks?fields=id&extract=e1&form.extract=title.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
+        answerHTTPRequest(environment.formAPI + 'intern/tasks?fields=id&extract=e1&form.extract=title.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
             'GET', getTasks);
     });
 
@@ -177,7 +177,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks/123?fields=id&extract=e1&form.extract=title.default',
+        answerHTTPRequest(environment.formAPI + 'intern/tasks/123?fields=id&extract=e1&form.extract=title.default',
             'GET', getTask);
     });
 
@@ -188,7 +188,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123?number=10',
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123?number=10',
             'POST', getTask);
     });
 
@@ -199,7 +199,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks/123',
+        answerHTTPRequest(environment.formAPI + 'intern/tasks/123',
             'PUT', getTask);
     });
 
@@ -208,7 +208,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getTask);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'tasks/123',
+        answerHTTPRequest(environment.formAPI + 'intern/tasks/123',
             'DELETE', getTask);
     });
 
@@ -217,7 +217,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getElements);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements?sort=id',
+        answerHTTPRequest(environment.formAPI + 'intern/elements?sort=id',
             'GET', getElements);
     });
 
@@ -233,7 +233,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getElements);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements?fields=id&extract=title.de%2Ctitle.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
+        answerHTTPRequest(environment.formAPI + 'intern/elements?fields=id&extract=title.de%2Ctitle.default&filter=id%3D123&sort=-extract%2Cid&limit=10&offset=2',
             'GET', getElements);
     });
 
@@ -245,7 +245,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getElement);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements/123?fields=id&extract=title.de%2Ctitle.default',
+        answerHTTPRequest(environment.formAPI + 'intern/elements/123?fields=id&extract=title.de%2Ctitle.default',
             'GET', getElement);
     });
 
@@ -256,7 +256,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getElement);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements',
+        answerHTTPRequest(environment.formAPI + 'intern/elements',
             'POST', getElement);
     });
 
@@ -267,7 +267,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual(getElement);
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements/123',
+        answerHTTPRequest(environment.formAPI + 'intern/elements/123',
             'PUT', getElement);
     });
 
@@ -276,7 +276,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual({ id: '123', status: 200 });
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'elements/123',
+        answerHTTPRequest(environment.formAPI + 'intern/elements/123',
             'DELETE', { id: '123', status: 200 });
     });
 
@@ -602,7 +602,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(error.status).toEqual(400);
             done();
         });
-        const request = httpTestingController.expectOne(environment.formAPI + 'tags');
+        const request = httpTestingController.expectOne(environment.formAPI + 'intern/tags');
         request.flush({}, {
             status: 400,
             statusText: 'bad request'
