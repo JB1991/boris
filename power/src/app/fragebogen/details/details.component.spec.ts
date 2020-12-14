@@ -10,8 +10,8 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { FormAPIService } from '../formapi.service';
-import { SurveyjsModule } from '../surveyjs/surveyjs.module';
 import { PreviewComponent } from '../surveyjs/preview/preview.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 /* eslint-disable max-lines */
 describe('Fragebogen.Details.DetailsComponent', () => {
@@ -27,11 +27,11 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                SurveyjsModule,
-                PaginationModule,
+                PaginationModule.forRoot(),
                 RouterTestingModule.withRoutes([
                     { path: 'forms', component: MockDashboardComponent }
-                ])
+                ]),
+                SharedModule
             ],
             providers: [
                 Title,

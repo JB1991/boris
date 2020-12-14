@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
@@ -22,10 +21,9 @@ import { SharedModule } from '@app/shared/shared.module';
         CommonModule,
         HttpClientModule,
         FormsModule,
-        ModalModule.forRoot(),
         SharedModule,
         PaginationModule.forRoot(),
-        TypeaheadModule
+        TypeaheadModule.forRoot()
     ],
     providers: []
 })

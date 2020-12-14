@@ -25,7 +25,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
                     { path: 'forms/details/:id', component: MockDetailsComponent }
                 ]),
                 SharedModule,
-                TypeaheadModule
+                TypeaheadModule.forRoot()
             ],
             providers: [
                 AlertsService,
