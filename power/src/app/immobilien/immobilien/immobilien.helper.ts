@@ -152,7 +152,20 @@ export class ImmobilienHelper {
             url = window.URL.createObjectURL(blob);
         }
 
-        if (blob && navigator.msSaveBlob) {
+        if (navigator.msSaveBlob) { // IE and Edge
+            if (!blob) {
+                // base64 to blob convertion
+                const byteString = atob(url.split(',')[1]);
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                blob = new Blob([ab], { type: 'image/png' });
+            }
+
+            // download
             navigator.msSaveBlob(blob, filename);
         } else {
             const anchor = document.createElement('a');
