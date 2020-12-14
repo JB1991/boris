@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
@@ -19,7 +19,8 @@ declare const require: any;
 @Component({
     selector: 'power-immobilien',
     templateUrl: './immobilien.component.html',
-    styleUrls: ['./immobilien.component.scss']
+    styleUrls: ['./immobilien.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImmobilienComponent implements OnInit {
 
