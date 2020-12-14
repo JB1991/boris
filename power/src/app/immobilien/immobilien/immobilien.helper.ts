@@ -145,16 +145,21 @@ export class ImmobilienHelper {
      */
     static downloadFile(data, filename, filetype = 'text/csv', isurl = false): any {
         let url = data;
+        let blob;
 
         if (!isurl) {
-            const blob = new Blob([data], { type: filetype });
+            blob = new Blob([data], { type: filetype });
             url = window.URL.createObjectURL(blob);
         }
 
-        const anchor = document.createElement('a');
-        anchor.download = filename;
-        anchor.href = url;
-        anchor.click();
+        if (blob && navigator.msSaveBlob) {
+            navigator.msSaveBlob(blob, filename);
+        } else {
+            const anchor = document.createElement('a');
+            anchor.download = filename;
+            anchor.href = url;
+            anchor.click();
+        }
     }
 
     /**
