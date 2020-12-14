@@ -3,12 +3,14 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SimpleChange } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { LngLat, Map } from 'mapbox-gl';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Feature } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
@@ -28,8 +30,10 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             declarations: [BodenrichtwertKarteComponent],
             imports: [
                 CommonModule,
+                BrowserAnimationsModule,
                 HttpClientTestingModule,
                 NgxMapboxGLModule,
+                BsDropdownModule.forRoot(),
                 SharedModule,
                 RouterModule.forRoot([]),
             ]
