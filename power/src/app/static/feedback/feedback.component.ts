@@ -46,7 +46,7 @@ export class FeedbackComponent implements OnInit {
 
         this.rss = [];
         for (let i = 0; i < childs.length; i++) {
-            this.rss.push(childs[i].childNodes);
+            this.rss.push(childs[i]);
         }
     }
 
