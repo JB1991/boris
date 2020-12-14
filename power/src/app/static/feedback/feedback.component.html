@@ -173,17 +173,18 @@
             <ng-container *ngFor="let ticket of this.rss; let i = index;">
                 <div class="card w-100 mb-2 bg-light">
                     <div class="card-body">
-                        <h5 class="card-title d-inline">{{ filterTitle(ticket.children[6].innerHTML) }}
+                        <h5 class="card-title d-inline">{{ filterTitle(ticket[13].innerHTML) }}
                         </h5>
                         &nbsp;
                         <h6 class="card-subtitle mb-2 text-muted d-inline">
-                            {{ ticket.children[3].innerHTML | date:'short' }}</h6>
-                        <p class="card-text lineb">{{ filterBody(ticket.children[7].innerHTML) }}</p>
+                            {{ ticket[7].innerHTML | date:'short' }}
+                        </h6>
+                        <p class="card-text lineb">{{ filterBody(ticket[15].innerHTML) }}</p>
                     </div>
                 </div>
             </ng-container>
 
-            <div *ngIf="this.rss.length < 5">
+            <div *ngIf="this.rss.length === 0">
                 <div class="text-center">
                     <span i18n>Leider konnten wir noch keine Tickets finden. Bei Bedarf können Sie uns gerne
                         kontaktieren.
