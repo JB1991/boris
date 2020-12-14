@@ -4,7 +4,6 @@ import { BodenrichtwertListeComponent } from './bodenrichtwert-liste.component';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { CommonModule } from '@angular/common';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
 
 describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () => {
     const changes = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-liste-changes.json');
@@ -21,8 +20,7 @@ describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () =
             imports: [
                 CommonModule,
                 HttpClientTestingModule,
-                NgbPaginationModule,
-                FormsModule
+                NgbPaginationModule
             ],
             providers: [
                 BodenrichtwertService

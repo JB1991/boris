@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -64,10 +63,6 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
     imports: [
         BodenrichtwertRoutingModule,
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgbAccordionModule,
-        NgbPaginationModule,
         NgxMapboxGLModule,
         NgxEchartsModule.forRoot({ echarts: echarts }),
         SharedModule,

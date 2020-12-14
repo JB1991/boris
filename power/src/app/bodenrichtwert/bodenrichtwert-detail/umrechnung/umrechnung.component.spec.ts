@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedModule } from '@app/shared/shared.module';
-import { ConversionItem, ConversionTable, UmrechnungComponent } from './umrechnung.component';
+import { ConversionTable, UmrechnungComponent } from './umrechnung.component';
 import { HyphenatePipe } from '@app/shared/pipes/hyphenate.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', () => {

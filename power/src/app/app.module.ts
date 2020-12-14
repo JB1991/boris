@@ -10,7 +10,6 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { environment } from '@env/environment';
 
 import { ModuleGuard } from './module.guard';
 import { AuthModule } from '@app/shared/auth/auth.module';

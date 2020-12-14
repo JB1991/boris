@@ -1,4 +1,3 @@
-import { ValueTransformer } from '@angular/compiler/src/util';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

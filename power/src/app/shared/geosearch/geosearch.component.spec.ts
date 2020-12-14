@@ -1,12 +1,12 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { GeosearchComponent } from './geosearch.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Feature, FeatureCollection } from 'geojson';
 import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { SimpleChange, SimpleChanges } from '@angular/core';
+import { SimpleChange } from '@angular/core';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
     const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
@@ -27,7 +27,6 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 FormsModule,
-                ReactiveFormsModule,
                 NgbTypeaheadModule
             ]
         }).compileComponents();

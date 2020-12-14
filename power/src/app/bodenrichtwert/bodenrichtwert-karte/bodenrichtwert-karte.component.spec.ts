@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -6,7 +6,6 @@ import { SimpleChange } from '@angular/core';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { LngLat, Map } from 'mapbox-gl';
@@ -31,8 +30,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
                 CommonModule,
                 HttpClientTestingModule,
                 NgxMapboxGLModule,
-                FormsModule,
-                ReactiveFormsModule,
                 SharedModule,
                 RouterModule.forRoot([]),
             ]

@@ -1,13 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { BodenrichtwertComponent } from './bodenrichtwert.component';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertVerlaufComponent } from '../bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -27,10 +25,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
             imports: [
                 CommonModule,
                 HttpClientTestingModule,
-                NgbAccordionModule,
                 NgxMapboxGLModule,
-                FormsModule,
-                ReactiveFormsModule,
                 SharedModule,
                 CollapseModule,
                 BrowserAnimationsModule,
