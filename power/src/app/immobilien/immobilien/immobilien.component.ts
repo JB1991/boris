@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
@@ -44,7 +44,8 @@ export class ImmobilienComponent implements OnInit {
      */
     constructor(
         private http: HttpClient,
-        private titleService: Title
+        private titleService: Title,
+        private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Immobilienpreisindex - POWER.NI`);
     }
@@ -109,6 +110,7 @@ export class ImmobilienComponent implements OnInit {
                 });
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(json['mapUrl']);
+                this.cdr.detectChanges();
             });
     }
 
@@ -128,6 +130,7 @@ export class ImmobilienComponent implements OnInit {
 
                 // InitState
                 this.nipixRuntime.state.initState++;
+                this.cdr.detectChanges();
             });
     }
 
@@ -164,6 +167,7 @@ export class ImmobilienComponent implements OnInit {
                     this.nipixRuntime.state.initState++;
 
                     this.setMapOptions();
+                    this.cdr.detectChanges();
                 });
     }
 
