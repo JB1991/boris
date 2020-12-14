@@ -15,13 +15,13 @@ import { FormsModule } from '@angular/forms';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 import {
-    Building,
-    HouseFill,
-    PlusCircle,
-    DashCircle,
-    FileEarmarkImage,
-    FileEarmarkSpreadsheet,
-    FileEarmarkRichtext
+    building,
+    houseFill,
+    plusCircle,
+    dashCircle,
+    fileEarmarkImage,
+    fileEarmarkSpreadsheet,
+    fileEarmarkRichtext
 } from 'ngx-bootstrap-icons';
 
 import * as echarts from 'echarts';
@@ -29,13 +29,13 @@ import * as echarts from 'echarts';
 // Select some icons (use an object, not an array)
 /* eslint-disable object-shorthand */
 const icons = {
-    Building,
-    HouseFill,
-    PlusCircle,
-    DashCircle,
-    FileEarmarkImage,
-    FileEarmarkSpreadsheet,
-    FileEarmarkRichtext
+    building,
+    houseFill,
+    plusCircle,
+    dashCircle,
+    fileEarmarkImage,
+    fileEarmarkSpreadsheet,
+    fileEarmarkRichtext
 };
 /* eslint-enable object-shorthand */
 
