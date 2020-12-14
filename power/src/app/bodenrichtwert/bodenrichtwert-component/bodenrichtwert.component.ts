@@ -103,8 +103,8 @@ export class BodenrichtwertComponent implements OnDestroy {
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
-            this.cdr.detectChanges();
             this.isCollapsed = false;
+            this.cdr.detectChanges();
         });
         this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(fst => {
             this.flurstueck = fst;
