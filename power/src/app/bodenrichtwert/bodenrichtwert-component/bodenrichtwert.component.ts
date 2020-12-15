@@ -89,6 +89,8 @@ export class BodenrichtwertComponent implements OnDestroy {
 
     public expanded = true;
 
+    public showPrintNotice = true;
+
     constructor(
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,

@@ -7,6 +7,7 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
@@ -24,12 +25,13 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
             ],
             imports: [
                 CommonModule,
+                BrowserAnimationsModule,
                 HttpClientTestingModule,
+                RouterModule.forRoot([]),
                 NgxMapboxGLModule,
                 SharedModule,
-                CollapseModule,
-                BrowserAnimationsModule,
-                RouterModule.forRoot([]),
+                CollapseModule.forRoot(),
+                AlertModule.forRoot()
             ]
         })
             .compileComponents();

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import * as echarts from 'echarts';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
@@ -67,7 +68,8 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         NgxEchartsModule.forRoot({ echarts: echarts }),
         SharedModule,
         BsDropdownModule.forRoot(),
-        CollapseModule
+        AlertModule.forRoot(),
+        CollapseModule.forRoot()
     ],
     providers: [BodenrichtwertService]
 })
