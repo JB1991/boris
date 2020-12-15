@@ -66,6 +66,14 @@
                        i18n>Immobilien</a>
                 </li>
                 <li class="nav-item"
+                    *ngIf="config.modules.includes('immobilienpreiskalkulator')">
+                    <a class="nav-link"
+                       href="https://www.boris.niedersachsen.de/boris/ipk"
+                       target="_blank"
+                       rel="noreferrer"
+                       i18n>Immobilienpreiskalkulator</a>
+                </li>
+                <li class="nav-item"
                     *ngIf="config.modules.includes('forms')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
@@ -193,7 +201,8 @@
                                i18n>Allgemeine Geschäfts- und Nutzungsbedingungen</a></li>
                     </ul>
                     <p class="text-muted">
-                        <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}</p>
+                        <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}
+                    </p>
                 </div>
             </div>
         </footer>

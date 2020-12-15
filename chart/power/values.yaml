@@ -95,6 +95,7 @@ config:
     - "bodenrichtwerte"
     - "bodenwertkalkulator"
     - "immobilienpreisindex"
+    - "immobilienpreiskalkulator"
     - "forms"
     - "feedback"
   authentication: true
