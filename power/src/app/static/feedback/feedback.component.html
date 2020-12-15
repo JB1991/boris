@@ -174,14 +174,15 @@
                 <div class="card w-100 mb-2 bg-light">
                     <div class="card-body">
                         <h5 class="card-title d-inline">
-                            {{ filterTitle(ticket.getElementsByTagName('summary')[0].innerHTML) }}
+                            {{ filterTitle(ticket.getElementsByTagName('summary').item(0).textContent) }}
                         </h5>
                         &nbsp;
                         <h6 class="card-subtitle mb-2 text-muted d-inline">
-                            {{ ticket.getElementsByTagName('updated')[0].innerHTML | date:'short' }}
+                            {{ ticket.getElementsByTagName('updated').item(0).textContent | date:'short' }}
                         </h6>
                         <p class="card-text lineb">
-                            {{ filterBody(ticket.getElementsByTagName('description')[0].innerHTML) }}</p>
+                            {{ filterBody(ticket.getElementsByTagName('description').item(0).textContent) }}
+                        </p>
                     </div>
                 </div>
             </ng-container>
