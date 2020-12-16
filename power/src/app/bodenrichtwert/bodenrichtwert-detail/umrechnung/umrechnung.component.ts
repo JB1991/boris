@@ -46,7 +46,7 @@ export class UmrechnungComponent implements OnInit {
 
     /**
      * Returns the Item (bzwt, koef) for the actual value of an UmrechnungsTable
-     * @param werte 
+     * @param werte values
      */
     public findActualItem(werte: Array<UmrechnungsItem>) {
         let item: UmrechnungsItem;
@@ -67,11 +67,11 @@ export class UmrechnungComponent implements OnInit {
      * Handles the interpolation for continuous values and returns the result as
      * a UmrechnungsItem
      * @param values array with UmrechnungsItems
-     * @param actualValue actual value 
+     * @param actualValue actual value
      */
     public handleContinuousValues(values: Array<UmrechnungsItem>, actualValue: string): UmrechnungsItem {
         const value = Number(actualValue);
-        let item: UmrechnungsItem = {
+        const item: UmrechnungsItem = {
             bzwt: 0,
             koef: 0,
         };
@@ -105,7 +105,7 @@ export class UmrechnungComponent implements OnInit {
 
     /**
      * Handles and returns the UmrechnungsItem for discrete values
-     * @param values 
+     * @param values UmrechnungsItems
      */
     public handleDiscreteValues(values: Array<UmrechnungsItem>): UmrechnungsItem {
         let item: UmrechnungsItem;
