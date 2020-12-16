@@ -10,6 +10,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { ConfigService } from '@app/config.service';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -23,6 +24,9 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 BodenrichtwertKarteComponent,
                 BodenrichtwertVerlaufComponent
             ],
+            providers: [
+                ConfigService
+            ],
             imports: [
                 CommonModule,
                 BrowserAnimationsModule,
@@ -33,13 +37,13 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 CollapseModule.forRoot(),
                 AlertModule.forRoot()
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertComponent);
         component = fixture.componentInstance;
+        component.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         fixture.detectChanges();
 
         httpTestingController = TestBed.inject(HttpTestingController);
