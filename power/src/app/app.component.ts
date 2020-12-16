@@ -12,11 +12,13 @@ import { AuthService } from '@app/shared/auth/auth.service';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
-    title = 'power';
-    isCollapsed = true;
-    isCollapsedAcc = true;
-    show = false;
-    name: string;
+    public title = 'power';
+    public isCollapsed = true;
+    public isCollapsedAcc = true;
+    public isCollapsedBRW = true;
+    public isCollapsedImmo = true;
+    public show = false;
+    public name: string;
     public config: Config;
     public appVersion: any = { version: 'local', branch: 'dev' };
     public uri = location;
@@ -37,6 +39,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             if (event instanceof NavigationEnd) {
                 this.isCollapsed = true;
                 this.isCollapsedAcc = true;
+                this.isCollapsedBRW = true;
+                this.isCollapsedImmo = true;
 
                 // update baseurl
                 this.baseurl = location.pathname + location.search;

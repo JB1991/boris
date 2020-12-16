@@ -9,6 +9,7 @@ import { Feature } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
+import { ConfigService } from '@app/config.service';
 
 /**
  * Possible selections of Stichtage
@@ -95,6 +96,7 @@ export class BodenrichtwertComponent implements OnDestroy {
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
+        public configService: ConfigService,
         private titleService: Title,
         private cdr: ChangeDetectorRef
     ) {

@@ -1,5 +1,5 @@
 <div class="container my-4"
-     *ngIf="showPrintNotice">
+     *ngIf="configService.config.modules.includes('bodenrichtwerte-altsystem') && showPrintNotice">
     <alert type="info"
            role="alert">
         <button i18n-aria-label
@@ -33,8 +33,8 @@
             <span class="ml-2"
                   i18n>Bodenrichtwerte - amtlicher Ausdruck</span>
         </span>
-        <p class="m-0">Einen amtlichen Ausdruck und Bodenrichtwertzonen von vor 2012 erhalten Sie beim
-            Gutachterausschuss. Ein Benutzeraccount ist hierfür erforderlich.</p>
+        <p class="m-0">Die amtliche Druckfunktion und Bodenrichtwerte von vor 2012 erhalten Sie beim Gutachterausschuss.
+            Ein Benutzeraccount ist hierfür erforderlich.</p>
         <a href="https://www.boris.niedersachsen.de/boris/login"
            target="_blank"
            rel="noreferrer">

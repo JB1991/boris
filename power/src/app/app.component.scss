@@ -24,3 +24,9 @@
 .navbar-nav .nav-item .nav-link.active {
     color: #c4153a;
 }
+
+@media (max-width: 576px) {
+    nav .dropdown-item {
+        white-space: normal !important;
+    }
+}
