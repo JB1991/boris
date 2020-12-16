@@ -29,7 +29,7 @@ export class BodenrichtwertDetailComponent implements OnInit {
         'acza': $localize`Ackerzahl`,
         'bod': $localize`Bodenart`,
         'grza': $localize`Grünlandzahl`,
-        'frei': $localize`Landespezifische Angaben`
+        'frei': $localize`Landesspezifische Angaben`
     };
 
     @Input() feature: any;
