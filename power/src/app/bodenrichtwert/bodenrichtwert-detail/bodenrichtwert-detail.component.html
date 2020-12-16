@@ -199,6 +199,16 @@
                 role="cell">
                 {{feature.properties.gtie | number}} m;
             </dd>
+            <dt *ngIf="feature.properties.frei"
+                class="col-md-5"
+                role="rowheader">
+                {{brzStrings.frei | hyphenate}}
+            </dt>
+            <dd *ngIf="feature.properties.frei"
+                class="col-md-7"
+                role="cell">
+                {{feature.properties.frei | hyphenate}}
+            </dd>
             <!-- Umrechnungskoeffizienten -->
             <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte">
                 <!-- [html-validate-disable-next element-permitted-content] -->
