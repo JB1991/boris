@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -45,7 +44,6 @@ const icons = {
         ImmobilienRoutingModule,
         AccordionModule.forRoot(),
         BsDropdownModule.forRoot(),
-        TypeaheadModule.forRoot(),
         FormsModule,
         NgxBootstrapIconsModule.pick(icons),
         NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand

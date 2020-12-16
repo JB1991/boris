@@ -8,7 +8,7 @@ interface NipixStaticTextOptions {
 
 interface NipixStaticData {
     nipix?: any;
-    gemeinden?: any;
+    gemeinden?: any[];
     geoCoordMap?: any;
     regionen?: any;
     presets?: any;
@@ -32,7 +32,7 @@ export class NipixStatic {
     };
     public data: NipixStaticData = {
         'nipix': {},
-        'gemeinden': {},
+        'gemeinden': [],
         'geoCoordMap': [],
         'regionen': [],
         'presets': [],

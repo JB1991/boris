@@ -381,11 +381,17 @@
                     Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
                 </button>
 
-                <input type="text" [(ngModel)]="selectedWoMaValue"
-                                                                               [typeahead]="this.nipixStatic.data.gemeinden"
-                                                                               typeaheadOptionField="name"
-                                                                               (typeaheadOnSelect)="onSelectWoMa($event)"
-                                                                               class="form-control">
+                <input type="text"
+                       class="form-control"
+                       list="nipix-gemeinden"
+                       [(ngModel)]="selectedWoMaValue"
+                       (change)="onSelectWoMa()"
+                       (keyup.enter)="onSelectWoMa()">
+                <datalist id="nipix-gemeinden">
+                    <option *ngFor="let gemeinde of nipixStatic.data.gemeinden; index as i"
+                            value="{{ gemeinde.name }}"></option>
+                </datalist>
+
                 <ng-container *ngIf="selectedWoMa !== undefined && regionName(selectedWoMa['woma_id']) !== ''">
                     <hr>
                     <ng-container i18n>Ihre Wohnungsmarktregion</ng-container>: {{ nipixRuntime.translate(regionName(selectedWoMa['woma_id'])) }}

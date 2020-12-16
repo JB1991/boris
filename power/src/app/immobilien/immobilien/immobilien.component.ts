@@ -59,8 +59,12 @@ export class ImmobilienComponent implements OnInit {
     selectedWoMa: string;
     selectedWoMaValue: string;
 
-    onSelectWoMa(event: TypeaheadMatch): void {
-        this.selectedWoMa = event.item;
+    onSelectWoMa(): void {
+        try {
+            this.selectedWoMa = this.nipixStatic.data.gemeinden.filter(p => p.name === this.selectedWoMaValue)[0];
+        } catch(error) {
+            this.selectedWoMa = '';
+        }
     }
 
     /**

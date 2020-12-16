@@ -1,7 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
 
 import { ImmobilienComponent } from './immobilien.component';
 import * as ImmobilienNipixStatic from './immobilien.static';
@@ -15,7 +14,6 @@ import * as echarts from 'echarts';
 
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import {
@@ -100,7 +98,6 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
                 BrowserAnimationsModule,
                 AccordionModule.forRoot(),
                 BsDropdownModule.forRoot(),
-                TypeaheadModule.forRoot(),
                 NgxBootstrapIconsModule.pick(icons),
                 NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
