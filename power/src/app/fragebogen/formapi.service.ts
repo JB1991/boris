@@ -521,7 +521,7 @@ export class FormAPIService {
 
     public async getCSV(formID: string): Promise<string> {
         let data: ArrayBuffer;
-        const url = environment.formAPI + 'forms/' + encodeURIComponent(formID) + '/csv';
+        const url = environment.formAPI + 'intern/forms/' + encodeURIComponent(formID) + '/csv';
 
         try {
             data = await this.httpClient.get(url, this.auth.getHeaders('text', 'text/csv')).toPromise();
