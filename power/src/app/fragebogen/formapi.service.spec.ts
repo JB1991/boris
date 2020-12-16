@@ -353,7 +353,7 @@ describe('Fragebogen.FormAPIService', () => {
             expect(value).toEqual('Toast');
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123/csv', 'GET', 'Toast');
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/csv', 'GET', 'Toast');
     });
 
     it('FormFilterToString should succeed', () => {
@@ -585,15 +585,15 @@ describe('Fragebogen.FormAPIService', () => {
             expect(error.toString()).toEqual('Error: API returned an empty response');
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123/csv', 'GET', null);
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/csv', 'GET', null);
     });
 
     it('getCSV should fail with http error', (done) => {
         service.getCSV('123').catch((error) => {
-            expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/rest/api/forms/123/csv: 404 Not Found');
+            expect(error.toString()).toEqual('Error: Http failure response for http://localhost:8080/intern/forms/123/csv: 404 Not Found');
             done();
         });
-        answerHTTPRequest(environment.formAPI + 'forms/123/csv', 'GET', '',
+        answerHTTPRequest(environment.formAPI + 'intern/forms/123/csv', 'GET', '',
             { status: 404, statusText: 'Not Found' });
     });
 

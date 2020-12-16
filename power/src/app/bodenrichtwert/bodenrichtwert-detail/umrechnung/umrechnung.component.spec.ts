@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedModule } from '@app/shared/shared.module';
-import { ConversionTable, UmrechnungComponent } from './umrechnung.component';
+import { UmrechnungsTable, UmrechnungComponent } from './umrechnung.component';
 import { HyphenatePipe } from '@app/shared/pipes/hyphenate.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', () => {
     let component: UmrechnungComponent;
     let fixture: ComponentFixture<UmrechnungComponent>;
 
-    const tableWgfz: ConversionTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-wgfz.json');
-    const tableArtBebauung: ConversionTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-artbebauung.json');
-    const tableFlae: ConversionTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-flae.json');
-    const tableFail: ConversionTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-fail.json');
+    const tableWgfz: UmrechnungsTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-wgfz.json');
+    const tableArtBebauung: UmrechnungsTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-artbebauung.json');
+    const tableFlae: UmrechnungsTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-flae.json');
+    const tableFail: UmrechnungsTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-fail.json');
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -51,6 +51,22 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
     it('ngOninit should initialize the component', () => {
         // FLAE
         expect(component.actualKoef).toEqual({ 'bzwt': 200, 'koef': 123.0 });
+        expect(component.objectId).toEqual('0015UW0002');
+        expect(component.einflussgroesse).toEqual('Fläche in m²');
+
+        // FLAE interpolate
+        component.table = tableFlae;
+        component.actualValue = '250';
+        component.ngOnInit();
+        expect(component.actualKoef).toEqual({ 'bzwt': 250, 'koef': 120.5 });
+        expect(component.objectId).toEqual('0015UW0002');
+        expect(component.einflussgroesse).toEqual('Fläche in m²');
+
+        // FLAE interpolate
+        component.table = tableFlae;
+        component.actualValue = '2800';
+        component.ngOnInit();
+        expect(component.actualKoef).toEqual({ 'bzwt': 2800, 'koef': 56.5 });
         expect(component.objectId).toEqual('0015UW0002');
         expect(component.einflussgroesse).toEqual('Fläche in m²');
 

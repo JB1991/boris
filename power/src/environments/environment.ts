@@ -8,7 +8,7 @@ export const environment = {
     appName: 'POWER',
     ows: '/geoserver/boris/ows?',
     basemap: '/assets/boden/basemap.json',
-    formAPI: 'http://localhost:8080/rest/api/',
+    formAPI: 'http://localhost:8080/',
     auth: {
         clientid: 'power',
         clientsecret: 'f53dc4b4-42fa-40bc-8ce3-63760a994b88',
