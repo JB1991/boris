@@ -5,9 +5,10 @@ server {
   root /usr/share/nginx/html;
   server_tokens off;
   gzip on;
+  gzip_static on;
   gzip_types application/javascript application/json application/octet-stream image/x-icon text/css text/html;
 
-  error_log /var/log/nginx/error.log warn;
+  error_log /var/log/nginx/error.log error;
 
   # security headers
   proxy_cookie_path / "/; HTTPOnly; Secure";
@@ -21,18 +22,13 @@ server {
   add_header X-Frame-Options "DENY" always;
   add_header X-XSS-Protection "1; mode=block" always;
 
-  location / {
-    gzip_static on;
-    index do-not-use-me.html;
-    try_files $uri @index;
-  }
+  # disable cache
+  add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+  add_header Pragma 'no-cache';
+  expires 0;
 
-  location @index {
-    # disable cache
-    add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
-    add_header Pragma 'no-cache';
-    expires 0;
-    try_files /index.html =404;
+  location / {
+    try_files $uri$args $uri$args/ /index.html;
   }
 
   location /health {
