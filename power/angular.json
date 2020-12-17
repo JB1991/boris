@@ -19,9 +19,7 @@
                     "baseHref": ""
                 },
                 "locales": {
-                    "en": "src/locales/messages.en.xlf",
-                    "ja": "src/locales/messages.ja.xlf",
-                    "fr": "src/locales/messages.fr.xlf"
+                    "en": "src/locales/messages.en.xlf"
                 }
             },
             "architect": {

@@ -28,7 +28,11 @@ server {
   expires 0;
 
   location / {
-    try_files $uri$args $uri$args/ /index.html;
+    try_files $uri $uri/ /index.html;
+  }
+
+  location /en/ {
+    try_files $uri $uri/ /en/index.html;
   }
 
   location /health {
