@@ -99,6 +99,7 @@ test:audit:
     - dev
     - staging
     - production
+  allow_failure: true
 
 test:lint:
   stage: test
@@ -160,7 +161,7 @@ build:
     policy: pull
   script:
     - cd power
-    - npm run build -- --prod --aot=true --output-hashing=none --buildOptimizer=true --localize
+    - npm run build -- --prod
   artifacts:
     name: "compiled dist"
     expire_in: 2 days

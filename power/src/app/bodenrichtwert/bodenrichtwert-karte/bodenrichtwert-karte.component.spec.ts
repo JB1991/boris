@@ -3,13 +3,14 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SimpleChange } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { LngLat, Map } from 'mapbox-gl';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Feature } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
@@ -29,10 +30,10 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             declarations: [BodenrichtwertKarteComponent],
             imports: [
                 CommonModule,
+                BrowserAnimationsModule,
                 HttpClientTestingModule,
                 NgxMapboxGLModule,
-                FormsModule,
-                ReactiveFormsModule,
+                BsDropdownModule.forRoot(),
                 SharedModule,
                 RouterModule.forRoot([]),
             ]
@@ -104,7 +105,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             nenner: '2',
             zaehler: '3',
             fsk: '523432525',
-            bbox: [5,4,3,1],
+            bbox: [5, 4, 3, 1],
             flaeche: '200'
         };
         component.teilmarkt = {
@@ -194,6 +195,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             'value': ['LF'],
             'viewValue': 'Landwirtschaft'
         };
+        component.lat = lat;
+        component.lng = lon;
         spyOn(component, 'getBodenrichtwertzonen');
         component.onTeilmarktChange(teilmarkt);
         expect(component.teilmarkt).toEqual(teilmarkt);
@@ -202,9 +205,12 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('resetMap should reset the map', () => {
         component.threeDActive = true;
+        component.lat = lat;
+        component.lng = lon;
         component.resetMap();
-        expect(component.map.resize).toHaveBeenCalledTimes(1);
-        expect(component.map.fitBounds).toHaveBeenCalledTimes(1);
+        expect(component.threeDActive).toBeFalse();
+        expect(component.lat).toBeUndefined();
+        expect(component.lng).toBeUndefined();
     });
 
     it('enableLocationTracking should get the current position', () => {

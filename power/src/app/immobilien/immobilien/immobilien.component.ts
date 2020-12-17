@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { NgbAccordion, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { merge, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
@@ -19,7 +19,8 @@ declare const require: any;
 @Component({
     selector: 'power-immobilien',
     templateUrl: './immobilien.component.html',
-    styleUrls: ['./immobilien.component.scss']
+    styleUrls: ['./immobilien.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImmobilienComponent implements OnInit {
 
@@ -32,12 +33,8 @@ export class ImmobilienComponent implements OnInit {
     // Nipix Runtime Data
     nipixRuntime = new ImmobilenNipixRuntime.NipixRuntime(this.nipixStatic);
 
-    @ViewChild('acc', { static: true }) accordionComponent: NgbAccordion;
-    @ViewChild('toolacc', { static: true }) accordionTool: NgbAccordion;
-
-    model: any;
-
-    @ViewChild('searchWoMaReg') searchWoMaReg: NgbTypeahead;
+    // Accordion State
+    accOpen = {};
 
     /**
      * Constructor:
@@ -47,7 +44,8 @@ export class ImmobilienComponent implements OnInit {
      */
     constructor(
         private http: HttpClient,
-        private titleService: Title
+        private titleService: Title,
+        private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Immobilienpreisindex - POWER.NI`);
     }
@@ -57,29 +55,22 @@ export class ImmobilienComponent implements OnInit {
     // show loading spinner:
     mapLoaded = false;
 
-    // Find My WomaReg
-    focus$ = new Subject<string>();
-    click$ = new Subject<string>();
+    // Wohnungsmartregion suchen
+    selectedWoMa: string;
+    selectedWoMaValue: string;
 
+    onSelectWoMa(): void {
+        try {
+            this.selectedWoMa = this.nipixStatic.data.gemeinden.filter(p => p.name === this.selectedWoMaValue)[0];
+        } catch(error) {
+            this.selectedWoMa = '';
+        }
+    }
 
     /**
      * echart_range_series
      */
     chart_range = ImmobilienChartOptions.chartRange();
-
-    // Find My WomaReg
-    search = (text$: Observable<string>) => {
-        const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-        const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.searchWoMaReg.isPopupOpen()));
-        const inputFocus$ = this.focus$;
-
-        const gem = this.nipixStatic.data.gemeinden;
-
-        return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-            map(term => (term === '' ? Object.keys(gem)
-                : Object.keys(gem).filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-        );
-    };
 
     /**
      * Init the Application.
@@ -123,6 +114,7 @@ export class ImmobilienComponent implements OnInit {
                 });
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(json['mapUrl']);
+                this.cdr.detectChanges();
             });
     }
 
@@ -142,6 +134,7 @@ export class ImmobilienComponent implements OnInit {
 
                 // InitState
                 this.nipixRuntime.state.initState++;
+                this.cdr.detectChanges();
             });
     }
 
@@ -169,7 +162,7 @@ export class ImmobilienComponent implements OnInit {
                         true
                     );
                     this.nipixRuntime.updateAvailableNipixCategories();
-                    setTimeout(this.onPanelChange.bind(this), 50, { 'nextState': true, 'panelId': 'static-0' });
+                    setTimeout(this.staticChange.bind(this), 50, 0, true);
 
                     // register map:
                     echarts.registerMap('NDS', geoMap);
@@ -178,6 +171,7 @@ export class ImmobilienComponent implements OnInit {
                     this.nipixRuntime.state.initState++;
 
                     this.setMapOptions();
+                    this.cdr.detectChanges();
                 });
     }
 
@@ -529,24 +523,6 @@ export class ImmobilienComponent implements OnInit {
     }
 
     /**
-     * Handle Accordeon PanelChange
-     */
-    onPanelChange(event) {
-        // False will not be fired unless manual accordeon close
-        if (event.nextState === true) {
-
-            this.nipixRuntime.state.activeSelection = parseInt(event.panelId.replace('static-', ''), 10);
-
-            // Disable all; exclude WomaDiscover
-            if (event.panelId !== 'static-99') {
-                this.onPanelChangeIndex(parseInt(event.panelId.replace('static-', ''), 10));
-            } else {
-                this.onPanelChangeWoMa();
-            }
-        }
-    }
-
-    /**
      * Toggle All for specific draw
      *
      * @param drawname Name of the draw Object
@@ -666,16 +642,28 @@ export class ImmobilienComponent implements OnInit {
      * @param id id of the tab
      */
     staticExpand(id) {
-        return this.accordionComponent.isExpanded('static-' + id);
+        if (this.accOpen[id] === true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
-     * Check Static Tool Expand
+     * Change Static Expand
      *
      * @param id id of the tab
+     * @param event boolean is Opened
      */
-    staticToolExpand(id) {
-        return this.accordionTool.isExpanded('static-' + id);
+    staticChange(id, event) {
+        this.accOpen[id] = event;
+        if ((id < 90) && (event === true)) {
+            this.onPanelChangeIndex(id);
+        }
+        if ((id === 99) && (event === true)) {
+            this.onPanelChangeWoMa();
+        }
+
     }
 
 }

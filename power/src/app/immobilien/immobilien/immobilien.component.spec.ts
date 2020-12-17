@@ -1,6 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { of } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ImmobilienComponent } from './immobilien.component';
 import * as ImmobilienNipixStatic from './immobilien.static';
@@ -12,16 +12,30 @@ import { ImmobilienUtils } from './immobilien.utils';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
+import {
+    building,
+    houseFill,
+    plusCircle,
+    dashCircle,
+    fileEarmarkImage,
+    fileEarmarkSpreadsheet,
+    fileEarmarkRichtext
+} from 'ngx-bootstrap-icons';
 
 // Select some icons (use an object, not an array)
 /* eslint-disable object-shorthand */
 const icons = {
-    Building,
-    HouseFill,
-    PlusCircle,
-    DashCircle
+    building,
+    houseFill,
+    plusCircle,
+    dashCircle,
+    fileEarmarkImage,
+    fileEarmarkSpreadsheet,
+    fileEarmarkRichtext
 };
 /* eslint-enable object-shorthand */
 
@@ -81,6 +95,9 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
+                BrowserAnimationsModule,
+                AccordionModule.forRoot(),
+                BsDropdownModule.forRoot(),
                 NgxBootstrapIconsModule.pick(icons),
                 NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
@@ -116,15 +133,6 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
         expect(component.initNipix).toHaveBeenCalled();
-    });
-
-    it('Find My WoMa works', () => {
-        const inp$ = of('f', 'fo', 'foo');
-        niStatic.data.gemeinden = {
-            'foobar': '4211'
-        };
-
-        const ret = component.search(inp$);
     });
 
     it('loadConfig works', () => {
@@ -348,17 +356,6 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(component.updateChart).toHaveBeenCalled();
         expect(ImmobilienUtils.getMyMapRegionen).toHaveBeenCalled();
         expect(component.setMapOptions).toHaveBeenCalled();
-    });
-
-    it('onPanelChange works', () => {
-        spyOn(component, 'onPanelChangeIndex').and.callFake(function (par) { });
-        spyOn(component, 'onPanelChangeWoMa').and.callFake(function () { });
-
-        component.onPanelChange({ 'nextState': true, 'panelId': 'static-11' });
-        expect(component.onPanelChangeIndex).toHaveBeenCalledWith(11);
-
-        component.onPanelChange({ 'nextState': true, 'panelId': 'static-99' });
-        expect(component.onPanelChangeWoMa).toHaveBeenCalled();
     });
 
     it('toggleAllSelect works', () => {

@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 
 import { EditorRoutingModule } from './editor-routing.module';
@@ -41,10 +39,8 @@ import { SharedModule } from '@app/shared/shared.module';
         CommonModule,
         HttpClientModule,
         FormsModule,
-        ModalModule.forRoot(),
         CollapseModule.forRoot(),
         AccordionModule.forRoot(),
-        BsDropdownModule.forRoot(),
         NgxSmoothDnDModule,
         SurveyjsModule,
         SharedModule

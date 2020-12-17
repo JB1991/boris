@@ -3,42 +3,58 @@
     <!-- desktop -->
     <div [class]="isCollapsed ? 'd-none d-lg-block' : 'd-none d-xxl-block'">
         <div class="nav-scroller bg-white shadow-sm border-top">
-            <nav class="nav nav-underline d-flex justify-content-between">
+            <nav class="nav nav-underline d-flex justify-content-between p-0">
                 <div class="nav">
                     <div class="btn-group d-flex">
                         <div class="btn-group"
-                             ngbDropdown
-                             role="group">
-                            <button class="btn btn-block"
+                             role="group"
+                             dropdown>
+                            <button id="button-stichtage-1"
+                                    dropdownToggle
                                     type="button"
-                                    ngbDropdownToggle>
-                                <span i18n>Stichtag</span>: {{stichtag}}
+                                    class="btn btn-block dropdown-toggle"
+                                    aria-controls="dropdown-stichtage-1"
+                                    aria-haspopup="true">
+                                <span i18n>Stichtag</span>: {{stichtag | date}} <span class="caret"
+                                      aria-hidden="true"></span>
                             </button>
-                            <div class="dropdown-menu"
-                                 ngbDropdownMenu>
-                                <button *ngFor="let stag of STICHTAGE"
-                                        type="button"
-                                        (click)="onStichtagChange(stag)"
-                                        ngbDropdownItem>
-                                    {{stag}}
+                            <div id="dropdown-stichtage-1"
+                                 *dropdownMenu
+                                 class="dropdown-menu"
+                                 role="menu"
+                                 aria-labelledby="button-stichtage-1">
+                                <button type="button"
+                                        role="menuitem"
+                                        class="dropdown-item"
+                                        *ngFor="let stag of STICHTAGE"
+                                        (click)="onStichtagChange(stag)">
+                                    {{stag | date}}
                                 </button>
                             </div>
                         </div>
+
                         <div class="btn-group"
-                             ngbDropdown
-                             role="group">
-                            <button class="btn btn-block"
+                             role="group"
+                             dropdown>
+                            <button id="button-teilmarkt-1"
+                                    dropdownToggle
                                     type="button"
-                                    ngbDropdownToggle>
-                                <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}}
+                                    class="btn btn-block dropdown-toggle"
+                                    aria-controls="dropdown-teilmarkt-1"
+                                    aria-haspopup="true">
+                                <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}} <span class="caret"
+                                      aria-hidden="true"></span>
                             </button>
-                            <div class="dropdown-menu"
-                                 ngbDropdownMenu>
-                                <button *ngFor="let tm of TEILMAERKTE"
-                                        type="button"
-                                        (click)="onTeilmarktChange(tm)"
-                                        ngbDropdownItem
-                                        class="btn-block">
+                            <div id="dropdown-teilmarkt-1"
+                                 *dropdownMenu
+                                 class="dropdown-menu"
+                                 role="menu"
+                                 aria-labelledby="button-teilmarkt-1">
+                                <button type="button"
+                                        role="menuitem"
+                                        class="dropdown-item"
+                                        *ngFor="let tm of TEILMAERKTE"
+                                        (click)="onTeilmarktChange(tm)">
                                     <svg width="0.75em"
                                          height="0.75em"
                                          viewBox="0 0 16 16"
@@ -151,7 +167,7 @@
     <!-- mobile -->
     <div [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
         <div class="nav-scroller bg-white shadow-sm border-top">
-            <nav class="nav nav-underline">
+            <nav class="nav nav-underline p-0">
                 <div class="nav mr-auto">
                     <button class="nav-link btn"
                             [ngClass]="{'active': filterActive}"
@@ -290,43 +306,56 @@
          [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
         <div class="btn-group d-flex w-100">
             <div class="btn-group"
-                 style="flex: 1;"
-                 ngbDropdown
                  role="group"
-                 aria-label="Button group with nested dropdown">
-                <button class="btn btn-block"
+                 style="flex: 1;"
+                 dropdown>
+                <button id="button-stichtage-2"
+                        dropdownToggle
                         type="button"
-                        ngbDropdownToggle>
-                    {{stichtag}}
+                        class="btn btn-block dropdown-toggle"
+                        aria-controls="dropdown-stichtage-2"
+                        aria-haspopup="true">
+                    {{stichtag | date}} <span class="caret"
+                          aria-hidden="true"></span>
                 </button>
-                <div class="dropdown-menu"
-                     ngbDropdownMenu>
-                    <button *ngFor="let stag of STICHTAGE"
-                            type="button"
-                            (click)="onStichtagChange(stag)"
-                            ngbDropdownItem>
-                        {{stag}}
+                <div id="dropdown-stichtage-2"
+                     *dropdownMenu
+                     class="dropdown-menu"
+                     role="menu"
+                     aria-labelledby="button-stichtage-2">
+                    <button type="button"
+                            role="menuitem"
+                            class="dropdown-item"
+                            *ngFor="let stag of STICHTAGE"
+                            (click)="onStichtagChange(stag)">
+                        {{stag | date}}
                     </button>
                 </div>
             </div>
+
             <div class="btn-group"
-                 style="flex: 1;"
-                 ngbDropdown
-                 placement="bottom-right"
                  role="group"
-                 aria-label="Button group with nested dropdown">
-                <button class="btn btn-block"
+                 style="flex: 1;"
+                 dropdown>
+                <button id="button-teilmarkt-2"
+                        dropdownToggle
                         type="button"
-                        ngbDropdownToggle>
-                    {{teilmarkt.viewValue}}
+                        class="btn btn-block dropdown-toggle"
+                        aria-controls="dropdown-teilmarkt-2"
+                        aria-haspopup="true">
+                    {{teilmarkt.viewValue}} <span class="caret"
+                          aria-hidden="true"></span>
                 </button>
-                <div class="dropdown-menu"
-                     ngbDropdownMenu>
-                    <button *ngFor="let tm of TEILMAERKTE"
-                            type="button"
-                            (click)="onTeilmarktChange(tm)"
-                            ngbDropdownItem
-                            class="btn-block">
+                <div id="dropdown-teilmarkt-2"
+                     *dropdownMenu
+                     class="dropdown-menu dropdown-menu-right"
+                     role="menu"
+                     aria-labelledby="button-teilmarkt-2">
+                    <button type="button"
+                            role="menuitem"
+                            class="dropdown-item"
+                            *ngFor="let tm of TEILMAERKTE"
+                            (click)="onTeilmarktChange(tm)">
                         <svg width="0.75em"
                              height="0.75em"
                              viewBox="0 0 16 16"
@@ -378,7 +407,7 @@
                    type="line"
                    [source]="ndsSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_with_display'"
                    [paint]="{
       'line-color': teilmarkt.color,
       'line-width': {
@@ -396,7 +425,7 @@
                    type="line"
                    [source]="ndsSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_with_display'"
                    [paint]="{
                         'line-color': '#0080FF',
                         'line-dasharray': [7,5],
@@ -414,7 +443,7 @@
         <mgl-layer id="landwirtschaft"
                    type="line"
                    [source]="ndsSource"
-                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_with_display'"
                    [minzoom]="10"
                    [paint]="{
       'line-color': teilmarkt.color,
@@ -431,7 +460,7 @@
         <mgl-layer id="appto_bauland"
                    type="symbol"
                    [source]="ndsSource"
-                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_with_display'"
                    [minzoom]="13"
                    [paint]="{
       'text-halo-color' : '#fff',
@@ -463,7 +492,7 @@
         <mgl-layer id="appto_landwirtschaft"
                    type="symbol"
                    [source]="ndsSource"
-                   [sourceLayer]="'br_brzone_flat_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_with_display'"
                    [minzoom]="10"
                    [paint]="{
       'text-halo-color' : '#fff',
@@ -496,7 +525,7 @@
                    type="line"
                    [source]="bremenSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat_bremen_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_bremen_with_display'"
                    [paint]="{
       'line-color': teilmarkt.color,
       'line-width': {
@@ -514,7 +543,7 @@
                    type="line"
                    [source]="bremenSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat_bremen_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_bremen_with_display'"
                    [paint]="{
                         'line-color': '#0080FF',
                         'line-dasharray': [7,5],
@@ -532,7 +561,7 @@
         <mgl-layer id="landwirtschaft_bremen"
                    type="line"
                    [source]="bremenSource"
-                   [sourceLayer]="'br_brzone_flat_bremen_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_bremen_with_display'"
                    [minzoom]="10"
                    [paint]="{
       'line-color': teilmarkt.color,
@@ -549,7 +578,7 @@
         <mgl-layer id="appto_bauland_bremen"
                    type="symbol"
                    [source]="bremenSource"
-                   [sourceLayer]="'br_brzone_flat_bremen_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_bremen_with_display'"
                    [minzoom]="13"
                    [paint]="{
       'text-halo-color' : '#fff',
@@ -576,7 +605,7 @@
         <mgl-layer id="appto_landwirtschaft_bremen"
                    type="symbol"
                    [source]="bremenSource"
-                   [sourceLayer]="'br_brzone_flat_bremen_with_whitespace'"
+                   [sourceLayer]="'br_brzone_flat_bremen_with_display'"
                    [minzoom]="10"
                    [paint]="{
       'text-halo-color' : '#fff',

@@ -1,3 +1,64 @@
+<div class="container my-4"
+     *ngIf="configService.config.modules.includes('bodenrichtwerte-altsystem') && showPrintNotice">
+    <alert type="info"
+           role="alert">
+        <button i18n-aria-label
+                aria-label="Schließen"
+                i18n-title
+                title="Schließen"
+                class="close ng-star-inserted"
+                type="button"
+                (click)="showPrintNotice = false;">
+            <span aria-hidden="true">×</span>
+            <span class="sr-only"
+                  i18n>Alert schließen</span>
+        </button>
+        <span class="h4 alert-heading">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-info-circle"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 focusable="false"
+                 aria-hidden="true">
+                <path fill-rule="evenodd"
+                      d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                      d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
+                <circle cx="8"
+                        cy="4.5"
+                        r="1" />
+            </svg>
+            <span class="ml-2"
+                  i18n>Bodenrichtwerte - amtlicher Ausdruck</span>
+        </span>
+        <p class="m-0">Die amtliche Druckfunktion und Bodenrichtwerte von vor 2012 erhalten Sie beim Gutachterausschuss.
+            Ein Benutzeraccount ist hierfür erforderlich.</p>
+        <a href="https://www.boris.niedersachsen.de/boris/login"
+           target="_blank"
+           rel="noopener noreferrer nofollow">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-box-arrow-right"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 focusable="false"
+                 aria-hidden="true">
+                <path fill-rule="evenodd"
+                      d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z" />
+                <path fill-rule="evenodd"
+                      d="M4.5 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z" />
+                <path fill-rule="evenodd"
+                      d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z" />
+            </svg>
+            <span class="ml-1"
+                  i18n>Zu BORIS.NI wechseln</span>
+        </a>
+    </alert>
+</div>
+
 <div class="container-fluid p-0 m-0">
     <div class="row m-0">
         <div id="mapWrapper"
@@ -70,7 +131,7 @@
                      (collapsed)="onCollapsingEnds()"
                      (expanded)="onExpandingEnds()"
                      [isAnimated]="true">
-                    <div class="well well-lg card card-block card-header verlauf">
+                    <div class="well well-lg card card-block card-header verlauf p-1 p-sm-2 p-md-3">
                         <div class="p-0"
                              *ngIf="features">
                             <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features.features.length"
@@ -80,7 +141,8 @@
                                 <p class="m-3 mx-center lead"
                                    i18n>Hinweis:</p>
                                 <p class="m-3 mx-center"
-                                   i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder Bremen aus.
+                                   i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder Bremen
+                                    aus.
                                     Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
                             </div>
                             <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"

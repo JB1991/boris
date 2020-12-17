@@ -32,7 +32,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
-        + '&LAYER=boris:br_brzone_flat_bremen_with_whitespace'
+        + '&LAYER=boris:br_brzone_flat_bremen_with_display'
         + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
         + '&TILEMATRIXSET=EPSG:900913'
         + '&FORMAT=application/vnd.mapbox-vector-tile'
@@ -52,7 +52,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
         + '&VERSION=1.0.0'
-        + '&LAYER=boris:br_brzone_flat_with_whitespace'
+        + '&LAYER=boris:br_brzone_flat_with_display'
         + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
         + '&TILEMATRIXSET=EPSG:900913'
         + '&FORMAT=application/vnd.mapbox-vector-tile'
@@ -339,13 +339,22 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     onTeilmarktChange(teilmarkt: any) {
         this.teilmarkt = teilmarkt;
         this.teilmarktChange.emit(this.teilmarkt);
-        this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        if (this.lat && this.lng) {
+            this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        }
         this.changeURL();
     }
 
     public resetMap() {
         this.resetMapFired = true;
+
+        // reset URL
         this.location.replaceState('/bodenrichtwerte');
+
+        // reset coordinates
+        this.lat = undefined;
+        this.lng = undefined;
+
         if (this.threeDActive) {
             this.deactivate3dView();
             this.threeDActive = !this.threeDActive;
@@ -357,16 +366,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.adresseChange.emit(undefined);
         }
         if (this.features) {
-            this.featuresChange.emit(false);
+            this.featuresChange.emit(undefined);
         }
         if (!this.isCollapsed) {
             this.isCollapsedChange.emit(true);
         }
-        this.map.resize();
-        this.map.fitBounds(this.bounds, {
-            pitch: 0,
-            bearing: 0
-        });
     }
 
     enableLocationTracking() {

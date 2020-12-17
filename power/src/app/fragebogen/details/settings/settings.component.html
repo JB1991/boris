@@ -1,6 +1,5 @@
 <power-modalmini #settingsmodal>
-    <div class="form-group"
-         *ngIf="auth.IsAuthorized(['admin', 'manager'], old.owner.id, old.groups)">
+    <div class="form-group">
         <label i18n>Besitzer</label>
         <select class="form-control"
                 [(ngModel)]="owner">
@@ -13,7 +12,7 @@
 
     <!-- groups -->
     <div class="form-group"
-         *ngIf="old && old.groups && auth.IsAuthorized(['admin', 'manager'], old.owner.id, old.groups)">
+         *ngIf="old && old.groups">
         <label for="form-groups"
                i18n>Gruppen bearbeiten</label>
         <power-tagbox [(tagList)]="groups"
@@ -26,7 +25,7 @@
 
     <!-- tags -->
     <div class="form-group"
-         *ngIf="old && old.tags && auth.IsAuthorized(['admin', 'manager', 'editor'], old.owner.id, old.groups)">
+         *ngIf="old && old.tags">
         <label for="form-tags"
                i18n>Tags bearbeiten</label>
         <power-tagbox [(tagList)]="tags"

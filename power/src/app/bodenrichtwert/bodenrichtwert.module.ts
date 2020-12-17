@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import * as echarts from 'echarts';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
@@ -64,15 +64,12 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
     imports: [
         BodenrichtwertRoutingModule,
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgbAccordionModule,
-        NgbPaginationModule,
         NgxMapboxGLModule,
         NgxEchartsModule.forRoot({ echarts: echarts }),
         SharedModule,
-        NgbDropdownModule,
-        CollapseModule
+        BsDropdownModule.forRoot(),
+        AlertModule.forRoot(),
+        CollapseModule.forRoot()
     ],
     providers: [BodenrichtwertService]
 })

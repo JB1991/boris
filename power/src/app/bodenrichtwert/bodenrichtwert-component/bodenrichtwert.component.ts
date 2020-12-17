@@ -9,6 +9,7 @@ import { Feature } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
+import { ConfigService } from '@app/config.service';
 
 /**
  * Possible selections of Stichtage
@@ -89,10 +90,13 @@ export class BodenrichtwertComponent implements OnDestroy {
 
     public expanded = true;
 
+    public showPrintNotice = true;
+
     constructor(
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
+        public configService: ConfigService,
         private titleService: Title,
         private cdr: ChangeDetectorRef
     ) {
@@ -103,8 +107,8 @@ export class BodenrichtwertComponent implements OnDestroy {
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
-            this.cdr.detectChanges();
             this.isCollapsed = false;
+            this.cdr.detectChanges();
         });
         this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(fst => {
             this.flurstueck = fst;

@@ -73,7 +73,9 @@ export const chartOptions = {
             splitLine: { show: false },
             axisLabel: {
                 show: true,
-                fontSize: null
+                fontSize: null,
+                showMinLabel: true,
+                showMaxLabel: true
             },
             name: $localize`Quartal`
         },

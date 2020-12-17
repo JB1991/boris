@@ -6,9 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class EntwicklungszusatzPipe implements PipeTransform {
 
     verf = {
-        'SU': $localize`Sanierungsbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung`,
+        'SU': $localize`Sanierungsunbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung`,
         'SB': $localize`Sanierungsbeeinflusster Bodenrichtwert, unter Berücksichtigung der rechtlichen und tatsächlichen Neuordnung`,
-        'EU': $localize`Entwicklungsbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung`,
+        'EU': $localize`Entwicklungsunbeeinflusster Bodenrichtwert, ohne Berücksichtigung der rechtlichen und tatsächlichen Neuordnung`,
         'EB': $localize`Entwicklungsbeeinflusster Bodenrichtwert, unter Berücksichtigung der rechtlichen und tatsächlichen Neuordnung`
     };
 

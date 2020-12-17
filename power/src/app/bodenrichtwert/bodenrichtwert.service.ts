@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Feature, FeatureCollection } from 'geojson';
@@ -132,7 +132,12 @@ export class BodenrichtwertService {
          * Umrechnuntstabellendatei and Umrechnungstabellenwerte are presented as String not JSON,
          * therefore they have to be parsed manually
          */
-        return this.http.post<FeatureCollection>(this.url, filter)
+        const header = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
+        return this.http.post<FeatureCollection>(this.url, filter, { 'headers': header, 'responseType': 'json' })
             .pipe(
                 map(response => {
                     response.features = response.features.map(f => {

@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator.component';
 import { CommonModule } from '@angular/common';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Map } from 'mapbox-gl';
@@ -31,13 +30,11 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
             ],
             imports: [
                 CommonModule,
+                BrowserAnimationsModule,
                 HttpClientTestingModule,
                 NgxMapboxGLModule,
-                FormsModule,
-                ReactiveFormsModule,
                 SharedModule,
-                CollapseModule,
-                BrowserAnimationsModule
+                CollapseModule
             ],
             providers: [
                 AlertsService

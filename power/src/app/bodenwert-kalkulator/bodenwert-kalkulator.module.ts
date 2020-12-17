@@ -6,7 +6,6 @@ import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator/bodenwert-k
 import { BodenwertKalkulatorRoutingModule } from './bodenwert-kalkulator-routing.module';
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
@@ -17,8 +16,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     imports: [
         BodenwertKalkulatorRoutingModule,
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
         NgxMapboxGLModule,
         SharedModule,
         CollapseModule

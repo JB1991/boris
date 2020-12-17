@@ -8,6 +8,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { PublicDashboardComponent } from './public-dashboard.component';
 import { FormAPIService } from '../formapi.service';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let component: PublicDashboardComponent;
@@ -21,7 +22,8 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([
                     { path: 'forms', component: MockHomeComponent }
-                ])
+                ]),
+                PaginationModule.forRoot()
             ],
             providers: [
                 Title,

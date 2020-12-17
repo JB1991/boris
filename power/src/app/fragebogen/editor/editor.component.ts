@@ -458,6 +458,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             // success
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
+            this.cdr.detectChanges();
         }).catch((error: Error) => {
             // failed to save
             console.log(error);

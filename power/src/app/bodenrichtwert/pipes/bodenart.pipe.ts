@@ -1,4 +1,3 @@
-import { ValueTransformer } from '@angular/compiler/src/util';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -24,7 +23,7 @@ export class BodenartPipe implements PipeTransform {
     regex: RegExp[] = [
         // 3 chars
         /^([a-z]{1})([A-Z]{2})/, // aBC , z.B. sLT
-        /^([A-Z]{2})([a-z]{1})/, // ABc , z.B. SMo
+        /^([A-Z]{1})([A-Z]{1}[a-z]{1})/, // ABc , z.B. SMo
         /^([A-Z]{1}[a-z]{1})([A-Z]{1})/, // AbC , z.B. MoS
         // 4 chars
         /^([A-Z]{1}[a-z]{1})([a-z]{1}[A-Z]{1})/, // AbcD , z.B. MolS

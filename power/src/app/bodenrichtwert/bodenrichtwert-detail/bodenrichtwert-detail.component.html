@@ -199,6 +199,16 @@
                 role="cell">
                 {{feature.properties.gtie | number}} m;
             </dd>
+            <dt *ngIf="feature.properties.frei"
+                class="col-md-5"
+                role="rowheader">
+                {{brzStrings.frei | hyphenate}}
+            </dt>
+            <dd *ngIf="feature.properties.frei"
+                class="col-md-7"
+                role="cell">
+                {{feature.properties.frei | hyphenate}}
+            </dd>
             <!-- Umrechnungskoeffizienten -->
             <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte">
                 <!-- [html-validate-disable-next element-permitted-content] -->
@@ -215,11 +225,11 @@
                        [routerLink]=""
                        (click)="umrechnungstabelle.open()">
                         {{umrechnung.text | einflussgroesse}}
-                        ({{umrechnung.objid | objectId}})
                     </a>
                     <power-bodenrichtwert-detail-umrechnung #umrechnungstabelle
-                                                            [data]="umrechnung"
-                                                            [brw]="feature.properties.brw">
+                                                            [table]="umrechnung"
+                                                            [brw]="feature.properties.brw"
+                                                            [actualValue]="umrechnung.text === 'Art der Bebauung' ? feature.properties.nutzung[0]['enuta'] : feature.properties[umrechnung.text.toLowerCase()]">
                     </power-bodenrichtwert-detail-umrechnung>
                 </dd>
             </ng-container>

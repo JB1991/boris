@@ -38,7 +38,7 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         const res = component.parseGemeinden(gem);
 
         expect(res).toEqual(true);
-        expect(component.data.gemeinden).toEqual({ '4411': 'bla' });
+        expect(component.data.gemeinden).toEqual([{'name': '4411', 'ags': '1234567', 'woma_id': 'bla' }]);
     });
 
 });

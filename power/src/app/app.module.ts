@@ -49,7 +49,7 @@ export const load = (httpClient: HttpClient, configService: ConfigService) =>
         AuthModule,
         AlertsModule,
         LoadingscreenModule,
-        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: false }),
+        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
         NgbModule
     ],
     providers: [

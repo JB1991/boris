@@ -28,7 +28,8 @@ export class BodenrichtwertDetailComponent implements OnInit {
         'wgfz': $localize`Wertrelevante Geschossflächenzahl`,
         'acza': $localize`Ackerzahl`,
         'bod': $localize`Bodenart`,
-        'grza': $localize`Grünlandzahl`
+        'grza': $localize`Grünlandzahl`,
+        'frei': $localize`Landesspezifische Angaben`
     };
 
     @Input() feature: any;

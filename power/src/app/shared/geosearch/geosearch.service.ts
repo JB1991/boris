@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Feature, FeatureCollection } from 'geojson';
 
@@ -38,7 +38,14 @@ export class GeosearchService {
      * @param search The search string to be passed to the GeoCoder
      */
     search(search: string): Observable<FeatureCollection> {
+        const header = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.get<FeatureCollection>(this.url, {
+            headers: header,
+            responseType: 'json',
             params: new HttpParams().set('query', `text:(${search}) AND (typ:ort OR typ:strasse OR typ:haus^0.2) AND (bundesland:Niedersachsen OR bundesland:Bremen)`)
                 .append('minScore', '1').append('count', '10')
         }).pipe(
@@ -53,7 +60,14 @@ export class GeosearchService {
      * If the parameter `distance` changes, the html text in `bodenrichtwert.component` must be changed accordingly.
      */
     getAddressFromCoordinates(lat, lon): Observable<FeatureCollection> {
+        const header = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.get<FeatureCollection>(this.url, {
+            headers: header,
+            responseType: 'json',
             params: new HttpParams().set('query', 'typ: haus').append('lat', lat)
                 .append('lon', lon).append('distance', '50')
         }).pipe(
