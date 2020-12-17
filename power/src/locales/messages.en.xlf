@@ -385,8 +385,8 @@
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:280</note>
       </notes>
       <segment state="translated">
-        <source>HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem Graphen erfolgen.</source>
-        <target>NOTE: The selection of the zet room can also be done with the sliders in the graph.<ph id="0" equiv="LINE_BREAK" type="fmt" disp="&lt;br&gt;"/></target>
+        <source>HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem Graphen erfolgen.<ph id="0" equiv="LINE_BREAK" type="fmt" disp="&lt;br>"/></source>
+        <target>NOTE: The selection of the zet room can also be done with the sliders in the graph.<ph id="0" equiv="LINE_BREAK" type="fmt" disp="&lt;br>"/></target>
       </segment>
     </unit>
     <unit id="1534912079502587880">
@@ -432,7 +432,8 @@
         <note category="description">Currently selected slide number read by screen reader</note>
       </notes>
       <segment state="translated">
-        <source> Slide </source>
+        <source> Slide <ph id="0" equiv="INTERPOLATION" disp="ate _pauseOnHov"/> of <ph id="1" equiv="INTERPOLATION_1" disp="ect(false);
+  p"/> </source>
         <target>Slide of<ph id="0" equiv="INTERPOLATION" disp="ate _pauseOnHov"/> of <ph id="1" equiv="INTERPOLATION_1" disp="ect(false);   p"/> </target>
       </segment>
     </unit>
@@ -688,7 +689,9 @@
         <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:131,136</note>
       </notes>
       <segment state="initial">
-        <source><ph id="0" equiv="INTERPOLATION" disp="sible.    */   "/></source>
+        <source><ph id="0" equiv="INTERPOLATION" disp="sible.
+   */
+  "/></source>
         <target><ph id="0" equiv="INTERPOLATION" disp="sible.    */   "/></target>
       </segment>
     </unit>
@@ -1712,7 +1715,7 @@
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/bodenrichtwert-detail.component.html:6</note>
       </notes>
       <segment state="translated">
-        <source>Tabelle Bodenrichtwertzone </source>
+        <source>Tabelle Bodenrichtwertzone <ph id="0" equiv="INTERPOLATION" disp="{{ feature.properties.nutzung | nutzung }}"/></source>
         <target>Table Bodenrichtwertzone<ph id="0" equiv="INTERPOLATION" disp="{{ feature.properties.nutzung | nutzung }}"/></target>
       </segment>
     </unit>
@@ -1766,7 +1769,7 @@
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-detail/umrechnung/umrechnung.component.html:114</note>
       </notes>
       <segment state="translated">
-        <source/>
+        <source><ph id="0" equiv="INTERPOLATION" disp="{{einflussgroesse}}"/> des Richtgrundstücks</source>
         <target>of the indicative plot<ph id="0" equiv="INTERPOLATION" disp="{{einflussgroesse}}"/> des Richtgrundstücks</target>
       </segment>
     </unit>
