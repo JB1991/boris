@@ -117,6 +117,7 @@ test:lint:
     - dev
     - staging
     - production
+  allow_failure: true
 
 test:lint:html:
   stage: test
