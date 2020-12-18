@@ -9,6 +9,27 @@ import { environment } from '@env/environment';
     providedIn: 'root'
 })
 export class BodenrichtwertService {
+    /**
+     * Possible selections of Stichtage
+     */
+    public STICHTAGE = [
+        '2019-12-31',
+        '2018-12-31',
+        '2017-12-31',
+        '2016-12-31',
+        '2015-12-31',
+        '2014-12-31',
+        '2013-12-31',
+        '2012-12-31',
+    ];
+
+    /**
+     * Possible selections of Teilmärkte
+     */
+    public TEILMAERKTE = [
+        { value: ['B', 'SF', 'R', 'E'], viewValue: $localize`Bauland`, color: '#c4153a' },
+        { value: ['LF'], viewValue: $localize`Land- und forstwirtschaftliche Flächen`, color: '#009900' },
+    ];
 
     /**
      * URL where to fetch GeoJSON from

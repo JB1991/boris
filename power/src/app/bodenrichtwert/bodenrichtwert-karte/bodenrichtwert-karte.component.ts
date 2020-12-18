@@ -4,7 +4,6 @@ import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { environment } from '@env/environment';
-import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
@@ -88,12 +87,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() teilmarkt: any;
     @Output() teilmarktChange = new EventEmitter();
 
-    public TEILMAERKTE = TEILMAERKTE;
-
     @Input() stichtag;
     @Output() stichtagChange = new EventEmitter();
-
-    public STICHTAGE = STICHTAGE;
 
     @Input() isCollapsed;
     @Output() isCollapsedChange = new EventEmitter();
@@ -175,7 +170,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
             // teilmarkt
             if (params['teilmarkt']) {
-                const tmp = TEILMAERKTE.filter(p => p.viewValue === params['teilmarkt'])[0];
+                const tmp = this.bodenrichtwertService.TEILMAERKTE.filter(p => p.viewValue === params['teilmarkt'])[0];
                 if (tmp) {
                     this.onTeilmarktChange(tmp);
                 }
@@ -183,7 +178,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
             // stichtag
             if (params['stichtag']) {
-                if (STICHTAGE.includes(params['stichtag'])) {
+                if (this.bodenrichtwertService.STICHTAGE.includes(params['stichtag'])) {
                     this.onStichtagChange(params['stichtag']);
                 }
             }

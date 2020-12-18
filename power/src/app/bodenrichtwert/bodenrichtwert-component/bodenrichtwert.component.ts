@@ -1,6 +1,6 @@
 import {
     Component, OnDestroy,
-    ChangeDetectionStrategy, ChangeDetectorRef
+    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
@@ -10,28 +10,8 @@ import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
 import { ConfigService } from '@app/config.service';
-
-/**
- * Possible selections of Stichtage
- */
-export const STICHTAGE = [
-    '2019-12-31',
-    '2018-12-31',
-    '2017-12-31',
-    '2016-12-31',
-    '2015-12-31',
-    '2014-12-31',
-    '2013-12-31',
-    '2012-12-31',
-];
-
-/**
- * Possible selections of Teilmärkte
- */
-export const TEILMAERKTE = [
-    { value: ['B', 'SF', 'R', 'E'], viewValue: $localize`Bauland`, color: '#c4153a' },
-    { value: ['LF'], viewValue: $localize`Land- und forstwirtschaftliche Flächen`, color: '#009900' },
-];
+import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
+import proj4 from 'proj4';
 
 /**
  * Bodenrichtwert-Component arranges all Components on a single page
@@ -92,6 +72,8 @@ export class BodenrichtwertComponent implements OnDestroy {
 
     public showPrintNotice = true;
 
+    @ViewChild('map') public map: BodenrichtwertKarteComponent;
+
     constructor(
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
@@ -114,8 +96,8 @@ export class BodenrichtwertComponent implements OnDestroy {
             this.flurstueck = fst;
             this.cdr.detectChanges();
         });
-        this.stichtag = STICHTAGE[0];
-        this.teilmarkt = TEILMAERKTE[0];
+        this.stichtag = this.bodenrichtwertService.STICHTAGE[0];
+        this.teilmarkt = this.bodenrichtwertService.TEILMAERKTE[0];
     }
 
     /**
@@ -134,6 +116,40 @@ export class BodenrichtwertComponent implements OnDestroy {
     public onExpandingEnds() {
         this.expanded = !this.expanded;
         this.collapsed = false;
+    }
+
+    public printURL(): string {
+        let url = '/boris-print/';
+
+        // coordinates
+        const lnglat_coordinates = this.map.marker.getLngLat();
+        const wgs84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
+        const utm = '+proj=utm +zone=32';
+        const utm_cordinates = proj4(wgs84, utm, [lnglat_coordinates.lng, lnglat_coordinates.lat]);
+        url += 'east=' + encodeURIComponent(utm_cordinates[0].toFixed(0));
+        url += '&north=' + encodeURIComponent(utm_cordinates[1].toFixed(0));
+
+        // year
+        url += '&year=' + encodeURIComponent(this.stichtag.substring(0, 4));
+
+        // submarket
+        url += '&submarket=';
+        switch (this.teilmarkt.viewValue) {
+            case this.bodenrichtwertService.TEILMAERKTE[0].viewValue: {
+                url += encodeURIComponent('Bauland');
+                break;
+            }
+            case this.bodenrichtwertService.TEILMAERKTE[1].viewValue: {
+                url += encodeURIComponent('Landwirtschaft');
+                break;
+            }
+            default: {
+                throw new Error('Unknown teilmarkt');
+            }
+        }
+
+        // return url
+        return url;
     }
 }
 

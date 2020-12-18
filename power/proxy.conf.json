@@ -4,7 +4,8 @@
         "pathRewrite": {
             "^/geocoding/geosearch/": ""
         },
-        "secure": false,
+        "changeOrigin": true,
+        "secure": true,
         "debugLevel": "info"
     },
     "/geocoding/suggestions/": {
@@ -12,13 +13,14 @@
         "pathRewrite": {
             "^/geocoding/suggestions/": ""
         },
-        "secure": false,
+        "changeOrigin": true,
+        "secure": true,
         "debugLevel": "info"
     },
     "/geoserver/": {
-        "target": "https://dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud",
-        "secure": false,
+        "target": "https://dev.power.niedersachsen.dev",
         "changeOrigin": true,
+        "secure": false,
         "debugLevel": "info"
     },
     "/formapi/": {
@@ -26,6 +28,7 @@
         "pathRewrite": {
             "^/forms/": ""
         },
+        "changeOrigin": true,
         "secure": false,
         "debugLevel": "info"
     },
@@ -35,19 +38,28 @@
             "^/wfs": "/doorman/auth/WFS_NI_1311_ALKIS-NAS-konform"
         },
         "changeOrigin": true,
-        "secure": false,
+        "secure": true,
         "debugLevel": "info",
-        "headers" : {
+        "headers": {
             "Authorization": "Basic MDNWS1YyMjNBS1MyOnljVGllazNqOFduRjRCMVI="
         }
     },
-    "/feedback-rss": {
+    "/feedback-rss/": {
         "target": "https://gitlab.com",
         "pathRewrite": {
-            "^/feedback-rss": "/Kay-LGLN/power/-/issues.atom"
+            "^/feedback-rss/": "/Kay-LGLN/power/-/issues.atom"
         },
         "changeOrigin": true,
-        "secure": false,
+        "secure": true,
+        "debugLevel": "info"
+    },
+    "/boris-print/": {
+        "target": "https://www.boris.niedersachsen.de",
+        "pathRewrite": {
+            "^/boris-print/": "/ent-boris/brwdirect?user=lgn&pwd=test&"
+        },
+        "changeOrigin": true,
+        "secure": true,
         "debugLevel": "info"
     }
 }
