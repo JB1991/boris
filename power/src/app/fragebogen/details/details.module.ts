@@ -11,6 +11,7 @@ import { MaketaskComponent } from './maketask/maketask.component';
 import { PublishComponent } from './publish/publish.component';
 import { SettingsComponent } from './settings/settings.component';
 import { CommentComponent } from './comment/comment.component';
+import { SurveyjsModule } from "@app/fragebogen/surveyjs/surveyjs.module";
 
 
 @NgModule({
@@ -21,14 +22,15 @@ import { CommentComponent } from './comment/comment.component';
         CommentComponent,
         SettingsComponent,
     ],
-    imports: [
-        DetailsRoutingModule,
-        CommonModule,
-        HttpClientModule,
-        FormsModule,
-        SharedModule,
-        PaginationModule.forRoot(),
-    ]
+	imports: [
+		DetailsRoutingModule,
+		CommonModule,
+		HttpClientModule,
+		FormsModule,
+		SharedModule,
+		PaginationModule.forRoot(),
+		SurveyjsModule,
+	]
 })
 export class DetailsModule { }
 /* vim: set expandtab ts=4 sw=4 sts=4: */
