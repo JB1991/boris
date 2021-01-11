@@ -130,7 +130,7 @@ export class BodenrichtwertComponent implements OnDestroy {
         url += '&north=' + encodeURIComponent(utm_cordinates[1].toFixed(0));
 
         // year
-        url += '&year=' + encodeURIComponent(this.stichtag.substring(0, 4));
+        url += '&year=' + encodeURIComponent(parseInt(this.stichtag.substring(0, 4)) + 1);
 
         // submarket
         url += '&submarket=';

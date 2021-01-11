@@ -159,7 +159,8 @@
                                    i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
                             </div>
 
-                            <div class="mb-2">
+                            <div class="mb-2"
+                                 *ngIf="features.features.length">
                                 <a class="btn btn-primary"
                                    role="button"
                                    [href]="printURL()"
