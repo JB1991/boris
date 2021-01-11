@@ -200,7 +200,7 @@ deploy:development:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="dev"
+    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
   only:
     - dev
 
@@ -215,7 +215,7 @@ deploy:staging:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="staging"
+    - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
   only:
     - staging
 
@@ -230,7 +230,7 @@ deploy:production:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="production" --set replicaCount=2
+    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-prod.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --set replicaCount=1
   only:
     - production
   when: manual
