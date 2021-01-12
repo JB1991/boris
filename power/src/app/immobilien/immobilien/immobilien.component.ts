@@ -65,6 +65,42 @@ export class ImmobilienComponent implements OnInit {
         } catch(error) {
             this.selectedWoMa = '';
         }
+
+        // TBD: Chenge Selection and Display Region
+        let singleSelectionId = null;
+        for (let i = 0; i <  this.nipixStatic.data.selections.length; i++) {
+            if (this.nipixStatic.data.selections[i]['type'] === 'single') {
+                singleSelectionId = i;
+            }
+        }
+
+        const accKeys = Object.keys(this.accOpen);
+        let isSet = false;
+        if (singleSelectionId !== null) {
+            for (let i = 0; i < accKeys.length; i++) {
+                if (parseInt(accKeys[i]) < 90) {
+                    if (accKeys[i] === singleSelectionId) {
+                        this.accOpen[accKeys[i]] = true;
+                        isSet = true;
+                    } else {
+                        this.accOpen[accKeys[i]] = false;
+                    }
+                }
+            }
+        }
+
+        if (!isSet) {
+            this.accOpen[singleSelectionId] = true;
+        }
+        for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
+            if (this.nipixRuntime.drawPresets[i]['name'] === this.nipixStatic.data.selections[singleSelectionId]['preset'][0]) {
+                this.nipixRuntime.drawPresets[i].values = [this.selectedWoMa['woma_id']];
+            }
+        }
+        this.nipixRuntime.state.activeSelection = singleSelectionId;
+        //this.setMapOptions('single');
+        this.updateMapSelect();
+        this.updateChart();
     }
 
     /**
@@ -505,6 +541,7 @@ export class ImmobilienComponent implements OnInit {
                     this.nipixStatic.data.selections[selection_id]['preset'].length);
             }
             this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[selection_id]['name'];
+            this.nipixRuntime.state.activeSelection = selection_id;
         }
         this.nipixRuntime.state.selectedChartLine = '';
         this.updateChart();
