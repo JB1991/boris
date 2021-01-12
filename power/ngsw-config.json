@@ -35,9 +35,10 @@
         "!/**/*__*",
         "!/**/*__*/**",
         "!/health",
-        "!/geocoding/suggestions/**",
-        "!/geocoding/geosearch/**",
-        "!/wfs/alkis/**",
+        "!/geocoding/**",
+        "!/geoserver/**",
+        "!/formapi/**",
+        "!/wfs/**",
         "!/feedback-rss/**",
         "!/boris-print/**"
     ],
