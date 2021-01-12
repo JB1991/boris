@@ -15,22 +15,22 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 
 @NgModule({
-	declarations: [
-		DetailsComponent,
-		MaketaskComponent,
-		PublishComponent,
-		CommentComponent,
-		SettingsComponent,
-	],
-	imports: [
-		DetailsRoutingModule,
-		CommonModule,
-		HttpClientModule,
-		FormsModule,
-		SharedModule,
-		PaginationModule.forRoot(),
-		SurveyjsModule,
-	]
+    declarations: [
+        DetailsComponent,
+        MaketaskComponent,
+        PublishComponent,
+        CommentComponent,
+        SettingsComponent,
+    ],
+    imports: [
+        DetailsRoutingModule,
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        SharedModule,
+        PaginationModule.forRoot(),
+        SurveyjsModule,
+    ]
 })
 export class DetailsModule { }
 /* vim: set expandtab ts=4 sw=4 sts=4: */
