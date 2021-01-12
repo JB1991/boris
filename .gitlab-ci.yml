@@ -174,7 +174,7 @@ build:
     - dev
     - staging
 
-build:
+build:prod:
   stage: build
   image: node:lts-alpine
   dependencies: []
@@ -197,6 +197,7 @@ package:
   image: docker:stable
   dependencies:
     - build
+    - build:prod
   cache: {}
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
