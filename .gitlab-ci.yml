@@ -162,7 +162,7 @@ build:
     policy: pull
   script:
     - cd power
-    - npm run build -- --prod
+    - npm run build -- -c staging
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
@@ -173,6 +173,23 @@ build:
     - tags
     - dev
     - staging
+
+build:
+  stage: build
+  image: node:lts-alpine
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - cd power
+    - npm run build -- --prod
+  artifacts:
+    name: "compiled dist"
+    expire_in: 2 days
+    paths:
+      - power/dist/power
+  only:
     - production
 
 package:
