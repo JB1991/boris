@@ -165,7 +165,11 @@ test:helm-dry-run:
     - kubectl config use-context default
     - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --dry-run
   only:
-    - master
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
 
 test:helm-kubesec:
   stage: test
@@ -177,7 +181,11 @@ test:helm-kubesec:
     - tar xf kubesec_linux_amd64.tar.gz
     - helm template power ./chart/power -f ./chart/power/values-dev.yaml | ./kubesec scan -
   only:
-    - master
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
   allow_failure: true
 
 build:
