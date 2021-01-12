@@ -59,6 +59,17 @@ export class ImmobilienComponent implements OnInit {
     selectedWoMa: string;
     selectedWoMaValue: string;
 
+    selectSingle() {
+        let singleSelectionId = null;
+        for (let i = 0; i < this.nipixStatic.data.selections.length; i++) {
+            if (this.nipixStatic.data.selections[i]['type'] === 'single') {
+                singleSelectionId = i;
+            }
+        }
+
+        return singleSelectionId;
+    }
+
     onSelectWoMa(): void {
         try {
             this.selectedWoMa = this.nipixStatic.data.gemeinden.filter(p => p.name === this.selectedWoMaValue)[0];
@@ -66,19 +77,13 @@ export class ImmobilienComponent implements OnInit {
             this.selectedWoMa = '';
         }
 
-        // TBD: Chenge Selection and Display Region
-        let singleSelectionId = null;
-        for (let i = 0; i <  this.nipixStatic.data.selections.length; i++) {
-            if (this.nipixStatic.data.selections[i]['type'] === 'single') {
-                singleSelectionId = i;
-            }
-        }
+        const singleSelectionId = this.selectSingle();
 
         const accKeys = Object.keys(this.accOpen);
         let isSet = false;
         if (singleSelectionId !== null) {
             for (let i = 0; i < accKeys.length; i++) {
-                if (parseInt(accKeys[i]) < 90) {
+                if (parseInt(accKeys[i], 10) < 90) {
                     if (accKeys[i] === singleSelectionId) {
                         this.accOpen[accKeys[i]] = true;
                         isSet = true;
@@ -98,7 +103,6 @@ export class ImmobilienComponent implements OnInit {
             }
         }
         this.nipixRuntime.state.activeSelection = singleSelectionId;
-        //this.setMapOptions('single');
         this.updateMapSelect();
         this.updateChart();
     }
