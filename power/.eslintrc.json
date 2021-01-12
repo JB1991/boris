@@ -83,6 +83,7 @@
                 "@typescript-eslint/member-ordering": "off",
                 "@typescript-eslint/naming-convention": "off",
                 "@typescript-eslint/prefer-for-of": "off",
+                "@typescript-eslint/quotes": "off",
                 "security/detect-object-injection": "off",
                 "security/detect-non-literal-fs-filename": "off",
                 /** ScanJS rules **/

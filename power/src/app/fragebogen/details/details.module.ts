@@ -11,17 +11,17 @@ import { MaketaskComponent } from './maketask/maketask.component';
 import { PublishComponent } from './publish/publish.component';
 import { SettingsComponent } from './settings/settings.component';
 import { CommentComponent } from './comment/comment.component';
-import { SurveyjsModule } from "@app/fragebogen/surveyjs/surveyjs.module";
+import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 
 
 @NgModule({
-    declarations: [
-        DetailsComponent,
-        MaketaskComponent,
-        PublishComponent,
-        CommentComponent,
-        SettingsComponent,
-    ],
+	declarations: [
+		DetailsComponent,
+		MaketaskComponent,
+		PublishComponent,
+		CommentComponent,
+		SettingsComponent,
+	],
 	imports: [
 		DetailsRoutingModule,
 		CommonModule,
