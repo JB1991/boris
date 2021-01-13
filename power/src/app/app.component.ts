@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedAcc = true;
     public isCollapsedBRW = true;
     public isCollapsedImmo = true;
+    public showPrintNotice = false;
     public show = false;
     public name: string;
     public config: Config;
@@ -61,6 +62,14 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 this.configService.appVersion = data;
             }
         });
+
+        // show IE/Edge warning
+        /* eslint-disable-next-line spaced-comment */
+        const isIE = /*@cc_on!@*/false || !!document['documentMode'];
+        const isEdge = !isIE && !!window.StyleMedia;
+        if (isIE || isEdge) {
+            this.showPrintNotice = true;
+        }
     }
 
     ngAfterViewChecked() {

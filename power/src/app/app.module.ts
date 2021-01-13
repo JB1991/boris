@@ -9,6 +9,7 @@ import { Config, ConfigService } from '@app/config.service';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '@env/environment';
 
@@ -46,6 +47,7 @@ export const load = (httpClient: HttpClient, configService: ConfigService) =>
         BrowserAnimationsModule,
         HttpClientModule,
         CollapseModule.forRoot(),
+        AlertModule.forRoot(),
         AuthModule,
         AlertsModule,
         LoadingscreenModule,
