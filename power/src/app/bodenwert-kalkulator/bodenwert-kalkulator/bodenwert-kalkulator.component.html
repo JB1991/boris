@@ -273,13 +273,13 @@
                          [trackResize]="true">
 
                     <mgl-vector-source id="geoserver"
-                                       [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=alkis:ax_flurstueck&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
+                                       [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=alkis:ax_flurstueck_nds&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
                     </mgl-vector-source>
 
                     <mgl-layer id="flurstuecke"
                                type="line"
                                [source]="'geoserver'"
-                               [sourceLayer]="'ax_flurstueck'"
+                               [sourceLayer]="'ax_flurstueck_nds'"
                                [paint]="{
       'line-color': '#c4153a',
       'line-width': {
@@ -293,7 +293,7 @@
                     <mgl-layer id="flurstuecke-fill"
                                type="fill"
                                [source]="'geoserver'"
-                               [sourceLayer]="'ax_flurstueck'"
+                               [sourceLayer]="'ax_flurstueck_nds'"
                                [paint]="{
       'fill-color': 'rgba(255,255,255,0)'
     }"></mgl-layer>
@@ -301,7 +301,7 @@
                     <mgl-layer id="flurstuecke-highlighted"
                                type="fill"
                                [source]="'geoserver'"
-                               [sourceLayer]="'ax_flurstueck'"
+                               [sourceLayer]="'ax_flurstueck_nds'"
                                [filter]="['in', '', '']"
                                [paint]="{
       'fill-color': 'rgba(255,0,0,0.4)',
