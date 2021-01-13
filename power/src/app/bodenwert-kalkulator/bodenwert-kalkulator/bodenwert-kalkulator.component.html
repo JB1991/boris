@@ -279,6 +279,7 @@
                     <mgl-layer id="flurstuecke"
                                type="line"
                                [source]="'geoserver'"
+                               [minzoom]="11"
                                [sourceLayer]="'ax_flurstueck_nds'"
                                [paint]="{
       'line-color': '#c4153a',
@@ -293,6 +294,7 @@
                     <mgl-layer id="flurstuecke-fill"
                                type="fill"
                                [source]="'geoserver'"
+                               [minzoom]="11"
                                [sourceLayer]="'ax_flurstueck_nds'"
                                [paint]="{
       'fill-color': 'rgba(255,255,255,0)'
@@ -301,6 +303,7 @@
                     <mgl-layer id="flurstuecke-highlighted"
                                type="fill"
                                [source]="'geoserver'"
+                               [minzoom]="11"
                                [sourceLayer]="'ax_flurstueck_nds'"
                                [filter]="['in', '', '']"
                                [paint]="{
