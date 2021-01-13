@@ -59,12 +59,52 @@ export class ImmobilienComponent implements OnInit {
     selectedWoMa: string;
     selectedWoMaValue: string;
 
+    selectSingle() {
+        let singleSelectionId = null;
+        for (let i = 0; i < this.nipixStatic.data.selections.length; i++) {
+            if (this.nipixStatic.data.selections[i]['type'] === 'single') {
+                singleSelectionId = i;
+            }
+        }
+
+        return singleSelectionId;
+    }
+
     onSelectWoMa(): void {
         try {
             this.selectedWoMa = this.nipixStatic.data.gemeinden.filter(p => p.name === this.selectedWoMaValue)[0];
         } catch(error) {
             this.selectedWoMa = '';
         }
+
+        const singleSelectionId = this.selectSingle();
+
+        const accKeys = Object.keys(this.accOpen);
+        let isSet = false;
+        if (singleSelectionId !== null) {
+            for (let i = 0; i < accKeys.length; i++) {
+                if (parseInt(accKeys[i], 10) < 90) {
+                    if (accKeys[i] === singleSelectionId) {
+                        this.accOpen[accKeys[i]] = true;
+                        isSet = true;
+                    } else {
+                        this.accOpen[accKeys[i]] = false;
+                    }
+                }
+            }
+        }
+
+        if (!isSet) {
+            this.accOpen[singleSelectionId] = true;
+        }
+        for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
+            if (this.nipixRuntime.drawPresets[i]['name'] === this.nipixStatic.data.selections[singleSelectionId]['preset'][0]) {
+                this.nipixRuntime.drawPresets[i].values = [this.selectedWoMa['woma_id']];
+            }
+        }
+        this.nipixRuntime.state.activeSelection = singleSelectionId;
+        this.updateMapSelect();
+        this.updateChart();
     }
 
     /**
@@ -505,6 +545,7 @@ export class ImmobilienComponent implements OnInit {
                     this.nipixStatic.data.selections[selection_id]['preset'].length);
             }
             this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[selection_id]['name'];
+            this.nipixRuntime.state.activeSelection = selection_id;
         }
         this.nipixRuntime.state.selectedChartLine = '';
         this.updateChart();
