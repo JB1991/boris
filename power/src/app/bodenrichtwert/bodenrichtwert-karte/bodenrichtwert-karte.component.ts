@@ -48,7 +48,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     // NDS - Tile Sources
     public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
-    
+
     // Bodenrichtwerte
     public ndsTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
@@ -178,7 +178,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.map.addSource('geoserver_nds_br', this.ndsSource);
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
-        
+
         this.route.queryParams.subscribe(params => {
             // lat and lat
             if (params['lat'] && params['lng']) {
