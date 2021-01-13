@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
-import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point } from 'mapbox-gl';
+import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point, VectorSource } from 'mapbox-gl';
 
 @Component({
     selector: 'power-bodenwert-kalkulator',
@@ -20,6 +20,26 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
+
+    // NDS - Flustuecks Tile Source
+    public ndsFstTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=alkis:ax_flurstueck'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
+
+    public ndsFstSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.ndsFstTiles],
+        bounds: this.ndsBounds,
+    };
 
     map;
     bounds = new LngLatBounds([
@@ -129,6 +149,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     loadMap($event: any) {
         this.map = $event;
+        this.map.addSource('geoserver_fst_nds', this.ndsFstSource);
     }
 
     flyTo(event: any) {
