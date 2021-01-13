@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
+//import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { Observable, ObservableInput, of } from 'rxjs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { environment } from '@env/environment';
+//import { environment } from '@env/environment';
 
 import { ModuleGuard } from './module.guard';
 import { AuthModule } from '@app/shared/auth/auth.module';
@@ -51,7 +51,7 @@ export const load = (httpClient: HttpClient, configService: ConfigService) =>
         AuthModule,
         AlertsModule,
         LoadingscreenModule,
-        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+        //ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
         NgbModule
     ],
     providers: [
