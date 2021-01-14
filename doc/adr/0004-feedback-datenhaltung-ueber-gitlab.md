@@ -8,7 +8,7 @@ Accepted
 
 ## Context
 
-Auf der Feedbackseite soll von den Nutzern eingereichtest Feedback dargestellt werden. Dies soll redundantes Feedback verhindern.
+Auf der Feedbackseite soll von den Nutzern eingereichtes Feedback dargestellt werden. Dies soll redundantes Feedback verhindern.
 
 ## Decision
 
