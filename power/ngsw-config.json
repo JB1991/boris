@@ -25,6 +25,9 @@
                     "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
                     "/mvt/**",
                     "!/assets/config/config.json"
+                ],
+                "urls": [
+                    "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/**"
                 ]
             }
         }

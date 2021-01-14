@@ -1,5 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Platform } from '@angular/cdk/platform';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedAcc = true;
     public isCollapsedBRW = true;
     public isCollapsedImmo = true;
-    public showPrintNotice = false;
+    public showPrintNotice = true;
     public show = false;
     public name: string;
     public config: Config;
@@ -33,7 +34,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         public configService: ConfigService,
         public httpClient: HttpClient,
         public auth: AuthService,
-        public router: Router
+        public router: Router,
+        public platform: Platform
     ) {
         /* istanbul ignore next */
         this._subscription = router.events.subscribe((event) => {
@@ -63,12 +65,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             }
         });
 
-        // show IE/Edge warning
-        /* eslint-disable-next-line spaced-comment */
-        const isIE = /*@cc_on!@*/false || !!document['documentMode'];
-        const isEdge = !isIE && !!window.StyleMedia;
-        if (isIE || isEdge) {
-            this.showPrintNotice = true;
+        // disable warning for known browsers
+        if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
+            this.showPrintNotice = false;
         }
     }
 
