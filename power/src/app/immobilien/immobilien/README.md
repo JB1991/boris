@@ -1,8 +1,52 @@
-## Verwendung NiPix Applikation
+## Strukturen und Konfiguration der NiPix Applikation
+
+### Abhängigkeiten
+  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
+  * [ngx-bootstrap-icons](https://www.npmjs.com/package/ngx-bootstrap-icons)
+  * [ECharts](https://www.npmjs.com/package/echarts)
+
+### Projektstruktur
+Die Anwendung besteht aus mehreren Quelldateien:
+*  immobilien.component.ts / immobilien.component.html / immobilien.component.scss<br>
+*Dieses sind die Hauptdateien der Anwendung und beinhaltet den Grundaufbau sowie Eventhandler.* 
+
+*  immobilien.chatoptions.ts<br>
+*Diese Datei stellt die Konfiguration der Echarts Komponente bereit und beinhaltet hierfür die Funktionen "getMapOptions", "getChartOptions" und "getChartOptionsMerge".<br> 
+Die einzelnen Konfigurationsobjekte werden hierbei aus folgenden Dateien entnommen:*
+
+*  immobilien.chartoptions-mapoptions.ts<br>
+*Konfiguration für die Karte*
+
+*  immobilien.chartoptions-chartoptions.ts<br>
+*Konfiguration für den Graphen*
+
+*  immobilien.chartoptions-printoptions.ts<br>
+*Konfiguration für die Druckansicht bzw. Bildexport*
+
+*  immobilien.export.ts<br>
+*Funktionen für den Export der Karte (exportMapAsImage, exportGeoJson) sowie des Graphen (exportAsImage, exportAsImageFinish, exportNiPixGeoJson)*
+
+*  immpobilien.formatter.ts<br>
+*Funktionen für die Formatierung von Labels in der Karte (mapTooltipForamtter) und dem Graphen (chartTooltipFormatter, formatLabel, formatLegend, getSeriesLabel, getSeriesColor, simpleLegend, graphicLegend)*
+
+*  immpbilien.helper.ts<br>
+*diverse Hilfsfunktionen (convertRemToPixels, componentToHex, rgbToHex, convertColor, modifyColor, appendLeadingZeroes, getDate, parseStringAsFloat, downloadFile, resolve, convertArrayToCSV, getSingleFeature, getGeometryArray)*
+
+*  immpbilien.utils.ts<br>
+*Anwendungsspezifische Hilfsfunktionen (getDateArray, getMyMapRegionenGR, getMyMapRegionen, genertateSeriesGS, generateSeries, generateDrawSeriesData, generateTextElement, generateDotElement, modifyRegionen, dispatchMapSelect)*
+
+*  immobilien.static.ts<br>
+*Statische Nipix-Anwendungskonfiguration und Daten. Beinhaltet Funktionen zum laden bzw. parsen der externen Konfiguration (loadConfig), Gemeinden (parseGemeinden), GeoJSON mit NipixDaten (procMap) und stellt diese statische Konfiguration der Anwendung zur Verfügung*
+
+*  immobilien.runtime.ts<br>
+*Laufzeitkonfiguration der Nipix-Anwendung. Beinhaltet Funktionen zum Erzeugen und Ändern von Laufzeitdaten (translage, translateArray, resetDrawPresets, updateAvailableNipixCategories, updateAvailableQuartal, toggleNipixCategory, getDrawPreset, highlightTimeout, resetHighlight, highlightSeries, calculateDrawData, updateRange, updateMapSelect).*
+
+*  immobilien.runtime-calculator.ts<br>
+*Funktionen zur Berechnung von Laufzeitdaten: calculateDrawData*
 
 ### Installation
 
-Die Installation ist als Bestandteil des BORIS.NI Projektes gedacht (nähere Details bitte diesem Projekt entnehmen) oder kann Wahlweise auch als Standalone-Applikation genutzt werden.
+Die Installation ist als Bestandteil des BORIS.NI Projektes gedacht (nähere Details bitte diesem Projekt entnehmen) ~~oder kann Wahlweise auch als Standalone-Applikation genutzt werden~~.
 
 ### Konfiguration
 
@@ -20,53 +64,9 @@ Im Quellcode der NiPix Applikation haben Sie die Möglichkeit einen URL zu einer
         "mapUrl": "assets/data/womareg.geojson"
 ```
 
-*  "nipixUrl": URL zum (aktuellen) NiPix (csv)
-```
-        "nipixUrl": "assets/data/00- NIPX_Final_bis_2018_4.csv"
-```
-
 *  "gemeindenUrl": URL zum Gemeinden->Wohnungsmarktregionen Mapping File (CSV)
 ```
         "gemeindenUrl": "assets/data/gemeinden.csv"
-```
-
-*  "map": Konfinguration der Map
-    * "geoCoordMap" (Array of Object): Elemente die als Punkt mit Titel auf der Karte dargestellt werden sollen. (z.B. Städte)
-```
-                     "geoCoordMap": [
-                        {
-                                "name": "Hannover",
-                                "value": [553508, 5805402]
-                        },
-                        {
-                                "name": "Braunschweig",
-                                "value": [604181, 5792042]
-                        },
-                        {
-                                "name": "Osnabrück",
-                                "value": [435154, 5791143]
-                        },
-                        {
-                                "name": "Oldenburg",
-                                "value": [447464, 5888516]
-                        },
-                        {
-                                "name": "Lüneburg",
-                                "value": [593935, 5900862]
-                        },
-                        {
-                                "name": "Göttingen",
-                                "value": [564868, 5709487]
-                        },
-                        {
-                                "name": "Aurich",
-                                "value": [399429, 5925718]
-                        },
-                        {
-                                "name": "Wolfsburg",
-                                "value": [621464, 5809316]
-                        }
-                ]
 ```
 
 *  "shortNames": Objekt mit benutzerspezifischen Kurzbezeichnungen (z.B. für Graphen) für einen gegebenen Namen.
@@ -77,92 +77,6 @@ Im Quellcode der NiPix Applikation haben Sie die Möglichkeit einen URL zu einer
                 "städtische Regionen" : "SR",
                 "ländliche Regionen" : "LR"
         }
-```
-
-*  "regionen": Regionen Mapping von RegionID auf Name, short(Name) und Farbe [R,G,B]
-```
-	"regionen": {
-		"4101": {
-			"name": "Küste, weiteres Umland",
-			"short": "KÜ",
-			"color": [158, 218, 229]
-		},
-		"4110": {
-			"name": "Ostfriesische Inseln",
-			"short": "IN",
-			"color": [23, 190, 207]
-		},
-		"4104": {
-			"name": "Bremer Umland",
-			"short": "HB",
-			"color": [255, 213, 213]
-		},
-		"4103": {
-			"name": "Oldenburg, Münsterland, Osnabrück",
-			"short": "OMO",
-			"color": [157, 155, 61]
-		},
-		"4203": {
-			"name": "Stadt Osnabrück (incl. städt. Gemeinden)",
-			"short": "OS",
-			"color": [214, 39, 40]
-		},
-		"4102": {
-			"name": "Westliches Niedersachsen",
-			"short": "WN",
-			"color": [170, 135, 128]
-		},
-		"4201": {
-			"name": "Stadt Oldenburg",
-			"short": "OL",
-			"color": [255, 127, 14]
-		},
-		"4105": {
-			"name": "Mittleres Niedersachsen",
-			"short": "MN",
-			"color": [107, 107, 107]
-		},
-		"4107": {
-			"name": "Östliches Niedersachsen",
-			"short": "ÖN",
-			"color": [219, 219, 141]
-		},
-		"4106": {
-			"name": "Hamburger südliches Umland",
-			"short": "HH",
-			"color": [114, 114, 143]
-		},
-		"4108": {
-			"name": "Hannover, Braunschweig, Wolfsburg",
-			"short": "HBW",
-			"color": [218, 182, 175]
-		},
-		"4109": {
-			"name": "Südliches Niedersachsen",
-			"short": "SN",
-			"color": [44, 160, 44]
-		},
-		"4205": {
-			"name": "Stadt Hannover",
-			"short": "H",
-			"color": [214, 39, 40]
-		},
-		"4208": {
-			"name": "Stadt Göttingen (incl. städt. Gemeinden)",
-			"short": "GÖ",
-			"color": [255, 187, 120]
-		},
-		"4204": {
-			"name": "Stadt Wolfsburg",
-			"short": "WOB",
-			"color": [214, 39, 40]
-		},
-		"4206": {
-			"name": "Stadt Braunschweig",
-			"short": "BS",
-			"color": [225, 87, 89]
-		}
-	}
 ```
 
 *  "items": Verwendbare Regionen in gewünschter geordneter Reihenfolge
@@ -288,20 +202,6 @@ Im Quellcode der NiPix Applikation haben Sie die Möglichkeit einen URL zu einer
 		}
 	] 
 ```	
-
-#### NiPix CSV Datei
-
-Die NiPix CSV Datei hat folgendes Format:
-
-*  Spaltentrenner: Simikolon
-
-*  keine Anführungszeichen oder ähnliches zum einfassen des Feldinhaltes
-```
-	Immobilienart;Region;Zeitabschnitt;Anzahl_Mittel;Index_final
-	gebrauchte Eigenheime;4101;2000_1;249;
-	gebrauchte Eigenheime;4101;2000_2;178;111,6395738
-	...
-```
 
 #### Gemeinden CSV Datei
 

@@ -224,8 +224,11 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
   * Aggregation mehrerer Wohnungsmarktregionen
   * Individuelle Bestimmung der anzuzeigenden Regionen / Aggregationen
 * Details zur Konfiguration sind in der Datei [README.md](power/src/app/immobilien/immobilien/README.md) zu finden.
+* Datenquellen
+  * Konfiguration (cfg.json)
+  * Karte als GeoJSON mit Nipix-Daten als property (erzeugt von GeoServer mit PostGIS Backend)
 * Abhängigkeiten
-  * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
+  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
   * [ngx-bootstrap-icons](https://www.npmjs.com/package/ngx-bootstrap-icons)
   * [ECharts](https://www.npmjs.com/package/echarts)
 
