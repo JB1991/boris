@@ -600,49 +600,6 @@
                                 </span>
                             </th>
                             <th scope="col"
-                                (click)="changeFormSort('access')"
-                                class="border-top-0">
-                                <span role="button"
-                                      (keyup.enter)="changeFormSort('access')"
-                                      aria-roledescription="Aufsteigend oder Absteigend sortieren."
-                                      aria-describedby="ascAccess descAccess"
-                                      i18n-aria-roledescription
-                                      tabindex="0"
-                                      i18n>Zugang</span>
-                                <span *ngIf="formSort && formSort === 'access'">
-                                    <span *ngIf="!formSortDesc">
-                                        <svg width="1em"
-                                             height="0.8em"
-                                             viewBox="0 1.2 16 16"
-                                             class="bi bi-arrow-up"
-                                             fill="currentColor"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             focusable="false"
-                                             aria-hidden="true">
-                                            <path
-                                                  d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                                        </svg>
-                                        <span class="sr-only"
-                                              i18n>Aufsteigend sortiert</span>
-                                    </span>
-                                    <span *ngIf="formSortDesc">
-                                        <svg width="1em"
-                                             height="0.8em"
-                                             viewBox="0 1.2 16 16"
-                                             class="bi bi-arrow-down"
-                                             fill="currentColor"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             focusable="false"
-                                             aria-hidden="true">
-                                            <path
-                                                  d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
-                                        </svg>
-                                        <span class="sr-only"
-                                              i18n>Absteigend sortiert</span>
-                                    </span>
-                                </span>
-                            </th>
-                            <th scope="col"
                                 (click)="changeFormSort('status')"
                                 class="border-top-0">
                                 <span role="button"
@@ -784,10 +741,11 @@
                             </td>
                             <td><span *ngIf="form.tags && form.tags.length > 0">{{ form.tags.join(', ') }}</span></td>
                             <td>{{ form.owner.name }}</td>
-                            <td>{form.access, select, public {Öffentlich} pin6 {6-stellige PIN} pin8 {8-stellige PIN}}
-                            </td>
                             <td>{form.status, select, created {Erstellt} published {Veröffentlicht} cancelled
                                 {Geschlossen}}
+                                <span *ngIf="form.status === 'published'">
+                                    ({form.access, select, pin6 {6-stellige PIN} pin8 {8-stellige PIN}})
+                                </span>
                             </td>
                             <td>{{ form.created | date:'short' }}</td>
                             <td>{{ form.updated | date:'short' }}</td>
