@@ -22,7 +22,6 @@
                 "plugin:@angular-eslint/ng-cli-compat",
                 "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
                 "plugin:@angular-eslint/template/process-inline-templates",
-                "plugin:security/recommended",
                 "plugin:no-unsanitized/DOM"
             ],
             "rules": {
@@ -84,8 +83,6 @@
                 "@typescript-eslint/naming-convention": "off",
                 "@typescript-eslint/prefer-for-of": "off",
                 "@typescript-eslint/quotes": "off",
-                "security/detect-object-injection": "off",
-                "security/detect-non-literal-fs-filename": "off",
                 /** ScanJS rules **/
                 "scanjs-rules/accidental_assignment": 1,
                 "scanjs-rules/assign_to_hostname": 1,
@@ -110,13 +107,11 @@
                 "scanjs-rules/call_setInterval": 1,
                 "scanjs-rules/call_setTimeout": 1,
                 "scanjs-rules/identifier_indexedDB": 1,
-                "scanjs-rules/identifier_localStorage": 1,
                 "scanjs-rules/identifier_sessionStorage": 1,
                 "scanjs-rules/new_Function": 1,
                 "scanjs-rules/property_addIdleObserver": 1,
                 "scanjs-rules/property_createContextualFragment": 1,
                 "scanjs-rules/property_crypto": 1,
-                "scanjs-rules/property_geolocation": 1,
                 "scanjs-rules/property_getUserMedia": 1,
                 "scanjs-rules/property_indexedDB": 1,
                 "scanjs-rules/property_localStorage": 1,
