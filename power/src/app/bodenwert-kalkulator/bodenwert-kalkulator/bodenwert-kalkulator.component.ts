@@ -75,7 +75,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     onMapClickEvent(event: any) {
         // Click event fires twice (naming conflict)
-        console.log(this.map.getZoom());
         if (event.lngLat) {
             const zoomlvl = this.map.getZoom();
             if (event.point && zoomlvl >= 14) {
