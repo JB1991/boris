@@ -744,7 +744,7 @@
                             <td>{form.status, select, created {Erstellt} published {Veröffentlicht} cancelled
                                 {Geschlossen}}
                                 <span *ngIf="form.status === 'published'">
-                                    ({form.access, select, pin6 {6-stellige PIN} pin8 {8-stellige PIN}})
+                                    {form.access, select, pin6 {(6-stellige PIN)} pin8 {(8-stellige PIN)}}
                                 </span>
                             </td>
                             <td>{{ form.created | date:'short' }}</td>
