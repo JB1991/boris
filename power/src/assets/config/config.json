@@ -1,7 +1,6 @@
 {
     "modules": [
         "bodenrichtwerte",
-        "bodenrichtwerte-altsystem",
         "bodenwertkalkulator",
         "immobilienpreisindex",
         "immobilienpreiskalkulator",

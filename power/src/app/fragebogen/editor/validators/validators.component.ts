@@ -420,7 +420,6 @@ export class ValidatorsComponent implements OnInit, OnChanges {
      */
     public isRegExInvalid(regex: string): boolean {
         try {
-            /* eslint-disable-next-line security/detect-non-literal-regexp */
             const re = new RegExp(regex);
             re.exec('Hallo Welt');
         } catch (error) {

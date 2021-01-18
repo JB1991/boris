@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 
 import { EditorRoutingModule } from './editor-routing.module';
@@ -41,6 +42,7 @@ import { SharedModule } from '@app/shared/shared.module';
         FormsModule,
         CollapseModule.forRoot(),
         AccordionModule.forRoot(),
+        BsDropdownModule.forRoot(),
         NgxSmoothDnDModule,
         SurveyjsModule,
         SharedModule

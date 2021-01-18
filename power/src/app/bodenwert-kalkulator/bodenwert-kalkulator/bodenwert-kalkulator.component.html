@@ -133,18 +133,21 @@
                                         i18n-alt
                                         i18n-title
                                         (click)="showDataNotice()">
-                                    <svg
-                                        width="20px"
-                                        height="20px"
-                                        viewBox="0 0 16 16"
-                                        class="bi bi-info-circle"
-                                        fill="currentColor"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        focusable="false"
-                                        aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
-                                        <circle cx="8" cy="4.5" r="1"/>
+                                    <svg width="20px"
+                                         height="20px"
+                                         viewBox="0 0 16 16"
+                                         class="bi bi-info-circle"
+                                         fill="currentColor"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         focusable="false"
+                                         aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path
+                                              d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
+                                        <circle cx="8"
+                                                cy="4.5"
+                                                r="1" />
                                     </svg>
                                 </button>
                                 <button class="nav-link btn"
@@ -272,42 +275,38 @@
                          [style]="MAP_STYLE_URL"
                          [trackResize]="true">
 
-                    <mgl-vector-source id="geoserver"
-                                       [tiles]="[ baseUrl +'/geoserver/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=alkis:ax_flurstueck_nds&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}']">
-                    </mgl-vector-source>
-
                     <mgl-layer id="flurstuecke"
                                type="line"
-                               [source]="'geoserver'"
-                               [sourceLayer]="'ax_flurstueck_nds'"
+                               [source]="ndsFstSource"
+                               [minzoom]="15"
+                               [sourceLayer]="'ax_flurstueck'"
                                [paint]="{
-      'line-color': '#c4153a',
-      'line-width': {
-        'stops': [[14,0],[16,1],[18,2]]
-      },
-      'line-opacity': {
-        'stops' : [[14,0],[15,1]]
-      }
-    }"></mgl-layer>
+                    'line-color': '#c4153a',
+                    'line-width': {
+                        'stops': [[15,0],[16,1],[18,2]]
+                    },
+                    'line-opacity': {
+                        'stops' : [[15,1]]
+                    }
+                    }"></mgl-layer>
 
                     <mgl-layer id="flurstuecke-fill"
                                type="fill"
-                               [source]="'geoserver'"
-                               [sourceLayer]="'ax_flurstueck_nds'"
+                               [source]="ndsFstSource"
+                               [minzoom]="15"
+                               [sourceLayer]="'ax_flurstueck'"
                                [paint]="{
       'fill-color': 'rgba(255,255,255,0)'
     }"></mgl-layer>
 
                     <mgl-layer id="flurstuecke-highlighted"
                                type="fill"
-                               [source]="'geoserver'"
-                               [sourceLayer]="'ax_flurstueck_nds'"
+                               [source]="ndsFstSource"
+                               [minzoom]="15"
+                               [sourceLayer]="'ax_flurstueck'"
                                [filter]="['in', '', '']"
                                [paint]="{
-      'fill-color': 'rgba(255,0,0,0.4)',
-      'fill-opacity': {
-        'stops' : [[14,0],[15,1]]
-    }
+      'fill-color': 'rgba(255,0,0,0.4)'
     }"></mgl-layer>
                 </mgl-map>
             </div>

@@ -403,6 +403,21 @@
     }"></mgl-layer>
 
         <!-- Niedersachsen -->
+        <mgl-layer id="flurstuecke"
+                   type="line"
+                   [source]="ndsFstSource"
+                   [minzoom]="15"
+                   [sourceLayer]="'ax_flurstueck_nds'"
+                   [paint]="{
+                    'line-color': '#343a40',
+                    'line-width': {
+                    'stops': [[15,0],[16,1],[18,2]]
+                    },
+                    'line-opacity': {
+                    'stops' : [[15,0.5]]
+                    }
+        }"></mgl-layer>
+
         <mgl-layer id="bauland"
                    type="line"
                    [source]="ndsSource"

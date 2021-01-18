@@ -45,15 +45,19 @@
                         "scripts": [],
                         "allowedCommonJsDependencies": [
                             "bootstrap-slider",
+                            "ngx-bootstrap-icons",
                             "css-element-queries",
-                            "echarts",
+                            "epsg",
                             "hyphen",
+                            "lodash",
+                            "echarts",
+                            "zrender",
+                            "showdown",
                             "inputmask",
                             "nouislider",
-                            "showdown",
                             "suggestions",
+                            "fast-xml-parser",
                             "surveyjs-widgets",
-                            "zrender",
                             "@mapbox/mapbox-gl-geocoder",
                             "@mapbox/mapbox-sdk"
                         ]
@@ -86,7 +90,7 @@
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
-                            "serviceWorker": true
+                            "serviceWorker": false
                         },
                         "staging": {
                             "budgets": [
@@ -115,7 +119,7 @@
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
-                            "serviceWorker": true
+                            "serviceWorker": false
                         },
                         "de": {
                             "localize": [

@@ -46,7 +46,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         bounds: this.brBounds,
     };
 
-    // NDS - Tile Source
+    // NDS - Tile Sources
+    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
+
+    // Bodenrichtwerte
     public ndsTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
@@ -58,11 +61,27 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
-
     public ndsSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsTiles],
+        bounds: this.ndsBounds,
+    };
+
+    // Flurstuecke
+    public ndsFstTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=alkis:ax_flurstueck_nds'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public ndsFstSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.ndsFstTiles],
         bounds: this.ndsBounds,
     };
 
@@ -154,9 +173,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     loadMap(event: Map) {
         this.map = event;
 
-        this.map.addSource('geoserver_br', this.bremenSource);
+        this.map.addSource('geoserver_br_br', this.bremenSource);
 
-        this.map.addSource('geoserver_nds', this.ndsSource);
+        this.map.addSource('geoserver_nds_br', this.ndsSource);
+
+        this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
         this.route.queryParams.subscribe(params => {
             // lat and lat

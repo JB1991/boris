@@ -165,8 +165,6 @@ test:helm-dry-run:
     - kubectl config use-context default
     - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --dry-run
   only:
-    - merge_requests
-    - tags
     - dev
     - staging
     - production
