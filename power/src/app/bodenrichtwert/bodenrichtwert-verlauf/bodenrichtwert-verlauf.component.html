@@ -64,15 +64,15 @@
              id="time-series"
              echarts
              (chartInit)="onChartInit($event)"
-             [attr.options]="chartOption"></div>
+             [options]="chartOption"></div>
     </ng-container>
 
-    <ng-container *ngIf="!echartsInstance">
+    <!-- <ng-container *ngIf="!echartsInstance"> -->
         <div id="eChartInstance"
              echarts
              (chartInit)="onChartInit($event)"
-             [attr.options]="chartOption"></div>
-    </ng-container>
+             [options]="chartOption"></div>
+    <!-- </ng-container> -->
 
     <div>
         <p i18n
