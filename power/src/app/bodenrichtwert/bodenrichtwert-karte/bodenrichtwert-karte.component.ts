@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FeatureCollection } from 'geojson';
+import * as turf from '@turf/turf'
 import * as epsg from 'epsg';
 import proj4 from 'proj4';
 
@@ -163,16 +164,29 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
      * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
      */
     public onFlurstueckChange() {
-        const wgs84_coords = this.transformCoordinates(
-            epsg['EPSG:3857'],
-            epsg['EPSG:4326'],
-            this.flurstueck.bbox.slice(0, 2)
-        );
-        this.marker.setLngLat(wgs84_coords).addTo(this.map);
+        const wgs84_coords = this.pointOnFlurstueck();
+        this.marker.setLngLat([wgs84_coords[0], wgs84_coords[1]]).addTo(this.map);
         this.getAddressFromLatLng(wgs84_coords[1], wgs84_coords[0]);
         this.getBodenrichtwertzonen(wgs84_coords[1], wgs84_coords[0], this.teilmarkt.value);
         this.flyTo(wgs84_coords[1], wgs84_coords[0]);
         this.changeURL();
+    }
+
+    /**
+     * pointOnFlurstueck returns a point (transformed to wgs84) guranteed to be on the feature
+     */
+    public pointOnFlurstueck(): number[] {
+        const polygon = turf.polygon(this.flurstueck.features[0].geometry['coordinates']);
+        const point = turf.pointOnFeature(polygon);
+        const wgs84_point = this.transformCoordinates(
+            epsg['EPSG:3857'],
+            epsg['EPSG:4326'],
+            [
+                point.geometry.coordinates[0],
+                point.geometry.coordinates[1]
+            ]
+        );
+        return wgs84_point;
     }
 
     loadMap(event: Map) {
@@ -419,7 +433,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
      * @param to projection to (EPSG-Code)
      * @param coord coordinate [x, y]
      */
-    private transformCoordinates(from: string, to: string, coord: number[]) {
+    private transformCoordinates(from: string, to: string, coord: number[]): number[] {
         const result = proj4(from, to).forward(coord);
         return result;
     }
