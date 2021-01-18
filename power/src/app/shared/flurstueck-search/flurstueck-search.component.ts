@@ -61,7 +61,6 @@ export class FlurstueckSearchComponent {
                 $localize`Flurstück nicht gefunden.`
             );
         }
-        console.log(res);
     }
 
     /**

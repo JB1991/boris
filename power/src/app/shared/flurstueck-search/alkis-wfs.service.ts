@@ -40,11 +40,11 @@ export class AlkisWfsService {
     }
 
     /**
-     * 
-     * @param gemarkung 
-     * @param flur 
-     * @param zaehler 
-     * @param nenner 
+     * getFlurstueckByFsk returns a flurstueck by given fsk
+     * @param gemarkung gemarkungsschlüssel
+     * @param flur flurnummer
+     * @param zaehler Flurstücksnummer - Zähler
+     * @param nenner Flurstücksnummer - Nenner
      */
     /* istanbul ignore next */
     public getFlurstueckByFsk(gemarkung: string, flur: string, zaehler: string, nenner: string): any {
@@ -72,9 +72,8 @@ export class AlkisWfsService {
             '</ogc:PropertyIsEqualTo>' +
             '</ogc:Filter>' +
             '</wfs:Query>' +
-            '</wfs:GetFeature>'
+            '</wfs:GetFeature>';
 
-        console.log(filter);
         return this.http.post<FeatureCollection>(
             this.url,
             filter,
