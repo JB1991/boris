@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { AlertsService } from '../alerts/alerts.service';
 import { AlkisWfsService } from './alkis-wfs.service';
-import { BBox, FeatureCollection } from 'geojson';
+import { FeatureCollection } from 'geojson';
 import { ModalminiComponent } from '../modalmini/modalmini.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
