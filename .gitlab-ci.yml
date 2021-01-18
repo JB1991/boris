@@ -119,7 +119,7 @@ test:lint:
     - production
   allow_failure: true
 
-test:lint:html:
+test:lint-html:
   stage: test
   image: node:lts-alpine
   dependencies: []
@@ -136,7 +136,7 @@ test:lint:html:
     - staging
     - production
 
-test:lint:styles:
+test:lint-styles:
   stage: test
   image: node:lts-alpine
   dependencies: []
@@ -153,7 +153,61 @@ test:lint:styles:
     - staging
     - production
 
+test:helm-dry-run:
+  stage: test
+  image: dtzar/helm-kubectl:latest
+  dependencies: []
+  cache: {}
+  script:
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --dry-run
+  only:
+    - dev
+    - staging
+    - production
+
+test:helm-kubesec:
+  stage: test
+  image: dtzar/helm-kubectl:latest
+  dependencies: []
+  cache: {}
+  script:
+    - wget https://github.com/controlplaneio/kubesec/releases/download/v2.8.0/kubesec_linux_amd64.tar.gz
+    - tar xf kubesec_linux_amd64.tar.gz
+    - helm template power ./chart/power -f ./chart/power/values-dev.yaml | ./kubesec scan -
+  only:
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
+  allow_failure: true
+
 build:
+  stage: build
+  image: node:lts-alpine
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - cd power
+    - npm run build -- -c staging
+  artifacts:
+    name: "compiled dist"
+    expire_in: 2 days
+    paths:
+      - power/dist/power
+  only:
+    - merge_requests
+    - tags
+    - dev
+    - staging
+
+build:prod:
   stage: build
   image: node:lts-alpine
   dependencies: []
@@ -169,10 +223,6 @@ build:
     paths:
       - power/dist/power
   only:
-    - merge_requests
-    - tags
-    - dev
-    - staging
     - production
 
 package:
@@ -180,6 +230,7 @@ package:
   image: docker:stable
   dependencies:
     - build
+    - build:prod
   cache: {}
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
@@ -200,7 +251,7 @@ deploy:development:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="dev"
+    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
   only:
     - dev
 
@@ -215,7 +266,7 @@ deploy:staging:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="staging"
+    - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
   only:
     - staging
 
@@ -230,7 +281,7 @@ deploy:production:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" --install --set=image.tag="$CI_COMMIT_SHORT_SHA",environment="production" --set replicaCount=2
+    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-prod.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --set replicaCount=1
   only:
     - production
   when: manual

@@ -56,7 +56,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         }
-
     }
 
     ngOnDestroy() {
@@ -566,6 +565,38 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // move down
         this.history.makeHistory(this.storage.model);
         moveItemInArray(this.storage.model.pages[page].elements, element, element + 1);
+    }
+
+    /**
+     * Moves element to other page
+     * @param element Element number
+     * @param page Page number
+     * @param newPage New Page number
+     * @param newElement Place to insert element
+     */
+    public wsElementToPage(element: number, page: number = this.storage.selectedPageID,
+        newPage: number, newElement: number = 0) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+        if (newPage < 0 || newPage >= this.storage.model.pages.length) {
+            throw new Error('newPage is invalid');
+        }
+        if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
+            throw new Error('element is invalid');
+        }
+        if (newElement < 0 || newElement > this.storage.model.pages[newPage].elements.length) {
+            throw new Error('newElement is invalid');
+        }
+        if (page === newPage) {
+            throw new Error('newPage is invalid');
+        }
+
+        // move to other page
+        this.history.makeHistory(this.storage.model);
+        const tmp = this.storage.model.pages[page].elements.splice(element, 1)[0];
+        this.storage.model.pages[newPage].elements.splice(newElement, 0, tmp);
     }
 
     /**

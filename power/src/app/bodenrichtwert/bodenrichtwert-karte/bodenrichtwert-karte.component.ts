@@ -4,7 +4,6 @@ import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { environment } from '@env/environment';
-import { STICHTAGE, TEILMAERKTE } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
@@ -47,7 +46,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         bounds: this.brBounds,
     };
 
-    // NDS - Tile Source
+    // NDS - Tile Sources
+    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
+
+    // Bodenrichtwerte
     public ndsTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
@@ -59,11 +61,27 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
-
     public ndsSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsTiles],
+        bounds: this.ndsBounds,
+    };
+
+    // Flurstuecke
+    public ndsFstTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=alkis:ax_flurstueck_nds'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public ndsFstSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.ndsFstTiles],
         bounds: this.ndsBounds,
     };
 
@@ -88,12 +106,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() teilmarkt: any;
     @Output() teilmarktChange = new EventEmitter();
 
-    public TEILMAERKTE = TEILMAERKTE;
-
     @Input() stichtag;
     @Output() stichtagChange = new EventEmitter();
-
-    public STICHTAGE = STICHTAGE;
 
     @Input() isCollapsed;
     @Output() isCollapsedChange = new EventEmitter();
@@ -159,9 +173,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     loadMap(event: Map) {
         this.map = event;
 
-        this.map.addSource('geoserver_br', this.bremenSource);
+        this.map.addSource('geoserver_br_br', this.bremenSource);
 
-        this.map.addSource('geoserver_nds', this.ndsSource);
+        this.map.addSource('geoserver_nds_br', this.ndsSource);
+
+        this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
         this.route.queryParams.subscribe(params => {
             // lat and lat
@@ -175,7 +191,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
             // teilmarkt
             if (params['teilmarkt']) {
-                const tmp = TEILMAERKTE.filter(p => p.viewValue === params['teilmarkt'])[0];
+                const tmp = this.bodenrichtwertService.TEILMAERKTE.filter(p => p.viewValue === params['teilmarkt'])[0];
                 if (tmp) {
                     this.onTeilmarktChange(tmp);
                 }
@@ -183,7 +199,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
             // stichtag
             if (params['stichtag']) {
-                if (STICHTAGE.includes(params['stichtag'])) {
+                if (this.bodenrichtwertService.STICHTAGE.includes(params['stichtag'])) {
                     this.onStichtagChange(params['stichtag']);
                 }
             }

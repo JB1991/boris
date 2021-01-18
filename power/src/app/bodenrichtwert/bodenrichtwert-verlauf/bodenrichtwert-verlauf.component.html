@@ -1,4 +1,4 @@
-<div class="col-md-12 pt-3">
+<div class="col-md-12 p-0">
     <ng-container *ngIf="chartOption?.series.length != 0">
         <h3 i18n>Zeitliche Entwicklung</h3>
         <ng-container *ngIf="features?.features[0].properties.gema == 'Bremerhaven'; else bremen">
@@ -64,14 +64,14 @@
              id="time-series"
              echarts
              (chartInit)="onChartInit($event)"
-             [options]="chartOption"></div>
+             [attr.options]="chartOption"></div>
     </ng-container>
 
     <ng-container *ngIf="!echartsInstance">
         <div id="eChartInstance"
              echarts
              (chartInit)="onChartInit($event)"
-             [options]="chartOption"></div>
+             [attr.options]="chartOption"></div>
     </ng-container>
 
     <div>

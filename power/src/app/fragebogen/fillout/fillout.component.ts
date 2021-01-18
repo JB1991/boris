@@ -10,7 +10,7 @@ import { WrapperComponent } from '../surveyjs/wrapper.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
-import {PublicForm, PublicTask} from '../formapi.model';
+import { PublicForm, PublicTask } from '../formapi.model';
 
 @Component({
     selector: 'power-forms-fillout',
@@ -118,6 +118,7 @@ export class FilloutComponent implements AfterViewInit {
         }
 
         this.formapi.createPublicTask(id, result.result).then(() => {
+            this.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task

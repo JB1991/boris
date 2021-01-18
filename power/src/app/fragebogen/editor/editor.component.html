@@ -456,6 +456,46 @@
                                       i18n>Nach unten verschieben</span>
                             </button>
 
+                            <div class="btn-group mr-2"
+                                 [attr.isDisabled]="storage.model.pages.length < 2"
+                                 dropdown>
+                                <button id="button-basic-{{ i }}"
+                                        dropdownToggle
+                                        type="button"
+                                        class="btn btn-light btn-sm dropdown-toggle"
+                                        i18n-title
+                                        title="Frage auf andere Seite verschieben"
+                                        attr.aria-controls="dropdown-basic-{{ i }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="1em"
+                                         height="1em"
+                                         fill="currentColor"
+                                         class="bi bi-box-arrow-in-up-right"
+                                         viewBox="0 0 16 16"
+                                         focusable="false"
+                                         aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5z" />
+                                        <path fill-rule="evenodd"
+                                              d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0v-5z" />
+                                    </svg>
+                                </button>
+
+                                <ul id="dropdown-basic-{{ i }}"
+                                    *dropdownMenu
+                                    class="dropdown-menu"
+                                    role="menu"
+                                    aria-labelledby="button-basic-{{ i }}">
+                                    <li role="menuitem"
+                                        *ngFor="let container of storage.model.pages; index as j">
+                                        <a class="dropdown-item"
+                                           [class.disabled]="j === storage.selectedPageID"
+                                           href="javascript:;"
+                                           (click)="wsElementToPage(i, storage.selectedPageID, j)">Seite {{ j+1 }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+
                             <button type="button"
                                     class="btn btn-light btn-sm mr-2"
                                     i18n-title

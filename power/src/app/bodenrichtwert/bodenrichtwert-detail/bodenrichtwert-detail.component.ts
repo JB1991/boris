@@ -10,7 +10,8 @@ export class BodenrichtwertDetailComponent implements OnInit {
 
     brzStrings = {
         'brz': $localize`Bodenrichtwertzone`,
-        'conversion': $localize`Umrechnung`,
+        'umwert': $localize`Umrechnungstabelle`,
+        'umdatei': $localize`Umrechnungsdatei`,
         'state': $localize`Beitragsabgabenrechtlicher Zustand`,
         'usage': $localize`Art der Nutzung`,
         'value': $localize`Bodenrichtwert`,
@@ -29,7 +30,8 @@ export class BodenrichtwertDetailComponent implements OnInit {
         'acza': $localize`Ackerzahl`,
         'bod': $localize`Bodenart`,
         'grza': $localize`Grünlandzahl`,
-        'frei': $localize`Landesspezifische Angaben`
+        'frei': $localize`Landesspezifische Angaben`,
+        'bem': $localize`Bemerkung`
     };
 
     @Input() feature: any;

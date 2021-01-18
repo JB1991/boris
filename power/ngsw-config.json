@@ -8,8 +8,10 @@
                 "files": [
                     "/favicon.ico",
                     "/index.html",
+                    "/manifest.json",
                     "/*.css",
-                    "/*.js"
+                    "/*.js",
+                    "!/ngsw.json"
                 ]
             }
         },
@@ -20,10 +22,28 @@
             "resources": {
                 "files": [
                     "/assets/**",
-                    "!/assets/config/config.json",
-                    "/mvt/**"
+                    "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
+                    "/mvt/**",
+                    "!/assets/config/config.json"
+                ],
+                "urls": [
+                    "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/**"
                 ]
             }
         }
-    ]
+    ],
+    "navigationUrls": [
+        "/**",
+        "!/**/*.*",
+        "!/**/*__*",
+        "!/**/*__*/**",
+        "!/health",
+        "!/geocoding/**",
+        "!/geoserver/**",
+        "!/formapi/**",
+        "!/wfs/**",
+        "!/feedback-rss/**",
+        "!/boris-print/**"
+    ],
+    "navigationRequestStrategy": "freshness"
 }

@@ -69,4 +69,12 @@ server {
     proxy_pass https://gitlab.com/;
     return 404;
   }
+
+  location /boris-print/ {
+    rewrite ^\/boris-print\/(.*) /ent-boris/brwdirect?user=lgn&pwd=test&$1 break;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_ssl_server_name on;
+    proxy_pass https://www.boris.niedersachsen.de/;
+    return 404;
+  }
 }
