@@ -32,18 +32,6 @@
         "secure": false,
         "debugLevel": "info"
     },
-    "/wfs": {
-        "target": "https://www.geobasisdaten.niedersachsen.de",
-        "pathRewrite": {
-            "^/wfs": "/doorman/auth/WFS_NI_1311_ALKIS-NAS-konform"
-        },
-        "changeOrigin": true,
-        "secure": true,
-        "debugLevel": "info",
-        "headers": {
-            "Authorization": "Basic MDNWS1YyMjNBS1MyOnljVGllazNqOFduRjRCMVI="
-        }
-    },
     "/feedback-rss/": {
         "target": "https://gitlab.com",
         "pathRewrite": {
