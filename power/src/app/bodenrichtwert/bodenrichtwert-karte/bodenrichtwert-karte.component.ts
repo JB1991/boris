@@ -6,7 +6,9 @@ import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
+import { FeatureCollection } from 'geojson';
+import * as epsg from 'epsg';
+import proj4 from 'proj4';
 
 /* eslint-disable max-lines */
 @Component({
@@ -122,7 +124,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     @Input() features;
     @Output() featuresChange = new EventEmitter();
 
-    @Input() flurstueck: Flurstueck;
+    @Input() flurstueck: FeatureCollection;
 
     public resetMapFired = false;
 
@@ -161,12 +163,15 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
      * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
      */
     public onFlurstueckChange() {
-        const lat = this.flurstueck.bbox[1];
-        const lon = this.flurstueck.bbox[0];
-        this.marker.setLngLat([lon, lat]).addTo(this.map);
-        this.getAddressFromLatLng(lat, lon);
-        this.getBodenrichtwertzonen(lat, lon, this.teilmarkt.value);
-        this.flyTo(lat, lon);
+        const wgs84_coords = this.transformCoordinates(
+            epsg['EPSG:3857'],
+            epsg['EPSG:4326'],
+            this.flurstueck.bbox.slice(0, 2)
+        );
+        this.marker.setLngLat(wgs84_coords).addTo(this.map);
+        this.getAddressFromLatLng(wgs84_coords[1], wgs84_coords[0]);
+        this.getBodenrichtwertzonen(wgs84_coords[1], wgs84_coords[0], this.teilmarkt.value);
+        this.flyTo(wgs84_coords[1], wgs84_coords[0]);
         this.changeURL();
     }
 
@@ -406,6 +411,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.changeURL();
             });
         }
+    }
+
+    /**
+     * Transforms coordinates from one projection to another projection with EPSG-Codes
+     * @param from projection from (EPSG-Code)
+     * @param to projection to (EPSG-Code)
+     * @param coord coordinate [x, y]
+     */
+    private transformCoordinates(from: string, to: string, coord: number[]) {
+        const result = proj4(from, to).forward(coord);
+        return result;
     }
 }
 

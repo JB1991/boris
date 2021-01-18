@@ -1,44 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FeatureCollection } from 'geojson';
 import { AlertsService } from '../alerts/alerts.service';
 import { ModalComponent } from '../modal/modal.component';
 import { SharedModule } from '../shared.module';
 import { AlkisWfsService } from './alkis-wfs.service';
-import { Flurstueck, FlurstueckSearchComponent, Flurstueckskennzeichen } from './flurstueck-search.component';
+import { FlurstueckSearchComponent, Flurstueckskennzeichen } from './flurstueck-search.component';
 
 describe('FlurstueckSearchComponent', () => {
 
-    const fst: Flurstueck = require('../../../assets/boden/flurstueck-search-samples/flurstueck.json');
+    const fst: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/flurstueck.json');
+    const emptyCollection: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/empty-collection.json');
     const fsk: Flurstueckskennzeichen = require('../../../assets/boden/flurstueck-search-samples/fsk.json');
-    const xmlData: string =
-        '<?xml version="1.0" encoding="utf-8"?><wfs:FeatureCollection>' +
-        '<wfs:boundedBy>' +
-        '<gml:Envelope srsName="urn:ogc:def:crs:EPSG::25832" srsDimension="2">' +
-        '<gml:lowerCorner>602550.769 5783817.505</gml:lowerCorner>' +
-        '<gml:upperCorner>602733.442 5784818.078</gml:upperCorner>' +
-        '</gml:Envelope>' +
-        '</wfs:boundedBy>' +
-        '<wfs:member>' +
-        '<AX_Flurstueck gml:id="DENIAL0100003W0J">' +
-        '<gemarkung>' +
-        '<AX_Gemarkung_Schluessel>' +
-        '<land>03</land>' +
-        '<gemarkungsnummer>5328</gemarkungsnummer>' +
-        '</AX_Gemarkung_Schluessel>' +
-        '</gemarkung>' +
-        '<flurstuecksnummer>' +
-        '<AX_Flurstuecksnummer>' +
-        '<zaehler>79</zaehler>' +
-        '<nenner>1</nenner>' +
-        '</AX_Flurstuecksnummer>' +
-        '</flurstuecksnummer>' +
-        '<flurstueckskennzeichen>035328003000790001__</flurstueckskennzeichen>' +
-        '<amtlicheFlaeche uom="urn:adv:uom:m2">25285.00</amtlicheFlaeche>' +
-        '<flurnummer>3</flurnummer>' +
-        '</AX_Flurstueck>' +
-        '</wfs:member>' +
-        '</wfs:FeatureCollection>';
 
     let component: FlurstueckSearchComponent;
     let fixture: ComponentFixture<FlurstueckSearchComponent>;
@@ -91,13 +65,13 @@ describe('FlurstueckSearchComponent', () => {
 
     it('handleHttpResponse should handle and parse response', () => {
         spyOn(component.alkisWfsService, 'updateFeatures');
-        component.handleHttpResponse(xmlData);
+        component.handleHttpResponse(fst);
         expect(component.alkisWfsService.updateFeatures).toHaveBeenCalledTimes(1);
     });
 
     it('handleHttpResponse should not handle response if parsing fails', () => {
         spyOn(component.alerts, 'NewAlert');
-        component.handleHttpResponse('');
+        component.handleHttpResponse(emptyCollection);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen', 'Flurstück nicht gefunden.');
     });
