@@ -392,10 +392,14 @@
                             value="{{ gemeinde.name }}"></option>
                 </datalist>
 
-                <ng-container *ngIf="selectedWoMa !== undefined && regionName(selectedWoMa['woma_id']) !== ''">
-                    <hr>
+                <hr>
+
+                <ng-container *ngIf="selectedWoMa !== undefined && regionName(selectedWoMa['woma_id']) !== ''; else noRegionBlock">
                     <ng-container i18n>Ihre Wohnungsmarktregion</ng-container>: {{ nipixRuntime.translate(regionName(selectedWoMa['woma_id'])) }}
                 </ng-container>
+                <ng-template i18n #noRegionBlock>
+                    Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!
+                </ng-template>
             </accordion-group>
         </accordion>
 
