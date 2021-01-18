@@ -2,14 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
 import { AlkisWfsService } from './alkis-wfs.service';
-import { Flurstueck } from './flurstueck-search.component';
 import * as XmlParser from 'fast-xml-parser';
+import { FeatureCollection } from 'geojson';
 
 describe('Shared.Flurstueck-search.AlkisWfsService', () => {
-    const fst: Flurstueck = require('../../../assets/boden/flurstueck-search-samples/flurstueck.json');
-    const xmlData: any = XmlParser.parse('../../../assets/boden/flurstueck-search-samples/xml-data.xml');
+    const fst: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/flurstueck.json');
 
-    const url = '/wfs/alkis/?REQUEST=GetFeature&SERVICE=WFS&VERSION=2.0.0&STOREDQUERY_ID=FstFsk&FSK=035328003000790001__';
+    const url = '/geoserver/alkis/ows?';
 
     let service: AlkisWfsService;
     let httpController: HttpTestingController;
@@ -48,17 +47,8 @@ describe('Shared.Flurstueck-search.AlkisWfsService', () => {
         service.updateFeatures(fst);
     });
 
-    // it('search should return a feature collection', (done) => {
-    //     service.getFlurstueckByFsk(fst.gemarkung, fst.flur, fst.zaehler, fst.nenner).subscribe(result => {
-    //         expect(result).toEqual('text');
-    //         done();
-    //     });
-    //     const request = httpController.expectOne(url);
-    //     request.flush(xmlData);
-    // });
-
     it('search should handle errors', (done) => {
-        service.getFlurstueckByFsk(fst.gemarkung, fst.flur, fst.zaehler, fst.nenner).subscribe(() => {
+        service.getFlurstueckByFsk('1205', '5', '113', '37').subscribe(() => {
         }, error => {
             expect(error.error.type).toEqual('error');
             done();
