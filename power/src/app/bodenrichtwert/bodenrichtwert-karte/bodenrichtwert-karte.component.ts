@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FeatureCollection } from 'geojson';
-import * as turf from '@turf/turf'
+import * as turf from '@turf/turf';
 import * as epsg from 'epsg';
 import proj4 from 'proj4';
 
