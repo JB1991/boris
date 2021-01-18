@@ -67,12 +67,12 @@
              [options]="chartOption"></div>
     </ng-container>
 
-    <!-- <ng-container *ngIf="!echartsInstance"> -->
+    <ng-container *ngIf="!echartsInstance">
         <div id="eChartInstance"
              echarts
              (chartInit)="onChartInit($event)"
              [options]="chartOption"></div>
-    <!-- </ng-container> -->
+    </ng-container>
 
     <div>
         <p i18n
