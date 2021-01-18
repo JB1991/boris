@@ -11,10 +11,11 @@ import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { LngLat, Map } from 'mapbox-gl';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { Feature } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
     const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
+    const flurstueck: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/flurstueck.json');
 
     const entw = ['B'];
     const lat = 52.40729;
@@ -98,16 +99,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     it('onFlurstueckChange should update map, address, feature, ...', () => {
         spyOn(component, 'getBodenrichtwertzonen');
         spyOn(component, 'getAddressFromLatLng');
-        component.flurstueck = {
-            gemarkung: '5',
-            land: '3',
-            flur: '1',
-            nenner: '2',
-            zaehler: '3',
-            fsk: '523432525',
-            bbox: [5, 4, 3, 1],
-            flaeche: '200'
-        };
+        component.flurstueck = flurstueck;
+
         component.teilmarkt = {
             'value': ['LF'],
             'viewValue': 'Landwirtschaft'

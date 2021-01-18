@@ -75,6 +75,7 @@ export class ImmobilienComponent implements OnInit {
             this.selectedWoMa = this.nipixStatic.data.gemeinden.filter(p => p.name === this.selectedWoMaValue)[0];
         } catch(error) {
             this.selectedWoMa = '';
+            return;
         }
 
         const singleSelectionId = this.selectSingle();

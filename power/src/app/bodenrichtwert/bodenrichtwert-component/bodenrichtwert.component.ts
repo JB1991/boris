@@ -5,10 +5,9 @@ import {
 import { Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
-import { Feature } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { Flurstueck } from '@app/shared/flurstueck-search/flurstueck-search.component';
 import { ConfigService } from '@app/config.service';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
@@ -52,7 +51,7 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * Feature as Flurstueck
      */
-    public flurstueck: Flurstueck;
+    public flurstueck: FeatureCollection;
 
     /**
      * Actual selected Stichtag
