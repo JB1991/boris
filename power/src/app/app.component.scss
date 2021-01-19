@@ -10,12 +10,9 @@
     outline: none;
 }
 
+.footer-link,
 .navbar-nav .nav-item .nav-link {
     color: #121416;
-}
-
-.footer-link {
-    color: white;
 }
 
 .footer-link:hover,
@@ -34,6 +31,10 @@
 
 footer li::before {
     content: '\00BB \0020';
+}
+
+.min-height {
+    min-height: calc(100vh - 57px - 306px);
 }
 
 @media (max-width: 576px) {
