@@ -71,6 +71,8 @@ export class BodenrichtwertComponent implements OnDestroy {
 
     public showPrintNotice = true;
 
+    public hintsActive = false;
+
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
     constructor(
