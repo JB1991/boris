@@ -342,11 +342,11 @@
                     </ul>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
+                    <h5 id="languages"
+                        aria-label="Sprachauswahl"
+                        i18n-aria-label
+                        i18n>Sprache</h5>
                     <ul class="list-unstyled text-small">
-                        <h5 id="languages"
-                            aria-label="Sprachauswahl"
-                            i18n-aria-label
-                            i18n>Sprache</h5>
                         <li class="my-1">
                             <a href="{{ baseurl }}"
                                class="footer-link"
@@ -364,7 +364,7 @@
                 <div class="col-12 col-md-12 col-lg-4">
                     <!-- Only for Modules Bodenrichtwerte/Bodenwertkalkulator -->
                     <div *ngIf="router.url.includes('/bodenrichtwerte') || router.url.includes('/bodenwertkalkulator')">
-                        <h5 id="languages"
+                        <h5 id="borisInfo"
                             aria-label="Informationen Bodenrichtwerte"
                             i18n-aria-label
                             i18n>Bodenrichtwerte</h5>
