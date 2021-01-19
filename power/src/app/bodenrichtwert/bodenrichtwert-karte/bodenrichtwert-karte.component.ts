@@ -6,10 +6,43 @@ import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { FeatureCollection } from 'geojson';
-import * as turf from '@turf/turf';
 import * as epsg from 'epsg';
 import proj4 from 'proj4';
+import { FeatureCollection } from 'geojson';
+import * as turf from '@turf/turf';
+
+
+type Polygon = {
+    type: 'Polygon';
+    coordinates: GeoJSON.Position[][];
+};
+
+type MultiPolygon = {
+    type: 'MultiPolygon';
+    coordinates: GeoJSON.Position[][][];
+};
+
+function getLargestPolygon(mp: MultiPolygon): Polygon {
+    let area = 0;
+    let largest: Polygon;
+    mp.coordinates.forEach(c => {
+        const p = {
+            type: 'Polygon',
+            coordinates: c,
+        };
+        const a = turf.area(p);
+        if (!largest || a > area) {
+            if (a > area) {
+                area = a;
+                largest = {
+                    type: 'Polygon',
+                    coordinates: p.coordinates,
+                };
+            }
+        }
+    });
+    return largest;
+}
 
 /* eslint-disable max-lines */
 @Component({
@@ -198,6 +231,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
+        this.map.addSource('nbhdCentroid', {
+            type: 'geojson',
+            data: this.nbhdCentroid
+        });
+
         this.route.queryParams.subscribe(params => {
             // lat and lat
             if (params['lat'] && params['lng']) {
@@ -292,6 +330,135 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.changeURL();
         }
     }
+
+    public nbhdCentroid: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: []
+    };
+
+    doNotDisplay = [
+        'DENIBR4319B07171',
+        'DENIBR4316B37171',
+        'DENIBR4318B07171',
+        'DENIBR4315B37171',
+        'DENIBR4317B37171',
+        'DENIBR4314B37171',
+        'DENIBR4313B37171',
+        'DENIBR4320B07171'
+    ];
+
+    onMoveEnd() {
+        this.nbhdCentroid.features = [];
+
+        const featureMap: Record<string, GeoJSON.Feature<Polygon>[]> = {};
+
+        const mapSW = this.map.getBounds().getSouthWest();
+        const mapNE = this.map.getBounds().getNorthEast();
+
+        const mapViewBound = [
+            [
+                [mapSW.lng, mapSW.lat],
+                [mapSW.lng, mapNE.lat],
+                [mapNE.lng, mapNE.lat],
+                [mapNE.lng, mapSW.lat],
+                [mapSW.lng, mapSW.lat]
+            ]
+        ];
+
+        this.map.queryRenderedFeatures(null, {layers: ['bauland']}).forEach(f => {
+            const oid = f.properties['objektidentifikator'];
+            if (this.doNotDisplay.includes(oid)) {
+                console.log(JSON.stringify(f));
+                return;
+            };
+            if (f && f.type === 'Feature') {
+                if (f.geometry.type === 'MultiPolygon') {
+                    f.geometry = getLargestPolygon(f.geometry);
+                }
+                if (f.geometry.type === 'Polygon') {
+                    if (featureMap[f.properties.objektidentifikator]) {
+                        featureMap[f.properties.objektidentifikator].push({
+                            type: 'Feature',
+                            geometry: f.geometry,
+                            properties: f.properties,
+                        });
+                    } else {
+                        featureMap[f.properties.objektidentifikator] = [{
+                            type: 'Feature',
+                            geometry: f.geometry,
+                            properties: f.properties,
+                        }];
+                    }
+                } else {
+                    console.log('missing type case: ' + f.geometry.type);
+                }
+            } else {
+                console.log('empty feature');
+            }
+        });
+
+        const features: Array<GeoJSON.Feature<GeoJSON.Geometry>> = Object.keys(featureMap).map(key => {
+            if (featureMap[key].length === 1) {
+                return {
+                    type: 'Feature',
+                    geometry: featureMap[key][0].geometry,
+                    properties: featureMap[key][0].properties,
+                };
+            };
+            let properties = {};
+            let union: {
+                type: 'Polygon';
+                coordinates: number[][][];
+            };
+            featureMap[key].forEach(f => {
+                if (union) {
+                    const u = turf.union(union, f.geometry);
+                    switch (u.geometry.type) {
+                        case 'Polygon':
+                            union = u.geometry;
+                            break;
+                        case 'MultiPolygon':
+                            union = getLargestPolygon(u.geometry);
+                            break;
+                    };
+                } else {
+                    properties = f.properties;
+                    union = f.geometry;
+                }
+            });
+
+            const featureView = turf.intersect({
+                type: 'Polygon',
+                coordinates: mapViewBound,
+            }, union);
+            if (!featureView) {
+                console.log('no featureView: ' + properties['display']);
+                return {
+                    type: 'Feature',
+                    geometry: union,
+                    properties: properties,
+                };
+            }
+
+            if (featureView.geometry.type === 'MultiPolygon') {
+                featureView.geometry = getLargestPolygon(featureView.geometry);
+            }
+
+            return {
+                type: 'Feature',
+                geometry: featureView.geometry,
+                properties: properties,
+            };
+        });
+
+        this.nbhdCentroid.features = features;
+
+        const source = this.map.getSource('nbhdCentroid');
+        if (source.type === 'geojson') {
+            source.setData(this.nbhdCentroid);
+        }
+    }
+
 
     onSearchSelect(event: any) {
         this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);

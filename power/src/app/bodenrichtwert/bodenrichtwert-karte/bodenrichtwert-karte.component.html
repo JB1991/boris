@@ -378,6 +378,8 @@
     <mgl-map (click)="onMapClickEvent($event)"
              (mouseUp)="onDragEnd()"
              (touchEnd)="onDragEnd()"
+             (moveEnd)="onMoveEnd()"
+             (resize)="onMoveEnd()"
              (load)="loadMap($event)"
              [bounds]="bounds"
              [maxZoom]="20"
@@ -393,14 +395,15 @@
                    type="line"
                    [source]="'ndsgeojson'"
                    [paint]="{
-      'line-color': '#c4153a',
-      'line-width': {
-        'stops': [[8,1],[10,1],[18,1]]
-      },
-      'line-opacity': {
-        'stops':[[8,1],[10,1],[12,0]]
-      }
-    }"></mgl-layer>
+                        'line-color': '#c4153a',
+                        'line-width': {
+                            'stops': [[8,1],[10,1],[18,1]]
+                        },
+                        'line-opacity': {
+                            'stops':[[8,1],[10,1],[12,0]]
+                        }
+                    }">
+        </mgl-layer>
 
         <!-- Niedersachsen -->
         <mgl-layer id="flurstuecke"
@@ -409,14 +412,15 @@
                    [minzoom]="15"
                    [sourceLayer]="'ax_flurstueck_nds'"
                    [paint]="{
-                    'line-color': '#343a40',
-                    'line-width': {
-                    'stops': [[15,0],[16,1],[18,2]]
-                    },
-                    'line-opacity': {
-                    'stops' : [[15,0.5]]
-                    }
-        }"></mgl-layer>
+                        'line-color': '#343a40',
+                        'line-width': {
+                            'stops': [[15,0],[16,1],[18,2]]
+                        },
+                        'line-opacity': {
+                            'stops' : [[15,0.5]]
+                        }
+                    }">
+        </mgl-layer>
 
         <mgl-layer id="bauland"
                    type="line"
@@ -424,14 +428,14 @@
                    [minzoom]="11"
                    [sourceLayer]="'br_brzone_flat_with_display'"
                    [paint]="{
-      'line-color': teilmarkt.color,
-      'line-width': {
-        'stops': [[11,0],[13,1],[18,2]]
-      },
-      'line-opacity': {
-        'stops' : [[11,0],[13,1]]
-      }
-    }"
+                        'line-color': teilmarkt.color,
+                        'line-width': {
+                            'stops': [[11,0],[13,1],[18,2]]
+                        },
+                        'line-opacity': {
+                            'stops' : [[11,0],[13,1]]
+                        }
+                    }"
                    [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
@@ -461,79 +465,16 @@
                    [sourceLayer]="'br_brzone_flat_with_display'"
                    [minzoom]="10"
                    [paint]="{
-      'line-color': teilmarkt.color,
-      'line-width': {
-        'stops': [[8,0],[10,1],[11,2]]
-      },
-      'line-opacity': {
-        'stops' : [[8,0],[10,1]]
-      }
-    }"
+                        'line-color': teilmarkt.color,
+                        'line-width': {
+                            'stops': [[8,0],[10,1],[11,2]]
+                        },
+                        'line-opacity': {
+                            'stops' : [[8,0],[10,1]]
+                        }
+                    }"
                    [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
-
-        <mgl-layer id="appto_bauland"
-                   type="symbol"
-                   [source]="ndsSource"
-                   [sourceLayer]="'br_brzone_flat_with_display'"
-                   [minzoom]="13"
-                   [paint]="{
-      'text-halo-color' : '#fff',
-      'text-halo-width' : 2,
-      'text-halo-blur' : 2,
-      'text-color' : 'rgb(117, 129, 145)'
-     }"
-                   [layout]="teilmarkt.value.includes('B') ?
-                   {
-                    'visibility': 'visible',
-                    'text-field': ['get','display'],
-                    'text-max-width': 0,
-                    'text-size': {
-                        'stops': [[12,10],[15,16]]
-                        },
-                    'text-font': ['Klokantech Noto Sans Regular']
-                    } :
-                    {
-                    'visibility': 'none',
-                    'text-field': ['get','display'],
-                    'text-size': {
-                        'stops': [[12,10],[15,16]]
-                        },
-                    'text-font': ['Klokantech Noto Sans Regular']
-                    }"
-                   [filter]="['all',['in', 'entw', 'B','SF', 'R', 'E'],['==', 'stag', stichtag]]">
-        </mgl-layer>
-
-        <mgl-layer id="appto_landwirtschaft"
-                   type="symbol"
-                   [source]="ndsSource"
-                   [sourceLayer]="'br_brzone_flat_with_display'"
-                   [minzoom]="10"
-                   [paint]="{
-      'text-halo-color' : '#fff',
-      'text-halo-width' : 2,
-      'text-halo-blur' : 2,
-      'text-color' : 'rgb(117, 129, 145)'
-     }"
-                   [layout]="teilmarkt.value.includes('LF') ? {
-                    'visibility': 'visible',
-                    'text-field': ['get','display'],
-                    'text-max-width': 0,
-                    'text-size': {
-                        'stops': [[10,20],[15,24]]
-                        },
-                    'text-font': ['Klokantech Noto Sans Regular']
-                    } :
-                    {
-                        'visibility': 'none',
-                        'text-field': ['get','display'],
-                        'text-size': {
-                        'stops': [[10,20],[15,24]]
-                        },
-                        'text-font': ['Klokantech Noto Sans Regular']
-                    }"
-                   [filter]="['all',['==','stag', stichtag],['in','entw', teilmarkt.value[0]]]">
-        </mgl-layer>
 
         <!-- Bremen -->
         <mgl-layer id="bauland_bremen"
@@ -542,14 +483,14 @@
                    [minzoom]="11"
                    [sourceLayer]="'br_brzone_flat_bremen_with_display'"
                    [paint]="{
-      'line-color': teilmarkt.color,
-      'line-width': {
-        'stops': [[11,0],[13,1],[18,2]]
-      },
-      'line-opacity': {
-        'stops' : [[11,0],[13,1]]
-      }
-    }"
+                        'line-color': teilmarkt.color,
+                        'line-width': {
+                            'stops': [[11,0],[13,1],[18,2]]
+                        },
+                        'line-opacity': {
+                            'stops' : [[11,0],[13,1]]
+                        }
+                    }"
                    [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
@@ -579,70 +520,16 @@
                    [sourceLayer]="'br_brzone_flat_bremen_with_display'"
                    [minzoom]="10"
                    [paint]="{
-      'line-color': teilmarkt.color,
-      'line-width': {
-        'stops': [[8,0],[10,1],[11,2]]
-      },
-      'line-opacity': {
-        'stops' : [[8,0],[10,1]]
-      }
-    }"
+                        'line-color': teilmarkt.color,
+                        'line-width': {
+                            'stops': [[8,0],[10,1],[11,2]]
+                        },
+                        'line-opacity': {
+                            'stops' : [[8,0],[10,1]]
+                        }
+                    }"
                    [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
-
-        <mgl-layer id="appto_bauland_bremen"
-                   type="symbol"
-                   [source]="bremenSource"
-                   [sourceLayer]="'br_brzone_flat_bremen_with_display'"
-                   [minzoom]="13"
-                   [paint]="{
-      'text-halo-color' : '#fff',
-      'text-halo-width' : 2,
-      'text-halo-blur' : 2,
-      'text-color' : 'rgb(117, 129, 145)'
-     }"
-                   [layout]="teilmarkt.value.includes('B') ?
-                   {
-                        'visibility': 'visible',
-                        'text-field': ['get', 'display'],
-                         'text-max-width': 0,
-                        'text-size': {
-                            'stops': [[12,10],[15,16]]
-                            },
-                        'text-font': ['Klokantech Noto Sans Regular']
-                    } :
-                    {
-                        'visibility': 'none'
-                    }"
-                   [filter]="['all',['in', 'entw', 'B','SF', 'R', 'E'],['==', 'stag', stichtag]]">
-        </mgl-layer>
-
-        <mgl-layer id="appto_landwirtschaft_bremen"
-                   type="symbol"
-                   [source]="bremenSource"
-                   [sourceLayer]="'br_brzone_flat_bremen_with_display'"
-                   [minzoom]="10"
-                   [paint]="{
-      'text-halo-color' : '#fff',
-      'text-halo-width' : 2,
-      'text-halo-blur' : 2,
-      'text-color' : 'rgb(117, 129, 145)'
-     }"
-                   [layout]="teilmarkt.value.includes('LF') ?
-                        {
-                            'visibility': 'visible',
-                            'text-field': ['get', 'display'],
-                             'text-max-width': 0,
-                            'text-size': {
-                                'stops': [[10,20],[15,24]]
-                                },
-                            'text-font': ['Klokantech Noto Sans Regular']
-                        } :
-                        {
-                            'visibility': 'none'
-                        }"
-                   [filter]="['all',['==','stag', stichtag],['in','entw', teilmarkt.value[0]]]">
-        </mgl-layer>
 
         <mgl-control [position]="'bottom-left'"
                      mglScale
