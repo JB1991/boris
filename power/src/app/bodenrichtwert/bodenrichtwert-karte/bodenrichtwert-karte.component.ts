@@ -231,9 +231,56 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
-        this.map.addSource('nbhdCentroid', {
+        this.map.addSource('baulandSource', {
             type: 'geojson',
-            data: this.nbhdCentroid
+            data: this.baulandData
+        });
+
+        this.map.addLayer({
+            id: 'bauland_labels',
+            type: 'symbol',
+            source: 'baulandSource',
+            paint: {
+                'text-halo-color': '#fff',
+                'text-halo-width': 2,
+                'text-halo-blur': 2,
+                'text-color': 'rgb(117, 129, 145)'
+            },
+            layout: {
+                'visibility': 'visible',
+                'text-field': ['get', 'display'],
+                'text-max-width': 0,
+                'text-size': {
+                    'stops': [[12, 10], [15, 16]]
+                },
+                'text-font': ['Klokantech Noto Sans Regular']
+            }
+        });
+
+        this.map.addSource('landwirtschaftSource', {
+            type: 'geojson',
+            data: this.landwirtschaftData
+        });
+
+        this.map.addLayer({
+            id: 'landwirtschaft_labels',
+            type: 'symbol',
+            source: 'landwirtschaftSource',
+            paint: {
+                'text-halo-color': '#fff',
+                'text-halo-width': 2,
+                'text-halo-blur': 2,
+                'text-color': 'rgb(117, 129, 145)'
+            },
+            layout: {
+                'visibility': 'visible',
+                'text-field': ['get', 'display'],
+                'text-max-width': 0,
+                'text-size': {
+                    'stops': [[10, 20], [15, 24]]
+                },
+                'text-font': ['Klokantech Noto Sans Regular']
+            }
         });
 
         this.route.queryParams.subscribe(params => {
@@ -331,7 +378,12 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         }
     }
 
-    public nbhdCentroid: FeatureCollection = {
+    public baulandData: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: []
+    };
+
+    public landwirtschaftData: FeatureCollection = {
         type: 'FeatureCollection',
         features: []
     };
@@ -348,7 +400,29 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     ];
 
     onMoveEnd() {
-        this.nbhdCentroid.features = [];
+        if (this.teilmarkt.value.includes('B')) {
+
+            this.landwirtschaftData.features = [];
+            const source = this.map.getSource('landwirtschaftSource');
+            if (source.type === 'geojson') {
+                source.setData(this.landwirtschaftData);
+            }
+
+            this.dynamicLabelling(this.baulandData, 'bauland', 'baulandSource');
+        } else {
+
+            this.baulandData.features = [];
+            const source = this.map.getSource('baulandSource');
+            if (source.type === 'geojson') {
+                source.setData(this.baulandData);
+            }
+
+            this.dynamicLabelling(this.landwirtschaftData, 'landwirtschaft', 'landwirtschaftSource');
+        }
+    }
+
+    dynamicLabelling(labelData: FeatureCollection, layerName: string, sourceName: string) {
+        labelData.features = [];
 
         const featureMap: Record<string, GeoJSON.Feature<Polygon>[]> = {};
 
@@ -365,8 +439,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             ]
         ];
 
-        this.map.queryRenderedFeatures(null, { layers: ['bauland'] }).forEach(f => {
-            console.log(f.properties['display']);
+        this.map.queryRenderedFeatures(null, { layers: [layerName] }).forEach(f => {
             const oid = f.properties['objektidentifikator'];
             if (this.doNotDisplay.includes(oid)) {
                 console.log(JSON.stringify(f));
@@ -452,11 +525,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             };
         });
 
-        this.nbhdCentroid.features = features;
+        labelData.features = features;
 
-        const source = this.map.getSource('nbhdCentroid');
+        const source = this.map.getSource(sourceName);
         if (source.type === 'geojson') {
-            source.setData(this.nbhdCentroid);
+            source.setData(labelData);
         }
     }
 
