@@ -10,9 +10,12 @@
     outline: none;
 }
 
-.footer-link,
 .navbar-nav .nav-item .nav-link {
     color: #121416;
+}
+
+.footer-link {
+    color: white;
 }
 
 .footer-link:hover,
@@ -23,6 +26,14 @@
 
 .navbar-nav .nav-item .nav-link.active {
     color: #c4153a;
+}
+
+.bg-custom {
+    background-color: #343a40;
+}
+
+footer li:before {
+    content: "\00BB \0020";
 }
 
 @media (max-width: 576px) {

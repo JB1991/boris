@@ -250,7 +250,7 @@
         <router-outlet></router-outlet>
     </div>
 
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
         <footer class="pt-4 my-md-5 pt-md-5 border-top w-100 m-0 overflow-hidden">
             <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
                  class="row justify-content-end">
@@ -299,6 +299,111 @@
                         </li>
                     </ul>
                     <p class="text-muted">
+                        <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div> -->
+    <div class="container-fluid bg-custom text-white">
+        <footer class="pt-5 pb-2 px-md-5 overflow-hidden">
+            <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
+                 class="row justify-content-end mr-3 mr-md-0">
+                <div class="col text-right">
+                    <p class="text-white"
+                       i18n>* Pflichtfeld</p>
+                </div>
+            </div>
+            <div class="row border-top pt-3 mx-3 mx-md-0">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <h5 i18n>Informationen</h5>
+                    <ul class="list-unstyled text-small">
+                        <li class="my-1">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
+                               class="footer-link"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Impressum</a>
+                        </li>
+                        <li class="my-1">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html"
+                               class="footer-link"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Datenschutz</a>
+                        </li>
+                        <li class="my-1">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html"
+                               class="footer-link"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Allgemeine Geschäfts- und Nutzungsbedingungen</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <ul class="list-unstyled text-small">
+                        <h5 id="languages"
+                            aria-label="Sprachauswahl"
+                            i18n-aria-label
+                            i18n>Sprache</h5>
+                        <li class="my-1">
+                            <a href="{{ baseurl }}"
+                               class="footer-link"
+                               rel="noopener"
+                               aria-labelledby="languages">Deutsch</a>
+                        </li>
+                        <li class="my-1">
+                            <a href="/en{{ baseurl }}"
+                               class="footer-link"
+                               rel="noopener"
+                               aria-labelledby="languages">English</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4">
+                    <!-- Only for Modules Bodenrichtwerte/Bodenwertkalkulator -->
+                    <div *ngIf="router.url.includes('/bodenrichtwerte') || router.url.includes('/bodenwertkalkulator')">
+                        <h5 id="languages"
+                            aria-label="Informationen Bodenrichtwerte"
+                            i18n-aria-label
+                            i18n>Bodenrichtwerte</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="my-1">
+                                <a href="https://www.gag.niedersachsen.de/startseite/gutachterausschusse/gutachterausschuesse-88016.html"
+                                   class="footer-link"
+                                   target="_blank"
+                                   rel="noopener noreferrer nofollow"
+                                   i18n>Gutachterausschüsse - Niedersachsen</a>
+                            </li>
+                            <li class="my-1">
+                                <a href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_bauland/legende-zur-bodenrichtwertkarte-bauland-88020.html"
+                                   class="footer-link"
+                                   target="_blank"
+                                   rel="noopener noreferrer nofollow"
+                                   i18n>Legende zur Bodenrichtwertkarte Bauland</a>
+                            </li>
+                            <li class="my-1">
+                                <a href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_landwirtschaft/legende-zur-bodenrichtwertkarte-landwirtschaft-88023.html"
+                                   class="footer-link"
+                                   target="_blank"
+                                   rel="noopener noreferrer nofollow"
+                                   i18n>Legende zur Bodenrichtwertkarte Landwirtschaft</a>
+                            </li>
+                            <li class="my-1">
+                                <a href=""
+                                   class="footer-link"
+                                   target="_blank"
+                                   rel="noopener noreferrer nofollow"
+                                   i18n>Tableau - WIP</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center border-top mx-3 mx-md-0">
+                <div class="col p-3">
+                    <p class="text-white text-center">
                         <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}
                     </p>
                 </div>
