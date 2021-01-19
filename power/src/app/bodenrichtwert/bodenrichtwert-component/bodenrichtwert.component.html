@@ -73,7 +73,7 @@
                                        [(teilmarkt)]="teilmarkt"
                                        [(flurstueck)]="flurstueck"></power-bodenrichtwertkarte>
         </div>
-        <div [class]="isCollapsed ? 'col-12' : 'col-lg-6 height-lg'">
+        <div [class]="isCollapsed ? 'col-12 border-top' : 'col-lg-6 height-lg'">
             <div class="row">
                 <div *ngIf="!adresse && !features"
                      class="text-center p-0"
@@ -125,14 +125,16 @@
                          alt="Einklappen/ausklappen"
                          i18n-alt>
                 </button>
-                <!-- <div class="col-1 btn-collapse p-0"
-                     *ngIf="features?.features.length && !isCollapsed">
-                    <button class="nav-link btn p-0"
-                            type="button"
-                            alt="Bodenrichtwerte - amtlicher Ausdruck"
-                            title="Bodenrichtwerte - amtlicher Ausdruck"
-                            i18n-alt
-                            i18n-title>
+                <div class="col-2 p-0 d-flex justify-content-end"
+                     *ngIf="!isCollapsed">
+                    <a *ngIf="features?.features.length"
+                       class="nav-link btn p-1 align-self-center"
+                       type="button"
+                       [href]="printURL()"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow"
+                       title="Bodenrichtwerte - amtlicher Ausdruck"
+                       i18n-title>
                         <svg xmlns="http://www.w3.org/2000/svg"
                              width="20px"
                              height="20px"
@@ -145,11 +147,8 @@
                             <path
                                   d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
                         </svg>
-                    </button>
-                </div>
-                <div class="col-1 btn-collapse p-0"
-                     [class]="isCollapsed ? 'd-none' : 'd-block'">
-                    <button class="nav-link btn p-0"
+                    </a>
+                    <button class="nav-link btn py-1 px-3 align-self-center"
                             [ngClass]="{'active': hintsActive}"
                             type="button"
                             alt="Hinweise zur aktuellen Darstellung"
@@ -170,7 +169,7 @@
                                   d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                         </svg>
                     </button>
-                </div> -->
+                </div>
             </div>
             <div class="row overflow-auto"
                  [class]="isCollapsed ? '' : 'details'">
