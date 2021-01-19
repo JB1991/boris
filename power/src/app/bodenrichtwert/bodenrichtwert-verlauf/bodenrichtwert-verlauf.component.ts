@@ -239,6 +239,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     for (let i = 0; i < series.length; i++) {
                         if (series[i].verg === verg && series[i].verf === verf) {
                             copyData(i);
+                        } else if (series[i].verg === verg && series[i].verf === null) {
+                            copyData(i);
                         }
                     }
                     const seriesIncludesCurrentVerf = seriesVergValues.find(element => element.verf === verf);
