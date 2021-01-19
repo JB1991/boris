@@ -553,8 +553,32 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.changeURL();
     }
 
-    onTeilmarktChange(teilmarkt: any) {
+    /**
+     * onTeilmarktChange changes the teilmarkt to another teilmarkt and
+     * updates the brw/url
+     * @param teilmarkt teilmarkt to be switched to
+     */
+    public onTeilmarktChange(teilmarkt: any) {
         this.teilmarkt = teilmarkt;
+
+        // push info alert
+        this.alerts.NewAlert(
+            'info',
+            $localize`Teilmarkt gewechselt`,
+            $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
+
+        // ease to zoom lvl
+        if (teilmarkt.viewValue === 'Bauland') {
+            this.map.easeTo({
+                zoom: 14,
+                center: this.marker.getLngLat()
+            });
+        } else {
+            this.map.easeTo({
+                zoom: 11,
+                center: this.marker.getLngLat()
+            });
+        }
         this.teilmarktChange.emit(this.teilmarkt);
         if (this.lat && this.lng) {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
@@ -562,6 +586,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.changeURL();
     }
 
+    /**
+     * resetMap resets all configurations set/made by the user
+     */
     public resetMap() {
         this.resetMapFired = true;
 
