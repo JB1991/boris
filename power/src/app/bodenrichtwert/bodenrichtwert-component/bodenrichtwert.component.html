@@ -74,7 +74,7 @@
                                        [(flurstueck)]="flurstueck"></power-bodenrichtwertkarte>
         </div>
         <div [class]="isCollapsed ? 'col-12' : 'col-lg-6 height-lg'">
-            <div class="row justify-content-center">
+            <div class="row">
                 <div *ngIf="!adresse && !features"
                      class="text-center p-0"
                      [class]="isCollapsed ? 'col-12' : 'col-10'">
@@ -125,7 +125,7 @@
                          alt="Einklappen/ausklappen"
                          i18n-alt>
                 </button>
-                <div class="col-1 btn-collapse p-0"
+                <!-- <div class="col-1 btn-collapse p-0"
                      *ngIf="features?.features.length && !isCollapsed">
                     <button class="nav-link btn p-0"
                             type="button"
@@ -170,7 +170,7 @@
                                   d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                         </svg>
                     </button>
-                </div>
+                </div> -->
             </div>
             <div class="row overflow-auto"
                  [class]="isCollapsed ? '' : 'details'">

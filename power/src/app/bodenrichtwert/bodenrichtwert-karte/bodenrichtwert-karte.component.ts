@@ -365,7 +365,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             ]
         ];
 
-        this.map.queryRenderedFeatures(null, {layers: ['bauland']}).forEach(f => {
+        this.map.queryRenderedFeatures(null, { layers: ['bauland'] }).forEach(f => {
             console.log(f.properties['display']);
             const oid = f.properties['objektidentifikator'];
             if (this.doNotDisplay.includes(oid)) {
