@@ -247,6 +247,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.marker.setLngLat([this.lng, this.lat]).addTo(this.map);
                 this.getAddressFromLatLng(this.lat, this.lng);
                 this.flyTo(this.lat, this.lng, this.zoom);
+            } else if (params['zoom']) {
+                this.map.setZoom(params['zoom']);
             }
 
             // teilmarkt
