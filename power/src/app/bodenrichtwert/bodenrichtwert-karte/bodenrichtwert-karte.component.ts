@@ -239,11 +239,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.route.queryParams.subscribe(params => {
             // lat and lat
             if (params['lat'] && params['lng']) {
+                if (params['zoom']) {
+                    this.zoom = params['zoom'];
+                }
                 this.lat = params['lat'];
                 this.lng = params['lng'];
                 this.marker.setLngLat([this.lng, this.lat]).addTo(this.map);
                 this.getAddressFromLatLng(this.lat, this.lng);
-                this.flyTo(this.lat, this.lng);
+                this.flyTo(this.lat, this.lng, this.zoom);
             }
 
             // teilmarkt
@@ -273,10 +276,13 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.filterActive = !this.filterActive;
     }
 
-    flyTo(lat: number, lng: number) {
+    flyTo(lat: number, lng: number, zoom?: number) {
+        if (!zoom) {
+            zoom = this.map.getZoom();
+        }
         this.map.flyTo({
             center: [lng, lat],
-            zoom: 14,
+            zoom: zoom,
             speed: 1,
             curve: 1,
             bearing: 0
@@ -348,6 +354,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     ];
 
     onMoveEnd() {
+        this.bounds = this.map.getBounds();
+        this.zoom = this.map.getZoom();
+        this.changeURL();
+
         this.nbhdCentroid.features = [];
 
         const featureMap: Record<string, GeoJSON.Feature<Polygon>[]> = {};
@@ -487,6 +497,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         }
         if (this.lng) {
             params.append('lng', this.lng.toString());
+        }
+        if (this.zoom) {
+            params.append('zoom', this.zoom.toString());
         }
         if (this.teilmarkt) {
             params.append('teilmarkt', this.teilmarkt.viewValue.toString());
