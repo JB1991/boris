@@ -134,6 +134,13 @@
                     <div class="well well-lg card card-block card-header verlauf p-1 p-sm-2 p-md-3">
                         <div class="p-0"
                              *ngIf="features">
+                            <div *ngIf="adresse || features.features.length"
+                                 class="col-12 text-center">
+                                <p class="m-3 mx-center"
+                                   i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
+                                    Suchergebnisse
+                                    von der Kartendarstellung abweichen.</p>
+                            </div>
                             <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features.features.length"
                                  class="text-center col-12">
                                 <p class="m-3 mx-center lead"
