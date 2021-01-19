@@ -48,6 +48,24 @@ Die einzelnen Konfigurationsobjekte werden hierbei aus folgenden Dateien entnomm
 
 Die Installation ist als Bestandteil des BORIS.NI Projektes gedacht (nähere Details bitte diesem Projekt entnehmen) ~~oder kann Wahlweise auch als Standalone-Applikation genutzt werden~~.
 
+### Komponenten-API-Dokumentation
+
+- [immobilien-routing.module](doc/modules/immobilien-routing.immobilien_routing_module.md)
+- [immobilien.module](doc/modules/immobilien.immobilien_module.md)
+- [immobilien/immobilien.chartoptions](doc/modules/immobilien/immobilien.immobilien_immobilien_chartoptions.md)
+- [immobilien/immobilien.chartoptions-chartoptions](doc/modules/immobilien/immobilien.immobilien_immobilien_chartoptions_chartoptions.md)
+- [immobilien/immobilien.chartoptions-mapoptions](doc/modules/immobilien/immobilien.immobilien_immobilien_chartoptions_mapoptions.md)
+- [immobilien/immobilien.chartoptions-printoptions](doc/modules/immobilien/immobilien.immobilien_immobilien_chartoptions_printoptions.md)
+- [immobilien/immobilien.component](doc/modules/immobilien/immobilien.immobilien_immobilien_component.md)
+- [immobilien/immobilien.export](doc/modules/immobilien/immobilien.immobilien_immobilien_export.md)
+- [immobilien/immobilien.formatter](doc/modules/immobilien/immobilien.immobilien_immobilien_formatter.md)
+- [immobilien/immobilien.helper](doc/modules/immobilien/immobilien.immobilien_immobilien_helper.md)
+- [immobilien/immobilien.runtime](doc/modules/immobilien/immobilien.immobilien_immobilien_runtime.md)
+- [immobilien/immobilien.runtime-calculator](doc/modules/immobilien/immobilien.immobilien_immobilien_runtime_calculator.md)
+- [immobilien/immobilien.static](doc/modules/immobilien/immobilien.immobilien_immobilien_static.md)
+- [immobilien/immobilien.utils](doc/modules/immobilien/immobilien.immobilien_immobilien_utils.md)
+
+
 ### Konfiguration
 
 Im Quellcode der NiPix Applikation haben Sie die Möglichkeit einen URL zu einer Konfigurationsdatei für die Applikation anzugeben. Diese Konfigurationsdatei verwaltet die komplette Konfiguration der Anwendung inklusieve Datenquellen, Presets, Farben und Typos
