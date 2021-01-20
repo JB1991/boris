@@ -439,7 +439,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             ]
         ];
 
-        this.map.queryRenderedFeatures(null, {layers: layerNames}).forEach(f => {
+        this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
             const oid = f.properties['objektidentifikator'];
             if (this.doNotDisplay.includes(oid)) {
                 return;
@@ -672,6 +672,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         }
         if (!this.isCollapsed) {
             this.isCollapsedChange.emit(true);
+        } else {
+            this.map.fitBounds(this.bounds, {
+                pitch: 0,
+                bearing: 0
+            });
         }
     }
 
