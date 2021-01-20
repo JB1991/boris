@@ -242,16 +242,16 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             source: 'baulandSource',
             paint: {
                 'text-halo-color': '#fff',
-                'text-halo-width' : 2,
-                'text-halo-blur' : 2,
-                'text-color' : 'rgb(117, 129, 145)'
+                'text-halo-width': 2,
+                'text-halo-blur': 2,
+                'text-color': 'rgb(117, 129, 145)'
             },
             layout: {
                 'visibility': 'visible',
-                'text-field': ['get','display'],
+                'text-field': ['get', 'display'],
                 'text-max-width': 0,
                 'text-size': {
-                    'stops': [[12,10],[15,16]]
+                    'stops': [[12, 10], [15, 16]]
                 },
                 'text-font': ['Klokantech Noto Sans Regular']
             }
@@ -268,16 +268,16 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             source: 'landwirtschaftSource',
             paint: {
                 'text-halo-color': '#fff',
-                'text-halo-width' : 2,
-                'text-halo-blur' : 2,
-                'text-color' : 'rgb(117, 129, 145)'
+                'text-halo-width': 2,
+                'text-halo-blur': 2,
+                'text-color': 'rgb(117, 129, 145)'
             },
             layout: {
                 'visibility': 'visible',
-                'text-field': ['get','display'],
+                'text-field': ['get', 'display'],
                 'text-max-width': 0,
                 'text-size': {
-                    'stops': [[10,20],[15,24]]
+                    'stops': [[10, 20], [15, 24]]
                 },
                 'text-font': ['Klokantech Noto Sans Regular']
             }
@@ -656,8 +656,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         // reset coordinates
         this.lat = undefined;
         this.lng = undefined;
-
-        console.log('resetMap');
 
         if (this.threeDActive) {
             this.deactivate3dView();

@@ -45,3 +45,12 @@
     font-size: large;
     height: 57px;
 }
+
+.nav-link:hover {
+    color: #c4153a;
+    cursor: pointer;
+}
+
+.active {
+    color: #c4153a !important;
+}

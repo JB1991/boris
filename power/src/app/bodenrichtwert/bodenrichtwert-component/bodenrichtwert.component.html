@@ -73,16 +73,18 @@
                                        [(teilmarkt)]="teilmarkt"
                                        [(flurstueck)]="flurstueck"></power-bodenrichtwertkarte>
         </div>
-        <div [class]="isCollapsed ? 'col-12' : 'col-lg-6 height-lg'">
+        <div [class]="isCollapsed ? 'col-12 border-top' : 'col-lg-6 height-lg'">
             <div class="row">
                 <div *ngIf="!adresse && !features"
-                     class="text-center border-top col-12 p-0">
+                     class="text-center p-0"
+                     [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'">
                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie eine Position</h5>
                 </div>
                 <div *ngIf="!adresse && features && features.features.length"
-                     class="text-center border-top col-12 p-0">
-                    <button class="btn btn-collapse border col-12"
+                     class="text-center p-0"
+                     [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'">
+                    <button class="btn btn-collapse w-100"
                             type="button"
                             (click)="isCollapsed = !isCollapsed"
                             [attr.aria-expanded]="!isCollapsed"
@@ -95,8 +97,9 @@
                     </button>
                 </div>
                 <div *ngIf="!adresse && features && !features.features.length"
-                     class="text-center border-top col-12 p-0">
-                    <button class="btn btn-collapse border col-12"
+                     class="text-center p-0"
+                     [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'">
+                    <button class="btn btn-collapse w-100"
                             type="button"
                             (click)="isCollapsed = !isCollapsed"
                             [attr.aria-expanded]="!isCollapsed"
@@ -110,7 +113,8 @@
                     </button>
                 </div>
                 <button *ngIf="adresse"
-                        class="btn btn-collapse border col-12 p-0"
+                        class="btn btn-collapse p-0 w-100"
+                        [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'"
                         type="button"
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
@@ -121,6 +125,54 @@
                          alt="Einklappen/ausklappen"
                          i18n-alt>
                 </button>
+                <div class="col-12 col-sm-2 p-0 d-flex justify-content-end"
+                     *ngIf="!isCollapsed">
+                    <a *ngIf="features?.features.length"
+                       class="nav-link btn p-1 align-self-center"
+                       role="button"
+                       [href]="printURL()"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow"
+                       alt="Bodenrichtwerte - amtlicher Ausdruck"
+                       title="Bodenrichtwerte - amtlicher Ausdruck"
+                       i18n-title>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="20px"
+                             height="20px"
+                             fill="currentColor"
+                             class="bi bi-printer"
+                             viewBox="0 0 16 16"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                            <path
+                                  d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                        </svg>
+                        <span class="d-none"
+                              aria-hidden="true">Bodenrichtwerte - amtlicher Ausdruck </span>
+                    </a>
+                    <button class="nav-link btn py-1 px-3 align-self-center"
+                            [ngClass]="{'active': hintsActive}"
+                            type="button"
+                            alt="Hinweise zur aktuellen Darstellung"
+                            title="Hinweise zur aktuellen Darstellung"
+                            (click)="hintsActive = !hintsActive"
+                            i18n-alt
+                            i18n-title>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="20px"
+                             height="20px"
+                             fill="currentColor"
+                             class="bi bi-info-circle"
+                             viewBox="0 0 16 16"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path
+                                  d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div class="row overflow-auto"
                  [class]="isCollapsed ? '' : 'details'">
@@ -134,64 +186,39 @@
                     <div class="well well-lg card card-block card-header verlauf p-1 p-sm-2 p-md-3">
                         <div class="p-0"
                              *ngIf="features">
-                            <div *ngIf="adresse || features.features.length"
-                                 class="col-12 text-center">
-                                <p class="m-3 mx-center"
-                                   i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
-                                    Suchergebnisse
-                                    von der Kartendarstellung abweichen.</p>
-                            </div>
-                            <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features.features.length"
-                                 class="text-center col-12">
-                                <p class="m-3 mx-center lead"
-                                   i18n>Keine gültige Adresse!</p>
-                                <p class="m-3 mx-center lead"
-                                   i18n>Hinweis:</p>
-                                <p class="m-3 mx-center"
-                                   i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder Bremen
-                                    aus.
-                                    Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
-                            </div>
-                            <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"
-                                 class="text-center col-12">
-                                <p class="m-3 mx-center"
-                                   i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
-                            </div>
-                            <div *ngIf="!adresse && features.features.length"
-                                 class="text-center col-12">
-                                <p class="m-3 mx-center"
-                                   i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
-                                    Adresse für diesen Standort gefunden werden.</p>
-                                <p class="m-3 mx-center"
-                                   i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
-                            </div>
-
-                            <div class="mb-2"
-                                 *ngIf="features.features.length">
-                                <a class="btn btn-primary"
-                                   role="button"
-                                   [href]="printURL()"
-                                   target="_blank"
-                                   rel="noopener noreferrer nofollow"
-                                   i18n-title
-                                   title="Auszug aus der Bodenrichtwertkarte">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         width="16"
-                                         height="16"
-                                         fill="currentColor"
-                                         class="bi bi-file-earmark-richtext"
-                                         viewBox="0 0 16 16"
-                                         focusable="false"
-                                         aria-hidden="true">
-                                        <path
-                                              d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-                                        <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
-                                        <path fill-rule="evenodd"
-                                              d="M4.5 12.5A.5.5 0 0 1 5 12h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 10h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm1.639-3.708l1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V8.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8s1.54-1.274 1.639-1.208zM6.25 6a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
-                                    </svg>
-                                    <span class="d-none d-md-inline ml-1"
-                                          i18n>Bodenrichtwerte - amtlicher Ausdruck</span>
-                                </a>
+                            <div [class]="hintsActive ? 'd-block' : 'd-none'">
+                                <div *ngIf="adresse || features.features.length"
+                                     class="col-12 text-center">
+                                    <p class="m-3 mx-center"
+                                       i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
+                                        Suchergebnisse
+                                        von der Kartendarstellung abweichen.</p>
+                                </div>
+                                <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features.features.length"
+                                     class="text-center col-12">
+                                    <p class="m-3 mx-center lead"
+                                       i18n>Keine gültige Adresse!</p>
+                                    <p class="m-3 mx-center lead"
+                                       i18n>Hinweis:</p>
+                                    <p class="m-3 mx-center"
+                                       i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder
+                                        Bremen
+                                        aus.
+                                        Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
+                                </div>
+                                <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"
+                                     class="text-center col-12">
+                                    <p class="m-3 mx-center"
+                                       i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
+                                </div>
+                                <div *ngIf="!adresse && features.features.length"
+                                     class="text-center col-12">
+                                    <p class="m-3 mx-center"
+                                       i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
+                                        Adresse für diesen Standort gefunden werden.</p>
+                                    <p class="m-3 mx-center"
+                                       i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
+                                </div>
                             </div>
 
                             <power-bodenrichtwert-liste [stichtag]="stichtag"
