@@ -677,6 +677,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 pitch: 0,
                 bearing: 0
             });
+            this.resetMapFired = !this.resetMapFired;
         }
     }
 
