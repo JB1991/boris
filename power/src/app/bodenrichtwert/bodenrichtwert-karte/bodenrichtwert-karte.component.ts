@@ -323,7 +323,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     flyTo(lat: number, lng: number) {
         this.map.flyTo({
             center: [lng, lat],
-            zoom: 14,
+            zoom: 15.1,
             speed: 1,
             curve: 1,
             bearing: 0
