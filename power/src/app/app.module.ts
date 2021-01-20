@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,6 +11,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { GlobalErrorHandler } from './errorhandler';
 import { Config, ConfigService } from '@app/config.service';
 import { ModuleGuard } from './module.guard';
 import { AuthModule } from '@app/shared/auth/auth.module';
@@ -63,6 +64,10 @@ export const load = (httpClient: HttpClient, configService: ConfigService) =>
                 HttpClient,
                 ConfigService
             ]
+        },
+        {
+            provide: ErrorHandler,
+            useClass: GlobalErrorHandler
         }
     ],
     bootstrap: [AppComponent]

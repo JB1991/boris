@@ -184,7 +184,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     });
 
     it('onTeilmarktChange should update the Teilmarkt attribute and call getBodenrichtwertzonen', () => {
-        const teilmarkt = {
+        // Teilmark Landwirtschaft
+        let teilmarkt = {
             'value': ['LF'],
             'viewValue': 'Landwirtschaft'
         };
@@ -194,6 +195,15 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         component.onTeilmarktChange(teilmarkt);
         expect(component.teilmarkt).toEqual(teilmarkt);
         expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(1);
+
+        // Teilmarkt Bauland
+        teilmarkt = {
+            'value': ['B'],
+            'viewValue': 'Bauland'
+        };
+        component.onTeilmarktChange(teilmarkt);
+        expect(component.teilmarkt).toEqual(teilmarkt);
+        expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(2);
     });
 
     it('resetMap should reset the map', () => {
