@@ -408,7 +408,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 source.setData(this.landwirtschaftData);
             }
 
-            this.dynamicLabelling(this.baulandData, 'bauland', 'baulandSource');
+            this.dynamicLabelling(this.baulandData, ['bauland', 'bauland_bremen'], 'baulandSource');
         } else {
 
             this.baulandData.features = [];
@@ -417,11 +417,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 source.setData(this.baulandData);
             }
 
-            this.dynamicLabelling(this.landwirtschaftData, 'landwirtschaft', 'landwirtschaftSource');
+            this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
         }
     }
 
-    dynamicLabelling(labelData: FeatureCollection, layerName: string, sourceName: string) {
+    dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
         labelData.features = [];
 
         const featureMap: Record<string, GeoJSON.Feature<Polygon>[]> = {};
@@ -439,10 +439,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             ]
         ];
 
-        this.map.queryRenderedFeatures(null, {layers: [layerName]}).forEach(f => {
+        this.map.queryRenderedFeatures(null, {layers: layerNames}).forEach(f => {
             const oid = f.properties['objektidentifikator'];
             if (this.doNotDisplay.includes(oid)) {
-                console.log(JSON.stringify(f));
                 return;
             };
             if (f && f.type === 'Feature') {
