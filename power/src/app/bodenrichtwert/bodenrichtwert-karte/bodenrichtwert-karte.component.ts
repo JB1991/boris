@@ -14,12 +14,12 @@ import * as turf from '@turf/turf';
 
 type Polygon = {
     type: 'Polygon';
-    coordinates: GeoJSON.Position[][];
+    coordinates: number[][][];
 };
 
 type MultiPolygon = {
     type: 'MultiPolygon';
-    coordinates: GeoJSON.Position[][][];
+    coordinates: number[][][][];
 };
 
 function getLargestPolygon(mp: MultiPolygon): Polygon {
@@ -323,7 +323,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     flyTo(lat: number, lng: number) {
         this.map.flyTo({
             center: [lng, lat],
-            zoom: 14,
+            zoom: 15.1,
             speed: 1,
             curve: 1,
             bearing: 0
@@ -408,7 +408,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 source.setData(this.landwirtschaftData);
             }
 
-            this.dynamicLabelling(this.baulandData, 'bauland', 'baulandSource');
+            this.dynamicLabelling(this.baulandData, ['bauland', 'bauland_bremen'], 'baulandSource');
         } else {
 
             this.baulandData.features = [];
@@ -417,11 +417,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 source.setData(this.baulandData);
             }
 
-            this.dynamicLabelling(this.landwirtschaftData, 'landwirtschaft', 'landwirtschaftSource');
+            this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
         }
     }
 
-    dynamicLabelling(labelData: FeatureCollection, layerName: string, sourceName: string) {
+    dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
         labelData.features = [];
 
         const featureMap: Record<string, GeoJSON.Feature<Polygon>[]> = {};
@@ -439,10 +439,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             ]
         ];
 
-        this.map.queryRenderedFeatures(null, { layers: [layerName] }).forEach(f => {
+        this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
             const oid = f.properties['objektidentifikator'];
             if (this.doNotDisplay.includes(oid)) {
-                console.log(JSON.stringify(f));
                 return;
             };
             if (f && f.type === 'Feature') {
@@ -480,10 +479,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 };
             };
             let properties = {};
-            let union: {
-                type: 'Polygon';
-                coordinates: number[][][];
-            };
+            let union: Polygon;
             featureMap[key].forEach(f => {
                 if (union) {
                     const u = turf.union(union, f.geometry);
@@ -512,10 +508,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                     geometry: union,
                     properties: properties,
                 };
-            }
-
-            if (featureView.geometry.type === 'MultiPolygon') {
-                featureView.geometry = getLargestPolygon(featureView.geometry);
             }
 
             return {
@@ -658,8 +650,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.lat = undefined;
         this.lng = undefined;
 
-        console.log('resetMap');
-
         if (this.threeDActive) {
             this.deactivate3dView();
             this.threeDActive = !this.threeDActive;
@@ -675,6 +665,12 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         }
         if (!this.isCollapsed) {
             this.isCollapsedChange.emit(true);
+        } else {
+            this.map.fitBounds(this.bounds, {
+                pitch: 0,
+                bearing: 0
+            });
+            this.resetMapFired = !this.resetMapFired;
         }
     }
 
