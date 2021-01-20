@@ -6,6 +6,7 @@
         "attr-case": "off",
         "element-name": "off",
         "no-inline-style": "off",
-        "prefer-native-element": "off"
+        "prefer-native-element": "off",
+        "text-content": "off"
     }
 }
