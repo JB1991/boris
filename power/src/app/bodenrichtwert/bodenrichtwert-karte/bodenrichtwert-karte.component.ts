@@ -14,12 +14,12 @@ import * as turf from '@turf/turf';
 
 type Polygon = {
     type: 'Polygon';
-    coordinates: GeoJSON.Position[][];
+    coordinates: number[][][];
 };
 
 type MultiPolygon = {
     type: 'MultiPolygon';
-    coordinates: GeoJSON.Position[][][];
+    coordinates: number[][][][];
 };
 
 function getLargestPolygon(mp: MultiPolygon): Polygon {
@@ -479,10 +479,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 };
             };
             let properties = {};
-            let union: {
-                type: 'Polygon';
-                coordinates: number[][][];
-            };
+            let union: Polygon;
             featureMap[key].forEach(f => {
                 if (union) {
                     const u = turf.union(union, f.geometry);
@@ -511,10 +508,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                     geometry: union,
                     properties: properties,
                 };
-            }
-
-            if (featureView.geometry.type === 'MultiPolygon') {
-                featureView.geometry = getLargestPolygon(featureView.geometry);
             }
 
             return {
