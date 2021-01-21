@@ -313,7 +313,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     flyTo(lat: number, lng: number) {
-        if (this.map.getZoom() > 11.25 && this.marker.getLngLat()) {
+        if (this.map.getZoom() > 11.25) {
             this.zoomFactor = this.map.getZoom();
         } else {
             this.zoomFactor = 15.1;
