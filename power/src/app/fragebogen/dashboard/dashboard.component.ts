@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -6,7 +6,6 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService, GetFormsParams, GetTasksParams } from '../formapi.service';
 import { FormStatus, Access, TaskStatus, FormFilter, Task, Form, FormField, TaskField } from '../formapi.model';
-import { PaginationComponent } from 'ngx-bootstrap/pagination';
 
 @Component({
     selector: 'power-forms-dashboard',
@@ -68,8 +67,9 @@ export class DashboardComponent implements OnInit {
             this.updateTasks(false);
             this.loadingscreen.setVisible(false);
         } catch (error) {
+            console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
         }
     }
 
@@ -102,7 +102,8 @@ export class DashboardComponent implements OnInit {
                         this.updateForms(false);
                     })
                     .catch((error) => {
-                        this.alerts.NewAlert('danger', 'Erstellen fehlgeschlagen', error.error && error.error['message'] ? error.error['message'] : error.error.toString() );
+                        console.log(error);
+                        this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
                     });
             };
             // FileReader is async -> call readAsText() after declaring the onload handler
@@ -151,8 +152,7 @@ export class DashboardComponent implements OnInit {
         } catch (error) {
             console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }
@@ -187,8 +187,7 @@ export class DashboardComponent implements OnInit {
         } catch (error) {
             console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }
@@ -204,8 +203,7 @@ export class DashboardComponent implements OnInit {
         } catch (error) {
             console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {
                 this.router.navigate(['/forms'], { replaceUrl: true });
             }

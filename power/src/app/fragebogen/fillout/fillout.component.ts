@@ -93,13 +93,11 @@ export class FilloutComponent implements AfterViewInit {
             this.loadingscreen.setVisible(false);
         }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            console.log(error);
             this.loadingscreen.setVisible(false);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
             this.router.navigate(['/forms'], { replaceUrl: true });
-            console.log(error);
-            return;
         });
     }
 
@@ -122,11 +120,9 @@ export class FilloutComponent implements AfterViewInit {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen` + ': ' + error.toString());
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
-
             console.log(error);
-            return;
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen.`);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
 
@@ -148,13 +144,11 @@ export class FilloutComponent implements AfterViewInit {
             this.loadingscreen.setVisible(false);
         } catch (error) {
             // failed to load task
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            console.log(error);
             this.loadingscreen.setVisible(false);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
             this.router.navigate(['/forms'], { replaceUrl: true });
-            console.log(error);
-            return;
         }
     }
 
@@ -175,10 +169,9 @@ export class FilloutComponent implements AfterViewInit {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen`);
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
-            return;
+            result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen.`);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
 
@@ -200,9 +193,8 @@ export class FilloutComponent implements AfterViewInit {
             this.setUnsavedChanges(false);
         }).catch((error: Error) => {
             // failed to save task
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
-            return;
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
 
