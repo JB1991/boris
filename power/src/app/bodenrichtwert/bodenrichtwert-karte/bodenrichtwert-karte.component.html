@@ -474,7 +474,29 @@
                         }
                     }"
                    [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
-                   [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
+                   [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]">
+        </mgl-layer>
+
+        <mgl-layer id="bauland_labels"
+                   type="symbol"
+                   source="baulandSource"
+                   [paint]="{
+                        'text-halo-color': '#fff',
+                        'text-halo-width': 2,
+                        'text-halo-blur': 2,
+                        'text-color': 'rgb(117, 129, 145)'
+                    }"
+                   [layout]="{
+                        'visibility': 'visible',
+                        'text-field': ['get', 'display'],
+                        'text-max-width': 0,
+                        'text-size': {
+                            'stops': [[12, 10], [15, 16]]
+                        },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                   }">
+        </mgl-layer>
+
 
         <!-- Bremen -->
         <mgl-layer id="bauland_bremen"
@@ -529,7 +551,28 @@
                         }
                     }"
                    [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
-                   [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]"></mgl-layer>
+                   [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]">
+        </mgl-layer>
+
+        <mgl-layer id="landwirtschaft_labels"
+                   type="symbol"
+                   source="landwirtschaftSource"
+                   [paint]="{
+                        'text-halo-color': '#fff',
+                        'text-halo-width': 2,
+                        'text-halo-blur': 2,
+                        'text-color': 'rgb(117, 129, 145)'
+                    }"
+                   [layout]="{
+                        'visibility': 'visible',
+                        'text-field': ['get', 'display'],
+                        'text-max-width': 0,
+                        'text-size': {
+                            'stops': [[10, 20], [15, 24]]
+                        },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                    }">
+        </mgl-layer>
 
         <mgl-control [position]="'bottom-left'"
                      mglScale
