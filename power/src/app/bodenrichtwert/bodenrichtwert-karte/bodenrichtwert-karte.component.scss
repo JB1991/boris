@@ -45,6 +45,10 @@ mgl-map {
     color: #c4153a !important;
 }
 
+.dropdown-menu {
+    min-width: 100% !important;
+}
+
 $grid-breakpoints: (
     xs: 0,
     sm: 576px,
