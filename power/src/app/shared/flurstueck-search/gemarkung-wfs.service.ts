@@ -45,7 +45,7 @@ export class GemarkungWfsService {
      */
     /* istanbul ignore next */
     public getGemarkungByKey(gemarkung: string): Observable<FeatureCollection> {
-        let key = gemarkung.padEnd(4, '*');
+        const key = gemarkung.padEnd(4, '*');
 
         const filter = '<wfs:GetFeature ' +
             'xmlns:ogc="http://www.opengis.net/ogc" ' +

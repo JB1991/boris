@@ -140,7 +140,7 @@ export class FlurstueckSearchComponent {
      * @param key pressed key
      */
     public onEmpty(key: any) {
-        if ((key == 'Backspace' || key == 'Delete') && this.fsk.gemarkung) {
+        if ((key === 'Backspace' || key === 'Delete') && this.fsk.gemarkung) {
             this.selected = false;
         }
     }
