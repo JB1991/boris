@@ -121,6 +121,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         bounds: this.ndsBounds,
     };
 
+    // Labels
+
     public MAP_STYLE_URL = environment.basemap;
 
     public map: Map;
@@ -236,51 +238,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             data: this.baulandData
         });
 
-        this.map.addLayer({
-            id: 'bauland_labels',
-            type: 'symbol',
-            source: 'baulandSource',
-            paint: {
-                'text-halo-color': '#fff',
-                'text-halo-width': 2,
-                'text-halo-blur': 2,
-                'text-color': 'rgb(117, 129, 145)'
-            },
-            layout: {
-                'visibility': 'visible',
-                'text-field': ['get', 'display'],
-                'text-max-width': 0,
-                'text-size': {
-                    'stops': [[12, 10], [15, 16]]
-                },
-                'text-font': ['Klokantech Noto Sans Regular']
-            }
-        });
-
         this.map.addSource('landwirtschaftSource', {
             type: 'geojson',
             data: this.landwirtschaftData
-        });
-
-        this.map.addLayer({
-            id: 'landwirtschaft_labels',
-            type: 'symbol',
-            source: 'landwirtschaftSource',
-            paint: {
-                'text-halo-color': '#fff',
-                'text-halo-width': 2,
-                'text-halo-blur': 2,
-                'text-color': 'rgb(117, 129, 145)'
-            },
-            layout: {
-                'visibility': 'visible',
-                'text-field': ['get', 'display'],
-                'text-max-width': 0,
-                'text-size': {
-                    'stops': [[10, 20], [15, 24]]
-                },
-                'text-font': ['Klokantech Noto Sans Regular']
-            }
         });
 
         this.route.queryParams.subscribe(params => {
