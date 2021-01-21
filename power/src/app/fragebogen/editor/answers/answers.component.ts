@@ -5,6 +5,7 @@ import {
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
+/* eslint-disable-next-line prefer-const */
 let id = 0;
 @Component({
     providers: [

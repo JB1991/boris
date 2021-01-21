@@ -111,18 +111,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(1);
     });
 
-    it('toggleSearchActive should toggle the state of searchActive', () => {
-        expect(component.searchActive).toBe(false);
-        component.toggleSearchActive();
-        expect(component.searchActive).toBe(true);
-    });
-
-    it('toggleFilterActive should toggle the state of filterActive', () => {
-        expect(component.filterActive).toBe(false);
-        component.toggleFilterActive();
-        expect(component.filterActive).toBe(true);
-    });
-
     it('getBodenrichtwertzonen should call BodenrichtwertService', () => {
         spyOn(component.bodenrichtwertService, 'getFeatureByLatLonEntw').and.callThrough();
         component.getBodenrichtwertzonen(lat, lon, entw);

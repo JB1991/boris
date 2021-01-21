@@ -6,6 +6,7 @@ import {
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
+/* eslint-disable-next-line prefer-const */
 let id = 0;
 @Component({
     providers: [
@@ -55,7 +56,7 @@ export class ValueComponent implements OnChanges {
      * Resets value
      */
     public resetValue() {
-        this.value = null;
+        this.value = undefined;
         this.data = {};
         this.valueChange.emit(this.value);
     }

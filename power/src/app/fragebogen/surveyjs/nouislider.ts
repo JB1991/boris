@@ -108,7 +108,7 @@ export function init(Survey) {
             let start;
             let connect;
             if (!question.double) {
-                if (!question.value || typeof question.value.length !== 'undefined') {
+                if (typeof question.value !== 'number') {
                     start = (question.rangeMin + question.rangeMax) / 2;
                     question.value = start;
                 } else {

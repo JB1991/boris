@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
+/* eslint-disable-next-line prefer-const */
 let id = 0;
 /* eslint-disable max-lines */
 @Component({
