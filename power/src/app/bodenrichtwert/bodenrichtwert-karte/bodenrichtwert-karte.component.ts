@@ -58,7 +58,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public threeDActive = false;
 
     public isDragged = false;
-    public previousZoomFactor: number;
+    public zoomFactor: number;
 
     public baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 
@@ -134,7 +134,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }).on('dragstart', () => {
         this.isDragged = !this.isDragged;
     });
-    public zoom = 18;
 
     public lat: number;
     public lng: number;
@@ -175,8 +174,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes.isCollapsed && this.map) {
             this.map.resize();
-            this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
-            if (this.resetMapFired) {
+            if (!this.resetMapFired) {
+                this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
+            } else {
                 this.map.fitBounds(this.bounds, {
                     pitch: 0,
                     bearing: 0
@@ -312,18 +312,15 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         });
     }
 
-    toggleSearchActive() {
-        this.searchActive = !this.searchActive;
-    }
-
-    toggleFilterActive() {
-        this.filterActive = !this.filterActive;
-    }
-
     flyTo(lat: number, lng: number) {
+        if (this.map.getZoom() > 11.25 && this.marker.getLngLat()) {
+            this.zoomFactor = this.map.getZoom();
+        } else {
+            this.zoomFactor = 15.1;
+        }
         this.map.flyTo({
             center: [lng, lat],
-            zoom: 15.1,
+            zoom: this.zoomFactor,
             speed: 1,
             curve: 1,
             bearing: 0
@@ -564,7 +561,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     private activate3dView() {
-        this.previousZoomFactor = this.map.getZoom();
+        this.zoomFactor = this.map.getZoom();
         this.map.addLayer({
             id: 'building-extrusion',
             type: 'fill-extrusion',
@@ -591,7 +588,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     private deactivate3dView() {
         this.map.easeTo({
             pitch: 0,
-            zoom: this.previousZoomFactor,
+            zoom: this.zoomFactor,
             center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
@@ -642,7 +639,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
      */
     public resetMap() {
         this.resetMapFired = true;
-
         // reset URL
         this.location.replaceState('/bodenrichtwerte');
 

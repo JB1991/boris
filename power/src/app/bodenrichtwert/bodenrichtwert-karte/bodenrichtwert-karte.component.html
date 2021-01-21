@@ -172,7 +172,7 @@
                     <button class="nav-link btn"
                             [ngClass]="{'active': filterActive}"
                             type="button"
-                            (click)="toggleFilterActive()"
+                            (click)="filterActive = !filterActive"
                             alt="Filtern"
                             title="Filtern"
                             i18n-alt
@@ -194,7 +194,7 @@
                     <button class="nav-link btn"
                             [ngClass]="{'active': searchActive}"
                             type="button"
-                            (click)="toggleSearchActive()"
+                            (click)="searchActive = !searchActive"
                             alt="Suche"
                             title="Suche"
                             i18n-alt
