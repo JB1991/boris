@@ -43,10 +43,15 @@ mgl-map {
 
 .active {
     color: #c4153a !important;
+    background-color: white !important;
 }
 
 .dropdown-menu {
     min-width: 100% !important;
+}
+
+.dropdown-item2 {
+    background-color: white !important;
 }
 
 $grid-breakpoints: (
