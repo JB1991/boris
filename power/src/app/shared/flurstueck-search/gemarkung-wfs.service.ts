@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ export class GemarkungWfsService {
     /**
      * Subject with feature object which contains a flurstueck and associated properties
      */
-    private features = new Subject<FeatureCollection>();
+    private features = new Subject<Feature>();
 
     constructor(private http: HttpClient) {
 
@@ -27,7 +27,7 @@ export class GemarkungWfsService {
     /**
      * Returns the features as an Observable
      */
-    public getFeatures(): Observable<FeatureCollection> {
+    public getFeatures(): Observable<Feature> {
         return this.features.asObservable();
     }
 
@@ -35,7 +35,7 @@ export class GemarkungWfsService {
      * Updates the features by feeding a new value to the Subject
      * @param feature New feature
      */
-    public updateFeatures(feature: FeatureCollection) {
+    public updateFeatures(feature: Feature) {
         this.features.next(feature);
     }
 

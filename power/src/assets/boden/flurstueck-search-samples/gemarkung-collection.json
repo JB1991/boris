@@ -1,0 +1,27 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "gemarkungen.3671",
+            "geometry": null,
+            "properties": {
+                "gemarkungsschluessel": "1205",
+                "gemarkung": "Schwinge",
+                "gemeindeschluessel": "03359017",
+                "gemeinde": "Fredenbeck",
+                "katasteramtsschluessel": "35",
+                "katasteramt": "Stade",
+                "landkreisschluessel": "03359",
+                "landkreis": "Stade",
+                "samtgemeindeschluessel": "03359402",
+                "samtgemeinde": "Fredenbeck"
+            }
+        }
+    ],
+    "totalFeatures": 1,
+    "numberMatched": 1,
+    "numberReturned": 1,
+    "timeStamp": "2021-01-21T12:54:22.314Z",
+    "crs": null
+}
