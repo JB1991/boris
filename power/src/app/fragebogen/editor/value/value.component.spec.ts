@@ -49,6 +49,6 @@ describe('Fragebogen.Editor.ValueComponent', () => {
         // reset value
         component.resetValue();
         expect(component.value).toBeNull();
-        expect(component.valueChange.emit).toHaveBeenCalledWith(null);
+        expect(component.valueChange.emit).toHaveBeenCalledWith(undefined);
     });
 });
