@@ -5,24 +5,31 @@
             #form="ngForm">
             <div class="form-row py-1">
                   <div class="col-12">
-                        <label for="gem"
-                               i18n>Gemarkung</label>
+                        <label i18n>Gemarkung</label>
                         <input type="text"
                                class="form-control"
+                               [class]="gemarkung.valid && selected ? 'is-valid' : 'is-invalid'"
                                name="gemarkung"
-                               [(ngModel)]="fsk.gemarkung"
-                               [class]="!gemarkung.valid ? 'is-invalid' : 'is-valid'"
-                               required
-                               #gemarkung="ngModel"
-                               maxlength="4"
-                               pattern="[0-9]*"
+                               placement="bottom"
+                               placeholder="Bitte Gemarkung eingeben..."
                                i18n-placeholder
-                               placeholder="Gemarkung"
+                               aria-label="Suche"
+                               aria-placeholder="Bitte Gemarkung eingeben"
+                               i18n-aria-placeholder
+                               #gemarkung="ngModel"
+                               [(ngModel)]="fsk.gemarkung"
+                               [ngbTypeahead]="search"
+                               [inputFormatter]="inputFormatter"
+                               [resultTemplate]="results"
+                               [focusFirst]="false"
+                               (selectItem)="onSelect($event.item)"
+                               (keydown)="onEmpty($event.key)"
+                               required
                                aria-labelledby="germarkungsnr"
                                aria-describedby="gemarkungHelpText">
                         <small id="gemarkungHelpText"
                                class="form-text text-muted"
-                               i18n>4-stelliger Gemarkungsschlüssel
+                               i18n>Suche nach Gemarkung, Gemeinde oder Gemarkungschlüssel
                         </small>
                   </div>
             </div>
@@ -65,7 +72,6 @@
                         <input type="text"
                                class="form-control"
                                [(ngModel)]="fsk.nenner"
-                               [class]="!nenner.valid ? 'is-invalid' : 'is-valid'"
                                #nenner="ngModel"
                                name="nenner"
                                i18n-placeholder
@@ -97,4 +103,17 @@
                         i18n>Suchen</span>
             </button>
       </form>
+      <ng-template #results
+                   class="template"
+                   let-p="result.properties"
+                   let-t="term">
+            <div>
+                  <ngb-highlight [result]="p.gemarkung + ' (' + p.gemarkungsschluessel + ')'"
+                                 [term]="t"></ngb-highlight>
+                  <br>
+                  <ngb-highlight class="template-item-gemeinde"
+                                 [result]="p.gemeinde"
+                                 [term]="t"></ngb-highlight>
+            </div>
+      </ng-template>
 </power-modalmini>
