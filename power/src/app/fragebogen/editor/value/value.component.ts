@@ -56,7 +56,7 @@ export class ValueComponent implements OnChanges {
      * Resets value
      */
     public resetValue() {
-        this.value = null;
+        this.value = undefined;
         this.data = {};
         this.valueChange.emit(this.value);
     }
