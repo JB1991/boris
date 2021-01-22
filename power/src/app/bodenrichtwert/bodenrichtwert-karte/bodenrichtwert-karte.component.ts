@@ -272,8 +272,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         });
     }
 
-    flyTo(lat: number, lng: number) {
-        if (this.map.getZoom() > 11.25) {
+    flyTo(lat: number, lng: number, eventType?: any) {
+        if (this.map.getZoom() > 11.25 && !eventType) {
             this.zoomFactor = this.map.getZoom();
         } else {
             this.zoomFactor = 15.1;
@@ -611,6 +611,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.threeDActive = !this.threeDActive;
         }
         if (this.marker) {
+            this.marker.setLngLat([null, null]);
             this.marker.remove();
         }
         if (this.adresse) {
