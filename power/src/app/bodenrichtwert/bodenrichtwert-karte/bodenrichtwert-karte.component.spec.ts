@@ -9,7 +9,7 @@ import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { LngLat, Map } from 'mapbox-gl';
+import { LngLat, Map, Marker } from 'mapbox-gl';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Feature, FeatureCollection } from 'geojson';
 
@@ -63,6 +63,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.map, 'setPaintProperty');
         spyOn(component.map, 'removeLayer');
         spyOn(component.map, 'resize');
+        spyOn(component.map, 'getZoom').and.callThrough();
+        spyOn(component.map, 'setZoom').and.callThrough();
 
         const lngLat: LngLat = { lat: lat, lng: lon, distanceTo: null, toArray: null, toBounds: null, wrap: null };
         spyOn(component.marker, 'getLngLat').and.returnValue(lngLat);
@@ -155,6 +157,30 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.getBodenrichtwertzonen).toHaveBeenCalledTimes(1);
     });
 
+    it('flyTo should focus the map to specific coordinates', () => {
+        component.zoomFactor = 6;
+        let eventType = false;
+        component.flyTo(lat, lon, eventType);
+        expect(component.zoomFactor).toEqual(15.1);
+        expect(component.map.getZoom).toHaveBeenCalledTimes(1);
+        expect(component.map.flyTo).toHaveBeenCalledTimes(1);
+
+        component.zoomFactor = 14;
+        component.map.setZoom(component.zoomFactor);
+        component.flyTo(lat, lon, eventType);
+        expect(component.zoomFactor).toEqual(14);
+        expect(component.map.getZoom).toHaveBeenCalledTimes(3);
+        expect(component.map.flyTo).toHaveBeenCalledTimes(2);
+
+        component.zoomFactor = 14;
+        eventType = true;
+        component.map.setZoom(component.zoomFactor);
+        component.flyTo(lat, lon, eventType);
+        expect(component.zoomFactor).toEqual(15.1);
+        expect(component.map.getZoom).toHaveBeenCalledTimes(4);
+        expect(component.map.flyTo).toHaveBeenCalledTimes(3);
+    });
+
     it('toggle3dView should toggle the state of threeDActive', () => {
         expect(component.threeDActive).toBe(false);
         component.toggle3dView();
@@ -198,10 +224,14 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         component.threeDActive = true;
         component.lat = lat;
         component.lng = lon;
+        component.marker = new Marker();
+        component.marker.setLngLat([lon, lat]).addTo(component.map);
         component.resetMap();
         expect(component.threeDActive).toBeFalse();
         expect(component.lat).toBeUndefined();
         expect(component.lng).toBeUndefined();
+        expect(component.marker.getLngLat().lat).toBe(0);
+        expect(component.marker.getLngLat().lng).toBe(0);
     });
 
     it('enableLocationTracking should get the current position', () => {
