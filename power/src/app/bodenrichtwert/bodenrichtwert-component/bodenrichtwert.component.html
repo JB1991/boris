@@ -125,8 +125,8 @@
                          alt="Einklappen/ausklappen"
                          i18n-alt>
                 </button>
-                <div class="col-12 col-sm-2 p-0 d-flex justify-content-end"
-                     *ngIf="!isCollapsed">
+                <div *ngIf="!isCollapsed"
+                     class="col-12 col-sm-2 p-0 d-flex justify-content-end">
                     <a *ngIf="features?.features.length"
                        class="nav-link btn p-1 align-self-center"
                        role="button"
@@ -151,7 +151,8 @@
                         <span class="d-none"
                               aria-hidden="true">Bodenrichtwerte - amtlicher Ausdruck </span>
                     </a>
-                    <button class="nav-link btn py-1 px-3 align-self-center"
+                    <button [disabled]="!adresse && !features.features.length"
+                            class="nav-link btn py-1 px-3 align-self-center"
                             [ngClass]="{'active': hintsActive}"
                             type="button"
                             alt="Hinweise zur aktuellen Darstellung"
@@ -186,6 +187,18 @@
                     <div class="well well-lg card card-block card-header verlauf p-1 p-sm-2 p-md-3">
                         <div class="p-0"
                              *ngIf="features">
+                            <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features.features.length"
+                                 class="text-center col-12">
+                                <p class="m-3 mx-center lead"
+                                   i18n>Keine gültige Adresse!</p>
+                                <p class="m-3 mx-center lead"
+                                   i18n>Hinweis:</p>
+                                <p class="m-3 mx-center"
+                                   i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder
+                                    Bremen
+                                    aus.
+                                    Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
+                            </div>
                             <div [class]="hintsActive ? 'd-block' : 'd-none'">
                                 <div *ngIf="adresse || features.features.length"
                                      class="col-12 text-center">
@@ -193,18 +206,6 @@
                                        i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
                                         Suchergebnisse
                                         von der Kartendarstellung abweichen.</p>
-                                </div>
-                                <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features.features.length"
-                                     class="text-center col-12">
-                                    <p class="m-3 mx-center lead"
-                                       i18n>Keine gültige Adresse!</p>
-                                    <p class="m-3 mx-center lead"
-                                       i18n>Hinweis:</p>
-                                    <p class="m-3 mx-center"
-                                       i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder
-                                        Bremen
-                                        aus.
-                                        Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
                                 </div>
                                 <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"
                                      class="text-center col-12">
