@@ -87,9 +87,8 @@ export class DetailsComponent implements OnInit {
             this.loadingscreen.setVisible(false);
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             this.loadingscreen.setVisible(false);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
             if (navigate) {
                 this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             }
@@ -119,9 +118,8 @@ export class DetailsComponent implements OnInit {
 
         } catch (error) {
             // failed to delete form
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, $localize`Bitte löschen Sie zuvor die zugehörigen Antworten`);
             console.log(error);
-            return;
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -141,9 +139,8 @@ export class DetailsComponent implements OnInit {
                 $localize`Das Formular wurde erfolgreich archiviert.`);
         } catch (error) {
             // failed to publish form
-            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
-            return;
+            this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -167,9 +164,8 @@ export class DetailsComponent implements OnInit {
             }
         } catch (error) {
             // failed to load results
-            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
-            return;
+            this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -193,8 +189,8 @@ export class DetailsComponent implements OnInit {
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
         } catch (error) {
             // failed to delete task
-            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
+            this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
         if (this.tasks.length === 0) {
             await this.updateTasks();
@@ -215,14 +211,14 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie eine neue Pin generieren?`)) {
                 return;
             }
-            await this.formapi.updateTask(this.tasks[i].id, {status: 'created'});
+            await this.formapi.updateTask(this.tasks[i].id, { status: 'created' });
             await this.updateTasks();
             this.alerts.NewAlert('success', $localize`Neue Pin generiert`,
                 $localize`Die neue Pin wurde erfolgreich generiert.`);
         } catch (error) {
             // failed to delete task
-            this.alerts.NewAlert('danger', $localize`Neue Pin generieren fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
+            this.alerts.NewAlert('danger', $localize`Neue Pin generieren fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
         if (this.tasks.length === 0) {
             await this.updateTasks();
@@ -243,14 +239,14 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie die Antwort abschließen?`)) {
                 return;
             }
-            await this.formapi.updateTask(this.tasks[i].id, {status: 'completed'});
+            await this.formapi.updateTask(this.tasks[i].id, { status: 'completed' });
             await this.updateTasks();
             this.alerts.NewAlert('success', $localize`Antwort abgeschlossen`,
                 $localize`Die Antwort wurde erfolgreich abgeschlossen.`);
         } catch (error) {
             // failed to delete task
-            this.alerts.NewAlert('danger', $localize`Antwort abschließen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
+            this.alerts.NewAlert('danger', $localize`Antwort abschließen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
         if (this.tasks.length === 0) {
             await this.updateTasks();
@@ -270,9 +266,8 @@ export class DetailsComponent implements OnInit {
             this.preview.open('display', this.tasks[i].content);
         } catch (error) {
             // failed to delete task
-            this.alerts.NewAlert('danger', $localize`Öffnen fehlgeschlagen`, error.toString());
             console.log(error);
-            return;
+            this.alerts.NewAlert('danger', $localize`Öffnen fehlgeschlagen`, $localize`Die Vorschau konnte nicht geöffnet werden.`);
         }
     }
 
@@ -296,8 +291,8 @@ export class DetailsComponent implements OnInit {
             }
         }).catch((error: Error) => {
             // failed to load form
-            this.alerts.NewAlert('danger', 'Laden fehlgeschlagen', (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
-            throw error;
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
 
@@ -307,8 +302,7 @@ export class DetailsComponent implements OnInit {
             this.availableTags = r.tags;
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -318,19 +312,17 @@ export class DetailsComponent implements OnInit {
             this.availableGroups = r.groups;
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
     public async updateUsers() {
         try {
-            const r = await this.formapi.getUsers({fields: ['id', 'name']});
+            const r = await this.formapi.getUsers({ fields: ['id', 'name'] });
             this.availableUsers = r.users;
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -368,8 +360,7 @@ export class DetailsComponent implements OnInit {
         } catch (error) {
             console.log(error);
             this.loadingscreen.setVisible(false);
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -399,8 +390,7 @@ export class DetailsComponent implements OnInit {
             this.updateForm(true);
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -410,8 +400,7 @@ export class DetailsComponent implements OnInit {
             this.updateForm(false);
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Veröffentlichen des Formulars fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Veröffentlichen des Formulars fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -421,8 +410,7 @@ export class DetailsComponent implements OnInit {
             this.updateTasks();
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Änderung des Kommentars fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Änderung des Kommentars fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 
@@ -452,10 +440,8 @@ export class DetailsComponent implements OnInit {
             }
         } catch (error) {
             // failed to create task
-            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`,
-                (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
             console.log(error);
-            return;
+            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
 }

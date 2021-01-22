@@ -146,7 +146,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.deleteForm().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger',
-                'Löschen fehlgeschlagen', 'Bitte löschen Sie zuvor die zugehörigen Antworten');
+                'Löschen fehlgeschlagen', 'fail');
             done();
         });
     });

@@ -58,10 +58,8 @@ export class NewformComponent {
             })
             .catch((error: Error) => {
                 // failed to load form
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`,
-                    (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
                 console.log(error);
-                return;
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             });
     }
 
@@ -86,7 +84,8 @@ export class NewformComponent {
                     this.modal.close();
                 })
                 .catch((error) => {
-                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+                    console.log(error);
+                    this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
                 });
             return;
         }
@@ -112,7 +111,7 @@ export class NewformComponent {
             this.out.emit(r.id);
         } catch (error) {
             console.log(error);
-            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, (error['error'] && error['error']['message'] ? error['error']['message'] : error.toString()));
+            this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
         }
     }
 }
