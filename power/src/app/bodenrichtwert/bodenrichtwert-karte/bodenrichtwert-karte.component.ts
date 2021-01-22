@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
-import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
+import { LngLat, LngLatBounds, Map, Marker, VectorSource, AnySourceData, GeoJSONSource, GeoJSONSourceRaw } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { environment } from '@env/environment';
@@ -224,6 +224,16 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         return wgs84_point;
     }
 
+    public baulandData: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: []
+    };
+
+    public landwirtschaftData: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: []
+    };
+
     loadMap(event: Map) {
         this.map = event;
 
@@ -232,16 +242,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.map.addSource('geoserver_nds_br', this.ndsSource);
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
-
-        this.map.addSource('baulandSource', {
-            type: 'geojson',
-            data: this.baulandData
-        });
-
-        this.map.addSource('landwirtschaftSource', {
-            type: 'geojson',
-            data: this.landwirtschaftData
-        });
 
         this.route.queryParams.subscribe(params => {
             // lat and lat
@@ -334,16 +334,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.changeURL();
         }
     }
-
-    public baulandData: FeatureCollection = {
-        type: 'FeatureCollection',
-        features: []
-    };
-
-    public landwirtschaftData: FeatureCollection = {
-        type: 'FeatureCollection',
-        features: []
-    };
 
     doNotDisplay = [
         'DENIBR4319B07171',

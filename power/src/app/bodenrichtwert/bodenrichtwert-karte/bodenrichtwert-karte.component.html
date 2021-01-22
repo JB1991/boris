@@ -506,6 +506,13 @@
 
         <mgl-geojson-source id="ndsgeojson"
                             [data]="baseUrl+'/assets/boden/niedersachsen.geojson'"></mgl-geojson-source>
+        <mgl-geojson-source id="baulandSource"
+                            [data]="baulandData">
+        </mgl-geojson-source>
+
+        <mgl-geojson-source id="landwirtschaftSource"
+                            [data]="landwirtschaftData">
+        </mgl-geojson-source>
 
         <mgl-layer id="nds"
                    type="line"
@@ -593,27 +600,6 @@
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]">
         </mgl-layer>
 
-        <mgl-layer id="bauland_labels"
-                   type="symbol"
-                   source="baulandSource"
-                   [paint]="{
-                        'text-halo-color': '#fff',
-                        'text-halo-width': 2,
-                        'text-halo-blur': 2,
-                        'text-color': 'rgb(117, 129, 145)'
-                    }"
-                   [layout]="{
-                        'visibility': 'visible',
-                        'text-field': ['get', 'display'],
-                        'text-max-width': 0,
-                        'text-size': {
-                            'stops': [[12, 10], [15, 16]]
-                        },
-                        'text-font': ['Klokantech Noto Sans Regular']
-                   }">
-        </mgl-layer>
-
-
         <!-- Bremen -->
         <mgl-layer id="bauland_bremen"
                    type="line"
@@ -668,6 +654,28 @@
                     }"
                    [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]">
+        </mgl-layer>
+
+        <!-- Labels -->
+
+        <mgl-layer id="bauland_labels"
+                   type="symbol"
+                   source="baulandSource"
+                   [paint]="{
+                        'text-halo-color': '#fff',
+                        'text-halo-width': 2,
+                        'text-halo-blur': 2,
+                        'text-color': 'rgb(117, 129, 145)'
+                    }"
+                   [layout]="{
+                        'visibility': 'visible',
+                        'text-field': ['get', 'display'],
+                        'text-max-width': 0,
+                        'text-size': {
+                            'stops': [[12, 10], [15, 16]]
+                        },
+                        'text-font': ['Klokantech Noto Sans Regular']
+                   }">
         </mgl-layer>
 
         <mgl-layer id="landwirtschaft_labels"
