@@ -215,7 +215,8 @@ export const chartOptionsMerge = {
         }
     ],
     'legend': {
-        'show': false,
+        'show': true,
+        'type': 'scroll',
         'top': 60,
         'z': -1,
         'data': null,
