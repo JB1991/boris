@@ -114,7 +114,7 @@ export class ImmobilienFormatter {
         return this.nipixRuntime.translate(myname);
     };
 
-    public formatLegend = (name: string) => this.findName(name, true);
+    public formatLegend = (name: string) => this.findName(name, false, true);
 
     /**
      * Get Label for a specific Series
