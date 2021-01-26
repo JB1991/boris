@@ -56,6 +56,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public searchActive = false;
     public filterActive = false;
     public threeDActive = false;
+    public functionsActive = false;
 
     public isDragged = false;
     public zoomFactor: number;

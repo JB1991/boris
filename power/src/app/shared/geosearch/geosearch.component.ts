@@ -23,9 +23,7 @@ export class GeosearchComponent implements OnChanges {
 
     @Input() adresse: string;
 
-    public model: any;
-
-    filteredResults: Feature[];
+    public model: Feature;
 
     /**
      * Return the text property
@@ -40,7 +38,7 @@ export class GeosearchComponent implements OnChanges {
      * Initialization of the search form
      */
 
-    ngOnChanges(changes: SimpleChanges) {
+    public ngOnChanges(changes: SimpleChanges) {
         if (changes.adresse) {
             this.model = changes.adresse.currentValue;
         }
@@ -50,7 +48,7 @@ export class GeosearchComponent implements OnChanges {
      * Pass the search input to the Geosearch service
      * @param text$ Input as Observable
      */
-    search = (text$: Observable<string>) =>
+    public search = (text$: Observable<string>) =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
@@ -70,7 +68,7 @@ export class GeosearchComponent implements OnChanges {
      * Select an item from the search result list
      * @param item GeoJSON feature
      */
-    onSelect(item: any) {
+    public onSelect(item: Feature) {
         this.selectResult.next(item);
         this.geosearchService.updateFeatures(item);
     }

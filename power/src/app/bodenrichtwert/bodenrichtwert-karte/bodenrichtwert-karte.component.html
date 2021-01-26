@@ -82,10 +82,12 @@
                     <div class="btn-group"
                          role="group"
                          dropdown>
-                        <button class="btn btn-block dropdown-toggle"
+                        <button class="btn btn-block dropdown-toggle nav-link"
                                 type="button"
+                                [ngClass]="{'active' : functionsActive}"
                                 dropdownToggle
                                 id="dropdownMenuButton"
+                                (click)="functionsActive = !functionsActive"
                                 aria-haspopup="true"
                                 aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +106,7 @@
                         <div class="dropdown-menu dropdown-menu-right"
                              *dropdownMenu
                              role="menu">
-                            <button class="btn dropdown-item"
+                            <button class="btn dropdown-item nav-link py-1 text-center"
                                     type="button"
                                     role="menuitem"
                                     (click)="flurstueckssearch.modal.open(flurstueckssearch.title)"
@@ -124,7 +126,7 @@
                                           d="M2 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM0 2a2 2 0 0 1 3.937-.5h8.126A2 2 0 1 1 14.5 3.937v8.126a2 2 0 1 1-2.437 2.437H3.937A2 2 0 1 1 1.5 12.063V3.937A2 2 0 0 1 0 2zm2.5 1.937v8.126c.703.18 1.256.734 1.437 1.437h8.126a2.004 2.004 0 0 1 1.437-1.437V3.937A2.004 2.004 0 0 1 12.063 2.5H3.937A2.004 2.004 0 0 1 2.5 3.937zM14 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM2 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                 </svg>
                             </button>
-                            <button class="btn dropdown-item"
+                            <button class="btn dropdown-item nav-link py-1 text-center"
                                     type="button"
                                     role="menuitem"
                                     (click)="enableLocationTracking()"
@@ -144,7 +146,7 @@
                                           d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z" />
                                 </svg>
                             </button>
-                            <button class="btn dropdown-item"
+                            <button class="btn dropdown-item nav-link py-1 text-center"
                                     [ngClass]="{'active': threeDActive}"
                                     type="button"
                                     role="menuitem"
@@ -170,7 +172,7 @@
                             <button *ngIf="marker.getLngLat() && marker.getLngLat().lat != 0"
                                     type="button"
                                     role="menuitem"
-                                    class="btn dropdown-item"
+                                    class="btn dropdown-item nav-link py-1 text-center"
                                     alt="Markierung fokussieren"
                                     title="Markierung fokussieren"
                                     (click)="flyTo(marker.getLngLat().lat, marker.getLngLat().lng, $event.type)"
@@ -192,7 +194,7 @@
                                           d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5z" />
                                 </svg>
                             </button>
-                            <button class="btn dropdown-item"
+                            <button class="btn dropdown-item nav-link py-1 text-center"
                                     type="button"
                                     role="menuitem"
                                     (click)="resetMap()"
@@ -276,9 +278,11 @@
                              role="group"
                              dropdown
                              [autoClose]="false">
-                            <button class="btn btn-block dropdown-toggle"
+                            <button class="btn btn-block nav-link dropdown-toggle"
+                                    [ngClass]="{'active': functionsActive}"
                                     type="button"
                                     dropdownToggle
+                                    (click)="functionsActive = !functionsActive"
                                     aria-haspopup="true"
                                     aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -297,7 +301,7 @@
                             <div *dropdownMenu
                                  class="dropdown-menu dropdown-menu-right"
                                  role="menu">
-                                <button class="btn dropdown-item"
+                                <button class="btn nav-link dropdown-item py-1 text-center"
                                         role="menuitem"
                                         type="button"
                                         (click)="flurstueckssearch.modal.open(flurstueckssearch.title)"
@@ -317,7 +321,7 @@
                                               d="M2 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM0 2a2 2 0 0 1 3.937-.5h8.126A2 2 0 1 1 14.5 3.937v8.126a2 2 0 1 1-2.437 2.437H3.937A2 2 0 1 1 1.5 12.063V3.937A2 2 0 0 1 0 2zm2.5 1.937v8.126c.703.18 1.256.734 1.437 1.437h8.126a2.004 2.004 0 0 1 1.437-1.437V3.937A2.004 2.004 0 0 1 12.063 2.5H3.937A2.004 2.004 0 0 1 2.5 3.937zM14 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM2 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
                                     </svg>
                                 </button>
-                                <button class="btn dropdown-item"
+                                <button class="btn nav-link dropdown-item py-1 text-center"
                                         role="menuitem"
                                         type="button"
                                         (click)="enableLocationTracking()"
@@ -339,7 +343,7 @@
                                 </button>
                                 <button type="button"
                                         role="menuitem"
-                                        class="dropdown-item dropdown-item2"
+                                        class="btn nav-link dropdown-item py-1 text-center"
                                         [ngClass]="{'active': threeDActive}"
                                         (click)="toggle3dView()"
                                         alt="3D aktivieren/deaktivieren"
@@ -363,7 +367,7 @@
                                 <button *ngIf="marker.getLngLat() && marker.getLngLat().lat != 0"
                                         type="button"
                                         role="menuitem"
-                                        class="btn dropdown-item"
+                                        class="btn nav-link dropdown-item py-1 text-center"
                                         alt="Markierung fokussieren"
                                         title="Markierung fokussieren"
                                         (click)="flyTo(marker.getLngLat().lat, marker.getLngLat().lng, $event.type)"
@@ -385,7 +389,7 @@
                                               d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5z" />
                                     </svg>
                                 </button>
-                                <button class="btn dropdown-item"
+                                <button class="btn nav-link dropdown-item py-1 text-center"
                                         type="button"
                                         role="menuitem"
                                         (click)="resetMap()"

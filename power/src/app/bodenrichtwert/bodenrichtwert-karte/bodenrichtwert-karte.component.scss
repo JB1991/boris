@@ -29,13 +29,6 @@ mgl-map {
     -webkit-overflow-scrolling: touch;
 }
 
-.nav-underline .nav-link {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    font-size: 1em;
-    color: black;
-}
-
 .nav-underline .nav-link:hover {
     color: #c4153a;
     cursor: pointer;
@@ -43,15 +36,11 @@ mgl-map {
 
 .active {
     color: #c4153a !important;
-    background-color: white !important;
+    background-color: transparent !important;
 }
 
 .dropdown-menu {
     min-width: 100% !important;
-}
-
-.dropdown-item2 {
-    background-color: white !important;
 }
 
 $grid-breakpoints: (
