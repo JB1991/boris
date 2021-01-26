@@ -114,7 +114,7 @@
                 </div>
                 <button *ngIf="adresse"
                         class="btn btn-collapse p-0 w-100"
-                        [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'"
+                        [class]="isCollapsed ? 'col-12' : flurstueck ? 'col-12 col-sm-10 h-100' : 'col-12 col-sm-10'"
                         type="button"
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
@@ -124,6 +124,20 @@
                          height="25"
                          alt="Einklappen/ausklappen"
                          i18n-alt>
+                    <div *ngIf="flurstueck"
+                         [class.d-none]="isCollapsed"
+                         class="row justify-content-center">
+                        <div class="mb-0">
+                            <span class="col"><small>Gemarkungsnummer:
+                                    {{ flurstueck.features[0].properties.gemarkungsnummer }}</small></span>
+                            <span class="col"><small> Flurnummer:
+                                    {{ flurstueck.features[0].properties.flurnummer }}</small></span>
+                            <span class="col"><small>Zähler:
+                                    {{ flurstueck.features[0].properties.zaehler }}</small></span>
+                            <span class="col"><small>Nenner:
+                                    {{ flurstueck.features[0].properties.nenner }}</small></span>
+                        </div>
+                    </div>
                 </button>
                 <div *ngIf="!isCollapsed"
                      class="col-12 col-sm-2 p-0 d-flex justify-content-end">

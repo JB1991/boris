@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+small {
+    display: inline-block;
+}
+
 @media (max-width: 992px) {
     .map {
         height: calc(100vh - 301px);

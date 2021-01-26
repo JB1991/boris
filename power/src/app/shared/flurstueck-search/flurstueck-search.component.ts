@@ -21,6 +21,7 @@ export class FlurstueckSearchComponent {
     public title = $localize`Flurstückssuche`;
 
     public fsk: Flurstueckskennzeichen;
+    @Output() fskChange = new EventEmitter();
 
     public selected = false;
 
@@ -64,7 +65,7 @@ export class FlurstueckSearchComponent {
      */
     public searchFlurstueck(value: Flurstueckskennzeichen) {
         this.fsk = value;
-
+        
         this.alkisWfsService.getFlurstueckByFsk(
             this.fsk.gemarkung.properties.gemarkungsschluessel,
             this.fsk.flur,
@@ -84,6 +85,7 @@ export class FlurstueckSearchComponent {
     public handleHttpResponse(res: FeatureCollection) {
         if (res.features.length > 0) {
             this.alkisWfsService.updateFeatures(res);
+            this.fskChange.emit();
         } else {
             this.alerts.NewAlert(
                 'danger',

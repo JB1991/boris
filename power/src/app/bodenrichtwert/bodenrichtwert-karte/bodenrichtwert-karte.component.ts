@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
-import { LngLat, LngLatBounds, Map, Marker, VectorSource, AnySourceData, GeoJSONSource, GeoJSONSourceRaw } from 'mapbox-gl';
+import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
+import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service'
 import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -161,11 +162,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     @Input() flurstueck: FeatureCollection;
 
+    private fskIsChanged: boolean;
+
     public resetMapFired = false;
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
         public geosearchService: GeosearchService,
+        public alkisWfsService: AlkisWfsService,
         private route: ActivatedRoute,
         private location: Location,
         private cdr: ChangeDetectorRef,
@@ -185,10 +189,15 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 });
                 this.resetMapFired = !this.resetMapFired;
             }
-        } else if ((changes.collapsed || changes.expanded || changes.adresse) && this.map) {
+        } else if ((changes.collapsed || changes.expanded) && this.map) {
             this.map.resize();
-        } else if (changes.flurstueck && this.flurstueck && this.map) {
-            this.onFlurstueckChange();
+        }
+        else if (changes.adresse && this.map) {
+            if (!this.fskIsChanged) {
+                this.getFlurstueckFromLatLng(this.lat, this.lng);
+            } else {
+                this.fskIsChanged = !this.fskIsChanged;
+            }
         }
     }
 
@@ -199,7 +208,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
      * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
      */
     public onFlurstueckChange() {
+        this.fskIsChanged = true;
         const wgs84_coords = this.pointOnFlurstueck();
+        this.lat = wgs84_coords[0];
+        this.lng = wgs84_coords[1];
         this.marker.setLngLat([wgs84_coords[0], wgs84_coords[1]]).addTo(this.map);
         this.getAddressFromLatLng(wgs84_coords[1], wgs84_coords[0]);
         this.getBodenrichtwertzonen(wgs84_coords[1], wgs84_coords[0], this.teilmarkt.value);
@@ -307,7 +319,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
                 }
             );
-    }
+    };
+
+    getFlurstueckFromLatLng(lat: number, lng: number) {
+        this.alkisWfsService.getFlurstueckfromCoordinates(lng, lat).subscribe(
+            res => this.alkisWfsService.updateFeatures(res),
+            err => {
+                console.log(err);
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
+            }
+        )
+    };
 
     onDragEnd() {
         if (this.marker.getLngLat() && this.isDragged) {
