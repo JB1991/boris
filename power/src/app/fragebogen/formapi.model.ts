@@ -1,5 +1,3 @@
-import { StringDecoder } from "string_decoder";
-
 export interface Form {
     id?: string;
     owner?: User;
