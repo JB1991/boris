@@ -190,17 +190,12 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
 
     it('formatLegend should return region name', function () {
         const res = component.formatLegend('foo');
-        expect(res).toEqual('bar');
+        expect(res).toEqual('ba');
     });
 
     it('formatLegend should return short name', function () {
         const res = component.formatLegend('shortName');
         expect(res).toEqual('short');
-    });
-
-    it('formatLegend should return legend text', function () {
-        const res = component.formatLegend('bar');
-        expect(res).toEqual('foo');
     });
 
     it('getSeriesLabel work', function () {

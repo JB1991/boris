@@ -52,16 +52,10 @@ ingress:
         - path: /
           serviceName: power
           servicePort: 80
-        - path: /geoserver/
-          serviceName: presentation-geoserver
-          servicePort: 80
     - host: dev.power.niedersachsen.dev
       paths:
         - path: /
           serviceName: power
-          servicePort: 80
-        - path: /geoserver/
-          serviceName: presentation-geoserver
           servicePort: 80
   tls:
     - secretName: power-cluster-65655d4c73bf47a3300821aa2939abf4-0001
