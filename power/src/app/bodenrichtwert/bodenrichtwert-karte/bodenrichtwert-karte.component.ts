@@ -211,8 +211,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public onFlurstueckChange() {
         this.fskIsChanged = true;
         const wgs84_coords = this.pointOnFlurstueck();
-        this.lat = wgs84_coords[0];
-        this.lng = wgs84_coords[1];
+        this.lat = wgs84_coords[1];
+        this.lng = wgs84_coords[0];
         this.marker.setLngLat([wgs84_coords[0], wgs84_coords[1]]).addTo(this.map);
         this.getAddressFromLatLng(wgs84_coords[1], wgs84_coords[0]);
         this.getBodenrichtwertzonen(wgs84_coords[1], wgs84_coords[0], this.teilmarkt.value);

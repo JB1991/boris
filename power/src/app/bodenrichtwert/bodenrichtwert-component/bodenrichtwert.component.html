@@ -97,19 +97,19 @@
                           [class.d-none]="isCollapsed"
                           class="row justify-content-center">
                         <span class="mb-0">
-                            <span *ngIf="flurstueck.features[0].properties.gemarkungsnummer"
+                            <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
                                   class="col"><small>
                                     <span i18n>Gemarkungsnummer:</span>
                                     {{ flurstueck.features[0].properties.gemarkungsnummer }}</small></span>
-                            <span *ngIf="flurstueck.features[0].properties.flurnummer"
+                            <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
                                   class="col"><small>
                                     <span i18n>Flurnummer:</span>
                                     {{ flurstueck.features[0].properties.flurnummer }}</small></span>
-                            <span *ngIf="flurstueck.features[0].properties.zaehler"
+                            <span *ngIf="flurstueck.features[0]?.properties.zaehler"
                                   class="col"><small>
                                     <span i18n>Zähler:</span>
                                     {{ flurstueck.features[0].properties.zaehler }}</small></span>
-                            <span *ngIf="flurstueck.features[0].properties.nenner"
+                            <span *ngIf="flurstueck.features[0]?.properties.nenner"
                                   class="col"><small>
                                     <span i18n>Nenner:</span>
                                     {{ flurstueck.features[0].properties.nenner }}</small></span>
@@ -148,19 +148,19 @@
                           [class.d-none]="isCollapsed"
                           class="row justify-content-center">
                         <span class="mb-0">
-                            <span *ngIf="flurstueck.features[0].properties.gemarkungsnummer"
+                            <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
                                   class="col"><small>
                                     <span i18n>Gemarkungsnummer:</span>
                                     {{ flurstueck.features[0].properties.gemarkungsnummer }}</small></span>
-                            <span *ngIf="flurstueck.features[0].properties.flurnummer"
+                            <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
                                   class="col"><small>
                                     <span i18n>Flurnummer:</span>
                                     {{ flurstueck.features[0].properties.flurnummer }}</small></span>
-                            <span *ngIf="flurstueck.features[0].properties.zaehler"
+                            <span *ngIf="flurstueck.features[0]?.properties.zaehler"
                                   class="col"><small>
                                     <span i18n>Zähler:</span>
                                     {{ flurstueck.features[0].properties.zaehler }}</small></span>
-                            <span *ngIf="flurstueck.features[0].properties.nenner"
+                            <span *ngIf="flurstueck.features[0]?.properties.nenner"
                                   class="col"><small>
                                     <span i18n>Nenner:</span>
                                     {{ flurstueck.features[0].properties.nenner }}</small></span>
