@@ -93,10 +93,10 @@
                          height="25"
                          alt="Einklappen/ausklappen"
                          i18n-alt>
-                    <div *ngIf="flurstueck"
-                         [class.d-none]="isCollapsed"
-                         class="row justify-content-center">
-                        <div class="mb-0">
+                    <span *ngIf="flurstueck"
+                          [class.d-none]="isCollapsed"
+                          class="row justify-content-center">
+                        <span class="mb-0">
                             <span *ngIf="flurstueck.features[0].properties.gemarkungsnummer"
                                   class="col"><small>
                                     <span i18n>Gemarkungsnummer:</span>
@@ -113,8 +113,8 @@
                                   class="col"><small>
                                     <span i18n>Nenner:</span>
                                     {{ flurstueck.features[0].properties.nenner }}</small></span>
-                        </div>
-                    </div>
+                        </span>
+                    </span>
                 </button>
                 <div *ngIf="!adresse && features && !features.features.length"
                      class="text-center p-0"
@@ -144,10 +144,10 @@
                          height="25"
                          alt="Einklappen/ausklappen"
                          i18n-alt>
-                    <div *ngIf="flurstueck"
-                         [class.d-none]="isCollapsed"
-                         class="row justify-content-center">
-                        <div class="mb-0">
+                    <span *ngIf="flurstueck"
+                          [class.d-none]="isCollapsed"
+                          class="row justify-content-center">
+                        <span class="mb-0">
                             <span *ngIf="flurstueck.features[0].properties.gemarkungsnummer"
                                   class="col"><small>
                                     <span i18n>Gemarkungsnummer:</span>
@@ -164,8 +164,8 @@
                                   class="col"><small>
                                     <span i18n>Nenner:</span>
                                     {{ flurstueck.features[0].properties.nenner }}</small></span>
-                        </div>
-                    </div>
+                        </span>
+                    </span>
                 </button>
                 <div *ngIf="!isCollapsed"
                      class="col-12 col-sm-2 p-0 d-flex justify-content-end">

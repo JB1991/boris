@@ -65,7 +65,7 @@ export class FlurstueckSearchComponent {
      */
     public searchFlurstueck(value: Flurstueckskennzeichen) {
         this.fsk = value;
-        
+
         this.alkisWfsService.getFlurstueckByFsk(
             this.fsk.gemarkung.properties.gemarkungsschluessel,
             this.fsk.flur,

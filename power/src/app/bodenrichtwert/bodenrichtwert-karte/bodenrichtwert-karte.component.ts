@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
-import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service'
+import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -332,7 +332,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 console.log(err);
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
             }
-        )
+        );
     };
 
     onDragEnd() {
