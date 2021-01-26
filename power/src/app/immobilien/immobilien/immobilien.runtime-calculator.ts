@@ -176,13 +176,25 @@ export class NipixRuntimeCalculator {
      * Find DrawSeries with no Data (NaN) and change it to undefined
      */
     private filterNaN() {
+
+        if (this.nipixRuntime.calculated.drawData === undefined) {
+            return;
+        }
+
         for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
+
             const itm = this.nipixRuntime.calculated.drawData[i];
+
+            if ((itm === undefined) || (itm.data === undefined)) {
+                return;
+            }
+
             for (let o = 0; o < itm.data.length; o++) {
                 if (isNaN(itm.data[o])) {
                     itm.data[o] = undefined;
                 }
             }
+
         }
     }
 
