@@ -193,7 +193,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         } else if ((changes.collapsed || changes.expanded) && this.map) {
             this.map.resize();
         }
-        else if (changes.adresse && this.map) {
+        else if ((changes.adresse || changes.features) && this.map) {
             if (!this.fskIsChanged) {
                 this.getFlurstueckFromLatLng(this.lat, this.lng);
             } else {
@@ -271,6 +271,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 const tmp = this.bodenrichtwertService.TEILMAERKTE.filter(p => p.viewValue === params['teilmarkt'])[0];
                 if (tmp) {
                     this.onTeilmarktChange(tmp);
+                }
+                if (params['lat'] && params['lng']) {
+                    this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
                 }
             }
 

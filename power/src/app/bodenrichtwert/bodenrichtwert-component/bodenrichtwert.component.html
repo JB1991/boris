@@ -81,21 +81,41 @@
                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie eine Position</h5>
                 </div>
-                <div *ngIf="!adresse && features && features.features.length"
-                     class="text-center p-0"
-                     [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'">
-                    <button class="btn btn-collapse w-100"
-                            type="button"
-                            (click)="isCollapsed = !isCollapsed"
-                            [attr.aria-expanded]="!isCollapsed"
-                            aria-controls="collapseBasic">{{ features.features[0].properties.brzname}}
-                        <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
-                             width="25"
-                             height="25"
-                             alt="Einklappen/ausklappen"
-                             i18n-alt>
-                    </button>
-                </div>
+                <button *ngIf="!adresse && features && features.features.length"
+                        class="btn btn-collapse p-0 w-100"
+                        [class]="isCollapsed ? 'col-12' : flurstueck ? 'col-12 col-sm-10 h-100' : 'col-12 col-sm-10'"
+                        type="button"
+                        (click)="isCollapsed = !isCollapsed"
+                        [attr.aria-expanded]="!isCollapsed"
+                        aria-controls="collapseBasic">{{ features.features[0].properties.brzname}}
+                    <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                         width="25"
+                         height="25"
+                         alt="Einklappen/ausklappen"
+                         i18n-alt>
+                    <div *ngIf="flurstueck"
+                         [class.d-none]="isCollapsed"
+                         class="row justify-content-center">
+                        <div class="mb-0">
+                            <span *ngIf="flurstueck.features[0].properties.gemarkungsnummer"
+                                  class="col"><small>
+                                    <span i18n>Gemarkungsnummer:</span>
+                                    {{ flurstueck.features[0].properties.gemarkungsnummer }}</small></span>
+                            <span *ngIf="flurstueck.features[0].properties.flurnummer"
+                                  class="col"><small>
+                                    <span i18n>Flurnummer:</span>
+                                    {{ flurstueck.features[0].properties.flurnummer }}</small></span>
+                            <span *ngIf="flurstueck.features[0].properties.zaehler"
+                                  class="col"><small>
+                                    <span i18n>Zähler:</span>
+                                    {{ flurstueck.features[0].properties.zaehler }}</small></span>
+                            <span *ngIf="flurstueck.features[0].properties.nenner"
+                                  class="col"><small>
+                                    <span i18n>Nenner:</span>
+                                    {{ flurstueck.features[0].properties.nenner }}</small></span>
+                        </div>
+                    </div>
+                </button>
                 <div *ngIf="!adresse && features && !features.features.length"
                      class="text-center p-0"
                      [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'">
@@ -128,13 +148,21 @@
                          [class.d-none]="isCollapsed"
                          class="row justify-content-center">
                         <div class="mb-0">
-                            <span class="col"><small>Gemarkungsnummer:
+                            <span *ngIf="flurstueck.features[0].properties.gemarkungsnummer"
+                                  class="col"><small>
+                                    <span i18n>Gemarkungsnummer:</span>
                                     {{ flurstueck.features[0].properties.gemarkungsnummer }}</small></span>
-                            <span class="col"><small> Flurnummer:
+                            <span *ngIf="flurstueck.features[0].properties.flurnummer"
+                                  class="col"><small>
+                                    <span i18n>Flurnummer:</span>
                                     {{ flurstueck.features[0].properties.flurnummer }}</small></span>
-                            <span class="col"><small>Zähler:
+                            <span *ngIf="flurstueck.features[0].properties.zaehler"
+                                  class="col"><small>
+                                    <span i18n>Zähler:</span>
                                     {{ flurstueck.features[0].properties.zaehler }}</small></span>
-                            <span class="col"><small>Nenner:
+                            <span *ngIf="flurstueck.features[0].properties.nenner"
+                                  class="col"><small>
+                                    <span i18n>Nenner:</span>
                                     {{ flurstueck.features[0].properties.nenner }}</small></span>
                         </div>
                     </div>
