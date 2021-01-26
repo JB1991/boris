@@ -221,6 +221,12 @@
                                         Suchergebnisse
                                         von der Kartendarstellung abweichen.</p>
                                 </div>
+                                <div *ngIf="flurstueck"
+                                     class="text-center col-12">
+                                    <p class="m-3 mx-center"
+                                       i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich auf den
+                                        aktuell ausgewählten Standort.</p>
+                                </div>
                                 <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"
                                      class="text-center col-12">
                                     <p class="m-3 mx-center"
