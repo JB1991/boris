@@ -11,7 +11,7 @@
                                [class]="gemarkung.valid && selected ? 'is-valid' : 'is-invalid'"
                                name="gemarkung"
                                placement="bottom"
-                               placeholder="Bitte Gemarkung eingeben..."
+                               placeholder="Gemarkung"
                                i18n-placeholder
                                aria-label="Suche"
                                aria-placeholder="Bitte Gemarkung eingeben"
@@ -85,7 +85,7 @@
                     class="btn btn-success float-right"
                     i18n-title
                     title="Flurstück suchen"
-                    [disabled]="!form.valid">
+                    [disabled]="!form.valid || !selected">
                   <svg width="1em"
                        height="1em"
                        viewBox="0 0 16 16"
