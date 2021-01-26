@@ -1,9 +1,11 @@
+import { StringDecoder } from "string_decoder";
+
 export interface Form {
     id?: string;
     owner?: User;
     groups?: Array<string>;
     tags?: Array<string>;
-    extract?: any;
+    extract?: string;
     content?: any;
     access?: Access;
     status?: FormStatus;
