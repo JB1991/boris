@@ -198,11 +198,6 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         expect(res).toEqual('short');
     });
 
-    /*it('formatLegend should return legend text', function () {
-        const res = component.formatLegend('bar');
-        expect(res).toEqual('foo');
-    });*/
-
     it('getSeriesLabel work', function () {
         const res = component.getSeriesLabel('foo');
         expect(res).toEqual('bar (ba)');
