@@ -555,7 +555,9 @@ export class FormAPIService {
         } else if (msg === 'not authorized') {
             return $localize`Um diese Aktion durchzuführen müssen Sie sich einloggen.`;
 
-        } else if (msg.startsWith('unknown group:')) {
+        } else if (msg.startsWith('element has no title: ')) {
+            return $localize`Bitte geben sie einen Titel an: ` + msg.slice(22);
+        }else if (msg.startsWith('unknown group:')) {
             return $localize`Die Gruppe konnte nicht gefunden werden.`;
 
         } else if (msg.startsWith('user not found:')) {
