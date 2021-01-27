@@ -190,10 +190,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 });
                 this.resetMapFired = !this.resetMapFired;
             }
-        } else if ((changes.collapsed || changes.expanded) && this.map) {
-            this.map.resize();
         }
-        else if ((changes.adresse || changes.features) && this.map) {
+        if ((changes.adresse || changes.features) && this.map) {
             if (!this.fskIsChanged) {
                 this.getFlurstueckFromLatLng(this.lat, this.lng);
             } else {
