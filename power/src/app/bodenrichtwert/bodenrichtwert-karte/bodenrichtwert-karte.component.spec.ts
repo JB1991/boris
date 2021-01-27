@@ -82,13 +82,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component).toBeTruthy();
     });
 
-    it('ngOnChanges should work for expanded', () => {
-        component.ngOnChanges({
-            expanded: new SimpleChange(true, false, false)
-        });
-        expect(component.map.resize).toHaveBeenCalledTimes(1);
-    });
-
     it('ngOnChanges should work for isCollapsed', () => {
         component.resetMapFired = true;
         component.ngOnChanges({
