@@ -36,6 +36,8 @@ export class BodenrichtwertDetailComponent implements OnInit {
 
     @Input() feature: any;
 
+    @Input() teilmarkt: any;
+
     ngOnInit() {
     }
 

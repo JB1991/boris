@@ -7,7 +7,9 @@
         <div class="row">
             <h5 class="col-md-5 mb-0"
                 role="rowheader"><b>{{brzStrings.brz | hyphenate}}</b>
-                <svg class="ml-2"
+                <svg *ngIf="teilmarkt.value[0] === 'LF'; else svgBauland"
+                     else
+                     class="ml-2"
                      viewBox="0 0 20 22"
                      width="24"
                      height="20"
@@ -15,10 +17,24 @@
                      aria-hidden="true">
                     <g transform="translate(0,0) scale(0.4,0.4)">
                         <path fill-rule="evenodd"
-                              stroke="#c4153a"
+                              stroke="#009900"
                               d="m 54.81168,4.3383871 -12.199218,3.1015625 -0.0039,0.00195 L 1.7472268,21.271981 8.0108986,27.52784 7.4073836,46.160653 32.714024,38.143075 31.481602,32.734871 55.339024,28.217293 Z m -0.257812,0.3378907 0.515625,23.3222652 -23.90625,4.527344 1.240234,5.439453 -24.7187504,7.830078 0.595703,-18.375 L 2.2355081,21.385262 42.682774,7.695809 Z" />
                     </g>
                 </svg>
+                <ng-template #svgBauland>
+                    <svg class="ml-2"
+                         viewBox="0 0 20 22"
+                         width="24"
+                         height="20"
+                         focusable="false"
+                         aria-hidden="true">
+                        <g transform="translate(0,0) scale(0.4,0.4)">
+                            <path fill-rule="evenodd"
+                                  stroke="#c4153a"
+                                  d="m 54.81168,4.3383871 -12.199218,3.1015625 -0.0039,0.00195 L 1.7472268,21.271981 8.0108986,27.52784 7.4073836,46.160653 32.714024,38.143075 31.481602,32.734871 55.339024,28.217293 Z m -0.257812,0.3378907 0.515625,23.3222652 -23.90625,4.527344 1.240234,5.439453 -24.7187504,7.830078 0.595703,-18.375 L 2.2355081,21.385262 42.682774,7.695809 Z" />
+                        </g>
+                    </svg>
+                </ng-template>
             </h5>
             <h5 class="col-md-7 mb-0"
                 role="cell">{{feature.properties.wnum}}
