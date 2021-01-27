@@ -7,8 +7,7 @@
         <div class="row">
             <h5 class="col-md-5 mb-0"
                 role="rowheader"><b>{{brzStrings.brz | hyphenate}}</b>
-                <svg *ngIf="teilmarkt.value[0] === 'LF'; else svgBauland"
-                     else
+                <svg *ngIf="teilmarkt?.value[0] === 'LF'; else svgBauland"
                      class="ml-2"
                      viewBox="0 0 20 22"
                      width="24"

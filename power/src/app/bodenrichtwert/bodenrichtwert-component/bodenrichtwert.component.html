@@ -95,24 +95,37 @@
                          i18n-alt>
                     <span *ngIf="flurstueck"
                           [class.d-none]="isCollapsed"
-                          class="row justify-content-center">
-                        <span class="mb-0">
-                            <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
-                                  class="col"><small>
-                                    <span i18n>Gemarkungsnummer:</span>
-                                    {{ flurstueck.features[0].properties.gemarkungsnummer }}</small></span>
-                            <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
-                                  class="col"><small>
-                                    <span i18n>Flurnummer:</span>
-                                    {{ flurstueck.features[0].properties.flurnummer }}</small></span>
-                            <span *ngIf="flurstueck.features[0]?.properties.zaehler"
-                                  class="col"><small>
-                                    <span i18n>Zähler:</span>
-                                    {{ flurstueck.features[0].properties.zaehler }}</small></span>
-                            <span *ngIf="flurstueck.features[0]?.properties.nenner"
-                                  class="col"><small>
-                                    <span i18n>Nenner:</span>
-                                    {{ flurstueck.features[0].properties.nenner }}</small></span>
+                          class="row justify-content-center mb-0">
+                        <span class="col">
+                            <small i18n>Flurstückskennzeichen</small>
+                            <svg fill-rule="evenodd"
+                                 viewBox="0 0 20 22"
+                                 width="24"
+                                 height="20"
+                                 focusable="false"
+                                 aria-hidden="true">
+                                <g transform="translate(-10,-20) scale(0.5,0.4)">
+                                    <path fill="none"
+                                          stroke="#343a40"
+                                          d="M 27.237147,57.888549 51.106583,52.026518 66.420364,96.500039 40.933018,96.903113 Z" />
+                                </g>
+                            </svg> :
+                            <span class="flurstueck">
+                                <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
+                                      class="pr-0 pl-0">
+                                    <small>({{ flurstueck.features[0].properties.gemarkungsnummer }})</small>
+                                </span>
+                                <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
+                                      class="pr-0 pl-0">
+                                    <small>–{{ flurstueck.features[0].properties.flurnummer }}</small>
+                                </span>
+                                <span *ngIf="flurstueck.features[0]?.properties.zaehler"
+                                      class="pl-0 pr-0">
+                                    <small>–{{ flurstueck.features[0].properties.zaehler }}</small>
+                                    <small *ngIf="flurstueck.features[0]?.properties.nenner">
+                                        /{{ flurstueck.features[0].properties.nenner }}</small>
+                                </span>
+                            </span>
                         </span>
                     </span>
                 </button>
@@ -146,24 +159,37 @@
                          i18n-alt>
                     <span *ngIf="flurstueck"
                           [class.d-none]="isCollapsed"
-                          class="row justify-content-center">
-                        <span class="mb-0">
-                            <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
-                                  class="col"><small>
-                                    <span i18n>Gemarkungsnummer:</span>
-                                    {{ flurstueck.features[0].properties.gemarkungsnummer }}</small></span>
-                            <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
-                                  class="col"><small>
-                                    <span i18n>Flurnummer:</span>
-                                    {{ flurstueck.features[0].properties.flurnummer }}</small></span>
-                            <span *ngIf="flurstueck.features[0]?.properties.zaehler"
-                                  class="col"><small>
-                                    <span i18n>Zähler:</span>
-                                    {{ flurstueck.features[0].properties.zaehler }}</small></span>
-                            <span *ngIf="flurstueck.features[0]?.properties.nenner"
-                                  class="col"><small>
-                                    <span i18n>Nenner:</span>
-                                    {{ flurstueck.features[0].properties.nenner }}</small></span>
+                          class="row justify-content-center mb-0">
+                        <span class="col">
+                            <small i18n>Flurstückskennzeichen</small>
+                            <svg fill-rule="evenodd"
+                                 viewBox="0 0 20 22"
+                                 width="24"
+                                 height="20"
+                                 focusable="false"
+                                 aria-hidden="true">
+                                <g transform="translate(-10,-20) scale(0.5,0.4)">
+                                    <path fill="none"
+                                          stroke="#343a40"
+                                          d="M 27.237147,57.888549 51.106583,52.026518 66.420364,96.500039 40.933018,96.903113 Z" />
+                                </g>
+                            </svg> :
+                            <span class="flurstueck">
+                                <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
+                                      class="pr-0 pl-0">
+                                    <small>({{ flurstueck.features[0].properties.gemarkungsnummer }})</small>
+                                </span>
+                                <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
+                                      class="pr-0 pl-0">
+                                    <small>–{{ flurstueck.features[0].properties.flurnummer }}</small>
+                                </span>
+                                <span *ngIf="flurstueck.features[0]?.properties.zaehler"
+                                      class="pl-0 pr-0">
+                                    <small>–{{ flurstueck.features[0].properties.zaehler }}</small>
+                                    <small *ngIf="flurstueck.features[0]?.properties.nenner">
+                                        /{{ flurstueck.features[0].properties.nenner }}</small>
+                                </span>
+                            </span>
                         </span>
                     </span>
                 </button>
