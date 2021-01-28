@@ -532,6 +532,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             params.append('stichtag', this.stichtag.toString());
         }
         this.location.replaceState('/bodenrichtwerte', params.toString());
+
     }
 
     private activate3dView() {
@@ -583,11 +584,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public onTeilmarktChange(teilmarkt: any) {
         this.teilmarkt = teilmarkt;
 
+        const teilmarktIsEqual = this.location.path().includes('teilmarkt=' + this.teilmarkt.viewValue.split(' ', 1));
         // push info alert
-        this.alerts.NewAlert(
-            'info',
-            $localize`Teilmarkt gewechselt`,
-            $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
+        if (!teilmarktIsEqual) {
+            this.alerts.NewAlert(
+                'info',
+                $localize`Teilmarkt gewechselt`,
+                $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
+        }
 
         // ease to zoom lvl
         if (teilmarkt.viewValue === 'Bauland') {
