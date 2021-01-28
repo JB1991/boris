@@ -191,7 +191,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.resetMapFired = !this.resetMapFired;
             }
         }
-        if ((changes.adresse || changes.features) && this.map) {
+        if ((changes.adresse && changes.adresse?.currentValue ||
+            changes.features && changes.features?.currentValue) && this.map) {
             if (!this.fskIsChanged) {
                 this.getFlurstueckFromLatLng(this.lat, this.lng);
             } else {
