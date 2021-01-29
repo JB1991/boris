@@ -6,9 +6,8 @@
              i18n>Tabelle Bodenrichtwertzone {{ feature.properties.nutzung | nutzung }}</div>
         <div class="row">
             <h5 class="col-md-5 mb-0"
-                role="rowheader"><b>{{brzStrings.brz | hyphenate}}</b>
+                role="rowheader"><b>{{brzStrings.brz | hyphenate}} </b>
                 <svg *ngIf="teilmarkt?.value[0] === 'LF'; else svgBauland"
-                     class="ml-2"
                      viewBox="0 0 20 22"
                      width="24"
                      height="20"
@@ -21,8 +20,7 @@
                     </g>
                 </svg>
                 <ng-template #svgBauland>
-                    <svg class="ml-2"
-                         viewBox="0 0 20 22"
+                    <svg viewBox="0 0 20 22"
                          width="24"
                          height="20"
                          focusable="false"

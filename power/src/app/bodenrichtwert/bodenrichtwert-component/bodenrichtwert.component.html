@@ -111,19 +111,25 @@
                                 </g>
                             </svg> :
                             <span class="flurstueck">
-                                <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
-                                      class="pr-0 pl-0">
-                                    <small>{{ flurstueck.features[0].properties.gemarkungsnummer }}</small>
+                                <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
+                                    <small class="ml-2 mr-4"
+                                           i18n>Gemarkung:
+                                        {{ flurstueck.features[0].properties.gemarkungsnummer }}
+                                    </small>
                                 </span>
-                                <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
-                                      class="pr-0 pl-0">
-                                    <small>–{{ flurstueck.features[0].properties.flurnummer }}</small>
+                                <span *ngIf="flurstueck.features[0]?.properties.flurnummer">
+                                    <small class="mr-4"
+                                           i18n>Flurnummer:
+                                        {{ flurstueck.features[0].properties.flurnummer }}
+                                    </small>
                                 </span>
-                                <span *ngIf="flurstueck.features[0]?.properties.zaehler"
-                                      class="pl-0 pr-0">
-                                    <small>–{{ flurstueck.features[0].properties.zaehler }}</small>
+                                <span *ngIf="flurstueck.features[0]?.properties.zaehler">
+                                    <small i18n>Zähler<span
+                                              *ngIf="flurstueck.features[0]?.properties.nenner">/Nenner</span>:
+                                        {{ flurstueck.features[0].properties.zaehler }}</small>
                                     <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
-                                        flurstueck.features[0].properties.nenner }}</small>
+                                        flurstueck.features[0].properties.nenner }}
+                                    </small>
                                 </span>
                             </span>
                         </span>
@@ -175,19 +181,25 @@
                                 </g>
                             </svg> :
                             <span class="flurstueck">
-                                <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer"
-                                      class="pr-0 pl-0">
-                                    <small>{{ flurstueck.features[0].properties.gemarkungsnummer }}</small>
+                                <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
+                                    <small class="ml-2 mr-4"
+                                           i18n>Gemarkung:
+                                        {{ flurstueck.features[0].properties.gemarkungsnummer }}
+                                    </small>
                                 </span>
-                                <span *ngIf="flurstueck.features[0]?.properties.flurnummer"
-                                      class="pr-0 pl-0">
-                                    <small>–{{ flurstueck.features[0].properties.flurnummer }}</small>
+                                <span *ngIf="flurstueck.features[0]?.properties.flurnummer">
+                                    <small class="mr-4"
+                                           i18n>Flurnummer:
+                                        {{ flurstueck.features[0].properties.flurnummer }}
+                                    </small>
                                 </span>
-                                <span *ngIf="flurstueck.features[0]?.properties.zaehler"
-                                      class="pl-0 pr-0">
-                                    <small>–{{ flurstueck.features[0].properties.zaehler }}</small>
+                                <span *ngIf="flurstueck.features[0]?.properties.zaehler">
+                                    <small i18n>Zähler<span
+                                              *ngIf="flurstueck.features[0]?.properties.nenner">/Nenner</span>:
+                                        {{ flurstueck.features[0].properties.zaehler }}</small>
                                     <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
-                                        flurstueck.features[0].properties.nenner }}</small>
+                                        flurstueck.features[0].properties.nenner }}
+                                    </small>
                                 </span>
                             </span>
                         </span>
