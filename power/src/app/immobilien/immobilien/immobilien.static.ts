@@ -102,7 +102,7 @@ export class NipixStatic {
         const geoCoordMap = { 'left': [], 'right': [], 'top': [], 'bottom': [] };
         const nipixData = {};
 
-        let lastAvailable = [];
+        const lastAvailable = [];
 
         for (let i = 0; i < geoJson['features'].length; i++) {
 
@@ -151,9 +151,9 @@ export class NipixStatic {
         this.data.nipix = nipixData;
 
         // Get last available Data; Assume the last Data Interval is equal
-        const la = lastAvailable[0].split('_');
-        la[0] = parseInt(la[0]);
-        la[1] = parseInt(la[1]);
+        const las = lastAvailable[0].split('_');
+        las[0] = parseInt(las[0], 10);
+        las[1] = parseInt(las[1], 10);
 
         return { 'map': geoMap, 'la': la};
     }
