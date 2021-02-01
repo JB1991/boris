@@ -143,16 +143,6 @@ export class ImmobilienComponent implements OnInit {
                 this.nipixStatic.loadConfig(json);
 
                 this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[0]['name'];
-                this.nipixRuntime.availableQuartal = ImmobilienUtils.getDateArray(json['lastYear'], json['lastPeriod']);
-                this.nipixRuntime.updateAvailableQuartal(json['lastYear'], json['lastPeriod']);
-                this.nipixRuntime.chart.options = ImmobilienChartOptions.getChartOptions.bind(this)({
-                    'text': this.nipixStatic.textOptions,
-                    'date': this.nipixRuntime.availableQuartal,
-                    'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
-                    'exportAsImage': function () { this.nipixRuntime.export.exportAsImage(); }.bind(this),
-                    'exportCSV': function () { this.nipixRuntime.export.exportNiPixGeoJson(false); }.bind(this),
-                    'exportNiPixGeoJson': function () { this.nipixRuntime.export.exportNiPixGeoJson(true); }.bind(this)
-                });
                 this.loadGemeinden(json['gemeindenUrl']);
                 this.loadGeoMap(json['mapUrl']);
                 this.cdr.detectChanges();
@@ -194,6 +184,17 @@ export class ImmobilienComponent implements OnInit {
                     this.mapLoaded = true;
 
                     const geoMap = this.nipixStatic.procMap(geoJson);
+                    // Update available quartal
+                    this.nipixRuntime.updateAvailableQuartal(geoMap['la'][0], geoMap['la'][1]);
+
+                    this.nipixRuntime.chart.options = ImmobilienChartOptions.getChartOptions.bind(this)({
+                        'text': this.nipixStatic.textOptions,
+                        'date': this.nipixRuntime.availableQuartal,
+                        'tooltipFormatter': this.nipixRuntime.formatter.chartTooltipFormatter,
+                        'exportAsImage': function () { this.nipixRuntime.export.exportAsImage(); }.bind(this),
+                        'exportCSV': function () { this.nipixRuntime.export.exportNiPixGeoJson(false); }.bind(this),
+                        'exportNiPixGeoJson': function () { this.nipixRuntime.export.exportNiPixGeoJson(true); }.bind(this)
+                    });
 
                     this.nipixRuntime.resetDrawPresets();
                     this.nipixRuntime.calculated.mapRegionen = ImmobilienUtils.getMyMapRegionen(
@@ -206,7 +207,7 @@ export class ImmobilienComponent implements OnInit {
                     setTimeout(this.staticChange.bind(this), 50, 0, true);
 
                     // register map:
-                    echarts.registerMap('NDS', geoMap);
+                    echarts.registerMap('NDS', geoMap['map']);
 
                     // initState
                     this.nipixRuntime.state.initState++;

@@ -199,6 +199,33 @@ export class NipixRuntimeCalculator {
     }
 
     /**
+     * Fill empty DrawSeries
+     */
+    private fillEmpty() {
+
+        if (this.nipixRuntime.calculated.drawData === undefined) {
+            return;
+        }
+
+        for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
+
+            const itm = this.nipixRuntime.calculated.drawData[i];
+
+            if ((itm === undefined) || (itm.data === undefined)) {
+                return;
+            }
+
+            if (itm.data.length === 0) {
+                for (let o = 0; o < this.nipixRuntime.availableQuartal.length; o++) {
+                    itm.data.push(undefined);
+                }
+            }
+
+        }
+
+    }
+
+    /**
      * Generates the drawdata from the given draw array
      */
     public calculateDrawData() {
@@ -223,6 +250,9 @@ export class NipixRuntimeCalculator {
 
         // Filter empty Data
         this.filterNaN();
+
+        // Fill Empty
+        this.fillEmpty();
     }
 }
 

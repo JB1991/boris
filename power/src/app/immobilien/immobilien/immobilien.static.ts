@@ -102,6 +102,8 @@ export class NipixStatic {
         const geoCoordMap = { 'left': [], 'right': [], 'top': [], 'bottom': [] };
         const nipixData = {};
 
+        const lastAvailable = [];
+
         for (let i = 0; i < geoJson['features'].length; i++) {
 
             const props = geoJson['features'][i]['properties'];
@@ -129,6 +131,9 @@ export class NipixStatic {
                         nipixData[nkey[n]] = {};
                     }
 
+                    const la = Object.keys(nipixParse[nkey[n]]);
+                    lastAvailable.push(la[la.length-1]);
+
                     nipixData[nkey[n]][props['name']] = nipixParse[nkey[n]];
                 }
 
@@ -145,7 +150,12 @@ export class NipixStatic {
         this.data.geoCoordMap = geoCoordMap;
         this.data.nipix = nipixData;
 
-        return geoMap;
+        // Get last available Data; Assume the last Data Interval is equal
+        const las = lastAvailable[0].split('_');
+        las[0] = parseInt(las[0], 10);
+        las[1] = parseInt(las[1], 10);
+
+        return { 'map': geoMap, 'la': las};
     }
 
 
