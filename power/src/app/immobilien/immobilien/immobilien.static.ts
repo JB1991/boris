@@ -155,7 +155,7 @@ export class NipixStatic {
         las[0] = parseInt(las[0], 10);
         las[1] = parseInt(las[1], 10);
 
-        return { 'map': geoMap, 'la': la};
+        return { 'map': geoMap, 'la': las};
     }
 
 
