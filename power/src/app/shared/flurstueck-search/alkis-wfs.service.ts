@@ -82,6 +82,36 @@ export class AlkisWfsService {
     }
 
     /**
+     * Use geo coordinates to get Flurstueck feature
+     * @param lat Latitude
+     * @param lon Longitude
+     */
+    public getFlurstueckfromCoordinates(lng, lat): Observable<FeatureCollection> {
+        const filter = '<wfs:GetFeature ' +
+            'xmlns:ogc="http://www.opengis.net/ogc" ' +
+            'xmlns:wfs="http://www.opengis.net/wfs" ' +
+            'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
+            'service="WFS" version="1.1.0" outputFormat="JSON">' +
+            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:3857">' +
+            '<ogc:Filter>' +
+            '<ogc:Intersects>' +
+            '<ogc:PropertyName>wkb_geometry</ogc:PropertyName>' +
+            '<gml:Point srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">' +
+            '<gml:coordinates>' + lng + ',' + lat + '</gml:coordinates>' +
+            '</gml:Point>' +
+            '</ogc:Intersects>' +
+            '</ogc:Filter>' +
+            '</wfs:Query>' +
+            '</wfs:GetFeature>';
+
+        return this.http.post<FeatureCollection>(
+            this.url,
+            filter,
+            { 'responseType': 'json' }
+        ).pipe(catchError(AlkisWfsService.handleError));
+    }
+
+    /**
      * Handling of HTTP errors by logging it to the console
      * @param error HTTP error to be handled
      */
@@ -89,3 +119,5 @@ export class AlkisWfsService {
         return throwError(error);
     }
 }
+
+/* vim: set expandtab ts=4 sw=4 sts=4: */

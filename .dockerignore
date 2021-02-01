@@ -1,11 +1,14 @@
 .git/
 .gitlab/
+.vscode/
 chart/
+doc/
 scripts/
 power/coverage/
+power/documentation/
 power/e2e/
 power/node_modules/
 power/output/
 power/src/
 power/package-lock.json
-npm-debug.log
+README.md

@@ -1,20 +1,14 @@
 {
     "/geocoding/geosearch/": {
-        "target": "https://sg.geodatenzentrum.de/gdz_ortssuche__1a415c0d-ddb1-7a7d-27f0-88ef2cfa13d6/geosearch.json",
-        "pathRewrite": {
-            "^/geocoding/geosearch/": ""
-        },
+        "target": "https://dev.power.niedersachsen.dev",
         "changeOrigin": true,
-        "secure": true,
+        "secure": false,
         "debugLevel": "info"
     },
     "/geocoding/suggestions/": {
-        "target": "https://sg.geodatenzentrum.de/gdz_geokodierung__1a415c0d-ddb1-7a7d-27f0-88ef2cfa13d6/suggest",
-        "pathRewrite": {
-            "^/geocoding/suggestions/": ""
-        },
+        "target": "https://dev.power.niedersachsen.dev",
         "changeOrigin": true,
-        "secure": true,
+        "secure": false,
         "debugLevel": "info"
     },
     "/geoserver/": {
@@ -32,34 +26,16 @@
         "secure": false,
         "debugLevel": "info"
     },
-    "/wfs": {
-        "target": "https://www.geobasisdaten.niedersachsen.de",
-        "pathRewrite": {
-            "^/wfs": "/doorman/auth/WFS_NI_1311_ALKIS-NAS-konform"
-        },
-        "changeOrigin": true,
-        "secure": true,
-        "debugLevel": "info",
-        "headers": {
-            "Authorization": "Basic MDNWS1YyMjNBS1MyOnljVGllazNqOFduRjRCMVI="
-        }
-    },
     "/feedback-rss/": {
-        "target": "https://gitlab.com",
-        "pathRewrite": {
-            "^/feedback-rss/": "/Kay-LGLN/power/-/issues.atom"
-        },
+        "target": "https://dev.power.niedersachsen.dev",
         "changeOrigin": true,
-        "secure": true,
+        "secure": false,
         "debugLevel": "info"
     },
     "/boris-print/": {
-        "target": "https://www.boris.niedersachsen.de",
-        "pathRewrite": {
-            "^/boris-print/": "/ent-boris/brwdirect?user=lgn&pwd=test&"
-        },
+        "target": "https://dev.power.niedersachsen.dev",
         "changeOrigin": true,
-        "secure": true,
+        "secure": false,
         "debugLevel": "info"
     }
 }

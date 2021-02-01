@@ -9,7 +9,7 @@ image:
   pullPolicy: Always
   tag: ""
 
-imagePullSecrets: 
+imagePullSecrets:
   - name: de-icr-io
 nameOverride: ""
 fullnameOverride: ""
@@ -23,10 +23,12 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -47,27 +49,21 @@ ingress:
   hosts:
     - host: prod.power-production-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
       paths:
-      - path: /
-        serviceName: power
-        servicePort: 80
-      - path: /geoserver/
-        serviceName: presentation-geoserver
-        servicePort: 8080
+        - path: /
+          serviceName: power
+          servicePort: 80
     - host: power.lgln.niedersachsen.de
       paths:
-      - path: /
-        serviceName: power
-        servicePort: 80
-      - path: /geoserver/
-        serviceName: presentation-geoserver
-        servicePort: 8080
+        - path: /
+          serviceName: power
+          servicePort: 80
   tls:
-   - secretName: power-production-65655d4c73bf47a3300821aa2939abf4-0001
-     hosts:
-       - prod.power-production-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
-   - secretName: sub-lgln-niedersachsen-de
-     hosts:
-       - power.lgln.niedersachsen.de
+    - secretName: power-production-65655d4c73bf47a3300821aa2939abf4-0001
+      hosts:
+        - prod.power-production-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+    - secretName: sub-lgln-niedersachsen-de
+      hosts:
+        - power.lgln.niedersachsen.de
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious

@@ -534,6 +534,84 @@ export class FormAPIService {
         }
         return data as any;
     }
+
+    /**
+     * Returns translatored error message
+     * @param error Error
+     */
+    /* eslint-disable-next-line complexity */
+    public getErrorMessage(error: Error): string {
+        let msg = error.toString();
+        if (error['error'] && error['error']['message']) {
+            msg = error['error']['message'];
+        }
+
+        if (msg === 'internal server') {
+            return $localize`Server Fehler: Bitte versuchen Sie es erneut, sollte dies nicht helfen senden Sie uns bitte Feedback.`;
+
+        } else if (msg === 'invalid request body') {
+            return $localize`Server Fehler: Die Anfrage an den Server war ungültig.`;
+
+        } else if (msg === 'not authorized') {
+            return $localize`Um diese Aktion durchzuführen müssen Sie sich einloggen.`;
+
+        } else if (msg === 'too many tags') {
+            return $localize`Bitte geben Sie nicht mehr als 5 Tags an.`;
+
+        } else if (msg === 'too many groups') {
+            return $localize`Bitte geben Sie nicht mehr als 5 Gruppen an.`;
+
+        } else if (msg.startsWith('element has no title: ')) {
+            return $localize`Bitte geben sie einen Titel an: ` + msg.slice(22);
+
+        }else if (msg.startsWith('unknown group:')) {
+            return $localize`Die Gruppe konnte nicht gefunden werden.`;
+
+        } else if (msg.startsWith('user not found:')) {
+            return $localize`Der Benutzer konnte nicht gefunden werden.`;
+
+        } else if (msg.startsWith('user already exists:')) {
+            return $localize`Server Fehler: Dieser Benutzer existiert bereits.`;
+
+        } else if (msg.startsWith('element not found:')) {
+            return $localize`Der Favorite konnte nicht gefunden werden.`;
+
+        } else if (msg === 'task not found') {
+            return $localize`Die von Ihnen angegebene PIN ist ungültig.`;
+
+        } else if (msg === 'missing pin') {
+            return $localize`Bitte geben Sie für diese Aktion eine PIN an.`;
+
+        } else if (msg === 'duplicate pin') {
+            return $localize`Server Fehler: Diese PIN ist mehrfach vorhanden.`;
+
+        } else if (msg === 'internal server: duplicate pin') {
+            return $localize`Server Fehler: Es wurde eine doppelte PIN generiert.`;
+
+        } else if (msg.startsWith('form is not published yet')) {
+            return $localize`Diese Aktion ist nicht möglich, da das Formular noch nicht publiziert wurde.`;
+
+        } else if (msg.startsWith('form is already published')) {
+            return $localize`Diese Aktion ist nicht möglich, da das Formular bereits publiziert wurde.`;
+
+        } else if (msg.startsWith('form is already cancelled')) {
+            return $localize`Diese Aktion ist nicht möglich, da das Formular bereits geschlossen wurde.`;
+
+        } else if (msg.startsWith('form is not public')) {
+            return $localize`Diese Aktion ist mit durch PINs geschützten Formularen nicht möglich.`;
+
+        } else if (msg.startsWith('form is public: no pin needed')) {
+            return $localize`Diese Aktion erfordert keine PIN, da das Formular öffentlich ist.`;
+
+        } else if (msg.startsWith('cannot delete form with open tasks')) {
+            return $localize`Das Formular kann nicht gelöscht werden, wenn es noch offene Antworten gibt.`;
+
+        } else if (msg.startsWith('cannot create tasks for forms with public access')) {
+            return $localize`Diese Aktion ist mit öffentlichen Formularen nicht möglich.`;
+        }
+
+        return msg;
+    }
 }
 
 export interface GetGroupTagParams {

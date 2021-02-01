@@ -52,7 +52,7 @@ export class ImmobilienChartOptions {
         const ret = JSON.parse(JSON.stringify(CO.chartOptions));
         ret.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeBase);
         ret.title.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage);
-        ret.grid[0].top = 56 + ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage) * (1.5 + 1);
+        ret.grid[0].top = 56 + ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage) * (1.5 + 2);
         ret.graphic[0].style.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeCopy);
         ret.graphic[0].style.text = $localize`Quelle: Oberer Gutachterausschuss für\nGrundstückswerte in Niedersachsen`
             + ', ' + ImmobilienHelper.getDate();
@@ -84,6 +84,7 @@ export class ImmobilienChartOptions {
         ret.series = opt.series;
         ret.dataZoom[0].start = opt.datastart;
         ret.dataZoom[0].end = opt.dataend;
+        ret.legend.top += ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage)*1.25;
 
         return ret;
     }

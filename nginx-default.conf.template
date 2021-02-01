@@ -54,14 +54,6 @@ server {
     return 404;
   }
 
-  location /wfs/alkis/ {
-    rewrite ^\/wfs\/alkis\/(.*) /doorman/auth/WFS_NI_1311_ALKIS-NAS-konform/$1 break;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header Authorization "Basic ${WFS_BASIC_AUTH_SECRET}";
-    proxy_pass https://www.geobasisdaten.niedersachsen.de/;
-    return 404;
-  }
-
   location /feedback-rss/ {
     rewrite ^\/feedback-rss\/(.*) /Kay-LGLN/power/-/issues.atom break;
     proxy_set_header X-Real-IP $remote_addr;
@@ -71,7 +63,7 @@ server {
   }
 
   location /boris-print/ {
-    rewrite ^\/boris-print\/(.*) /ent-boris/brwdirect?user=lgn&pwd=test&$1 break;
+    rewrite ^\/boris-print\/(.*) /ent-boris/brwdirect?${BORIS_ALT}$1 break;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_ssl_server_name on;
     proxy_pass https://www.boris.niedersachsen.de/;

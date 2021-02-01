@@ -3,7 +3,7 @@ export interface Form {
     owner?: User;
     groups?: Array<string>;
     tags?: Array<string>;
-    extract?: any;
+    extract?: string;
     content?: any;
     access?: Access;
     status?: FormStatus;

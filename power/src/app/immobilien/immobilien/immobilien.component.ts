@@ -461,6 +461,7 @@ export class ImmobilienComponent implements OnInit {
      */
     updateChartMerge(range_start, range_end, subAdd, range_text) {
         const chartOptionMerge = ImmobilienChartOptions.getChartOptionsMerge({
+            'text': this.nipixStatic.textOptions,
             'graphic0': this.nipixRuntime.chart.options['graphic'][0],
             'graphic1left': this.nipixStatic.chartExportWidth - 600 + 65,
             'graphic1children': [].concat(this.nipixRuntime.formatter.graphicLegend()),

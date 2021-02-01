@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+.flurstueck {
+    display: inline-block;
+}
+
 @media (max-width: 992px) {
     .map {
         height: calc(100vh - 301px);
@@ -44,4 +48,18 @@
 .btn-collapse {
     font-size: large;
     height: 57px;
+}
+
+a.nav-link:hover {
+    color: #c4153a;
+    cursor: pointer;
+}
+
+.nav-link:hover:enabled {
+    color: #c4153a;
+    cursor: pointer;
+}
+
+.active {
+    color: #c4153a !important;
 }

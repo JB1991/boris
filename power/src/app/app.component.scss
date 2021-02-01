@@ -25,6 +25,18 @@
     color: #c4153a;
 }
 
+.bg-custom {
+    background-color: #343a40;
+}
+
+footer li::before {
+    content: '\00BB \0020';
+}
+
+.min-height {
+    min-height: calc(100vh - 57px - 306px);
+}
+
 @media (max-width: 576px) {
     nav .dropdown-item {
         white-space: normal !important;
