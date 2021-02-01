@@ -6,6 +6,7 @@ import { Subject, Subscription } from 'rxjs';
 
 import { Config, ConfigService } from '@app/config.service';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { UpdateService } from './update.service';
 
 @Component({
     selector: 'power-root',
@@ -35,8 +36,12 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         public httpClient: HttpClient,
         public auth: AuthService,
         public router: Router,
-        public platform: Platform
+        public platform: Platform,
+        public us: UpdateService
     ) {
+        // check for updates
+        this.us.checkForUpdates();
+
         /* istanbul ignore next */
         this._subscription = router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {

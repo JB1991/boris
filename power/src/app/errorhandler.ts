@@ -1,20 +1,30 @@
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-    constructor(public alerts: AlertsService) { }
+    constructor(@Inject(LOCALE_ID) public locale: string,
+        public alerts: AlertsService) { }
 
     handleError(error) {
+        // check if app needs reload
+        const chunkFailedMessage = /Loading chunk [\d]+ failed/;
+        if (chunkFailedMessage.test(error.message)) {
+            window.location.reload();
+            return;
+        }
+
         // show message
         this.alerts.NewAlert('danger', $localize`Ein unbekannter Fehler ist aufgetreten`,
             $localize`Bitte laden Sie die Webseite neu und versuchen es erneut. Sollte der Fehler wieder auftreten, dann senden Sie uns bitte Feedback.`,
             30000);
 
         // print error
-        // console.log(error);
+        // window.location.replace(location.protocol + '//' + location.host +
+        // (this.locale === 'de' ? '' : '/' + this.locale));
+        // console.error(error);
         throw error;
     }
 }

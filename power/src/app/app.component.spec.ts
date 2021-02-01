@@ -5,6 +5,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AppComponent } from './app.component';
 import { ConfigService } from './config.service';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { UpdateService } from './update.service';
 
 describe('AppComponent', () => {
     let app: AppComponent;
@@ -19,7 +20,9 @@ describe('AppComponent', () => {
             ],
             providers: [
                 ConfigService,
-                AuthService
+                AuthService,
+                UpdateService,
+                { provide: UpdateService, useClass: MockUpdateService }
             ],
             declarations: [
                 AppComponent,
@@ -106,5 +109,8 @@ class MockAlertsComponent {
     template: ''
 })
 class MockLoadingscreenComponent {
+}
+class MockUpdateService {
+    public checkForUpdates() { }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

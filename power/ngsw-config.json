@@ -8,7 +8,7 @@
                 "files": [
                     "/favicon.ico",
                     "/index.html",
-                    "/manifest.json",
+                    "/manifest.webmanifest",
                     "/*.css",
                     "/*.js",
                     "!/ngsw.json"
@@ -23,7 +23,6 @@
                 "files": [
                     "/assets/**",
                     "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
-                    "/mvt/**",
                     "!/assets/config/config.json"
                 ],
                 "urls": [

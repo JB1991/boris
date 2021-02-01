@@ -7,7 +7,7 @@ describe('GlobalErrorHandler', () => {
     beforeEach(() => {
         const alerts = new AlertsService();
         spyOn(alerts, 'NewAlert');
-        handler = new GlobalErrorHandler(alerts);
+        handler = new GlobalErrorHandler('de', alerts);
     });
 
     it('should be created', () => {

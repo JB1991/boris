@@ -36,8 +36,8 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/manifest.json",
-                            "src/robots.txt"
+                            "src/robots.txt",
+                            "src/manifest.webmanifest"
                         ],
                         "styles": [
                             "src/styles.scss"
@@ -90,7 +90,8 @@
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
-                            "serviceWorker": false
+                            "serviceWorker": true,
+                            "ngswConfigPath": "ngsw-config.json"
                         },
                         "staging": {
                             "budgets": [
@@ -119,7 +120,8 @@
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
-                            "serviceWorker": false
+                            "serviceWorker": true,
+                            "ngswConfigPath": "ngsw-config.json"
                         },
                         "de": {
                             "localize": [
@@ -179,7 +181,7 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
-                            "src/manifest.json"
+                            "src/manifest.webmanifest"
                         ]
                     }
                 },
