@@ -1,10 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.export](../../modules/immobilien/immobilien.immobilien_immobilien_export.md) / ImmobilienExport
+[immobilien](../README.md) / ImmobilienExport
 
 # Class: ImmobilienExport
-
-[immobilien/immobilien.export](../../modules/immobilien/immobilien.immobilien_immobilien_export.md).ImmobilienExport
-
-Nipix Export class
 
 ## Hierarchy
 
@@ -14,32 +10,32 @@ Nipix Export class
 
 ### Constructors
 
-- [constructor](immobilien.export.immobilienexport.md#constructor)
+- [constructor](immobilien.export.md#constructor)
 
 ### Properties
 
-- [exportChart](immobilien.export.immobilienexport.md#exportchart)
-- [nipixRuntime](immobilien.export.immobilienexport.md#nipixruntime)
-- [nipixStatic](immobilien.export.immobilienexport.md#nipixstatic)
-- [geoJsonHeader](immobilien.export.immobilienexport.md#geojsonheader)
+- [exportChart](immobilien.export.md#exportchart)
+- [nipixRuntime](immobilien.export.md#nipixruntime)
+- [nipixStatic](immobilien.export.md#nipixstatic)
+- [geoJsonHeader](immobilien.export.md#geojsonheader)
 
 ### Methods
 
-- [chartRenderFinished](immobilien.export.immobilienexport.md#chartrenderfinished)
-- [exportAsImage](immobilien.export.immobilienexport.md#exportasimage)
-- [exportAsImageFinish](immobilien.export.immobilienexport.md#exportasimagefinish)
-- [exportGeoJSON](immobilien.export.immobilienexport.md#exportgeojson)
-- [exportMapAsImage](immobilien.export.immobilienexport.md#exportmapasimage)
-- [exportNiPixGeoJson](immobilien.export.immobilienexport.md#exportnipixgeojson)
-- [exportNiPixGeoJsonCSV](immobilien.export.immobilienexport.md#exportnipixgeojsoncsv)
-- [exportNiPixGeoJsonGeoJson](immobilien.export.immobilienexport.md#exportnipixgeojsongeojson)
-- [getNiPixTimeslot](immobilien.export.immobilienexport.md#getnipixtimeslot)
+- [chartRenderFinished](immobilien.export.md#chartrenderfinished)
+- [exportAsImage](immobilien.export.md#exportasimage)
+- [exportAsImageFinish](immobilien.export.md#exportasimagefinish)
+- [exportGeoJSON](immobilien.export.md#exportgeojson)
+- [exportMapAsImage](immobilien.export.md#exportmapasimage)
+- [exportNiPixGeoJson](immobilien.export.md#exportnipixgeojson)
+- [exportNiPixGeoJsonCSV](immobilien.export.md#exportnipixgeojsoncsv)
+- [exportNiPixGeoJsonGeoJson](immobilien.export.md#exportnipixgeojsongeojson)
+- [getNiPixTimeslot](immobilien.export.md#getnipixtimeslot)
 
 ## Constructors
 
 ### constructor
 
-\+ **new ImmobilienExport**(`niStatic`: [*NipixStatic*](immobilien.static.nipixstatic.md), `niRuntime`: [*NipixRuntime*](immobilien.runtime.nipixruntime.md)): [*ImmobilienExport*](immobilien.export.immobilienexport.md)
+\+ **new ImmobilienExport**(`niStatic`: [*NipixStatic*](immobilien.static.nipixstatic.md), `niRuntime`: [*NipixRuntime*](immobilien.runtime.nipixruntime.md)): [*ImmobilienExport*](immobilien.export.md)
 
 #### Parameters:
 
@@ -48,7 +44,7 @@ Name | Type |
 `niStatic` | [*NipixStatic*](immobilien.static.nipixstatic.md) |
 `niRuntime` | [*NipixRuntime*](immobilien.runtime.nipixruntime.md) |
 
-**Returns:** [*ImmobilienExport*](immobilien.export.immobilienexport.md)
+**Returns:** [*ImmobilienExport*](immobilien.export.md)
 
 Defined in: immobilien/immobilien.export.ts:25
 

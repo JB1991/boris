@@ -1,8 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.component](../../modules/immobilien/immobilien.immobilien_immobilien_component.md) / ImmobilienComponent
+[immobilien](../README.md) / ImmobilienComponent
 
 # Class: ImmobilienComponent
-
-[immobilien/immobilien.component](../../modules/immobilien/immobilien.immobilien_immobilien_component.md).ImmobilienComponent
 
 ## Hierarchy
 
@@ -16,60 +14,60 @@
 
 ### Constructors
 
-- [constructor](immobilien.component.immobiliencomponent.md#constructor)
+- [constructor](immobilien.component.md#constructor)
 
 ### Properties
 
-- [accOpen](immobilien.component.immobiliencomponent.md#accopen)
-- [chart\_range](immobilien.component.immobiliencomponent.md#chart_range)
-- [configUrl](immobilien.component.immobiliencomponent.md#configurl)
-- [mapLoaded](immobilien.component.immobiliencomponent.md#maploaded)
-- [nipixRuntime](immobilien.component.immobiliencomponent.md#nipixruntime)
-- [nipixStatic](immobilien.component.immobiliencomponent.md#nipixstatic)
-- [selectedWoMa](immobilien.component.immobiliencomponent.md#selectedwoma)
-- [selectedWoMaValue](immobilien.component.immobiliencomponent.md#selectedwomavalue)
-- [title](immobilien.component.immobiliencomponent.md#title)
+- [accOpen](immobilien.component.md#accopen)
+- [chart\_range](immobilien.component.md#chart_range)
+- [configUrl](immobilien.component.md#configurl)
+- [mapLoaded](immobilien.component.md#maploaded)
+- [nipixRuntime](immobilien.component.md#nipixruntime)
+- [nipixStatic](immobilien.component.md#nipixstatic)
+- [selectedWoMa](immobilien.component.md#selectedwoma)
+- [selectedWoMaValue](immobilien.component.md#selectedwomavalue)
+- [title](immobilien.component.md#title)
 
 ### Methods
 
-- [chartClicked](immobilien.component.immobiliencomponent.md#chartclicked)
-- [getCustomColor](immobilien.component.immobiliencomponent.md#getcustomcolor)
-- [initNipix](immobilien.component.immobiliencomponent.md#initnipix)
-- [loadConfig](immobilien.component.immobiliencomponent.md#loadconfig)
-- [loadGemeinden](immobilien.component.immobiliencomponent.md#loadgemeinden)
-- [loadGeoMap](immobilien.component.immobiliencomponent.md#loadgeomap)
-- [ngOnInit](immobilien.component.immobiliencomponent.md#ngoninit)
-- [onChangeCat](immobilien.component.immobiliencomponent.md#onchangecat)
-- [onChangeQuartal](immobilien.component.immobiliencomponent.md#onchangequartal)
-- [onChartChartInit](immobilien.component.immobiliencomponent.md#onchartchartinit)
-- [onChartFinished](immobilien.component.immobiliencomponent.md#onchartfinished)
-- [onChartInit](immobilien.component.immobiliencomponent.md#onchartinit)
-- [onClickDrawRoot](immobilien.component.immobiliencomponent.md#onclickdrawroot)
-- [onDataZoom](immobilien.component.immobiliencomponent.md#ondatazoom)
-- [onMapSelectChange](immobilien.component.immobiliencomponent.md#onmapselectchange)
-- [onPanelChangeIndex](immobilien.component.immobiliencomponent.md#onpanelchangeindex)
-- [onPanelChangeWoMa](immobilien.component.immobiliencomponent.md#onpanelchangewoma)
-- [onSelectWoMa](immobilien.component.immobiliencomponent.md#onselectwoma)
-- [onSetNumber](immobilien.component.immobiliencomponent.md#onsetnumber)
-- [onSetSpecificDraw](immobilien.component.immobiliencomponent.md#onsetspecificdraw)
-- [onToggleDrawRoot](immobilien.component.immobiliencomponent.md#ontoggledrawroot)
-- [regionName](immobilien.component.immobiliencomponent.md#regionname)
-- [selectSingle](immobilien.component.immobiliencomponent.md#selectsingle)
-- [setMapOptions](immobilien.component.immobiliencomponent.md#setmapoptions)
-- [staticChange](immobilien.component.immobiliencomponent.md#staticchange)
-- [staticExpand](immobilien.component.immobiliencomponent.md#staticexpand)
-- [toggleAllSelect](immobilien.component.immobiliencomponent.md#toggleallselect)
-- [toggleMapSelect](immobilien.component.immobiliencomponent.md#togglemapselect)
-- [toggleNipixCategory](immobilien.component.immobiliencomponent.md#togglenipixcategory)
-- [updateChart](immobilien.component.immobiliencomponent.md#updatechart)
-- [updateChartMerge](immobilien.component.immobiliencomponent.md#updatechartmerge)
-- [updateMapSelect](immobilien.component.immobiliencomponent.md#updatemapselect)
+- [chartClicked](immobilien.component.md#chartclicked)
+- [getCustomColor](immobilien.component.md#getcustomcolor)
+- [initNipix](immobilien.component.md#initnipix)
+- [loadConfig](immobilien.component.md#loadconfig)
+- [loadGemeinden](immobilien.component.md#loadgemeinden)
+- [loadGeoMap](immobilien.component.md#loadgeomap)
+- [ngOnInit](immobilien.component.md#ngoninit)
+- [onChangeCat](immobilien.component.md#onchangecat)
+- [onChangeQuartal](immobilien.component.md#onchangequartal)
+- [onChartChartInit](immobilien.component.md#onchartchartinit)
+- [onChartFinished](immobilien.component.md#onchartfinished)
+- [onChartInit](immobilien.component.md#onchartinit)
+- [onClickDrawRoot](immobilien.component.md#onclickdrawroot)
+- [onDataZoom](immobilien.component.md#ondatazoom)
+- [onMapSelectChange](immobilien.component.md#onmapselectchange)
+- [onPanelChangeIndex](immobilien.component.md#onpanelchangeindex)
+- [onPanelChangeWoMa](immobilien.component.md#onpanelchangewoma)
+- [onSelectWoMa](immobilien.component.md#onselectwoma)
+- [onSetNumber](immobilien.component.md#onsetnumber)
+- [onSetSpecificDraw](immobilien.component.md#onsetspecificdraw)
+- [onToggleDrawRoot](immobilien.component.md#ontoggledrawroot)
+- [regionName](immobilien.component.md#regionname)
+- [selectSingle](immobilien.component.md#selectsingle)
+- [setMapOptions](immobilien.component.md#setmapoptions)
+- [staticChange](immobilien.component.md#staticchange)
+- [staticExpand](immobilien.component.md#staticexpand)
+- [toggleAllSelect](immobilien.component.md#toggleallselect)
+- [toggleMapSelect](immobilien.component.md#togglemapselect)
+- [toggleNipixCategory](immobilien.component.md#togglenipixcategory)
+- [updateChart](immobilien.component.md#updatechart)
+- [updateChartMerge](immobilien.component.md#updatechartmerge)
+- [updateMapSelect](immobilien.component.md#updatemapselect)
 
 ## Constructors
 
 ### constructor
 
-\+ **new ImmobilienComponent**(`http`: *HttpClient*, `titleService`: *Title*, `cdr`: *ChangeDetectorRef*): [*ImmobilienComponent*](immobilien.component.immobiliencomponent.md)
+\+ **new ImmobilienComponent**(`http`: *HttpClient*, `titleService`: *Title*, `cdr`: *ChangeDetectorRef*): [*ImmobilienComponent*](immobilien.component.md)
 
 Constructor:
 
@@ -81,7 +79,7 @@ Name | Type | Description |
 `titleService` | *Title* | Service for settings the title of the HTML document    |
 `cdr` | *ChangeDetectorRef* | - |
 
-**Returns:** [*ImmobilienComponent*](immobilien.component.immobiliencomponent.md)
+**Returns:** [*ImmobilienComponent*](immobilien.component.md)
 
 Defined in: immobilien/immobilien.component.ts:37
 

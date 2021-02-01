@@ -7,10 +7,10 @@
 
 ### Projektstruktur
 Die Anwendung besteht aus mehreren Quelldateien:
-*  immobilien.component.ts / immobilien.component.html / immobilien.component.scss<br>
+*  [immobilien.component.ts](doc/immobilien.component.md) / immobilien.component.html / immobilien.component.scss<br>
 *Dieses sind die Hauptdateien der Anwendung und beinhaltet den Grundaufbau sowie Eventhandler.* 
 
-*  immobilien.chatoptions.ts<br>
+*  [immobilien.chatoptions.ts](doc/immobilien.chatoptions.md)<br>
 *Diese Datei stellt die Konfiguration der Echarts Komponente bereit und beinhaltet hierfür die Funktionen "getMapOptions", "getChartOptions" und "getChartOptionsMerge".<br> 
 Die einzelnen Konfigurationsobjekte werden hierbei aus folgenden Dateien entnommen:*
 
@@ -23,25 +23,25 @@ Die einzelnen Konfigurationsobjekte werden hierbei aus folgenden Dateien entnomm
 *  immobilien.chartoptions-printoptions.ts<br>
 *Konfiguration für die Druckansicht bzw. Bildexport*
 
-*  immobilien.export.ts<br>
+*  [immobilien.export.ts](doc/immobilien.export.md)<br>
 *Funktionen für den Export der Karte (exportMapAsImage, exportGeoJson) sowie des Graphen (exportAsImage, exportAsImageFinish, exportNiPixGeoJson)*
 
-*  immpobilien.formatter.ts<br>
+*  [immobilien.formatter.ts](doc/immobilien.formatter.md)<br>
 *Funktionen für die Formatierung von Labels in der Karte (mapTooltipForamtter) und dem Graphen (chartTooltipFormatter, formatLabel, formatLegend, getSeriesLabel, getSeriesColor, simpleLegend, graphicLegend)*
 
-*  immpbilien.helper.ts<br>
+*  [immbilien.helper.ts](doc/immobilien.helper.md)<br>
 *diverse Hilfsfunktionen (convertRemToPixels, componentToHex, rgbToHex, convertColor, modifyColor, appendLeadingZeroes, getDate, parseStringAsFloat, downloadFile, resolve, convertArrayToCSV, getSingleFeature, getGeometryArray)*
 
-*  immpbilien.utils.ts<br>
+*  [immobilien.utils.ts](doc/immobilien.utils.md)<br>
 *Anwendungsspezifische Hilfsfunktionen (getDateArray, getMyMapRegionenGR, getMyMapRegionen, genertateSeriesGS, generateSeries, generateDrawSeriesData, generateTextElement, generateDotElement, modifyRegionen, dispatchMapSelect)*
 
-*  immobilien.static.ts<br>
+*  [immobilien.static.ts](doc/immobilien.static.md)<br>
 *Statische Nipix-Anwendungskonfiguration und Daten. Beinhaltet Funktionen zum laden bzw. parsen der externen Konfiguration (loadConfig), Gemeinden (parseGemeinden), GeoJSON mit NipixDaten (procMap) und stellt diese statische Konfiguration der Anwendung zur Verfügung*
 
-*  immobilien.runtime.ts<br>
+*  [immobilien.runtime.ts](doc/immobilien.runtime.md)<br>
 *Laufzeitkonfiguration der Nipix-Anwendung. Beinhaltet Funktionen zum Erzeugen und Ändern von Laufzeitdaten (translage, translateArray, resetDrawPresets, updateAvailableNipixCategories, updateAvailableQuartal, toggleNipixCategory, getDrawPreset, highlightTimeout, resetHighlight, highlightSeries, calculateDrawData, updateRange, updateMapSelect).*
 
-*  immobilien.runtime-calculator.ts<br>
+*  [immobilien.runtime-calculator.ts](doc/immobilien.runtime-calculator.md)<br>
 *Funktionen zur Berechnung von Laufzeitdaten: calculateDrawData*
 
 ### Installation

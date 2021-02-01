@@ -1,8 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.helper](../../modules/immobilien/immobilien.immobilien_immobilien_helper.md) / ImmobilienHelper
+[immobilien](../README.md) / ImmobilienHelper
 
 # Class: ImmobilienHelper
-
-[immobilien/immobilien.helper](../../modules/immobilien/immobilien.immobilien_immobilien_helper.md).ImmobilienHelper
 
 ## Hierarchy
 
@@ -12,31 +10,31 @@
 
 ### Constructors
 
-- [constructor](immobilien.helper.immobilienhelper.md#constructor)
+- [constructor](immobilien.helper.md#constructor)
 
 ### Methods
 
-- [appendLeadingZeroes](immobilien.helper.immobilienhelper.md#appendleadingzeroes)
-- [componentToHex](immobilien.helper.immobilienhelper.md#componenttohex)
-- [convertArrayToCSV](immobilien.helper.immobilienhelper.md#convertarraytocsv)
-- [convertColor](immobilien.helper.immobilienhelper.md#convertcolor)
-- [convertRemToPixels](immobilien.helper.immobilienhelper.md#convertremtopixels)
-- [downloadFile](immobilien.helper.immobilienhelper.md#downloadfile)
-- [getDate](immobilien.helper.immobilienhelper.md#getdate)
-- [getGeometryArray](immobilien.helper.immobilienhelper.md#getgeometryarray)
-- [getSingleFeature](immobilien.helper.immobilienhelper.md#getsinglefeature)
-- [modifyColor](immobilien.helper.immobilienhelper.md#modifycolor)
-- [parseStringAsFloat](immobilien.helper.immobilienhelper.md#parsestringasfloat)
-- [resolve](immobilien.helper.immobilienhelper.md#resolve)
-- [rgbToHex](immobilien.helper.immobilienhelper.md#rgbtohex)
+- [appendLeadingZeroes](immobilien.helper.md#appendleadingzeroes)
+- [componentToHex](immobilien.helper.md#componenttohex)
+- [convertArrayToCSV](immobilien.helper.md#convertarraytocsv)
+- [convertColor](immobilien.helper.md#convertcolor)
+- [convertRemToPixels](immobilien.helper.md#convertremtopixels)
+- [downloadFile](immobilien.helper.md#downloadfile)
+- [getDate](immobilien.helper.md#getdate)
+- [getGeometryArray](immobilien.helper.md#getgeometryarray)
+- [getSingleFeature](immobilien.helper.md#getsinglefeature)
+- [modifyColor](immobilien.helper.md#modifycolor)
+- [parseStringAsFloat](immobilien.helper.md#parsestringasfloat)
+- [resolve](immobilien.helper.md#resolve)
+- [rgbToHex](immobilien.helper.md#rgbtohex)
 
 ## Constructors
 
 ### constructor
 
-\+ **new ImmobilienHelper**(): [*ImmobilienHelper*](immobilien.helper.immobilienhelper.md)
+\+ **new ImmobilienHelper**(): [*ImmobilienHelper*](immobilien.helper.md)
 
-**Returns:** [*ImmobilienHelper*](immobilien.helper.immobilienhelper.md)
+**Returns:** [*ImmobilienHelper*](immobilien.helper.md)
 
 ## Methods
 

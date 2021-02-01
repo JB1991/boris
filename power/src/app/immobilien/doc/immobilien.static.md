@@ -1,8 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.static](../../modules/immobilien/immobilien.immobilien_immobilien_static.md) / NipixStatic
+[immobilien](../README.md) / NipixStatic
 
 # Class: NipixStatic
-
-[immobilien/immobilien.static](../../modules/immobilien/immobilien.immobilien_immobilien_static.md).NipixStatic
 
 ## Hierarchy
 
@@ -12,30 +10,30 @@
 
 ### Constructors
 
-- [constructor](immobilien.static.nipixstatic.md#constructor)
+- [constructor](immobilien.static.md#constructor)
 
 ### Properties
 
-- [agnbUrl](immobilien.static.nipixstatic.md#agnburl)
-- [chartExportWidth](immobilien.static.nipixstatic.md#chartexportwidth)
-- [data](immobilien.static.nipixstatic.md#data)
-- [layoutRtl](immobilien.static.nipixstatic.md#layoutrtl)
-- [referenceDate](immobilien.static.nipixstatic.md#referencedate)
-- [textOptions](immobilien.static.nipixstatic.md#textoptions)
+- [agnbUrl](immobilien.static.md#agnburl)
+- [chartExportWidth](immobilien.static.md#chartexportwidth)
+- [data](immobilien.static.md#data)
+- [layoutRtl](immobilien.static.md#layoutrtl)
+- [referenceDate](immobilien.static.md#referencedate)
+- [textOptions](immobilien.static.md#textoptions)
 
 ### Methods
 
-- [loadConfig](immobilien.static.nipixstatic.md#loadconfig)
-- [parseGemeinden](immobilien.static.nipixstatic.md#parsegemeinden)
-- [procMap](immobilien.static.nipixstatic.md#procmap)
+- [loadConfig](immobilien.static.md#loadconfig)
+- [parseGemeinden](immobilien.static.md#parsegemeinden)
+- [procMap](immobilien.static.md#procmap)
 
 ## Constructors
 
 ### constructor
 
-\+ **new NipixStatic**(): [*NipixStatic*](immobilien.static.nipixstatic.md)
+\+ **new NipixStatic**(): [*NipixStatic*](immobilien.static.md)
 
-**Returns:** [*NipixStatic*](immobilien.static.nipixstatic.md)
+**Returns:** [*NipixStatic*](immobilien.static.md)
 
 Defined in: immobilien/immobilien.static.ts:46
 

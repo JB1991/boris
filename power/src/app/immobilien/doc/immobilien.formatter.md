@@ -1,8 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.formatter](../../modules/immobilien/immobilien.immobilien_immobilien_formatter.md) / ImmobilienFormatter
+[immobilien](../README.md) / ImmobilienFormatter
 
 # Class: ImmobilienFormatter
-
-[immobilien/immobilien.formatter](../../modules/immobilien/immobilien.immobilien_immobilien_formatter.md).ImmobilienFormatter
 
 ## Hierarchy
 
@@ -12,34 +10,34 @@
 
 ### Constructors
 
-- [constructor](immobilien.formatter.immobilienformatter.md#constructor)
+- [constructor](immobilien.formatter.md#constructor)
 
 ### Properties
 
-- [legendposition](immobilien.formatter.immobilienformatter.md#legendposition)
-- [nipixRuntime](immobilien.formatter.immobilienformatter.md#nipixruntime)
-- [nipixStatic](immobilien.formatter.immobilienformatter.md#nipixstatic)
+- [legendposition](immobilien.formatter.md#legendposition)
+- [nipixRuntime](immobilien.formatter.md#nipixruntime)
+- [nipixStatic](immobilien.formatter.md#nipixstatic)
 
 ### Methods
 
-- [chartTooltipFormatter](immobilien.formatter.immobilienformatter.md#charttooltipformatter)
-- [findName](immobilien.formatter.immobilienformatter.md#findname)
-- [formatLabel](immobilien.formatter.immobilienformatter.md#formatlabel)
-- [formatLegend](immobilien.formatter.immobilienformatter.md#formatlegend)
-- [getSeriesColor](immobilien.formatter.immobilienformatter.md#getseriescolor)
-- [getSeriesLabel](immobilien.formatter.immobilienformatter.md#getserieslabel)
-- [graphicLegend](immobilien.formatter.immobilienformatter.md#graphiclegend)
-- [graphicLegendMulti](immobilien.formatter.immobilienformatter.md#graphiclegendmulti)
-- [graphicLegendMultiSelect](immobilien.formatter.immobilienformatter.md#graphiclegendmultiselect)
-- [graphicLegendSingle](immobilien.formatter.immobilienformatter.md#graphiclegendsingle)
-- [mapTooltipFormatter](immobilien.formatter.immobilienformatter.md#maptooltipformatter)
-- [simpleLegend](immobilien.formatter.immobilienformatter.md#simplelegend)
+- [chartTooltipFormatter](immobilien.formatter.md#charttooltipformatter)
+- [findName](immobilien.formatter.md#findname)
+- [formatLabel](immobilien.formatter.md#formatlabel)
+- [formatLegend](immobilien.formatter.md#formatlegend)
+- [getSeriesColor](immobilien.formatter.md#getseriescolor)
+- [getSeriesLabel](immobilien.formatter.md#getserieslabel)
+- [graphicLegend](immobilien.formatter.md#graphiclegend)
+- [graphicLegendMulti](immobilien.formatter.md#graphiclegendmulti)
+- [graphicLegendMultiSelect](immobilien.formatter.md#graphiclegendmultiselect)
+- [graphicLegendSingle](immobilien.formatter.md#graphiclegendsingle)
+- [mapTooltipFormatter](immobilien.formatter.md#maptooltipformatter)
+- [simpleLegend](immobilien.formatter.md#simplelegend)
 
 ## Constructors
 
 ### constructor
 
-\+ **new ImmobilienFormatter**(`niStatic`: [*NipixStatic*](immobilien.static.nipixstatic.md), `niRuntime`: [*NipixRuntime*](immobilien.runtime.nipixruntime.md)): [*ImmobilienFormatter*](immobilien.formatter.immobilienformatter.md)
+\+ **new ImmobilienFormatter**(`niStatic`: [*NipixStatic*](immobilien.static.nipixstatic.md), `niRuntime`: [*NipixRuntime*](immobilien.runtime.nipixruntime.md)): [*ImmobilienFormatter*](immobilien.formatter.md)
 
 #### Parameters:
 
@@ -48,7 +46,7 @@ Name | Type |
 `niStatic` | [*NipixStatic*](immobilien.static.nipixstatic.md) |
 `niRuntime` | [*NipixRuntime*](immobilien.runtime.nipixruntime.md) |
 
-**Returns:** [*ImmobilienFormatter*](immobilien.formatter.immobilienformatter.md)
+**Returns:** [*ImmobilienFormatter*](immobilien.formatter.md)
 
 Defined in: immobilien/immobilien.formatter.ts:11
 

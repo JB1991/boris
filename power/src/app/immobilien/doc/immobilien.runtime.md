@@ -1,8 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.runtime](../../modules/immobilien/immobilien.immobilien_immobilien_runtime.md) / NipixRuntime
+[immobilien](../README.md) / NipixRuntime
 
 # Class: NipixRuntime
-
-[immobilien/immobilien.runtime](../../modules/immobilien/immobilien.immobilien_immobilien_runtime.md).NipixRuntime
 
 ## Hierarchy
 
@@ -12,45 +10,45 @@
 
 ### Constructors
 
-- [constructor](immobilien.runtime.nipixruntime.md#constructor)
+- [constructor](immobilien.runtime.md#constructor)
 
 ### Properties
 
-- [availableNipixCategories](immobilien.runtime.nipixruntime.md#availablenipixcategories)
-- [availableQuartal](immobilien.runtime.nipixruntime.md#availablequartal)
-- [calculated](immobilien.runtime.nipixruntime.md#calculated)
-- [calculator](immobilien.runtime.nipixruntime.md#calculator)
-- [chart](immobilien.runtime.nipixruntime.md#chart)
-- [drawPresets](immobilien.runtime.nipixruntime.md#drawpresets)
-- [export](immobilien.runtime.nipixruntime.md#export)
-- [formatter](immobilien.runtime.nipixruntime.md#formatter)
-- [highlightedTimeout](immobilien.runtime.nipixruntime.md#highlightedtimeout)
-- [locale](immobilien.runtime.nipixruntime.md#locale)
-- [map](immobilien.runtime.nipixruntime.md#map)
-- [nipixStatic](immobilien.runtime.nipixruntime.md#nipixstatic)
-- [state](immobilien.runtime.nipixruntime.md#state)
+- [availableNipixCategories](immobilien.runtime.md#availablenipixcategories)
+- [availableQuartal](immobilien.runtime.md#availablequartal)
+- [calculated](immobilien.runtime.md#calculated)
+- [calculator](immobilien.runtime.md#calculator)
+- [chart](immobilien.runtime.md#chart)
+- [drawPresets](immobilien.runtime.md#drawpresets)
+- [export](immobilien.runtime.md#export)
+- [formatter](immobilien.runtime.md#formatter)
+- [highlightedTimeout](immobilien.runtime.md#highlightedtimeout)
+- [locale](immobilien.runtime.md#locale)
+- [map](immobilien.runtime.md#map)
+- [nipixStatic](immobilien.runtime.md#nipixstatic)
+- [state](immobilien.runtime.md#state)
 
 ### Methods
 
-- [calculateDrawData](immobilien.runtime.nipixruntime.md#calculatedrawdata)
-- [getDrawPreset](immobilien.runtime.nipixruntime.md#getdrawpreset)
-- [highlightSeries](immobilien.runtime.nipixruntime.md#highlightseries)
-- [highlightTimeout](immobilien.runtime.nipixruntime.md#highlighttimeout)
-- [resetDrawPresets](immobilien.runtime.nipixruntime.md#resetdrawpresets)
-- [resetHighlight](immobilien.runtime.nipixruntime.md#resethighlight)
-- [toggleNipixCategory](immobilien.runtime.nipixruntime.md#togglenipixcategory)
-- [translate](immobilien.runtime.nipixruntime.md#translate)
-- [translateArray](immobilien.runtime.nipixruntime.md#translatearray)
-- [updateAvailableNipixCategories](immobilien.runtime.nipixruntime.md#updateavailablenipixcategories)
-- [updateAvailableQuartal](immobilien.runtime.nipixruntime.md#updateavailablequartal)
-- [updateMapSelect](immobilien.runtime.nipixruntime.md#updatemapselect)
-- [updateRange](immobilien.runtime.nipixruntime.md#updaterange)
+- [calculateDrawData](immobilien.runtime.md#calculatedrawdata)
+- [getDrawPreset](immobilien.runtime.md#getdrawpreset)
+- [highlightSeries](immobilien.runtime.md#highlightseries)
+- [highlightTimeout](immobilien.runtime.md#highlighttimeout)
+- [resetDrawPresets](immobilien.runtime.md#resetdrawpresets)
+- [resetHighlight](immobilien.runtime.md#resethighlight)
+- [toggleNipixCategory](immobilien.runtime.md#togglenipixcategory)
+- [translate](immobilien.runtime.md#translate)
+- [translateArray](immobilien.runtime.md#translatearray)
+- [updateAvailableNipixCategories](immobilien.runtime.md#updateavailablenipixcategories)
+- [updateAvailableQuartal](immobilien.runtime.md#updateavailablequartal)
+- [updateMapSelect](immobilien.runtime.md#updatemapselect)
+- [updateRange](immobilien.runtime.md#updaterange)
 
 ## Constructors
 
 ### constructor
 
-\+ **new NipixRuntime**(`niStatic`: [*NipixStatic*](immobilien.static.nipixstatic.md)): [*NipixRuntime*](immobilien.runtime.nipixruntime.md)
+\+ **new NipixRuntime**(`niStatic`: [*NipixStatic*](immobilien.static.nipixstatic.md)): [*NipixRuntime*](immobilien.runtime.md)
 
 #### Parameters:
 
@@ -58,7 +56,7 @@ Name | Type |
 ------ | ------ |
 `niStatic` | [*NipixStatic*](immobilien.static.nipixstatic.md) |
 
-**Returns:** [*NipixRuntime*](immobilien.runtime.nipixruntime.md)
+**Returns:** [*NipixRuntime*](immobilien.runtime.md)
 
 Defined in: immobilien/immobilien.runtime.ts:120
 

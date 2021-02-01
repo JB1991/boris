@@ -1,8 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.runtime-calculator](../../modules/immobilien/immobilien.immobilien_immobilien_runtime_calculator.md) / NipixRuntimeCalculator
+[immobilien](../README.md) / NipixRuntimeCalculator
 
 # Class: NipixRuntimeCalculator
-
-[immobilien/immobilien.runtime-calculator](../../modules/immobilien/immobilien.immobilien_immobilien_runtime_calculator.md).NipixRuntimeCalculator
 
 ## Hierarchy
 
@@ -12,28 +10,28 @@
 
 ### Constructors
 
-- [constructor](immobilien.runtime-calculator.nipixruntimecalculator.md#constructor)
+- [constructor](immobilien.runtime-calculator.md#constructor)
 
 ### Properties
 
-- [nipixRuntime](immobilien.runtime-calculator.nipixruntimecalculator.md#nipixruntime)
-- [nipixStatic](immobilien.runtime-calculator.nipixruntimecalculator.md#nipixstatic)
+- [nipixRuntime](immobilien.runtime-calculator.md#nipixruntime)
+- [nipixStatic](immobilien.runtime-calculator.md#nipixstatic)
 
 ### Methods
 
-- [calculateDrawData](immobilien.runtime-calculator.nipixruntimecalculator.md#calculatedrawdata)
-- [calculateDrawDataAggr](immobilien.runtime-calculator.nipixruntimecalculator.md#calculatedrawdataaggr)
-- [calculateDrawDataAggrDate](immobilien.runtime-calculator.nipixruntimecalculator.md#calculatedrawdataaggrdate)
-- [calculateDrawDataAggrIterate](immobilien.runtime-calculator.nipixruntimecalculator.md#calculatedrawdataaggriterate)
-- [calculateDrawDataSingle](immobilien.runtime-calculator.nipixruntimecalculator.md#calculatedrawdatasingle)
-- [calculateDrawDataSingleOnRef](immobilien.runtime-calculator.nipixruntimecalculator.md#calculatedrawdatasingleonref)
-- [calculateDrawDataSinglePush](immobilien.runtime-calculator.nipixruntimecalculator.md#calculatedrawdatasinglepush)
+- [calculateDrawData](immobilien.runtime-calculator.md#calculatedrawdata)
+- [calculateDrawDataAggr](immobilien.runtime-calculator.md#calculatedrawdataaggr)
+- [calculateDrawDataAggrDate](immobilien.runtime-calculator.md#calculatedrawdataaggrdate)
+- [calculateDrawDataAggrIterate](immobilien.runtime-calculator.md#calculatedrawdataaggriterate)
+- [calculateDrawDataSingle](immobilien.runtime-calculator.md#calculatedrawdatasingle)
+- [calculateDrawDataSingleOnRef](immobilien.runtime-calculator.md#calculatedrawdatasingleonref)
+- [calculateDrawDataSinglePush](immobilien.runtime-calculator.md#calculatedrawdatasinglepush)
 
 ## Constructors
 
 ### constructor
 
-\+ **new NipixRuntimeCalculator**(`niStatic`: [*NipixStatic*](immobilien.static.nipixstatic.md), `niRuntime`: [*NipixRuntime*](immobilien.runtime.nipixruntime.md)): [*NipixRuntimeCalculator*](immobilien.runtime-calculator.nipixruntimecalculator.md)
+\+ **new NipixRuntimeCalculator**(`niStatic`: [*NipixStatic*](immobilien.static.nipixstatic.md), `niRuntime`: [*NipixRuntime*](immobilien.runtime.nipixruntime.md)): [*NipixRuntimeCalculator*](immobilien.runtime-calculator.md)
 
 #### Parameters:
 
@@ -42,7 +40,7 @@ Name | Type |
 `niStatic` | [*NipixStatic*](immobilien.static.nipixstatic.md) |
 `niRuntime` | [*NipixRuntime*](immobilien.runtime.nipixruntime.md) |
 
-**Returns:** [*NipixRuntimeCalculator*](immobilien.runtime-calculator.nipixruntimecalculator.md)
+**Returns:** [*NipixRuntimeCalculator*](immobilien.runtime-calculator.md)
 
 Defined in: immobilien/immobilien.runtime-calculator.ts:10
 

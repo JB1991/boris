@@ -1,8 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.utils](../../modules/immobilien/immobilien.immobilien_immobilien_utils.md) / ImmobilienUtils
+[immobilien](../README.md) / ImmobilienUtils
 
 # Class: ImmobilienUtils
-
-[immobilien/immobilien.utils](../../modules/immobilien/immobilien.immobilien_immobilien_utils.md).ImmobilienUtils
 
 ## Hierarchy
 
@@ -12,28 +10,28 @@
 
 ### Constructors
 
-- [constructor](immobilien.utils.immobilienutils.md#constructor)
+- [constructor](immobilien.utils.md#constructor)
 
 ### Methods
 
-- [dispatchMapSelect](immobilien.utils.immobilienutils.md#dispatchmapselect)
-- [generateDotElement](immobilien.utils.immobilienutils.md#generatedotelement)
-- [generateDrawSeriesData](immobilien.utils.immobilienutils.md#generatedrawseriesdata)
-- [generateSeries](immobilien.utils.immobilienutils.md#generateseries)
-- [generateSeriesGS](immobilien.utils.immobilienutils.md#generateseriesgs)
-- [generateTextElement](immobilien.utils.immobilienutils.md#generatetextelement)
-- [getDateArray](immobilien.utils.immobilienutils.md#getdatearray)
-- [getMyMapRegionen](immobilien.utils.immobilienutils.md#getmymapregionen)
-- [getMyMapRegionenGR](immobilien.utils.immobilienutils.md#getmymapregionengr)
-- [modifyRegionen](immobilien.utils.immobilienutils.md#modifyregionen)
+- [dispatchMapSelect](immobilien.utils.md#dispatchmapselect)
+- [generateDotElement](immobilien.utils.md#generatedotelement)
+- [generateDrawSeriesData](immobilien.utils.md#generatedrawseriesdata)
+- [generateSeries](immobilien.utils.md#generateseries)
+- [generateSeriesGS](immobilien.utils.md#generateseriesgs)
+- [generateTextElement](immobilien.utils.md#generatetextelement)
+- [getDateArray](immobilien.utils.md#getdatearray)
+- [getMyMapRegionen](immobilien.utils.md#getmymapregionen)
+- [getMyMapRegionenGR](immobilien.utils.md#getmymapregionengr)
+- [modifyRegionen](immobilien.utils.md#modifyregionen)
 
 ## Constructors
 
 ### constructor
 
-\+ **new ImmobilienUtils**(): [*ImmobilienUtils*](immobilien.utils.immobilienutils.md)
+\+ **new ImmobilienUtils**(): [*ImmobilienUtils*](immobilien.utils.md)
 
-**Returns:** [*ImmobilienUtils*](immobilien.utils.immobilienutils.md)
+**Returns:** [*ImmobilienUtils*](immobilien.utils.md)
 
 ## Methods
 

@@ -1,8 +1,6 @@
-[power](../../doc.md) / [Exports](../../modules.md) / [immobilien/immobilien.chartoptions](../../modules/immobilien/immobilien.immobilien_immobilien_chartoptions.md) / ImmobilienChartOptions
+[immobilien](../README.md) / ImmobilienChartOptions
 
 # Class: ImmobilienChartOptions
-
-[immobilien/immobilien.chartoptions](../../modules/immobilien/immobilien.immobilien_immobilien_chartoptions.md).ImmobilienChartOptions
 
 ## Hierarchy
 
@@ -12,27 +10,27 @@
 
 ### Constructors
 
-- [constructor](immobilien.chartoptions.immobilienchartoptions.md#constructor)
+- [constructor](immobilien.chartoptions.md#constructor)
 
 ### Properties
 
-- [mergeHide](immobilien.chartoptions.immobilienchartoptions.md#mergehide)
-- [mergeShow](immobilien.chartoptions.immobilienchartoptions.md#mergeshow)
+- [mergeHide](immobilien.chartoptions.md#mergehide)
+- [mergeShow](immobilien.chartoptions.md#mergeshow)
 
 ### Methods
 
-- [chartRange](immobilien.chartoptions.immobilienchartoptions.md#chartrange)
-- [getChartOptions](immobilien.chartoptions.immobilienchartoptions.md#getchartoptions)
-- [getChartOptionsMerge](immobilien.chartoptions.immobilienchartoptions.md#getchartoptionsmerge)
-- [getMapOptions](immobilien.chartoptions.immobilienchartoptions.md#getmapoptions)
+- [chartRange](immobilien.chartoptions.md#chartrange)
+- [getChartOptions](immobilien.chartoptions.md#getchartoptions)
+- [getChartOptionsMerge](immobilien.chartoptions.md#getchartoptionsmerge)
+- [getMapOptions](immobilien.chartoptions.md#getmapoptions)
 
 ## Constructors
 
 ### constructor
 
-\+ **new ImmobilienChartOptions**(): [*ImmobilienChartOptions*](immobilien.chartoptions.immobilienchartoptions.md)
+\+ **new ImmobilienChartOptions**(): [*ImmobilienChartOptions*](immobilien.chartoptions.md)
 
-**Returns:** [*ImmobilienChartOptions*](immobilien.chartoptions.immobilienchartoptions.md)
+**Returns:** [*ImmobilienChartOptions*](immobilien.chartoptions.md)
 
 ## Properties
 
