@@ -278,7 +278,8 @@
             <table class="table table-hover m-0">
                 <thead>
                     <tr>
-                        <th scope="col"
+                        <th *ngIf="form.access !== 'public'"
+                            scope="col"
                             (click)="changeTaskSort('pin')"
                             class="border-top-0">
                             <span role="button"
