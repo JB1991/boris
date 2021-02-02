@@ -19,11 +19,13 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedAcc = true;
     public isCollapsedBRW = true;
     public isCollapsedImmo = true;
-    public showPrintNotice = true;
+    public showBrowserNotice = true;
+    public showOfflineNotice = true;
     public show = false;
     public name: string;
     public config: Config;
     public appVersion: any = { version: 'local', branch: 'dev' };
+    public hasInternet = navigator.onLine;
     public uri = location;
     public baseurl = location.pathname + location.search;
     private _subscription: Subscription;
@@ -70,7 +72,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             }
         }, error => {
             // failed to load
-            console.log(error);
+            console.error('could not load version.json');
             this.appVersion = { version: 'local', branch: 'offline' };
             this.configService.appVersion = this.appVersion;
         });
@@ -78,7 +80,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         // disable warning for known browsers
         /* istanbul ignore else */
         if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
-            this.showPrintNotice = false;
+            this.showBrowserNotice = false;
         }
     }
 
