@@ -16,7 +16,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         if (chunkFailedMessage.test(error.message)) {
             console.log(error);
             // this.us.cleanupServiceWorker();
-            window.location.reload();
+            this.reload();
             return;
         }
 
@@ -30,5 +30,13 @@ export class GlobalErrorHandler implements ErrorHandler {
         // (this.locale === 'de' ? '' : '/' + this.locale));
         // console.error(error);
         throw error;
+    }
+
+    /**
+     * Reloads page
+     */
+    /* istanbul ignore next */
+    public reload() {
+        window.location.reload();
     }
 }

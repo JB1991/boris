@@ -49,6 +49,7 @@ export class TagboxComponent {
      * @param i Tag number
      */
     public removeTag(i: number) {
+        /* istanbul ignore else */
         if (this.tagList) {
             if (i < 0 || i >= this.tagList.length) {
                 throw new Error('Invalid i');
