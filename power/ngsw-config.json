@@ -10,8 +10,7 @@
                     "/index.html",
                     "/manifest.webmanifest",
                     "/*.css",
-                    "/*.js",
-                    "!/ngsw.json"
+                    "/*.js"
                 ]
             }
         },
@@ -23,7 +22,8 @@
                 "files": [
                     "/assets/**",
                     "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
-                    "!/assets/config/config.json"
+                    "!/assets/config/config.json",
+                    "!/assets/version.json"
                 ],
                 "urls": [
                     "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/**"
