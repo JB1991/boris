@@ -10,6 +10,13 @@ export class UpdateService {
         // check for update
         if (updates.isEnabled) {
             this.updates.checkForUpdate();
+
+            // handle an unrecoverable state
+            updates.unrecoverable.subscribe(event => {
+                console.log(event);
+                // this.cleanupServiceWorker();
+                window.location.reload();
+            });
         }
     }
 
@@ -21,7 +28,9 @@ export class UpdateService {
             // subscribe to updates
             this.updates.available.subscribe(event => {
                 // do update
+                console.log(event);
                 this.updates.activateUpdate().then(() => {
+                    console.log('Reloading to complete update');
                     // this.cleanupServiceWorker();
                     window.location.reload();
                 });
@@ -33,6 +42,8 @@ export class UpdateService {
      * Deletes cache and unregisters service worker
      */
     public cleanupServiceWorker() {
+        console.log('Deleting cache and service workers');
+
         // delete cache
         if ('caches' in window) {
             caches.keys().then(keyList => Promise.all(keyList.map(key => caches.delete(key))));
