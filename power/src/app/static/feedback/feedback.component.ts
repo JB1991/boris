@@ -32,6 +32,7 @@ export class FeedbackComponent implements OnInit {
     /**
      * Loads RSS feed XML from gitlab
      */
+    /* istanbul ignore next */
     public async loadRSSFeed() {
         // craft uri
         let uri = '/feedback-rss/?state=' + encodeURIComponent(this.stateFilter);

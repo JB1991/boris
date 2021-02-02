@@ -71,6 +71,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
 
         // disable warning for known browsers
+        /* istanbul ignore else */
         if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
             this.showPrintNotice = false;
         }

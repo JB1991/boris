@@ -8,10 +8,12 @@ export class UpdateService {
 
     constructor(public updates: SwUpdate) {
         // check for update
+        /* istanbul ignore else */
         if (updates.isEnabled) {
             this.updates.checkForUpdate();
 
             // handle an unrecoverable state
+            /* istanbul ignore next */
             updates.unrecoverable.subscribe(event => {
                 console.log(event);
                 // this.cleanupServiceWorker();
@@ -24,8 +26,10 @@ export class UpdateService {
      * Checks for update and reloads
      */
     public checkForUpdates() {
+        /* istanbul ignore else */
         if (this.updates.isEnabled) {
             // subscribe to updates
+            /* istanbul ignore next */
             this.updates.available.subscribe(event => {
                 // do update
                 console.log(event);
@@ -41,6 +45,7 @@ export class UpdateService {
     /**
      * Deletes cache and unregisters service worker
      */
+    /* istanbul ignore next */
     public cleanupServiceWorker() {
         console.log('Deleting cache and service workers');
 
