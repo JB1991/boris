@@ -68,6 +68,11 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 this.appVersion = data;
                 this.configService.appVersion = data;
             }
+        }, error => {
+            // failed to load
+            console.log(error);
+            this.appVersion = { version: 'local', branch: 'offline' };
+            this.configService.appVersion = this.appVersion;
         });
 
         // disable warning for known browsers
