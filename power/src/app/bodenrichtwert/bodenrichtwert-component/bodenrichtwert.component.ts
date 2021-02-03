@@ -18,7 +18,7 @@ import proj4 from 'proj4';
 @Component({
     selector: 'power-main',
     templateUrl: 'bodenrichtwert.component.html',
-    styleUrls: ['bodenrichtwert.component.css'],
+    styleUrls: ['bodenrichtwert.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertComponent implements OnDestroy {

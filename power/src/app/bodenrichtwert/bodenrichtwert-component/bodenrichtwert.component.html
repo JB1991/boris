@@ -62,7 +62,8 @@
 <div class="container-fluid p-0 m-0">
     <div class="row m-0">
         <div id="mapWrapper"
-             [class]="isCollapsed ? 'col-12 map-collapsed' : 'col-lg-6 map'">
+             class="border-bottom"
+             [class]="!adresse && !features ? 'col-36 map-default' : isCollapsed ? 'col-lg-35 col-md-36 map-collapsed' : 'col-lg-17 map'">
             <power-bodenrichtwertkarte #map
                                        [(isCollapsed)]="isCollapsed"
                                        [collapsed]="collapsed"
@@ -73,29 +74,49 @@
                                        [(teilmarkt)]="teilmarkt"
                                        [(flurstueck)]="flurstueck"></power-bodenrichtwertkarte>
         </div>
-        <div [class]="isCollapsed ? 'col-12 border-top' : 'col-lg-6 height-lg'">
-            <div class="row border">
+        <button *ngIf="adresse || features"
+                class="col-lg-1 btn d-none d-lg-block d-xxl-block p-0 border-left border-bottom"
+                type="button"
+                (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseBasic">
+            <img src="{{ isCollapsed ? '/assets/icons/chevron-left.svg' : '/assets/icons/chevron-right.svg'}}"
+                 alt="Einklappen/ausklappen"
+                 class="h-100 w-100"
+                 i18n-alt>
+        </button>
+        <div [class]="isCollapsed ? 'col-36 border-top' : 'col-lg-18 border-bottom'">
+            <div class="row border-bottom">
+                <!-- Case 1 -->
                 <div *ngIf="!adresse && !features"
-                     class="text-center p-0"
-                     [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'">
+                     class="text-center p-0 address-header"
+                     [class]="isCollapsed ? 'col-36' : 'col-36 col-sm-30'">
                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie eine Position</h5>
                 </div>
+                <button class="btn d-lg-none d-xxl-none col-md-2 m-0 p-0"
+                        type="button"
+                        (click)="isCollapsed = !isCollapsed"
+                        [attr.aria-expanded]="!isCollapsed"
+                        aria-controls="collapseBasic">
+                    <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
+                         width="80"
+                         height="25"
+                         alt="Einklappen/ausklappen"
+                         i18n-alt>
+                </button>
+                <!-- Case 2 -->
                 <button *ngIf="!adresse && features && features.features.length"
-                        class="btn btn-collapse p-0 w-100"
-                        [class]="isCollapsed ? 'col-12' : flurstueck ? 'col-12 col-sm-10 h-100' : 'col-12 col-sm-10'"
+                        class="btn p-0 address-header"
+                        [class]="isCollapsed ? 'd-lg-none d-xxl-none col-34' : 'col-lg-30 col-md-28 col-sm-32 col-36'"
                         type="button"
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseBasic">{{ features.features[0].properties.brzname}}
-                    <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
-                         width="25"
-                         height="25"
-                         alt="Einklappen/ausklappen"
-                         i18n-alt>
-                    <span *ngIf="flurstueck"
+                    <span *ngIf="flurstueck && flurstueck?.features.length"
                           [class.d-none]="isCollapsed"
-                          class="row justify-content-center mb-0">
+                          class="row justify-content-center mb-0"
+                          type="text">
                         <span class="col">
                             <small i18n>Flurstückskennzeichen</small>
                             <svg fill-rule="evenodd"
@@ -109,7 +130,7 @@
                                           stroke="#96999e"
                                           d="M 27.237147,57.888549 51.106583,52.026518 66.420364,96.500039 40.933018,96.903113 Z" />
                                 </g>
-                            </svg> :
+                            </svg> <small> :</small>
                             <span class="flurstueck">
                                 <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
                                     <small class="ml-2 mr-4"
@@ -135,37 +156,27 @@
                         </span>
                     </span>
                 </button>
+                <!-- Case 3 -->
                 <div *ngIf="!adresse && features && !features.features.length"
-                     class="text-center p-0"
-                     [class]="isCollapsed ? 'col-12' : 'col-12 col-sm-10'">
-                    <button class="btn btn-collapse w-100"
-                            type="button"
-                            (click)="isCollapsed = !isCollapsed"
-                            [attr.aria-expanded]="!isCollapsed"
-                            aria-controls="collapseBasic">
-                        <span i18n>Wählen Sie eine Position</span>
-                        <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
-                             width="25"
-                             height="25"
-                             alt="Einklappen/ausklappen"
-                             i18n-alt>
-                    </button>
+                     type="text"
+                     class="w-100 address-header address-header-c3"
+                     [class]="isCollapsed ? 'col-34' : 'col-lg-30 col-md-28 col-sm-32 col-32'">
+                    <h5 class="m-3 mx-center text-center"
+                        i18n>Wählen Sie eine Position</h5>
                 </div>
+                <!-- Case 4 -->
                 <button *ngIf="adresse"
-                        class="btn btn-collapse p-0 w-100"
-                        [class]="isCollapsed ? 'col-12' : flurstueck ? 'col-12 col-sm-10 h-100' : 'col-12 col-sm-10'"
-                        type="button"
+                        class="btn p-0 address-header"
+                        [class]="isCollapsed ? 'd-lg-none d-xxl-none col-34' : 'col-lg-30 col-md-28 col-sm-32 col-36'"
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
-                        aria-controls="collapseBasic">{{ adresse.properties.text }}
-                    <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
-                         width="25"
-                         height="25"
-                         alt="Einklappen/ausklappen"
-                         i18n-alt>
-                    <span *ngIf="flurstueck"
+                        aria-controls="collapseBasic"
+                        type="button">
+                    {{ adresse.properties.text }}
+                    <span *ngIf="flurstueck && flurstueck?.features.length"
                           [class.d-none]="isCollapsed"
-                          class="row justify-content-center mb-0">
+                          class="row justify-content-center mb-0"
+                          type="text">
                         <span class="col">
                             <small i18n>Flurstückskennzeichen</small>
                             <svg fill-rule="evenodd"
@@ -179,7 +190,7 @@
                                           stroke="#96999e"
                                           d="M 27.237147,57.888549 51.106583,52.026518 66.420364,96.500039 40.933018,96.903113 Z" />
                                 </g>
-                            </svg> :
+                            </svg> <small> :</small>
                             <span class="flurstueck">
                                 <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
                                     <small class="ml-2 mr-4"
@@ -206,7 +217,7 @@
                     </span>
                 </button>
                 <div *ngIf="!isCollapsed"
-                     class="col-12 col-sm-2 p-0 d-flex justify-content-end">
+                     class="col-md-6 col-sm-4 col-36 p-0 d-flex justify-content-end">
                     <a *ngIf="features?.features.length"
                        class="nav-link btn p-1 align-self-center"
                        role="button"
@@ -259,7 +270,7 @@
                  [class]="isCollapsed ? '' : 'details'">
                 <div #collapse
                      id="collapseBasic"
-                     class="p-0 col-12"
+                     class="p-0 col-36"
                      [collapse]="isCollapsed"
                      (collapsed)="onCollapsingEnds()"
                      (expanded)="onExpandingEnds()"
@@ -268,7 +279,7 @@
                         <div class="p-0"
                              *ngIf="features">
                             <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features.features.length"
-                                 class="text-center col-12">
+                                 class="text-center col-36">
                                 <p class="m-3 mx-center lead"
                                    i18n>Keine gültige Adresse!</p>
                                 <p class="m-3 mx-center lead"
@@ -281,25 +292,25 @@
                             </div>
                             <div [class]="hintsActive ? 'd-block' : 'd-none'">
                                 <div *ngIf="adresse || features.features.length"
-                                     class="col-12 text-center">
+                                     class="col-36 text-center">
                                     <p class="m-3 mx-center"
                                        i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
                                         Suchergebnisse
                                         von der Kartendarstellung abweichen.</p>
                                 </div>
                                 <div *ngIf="flurstueck"
-                                     class="text-center col-12">
+                                     class="text-center col-36">
                                     <p class="m-3 mx-center"
                                        i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich auf den
                                         aktuell ausgewählten Standort.</p>
                                 </div>
                                 <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"
-                                     class="text-center col-12">
+                                     class="text-center col-36">
                                     <p class="m-3 mx-center"
                                        i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
                                 </div>
                                 <div *ngIf="!adresse && features.features.length"
-                                     class="text-center col-12">
+                                     class="text-center col-36">
                                     <p class="m-3 mx-center"
                                        i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
                                         Adresse für diesen Standort gefunden werden.</p>
@@ -315,7 +326,7 @@
                         </div>
                         <div class="p-0"
                              [class.d-none]="!features">
-                            <power-bodenrichtwert-verlauf class="col-md-12 p-0"
+                            <power-bodenrichtwert-verlauf class="col-md-36 p-0"
                                                           [features]="features"></power-bodenrichtwert-verlauf>
                         </div>
                     </div>
