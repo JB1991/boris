@@ -9,7 +9,7 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 @Component({
     selector: 'power-forms-surveyjs-preview',
     templateUrl: './preview.component.html',
-    styleUrls: ['./preview.component.css'],
+    styleUrls: ['./preview.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreviewComponent {

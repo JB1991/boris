@@ -15,7 +15,7 @@ let id = 0;
     ],
     selector: 'power-forms-editor-conditions',
     templateUrl: './conditions.component.html',
-    styleUrls: ['./conditions.component.css'],
+    styleUrls: ['./conditions.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConditionsComponent implements OnInit, OnChanges {

@@ -5,7 +5,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 @Component({
     selector: 'power-forms-details-maketask',
     templateUrl: './maketask.component.html',
-    styleUrls: ['./maketask.component.css']
+    styleUrls: ['./maketask.component.scss']
 })
 export class MaketaskComponent {
     @Output() out = new EventEmitter<{

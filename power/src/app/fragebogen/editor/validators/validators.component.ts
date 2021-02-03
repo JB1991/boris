@@ -16,7 +16,7 @@ let id = 0;
     ],
     selector: 'power-forms-editor-validators',
     templateUrl: './validators.component.html',
-    styleUrls: ['./validators.component.css'],
+    styleUrls: ['./validators.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValidatorsComponent implements OnInit, OnChanges {

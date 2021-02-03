@@ -15,7 +15,7 @@ import { PublicForm, PublicTask } from '../formapi.model';
 @Component({
     selector: 'power-forms-fillout',
     templateUrl: './fillout.component.html',
-    styleUrls: ['./fillout.component.css']
+    styleUrls: ['./fillout.component.scss']
 })
 export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper: WrapperComponent;

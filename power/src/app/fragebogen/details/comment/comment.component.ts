@@ -6,7 +6,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 @Component({
     selector: 'power-forms-details-comment',
     templateUrl: './comment.component.html',
-    styleUrls: ['./comment.component.css']
+    styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent {
     @Output() out = new EventEmitter<{

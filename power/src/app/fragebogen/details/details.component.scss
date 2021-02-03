@@ -1,8 +1,7 @@
 .navigation {
-    display: inline-block;
     float: right;
 }
 
-/deep/ ul.pagination {
+ul.pagination {
     margin-bottom: 0 !important;
 }

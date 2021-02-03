@@ -16,7 +16,7 @@ import { PaginationComponent } from 'ngx-bootstrap/pagination';
 @Component({
     selector: 'power-forms-details',
     templateUrl: './details.component.html',
-    styleUrls: ['./details.component.css']
+    styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
     @ViewChild('commentmodal') public modal: ModalminiComponent;

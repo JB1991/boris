@@ -21,7 +21,7 @@ import { PreviewComponent } from '../surveyjs/preview/preview.component';
 @Component({
     selector: 'power-formulars-editor',
     templateUrl: './editor.component.html',
-    styleUrls: ['./editor.component.css'],
+    styleUrls: ['./editor.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
