@@ -372,6 +372,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     ];
 
     onMoveEnd() {
+        if (!this.map) {
+            return;
+        }
+
         if (this.teilmarkt.value.includes('B')) {
 
             this.landwirtschaftData.features = [];
@@ -443,31 +447,29 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         });
 
         const features: Array<GeoJSON.Feature<GeoJSON.Geometry>> = Object.keys(featureMap).map(key => {
-            if (featureMap[key].length === 1) {
-                return {
-                    type: 'Feature',
-                    geometry: featureMap[key][0].geometry,
-                    properties: featureMap[key][0].properties,
-                };
-            };
-            let properties = {};
+            const properties = featureMap[key][0].properties;
             let union: Polygon;
-            featureMap[key].forEach(f => {
-                if (union) {
-                    const u = turf.union(union, f.geometry);
-                    switch (u.geometry.type) {
-                        case 'Polygon':
-                            union = u.geometry;
-                            break;
-                        case 'MultiPolygon':
-                            union = getLargestPolygon(u.geometry);
-                            break;
-                    };
-                } else {
-                    properties = f.properties;
-                    union = f.geometry;
-                }
-            });
+
+            if (featureMap[key].length === 1) {
+                union = featureMap[key][0].geometry;
+            } else {
+
+                featureMap[key].forEach(f => {
+                    if (union) {
+                        const u = turf.union(union, f.geometry);
+                        switch (u.geometry.type) {
+                            case 'Polygon':
+                                union = u.geometry;
+                                break;
+                            case 'MultiPolygon':
+                                union = getLargestPolygon(u.geometry);
+                                break;
+                        };
+                    } else {
+                        union = f.geometry;
+                    }
+                });
+            };
 
             const featureView = turf.intersect({
                 type: 'Polygon',
