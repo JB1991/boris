@@ -87,6 +87,8 @@ config:
   modules:
     - "immobilienpreisindex"
     - "bodenrichtwerte"
+    - "bodenwertkalkulator"
     - "immobilienpreiskalkulator"
     - "grundstuecksmarktdaten"
+    - "feedback"
   authentication: true
