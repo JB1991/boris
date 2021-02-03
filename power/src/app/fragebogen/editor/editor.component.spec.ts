@@ -498,6 +498,55 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     });
 
     /**
+     * wsElementToPage
+     */
+    it('should move element to other page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        component.wsPageCreate();
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
+        expect(component.storage.model.pages[1].elements.length).toEqual(0);
+        component.wsElementToPage(0, 0, 1, 0);
+        expect(component.storage.model.pages[0].elements.length).toEqual(3);
+        expect(component.storage.model.pages[1].elements.length).toEqual(1);
+        expect(component.storage.model.pages[1].elements[0].type).toEqual('rating');
+    });
+
+    it('should crash move element to other page', () => {
+        component.storage.model = JSON.parse(JSON.stringify(formContent));
+        component.wsPageCreate();
+
+        expect(() => {
+            component.wsElementToPage(0, -1, 1, 0);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementToPage(0, 2, 1, 0);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.wsElementToPage(-1, 0, 1, 0);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.wsElementToPage(5, 0, 1, 0);
+        }).toThrowError('element is invalid');
+
+        expect(() => {
+            component.wsElementToPage(0, 0, -1, 0);
+        }).toThrowError('newPage is invalid');
+        expect(() => {
+            component.wsElementToPage(0, 0, 2, 0);
+        }).toThrowError('newPage is invalid');
+        expect(() => {
+            component.wsElementToPage(0, 0, 1, -1);
+        }).toThrowError('newElement is invalid');
+        expect(() => {
+            component.wsElementToPage(0, 0, 1, 3);
+        }).toThrowError('newElement is invalid');
+
+        expect(() => {
+            component.wsElementToPage(0, 0, 0);
+        }).toThrowError('newPage is invalid');
+    });
+
+    /**
      * onDropWorkspace
      */
     it('should drag and drop workspace', () => {

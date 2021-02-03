@@ -131,6 +131,13 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         });
     });
 
+    it('should crash to load data', (done) => {
+        component.loadData().catch(error => {
+            expect(error.toString()).toEqual('Error: pin is required');
+            done();
+        });
+    });
+
     /**
      * SUBMIT TASK
      */

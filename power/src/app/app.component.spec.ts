@@ -53,24 +53,22 @@ describe('AppComponent', () => {
         expect(app.appVersion.version).toEqual('local');
     }));
 
-    it('should load config', () => {
+    it('should load version', () => {
         app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         app.ngOnInit();
         answerHTTPRequest('/assets/version.json', 'GET', { version: '123456', branch: 'prod' });
-
-        expect(app.config).toBeTruthy();
-        expect(app.config.modules.length).toEqual(2);
         expect(app.appVersion).toEqual({ version: '123456', branch: 'prod' });
     });
 
-    it('should fail load config', () => {
-        // load config
-        app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
+    it('should fail load version', () => {
         app.ngOnInit();
-        answerHTTPRequest('/assets/version.json', 'GET', { branch: 'prod' });
+        answerHTTPRequest('/assets/version.json', 'GET', null, { status: 404, statusText: 'Not Found' });
+        expect(app.appVersion).toEqual({ version: 'local', branch: 'offline' });
+    });
 
-        expect(app.config).toBeTruthy();
-        expect(app.config.modules.length).toEqual(2);
+    it('should fail load version 2', () => {
+        app.ngOnInit();
+        answerHTTPRequest('/assets/version.json', 'GET', { branch: 'toast' });
         expect(app.appVersion).toEqual({ version: 'local', branch: 'dev' });
     });
 

@@ -84,6 +84,7 @@ export class FilloutComponent implements AfterViewInit {
             this.language = this.form.content.locale;
 
             // check if user language exists in survey
+            /* istanbul ignore next */
             if (this.wrapper && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
                 this.language = this.locale;
                 this.setLanguage();

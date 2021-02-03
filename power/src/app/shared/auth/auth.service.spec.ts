@@ -247,12 +247,16 @@ describe('Shared.Auth.AuthService', () => {
         expect(service.IsAuthorized(['user'], '123', ['xxx', 'toastbrot'])).toBeTrue();
 
         // user is admin
-        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_admin'], sub: 'abc' };
+        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_editor', 'form_api_admin'], sub: 'abc' };
         expect(service.IsAuthorized(['user'], '123', ['xxx', 'toastbrot'])).toBeTrue();
 
         // user is manager
-        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_editor', 'form_api_manager'], sub: 'abc' };
-        expect(service.IsAuthorized(['manager'], '123', ['xxx', 'toastbrot'])).toBeTrue();
+        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_manager', 'form_api_editor'], sub: 'abc' };
+        expect(service.IsAuthorized(['user', 'manager'], '123', ['xxx', 'toastbrot'])).toBeTrue();
+
+        // user has no access
+        service.user.data = { groups: [], roles: [], sub: 'abc' };
+        expect(service.IsAuthorized(['user'], '123', [])).toBeFalse();
     });
 
     /**
