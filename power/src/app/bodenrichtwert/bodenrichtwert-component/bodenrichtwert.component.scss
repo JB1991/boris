@@ -1,6 +1,7 @@
 $grid-columns: 36 !default;
+/* stylelint-disable */
 $grid-gutter-width: 0rem !default;
-
+/* stylelint-enable */
 .map {
     height: calc(100vh - 57px);
     padding: 0;
@@ -11,12 +12,11 @@ $grid-gutter-width: 0rem !default;
 }
 
 @media (max-width: 1305px) {
-
     .address-header {
         min-height: 77px !important;
         height: 100% !important;
     }
-    
+
     .address-header-c3 {
         transform: translate(8%, 15%) !important;
     }
@@ -24,11 +24,9 @@ $grid-gutter-width: 0rem !default;
     .details {
         height: calc(100vh - 134px) !important;
     }
-
-} 
+}
 
 @media (max-width: 991px) {
-
     .map {
         height: calc(100vh - 301px);
         padding: 0;
