@@ -58,6 +58,7 @@ export class WrapperComponent implements OnChanges {
         this.survey.onTextMarkdown.add((s, options) => {
             let str = options.text.split('\n\n').join('<br\><br\>');
             str = this.showdownConverter.makeHtml(str);
+            /* istanbul ignore else */
             if (str.startsWith('<p>')) {
                 str = str.substring(3);
                 str = str.substring(0, str.length - 4);
