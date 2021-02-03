@@ -171,8 +171,7 @@
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseBasic"
-                        type="button">
-                    {{ adresse.properties.text }}
+                        type="button">{{ adresse.properties.text }}
                     <span *ngIf="flurstueck && flurstueck?.features.length"
                           [class.d-none]="isCollapsed"
                           class="row justify-content-center mb-0"
