@@ -40,7 +40,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         public formapi: FormAPIService,
         public history: HistoryService,
         public cdr: ChangeDetectorRef) {
-        this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
+        this.titleService.setTitle($localize`Formular Editor - IMMOBILIENMARKT.NI`);
         this.storage.resetService();
         this.history.resetService();
     }

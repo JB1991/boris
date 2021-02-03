@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
         public auth: AuthService,
         public loadingscreen: LoadingscreenService,
         public alerts: AlertsService) {
-        this.titleService.setTitle($localize`Login - POWER.NI`);
+        this.titleService.setTitle($localize`Login - IMMOBILIENMARKT.NI`);
     }
 
     async ngOnInit() {

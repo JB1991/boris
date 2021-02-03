@@ -40,7 +40,7 @@ export class FilloutComponent implements AfterViewInit {
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public formapi: FormAPIService) {
-        this.titleService.setTitle($localize`Formulare - POWER.NI`);
+        this.titleService.setTitle($localize`Formulare - IMMOBILIENMARKT.NI`);
         this.resetService();
     }
 

@@ -46,7 +46,7 @@ describe('AppComponent', () => {
     }));
 
     it('should have "power" as title', waitForAsync(() => {
-        expect(app.title).toContain('power');
+        expect(app.title).toContain('IMMOBILIENMARKT.NI');
     }));
 
     it('should have a version number including a dot', waitForAsync(() => {

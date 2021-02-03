@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
         public loadingscreen: LoadingscreenService,
         public formAPI: FormAPIService
     ) {
-        this.titleService.setTitle($localize`Dashboard - POWER.NI`);
+        this.titleService.setTitle($localize`Dashboard - IMMOBILIENMARKT.NI`);
     }
 
     ngOnInit() {

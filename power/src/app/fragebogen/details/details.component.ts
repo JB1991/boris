@@ -48,7 +48,7 @@ export class DetailsComponent implements OnInit {
         public loadingscreen: LoadingscreenService,
         public formapi: FormAPIService,
         public auth: AuthService) {
-        this.titleService.setTitle($localize`Formular Details - POWER.NI`);
+        this.titleService.setTitle($localize`Formular Details - IMMOBILIENMARKT.NI`);
         this.resetService();
         this.id = this.route.snapshot.paramMap.get('id');
     }

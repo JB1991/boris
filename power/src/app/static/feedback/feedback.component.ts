@@ -22,7 +22,7 @@ export class FeedbackComponent implements OnInit {
     constructor(public titleService: Title,
         private httpClient: HttpClient,
         public auth: AuthService) {
-        this.titleService.setTitle($localize`Feedback - POWER.NI`);
+        this.titleService.setTitle($localize`Feedback - IMMOBILIENMARKT.NI`);
     }
 
     public async ngOnInit() {
