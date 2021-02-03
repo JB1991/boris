@@ -637,8 +637,9 @@ describe('Fragebogen.FormAPIService', () => {
             { 'cannot create tasks for forms with public access': 'Diese Aktion ist mit öffentlichen Formularen nicht möglich.' }
         ];
 
-        for (let item of testdata) {
-            expect(service.getErrorMessage({ error: { message: Object.keys(item)[0] } } as any)).toEqual(Object.values(item)[0]);
+        for (const item of testdata) {
+            expect(service.getErrorMessage({ error: { message: Object.keys(item)[0] } } as any))
+                .toEqual(Object.values(item)[0]);
         }
     });
 
