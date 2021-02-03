@@ -18,7 +18,7 @@ export class StartComponent implements OnInit {
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public configService: ConfigService) {
-        this.title.setTitle($localize`Portal für Wertermittlung Niedersachsen`);
+        this.title.setTitle($localize`IMMOBILIENMARKT.NI`);
         // check if logged out
         /* istanbul ignore next */
         this.route.queryParams.subscribe(params => {

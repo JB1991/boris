@@ -1,8 +1,8 @@
 {
     "name": "power",
     "version": "0.3.0",
-    "description": "Portal für Wertermittlung Niedersachsen",
-    "author": "Landesamt für Geoinformation und Landesvermessung Niedersachsen",
+    "description": "IMMOBILIENMARKT.NI",
+    "author": "Landesamt für Geoinformation und Landesvermessung Niedersachsen (LGLN)",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
