@@ -85,12 +85,13 @@ affinity: {}
 
 config:
   modules:
+    - "immobilienpreisindex"
     - "bodenrichtwerte"
     - "bodenwertkalkulator"
-    - "immobilienpreisindex"
+    - "forms"
     - "immobilienpreiskalkulator"
     - "grundstuecksmarktdaten"
-    - "forms"
     - "feedback"
     - "login"
+    - "logout"
   authentication: true
