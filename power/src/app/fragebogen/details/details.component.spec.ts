@@ -109,6 +109,13 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         });
     });
 
+    it('should crash updateForm', (done) => {
+        component.updateForm(false).catch(error => {
+            expect(error.toString()).toEqual('Error: id is required');
+            done();
+        });
+    });
+
     /**
      * DELETE FORM
      */
@@ -482,6 +489,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         component.updateFormEvent({
             id: '123',
             tags: ['Hello'],
+            groups: ['X'],
+            owner: 'A'
         }).then(() => {
             expect(component.updateForm).toHaveBeenCalledTimes(1);
             done();
@@ -493,7 +502,6 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateForm');
         component.updateFormEvent({
             id: '123',
-            tags: ['Hello'],
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
@@ -582,6 +590,49 @@ describe('Fragebogen.Details.DetailsComponent', () => {
             amount: 10,
             copy: true,
         }).then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    /**
+     * UPDATE group and users
+     */
+    it('should updateGroups', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'getGroups').and.returnValue(Promise.resolve({ groups: ['A'], total: 1, status: null }));
+
+        component.updateGroups().then(() => {
+            expect(component.availableGroups).toEqual(['A']);
+            done();
+        });
+    });
+
+    it('should updateUsers', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'getUsers').and.returnValue(Promise.resolve({ users: [{ name: 'X', id: '1' }], total: 1, status: null }));
+
+        component.updateUsers().then(() => {
+            expect(component.availableUsers).toEqual([{ name: 'X', id: '1' }]);
+            done();
+        });
+    });
+
+    it('should not updateGroups', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'getGroups').and.returnValue(Promise.reject('fail'));
+
+        component.updateGroups().then(() => {
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it('should not updateUsers', (done) => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        spyOn(component.formapi, 'getUsers').and.returnValue(Promise.reject('fail'));
+
+        component.updateUsers().then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });

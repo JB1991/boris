@@ -113,7 +113,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('createForm should succeed', (done) => {
         service.createForm({
-            content: formContent,
+            content: JSON.parse(JSON.stringify(formContent)),
         }).then((value) => {
             expect(value).toEqual(getForm);
             done();
@@ -124,7 +124,7 @@ describe('Fragebogen.FormAPIService', () => {
 
     it('updateForm should succeed', (done) => {
         service.updateForm('123', {
-            content: formContent,
+            content: JSON.parse(JSON.stringify(formContent)),
         }).then((value) => {
             expect(value).toEqual(getForm);
             done();
@@ -607,6 +607,39 @@ describe('Fragebogen.FormAPIService', () => {
             status: 400,
             statusText: 'bad request'
         });
+    });
+
+    /*
+        getErrorMessage
+    */
+    it('getErrorMessage', () => {
+        const testdata = [
+            { 'internal server': 'Server Fehler: Bitte versuchen Sie es erneut, sollte dies nicht helfen senden Sie uns bitte Feedback.' },
+            { 'invalid request body': 'Server Fehler: Die Anfrage an den Server war ungültig.' },
+            { 'not authorized': 'Um diese Aktion durchzuführen müssen Sie sich einloggen.' },
+            { 'too many tags': 'Bitte geben Sie nicht mehr als 5 Tags an.' },
+            { 'too many groups': 'Bitte geben Sie nicht mehr als 5 Gruppen an.' },
+            { 'element has no title: ': 'Bitte geben sie einen Titel an: ' },
+            { 'unknown group:': 'Die Gruppe konnte nicht gefunden werden.' },
+            { 'user not found:': 'Der Benutzer konnte nicht gefunden werden.' },
+            { 'user already exists:': 'Server Fehler: Dieser Benutzer existiert bereits.' },
+            { 'element not found:': 'Der Favorite konnte nicht gefunden werden.' },
+            { 'task not found': 'Die von Ihnen angegebene PIN ist ungültig.' },
+            { 'missing pin': 'Bitte geben Sie für diese Aktion eine PIN an.' },
+            { 'duplicate pin': 'Server Fehler: Diese PIN ist mehrfach vorhanden.' },
+            { 'internal server: duplicate pin': 'Server Fehler: Es wurde eine doppelte PIN generiert.' },
+            { 'form is not published yet': 'Diese Aktion ist nicht möglich, da das Formular noch nicht publiziert wurde.' },
+            { 'form is already published': 'Diese Aktion ist nicht möglich, da das Formular bereits publiziert wurde.' },
+            { 'form is already cancelled': 'Diese Aktion ist nicht möglich, da das Formular bereits geschlossen wurde.' },
+            { 'form is not public': 'Diese Aktion ist mit durch PINs geschützten Formularen nicht möglich.' },
+            { 'form is public: no pin needed': 'Diese Aktion erfordert keine PIN, da das Formular öffentlich ist.' },
+            { 'cannot delete form with open tasks': 'Das Formular kann nicht gelöscht werden, wenn es noch offene Antworten gibt.' },
+            { 'cannot create tasks for forms with public access': 'Diese Aktion ist mit öffentlichen Formularen nicht möglich.' }
+        ];
+
+        for (let item of testdata) {
+            expect(service.getErrorMessage({ error: { message: Object.keys(item)[0] } } as any)).toEqual(Object.values(item)[0]);
+        }
     });
 
     /**

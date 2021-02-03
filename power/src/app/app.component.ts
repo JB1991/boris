@@ -63,6 +63,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     ngOnInit() {
         this.config = this.configService.config;
+        if (this.config.modules.length === 0) {
+            this.hasInternet = false;
+        }
 
         // load version
         this.httpClient.get('/assets/version.json').subscribe(data => {

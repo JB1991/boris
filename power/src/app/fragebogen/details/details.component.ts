@@ -89,6 +89,8 @@ export class DetailsComponent implements OnInit {
             console.log(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
+
+            /* istanbul ignore else */
             if (navigate) {
                 this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             }
@@ -425,6 +427,7 @@ export class DetailsComponent implements OnInit {
             this.pagination.page = 1;
             this.updateTasks();
             // copy to clipboard
+            /* istanbul ignore else */
             if (event.copy) {
                 const selBox = document.createElement('textarea');
                 selBox.style.position = 'fixed';
