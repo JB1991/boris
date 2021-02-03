@@ -26,7 +26,7 @@ describe('Shared.Auth.AuthService', () => {
         });
         service = TestBed.inject(AuthService);
         httpTestingController = TestBed.inject(HttpTestingController);
-        spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(service.router, 'navigate');
         localStorage.removeItem('user');
         service.user = null;

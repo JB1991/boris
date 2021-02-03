@@ -14,7 +14,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         // check if app needs reload
         const chunkFailedMessage = /Loading chunk [\d]+ failed/;
         if (chunkFailedMessage.test(error.message)) {
-            console.log(error);
+            console.error(error);
             // this.us.cleanupServiceWorker();
             this.reload();
             return;

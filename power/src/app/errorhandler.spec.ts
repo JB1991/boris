@@ -9,7 +9,7 @@ describe('GlobalErrorHandler', () => {
     beforeEach(() => {
         const alerts = new AlertsService();
         spyOn(alerts, 'NewAlert');
-        spyOn(console, 'log');
+        spyOn(console, 'error');
 
         handler = new GlobalErrorHandler('de', alerts, new MockUpdateService() as UpdateService);
         spyOn(handler, 'reload');

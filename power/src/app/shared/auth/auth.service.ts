@@ -60,7 +60,7 @@ export class AuthService {
                     this.getHeaders('json', 'application/x-www-form-urlencoded', false)).toPromise();
                 // check for error
                 if (!data || data['error']) {
-                    console.log('Could not refresh: ' + data);
+                    console.error('Could not refresh: ' + data);
 
                     // delete localStorage
                     localStorage.removeItem('user');
@@ -77,7 +77,7 @@ export class AuthService {
                 return;
             } catch (error) {
                 // failed to refresh
-                console.log(error);
+                console.error(error);
 
                 // delete localStorage
                 localStorage.removeItem('user');
@@ -174,7 +174,7 @@ export class AuthService {
                 this.getHeaders('json', 'application/x-www-form-urlencoded', false)).toPromise();
             // check for error
             if (!data || data['error']) {
-                console.log('Could not get token: ' + data);
+                console.error('Could not get token: ' + data);
                 return;
             }
 
@@ -186,7 +186,7 @@ export class AuthService {
             localStorage.setItem('user', JSON.stringify(this.user));
         } catch (error) {
             // failed to login
-            console.log(error);
+            console.error(error);
             return;
         }
     }
