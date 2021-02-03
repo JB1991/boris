@@ -1,13 +1,7 @@
-import * as echarts from 'echarts';
-
 import * as ImmobilienStatic from './immobilien.static';
 import * as ImmobilienRuntime from './immobilien.runtime';
 
-import * as ImmobilienNipixRuntimeCalculator from './immobilien.runtime-calculator';
-import * as ImmobilienFormatter from './immobilien.formatter';
-import * as ImmobilienExport from './immobilien.export';
 import { ImmobilienUtils } from './immobilien.utils';
-import { ImmobilienHelper } from './immobilien.helper';
 
 describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
@@ -30,7 +24,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
     beforeEach(() => {
         niStatic = Object.create(ImmobilienStatic.NipixStatic.prototype);
         niStatic.data = {
-            'presets':  presets,
+            'presets': presets,
             'nipix': {
                 'gebrauchte Eigenheime': [],
                 'gebrauchte Eigentumswohnungen': []
@@ -46,22 +40,22 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
     });
 
-    it('resetDrawPresets works', function() {
+    it('resetDrawPresets works', function () {
         component.resetDrawPresets();
         expect(component.drawPresets).toEqual(presets);
     });
 
-    it('updateAvailableQuartal works', function() {
+    it('updateAvailableQuartal works', function () {
         component.updateAvailableQuartal(2000, 3);
         expect(component.availableQuartal).toEqual(['2000/2', '2000/3']);
     });
 
-    it('updateAvailableNipixCategories works', function() {
+    it('updateAvailableNipixCategories works', function () {
         component.updateAvailableNipixCategories();
         expect(component.availableNipixCategories).toEqual(['gebrauchte Eigenheime', 'gebrauchte Eigentumswohnungen']);
     });
 
-    it('toggleNipixCategory works', function() {
+    it('toggleNipixCategory works', function () {
         component.resetDrawPresets();
 
         component.toggleNipixCategory('foo');
@@ -70,9 +64,9 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         expect(component.drawPresets[0]['nipixCategory']).toEqual('gebrauchte Eigenheime');
     });
 
-    it('getDrawPreset works', function() {
+    it('getDrawPreset works', function () {
         const res = component.getDrawPreset('bar');
-        expect(res).toEqual(null);
+        expect(res).toEqual({});
         component.resetDrawPresets();
         const res1 = component.getDrawPreset('foo');
         expect(res1).toEqual(
@@ -87,7 +81,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
     it('highlightTimeout works', () => {
         component.state.highlightedSeries = 'foo';
-        spyOn(component, 'updateMapSelect').and.callFake( function() { } );
+        spyOn(component, 'updateMapSelect').and.callFake(function () { });
 
         component.highlightTimeout();
         expect(component.state.highlightedSeries).toEqual('');
@@ -95,7 +89,7 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
 
     });
 
-    it('resetHighlight works', function() {
+    it('resetHighlight works', function () {
         spyOn(window, 'clearTimeout').and.callThrough();
         spyOn(component, 'updateMapSelect').and.callThrough();
         component.resetHighlight();
@@ -104,14 +98,14 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         expect(component.state.highlightedSeries).toEqual('');
     });
 
-    it('highlightSeries works', function() {
+    it('highlightSeries works', function () {
         component.resetDrawPresets();
 
         component.state.highlightedSeries = 'foo';
         component.highlightSeries('foo');
 
         spyOn(ImmobilienUtils, 'dispatchMapSelect').and.callFake(
-            function(mapobj, key, select) {
+            function (mapobj, key, select) {
             }
         );
         spyOn(window, 'clearTimeout').and.callThrough();
@@ -125,14 +119,14 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         expect(ImmobilienUtils.dispatchMapSelect).toHaveBeenCalled();
     });
 
-    it('calculateDrawData works', function() {
-        spyOn(component.calculator, 'calculateDrawData').and.callFake( function() { } );
+    it('calculateDrawData works', function () {
+        spyOn(component.calculator, 'calculateDrawData').and.callFake(function () { });
         component.calculateDrawData();
         expect(component.calculator.calculateDrawData).toHaveBeenCalled();
     });
 
 
-    it('updateRange works', function() {
+    it('updateRange works', function () {
         component.updateAvailableQuartal(2000, 4);
 
         component.updateRange(100 / 3 * 2, 100);
@@ -143,26 +137,26 @@ describe('Immobilien.Immobilien.ImmobilenRuntime', () => {
         component.updateRange(100 / 3 * 2, 100);
     });
 
-    it('updateMapSelect works', function() {
+    it('updateMapSelect works', function () {
         component.resetDrawPresets();
 
         component.map.obj = {};
         component.state.activeSelection = 99;
         niStatic.data.regionen = { '4201': {} };
         spyOn(ImmobilienUtils, 'dispatchMapSelect').and.callFake(
-            function(mapobj, key, select) { }
+            function (mapobj, key, select) { }
         );
 
         component.updateMapSelect(1);
         expect(ImmobilienUtils.dispatchMapSelect).toHaveBeenCalled();
 
         component.state.activeSelection = 1;
-        niStatic.data['selections'] = { 1: { 'type': 'single', 'preset' : [ 'foo' ] } };
+        niStatic.data['selections'] = { 1: { 'type': 'single', 'preset': ['foo'] } };
 
         component.updateMapSelect();
         expect(ImmobilienUtils.dispatchMapSelect).toHaveBeenCalled();
 
-        niStatic.data['selections'] = {1: { 'type': 'aggr', 'preset' : [ 'foo' ] } };
+        niStatic.data['selections'] = { 1: { 'type': 'aggr', 'preset': ['foo'] } };
 
         component.updateMapSelect();
         expect(ImmobilienUtils.dispatchMapSelect).toHaveBeenCalled();

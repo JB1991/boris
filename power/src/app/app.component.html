@@ -1,9 +1,11 @@
 <div class="container-fluid p-0">
-    <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white fixed-top">
+    <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white"
+         style="z-index: 1000;">
         <a class="navbar-brand"
+           title="Zur Startseite"
            [routerLink]="['/']"
            style="color: #343a40;">
-            <img src="/assets/logos/logo.png"
+            <img src="./assets/logos/logo.png"
                  class="mr-2 align-top"
                  aria-hidden="true"
                  height="25px"
@@ -14,10 +16,15 @@
                 <span style="color: #c4153a;"
                       i18n>.niedersachsen</span>
             </strong>
-            <strong class="d-md-none">
+            <strong class="d-none d-sm-inline d-md-none">
                 <span i18n>POWER</span>
                 <span style="color: #c4153a;"
                       i18n>.niedersachsen</span>
+            </strong>
+            <strong class="d-inline d-sm-none">
+                <span i18n>POWER</span>
+                <span style="color: #c4153a;"
+                      i18n>.NI</span>
             </strong>
         </a>
 
@@ -25,64 +32,120 @@
                 style="border: none; padding-right: 0;"
                 type="button"
                 (click)="isCollapsed = !isCollapsed"
-                [attr.aria-expanded]="!isCollapsed"
-                [class.active]="!isCollapsed"
-                aria-controls="navbarToggler"
-                i18n-aria-label
                 aria-label="Navigation umschalten">
             <span class="navbar-toggler-icon"
                   aria-hidden="true"></span>
-            <span class="sr-only"
-                  i18n>Navigation umschalten</span>
         </button>
 
         <div class="collapse navbar-collapse"
-             style="z-index: 2000;"
              id="navbarToggler"
-             [collapse]="isCollapsed"
-             [isAnimated]="true">
+             [ngbCollapse]="isCollapsed">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"
-                    *ngIf="config.modules.includes('bodenrichtwerte')">
-                    <a class="nav-link"
-                       (click)="isCollapsed = true"
-                       [routerLink]="['/bodenrichtwerte']"
-                       routerLinkActive="active"
-                       i18n>Bodenrichtwerte</a>
-                </li>
-                <li class="nav-item"
-                    *ngIf="config.modules.includes('bodenwerte')">
-                    <a class="nav-link"
-                       (click)="isCollapsed = true"
-                       [routerLink]="['/bodenwertkalkulator']"
-                       routerLinkActive="active"
+                <li class="nav-item dropdown"
+                    (click)="isCollapsedImmo = true; isCollapsedAcc = true;">
+                    <a class="nav-link dropdown-toggle clickable"
+                       [routerLink]=""
+                       id="navbarBRW"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       (click)="isCollapsedBRW = !isCollapsedBRW"
                        i18n>Bodenwerte</a>
+
+                    <div class="dropdown-menu dropdown-menu-right"
+                         aria-labelledby="navbarBRW"
+                         [collapse]="isCollapsedBRW">
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('bodenrichtwerte')"
+                           (click)="isCollapsed = true; isCollapsedBRW = true"
+                           [routerLink]="['/bodenrichtwerte']"
+                           routerLinkActive="active"
+                           i18n>Bodenrichtwerte</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('bodenrichtwerte-altsystem')"
+                           (click)="isCollapsed = true; isCollapsedBRW = true"
+                           href="https://www.boris.niedersachsen.de/boris/login"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Bodenrichtwerte - amtlicher Ausdruck</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('bodenwertkalkulator')"
+                           (click)="isCollapsed = true; isCollapsedBRW = true"
+                           [routerLink]="['/bodenwertkalkulator']"
+                           routerLinkActive="active"
+                           i18n>Bodenwertkalkulator</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('grundstuecksmarktdaten')"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/landesgrundstucksmarktinformationen-193837.html"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Grundstücksmarktdaten</a>
+                    </div>
                 </li>
-                <li class="nav-item"
-                    *ngIf="config.modules.includes('immobilien')">
-                    <a class="nav-link"
-                       (click)="isCollapsed = true"
-                       [routerLink]="['/immobilienpreisindex']"
-                       routerLinkActive="active"
+
+                <li class="nav-item dropdown"
+                    (click)="isCollapsedBRW = true; isCollapsedAcc = true;">
+                    <a class="nav-link dropdown-toggle clickable"
+                       [routerLink]=""
+                       id="navbarImmo"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       (click)="isCollapsedImmo = !isCollapsedImmo"
                        i18n>Immobilien</a>
+
+                    <div class="dropdown-menu dropdown-menu-right"
+                         aria-labelledby="navbarImmo"
+                         [collapse]="isCollapsedImmo">
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('immobilienpreisindex')"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           [routerLink]="['/immobilienpreisindex']"
+                           routerLinkActive="active"
+                           i18n>Niedersächsischer Immobilienpreisindex - NIPIX</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('immobilienpreiskalkulator')"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           href="https://www.boris.niedersachsen.de/boris/ipk"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Immobilienpreiskalkulator - IPK</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('grundstuecksmarktdaten')"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/landesgrundstucksmarktinformationen-193837.html"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Grundstücksmarktdaten</a>
+                    </div>
                 </li>
+
                 <li class="nav-item"
-                    *ngIf="config.modules.includes('fragebogen')">
+                    *ngIf="config.modules.includes('forms')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/forms']"
                        routerLinkActive="active"
                        i18n>Formulare</a>
                 </li>
-                <li class="nav-item">
+
+                <li class="nav-item"
+                    *ngIf="config.modules.includes('feedback')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/feedback']"
                        routerLinkActive="active"
                        i18n>Feedback</a>
                 </li>
+
                 <li class="nav-item"
-                    *ngIf="!auth.IsAuthenticated()">
+                    *ngIf="config.modules.includes('login') && !auth.IsAuthenticated()">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/login']"
@@ -92,7 +155,8 @@
                 </li>
 
                 <li class="nav-item dropdown"
-                    *ngIf="auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">
+                    (click)="isCollapsedImmo = true; isCollapsedBRW = true;"
+                    *ngIf="config.modules.includes('login') && auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">
                     <a class="nav-link dropdown-toggle clickable"
                        [routerLink]=""
                        id="navbarUser"
@@ -100,12 +164,13 @@
                        data-toggle="dropdown"
                        aria-haspopup="true"
                        (click)="isCollapsedAcc = !isCollapsedAcc">
-                        <svg width="1.5em"
-                             height="1.5em"
+                        <svg width="1.3em"
+                             height="1.3em"
                              viewBox="0 0 16 16"
-                             class="bi bi-file-person align-top"
+                             class="bi bi-file-person"
                              fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
                              aria-hidden="true">
                             <path fill-rule="evenodd"
                                   d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z" />
@@ -122,12 +187,16 @@
                          [collapse]="isCollapsedAcc">
                         <a class="dropdown-item"
                            [routerLink]="">{{ auth.user.data.email }}</a>
+
                         <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item"
+                           *ngIf="config.modules.includes('forms')"
                            (click)="isCollapsed = true; isCollapsedAcc = true"
                            [routerLink]="['/forms/dashboard']"
                            routerLinkActive="active"
                            i18n>Meine Formulare</a>
+
                         <a class="dropdown-item"
                            (click)="isCollapsed = true; isCollapsedAcc = true"
                            [routerLink]="['/logout']"
@@ -139,9 +208,50 @@
         </div>
     </nav>
 
-    <router-outlet></router-outlet>
+    <div class="container my-4"
+         *ngIf="showPrintNotice">
+        <alert type="warning"
+               role="alert">
+            <button i18n-aria-label
+                    aria-label="Schließen"
+                    i18n-title
+                    title="Schließen"
+                    class="close ng-star-inserted"
+                    type="button"
+                    (click)="showPrintNotice = false;">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only"
+                      i18n>Alert schließen</span>
+            </button>
+            <span class="h4 alert-heading">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="1em"
+                     height="1em"
+                     fill="currentColor"
+                     class="bi bi-exclamation-triangle"
+                     viewBox="0 0 16 16"
+                     focusable="false"
+                     aria-hidden="true">
+                    <path
+                          d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                    <path
+                          d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+                </svg>
+                <span class="ml-2"
+                      i18n>Veralteten oder nicht unterstützen Webbrowser erkannt</span>
+            </span>
+            <p class="m-0"
+               i18n>Bitte verwenden Sie einen aktuelleren Webbrowser, wie Google Chrome oder Mozilla Firefox, um alle
+                Funktionen dieser Seite uneingeschränkt nutzen zu können.</p>
+        </alert>
+    </div>
 
-    <div class="container-fluid">
+    <div (mouseenter)="isCollapsed = true; isCollapsedBRW = true; isCollapsedImmo = true; isCollapsedAcc = true;"
+         class="min-height">
+        <router-outlet></router-outlet>
+    </div>
+
+    <!-- <div class="container-fluid">
         <footer class="pt-4 my-md-5 pt-md-5 border-top w-100 m-0 overflow-hidden">
             <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
                  class="row justify-content-end">
@@ -151,35 +261,152 @@
                 </div>
             </div>
             <div class="row justify-content-around">
-                <div class="col-md-4 text-center">
-                    <div class="h5"
-                         i18n>Sprache</div>
+                <div class="col text-center">
+                    <h5 id="languages"
+                        aria-label="Sprachauswahl"
+                        i18n-aria-label
+                        i18n>Sprache</h5>
                     <a href="{{ baseurl }}"
                        class="footer-link"
-                       i18n>Deutsch</a>
+                       rel="noopener"
+                       aria-labelledby="languages">Deutsch</a>
                     - <a href="/en{{ baseurl }}"
                        class="footer-link"
-                       i18n>Englisch</a>
+                       rel="noopener"
+                       aria-labelledby="languages">English</a>
                     <hr>
-
-                    <div class="h5"
-                         i18n>Informationen</div>
+                    <h5 i18n>Informationen</h5>
                     <ul class="list-unstyled text-small">
-                        <li class="m-2"><a
-                               href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
+                        <li class="m-2">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
                                class="footer-link"
-                               i18n>Impressum</a></li>
-                        <li class="m-2"><a
-                               href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Impressum</a>
+                        </li>
+                        <li class="m-2">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html"
                                class="footer-link"
-                               i18n>Datenschutz</a></li>
-                        <li class="m-2"><a
-                               href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Datenschutz</a>
+                        </li>
+                        <li class="m-2">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html"
                                class="footer-link"
-                               i18n>Allgemeine Geschäfts- <br>und Nutzungsbedingungen</a></li>
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Allgemeine Geschäfts- und Nutzungsbedingungen</a>
+                        </li>
                     </ul>
                     <p class="text-muted">
-                        <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}</p>
+                        <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div> -->
+    <div class="container-fluid p-0 m-0">
+        <footer class="pt-5 pb-2 px-1 px-md-5 overflow-hidden">
+            <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
+                 class="row justify-content-end mr-1 mr-md-0">
+                <div class="col text-right p-1 m-0">
+                    <p class="text-muted"
+                       i18n>* Pflichtfeld</p>
+                </div>
+            </div>
+            <div class="row border-top pt-3 mx-1 mx-md-0">
+                <div class="col-12 col-md-6 col-lg-4 p-1 m-0">
+                    <h5 i18n>Informationen</h5>
+                    <ul class="list-unstyled text-small">
+                        <li class="my-1">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
+                               class="footer-link"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Impressum</a>
+                        </li>
+                        <li class="my-1">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html"
+                               class="footer-link"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Datenschutz</a>
+                        </li>
+                        <li class="my-1">
+                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html"
+                               class="footer-link"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow"
+                               i18n>Allgemeine Geschäfts- und Nutzungsbedingungen</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 p-1 m-0">
+                    <h5 id="languages"
+                        aria-label="Sprachauswahl"
+                        i18n-aria-label
+                        i18n>Sprache</h5>
+                    <ul class="list-unstyled text-small">
+                        <li class="my-1">
+                            <a href="{{ baseurl }}"
+                               class="footer-link"
+                               rel="noopener"
+                               aria-labelledby="languages">Deutsch</a>
+                        </li>
+                        <li class="my-1">
+                            <a href="/en{{ baseurl }}"
+                               class="footer-link"
+                               rel="noopener"
+                               aria-labelledby="languages">English</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4 p-1 m-0">
+                    <!-- Only for Modules Bodenrichtwerte/Bodenwertkalkulator -->
+                    <div *ngIf="router.url.includes('/bodenrichtwerte') || router.url.includes('/bodenwertkalkulator')">
+                        <h5 id="borisInfo"
+                            aria-label="Informationen Bodenrichtwerte"
+                            i18n-aria-label
+                            i18n>Bodenrichtwerte</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="my-1">
+                                <a href="https://www.gag.niedersachsen.de/startseite/gutachterausschusse/kontakt/kontakt-88078.html"
+                                   class="footer-link"
+                                   target="_blank"
+                                   rel="noopener noreferrer nofollow"
+                                   i18n>Kontakt</a>
+                            </li>
+                            <li class="my-1">
+                                <a href="https://www.gag.niedersachsen.de/startseite/gutachterausschusse/gutachterausschuesse-88016.html"
+                                   class="footer-link"
+                                   target="_blank"
+                                   rel="noopener noreferrer nofollow"
+                                   i18n>Gutachterausschüsse - Niedersachsen</a>
+                            </li>
+                            <li class="my-1">
+                                <a href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_bauland/legende-zur-bodenrichtwertkarte-bauland-88020.html"
+                                   class="footer-link"
+                                   target="_blank"
+                                   rel="noopener noreferrer nofollow"
+                                   i18n>Legende zur Bodenrichtwertkarte Bauland</a>
+                            </li>
+                            <li class="my-1">
+                                <a href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_landwirtschaft/legende-zur-bodenrichtwertkarte-landwirtschaft-88023.html"
+                                   class="footer-link"
+                                   target="_blank"
+                                   rel="noopener noreferrer nofollow"
+                                   i18n>Legende zur Bodenrichtwertkarte Landwirtschaft</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center border-top mx-1 mx-md-0">
+                <div class="col pt-2 p-1 p-md-3 m-0">
+                    <p class="text-center">
+                        <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}
+                    </p>
                 </div>
             </div>
         </footer>

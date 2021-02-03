@@ -54,7 +54,7 @@ export class ImmobilienHelper {
             if (color.slice(0, 3) === 'rgb') {
                 const cc = color.slice(4).replace(')', '').split(',');
                 return this.rgbToHex(parseInt(cc[0], 10), parseInt(cc[1], 10), parseInt(cc[2], 10));
-            } else if (Array.isArray(color) && color.length === 3 ) {
+            } else if (Array.isArray(color) && color.length === 3) {
                 return this.rgbToHex(color[0], color[1], color[2]);
             } else if (color.slice(0, 1) === '#') {
                 return color;
@@ -82,17 +82,17 @@ export class ImmobilienHelper {
         const t = percent < 0 ? 0 : 255;
         const p = percent < 0 ? percent * -1 : percent;
 
-        /* tslint:disable:no-bitwise */
+        /* eslint-disable no-bitwise */
         const R = f >> 16; // eslint-disable-line no-bitwise
         const G = f >> 8 & 0x00FF; // eslint-disable-line no-bitwise
         const B = f & 0x0000FF; // eslint-disable-line no-bitwise
-        /* tslint:enable:no-bitwise */
+        /* eslint-enable no-bitwise */
 
-        return  '#' + (
+        return '#' + (
             0x1000000
-            + (Math.round( (t - R) * p) + R) * 0x10000
-            + (Math.round( (t - G) * p) + G) * 0x100
-            + (Math.round( (t - B) * p) + B)
+            + (Math.round((t - R) * p) + R) * 0x10000
+            + (Math.round((t - G) * p) + G) * 0x100
+            + (Math.round((t - B) * p) + B)
         ).toString(16).slice(1);
     }
 
@@ -145,16 +145,34 @@ export class ImmobilienHelper {
      */
     static downloadFile(data, filename, filetype = 'text/csv', isurl = false): any {
         let url = data;
+        let blob;
 
         if (!isurl) {
-            const blob = new Blob([data], { type: filetype });
+            blob = new Blob([data], { type: filetype });
             url = window.URL.createObjectURL(blob);
         }
 
-        const anchor = document.createElement('a');
-        anchor.download = filename;
-        anchor.href = url;
-        anchor.click();
+        if (navigator.msSaveBlob) { // IE and Edge
+            if (!blob) {
+                // base64 to blob convertion
+                const byteString = atob(url.split(',')[1]);
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                blob = new Blob([ab], { type: 'image/png' });
+            }
+
+            // download
+            navigator.msSaveBlob(blob, filename);
+        } else {
+            const anchor = document.createElement('a');
+            anchor.download = filename;
+            anchor.href = url;
+            anchor.click();
+        }
     }
 
     /**
@@ -182,7 +200,7 @@ export class ImmobilienHelper {
      *
      * @return CSV String
      */
-    static convertArrayToCSV(array, keys, split = ';', feld= '"') {
+    static convertArrayToCSV(array, keys, split = ';', feld = '"') {
         const tmp = [];
 
         for (let i = 0; i < array.length; i++) {

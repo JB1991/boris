@@ -1,0 +1,133 @@
+<power-modalmini #umrechnung_modal>
+    <div class="row">
+        <div class="col-sm p-1">
+            <div class="card">
+                <div class="card-header">
+                    <b i18n>Erklärungen</b>
+                </div>
+                <div class="card-body">
+                    <ng-container [ngSwitch]="table.text">
+                        <ng-container *ngSwitchCase="'ACZA'">
+                            <p i18n>Die vom Gutachterausschuss ermittelten Bodenrichtwerte beziehen sich auf eine
+                                durchschnittliche, gebietstypische Bodengüte, die als Acker- bzw. Grünlandzahl definiert
+                                ist.</p>
+                            <p i18n>Diese auch als Bodenpunkte bezeichneten Werte sind nach dem Bodenschätzungsgesetz
+                                ermittelte Verhältniszahlen über die natürliche Ertragsfähigkeit landwirtschaftlicher
+                                Grundstücke.</p>
+                            <p i18n>Zur Berücksichtigung der Abhängigkeit des Bodenwertes (€/m²) von der Bodengüte
+                                (Ackerzahl) können die nachfolgend dargestellten Umrechnungskoeffizienten angewendet
+                                werden.</p>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'Art der Bebauung'">
+                            <p i18n>Der Bodenwert von Grundstücken wird neben der Lage auch von der nach der von der
+                                Bauleitplanung eingeräumten Möglichkeit der baulichen Ausnutzung des Baugrundstücks
+                                beeinflusst.</p>
+                            <p i18n>Als Maß für die bauliche Ausnutzung gilt die Möglichkeit der Bebauung mit Ein- bzw.
+                                Zweifamilienhäuser (EFH) oder die Möglichkeit der Bebauung mit Wohn- und Geschäftshäuser
+                                bzw. Mehrfamilienhäuser (MFH).</p>
+                            <p i18n>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von
+                                gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung (EFH/MFH).</p>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'FLAE'">
+                            <p i18n>Der Bodenwert von Grundstücken wird neben der Lage auch von der Größe des
+                                Baugrundstücks beeinflusst.</p>
+                            <p i18n>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von
+                                gleichartigen Grundstücken bei unterschiedlichen Grundstücksflächen.</p>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'GEZ'">
+                            <p i18n>Der Bodenwert von Grundstücken wird neben der Lage auch durch die von der
+                                Bauleitplanung eingeräumten Möglichkeiten der baulichen Ausnutzung des Baugrundstücks
+                                beeinflusst. Als Maß für die bauliche Ausnutzung gilt unter anderem die Geschosszahl
+                                (GEZ).</p>
+                            <p i18n>Die Angabe gibt hier die überwiegend vorhandene Geschosszahl wieder (III bedeutet
+                                drei Vollgeschosse) und dient ggf. zur Unterscheidung der Bodenrichtwerte bei
+                                überlagernden Zonen.</p>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'GRZA'">
+                            <p i18n>Die vom Gutachterausschuss ermittelten Bodenrichtwerte beziehen sich auf eine
+                                durchschnittliche, gebietstypische Bodengüte, die als Acker- bzw. Grünlandzahl definiert
+                                ist.</p>
+                            <p i18n>Diese auch als Bodenpunkte bezeichneten Werte sind nach dem Bodenschätzungsgesetz
+                                ermittelte Verhältniszahlen über die natürliche Ertragsfähigkeit landwirtschaftlicher
+                                Grundstücke.</p>
+                            <p i18n>Zur Berücksichtigung der Abhängigkeit des Bodenwertes (€/m²) von der Bodengüte
+                                (Grünlandzahl) können die nachfolgend dargestellten Umrechnungskoeffizienten angewendet
+                                werden.</p>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'WGFZ'">
+                            <p i18n>Der Bodenwert von Grundstücken wird neben der Lage auch von der baulichen Ausnutzung
+                                des Baugrundstücks beeinflusst.</p>
+                            <p i18n>Als Maß für die bauliche Ausnutzung gilt die wertrelevante Geschoßflächenzahl
+                                (WGFZ), die das Verhältnis zwischen Grundstücksgröße und wertrelevanter Geschoßfläche
+                                festlegt (WGFZ 1,0 bedeutet, dass 100 % der Grundstücksfläche als wertrelevante
+                                Geschoßfläche auf dem Baugrundstück realisiert werden soll bzw. bereits vorhanden ist).
+                            </p>
+                            <p i18n>Die wertrelevante Geschossfläche ist nach den Außenmaßen der Gebäude in allen
+                                Vollgeschossen zu ermitteln.</p>
+                            <p i18n>Die Flächen von Aufenthaltsräumen in anderen Geschossen einschließlich der zu ihnen
+                                gehörenden Treppenräume und ihrer Umfassungswände sind mitzurechnen.</p>
+                            <p i18n>Die nachfolgende Tabelle enthält Umrechnungskoeffizienten für das Wertverhältnis von
+                                gleichartigen Grundstücken bei unterschiedlicher baulicher Ausnutzung.</p>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm p-1">
+            <div class="card">
+                <div class="card-header">
+                    <b i18n>Umrechnungstabelle</b>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{einflussgroesse | hyphenate}}</th>
+                                <th scope="col">{{strings.koef | hyphenate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let wert of table.werte">
+                                <ng-container *ngIf="table.text != 'Art der Bebauung'">
+                                    <td>{{wert.bzwt | number}}</td>
+                                    <td>{{wert.koef | number}}</td>
+                                </ng-container>
+                                <ng-container *ngIf="table.text == 'Art der Bebauung'">
+                                    <td>{{wert.bzwt | artDerBebauung}}</td>
+                                    <td>{{wert.koef | number}}</td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm p-1">
+            <div class="card">
+                <div class="card-header">
+                    <b i18n>Beispielrechnung</b>
+                </div>
+                <div class="card-body">
+                    <p><span i18n>Bodenrichtwert</span>: {{brw}} € / m²</p>
+                    <p><span i18n>{{einflussgroesse}} des Richtgrundstücks</span>: {{actualValue}}</p>
+                    <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{actualKoef?.koef | number}}</p>
+                    <ng-container *ngIf="table.text != 'Art der Bebauung'">
+                        <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}:
+                            {{table.werte[0].bzwt | number}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="table.text == 'Art der Bebauung'">
+                        <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}:
+                            {{table.werte[0].bzwt | artDerBebauung}}</p>
+                    </ng-container>
+                    <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{table.werte[0].koef | number}}</p>
+                    <p><span i18n>Individueller Bodenrichtwert</span>: {{brw}} €/m² / {{actualKoef?.koef | number}} *
+                        {{table.werte[0].koef | number}} ≈
+                        {{brw / actualKoef?.koef * table.werte[0].koef | number:'1.0-0'}} €
+                        / m²</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</power-modalmini>

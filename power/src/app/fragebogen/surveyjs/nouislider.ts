@@ -1,5 +1,6 @@
 import noUiSlider from 'nouislider';
 
+/* eslint-disable complexity */
 /* istanbul ignore next */
 export function init(Survey) {
     const widget = {
@@ -39,19 +40,9 @@ export function init(Survey) {
                     default: 'positions',
                 },
                 {
-                    name: 'pipsValues:itemvalues',
-                    category: 'slider',
-                    default: [0, 25, 50, 75, 100],
-                },
-                {
-                    name: 'pipsText:itemvalues',
-                    category: 'slider',
-                    default: [0, 25, 50, 75, 100],
-                },
-                {
                     name: 'pipsDensity:number',
                     category: 'slider',
-                    default: 5,
+                    default: 6,
                 },
                 {
                     name: 'orientation:string',
@@ -74,6 +65,11 @@ export function init(Survey) {
                     default: false,
                 },
                 {
+                    name: 'double:boolean',
+                    category: 'slider',
+                    default: false,
+                },
+                {
                     name: 'decimals:number',
                     category: 'slider',
                     default: 2,
@@ -82,8 +78,8 @@ export function init(Survey) {
         },
         afterRender: function (question, el) {
             el.style.paddingBottom = '19px';
-            el.style.paddingLeft = '20px';
-            el.style.paddingRight = '20px';
+            el.style.paddingLeft = '22px';
+            el.style.paddingRight = '29px';
             el.style.paddingTop = '44px';
             if (question.inputbox) {
                 el.style.paddingTop = '19px';
@@ -95,31 +91,56 @@ export function init(Survey) {
                 el.style.height = '250px';
             }
 
+            // pips
+            question.pipsValues = [];
+            if (question.pipsDensity === 1) {
+                question.pipsValues.splice(0, 0, 0);
+            } else if (question.pipsDensity === 2) {
+                question.pipsValues.splice(0, 0, 0);
+                question.pipsValues.splice(0, 0, 100);
+            } else {
+                for (let i = 0; i < question.pipsDensity; i++) {
+                    question.pipsValues.splice(0, 0, (100 / (question.pipsDensity - 1)) * i);
+                }
+            }
+
+            // double slider option
+            let start;
+            let connect;
+            if (!question.double) {
+                if (typeof question.value !== 'number') {
+                    start = (question.rangeMin + question.rangeMax) / 2;
+                    question.value = start;
+                } else {
+                    start = question.value || (question.rangeMin + question.rangeMax) / 2;
+                }
+                connect = [true, false];
+            } else {
+                const tmp = (question.rangeMax - question.rangeMin) / 3;
+                if (!question.value || question.value.length !== 2) {
+                    start = [question.rangeMin + tmp, question.rangeMin + tmp * 2];
+                    question.value = start;
+                } else {
+                    start = question.value || [question.rangeMin + tmp, question.rangeMin + tmp * 2];
+                }
+                connect = [false, true, false];
+            }
+
             const slider = noUiSlider.create(el, {
-                start: question.value || (question.rangeMin + question.rangeMax) / 2,
-                connect: [true, false],
+                start: start,
+                connect: connect,
                 step: question.step,
                 tooltips: question.tooltips,
                 pips: {
                     mode: question.pipsMode || 'positions',
                     stepped: true,
                     values: question.pipsValues.map(function (pVal) {
-                        let pipValue = pVal;
-                        if (pVal.value !== undefined) {
-                            pipValue = pVal.value;
-                        }
-                        return parseInt(pipValue, 10);
+                        return Number(pVal).toFixed(question.decimals);
                     }),
-                    density: question.pipsDensity || 5,
+                    density: 100,
                     format: {
                         to: function (pVal) {
-                            let pipText = pVal;
-                            question.pipsText.map(function (ele) {
-                                if (ele.text !== undefined && pVal === ele.value) {
-                                    pipText = ele.text;
-                                }
-                            });
-                            return pipText;
+                            return Number(pVal).toFixed(question.decimals);
                         },
                     },
                 },
@@ -132,15 +153,15 @@ export function init(Survey) {
                     }
                 },
                 range: {
-                    min: question.rangeMin,
-                    max: question.rangeMax,
+                    min: Number(question.rangeMin),
+                    max: Number(question.rangeMax),
                 },
                 orientation: question.orientation,
                 direction: question.direction,
             });
 
             slider.on('change', function () {
-                question.value = Number(slider.get());
+                question.value = slider.get();
             });
 
             if (question.inputbox) {
@@ -160,6 +181,7 @@ export function init(Survey) {
                 el.parentNode.insertBefore(container, el.parentNode.firstChild);
 
                 input.onchange = () => {
+                    question.value = input.value;
                     slider.set(input.value);
                 };
                 slider.on('update', function () {

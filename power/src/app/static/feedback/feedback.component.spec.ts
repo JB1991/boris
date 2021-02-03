@@ -1,4 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
 
 import { FeedbackComponent } from './feedback.component';
 
@@ -8,18 +11,26 @@ describe('Static.Feedback.FeedbackComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [FeedbackComponent]
+            imports: [
+                HttpClientTestingModule,
+                RouterTestingModule.withRoutes([]),
+                FormsModule
+            ],
+            declarations: [
+                FeedbackComponent
+            ]
         }).compileComponents();
-    }));
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(FeedbackComponent);
         component = fixture.componentInstance;
+        spyOn(component, 'loadRSSFeed');
+
         fixture.detectChanges();
-    });
+    }));
 
     it('should create', () => {
         expect(component).toBeTruthy();
+        expect(component.loadRSSFeed).toHaveBeenCalledTimes(1);
     });
 
     it('should have a title', () => {
@@ -27,7 +38,8 @@ describe('Static.Feedback.FeedbackComponent', () => {
     });
 
     it('should show the mail address', () => {
-        expect(document.body.innerHTML).toContain('incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com');
+        expect(document.body.innerHTML)
+            .toContain('incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com');
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

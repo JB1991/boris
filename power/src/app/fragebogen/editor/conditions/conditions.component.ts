@@ -1,6 +1,10 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, OnInit, OnChanges, Input, Output, EventEmitter,
+    SimpleChanges, InjectionToken, Inject, ChangeDetectionStrategy
+} from '@angular/core';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
+/* eslint-disable-next-line prefer-const */
 let id = 0;
 @Component({
     providers: [
@@ -11,15 +15,16 @@ let id = 0;
     ],
     selector: 'power-forms-editor-conditions',
     templateUrl: './conditions.component.html',
-    styleUrls: ['./conditions.component.css']
+    styleUrls: ['./conditions.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConditionsComponent implements OnInit, OnChanges {
     @Input() public model: any;
     @Input() public data: any;
     @Output() public dataChange = new EventEmitter<any>();
 
-    public struct: any = [];
-    public questions: any = [];
+    public struct = [];
+    public questions = [];
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
@@ -29,37 +34,41 @@ export class ConditionsComponent implements OnInit, OnChanges {
         for (let i = 0; i < this.model.pages.length; i++) {
             for (const element of this.model.pages[i].elements) {
                 // add to list
-                if (element.type !== 'matrix') {
-                    this.questions.push({
-                        name: element.name,
-                        title: element.name + ': ' + element.title.default,
-                        type: element.type,
-                        choices: (element.choices ? element.choices : null)
-                    });
-                } else {
+                if (element.type === 'matrix') {
                     for (const q of element.rows) {
                         this.questions.push({
                             name: element.name + '.' + q.value,
-                            title: element.name + ': ' + (q.text.default ? q.text.default : q.value),
+                            title: q.text.default ? q.text.default : '',
                             type: element.type,
                             choices: element.columns
                         });
                     }
+                } else {
+                    this.questions.push({
+                        name: element.name,
+                        title: element.title.default ? element.title.default : '',
+                        type: element.type,
+                        choices: element.choices
+                    });
                 }
             }
         }
         this.loadChoices(null);
     }
 
+    /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
         // check if data exists
-        if (!this.data) {
+        if (!this.data || this.struct.length > 0) {
+            this.loadChoices(null);
             return;
         }
 
         // convert condition to form
         this.struct = [];
-        const split = this.data.split(' ');
+        const regex = /[^\s\[\]]+|\[([^\[\]]*)\]/gm; // /[^\s"']+|"([^"]*)"|'([^']*)'/gm;
+        const split = this.data.match(regex);
+
         for (let i = 0; i < split.length; i++) {
             const tmp = {
                 condition: '',
@@ -76,12 +85,11 @@ export class ConditionsComponent implements OnInit, OnChanges {
             }
 
             // get question
-            if (split[i].startsWith('{')) {
+            tmp.question = this.parseValue(split[i]);
+            if (tmp.question.startsWith('\'') && tmp.question.endsWith('\'')) {
                 tmp.question = split[i].substring(1, split[i].length - 1);
-                i++;
-            } else {
-                throw new Error('Expected parameter to be variable');
             }
+            i++;
 
             // get operator
             tmp.operator = split[i];
@@ -92,16 +100,17 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 i++;
                 tmp.value = split[i].substring(1, split[i].length - 1);
 
-                if (split[i].startsWith('[')) {
+                if (tmp.operator === 'anyof' || tmp.operator === 'allof') {
                     // list
-                    const tmp2 = split[i].substring(1, split[i].length - 1);
                     tmp.value = [];
-                    for (const item of tmp2.split(',')) {
+                    const tmp2 = split[i].substring(1, split[i].length - 1);
+                    const regex2 = /[^\s',]+|'([^']*)'/gm;
+                    for (const item of tmp2.match(regex2)) {
                         tmp.value.push(item.substring(1, item.length - 1));
                     }
-                } else if (split[i].startsWith('{')) {
-                    // variable
-                    tmp.value = split[i];
+                } else {
+                    // value
+                    tmp.value = this.parseValue(split[i]);
                 }
             }
             this.struct.push(tmp);
@@ -113,19 +122,25 @@ export class ConditionsComponent implements OnInit, OnChanges {
      * Handles changes to forms
      * @param event Event
      */
+    /* eslint-disable-next-line complexity */
     public modelChanged(event: Event) {
         // convert form to condition object
         this.data = '';
         for (const item of this.struct) {
-            if (!item.question) { continue; }
-            if (this.data) { this.data += ' '; }
+            if (!item.question) {
+                continue;
+            }
+            if (this.data) {
+                this.data += ' ';
+            }
 
             // add condition
             if (item.condition) {
                 this.data += item.condition + ' ';
             }
+
             // add question and operator
-            this.data += '{' + item.question + '} ' + item.operator;
+            this.data += this.parseValue(item.question) + ' ' + item.operator;
 
             // add values
             if (item.operator === 'empty' || item.operator === 'notempty') {
@@ -134,23 +149,45 @@ export class ConditionsComponent implements OnInit, OnChanges {
                 // array
                 this.data += ' [';
                 for (let i = 0; i < item.value.length; i++) {
-                    if (!item.value[i]) { continue; }
                     this.data += '\'' + item.value[i] + '\'' + (i + 1 >= item.value.length ? '' : ',');
                 }
                 this.data += ']';
             } else {
-                // string
-                if (!item.value) { item.value = ''; }
-                if (!item.value.startsWith('{')) {
-                    // text
-                    this.data += ' \'' + item.value + '\'';
-                } else {
-                    // variable
-                    this.data += ' ' + item.value;
-                }
+                // value
+                this.data += ' ' + this.parseValue(item.value);
             }
         }
         this.dataChange.emit(this.data);
+    }
+
+    /**
+     * Converts value to surveyjs condition
+     * @param val Value
+     */
+    /* eslint-disable-next-line complexity */
+    public parseValue(val: any): string {
+        if (typeof val === 'undefined' || val === null || val === '') {
+            // undefined
+            return '\'\'';
+        } else if (val.startsWith('\'') && val.endsWith('\'')) {
+            // quoted
+            return val;
+        } else if (typeof val === 'boolean' || val.toLowerCase() === 'true' || val.toLowerCase() === 'false') {
+            // boolean
+            return val.toString();
+        } else if (typeof val === 'number' || !isNaN(val)) {
+            // number
+            return val;
+        } else if (val.startsWith('{')) {
+            // variable
+            return val;
+        } else if (val.indexOf('({') >= 0) {
+            // func
+            return val;
+        }
+
+        // text with quotes
+        return '\'' + val.toString() + '\'';
     }
 
     /**
@@ -160,9 +197,35 @@ export class ConditionsComponent implements OnInit, OnChanges {
     public loadChoices(event: Event) {
         for (const item of this.struct) {
             item.choices = null;
+
             for (const question of this.questions) {
-                if (item.question === question.name) {
+                // check if question has choices
+                if (!question.choices) {
+                    continue;
+                }
+
+                // check if question matches rule
+                if (item.question === '{' + question.name + '}') {
                     item.choices = question.choices;
+
+                    if (!Array.isArray(item.value)) {
+                        continue;
+                    }
+
+                    // remove values that do not exist anymore
+                    skip: for (const val of item.value) {
+                        for (let i = 0; i < item.choices.length; i++) {
+                            if (val === item.choices[i].value) {
+                                continue skip;
+                            }
+                        }
+
+                        // delete
+                        const index = item.value.indexOf(val);
+                        if (index >= 0) {
+                            item.value.splice(index, 1);
+                        }
+                    }
                 }
             }
         }

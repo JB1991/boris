@@ -1,7 +1,8 @@
 <power-modal #questionsettingsmodal
-             (closing)="close()">
+             checkInvalid="true"
+             (closing)="close($event)">
     <div class="container px-1 px-lg-3"
-         *ngIf="question !== null">
+         *ngIf="question !== null && model.pages[page].elements[question]">
         <accordion [isAnimated]="true"
                    [closeOthers]="true">
             <!-- common -->
@@ -11,9 +12,9 @@
                 <!-- question-name -->
                 <div class="form-group">
                     <label for="question-name"
-                           i18n>Fragen ID
-                           <span (click)="questionsettingsmodal.scrollToFooter()" role="button">*</span>
-                     </label>
+                           (click)="questionsettingsmodal.scrollToFooter()"
+                           role="button"
+                           i18n>Fragen ID *</label>
                     <input type="text"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].name"
@@ -35,35 +36,39 @@
                 <!-- question-title -->
                 <div class="form-group">
                     <label for="question-title"
-                           i18n>Fragen Titel
-                           <span (click)="questionsettingsmodal.scrollToFooter()" role="button">*</span>
-                     </label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].title.default"
-                           [class.is-invalid]="!model.pages[page].elements[question].title.default"
-                           maxlength="200"
-                           name="question-title"
-                           id="question-title"
-                           required>
+                           (click)="questionsettingsmodal.scrollToFooter()"
+                           role="button"
+                           i18n>Fragen Titel *</label>
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].title"
+                                                    eid="question-title"
+                                                    required="true"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-description -->
                 <div class="form-group">
                     <label for="question-description"
                            i18n>Fragen Beschreibung</label>
-                    <textarea class="form-control"
-                              [(ngModel)]="model.pages[page].elements[question].description.default"
-                              id="question-description"
-                              name="question-description"
-                              rows="5"
-                              aria-describedby="question-descriptionHelp"
-                              maxlength="5000">
-                    </textarea>
+                    <power-forms-editor-localeinput textarea="true"
+                                                    [(locale)]="model.pages[page].elements[question].description"
+                                                    eid="question-description"
+                                                    describedby="question-descriptionHelp">
+                    </power-forms-editor-localeinput>
                     <small id="question-descriptionHelp"
                            class="form-text text-muted"
                            i18n>Dieser Text wird unter der Frage angezeigt.</small>
                 </div>
+
+                <!-- markdown-instructions -->
+                <power-markdown-instructions #formattinghelpmodal>
+                </power-markdown-instructions>
+
+                <span i18n>Sichtbarkeitsbedingungen für die Frage</span>
+                <hr>
+                <power-forms-editor-conditions [model]="model"
+                                               [(data)]="model.pages[page].elements[question].visibleIf">
+                </power-forms-editor-conditions>
+                <hr>
 
                 <!-- question-isRequired -->
                 <div class="custom-control custom-checkbox mb-3">
@@ -82,12 +87,9 @@
                      *ngIf="model.pages[page].elements[question].isRequired">
                     <label for="question-requiredErrorText"
                            i18n>Pflichtfeld Fehlertext</label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].requiredErrorText.default"
-                           maxlength="200"
-                           name="question-requiredErrorText"
-                           id="question-requiredErrorText">
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].requiredErrorText"
+                                                    eid="question-requiredErrorText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-hasComment -->
@@ -113,12 +115,9 @@
                      *ngIf="model.pages[page].elements[question].hasComment">
                     <label for="question-commentText"
                            i18n>Kommentar Eingabefeld Text</label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.pages[page].elements[question].commentText.default"
-                           maxlength="200"
-                           name="question-commentText"
-                           id="question-commentText">
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].commentText"
+                                                    eid="question-commentText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-visible -->
@@ -178,7 +177,8 @@
                 </div>
 
                 <!-- question-width -->
-                <div class="form-group">
+                <div class="form-group"
+                     *ngIf="model.pages[page].elements[question].type !== 'signaturepad'">
                     <label for="question-width"
                            i18n>Breite der Frage in Pixel</label>
                     <input type="text"
@@ -197,20 +197,19 @@
                         <select class="custom-select"
                                 [(ngModel)]="model.pages[page].elements[question].inputType"
                                 id="question-inputType"
-                                name="question-inputType"
-                                aria-describedby="question-inputTypeHelp">
+                                name="question-inputType">
                             <option value="color"
                                     i18n>Farbe</option>
                             <option value="date"
                                     i18n>Datum</option>
                             <option value="datetime-local"
-                                    i18n>Datum &amp; Uhrzeit</option>
+                                    i18n>Datum und Uhrzeit</option>
                             <option value="email"
                                     i18n>E-Mail</option>
                             <option value="month"
                                     i18n>Monat</option>
                             <option value="number"
-                                    i18n>Ganzzahl</option>
+                                    i18n>Zahl</option>
                             <option value="tel"
                                     i18n>Telefonnummer</option>
                             <option value="text"
@@ -222,9 +221,21 @@
                             <option value="week"
                                     i18n>Woche</option>
                         </select>
-                        <small id="question-inputTypeHelp"
-                               class="form-text text-muted"
-                               i18n>Nicht jede Option wird von allen Webbrowsern unterstützt.</small>
+                    </div>
+
+                    <!-- question-step -->
+                    <div class="form-group"
+                         *ngIf="model.pages[page].elements[question].inputType === 'number'">
+                        <label for="question-step2"
+                               i18n>Skala Schritte</label>
+                        <input type="number"
+                               class="form-control"
+                               step="0.01"
+                               min="0.01"
+                               [(ngModel)]="model.pages[page].elements[question].step"
+                               [class.is-invalid]="model.pages[page].elements[question].step === '' && model.pages[page].elements[question].step < 0.01"
+                               name="question-step2"
+                               id="question-step2">
                     </div>
 
                     <!--<span i18n>Minimaler Wert</span>
@@ -247,7 +258,10 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].rows"
+                           [class.is-invalid]="model.pages[page].elements[question].rows % 1 !== 0 || model.pages[page].elements[question].rows < 1 || model.pages[page].elements[question].rows > 20"
+                           step="1"
                            min="1"
+                           max="20"
                            name="question-rows"
                            id="question-rows">
                 </div>
@@ -260,6 +274,8 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].rateStep"
+                               [class.is-invalid]="model.pages[page].elements[question].rateStep % 1 !== 0 || model.pages[page].elements[question].rateStep < 1"
+                               step="1"
                                min="1"
                                name="question-rateStep"
                                id="question-rateStep">
@@ -269,12 +285,9 @@
                     <div class="form-group">
                         <label for="question-minRateDescription"
                                i18n>Anzeigetext Minimum</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].minRateDescription.default"
-                               maxlength="200"
-                               name="question-minRateDescription"
-                               id="question-minRateDescription">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].minRateDescription"
+                                                        eid="question-minRateDescription"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-rateMin -->
@@ -284,6 +297,9 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].rateMin"
+                               [class.is-invalid]="model.pages[page].elements[question].rateMin % 1 !== 0 || model.pages[page].elements[question].rateMin < 0 || model.pages[page].elements[question].rateMin >= model.pages[page].elements[question].rateMax"
+                               step="1"
+                               min="0"
                                name="question-rateMin"
                                id="question-rateMin">
                     </div>
@@ -292,12 +308,9 @@
                     <div class="form-group">
                         <label for="question-maxRateDescription"
                                i18n>Anzeigetext Maximum</label>
-                        <input type="text"
-                               class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].maxRateDescription.default"
-                               maxlength="200"
-                               name="question-maxRateDescription"
-                               id="question-maxRateDescription">
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].maxRateDescription"
+                                                        eid="question-maxRateDescription"
+                                                        maxlength="200"></power-forms-editor-localeinput>
                     </div>
 
                     <!-- question-rateMax -->
@@ -307,14 +320,31 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].rateMax"
+                               [class.is-invalid]="model.pages[page].elements[question].rateMax % 1 !== 0 || model.pages[page].elements[question].rateMax < 1 || model.pages[page].elements[question].rateMin >= model.pages[page].elements[question].rateMax"
+                               step="1"
+                               min="0"
                                name="question-rateMax"
                                id="question-rateMax">
                     </div>
                 </div>
 
                 <div *ngIf="model.pages[page].elements[question].type === 'nouislider'">
+                    <!-- question-double -->
+                    <div class="custom-control custom-checkbox mb-3"
+                         *ngIf="!model.pages[page].elements[question].inputbox">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].double"
+                               name="question-double"
+                               id="question-double">
+                        <label class="custom-control-label"
+                               for="question-double"
+                               i18n>Zweiten Handle für Slider aktivieren</label>
+                    </div>
+
                     <!-- question-inputbox -->
-                    <div class="custom-control custom-checkbox mb-3">
+                    <div class="custom-control custom-checkbox mb-3"
+                         *ngIf="!model.pages[page].elements[question].double">
                         <input type="checkbox"
                                class="custom-control-input"
                                [(ngModel)]="model.pages[page].elements[question].inputbox"
@@ -328,22 +358,57 @@
                     <!-- question-step -->
                     <div class="form-group">
                         <label for="question-step"
-                               i18n>Skala Schritte</label>
+                               i18n>Skala Schrittinterval</label>
                         <input type="number"
                                class="form-control"
-                               min="0"
+                               step="0.01"
+                               min="0.01"
                                [(ngModel)]="model.pages[page].elements[question].step"
+                               [class.is-invalid]="model.pages[page].elements[question].step < 0.01"
                                name="question-step"
-                               id="question-step">
+                               id="question-step"
+                               aria-describedby="question-stepHelp">
+                        <small id="question-stepHelp"
+                               class="form-text text-muted">
+                            <span i18n>Werte auf Skala</span>
+                            <ng-container *ngFor="let x of [0, 1, 2, 3, 4, 5]; index as i">
+                                {{ x * model.pages[page].elements[question].step | number }},
+                            </ng-container>
+                            ...
+                        </small>
+                    </div>
+
+                    <!-- question-decimals -->
+                    <div class="form-group">
+                        <label for="question-decimals"
+                               i18n>Anzahl Nachkommastellen</label>
+                        <input type="number"
+                               class="form-control"
+                               step="1"
+                               min="0"
+                               max="2"
+                               [(ngModel)]="model.pages[page].elements[question].decimals"
+                               [class.is-invalid]="model.pages[page].elements[question].decimals % 1 !== 0 || model.pages[page].elements[question].decimals < 0 || model.pages[page].elements[question].decimals > 2"
+                               name="question-decimals"
+                               id="question-decimals"
+                               aria-describedby="question-decimalsHelp">
+                        <small id="question-decimalsHelp"
+                               *ngIf="model.pages[page].elements[question].step % 1 !== 0 && model.pages[page].elements[question].decimals === 0"
+                               class="form-text text-danger"
+                               i18n>Der Schrittinterval erlaubt Nachkommastellen, Sie müssen zur Anzeige von
+                            Nachkommastellen diesen Wert hochstellen.</small>
                     </div>
 
                     <!-- question-rangeMin -->
                     <div class="form-group">
                         <label for="question-rangeMin"
-                               i18n>Minimaler Wert</label>
+                               i18n>Startwert der Skala</label>
                         <input type="number"
                                class="form-control"
+                               step="1"
+                               min="0"
                                [(ngModel)]="model.pages[page].elements[question].rangeMin"
+                               [class.is-invalid]="model.pages[page].elements[question].rangeMin % 1 !== 0 || model.pages[page].elements[question].rangeMin < 0 || model.pages[page].elements[question].rangeMin >= model.pages[page].elements[question].rangeMax"
                                name="question-rangeMin"
                                id="question-rangeMin">
                     </div>
@@ -351,25 +416,48 @@
                     <!-- question-rangeMax -->
                     <div class="form-group">
                         <label for="question-rangeMax"
-                               i18n>Maximaler Wert</label>
+                               i18n>Endwert der Skala</label>
                         <input type="number"
                                class="form-control"
+                               step="1"
+                               min="0"
                                [(ngModel)]="model.pages[page].elements[question].rangeMax"
+                               [class.is-invalid]="model.pages[page].elements[question].rangeMax % 1 !== 0 || model.pages[page].elements[question].rangeMax < 0 || model.pages[page].elements[question].rangeMin >= model.pages[page].elements[question].rangeMax"
                                name="question-rangeMax"
                                id="question-rangeMax">
                     </div>
 
-                    <!-- question-decimals -->
+                    <!-- question-pipsDensity -->
                     <div class="form-group">
-                        <label for="question-decimals"
-                               i18n>Nachkommastellen</label>
+                        <label for="question-pipsDensity"
+                               i18n>Anzahl der dargestellten Werte auf der Legende</label>
                         <input type="number"
                                class="form-control"
-                               min="0"
-                               max="2"
-                               [(ngModel)]="model.pages[page].elements[question].decimals"
-                               name="question-decimals"
-                               id="question-decimals">
+                               step="1"
+                               min="2"
+                               max="100"
+                               [(ngModel)]="model.pages[page].elements[question].pipsDensity"
+                               [class.is-invalid]="model.pages[page].elements[question].pipsDensity % 1 !== 0 || model.pages[page].elements[question].pipsDensity < 2 || model.pages[page].elements[question].pipsDensity > 100"
+                               name="question-pipsDensity"
+                               id="question-pipsDensity"
+                               aria-describedby="question-pipsDensityHelp">
+                        <small id="question-pipsDensityHelp"
+                               class="form-text text-muted">
+                            <span i18n>Ein zu hoher Wert und große Zahlen verursacht Probleme mit der Mobildarstellung.
+                                Empfohlener Wert</span>
+                            <ng-container
+                                          *ngIf="model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin > 30">
+                                {{ (model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin) / 10 + 1 | number:'1.0-0' }}
+                            </ng-container>
+                            <ng-container
+                                          *ngIf="model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin > 15 && model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin <= 30">
+                                {{ (model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin) / 10 + 3 | number:'1.0-0' }}
+                            </ng-container>
+                            <ng-container
+                                          *ngIf="model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin <= 15">
+                                {{ (model.pages[page].elements[question].rangeMax - model.pages[page].elements[question].rangeMin) + 1 | number:'1.0-0' }}
+                            </ng-container>
+                        </small>
                     </div>
                 </div>
 
@@ -378,24 +466,40 @@
                     <div class="form-group">
                         <label for="question-labelFalse"
                                i18n>Anzeigetext links</label>
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelFalse"
+                                                        eid="question-labelFalse"
+                                                        maxlength="200"></power-forms-editor-localeinput>
+                    </div>
+
+                    <!-- question-valueFalse -->
+                    <div class="form-group">
+                        <label for="question-valueFalse"
+                               i18n>Datenwert links</label>
                         <input type="text"
                                class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].labelFalse.default"
-                               maxlength="200"
-                               name="question-labelFalse"
-                               id="question-labelFalse">
+                               [(ngModel)]="model.pages[page].elements[question].valueFalse"
+                               name="question-valueFalse"
+                               id="question-valueFalse">
                     </div>
 
                     <!-- question-labelTrue -->
                     <div class="form-group">
                         <label for="question-labelTrue"
                                i18n>Anzeigetext rechts</label>
+                        <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].labelTrue"
+                                                        eid="question-labelTrue"
+                                                        maxlength="200"></power-forms-editor-localeinput>
+                    </div>
+
+                    <!-- question-valueTrue -->
+                    <div class="form-group">
+                        <label for="question-valueTrue"
+                               i18n>Datenwert rechts</label>
                         <input type="text"
                                class="form-control"
-                               [(ngModel)]="model.pages[page].elements[question].labelTrue.default"
-                               maxlength="200"
-                               name="question-labelTrue"
-                               id="question-labelTrue">
+                               [(ngModel)]="model.pages[page].elements[question].valueTrue"
+                               name="question-valueTrue"
+                               id="question-valueTrue">
                     </div>
                 </div>
 
@@ -413,21 +517,19 @@
                     </div>
 
                     <!-- question-acceptedTypes-->
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="form-acceptedTypes"
                                i18n>Erlaubte Dateitypen</label>
                         <select class="custom-select"
                                 [(ngModel)]="model.pages[page].elements[question].acceptedTypes"
                                 id="form-acceptedTypes"
                                 name="form-acceptedTypes">
-                            <!--<option value=""
-                                        i18n>Alles erlauben</option>-->
-                            <option value=".pdf"
+                            <option value="application/pdf"
                                     i18n>PDF-Dokumente</option>
-                            <option value="image/*"
+                            <option value="image/png,image/jpeg,image/gif"
                                     i18n>Bilder</option>
                         </select>
-                    </div>
+                    </div>-->
 
                     <!-- question-maxSize -->
                     <div class="form-group">
@@ -435,9 +537,11 @@
                                i18n>Maximale Dateigröße in Bytes</label>
                         <input type="number"
                                class="form-control"
+                               step="1"
                                min="0"
                                max="20971520"
                                [(ngModel)]="model.pages[page].elements[question].maxSize"
+                               [class.is-invalid]="model.pages[page].elements[question].maxSize % 1 !== 0 || model.pages[page].elements[question].maxSize < 0 || model.pages[page].elements[question].maxSize > 20971520"
                                name="question-maxSize"
                                id="question-maxSize">
                     </div>
@@ -524,7 +628,7 @@
 
                 <hr>
                 <span i18n>Unterfrage Sichtbarkeitsbedingung</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].rowsVisibleIf">
                 </power-forms-editor-conditions>
@@ -559,6 +663,16 @@
                     <small id="question-hasOtherHelp"
                            class="form-text text-muted"
                            i18n>Diese Option ist deaktiviert, wenn das "Kommentar Eingabefeld" aktiviert ist.</small>
+                </div>
+
+                <!-- question-otherText -->
+                <div class="form-group"
+                     *ngIf="model.pages[page].elements[question].hasOther">
+                    <label for="question-otherText"
+                           i18n>Anderes Eingabefeld Text</label>
+                    <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].otherText"
+                                                    eid="question-otherText"
+                                                    maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- question-showClearButton -->
@@ -620,7 +734,9 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].imageWidth"
-                               min="0"
+                               [class.is-invalid]="model.pages[page].elements[question].imageWidth % 1 !== 0 || model.pages[page].elements[question].imageWidth < 16 || model.pages[page].elements[question].imageWidth > 512"
+                               step="1"
+                               min="16"
                                max="512"
                                name="question-imageWidth"
                                id="question-imageWidth">
@@ -633,7 +749,9 @@
                         <input type="number"
                                class="form-control"
                                [(ngModel)]="model.pages[page].elements[question].imageHeight"
-                               min="0"
+                               [class.is-invalid]="model.pages[page].elements[question].imageHeight % 1 !== 0 || model.pages[page].elements[question].imageWidth < 16 || model.pages[page].elements[question].imageWidth > 512"
+                               step="1"
+                               min="16"
                                max="512"
                                name="question-imageHeight"
                                id="question-imageHeight">
@@ -682,7 +800,10 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.pages[page].elements[question].colCount"
+                           [class.is-invalid]="model.pages[page].elements[question].colCount % 1 !== 0 || model.pages[page].elements[question].colCount < 0 || model.pages[page].elements[question].colCount > 6"
+                           step="1"
                            min="0"
+                           max="6"
                            name="question-colCount"
                            id="question-colCount">
                 </div>
@@ -707,8 +828,11 @@
                 </div>
 
                 <hr>
-                <span i18n>Antwortbedingungen</span>
+                <span i18n>Generische Sichtbarkeitsbedingung für die Antworten</span>
                 <br>
+                <small class="text-muted"
+                       i18n>Wird für jede Antwort einzeln evaluiert.</small>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].choicesVisibleIf">
                 </power-forms-editor-conditions>
@@ -727,48 +851,74 @@
 
                 <hr>
                 <span i18n>Antwortbedingungen</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].columnsVisibleIf">
                 </power-forms-editor-conditions>
             </accordion-group>
 
             <!-- conditions -->
-            <accordion-group i18n-heading
+            <!-- <accordion-group i18n-heading
                              heading="Bedingungen"
                              class="mb-1 mb-lg-3">
-                <span i18n>Sichtbarkeitsbedingung</span>
-                <br>
+                <span i18n>Sichtbarkeitsbedingung für die Frage</span>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].visibleIf">
                 </power-forms-editor-conditions>
 
                 <hr>
-                <span i18n>Aktivierungsbedingung</span>
+                <span i18n>Aktivierungsbedingung für alle Antworten</span>
                 <br>
+                <small class="text-muted"
+                       i18n>Wird für jede Antwort einzeln evaluiert.</small>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].enableIf">
                 </power-forms-editor-conditions>
 
                 <hr>
                 <span i18n>Pflichtbedingung</span>
-                <br>
+                <hr>
                 <power-forms-editor-conditions [model]="model"
                                                [(data)]="model.pages[page].elements[question].requiredIf">
                 </power-forms-editor-conditions>
-            </accordion-group>
+            </accordion-group> -->
 
             <!-- validators -->
             <accordion-group i18n-heading
                              heading="Validatoren"
                              class="mb-1 mb-lg-3">
-                Validatoren
-                <br>
+                <span i18n>Validatoren</span>
+                <hr>
                 <power-forms-editor-validators [model]="model"
                                                [(data)]="model.pages[page].elements[question]">
                 </power-forms-editor-validators>
-
             </accordion-group>
         </accordion>
+
+        <hr>
+        <button type="button"
+                class="btn btn-success mr-2"
+                i18n-title
+                title="Änderungen speichern"
+                (click)="modal.close()">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-hdd"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 focusable="false"
+                 aria-hidden="true">
+                <path fill-rule="evenodd"
+                      d="M14 9H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1zM2 8a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2z" />
+                <path d="M5 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                <path fill-rule="evenodd"
+                      d="M4.094 4a.5.5 0 0 0-.44.26l-2.47 4.532A1.5 1.5 0 0 0 1 9.51v.99H0v-.99c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198v.99h-1v-.99a1.5 1.5 0 0 0-.183-.718L12.345 4.26a.5.5 0 0 0-.439-.26H4.094z" />
+            </svg>
+            <span class="ml-1"
+                  i18n>Änderungen speichern</span>
+        </button>
     </div>
 </power-modal>

@@ -1,9 +1,13 @@
 {
     "modules": [
         "bodenrichtwerte",
-        "bodenwerte",
-        "immobilien",
-        "fragebogen"
+        "bodenwertkalkulator",
+        "immobilienpreisindex",
+        "immobilienpreiskalkulator",
+        "grundstuecksmarktdaten",
+        "forms",
+        "feedback",
+        "login"
     ],
     "authentication": true
 }

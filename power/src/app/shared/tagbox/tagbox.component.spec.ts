@@ -43,10 +43,10 @@ describe('Shared.TagboxComponent', () => {
 
         component.tagInput = 'MyTag';
         component.addTag();
-        expect(function () {
+        expect(() => {
             component.removeTag(-1);
         }).toThrowError('Invalid i');
-        expect(function () {
+        expect(() => {
             component.removeTag(1);
         }).toThrowError('Invalid i');
     });

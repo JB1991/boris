@@ -14,19 +14,22 @@
  * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
  */
 
-/***************************************************************************************************
+/**
  * BROWSER POLYFILLS
  */
 
-/** IE10 and IE11 requires the following for NgClass support on SVG elements */
-import 'classlist.js';  // Run `npm install --save classlist.js`.
+/** IE11 requires the following for NgClass support on SVG elements */
+import 'classlist.js'; // Run `npm install --save classlist.js`.
+import 'core-js/es/array'; // required for Array.includes() and Array.form()
+import 'core-js/es/object/values';
+import 'core-js/features/url-search-params'; // required for URLSearchParams
 
 /**
  * Web Animations `@angular/platform-browser/animations`
  * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
  * Standard animation support in Angular DOES NOT require any polyfills (as of Angular 6.0).
  */
-import 'web-animations-js';  // Run `npm install --save web-animations-js`.
+import 'web-animations-js'; // Run `npm install --save web-animations-js`.
 
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents
@@ -43,19 +46,39 @@ import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 */
 // (window as any).__Zone_enable_cross_context_check = true;
 
-/***************************************************************************************************
+/**
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js/dist/zone';  // Included with Angular CLI.
+import 'zone.js/dist/zone'; // Included with Angular CLI.
 
-/******************************************************************
+/**
  * Load `$localize` - used if i18n tags appear in Angular templates.
  */
 import '@angular/localize/init';
 
-/***************************************************************************************************
+/**
  * APPLICATION IMPORTS
  */
 
 // aws-sdk requires global to exist
 (window as any).global = window;
+
+// Add remove() to ChildNode
+/* istanbul ignore next */
+(function (arr) {
+    arr.forEach(function (item) {
+        if (item.hasOwnProperty('remove')) {
+            return;
+        }
+        Object.defineProperty(item, 'remove', {
+            configurable: true,
+            enumerable: true,
+            writable: true,
+            value: function remove() {
+                if (this.parentNode !== null) {
+                    this.parentNode.removeChild(this);
+                }
+            }
+        });
+    });
+})([Element.prototype, CharacterData.prototype, DocumentType.prototype]);

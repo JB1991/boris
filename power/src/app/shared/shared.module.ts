@@ -9,10 +9,14 @@ import { GeosearchComponent } from './geosearch/geosearch.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalminiComponent } from './modalmini/modalmini.component';
 import { TagboxComponent } from './tagbox/tagbox.component';
+import { MarkdownInstructionsComponent } from './markdown-instructions/markdown-instructions.component';
 import { AuthModule } from './auth/auth.module';
 import { AlertsModule } from './alerts/alerts.module';
 import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
-import { SvgPipe } from './svg.pipe';
+import { SvgPipe } from './pipes/svg.pipe';
+import { HyphenatePipe } from './pipes/hyphenate.pipe';
+import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive';
+import { FlurstueckSearchComponent } from './flurstueck-search/flurstueck-search.component';
 
 @NgModule({
     declarations: [
@@ -20,17 +24,25 @@ import { SvgPipe } from './svg.pipe';
         ModalComponent,
         ModalminiComponent,
         TagboxComponent,
-        SvgPipe
+        MarkdownInstructionsComponent,
+        SvgPipe,
+        HyphenatePipe,
+        ModalminiFooterDirective,
+        FlurstueckSearchComponent
     ],
     exports: [
         GeosearchComponent,
         ModalComponent,
         ModalminiComponent,
         TagboxComponent,
+        MarkdownInstructionsComponent,
         AuthModule,
         AlertsModule,
         LoadingscreenModule,
-        SvgPipe
+        SvgPipe,
+        HyphenatePipe,
+        ModalminiFooterDirective,
+        FlurstueckSearchComponent
     ],
     imports: [
         CommonModule,

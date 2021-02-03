@@ -1,7 +1,11 @@
-import { Component, Input, Output, EventEmitter, ViewChild, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, Input, Output, EventEmitter, ViewChild,
+    InjectionToken, Inject, ChangeDetectionStrategy
+} from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
+/* eslint-disable-next-line prefer-const */
 let id = 0;
 @Component({
     providers: [
@@ -12,13 +16,14 @@ let id = 0;
     ],
     selector: 'power-forms-editor-answers',
     templateUrl: './answers.component.html',
-    styleUrls: ['./answers.component.scss']
+    styleUrls: ['./answers.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnswersComponent {
     @ViewChild('answersForm') public myForm;
     @Input() public model: any;
     @Input() public hasImg = false;
-    @Input() public data: any = [];
+    @Input() public data = [];
     @Output() public dataChange = new EventEmitter<any>();
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
@@ -137,10 +142,10 @@ export class AnswersComponent {
                 // downscale image
                 const img = new Image();
                 img.onload = () => {
-                    const canvas = document.createElement('canvas'),
-                        ctx = canvas.getContext('2d'),
-                        oc = document.createElement('canvas'),
-                        octx = oc.getContext('2d');
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const oc = document.createElement('canvas');
+                    const octx = oc.getContext('2d');
 
                     canvas.width = 300; // destination canvas size
                     canvas.height = canvas.width * img.height / img.width;

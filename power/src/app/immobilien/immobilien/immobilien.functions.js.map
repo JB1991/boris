@@ -1,5 +1,7 @@
 {
   "version": 3,
-  "sources": ["immobilien.functions.js"],
+  "sources": [
+    "immobilien.functions.js"
+  ],
   "mappings": ""
 }

@@ -8,9 +8,12 @@ export class UmlautCorrectionPipe implements PipeTransform {
     corrections: Map<string, string> = new Map([
         ['Altwarmbuechen', 'Altwarmbüchen'],
         ['Doehren', 'Döhren'],
+        ['Hans-Boeckler-Allee', 'Hans-Böckler-Allee'],
         ['Hoever', 'Höver'],
         ['Muehlenberg', 'Mühlenberg'],
         ['Muellingen', 'Müllingen'],
+        ['QuakenbrÃ¼ck', 'Quakenbrück'],
+        ['QuakenbrÃƒÂ¼ck', 'Quakenbrück'],
         ['Stoecken', 'Stöcken'],
         ['Sued', 'Süd'],
         ['Universitaet', 'Universität'],
@@ -23,7 +26,7 @@ export class UmlautCorrectionPipe implements PipeTransform {
             return '';
         }
 
-        let result = <string>value;
+        let result = value as string;
 
         for (const entry of this.corrections) {
             result = result.replace(entry[0], entry[1]);

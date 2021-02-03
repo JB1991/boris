@@ -1,5 +1,6 @@
 <power-modal #formsettingsmodal
-             (closing)="close()">
+             checkInvalid="true"
+             (closing)="close($event)">
     <div class="container px-1 px-lg-3"
          *ngIf="model">
         <accordion [isAnimated]="true"
@@ -11,19 +12,15 @@
                 <!-- form-title -->
                 <div class="form-group">
                     <label for="form-title"
-                           i18n>Formular Titel
-                           <span (click)="formsettingsmodal.scrollToFooter()" role="button">*</span>
-                     </label>
-                    <input type="text"
-                           class="form-control"
-                           [(ngModel)]="model.title.default"
-                           [class.is-invalid]="!model.title.default"
-                           maxlength="200"
-                           name="form-title"
-                           id="form-title"
-                           i18n-placeholder
-                           placeholder="Formular Titel"
-                           required>
+                           (click)="formsettingsmodal.scrollToFooter()"
+                           role="button"
+                           i18n>Formular Titel *</label>
+                    <power-forms-editor-localeinput [(locale)]="model.title"
+                                                    eid="form-title"
+                                                    required="true"
+                                                    maxlength="200"
+                                                    i18n-placeholder
+                                                    placeholder="Formular Titel"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- form-showTitle -->
@@ -42,18 +39,18 @@
                 <div class="form-group">
                     <label for="form-description"
                            i18n>Formular Beschreibung</label>
-                    <textarea class="form-control"
-                              [(ngModel)]="model.description.default"
-                              id="form-description"
-                              name="form-description"
-                              rows="5"
-                              aria-describedby="form-descriptionHelp"
-                              maxlength="5000">
-                        </textarea>
+                    <power-forms-editor-localeinput textarea="true"
+                                                    [(locale)]="model.description"
+                                                    eid="form-description"
+                                                    describedby="form-descriptionHelp"></power-forms-editor-localeinput>
                     <small id="form-descriptionHelp"
                            class="form-text text-muted"
                            i18n>Dieser Text wird auf jeder Seite vom Formular angezeigt werden.</small>
                 </div>
+
+                <!-- markdown-instructions -->
+                <power-markdown-instructions #formattinghelpmodal>
+                </power-markdown-instructions>
 
                 <!-- form-locale-->
                 <div class="form-group">
@@ -71,7 +68,8 @@
                     </select>
                     <small id="form-localeHelp"
                            class="form-text text-muted"
-                           i18n>Die Standardsprache welche dem Benutzer angezeigt wird. Der Benutzer hat die Möglichkeit
+                           i18n>Die Standardsprache, welche dem Benutzer angezeigt wird. Der Benutzer hat die
+                        Möglichkeit
                         die Sprache zu wechseln.</small>
                 </div>
 
@@ -110,16 +108,11 @@
                 <!-- form-completedHtml -->
                 <div class="form-group">
                     <label for="form-completedHtml"
-                           i18n>Abschlusstext
-                           <span (click)="formsettingsmodal.scrollToFooter()" role="button">*</span>
-                     </label>
-                    <textarea class="form-control"
-                              [(ngModel)]="model.completedHtml.default"
-                              id="form-completedHtml"
-                              name="form-completedHtml"
-                              rows="5"
-                              maxlength="5000">
-                        </textarea>
+                           role="button"
+                           i18n>Abschlusstext</label>
+                    <power-forms-editor-localeinput textarea="true"
+                                                    [(locale)]="model.completedHtml"
+                                                    eid="form-completedHtml"></power-forms-editor-localeinput>
                 </div>
 
                 <!-- form-navigateToUrl -->
@@ -189,7 +182,9 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.logoWidth"
-                           min="0"
+                           [class.is-invalid]="!!model.logoWidth && (model.logoWidth % 1 !== 0 || model.logoWidth < 16 || model.logoWidth > 512)"
+                           step="1"
+                           min="16"
                            max="512"
                            name="form-logoWidth"
                            id="form-logoWidth">
@@ -202,7 +197,9 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.logoHeight"
-                           min="0"
+                           [class.is-invalid]="!!model.logoHeight && (model.logoHeight % 1 !== 0 || model.logoHeight < 16 || model.logoHeight > 512)"
+                           step="1"
+                           min="16"
                            max="512"
                            name="form-logoHeight"
                            id="form-logoHeight">
@@ -352,8 +349,8 @@
                              class="btn btn-link btn-block p-0 clearfix clickable"
                              role="button"
                              tabindex="0">
-                            <span class="pull-left float-left"
-                                  i18n>Seite {{ i + 1 }}</span>
+                            <span class="pull-left float-left">
+                                <span i18n>Seite</span> {{ i + 1 }}</span>
                             <span class="float-right pull-right"
                                   (click)="$event.stopPropagation()">
                                 <button type="button"
@@ -365,9 +362,10 @@
                                     <svg width="1em"
                                          height="1em"
                                          viewBox="0 0 16 16"
-                                         class="bi bi-caret-up align-baseline"
+                                         class="bi bi-caret-up"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         focusable="false"
                                          aria-hidden="true">
                                         <path fill-rule="evenodd"
                                               d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
@@ -385,9 +383,10 @@
                                     <svg width="1em"
                                          height="1em"
                                          viewBox="0 0 16 16"
-                                         class="bi bi-caret-down align-baseline"
+                                         class="bi bi-caret-down"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         focusable="false"
                                          aria-hidden="true">
                                         <path fill-rule="evenodd"
                                               d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
@@ -402,29 +401,28 @@
                         <div class="form-group">
                             <label for="page-title-{{ i }}"
                                    i18n>Seiten Titel</label>
-                            <input type="text"
-                                   class="form-control"
-                                   [(ngModel)]="page.title.default"
-                                   maxlength="200"
-                                   name="page-title-{{ i }}"
-                                   id="page-title-{{ i }}"
-                                   i18n-placeholder
-                                   placeholder="Seiten Titel"
-                                   required>
+                            <power-forms-editor-localeinput [(locale)]="page.title"
+                                                            eid="page-title-{{ i }}"
+                                                            maxlength="200"
+                                                            i18n-placeholder
+                                                            placeholder="Seiten Titel">
+                            </power-forms-editor-localeinput>
                         </div>
 
                         <!-- page-description -->
                         <div class="form-group">
                             <label for="page-description-{{ i }}"
                                    i18n>Seiten Beschreibung</label>
-                            <textarea class="form-control"
-                                      [(ngModel)]="page.description.default"
-                                      id="page-description-{{ i }}"
-                                      name="page-description-{{ i }}"
-                                      rows="5"
-                                      maxlength="5000">
-                                </textarea>
+                            <power-forms-editor-localeinput textarea="true"
+                                                            [(locale)]="page.description"
+                                                            eid="page-description-{{ i }}">
+                            </power-forms-editor-localeinput>
                         </div>
+
+                        <!-- markdown-instructions -->
+                        <power-markdown-instructions #formattinghelpmodal>
+                        </power-markdown-instructions>
+
 
                         <!-- page-questionsOrder-->
                         <div class="form-group">
@@ -486,6 +484,8 @@
                             <input type="number"
                                    class="form-control"
                                    [(ngModel)]="page.maxTimeToFinish"
+                                   [class.is-invalid]="!!page.maxTimeToFinish && (page.maxTimeToFinish % 1 !== 0 || page.maxTimeToFinish < 0)"
+                                   step="1"
                                    min="0"
                                    name="page-maxTimeToFinish-{{ i }}"
                                    id="page-maxTimeToFinish-{{ i }}"
@@ -493,19 +493,19 @@
                             <small id="page-maxTimeToFinishHelp-{{ i }}"
                                    class="form-text text-muted"
                                    i18n>Diese Option überschreibt den Standardwert pro Seite aus dem Reiter
-                                Timer/Quiz.</small>
+                                Timer/Quiz. Der Wert 0 deaktiviert das Zeitlimit.</small>
                         </div>
 
                         <hr>
                         <span i18n>Sichtbarkeitsbedingung</span>
-                        <br>
+                        <hr>
                         <power-forms-editor-conditions [model]="model"
                                                        [(data)]="page.visibleIf">
                         </power-forms-editor-conditions>
 
                         <hr>
                         <span i18n>Aktivierungsbedingung</span>
-                        <br>
+                        <hr>
                         <power-forms-editor-conditions [model]="model"
                                                        [(data)]="page.enableIf">
                         </power-forms-editor-conditions>
@@ -531,6 +531,8 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.maxTimeToFinish"
+                           [class.is-invalid]="!!model.maxTimeToFinish && (model.maxTimeToFinish % 1 !== 0 || model.maxTimeToFinish < 0)"
+                           step="1"
                            min="0"
                            name="form-maxTimeToFinish"
                            id="form-maxTimeToFinish">
@@ -543,6 +545,8 @@
                     <input type="number"
                            class="form-control"
                            [(ngModel)]="model.maxTimeToFinishPage"
+                           [class.is-invalid]="!!model.maxTimeToFinishPage && (model.maxTimeToFinishPage % 1 !== 0 || model.maxTimeToFinishPage < 0)"
+                           step="1"
                            min="0"
                            name="form-maxTimeToFinishPage"
                            id="form-maxTimeToFinishPage">
@@ -583,5 +587,29 @@
                 </div>
             </accordion-group>
         </accordion>
+
+        <hr>
+        <button type="button"
+                class="btn btn-success mr-2"
+                i18n-title
+                title="Änderungen speichern"
+                (click)="modal.close()">
+            <svg width="1em"
+                 height="1em"
+                 viewBox="0 0 16 16"
+                 class="bi bi-hdd"
+                 fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg"
+                 focusable="false"
+                 aria-hidden="true">
+                <path fill-rule="evenodd"
+                      d="M14 9H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1zM2 8a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2z" />
+                <path d="M5 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                <path fill-rule="evenodd"
+                      d="M4.094 4a.5.5 0 0 0-.44.26l-2.47 4.532A1.5 1.5 0 0 0 1 9.51v.99H0v-.99c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198v.99h-1v-.99a1.5 1.5 0 0 0-.183-.718L12.345 4.26a.5.5 0 0 0-.439-.26H4.094z" />
+            </svg>
+            <span class="ml-1"
+                  i18n>Änderungen speichern</span>
+        </button>
     </div>
 </power-modal>

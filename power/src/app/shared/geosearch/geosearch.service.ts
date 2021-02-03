@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Feature, FeatureCollection } from 'geojson';
 
@@ -34,12 +34,20 @@ export class GeosearchService {
     }
 
     /**
-     * Search for houses in lower saxony
+     * Search for locations in lower saxony
      * @param search The search string to be passed to the GeoCoder
      */
     search(search: string): Observable<FeatureCollection> {
+        const header = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.get<FeatureCollection>(this.url, {
-            params: new HttpParams().set('query', `text:(${search}) AND typ:haus AND bundesland:Niedersachsen`)
+            headers: header,
+            responseType: 'json',
+            params: new HttpParams().set('query', `text:(${search}) AND (typ:ort OR typ:strasse OR typ:haus^0.2) AND (bundesland:Niedersachsen OR bundesland:Bremen)`)
+                .append('minScore', '1').append('count', '10')
         }).pipe(
             catchError(GeosearchService.handleError)
         );
@@ -49,10 +57,19 @@ export class GeosearchService {
      * Translate geo coordinates to an address
      * @param lat Latitude
      * @param lon Longitude
+     * If the parameter `distance` changes, the html text in `bodenrichtwert.component` must be changed accordingly.
      */
     getAddressFromCoordinates(lat, lon): Observable<FeatureCollection> {
+        const header = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
         return this.http.get<FeatureCollection>(this.url, {
-            params: new HttpParams().set('query', 'typ: haus').append('lat', lat).append('lon', lon)
+            headers: header,
+            responseType: 'json',
+            params: new HttpParams().set('query', 'typ: haus').append('lat', lat)
+                .append('lon', lon).append('distance', '50')
         }).pipe(
             catchError(GeosearchService.handleError)
         );
@@ -61,17 +78,9 @@ export class GeosearchService {
     /**
      * Handling of HTTP errors by logging it to the console
      * @param error HTTP error to be handled
-     * @private
      */
     private static handleError(error: HttpErrorResponse) {
-        if (error.error instanceof ErrorEvent) {
-            console.error('Es ist ein Fehler aufgetreten: ' + error.message);
-        } else {
-            console.error(
-                `Return-Code vom Backend: ${error.status}, ` +
-                `Nachricht: ${error.error}`);
-        }
-        return throwError('Es ist ein Fehler aufgetreten.');
+        return throwError(error);
     }
 }
 

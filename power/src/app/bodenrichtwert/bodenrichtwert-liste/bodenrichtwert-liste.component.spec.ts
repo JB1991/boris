@@ -4,9 +4,10 @@ import { BodenrichtwertListeComponent } from './bodenrichtwert-liste.component';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { CommonModule } from '@angular/common';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
 
 describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () => {
+    const changes = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-liste-changes.json');
+
     let component: BodenrichtwertListeComponent;
     let fixture: ComponentFixture<BodenrichtwertListeComponent>;
     let httpTestingController: HttpTestingController;
@@ -19,8 +20,7 @@ describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () =
             imports: [
                 CommonModule,
                 HttpClientTestingModule,
-                NgbPaginationModule,
-                FormsModule
+                NgbPaginationModule
             ],
             providers: [
                 BodenrichtwertService
@@ -38,8 +38,15 @@ describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () =
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
-    it('should create', () => {
+    it('should be created', () => {
         expect(component).toBeTruthy();
     });
+
+    it('ngOnChanges should work', () => {
+        component.ngOnChanges(changes);
+        expect(component.features.features.length).toBe(0);
+        expect(component.filteredFeatures.length).toBe(0);
+    });
 });
+
 /* vim: set expandtab ts=4 sw=4 sts=4: */

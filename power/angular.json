@@ -45,15 +45,19 @@
                         "scripts": [],
                         "allowedCommonJsDependencies": [
                             "bootstrap-slider",
+                            "ngx-bootstrap-icons",
                             "css-element-queries",
-                            "echarts",
+                            "epsg",
                             "hyphen",
+                            "lodash",
+                            "echarts",
+                            "zrender",
+                            "showdown",
                             "inputmask",
                             "nouislider",
-                            "showdown",
                             "suggestions",
+                            "fast-xml-parser",
                             "surveyjs-widgets",
-                            "zrender",
                             "@mapbox/mapbox-gl-geocoder",
                             "@mapbox/mapbox-sdk"
                         ]
@@ -68,8 +72,8 @@
                                 {
                                     "type": "bundle",
                                     "name": "main",
-                                    "maximumWarning": "512kb",
-                                    "maximumError": "768kb"
+                                    "maximumWarning": "768kb",
+                                    "maximumError": "1024kb"
                                 }
                             ],
                             "fileReplacements": [
@@ -79,15 +83,43 @@
                                 }
                             ],
                             "optimization": true,
-                            "outputHashing": "none",
+                            "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
-                            "serviceWorker": true
+                            "serviceWorker": false
+                        },
+                        "staging": {
+                            "budgets": [
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                },
+                                {
+                                    "type": "bundle",
+                                    "name": "main",
+                                    "maximumWarning": "768kb",
+                                    "maximumError": "1024kb"
+                                }
+                            ],
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.staging.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "serviceWorker": false
                         },
                         "de": {
                             "localize": [
@@ -114,6 +146,9 @@
                     "configurations": {
                         "production": {
                             "browserTarget": "power:build:production,de"
+                        },
+                        "staging": {
+                            "browserTarget": "power:build:staging,de"
                         },
                         "de": {
                             "browserTarget": "power:build:de"
@@ -149,14 +184,11 @@
                     }
                 },
                 "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
+                    "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "tsConfig": [
-                            "src/tsconfig.app.json",
-                            "src/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
+                        "lintFilePatterns": [
+                            "src/**/*.ts",
+                            "src/**/*.html"
                         ]
                     }
                 }
@@ -175,6 +207,9 @@
                     "configurations": {
                         "production": {
                             "devServerTarget": "power:serve:production"
+                        },
+                        "staging": {
+                            "devServerTarget": "power:serve:staging"
                         }
                     }
                 },

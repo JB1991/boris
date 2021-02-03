@@ -1,0 +1,10 @@
+{
+    "html.format.endWithNewline": true,
+    "html.format.indentHandlebars": true,
+    "html.format.wrapAttributes": "force-aligned",
+    "editor.formatOnSave": true,
+    "eslint.format.enable": true,
+    "eslint.workingDirectories": [
+        "power"
+    ]
+}

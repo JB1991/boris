@@ -1,3 +1,4 @@
+import { LOCALE_ID } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,6 +12,7 @@ import { HistoryService } from '../history.service';
 import { ConditionsComponent } from '../conditions/conditions.component';
 import { ValidatorsComponent } from '../validators/validators.component';
 import { ValueComponent } from '../value/value.component';
+import { LocaleInputComponent } from '../localeinput/localeinput.component';
 
 import { SharedModule } from '@app/shared/shared.module';
 import { AnswersComponent } from '../answers/answers.component';
@@ -19,7 +21,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     let component: QuestionSettingsComponent;
     let fixture: ComponentFixture<QuestionSettingsComponent>;
 
-    const formSample = require('../../../../assets/fragebogen/surveyjs.json');
+    const formContent = require('../../../../assets/fragebogen/form-content.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -32,6 +34,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
                 SharedModule
             ],
             providers: [
+                { provide: LOCALE_ID, useValue: 'de' },
                 StorageService,
                 HistoryService
             ],
@@ -40,16 +43,18 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
                 ConditionsComponent,
                 ValidatorsComponent,
                 ValueComponent,
-                AnswersComponent
+                AnswersComponent,
+                LocaleInputComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(QuestionSettingsComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.alerts, 'NewAlert');
-        });
+        fixture = TestBed.createComponent(QuestionSettingsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        spyOn(console, 'log');
+        spyOn(component.alerts, 'NewAlert');
+        spyOn(component.cdr, 'detectChanges');
     }));
 
     it('should create', () => {
@@ -57,7 +62,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     });
 
     it('should open modal', () => {
-        component.model = formSample;
+        component.model = formContent;
         component.open(0, 0);
         expect(component.modal.isVisible()).toBeTrue();
         component.modal.close();
@@ -65,7 +70,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     });
 
     it('should update model', () => {
-        component.model = formSample;
+        component.model = formContent;
         component.open(0, 0);
         expect(component.storage.getUnsavedChanges()).toBeFalse();
         component.model.title.default = 'xxx';
@@ -74,7 +79,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     });
 
     it('should crash open', () => {
-        component.model = formSample;
+        component.model = formContent;
 
         expect(() => {
             component.open(0, -1);
@@ -84,9 +89,6 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
         }).toThrowError('page is invalid');
         expect(() => {
             component.open(-1, 0);
-        }).toThrowError('question is invalid');
-        expect(() => {
-            component.open(2, 0);
         }).toThrowError('question is invalid');
     });
 });

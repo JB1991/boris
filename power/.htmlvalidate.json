@@ -1,12 +1,12 @@
 {
     "extends": [
-        "htmlvalidate:recommended"
+        "html-validate:recommended"
     ],
     "rules": {
         "attr-case": "off",
+        "element-name": "off",
         "no-inline-style": "off",
-        "svg-focusable": "off",
-		"element-name": "off",
-		"prefer-native-element": "off"
+        "prefer-native-element": "off",
+        "text-content": "off"
     }
 }

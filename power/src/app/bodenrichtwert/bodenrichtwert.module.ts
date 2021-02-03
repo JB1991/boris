@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { NgbAccordionModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import * as echarts from 'echarts';
 
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
@@ -13,12 +14,21 @@ import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenri
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertListeComponent } from './bodenrichtwert-liste/bodenrichtwert-liste.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
+import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
-import { HyphenatePipe } from './pipes/hyphenate.pipe';
 import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
+import { EntwicklungszustandPipe } from './pipes/entwicklungszustand.pipe';
+import { EntwicklungszusatzPipe } from './pipes/entwicklungszusatz.pipe';
+import { ObjectIdPipe } from './pipes/object-id.pipe';
+import { EinflussgroessePipe } from './pipes/einflussgroesse.pipe';
+import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
+import { BauweisePipe } from './pipes/bauweise.pipe';
+import { BodenartPipe } from './pipes/bodenart.pipe';
+import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
+import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -37,22 +47,29 @@ import { UmlautCorrectionPipe } from './pipes/umlaut-correction.pipe';
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
         BodenrichtwertListeComponent,
+        UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,
-        HyphenatePipe,
-        UmlautCorrectionPipe
+        UmlautCorrectionPipe,
+        EntwicklungszustandPipe,
+        EntwicklungszusatzPipe,
+        ObjectIdPipe,
+        EinflussgroessePipe,
+        ArtDerBebauungPipe,
+        BauweisePipe,
+        BodenartPipe,
+        VerfahrensartPipe,
+        NutzungBremenPipe
     ],
     imports: [
         BodenrichtwertRoutingModule,
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgbAccordionModule,
-        NgbPaginationModule,
         NgxMapboxGLModule,
-        NgxEchartsModule.forRoot({ echarts }),
+        NgxEchartsModule.forRoot({ echarts: echarts }),
         SharedModule,
-        NgbDropdownModule
+        BsDropdownModule.forRoot(),
+        AlertModule.forRoot(),
+        CollapseModule.forRoot()
     ],
     providers: [BodenrichtwertService]
 })

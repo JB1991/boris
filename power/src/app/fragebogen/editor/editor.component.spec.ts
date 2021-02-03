@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { environment } from '@env/environment';
-import * as templates from './data';
 
 import { EditorComponent } from './editor.component';
 import { StorageService } from './storage.service';
@@ -18,12 +17,15 @@ import { SurveyjsModule } from '@app/fragebogen/surveyjs/surveyjs.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { FormAPIService } from '../formapi.service';
 
+/* eslint-disable max-lines */
 describe('Fragebogen.Editor.EditorComponent', () => {
     let component: EditorComponent;
     let fixture: ComponentFixture<EditorComponent>;
 
-    const formSample = require('../../../assets/fragebogen/intern-get-forms-id.json');
-    const formContent = require('../../../assets/fragebogen/surveyjs.json');
+    const formContent = require('../../../assets/fragebogen/form-content.json');
+    const getForm = require('../../../assets/fragebogen/get-form.json');
+    const getElements = require('../../../assets/fragebogen/get-elements.json');
+    const getElement = require('../../../assets/fragebogen/get-element.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -49,15 +51,16 @@ describe('Fragebogen.Editor.EditorComponent', () => {
                 MockElementModalComponent,
                 MockFormularModalComponent
             ]
-        }).compileComponents().then(() => {
-            fixture = TestBed.createComponent(EditorComponent);
-            component = fixture.componentInstance;
+        }).compileComponents();
 
-            spyOn(console, 'log');
-            spyOn(component.router, 'navigate');
-            spyOn(component.alerts, 'NewAlert');
-            fixture.detectChanges();
-        });
+        fixture = TestBed.createComponent(EditorComponent);
+        component = fixture.componentInstance;
+
+        spyOn(console, 'log');
+        spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
+        spyOn(component.cdr, 'detectChanges');
+        fixture.detectChanges();
     }));
 
     /**
@@ -73,9 +76,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     });
 
     it('should destroy', () => {
-        component.timerHandle = setTimeout(() => {
-            return;
-        }, 100);
+        component.timerHandle = setTimeout(() => null, 100);
         component.ngOnDestroy();
         expect(component.timerHandle).toBeNull();
     });
@@ -96,37 +97,41 @@ describe('Fragebogen.Editor.EditorComponent', () => {
      * ON SCROLL
      */
     it('should onScroll/onResize', () => {
+        const tb = document.getElementById('toolbox').parentElement;
+
         // small screen, not scrolled
-        (<any>window).innerWidth = 450;
+        (window as any).innerWidth = 450;
         component.onScroll(null);
         component.onResize(null);
+        expect(tb.style.marginTop).toEqual('0px');
 
         // wide screen, scrolled
-        (<any>window).innerWidth = 1024;
-        (<any>window).pageYOffset = 10000;
+        (window as any).innerWidth = 1024;
+        (window as any).pageYOffset = 10000;
         component.onScroll(null);
         component.onResize(null);
 
         // wide screen, not scrolled
-        (<any>window).pageYOffset = 0;
+        (window as any).pageYOffset = 0;
         component.onScroll(null);
+        expect(tb.style.marginTop).toEqual('0px');
     });
 
     /**
      * LOAD DATA
      */
-    it('shoul to load data', (done) => {
-        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.resolve(formSample.data));
-        spyOn(component.formapi, 'getInternElements').and.returnValue(Promise.resolve({ data: [], total: 0 }));
+    it('should load data', (done) => {
+        spyOn(component.formapi, 'getForm').and.returnValue(Promise.resolve(getForm));
+        spyOn(component.formapi, 'getElements').and.returnValue(Promise.resolve(getElements));
         component.loadData('123').then(() => {
             clearTimeout(component.timerHandle);
-            expect(component.storage.model).toEqual(formSample.data.content);
+            expect(component.storage.model).toEqual(getForm.form.content);
             done();
         });
     });
 
     it('should error to load data', (done) => {
-        spyOn(component.formapi, 'getInternForm').and.returnValue(Promise.reject('Failed to load data'));
+        spyOn(component.formapi, 'getForm').and.returnValue(Promise.reject('Failed to load data'));
         component.loadData('123').then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Laden fehlgeschlagen',
@@ -148,30 +153,30 @@ describe('Fragebogen.Editor.EditorComponent', () => {
      */
     it('should drag and drop pagination', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('rating');
 
         // do nothing
         component.onDropPagination({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadToolbox(0) });
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
         expect(component.storage.model.pages.length).toEqual(1);
 
         // drag page 1 onto position 0
         component.wsPageCreate();
         component.onDropPagination({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadPagination(1) });
         expect(component.storage.model.pages[0].elements.length).toEqual(0);
-        expect(component.storage.model.pages[1].elements.length).toEqual(2);
+        expect(component.storage.model.pages[1].elements.length).toEqual(4);
 
         // drag element into other page
         component.storage.selectedPageID = 1;
         component.onDropPagination({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadWorkspace(0) });
         expect(component.storage.model.pages[0].elements.length).toEqual(1);
-        expect(component.storage.model.pages[1].elements.length).toEqual(1);
+        expect(component.storage.model.pages[1].elements.length).toEqual(3);
 
         // drag element into same page as its from
         component.onDropPagination({ removedIndex: 1, addedIndex: 2, payload: component.getPayloadWorkspace(0) });
         expect(component.storage.model.pages[0].elements.length).toEqual(1);
-        expect(component.storage.model.pages[1].elements.length).toEqual(1);
+        expect(component.storage.model.pages[1].elements.length).toEqual(3);
     });
 
     it('should not drag and drop', () => {
@@ -185,7 +190,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         component.onDropWorkspace({ removedIndex: null, addedIndex: null });
         component.onDropWorkspace({ removedIndex: 0, addedIndex: 0 });
 
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
         expect(() => {
             component.onDropWorkspace({ removedIndex: 10, addedIndex: 0, payload: component.getPayloadToolbox(99) });
         }).toThrowError('Could not create new Element');
@@ -213,6 +218,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         expect(component.shouldAcceptDropPagination({ groupName: 'toolbox' }, null)).toBeFalse();
         expect(component.shouldAcceptDropWorkspace({ groupName: 'pagination' }, null)).toBeFalse();
         expect(component.shouldAcceptDropWorkspace({ groupName: 'workspace' }, null)).toBeTrue();
+        expect(component.shouldAcceptDropWorkspace({ groupName: 'favorites' }, null)).toBeTrue();
         expect(component.shouldAcceptDropWorkspace({ groupName: 'toolbox' }, null)).toBeTrue();
         expect(component.getPayloadToolbox(1)).toEqual({ from: 'toolbox', index: 1 });
         expect(component.getPayloadPagination(1)).toEqual({ from: 'pagination', index: 1 });
@@ -224,16 +230,16 @@ describe('Fragebogen.Editor.EditorComponent', () => {
      */
     it('should make new element', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
-        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(2);
+        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(4);
 
         // add element
         component.wsNewElement('radiogroup');
-        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(3);
+        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(5);
 
         // add copied element
         component.elementCopy = JSON.stringify({ title: 'A', name: 'x', type: 'comment' });
         component.wsNewElement('elementcopy');
-        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(4);
+        expect(component.storage.model.pages[component.storage.selectedPageID].elements.length).toEqual(6);
     });
 
     it('should crash new element', () => {
@@ -282,7 +288,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         component.storage.selectedPageID = 0;
         component.wsPageDelete(1);
         expect(component.storage.model.pages.length).toEqual(1);
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
 
         // delete last page
         component.storage.selectedPageID = 3;
@@ -344,9 +350,9 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
         component.wsNewElement('text');
         component.wsElementCopy(0, 0);
-        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e3","type":"text","inputType":"text","startWithNewLine":true,"visible":true,"isRequired":true,"requiredErrorText":{}}');
+        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e1","type":"text","inputType":"text","startWithNewLine":true,"visible":true,"isRequired":true,"requiredErrorText":{}}');
         component.wsElementCopy(0);
-        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e3","type":"text","inputType":"text","startWithNewLine":true,"visible":true,"isRequired":true,"requiredErrorText":{}}');
+        expect(component.elementCopy).toEqual('{"title":{},"description":{},"name":"e1","type":"text","inputType":"text","startWithNewLine":true,"visible":true,"isRequired":true,"requiredErrorText":{}}');
     });
 
     it('should crash copy element', () => {
@@ -361,9 +367,6 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         expect(() => {
             component.wsElementCopy(-1);
         }).toThrowError('element is invalid');
-        expect(() => {
-            component.wsElementCopy(2);
-        }).toThrowError('element is invalid');
     });
 
     /**
@@ -372,21 +375,21 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     it('should remove element', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
         spyOn(window, 'confirm').and.returnValue(true);
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
 
         // delete element
         component.wsElementRemove(0);
-        expect(component.storage.model.pages[0].elements.length).toEqual(1);
+        expect(component.storage.model.pages[0].elements.length).toEqual(3);
     });
 
     it('should not remove element', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
         spyOn(window, 'confirm').and.returnValue(false);
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
 
         // delete element
         component.wsElementRemove(0, 0);
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
     });
 
     it('should crash remove element', () => {
@@ -401,16 +404,13 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         expect(() => {
             component.wsElementRemove(-1);
         }).toThrowError('element is invalid');
-        expect(() => {
-            component.wsElementRemove(2);
-        }).toThrowError('element is invalid');
     });
 
     /**
      * wsSave
      */
     it('should save formular', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.resolve(formSample));
+        spyOn(component.formapi, 'updateForm').and.returnValue(Promise.resolve(getForm));
         component.storage.setUnsavedChanges(true);
         component.wsSave();
         tick();
@@ -419,7 +419,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     }));
 
     it('should fail to save formular', fakeAsync(() => {
-        spyOn(component.formapi, 'updateInternForm').and.returnValue(Promise.reject('Failed to save formular'));
+        spyOn(component.formapi, 'updateForm').and.returnValue(Promise.reject('Failed to save formular'));
         component.storage.setUnsavedChanges(true);
         component.wsSave();
         tick();
@@ -448,11 +448,11 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
         component.wsNewElement('comment');
         component.wsElementMoveup(1);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('rating');
 
         // cant move up
         component.wsElementMoveup(0);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('rating');
     });
 
     it('should crash move element up', () => {
@@ -467,9 +467,6 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         expect(() => {
             component.wsElementMoveup(-1);
         }).toThrowError('element is invalid');
-        expect(() => {
-            component.wsElementMoveup(2);
-        }).toThrowError('element is invalid');
     });
 
     /**
@@ -479,11 +476,11 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
         component.wsNewElement('comment');
         component.wsElementMovedown(0);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('rating');
 
         // cant move down
-        component.wsElementMovedown(2);
-        expect(component.storage.model.pages[0].elements[2].type).toEqual('checkbox');
+        component.wsElementMovedown(4);
+        expect(component.storage.model.pages[0].elements[4].type).toEqual('comment');
     });
 
     it('should crash move element down', () => {
@@ -498,9 +495,6 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         expect(() => {
             component.wsElementMovedown(-1);
         }).toThrowError('element is invalid');
-        expect(() => {
-            component.wsElementMovedown(2);
-        }).toThrowError('element is invalid');
     });
 
     /**
@@ -508,32 +502,164 @@ describe('Fragebogen.Editor.EditorComponent', () => {
      */
     it('should drag and drop workspace', () => {
         component.storage.model = JSON.parse(JSON.stringify(formContent));
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
-        expect(component.storage.model.pages[0].elements[0].type).toEqual('text');
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
+        expect(component.storage.model.pages[0].elements[0].type).toEqual('rating');
 
         // do nothing
         component.onDropWorkspace({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadPagination(0) });
-        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+        expect(component.storage.model.pages[0].elements.length).toEqual(4);
 
         // drag new element into workspace
         component.onDropWorkspace({ removedIndex: 0, addedIndex: 1, payload: component.getPayloadToolbox(1) });
         expect(component.storage.model.pages[0].elements[1].type).toEqual('comment');
-        expect(component.storage.model.pages[0].elements.length).toEqual(3);
+        expect(component.storage.model.pages[0].elements.length).toEqual(5);
 
         // drag element 1 onto position 0
         component.onDropWorkspace({ removedIndex: 1, addedIndex: 0, payload: component.getPayloadWorkspace(1) });
         expect(component.storage.model.pages[0].elements[0].type).toEqual('comment');
-        expect(component.storage.model.pages[0].elements[1].type).toEqual('text');
+        expect(component.storage.model.pages[0].elements[1].type).toEqual('rating');
 
         // drag copied element into workspace
         component.elementCopy = JSON.stringify({ title: 'A', name: 'x', type: 'imagepicker' });
         component.onDropWorkspace({ removedIndex: 10, addedIndex: 0, payload: component.getPayloadToolbox(99) });
         expect(component.storage.model.pages[0].elements[0].type).toEqual('imagepicker');
-        expect(component.storage.model.pages[0].elements.length).toEqual(4);
+        expect(component.storage.model.pages[0].elements.length).toEqual(6);
+
+        // drag favorite into workspace
+        component.favorites = [{ content: { type: 'test' } }];
+        component.onDropWorkspace({ removedIndex: 0, addedIndex: 1, payload: component.getPayloadFavorites(0) });
+        expect(component.storage.model.pages[0].elements[1].type).toEqual('test');
+        expect(component.storage.model.pages[0].elements.length).toEqual(7);
     });
 
-    afterEach(() => {
+    it('should not drag and drop workspace', () => {
+        expect(() => {
+            component.onDropWorkspace({ removedIndex: 0, addedIndex: 1, payload: component.getPayloadFavorites(0) });
+        }).toThrowError('Could not insert favorite');
+    });
 
+    /**
+     * Favorites
+     */
+    it('should check if is favorite', () => {
+        component.favorites = [{
+            content: {
+                title: 'ABC',
+                name: ''
+            }
+        }];
+
+        expect(component.isFavorite({ title: 'ABC', name: '' })).toEqual(1);
+        expect(component.isFavorite({ title: 'DEF', name: '' })).toBeNull();
+    });
+
+    it('should insert favorite', () => {
+        component.favorites = [{
+            content: {
+                title: 'ABC',
+                name: ''
+            }
+        }];
+
+        expect(component.storage.model.pages[0].elements.length).toEqual(1);
+        component.insertFavorite(0);
+        expect(component.storage.model.pages[0].elements.length).toEqual(2);
+    });
+
+    it('should fail insert favorite', () => {
+        expect(() => {
+            component.insertFavorite(-1);
+        }).toThrowError('i is invalid');
+        expect(() => {
+            component.insertFavorite(3);
+        }).toThrowError('i is invalid');
+    });
+
+    it('should not add favorite', () => {
+        spyOn(component.formapi, 'createElement');
+        component.storage.model.pages[0].elements[0].title.default = '';
+        component.addFavorite(0);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.formapi.createElement).toHaveBeenCalledTimes(0);
+    });
+
+    it('should add favorite', fakeAsync(() => {
+        spyOn(component.formapi, 'createElement').and.returnValue(Promise.resolve(getElement));
+
+        component.addFavorite(0);
+        tick();
+
+        expect(component.favorites.length).toEqual(1);
+    }));
+
+    it('should fail add favorite', fakeAsync(() => {
+        spyOn(component.formapi, 'createElement').and.returnValue(Promise.reject('Failed'));
+        component.addFavorite(0);
+        tick();
+
+        expect(component.favorites.length).toEqual(0);
+    }));
+
+    it('should crash add favorite', () => {
+        expect(() => {
+            component.addFavorite(-1);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.addFavorite(3);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.addFavorite(0, -1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.addFavorite(0, 3);
+        }).toThrowError('page is invalid');
+    });
+
+    it('should del favorite', fakeAsync(() => {
+        spyOn(component.formapi, 'deleteElement').and.returnValue(Promise.resolve({ id: '123', status: 200 }));
+        component.favorites = [
+            { content: JSON.parse(JSON.stringify(component.storage.model.pages[0].elements[0])) }
+        ];
+        component.favorites[0].content.name = '';
+        expect(component.favorites.length).toEqual(1);
+
+        component.delFavorite(0);
+        tick();
+        expect(component.favorites.length).toEqual(0);
+    }));
+
+    it('should fail del favorite', fakeAsync(() => {
+        spyOn(component.formapi, 'deleteElement').and.returnValue(Promise.reject('Failed'));
+        component.favorites = [
+            { content: JSON.parse(JSON.stringify(component.storage.model.pages[0].elements[0])) }
+        ];
+        component.favorites[0].content.name = '';
+        expect(component.favorites.length).toEqual(1);
+
+        component.delFavorite(0);
+        tick();
+        expect(component.favorites.length).toEqual(1);
+    }));
+
+    it('should not del favorite', () => {
+        spyOn(component.formapi, 'deleteElement');
+        component.delFavorite(0);
+        expect(component.formapi.deleteElement).toHaveBeenCalledTimes(0);
+    });
+
+    it('should crash del favorite', () => {
+        expect(() => {
+            component.delFavorite(-1);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.delFavorite(3);
+        }).toThrowError('element is invalid');
+        expect(() => {
+            component.delFavorite(0, -1);
+        }).toThrowError('page is invalid');
+        expect(() => {
+            component.delFavorite(0, 3);
+        }).toThrowError('page is invalid');
     });
 });
 

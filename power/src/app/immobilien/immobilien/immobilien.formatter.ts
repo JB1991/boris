@@ -17,11 +17,11 @@ export class ImmobilienFormatter {
 
     public mapTooltipFormatter = (params) => {
         if (this.nipixStatic.data.regionen.hasOwnProperty(params.name)) {
-            return this.nipixStatic.data.regionen[params.name]['name'];
+            return this.nipixRuntime.translate(this.nipixStatic.data.regionen[params.name]['name']);
         } else {
-            return params.name;
+            return this.nipixRuntime.translate(params.name);
         }
-    }
+    };
 
     public chartTooltipFormatter = (params, ticket, callback) => {
 
@@ -38,15 +38,18 @@ export class ImmobilienFormatter {
 
         let entw = (Math.round((params.data - 100) * 10) / 10);
         if (entw > 0) {
-            entw = <any>('+' + entw);
+            entw = ('+' + entw) as any;
         }
 
         this.nipixRuntime.highlightSeries(params.seriesName);
 
-        return '<b>' + (<any>params).marker + printName + '</b><br>' +
-            'Preisentwicklung seit ' + this.nipixStatic.referenceDate.replace('_', '/') + ': ' + entw + '%<br>' +
-            'Zugrunde liegende Fälle (' + params.name + '): ' + faelle;
-    }
+        printName = this.nipixRuntime.translate(printName);
+
+        return '<b>' + (params).marker + printName + '</b><br>' +
+            $localize`Preisentwicklung seit` + ' ' + this.nipixStatic.referenceDate.replace('_', '/')
+            + ': ' + entw + '%<br>' +
+            $localize`Zugrunde liegende Fälle` + ' (' + params.name + '): ' + faelle;
+    };
 
     /**
      * Format Series Label
@@ -55,6 +58,7 @@ export class ImmobilienFormatter {
      *
      * @return Formatted String
      */
+    /* eslint-disable-next-line complexity */
     public formatLabel = (params) => {
         if (params.dataIndex === this.nipixRuntime.state.rangeEndIndex) {
             if ((this.legendposition.length > params.seriesIndex) ||
@@ -63,9 +67,9 @@ export class ImmobilienFormatter {
             }
 
             let printlegend = true;
-            const pixel = Math.round(this.nipixRuntime.chart.obj.convertToPixel({'yAxisIndex': 0}, params.data));
+            const pixel = Math.round(this.nipixRuntime.chart.obj.convertToPixel({ 'yAxisIndex': 0 }, params.data));
             const fontSizeInPx = ImmobilienHelper.convertRemToPixels(this.nipixStatic.textOptions.fontSizePage);
-            const clearance = Math.round( (fontSizeInPx + 2) / 2 );
+            const clearance = Math.round((fontSizeInPx + 2) / 2);
 
             for (let i = 0; i < this.legendposition.length; i++) {
                 if ((pixel > this.legendposition[i] - clearance) &&
@@ -90,25 +94,27 @@ export class ImmobilienFormatter {
             }
         }
         return '';
-    }
+    };
 
-    private findName = (name: string, legend = false, shortregion = false): string => {
+    public findName = (name: string, legend = false, shortregion = false, shortname = true): string => {
+        let myname = '';
+
         if (legend && this.nipixRuntime.calculated.legendText.hasOwnProperty(name)) {
-            return this.nipixRuntime.calculated.legendText[name];
-        } else if (this.nipixStatic.data.shortNames.hasOwnProperty(name)) {
-            return this.nipixStatic.data.shortNames[name];
+            myname = this.nipixRuntime.calculated.legendText[name];
+        } else if (shortname && this.nipixStatic.data.shortNames.hasOwnProperty(name)) {
+            myname = this.nipixStatic.data.shortNames[name];
         } else if (!shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
-            return this.nipixStatic.data.regionen[name]['name'];
+            myname = this.nipixStatic.data.regionen[name]['name'];
         } else if (shortregion && this.nipixStatic.data.regionen.hasOwnProperty(name)) {
-            return this.nipixStatic.data.regionen[name]['short'];
+            myname = this.nipixStatic.data.regionen[name]['short'];
         } else {
-            return name;
+            myname = name;
         }
-    }
 
-    public formatLegend = (name: string) => {
-        return this.findName(name, true);
-    }
+        return this.nipixRuntime.translate(myname);
+    };
+
+    public formatLegend = (name: string) => this.findName(name, false, true);
 
     /**
      * Get Label for a specific Series
@@ -118,10 +124,14 @@ export class ImmobilienFormatter {
      * @return series label (sort)
      */
     public getSeriesLabel(series) {
-        return this.nipixStatic.data.regionen[series]['name'] +
-            ' (' +
-            this.nipixStatic.data.regionen[series]['short'] +
-            ')';
+        if (this.nipixStatic.data.regionen[series] !== undefined) {
+            return this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['name']) +
+                ' (' +
+                this.nipixRuntime.translate(this.nipixStatic.data.regionen[series]['short']) +
+                ')';
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -132,14 +142,18 @@ export class ImmobilienFormatter {
      * @return Series Color
      */
     public getSeriesColor(series) {
-        return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
+        if (this.nipixStatic.data.regionen[series] !== undefined) {
+            return ImmobilienHelper.convertColor(this.nipixStatic.data.regionen[series]['color']);
+        } else {
+            return '#000000';
+        }
     }
 
     public simpleLegend() {
         const legend = [];
         for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
             if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
-                legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + ' (ohne Daten)');
+                legend.push(this.nipixRuntime.calculated.drawData[i]['name'] + ' ' + $localize`(ohne Daten)`);
             } else {
                 legend.push(this.nipixRuntime.calculated.drawData[i]['name']);
             }
@@ -154,17 +168,17 @@ export class ImmobilienFormatter {
             const element = this.nipixStatic.data.regionen[this.nipixRuntime.calculated.drawData[i]['name']];
 
             if (this.nipixRuntime.calculated.drawData[i]['data'].length === 0) {
-                addText = '[ohne Daten] ';
+                addText = $localize`[ohne Daten]` + ' ';
             }
 
             if (this.nipixStatic.data.regionen.hasOwnProperty(this.nipixRuntime.calculated.drawData[i]['name'])) {
-                obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+                obj.infoLegend.push(ImmobilienUtils.generateTextElement(
                     addText + element['name'] + ' (' + element['short'] + ')',
                     '#000',
                     this.nipixStatic.textOptions.fontSizeBase,
                     obj.infoLegendPosition
                 ));
-                obj.infoLegend.push( ImmobilienUtils.generateDotElement(
+                obj.infoLegend.push(ImmobilienUtils.generateDotElement(
                     4,
                     element['color'],
                     this.nipixStatic.textOptions.fontSizeBase,
@@ -178,12 +192,12 @@ export class ImmobilienFormatter {
     private graphicLegendMulti(obj: any) {
         const ccat = this.nipixStatic.data.selections[this.nipixRuntime.state.activeSelection]['preset'];
         for (let i = 0; i < ccat.length; i++) {
-            obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+            obj.infoLegend.push(ImmobilienUtils.generateTextElement(
                 ccat[i] + ' (' + this.nipixStatic.data.shortNames[ccat[i]] + ')',
                 '#000',
                 this.nipixStatic.textOptions.fontSizeBase,
                 obj.infoLegendPosition
-            ) );
+            ));
             obj.infoLegend.push(ImmobilienUtils.generateDotElement(
                 4,
                 this.nipixRuntime.getDrawPreset(ccat[i]).colors,
@@ -212,13 +226,13 @@ export class ImmobilienFormatter {
                     }
                 }
             }
-            obj.infoLegend.push( ImmobilienUtils.generateTextElement(
+            obj.infoLegend.push(ImmobilienUtils.generateTextElement(
                 this.getSeriesLabel(this.nipixStatic.data.allItems[i]),
                 '#000',
                 this.nipixStatic.textOptions.fontSizeBase,
                 obj.infoLegendPosition,
                 4 * 4 * 4
-            ) );
+            ));
 
             obj.infoLegendPosition++;
         }

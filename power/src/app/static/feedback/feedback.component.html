@@ -1,22 +1,199 @@
-<div class="p-4 text-center">
-    <h2>Feedback geben</h2>
-    <p class="lead">Sie haben ein Problem? Oder wollen einen Vorschlag machen?</p>
-    <p class="lead">Bitte formulieren Sie ihr Anliegen so exakt wie möglich:</p>
-    <ul>
-        <li>Genaue Beschreibung des Fehlers bzw. Vorschlags</li>
-        <li>Bei Fehlern: Welche Schritte haben den Fehler ausgelöst?</li>
-        <li>Bei Fehlern: URL (Adresszeile im Browser)</li>
-        <li>Bei Fehlern: Bildschirmfoto (wenn möglich)</li>
-        <li>Bei Fehlern: Versionsnummer (siehe Fußzeile)</li>
-    </ul>
-    <p class="lead">Dieser Button öffnet Ihr E-Mail-Programm:</p>
-    <a type="button"
-       class="btn btn-primary"
-       href="mailto:incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com">
-        Feedback geben
-    </a>
-    <br><br>
-    <p>Der Empfänger ist bereits ausgefüllt.</p>
-    <p>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</p>
-    <code>incoming+lgln-power-ni-power-frontend-17688796-issue-@incoming.gitlab.com</code>
+<div class="row m-0 mb-4">
+    <div class="col-12 p-0 text-center">
+        <h1 class="display-3 m-0"
+            i18n>Feedback</h1>
+
+        <p class="lead mb-3"
+           i18n>Bitte schauen Sie in der Feedbackübersicht, ob Ihr Anliegen uns bereits geschickt wurde. Sollte dies
+            nicht der Fall sein nutzen Sie bitte die Kontaktfunktion.</p>
+    </div>
+</div>
+
+<div class="row m-0 mb-4">
+    <section class="col-12 col-lg-6 mb-3">
+        <div class="jumbotron m-0">
+            <h1 class="display-4">
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-info-circle-fill"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                </svg>
+                <span class="ml-2"
+                      i18n>Feedback geben</span>
+            </h1>
+
+            <p class="lead"
+               i18n>Geben Sie bitte eine genaue Beschreibung des Problems oder Ihres Vorschlages an, welche Schritte
+                haben zu diesem Problem
+                geführt? Wenn möglich senden Sie bitte ein Bildschirmfoto und die Adresszeile der Seite mit.</p>
+
+            <p class="lead"
+               i18n>Ihr Feedback wird manuell freigeschaltet, bevor es in der Feedbackübersicht angezeigt wird.</p>
+
+            <p class="lead"
+               i18n>Bitte denken Sie daran, Ihre Mailsignatur zu entfernen, wenn Sie nicht wünschen, dass diese in der
+                Feedbackübersicht rechts angezeigt werden soll.</p>
+
+            <div class="text-center">
+                <a class="btn btn-primary btn-lg"
+                   href="mailto:{{ mail }}"
+                   role="button"
+                   i18n-title
+                   title="Feedback über E-Mail geben">
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-envelope"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
+                         aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
+                    </svg>
+                    <span class="ml-2"
+                          i18n>Kontakt</span>
+                </a>
+            </div>
+
+            <hr class="my-4">
+
+            <p class="text-center"
+               i18n-aria-label
+               aria-label="Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an nachfolgenden E-Mail Adresse."
+               i18n>Falls sich Ihr E-Mail-Programm nicht öffnet, senden Sie die E-Mail bitte an:</p>
+            <div class="text-center">
+                <code class="mr-2">{{ mail }}</code>
+                <button type="button"
+                        class="btn btn-secondary btn-sm"
+                        i18n-title
+                        title="Email-Adresse kopieren"
+                        aria-i18n-label
+                        aria-label="Email-Adresse kopieren"
+                        (click)="copyEmailToClipboard()">
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-clipboard"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
+                         aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                        <path fill-rule="evenodd"
+                              d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                    </svg>
+                    <span class="sr-only"
+                          i18n>Email-Adresse kopieren</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="col-12 col-lg-6 mb-3">
+        <div class="jumbotron m-0">
+            <h1 class="display-4">
+                <svg width="1em"
+                     height="1em"
+                     viewBox="0 0 16 16"
+                     class="bi bi-journals"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
+                     aria-hidden="true">
+                    <path
+                          d="M3 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2z" />
+                    <path
+                          d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2zM1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+                </svg>
+                <span class="ml-2"
+                      i18n>Feedbackübersicht</span>
+            </h1>
+
+            <div class="row m-0">
+                <div class="col-12 p-0 mb-2">
+                    <input type="text"
+                           class="form-control d-inline w-75"
+                           style="max-width: 500px;"
+                           [(ngModel)]="search"
+                           (change)="doSearch()"
+                           i18n-placeholder
+                           placeholder="Suche">
+
+                    <button type="submit"
+                            class="btn btn-success ml-1"
+                            style="vertical-align: 0;"
+                            i18n-title
+                            title="Suchen"
+                            i18n-aria-label
+                            aria-label="Suchen"
+                            (click)="doSearch()">
+                        <svg width="1em"
+                             height="1em"
+                             viewBox="0 0 16 16"
+                             class="bi bi-search"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                            <path fill-rule="evenodd"
+                                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                        </svg>
+                        <span class="sr-only"
+                              i18n>Suchen</span>
+                    </button>
+                </div>
+
+                <div class="col-12 p-0">
+                    <select class="custom-select w-75"
+                            style="max-width: 250px;"
+                            [(ngModel)]="stateFilter"
+                            (change)="doSearch()">
+                        <option value="all"
+                                i18n>Alle Tickets</option>
+                        <option value="opened"
+                                i18n>Offene Tickets</option>
+                        <option value="closed"
+                                i18n>Geschlossene Tickets</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <ng-container *ngFor="let ticket of this.rss; let i = index;">
+                <div class="card w-100 mb-2 bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title d-inline">
+                            {{ filterTitle(ticket.getElementsByTagName('summary').item(0).textContent) }}
+                        </h5>
+                        &nbsp;
+                        <h6 class="card-subtitle mb-2 text-muted d-inline">
+                            {{ ticket.getElementsByTagName('updated').item(0).textContent | date:'short' }}
+                        </h6>
+                        <p class="card-text lineb">
+                            {{ filterBody(ticket.getElementsByTagName('description').item(0).textContent) }}
+                        </p>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div *ngIf="this.rss.length === 0">
+                <div class="text-center">
+                    <span i18n>Leider konnten wir noch keine Tickets finden. Bei Bedarf können Sie uns gerne
+                        kontaktieren.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

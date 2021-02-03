@@ -1,5 +1,6 @@
 .mainpage {
     outline: none;
+    overflow-x: hidden !important;
 }
 
 /* remove blue outline */
@@ -52,17 +53,35 @@ td {
     white-space: nowrap;
 }
 
-/* imagepicker: checked color */
+/* LGLN colors */
 .imagepicker-checked div {
-    background-color: #ccc !important;
+    background-color: #d3d3d3 !important;
 }
 
-.sv_q_imgsel {
-    width: 210px;
+.sv_main .sv-boolean__switch {
+    background-color: #007bff !important;
+}
+
+.noUi-connect {
+    background: #007bff !important;
 }
 
 .sv_q_imagepicker_inline {
     line-height: normal !important;
+}
+
+.sv_main .sv_header__text {
+    max-width: 100% !important;
+}
+
+.sv_q_imgsel_text,
+.sv_q_imgsel_text span {
+    display: block;
+    width: 200px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word !important;
+    white-space: normal !important;
 }
 
 @media (max-width: 576px) {
@@ -86,4 +105,9 @@ td {
 .smooth-dnd-container {
     height: 100% !important;
     min-height: 100% !important;
+}
+
+label .custom-control-label::after,
+label .custom-control-label::before {
+    top: 0.1rem;
 }

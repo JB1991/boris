@@ -1,4 +1,7 @@
-import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Component, ViewChild, Input, Output, EventEmitter,
+    ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
@@ -9,7 +12,8 @@ import { ModalComponent } from '@app/shared/modal/modal.component';
 @Component({
     selector: 'power-forms-editor-question-settings',
     templateUrl: './question-settings.component.html',
-    styleUrls: ['./question-settings.component.scss']
+    styleUrls: ['./question-settings.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuestionSettingsComponent {
     @ViewChild('questionsettingsmodal') public modal: ModalComponent;
@@ -22,7 +26,8 @@ export class QuestionSettingsComponent {
 
     constructor(public alerts: AlertsService,
         public storage: StorageService,
-        public history: HistoryService) { }
+        public history: HistoryService,
+        public cdr: ChangeDetectorRef) { }
 
     /**
      * Opens modal
@@ -40,24 +45,33 @@ export class QuestionSettingsComponent {
         this.question = question;
         this.copy = JSON.stringify(this.model);
         this.storage.setAutoSaveEnabled(false);
-        this.modal.open($localize`Fragen Einstellungen`);
         this.migration();
+        this.cdr.detectChanges();
+        this.modal.open($localize`Fragen Einstellungen`);
     }
 
     /**
      * Modal close callback
+     * @param value True if no invalid forms found
      */
-    public close() {
-        // changed something
-        if (this.copy && this.copy !== JSON.stringify(this.model)) {
-            this.history.makeHistory(JSON.parse(this.copy));
-            this.storage.setUnsavedChanges(true);
-            this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
+    public close(value: boolean) {
+        if (value) {
+            // changed something
+            if (this.copy && this.copy !== JSON.stringify(this.model)) {
+                this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
+                    $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);
+                this.history.makeHistory(JSON.parse(this.copy));
+                this.storage.setUnsavedChanges(true);
+                this.modelChange.emit(JSON.parse(JSON.stringify(this.model)));
+            }
+            this.copy = '';
+            this.page = null;
+            this.question = null;
+            this.storage.setAutoSaveEnabled(true);
+        } else {
+            // invalid input
+            this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`, $localize`Bitte prüfen Sie Ihre Eingaben.`);
         }
-        this.page = null;
-        this.question = null;
-        this.copy = '';
-        this.storage.setAutoSaveEnabled(true);
     }
 
     /**
@@ -73,9 +87,25 @@ export class QuestionSettingsComponent {
             }
         }
 
+        // add otherText
+        if (['radiogroup', 'checkbox'].includes(this.model.pages[this.page].elements[this.question].type)) {
+            if (!this.model.pages[this.page].elements[this.question].otherText) {
+                this.model.pages[this.page].elements[this.question]['otherText'] = {};
+            }
+        }
+
         // add startWithNewLine
         if (typeof this.model.pages[this.page].elements[this.question].startWithNewLine === 'undefined') {
             this.model.pages[this.page].elements[this.question].startWithNewLine = true;
+        }
+
+        // RegEx validators
+        if (typeof this.model.pages[this.page].elements[this.question].validators === 'object') {
+            for (const validator of this.model.pages[this.page].elements[this.question].validators) {
+                if (validator.type === 'regex' && typeof validator.text === 'string') {
+                    validator.text = { default: validator.text };
+                }
+            }
         }
     }
 }

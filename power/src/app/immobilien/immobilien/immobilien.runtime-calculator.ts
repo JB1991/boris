@@ -1,10 +1,7 @@
-import * as echarts from 'echarts';
 import * as ImmobilenNipixStatic from './immobilien.static';
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
-import * as ImmobilienFormatter from './immobilien.formatter';
-import * as ImmobilienExport from './immobilien.export';
 import { ImmobilienUtils } from './immobilien.utils';
-import {ImmobilienHelper } from './immobilien.helper';
+import { ImmobilienHelper } from './immobilien.helper';
 
 export class NipixRuntimeCalculator {
 
@@ -23,9 +20,8 @@ export class NipixRuntimeCalculator {
         let reference = 100;
         if (this.nipixStatic.data.nipix[drawitem.nipixCategory][value].hasOwnProperty(
             this.nipixStatic.referenceDate)) {
-            reference = parseFloat(
-                this.nipixStatic.data.nipix[drawitem.nipixCategory][value][this.nipixStatic.referenceDate]
-                .index.replace(',', '.')
+            reference = ImmobilienHelper.parseStringAsFloat(
+                this.nipixStatic.data.nipix[drawitem.nipixCategory][value][this.nipixStatic.referenceDate]['index']
             );
         }
 
@@ -50,15 +46,17 @@ export class NipixRuntimeCalculator {
     }
 
     private calculateDrawDataSinglePush(drawitem: any, value, nipix) {
-        this.nipixRuntime.calculated.drawData.push(
-            ImmobilienUtils.generateSeries(
-                value,
-                [],
-                this.nipixStatic.data.regionen[value]['color'],
-                this.nipixRuntime.formatter.formatLabel,
-                this.nipixRuntime.state.selectedChartLine
-            )
-        );
+        if (this.nipixStatic.data.regionen[value] !== undefined) {
+            this.nipixRuntime.calculated.drawData.push(
+                ImmobilienUtils.generateSeries(
+                    value,
+                    [],
+                    this.nipixStatic.data.regionen[value]['color'],
+                    this.nipixRuntime.formatter.formatLabel,
+                    this.nipixRuntime.state.selectedChartLine
+                )
+            );
+        }
     }
 
     private calculateDrawDataSingle(drawitem: any) {
@@ -98,7 +96,9 @@ export class NipixRuntimeCalculator {
             if (data !== undefined) { // Data available?
                 workdata['reference'] = 100;
                 if (data.hasOwnProperty(this.nipixStatic.referenceDate)) {
-                    workdata['reference'] = parseFloat(data[this.nipixStatic.referenceDate].index.replace(',', '.'));
+                    workdata['reference'] = ImmobilienHelper.parseStringAsFloat(
+                        data[this.nipixStatic.referenceDate].index
+                    );
                 }
 
                 if (data.hasOwnProperty(this.nipixRuntime.availableQuartal[d].replace('/', '_'))) {
@@ -173,6 +173,59 @@ export class NipixRuntimeCalculator {
     }
 
     /**
+     * Find DrawSeries with no Data (NaN) and change it to undefined
+     */
+    private filterNaN() {
+
+        if (this.nipixRuntime.calculated.drawData === undefined) {
+            return;
+        }
+
+        for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
+
+            const itm = this.nipixRuntime.calculated.drawData[i];
+
+            if ((itm === undefined) || (itm.data === undefined)) {
+                return;
+            }
+
+            for (let o = 0; o < itm.data.length; o++) {
+                if (isNaN(itm.data[o])) {
+                    itm.data[o] = undefined;
+                }
+            }
+
+        }
+    }
+
+    /**
+     * Fill empty DrawSeries
+     */
+    private fillEmpty() {
+
+        if (this.nipixRuntime.calculated.drawData === undefined) {
+            return;
+        }
+
+        for (let i = 0; i < this.nipixRuntime.calculated.drawData.length; i++) {
+
+            const itm = this.nipixRuntime.calculated.drawData[i];
+
+            if ((itm === undefined) || (itm.data === undefined)) {
+                return;
+            }
+
+            if (itm.data.length === 0) {
+                for (let o = 0; o < this.nipixRuntime.availableQuartal.length; o++) {
+                    itm.data.push(undefined);
+                }
+            }
+
+        }
+
+    }
+
+    /**
      * Generates the drawdata from the given draw array
      */
     public calculateDrawData() {
@@ -194,6 +247,12 @@ export class NipixRuntimeCalculator {
             }
 
         }
+
+        // Filter empty Data
+        this.filterNaN();
+
+        // Fill Empty
+        this.fillEmpty();
     }
 }
 

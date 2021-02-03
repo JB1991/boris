@@ -1,6 +1,7 @@
 /**
  * surveyjs style object for bootstrap 4
  */
+/* eslint-disable id-blacklist */
 export const Bootstrap4_CSS = {
     root: 'sv_main sv_bootstrap_css mb-1 mb-lg-3',
     container: 'card',
@@ -8,11 +9,11 @@ export const Bootstrap4_CSS = {
     body: 'panel-body',
     bodyEmpty: 'panel-body sv_body_empty',
     footer: 'panel-footer card-footer',
-    title: 'h3',
+    title: 'h3 m-0 align-bottom',
     description: 'font-weight-light formular-description',
     logo: 'sv_logo',
     logoImage: 'sv_logo__image',
-    headerText: 'sv_header__text',
+    headerText: 'sv_header__text align-bottom',
     navigationButton: 'btn btn-green',
     completedPage: 'card-body',
     navigation: {
@@ -144,7 +145,7 @@ export const Bootstrap4_CSS = {
         label: 'sv_q_imgsel_label',
         itemControl: 'sv_q_imgsel_control_item',
         image: 'sv_q_imgsel_image',
-        itemText: 'sv_q_imgsel_text font-weight-light text-wrap',
+        itemText: 'sv_q_imgsel_text font-weight-light',
         other: 'form-control',
         clearButton: 'sv_q_radiogroup_clear btn btn-danger',
     },
@@ -152,9 +153,9 @@ export const Bootstrap4_CSS = {
         root: 'btn-group',
         item: 'btn btn-default btn-primary',
         selected: 'active',
-        minText: 'sv_q_rating_min_text',
+        minText: 'sv_q_rating_min_text mr-2',
         itemText: 'sv_q_rating_item_text',
-        maxText: 'sv_q_rating_max_text',
+        maxText: 'sv_q_rating_max_text ml-2',
         disabled: '',
         other: 'form-control',
     },
@@ -179,7 +180,7 @@ export const Bootstrap4_CSS = {
     signaturepad: {
         root: 'sv_q_signaturepad sjs_sp_container',
         controls: 'sjs_sp_controls',
-        clearButton: 'sjs_sp_clear',
+        clearButton: 'sjs_sp_clear bg-lgln',
     },
     saveData: {
         root: '',

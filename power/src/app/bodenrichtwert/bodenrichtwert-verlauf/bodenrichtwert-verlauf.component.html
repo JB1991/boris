@@ -1,16 +1,74 @@
-<div class="col-md-12">
+<div class="col-md-12 p-0">
+    <ng-container *ngIf="chartOption?.series.length != 0">
+        <h3 i18n>Zeitliche Entwicklung</h3>
+        <ng-container *ngIf="features?.features[0].properties.gema == 'Bremerhaven'; else bremen">
+            <p> Die Bodenrichtwerte in Bremerhaven werden in einem zwei Jahreszyklus mit Stichtag 31.12. festgelegt.
+                Der letzte Stichtag war der {{ getBremerhavenStichtag() }}
+                Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem Stichtag
+                ermittelt werden.
+                Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+        </ng-container>
+        <ng-template #bremen>
+            <ng-container *ngIf="features?.features[0].properties.gabe == 'Gutachterausschuss für Grundstückswerte in Bremen';
+                     else niedersachsen">
+                <p> Die Bremer Bodenrichtwerte werden in einem zwei Jahreszyklus mit Stichtag 31.12. festgelegt.
+                    Der letzte Stichtag war der {{ getBremenStichtag() }}
+                    Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem Stichtag
+                    ermittelt werden.
+                    Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+            </ng-container>
+        </ng-template>
+        <ng-template #niedersachsen>
+            <p i18n>Die zeitliche Entwicklungsreihe der niedersächsischen Bodenrichtwerte berücksichtigt nur die
+                Bodenrichtwerte, die zum Stichtag 31.12. des
+                jeweiligen
+                Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+        </ng-template>
 
-    <h3>Zeitliche Entwicklung</h3>
-    <p>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zum Stichtag 31.12. des jeweiligen
-        Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+        <!-- eChart in table-form for accessibility -->
+        <table class="table table-responsive sr-only">
+            <caption i18n>Zeitliche Entwicklung Bodenrichtwerte</caption>
+            <thead>
+                <tr>
+                    <th scope="col"
+                        i18n> Nutzungsart </th>
+                    <th scope="col">{{ seriesTemplate[0].stag }}</th>
+                    <th scope="col">{{ seriesTemplate[1].stag }}</th>
+                    <th scope="col">{{ seriesTemplate[2].stag }}</th>
+                    <th scope="col">{{ seriesTemplate[3].stag }}</th>
+                    <th scope="col">{{ seriesTemplate[4].stag }}</th>
+                    <th scope="col">{{ seriesTemplate[5].stag }}</th>
+                    <th scope="col">{{ seriesTemplate[6].stag }}</th>
+                    <th scope="col">{{ seriesTemplate[7].stag }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of srTableData; let i=index">
+                    <th scope="row">{{ srTableHeader[i] }}</th>
+                    <td *ngFor="let serie of t.series">{{ serie.brw }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <div echarts (chartInit)="onChartInit($event)" [options]="chartOption" class="demo-chart"></div>
+        <div class="time-series"
+             id="time-series"
+             echarts
+             (chartInit)="onChartInit($event)"
+             [options]="chartOption"></div>
+    </ng-container>
+
+    <ng-container *ngIf="!echartsInstance">
+        <div id="eChartInstance"
+             echarts
+             (chartInit)="onChartInit($event)"
+             [options]="chartOption"></div>
+    </ng-container>
 
     <div>
-        <p *ngIf="chartOption?.series.length >= 2">Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere
+        <p i18n
+           *ngIf="chartOption?.series.length >= 2">Für die ausgewählte Koordinate liegen seit dem Jahr 2012 mehrere
             Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer
-            Gültigkeit dargestellt. </p>
+            Gültigkeit dargestellt.</p>
     </div>
 
 </div>
-

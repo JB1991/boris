@@ -241,7 +241,7 @@ export class ImmobilienUtils {
             shape: {
                 cx: -2 * radius + posX * radius * 4,
                 cy: position * 1.5 * ImmobilienHelper.convertRemToPixels(fontSizeBase)
-                + ImmobilienHelper.convertRemToPixels(fontSizeBase) / 2,
+                    + ImmobilienHelper.convertRemToPixels(fontSizeBase) / 2,
                 r: radius
             },
             style: {
@@ -259,7 +259,9 @@ export class ImmobilienUtils {
 
         for (let i = 0; i < modifyArray.length; i++) {
             for (let v = 0; v < modifyArray[i]['values'].length; v++) {
-                newRegionen[modifyArray[i]['values'][v]]['color'] = modifyArray[i]['colors'];
+                if (newRegionen[modifyArray[i]['values'][v]] !== undefined) {
+                    newRegionen[modifyArray[i]['values'][v]]['color'] = modifyArray[i]['colors'];
+                }
             }
         }
 
@@ -267,6 +269,11 @@ export class ImmobilienUtils {
     }
 
     static dispatchMapSelect(obj: any, name: string, select: boolean) {
+        // check if is function
+        if (typeof obj.dispatchAction !== 'function') {
+            return;
+        }
+
         if (select) {
             // Select
             obj.dispatchAction({

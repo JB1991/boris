@@ -1,0 +1,96 @@
+# Default values for power.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: de.icr.io/power/power
+  pullPolicy: Always
+  tag: ""
+
+imagePullSecrets:
+  - name: de-icr-io
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/override: power-https-redirect
+    konghq.com/plugins: power-rate-limiting-by-ip,power-cors
+  hosts:
+    - host: staging.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+      paths:
+        - path: /
+          serviceName: power
+          servicePort: 80
+    - host: staging.power.niedersachsen.dev
+      paths:
+        - path: /
+          serviceName: power
+          servicePort: 80
+  tls:
+    - secretName: power-cluster-65655d4c73bf47a3300821aa2939abf4-0001
+      hosts:
+        - staging.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+    - secretName: power-niedersachsen-dev
+      hosts:
+        - staging.power.niedersachsen.dev
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 2000m
+    memory: 1024Mi
+  requests:
+    cpu: 250m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+config:
+  modules:
+    - "bodenrichtwerte"
+    - "bodenwertkalkulator"
+    - "immobilienpreisindex"
+    - "immobilienpreiskalkulator"
+    - "grundstuecksmarktdaten"
+    - "forms"
+    - "feedback"
+    - "login"
+  authentication: true

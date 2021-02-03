@@ -1,0 +1,83 @@
+{
+    "form": {
+        "access": "public",
+        "content": {
+            "locale": "en",
+            "pages": [{
+                "elements": [{
+                        "isRequired": true,
+                        "maxRateDescription": "(Most likely)",
+                        "minRateDescription": "(Most unlikely)",
+                        "name": "nps_score",
+                        "rateMax": 10,
+                        "rateMin": 0,
+                        "title": {
+                            "default": "On a scale of zero to ten, how likely are you to recommend our product to a friend or colleague?"
+                        },
+                        "type": "rating"
+                    },
+                    {
+                        "choices": [
+                            "Performance",
+                            "Stability",
+                            "User Interface",
+                            "Complete Functionality"
+                        ],
+                        "colCount": 2,
+                        "hasOther": true,
+                        "isRequired": true,
+                        "name": "promoter_features",
+                        "otherText": "Other feature:",
+                        "title": {
+                            "default": "What features do you value the most?"
+                        },
+                        "type": "checkbox",
+                        "validators": [{
+                            "maxCount": 2,
+                            "text": "Please select two features maximum.",
+                            "type": "answercount"
+                        }],
+                        "visibleIf": "{nps_score} >= 9"
+                    },
+                    {
+                        "name": "passive_experience",
+                        "title": {
+                            "default": "What is the primary reason for your score?"
+                        },
+                        "type": "comment",
+                        "visibleIf": "{nps_score} > 6  and {nps_score} < 9"
+                    },
+                    {
+                        "name": "disappointed_experience",
+                        "title": {
+                            "default": "What do you miss and what was disappointing in your experience with us?"
+                        },
+                        "type": "comment",
+                        "visibleIf": "{nps_score} notempty"
+                    }
+                ],
+                "name": "page1"
+            }],
+            "title": {
+                "de": "Hallo Welt",
+                "default": "Hello World"
+            }
+        },
+        "created": "2020-10-30T11:52:22Z",
+        "extract": "Hallo Welt",
+        "groups": [
+            "/public"
+        ],
+        "id": "751c7f76-967d-49fc-a195-9a4bbad2552d",
+        "owner": {
+            "id": "8b3f0087-41c0-4652-96bf-cce298eb881d"
+        },
+        "status": "created",
+        "tags": [
+            "Tag1",
+            "Tag2"
+        ],
+        "updated": "2020-10-30T11:52:22Z"
+    },
+    "status": 200
+}

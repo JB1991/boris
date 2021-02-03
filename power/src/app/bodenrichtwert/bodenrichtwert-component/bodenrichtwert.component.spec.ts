@@ -1,13 +1,16 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { BodenrichtwertComponent } from './bodenrichtwert.component';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertVerlaufComponent } from '../bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { ConfigService } from '@app/config.service';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -21,28 +24,32 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 BodenrichtwertKarteComponent,
                 BodenrichtwertVerlaufComponent
             ],
+            providers: [
+                ConfigService
+            ],
             imports: [
                 CommonModule,
+                BrowserAnimationsModule,
                 HttpClientTestingModule,
-                NgbAccordionModule,
+                RouterModule.forRoot([]),
                 NgxMapboxGLModule,
-                FormsModule,
-                ReactiveFormsModule,
-                SharedModule
+                SharedModule,
+                CollapseModule.forRoot(),
+                AlertModule.forRoot()
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertComponent);
         component = fixture.componentInstance;
+        component.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         fixture.detectChanges();
 
         httpTestingController = TestBed.inject(HttpTestingController);
     });
 
-    it('should create', () => {
+    it('should be created', () => {
         expect(component).toBeTruthy();
     });
 });

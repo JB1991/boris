@@ -1,0 +1,16 @@
+{
+    "objid": "DENIBR4920UW0099",
+    "text": "Fail",
+    "umstet": "1",
+    "umart": "1",
+    "werte": [
+        {
+            "bzwt": 2.0,
+            "koef": 1.35
+        },
+        {
+            "bzwt": 1.0,
+            "koef": 1.0
+        }
+    ]
+}

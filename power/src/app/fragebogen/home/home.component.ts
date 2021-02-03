@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 @Component({
     selector: 'power-forms-home',
@@ -12,12 +13,15 @@ export class HomeComponent implements OnInit {
 
     constructor(public titleService: Title,
         public router: Router,
-        public auth: AuthService) {
+        public auth: AuthService,
+        public alerts: AlertsService) {
         this.titleService.setTitle($localize`Formulare - POWER.NI`);
     }
 
     ngOnInit() {
     }
+
+    form: any = {};
 
     /**
      * Redirects to formular fillout dialogue
@@ -25,6 +29,7 @@ export class HomeComponent implements OnInit {
      */
     submitPIN(pin: string) {
         if (!pin) {
+            this.alerts.NewAlert('danger', $localize`Bitte Pin eingeben`, '');
             throw new Error('pin is required');
         }
         this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });

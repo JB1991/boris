@@ -1,20 +1,26 @@
-import { Component, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import {
+    Component, OnDestroy, ViewChild, ElementRef, Output,
+    EventEmitter, Input, ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'power-modalmini',
     templateUrl: './modalmini.component.html',
-    styleUrls: ['./modalmini.component.scss']
+    styleUrls: ['./modalmini.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalminiComponent implements OnDestroy {
     @ViewChild('modalmini') public modal: ModalDirective;
     @ViewChild('mymodal') public div: ElementRef;
-    @Output() public closing: EventEmitter<void> = new EventEmitter();
+    @Input() public checkInvalid = false;
+    @Output() public closing: EventEmitter<boolean> = new EventEmitter();
     public focusedElement: any;
     public isOpen = false;
     public title = '';
 
-    constructor(public modalService: BsModalService) { }
+    constructor(public modalService: BsModalService,
+        public cdr: ChangeDetectorRef) { }
 
     ngOnDestroy() {
         if (this.isOpen) {
@@ -33,6 +39,7 @@ export class ModalminiComponent implements OnDestroy {
         this.isOpen = true;
         this.modal.show();
         document.body.appendChild(this.div.nativeElement);
+        this.cdr.detectChanges();
 
         // focus
         this.focusedElement = document.activeElement;
@@ -47,12 +54,20 @@ export class ModalminiComponent implements OnDestroy {
             return;
         }
 
+        // dont close if invalid inputs exists
+        /* istanbul ignore next */
+        if (this.checkInvalid && this.div.nativeElement.getElementsByClassName('is-invalid').length > 0) {
+            this.closing.emit(false);
+            return;
+        }
+
         // close callback
-        this.closing.emit();
+        this.closing.emit(true);
 
         // close modal
         this.isOpen = false;
         this.modal.hide();
+        this.cdr.detectChanges();
 
         // focus
         if (this.focusedElement) {

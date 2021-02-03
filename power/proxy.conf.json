@@ -1,24 +1,20 @@
 {
     "/geocoding/geosearch/": {
-        "target": "https://sg.geodatenzentrum.de/gdz_ortssuche__1a415c0d-ddb1-7a7d-27f0-88ef2cfa13d6/geosearch.json",
-        "pathRewrite": {
-            "^/geocoding/geosearch/": ""
-        },
+        "target": "https://dev.power.niedersachsen.dev",
+        "changeOrigin": true,
         "secure": false,
         "debugLevel": "info"
     },
     "/geocoding/suggestions/": {
-        "target": "https://sg.geodatenzentrum.de/gdz_geokodierung__1a415c0d-ddb1-7a7d-27f0-88ef2cfa13d6/suggest",
-        "pathRewrite": {
-            "^/geocoding/suggestions/": ""
-        },
+        "target": "https://dev.power.niedersachsen.dev",
+        "changeOrigin": true,
         "secure": false,
         "debugLevel": "info"
     },
     "/geoserver/": {
-        "target": "https://dev.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud",
-        "secure": false,
+        "target": "https://dev.power.niedersachsen.dev",
         "changeOrigin": true,
+        "secure": false,
         "debugLevel": "info"
     },
     "/formapi/": {
@@ -26,6 +22,19 @@
         "pathRewrite": {
             "^/forms/": ""
         },
+        "changeOrigin": true,
+        "secure": false,
+        "debugLevel": "info"
+    },
+    "/feedback-rss/": {
+        "target": "https://dev.power.niedersachsen.dev",
+        "changeOrigin": true,
+        "secure": false,
+        "debugLevel": "info"
+    },
+    "/boris-print/": {
+        "target": "https://dev.power.niedersachsen.dev",
+        "changeOrigin": true,
         "secure": false,
         "debugLevel": "info"
     }

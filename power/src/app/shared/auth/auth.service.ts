@@ -27,26 +27,24 @@ export class AuthService {
      * Loads session from localStorage
      * @param refresh should refresh token if expired
      */
+    /* eslint-disable complexity */
     public async loadSession(refresh = true) {
         // check if session is loaded and still valid
         if (this.IsAuthenticated()) {
             this.sessionCheck();
             return;
         }
-
         // load session from localstorage
         this.user = JSON.parse(localStorage.getItem('user'));
         // fix wrong timezone after parsing from json
         if (this.user && this.user.expires) {
             this.user.expires = new Date(this.user.expires);
         }
-
         // check if session is still valid
         if (this.IsAuthenticated()) {
             this.sessionCheck();
             return;
         }
-
         // session needs refresh
         if (refresh && this.user && this.user.token && this.user.token.refresh_token) {
             // craft post object
@@ -58,7 +56,8 @@ export class AuthService {
 
             try {
                 // post login data
-                const data = await this.httpClient.post(environment.auth.url + 'token', body).toPromise();
+                const data = await this.httpClient.post(environment.auth.url + 'token', body,
+                    this.getHeaders('json', 'application/x-www-form-urlencoded', false)).toPromise();
                 // check for error
                 if (!data || data['error']) {
                     console.log('Could not refresh: ' + data);
@@ -68,10 +67,9 @@ export class AuthService {
                     this.user = null;
                     return;
                 }
-
                 // save data
                 this.user.expires = new Date();
-                this.user.expires.setSeconds(this.user.expires.getSeconds() + data['expires_in']);
+                this.user.expires.setSeconds(this.user.expires.getSeconds() + (data['expires_in'] / 2));
                 this.user.token = data;
                 this.user.data = this.parseUserinfo();
                 localStorage.setItem('user', JSON.stringify(this.user));
@@ -94,7 +92,7 @@ export class AuthService {
     }
 
     /**
-     * Refreshes session after 15 minutes
+     * Refreshes session after 5 minutes
      */
     private sessionCheck() {
         /* istanbul ignore next */
@@ -134,11 +132,17 @@ export class AuthService {
      * Returns http options
      * @param responsetype How to parse file
      * @param contenttype Content-Type of file expected
+     * @param auth True to send authoriziation
      */
-    public getHeaders(responsetype = 'json', contenttype = 'application/json'): any {
-        let header = new HttpHeaders().set('Content-Type', contenttype);
+    public getHeaders(responsetype = 'json', contenttype = 'application/json', auth = true): any {
+        let header = new HttpHeaders().set('Content-Type', contenttype)
+            .set('Cache-Control', 'no-cache')
+            .set('Pragma', 'no-cache')
+            .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
+            .set('If-Modified-Since', '0');
+
         // check if user is authenticated
-        if (this.IsAuthenticated()) {
+        if (auth && this.IsAuthenticated()) {
             header = header.set('Authorization', this.getBearer());
         }
         return { 'headers': header, 'responseType': responsetype };
@@ -166,7 +170,8 @@ export class AuthService {
 
         // post login data
         try {
-            const data = await this.httpClient.post(environment.auth.url + 'token', body).toPromise();
+            const data = await this.httpClient.post(environment.auth.url + 'token', body,
+                this.getHeaders('json', 'application/x-www-form-urlencoded', false)).toPromise();
             // check for error
             if (!data || data['error']) {
                 console.log('Could not get token: ' + data);
@@ -175,7 +180,7 @@ export class AuthService {
 
             // save data
             const expire = new Date();
-            expire.setSeconds(expire.getSeconds() + data['expires_in']);
+            expire.setSeconds(expire.getSeconds() + (data['expires_in'] / 2));
             this.user = { 'expires': expire, 'token': data, 'data': null };
             this.user.data = this.parseUserinfo();
             localStorage.setItem('user', JSON.stringify(this.user));
@@ -213,7 +218,73 @@ export class AuthService {
         }
         return false;
     }
+
+    private getRole(): Role {
+        let role: Role = 'user';
+        if (this.user.data && this.user.data.roles && Array.isArray(this.user.data.roles)) {
+            for (const r of this.user.data.roles) {
+                if (r === 'form_api_admin') {
+                    return 'admin';
+                }
+                if (r === 'form_api_manager') {
+                    role = 'manager';
+                }
+                if (r === 'form_api_editor') {
+                    if (role !== 'manager') {
+                        role = 'editor';
+                    }
+                }
+            }
+        }
+        return role;
+    }
+
+    private getGroups(): Array<string> {
+        if (this.user.data && this.user.data.groups && Array.isArray(this.user.data.groups)) {
+            return this.user.data.groups;
+        }
+        return [];
+    }
+
+    public IsAuthorized(roles: Array<Role>, owner: string, groups: Array<string>): boolean {
+        if (!this.IsAuthEnabled()) {
+            return true;
+        }
+        if (!this.IsAuthenticated()) {
+            return false;
+        }
+        const userRole = this.getRole();
+        const userGroups = this.getGroups();
+
+        if (owner === this.user.data.sub || userRole === 'admin') {
+            return true;
+        }
+
+        if (!hasRole(userRole, roles)) {
+            return false;
+        }
+
+        for (const g of groups) {
+            for (const ug of userGroups) {
+                if (g === ug) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
+
+function hasRole(role: Role, allowed: Array<Role>): boolean {
+    for (const r of allowed) {
+        if (r === role) {
+            return true;
+        }
+    }
+    return false;
+}
+
+export type Role = 'user' | 'editor' | 'manager' | 'admin';
 
 /**
  * Represents userdata

@@ -1,4 +1,7 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
+import {
+    Component, OnInit, OnDestroy, HostListener,
+    ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -14,10 +17,12 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 import { FormAPIService } from '../formapi.service';
 import { PreviewComponent } from '../surveyjs/preview/preview.component';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-formulars-editor',
     templateUrl: './editor.component.html',
-    styleUrls: ['./editor.component.css']
+    styleUrls: ['./editor.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
     @ViewChild('preview') public preview: PreviewComponent;
@@ -33,7 +38,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         public loadingscreen: LoadingscreenService,
         public storage: StorageService,
         public formapi: FormAPIService,
-        public history: HistoryService) {
+        public history: HistoryService,
+        public cdr: ChangeDetectorRef) {
         this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
         this.storage.resetService();
         this.history.resetService();
@@ -50,7 +56,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             // missing id
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
         }
-
     }
 
     ngOnDestroy() {
@@ -161,7 +166,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Load form data
      * @param id Form id
      */
-    // tslint:disable-next-line: max-func-body-length
     public async loadData(id: string) {
         // check data
         if (!id) {
@@ -169,11 +173,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
 
         try {
-            const result = await this.formapi.getInternForm(id);
-            this.storage.model = result.content;
-
-            const elements = await this.formapi.getInternElements();
-            this.favorites = elements.data;
+            const result = await this.formapi.getForm(id, { fields: ['content'] });
+            this.storage.model = result.form.content;
+            const elements = await this.formapi.getElements({ fields: ['id', 'content'] });
+            this.favorites = elements.elements;
+            this.cdr.detectChanges();
 
             // auto save
             /* istanbul ignore next */
@@ -182,12 +186,12 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             }, 5 * 60000);
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            //     // failed to load form
-            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, error.toString());
+            // failed to load form
+            console.log(error);
             this.loadingscreen.setVisible(false);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
-            console.log(error);
             return;
         }
     }
@@ -304,7 +308,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Sets drop from infos
      * @param index id
      */
-    public getPayloadToolbox(index: number): Object {
+    public getPayloadToolbox(index: number): any {
         return { from: 'toolbox', index: index };
     }
 
@@ -312,7 +316,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Sets drop from infos
      * @param index id
      */
-    public getPayloadFavorites(index: number): Object {
+    public getPayloadFavorites(index: number): any {
         return { from: 'favorites', index: index };
     }
 
@@ -320,7 +324,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Sets drop from infos
      * @param index id
      */
-    public getPayloadPagination(index: number): Object {
+    public getPayloadPagination(index: number): any {
         return { from: 'pagination', index: index };
     }
 
@@ -328,7 +332,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Sets drop from infos
      * @param index id
      */
-    public getPayloadWorkspace(index: number): Object {
+    public getPayloadWorkspace(index: number): any {
         return { from: 'workspace', index: index };
     }
 
@@ -393,16 +397,13 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
         }
-
         // ask user to confirm
         if (!confirm($localize`Möchten Sie diese Seite wirklich löschen?`)) {
             return;
         }
-
         // delete
         this.history.makeHistory(this.storage.model);
         this.storage.model.pages.splice(page, 1);
-
         // ensure that at least one page exists
         if (this.storage.model.pages.length < 1) {
             this.storage.model.pages.splice(0, 0, {
@@ -449,17 +450,18 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         // saving data
         const id = this.route.snapshot.paramMap.get('id');
 
-        this.formapi.updateInternForm(id, this.storage.model).then(() => {
+        this.formapi.updateForm(id, {
+            content: this.storage.model,
+        }).then(() => {
             // success
             this.storage.setUnsavedChanges(false);
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, '');
+            this.cdr.detectChanges();
         }).catch((error: Error) => {
             // failed to save
-            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, error.toString());
-            this.loadingscreen.setVisible(false);
-
             console.log(error);
-            return;
+            this.loadingscreen.setVisible(false);
+            this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
 
@@ -479,6 +481,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
         // copy
         this.elementCopy = JSON.stringify(this.storage.model.pages[page].elements[element]);
+        this.cdr.detectChanges();
         this.alerts.NewAlert('success', $localize`Erfolgreich kopiert`,
             $localize`Sie finden Ihre Zwischenablage ganz unten in der Toolbox.`);
 
@@ -563,6 +566,38 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     }
 
     /**
+     * Moves element to other page
+     * @param element Element number
+     * @param page Page number
+     * @param newPage New Page number
+     * @param newElement Place to insert element
+     */
+    public wsElementToPage(element: number, page: number = this.storage.selectedPageID,
+        newPage: number, newElement: number = 0) {
+        // check data
+        if (page < 0 || page >= this.storage.model.pages.length) {
+            throw new Error('page is invalid');
+        }
+        if (newPage < 0 || newPage >= this.storage.model.pages.length) {
+            throw new Error('newPage is invalid');
+        }
+        if (element < 0 || element >= this.storage.model.pages[page].elements.length) {
+            throw new Error('element is invalid');
+        }
+        if (newElement < 0 || newElement > this.storage.model.pages[newPage].elements.length) {
+            throw new Error('newElement is invalid');
+        }
+        if (page === newPage) {
+            throw new Error('newPage is invalid');
+        }
+
+        // move to other page
+        this.history.makeHistory(this.storage.model);
+        const tmp = this.storage.model.pages[page].elements.splice(element, 1)[0];
+        this.storage.model.pages[newPage].elements.splice(newElement, 0, tmp);
+    }
+
+    /**
      * Adds favorite to workspace
      * @param i Favorite index
      */
@@ -585,7 +620,6 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param page Page number
      */
     public addFavorite(element: number, page: number = this.storage.selectedPageID) {
-        // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
         }
@@ -603,12 +637,15 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         question.name = '';
 
         // add favorite
-        this.formapi.createInternElement(question).then((data) => {
+        this.formapi.createElement({ content: question }).then((data) => {
+            data['content'] = question;
             this.favorites.push(data);
+            this.cdr.detectChanges();
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
                 $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);
         }).catch((error) => {
-            this.alerts.NewAlert('danger', $localize`Favoriten hinzufügen fehlgeschlagen`, error.toString());
+            console.log(error);
+            this.alerts.NewAlert('danger', $localize`Favoriten hinzufügen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
 
@@ -633,13 +670,15 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
 
         // delete favorite
-        this.formapi.deleteInternElement(this.favorites[index - 1].id)
+        this.formapi.deleteElement(this.favorites[index - 1].id)
             .then((data) => {
                 this.favorites.splice(index - 1, 1);
+                this.cdr.detectChanges();
                 this.alerts.NewAlert('success', $localize`Favoriten gelöscht`,
                     $localize`Die Frage wurde erfolgreich aus den Favoriten entfernt.`);
             }).catch((error) => {
-                this.alerts.NewAlert('danger', $localize`Favorite löschen fehlgeschlagen`, error.toString());
+                console.log(error);
+                this.alerts.NewAlert('danger', $localize`Favorite löschen fehlgeschlagen`, this.formapi.getErrorMessage(error));
             });
     }
 
@@ -659,5 +698,13 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             }
         }
         return null;
+    }
+
+    /**
+     * Returns question svg
+     * @param type Question type
+     */
+    public getIcon(type: string): string {
+        return this.storage.FormularFields.filter(p => p.type === type)[0].icon;
     }
 }

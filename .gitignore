@@ -4,6 +4,7 @@
 power/coverage/
 power/dist/
 power/output/
+power/debug.log
 /tmp
 /out-tsc
 
@@ -41,3 +42,4 @@ testem.log
 .DS_Store
 Thumbs.db
 desktop.ini
+package-lock.json

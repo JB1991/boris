@@ -1,4 +1,3 @@
-
 /**
  * Chart Options (Merge) for hideing view components and show print components
  */
@@ -10,7 +9,7 @@ export const mergeHide = {
         show: false
     },
     dataZoom: [
-        <any>{
+        {
             type: 'slider',
             show: false
         }
@@ -65,10 +64,10 @@ export const mergeShow = {
         show: false
     },
     toolbox: {
-        show: true
+        show: false
     },
     dataZoom: [
-        <any>{
+        {
             type: 'slider',
             show: true
         }

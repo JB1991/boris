@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 import { NgxEchartsModule } from 'ngx-echarts';
 
 import { ImmobilienRoutingModule } from './immobilien-routing.module';
@@ -12,28 +12,41 @@ import { ImmobilienComponent } from './immobilien/immobilien.component';
 import { FormsModule } from '@angular/forms';
 
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { Building, HouseFill, PlusCircle, DashCircle } from 'ngx-bootstrap-icons';
+
+import {
+    building,
+    houseFill,
+    plusCircle,
+    dashCircle,
+    fileEarmarkImage,
+    fileEarmarkSpreadsheet,
+    fileEarmarkRichtext
+} from 'ngx-bootstrap-icons';
 
 import * as echarts from 'echarts';
 
 // Select some icons (use an object, not an array)
+/* eslint-disable object-shorthand */
 const icons = {
-    Building,
-    HouseFill,
-    PlusCircle,
-    DashCircle
+    building,
+    houseFill,
+    plusCircle,
+    dashCircle,
+    fileEarmarkImage,
+    fileEarmarkSpreadsheet,
+    fileEarmarkRichtext
 };
+/* eslint-enable object-shorthand */
 
 @NgModule({
     imports: [
         CommonModule,
         ImmobilienRoutingModule,
-        NgbModule,
         AccordionModule.forRoot(),
         BsDropdownModule.forRoot(),
         FormsModule,
         NgxBootstrapIconsModule.pick(icons),
-        NgxEchartsModule.forRoot({ echarts })
+        NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
     ],
     declarations: [ImmobilienComponent]
 })

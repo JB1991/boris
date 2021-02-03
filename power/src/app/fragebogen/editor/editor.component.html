@@ -15,16 +15,17 @@
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
-                     class="bi bi-tools align-baseline"
+                     class="bi bi-tools"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
                           d="M0 1l1-1 3.081 2.2a1 1 0 0 1 .419.815v.07a1 1 0 0 0 .293.708L10.5 9.5l.914-.305a1 1 0 0 1 1.023.242l3.356 3.356a1 1 0 0 1 0 1.414l-1.586 1.586a1 1 0 0 1-1.414 0l-3.356-3.356a1 1 0 0 1-.242-1.023L9.5 10.5 3.793 4.793a1 1 0 0 0-.707-.293h-.071a1 1 0 0 1-.814-.419L0 1zm11.354 9.646a.5.5 0 0 0-.708.708l3 3a.5.5 0 0 0 .708-.708l-3-3z" />
                     <path fill-rule="evenodd"
                           d="M15.898 2.223a3.003 3.003 0 0 1-3.679 3.674L5.878 12.15a3 3 0 1 1-2.027-2.027l6.252-6.341A3 3 0 0 1 13.778.1l-2.142 2.142L12 4l1.757.364 2.141-2.141zm-13.37 9.019L3.001 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z" />
                 </svg>
-                <span class="ml-2"
+                <span class="ml-1"
                       i18n>Toolbox</span>
             </div>
 
@@ -34,7 +35,8 @@
                 [isAnimated]="true">
                 <smooth-dnd-container groupName="toolbox"
                                       [getChildPayload]="getPayloadToolbox"
-                                      behaviour="copy">
+                                      behaviour="copy"
+                                      aria-live="polite">
                     <li id="{{ item.type }}"
                         *ngFor="let item of storage.FormularFields"
                         role="button"
@@ -44,9 +46,11 @@
                         (click)="wsNewElement(item.type)"
                         (keyup.enter)="wsNewElement(item.type)">
                         <span [innerHtml]="item.icon | svg"
-                              aria-hidden="true"
-                              class="align-baseline"></span>
-                        <span class="pl-2 d-none d-lg-inline">{{ item.name }}</span>
+                              focusable="false"
+                              aria-hidden="true"></span>
+                        <span class="pl-2 d-none d-lg-inline"
+                              aria-hidden="true">{{ item.name }}</span>
+                        <span class="sr-only">{{ item.name }}</span>
                     </li>
 
                     <li id="elementcopy"
@@ -58,21 +62,19 @@
                         title="Zwischenablage"
                         (click)="wsNewElement('elementcopy')"
                         (keyup.enter)="wsNewElement('elementcopy')">
-                        <span aria-hidden="true"
-                              class="align-baseline">
-                            <svg width="1em"
-                                 height="1em"
-                                 viewBox="0 0 16 16"
-                                 class="bi bi-clipboard"
-                                 fill="currentColor"
-                                 xmlns="http://www.w3.org/2000/svg"
-                                 aria-hidden="true">
-                                <path fill-rule="evenodd"
-                                      d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                <path fill-rule="evenodd"
-                                      d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                            </svg>
-                        </span>
+                        <svg width="1em"
+                             height="1em"
+                             viewBox="0 0 16 16"
+                             class="bi bi-clipboard"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg"
+                             focusable="false"
+                             aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                  d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                            <path fill-rule="evenodd"
+                                  d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                        </svg>
                         <span class="pl-2 d-none d-lg-inline"
                               i18n>Zwischenablage</span>
                     </li>
@@ -92,14 +94,15 @@
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
-                     class="bi bi-star-fill align-baseline"
+                     class="bi bi-star-fill"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     focusable="false"
                      aria-hidden="true">
                     <path
                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                 </svg>
-                <span class="ml-2"
+                <span class="ml-1"
                       i18n>Favoriten</span>
             </div>
 
@@ -109,7 +112,8 @@
                 [isAnimated]="true">
                 <smooth-dnd-container groupName="favorites"
                                       [getChildPayload]="getPayloadFavorites"
-                                      behaviour="copy">
+                                      behaviour="copy"
+                                      aria-live="polite">
                     <li id="{{ item.content.type }}"
                         *ngFor="let item of favorites; index as i"
                         role="button"
@@ -142,7 +146,8 @@
                                               [getChildPayload]="getPayloadPagination"
                                               [shouldAcceptDrop]="shouldAcceptDropPagination"
                                               orientation="horizontal"
-                                              lockAxis="x">
+                                              lockAxis="x"
+                                              aria-live="polite">
                             <li *ngFor="let page of storage.model.pages; index as i"
                                 class="page-item clickable text-primary smooth-dnd-draggable-wrapper"
                                 [class.active]="i === storage.selectedPageID">
@@ -151,8 +156,7 @@
                                    tabindex="0"
                                    (click)="wsPageSelect(i)"
                                    (keyup.enter)="wsPageSelect(i)"
-                                   i18n-title
-                                   title="Zeige Seite {{ i + 1 }}"
+                                   title="{{ i + 1 }}"
                                    [attr.data-id]="i">
                                     {{ i + 1 }}
                                 </a>
@@ -170,9 +174,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-file-earmark-plus align-bottom"
+                                     class="bi bi-file-earmark-plus"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path
                                           d="M9 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5v-1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5v2.5A1.5 1.5 0 0 0 10.5 6H13v2h1V6L9 1z" />
@@ -196,9 +201,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-trash-fill align-bottom"
+                                     class="bi bi-trash-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
                                           d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
@@ -222,9 +228,10 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-arrow-clockwise align-baseline"
+                         class="bi bi-arrow-clockwise"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
                               d="M3.17 6.706a5 5 0 0 1 7.103-3.16.5.5 0 1 0 .454-.892A6 6 0 1 0 13.455 5.5a.5.5 0 0 0-.91.417 5 5 0 1 1-9.375.789z" />
@@ -244,9 +251,10 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-arrow-counterclockwise align-baseline"
+                         class="bi bi-arrow-counterclockwise"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
                               d="M12.83 6.706a5 5 0 0 0-7.103-3.16.5.5 0 1 1-.454-.892A6 6 0 1 1 2.545 5.5a.5.5 0 1 1 .91.417 5 5 0 1 0 9.375.789z" />
@@ -258,27 +266,6 @@
                 </button>
 
                 <button type="button"
-                        class="btn btn-primary mr-2"
-                        i18n-title
-                        title="Formular Einstellungen öffnen"
-                        (click)="formularsettings.open()">
-                    <svg width="1em"
-                         height="1em"
-                         viewBox="0 0 16 16"
-                         class="bi bi-sliders align-baseline"
-                         fill="currentColor"
-                         xmlns="http://www.w3.org/2000/svg"
-                         aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M14 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM11.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM7 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM4.5 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm9.5 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM11.5 15a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
-                        <path fill-rule="evenodd"
-                              d="M9.5 4H0V3h9.5v1zM16 4h-2.5V3H16v1zM9.5 14H0v-1h9.5v1zm6.5 0h-2.5v-1H16v1zM6.5 9H16V8H6.5v1zM0 9h2.5V8H0v1z" />
-                    </svg>
-                    <span class="sr-only"
-                          i18n>Formular Einstellungen öffnen</span>
-                </button>
-
-                <button type="button"
                         class="btn btn-secondary mr-2"
                         i18n-title
                         title="Formular Vorschau öffnen"
@@ -286,9 +273,10 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-arrows-fullscreen align-baseline"
+                         class="bi bi-arrows-fullscreen"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
                               d="M1.464 10.536a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5a.5.5 0 0 1 .5-.5z" />
@@ -306,6 +294,28 @@
                 </button>
 
                 <button type="button"
+                        class="btn btn-primary mr-2"
+                        i18n-title
+                        title="Formular Einstellungen öffnen"
+                        (click)="formularsettings.open()">
+                    <svg width="1em"
+                         height="1em"
+                         viewBox="0 0 16 16"
+                         class="bi bi-gear custom-animation"
+                         fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
+                         aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z" />
+                        <path fill-rule="evenodd"
+                              d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
+                    </svg>
+                    <span class="sr-only"
+                          i18n>Formular Einstellungen öffnen</span>
+                </button>
+
+                <button type="button"
                         class="btn btn-success mr-2"
                         i18n-title
                         title="Formular speichern"
@@ -314,9 +324,10 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-hdd align-baseline"
+                         class="bi bi-hdd"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
                               d="M14 9H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1zM2 8a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2z" />
@@ -336,9 +347,10 @@
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
-                         class="bi bi-backspace align-baseline"
+                         class="bi bi-backspace"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
                               d="M6.603 2h7.08a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-7.08a1 1 0 0 1-.76-.35L1 8l4.844-5.65A1 1 0 0 1 6.603 2zm7.08-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08z" />
@@ -366,11 +378,19 @@
                               [shouldAcceptDrop]="shouldAcceptDropWorkspace"
                               dragClass="drag-ghost"
                               dragHandleSelector=".drag-handle">
-            <smooth-dnd-draggable
+            <smooth-dnd-draggable aria-live="polite"
                                   *ngFor="let container of storage.model.pages[storage.selectedPageID].elements; index as i">
                 <div class="card bg-light mb-2"
                      [attr.data-id]="i">
                     <div class="card-body p-1 p-lg-2">
+                        <div class="float-lg-left">
+                            <span [innerHtml]="getIcon(container.type) | svg"
+                                  aria-hidden="true"></span>
+                            <span class="ml-1"
+                                  i18n>Fragen ID:</span>
+                            <code>{{ ' &#123;' + container.name + '&#125;' }}</code>
+                        </div>
+
                         <!-- element buttons -->
                         <div class="float-lg-right">
                             <button type="button"
@@ -382,9 +402,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-grip-vertical align-baseline"
+                                     class="bi bi-grip-vertical"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path
                                           d="M2 8a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
@@ -402,9 +423,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-caret-up align-baseline"
+                                     class="bi bi-caret-up"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
                                           d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z" />
@@ -422,9 +444,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-caret-down align-baseline"
+                                     class="bi bi-caret-down"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
                                           d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
@@ -432,6 +455,48 @@
                                 <span class="sr-only"
                                       i18n>Nach unten verschieben</span>
                             </button>
+
+                            <div class="btn-group mr-2"
+                                 [attr.isDisabled]="storage.model.pages.length < 2"
+                                 dropdown>
+                                <button id="button-basic-{{ i }}"
+                                        dropdownToggle
+                                        type="button"
+                                        class="btn btn-light btn-sm dropdown-toggle"
+                                        i18n-title
+                                        title="Frage auf andere Seite verschieben"
+                                        attr.aria-controls="dropdown-basic-{{ i }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="1em"
+                                         height="1em"
+                                         fill="currentColor"
+                                         class="bi bi-box-arrow-in-up-right"
+                                         viewBox="0 0 16 16"
+                                         focusable="false"
+                                         aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                              d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5z" />
+                                        <path fill-rule="evenodd"
+                                              d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0v-5z" />
+                                    </svg>
+                                    <span class="sr-only"
+                                          i18n>Frage auf andere Seite verschieben</span>
+                                </button>
+
+                                <ul id="dropdown-basic-{{ i }}"
+                                    *dropdownMenu
+                                    class="dropdown-menu"
+                                    role="menu"
+                                    aria-labelledby="button-basic-{{ i }}">
+                                    <li role="menuitem"
+                                        *ngFor="let container of storage.model.pages; index as j">
+                                        <a class="dropdown-item"
+                                           [class.disabled]="j === storage.selectedPageID"
+                                           href="javascript:;"
+                                           (click)="wsElementToPage(i, storage.selectedPageID, j)">Seite {{ j+1 }}</a>
+                                    </li>
+                                </ul>
+                            </div>
 
                             <button type="button"
                                     class="btn btn-light btn-sm mr-2"
@@ -441,9 +506,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-clipboard align-baseline"
+                                     class="bi bi-clipboard"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
                                           d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
@@ -463,9 +529,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-star align-baseline"
+                                     class="bi bi-star"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
                                           d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
@@ -483,9 +550,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-star-fill align-baseline"
+                                     class="bi bi-star-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path
                                           d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -502,9 +570,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-pencil-square align-baseline"
+                                     class="bi bi-pencil-square"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path
                                           d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -523,9 +592,10 @@
                                 <svg width="1em"
                                      height="1em"
                                      viewBox="0 0 16 16"
-                                     class="bi bi-trash-fill align-baseline"
+                                     class="bi bi-trash-fill"
                                      fill="currentColor"
                                      xmlns="http://www.w3.org/2000/svg"
+                                     focusable="false"
                                      aria-hidden="true">
                                     <path fill-rule="evenodd"
                                           d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />

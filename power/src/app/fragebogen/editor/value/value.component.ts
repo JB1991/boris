@@ -1,8 +1,12 @@
-import { Component, OnChanges, Input, Output, EventEmitter, InjectionToken, Inject } from '@angular/core';
+import {
+    Component, OnChanges, Input, Output, EventEmitter,
+    InjectionToken, Inject, ChangeDetectionStrategy
+} from '@angular/core';
 
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 
 const UNIQ_ID_TOKEN = new InjectionToken('ID');
+/* eslint-disable-next-line prefer-const */
 let id = 0;
 @Component({
     providers: [
@@ -13,7 +17,8 @@ let id = 0;
     ],
     selector: 'power-forms-editor-value',
     templateUrl: './value.component.html',
-    styleUrls: ['./value.component.scss']
+    styleUrls: ['./value.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValueComponent implements OnChanges {
     @Input() public model: any;
@@ -51,7 +56,7 @@ export class ValueComponent implements OnChanges {
      * Resets value
      */
     public resetValue() {
-        this.value = null;
+        this.value = undefined;
         this.data = {};
         this.valueChange.emit(this.value);
     }

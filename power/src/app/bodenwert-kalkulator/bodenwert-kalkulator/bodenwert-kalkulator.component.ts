@@ -1,22 +1,45 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
-import { LngLat, LngLatBounds, MapboxGeoJSONFeature, MapMouseEvent, Marker, Point } from 'mapbox-gl';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point, VectorSource } from 'mapbox-gl';
 
 @Component({
     selector: 'power-bodenwert-kalkulator',
     templateUrl: './bodenwert-kalkulator.component.html',
-    styleUrls: ['./bodenwert-kalkulator.component.scss']
+    styleUrls: ['./bodenwert-kalkulator.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenwertKalkulatorComponent implements OnInit {
 
     threeDActive = false;
     searchActive = false;
     filterActive = false;
+    locationTrackingActive = false;
+    isCollapsed = true;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
+
+    // NDS - Flustuecks Tile Source
+    public ndsFstTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=alkis:ax_flurstueck'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
+
+    public ndsFstSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.ndsFstTiles],
+        bounds: this.ndsBounds,
+    };
 
     map;
     bounds = new LngLatBounds([
@@ -32,57 +55,100 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     features: any;
 
-    @ViewChild('acc') acc: NgbAccordion;
-
-    constructor(private titleService: Title) {
-        this.titleService.setTitle('Bodenwerte - POWER.NI');
+    constructor(private titleService: Title,
+        public alerts: AlertsService) {
+        this.titleService.setTitle($localize`Bodenwerte - POWER.NI`);
     }
 
     ngOnInit() {
     }
 
-    onMapClickEvent(event: MapMouseEvent) {
-        if (event.point) {
-            const point: Point = new Point(event.point.x, event.point.y);
-            const features: MapboxGeoJSONFeature[] =
-                this.map.queryRenderedFeatures(point, {layers: ['flurstuecke-fill']});
+    public onExpanded() {
+        this.map.resize();
+    }
 
-            for (const feature of features) {
-                this.updateFlurstueckSelection(feature);
-            }
-            this.showOrHideFlurstueckPanel();
-            this.updateFlurstueckHighlighting();
+    public onCollapsed() {
+        if (this.map) {
+            this.map.resize();
         }
     }
+
+    onMapClickEvent(event: any) {
+        // Click event fires twice (naming conflict)
+        if (event.lngLat) {
+            const zoomlvl = this.map.getZoom();
+            if (event.point && zoomlvl >= 14) {
+                this.isCollapsed = false;
+                this.map.flyTo({
+                    center: event.lngLat
+                });
+                const point: Point = new Point(event.point.x, event.point.y);
+                const features: MapboxGeoJSONFeature[] =
+                    this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
+                for (const feature of features) {
+                    this.updateFlurstueckSelection(feature);
+                }
+                this.updateFlurstueckHighlighting();
+            } else if (zoomlvl <= 14) {
+                this.alerts.NewAlert('warning',
+                    $localize`Auswahl fehlgeschlagen`,
+                    $localize`Zur Selektion von Flurstücken bitte weiter heranzoomen.`
+                );
+            }
+        }
+    }
+
+    // selectingFlurstueck() {
+    //     if (this.marker.getLngLat) {
+    //         if (this.marker !== null) {
+    //             this.isCollapsed = false;
+    //             this.map.flyTo({
+    //                 center: this.marker.getLngLat()
+    //             });
+    //                 let x = this.marker.getElement().getBoundingClientRect().x;
+    //                 let y = this.marker.getElement().getBoundingClientRect().y;
+    //                 const point: Point = new Point(x, y);
+    //                 const features: MapboxGeoJSONFeature[] =
+    //                     this.map.queryRenderedFeatures(point, { layers: ['flurstuecke-fill'] });
+    //             for (const feature of features) {
+    //                 this.updateFlurstueckSelection(feature);
+    //             }
+    //             console.log(this.marker);
+    //             console.log(x,y);
+    //             this.updateFlurstueckHighlighting();
+    //         } else if (this.marker) {
+    //             this.alerts.NewAlert('warning',
+    //                 $localize`Auswahl fehlgeschlagen`,
+    //                 $localize`Zur Selektion von Flurstücken bitte eine Adresse eingeben und bestätigen.`
+    //             );
+    //         }
+    //     }
+    // }
 
     updateFlurstueckSelection(feature: MapboxGeoJSONFeature) {
         if (this.flurstueckSelection.has(feature.properties.gml_id)) {
             this.flurstueckSelection.delete(feature.properties.gml_id);
+            if (this.flurstueckSelection.size === 0) {
+                this.isCollapsed = true;
+            }
         } else {
             this.flurstueckSelection.set(feature.properties.gml_id, feature);
-        }
-    }
-
-    showOrHideFlurstueckPanel() {
-        if (this.flurstueckSelection.size > 0) {
-            this.acc.expandAll();
-        } else {
-            this.acc.collapseAll();
         }
     }
 
     updateFlurstueckHighlighting() {
         this.map.setFilter('flurstuecke-highlighted', null);
 
-        const filter = ['in', 'gml_id'];
-        for (const l of Array.from(this.flurstueckSelection.values())) {
-            filter.push(l.properties.gml_id);
+        const filter: string[] = ['in', 'gml_id'];
+        for (const flurstueck of Array.from(this.flurstueckSelection.values())) {
+            filter.push(flurstueck.properties.gml_id);
         }
         this.map.setFilter('flurstuecke-highlighted', filter);
     }
 
     loadMap($event: any) {
         this.map = $event;
+        this.map.addSource('geoserver_fst_nds', this.ndsFstSource);
     }
 
     flyTo(event: any) {
@@ -95,7 +161,6 @@ export class BodenwertKalkulatorComponent implements OnInit {
         })
             .setLngLat(event.geometry.coordinates)
             .addTo(this.map);
-        this.marker.togglePopup();
         this.map.flyTo({
             center: event.geometry.coordinates,
             zoom: 17,
@@ -115,7 +180,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     }
 
     activate3dView() {
-        const layers = this.map.getStyle().layers;
+        const layers: Layer[] = this.map.getStyle().layers;
         let firstSymbolId;
         for (let i = 0; i < layers.length; i++) {
             if (layers[i].type === 'symbol') {
@@ -127,7 +192,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
         this.map.easeTo({
             pitch: 60,
             zoom: 17,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.locationTrackingActive ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
     }
@@ -154,7 +219,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
         this.map.easeTo({
             pitch: 0,
             zoom: 14,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.locationTrackingActive ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
         this.map.removeLayer('building-extrusion');
@@ -166,6 +231,12 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     toggleFilterActive() {
         this.filterActive = !this.filterActive;
+    }
+
+    public resetSelection() {
+        this.flurstueckSelection.clear();
+        this.updateFlurstueckHighlighting();
+        this.isCollapsed = true;
     }
 
     resetMap() {
@@ -181,7 +252,16 @@ export class BodenwertKalkulatorComponent implements OnInit {
         });
     }
 
-    enableLocationTracking() {
+    public toggleLocationTracking() {
+        if (!this.locationTrackingActive) {
+            this.enableLocationTracking();
+        } else {
+            this.removeLocation();
+        }
+        this.locationTrackingActive = !this.locationTrackingActive;
+    }
+
+    public enableLocationTracking() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(location => {
                 const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
@@ -193,6 +273,14 @@ export class BodenwertKalkulatorComponent implements OnInit {
                 this.marker.setLngLat(lngLat).addTo(this.map);
             });
         }
+    }
+
+    public removeLocation() {
+        this.marker.remove();
+    }
+
+    public showDataNotice() {
+        this.alerts.NewAlert('info', $localize`Hinweis zu Testdaten`, $localize`Hierbei handelt es sich um Testdaten.`);
     }
 }
 

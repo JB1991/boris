@@ -1,81 +1,76 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
 import { Feature } from 'geojson';
+import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
     selector: 'power-geosearch',
     templateUrl: './geosearch.component.html',
     styleUrls: ['./geosearch.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GeosearchComponent implements OnInit {
+export class GeosearchComponent implements OnChanges {
 
-    constructor(private fb: FormBuilder, private geosearchService: GeosearchService) {
+    constructor(public geosearchService: GeosearchService, public alerts: AlertsService) {
     }
+
+    // @Input() resetGeosearch: boolean;
+    // @Output() resetGeosearchChange = new EventEmitter();
 
     @Output() selectResult = new EventEmitter();
 
-    public model: any;
+    @Input() adresse: string;
 
-    searchForm: FormGroup;
-    filteredResults: Feature[];
-    searching: boolean;
-    searchFailed: boolean;
+    public model: Feature;
 
-    formatter = (result) => result.properties.text;
+    /**
+     * Return the text property
+     * @param feature GeoJSON feature
+     */
+    inputFormatter = (feature) => feature.properties.text;
 
-    ngOnInit() {
-        this.searchForm = this.fb.group({
-            searchInput: null
-        });
 
-        this.searchForm
-            .get('searchInput')
-            .valueChanges
-            .pipe(
-                debounceTime(300),
-                filter(value => {
-                    // check if value is empty string
-                    return value === undefined || value !== '';
-                }),
-                switchMap(value => this.geosearchService.search(value))
-            )
-            .subscribe(result => {
-                this.filteredResults = result.features;
-            });
+    resultFormatter = (feature) => feature.properties.text;
 
-    }
+    /**
+     * Initialization of the search form
+     */
 
-    displayFn(result: Feature) {
-        if (result) {
-            return result.properties.name;
+    public ngOnChanges(changes: SimpleChanges) {
+        if (changes.adresse) {
+            this.model = changes.adresse.currentValue;
         }
     }
 
-    search = (text$: Observable<string>) =>
+    /**
+     * Pass the search input to the Geosearch service
+     * @param text$ Input as Observable
+     */
+    public search = (text$: Observable<string>) =>
         text$.pipe(
             debounceTime(300),
             distinctUntilChanged(),
-            tap(() => this.searching = true),
-            switchMap(term =>
+            switchMap(term => term.length < 1 ? of([]) :
                 this.geosearchService.search(term).pipe(
-                    tap(() => this.searching = false),
-                    catchError(() => {
-                        this.searchFailed = true;
+                    catchError((error) => {
+                        console.log(error);
+                        this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([]);
                     })
                 )
             ),
-            tap(() => this.searching = false),
-            map(res => res['features'])
-        )
+            map(result => result['features'])
+        );
 
-    selectItem(item: any) {
+    /**
+     * Select an item from the search result list
+     * @param item GeoJSON feature
+     */
+    public onSelect(item: Feature) {
         this.selectResult.next(item);
         this.geosearchService.updateFeatures(item);
     }
-
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

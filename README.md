@@ -71,16 +71,19 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 2. Sprachstrings exportieren
    ```
    cd power
-   ng xi18n --format=xlf2 --ivy --output-path src/locales
+   ng extract-i18n --format=xlf2 --ivy --output-path src/locales
    ```
+   * Bitte die Datei `messages.xlf` nach dem String `node_modules` durchsuchen und die entsprechenden Einträge entfernen.
+   Leider gibt es derzeit keinen `exclude`-Parameter (siehe https://github.com/angular/angular-cli/issues/18885).
 
 3. Vorhandene Übersetzungen updaten
    ```
-   cd power/src/locales
-   xliffmerge -p .\config.json
+   cd src/locales
+   xliffmerge -p ./config.json
    ```
 
 4. [Übersetzung anfertigen](https://martinroob.github.io/tiny-translator/de/#/home)
+    * Falls es Darstellungsprobleme auf der Website gibt, dann einfach die Cookies für die Website löschen.
 
 5. Sprache testen
    ```
@@ -165,19 +168,19 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 
 ### Bodenrichtwerte
 * Visualisierung der Bodenrichtwertzonen
-* Funktionen:
+* Funktionen
   * Auswahl von Stichtag und Teilmarkt
   * Adresssuche, Reverse Geocoding
   * Geolocation Positionsbestimmung
   * 3D-Gebäude
 * Stichtage 2012 - 2019
-* Informationen zu:
+* Informationen zu
   * Art der Nutzung
   * Bodenrichtwert
   * Beitragsrechtlicher Zustand
 * Entwicklung des BRW als Step-Line-Graph
-* Abhängigkeiten:
-  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
+* Abhängigkeiten
+  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [BORIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/borisni-database-vboris2)
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
   * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
   * [ECharts](https://www.npmjs.com/package/echarts)
@@ -185,15 +188,15 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 
 ### Bodenwerte
 * Visualisierung von Bodenwerten (Flurstück)
-* Funktionen:
+* Funktionen
   * Adresssuche, Reverse Geocoding
   * Geolocation Positionsbestimmung
   * 3D-Gebäude
   * Selektion und Addition von Flurstücken
 * Benötigt Datensatz mit Flurstücken und Werten
 * Derzeit mit offiziellen LGLN Testdaten + zufällig generierten Werten (100.000€ - 1.000.000€)
-* Abhängigkeiten:
-  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation)
+* Abhängigkeiten
+  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [ALKIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/alkis-database)
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
   * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
 
@@ -221,8 +224,11 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
   * Aggregation mehrerer Wohnungsmarktregionen
   * Individuelle Bestimmung der anzuzeigenden Regionen / Aggregationen
 * Details zur Konfiguration sind in der Datei [README.md](power/src/app/immobilien/immobilien/README.md) zu finden.
+* Datenquellen
+  * Konfiguration (cfg.json)
+  * Karte als GeoJSON mit Nipix-Daten als property (erzeugt von GeoServer mit PostGIS Backend)
 * Abhängigkeiten
-  * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
+  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
   * [ngx-bootstrap-icons](https://www.npmjs.com/package/ngx-bootstrap-icons)
   * [ECharts](https://www.npmjs.com/package/echarts)
 

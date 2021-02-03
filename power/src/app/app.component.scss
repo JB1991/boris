@@ -2,21 +2,43 @@
     padding-top: 5px;
 }
 
+.navbar-brand:hover {
+    text-decoration: underline grey;
+}
+
 .navbar-toggler {
     outline: none;
 }
 
 .footer-link,
 .navbar-nav .nav-item .nav-link {
-    color: #0173ec;
+    color: #121416;
 }
 
 .footer-link:hover,
 .navbar-nav .nav-item.active .nav-link,
 .navbar-nav .nav-item:hover .nav-link {
-    color: #0052a9;
+    color: #c4153a;
 }
 
 .navbar-nav .nav-item .nav-link.active {
-    color: #004084;
+    color: #c4153a;
+}
+
+.bg-custom {
+    background-color: #343a40;
+}
+
+footer li::before {
+    content: '\00BB \0020';
+}
+
+.min-height {
+    min-height: calc(100vh - 57px - 306px);
+}
+
+@media (max-width: 576px) {
+    nav .dropdown-item {
+        white-space: normal !important;
+    }
 }

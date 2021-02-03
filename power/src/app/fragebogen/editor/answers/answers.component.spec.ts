@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { AnswersComponent } from './answers.component';
-import { FormsModule } from '@angular/forms';
 
 describe('Fragebogen.Editor.AnswersComponent', () => {
     let component: AnswersComponent;

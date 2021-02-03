@@ -8,20 +8,6 @@
 mgl-map {
     height: 100%;
     width: 100%;
-    flex-grow: 1;
-}
-
-.marker {
-    background-size: cover;
-    background-color: #6f42c1;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.control {
-    width: 300px !important;
 }
 
 .nav-scroller {
@@ -43,43 +29,39 @@ mgl-map {
     -webkit-overflow-scrolling: touch;
 }
 
-.nav-underline .nav-link {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    font-size: 0.875rem;
-    color: #6c757d;
-}
-
 .nav-underline .nav-link:hover {
-    color: #007bff;
+    color: #c4153a;
+    cursor: pointer;
 }
 
-.nav-underline .active {
-    font-weight: 500;
-    color: #343a40;
+.active {
+    color: #c4153a !important;
+    background-color: transparent !important;
 }
 
-.text-white-50 {
-    color: rgba(255, 255, 255, 0.5);
+.dropdown-menu {
+    min-width: 100% !important;
 }
 
-.bg-purple {
-    background-color: #6f42c1;
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1700px
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1660px
+);
+
+.max-search-width {
+    max-width: 500px;
 }
 
-.lh-100 {
-    line-height: 1;
-}
-
-.lh-125 {
-    line-height: 1.25;
-}
-
-.lh-150 {
-    line-height: 1.5;
-}
-
-a.nav-link img {
-    font-size: 25px;
-    vertical-align: middle;
-}
+@import '~bootstrap/scss/bootstrap.scss';

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class AlertsService {
-    public alertslist: any = [];
+    public alertslist = [];
 
     constructor() { }
 
@@ -27,7 +27,7 @@ export class AlertsService {
         if (timeout < 1000 || timeout > 60000) {
             throw new Error('timeout too big or small');
         }
-        this.alertslist.push({ type, title, text, timeout, date: new Date() });
+        this.alertslist.push({ type: type, title: title, text: text, timeout: timeout, date: new Date() });
 
         // prevent too much alerts
         if (this.alertslist.length > 4) {
