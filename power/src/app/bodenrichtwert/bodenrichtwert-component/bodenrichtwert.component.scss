@@ -11,20 +11,24 @@ $grid-gutter-width: 0rem !default;
 }
 
 @media (max-width: 1305px) {
+
     .address-header {
         min-height: 77px !important;
-        height: 100% !important;}
+        height: 100% !important;
+    }
     
-        .address-header-c3 {
-            transform: translate(8%,15%) !important;
-        }
+    .address-header-c3 {
+        transform: translate(8%, 15%) !important;
+    }
 
     .details {
         height: calc(100vh - 134px) !important;
     }
+
 } 
 
 @media (max-width: 991px) {
+
     .map {
         height: calc(100vh - 301px);
         padding: 0;
@@ -58,7 +62,7 @@ $grid-gutter-width: 0rem !default;
     }
 
     .address-header-c3 {
-        transform: translate(5%,0%) !important;
+        transform: translate(5%, 0%) !important;
     }
 }
 
@@ -92,7 +96,7 @@ $grid-gutter-width: 0rem !default;
 }
 
 .address-header-c3 {
-    transform: translate(8%,0%);
+    transform: translate(8%, 0%);
 }
 
 a.nav-link:hover {
