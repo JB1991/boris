@@ -1,7 +1,7 @@
 $grid-columns: 36 !default;
-/* stylelint-disable */
+/* stylelint-disable-next-line */
 $grid-gutter-width: 0rem !default;
-/* stylelint-enable */
+
 .map {
     height: calc(100vh - 57px);
     padding: 0;
