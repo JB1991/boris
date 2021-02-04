@@ -63,7 +63,7 @@
     <div class="row m-0">
         <div id="mapWrapper"
              class="border-bottom"
-             [class]="!adresse && !features ? 'col-36 map-default' : isCollapsed ? 'col-lg-35 col-md-36 map-collapsed' : 'col-lg-17 map'">
+             [class]="!adresse && !features ? 'col-sm-36 map-default' : isCollapsed ? 'col-lg-35 col-md-36 map-collapsed' : 'col-lg-17 map'">
             <power-bodenrichtwertkarte #map
                                        [(isCollapsed)]="isCollapsed"
                                        [collapsed]="collapsed"

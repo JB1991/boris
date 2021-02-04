@@ -199,6 +199,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.fskIsChanged = !this.fskIsChanged;
             }
         }
+        if (changes.features && changes.features?.currentValue === undefined && this.map) {
+            this.map.resize();
+        }
     }
 
     ngOnInit() {
@@ -652,6 +655,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 pitch: 0,
                 bearing: 0
             });
+            this.map.resize();
             this.resetMapFired = !this.resetMapFired;
         }
     }

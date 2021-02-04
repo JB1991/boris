@@ -77,7 +77,7 @@ export class GemarkungWfsService {
     public getGemarkungBySearchText(searchText: string): Observable<FeatureCollection> {
 
         const regNumbers = new RegExp(/\d+/g);
-        const regWords = new RegExp(/[a-zA-Z]+/g);
+        const regWords = new RegExp(/[a-zA-Z_äÄöÖüÜß]+/g);
         const numbers: Array<string> = searchText.match(regNumbers);
         const words: Array<string> = searchText.match(regWords);
 
