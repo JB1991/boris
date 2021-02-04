@@ -576,6 +576,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     onStichtagChange(stichtag: any) {
         this.stichtag = stichtag;
         this.stichtagChange.next(stichtag);
+
+        this.flyTo(this.lat, this.lng);
         this.changeURL();
     }
 
@@ -612,6 +614,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         if (this.lat && this.lng) {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
         }
+
+        this.flyTo(this.lat, this.lng);
         this.changeURL();
     }
 
