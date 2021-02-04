@@ -9,8 +9,8 @@
                      i18n-alt
                      alt="Bodenrichtwerte"
                      class="carousel-image">
-                <div class="carousel-caption text-center my-5">
-                    <h2 class="pt-4">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
                         <span style="color: #343a40;">BORIS</span>
                         <span style="color: #c4153a;">.NI</span>
                     </h2>
@@ -30,8 +30,8 @@
                      i18n-alt
                      alt="Bodenwertkalkulator"
                      class="carousel-image">
-                <div class="carousel-caption text-center my-5">
-                    <h2 class="pt-4">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
                         <span style="color: #343a40;">BOWERT</span>
                         <span style="color: #c4153a;">.NI</span>
                     </h2>
@@ -51,8 +51,8 @@
                      i18n-alt
                      alt="Immobilienpreisindex"
                      class="carousel-image">
-                <div class="carousel-caption text-center my-5">
-                    <h2 class="pt-4">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
                         <span style="color: #c4153a;">NI</span>
                         <span style="color: #343a40;">PIX</span>
                     </h2>
@@ -72,8 +72,8 @@
                      i18n-alt
                      alt="Formulare"
                      class="carousel-image">
-                <div class="carousel-caption text-center my-5">
-                    <h2 class="pt-4">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
                         <span style="color: #343a40;">Formulare</span>
                         <span style="color: #c4153a;">.NI</span>
                     </h2>
@@ -93,9 +93,9 @@
                      i18n-alt
                      alt="Feedback"
                      class="carousel-image">
-                <div class="carousel-caption text-center my-5">
-                    <h2 class="pt-4"
-                        style="color: #343a40;">FEEDBACK</h2>
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2 style="color: #343a40;"
+                        i18n>FEEDBACK</h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Fehler oder Vorschlag einreichen</h3>
@@ -130,11 +130,13 @@
                         Bremen und Bremerhaven zur Verfügung.</p>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5"
+                 aria-hidden="true">
                 <a class="h2"
                    [routerLink]="['/bodenrichtwerte']"
                    i18n-title
-                   title="Bodenrichtwerte">
+                   title="Bodenrichtwerte"
+                   tabindex="-1">
                     <img src="./assets/boris.png"
                          class="img-thumbnail img-fluid mx-auto"
                          width="500"
@@ -167,11 +169,13 @@
                         Grundstückswerte.</p>
                 </div>
             </div>
-            <div class="col-md-5 order-md-1">
+            <div class="col-md-5 order-md-1"
+                 aria-hidden="true">
                 <a class="h2"
                    [routerLink]="['/immobilienpreisindex']"
                    i18n-title
-                   title="Immobilienpreisindex">
+                   title="Immobilienpreisindex"
+                   tabindex="-1">
                     <img src="./assets/nipix.png"
                          class="img-thumbnail img-fluid mx-auto"
                          width="500"
@@ -203,7 +207,7 @@
 
                     <form #pinFormular="ngForm"
                           (ngSubmit)="submitPIN(pin.value)"
-                          class="form-inline">
+                          class="form-inline mb-3">
                         <label class="control-label sr-only"
                                id="formPIN"
                                i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu
@@ -244,11 +248,13 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5"
+                 aria-hidden="true">
                 <a class="h2"
                    [routerLink]="['/forms']"
                    i18n-title
-                   title="Formulare">
+                   title="Formulare"
+                   tabindex="-1">
                     <img src="./assets/onlineForm.png"
                          class="img-thumbnail img-fluid mx-auto"
                          width="500"
