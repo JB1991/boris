@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges, SimpleChange } from '@angular/core';
 import { Location } from '@angular/common';
-import { FillExtrusionLayer, LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
+import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
+import { BodenrichtwertKarte3dLayerService } from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-3d-layer.service';
 import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -173,6 +174,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
+        public bodenrichtwert3DLayer: BodenrichtwertKarte3dLayerService,
         public geosearchService: GeosearchService,
         public alkisWfsService: AlkisWfsService,
         private route: ActivatedRoute,
@@ -204,118 +206,13 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             }
         }
         if (changes.features && this.features) {
-            this.onFeaturesChange(changes.features);
+            this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag);
         }
     }
 
     ngOnInit() {
     }
 
-    public onFeaturesChange(fts: SimpleChange) {
-        this.previousFeatures = fts.previousValue;
-        if (this.previousFeatures) {
-            this.deactivate3dLayer(this.previousFeatures, this.stichtag);
-        }
-        this.activate3dLayer(this.stichtag);
-    }
-
-    public activate3dLayer(stichtag: any) {
-        const fts = this.filterCollectionByStag(this.features, stichtag);
-        // if (this.map.getPitch() > 15) {
-        this.add3dLayer(fts);
-        // }
-    }
-
-    public deactivate3dLayer(features: any, stichtag: any) {
-        const fts = this.filterCollectionByStag(features, stichtag);
-        this.removeLayers(fts);
-    }
-
-    public filterCollectionByStag(collection: FeatureCollection, stichtag: string) {
-        const features = collection.features.filter(ft =>
-            ft.properties.stag.substr(0, 10) === stichtag
-        );
-        return features;
-    }
-
-    public onRotate() {
-        if (this.features) {
-            const fts = this.filterCollectionByStag(this.features, this.stichtag);
-
-            let opacity: number;
-            if (this.map.getPitch() > 20) {
-                opacity = 0.6 / 60 * this.map.getPitch();
-            } else {
-                opacity = 0;
-            }
-            this.changeOpacity(fts, opacity);
-        }
-    }
-    public changeOpacity(fts: any, opacity: number) {
-        fts.forEach(ft => {
-            this.map.setPaintProperty(ft.properties.objectid, 'fill-extrusion-opacity', opacity);
-        });
-    }
-    // tslint:disable-next-line: max-func-body-length
-    public add3dLayer(features: any) {
-        features.forEach((ft, i) => {
-            const id = ft.properties.objectid;
-            const extrusionHeight = 50 + 50 * i;
-            let prevExtrusionHeight: number;
-            if (i === 0) {
-                prevExtrusionHeight = 0;
-            } else {
-                prevExtrusionHeight = 50 * i;
-            }
-            const layerId = id.toString();
-
-            let opacity: number;
-            if (this.map.getPitch() > 15) {
-                opacity = 0.7 / 60 * this.map.getPitch();
-            } else {
-                opacity = 0;
-            }
-            const layer: FillExtrusionLayer = {
-                'id': layerId,
-                'type': 'fill-extrusion',
-                'source': 'geoserver_nds_br',
-                'source-layer': 'br_brzone_flat_with_display',
-                'paint': {
-                    'fill-extrusion-color': this.teilmarkt.color,
-                    'fill-extrusion-height': extrusionHeight,
-                    'fill-extrusion-base': prevExtrusionHeight + 25,
-                    'fill-extrusion-opacity': opacity,
-                    'fill-extrusion-vertical-gradient': true
-                },
-                'filter': ['==', 'objectid', id]
-            };
-            const layerFill: FillExtrusionLayer = {
-                'id': layerId + 'fill',
-                'type': 'fill-extrusion',
-                'source': 'geoserver_nds_br',
-                'source-layer': 'br_brzone_flat_with_display',
-                'paint': {
-                    'fill-extrusion-color': this.baulandColorPalette[i],
-                    'fill-extrusion-height': 25,
-                    'fill-extrusion-base': prevExtrusionHeight,
-                    'fill-extrusion-opacity': 0,
-                    'fill-extrusion-vertical-gradient': true
-                },
-                'filter': ['==', 'objectid', id]
-            };
-            this.map.addLayer(layer);
-            this.map.addLayer(layerFill);
-        });
-    }
-
-    public removeLayers(features: any) {
-        features.forEach((ft) => {
-            const id = ft.properties.objectid;
-            const layerId = id;
-            this.map.removeLayer(layerId);
-            this.map.removeLayer(layerId + 'fill');
-        });
-    }
     /**
      * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
      */
@@ -470,6 +367,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.flyTo(this.lat, this.lng);
             this.changeURL();
         }
+    }
+
+    onRotate() {
+        this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag);
     }
 
     doNotDisplay = [
