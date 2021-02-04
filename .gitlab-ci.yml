@@ -8,6 +8,7 @@ stages:
   - test
   - build
   - package
+  - scan
   - deploy
 
 cache: &global_cache
@@ -235,6 +236,22 @@ package:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+  only:
+    - dev
+    - staging
+    - production
+
+scan:trivy:
+  stage: scan
+  image: docker:stable
+  dependencies: []
+  cache: {}
+  script:
+    - wget https://github.com/aquasecurity/trivy/releases/download/v0.15.0/trivy_0.15.0_Linux-64bit.tar.gz
+    - tar xf trivy_0.15.0_Linux-64bit.tar.gz
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - ./trivy image "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
   only:
     - dev
     - staging
