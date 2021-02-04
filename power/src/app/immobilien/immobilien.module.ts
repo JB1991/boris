@@ -45,7 +45,7 @@ const icons = {
         AccordionModule.forRoot(),
         BsDropdownModule.forRoot(),
         FormsModule,
-        NgxBootstrapIconsModule.pick(icons),
+        NgxBootstrapIconsModule.forRoot(icons),
         NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
     ],
     declarations: [ImmobilienComponent]
