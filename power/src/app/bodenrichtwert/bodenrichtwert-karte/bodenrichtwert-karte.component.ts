@@ -580,12 +580,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.stichtag = stichtag;
         this.stichtagChange.next(stichtag);
 
-        if (!this.marker.getLngLat()) {
-            const center = this.map.getCenter();
-            this.flyTo(center.lat, center.lng);
-        } else {
-            this.flyTo(this.lat, this.lng);
-        }
+        this.repaintMap();
+
         this.changeURL();
     }
 
@@ -623,13 +619,21 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
         }
 
-        if (!this.marker.getLngLat()) {
-            const center = this.map.getCenter();
-            this.flyTo(center.lat, center.lng);
-        } else {
-            this.flyTo(this.lat, this.lng);
-        }
+        this.repaintMap();
+
         this.changeURL();
+    }
+
+    public repaintMap() {
+        if (this.map) {
+            this.map.flyTo({
+                center: this.map.getCenter(),
+                zoom: this.map.getZoom(),
+                speed: 1,
+                curve: 1,
+                bearing: 0
+            });
+        }
     }
 
     /**
