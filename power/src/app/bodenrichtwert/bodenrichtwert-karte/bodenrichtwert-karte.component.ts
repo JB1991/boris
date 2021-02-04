@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges, SimpleChange } from '@angular/core';
 import { Location } from '@angular/common';
-import { FillExtrusionLayer, Layer, LineLayer, LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
+import { FillExtrusionLayer, LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
@@ -238,13 +238,13 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         return features;
     }
 
-    public onRotate(event: any) {
+    public onRotate() {
         if (this.features) {
             const fts = this.filterCollectionByStag(this.features, this.stichtag);
 
             let opacity: number;
-            if (this.map.getPitch() > 15) {
-                opacity = 0.7 / 60 * this.map.getPitch();
+            if (this.map.getPitch() > 20) {
+                opacity = 0.6 / 60 * this.map.getPitch();
             } else {
                 opacity = 0;
             }
@@ -258,7 +258,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
     // tslint:disable-next-line: max-func-body-length
     public add3dLayer(features: any) {
-        console.log(features);
         features.forEach((ft, i) => {
             const id = ft.properties.objectid;
             const extrusionHeight = 50 + 50 * i;
@@ -282,7 +281,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 'source': 'geoserver_nds_br',
                 'source-layer': 'br_brzone_flat_with_display',
                 'paint': {
-                    'fill-extrusion-color': this.baulandColorPalette[i],
+                    'fill-extrusion-color': this.teilmarkt.color,
                     'fill-extrusion-height': extrusionHeight,
                     'fill-extrusion-base': prevExtrusionHeight + 25,
                     'fill-extrusion-opacity': opacity,
