@@ -9,6 +9,6 @@ describe('POWER-Frontend', () => {
 
     it('should display headline', () => {
         page.navigateTo();
-        expect(page.getParagraphText()).toContain('IMMOBILIENMARKT.NI');
+        expect(page.getParagraphText()).toContain('Immobilienmarkt.NI');
     });
 });

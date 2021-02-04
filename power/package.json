@@ -1,7 +1,7 @@
 {
     "name": "power",
     "version": "0.3.0",
-    "description": "IMMOBILIENMARKT.NI",
+    "description": "Immobilienmarkt.NI",
     "author": "Landesamt für Geoinformation und Landesvermessung Niedersachsen (LGLN)",
     "scripts": {
         "ng": "ng",

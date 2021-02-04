@@ -14,7 +14,7 @@ import { UpdateService } from './update.service';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
-    public title = 'IMMOBILIENMARKT.NI';
+    public title = 'Immobilienmarkt.NI';
     public isCollapsed = true;
     public isCollapsedAcc = true;
     public isCollapsedBRW = true;

@@ -47,7 +47,7 @@ export class ImmobilienComponent implements OnInit {
         private titleService: Title,
         private cdr: ChangeDetectorRef
     ) {
-        this.titleService.setTitle($localize`Immobilienpreisindex - IMMOBILIENMARKT.NI`);
+        this.titleService.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
     }
 
     title = 'lgln';
