@@ -1,10 +1,11 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { StartComponent } from './start.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from '@app/shared/shared.module';
-import { FormsModule } from '@angular/forms';
 import { ConfigService } from '@app/config.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('Static.Start.StartComponent', () => {
     let component: StartComponent;
@@ -16,7 +17,8 @@ describe('Static.Start.StartComponent', () => {
             imports: [
                 RouterTestingModule.withRoutes([]),
                 FormsModule,
-                SharedModule
+                SharedModule,
+                CarouselModule.forRoot()
             ],
             providers: [
                 ConfigService
