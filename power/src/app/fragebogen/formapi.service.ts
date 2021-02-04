@@ -541,9 +541,12 @@ export class FormAPIService {
      */
     /* eslint-disable-next-line complexity */
     public getErrorMessage(error: Error): string {
+        console.log(error);
         let msg = error.toString();
         if (error['error'] && error['error']['message']) {
             msg = error['error']['message'];
+        } else if (msg === '[object Object]') {
+            msg = $localize`Es trat folgender HTTP-Fehler auf:` + ' ' + error['message'];
         }
 
         if (msg === 'internal server') {

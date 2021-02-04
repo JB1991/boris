@@ -30,6 +30,7 @@ describe('Static.Start.StartComponent', () => {
 
         spyOn(console, 'log');
         spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
     });
 
     it('should create', () => {
@@ -45,9 +46,8 @@ describe('Static.Start.StartComponent', () => {
     });
 
     it('should not redirect', () => {
-        expect(() => {
-            component.submitPIN('');
-        }).toThrowError('pin is required');
+        component.submitPIN('');
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

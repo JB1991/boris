@@ -12,6 +12,7 @@ import { Config, ConfigService } from '@app/config.service';
 })
 export class StartComponent implements OnInit {
     public config: Config;
+    public form: any = {};
 
     constructor(public title: Title,
         public router: Router,
@@ -33,8 +34,6 @@ export class StartComponent implements OnInit {
         this.config = this.configService.config;
     }
 
-    form: any = {};
-
     /**
      * Redirects to formular fillout dialogue
      * @param pin Formular pin
@@ -42,7 +41,7 @@ export class StartComponent implements OnInit {
     submitPIN(pin: string) {
         if (!pin) {
             this.alerts.NewAlert('danger', $localize`Bitte Pin eingeben`, '');
-            throw new Error('pin is required');
+            return;
         }
         this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
     }
