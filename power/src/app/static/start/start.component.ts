@@ -47,6 +47,10 @@ export class StartComponent implements OnInit {
         this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
     }
 
+    /**
+     * Returns true for every second module
+     * @param module Module name
+     */
     public getCardOrder(module: string): boolean {
         if (typeof this.cardorder[module] !== 'undefined') {
             return this.cardorder[module];

@@ -51,5 +51,19 @@ describe('Static.Start.StartComponent', () => {
         component.submitPIN('');
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     });
+
+    it('should order cards', () => {
+        component.getCardOrder('A');
+        component.getCardOrder('A');
+        component.getCardOrder('B');
+        component.getCardOrder('C');
+        component.getCardOrder('D');
+        component.getCardOrder('C');
+
+        expect(component.getCardOrder('A')).toBeFalse();
+        expect(component.getCardOrder('B')).toBeTrue();
+        expect(component.getCardOrder('C')).toBeFalse();
+        expect(component.getCardOrder('D')).toBeTrue();
+    });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
