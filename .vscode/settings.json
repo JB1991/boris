@@ -6,5 +6,7 @@
     "eslint.format.enable": true,
     "eslint.workingDirectories": [
         "power"
-    ]
+    ],
+    "editor.detectIndentation": false,
+	"scssFormatter.singleQuote": true
 }
