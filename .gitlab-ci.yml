@@ -251,7 +251,7 @@ scan:trivy:
     - tar xf trivy_0.15.0_Linux-64bit.tar.gz
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
-    - ./trivy image "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - ./trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
   only:
     - dev
     - staging
