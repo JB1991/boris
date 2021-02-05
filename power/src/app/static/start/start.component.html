@@ -1,130 +1,305 @@
-<div class="container-xl border-left border-right">
-    <section *ngIf="config.modules.includes('bodenrichtwerte')"
-             class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
-        <div class="col-lg-6 p-0">
-            <div class="boris-img col-lg-12 p-0"></div>
-        </div>
-        <div class="col-lg-6 px-0 pl-lg-5 pt-2 pt-lg-0">
-            <div class="content col-lg-12 text-dark p-3 p-lg-5 rounded-left">
-                <a class="h2 btn-link text-dark font-weight-bold"
-                   id="boris"
-                   [routerLink]="['/bodenrichtwerte']"
-                   i18n>BORIS.NI</a>
-                <h6 i18n>Bodenrichtwertinformationssystem Niedersachsen</h6>
-                <p class="lead text-justify"
-                   i18n>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen
-                    und Bremen
-                    stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land-
-                    und Forstwirtschaft in Niedersachsen, Bremen und Bremerhaven zur Verfügung.</p>
-            </div>
-        </div>
-    </section>
-    <section *ngIf="config.modules.includes('immobilienpreisindex')"
-             class="row pr-lg-5 pt-lg-5 pl-lg-0 pb-lg-0 p-2">
-        <div class="col-lg-9 p-0 pr-lg-5 pt-2 pt-lg-0">
-            <div class="content col-lg-12 text-dark p-3 p-lg-5 rounded-right">
-                <a class="h2 btn-link text-dark font-weight-bold"
-                   id="nipix"
-                   [routerLink]="['/immobilienpreisindex']"
-                   i18n>NIPIX</a>
-                <h6 i18n>Niedersächsischer Immobilienpreisindex</h6>
-                <p class="lead text-justify"
-                   i18n>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser,
-                    Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen
-                    „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die
-                    Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</p>
-            </div>
-        </div>
-        <div class="col-lg-3 pr-lg-0 pr-0 pl-0 order-lg-last order-first">
-            <div class="nipix-img col-lg-12 p-0"></div>
-        </div>
-    </section>
-    <section *ngIf="config.modules.includes('forms')"
-             class="row pl-lg-5 pt-lg-5 pr-lg-0 pb-lg-0 p-2">
-        <div class="col-lg-6 pr-0 pl-lg-0 pl-0">
-            <div class="form-img col-lg-12 p-0"></div>
-        </div>
-        <div class="col-lg-6 pr-lg-0 pr-0 pl-lg-5 pl-0 pt-2 pt-lg-0">
-            <div class="content col-lg-12 text-dark p-3 p-lg-5 rounded-left">
-                <a class="h2 btn-link text-dark font-weight-bold"
-                   [routerLink]="['/forms']"
-                   i18n>Online Formulare</a>
-                <p class="lead text-justify pt-3"
-                   i18n>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden.
-                    Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und
-                    ausfüllen.</p>
-                <form #pinFormular="ngForm"
-                      (ngSubmit)="submitPIN(pin.value)"
-                      class="form-inline">
-                    <label class="control-label sr-only"
-                           id="formPIN"
-                           i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</label>
-                    <input type="text"
-                           class="form-control mr-2 w-mobile"
-                           name="pin"
-                           [(ngModel)]="form.pin"
-                           #pin="ngModel"
-                           [ngClass]="{ 'is-invalid': pinFormular.submitted && pin.invalid}"
-                           required
-                           id="pin"
-                           i18n-placeholder
-                           placeholder="Formular PIN"
-                           aria-labelledby="formPIN"
-                           aria-placeholder="">
+<main class="mainpage"
+      id="content">
+    <div class="mb-5">
+        <carousel [interval]="5000"
+                  [pauseOnFocus]="true"
+                  [isAnimated]="true">
+            <slide *ngIf="config.modules.includes('bodenrichtwerte')">
+                <img src="./assets/boris-banner.png"
+                     i18n-alt
+                     alt="Bodenrichtwerte"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
+                        <span style="color: #343a40;">BORIS</span>
+                        <span style="color: #c4153a;">.NI</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Bodenrichtwerte</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <a class="btn btn-primary"
+                           [routerLink]="['/bodenrichtwerte']"
+                           role="button"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('bodenwertkalkulator')">
+                <img src="./assets/boris-banner.png"
+                     i18n-alt
+                     alt="Bodenwertkalkulator"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
+                        <span style="color: #343a40;">BOWERT</span>
+                        <span style="color: #c4153a;">.NI</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Bodenwertkalkulator</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <a class="btn btn-primary"
+                           [routerLink]="['/bodenwertkalkulator']"
+                           role="button"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('immobilienpreisindex')">
+                <img src="./assets/boris-banner.png"
+                     i18n-alt
+                     alt="Immobilienpreisindex"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
+                        <span style="color: #c4153a;">NI</span>
+                        <span style="color: #343a40;">PIX</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Immobilienpreisindex</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum. </p>
+                        <a class="btn btn-primary"
+                           [routerLink]="['/immobilienpreisindex']"
+                           role="button"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('forms')">
+                <img src="./assets/boris-banner.png"
+                     i18n-alt
+                     alt="Formulare"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
+                        <span style="color: #343a40;">Formulare</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Online Formular Service</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum. </p>
+                        <a class="btn btn-primary"
+                           [routerLink]="['/forms']"
+                           role="button"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('feedback')">
+                <img src="./assets/boris-banner.png"
+                     i18n-alt
+                     alt="Feedback"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
+                        <span style="color: #343a40;">Feedback</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Fehler oder Vorschlag einreichen</h3>
+                        <p>Wir schätzen Ihr Feedback sehr, bitte helfen Sie uns unseren Service zu verbessern!</p>
+                        <a class="btn btn-primary"
+                           [routerLink]="['/feedback']"
+                           role="button"
+                           i18n>Zum Feedback</a>
+                    </div>
+                </div>
+            </slide>
+        </carousel>
+    </div>
 
-                    <button type="submit"
-                            class="btn btn-success"
-                            i18n-title
-                            title="Absenden">
-                        <svg width="1.2em"
-                             height="1.2em"
-                             viewBox="0 0 16 16"
-                             class="bi bi-play-fill"
-                             fill="currentColor"
-                             xmlns="http://www.w3.org/2000/svg"
-                             focusable="false"
-                             aria-hidden="true">
-                            <path
-                                  d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                        </svg>
-                        <span class="sr-only"
-                              i18n>Die PIN absenden</span>
-                    </button>
-                </form>
+    <div class="container marketing">
+        <div class="row"
+             *ngIf="config.modules.includes('bodenrichtwerte')">
+            <div class="col-md-7">
+                <a class="h2"
+                   [routerLink]="['/bodenrichtwerte']"
+                   i18n>
+                    <span style="color: #343a40;">BORIS</span>
+                    <span style="color: #c4153a;">.NI</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>Bodenrichtwertinformationssystem Niedersachsen</h3>
+                    <p class="text-justify"
+                       i18n>Die Gutachterausschüsse und der Obere Gutachterausschuss für
+                        Grundstückswerte in Niedersachsen und Bremen stellen interessierten Nutzern unter BORIS.NI
+                        Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft in Niedersachsen,
+                        Bremen und Bremerhaven zur Verfügung.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a class="h2"
+                   [routerLink]="['/bodenrichtwerte']"
+                   i18n-title
+                   title="Bodenrichtwerte"
+                   tabindex="-1">
+                    <img src="./assets/boris.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         width="500"
+                         height="500"
+                         i18n-alt
+                         alt="Bodenrichtwerte">
+                </a>
             </div>
         </div>
-    </section>
-</div>
-<section class="container-xl mt-5">
-    <div class="row jumbotron mb-0 p-0 p-lg-5">
-        <div class="col-lg-12">
-            <h2 id="news"
-                aria-label="News">
-                <svg width="1em"
-                     height="1em"
-                     viewBox="0 0 16 16"
-                     class="bi bi-card-text"
-                     fill="currentColor"
-                     xmlns="http://www.w3.org/2000/svg"
-                     focusable="false"
-                     aria-hidden="true">
-                    <path fill-rule="evenodd"
-                          d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                    <path fill-rule="evenodd"
-                          d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-                </svg>
-                <span class="ml-1"
-                      i18n>News</span>
-            </h2>
-            <hr class="my-4">
+
+        <hr class="my-5">
+
+        <div class="row"
+             *ngIf="config.modules.includes('bodenwertkalkulator')">
+            <div class="col-md-7 order-md-2">
+                <a class="h2"
+                   [routerLink]="['/bodenwertkalkulator']"
+                   i18n>
+                    <span style="color: #343a40;">BOWERT</span>
+                    <span style="color: #c4153a;">.NI</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>Bodenwertkalkulator Niedersachsen</h3>
+                    <p class="text-justify"
+                       i18n>Die Gutachterausschüsse und der Obere Gutachterausschuss für
+                        Grundstückswerte in Niedersachsen und Bremen stellen interessierten Nutzern unter BORIS.NI
+                        Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft in Niedersachsen,
+                        Bremen und Bremerhaven zur Verfügung.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a class="h2"
+                   [routerLink]="['/bodenwertkalkulator']"
+                   i18n-title
+                   title="Bodenwertkalkulator"
+                   tabindex="-1">
+                    <img src="./assets/bowert.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         width="500"
+                         height="500"
+                         i18n-alt
+                         alt="Bodenwertkalkulator">
+                </a>
+            </div>
         </div>
-        <div class="col-lg-6">
-            <h5 i18n>Immobilienmarktbericht 2020</h5>
-            <a i18n>Eine Dekade steigender Preise in Niedersachsen...</a>
+
+        <hr class="my-5">
+
+        <div class="row"
+             *ngIf="config.modules.includes('immobilienpreisindex')">
+            <div class="col-md-7">
+                <a class="h2"
+                   [routerLink]="['/immobilienpreisindex']"
+                   i18n>
+                    <span style="color: #c4153a;">NI</span>
+                    <span style="color: #343a40;">PIX</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>Niedersächsischer Immobilienpreisindex</h3>
+                    <p class="text-justify"
+                       i18n>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und
+                        Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere
+                        Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und
+                        Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für
+                        Grundstückswerte.</p>
+                </div>
+            </div>
+            <div class="col-md-5 order-md-1"
+                 aria-hidden="true">
+                <a class="h2"
+                   [routerLink]="['/immobilienpreisindex']"
+                   i18n-title
+                   title="Immobilienpreisindex"
+                   tabindex="-1">
+                    <img src="./assets/nipix.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         width="500"
+                         height="500"
+                         i18n-alt
+                         alt="Immobilienpreisindex">
+                </a>
+            </div>
         </div>
-        <div class="col-lg-6">
-            <h5 i18n>Bodenrichtwerte 2021</h5>
-            <a i18n>Die neuen Bodenrichtwerte sind jetzt verfügbar...</a>
+
+        <hr class="my-5">
+
+        <div class="row"
+             *ngIf="config.modules.includes('forms')">
+            <div class="col-md-7 order-md-2">
+                <a class="h2"
+                   [routerLink]="['/forms']"
+                   i18n>
+                    <span style="color: #343a40;">Formulare</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>Online Formular Service</h3>
+                    <p class="text-justify"
+                       i18n>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und
+                        abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt
+                        über die PIN abrufen und ausfüllen.</p>
+
+                    <form #pinFormular="ngForm"
+                          (ngSubmit)="submitPIN(pin.value)"
+                          class="form-inline mb-3">
+                        <label class="control-label sr-only"
+                               id="formPIN"
+                               i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu
+                            gelangen.</label>
+                        <input type="text"
+                               class="form-control mr-2 w-mobile"
+                               name="pin"
+                               [(ngModel)]="form.pin"
+                               #pin="ngModel"
+                               [ngClass]="{ 'is-invalid': pinFormular.submitted && pin.invalid}"
+                               required
+                               id="pin"
+                               i18n-placeholder
+                               placeholder="Formular PIN"
+                               aria-labelledby="formPIN"
+                               aria-placeholder="">
+
+                        <button type="submit"
+                                class="btn btn-success"
+                                i18n-title
+                                title="PIN absenden"
+                                aria-label="PIN absenden"
+                                i18n-aria-label>
+                            <svg width="1.2em"
+                                 height="1.2em"
+                                 viewBox="0 0 16 16"
+                                 class="bi bi-play-fill"
+                                 fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 focusable="false"
+                                 aria-hidden="true">
+                                <path
+                                      d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                            </svg>
+                            <span class="sr-only"
+                                  i18n>Die PIN absenden</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a class="h2"
+                   [routerLink]="['/forms']"
+                   i18n-title
+                   title="Formulare"
+                   tabindex="-1">
+                    <img src="./assets/onlineForm.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         width="500"
+                         height="500"
+                         i18n-alt
+                         alt="Formulare">
+                </a>
+            </div>
         </div>
     </div>
-</section>
+</main>
