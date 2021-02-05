@@ -12,6 +12,7 @@ import { Config, ConfigService } from '@app/config.service';
 })
 export class StartComponent implements OnInit {
     public config: Config;
+    public cardorder = {};
     public form: any = {};
 
     constructor(public title: Title,
@@ -38,12 +39,19 @@ export class StartComponent implements OnInit {
      * Redirects to formular fillout dialogue
      * @param pin Formular pin
      */
-    submitPIN(pin: string) {
+    public submitPIN(pin: string) {
         if (!pin) {
             this.alerts.NewAlert('danger', $localize`Bitte Pin eingeben`, '');
             return;
         }
         this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
+    }
+
+    public getCardOrder(module: string): boolean {
+        if (typeof this.cardorder[module] !== 'undefined') {
+            return this.cardorder[module];
+        }
+        this.cardorder[module] = Object.keys(this.cardorder).length % 2 === 1;
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

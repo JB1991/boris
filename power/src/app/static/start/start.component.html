@@ -113,7 +113,8 @@
     <div class="container marketing">
         <div class="row"
              *ngIf="config.modules.includes('bodenrichtwerte')">
-            <div class="col-md-7">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('bodenrichtwerte')">
                 <a class="h2"
                    [routerLink]="['/bodenrichtwerte']"
                    i18n>
@@ -146,12 +147,13 @@
                 </a>
             </div>
         </div>
-
-        <hr class="my-5">
+        <hr class="my-5"
+            *ngIf="config.modules.includes('bodenrichtwerte')">
 
         <div class="row"
              *ngIf="config.modules.includes('bodenwertkalkulator')">
-            <div class="col-md-7 order-md-2">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('bodenwertkalkulator')">
                 <a class="h2"
                    [routerLink]="['/bodenwertkalkulator']"
                    i18n>
@@ -185,11 +187,13 @@
             </div>
         </div>
 
-        <hr class="my-5">
+        <hr class="my-5"
+            *ngIf="config.modules.includes('bodenwertkalkulator')">
 
         <div class="row"
              *ngIf="config.modules.includes('immobilienpreisindex')">
-            <div class="col-md-7">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('immobilienpreisindex')">
                 <a class="h2"
                    [routerLink]="['/immobilienpreisindex']"
                    i18n>
@@ -224,11 +228,13 @@
             </div>
         </div>
 
-        <hr class="my-5">
+        <hr class="my-5"
+            *ngIf="config.modules.includes('immobilienpreisindex')">
 
         <div class="row"
              *ngIf="config.modules.includes('forms')">
-            <div class="col-md-7 order-md-2">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('forms')">
                 <a class="h2"
                    [routerLink]="['/forms']"
                    i18n>
