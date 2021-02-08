@@ -27,11 +27,17 @@ div.title h1 {
 }
 
 .fileinfo {
-    /* border: 1px solid #c4153a; */
-    /* border-radius: calc(0.25rem - 1px); */
     border-left: 1rem solid #fff;
     border-right: 1rem solid #fff;
     background-color: #fafafa;
+}
+
+.display-check {
+    display: none;
+}
+
+label {
+    cursor: pointer;
 }
 
 input[type=checkbox] {
@@ -56,15 +62,6 @@ input[type=checkbox]:checked ~ dt .display-check {
 
 input[type=checkbox]:checked ~ dt i-bs.display-check {
     display: inline !important;
-}
-
-
-.display-check {
-    display: none;
-}
-
-label {
-    cursor: pointer;
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

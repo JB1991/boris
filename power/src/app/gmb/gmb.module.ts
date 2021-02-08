@@ -31,8 +31,8 @@ const icons = {
     imports: [
         CommonModule,
         GmbRoutingModule,
-        NgxEchartsModule.forRoot({ echarts }), // eslint-disable-line object-shorthan
-        NgxBootstrapIconsModule.pick(icons)
+        NgxEchartsModule.forRoot({ echarts }), // eslint-disable-line object-shorthand
+        NgxBootstrapIconsModule.forRoot(icons)
     ]
 })
 export class GmbModule { }
