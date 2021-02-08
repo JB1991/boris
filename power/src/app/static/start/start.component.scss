@@ -19,10 +19,13 @@
 .carousel-caption {
     background-color: rgba(255, 255, 255, 0.6) !important;
     border-radius: 64px;
+    top: 0px;
+    bottom: inherit;
 }
 
 .carousel-image {
     width: 100%;
     min-height: 420px;
+    max-height: 600px;
     object-fit: cover;
 }
