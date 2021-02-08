@@ -1,124 +1,205 @@
 import { Injectable } from '@angular/core';
 import { SimpleChange } from '@angular/core';
 import { FeatureCollection } from 'geojson';
+import { options } from 'knockout';
 import { FillExtrusionLayer } from 'mapbox-gl';
 
+export interface ExtrusionLayerOptions {
+    extrusionHeight: number
+    gapHeight: number
+    maxZoom: number
+    minZoom: number
+}
+
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class BodenrichtwertKarte3dLayerService {
 
-  constructor() { }
+    // active3dLayer contains the current 3d layer state
+    public active3dLayer: boolean;
 
-  public onFeaturesChange(fts: SimpleChange, map, stichtag: Date) {
-    const previousFeatures = fts.previousValue?.features;
-    if (previousFeatures) {
-      this.deactivate3dLayer(previousFeatures, map, stichtag);
+    // minPitch minimal rotation angle/pitch
+    public minPitch = 20;
+
+    // baulandOptions contains the display options for the bauland extrustion layer
+    public baulandOptions: ExtrusionLayerOptions = {
+        extrusionHeight: 50,
+        gapHeight: 25,
+        minZoom: 11,
+        maxZoom: 15
     }
-    this.activate3dLayer(fts, map, stichtag);
-  }
 
-  public activate3dLayer(chgFeatures: SimpleChange, map, stichtag: any) {
-    const features = chgFeatures.currentValue.features;
-    const fts = this.filterCollectionByStag(features, stichtag);
-    // // if (this.map.getPitch() > 15) {
-    this.add3dLayer(fts, map);
-    // }
-  }
-
-  public deactivate3dLayer(features: any, map, stichtag: any) {
-    const fts = this.filterCollectionByStag(features, stichtag);
-    this.removeLayers(fts, map);
-  }
-
-  public filterCollectionByStag(features, stichtag: string) {
-    if (features) {
-      const filteredFeatures = features.filter(ft =>
-        ft.properties.stag.substr(0, 10) === stichtag
-      );
-      return filteredFeatures;
+    // landwirtschaftOptions contains the display options for the landwirtschaft extrustion layer
+    public landwirtschaftOptions: ExtrusionLayerOptions = {
+        extrusionHeight: 250,
+        gapHeight: 100,
+        minZoom: 10,
+        maxZoom: 13
     }
-  }
 
-  public onRotate(collection: FeatureCollection, map, stichtag) {
-    const fts = this.filterCollectionByStag(collection.features, stichtag);
+    // extrusionLayer template for the extrusion layers
+    public extrusionLayer: FillExtrusionLayer = {
+        'id': '',
+        'type': 'fill-extrusion',
+        'source': 'geoserver_nds_br',
+        'source-layer': 'br_brzone_flat_with_display',
+        'paint': {}
+    };
 
-    let opacity: number;
-    if (map.getPitch() > 20) {
-      opacity = 0.6 / 60 * map.getPitch();
-    } else {
-      opacity = 0;
-    }
-    this.changeOpacity(fts, map, opacity);
-  }
-
-  public changeOpacity(fts: any, map, opacity: number) {
-    fts.forEach(ft => {
-      map.setPaintProperty(ft.properties.objectid, 'fill-extrusion-opacity', opacity);
-    });
-  }
-
-  // tslint:disable-next-line: max-func-body-length
-  public add3dLayer(features: any, map) {
-    features.forEach((ft, i) => {
-      const id = ft.properties.objectid;
-      const extrusionHeight = 50 + 50 * i;
-      let prevExtrusionHeight: number;
-      if (i === 0) {
-        prevExtrusionHeight = 0;
-      } else {
-        prevExtrusionHeight = 50 * i;
-      }
-      const layerId = id.toString();
-
-      let opacity: number;
-      if (map.getPitch() > 15) {
-        opacity = 0.7 / 60 * map.getPitch();
-      } else {
-        opacity = 0;
-      }
-      const layer: FillExtrusionLayer = {
-        'id': layerId,
+    // gapLayer tamplate for the hidden gap layers
+    public gapLayer: FillExtrusionLayer = {
+        'id': '',
         'type': 'fill-extrusion',
         'source': 'geoserver_nds_br',
         'source-layer': 'br_brzone_flat_with_display',
         'paint': {
-          'fill-extrusion-color': '#c4153a',
-          'fill-extrusion-height': extrusionHeight,
-          'fill-extrusion-base': prevExtrusionHeight + 25,
-          'fill-extrusion-opacity': opacity,
-          'fill-extrusion-vertical-gradient': true
-        },
-        'filter': ['==', 'objectid', id]
-      };
-      const layerFill: FillExtrusionLayer = {
-        'id': layerId + 'fill',
-        'type': 'fill-extrusion',
-        'source': 'geoserver_nds_br',
-        'source-layer': 'br_brzone_flat_with_display',
-        'paint': {
-          'fill-extrusion-color': '#c4153a',
-          'fill-extrusion-height': 25,
-          'fill-extrusion-base': prevExtrusionHeight,
-          'fill-extrusion-opacity': 0,
-          'fill-extrusion-vertical-gradient': true
-        },
-        'filter': ['==', 'objectid', id]
-      };
-      map.addLayer(layer);
-      map.addLayer(layerFill);
-    });
+            'fill-extrusion-opacity': 0
+        }
+    };
+    constructor() { }
 
-  }
+    /**
+     * onFeaturesChange removes Layers depending on whether a previous feature exists or not
+     * and adds Layer depending on whether the rotation angle/pitch is > minPitch
+     */
+    public onFeaturesChange(fts: SimpleChange, map: any, stichtag: Date, teilmarkt: any) {
+        const previousFeatures = fts.previousValue;
+        const currentFeatures = fts.currentValue;
 
-  public removeLayers(features: any, map) {
-    features.forEach((ft) => {
-      const id = ft.properties.objectid;
-      const layerId = id;
-      map.removeLayer(layerId);
-      map.removeLayer(layerId + 'fill');
-    });
-  }
+        if (previousFeatures && this.active3dLayer) {
+            this.remove3dLayer(previousFeatures, map, stichtag);
+        }
+        if (currentFeatures && map.getPitch() > this.minPitch) {
+            this.add3dLayer(currentFeatures, map, stichtag, teilmarkt);
+        }
+    }
+
+    /**
+     * add3dLayer adds layers for specific feature collection and stichtag
+     * @param fts features
+     * @param map map
+     * @param stichtag stichtag 
+     */
+    // tslint:disable-next-line: max-func-body-length
+    public add3dLayer(fts: FeatureCollection, map, stichtag: any, teilmarkt: any) {
+        this.active3dLayer = true;
+        const filteredFts = this.filterCollectionByStag(fts, stichtag);
+        const opacity = this.getOpacityByRotation(map);
+
+        let opt: ExtrusionLayerOptions;
+        if (teilmarkt.value.includes('B')) {
+            opt = this.baulandOptions;
+        } else {
+            opt = this.landwirtschaftOptions;
+        }
+
+        filteredFts.forEach((ft, i) => {
+            const id = ft.properties.objectid;
+            const layerId = id.toString();
+
+            const height = opt.extrusionHeight * (i + 1);
+
+            let prevHeight: number;
+            if (i === 0) {
+                prevHeight = 0;
+            } else {
+                prevHeight = opt.extrusionHeight * i;
+            }
+
+            // set options for extrusion layer
+            this.extrusionLayer.id = layerId;
+            this.extrusionLayer.maxzoom = opt.maxZoom;
+            this.extrusionLayer.minzoom = opt.minZoom;
+            this.extrusionLayer.paint['fill-extrusion-color'] = teilmarkt.color;
+            this.extrusionLayer.paint['fill-extrusion-opacity'] = opacity;
+            this.extrusionLayer.paint['fill-extrusion-height'] = height;
+            this.extrusionLayer.paint['fill-extrusion-base'] = prevHeight + opt.gapHeight;
+            this.extrusionLayer.filter = ['==', 'objectid', id];
+
+            // set options for hidden gap layer
+            this.gapLayer.id = layerId + 'hidden';
+            this.extrusionLayer.maxzoom = opt.maxZoom;
+            this.extrusionLayer.minzoom = opt.minZoom;
+            this.gapLayer.paint['fill-extrusion-height'] = opt.gapHeight;
+            this.gapLayer.paint['fill-extrusion-base'] = prevHeight;
+            this.gapLayer.filter = ['==', 'objectid', id];
+
+            map.addLayer(this.extrusionLayer);
+            map.addLayer(this.gapLayer);
+        });
+    }
+
+    /**
+     * remove3dLayer removes layers for a specific feature collection and stichtag
+     * @param fts features
+     * @param map map
+     * @param stichtag stichtag 
+     */
+    public remove3dLayer(fts: FeatureCollection, map, stichtag: any) {
+        this.active3dLayer = false;
+        const filteredFts = this.filterCollectionByStag(fts, stichtag);
+
+        filteredFts.forEach((ft) => {
+            const id = ft.properties.objectid;
+            const layerId = id.toString();
+            map.removeLayer(layerId);
+            map.removeLayer(layerId + 'hidden');
+        });
+    }
+
+    /**
+     * filterCollectionByStag filters the feature collection by a given stichtag (stag)
+     * @param features features
+     * @param stichtag stichtag
+     */
+    public filterCollectionByStag(fts: any, stichtag: string) {
+        // console.log(fts);
+        if (fts) {
+            const filteredFts = fts.features.filter(ft =>
+                ft.properties.stag.substr(0, 10) === stichtag
+            );
+            return filteredFts;
+        }
+    }
+
+    /**
+     * onRotate updates the opacity of 3d layers depending on the rotation angle/pitch
+     * @param collection 
+     * @param map 
+     * @param stichtag 
+     */
+    public onRotate(fts: FeatureCollection, map, stichtag, teilmarkt: any) {
+        const filteredFts = this.filterCollectionByStag(fts, stichtag);
+
+        const opacity = this.getOpacityByRotation(map);
+
+        // update opacity for filtered features if layer exists
+        // otherwise create layer first
+        if (this.active3dLayer) {
+            filteredFts.forEach(ft => {
+                map.setPaintProperty(ft.properties.objectid, 'fill-extrusion-opacity', opacity);
+            });
+        } else {
+            this.active3dLayer = true;
+            this.add3dLayer(fts, map, stichtag, teilmarkt);
+        }
+    }
+
+    /**
+     * getOpacityByRotation returns a number between 0 and 0.6 as opacity.
+     * The opacity is calculated depending on the current rotation angle/pitch of the map
+     * @param map map object
+     */
+    public getOpacityByRotation(map): number {
+        let opacity: number;
+        if (map.getPitch() > 20) {
+            opacity = 0.6 / 60 * map.getPitch();
+        } else {
+            opacity = 0;
+        }
+        return opacity;
+    }
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
