@@ -544,6 +544,8 @@ export class FormAPIService {
         let msg = error.toString();
         if (error['error'] && error['error']['message']) {
             msg = error['error']['message'];
+        } else if (msg === '[object Object]') {
+            msg = $localize`Es trat folgender HTTP-Fehler auf:` + ' ' + error['message'];
         }
 
         if (msg === 'internal server') {

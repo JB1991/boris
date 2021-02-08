@@ -18,7 +18,7 @@ import proj4 from 'proj4';
 @Component({
     selector: 'power-main',
     templateUrl: 'bodenrichtwert.component.html',
-    styleUrls: ['bodenrichtwert.component.css'],
+    styleUrls: ['bodenrichtwert.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertComponent implements OnDestroy {
@@ -83,7 +83,7 @@ export class BodenrichtwertComponent implements OnDestroy {
         private titleService: Title,
         private cdr: ChangeDetectorRef
     ) {
-        this.titleService.setTitle($localize`Bodenrichtwerte - POWER.NI`);
+        this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.adresse = adr;
             this.cdr.detectChanges();

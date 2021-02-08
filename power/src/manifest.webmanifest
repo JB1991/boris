@@ -1,7 +1,7 @@
 {
-    "name": "Portal für Wertermittlung Niedersachsen",
-    "version": "0.2.1",
-    "short_name": "POWER.NI",
+    "name": "Immobilienmarkt.NI",
+    "version": "0.3.0",
+    "short_name": "Immobilienmarkt.NI",
     "theme_color": "#1976d2",
     "background_color": "#fafafa",
     "display": "standalone",

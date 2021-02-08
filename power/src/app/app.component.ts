@@ -14,16 +14,18 @@ import { UpdateService } from './update.service';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
-    public title = 'power';
+    public title = 'Immobilienmarkt.NI';
     public isCollapsed = true;
     public isCollapsedAcc = true;
     public isCollapsedBRW = true;
     public isCollapsedImmo = true;
-    public showPrintNotice = true;
+    public showBrowserNotice = true;
+    public showOfflineNotice = true;
     public show = false;
     public name: string;
     public config: Config;
     public appVersion: any = { version: 'local', branch: 'dev' };
+    public hasInternet = navigator.onLine;
     public uri = location;
     public baseurl = location.pathname + location.search;
     private _subscription: Subscription;
@@ -61,6 +63,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     ngOnInit() {
         this.config = this.configService.config;
+        if (this.config.modules.length === 0) {
+            this.hasInternet = false;
+        }
 
         // load version
         this.httpClient.get('/assets/version.json').subscribe(data => {
@@ -68,12 +73,17 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 this.appVersion = data;
                 this.configService.appVersion = data;
             }
+        }, error => {
+            // failed to load
+            console.error('could not load version.json');
+            this.appVersion = { version: 'local', branch: 'offline' };
+            this.configService.appVersion = this.appVersion;
         });
 
         // disable warning for known browsers
         /* istanbul ignore else */
         if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
-            this.showPrintNotice = false;
+            this.showBrowserNotice = false;
         }
     }
 

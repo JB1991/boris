@@ -20,7 +20,7 @@ describe('Shared.Auth.AuthGuard', () => {
             ]
         });
         guard = TestBed.inject(ModuleGuard);
-        spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(guard.router, 'navigate');
     }));
 

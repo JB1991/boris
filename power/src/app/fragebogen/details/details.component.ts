@@ -16,7 +16,7 @@ import { PaginationComponent } from 'ngx-bootstrap/pagination';
 @Component({
     selector: 'power-forms-details',
     templateUrl: './details.component.html',
-    styleUrls: ['./details.component.css']
+    styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
     @ViewChild('commentmodal') public modal: ModalminiComponent;
@@ -48,7 +48,7 @@ export class DetailsComponent implements OnInit {
         public loadingscreen: LoadingscreenService,
         public formapi: FormAPIService,
         public auth: AuthService) {
-        this.titleService.setTitle($localize`Formular Details - POWER.NI`);
+        this.titleService.setTitle($localize`Formular Details - Immobilienmarkt.NI`);
         this.resetService();
         this.id = this.route.snapshot.paramMap.get('id');
     }
@@ -89,6 +89,8 @@ export class DetailsComponent implements OnInit {
             console.log(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
+
+            /* istanbul ignore else */
             if (navigate) {
                 this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             }
@@ -425,6 +427,7 @@ export class DetailsComponent implements OnInit {
             this.pagination.page = 1;
             this.updateTasks();
             // copy to clipboard
+            /* istanbul ignore else */
             if (event.copy) {
                 const selBox = document.createElement('textarea');
                 selBox.style.position = 'fixed';

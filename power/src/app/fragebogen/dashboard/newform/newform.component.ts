@@ -10,7 +10,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 @Component({
     selector: 'power-forms-dashboard-newform',
     templateUrl: './newform.component.html',
-    styleUrls: ['./newform.component.css'],
+    styleUrls: ['./newform.component.scss'],
 })
 export class NewformComponent {
     @ViewChild('modal') public modal: ModalminiComponent;

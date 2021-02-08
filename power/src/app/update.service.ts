@@ -15,7 +15,7 @@ export class UpdateService {
             // handle an unrecoverable state
             /* istanbul ignore next */
             updates.unrecoverable.subscribe(event => {
-                console.log(event);
+                console.error(event);
                 // this.cleanupServiceWorker();
                 window.location.reload();
             });
@@ -32,7 +32,6 @@ export class UpdateService {
             /* istanbul ignore next */
             this.updates.available.subscribe(event => {
                 // do update
-                console.log(event);
                 this.updates.activateUpdate().then(() => {
                     console.log('Reloading to complete update');
                     // this.cleanupServiceWorker();

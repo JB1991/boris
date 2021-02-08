@@ -57,7 +57,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
 
     constructor(private titleService: Title,
         public alerts: AlertsService) {
-        this.titleService.setTitle($localize`Bodenwerte - POWER.NI`);
+        this.titleService.setTitle($localize`Bodenwerte - Immobilienmarkt.NI`);
     }
 
     ngOnInit() {

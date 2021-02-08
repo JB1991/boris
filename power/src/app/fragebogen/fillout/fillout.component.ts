@@ -15,7 +15,7 @@ import { PublicForm, PublicTask } from '../formapi.model';
 @Component({
     selector: 'power-forms-fillout',
     templateUrl: './fillout.component.html',
-    styleUrls: ['./fillout.component.css']
+    styleUrls: ['./fillout.component.scss']
 })
 export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper: WrapperComponent;
@@ -40,7 +40,7 @@ export class FilloutComponent implements AfterViewInit {
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public formapi: FormAPIService) {
-        this.titleService.setTitle($localize`Formulare - POWER.NI`);
+        this.titleService.setTitle($localize`Formulare - Immobilienmarkt.NI`);
         this.resetService();
     }
 
@@ -84,6 +84,7 @@ export class FilloutComponent implements AfterViewInit {
             this.language = this.form.content.locale;
 
             // check if user language exists in survey
+            /* istanbul ignore next */
             if (this.wrapper && this.wrapper.survey.getUsedLocales().includes(this.locale)) {
                 this.language = this.locale;
                 this.setLanguage();

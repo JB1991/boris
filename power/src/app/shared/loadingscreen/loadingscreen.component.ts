@@ -4,7 +4,7 @@ import { LoadingscreenService } from './loadingscreen.service';
 @Component({
     selector: 'power-loadingscreen',
     templateUrl: './loadingscreen.component.html',
-    styleUrls: ['./loadingscreen.component.css']
+    styleUrls: ['./loadingscreen.component.scss']
 })
 export class LoadingscreenComponent {
 
