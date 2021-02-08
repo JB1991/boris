@@ -8,7 +8,6 @@ stages:
   - test
   - build
   - package
-  - scan
   - deploy
 
 cache: &global_cache
@@ -227,7 +226,7 @@ build:prod:
 
 package:
   stage: package
-  image: docker:stable
+  image: de.icr.io/lgln/kube-tools:latest
   dependencies:
     - build
     - build:prod
@@ -235,21 +234,8 @@ package:
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
-  only:
-    - dev
-    - staging
-    - production
-
-scan:trivy:
-  stage: scan
-  image: de.icr.io/lgln/kube-tools:latest
-  dependencies: []
-  cache: {}
-  script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
     - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
   only:
     - dev
     - staging
