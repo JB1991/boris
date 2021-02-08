@@ -1,0 +1,70 @@
+div.title {
+    border-bottom: 1px solid #c4153a;
+    color: black;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+div.title h1 {
+    margin: auto;
+    font-size: 1.25rem;
+}
+
+.card {
+    margin-bottom: 1.5rem;
+}
+
+.row {
+    margin-bottom: 0;
+}
+
+.card-header {
+    padding: 0.75rem 1rem;
+}
+
+.card-body {
+    padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.fileinfo {
+    /* border: 1px solid #c4153a; */
+    /* border-radius: calc(0.25rem - 1px); */
+    border-left: 1rem solid #fff;
+    border-right: 1rem solid #fff;
+    background-color: #fafafa;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox]:checked ~ .remove-check {
+    display: none;
+}
+
+input[type=checkbox]:checked ~ .display-check {
+    display: block;
+}
+
+input[type=checkbox]:checked ~ dt .remove-check {
+    display: none;
+}
+
+input[type=checkbox]:checked ~ dt .display-check {
+    display: block;
+}
+
+input[type=checkbox]:checked ~ dt i-bs.display-check {
+    display: inline !important;
+}
+
+
+.display-check {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+/* vim: set expandtab ts=4 sw=4 sts=4: */
