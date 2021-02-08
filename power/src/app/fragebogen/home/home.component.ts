@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
         public router: Router,
         public auth: AuthService,
         public alerts: AlertsService) {
-        this.titleService.setTitle($localize`Formulare - IMMOBILIENMARKT.NI`);
+        this.titleService.setTitle($localize`Formulare - Immobilienmarkt.NI`);
     }
 
     ngOnInit() {

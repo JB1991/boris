@@ -199,6 +199,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.fskIsChanged = !this.fskIsChanged;
             }
         }
+        if (changes.features && changes.features?.currentValue === undefined && this.map) {
+            this.map.resize();
+        }
     }
 
     ngOnInit() {
@@ -576,6 +579,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     onStichtagChange(stichtag: any) {
         this.stichtag = stichtag;
         this.stichtagChange.next(stichtag);
+
+        this.repaintMap();
+
         this.changeURL();
     }
 
@@ -612,7 +618,22 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         if (this.lat && this.lng) {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
         }
+
+        this.repaintMap();
+
         this.changeURL();
+    }
+
+    public repaintMap() {
+        if (this.map) {
+            this.map.flyTo({
+                center: this.map.getCenter(),
+                zoom: this.map.getZoom(),
+                speed: 1,
+                curve: 1,
+                bearing: 0
+            });
+        }
     }
 
     /**
@@ -648,6 +669,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 pitch: 0,
                 bearing: 0
             });
+            this.map.resize();
             this.resetMapFired = !this.resetMapFired;
         }
     }

@@ -98,7 +98,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
                 BrowserAnimationsModule,
                 AccordionModule.forRoot(),
                 BsDropdownModule.forRoot(),
-                NgxBootstrapIconsModule.pick(icons),
+                NgxBootstrapIconsModule.forRoot(icons),
                 NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
             providers: [
@@ -166,20 +166,22 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     it('loadGeoMap works', () => {
 
         spyOn(ImmobilienUtils, 'getMyMapRegionen').and.callFake(
-            function (regionen: any, myregion?: any, selectionList?: any, lighten?: boolean) { return [
-            ]; });
+            function (regionen: any, myregion?: any, selectionList?: any, lighten?: boolean) {
+                return [
+                ];
+            });
 
         component.setMapOptions = jasmine.createSpy();
         niRuntime.resetDrawPresets = jasmine.createSpy();
         niRuntime.updateAvailableNipixCategories = jasmine.createSpy();
-        niStatic.procMap = function () { return {'map': {}, 'la': [2000, 2]}; };
+        niStatic.procMap = function () { return { 'map': {}, 'la': [2000, 2] }; };
 
         spyOn(window, 'setTimeout');
         spyOn(echarts, 'registerMap').and.callFake(function (par1, par2) { });
 
         component.loadGeoMap('geomap.fake');
 
-        answerHTTPRequest('geomap.fake', 'GET', {'features':[]});
+        answerHTTPRequest('geomap.fake', 'GET', { 'features': [] });
 
         expect(echarts.registerMap).toHaveBeenCalled();
         expect(niRuntime.updateAvailableNipixCategories).toHaveBeenCalled();
