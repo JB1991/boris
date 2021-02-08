@@ -205,13 +205,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.fskIsChanged = !this.fskIsChanged;
             }
         }
-<<<<<<< HEAD
-        if (changes.features && changes.features?.currentValue === undefined && this.map) {
-            this.map.resize();
-=======
         if (changes.features && this.features) {
             this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag);
->>>>>>> 0ddec777ca8ccf00f2bbe03a7aa6f401f61e2a0a
         }
     }
 
