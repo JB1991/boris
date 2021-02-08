@@ -155,7 +155,7 @@ test:lint-styles:
 
 test:helm-dry-run:
   stage: test
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
   cache: {}
   script:
@@ -171,7 +171,7 @@ test:helm-dry-run:
 
 test:helm-kubesec:
   stage: test
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
   cache: {}
   script:
@@ -243,15 +243,13 @@ package:
 
 scan:trivy:
   stage: scan
-  image: docker:stable
+  image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
   cache: {}
   script:
-    - wget https://github.com/aquasecurity/trivy/releases/download/v0.15.0/trivy_0.15.0_Linux-64bit.tar.gz
-    - tar xf trivy_0.15.0_Linux-64bit.tar.gz
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
-    - ./trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
   only:
     - dev
     - staging
@@ -259,7 +257,7 @@ scan:trivy:
 
 deploy:development:
   stage: deploy
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
   cache: {}
   script:
@@ -273,7 +271,7 @@ deploy:development:
 
 deploy:staging:
   stage: deploy
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
   cache: {}
   environment: staging
@@ -288,7 +286,7 @@ deploy:staging:
 
 deploy:production:
   stage: deploy
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
   cache: {}
   environment: production
