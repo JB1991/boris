@@ -76,6 +76,14 @@
                            target="_blank"
                            rel="noopener noreferrer nofollow"
                            i18n>Grundstücksmarktdaten</a>
+
+			<a class="dropdown-item"
+			   *ngIf="config.modules.includes('gmb')"
+			   (click)="isCollapsed = true; isCollapsedBRW = true"
+			   [routerLink]="['/gmb']"
+			   routerLinkActive="active"
+			   i18n>Grundstücksmarktberichte (Archiv)</a>
+
                     </div>
                 </li>
 
