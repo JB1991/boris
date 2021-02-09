@@ -139,7 +139,7 @@ test:e2e:
 test:audit:
   stage: test
   image: node:lts-alpine
-  needs: ["install"]
+  needs: []
   dependencies: []
   cache:
     <<: *global_cache
