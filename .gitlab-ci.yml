@@ -139,7 +139,7 @@ test:e2e:
 test:audit:
   stage: test
   image: node:lts-alpine
-  needs: []
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -312,7 +312,7 @@ test:kube-linter-production:
 build:
   stage: build
   image: node:lts-alpine
-  needs: ["install"]
+  needs: ["test:karma"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -334,7 +334,7 @@ build:
 build:production:
   stage: build
   image: node:lts-alpine
-  needs: ["install"]
+  needs: ["test:karma"]
   dependencies: []
   cache:
     <<: *global_cache
