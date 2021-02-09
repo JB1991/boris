@@ -219,10 +219,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     getVergSeries(series) {
         const seriesVergValuesTotal = [];
-        const seriesVergValues = this.deepCopy(this.seriesTemplate);
+        let seriesVergValues = this.deepCopy(this.seriesTemplate);
         const defaultVerg = ['San', 'Entw', 'SoSt', 'StUb'];
         const defaultVerf = ['SU', 'EU', 'SB', 'EB'];
-        const seriesIncludesVerf = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
         const copyData = function (i) {
             if (i < 8 && series[i + 1].brw !== null && (series[i + 1].verg === '' || series[i + 1].verg === null)) {
                 seriesVergValues[i + 1].brw = (series[i + 1].brw).toString();
@@ -234,12 +233,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             seriesVergValues[i].verf = series[i].verf;
         };
         defaultVerg.forEach(verg => {
+            seriesVergValues = this.deepCopy(this.seriesTemplate);
+            let seriesIncludesVerf = series.find(element => element.verg === verg && (element.verf === 'SU' || element.verf === 'EU' ||
+                element.verf === 'SB' || element.verf === 'EB'));
             if (seriesIncludesVerf) {
                 defaultVerf.forEach(verf => {
+                    seriesVergValues = this.deepCopy(this.seriesTemplate);
                     for (let i = 0; i < series.length; i++) {
-                        if (series[i].verg === verg && series[i].verf === verf) {
-                            copyData(i);
-                        } else if (series[i].verg === verg && series[i].verf === null) {
+                        if (series[i].verg === verg && (series[i].verf === verf || series[i].verf === null)) {
                             copyData(i);
                         }
                     }
@@ -372,12 +373,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     setChartOptionsSeries(series, label) {
-        // let seriesColor;
-        // series.forEach(element => {
-        //     if (element.verg && element.verg !== null && element.verg !== '') {
-        //         seriesColor = this.setVergSeriesColor(series);
-        //     }
-        // });
         this.chartOption.series.push({
             name: label,
             type: 'line',
@@ -441,19 +436,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.grid.top = '15%';
     }
 
-    // setVergSeriesColor(series) {
-    //     let color;
-    //     const verf = series.find(element => element.verf === 'SU' || element.verf === 'EU' ||
-    // element.verf === 'SB' || element.verf === 'EB');
-    //     if (verf && (verf.verf === 'SB' || verf.verf === 'EB')) {
-    //         color = '#155796';
-    //         return color;
-    //     } else {
-    //         color = '#0080FF';
-    //         return color;
-    //     }
-    // }
-
     getSeriesColor(series) {
         let nutzung: any;
         for (let i = 0; i < series.length; i++) {
@@ -504,9 +486,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.echartsInstance = event;
     }
 
-    getBremenStichtag() {
+    getCurrentYear() {
         const today = new Date();
-        const year = today.getFullYear() - 1;
+        return today.getFullYear();
+    }
+
+    getBremenStichtag() {
+        const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
             return ('31.' + '12.' + (year - 2) + '.');
         } else {
@@ -515,8 +501,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     getBremerhavenStichtag() {
-        const today = new Date();
-        const year = today.getFullYear() - 1;
+        const year = this.getCurrentYear() - 1;
         if (year % 2 === 0) {
             return ('31.' + '12.' + (year - 2) + '.');
         } else {

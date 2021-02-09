@@ -1,0 +1,65 @@
+[
+    {
+        "stag": "2012",
+        "brw": 1,
+        "nutzung": null,
+        "verg": "San",
+        "verf": "SU"
+    },
+    {
+        "stag": "2013",
+        "brw": 2,
+        "nutzung": null,
+        "verg": "StUb",
+        "verf": null
+    },
+    {
+        "stag": "2014",
+        "brw": 3,
+        "nutzung": null,
+        "verg": null,
+        "verf": null
+    },
+    {
+        "stag": "2015",
+        "brw": 4,
+        "nutzung": null,
+        "verg": "Entw",
+        "verf": null
+    },
+    {
+        "stag": "2016",
+        "brw": null,
+        "nutzung": null,
+        "verg": null,
+        "verf": null
+    },
+    {
+        "stag": "2017",
+        "brw": 6,
+        "nutzung": null,
+        "verg": "SoSt",
+        "verf": "SB"
+    },
+    {
+        "stag": "2018",
+        "brw": null,
+        "nutzung": null,
+        "verg": null,
+        "verf": null
+    },
+    {
+        "stag": "2019",
+        "brw": 8,
+        "nutzung": null,
+        "verg": "Entw",
+        "verf": "SU"
+    },
+    {
+        "stag": "heute",
+        "brw": null,
+        "nutzung": null,
+        "verg": null,
+        "verf": null
+    }
+]

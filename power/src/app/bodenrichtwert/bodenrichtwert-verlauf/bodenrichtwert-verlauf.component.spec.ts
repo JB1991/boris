@@ -10,6 +10,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     const changes: SimpleChanges = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-changes.json');
     const features = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-features.json');
     const featureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
+    const series = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-series.json');
 
     let component: BodenrichtwertVerlaufComponent;
     let fixture: ComponentFixture<BodenrichtwertVerlaufComponent>;
@@ -53,9 +54,19 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     it('clearChart should delete the chart data', () => {
         component.chartOption.legend.data = ['foo'];
         component.chartOption.series = ['bar'];
+        component.chartOption.legend.formatter = ['pluto'];
+        component.chartOption.legend.textStyle.rich = 'toto';
+        component.chartOption.grid.top = '20%';
+        component.srTableData = ['tata'];
+        component.srTableHeader = ['paperino'];
         component.clearChart();
         expect(component.chartOption.legend.data.length).toBe(0);
         expect(component.chartOption.series.length).toBe(0);
+        expect(component.srTableHeader.length).toBe(0);
+        expect(component.srTableData.length).toBe(0);
+        expect(component.chartOption.legend.formatter).toBe('');
+        expect(component.chartOption.legend.textStyle.rich).toBe('');
+        expect(component.chartOption.grid.top).toBe('10%');
     });
 
     it('filterByStichtag should filter the features by Stichtag', () => {
@@ -85,6 +96,48 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         component.onChartInit(echartsInstance);
         expect(component.echartsInstance).toEqual(echartsInstance);
 
+    });
+
+    it('getSeriesData should transform and filter features into series-array', () => {
+        spyOn(component, 'deepCopy').and.callThrough();
+        const result = component.getSeriesData(features);
+        expect(component.deepCopy).toHaveBeenCalledTimes(1);
+        expect(result.length).toBeGreaterThan(8);
+    });
+
+    it('getVergSeries should filter brws which inculdes a Verfahrensgrund', () => {
+        spyOn(component, 'deepCopy').and.callThrough();
+        const result = component.getVergSeries(series);
+        console.log(result);
+        expect(component.deepCopy).toHaveBeenCalledTimes(17);
+        expect(result.length).toBe(4);
+    });
+
+    // it('deleteSeriesVergItems should delete the data with verg and/or verf', () => {
+    //     const res = component.deleteSeriesVergItems(series);
+    //     expect(typeof(res[2].brw)).toBe('string');
+
+    // });
+
+    it('setLegendFormat should format the legend of the diagram', () =>{
+       
+
+    });
+
+    it('getBremenStichtag should calculate last Stichtag of Bremen', () => {
+        spyOn(component, 'getCurrentYear').and.returnValues(2020, 2021);
+        let result = component.getBremenStichtag();
+        expect(result).toBe('31.12.2017.');
+        result = component.getBremenStichtag();
+        expect(result).toBe('31.12.2019.');
+    });
+
+    it('getBremenStichtag should calculate last Stichtag of Bremerhaven', () => {
+        spyOn(component, 'getCurrentYear').and.returnValues(2021, 2020);
+        let result = component.getBremerhavenStichtag();
+        expect(result).toBe('31.12.2018.');
+        result = component.getBremerhavenStichtag();
+        expect(result).toBe('31.12.2018.');
     });
 
 });
