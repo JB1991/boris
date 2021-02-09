@@ -5,6 +5,7 @@
         "immobilienpreisindex",
         "immobilienpreiskalkulator",
         "grundstuecksmarktdaten",
+	"gmb",
         "forms",
         "feedback",
         "login"

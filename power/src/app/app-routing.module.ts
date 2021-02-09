@@ -35,6 +35,12 @@ const routes: Routes = [
         canActivate: [ModuleGuard]
     },
     {
+        path: 'gmb',
+        loadChildren: () => import('./gmb/gmb.module')
+            .then(m => m.GmbModule),
+        canActivate: [ModuleGuard]
+    },
+    {
         path: '**',
         redirectTo: '', pathMatch: 'full'
     }
