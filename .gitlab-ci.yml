@@ -36,6 +36,7 @@ install:
 init:helm-dev:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
+  cache: {}
   dependencies: []
   artifacts:
     name: "manifest"
@@ -52,6 +53,7 @@ init:helm-dev:
 init:helm-staging:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
+  cache: {}
   dependencies: []
   artifacts:
     name: "manifest"
@@ -66,6 +68,7 @@ init:helm-staging:
 init:helm-production:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
+  cache: {}
   dependencies: []
   artifacts:
     name: "manifest"
@@ -254,9 +257,9 @@ test:kube-linter-dev:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
+  dependencies:
+    - init:helm-dev
   script:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-dev/power/templates/*.yaml
   only:
@@ -269,9 +272,9 @@ test:kube-linter-staging:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
+  dependencies:
+    - init:helm-staging
   script:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-staging/power/templates/*.yaml
   only:
@@ -281,9 +284,9 @@ test:kube-linter-production:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
+  dependencies:
+    - init:helm-production
   script:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-production/power/templates/*.yaml
   only:
