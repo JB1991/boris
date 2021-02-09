@@ -229,7 +229,7 @@ test:helm-dry-run:
 test:kubesec-dev:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  needs: []
+  needs: ["init:helm-dev"]
   dependencies:
     - init:helm-dev
   cache: {}
@@ -244,7 +244,7 @@ test:kubesec-dev:
 test:kubesec-staging:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  needs: []
+  needs: ["init:helm-staging"]
   dependencies:
     - init:helm-staging
   cache: {}
@@ -257,7 +257,7 @@ test:kubesec-staging:
 test:kubesec-production:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  needs: []
+  needs: ["init:helm-production"]
   dependencies:
     - init:helm-production
   cache: {}
@@ -270,11 +270,10 @@ test:kubesec-production:
 test:kube-linter-dev:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  needs: []
-  dependencies: []
-  cache: {}
+  needs: ["init:helm-dev"]
   dependencies:
     - init:helm-dev
+  cache: {}
   script:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-dev/power/templates/*.yaml
   only:
@@ -286,11 +285,10 @@ test:kube-linter-dev:
 test:kube-linter-staging:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  needs: []
-  dependencies: []
-  cache: {}
+  needs: ["init:helm-staging"]
   dependencies:
     - init:helm-staging
+  cache: {}
   script:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-staging/power/templates/*.yaml
   only:
@@ -299,11 +297,10 @@ test:kube-linter-staging:
 test:kube-linter-production:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  needs: []
-  dependencies: []
-  cache: {}
+  needs: ["init:helm-production"]
   dependencies:
     - init:helm-production
+  cache: {}
   script:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-production/power/templates/*.yaml
   only:
@@ -312,7 +309,7 @@ test:kube-linter-production:
 build:
   stage: build
   image: node:lts-alpine
-  needs: ["test:karma"]
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -334,7 +331,7 @@ build:
 build:production:
   stage: build
   image: node:lts-alpine
-  needs: ["test:karma"]
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -353,7 +350,6 @@ build:production:
 package:development:
   stage: package
   image: de.icr.io/lgln/kube-tools:latest
-  needs: ["build"]
   dependencies:
     - build
   cache: {}
@@ -368,7 +364,6 @@ package:development:
 package:staging:
   stage: package
   image: de.icr.io/lgln/kube-tools:latest
-  needs: ["build"]
   dependencies:
     - build
   cache: {}
@@ -386,7 +381,6 @@ package:staging:
 package:production:
   stage: package
   image: de.icr.io/lgln/kube-tools:latest
-  needs: ["build:production"]
   dependencies:
     - build:production
   cache: {}
