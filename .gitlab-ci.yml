@@ -214,8 +214,8 @@ test:kubesec-dev:
     <<: *global_cache
     policy: pull
   script:
-    - cat manifest-dev/power/templates/*.yaml manifest-dev/power/charts/*/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-dev/power/templates/*.yaml manifest-dev/power/charts/*/templates/*.yaml | kubesec-check.sh -
+    - cat manifest-dev/power/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-dev/power/templates/*.yaml | kubesec-check.sh -
   only:
     - merge_requests
     - tags
@@ -229,8 +229,8 @@ test:kubesec-staging:
     <<: *global_cache
     policy: pull
   script:
-    - cat manifest-staging/power/templates/*.yaml manifest-staging/power/charts/*/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-staging/power/templates/*.yaml manifest-staging/power/charts/*/templates/*.yaml | kubesec-check.sh -
+    - cat manifest-staging/power/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-staging/power/templates/*.yaml | kubesec-check.sh -
   only:
     - staging
 
@@ -242,8 +242,8 @@ test:kubesec-production:
     <<: *global_cache
     policy: pull
   script:
-    - cat manifest-production/power/templates/*.yaml manifest-production/power/charts/*/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-production/power/templates/*.yaml manifest-production/power/charts/*/templates/*.yaml | kubesec-check.sh -
+    - cat manifest-production/power/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-production/power/templates/*.yaml | kubesec-check.sh -
   only:
     - production
 
