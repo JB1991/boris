@@ -27,6 +27,7 @@ install:
     # install node modules
     - cd power
     - npm ci
+    - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json
   only:
     - merge_requests
     - tags
