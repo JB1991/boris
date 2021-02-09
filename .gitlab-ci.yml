@@ -27,7 +27,7 @@ install:
     # install node modules
     - cd power
     - npm ci
-    - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json
+    - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json -p esm2015 -p esm5
   only:
     - merge_requests
     - tags
