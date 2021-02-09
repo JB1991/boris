@@ -313,7 +313,7 @@ build:
     - dev
     - staging
 
-build:prod:
+build:production:
   stage: build
   image: node:lts-alpine
   dependencies: []
@@ -331,21 +331,52 @@ build:prod:
   only:
     - production
 
-package:
+package:development:
   stage: package
   image: de.icr.io/lgln/kube-tools:latest
   dependencies:
     - build
-    - build:prod
   cache: {}
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:latest" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
+    - docker push "$CI_REGISTRY_IMAGE:latest"
   only:
     - dev
+
+package:staging:
+  stage: package
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies:
+    - build
+  cache: {}
+  environment: {
+    name: staging
+  }
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:staging" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
+    - docker push "$CI_REGISTRY_IMAGE:staging"
+  only:
     - staging
+
+package:production:
+  stage: package
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies:
+    - build:production
+  cache: {}
+  environment: {
+    name: production
+  }
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:production" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:production"
+    - docker push "$CI_REGISTRY_IMAGE:production"
+  only:
     - production
 
 deploy:development:
@@ -358,7 +389,7 @@ deploy:development:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
+    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
   only:
     - dev
 
@@ -367,13 +398,15 @@ deploy:staging:
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
   cache: {}
-  environment: staging
+  environment: {
+    name: staging
+  }
   script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
+    - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install
   only:
     - staging
 
@@ -382,13 +415,15 @@ deploy:production:
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
   cache: {}
-  environment: production
+  environment: {
+    name: production
+  }
   script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-prod.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --set replicaCount=1
+    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-prod.yaml --install --set replicaCount=1
   only:
     - production
   when: manual
