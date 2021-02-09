@@ -14,6 +14,9 @@ cache: &global_cache
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - power/node_modules/
+    - manifest-dev/
+    - manifest-staging/
+    - manifest-production/
   policy: pull-push
 
 install:
@@ -31,6 +34,41 @@ install:
     - tags
     - dev
     - staging
+    - production
+
+init:helm-dev:
+  stage: init
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies: []
+  cache:
+    <<: *global_cache
+  script:
+    - helm template power ./chart/power -f ./chart/power/values-dev.yaml --dependency-update --output-dir manifest-dev
+  only:
+    - merge_requests
+    - tags
+    - dev
+
+init:helm-staging:
+  stage: init
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies: []
+  cache:
+    <<: *global_cache
+  script:
+    - helm template power ./chart/power -f ./chart/power/values-staging.yaml --dependency-update --output-dir manifest-staging
+  only:
+    - staging
+
+init:helm-production:
+  stage: init
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies: []
+  cache:
+    <<: *global_cache
+  script:
+    - helm template power ./chart/power -f ./chart/power/values-production.yaml --dependency-update --output-dir manifest-production
+  only:
     - production
 
 test:karma:
@@ -168,22 +206,85 @@ test:helm-dry-run:
     - staging
     - production
 
-test:helm-kubesec:
+test:kubesec-dev:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
-  cache: {}
+  cache:
+    <<: *global_cache
+    policy: pull
   script:
-    - wget https://github.com/controlplaneio/kubesec/releases/download/v2.8.0/kubesec_linux_amd64.tar.gz
-    - tar xf kubesec_linux_amd64.tar.gz
-    - helm template power ./chart/power -f ./chart/power/values-dev.yaml | ./kubesec scan -
+    - cat manifest-dev/power/templates/*.yaml manifest-dev/power/charts/*/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-dev/power/templates/*.yaml manifest-dev/power/charts/*/templates/*.yaml | kubesec-check.sh -
   only:
     - merge_requests
     - tags
     - dev
+
+test:kubesec-staging:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - cat manifest-staging/power/templates/*.yaml manifest-staging/power/charts/*/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-staging/power/templates/*.yaml manifest-staging/power/charts/*/templates/*.yaml | kubesec-check.sh -
+  only:
     - staging
+
+test:kubesec-production:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - cat manifest-production/power/templates/*.yaml manifest-production/power/charts/*/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-production/power/templates/*.yaml manifest-production/power/charts/*/templates/*.yaml | kubesec-check.sh -
+  only:
     - production
+
+test:kube-linter-dev:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-dev/power/templates/*.yaml
+  only:
+    - merge_requests
+    - tags
+    - dev
   allow_failure: true
+
+test:kube-linter-staging:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-staging/power/templates/*.yaml
+  only:
+    - staging
+
+test:kube-linter-production:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-production/power/templates/*.yaml
+  only:
+    - production
 
 build:
   stage: build
