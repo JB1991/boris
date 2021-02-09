@@ -19,6 +19,7 @@ cache: &global_cache
 install:
   stage: init
   image: node:lts-alpine
+  needs: []
   dependencies: []
   cache:
     <<: *global_cache
@@ -36,8 +37,9 @@ install:
 init:helm-dev:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
-  cache: {}
+  needs: []
   dependencies: []
+  cache: {}
   artifacts:
     name: "manifest"
     expire_in: 2 days
@@ -53,8 +55,9 @@ init:helm-dev:
 init:helm-staging:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
-  cache: {}
+  needs: []
   dependencies: []
+  cache: {}
   artifacts:
     name: "manifest"
     expire_in: 2 days
@@ -68,8 +71,9 @@ init:helm-staging:
 init:helm-production:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
-  cache: {}
+  needs: []
   dependencies: []
+  cache: {}
   artifacts:
     name: "manifest"
     expire_in: 2 days
@@ -83,21 +87,22 @@ init:helm-production:
 test:karma:
   stage: test
   image: trion/ng-cli-karma:latest
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  script:
-    # Run Karma tests
-    - cd power
-    - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
-  coverage: '/Lines \W+: (\d+\.\d+)%.*/'
   artifacts:
     expire_in: 2 weeks
     reports:
       junit: power/output/junit_karma.xml
     paths:
       - power/output/junit_karma.xml
+  coverage: '/Lines \W+: (\d+\.\d+)%.*/'
+  script:
+    # Run Karma tests
+    - cd power
+    - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   only:
     - merge_requests
     - tags
@@ -108,20 +113,21 @@ test:karma:
 test:e2e:
   stage: test
   image: trion/ng-cli-e2e:latest
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  script:
-    # Run E2E tests
-    - cd power
-    - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   artifacts:
     expire_in: 2 weeks
     reports:
       junit: power/output/junit_e2e.xml
     paths:
       - power/output/junit_e2e.xml
+  script:
+    # Run E2E tests
+    - cd power
+    - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   only:
     - merge_requests
     - tags
@@ -133,6 +139,7 @@ test:e2e:
 test:audit:
   stage: test
   image: node:lts-alpine
+  needs: []
   dependencies: []
   cache:
     <<: *global_cache
@@ -151,6 +158,7 @@ test:audit:
 test:lint:
   stage: test
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -168,6 +176,7 @@ test:lint:
 test:lint-html:
   stage: test
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -185,6 +194,7 @@ test:lint-html:
 test:lint-styles:
   stage: test
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -202,6 +212,7 @@ test:lint-styles:
 test:helm-dry-run:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
+  needs: []
   dependencies: []
   cache: {}
   script:
@@ -218,9 +229,10 @@ test:helm-dry-run:
 test:kubesec-dev:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  cache: {}
+  needs: []
   dependencies:
     - init:helm-dev
+  cache: {}
   script:
     - cat manifest-dev/power/templates/*.yaml | kubesec-scan.sh -
     - cat manifest-dev/power/templates/*.yaml | kubesec-check.sh -
@@ -232,9 +244,10 @@ test:kubesec-dev:
 test:kubesec-staging:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  cache: {}
+  needs: []
   dependencies:
     - init:helm-staging
+  cache: {}
   script:
     - cat manifest-staging/power/templates/*.yaml | kubesec-scan.sh -
     - cat manifest-staging/power/templates/*.yaml | kubesec-check.sh -
@@ -244,9 +257,10 @@ test:kubesec-staging:
 test:kubesec-production:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  cache: {}
+  needs: []
   dependencies:
     - init:helm-production
+  cache: {}
   script:
     - cat manifest-production/power/templates/*.yaml | kubesec-scan.sh -
     - cat manifest-production/power/templates/*.yaml | kubesec-check.sh -
@@ -256,6 +270,7 @@ test:kubesec-production:
 test:kube-linter-dev:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
+  needs: []
   dependencies: []
   cache: {}
   dependencies:
@@ -271,6 +286,7 @@ test:kube-linter-dev:
 test:kube-linter-staging:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
+  needs: []
   dependencies: []
   cache: {}
   dependencies:
@@ -283,6 +299,7 @@ test:kube-linter-staging:
 test:kube-linter-production:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
+  needs: []
   dependencies: []
   cache: {}
   dependencies:
@@ -295,6 +312,7 @@ test:kube-linter-production:
 build:
   stage: build
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -316,6 +334,7 @@ build:
 build:production:
   stage: build
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -334,6 +353,7 @@ build:production:
 package:development:
   stage: package
   image: de.icr.io/lgln/kube-tools:latest
+  needs: ["build"]
   dependencies:
     - build
   cache: {}
@@ -348,6 +368,7 @@ package:development:
 package:staging:
   stage: package
   image: de.icr.io/lgln/kube-tools:latest
+  needs: ["build"]
   dependencies:
     - build
   cache: {}
@@ -365,6 +386,7 @@ package:staging:
 package:production:
   stage: package
   image: de.icr.io/lgln/kube-tools:latest
+  needs: ["build:production"]
   dependencies:
     - build:production
   cache: {}
@@ -382,6 +404,7 @@ package:production:
 deploy:development:
   stage: deploy
   image: de.icr.io/lgln/kube-tools:latest
+  needs: ["package:development"]
   dependencies: []
   cache: {}
   script:
@@ -396,6 +419,7 @@ deploy:development:
 deploy:staging:
   stage: deploy
   image: de.icr.io/lgln/kube-tools:latest
+  needs: ["package:staging"]
   dependencies: []
   cache: {}
   environment: {
@@ -413,6 +437,7 @@ deploy:staging:
 deploy:production:
   stage: deploy
   image: de.icr.io/lgln/kube-tools:latest
+  needs: ["package:production"]
   dependencies: []
   cache: {}
   environment: {
