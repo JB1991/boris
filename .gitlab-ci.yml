@@ -393,6 +393,7 @@ package:production:
     - docker push "$CI_REGISTRY_IMAGE:production"
   only:
     - production
+  when: manual
 
 deploy:development:
   stage: deploy
@@ -444,4 +445,3 @@ deploy:production:
     - helm upgrade power ./chart/power -n prod -f ./chart/power/values-prod.yaml --install --set replicaCount=1
   only:
     - production
-  when: manual
