@@ -142,9 +142,7 @@ test:audit:
   image: node:lts-alpine
   needs: []
   dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
   script:
     - cd power
     - npm audit
