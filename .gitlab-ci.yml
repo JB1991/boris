@@ -14,9 +14,6 @@ cache: &global_cache
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - power/node_modules/
-    - manifest-dev/
-    - manifest-staging/
-    - manifest-production/
   policy: pull-push
 
 install:
@@ -40,8 +37,11 @@ init:helm-dev:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
-  cache:
-    <<: *global_cache
+  artifacts:
+    name: "manifest"
+    expire_in: 2 days
+    paths:
+      - manifest-dev
   script:
     - helm template power ./chart/power -f ./chart/power/values-dev.yaml --dependency-update --output-dir manifest-dev
   only:
@@ -53,8 +53,11 @@ init:helm-staging:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
-  cache:
-    <<: *global_cache
+  artifacts:
+    name: "manifest"
+    expire_in: 2 days
+    paths:
+      - manifest-staging
   script:
     - helm template power ./chart/power -f ./chart/power/values-staging.yaml --dependency-update --output-dir manifest-staging
   only:
@@ -64,8 +67,11 @@ init:helm-production:
   stage: init
   image: de.icr.io/lgln/kube-tools:latest
   dependencies: []
-  cache:
-    <<: *global_cache
+  artifacts:
+    name: "manifest"
+    expire_in: 2 days
+    paths:
+      - manifest-production
   script:
     - helm template power ./chart/power -f ./chart/power/values-production.yaml --dependency-update --output-dir manifest-production
   only:
@@ -209,10 +215,9 @@ test:helm-dry-run:
 test:kubesec-dev:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
+  dependencies:
+    - init:helm-dev
   script:
     - cat manifest-dev/power/templates/*.yaml | kubesec-scan.sh -
     - cat manifest-dev/power/templates/*.yaml | kubesec-check.sh -
@@ -224,10 +229,9 @@ test:kubesec-dev:
 test:kubesec-staging:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
+  dependencies:
+    - init:helm-staging
   script:
     - cat manifest-staging/power/templates/*.yaml | kubesec-scan.sh -
     - cat manifest-staging/power/templates/*.yaml | kubesec-check.sh -
@@ -237,10 +241,9 @@ test:kubesec-staging:
 test:kubesec-production:
   stage: test
   image: de.icr.io/lgln/kube-tools:latest
-  dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
+  dependencies:
+    - init:helm-production
   script:
     - cat manifest-production/power/templates/*.yaml | kubesec-scan.sh -
     - cat manifest-production/power/templates/*.yaml | kubesec-check.sh -
