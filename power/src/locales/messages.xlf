@@ -274,12 +274,12 @@
         <source>LGLN Logo</source>
       </segment>
     </unit>
-    <unit id="173384162608587339">
+    <unit id="4827920419971063815">
       <notes>
         <note category="location">src/app/app.component.html:15</note>
       </notes>
       <segment>
-        <source>IMMOBILIENMARKT</source>
+        <source>Immobilienmarkt</source>
       </segment>
     </unit>
     <unit id="2776955337445429625">
@@ -301,7 +301,11 @@
     <unit id="4654226818601672329">
       <notes>
         <note category="location">src/app/app.component.html:55</note>
-        <note category="location">src/app/app.component.html:401</note>
+        <note category="location">src/app/app.component.html:409</note>
+        <note category="location">src/app/static/start/start.component.html:10</note>
+        <note category="location">src/app/static/start/start.component.html:19</note>
+        <note category="location">src/app/static/start/start.component.html:140</note>
+        <note category="location">src/app/static/start/start.component.html:147</note>
       </notes>
       <segment>
         <source>Bodenrichtwerte</source>
@@ -320,6 +324,10 @@
     <unit id="3258477668686168761">
       <notes>
         <note category="location">src/app/app.component.html:70</note>
+        <note category="location">src/app/static/start/start.component.html:31</note>
+        <note category="location">src/app/static/start/start.component.html:40</note>
+        <note category="location">src/app/static/start/start.component.html:178</note>
+        <note category="location">src/app/static/start/start.component.html:185</note>
       </notes>
       <segment>
         <source>Bodenwertkalkulator</source>
@@ -328,15 +336,24 @@
     <unit id="7989227576402540115">
       <notes>
         <note category="location">src/app/app.component.html:78</note>
-        <note category="location">src/app/app.component.html:117</note>
+        <note category="location">src/app/app.component.html:125</note>
       </notes>
       <segment>
         <source>Grundstücksmarktdaten</source>
       </segment>
     </unit>
+    <unit id="2463875073677775424">
+      <notes>
+        <note category="location">src/app/app.component.html:85</note>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:4</note>
+      </notes>
+      <segment>
+        <source>Grundstücksmarktberichte (Archiv)</source>
+      </segment>
+    </unit>
     <unit id="192194816728870761">
       <notes>
-        <note category="location">src/app/app.component.html:91</note>
+        <note category="location">src/app/app.component.html:99</note>
       </notes>
       <segment>
         <source>Immobilien</source>
@@ -344,7 +361,7 @@
     </unit>
     <unit id="252155412188514545">
       <notes>
-        <note category="location">src/app/app.component.html:101</note>
+        <note category="location">src/app/app.component.html:109</note>
       </notes>
       <segment>
         <source>Niedersächsischer Immobilienpreisindex - NIPIX</source>
@@ -352,7 +369,7 @@
     </unit>
     <unit id="1162770006455027116">
       <notes>
-        <note category="location">src/app/app.component.html:109</note>
+        <note category="location">src/app/app.component.html:117</note>
       </notes>
       <segment>
         <source>Immobilienpreiskalkulator - IPK</source>
@@ -360,9 +377,14 @@
     </unit>
     <unit id="8530560792297920136">
       <notes>
-        <note category="location">src/app/app.component.html:127</note>
+        <note category="location">src/app/app.component.html:135</note>
         <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:433</note>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:19</note>
+        <note category="location">src/app/static/start/start.component.html:73</note>
+        <note category="location">src/app/static/start/start.component.html:78</note>
+        <note category="location">src/app/static/start/start.component.html:240</note>
+        <note category="location">src/app/static/start/start.component.html:298</note>
+        <note category="location">src/app/static/start/start.component.html:305</note>
       </notes>
       <segment>
         <source>Formulare</source>
@@ -370,8 +392,10 @@
     </unit>
     <unit id="8429316238784832901">
       <notes>
-        <note category="location">src/app/app.component.html:136</note>
+        <note category="location">src/app/app.component.html:144</note>
         <note category="location">src/app/static/feedback/feedback.component.html:4</note>
+        <note category="location">src/app/static/start/start.component.html:94</note>
+        <note category="location">src/app/static/start/start.component.html:99</note>
       </notes>
       <segment>
         <source>Feedback</source>
@@ -379,7 +403,7 @@
     </unit>
     <unit id="2454050363478003966">
       <notes>
-        <note category="location">src/app/app.component.html:146</note>
+        <note category="location">src/app/app.component.html:154</note>
       </notes>
       <segment>
         <source>Login</source>
@@ -387,7 +411,7 @@
     </unit>
     <unit id="4086606389696938932">
       <notes>
-        <note category="location">src/app/app.component.html:174</note>
+        <note category="location">src/app/app.component.html:182</note>
       </notes>
       <segment>
         <source>Account</source>
@@ -395,7 +419,7 @@
     </unit>
     <unit id="8353670871689367892">
       <notes>
-        <note category="location">src/app/app.component.html:190</note>
+        <note category="location">src/app/app.component.html:198</note>
       </notes>
       <segment>
         <source>Meine Formulare</source>
@@ -403,7 +427,7 @@
     </unit>
     <unit id="3797778920049399855">
       <notes>
-        <note category="location">src/app/app.component.html:196</note>
+        <note category="location">src/app/app.component.html:204</note>
       </notes>
       <segment>
         <source>Logout</source>
@@ -411,10 +435,10 @@
     </unit>
     <unit id="8183476381446897959">
       <notes>
-        <note category="location">src/app/app.component.html:208</note>
-        <note category="location">src/app/app.component.html:210</note>
-        <note category="location">src/app/app.component.html:246</note>
-        <note category="location">src/app/app.component.html:248</note>
+        <note category="location">src/app/app.component.html:216</note>
+        <note category="location">src/app/app.component.html:218</note>
+        <note category="location">src/app/app.component.html:254</note>
+        <note category="location">src/app/app.component.html:256</note>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:6</note>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:8</note>
         <note category="location">src/app/shared/alerts/alerts.component.html:11</note>
@@ -430,8 +454,8 @@
     </unit>
     <unit id="3809540430353766710">
       <notes>
-        <note category="location">src/app/app.component.html:216</note>
-        <note category="location">src/app/app.component.html:254</note>
+        <note category="location">src/app/app.component.html:224</note>
+        <note category="location">src/app/app.component.html:262</note>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:14</note>
         <note category="location">src/app/shared/alerts/alerts.component.html:19</note>
       </notes>
@@ -441,7 +465,7 @@
     </unit>
     <unit id="1323580266111538088">
       <notes>
-        <note category="location">src/app/app.component.html:233</note>
+        <note category="location">src/app/app.component.html:241</note>
       </notes>
       <segment>
         <source>Keine Internetverbindung</source>
@@ -449,7 +473,7 @@
     </unit>
     <unit id="4796223096169171096">
       <notes>
-        <note category="location">src/app/app.component.html:236,237</note>
+        <note category="location">src/app/app.component.html:244,245</note>
       </notes>
       <segment>
         <source>Die Funktionen dieser Anwendung erfordern eine aktive Internetverbindung. Bitte stellen Sie eine Internetverbindung her, um unsere Dienste verwenden zu können.</source>
@@ -457,7 +481,7 @@
     </unit>
     <unit id="8645502101756548577">
       <notes>
-        <note category="location">src/app/app.component.html:271</note>
+        <note category="location">src/app/app.component.html:279</note>
       </notes>
       <segment>
         <source>Veralteten oder nicht unterstützen Webbrowser erkannt</source>
@@ -465,7 +489,7 @@
     </unit>
     <unit id="3626778924535129677">
       <notes>
-        <note category="location">src/app/app.component.html:274,275</note>
+        <note category="location">src/app/app.component.html:282,283</note>
       </notes>
       <segment>
         <source>Bitte verwenden Sie einen aktuelleren Webbrowser, wie Google Chrome oder Mozilla Firefox, um alle Funktionen dieser Seite uneingeschränkt nutzen zu können.</source>
@@ -473,7 +497,7 @@
     </unit>
     <unit id="7911002864553844497">
       <notes>
-        <note category="location">src/app/app.component.html:345</note>
+        <note category="location">src/app/app.component.html:353</note>
         <note category="location">src/app/fragebogen/dashboard/newform/newform.component.html:72</note>
         <note category="location">src/app/shared/modal/modal.component.html:33</note>
       </notes>
@@ -483,7 +507,7 @@
     </unit>
     <unit id="2354045805420094700">
       <notes>
-        <note category="location">src/app/app.component.html:350</note>
+        <note category="location">src/app/app.component.html:358</note>
       </notes>
       <segment>
         <source>Informationen</source>
@@ -491,7 +515,7 @@
     </unit>
     <unit id="1547876271716599756">
       <notes>
-        <note category="location">src/app/app.component.html:357</note>
+        <note category="location">src/app/app.component.html:365</note>
       </notes>
       <segment>
         <source>Impressum</source>
@@ -499,7 +523,7 @@
     </unit>
     <unit id="4082114936887396529">
       <notes>
-        <note category="location">src/app/app.component.html:364</note>
+        <note category="location">src/app/app.component.html:372</note>
       </notes>
       <segment>
         <source>Datenschutz</source>
@@ -507,7 +531,7 @@
     </unit>
     <unit id="2851974820592309">
       <notes>
-        <note category="location">src/app/app.component.html:371</note>
+        <note category="location">src/app/app.component.html:379</note>
       </notes>
       <segment>
         <source>Nutzungsbedingungen</source>
@@ -515,7 +539,7 @@
     </unit>
     <unit id="6523585524940820841">
       <notes>
-        <note category="location">src/app/app.component.html:377</note>
+        <note category="location">src/app/app.component.html:385</note>
       </notes>
       <segment>
         <source>Sprachauswahl</source>
@@ -523,7 +547,7 @@
     </unit>
     <unit id="51574765818008149">
       <notes>
-        <note category="location">src/app/app.component.html:379</note>
+        <note category="location">src/app/app.component.html:387</note>
         <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:5</note>
         <note category="location">src/app/fragebogen/fillout/fillout.component.html:12</note>
         <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.html:28</note>
@@ -534,7 +558,7 @@
     </unit>
     <unit id="2452993531624137480">
       <notes>
-        <note category="location">src/app/app.component.html:399</note>
+        <note category="location">src/app/app.component.html:407</note>
       </notes>
       <segment>
         <source>Informationen Bodenrichtwerte</source>
@@ -542,7 +566,7 @@
     </unit>
     <unit id="397497450705980813">
       <notes>
-        <note category="location">src/app/app.component.html:408</note>
+        <note category="location">src/app/app.component.html:416</note>
         <note category="location">src/app/static/feedback/feedback.component.html:61</note>
       </notes>
       <segment>
@@ -551,7 +575,7 @@
     </unit>
     <unit id="7188414152197643643">
       <notes>
-        <note category="location">src/app/app.component.html:415</note>
+        <note category="location">src/app/app.component.html:423</note>
       </notes>
       <segment>
         <source>Gutachterausschüsse - Niedersachsen</source>
@@ -559,7 +583,7 @@
     </unit>
     <unit id="292834562901418926">
       <notes>
-        <note category="location">src/app/app.component.html:422</note>
+        <note category="location">src/app/app.component.html:430</note>
       </notes>
       <segment>
         <source>Legende zur Bodenrichtwertkarte Bauland</source>
@@ -567,7 +591,7 @@
     </unit>
     <unit id="8839973177099976276">
       <notes>
-        <note category="location">src/app/app.component.html:429</note>
+        <note category="location">src/app/app.component.html:437</note>
       </notes>
       <segment>
         <source>Legende zur Bodenrichtwertkarte Landwirtschaft</source>
@@ -575,7 +599,7 @@
     </unit>
     <unit id="2724055831234181057">
       <notes>
-        <note category="location">src/app/app.component.html:438</note>
+        <note category="location">src/app/app.component.html:446</note>
       </notes>
       <segment>
         <source>Version</source>
@@ -718,12 +742,12 @@
         <source>Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</source>
       </segment>
     </unit>
-    <unit id="869127097754040110">
+    <unit id="3078683140392917364">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.ts:86</note>
       </notes>
       <segment>
-        <source>Bodenrichtwerte - IMMOBILIENMARKT.NI</source>
+        <source>Bodenrichtwerte - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="4968596440448573968">
@@ -1229,9 +1253,9 @@
     </unit>
     <unit id="8488547527396922136">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:311</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:322</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:332</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:314</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:325</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:335</note>
         <note category="location">src/app/fragebogen/dashboard/dashboard.component.ts:155</note>
         <note category="location">src/app/fragebogen/dashboard/dashboard.component.ts:190</note>
         <note category="location">src/app/fragebogen/dashboard/dashboard.component.ts:206</note>
@@ -1256,7 +1280,7 @@
     </unit>
     <unit id="7123260887469176666">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:595</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:601</note>
       </notes>
       <segment>
         <source>Teilmarkt gewechselt</source>
@@ -1264,7 +1288,7 @@
     </unit>
     <unit id="7203730572416699574">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:596</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:602</note>
       </notes>
       <segment>
         <source>Der Teilmarkt wurde zu </source>
@@ -1272,7 +1296,7 @@
     </unit>
     <unit id="1749930755605947124">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:596</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte.component.ts:602</note>
       </notes>
       <segment>
         <source> gewechselt.</source>
@@ -2523,12 +2547,12 @@
         <source>Summe</source>
       </segment>
     </unit>
-    <unit id="8250814898701858646">
+    <unit id="8930215781350112001">
       <notes>
         <note category="location">src/app/bodenwert-kalkulator/bodenwert-kalkulator/bodenwert-kalkulator.component.ts:60</note>
       </notes>
       <segment>
-        <source>Bodenwerte - IMMOBILIENMARKT.NI</source>
+        <source>Bodenwerte - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="4100522363376874265">
@@ -2928,12 +2952,12 @@
         <source>Formular importieren</source>
       </segment>
     </unit>
-    <unit id="8446538552284409410">
+    <unit id="2659878392749383438">
       <notes>
         <note category="location">src/app/fragebogen/dashboard/dashboard.component.ts:48</note>
       </notes>
       <segment>
-        <source>Dashboard - IMMOBILIENMARKT.NI</source>
+        <source>Dashboard - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="6100299460018469503">
@@ -3321,12 +3345,12 @@
         <source>Ergebnisse (CSV)</source>
       </segment>
     </unit>
-    <unit id="5921515085528018363">
+    <unit id="2915646257300283739">
       <notes>
         <note category="location">src/app/fragebogen/details/details.component.ts:51</note>
       </notes>
       <segment>
-        <source>Formular Details - IMMOBILIENMARKT.NI</source>
+        <source>Formular Details - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="3249149247481122578">
@@ -3695,7 +3719,6 @@
     <unit id="4392993924409588244">
       <notes>
         <note category="location">src/app/fragebogen/editor/answers/answers.component.html:179</note>
-        <note category="location">src/app/static/start/start.component.html:78</note>
       </notes>
       <segment>
         <source>Absenden</source>
@@ -4310,12 +4333,12 @@
         <source>Favoriten löschen</source>
       </segment>
     </unit>
-    <unit id="9218922180552937065">
+    <unit id="3029764008999026465">
       <notes>
         <note category="location">src/app/fragebogen/editor/editor.component.ts:43</note>
       </notes>
       <segment>
-        <source>Formular Editor - IMMOBILIENMARKT.NI</source>
+        <source>Formular Editor - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="1846940666050448274">
@@ -5844,13 +5867,13 @@
         <source>Zurücksetzen</source>
       </segment>
     </unit>
-    <unit id="8855237341882825178">
+    <unit id="7485506396523214309">
       <notes>
         <note category="location">src/app/fragebogen/fillout/fillout.component.ts:43</note>
         <note category="location">src/app/fragebogen/home/home.component.ts:18</note>
       </notes>
       <segment>
-        <source>Formulare - IMMOBILIENMARKT.NI</source>
+        <source>Formulare - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="8744559871232772444">
@@ -5871,9 +5894,17 @@
         <source>Das Speichern auf dem Server ist fehlgeschlagen.</source>
       </segment>
     </unit>
+    <unit id="761498576640631505">
+      <notes>
+        <note category="location">src/app/fragebogen/formapi.service.ts:548</note>
+      </notes>
+      <segment>
+        <source>Es trat folgender HTTP-Fehler auf:</source>
+      </segment>
+    </unit>
     <unit id="6635369512505488680">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:550</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:552</note>
       </notes>
       <segment>
         <source>Server Fehler: Bitte versuchen Sie es erneut, sollte dies nicht helfen senden Sie uns bitte Feedback.</source>
@@ -5881,7 +5912,7 @@
     </unit>
     <unit id="3220417249960327880">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:553</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:555</note>
       </notes>
       <segment>
         <source>Server Fehler: Die Anfrage an den Server war ungültig.</source>
@@ -5889,7 +5920,7 @@
     </unit>
     <unit id="636792722487576549">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:556</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:558</note>
       </notes>
       <segment>
         <source>Um diese Aktion durchzuführen müssen Sie sich einloggen.</source>
@@ -5897,7 +5928,7 @@
     </unit>
     <unit id="2744260584474097387">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:559</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:561</note>
       </notes>
       <segment>
         <source>Bitte geben Sie nicht mehr als 5 Tags an.</source>
@@ -5905,7 +5936,7 @@
     </unit>
     <unit id="1166317138427810701">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:562</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:564</note>
       </notes>
       <segment>
         <source>Bitte geben Sie nicht mehr als 5 Gruppen an.</source>
@@ -5913,7 +5944,7 @@
     </unit>
     <unit id="3629234568619588157">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:565</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:567</note>
       </notes>
       <segment>
         <source>Bitte geben sie einen Titel an: </source>
@@ -5921,7 +5952,7 @@
     </unit>
     <unit id="2167904264542940219">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:568</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:570</note>
       </notes>
       <segment>
         <source>Die Gruppe konnte nicht gefunden werden.</source>
@@ -5929,7 +5960,7 @@
     </unit>
     <unit id="6190098841667346211">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:571</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:573</note>
       </notes>
       <segment>
         <source>Der Benutzer konnte nicht gefunden werden.</source>
@@ -5937,7 +5968,7 @@
     </unit>
     <unit id="1040893626756424722">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:574</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:576</note>
       </notes>
       <segment>
         <source>Server Fehler: Dieser Benutzer existiert bereits.</source>
@@ -5945,7 +5976,7 @@
     </unit>
     <unit id="6591826201475443062">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:577</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:579</note>
       </notes>
       <segment>
         <source>Der Favorite konnte nicht gefunden werden.</source>
@@ -5953,7 +5984,7 @@
     </unit>
     <unit id="4820165794624891149">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:580</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:582</note>
       </notes>
       <segment>
         <source>Die von Ihnen angegebene PIN ist ungültig.</source>
@@ -5961,7 +5992,7 @@
     </unit>
     <unit id="2031201795453039694">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:583</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:585</note>
       </notes>
       <segment>
         <source>Bitte geben Sie für diese Aktion eine PIN an.</source>
@@ -5969,7 +6000,7 @@
     </unit>
     <unit id="4323736000060631414">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:586</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:588</note>
       </notes>
       <segment>
         <source>Server Fehler: Diese PIN ist mehrfach vorhanden.</source>
@@ -5977,7 +6008,7 @@
     </unit>
     <unit id="944237121743674853">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:589</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:591</note>
       </notes>
       <segment>
         <source>Server Fehler: Es wurde eine doppelte PIN generiert.</source>
@@ -5985,7 +6016,7 @@
     </unit>
     <unit id="8112498890456158213">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:592</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:594</note>
       </notes>
       <segment>
         <source>Diese Aktion ist nicht möglich, da das Formular noch nicht publiziert wurde.</source>
@@ -5993,7 +6024,7 @@
     </unit>
     <unit id="1222829477706952154">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:595</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:597</note>
       </notes>
       <segment>
         <source>Diese Aktion ist nicht möglich, da das Formular bereits publiziert wurde.</source>
@@ -6001,7 +6032,7 @@
     </unit>
     <unit id="6712915930262875426">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:598</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:600</note>
       </notes>
       <segment>
         <source>Diese Aktion ist nicht möglich, da das Formular bereits geschlossen wurde.</source>
@@ -6009,7 +6040,7 @@
     </unit>
     <unit id="7937228052768155656">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:601</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:603</note>
       </notes>
       <segment>
         <source>Diese Aktion ist mit durch PINs geschützten Formularen nicht möglich.</source>
@@ -6017,7 +6048,7 @@
     </unit>
     <unit id="7014858505881939352">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:604</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:606</note>
       </notes>
       <segment>
         <source>Diese Aktion erfordert keine PIN, da das Formular öffentlich ist.</source>
@@ -6025,7 +6056,7 @@
     </unit>
     <unit id="1835339293477776914">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:607</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:609</note>
       </notes>
       <segment>
         <source>Das Formular kann nicht gelöscht werden, wenn es noch offene Antworten gibt.</source>
@@ -6033,7 +6064,7 @@
     </unit>
     <unit id="3838863712076166954">
       <notes>
-        <note category="location">src/app/fragebogen/formapi.service.ts:610</note>
+        <note category="location">src/app/fragebogen/formapi.service.ts:612</note>
       </notes>
       <segment>
         <source>Diese Aktion ist mit öffentlichen Formularen nicht möglich.</source>
@@ -6058,6 +6089,7 @@
     <unit id="2408914290675512706">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:38,39</note>
+        <note category="location">src/app/static/start/start.component.html:255,256</note>
       </notes>
       <segment>
         <source>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</source>
@@ -6066,7 +6098,7 @@
     <unit id="3438075409129621721">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:48</note>
-        <note category="location">src/app/static/start/start.component.html:71</note>
+        <note category="location">src/app/static/start/start.component.html:266</note>
       </notes>
       <segment>
         <source>Formular PIN</source>
@@ -6076,14 +6108,25 @@
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:54</note>
         <note category="location">src/app/fragebogen/home/home.component.html:55</note>
+        <note category="location">src/app/static/start/start.component.html:273</note>
+        <note category="location">src/app/static/start/start.component.html:274</note>
       </notes>
       <segment>
         <source>PIN absenden</source>
       </segment>
     </unit>
+    <unit id="7567341863769679266">
+      <notes>
+        <note category="location">src/app/fragebogen/home/home.component.html:69</note>
+        <note category="location">src/app/static/start/start.component.html:288</note>
+      </notes>
+      <segment>
+        <source>Die PIN absenden</source>
+      </segment>
+    </unit>
     <unit id="8191576719702905998">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:91</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:93</note>
       </notes>
       <segment>
         <source>Formular finden</source>
@@ -6091,7 +6134,7 @@
     </unit>
     <unit id="5149017028156590000">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:95</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:97</note>
       </notes>
       <segment>
         <source>Wenn Sie ein Formular einreichen wollen, finden Sie hier unsere öffentlichen Formulare.</source>
@@ -6099,7 +6142,7 @@
     </unit>
     <unit id="4088965861946680266">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:100</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:102</note>
       </notes>
       <segment>
         <source>Über diesen Link gelangen Sie zu den öffentlichen Formularen.</source>
@@ -6107,7 +6150,7 @@
     </unit>
     <unit id="5711849175900703108">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:118</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:120</note>
       </notes>
       <segment>
         <source>Zu den öffentlichen Formularen</source>
@@ -6115,7 +6158,7 @@
     </unit>
     <unit id="6489685542013391299">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:144</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:146</note>
       </notes>
       <segment>
         <source>Notarportal</source>
@@ -6123,7 +6166,7 @@
     </unit>
     <unit id="4785299248596372755">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:148,149</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:150,151</note>
       </notes>
       <segment>
         <source>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch vorzunehmen.</source>
@@ -6131,7 +6174,7 @@
     </unit>
     <unit id="3867605560596531339">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:176</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:178</note>
       </notes>
       <segment>
         <source>Mitarbeiter</source>
@@ -6139,7 +6182,7 @@
     </unit>
     <unit id="7585378083307211134">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:180</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:182</note>
       </notes>
       <segment>
         <source>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</source>
@@ -6147,7 +6190,7 @@
     </unit>
     <unit id="6421628257570379080">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:185</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:187</note>
       </notes>
       <segment>
         <source>Über diesen Link gelangen Sie zum Mitarbeiterportal.</source>
@@ -6155,7 +6198,7 @@
     </unit>
     <unit id="6949567012632159210">
       <notes>
-        <note category="location">src/app/fragebogen/home/home.component.html:203</note>
+        <note category="location">src/app/fragebogen/home/home.component.html:205</note>
       </notes>
       <segment>
         <source>Zum Mitarbeiterportal</source>
@@ -6243,12 +6286,12 @@
         <source>Pagination</source>
       </segment>
     </unit>
-    <unit id="1601843889113285815">
+    <unit id="5352254223596839102">
       <notes>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.ts:32</note>
       </notes>
       <segment>
-        <source>Öffentliche Formulare - IMMOBILIENMARKT.NI</source>
+        <source>Öffentliche Formulare - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="7420692199240086704">
@@ -6305,6 +6348,38 @@
       </notes>
       <segment>
         <source>Formularvorschau</source>
+      </segment>
+    </unit>
+    <unit id="18158233153045297">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:31</note>
+      </notes>
+      <segment>
+        <source>Landesgrundstücksmarktbericht</source>
+      </segment>
+    </unit>
+    <unit id="4807838070804133286">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:32</note>
+      </notes>
+      <segment>
+        <source>Grundstücksmarktbericht</source>
+      </segment>
+    </unit>
+    <unit id="1270068660398977188">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:37</note>
+      </notes>
+      <segment>
+        <source>Downlaod</source>
+      </segment>
+    </unit>
+    <unit id="5083152320991494800">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:39</note>
+      </notes>
+      <segment>
+        <source>Bereiche</source>
       </segment>
     </unit>
     <unit id="1857718811662681434">
@@ -6381,7 +6456,7 @@ Grundstückswerte in Niedersachsen</source>
     <unit id="2295421029143589974">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:2</note>
-        <note category="location">src/app/static/start/start.component.html:30</note>
+        <note category="location">src/app/static/start/start.component.html:204</note>
       </notes>
       <segment>
         <source>Niedersächsischer Immobilienpreisindex</source>
@@ -6493,12 +6568,12 @@ Grundstückswerte in Niedersachsen</source>
         <source>Allgemeinen Geschäfts- und Nutzungsbedingungen (AGNB)</source>
       </segment>
     </unit>
-    <unit id="8194365597862636751">
+    <unit id="3548766222772649704">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.ts:50</note>
       </notes>
       <segment>
-        <source>Immobilienpreisindex - IMMOBILIENMARKT.NI</source>
+        <source>Immobilienpreisindex - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="1159279015084352288">
@@ -7252,12 +7327,12 @@ Grundstückswerte in Niedersachsen</source>
         <source>Leider konnten wir noch keine Tickets finden. Bei Bedarf können Sie uns gerne kontaktieren. </source>
       </segment>
     </unit>
-    <unit id="8116921944384551736">
+    <unit id="7597531575071318001">
       <notes>
         <note category="location">src/app/static/feedback/feedback.component.ts:25</note>
       </notes>
       <segment>
-        <source>Feedback - IMMOBILIENMARKT.NI</source>
+        <source>Feedback - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="4426393519905650436">
@@ -7268,12 +7343,12 @@ Grundstückswerte in Niedersachsen</source>
         <source>Sie werden in kürze weitergeleitet...</source>
       </segment>
     </unit>
-    <unit id="4314899121686564852">
+    <unit id="9010424654630995001">
       <notes>
         <note category="location">src/app/static/login/login.component.ts:24</note>
       </notes>
       <segment>
-        <source>Login - IMMOBILIENMARKT.NI</source>
+        <source>Login - Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="3246386386339214161">
@@ -7300,137 +7375,121 @@ Grundstückswerte in Niedersachsen</source>
         <source>Sie wurden ausgeloggt.</source>
       </segment>
     </unit>
-    <unit id="1390374138050555063">
+    <unit id="5927476514697284390">
       <notes>
         <note category="location">src/app/static/logout/logout.component.ts:21</note>
       </notes>
       <segment>
-        <source>Logout - IMMOBILIENMARKT.NI</source>
+        <source>Logout - Immobilienmarkt.NI</source>
       </segment>
     </unit>
-    <unit id="7110617334146423425">
+    <unit id="3480843511135968157">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:12</note>
+        <note category="location">src/app/static/start/start.component.html:24</note>
+        <note category="location">src/app/static/start/start.component.html:45</note>
+        <note category="location">src/app/static/start/start.component.html:66</note>
+        <note category="location">src/app/static/start/start.component.html:87</note>
       </notes>
       <segment>
-        <source>BORIS.NI</source>
+        <source>Zur Anwendung</source>
+      </segment>
+    </unit>
+    <unit id="7617085008095164760">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:52</note>
+        <note category="location">src/app/static/start/start.component.html:61</note>
+        <note category="location">src/app/static/start/start.component.html:218</note>
+        <note category="location">src/app/static/start/start.component.html:225</note>
+      </notes>
+      <segment>
+        <source>Immobilienpreisindex</source>
+      </segment>
+    </unit>
+    <unit id="8668899295247471129">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:82</note>
+        <note category="location">src/app/static/start/start.component.html:244</note>
+      </notes>
+      <segment>
+        <source>Online Formular Service</source>
+      </segment>
+    </unit>
+    <unit id="2140288706597415247">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:103</note>
+      </notes>
+      <segment>
+        <source>Fehler oder Vorschlag einreichen</source>
+      </segment>
+    </unit>
+    <unit id="66507597229627698">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:104</note>
+      </notes>
+      <segment>
+        <source>Wir schätzen Ihr Feedback sehr, bitte helfen Sie uns unseren Service zu verbessern!</source>
+      </segment>
+    </unit>
+    <unit id="8958542581152290460">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:108</note>
+      </notes>
+      <segment>
+        <source>Zum Feedback</source>
       </segment>
     </unit>
     <unit id="2078906062700177291">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:13</note>
+        <note category="location">src/app/static/start/start.component.html:127</note>
       </notes>
       <segment>
         <source>Bodenrichtwertinformationssystem Niedersachsen</source>
       </segment>
     </unit>
-    <unit id="6694947240179552398">
+    <unit id="1041084297473454291">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:15,18</note>
+        <note category="location">src/app/static/start/start.component.html:129,132</note>
+        <note category="location">src/app/static/start/start.component.html:167,170</note>
       </notes>
       <segment>
         <source>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen und Bremen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft in Niedersachsen, Bremen und Bremerhaven zur Verfügung.</source>
       </segment>
     </unit>
-    <unit id="3780495839469833614">
+    <unit id="5319420567311553817">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:29</note>
+        <note category="location">src/app/static/start/start.component.html:165</note>
       </notes>
       <segment>
-        <source>NIPIX</source>
+        <source>Bodenwertkalkulator Niedersachsen</source>
       </segment>
     </unit>
-    <unit id="9057177461134699500">
+    <unit id="2037290745254253445">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:32,35</note>
+        <note category="location">src/app/static/start/start.component.html:206,210</note>
       </notes>
       <segment>
         <source>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</source>
       </segment>
     </unit>
-    <unit id="2237919460029267172">
+    <unit id="4022690065871451230">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:51</note>
-      </notes>
-      <segment>
-        <source>Online Formulare</source>
-      </segment>
-    </unit>
-    <unit id="4687874577741048821">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:53,55</note>
+        <note category="location">src/app/static/start/start.component.html:246,248</note>
       </notes>
       <segment>
         <source>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.</source>
       </segment>
     </unit>
-    <unit id="2145326859393600164">
+    <unit id="2213932477463498121">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:61</note>
+        <note category="location">src/app/static/start/start.component.ts:23</note>
       </notes>
       <segment>
-        <source>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</source>
-      </segment>
-    </unit>
-    <unit id="7567341863769679266">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:91</note>
-      </notes>
-      <segment>
-        <source>Die PIN absenden</source>
-      </segment>
-    </unit>
-    <unit id="841934696444961534">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:117</note>
-      </notes>
-      <segment>
-        <source>News</source>
-      </segment>
-    </unit>
-    <unit id="4177395589093342239">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:122</note>
-      </notes>
-      <segment>
-        <source>Immobilienmarktbericht 2020</source>
-      </segment>
-    </unit>
-    <unit id="1702834368412695399">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:123</note>
-      </notes>
-      <segment>
-        <source>Eine Dekade steigender Preise in Niedersachsen...</source>
-      </segment>
-    </unit>
-    <unit id="4980082766864057233">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:126</note>
-      </notes>
-      <segment>
-        <source>Bodenrichtwerte 2021</source>
-      </segment>
-    </unit>
-    <unit id="6326925902432622347">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:127</note>
-      </notes>
-      <segment>
-        <source>Die neuen Bodenrichtwerte sind jetzt verfügbar...</source>
-      </segment>
-    </unit>
-    <unit id="2840111231144820150">
-      <notes>
-        <note category="location">src/app/static/start/start.component.ts:21</note>
-      </notes>
-      <segment>
-        <source>IMMOBILIENMARKT.NI</source>
+        <source>Immobilienmarkt.NI</source>
       </segment>
     </unit>
     <unit id="6662738000749272890">
       <notes>
-        <note category="location">src/app/static/start/start.component.ts:26</note>
+        <note category="location">src/app/static/start/start.component.ts:28</note>
       </notes>
       <segment>
         <source>Logout erfolgreich</source>
@@ -7438,7 +7497,7 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="3341815476221006999">
       <notes>
-        <note category="location">src/app/static/start/start.component.ts:27</note>
+        <note category="location">src/app/static/start/start.component.ts:29</note>
       </notes>
       <segment>
         <source>Sie wurden erfolgreich ausgeloggt.</source>

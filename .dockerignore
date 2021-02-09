@@ -4,6 +4,9 @@
 chart/
 doc/
 scripts/
+manifest-dev/
+manifest-staging/
+manifest-production/
 power/coverage/
 power/documentation/
 power/e2e/
