@@ -304,8 +304,8 @@
         <note category="location">src/app/app.component.html:409</note>
         <note category="location">src/app/static/start/start.component.html:10</note>
         <note category="location">src/app/static/start/start.component.html:19</note>
-        <note category="location">src/app/static/start/start.component.html:139</note>
-        <note category="location">src/app/static/start/start.component.html:146</note>
+        <note category="location">src/app/static/start/start.component.html:140</note>
+        <note category="location">src/app/static/start/start.component.html:147</note>
       </notes>
       <segment>
         <source>Bodenrichtwerte</source>
@@ -381,8 +381,10 @@
         <note category="location">src/app/fragebogen/dashboard/dashboard.component.html:433</note>
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:19</note>
         <note category="location">src/app/static/start/start.component.html:73</note>
-        <note category="location">src/app/static/start/start.component.html:299</note>
-        <note category="location">src/app/static/start/start.component.html:306</note>
+        <note category="location">src/app/static/start/start.component.html:78</note>
+        <note category="location">src/app/static/start/start.component.html:240</note>
+        <note category="location">src/app/static/start/start.component.html:298</note>
+        <note category="location">src/app/static/start/start.component.html:305</note>
       </notes>
       <segment>
         <source>Formulare</source>
@@ -392,7 +394,8 @@
       <notes>
         <note category="location">src/app/app.component.html:144</note>
         <note category="location">src/app/static/feedback/feedback.component.html:4</note>
-        <note category="location">src/app/static/start/start.component.html:93</note>
+        <note category="location">src/app/static/start/start.component.html:94</note>
+        <note category="location">src/app/static/start/start.component.html:99</note>
       </notes>
       <segment>
         <source>Feedback</source>
@@ -6086,7 +6089,7 @@
     <unit id="2408914290675512706">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:38,39</note>
-        <note category="location">src/app/static/start/start.component.html:256,257</note>
+        <note category="location">src/app/static/start/start.component.html:255,256</note>
       </notes>
       <segment>
         <source>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</source>
@@ -6095,7 +6098,7 @@
     <unit id="3438075409129621721">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:48</note>
-        <note category="location">src/app/static/start/start.component.html:267</note>
+        <note category="location">src/app/static/start/start.component.html:266</note>
       </notes>
       <segment>
         <source>Formular PIN</source>
@@ -6105,8 +6108,8 @@
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:54</note>
         <note category="location">src/app/fragebogen/home/home.component.html:55</note>
+        <note category="location">src/app/static/start/start.component.html:273</note>
         <note category="location">src/app/static/start/start.component.html:274</note>
-        <note category="location">src/app/static/start/start.component.html:275</note>
       </notes>
       <segment>
         <source>PIN absenden</source>
@@ -6115,7 +6118,7 @@
     <unit id="7567341863769679266">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:69</note>
-        <note category="location">src/app/static/start/start.component.html:289</note>
+        <note category="location">src/app/static/start/start.component.html:288</note>
       </notes>
       <segment>
         <source>Die PIN absenden</source>
@@ -6453,7 +6456,7 @@ Grundstückswerte in Niedersachsen</source>
     <unit id="2295421029143589974">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:2</note>
-        <note category="location">src/app/static/start/start.component.html:205</note>
+        <note category="location">src/app/static/start/start.component.html:204</note>
       </notes>
       <segment>
         <source>Niedersächsischer Immobilienpreisindex</source>
@@ -7385,7 +7388,7 @@ Grundstückswerte in Niedersachsen</source>
         <note category="location">src/app/static/start/start.component.html:24</note>
         <note category="location">src/app/static/start/start.component.html:45</note>
         <note category="location">src/app/static/start/start.component.html:66</note>
-        <note category="location">src/app/static/start/start.component.html:86</note>
+        <note category="location">src/app/static/start/start.component.html:87</note>
       </notes>
       <segment>
         <source>Zur Anwendung</source>
@@ -7395,8 +7398,8 @@ Grundstückswerte in Niedersachsen</source>
       <notes>
         <note category="location">src/app/static/start/start.component.html:52</note>
         <note category="location">src/app/static/start/start.component.html:61</note>
-        <note category="location">src/app/static/start/start.component.html:219</note>
-        <note category="location">src/app/static/start/start.component.html:226</note>
+        <note category="location">src/app/static/start/start.component.html:218</note>
+        <note category="location">src/app/static/start/start.component.html:225</note>
       </notes>
       <segment>
         <source>Immobilienpreisindex</source>
@@ -7404,8 +7407,8 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="8668899295247471129">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:81</note>
-        <note category="location">src/app/static/start/start.component.html:245</note>
+        <note category="location">src/app/static/start/start.component.html:82</note>
+        <note category="location">src/app/static/start/start.component.html:244</note>
       </notes>
       <segment>
         <source>Online Formular Service</source>
@@ -7413,31 +7416,31 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="2140288706597415247">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:101</note>
+        <note category="location">src/app/static/start/start.component.html:103</note>
       </notes>
       <segment>
         <source>Fehler oder Vorschlag einreichen</source>
       </segment>
     </unit>
+    <unit id="66507597229627698">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:104</note>
+      </notes>
+      <segment>
+        <source>Wir schätzen Ihr Feedback sehr, bitte helfen Sie uns unseren Service zu verbessern!</source>
+      </segment>
+    </unit>
     <unit id="8958542581152290460">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:106</note>
+        <note category="location">src/app/static/start/start.component.html:108</note>
       </notes>
       <segment>
         <source>Zum Feedback</source>
       </segment>
     </unit>
-    <unit id="6506485443733430601">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:121,122</note>
-      </notes>
-      <segment>
-        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span style=&quot;color: #343a40;&quot;&gt;" dispEnd="&lt;/span&gt;">BORIS</pc><pc id="1" equivStart="START_TAG_SPAN_1" equivEnd="CLOSE_TAG_SPAN_1" type="other" dispStart="&lt;span style=&quot;color: #c4153a;&quot;&gt;">.NI</pc></source>
-      </segment>
-    </unit>
     <unit id="2078906062700177291">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:126</note>
+        <note category="location">src/app/static/start/start.component.html:127</note>
       </notes>
       <segment>
         <source>Bodenrichtwertinformationssystem Niedersachsen</source>
@@ -7445,19 +7448,11 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="1041084297473454291">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:128,131</note>
+        <note category="location">src/app/static/start/start.component.html:129,132</note>
         <note category="location">src/app/static/start/start.component.html:167,170</note>
       </notes>
       <segment>
         <source>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen und Bremen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft in Niedersachsen, Bremen und Bremerhaven zur Verfügung.</source>
-      </segment>
-    </unit>
-    <unit id="4071288484845257437">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:160,161</note>
-      </notes>
-      <segment>
-        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span style=&quot;color: #343a40;&quot;&gt;" dispEnd="&lt;/span&gt;">BOWERT</pc><pc id="1" equivStart="START_TAG_SPAN_1" equivEnd="CLOSE_TAG_SPAN_1" type="other" dispStart="&lt;span style=&quot;color: #c4153a;&quot;&gt;">.NI</pc></source>
       </segment>
     </unit>
     <unit id="5319420567311553817">
@@ -7468,33 +7463,17 @@ Grundstückswerte in Niedersachsen</source>
         <source>Bodenwertkalkulator Niedersachsen</source>
       </segment>
     </unit>
-    <unit id="421058201903730999">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:200,201</note>
-      </notes>
-      <segment>
-        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span style=&quot;color: #c4153a;&quot;&gt;" dispEnd="&lt;/span&gt;">NI</pc><pc id="1" equivStart="START_TAG_SPAN_1" equivEnd="CLOSE_TAG_SPAN_1" type="other" dispStart="&lt;span style=&quot;color: #343a40;&quot;&gt;">PIX</pc></source>
-      </segment>
-    </unit>
     <unit id="2037290745254253445">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:207,211</note>
+        <note category="location">src/app/static/start/start.component.html:206,210</note>
       </notes>
       <segment>
         <source>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</source>
       </segment>
     </unit>
-    <unit id="4847738171833396199">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:241</note>
-      </notes>
-      <segment>
-        <source><pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span style=&quot;color: #343a40;&quot;&gt;" dispEnd="&lt;/span&gt;">Formulare</pc></source>
-      </segment>
-    </unit>
     <unit id="4022690065871451230">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:247,249</note>
+        <note category="location">src/app/static/start/start.component.html:246,248</note>
       </notes>
       <segment>
         <source>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.</source>
