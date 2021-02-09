@@ -619,8 +619,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
         }
 
-        // this.repaintMap();
-
         this.changeURL();
     }
 
