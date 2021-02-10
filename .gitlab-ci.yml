@@ -279,7 +279,6 @@ test:kube-linter-dev:
     - merge_requests
     - tags
     - dev
-  allow_failure: true
 
 test:kube-linter-staging:
   stage: test
