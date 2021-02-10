@@ -1,7 +1,7 @@
-image: docker:latest
+image: docker:19
 
 services:
-  - docker:dind
+  - docker:19-dind
 
 stages:
   - init
@@ -352,6 +352,7 @@ package:development:
     - build
   cache: {}
   script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker build --pull -t "$CI_REGISTRY_IMAGE:latest" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
     - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
@@ -369,6 +370,7 @@ package:staging:
     name: staging
   }
   script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker build --pull -t "$CI_REGISTRY_IMAGE:staging" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
     - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
@@ -386,6 +388,7 @@ package:production:
     name: production
   }
   script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     - docker build --pull -t "$CI_REGISTRY_IMAGE:production" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
     - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:production"
