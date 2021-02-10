@@ -603,12 +603,12 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         }
 
         // ease to zoom lvl
-        if (teilmarkt.viewValue === 'Bauland') {
+        if (teilmarkt.viewValue === 'Bauland' && this.marker.getLngLat()) {
             this.map.easeTo({
                 zoom: 14,
                 center: this.marker.getLngLat()
             });
-        } else {
+        } else if (this.marker.getLngLat()) {
             this.map.easeTo({
                 zoom: 11,
                 center: this.marker.getLngLat()
