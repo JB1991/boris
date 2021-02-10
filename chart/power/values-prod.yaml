@@ -45,7 +45,7 @@ ingress:
     konghq.com/override: power-https-redirect
     konghq.com/plugins: power-rate-limiting-by-ip,power-cors
   hosts:
-    - host: prod.power-production-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+    - host: prod.power-production-65655d4c73bf47a3300821aa2939abf4-0000.eu-de.containers.appdomain.cloud
       paths:
         - path: /
           serviceName: power
@@ -56,9 +56,9 @@ ingress:
           serviceName: power
           servicePort: 80
   tls:
-    - secretName: power-production-65655d4c73bf47a3300821aa2939abf4-0001
+    - secretName: power-production-65655d4c73bf47a3300821aa2939abf4-0000
       hosts:
-        - prod.power-production-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+        - prod.power-production-65655d4c73bf47a3300821aa2939abf4-0000.eu-de.containers.appdomain.cloud
     - secretName: sub-lgln-niedersachsen-de
       hosts:
         - power.lgln.niedersachsen.de
@@ -85,7 +85,6 @@ config:
   modules:
     - "immobilienpreisindex"
     - "bodenrichtwerte"
-    - "bodenwertkalkulator"
     - "immobilienpreiskalkulator"
     - "grundstuecksmarktdaten"
     - "feedback"
