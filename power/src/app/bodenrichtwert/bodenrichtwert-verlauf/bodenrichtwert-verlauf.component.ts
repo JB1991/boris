@@ -184,7 +184,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.getVergSeries(seriesArray[0]).forEach(element => {
                 seriesArray.push(element);
             });
-            seriesArray[0] = this.deleteSeriesVergItems(seriesArray[0]);
+            this.deleteSeriesVergItems(seriesArray[0]);
 
             let label;
             seriesArray.forEach((series) => {
@@ -234,7 +234,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         };
         defaultVerg.forEach(verg => {
             seriesVergValues = this.deepCopy(this.seriesTemplate);
-            let seriesIncludesVerf = series.find(element => element.verg === verg && (element.verf === 'SU' || element.verf === 'EU' ||
+            const seriesIncludesVerf = series.find(element => element.verg === verg && (element.verf === 'SU' || element.verf === 'EU' ||
                 element.verf === 'SB' || element.verf === 'EB'));
             if (seriesIncludesVerf) {
                 defaultVerf.forEach(verf => {
@@ -377,7 +377,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             name: label,
             type: 'line',
             step: 'end',
-            // color: seriesColor,
             symbolSize: function (value) {
                 if (typeof (value) === 'string') {
                     return 0;
@@ -434,18 +433,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             },
         };
         this.chartOption.grid.top = '15%';
-    }
-
-    getSeriesColor(series) {
-        let nutzung: any;
-        for (let i = 0; i < series.length; i++) {
-            if (series[i].nutzung !== '') {
-                nutzung = series[i].nutzung;
-                break;
-            }
-        }
-        const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
-        return this.chartOption.series[idx].color;
     }
 
     generateSrTable(label, series) {
