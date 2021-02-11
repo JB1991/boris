@@ -356,6 +356,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     series[i].verg = null;
                     series[i].verf = null;
                     series[i].brw = (series[i].brw).toString();
+                    series[i].forwarded = true;
                     break;
                 }
             }
