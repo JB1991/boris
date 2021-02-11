@@ -165,7 +165,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     generateChart(features: Array<any>): void {
         // grouped by Nutzungsart
-        let groupedByProperty: Map<Array<any>, any> = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+        let groupedByProperty: Map<Array<any>, any> =
+            this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         for (const [key, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
                 const valuesFiltered = value.filter(item => item.properties.stag.substring(0, 4) === seriesTuple.stag);
