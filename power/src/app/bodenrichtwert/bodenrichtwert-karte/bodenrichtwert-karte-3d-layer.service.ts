@@ -178,20 +178,23 @@ export class BodenrichtwertKarte3dLayerService {
             layerNames = this.layerNamesLF;
             sourceName = 'landwirtschaftSource';
         }
-
         // query features with display value
         const ftsDisplay = map.queryRenderedFeatures(null, { layers: layerNames }).filter(f =>
             f.properties.objektidentifikator === id
         );
 
         // random ft props (all have the same display value!)
-        const props = ftsDisplay[0].properties;
+        const props = ftsDisplay[0]?.properties;
 
         this.labelLayer.source = sourceName;
         this.labelLayer.paint['text-color'] = teilmarkt.color;
-        this.labelLayer.layout['text-field'] = props.display;
         this.labelLayer.layout['text-allow-overlap'] = true;
-        this.labelLayer.filter = ['==', 'objektidentifikator', props.objektidentifikator];
+
+        // temporary fix for not rendered features
+        if (props) {
+            this.labelLayer.filter = ['==', 'objektidentifikator', props.objektidentifikator];
+            this.labelLayer.layout['text-field'] = props.display;
+        }
 
         map.addLayer(this.labelLayer);
     }
