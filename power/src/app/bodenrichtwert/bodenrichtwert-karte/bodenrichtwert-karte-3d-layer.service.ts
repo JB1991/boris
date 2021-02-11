@@ -4,10 +4,10 @@ import { FeatureCollection } from 'geojson';
 import { FillExtrusionLayer, Map, SymbolLayer } from 'mapbox-gl';
 
 export interface ExtrusionLayerOptions {
-    extrusionHeight: number
-    gapHeight: number
-    maxZoom: number
-    minZoom: number
+    extrusionHeight: number;
+    gapHeight: number;
+    maxZoom: number;
+    minZoom: number;
 }
 
 @Injectable({
@@ -33,7 +33,7 @@ export class BodenrichtwertKarte3dLayerService {
         gapHeight: 25,
         minZoom: 11,
         maxZoom: 15
-    }
+    };
 
     // landwirtschaftOptions contains the display options for the landwirtschaft extrustion layer
     public landwirtschaftOptions: ExtrusionLayerOptions = {
@@ -41,7 +41,7 @@ export class BodenrichtwertKarte3dLayerService {
         gapHeight: 100,
         minZoom: 10,
         maxZoom: 13
-    }
+    };
 
     // extrusionLayer template for the extrusion layers
     public extrusionLayer: FillExtrusionLayer = {
@@ -64,7 +64,7 @@ export class BodenrichtwertKarte3dLayerService {
     };
 
     // unique 3d label layer id
-    public labelId: string = '3d-label-layer';
+    public labelId = '3d-label-layer';
 
     // labelLayer template to put the label on of the 3d layers
     public labelLayer: SymbolLayer = {
@@ -103,7 +103,7 @@ export class BodenrichtwertKarte3dLayerService {
      * add3dLayer adds layers for specific feature collection and stichtag
      * @param fts features
      * @param map map
-     * @param stichtag stichtag 
+     * @param stichtag stichtag
      */
     // tslint:disable-next-line: max-func-body-length
     public add3dLayer(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: any) {
@@ -163,7 +163,7 @@ export class BodenrichtwertKarte3dLayerService {
      * add3dLabel adds a label for the currently active 3d layer
      * @param id id of the 3d feature
      * @param map map
-     * @param stichtag stichtag 
+     * @param stichtag stichtag
      * @param teilmarkt teilmarkt
      */
     public add3dLabel(id: string, map: Map, stichtag: string, teilmarkt: any) {
@@ -200,7 +200,7 @@ export class BodenrichtwertKarte3dLayerService {
      * remove3dLayer removes layers for a specific feature collection and stichtag
      * @param fts features
      * @param map map
-     * @param stichtag stichtag 
+     * @param stichtag stichtag
      */
     public remove3dLayer(fts: FeatureCollection, map: Map, stichtag: string) {
         this.active3dLayer = false;
@@ -232,9 +232,9 @@ export class BodenrichtwertKarte3dLayerService {
 
     /**
      * onRotate updates the opacity of 3d layers depending on the rotation angle/pitch
-     * @param collection 
-     * @param map 
-     * @param stichtag 
+     * @param collection collection with selected features
+     * @param map map
+     * @param stichtag stichtag
      */
     public onRotate(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: any) {
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
