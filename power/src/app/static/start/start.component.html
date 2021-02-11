@@ -74,7 +74,8 @@
                      class="carousel-image">
                 <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
                     <h2>
-                        <span style="color: #343a40;">Formulare</span>
+                        <span style="color: #343a40;"
+                              i18n>Formulare</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
@@ -94,12 +95,13 @@
                      class="carousel-image">
                 <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
                     <h2>
-                        <span style="color: #343a40;">Feedback</span>
+                        <span style="color: #343a40;"
+                              i18n>Feedback</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Fehler oder Vorschlag einreichen</h3>
-                        <p>Wir schätzen Ihr Feedback sehr, bitte helfen Sie uns unseren Service zu verbessern!</p>
+                        <p i18n>Wir schätzen Ihr Feedback sehr, bitte helfen Sie uns unseren Service zu verbessern!</p>
                         <a class="btn btn-primary"
                            [routerLink]="['/feedback']"
                            role="button"
@@ -116,8 +118,7 @@
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('bodenrichtwerte')">
                 <a class="h2"
-                   [routerLink]="['/bodenrichtwerte']"
-                   i18n>
+                   [routerLink]="['/bodenrichtwerte']">
                     <span style="color: #343a40;">BORIS</span>
                     <span style="color: #c4153a;">.NI</span>
                 </a>
@@ -155,8 +156,7 @@
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('bodenwertkalkulator')">
                 <a class="h2"
-                   [routerLink]="['/bodenwertkalkulator']"
-                   i18n>
+                   [routerLink]="['/bodenwertkalkulator']">
                     <span style="color: #343a40;">BOWERT</span>
                     <span style="color: #c4153a;">.NI</span>
                 </a>
@@ -195,8 +195,7 @@
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('immobilienpreisindex')">
                 <a class="h2"
-                   [routerLink]="['/immobilienpreisindex']"
-                   i18n>
+                   [routerLink]="['/immobilienpreisindex']">
                     <span style="color: #c4153a;">NI</span>
                     <span style="color: #343a40;">PIX</span>
                 </a>
@@ -236,9 +235,9 @@
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('forms')">
                 <a class="h2"
-                   [routerLink]="['/forms']"
-                   i18n>
-                    <span style="color: #343a40;">Formulare</span>
+                   [routerLink]="['/forms']">
+                    <span style="color: #343a40;"
+                          i18n>Formulare</span>
                 </a>
                 <div class="lead">
                     <h3 class="h5 text-break"

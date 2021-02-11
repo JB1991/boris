@@ -1,14 +1,13 @@
-image: docker:stable
+image: docker:19
 
 services:
-  - docker:stable-dind
+  - docker:19-dind
 
 stages:
   - init
   - test
   - build
   - package
-  - scan
   - deploy
 
 cache: &global_cache
@@ -20,6 +19,7 @@ cache: &global_cache
 install:
   stage: init
   image: node:lts-alpine
+  needs: []
   dependencies: []
   cache:
     <<: *global_cache
@@ -27,6 +27,7 @@ install:
     # install node modules
     - cd power
     - npm ci
+    - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json -p es2015
   only:
     - merge_requests
     - tags
@@ -34,24 +35,75 @@ install:
     - staging
     - production
 
+init:helm-dev:
+  stage: init
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: []
+  dependencies: []
+  cache: {}
+  artifacts:
+    name: "manifest"
+    expire_in: 2 days
+    paths:
+      - manifest-dev
+  script:
+    - helm template power ./chart/power -f ./chart/power/values-dev.yaml --dependency-update --output-dir manifest-dev
+  only:
+    - merge_requests
+    - tags
+    - dev
+
+init:helm-staging:
+  stage: init
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: []
+  dependencies: []
+  cache: {}
+  artifacts:
+    name: "manifest"
+    expire_in: 2 days
+    paths:
+      - manifest-staging
+  script:
+    - helm template power ./chart/power -f ./chart/power/values-staging.yaml --dependency-update --output-dir manifest-staging
+  only:
+    - staging
+
+init:helm-production:
+  stage: init
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: []
+  dependencies: []
+  cache: {}
+  artifacts:
+    name: "manifest"
+    expire_in: 2 days
+    paths:
+      - manifest-production
+  script:
+    - helm template power ./chart/power -f ./chart/power/values-production.yaml --dependency-update --output-dir manifest-production
+  only:
+    - production
+
 test:karma:
   stage: test
   image: trion/ng-cli-karma:latest
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  script:
-    # Run Karma tests
-    - cd power
-    - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
-  coverage: '/Lines \W+: (\d+\.\d+)%.*/'
   artifacts:
     expire_in: 2 weeks
     reports:
       junit: power/output/junit_karma.xml
     paths:
       - power/output/junit_karma.xml
+  coverage: '/Lines \W+: (\d+\.\d+)%.*/'
+  script:
+    # Run Karma tests
+    - cd power
+    - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   only:
     - merge_requests
     - tags
@@ -62,20 +114,21 @@ test:karma:
 test:e2e:
   stage: test
   image: trion/ng-cli-e2e:latest
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
-  script:
-    # Run E2E tests
-    - cd power
-    - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   artifacts:
     expire_in: 2 weeks
     reports:
       junit: power/output/junit_e2e.xml
     paths:
       - power/output/junit_e2e.xml
+  script:
+    # Run E2E tests
+    - cd power
+    - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   only:
     - merge_requests
     - tags
@@ -87,10 +140,9 @@ test:e2e:
 test:audit:
   stage: test
   image: node:lts-alpine
+  needs: []
   dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
   script:
     - cd power
     - npm audit
@@ -105,6 +157,7 @@ test:audit:
 test:lint:
   stage: test
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -122,6 +175,7 @@ test:lint:
 test:lint-html:
   stage: test
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -139,6 +193,7 @@ test:lint-html:
 test:lint-styles:
   stage: test
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -155,7 +210,8 @@ test:lint-styles:
 
 test:helm-dry-run:
   stage: test
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: []
   dependencies: []
   cache: {}
   script:
@@ -169,26 +225,89 @@ test:helm-dry-run:
     - staging
     - production
 
-test:helm-kubesec:
+test:kubesec-dev:
   stage: test
-  image: dtzar/helm-kubectl:latest
-  dependencies: []
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["init:helm-dev"]
+  dependencies:
+    - init:helm-dev
   cache: {}
   script:
-    - wget https://github.com/controlplaneio/kubesec/releases/download/v2.8.0/kubesec_linux_amd64.tar.gz
-    - tar xf kubesec_linux_amd64.tar.gz
-    - helm template power ./chart/power -f ./chart/power/values-dev.yaml | ./kubesec scan -
+    - cat manifest-dev/power/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-dev/power/templates/*.yaml | kubesec-check.sh -
   only:
     - merge_requests
     - tags
     - dev
+
+test:kubesec-staging:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["init:helm-staging"]
+  dependencies:
+    - init:helm-staging
+  cache: {}
+  script:
+    - cat manifest-staging/power/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-staging/power/templates/*.yaml | kubesec-check.sh -
+  only:
     - staging
+
+test:kubesec-production:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["init:helm-production"]
+  dependencies:
+    - init:helm-production
+  cache: {}
+  script:
+    - cat manifest-production/power/templates/*.yaml | kubesec-scan.sh -
+    - cat manifest-production/power/templates/*.yaml | kubesec-check.sh -
+  only:
     - production
-  allow_failure: true
+
+test:kube-linter-dev:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["init:helm-dev"]
+  dependencies:
+    - init:helm-dev
+  cache: {}
+  script:
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-dev/power/templates/*.yaml
+  only:
+    - merge_requests
+    - tags
+    - dev
+
+test:kube-linter-staging:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["init:helm-staging"]
+  dependencies:
+    - init:helm-staging
+  cache: {}
+  script:
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-staging/power/templates/*.yaml
+  only:
+    - staging
+
+test:kube-linter-production:
+  stage: test
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["init:helm-production"]
+  dependencies:
+    - init:helm-production
+  cache: {}
+  script:
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-production/power/templates/*.yaml
+  only:
+    - production
 
 build:
   stage: build
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -207,9 +326,10 @@ build:
     - dev
     - staging
 
-build:prod:
+build:production:
   stage: build
   image: node:lts-alpine
+  needs: ["install"]
   dependencies: []
   cache:
     <<: *global_cache
@@ -225,41 +345,62 @@ build:prod:
   only:
     - production
 
-package:
+package:development:
   stage: package
-  image: docker:stable
+  image: de.icr.io/lgln/kube-tools:latest
   dependencies:
     - build
-    - build:prod
   cache: {}
   script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:latest" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
+    - docker push "$CI_REGISTRY_IMAGE:latest"
   only:
     - dev
-    - staging
-    - production
 
-scan:trivy:
-  stage: scan
-  image: docker:stable
-  dependencies: []
+package:staging:
+  stage: package
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies:
+    - build
   cache: {}
+  environment: {
+    name: staging
+  }
   script:
-    - wget https://github.com/aquasecurity/trivy/releases/download/v0.15.0/trivy_0.15.0_Linux-64bit.tar.gz
-    - tar xf trivy_0.15.0_Linux-64bit.tar.gz
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-    - docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
-    - ./trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:staging" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
+    - docker push "$CI_REGISTRY_IMAGE:staging"
   only:
-    - dev
     - staging
+
+package:production:
+  stage: package
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies:
+    - build:production
+  cache: {}
+  environment: {
+    name: production
+  }
+  script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:production" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:production"
+    - docker push "$CI_REGISTRY_IMAGE:production"
+  only:
     - production
+  when: manual
 
 deploy:development:
   stage: deploy
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["package:development"]
   dependencies: []
   cache: {}
   script:
@@ -267,37 +408,42 @@ deploy:development:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
+    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
   only:
     - dev
 
 deploy:staging:
   stage: deploy
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["package:staging"]
   dependencies: []
   cache: {}
-  environment: staging
+  environment: {
+    name: staging
+  }
   script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA"
+    - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install
   only:
     - staging
 
 deploy:production:
   stage: deploy
-  image: dtzar/helm-kubectl:latest
+  image: de.icr.io/lgln/kube-tools:latest
+  needs: ["package:production"]
   dependencies: []
   cache: {}
-  environment: production
+  environment: {
+    name: production
+  }
   script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-prod.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --set replicaCount=1
+    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-prod.yaml --install --set replicaCount=1
   only:
     - production
-  when: manual
