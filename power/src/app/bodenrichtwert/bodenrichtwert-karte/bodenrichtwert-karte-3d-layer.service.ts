@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SimpleChange } from '@angular/core';
 import { FeatureCollection } from 'geojson';
-import { options } from 'knockout';
-import { FillExtrusionLayer } from 'mapbox-gl';
+import { FillExtrusionLayer, Map, SymbolLayer } from 'mapbox-gl';
 
 export interface ExtrusionLayerOptions {
     extrusionHeight: number
@@ -15,6 +14,12 @@ export interface ExtrusionLayerOptions {
     providedIn: 'root'
 })
 export class BodenrichtwertKarte3dLayerService {
+
+    // layerNames bauland
+    public layerNamesB = ['bauland', 'bauland_bremen'];
+
+    // layerNames landwirtschaft
+    public layerNamesLF = ['landwirtschaft', 'landwirtschaft_bremen'];
 
     // active3dLayer contains the current 3d layer state
     public active3dLayer: boolean;
@@ -57,20 +62,39 @@ export class BodenrichtwertKarte3dLayerService {
             'fill-extrusion-opacity': 0
         }
     };
+
+    // unique 3d label layer id
+    public labelId: string = '3d-label-layer';
+
+    // labelLayer template to put the label on of the 3d layers
+    public labelLayer: SymbolLayer = {
+        'id': this.labelId,
+        'type': 'symbol',
+        'source': '',
+        'paint': {
+            'text-halo-color': '#fff',
+            'text-halo-width': 2,
+            'text-halo-blur': 2
+        },
+        'layout': {
+            'visibility': 'visible',
+            'text-max-width': 0
+        }
+    };
     constructor() { }
 
     /**
      * onFeaturesChange removes Layers depending on whether a previous feature exists or not
      * and adds Layer depending on whether the rotation angle/pitch is > minPitch
      */
-    public onFeaturesChange(fts: SimpleChange, map: any, stichtag: Date, teilmarkt: any) {
+    public onFeaturesChange(fts: SimpleChange, map: Map, stichtag: string, teilmarkt: any) {
         const previousFeatures = fts.previousValue;
         const currentFeatures = fts.currentValue;
 
-        if (previousFeatures && this.active3dLayer) {
+        if (previousFeatures?.features.length && this.active3dLayer) {
             this.remove3dLayer(previousFeatures, map, stichtag);
         }
-        if (currentFeatures && map.getPitch() > this.minPitch) {
+        if (currentFeatures?.features.length && map.getPitch() > this.minPitch) {
             this.add3dLayer(currentFeatures, map, stichtag, teilmarkt);
         }
     }
@@ -82,10 +106,10 @@ export class BodenrichtwertKarte3dLayerService {
      * @param stichtag stichtag 
      */
     // tslint:disable-next-line: max-func-body-length
-    public add3dLayer(fts: FeatureCollection, map, stichtag: any, teilmarkt: any) {
+    public add3dLayer(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: any) {
         this.active3dLayer = true;
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
-        const opacity = this.getOpacityByRotation(map);
+        const opacity = this.getOpacityByRotation(map, 0.6);
 
         let opt: ExtrusionLayerOptions;
         if (teilmarkt.value.includes('B')) {
@@ -94,9 +118,12 @@ export class BodenrichtwertKarte3dLayerService {
             opt = this.landwirtschaftOptions;
         }
 
+        let ftId: string;
+
         filteredFts.forEach((ft, i) => {
             const id = ft.properties.objectid;
             const layerId = id.toString();
+            ftId = ft.properties.objektidentifikator.toString();
 
             const height = opt.extrusionHeight * (i + 1);
 
@@ -128,6 +155,45 @@ export class BodenrichtwertKarte3dLayerService {
             map.addLayer(this.extrusionLayer);
             map.addLayer(this.gapLayer);
         });
+        // set new label on top
+        this.add3dLabel(ftId, map, stichtag, teilmarkt);
+    }
+
+    /**
+     * add3dLabel adds a label for the currently active 3d layer
+     * @param id id of the 3d feature
+     * @param map map
+     * @param stichtag stichtag 
+     * @param teilmarkt teilmarkt
+     */
+    public add3dLabel(id: string, map: Map, stichtag: string, teilmarkt: any) {
+        let layerNames: string[];
+        let sourceName: string;
+
+        // handle different teilmärkte
+        if (teilmarkt.value.includes('B')) {
+            layerNames = this.layerNamesB;
+            sourceName = 'baulandSource';
+        } else {
+            layerNames = this.layerNamesLF;
+            sourceName = 'landwirtschaftSource';
+        }
+
+        // query features with display value
+        const ftsDisplay = map.queryRenderedFeatures(null, { layers: layerNames }).filter(f =>
+            f.properties.objektidentifikator === id
+        );
+
+        // random ft props (all have the same display value!)
+        const props = ftsDisplay[0].properties;
+
+        this.labelLayer.source = sourceName;
+        this.labelLayer.paint['text-color'] = teilmarkt.color;
+        this.labelLayer.layout['text-field'] = props.display;
+        this.labelLayer.layout['text-allow-overlap'] = true;
+        this.labelLayer.filter = ['==', 'objektidentifikator', props.objektidentifikator];
+
+        map.addLayer(this.labelLayer);
     }
 
     /**
@@ -136,7 +202,7 @@ export class BodenrichtwertKarte3dLayerService {
      * @param map map
      * @param stichtag stichtag 
      */
-    public remove3dLayer(fts: FeatureCollection, map, stichtag: any) {
+    public remove3dLayer(fts: FeatureCollection, map: Map, stichtag: string) {
         this.active3dLayer = false;
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
 
@@ -146,6 +212,7 @@ export class BodenrichtwertKarte3dLayerService {
             map.removeLayer(layerId);
             map.removeLayer(layerId + 'hidden');
         });
+        map.removeLayer(this.labelId);
     }
 
     /**
@@ -153,12 +220,12 @@ export class BodenrichtwertKarte3dLayerService {
      * @param features features
      * @param stichtag stichtag
      */
-    public filterCollectionByStag(fts: any, stichtag: string) {
-        // console.log(fts);
+    public filterCollectionByStag(fts: FeatureCollection, stichtag: string) {
         if (fts) {
             const filteredFts = fts.features.filter(ft =>
                 ft.properties.stag.substr(0, 10) === stichtag
             );
+            // console.log(filteredFts);
             return filteredFts;
         }
     }
@@ -169,18 +236,21 @@ export class BodenrichtwertKarte3dLayerService {
      * @param map 
      * @param stichtag 
      */
-    public onRotate(fts: FeatureCollection, map, stichtag, teilmarkt: any) {
+    public onRotate(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: any) {
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
 
-        const opacity = this.getOpacityByRotation(map);
+        const opacityLayer = this.getOpacityByRotation(map, 0.6);
+        const opacityLabel = this.getOpacityByRotation(map, 1.0);
 
         // update opacity for filtered features if layer exists
         // otherwise create layer first
         if (this.active3dLayer) {
             filteredFts.forEach(ft => {
-                map.setPaintProperty(ft.properties.objectid, 'fill-extrusion-opacity', opacity);
+                map.setPaintProperty(ft.properties.objectid, 'fill-extrusion-opacity', opacityLayer);
             });
-        } else {
+            // set opacity for label layer
+            map.setPaintProperty(this.labelId, 'text-opacity', opacityLabel);
+        } else if (fts.features.length) {
             this.active3dLayer = true;
             this.add3dLayer(fts, map, stichtag, teilmarkt);
         }
@@ -191,10 +261,10 @@ export class BodenrichtwertKarte3dLayerService {
      * The opacity is calculated depending on the current rotation angle/pitch of the map
      * @param map map object
      */
-    public getOpacityByRotation(map): number {
+    public getOpacityByRotation(map: Map, maxOpacity: number): number {
         let opacity: number;
-        if (map.getPitch() > 20) {
-            opacity = 0.6 / 60 * map.getPitch();
+        if (map.getPitch() > this.minPitch) {
+            opacity = maxOpacity / 60 * map.getPitch();
         } else {
             opacity = 0;
         }
