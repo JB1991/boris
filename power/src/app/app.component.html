@@ -77,12 +77,12 @@
                            rel="noopener noreferrer nofollow"
                            i18n>Grundstücksmarktdaten</a>
 
-			<a class="dropdown-item"
-			   *ngIf="config.modules.includes('gmb')"
-			   (click)="isCollapsed = true; isCollapsedBRW = true"
-			   [routerLink]="['/gmb']"
-			   routerLinkActive="active"
-			   i18n>Grundstücksmarktberichte (Archiv)</a>
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('gmb')"
+                           (click)="isCollapsed = true; isCollapsedBRW = true"
+                           [routerLink]="['/gmb']"
+                           routerLinkActive="active"
+                           i18n>Grundstücksmarktberichte (Archiv)</a>
 
                     </div>
                 </li>
@@ -382,21 +382,19 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 p-1 m-0">
                     <h5 id="languages"
-                        aria-label="Sprachauswahl"
-                        i18n-aria-label
-                        i18n>Sprache</h5>
+                        title="Sprachauswahl"
+                        i18n
+                        i18n-title>Sprache</h5>
                     <ul class="list-unstyled text-small">
                         <li class="my-1">
                             <a href="{{ baseurl }}"
                                class="footer-link"
-                               rel="noopener"
-                               aria-labelledby="languages">Deutsch</a>
+                               rel="noopener">Deutsch</a>
                         </li>
                         <li class="my-1">
                             <a href="/en{{ baseurl }}"
                                class="footer-link"
-                               rel="noopener"
-                               aria-labelledby="languages">English</a>
+                               rel="noopener">English</a>
                         </li>
                     </ul>
                 </div>

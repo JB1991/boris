@@ -77,6 +77,8 @@
         <button *ngIf="adresse || features"
                 class="col-lg-1 btn d-none d-lg-block d-xxl-block p-0 border-left border-bottom"
                 type="button"
+                title="Detailansicht ein- bzw. ausklappen"
+                i18n-title
                 (click)="isCollapsed = !isCollapsed"
                 [attr.aria-expanded]="!isCollapsed"
                 aria-controls="collapseBasic">
@@ -94,8 +96,11 @@
                     <h5 class="m-3 mx-center"
                         i18n>Wählen Sie eine Position</h5>
                 </div>
-                <button class="btn d-lg-none d-xxl-none col-md-2 m-0 p-0"
+                <button *ngIf="adresse || features"
+                        class="btn d-lg-none d-xxl-none col-md-2 m-0 p-0"
                         type="button"
+                        title="Detailansicht ein- bzw. ausklappen"
+                        i18n-title
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseBasic">
