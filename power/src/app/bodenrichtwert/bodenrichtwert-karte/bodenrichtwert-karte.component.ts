@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges, SimpleChange } from '@angular/core';
 import { Location } from '@angular/common';
 import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
+import { BodenrichtwertKarte3dLayerService } from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-3d-layer.service';
 import { environment } from '@env/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -61,6 +62,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     public isDragged = false;
     public zoomFactor: number;
+
+    public baulandColorPalette = ['#794c74', '#c56183', '#fadcaa', '#b2deec'];
 
     public baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 
@@ -165,10 +168,13 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     private fskIsChanged: boolean;
 
+    public previousFeatures: FeatureCollection;
+
     public resetMapFired = false;
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
+        public bodenrichtwert3DLayer: BodenrichtwertKarte3dLayerService,
         public geosearchService: GeosearchService,
         public alkisWfsService: AlkisWfsService,
         private route: ActivatedRoute,
@@ -199,8 +205,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.fskIsChanged = !this.fskIsChanged;
             }
         }
-        if (changes.features && changes.features?.currentValue === undefined && this.map) {
-            this.map.resize();
+        if (changes.features && !changes.features.firstChange) {
+            this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
         }
     }
 
@@ -361,6 +367,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.flyTo(this.lat, this.lng);
             this.changeURL();
         }
+    }
+
+    public onRotate() {
+        this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
     }
 
     doNotDisplay = [
