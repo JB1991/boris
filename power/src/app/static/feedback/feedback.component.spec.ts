@@ -41,5 +41,24 @@ describe('Static.Feedback.FeedbackComponent', () => {
         expect(document.body.innerHTML)
             .toContain('incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com');
     });
+
+    it('should search without email', () => {
+        component.search = 'BORIS';
+        component.doSearch();
+        expect(component.search).toEqual('BORIS');
+
+        component.search = 'dagobert@duck.net';
+        component.doSearch();
+        expect(component.search).toEqual('');
+    });
+
+    it('should remove sensitive informations', () => {
+        expect(component.filterTitle('dagobert@duck.net')).toEqual('***@email');
+        expect(component.filterTitle('Hello Dagobert (dagobert@duck.net)!')).toEqual('Hello Dagobert (***@email)!');
+
+        expect(component.filterBody('dagobert@duck.net')).toEqual('***@email');
+        expect(component.filterBody('Hello Dagobert (dagobert@duck.net)!')).toEqual('Hello Dagobert (***@email)!');
+        expect(component.filterBody('+49 511 64609-146')).toEqual('***');
+    });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

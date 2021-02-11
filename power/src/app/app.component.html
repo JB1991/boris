@@ -5,24 +5,14 @@
            title="Zur Startseite"
            [routerLink]="['/']"
            style="color: #343a40;">
-            <img src="./assets/logos/logo.png"
+            <img src="./assets/logos/gag-mini.png"
                  class="mr-2 align-top"
                  aria-hidden="true"
                  height="25px"
                  i18n-alt
                  alt="LGLN Logo">
-            <strong class="d-none d-md-inline">
-                <span i18n>Portal für Wertermittlung</span>
-                <span style="color: #c4153a;"
-                      i18n>.niedersachsen</span>
-            </strong>
-            <strong class="d-none d-sm-inline d-md-none">
-                <span i18n>POWER</span>
-                <span style="color: #c4153a;"
-                      i18n>.niedersachsen</span>
-            </strong>
-            <strong class="d-inline d-sm-none">
-                <span i18n>POWER</span>
+            <strong class="d-inline">
+                <span i18n>Immobilienmarkt</span>
                 <span style="color: #c4153a;"
                       i18n>.NI</span>
             </strong>
@@ -32,14 +22,16 @@
                 style="border: none; padding-right: 0;"
                 type="button"
                 (click)="isCollapsed = !isCollapsed"
-                aria-label="Navigation umschalten">
+                aria-label="Navigation umschalten"
+                *ngIf="config.modules.length > 0">
             <span class="navbar-toggler-icon"
                   aria-hidden="true"></span>
         </button>
 
         <div class="collapse navbar-collapse"
              id="navbarToggler"
-             [ngbCollapse]="isCollapsed">
+             [ngbCollapse]="isCollapsed"
+             *ngIf="config.modules.length > 0">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown"
                     (click)="isCollapsedImmo = true; isCollapsedAcc = true;">
@@ -84,6 +76,14 @@
                            target="_blank"
                            rel="noopener noreferrer nofollow"
                            i18n>Grundstücksmarktdaten</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('gmb')"
+                           (click)="isCollapsed = true; isCollapsedBRW = true"
+                           [routerLink]="['/gmb']"
+                           routerLinkActive="active"
+                           i18n>Grundstücksmarktberichte (Archiv)</a>
+
                     </div>
                 </li>
 
@@ -209,7 +209,45 @@
     </nav>
 
     <div class="container my-4"
-         *ngIf="showPrintNotice">
+         *ngIf="showOfflineNotice && !hasInternet">
+        <alert type="danger"
+               role="alert">
+            <button i18n-aria-label
+                    aria-label="Schließen"
+                    i18n-title
+                    title="Schließen"
+                    class="close ng-star-inserted"
+                    type="button"
+                    (click)="showOfflineNotice = false;">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only"
+                      i18n>Alert schließen</span>
+            </button>
+            <span class="h4 alert-heading">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="1em"
+                     height="1em"
+                     fill="currentColor"
+                     class="bi bi-exclamation-triangle"
+                     viewBox="0 0 16 16"
+                     focusable="false"
+                     aria-hidden="true">
+                    <path
+                          d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                    <path
+                          d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+                </svg>
+                <span class="ml-2"
+                      i18n>Keine Internetverbindung</span>
+            </span>
+            <p class="m-0"
+               i18n>Die Funktionen dieser Anwendung erfordern eine aktive Internetverbindung. Bitte stellen Sie eine
+                Internetverbindung her, um unsere Dienste verwenden zu können.</p>
+        </alert>
+    </div>
+
+    <div class="container my-4"
+         *ngIf="showBrowserNotice">
         <alert type="warning"
                role="alert">
             <button i18n-aria-label
@@ -218,7 +256,7 @@
                     title="Schließen"
                     class="close ng-star-inserted"
                     type="button"
-                    (click)="showPrintNotice = false;">
+                    (click)="showBrowserNotice = false;">
                 <span aria-hidden="true">×</span>
                 <span class="sr-only"
                       i18n>Alert schließen</span>
@@ -320,45 +358,43 @@
                     <h5 i18n>Informationen</h5>
                     <ul class="list-unstyled text-small">
                         <li class="my-1">
-                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
+                            <a href="https://www.gag.niedersachsen.de/startseite/gutachterausschusse/impressum-88015.html"
                                class="footer-link"
                                target="_blank"
                                rel="noopener noreferrer nofollow"
                                i18n>Impressum</a>
                         </li>
                         <li class="my-1">
-                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html"
+                            <a href="https://www.gag.niedersachsen.de/startseite/service/datenschutzerklarung/datenschutz-im-lgln-138166.html"
                                class="footer-link"
                                target="_blank"
                                rel="noopener noreferrer nofollow"
                                i18n>Datenschutz</a>
                         </li>
                         <li class="my-1">
-                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html"
+                            <a href="https://www.gag.niedersachsen.de/startseite/grundstucksmarktberichte/nutzungsbedingungen/nutzungsbedingungen-fuer-bodenrichtwerte-88317.html"
                                class="footer-link"
                                target="_blank"
                                rel="noopener noreferrer nofollow"
-                               i18n>Allgemeine Geschäfts- und Nutzungsbedingungen</a>
+                               i18n>Nutzungsbedingungen</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 p-1 m-0">
                     <h5 id="languages"
-                        aria-label="Sprachauswahl"
-                        i18n-aria-label
-                        i18n>Sprache</h5>
+                        title="Sprachauswahl"
+                        i18n
+                        i18n-title>Sprache</h5>
                     <ul class="list-unstyled text-small">
                         <li class="my-1">
                             <a href="{{ baseurl }}"
                                class="footer-link"
-                               rel="noopener"
-                               aria-labelledby="languages">Deutsch</a>
+                               rel="noopener">Deutsch</a>
                         </li>
                         <li class="my-1">
                             <a href="/en{{ baseurl }}"
                                class="footer-link"
-                               rel="noopener"
-                               aria-labelledby="languages">English</a>
+                               rel="noopener">English</a>
                         </li>
                     </ul>
                 </div>

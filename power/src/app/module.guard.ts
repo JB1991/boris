@@ -25,7 +25,7 @@ export class ModuleGuard implements CanActivate {
         }
 
         // disabled
-        console.log('Module is disabled');
+        console.error('Module is disabled');
         this.router.navigate(['/'], { replaceUrl: true });
         return false;
     }

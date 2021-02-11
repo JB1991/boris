@@ -21,7 +21,7 @@ import { PreviewComponent } from '../surveyjs/preview/preview.component';
 @Component({
     selector: 'power-formulars-editor',
     templateUrl: './editor.component.html',
-    styleUrls: ['./editor.component.css'],
+    styleUrls: ['./editor.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
@@ -40,7 +40,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         public formapi: FormAPIService,
         public history: HistoryService,
         public cdr: ChangeDetectorRef) {
-        this.titleService.setTitle($localize`Formular Editor - POWER.NI`);
+        this.titleService.setTitle($localize`Formular Editor - Immobilienmarkt.NI`);
         this.storage.resetService();
         this.history.resetService();
     }
@@ -572,8 +572,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param newPage New Page number
      * @param newElement Place to insert element
      */
-    public wsElementToPage(element: number, page: number = this.storage.selectedPageID,
-        newPage: number, newElement: number = 0) {
+    public wsElementToPage(element: number, page: number, newPage: number, newElement: number = 0) {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');

@@ -26,7 +26,7 @@ describe('Shared.Auth.AuthGuard', () => {
             ]
         });
         guard = TestBed.inject(AuthGuard);
-        spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(guard.router, 'navigate');
         localStorage.removeItem('user');
         guard.auth.user = null;

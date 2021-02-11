@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
         }
 
         // unauthenticated
-        console.log('User is unauthenticated');
+        console.error('User is unauthenticated');
         this.router.navigate(['/login'], { queryParams: { redirect: location.pathname }, replaceUrl: true });
         return false;
     }

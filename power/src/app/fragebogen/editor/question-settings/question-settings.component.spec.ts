@@ -62,24 +62,32 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     });
 
     it('should open modal', () => {
-        component.model = formContent;
+        component.model = JSON.parse(JSON.stringify(formContent));
         component.open(0, 0);
         expect(component.modal.isVisible()).toBeTrue();
         component.modal.close();
         expect(component.modal.isVisible()).toBeFalse();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not close modal', () => {
+        component.close(false);
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     });
 
     it('should update model', () => {
-        component.model = formContent;
+        component.model = JSON.parse(JSON.stringify(formContent));
         component.open(0, 0);
         expect(component.storage.getUnsavedChanges()).toBeFalse();
         component.model.title.default = 'xxx';
         component.modal.close();
         expect(component.storage.getUnsavedChanges()).toBeTrue();
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.modal.isVisible()).toBeFalse();
     });
 
     it('should crash open', () => {
-        component.model = formContent;
+        component.model = JSON.parse(JSON.stringify(formContent));
 
         expect(() => {
             component.open(0, -1);
@@ -89,6 +97,9 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
         }).toThrowError('page is invalid');
         expect(() => {
             component.open(-1, 0);
+        }).toThrowError('question is invalid');
+        expect(() => {
+            component.open(5, 0);
         }).toThrowError('question is invalid');
     });
 });

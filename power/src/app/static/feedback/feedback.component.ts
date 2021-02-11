@@ -22,7 +22,7 @@ export class FeedbackComponent implements OnInit {
     constructor(public titleService: Title,
         private httpClient: HttpClient,
         public auth: AuthService) {
-        this.titleService.setTitle($localize`Feedback - POWER.NI`);
+        this.titleService.setTitle($localize`Feedback - Immobilienmarkt.NI`);
     }
 
     public async ngOnInit() {
@@ -32,6 +32,7 @@ export class FeedbackComponent implements OnInit {
     /**
      * Loads RSS feed XML from gitlab
      */
+    /* istanbul ignore next */
     public async loadRSSFeed() {
         // craft uri
         let uri = '/feedback-rss/?state=' + encodeURIComponent(this.stateFilter);

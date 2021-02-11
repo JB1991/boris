@@ -47,7 +47,7 @@ export class ImmobilienComponent implements OnInit {
         private titleService: Title,
         private cdr: ChangeDetectorRef
     ) {
-        this.titleService.setTitle($localize`Immobilienpreisindex - POWER.NI`);
+        this.titleService.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
     }
 
     title = 'lgln';
@@ -73,7 +73,7 @@ export class ImmobilienComponent implements OnInit {
     onSelectWoMa(): void {
         try {
             this.selectedWoMa = this.nipixStatic.data.gemeinden.filter(p => p.name === this.selectedWoMaValue)[0];
-        } catch(error) {
+        } catch (error) {
             this.selectedWoMa = '';
             return;
         }

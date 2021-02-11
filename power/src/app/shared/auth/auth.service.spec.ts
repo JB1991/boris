@@ -26,7 +26,7 @@ describe('Shared.Auth.AuthService', () => {
         });
         service = TestBed.inject(AuthService);
         httpTestingController = TestBed.inject(HttpTestingController);
-        spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(service.router, 'navigate');
         localStorage.removeItem('user');
         service.user = null;
@@ -221,6 +221,42 @@ describe('Shared.Auth.AuthService', () => {
 
         answerHTTPRequest(environment.auth.url + 'token', 'POST', 5,
             { status: 404, statusText: 'Not Found' });
+    });
+
+    it('should be authorized', () => {
+        // auth disabled
+        expect(service.IsAuthorized(['user'], 'abc', [])).toBeTrue();
+
+        // auth enabled but not authenticated
+        service.conf.config = { 'modules': [], 'authentication': true };
+        environment.production = true;
+        expect(service.IsAuthorized(['user'], 'abc', [])).toBeFalse();
+
+        // authenticated but no access
+        const expire = new Date();
+        expire.setSeconds(expire.getSeconds() + 900);
+        service.user = { 'expires': expire, 'token': 6, 'data': {} };
+        expect(service.IsAuthorized([], 'abc', [])).toBeFalse();
+
+        // user is owner
+        service.user.data = { groups: [], roles: [], sub: 'abc' };
+        expect(service.IsAuthorized([], 'abc', [])).toBeTrue();
+
+        // user is in group
+        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['xxx'], sub: 'abc' };
+        expect(service.IsAuthorized(['user'], '123', ['xxx', 'toastbrot'])).toBeTrue();
+
+        // user is admin
+        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_editor', 'form_api_admin'], sub: 'abc' };
+        expect(service.IsAuthorized(['user'], '123', ['xxx', 'toastbrot'])).toBeTrue();
+
+        // user is manager
+        service.user.data = { groups: ['toastbrot', 'aaa'], roles: ['form_api_manager', 'form_api_editor'], sub: 'abc' };
+        expect(service.IsAuthorized(['user', 'manager'], '123', ['xxx', 'toastbrot'])).toBeTrue();
+
+        // user has no access
+        service.user.data = { groups: [], roles: [], sub: 'abc' };
+        expect(service.IsAuthorized(['user'], '123', [])).toBeFalse();
     });
 
     /**

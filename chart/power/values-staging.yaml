@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: de.icr.io/power/power
   pullPolicy: Always
-  tag: ""
+  tag: "staging"
 
 imagePullSecrets:
   - name: de-icr-io
@@ -19,9 +19,6 @@ serviceAccount:
   create: false
   # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name:
 
 podSecurityContext:
   {}
@@ -35,6 +32,7 @@ securityContext:
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
 
 service:
   type: ClusterIP
@@ -70,12 +68,12 @@ resources:
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  limits:
-    cpu: 2000m
-    memory: 1024Mi
   requests:
     cpu: 250m
-    memory: 128Mi
+    memory: 256Mi
+  limits:
+    cpu: 2000m
+    memory: 2048Mi
 
 nodeSelector: {}
 
@@ -85,12 +83,13 @@ affinity: {}
 
 config:
   modules:
+    - "immobilienpreisindex"
     - "bodenrichtwerte"
     - "bodenwertkalkulator"
-    - "immobilienpreisindex"
+    - "forms"
     - "immobilienpreiskalkulator"
     - "grundstuecksmarktdaten"
-    - "forms"
     - "feedback"
     - "login"
+    - "logout"
   authentication: true

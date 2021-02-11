@@ -29,7 +29,7 @@ export class PublicDashboardComponent implements OnInit {
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public formAPI: FormAPIService) {
-        this.titleService.setTitle($localize`Öffentliche Formulare - POWER.NI`);
+        this.titleService.setTitle($localize`Öffentliche Formulare - Immobilienmarkt.NI`);
     }
 
     ngOnInit() {

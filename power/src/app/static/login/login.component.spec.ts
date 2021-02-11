@@ -42,6 +42,7 @@ describe('Static.Login.LoginComponent', () => {
         fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         httpTestingController = TestBed.inject(HttpTestingController);
         localStorage.removeItem('user');
@@ -86,7 +87,7 @@ describe('Static.Login.LoginComponent', () => {
         spyOn(component.auth, 'KeycloakToken');
 
         component.authenticate().then((value) => {
-            expect(console.log).toHaveBeenCalledWith('Authentication failed');
+            expect(console.error).toHaveBeenCalledWith('Authentication failed');
             done();
         });
     });

@@ -6,7 +6,7 @@ import { Access } from '../../formapi.model';
 @Component({
     selector: 'power-forms-details-publish',
     templateUrl: './publish.component.html',
-    styleUrls: ['./publish.component.css']
+    styleUrls: ['./publish.component.scss']
 })
 export class PublishComponent {
     @Output() out = new EventEmitter<{

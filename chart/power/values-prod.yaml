@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: de.icr.io/power/power
   pullPolicy: Always
-  tag: ""
+  tag: "production"
 
 imagePullSecrets:
   - name: de-icr-io
@@ -19,9 +19,6 @@ serviceAccount:
   create: false
   # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name:
 
 podSecurityContext:
   {}
@@ -36,6 +33,7 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
+
 service:
   type: ClusterIP
   port: 80
@@ -47,7 +45,7 @@ ingress:
     konghq.com/override: power-https-redirect
     konghq.com/plugins: power-rate-limiting-by-ip,power-cors
   hosts:
-    - host: prod.power-production-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+    - host: prod.power-production-65655d4c73bf47a3300821aa2939abf4-0000.eu-de.containers.appdomain.cloud
       paths:
         - path: /
           serviceName: power
@@ -58,9 +56,9 @@ ingress:
           serviceName: power
           servicePort: 80
   tls:
-    - secretName: power-production-65655d4c73bf47a3300821aa2939abf4-0001
+    - secretName: power-production-65655d4c73bf47a3300821aa2939abf4-0000
       hosts:
-        - prod.power-production-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
+        - prod.power-production-65655d4c73bf47a3300821aa2939abf4-0000.eu-de.containers.appdomain.cloud
     - secretName: sub-lgln-niedersachsen-de
       hosts:
         - power.lgln.niedersachsen.de
@@ -70,12 +68,12 @@ resources:
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  limits:
-    cpu: 2000m
-    memory: 1024Mi
   requests:
     cpu: 250m
-    memory: 128Mi
+    memory: 256Mi
+  limits:
+    cpu: 2000m
+    memory: 2048Mi
 
 nodeSelector: {}
 
@@ -85,9 +83,9 @@ affinity: {}
 
 config:
   modules:
-    - "bodenrichtwerte"
-    - "bodenwertkalkulator"
     - "immobilienpreisindex"
+    - "bodenrichtwerte"
     - "immobilienpreiskalkulator"
     - "grundstuecksmarktdaten"
+    - "feedback"
   authentication: true
