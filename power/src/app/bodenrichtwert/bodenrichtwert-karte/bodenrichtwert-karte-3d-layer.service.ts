@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SimpleChange } from '@angular/core';
+import { Properties } from '@turf/turf';
 import { FeatureCollection } from 'geojson';
 import { FillExtrusionLayer, Map, SymbolLayer } from 'mapbox-gl';
 
@@ -15,11 +16,13 @@ export interface ExtrusionLayerOptions {
 })
 export class BodenrichtwertKarte3dLayerService {
 
-    // layerNames bauland
+    // layer ids for label layer (Bauland, Landwirtschaft)
     public layerNamesB = ['bauland', 'bauland_bremen'];
-
-    // layerNames landwirtschaft
     public layerNamesLF = ['landwirtschaft', 'landwirtschaft_bremen'];
+
+    // layer ids of label layer (Bauland, Landwirtschaft)
+    public layerLabelB = 'bauland_labels';
+    public layerLabelLF = 'landwirtschaft_labels';
 
     // active3dLayer contains the current 3d layer state
     public active3dLayer: boolean;
@@ -63,24 +66,6 @@ export class BodenrichtwertKarte3dLayerService {
         }
     };
 
-    // unique 3d label layer id
-    public labelId = '3d-label-layer';
-
-    // labelLayer template to put the label on of the 3d layers
-    public labelLayer: SymbolLayer = {
-        'id': this.labelId,
-        'type': 'symbol',
-        'source': '',
-        'paint': {
-            'text-halo-color': '#fff',
-            'text-halo-width': 2,
-            'text-halo-blur': 2
-        },
-        'layout': {
-            'visibility': 'visible',
-            'text-max-width': 0
-        }
-    };
     constructor() { }
 
     /**
@@ -112,18 +97,19 @@ export class BodenrichtwertKarte3dLayerService {
         const opacity = this.getOpacityByRotation(map, 0.6);
 
         let opt: ExtrusionLayerOptions;
+        let labelLayerId: string;
+
         if (teilmarkt.value.includes('B')) {
             opt = this.baulandOptions;
+            labelLayerId = this.layerLabelB;
         } else {
             opt = this.landwirtschaftOptions;
+            labelLayerId = this.layerLabelLF;
         }
-
-        let ftId: string;
 
         filteredFts.forEach((ft, i) => {
             const id = ft.properties.objectid;
             const layerId = id.toString();
-            ftId = ft.properties.objektidentifikator.toString();
 
             const height = opt.extrusionHeight * (i + 1);
 
@@ -152,51 +138,14 @@ export class BodenrichtwertKarte3dLayerService {
             this.gapLayer.paint['fill-extrusion-base'] = prevHeight;
             this.gapLayer.filter = ['==', 'objectid', id];
 
+            // add layers
             map.addLayer(this.extrusionLayer);
             map.addLayer(this.gapLayer);
+            // move layer beneathe the label layer
+            map.moveLayer(this.extrusionLayer.id, labelLayerId);
+            map.moveLayer(this.gapLayer.id, labelLayerId);
+
         });
-        // set new label on top
-        this.add3dLabel(ftId, map, stichtag, teilmarkt);
-    }
-
-    /**
-     * add3dLabel adds a label for the currently active 3d layer
-     * @param id id of the 3d feature
-     * @param map map
-     * @param stichtag stichtag
-     * @param teilmarkt teilmarkt
-     */
-    public add3dLabel(id: string, map: Map, stichtag: string, teilmarkt: any) {
-        let layerNames: string[];
-        let sourceName: string;
-
-        // handle different teilmärkte
-        if (teilmarkt.value.includes('B')) {
-            layerNames = this.layerNamesB;
-            sourceName = 'baulandSource';
-        } else {
-            layerNames = this.layerNamesLF;
-            sourceName = 'landwirtschaftSource';
-        }
-        // query features with display value
-        const ftsDisplay = map.queryRenderedFeatures(null, { layers: layerNames }).filter(f =>
-            f.properties.objektidentifikator === id
-        );
-
-        // random ft props (all have the same display value!)
-        const props = ftsDisplay[0]?.properties;
-
-        this.labelLayer.source = sourceName;
-        this.labelLayer.paint['text-color'] = teilmarkt.color;
-        this.labelLayer.layout['text-allow-overlap'] = true;
-
-        // temporary fix for not rendered features
-        if (props) {
-            this.labelLayer.filter = ['==', 'objektidentifikator', props.objektidentifikator];
-            this.labelLayer.layout['text-field'] = props.display;
-        }
-
-        map.addLayer(this.labelLayer);
     }
 
     /**
@@ -215,7 +164,6 @@ export class BodenrichtwertKarte3dLayerService {
             map.removeLayer(layerId);
             map.removeLayer(layerId + 'hidden');
         });
-        map.removeLayer(this.labelId);
     }
 
     /**
@@ -224,13 +172,10 @@ export class BodenrichtwertKarte3dLayerService {
      * @param stichtag stichtag
      */
     public filterCollectionByStag(fts: FeatureCollection, stichtag: string) {
-        if (fts) {
-            const filteredFts = fts.features.filter(ft =>
-                ft.properties.stag.substr(0, 10) === stichtag
-            );
-            // console.log(filteredFts);
-            return filteredFts;
-        }
+        const filteredFts = fts.features.filter(ft =>
+            ft.properties.stag.substr(0, 10) === stichtag
+        );
+        return filteredFts;
     }
 
     /**
@@ -243,7 +188,6 @@ export class BodenrichtwertKarte3dLayerService {
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
 
         const opacityLayer = this.getOpacityByRotation(map, 0.6);
-        const opacityLabel = this.getOpacityByRotation(map, 1.0);
 
         // update opacity for filtered features if layer exists
         // otherwise create layer first
@@ -251,8 +195,6 @@ export class BodenrichtwertKarte3dLayerService {
             filteredFts.forEach(ft => {
                 map.setPaintProperty(ft.properties.objectid, 'fill-extrusion-opacity', opacityLayer);
             });
-            // set opacity for label layer
-            map.setPaintProperty(this.labelId, 'text-opacity', opacityLabel);
         } else if (fts.features.length) {
             this.active3dLayer = true;
             this.add3dLayer(fts, map, stichtag, teilmarkt);
