@@ -17,8 +17,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     state: any;
 
     // screenreader
-    srTableData: any = [];
-    srTableHeader = [];
+    srTableData: Array<any> = [];
+    srTableHeader: Array<string> = [];
 
     seriesTemplate = [
         { stag: '2012', brw: null, nutzung: '', verg: '', verf: '' },
@@ -142,7 +142,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
     }
 
-    clearChart() {
+    clearChart(): void {
         this.chartOption.series = [];
         this.chartOption.legend.data = [];
         this.chartOption.legend.formatter = '';
@@ -152,7 +152,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.srTableData = [];
     }
 
-    filterByStichtag(features) {
+    filterByStichtag(features: Array<any>): Array<any> {
         const filteredFeatures = [];
         for (const feature of features) {
             const year = feature.properties.stag.substring(0, 4);
@@ -163,9 +163,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return filteredFeatures;
     }
 
-    generateChart(features) {
+    generateChart(features: Array<any>): void {
         // grouped by Nutzungsart
-        let groupedByProperty = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+        let groupedByProperty: Map<Array<any>, any> = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         for (const [key, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
                 const valuesFiltered = value.filter(item => item.properties.stag.substring(0, 4) === seriesTuple.stag);
@@ -177,7 +177,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
         for (const [key, value] of groupedByProperty.entries()) {
-            const seriesArray = [];
+            const seriesArray: Array<any> = [];
             features = Array.from(value);
 
             seriesArray[0] = this.getSeriesData(features);
@@ -203,7 +203,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
-    getSeriesData(features) {
+    getSeriesData(features: Array<any>): Array<any> {
         const series = this.deepCopy(this.seriesTemplate);
         for (let i = 0; i < series.length; i++) {
             const feature = features.find(f => f.properties.stag.includes(series[i].stag));
@@ -217,11 +217,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return series;
     };
 
-    getVergSeries(series) {
-        const seriesVergValuesTotal = [];
+    getVergSeries(series: Array<any>): Array<any> {
+        const seriesVergValuesTotal: Array<Array<any>> = [];
         let seriesVergValues = this.deepCopy(this.seriesTemplate);
-        const defaultVerg = ['San', 'Entw', 'SoSt', 'StUb'];
-        const defaultVerf = ['SU', 'EU', 'SB', 'EB'];
+        const defaultVerg: Array<string> = ['San', 'Entw', 'SoSt', 'StUb'];
+        const defaultVerf: Array<string> = ['SU', 'EU', 'SB', 'EB'];
         const copyData = function (i) {
             if (i < 8 && series[i + 1].brw !== null && (series[i + 1].verg === '' || series[i + 1].verg === null)) {
                 seriesVergValues[i + 1].brw = (series[i + 1].brw).toString();
@@ -265,8 +265,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return seriesVergValuesTotal;
     }
 
-    getLabel(key, series) {
-        let nutzung = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung;
+    getLabel(key, series: Array<any>): string {
+        let nutzung: string = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung;
         const wnum = Number(key);
         if (wnum && nutzung) {
             nutzung += '\n' + wnum;
@@ -307,9 +307,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     /* eslint-disable complexity */
-    fillLineDuringYear(series) {
+    fillLineDuringYear(series: Array<any>): [Array<any>, Array<any>] {
         // check gap in same series
-        const seriesFillLine = this.deepCopy(this.seriesTemplate);
+        const seriesFillLine: Array<any> = this.deepCopy(this.seriesTemplate);
         let i = -1;
         do {
             i++;
@@ -342,8 +342,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return [series, seriesFillLine];
     }
 
-    deleteSeriesVergItems(series) {
-        let i;
+    deleteSeriesVergItems(series: Array<any>): Array<any> {
+        let i: number;
         if (series.find((element, index) => {
             if ((element.verg === '' || element.verg === null) && element.brw !== null) {
                 i = index;
@@ -373,7 +373,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return series;
     }
 
-    setChartOptionsSeries(series, label) {
+    setChartOptionsSeries(series: Array<any>, label: string): void {
         this.chartOption.series.push({
             name: label,
             type: 'line',
@@ -436,8 +436,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.grid.top = '15%';
     }
 
-    generateSrTable(label, series) {
-        const indexes = [];
+    generateSrTable(label: string, series: Array<any>): void {
+        const indexes: Array<number> = [];
         for (let i = 0; i < series.length; i++) {
             if (series[i].forwarded) {
                 indexes.push(i);
@@ -450,7 +450,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
     }
 
-    groupBy(list, keyGetter) {
+    groupBy(list, keyGetter): Map<any, any> {
         const map = new Map();
         list.forEach((item) => {
             const key = keyGetter(item);
@@ -470,16 +470,16 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return JSON.parse(JSON.stringify(data));
     }
 
-    onChartInit(event: any) {
+    onChartInit(event: any): void {
         this.echartsInstance = event;
     }
 
-    getCurrentYear() {
+    getCurrentYear(): number {
         const today = new Date();
         return today.getFullYear();
     }
 
-    getBremenStichtag() {
+    getBremenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
             return ('31.' + '12.' + (year - 2) + '.');
@@ -488,7 +488,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
     }
 
-    getBremerhavenStichtag() {
+    getBremerhavenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 === 0) {
             return ('31.' + '12.' + (year - 2) + '.');
