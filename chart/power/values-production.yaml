@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: de.icr.io/power/power
   pullPolicy: Always
-  tag: "production"
+  tag: production
 
 imagePullSecrets:
   - name: de-icr-io
