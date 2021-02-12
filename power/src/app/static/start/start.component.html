@@ -17,7 +17,7 @@
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Bodenrichtwerte</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <p i18n>Bodenrichtwertinformationssystem Niedersachsen</p>
                         <a class="btn btn-primary"
                            [routerLink]="['/bodenrichtwerte']"
                            role="button"
@@ -37,11 +37,51 @@
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
-                            i18n>Bodenwertkalkulator</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            i18n>Bodenwerte</h3>
+                        <p i18n>Bodenwertkalkulator Niedersachsen</p>
                         <a class="btn btn-primary"
                            [routerLink]="['/bodenwertkalkulator']"
                            role="button"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
+                <img src="./assets/boris-banner.png"
+                     i18n-alt
+                     alt="Landesgrundstücksmarktdaten"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
+                        <span style="color: #343a40;"
+                              i18n>Landesgrundstücksmarktdaten</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <a class="btn btn-primary"
+                           role="button"
+                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('grundstuecksmarktberichte')">
+                <img src="./assets/boris-banner.png"
+                     i18n-alt
+                     alt="Grundstücksmarktberichte"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
+                        <span style="color: #343a40;"
+                              i18n>Grundstücksmarktberichte</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <a class="btn btn-primary"
+                           role="button"
+                           href="https://www.boris.niedersachsen.de/boris/gmbdownload"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
                            i18n>Zur Anwendung</a>
                     </div>
                 </div>
@@ -58,11 +98,33 @@
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
-                            i18n>Immobilienpreisindex</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum. </p>
+                            i18n>Immobilienpreise</h3>
+                        <p i18n>Niedersächsischer Immobilienpreisindex</p>
                         <a class="btn btn-primary"
                            [routerLink]="['/immobilienpreisindex']"
                            role="button"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('immobilienpreiskalkulator')">
+                <img src="./assets/boris-banner.png"
+                     i18n-alt
+                     alt="Immobilien-Preis-Kalkulator"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2>
+                        <span style="color: #343a40;"
+                              i18n>IPK</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Immobilien-Preis-Kalkulator</h3>
+                        <a class="btn btn-primary"
+                           role="button"
+                           href="https://www.boris.niedersachsen.de/boris/ipk"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
                            i18n>Zur Anwendung</a>
                     </div>
                 </div>
@@ -80,7 +142,6 @@
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Online Formular Service</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum. </p>
                         <a class="btn btn-primary"
                            [routerLink]="['/forms']"
                            role="button"
@@ -186,9 +247,93 @@
                 </a>
             </div>
         </div>
-
         <hr class="my-5"
             *ngIf="config.modules.includes('bodenwertkalkulator')">
+
+        <div class="row"
+             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('landesgrundstuecksmarktdaten')">
+                <a class="h2"
+                   href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow">
+                    <span style="color: #343a40;"
+                          i18n>Landesgrundstücksmarktdaten</span>
+                </a>
+                <div class="lead">
+                    <p class="text-justify"
+                       i18n>Als Ergänzung zu den örtlichen Grundstücksmarktberichten der Gutachterausschüsse stellen die
+                        Landesgrundstücksmarktdaten überregionale und weiter generalisierte Zusammenhänge zum
+                        Grundstücksmarkt dar. Sie sind geeignet, verschiedene Regionen in Niedersachsen miteinander zu
+                        vergleichen. Zuständig für die Auswertungen und Analysen ist der Obere Gutachterausschuss für
+                        Grundstückswerte. Bereitgestellt werden die kostenfreien Daten in Form von interaktiven
+                        Dashboards.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a class="h2"
+                   href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n-title
+                   title="Landesgrundstücksmarktdaten"
+                   tabindex="-1">
+                    <img src="./assets/boris.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         width="500"
+                         height="500"
+                         i18n-alt
+                         alt="Landesgrundstücksmarktdaten">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
+
+        <div class="row"
+             *ngIf="config.modules.includes('grundstuecksmarktberichte')">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('grundstuecksmarktberichte')">
+                <a class="h2"
+                   href="https://www.boris.niedersachsen.de/boris/gmbdownload"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow">
+                    <span style="color: #343a40;"
+                          i18n>Grundstücksmarktberichte</span>
+                </a>
+                <div class="lead">
+                    <p class="text-justify"
+                       i18n>Grundstücksmarktberichte geben einen fundierten Einblick in das Geschehen am
+                        Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen sowie Preisniveau in den
+                        Teilmärkten, aber auch zu detaillierteren Zahlen und Kenngrößen. Die Berichte wenden sich an
+                        interessierte private und an professionelle Nutzerinnen und Nutzer. Die Herausgabe der
+                        Grundstücksmarktberichte obliegt den Gutachterausschüssen für Grundstückswerte, deren
+                        Zuständigkeit jeweils eine bestimmte Region in Niedersachsen abdeckt. Die Berichte sind
+                        kostenfrei verfügbar und werden als PDF-Dokumente bereitgestellt.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a class="h2"
+                   href="https://www.boris.niedersachsen.de/boris/gmbdownload"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n-title
+                   title="Grundstücksmarktberichte"
+                   tabindex="-1">
+                    <img src="./assets/boris.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         width="500"
+                         height="500"
+                         i18n-alt
+                         alt="Grundstücksmarktberichte">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('grundstuecksmarktberichte')">
 
         <div class="row"
              *ngIf="config.modules.includes('immobilienpreisindex')">
@@ -204,7 +349,8 @@
                         i18n>Niedersächsischer Immobilienpreisindex</h3>
                     <p class="text-justify"
                        i18n>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und
-                        Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere
+                        Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der
+                        Obere
                         Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und
                         Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für
                         Grundstückswerte.</p>
@@ -226,9 +372,52 @@
                 </a>
             </div>
         </div>
-
         <hr class="my-5"
             *ngIf="config.modules.includes('immobilienpreisindex')">
+
+        <div class="row"
+             *ngIf="config.modules.includes('immobilienpreiskalkulator')">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('immobilienpreiskalkulator')">
+                <a class="h2"
+                   href="https://www.boris.niedersachsen.de/boris/ipk"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow">
+                    <span style="color: #343a40;"
+                          i18n>IPK</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>Immobilien-Preis-Kalkulator</h3>
+                    <p class="text-justify"
+                       i18n>Mit Hilfe des Immobilien-Preis-Kalkulators können Sie schnell und einfach das Preisniveau
+                        für Ihr freistehendes Ein-/Zweifamilienhaus, Ihr Reihenhaus, Ihre Doppelhaushälfte oder Ihre
+                        Eigentumswohnung abschätzen. Der Immobilien-Preis-Kalkulator basiert auf Marktmodellen
+                        (Vergleichsfaktoren), die durch die Gutachterausschüsse für Grundstückswerte aus der
+                        Kaufpreissammlung mit Hilfe mathematisch-statistischer Verfahren (multiple Regression) ermittelt
+                        werden. Eine Auskunft auf Grundlage des Immobilien-Preis-Kalkulators ist gebührenpflichtig.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a class="h2"
+                   href="https://www.boris.niedersachsen.de/boris/ipk"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n-title
+                   title="Immobilienpreiskalkulator"
+                   tabindex="-1">
+                    <img src="./assets/boris.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         width="500"
+                         height="500"
+                         i18n-alt
+                         alt="Immobilienpreiskalkulator">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('grundstuecksmarktberichte')">
 
         <div class="row"
              *ngIf="config.modules.includes('forms')">
@@ -244,7 +433,8 @@
                         i18n>Online Formular Service</h3>
                     <p class="text-justify"
                        i18n>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und
-                        abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt
+                        abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen
+                        direkt
                         über die PIN abrufen und ausfüllen.</p>
 
                     <form #pinFormular="ngForm"
