@@ -4,6 +4,9 @@ metadata:
   name: {{ include "power.fullname" . }}
   labels:
     {{- include "power.labels" . | nindent 4 }}
+    {{- if .Values.labels }}
+      {{- toYaml .Values.labels | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -15,6 +18,9 @@ spec:
     metadata:
       labels:
         {{- include "power.selectorLabels" . | nindent 8 }}
+        {{- if .Values.labels }}
+          {{- toYaml .Values.labels | nindent 8 }}
+        {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
