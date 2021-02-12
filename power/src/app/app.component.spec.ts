@@ -5,6 +5,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AppComponent } from './app.component';
 import { ConfigService } from './config.service';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { UpdateService } from './update.service';
 
 describe('AppComponent', () => {
     let app: AppComponent;
@@ -19,7 +20,9 @@ describe('AppComponent', () => {
             ],
             providers: [
                 ConfigService,
-                AuthService
+                AuthService,
+                UpdateService,
+                { provide: UpdateService, useClass: MockUpdateService }
             ],
             declarations: [
                 AppComponent,
@@ -43,31 +46,29 @@ describe('AppComponent', () => {
     }));
 
     it('should have "power" as title', waitForAsync(() => {
-        expect(app.title).toContain('power');
+        expect(app.title).toContain('Immobilienmarkt.NI');
     }));
 
     it('should have a version number including a dot', waitForAsync(() => {
         expect(app.appVersion.version).toEqual('local');
     }));
 
-    it('should load config', () => {
+    it('should load version', () => {
         app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         app.ngOnInit();
         answerHTTPRequest('/assets/version.json', 'GET', { version: '123456', branch: 'prod' });
-
-        expect(app.config).toBeTruthy();
-        expect(app.config.modules.length).toEqual(2);
         expect(app.appVersion).toEqual({ version: '123456', branch: 'prod' });
     });
 
-    it('should fail load config', () => {
-        // load config
-        app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
+    it('should fail load version', () => {
         app.ngOnInit();
-        answerHTTPRequest('/assets/version.json', 'GET', { branch: 'prod' });
+        answerHTTPRequest('/assets/version.json', 'GET', null, { status: 404, statusText: 'Not Found' });
+        expect(app.appVersion).toEqual({ version: 'local', branch: 'offline' });
+    });
 
-        expect(app.config).toBeTruthy();
-        expect(app.config.modules.length).toEqual(2);
+    it('should fail load version 2', () => {
+        app.ngOnInit();
+        answerHTTPRequest('/assets/version.json', 'GET', { branch: 'toast' });
         expect(app.appVersion).toEqual({ version: 'local', branch: 'dev' });
     });
 
@@ -106,5 +107,8 @@ class MockAlertsComponent {
     template: ''
 })
 class MockLoadingscreenComponent {
+}
+class MockUpdateService {
+    public checkForUpdates() { }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

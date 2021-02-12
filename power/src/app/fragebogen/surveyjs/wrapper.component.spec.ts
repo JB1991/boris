@@ -54,7 +54,7 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
     });
 
     it('should do surveyjs 2', () => {
-        component.model = formContent;
+        component.model = JSON.parse(JSON.stringify(formContent));
         component.data = { 'data': 5 };
 
         component.ngOnChanges();

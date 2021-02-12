@@ -2,15 +2,25 @@
     "pages": [{
         "elements": [{
                 "isRequired": true,
-                "maxRateDescription": "(Most likely)",
-                "minRateDescription": "(Most unlikely)",
+				"visible": true,
+				"startWithNewLine": true,
+                "maxRateDescription": {
+                    "default": "Max"
+                },
+                "minRateDescription": {
+                    "default": "Min"
+                },
                 "name": "nps_score",
+                "rateStep": 1,
                 "rateMax": 10,
                 "rateMin": 0,
                 "title": {
                     "default": "On a scale of zero to ten, how likely are you to recommend our product to a friend or colleague?"
                 },
-                "type": "rating"
+                "description": {},
+                "commentText": {},
+                "type": "rating",
+                "requiredErrorText": {}
             },
             {
                 "choices": [

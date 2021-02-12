@@ -4,7 +4,7 @@ import { AlertsService } from './alerts.service';
 @Component({
     selector: 'power-alerts',
     templateUrl: './alerts.component.html',
-    styleUrls: ['./alerts.component.css']
+    styleUrls: ['./alerts.component.scss']
 })
 export class AlertsComponent {
 

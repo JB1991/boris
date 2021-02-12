@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { StaticRoutingModule } from './static-routing.module';
 import { StartComponent } from './start/start.component';
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
         StaticRoutingModule,
         CommonModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        CarouselModule.forRoot()
     ],
     declarations: [
         StartComponent,

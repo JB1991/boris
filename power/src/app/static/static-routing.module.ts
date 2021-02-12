@@ -16,19 +16,23 @@ const routes: Routes = [
     },
     {
         path: 'impressum',
-        component: ImpressumComponent
+        component: ImpressumComponent,
+        canActivate: [ModuleGuard]
     },
     {
         path: 'datenschutz',
-        component: DatenschutzComponent
+        component: DatenschutzComponent,
+        canActivate: [ModuleGuard]
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [ModuleGuard]
     },
     {
         path: 'logout',
-        component: LogoutComponent
+        component: LogoutComponent,
+        canActivate: [ModuleGuard]
     },
     {
         path: 'feedback',

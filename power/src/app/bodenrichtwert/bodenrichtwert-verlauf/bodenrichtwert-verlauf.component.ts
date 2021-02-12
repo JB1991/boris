@@ -17,8 +17,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     state: any;
 
     // screenreader
-    srTableData: any = [];
-    srTableHeader = [];
+    srTableData: Array<any> = [];
+    srTableHeader: Array<string> = [];
 
     seriesTemplate = [
         { stag: '2012', brw: null, nutzung: '', verg: '', verf: '' },
@@ -142,7 +142,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
     }
 
-    clearChart() {
+    clearChart(): void {
         this.chartOption.series = [];
         this.chartOption.legend.data = [];
         this.chartOption.legend.formatter = '';
@@ -152,7 +152,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.srTableData = [];
     }
 
-    filterByStichtag(features) {
+    filterByStichtag(features: Array<any>): Array<any> {
         const filteredFeatures = [];
         for (const feature of features) {
             const year = feature.properties.stag.substring(0, 4);
@@ -163,9 +163,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return filteredFeatures;
     }
 
-    generateChart(features) {
+    generateChart(features: Array<any>): void {
         // grouped by Nutzungsart
-        let groupedByProperty = this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+        let groupedByProperty: Map<Array<any>, any> =
+            this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
         for (const [key, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
                 const valuesFiltered = value.filter(item => item.properties.stag.substring(0, 4) === seriesTuple.stag);
@@ -177,14 +178,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
         for (const [key, value] of groupedByProperty.entries()) {
-            const seriesArray = [];
+            const seriesArray: Array<any> = [];
             features = Array.from(value);
 
             seriesArray[0] = this.getSeriesData(features);
             this.getVergSeries(seriesArray[0]).forEach(element => {
                 seriesArray.push(element);
             });
-            seriesArray[0] = this.deleteSeriesVergItems(seriesArray[0]);
+            this.deleteSeriesVergItems(seriesArray[0]);
 
             let label;
             seriesArray.forEach((series) => {
@@ -203,7 +204,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
-    getSeriesData(features) {
+    getSeriesData(features: Array<any>): Array<any> {
         const series = this.deepCopy(this.seriesTemplate);
         for (let i = 0; i < series.length; i++) {
             const feature = features.find(f => f.properties.stag.includes(series[i].stag));
@@ -217,12 +218,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return series;
     };
 
-    getVergSeries(series) {
-        const seriesVergValuesTotal = [];
-        const seriesVergValues = this.deepCopy(this.seriesTemplate);
-        const defaultVerg = ['San', 'Entw', 'SoSt', 'StUb'];
-        const defaultVerf = ['SU', 'EU', 'SB', 'EB'];
-        const seriesIncludesVerf = series.find(element => element.verf === 'SU' || element.verf === 'EU' || element.verf === 'SB' || element.verf === 'EB');
+    getVergSeries(series: Array<any>): Array<any> {
+        const seriesVergValuesTotal: Array<Array<any>> = [];
+        let seriesVergValues = this.deepCopy(this.seriesTemplate);
+        const defaultVerg: Array<string> = ['San', 'Entw', 'SoSt', 'StUb'];
+        const defaultVerf: Array<string> = ['SU', 'EU', 'SB', 'EB'];
         const copyData = function (i) {
             if (i < 8 && series[i + 1].brw !== null && (series[i + 1].verg === '' || series[i + 1].verg === null)) {
                 seriesVergValues[i + 1].brw = (series[i + 1].brw).toString();
@@ -234,12 +234,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             seriesVergValues[i].verf = series[i].verf;
         };
         defaultVerg.forEach(verg => {
+            seriesVergValues = this.deepCopy(this.seriesTemplate);
+            const seriesIncludesVerf = series.find(element => element.verg === verg && (element.verf === 'SU' || element.verf === 'EU' ||
+                element.verf === 'SB' || element.verf === 'EB'));
             if (seriesIncludesVerf) {
                 defaultVerf.forEach(verf => {
+                    seriesVergValues = this.deepCopy(this.seriesTemplate);
                     for (let i = 0; i < series.length; i++) {
-                        if (series[i].verg === verg && series[i].verf === verf) {
-                            copyData(i);
-                        } else if (series[i].verg === verg && series[i].verf === null) {
+                        if (series[i].verg === verg && (series[i].verf === verf || series[i].verf === null)) {
                             copyData(i);
                         }
                     }
@@ -264,8 +266,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return seriesVergValuesTotal;
     }
 
-    getLabel(key, series) {
-        let nutzung = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung;
+    getLabel(key, series: Array<any>): string {
+        let nutzung: string = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung;
         const wnum = Number(key);
         if (wnum && nutzung) {
             nutzung += '\n' + wnum;
@@ -306,9 +308,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     /* eslint-disable complexity */
-    fillLineDuringYear(series) {
+    fillLineDuringYear(series: Array<any>): [Array<any>, Array<any>] {
         // check gap in same series
-        const seriesFillLine = this.deepCopy(this.seriesTemplate);
+        const seriesFillLine: Array<any> = this.deepCopy(this.seriesTemplate);
         let i = -1;
         do {
             i++;
@@ -341,8 +343,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return [series, seriesFillLine];
     }
 
-    deleteSeriesVergItems(series) {
-        let i;
+    deleteSeriesVergItems(series: Array<any>): Array<any> {
+        let i: number;
         if (series.find((element, index) => {
             if ((element.verg === '' || element.verg === null) && element.brw !== null) {
                 i = index;
@@ -355,6 +357,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     series[i].verg = null;
                     series[i].verf = null;
                     series[i].brw = (series[i].brw).toString();
+                    series[i].forwarded = true;
                     break;
                 }
             }
@@ -371,18 +374,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return series;
     }
 
-    setChartOptionsSeries(series, label) {
-        // let seriesColor;
-        // series.forEach(element => {
-        //     if (element.verg && element.verg !== null && element.verg !== '') {
-        //         seriesColor = this.setVergSeriesColor(series);
-        //     }
-        // });
+    setChartOptionsSeries(series: Array<any>, label: string): void {
         this.chartOption.series.push({
             name: label,
             type: 'line',
             step: 'end',
-            // color: seriesColor,
             symbolSize: function (value) {
                 if (typeof (value) === 'string') {
                     return 0;
@@ -441,33 +437,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.grid.top = '15%';
     }
 
-    // setVergSeriesColor(series) {
-    //     let color;
-    //     const verf = series.find(element => element.verf === 'SU' || element.verf === 'EU' ||
-    // element.verf === 'SB' || element.verf === 'EB');
-    //     if (verf && (verf.verf === 'SB' || verf.verf === 'EB')) {
-    //         color = '#155796';
-    //         return color;
-    //     } else {
-    //         color = '#0080FF';
-    //         return color;
-    //     }
-    // }
-
-    getSeriesColor(series) {
-        let nutzung: any;
-        for (let i = 0; i < series.length; i++) {
-            if (series[i].nutzung !== '') {
-                nutzung = series[i].nutzung;
-                break;
-            }
-        }
-        const idx = this.chartOption.series.findIndex(el => el.name === nutzung);
-        return this.chartOption.series[idx].color;
-    }
-
-    generateSrTable(label, series) {
-        const indexes = [];
+    generateSrTable(label: string, series: Array<any>): void {
+        const indexes: Array<number> = [];
         for (let i = 0; i < series.length; i++) {
             if (series[i].forwarded) {
                 indexes.push(i);
@@ -480,7 +451,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
     }
 
-    groupBy(list, keyGetter) {
+    groupBy(list, keyGetter): Map<any, any> {
         const map = new Map();
         list.forEach((item) => {
             const key = keyGetter(item);
@@ -500,13 +471,17 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return JSON.parse(JSON.stringify(data));
     }
 
-    onChartInit(event: any) {
+    onChartInit(event: any): void {
         this.echartsInstance = event;
     }
 
-    getBremenStichtag() {
+    getCurrentYear(): number {
         const today = new Date();
-        const year = today.getFullYear() - 1;
+        return today.getFullYear();
+    }
+
+    getBremenStichtag(): string {
+        const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
             return ('31.' + '12.' + (year - 2) + '.');
         } else {
@@ -514,9 +489,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
     }
 
-    getBremerhavenStichtag() {
-        const today = new Date();
-        const year = today.getFullYear() - 1;
+    getBremerhavenStichtag(): string {
+        const year = this.getCurrentYear() - 1;
         if (year % 2 === 0) {
             return ('31.' + '12.' + (year - 2) + '.');
         } else {

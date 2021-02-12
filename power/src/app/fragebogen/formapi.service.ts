@@ -544,6 +544,8 @@ export class FormAPIService {
         let msg = error.toString();
         if (error['error'] && error['error']['message']) {
             msg = error['error']['message'];
+        } else if (msg === '[object Object]') {
+            msg = $localize`Es trat folgender HTTP-Fehler auf:` + ' ' + error['message'];
         }
 
         if (msg === 'internal server') {
@@ -564,7 +566,7 @@ export class FormAPIService {
         } else if (msg.startsWith('element has no title: ')) {
             return $localize`Bitte geben sie einen Titel an: ` + msg.slice(22);
 
-        }else if (msg.startsWith('unknown group:')) {
+        } else if (msg.startsWith('unknown group:')) {
             return $localize`Die Gruppe konnte nicht gefunden werden.`;
 
         } else if (msg.startsWith('user not found:')) {

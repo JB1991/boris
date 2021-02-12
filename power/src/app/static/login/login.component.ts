@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
         public auth: AuthService,
         public loadingscreen: LoadingscreenService,
         public alerts: AlertsService) {
-        this.titleService.setTitle($localize`Login - POWER.NI`);
+        this.titleService.setTitle($localize`Login - Immobilienmarkt.NI`);
     }
 
     async ngOnInit() {
@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
             // failed to authenticate
             localStorage.removeItem('user');
             this.auth.user = null;
-            console.log('Authentication failed');
+            console.error('Authentication failed');
             this.alerts.NewAlert('danger', $localize`Login fehlgeschlagen`,
                 $localize`Es konnte kein Token vom Endpunkt bezogen werden.`);
             this.router.navigate(['/'], { replaceUrl: true });

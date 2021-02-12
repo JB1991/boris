@@ -83,6 +83,8 @@
                          dropdown>
                         <button class="btn btn-block dropdown-toggle nav-link"
                                 type="button"
+                                title="Weitere Funktionen"
+                                i18n-title
                                 [ngClass]="{'active' : functionsActive}"
                                 dropdownToggle
                                 id="dropdownMenuButton"
@@ -230,8 +232,8 @@
                             [ngClass]="{'active': filterActive}"
                             type="button"
                             (click)="filterActive = !filterActive"
-                            alt="Filtern"
-                            title="Filtern"
+                            alt="Stichtag und Teilmarkt filtern"
+                            title="Stichtag und Teilmarkt filtern"
                             i18n-alt
                             i18n-title>
                         <svg width="20px"
@@ -279,6 +281,8 @@
                             <button class="btn btn-block nav-link dropdown-toggle"
                                     [ngClass]="{'active': functionsActive}"
                                     type="button"
+                                    title="Weitere Funktionen"
+                                    i18n-title
                                     dropdownToggle
                                     (click)="functionsActive = !functionsActive"
                                     aria-haspopup="true"
@@ -430,6 +434,8 @@
                  dropdown>
                 <button id="button-stichtage-2"
                         dropdownToggle
+                        title="Stichtag"
+                        i18n-title
                         type="button"
                         class="btn btn-block dropdown-toggle"
                         aria-controls="dropdown-stichtage-2"
@@ -459,6 +465,8 @@
                 <button id="button-teilmarkt-2"
                         dropdownToggle
                         type="button"
+                        title="Teilmarkt"
+                        i18n-title
                         class="btn btn-block dropdown-toggle"
                         aria-controls="dropdown-teilmarkt-2"
                         aria-haspopup="true">
@@ -500,8 +508,9 @@
              (moveEnd)="onMoveEnd()"
              (resize)="onMoveEnd()"
              (load)="loadMap($event)"
+             (rotate)="onRotate()"
              [bounds]="bounds"
-             [maxZoom]="20"
+             [maxZoom]="18"
              [minZoom]="5"
              [style]="MAP_STYLE_URL"
              [trackResize]="true"
@@ -538,7 +547,7 @@
                    [minzoom]="15"
                    [sourceLayer]="'ax_flurstueck_nds'"
                    [paint]="{
-                        'line-color': '#343a40',
+                        'line-color': '#96999e',
                         'line-width': {
                             'stops': [[15,0],[16,1],[18,2]]
                         },
@@ -668,7 +677,7 @@
                         'text-halo-color': '#fff',
                         'text-halo-width': 2,
                         'text-halo-blur': 2,
-                        'text-color': 'rgb(117, 129, 145)'
+                        'text-color': teilmarkt.color
                     }"
                    [layout]="{
                         'visibility': 'visible',
@@ -688,7 +697,7 @@
                         'text-halo-color': '#fff',
                         'text-halo-width': 2,
                         'text-halo-blur': 2,
-                        'text-color': 'rgb(117, 129, 145)'
+                        'text-color': teilmarkt.color
                     }"
                    [layout]="{
                         'visibility': 'visible',

@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PlatformModule } from '@angular/cdk/platform';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -17,6 +18,8 @@ import { ModuleGuard } from './module.guard';
 import { AuthModule } from '@app/shared/auth/auth.module';
 import { AlertsModule } from '@app/shared/alerts/alerts.module';
 import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
+import { UpdateService } from './update.service';
+import { environment } from '../environments/environment';
 
 export const load = (httpClient: HttpClient, configService: ConfigService) =>
     (): Promise<boolean> => new Promise<boolean>((resolve: (a: boolean) => void): void => {
@@ -52,7 +55,8 @@ export const load = (httpClient: HttpClient, configService: ConfigService) =>
         AuthModule,
         AlertsModule,
         LoadingscreenModule,
-        NgbModule
+        NgbModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [
         ModuleGuard,
@@ -65,6 +69,7 @@ export const load = (httpClient: HttpClient, configService: ConfigService) =>
                 ConfigService
             ]
         },
+        UpdateService,
         {
             provide: ErrorHandler,
             useClass: GlobalErrorHandler

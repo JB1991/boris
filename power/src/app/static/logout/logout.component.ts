@@ -18,7 +18,7 @@ export class LogoutComponent implements OnInit {
         public router: Router,
         public auth: AuthService,
         public loadingscreen: LoadingscreenService) {
-        this.titleService.setTitle($localize`Logout - POWER.NI`);
+        this.titleService.setTitle($localize`Logout - Immobilienmarkt.NI`);
     }
 
     ngOnInit() {
