@@ -113,6 +113,10 @@ export class GmbComponent implements OnInit {
      * Load geojson for Landkreise
      */
     ngOnInit(): void {
+        this.mapInit();
+    }
+
+    mapInit() {
         this.loadGeoMap('assets/gmb.geojson');
     }
 
@@ -129,19 +133,17 @@ export class GmbComponent implements OnInit {
      * @param {string} url Url to Map GeoJSON
      */
     loadGeoMap(url) {
-        // fetch map geo JSON data from server
         this.http.get(url)
             .subscribe(
                 geoJson => {
-                    // hide loading:
                     this.mapLoaded = true;
 
-                    // register map:
                     echarts.registerMap('NDS', geoJson);
                     this.mapOptions = this.myMapOptions;
 
                     this.cdr.detectChanges();
-                });
+                }
+            );
     }
 
     /**
@@ -244,7 +246,6 @@ export class GmbComponent implements OnInit {
      */
     onMapSelectChange(param) {
 
-        // Get List of selected items in map
         let selectedlist = null;
         if ((param['type'] === 'mapselectchanged') &&
             (param['batch'] !== undefined) &&
@@ -254,10 +255,8 @@ export class GmbComponent implements OnInit {
             selectedlist = param['selected'];
         }
 
-        // Get keys of selected items
         const ok = Object.keys(selectedlist);
 
-        // Iterate over all selected Regions and collect them in an array
         for (let i = 0; i < ok.length; i++) {
             if (selectedlist[ok[i]] === true) {
                 this.selectedKreis = ok[i];
