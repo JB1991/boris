@@ -86,14 +86,6 @@
                          aria-labelledby="navbarImmo"
                          [collapse]="isCollapsedImmo">
                         <a class="dropdown-item"
-                           *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"
-                           (click)="isCollapsed = true; isCollapsedImmo = true"
-                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Landesgrundstücksmarktdaten</a>
-
-                        <a class="dropdown-item"
                            *ngIf="config.modules.includes('grundstuecksmarktberichte')"
                            (click)="isCollapsed = true; isCollapsedImmo = true"
                            href="https://www.boris.niedersachsen.de/boris/gmbdownload"
@@ -109,12 +101,12 @@
                            i18n>Grundstücksmarktberichte (Archiv)</a>
 
                         <a class="dropdown-item"
-                           *ngIf="config.modules.includes('immobilienpreiskalkulator')"
+                           *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"
                            (click)="isCollapsed = true; isCollapsedImmo = true"
-                           href="https://www.boris.niedersachsen.de/boris/ipk"
+                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
                            target="_blank"
                            rel="noopener noreferrer nofollow"
-                           i18n>Immobilien-Preis-Kalkulator - IPK</a>
+                           i18n>Landesgrundstücksmarktdaten</a>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('immobilienpreisindex')"
@@ -122,6 +114,14 @@
                            [routerLink]="['/immobilienpreisindex']"
                            routerLinkActive="active"
                            i18n>Niedersächsischer Immobilienpreisindex - NIPIX</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('immobilienpreiskalkulator')"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           href="https://www.boris.niedersachsen.de/boris/ipk"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Immobilien-Preis-Kalkulator - IPK</a>
                     </div>
                 </li>
 

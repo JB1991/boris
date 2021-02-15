@@ -91,6 +91,5 @@ config:
     - "immobilienpreiskalkulator"
     - "grundstuecksmarktberichte"
     - "landesgrundstuecksmarktdaten"
-    - "gmb"
     - "feedback"
   authentication: true
