@@ -1,18 +1,31 @@
-<div class="container-xl border-left border-right">
+<div class="container-xl">
 
     <div class="row title">
         <h1 i18n>Grundstücksmarktberichte (Archiv)</h1>
     </div>
 
-    <div echarts [options]="mapoptions" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
+    <div echarts [options]="mapOptions" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
          (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
 
 
-    <div *ngFor="let rd of berichte | keyvalue" class="card m-0 mb-2" role="table">
+    <div class="row subtitle">
+        <h2 *ngIf="selectedKreis === undefined" i18n>Bitte wählen Sie einen Landkreis</h2>
+        <h2 *ngIf="selectedKreis !== undefined" i18n>Berichte für den Landkreis "{{kreise[selectedKreis]}}"</h2>
+        <select id="landkreise" class="form-select" aria-label="Wählen die einen Landkreis" (change)="onChange($event.target.value)">
+            <ng-container *ngFor="let kreis of kreise | keyvalue">
+                <option *ngIf="selectedKreis === kreis.key" value="{{ kreis.key }}" selected>{{ kreis.value }}</option>
+                <option *ngIf="selectedKreis !== kreis.key" value="{{ kreis.key }}">{{ kreis.value }}</option>
+
+            </ng-container>
+        </select>
+
+    </div>
+
+    <div *ngFor="let rd of berichteFiltered" class="card m-0 mb-2" role="table">
         <div class="card-header">
             <div class="row">
                 <h5 class="col-md-12 mb-0"
-                    role="rowheader"><b>{{rd.key}}</b>
+                    role="rowheader"><b>{{rd.name}}</b>
                 </h5>
                 <!--<h5 class="col-md-7 mb-0"
                     role="cell">(bis 2012)
@@ -20,23 +33,23 @@
             </div>
         </div>
         <div class="card-body">
-            <dl *ngFor="let bj of rd.value | keyvalue" class="row" role="rowgroup">
+            <dl *ngFor="let bj of rd.berichte | keyvalue" class="row" role="rowgroup">
                 <div class="col-md-12">
                     <!-- Bodenrichtwert (brz) -->
                     <input type="checkbox" id="dl{{bj.value['checksum']['md5']}}">
                     <dt class="col-md-12" role="rowheader">
                     <label for="dl{{bj.value['checksum']['md5']}}">
-                        <i-bs name="plusCircle" class="remove-check"></i-bs>
-                        <i-bs name="dashCircle" class="display-check"></i-bs>&nbsp;
-                        <ng-container *ngIf="rd.key === 'Niedersachsen'; else gmb" i18n>Landesgrundstücksmarktbericht</ng-container>
+                        <i-bs name="plusCircle" class="remove-check" aria-hidden="true"></i-bs>
+                        <i-bs name="dashCircle" class="display-check" aria-hidden="true"></i-bs>&nbsp;
+                        <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb" i18n>Landesgrundstücksmarktbericht</ng-container>
                         <ng-template #gmb i18n>Grundstücksmarktbericht</ng-template>
                         {{bj.key}}
                     </label>
                     </dt>
                     <dd class="col-md-12 fileinfo display-check" role="cell">
-                    <i-bs name="download"></i-bs> {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}" i18n>Downlaod</a>)<br>
+                    <i-bs name="download" aria-hidden="true"></i-bs> {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}" i18n>Downlaod</a>)<br>
                     <small>
-                        <ng-container i18n>Bereiche</ng-container>: {{bj.value['bereich']}}
+                        <ng-container i18n>Bereiche</ng-container>: {{generateKreisliste(bj.value['bereich'])}}
                     </small>
                     <br><br>
                     <small>
@@ -50,6 +63,13 @@
         </div>
     </div>
 
+    <br>
+    <br>
+
+    <small i18n>
+        * Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar.<br>
+        Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.
+    </small>
 </div>
 
 <!-- vim: set expandtab ts=4 sw=4 sts=4 :-->
