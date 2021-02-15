@@ -409,6 +409,7 @@ deploy:development:
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
     - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
+      --set labels.commit="$CI_COMMIT_SHORT_SHA"
   only:
     - dev
 
@@ -427,6 +428,7 @@ deploy:staging:
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
     - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install
+      --set labels.commit="$CI_COMMIT_SHORT_SHA"
   only:
     - staging
 
@@ -444,6 +446,7 @@ deploy:production:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-production.yaml --install --set replicaCount=1
+    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-production.yaml --install
+      --set labels.commit="$CI_COMMIT_SHORT_SHA"
   only:
     - production

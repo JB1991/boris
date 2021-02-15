@@ -68,22 +68,6 @@
                            [routerLink]="['/bodenwertkalkulator']"
                            routerLinkActive="active"
                            i18n>Bodenwertkalkulator</a>
-
-                        <a class="dropdown-item"
-                           *ngIf="config.modules.includes('grundstuecksmarktdaten')"
-                           (click)="isCollapsed = true; isCollapsedImmo = true"
-                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/landesgrundstucksmarktinformationen-193837.html"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Grundstücksmarktdaten</a>
-
-                        <a class="dropdown-item"
-                           *ngIf="config.modules.includes('gmb')"
-                           (click)="isCollapsed = true; isCollapsedBRW = true"
-                           [routerLink]="['/gmb']"
-                           routerLinkActive="active"
-                           i18n>Grundstücksmarktberichte (Archiv)</a>
-
                     </div>
                 </li>
 
@@ -102,6 +86,29 @@
                          aria-labelledby="navbarImmo"
                          [collapse]="isCollapsedImmo">
                         <a class="dropdown-item"
+                           *ngIf="config.modules.includes('grundstuecksmarktberichte')"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           href="https://www.boris.niedersachsen.de/boris/gmbdownload"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Grundstücksmarktberichte</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('gmb')"
+                           (click)="isCollapsed = true; isCollapsedBRW = true"
+                           [routerLink]="['/gmb']"
+                           routerLinkActive="active"
+                           i18n>Grundstücksmarktberichte (Archiv)</a>
+
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Landesgrundstücksmarktdaten</a>
+
+                        <a class="dropdown-item"
                            *ngIf="config.modules.includes('immobilienpreisindex')"
                            (click)="isCollapsed = true; isCollapsedImmo = true"
                            [routerLink]="['/immobilienpreisindex']"
@@ -114,15 +121,7 @@
                            href="https://www.boris.niedersachsen.de/boris/ipk"
                            target="_blank"
                            rel="noopener noreferrer nofollow"
-                           i18n>Immobilienpreiskalkulator - IPK</a>
-
-                        <a class="dropdown-item"
-                           *ngIf="config.modules.includes('grundstuecksmarktdaten')"
-                           (click)="isCollapsed = true; isCollapsedImmo = true"
-                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/landesgrundstucksmarktinformationen-193837.html"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Grundstücksmarktdaten</a>
+                           i18n>Immobilien-Preis-Kalkulator - IPK</a>
                     </div>
                 </li>
 

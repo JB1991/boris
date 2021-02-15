@@ -14,15 +14,9 @@
                 ]
             }
         ],
-        "selector-type-no-unknown": [
-            true,
-            {
-                "ignore": [
-                    "custom-elements"
-                ]
-            }
-        ],
+        "selector-type-no-unknown": null,
         "string-quotes": "single",
-		"length-zero-no-unit": null
+        "length-zero-no-unit": null,
+        "declaration-empty-line-before": null
     }
 }

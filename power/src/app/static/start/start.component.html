@@ -5,19 +5,19 @@
                   [pauseOnFocus]="true"
                   [isAnimated]="true">
             <slide *ngIf="config.modules.includes('bodenrichtwerte')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Bodenrichtwerte"
                      class="carousel-image">
                 <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
-                    <h2>
+                    <h2 class="display-4">
                         <span style="color: #343a40;">BORIS</span>
                         <span style="color: #c4153a;">.NI</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Bodenrichtwerte</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <p i18n>Bodenrichtwertinformationssystem Niedersachsen</p>
                         <a class="btn btn-primary"
                            [routerLink]="['/bodenrichtwerte']"
                            role="button"
@@ -25,41 +25,60 @@
                     </div>
                 </div>
             </slide>
-            <slide *ngIf="config.modules.includes('bodenwertkalkulator')">
-                <img src="./assets/boris-banner.png"
+            <slide *ngIf="config.modules.includes('grundstuecksmarktberichte')">
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
-                     alt="Bodenwertkalkulator"
+                     alt="Grundstücksmarktberichte"
                      class="carousel-image">
                 <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
-                    <h2>
-                        <span style="color: #343a40;">BOWERT</span>
-                        <span style="color: #c4153a;">.NI</span>
+                    <h2 class="display-4">
+                        <span style="color: #343a40;"
+                              i18n>Grundstücksmarktberichte</span>
                     </h2>
                     <div class="lead text-dark">
-                        <h3 class="h5"
-                            i18n>Bodenwertkalkulator</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                         <a class="btn btn-primary"
-                           [routerLink]="['/bodenwertkalkulator']"
                            role="button"
+                           href="https://www.boris.niedersachsen.de/boris/gmbdownload"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
+                <img src="./assets/images/bg-bodenrichtwerte.png"
+                     i18n-alt
+                     alt="Landesgrundstücksmarktdaten"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2 class="display-4">
+                        <span style="color: #343a40;"
+                              i18n>Landesgrundstücksmarktdaten</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <a class="btn btn-primary"
+                           role="button"
+                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
                            i18n>Zur Anwendung</a>
                     </div>
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('immobilienpreisindex')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Immobilienpreisindex"
                      class="carousel-image">
                 <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
-                    <h2>
+                    <h2 class="display-4">
                         <span style="color: #c4153a;">NI</span>
                         <span style="color: #343a40;">PIX</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
-                            i18n>Immobilienpreisindex</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum. </p>
+                            i18n>Immobilienpreise</h3>
+                        <p i18n>Niedersächsischer Immobilienpreisindex</p>
                         <a class="btn btn-primary"
                            [routerLink]="['/immobilienpreisindex']"
                            role="button"
@@ -67,20 +86,62 @@
                     </div>
                 </div>
             </slide>
+            <slide *ngIf="config.modules.includes('immobilienpreiskalkulator')">
+                <img src="./assets/images/bg-bodenrichtwerte.png"
+                     i18n-alt
+                     alt="Immobilien-Preis-Kalkulator"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2 class="display-4">
+                        <span style="color: #343a40;"
+                              i18n>IPK</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Immobilien-Preis-Kalkulator</h3>
+                        <a class="btn btn-primary"
+                           role="button"
+                           href="https://www.boris.niedersachsen.de/boris/ipk"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('bodenwertkalkulator')">
+                <img src="./assets/images/bg-bodenrichtwerte.png"
+                     i18n-alt
+                     alt="Bodenwertkalkulator"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2 class="display-4">
+                        <span style="color: #343a40;">BOWERT</span>
+                        <span style="color: #c4153a;">.NI</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Bodenwerte</h3>
+                        <p i18n>Bodenwertkalkulator Niedersachsen</p>
+                        <a class="btn btn-primary"
+                           [routerLink]="['/bodenwertkalkulator']"
+                           role="button"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
             <slide *ngIf="config.modules.includes('forms')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Formulare"
                      class="carousel-image">
                 <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
-                    <h2>
+                    <h2 class="display-4">
                         <span style="color: #343a40;"
                               i18n>Formulare</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Online Formular Service</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum. </p>
                         <a class="btn btn-primary"
                            [routerLink]="['/forms']"
                            role="button"
@@ -89,12 +150,12 @@
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('feedback')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Feedback"
                      class="carousel-image">
                 <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
-                    <h2>
+                    <h2 class="display-4">
                         <span style="color: #343a40;"
                               i18n>Feedback</span>
                     </h2>
@@ -117,7 +178,7 @@
              *ngIf="config.modules.includes('bodenrichtwerte')">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('bodenrichtwerte')">
-                <a class="h2"
+                <a class="h2 display-4"
                    [routerLink]="['/bodenrichtwerte']">
                     <span style="color: #343a40;">BORIS</span>
                     <span style="color: #c4153a;">.NI</span>
@@ -134,15 +195,12 @@
             </div>
             <div class="col-md-5"
                  aria-hidden="true">
-                <a class="h2"
-                   [routerLink]="['/bodenrichtwerte']"
+                <a [routerLink]="['/bodenrichtwerte']"
                    i18n-title
                    title="Bodenrichtwerte"
                    tabindex="-1">
-                    <img src="./assets/boris.png"
+                    <img src="./assets/images/bodenrichtwerte.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Bodenrichtwerte">
                 </a>
@@ -152,10 +210,167 @@
             *ngIf="config.modules.includes('bodenrichtwerte')">
 
         <div class="row"
+             *ngIf="config.modules.includes('grundstuecksmarktberichte')">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('grundstuecksmarktberichte')">
+                <a class="h2 display-4"
+                   href="https://www.boris.niedersachsen.de/boris/gmbdownload"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow">
+                    <span style="color: #343a40;"
+                          i18n>Grundstücksmarktberichte</span>
+                </a>
+                <div class="lead">
+                    <p class="text-justify"
+                       i18n>Grundstücksmarktberichte geben einen fundierten Einblick in das Geschehen am
+                        Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen sowie Preisniveau in den
+                        Teilmärkten, aber auch zu detaillierteren Zahlen und Kenngrößen. Die Berichte wenden sich an
+                        interessierte private und an professionelle Nutzerinnen und Nutzer. Die Herausgabe der
+                        Grundstücksmarktberichte obliegt den Gutachterausschüssen für Grundstückswerte, deren
+                        Zuständigkeit jeweils eine bestimmte Region in Niedersachsen abdeckt. Die Berichte sind
+                        kostenfrei verfügbar und werden als PDF-Dokumente bereitgestellt.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a href="https://www.boris.niedersachsen.de/boris/gmbdownload"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n-title
+                   title="Grundstücksmarktberichte"
+                   tabindex="-1">
+                    <img src="./assets/images/grundstuecksmarktberichte.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         i18n-alt
+                         alt="Grundstücksmarktberichte">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('grundstuecksmarktberichte')">
+
+        <div class="row"
+             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('landesgrundstuecksmarktdaten')">
+                <a class="h2 display-4"
+                   href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow">
+                    <span style="color: #343a40;"
+                          i18n>Landesgrundstücksmarktdaten</span>
+                </a>
+                <div class="lead">
+                    <p class="text-justify"
+                       i18n>Als Ergänzung zu den örtlichen Grundstücksmarktberichten der Gutachterausschüsse stellen die
+                        Landesgrundstücksmarktdaten überregionale und weiter generalisierte Zusammenhänge zum
+                        Grundstücksmarkt dar. Sie sind geeignet, verschiedene Regionen in Niedersachsen miteinander zu
+                        vergleichen. Zuständig für die Auswertungen und Analysen ist der Obere Gutachterausschuss für
+                        Grundstückswerte. Bereitgestellt werden die kostenfreien Daten in Form von interaktiven
+                        Dashboards.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n-title
+                   title="Landesgrundstücksmarktdaten"
+                   tabindex="-1">
+                    <img src="./assets/images/landesgrundstuecksmarktdaten.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         i18n-alt
+                         alt="Landesgrundstücksmarktdaten">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
+
+        <div class="row"
+             *ngIf="config.modules.includes('immobilienpreisindex')">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('immobilienpreisindex')">
+                <a class="h2 display-4"
+                   [routerLink]="['/immobilienpreisindex']">
+                    <span style="color: #c4153a;">NI</span>
+                    <span style="color: #343a40;">PIX</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>Niedersächsischer Immobilienpreisindex</h3>
+                    <p class="text-justify"
+                       i18n>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und
+                        Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der
+                        Obere
+                        Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und
+                        Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für
+                        Grundstückswerte.</p>
+                </div>
+            </div>
+            <div class="col-md-5 order-md-1"
+                 aria-hidden="true">
+                <a [routerLink]="['/immobilienpreisindex']"
+                   i18n-title
+                   title="Immobilienpreisindex"
+                   tabindex="-1">
+                    <img src="./assets/images/immobilienpreisindex.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         i18n-alt
+                         alt="Immobilienpreisindex">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('immobilienpreisindex')">
+
+        <div class="row"
+             *ngIf="config.modules.includes('immobilienpreiskalkulator')">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('immobilienpreiskalkulator')">
+                <a class="h2 display-4"
+                   href="https://www.boris.niedersachsen.de/boris/ipk"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow">
+                    <span style="color: #343a40;"
+                          i18n>IPK</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>Immobilien-Preis-Kalkulator</h3>
+                    <p class="text-justify"
+                       i18n>Mit Hilfe des Immobilien-Preis-Kalkulators können Sie schnell und einfach das Preisniveau
+                        für Ihr freistehendes Ein-/Zweifamilienhaus, Ihr Reihenhaus, Ihre Doppelhaushälfte oder Ihre
+                        Eigentumswohnung abschätzen. Der Immobilien-Preis-Kalkulator basiert auf Marktmodellen
+                        (Vergleichsfaktoren), die durch die Gutachterausschüsse für Grundstückswerte aus der
+                        Kaufpreissammlung mit Hilfe mathematisch-statistischer Verfahren (multiple Regression) ermittelt
+                        werden. Eine Auskunft auf Grundlage des Immobilien-Preis-Kalkulators ist gebührenpflichtig.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a href="https://www.boris.niedersachsen.de/boris/ipk"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n-title
+                   title="Immobilienpreiskalkulator"
+                   tabindex="-1">
+                    <img src="./assets/images/immobilienpreiskalkulator.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         i18n-alt
+                         alt="Immobilienpreiskalkulator">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('immobilienpreiskalkulator')">
+
+        <div class="row"
              *ngIf="config.modules.includes('bodenwertkalkulator')">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('bodenwertkalkulator')">
-                <a class="h2"
+                <a class="h2 display-4"
                    [routerLink]="['/bodenwertkalkulator']">
                     <span style="color: #343a40;">BOWERT</span>
                     <span style="color: #c4153a;">.NI</span>
@@ -172,69 +387,25 @@
             </div>
             <div class="col-md-5"
                  aria-hidden="true">
-                <a class="h2"
-                   [routerLink]="['/bodenwertkalkulator']"
+                <a [routerLink]="['/bodenwertkalkulator']"
                    i18n-title
                    title="Bodenwertkalkulator"
                    tabindex="-1">
-                    <img src="./assets/bowert.png"
+                    <img src="./assets/images/bodenwertkalkulator.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Bodenwertkalkulator">
                 </a>
             </div>
         </div>
-
         <hr class="my-5"
             *ngIf="config.modules.includes('bodenwertkalkulator')">
 
-        <div class="row"
-             *ngIf="config.modules.includes('immobilienpreisindex')">
-            <div class="col-md-7"
-                 [class.order-md-2]="getCardOrder('immobilienpreisindex')">
-                <a class="h2"
-                   [routerLink]="['/immobilienpreisindex']">
-                    <span style="color: #c4153a;">NI</span>
-                    <span style="color: #343a40;">PIX</span>
-                </a>
-                <div class="lead">
-                    <h3 class="h5 text-break"
-                        i18n>Niedersächsischer Immobilienpreisindex</h3>
-                    <p class="text-justify"
-                       i18n>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und
-                        Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere
-                        Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und
-                        Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für
-                        Grundstückswerte.</p>
-                </div>
-            </div>
-            <div class="col-md-5 order-md-1"
-                 aria-hidden="true">
-                <a class="h2"
-                   [routerLink]="['/immobilienpreisindex']"
-                   i18n-title
-                   title="Immobilienpreisindex"
-                   tabindex="-1">
-                    <img src="./assets/nipix.png"
-                         class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
-                         i18n-alt
-                         alt="Immobilienpreisindex">
-                </a>
-            </div>
-        </div>
-
-        <hr class="my-5"
-            *ngIf="config.modules.includes('immobilienpreisindex')">
-
-        <div class="row"
+        <div class="row mb-1"
              *ngIf="config.modules.includes('forms')">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('forms')">
-                <a class="h2"
+                <a class="h2 display-4"
                    [routerLink]="['/forms']">
                     <span style="color: #343a40;"
                           i18n>Formulare</span>
@@ -244,8 +415,8 @@
                         i18n>Online Formular Service</h3>
                     <p class="text-justify"
                        i18n>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und
-                        abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt
-                        über die PIN abrufen und ausfüllen.</p>
+                        abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen
+                        direkt über die PIN abrufen und ausfüllen.</p>
 
                     <form #pinFormular="ngForm"
                           (ngSubmit)="submitPIN(pin.value)"
@@ -292,15 +463,12 @@
             </div>
             <div class="col-md-5"
                  aria-hidden="true">
-                <a class="h2"
-                   [routerLink]="['/forms']"
+                <a [routerLink]="['/forms']"
                    i18n-title
                    title="Formulare"
                    tabindex="-1">
-                    <img src="./assets/onlineForm.png"
+                    <img src="./assets/images/forms.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Formulare">
                 </a>

@@ -7,12 +7,15 @@ replicaCount: 1
 image:
   repository: de.icr.io/power/power
   pullPolicy: Always
-  tag: "latest"
+  tag: latest
 
 imagePullSecrets:
   - name: de-icr-io
 nameOverride: ""
 fullnameOverride: ""
+
+labels:
+  commit: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -83,13 +86,14 @@ affinity: {}
 
 config:
   modules:
-    - "immobilienpreisindex"
     - "bodenrichtwerte"
     - "bodenwertkalkulator"
-    - "forms"
+    - "immobilienpreisindex"
     - "immobilienpreiskalkulator"
-    - "grundstuecksmarktdaten"
+    - "grundstuecksmarktberichte"
+    - "landesgrundstuecksmarktdaten"
+    - "gmb"
+    - "forms"
     - "feedback"
     - "login"
-    - "logout"
   authentication: true

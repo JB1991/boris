@@ -10,6 +10,19 @@ div.title h1 {
     font-size: 1.25rem;
 }
 
+div.subtitle {
+    border-bottom: 1px solid #dee2e6;
+    color: black;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+div.subtitle h2 {
+    margin: auto;
+    font-size: 1rem;
+}
+
 .card {
     margin-bottom: 1.5rem;
 }

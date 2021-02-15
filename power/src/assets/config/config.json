@@ -4,8 +4,9 @@
         "bodenwertkalkulator",
         "immobilienpreisindex",
         "immobilienpreiskalkulator",
-        "grundstuecksmarktdaten",
-	"gmb",
+        "grundstuecksmarktberichte",
+        "landesgrundstuecksmarktdaten",
+        "gmb",
         "forms",
         "feedback",
         "login"
