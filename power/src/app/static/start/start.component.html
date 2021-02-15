@@ -25,23 +25,22 @@
                     </div>
                 </div>
             </slide>
-            <slide *ngIf="config.modules.includes('bodenwertkalkulator')">
+            <slide *ngIf="config.modules.includes('grundstuecksmarktberichte')">
                 <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
-                     alt="Bodenwertkalkulator"
+                     alt="Grundstücksmarktberichte"
                      class="carousel-image">
                 <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
                     <h2 class="display-4">
-                        <span style="color: #343a40;">BOWERT</span>
-                        <span style="color: #c4153a;">.NI</span>
+                        <span style="color: #343a40;"
+                              i18n>Grundstücksmarktberichte</span>
                     </h2>
                     <div class="lead text-dark">
-                        <h3 class="h5"
-                            i18n>Bodenwerte</h3>
-                        <p i18n>Bodenwertkalkulator Niedersachsen</p>
                         <a class="btn btn-primary"
-                           [routerLink]="['/bodenwertkalkulator']"
                            role="button"
+                           href="https://www.boris.niedersachsen.de/boris/gmbdownload"
+                           target="_blank"
+                           rel="noopener noreferrer nofollow"
                            i18n>Zur Anwendung</a>
                     </div>
                 </div>
@@ -60,26 +59,6 @@
                         <a class="btn btn-primary"
                            role="button"
                            href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Zur Anwendung</a>
-                    </div>
-                </div>
-            </slide>
-            <slide *ngIf="config.modules.includes('grundstuecksmarktberichte')">
-                <img src="./assets/images/bg-bodenrichtwerte.png"
-                     i18n-alt
-                     alt="Grundstücksmarktberichte"
-                     class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
-                    <h2 class="display-4">
-                        <span style="color: #343a40;"
-                              i18n>Grundstücksmarktberichte</span>
-                    </h2>
-                    <div class="lead text-dark">
-                        <a class="btn btn-primary"
-                           role="button"
-                           href="https://www.boris.niedersachsen.de/boris/gmbdownload"
                            target="_blank"
                            rel="noopener noreferrer nofollow"
                            i18n>Zur Anwendung</a>
@@ -125,6 +104,27 @@
                            href="https://www.boris.niedersachsen.de/boris/ipk"
                            target="_blank"
                            rel="noopener noreferrer nofollow"
+                           i18n>Zur Anwendung</a>
+                    </div>
+                </div>
+            </slide>
+            <slide *ngIf="config.modules.includes('bodenwertkalkulator')">
+                <img src="./assets/images/bg-bodenrichtwerte.png"
+                     i18n-alt
+                     alt="Bodenwertkalkulator"
+                     class="carousel-image">
+                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                    <h2 class="display-4">
+                        <span style="color: #343a40;">BOWERT</span>
+                        <span style="color: #c4153a;">.NI</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>Bodenwerte</h3>
+                        <p i18n>Bodenwertkalkulator Niedersachsen</p>
+                        <a class="btn btn-primary"
+                           [routerLink]="['/bodenwertkalkulator']"
+                           role="button"
                            i18n>Zur Anwendung</a>
                     </div>
                 </div>
@@ -210,45 +210,6 @@
             *ngIf="config.modules.includes('bodenrichtwerte')">
 
         <div class="row"
-             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
-            <div class="col-md-7"
-                 [class.order-md-2]="getCardOrder('landesgrundstuecksmarktdaten')">
-                <a class="h2 display-4"
-                   href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow">
-                    <span style="color: #343a40;"
-                          i18n>Landesgrundstücksmarktdaten</span>
-                </a>
-                <div class="lead">
-                    <p class="text-justify"
-                       i18n>Als Ergänzung zu den örtlichen Grundstücksmarktberichten der Gutachterausschüsse stellen die
-                        Landesgrundstücksmarktdaten überregionale und weiter generalisierte Zusammenhänge zum
-                        Grundstücksmarkt dar. Sie sind geeignet, verschiedene Regionen in Niedersachsen miteinander zu
-                        vergleichen. Zuständig für die Auswertungen und Analysen ist der Obere Gutachterausschuss für
-                        Grundstückswerte. Bereitgestellt werden die kostenfreien Daten in Form von interaktiven
-                        Dashboards.</p>
-                </div>
-            </div>
-            <div class="col-md-5"
-                 aria-hidden="true">
-                <a href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow"
-                   i18n-title
-                   title="Landesgrundstücksmarktdaten"
-                   tabindex="-1">
-                    <img src="./assets/images/landesgrundstuecksmarktdaten.png"
-                         class="img-thumbnail img-fluid mx-auto"
-                         i18n-alt
-                         alt="Landesgrundstücksmarktdaten">
-                </a>
-            </div>
-        </div>
-        <hr class="my-5"
-            *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
-
-        <div class="row"
              *ngIf="config.modules.includes('grundstuecksmarktberichte')">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('grundstuecksmarktberichte')">
@@ -287,6 +248,45 @@
         </div>
         <hr class="my-5"
             *ngIf="config.modules.includes('grundstuecksmarktberichte')">
+
+        <div class="row"
+             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('landesgrundstuecksmarktdaten')">
+                <a class="h2 display-4"
+                   href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow">
+                    <span style="color: #343a40;"
+                          i18n>Landesgrundstücksmarktdaten</span>
+                </a>
+                <div class="lead">
+                    <p class="text-justify"
+                       i18n>Als Ergänzung zu den örtlichen Grundstücksmarktberichten der Gutachterausschüsse stellen die
+                        Landesgrundstücksmarktdaten überregionale und weiter generalisierte Zusammenhänge zum
+                        Grundstücksmarkt dar. Sie sind geeignet, verschiedene Regionen in Niedersachsen miteinander zu
+                        vergleichen. Zuständig für die Auswertungen und Analysen ist der Obere Gutachterausschuss für
+                        Grundstückswerte. Bereitgestellt werden die kostenfreien Daten in Form von interaktiven
+                        Dashboards.</p>
+                </div>
+            </div>
+            <div class="col-md-5"
+                 aria-hidden="true">
+                <a href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n-title
+                   title="Landesgrundstücksmarktdaten"
+                   tabindex="-1">
+                    <img src="./assets/images/landesgrundstuecksmarktdaten.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         i18n-alt
+                         alt="Landesgrundstücksmarktdaten">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
 
         <div class="row"
              *ngIf="config.modules.includes('immobilienpreisindex')">
