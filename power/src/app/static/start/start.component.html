@@ -5,7 +5,7 @@
                   [pauseOnFocus]="true"
                   [isAnimated]="true">
             <slide *ngIf="config.modules.includes('bodenrichtwerte')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Bodenrichtwerte"
                      class="carousel-image">
@@ -26,7 +26,7 @@
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('bodenwertkalkulator')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Bodenwertkalkulator"
                      class="carousel-image">
@@ -47,7 +47,7 @@
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Landesgrundstücksmarktdaten"
                      class="carousel-image">
@@ -67,7 +67,7 @@
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('grundstuecksmarktberichte')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Grundstücksmarktberichte"
                      class="carousel-image">
@@ -87,7 +87,7 @@
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('immobilienpreisindex')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Immobilienpreisindex"
                      class="carousel-image">
@@ -108,7 +108,7 @@
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('immobilienpreiskalkulator')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Immobilien-Preis-Kalkulator"
                      class="carousel-image">
@@ -130,7 +130,7 @@
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('forms')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Formulare"
                      class="carousel-image">
@@ -150,7 +150,7 @@
                 </div>
             </slide>
             <slide *ngIf="config.modules.includes('feedback')">
-                <img src="./assets/boris-banner.png"
+                <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="Feedback"
                      class="carousel-image">
@@ -199,10 +199,8 @@
                    i18n-title
                    title="Bodenrichtwerte"
                    tabindex="-1">
-                    <img src="./assets/boris.png"
+                    <img src="./assets/images/bodenrichtwerte.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Bodenrichtwerte">
                 </a>
@@ -240,10 +238,8 @@
                    i18n-title
                    title="Landesgrundstücksmarktdaten"
                    tabindex="-1">
-                    <img src="./assets/boris.png"
+                    <img src="./assets/images/landesgrundstuecksmarktdaten.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Landesgrundstücksmarktdaten">
                 </a>
@@ -282,10 +278,8 @@
                    i18n-title
                    title="Grundstücksmarktberichte"
                    tabindex="-1">
-                    <img src="./assets/boris.png"
+                    <img src="./assets/images/grundstuecksmarktberichte.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Grundstücksmarktberichte">
                 </a>
@@ -321,10 +315,8 @@
                    i18n-title
                    title="Immobilienpreisindex"
                    tabindex="-1">
-                    <img src="./assets/nipix.png"
+                    <img src="./assets/images/immobilienpreisindex.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Immobilienpreisindex">
                 </a>
@@ -364,10 +356,8 @@
                    i18n-title
                    title="Immobilienpreiskalkulator"
                    tabindex="-1">
-                    <img src="./assets/boris.png"
+                    <img src="./assets/images/immobilienpreiskalkulator.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Immobilienpreiskalkulator">
                 </a>
@@ -401,10 +391,8 @@
                    i18n-title
                    title="Bodenwertkalkulator"
                    tabindex="-1">
-                    <img src="./assets/bowert.png"
+                    <img src="./assets/images/bodenwertkalkulator.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Bodenwertkalkulator">
                 </a>
@@ -413,7 +401,7 @@
         <hr class="my-5"
             *ngIf="config.modules.includes('bodenwertkalkulator')">
 
-        <div class="row"
+        <div class="row mb-1"
              *ngIf="config.modules.includes('forms')">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('forms')">
@@ -479,10 +467,8 @@
                    i18n-title
                    title="Formulare"
                    tabindex="-1">
-                    <img src="./assets/onlineForm.png"
+                    <img src="./assets/images/forms.png"
                          class="img-thumbnail img-fluid mx-auto"
-                         width="500"
-                         height="500"
                          i18n-alt
                          alt="Formulare">
                 </a>
