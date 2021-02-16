@@ -314,7 +314,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>) {
         this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
             .subscribe(
-                res => this.bodenrichtwertService.updateFeatures(res),
+                res => {
+                    this.bodenrichtwertService.updateFeatures(res);
+                    // temporary alert for data of bremen for the year 2020
+                    if (res.features[0]?.properties.gabe.includes('Bremen') && this.stichtag === '2020-12-31') {
+                        this.alerts.NewAlert(
+                            'info',
+                            $localize`Diese Daten sind noch nicht verfügbar!`,
+                            $localize`Die Daten für Bremen des Jahres 2020 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
+                        );
+                    }
+                },
                 err => {
                     console.log(err);
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
