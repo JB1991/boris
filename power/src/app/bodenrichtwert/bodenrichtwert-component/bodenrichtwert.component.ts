@@ -120,7 +120,7 @@ export class BodenrichtwertComponent implements OnDestroy {
     }
 
     public printURL(): string {
-        let url = '/boris-print/';
+        let url = '/boris-print/?';
 
         // coordinates
         const lnglat_coordinates = this.map.marker.getLngLat();
