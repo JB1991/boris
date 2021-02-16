@@ -293,7 +293,7 @@
     <unit id="4783586120320798427">
       <notes>
         <note category="location">src/app/app.component.html:45</note>
-        <note category="location">src/app/static/start/start.component.html:40</note>
+        <note category="location">src/app/static/start/start.component.html:123</note>
       </notes>
       <segment>
         <source>Bodenwerte</source>
@@ -305,8 +305,8 @@
         <note category="location">src/app/app.component.html:406</note>
         <note category="location">src/app/static/start/start.component.html:10</note>
         <note category="location">src/app/static/start/start.component.html:19</note>
-        <note category="location">src/app/static/start/start.component.html:202</note>
-        <note category="location">src/app/static/start/start.component.html:209</note>
+        <note category="location">src/app/static/start/start.component.html:200</note>
+        <note category="location">src/app/static/start/start.component.html:205</note>
       </notes>
       <segment>
         <source>Bodenrichtwerte</source>
@@ -325,9 +325,9 @@
     <unit id="3258477668686168761">
       <notes>
         <note category="location">src/app/app.component.html:70</note>
-        <note category="location">src/app/static/start/start.component.html:31</note>
-        <note category="location">src/app/static/start/start.component.html:404</note>
-        <note category="location">src/app/static/start/start.component.html:411</note>
+        <note category="location">src/app/static/start/start.component.html:114</note>
+        <note category="location">src/app/static/start/start.component.html:392</note>
+        <note category="location">src/app/static/start/start.component.html:397</note>
       </notes>
       <segment>
         <source>Bodenwertkalkulator</source>
@@ -341,27 +341,14 @@
         <source>Immobilien</source>
       </segment>
     </unit>
-    <unit id="8839970987281352089">
-      <notes>
-        <note category="location">src/app/app.component.html:94</note>
-        <note category="location">src/app/static/start/start.component.html:52</note>
-        <note category="location">src/app/static/start/start.component.html:57</note>
-        <note category="location">src/app/static/start/start.component.html:225</note>
-        <note category="location">src/app/static/start/start.component.html:243</note>
-        <note category="location">src/app/static/start/start.component.html:250</note>
-      </notes>
-      <segment>
-        <source>Landesgrundstücksmarktdaten</source>
-      </segment>
-    </unit>
     <unit id="7565814060027716456">
       <notes>
-        <note category="location">src/app/app.component.html:102</note>
-        <note category="location">src/app/static/start/start.component.html:72</note>
-        <note category="location">src/app/static/start/start.component.html:77</note>
-        <note category="location">src/app/static/start/start.component.html:266</note>
-        <note category="location">src/app/static/start/start.component.html:285</note>
-        <note category="location">src/app/static/start/start.component.html:292</note>
+        <note category="location">src/app/app.component.html:94</note>
+        <note category="location">src/app/static/start/start.component.html:31</note>
+        <note category="location">src/app/static/start/start.component.html:36</note>
+        <note category="location">src/app/static/start/start.component.html:221</note>
+        <note category="location">src/app/static/start/start.component.html:240</note>
+        <note category="location">src/app/static/start/start.component.html:245</note>
       </notes>
       <segment>
         <source>Grundstücksmarktberichte</source>
@@ -369,27 +356,41 @@
     </unit>
     <unit id="2463875073677775424">
       <notes>
-        <note category="location">src/app/app.component.html:109</note>
+        <note category="location">src/app/app.component.html:101</note>
         <note category="location">src/app/gmb/gmb/gmb.component.html:4</note>
+        <note category="location">src/app/gmb/gmb/gmb.component.ts:108</note>
       </notes>
       <segment>
         <source>Grundstücksmarktberichte (Archiv)</source>
       </segment>
     </unit>
-    <unit id="5178412134466277977">
+    <unit id="8839970987281352089">
       <notes>
-        <note category="location">src/app/app.component.html:117</note>
+        <note category="location">src/app/app.component.html:109</note>
+        <note category="location">src/app/static/start/start.component.html:51</note>
+        <note category="location">src/app/static/start/start.component.html:56</note>
+        <note category="location">src/app/static/start/start.component.html:261</note>
+        <note category="location">src/app/static/start/start.component.html:279</note>
+        <note category="location">src/app/static/start/start.component.html:284</note>
       </notes>
       <segment>
-        <source>Immobilien-Preis-Kalkulator - IPK</source>
+        <source>Landesgrundstücksmarktdaten</source>
       </segment>
     </unit>
     <unit id="252155412188514545">
       <notes>
-        <note category="location">src/app/app.component.html:124</note>
+        <note category="location">src/app/app.component.html:116</note>
       </notes>
       <segment>
         <source>Niedersächsischer Immobilienpreisindex - NIPIX</source>
+      </segment>
+    </unit>
+    <unit id="5178412134466277977">
+      <notes>
+        <note category="location">src/app/app.component.html:124</note>
+      </notes>
+      <segment>
+        <source>Immobilien-Preis-Kalkulator - IPK</source>
       </segment>
     </unit>
     <unit id="8530560792297920136">
@@ -399,9 +400,9 @@
         <note category="location">src/app/fragebogen/public-dashboard/public-dashboard.component.html:19</note>
         <note category="location">src/app/static/start/start.component.html:135</note>
         <note category="location">src/app/static/start/start.component.html:140</note>
-        <note category="location">src/app/static/start/start.component.html:425</note>
-        <note category="location">src/app/static/start/start.component.html:482</note>
-        <note category="location">src/app/static/start/start.component.html:489</note>
+        <note category="location">src/app/static/start/start.component.html:411</note>
+        <note category="location">src/app/static/start/start.component.html:468</note>
+        <note category="location">src/app/static/start/start.component.html:473</note>
       </notes>
       <segment>
         <source>Formulare</source>
@@ -554,25 +555,6 @@
         <source>Nutzungsbedingungen</source>
       </segment>
     </unit>
-    <unit id="6523585524940820841">
-      <notes>
-        <note category="location">src/app/app.component.html:384</note>
-      </notes>
-      <segment>
-        <source>Sprachauswahl</source>
-      </segment>
-    </unit>
-    <unit id="51574765818008149">
-      <notes>
-        <note category="location">src/app/app.component.html:386</note>
-        <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:5</note>
-        <note category="location">src/app/fragebogen/fillout/fillout.component.html:12</note>
-        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.html:28</note>
-      </notes>
-      <segment>
-        <source>Sprache</source>
-      </segment>
-    </unit>
     <unit id="2452993531624137480">
       <notes>
         <note category="location">src/app/app.component.html:404</note>
@@ -670,7 +652,7 @@
     <unit id="1080923567997249596">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:142,144</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:201,203</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:202,204</note>
       </notes>
       <segment>
         <source>Gemarkung: <ph id="0" equiv="INTERPOLATION" disp="{{ flurstueck.features[0].properties.gemarkungsnummer }}"/> </source>
@@ -679,7 +661,7 @@
     <unit id="2584828594100750565">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:148,150</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:207,209</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:208,210</note>
       </notes>
       <segment>
         <source>Flurnummer: <ph id="0" equiv="INTERPOLATION" disp="{{ flurstueck.features[0].properties.flurnummer }}"/> </source>
@@ -688,11 +670,18 @@
     <unit id="315992013179193808">
       <notes>
         <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:153,155</note>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:212,214</note>
       </notes>
       <segment>
         <source>Zähler<pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span
                                               *ngIf=&quot;flurstueck.features[0]?.properties.nenner&quot;&gt;" dispEnd="&lt;/span&gt;">/Nenner</pc>: <ph id="1" equiv="INTERPOLATION" disp="{{ flurstueck.features[0].properties.zaehler }}"/></source>
+      </segment>
+    </unit>
+    <unit id="5444781428963272524">
+      <notes>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component.html:213,214</note>
+      </notes>
+      <segment>
+        <source>Flurstück: <ph id="0" equiv="INTERPOLATION" disp="{{ flurstueck.features[0].properties.zaehler }}"/></source>
       </segment>
     </unit>
     <unit id="1696404347085633531">
@@ -1381,7 +1370,7 @@
     </unit>
     <unit id="8329545165404152883">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert.service.ts:30</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert.service.ts:31</note>
       </notes>
       <segment>
         <source>Bauland</source>
@@ -1389,7 +1378,7 @@
     </unit>
     <unit id="4257784264753741968">
       <notes>
-        <note category="location">src/app/bodenrichtwert/bodenrichtwert.service.ts:31</note>
+        <note category="location">src/app/bodenrichtwert/bodenrichtwert.service.ts:32</note>
       </notes>
       <segment>
         <source>Land- und forstwirtschaftliche Flächen</source>
@@ -5103,6 +5092,16 @@
         <source>Zeit für das gesamte Formular</source>
       </segment>
     </unit>
+    <unit id="51574765818008149">
+      <notes>
+        <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:5</note>
+        <note category="location">src/app/fragebogen/fillout/fillout.component.html:12</note>
+        <note category="location">src/app/fragebogen/surveyjs/preview/preview.component.html:28</note>
+      </notes>
+      <segment>
+        <source>Sprache</source>
+      </segment>
+    </unit>
     <unit id="1453810865398829587">
       <notes>
         <note category="location">src/app/fragebogen/editor/localeinput/localeinput.component.html:12</note>
@@ -6126,7 +6125,7 @@
     <unit id="2408914290675512706">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:38,39</note>
-        <note category="location">src/app/static/start/start.component.html:440,441</note>
+        <note category="location">src/app/static/start/start.component.html:426,427</note>
       </notes>
       <segment>
         <source>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu gelangen.</source>
@@ -6135,7 +6134,7 @@
     <unit id="3438075409129621721">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:48</note>
-        <note category="location">src/app/static/start/start.component.html:451</note>
+        <note category="location">src/app/static/start/start.component.html:437</note>
       </notes>
       <segment>
         <source>Formular PIN</source>
@@ -6145,8 +6144,8 @@
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:54</note>
         <note category="location">src/app/fragebogen/home/home.component.html:55</note>
-        <note category="location">src/app/static/start/start.component.html:458</note>
-        <note category="location">src/app/static/start/start.component.html:459</note>
+        <note category="location">src/app/static/start/start.component.html:444</note>
+        <note category="location">src/app/static/start/start.component.html:445</note>
       </notes>
       <segment>
         <source>PIN absenden</source>
@@ -6155,7 +6154,7 @@
     <unit id="7567341863769679266">
       <notes>
         <note category="location">src/app/fragebogen/home/home.component.html:69</note>
-        <note category="location">src/app/static/start/start.component.html:473</note>
+        <note category="location">src/app/static/start/start.component.html:459</note>
       </notes>
       <segment>
         <source>Die PIN absenden</source>
@@ -6387,9 +6386,25 @@
         <source>Formularvorschau</source>
       </segment>
     </unit>
+    <unit id="3107426144397642635">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:12</note>
+      </notes>
+      <segment>
+        <source>Bitte wählen Sie einen Landkreis</source>
+      </segment>
+    </unit>
+    <unit id="7405757573683758099">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:13</note>
+      </notes>
+      <segment>
+        <source>Berichte für den Landkreis &quot;<ph id="0" equiv="INTERPOLATION" disp="{{kreise[selectedKreis]}}"/>&quot;</source>
+      </segment>
+    </unit>
     <unit id="18158233153045297">
       <notes>
-        <note category="location">src/app/gmb/gmb/gmb.component.html:31</note>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:44</note>
       </notes>
       <segment>
         <source>Landesgrundstücksmarktbericht</source>
@@ -6397,7 +6412,7 @@
     </unit>
     <unit id="4807838070804133286">
       <notes>
-        <note category="location">src/app/gmb/gmb/gmb.component.html:32</note>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:45</note>
       </notes>
       <segment>
         <source>Grundstücksmarktbericht</source>
@@ -6405,7 +6420,7 @@
     </unit>
     <unit id="1270068660398977188">
       <notes>
-        <note category="location">src/app/gmb/gmb/gmb.component.html:37</note>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:50</note>
       </notes>
       <segment>
         <source>Downlaod</source>
@@ -6413,10 +6428,44 @@
     </unit>
     <unit id="5083152320991494800">
       <notes>
-        <note category="location">src/app/gmb/gmb/gmb.component.html:39</note>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:52</note>
       </notes>
       <segment>
         <source>Bereiche</source>
+      </segment>
+    </unit>
+    <unit id="7389296217991631756">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.html:70,72</note>
+      </notes>
+      <segment>
+        <source> * Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar.<ph id="0" equiv="LINE_BREAK" type="fmt" disp="&lt;br&gt;
+        "/> Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein. </source>
+      </segment>
+    </unit>
+    <unit id="7556076801307645383">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.ts:31</note>
+      </notes>
+      <segment>
+        <source>Landkreise in Niedersachsen*</source>
+      </segment>
+    </unit>
+    <unit id="4655012579967803335">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.ts:47</note>
+      </notes>
+      <segment>
+        <source>Quelle: Oberer Gutachterausschuss für 
+Grundstückswerte in Niedersachsen, 2021</source>
+      </segment>
+    </unit>
+    <unit id="5546787584784778512">
+      <notes>
+        <note category="location">src/app/gmb/gmb/gmb.component.ts:73</note>
+      </notes>
+      <segment>
+        <source>Landkreise in Niedersachsen</source>
       </segment>
     </unit>
     <unit id="1857718811662681434">
@@ -6493,8 +6542,8 @@ Grundstückswerte in Niedersachsen</source>
     <unit id="2295421029143589974">
       <notes>
         <note category="location">src/app/immobilien/immobilien/immobilien.component.html:2</note>
-        <note category="location">src/app/static/start/start.component.html:102</note>
-        <note category="location">src/app/static/start/start.component.html:310</note>
+        <note category="location">src/app/static/start/start.component.html:81</note>
+        <note category="location">src/app/static/start/start.component.html:302</note>
       </notes>
       <segment>
         <source>Niedersächsischer Immobilienpreisindex</source>
@@ -7424,7 +7473,7 @@ Grundstückswerte in Niedersachsen</source>
     <unit id="2078906062700177291">
       <notes>
         <note category="location">src/app/static/start/start.component.html:20</note>
-        <note category="location">src/app/static/start/start.component.html:190</note>
+        <note category="location">src/app/static/start/start.component.html:188</note>
       </notes>
       <segment>
         <source>Bodenrichtwertinformationssystem Niedersachsen</source>
@@ -7433,10 +7482,10 @@ Grundstückswerte in Niedersachsen</source>
     <unit id="3480843511135968157">
       <notes>
         <note category="location">src/app/static/start/start.component.html:24</note>
-        <note category="location">src/app/static/start/start.component.html:45</note>
-        <note category="location">src/app/static/start/start.component.html:65</note>
+        <note category="location">src/app/static/start/start.component.html:44</note>
+        <note category="location">src/app/static/start/start.component.html:64</note>
         <note category="location">src/app/static/start/start.component.html:85</note>
-        <note category="location">src/app/static/start/start.component.html:106</note>
+        <note category="location">src/app/static/start/start.component.html:107</note>
         <note category="location">src/app/static/start/start.component.html:128</note>
         <note category="location">src/app/static/start/start.component.html:148</note>
       </notes>
@@ -7444,20 +7493,11 @@ Grundstückswerte in Niedersachsen</source>
         <source>Zur Anwendung</source>
       </segment>
     </unit>
-    <unit id="5319420567311553817">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:41</note>
-        <note category="location">src/app/static/start/start.component.html:392</note>
-      </notes>
-      <segment>
-        <source>Bodenwertkalkulator Niedersachsen</source>
-      </segment>
-    </unit>
     <unit id="7617085008095164760">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:92</note>
-        <note category="location">src/app/static/start/start.component.html:324</note>
-        <note category="location">src/app/static/start/start.component.html:331</note>
+        <note category="location">src/app/static/start/start.component.html:71</note>
+        <note category="location">src/app/static/start/start.component.html:316</note>
+        <note category="location">src/app/static/start/start.component.html:321</note>
       </notes>
       <segment>
         <source>Immobilienpreisindex</source>
@@ -7465,7 +7505,7 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="7614473738303929376">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:101</note>
+        <note category="location">src/app/static/start/start.component.html:80</note>
       </notes>
       <segment>
         <source>Immobilienpreise</source>
@@ -7473,9 +7513,9 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="8997060414593817386">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:113</note>
-        <note category="location">src/app/static/start/start.component.html:122</note>
-        <note category="location">src/app/static/start/start.component.html:351</note>
+        <note category="location">src/app/static/start/start.component.html:92</note>
+        <note category="location">src/app/static/start/start.component.html:101</note>
+        <note category="location">src/app/static/start/start.component.html:341</note>
       </notes>
       <segment>
         <source>Immobilien-Preis-Kalkulator</source>
@@ -7483,17 +7523,26 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="9099198187726220672">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:118</note>
-        <note category="location">src/app/static/start/start.component.html:347</note>
+        <note category="location">src/app/static/start/start.component.html:97</note>
+        <note category="location">src/app/static/start/start.component.html:337</note>
       </notes>
       <segment>
         <source>IPK</source>
       </segment>
     </unit>
+    <unit id="5319420567311553817">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:124</note>
+        <note category="location">src/app/static/start/start.component.html:380</note>
+      </notes>
+      <segment>
+        <source>Bodenwertkalkulator Niedersachsen</source>
+      </segment>
+    </unit>
     <unit id="8668899295247471129">
       <notes>
         <note category="location">src/app/static/start/start.component.html:144</note>
-        <note category="location">src/app/static/start/start.component.html:429</note>
+        <note category="location">src/app/static/start/start.component.html:415</note>
       </notes>
       <segment>
         <source>Online Formular Service</source>
@@ -7525,32 +7574,32 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="1041084297473454291">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:192,195</note>
-        <note category="location">src/app/static/start/start.component.html:394,397</note>
+        <note category="location">src/app/static/start/start.component.html:190,193</note>
+        <note category="location">src/app/static/start/start.component.html:382,385</note>
       </notes>
       <segment>
         <source>Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte in Niedersachsen und Bremen stellen interessierten Nutzern unter BORIS.NI Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft in Niedersachsen, Bremen und Bremerhaven zur Verfügung.</source>
       </segment>
     </unit>
-    <unit id="4641821897312946708">
-      <notes>
-        <note category="location">src/app/static/start/start.component.html:229,234</note>
-      </notes>
-      <segment>
-        <source>Als Ergänzung zu den örtlichen Grundstücksmarktberichten der Gutachterausschüsse stellen die Landesgrundstücksmarktdaten überregionale und weiter generalisierte Zusammenhänge zum Grundstücksmarkt dar. Sie sind geeignet, verschiedene Regionen in Niedersachsen miteinander zu vergleichen. Zuständig für die Auswertungen und Analysen ist der Obere Gutachterausschuss für Grundstückswerte. Bereitgestellt werden die kostenfreien Daten in Form von interaktiven Dashboards.</source>
-      </segment>
-    </unit>
     <unit id="50312855290479793">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:270,276</note>
+        <note category="location">src/app/static/start/start.component.html:225,231</note>
       </notes>
       <segment>
         <source>Grundstücksmarktberichte geben einen fundierten Einblick in das Geschehen am Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen sowie Preisniveau in den Teilmärkten, aber auch zu detaillierteren Zahlen und Kenngrößen. Die Berichte wenden sich an interessierte private und an professionelle Nutzerinnen und Nutzer. Die Herausgabe der Grundstücksmarktberichte obliegt den Gutachterausschüssen für Grundstückswerte, deren Zuständigkeit jeweils eine bestimmte Region in Niedersachsen abdeckt. Die Berichte sind kostenfrei verfügbar und werden als PDF-Dokumente bereitgestellt.</source>
       </segment>
     </unit>
+    <unit id="4641821897312946708">
+      <notes>
+        <note category="location">src/app/static/start/start.component.html:265,270</note>
+      </notes>
+      <segment>
+        <source>Als Ergänzung zu den örtlichen Grundstücksmarktberichten der Gutachterausschüsse stellen die Landesgrundstücksmarktdaten überregionale und weiter generalisierte Zusammenhänge zum Grundstücksmarkt dar. Sie sind geeignet, verschiedene Regionen in Niedersachsen miteinander zu vergleichen. Zuständig für die Auswertungen und Analysen ist der Obere Gutachterausschuss für Grundstückswerte. Bereitgestellt werden die kostenfreien Daten in Form von interaktiven Dashboards.</source>
+      </segment>
+    </unit>
     <unit id="1191512031554187852">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:312,317</note>
+        <note category="location">src/app/static/start/start.component.html:304,309</note>
       </notes>
       <segment>
         <source>Zur Darstellung der Preisentwicklung von Eigenheimen (freistehende Ein- und Zweifamilienhäuser, Reihenhäuser und Doppelhaushälften) und Eigentumswohnungen leitet der Obere Gutachterausschuss einen „Niedersächsischen Immobilienpreisindex für Eigenheime und Eigentumswohnungen (NIPIX)“ ab. Die Gutachterausschüsse und der Obere Gutachterausschuss für Grundstückswerte.</source>
@@ -7558,7 +7607,7 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="1387474352510995225">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:353,358</note>
+        <note category="location">src/app/static/start/start.component.html:343,348</note>
       </notes>
       <segment>
         <source>Mit Hilfe des Immobilien-Preis-Kalkulators können Sie schnell und einfach das Preisniveau für Ihr freistehendes Ein-/Zweifamilienhaus, Ihr Reihenhaus, Ihre Doppelhaushälfte oder Ihre Eigentumswohnung abschätzen. Der Immobilien-Preis-Kalkulator basiert auf Marktmodellen (Vergleichsfaktoren), die durch die Gutachterausschüsse für Grundstückswerte aus der Kaufpreissammlung mit Hilfe mathematisch-statistischer Verfahren (multiple Regression) ermittelt werden. Eine Auskunft auf Grundlage des Immobilien-Preis-Kalkulators ist gebührenpflichtig.</source>
@@ -7566,8 +7615,8 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="8374005528557112593">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:367</note>
-        <note category="location">src/app/static/start/start.component.html:374</note>
+        <note category="location">src/app/static/start/start.component.html:357</note>
+        <note category="location">src/app/static/start/start.component.html:362</note>
       </notes>
       <segment>
         <source>Immobilienpreiskalkulator</source>
@@ -7575,7 +7624,7 @@ Grundstückswerte in Niedersachsen</source>
     </unit>
     <unit id="7186949133777692993">
       <notes>
-        <note category="location">src/app/static/start/start.component.html:431,433</note>
+        <note category="location">src/app/static/start/start.component.html:417,419</note>
       </notes>
       <segment>
         <source>Hier können öffentliche und private Formulare des LGLN online ausgefüllt und abgeschickt werden. Wenn Sie eine PIN für ein Formular erhalten haben, können Sie diesen direkt über die PIN abrufen und ausfüllen.</source>
