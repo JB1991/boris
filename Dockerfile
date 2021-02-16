@@ -10,7 +10,7 @@ COPY nginx-default.conf /etc/nginx/conf.d/default.conf.template
 COPY docker-entrypoint.sh /
 
 RUN mv /usr/share/nginx/html/de/* /usr/share/nginx/html/ \
-    && rm -rf /usr/share/nginx/html/en/ \
+    && rm -rf /usr/share/nginx/html/de/ \
     && echo "{\"version\":\"$COMMIT\",\"branch\":\"$BRANCH\"}" > /usr/share/nginx/html/assets/version.json
 
 EXPOSE 80

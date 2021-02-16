@@ -314,7 +314,7 @@ build:
     policy: pull
   script:
     - cd power
-    - npm run build -- -c staging
+    - npm run build -- -c staging,de
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
@@ -336,7 +336,7 @@ build:production:
     policy: pull
   script:
     - cd power
-    - npm run build -- --prod
+    - npm run build -- -c production,de
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
@@ -366,9 +366,7 @@ package:staging:
   dependencies:
     - build
   cache: {}
-  environment: {
-    name: staging
-  }
+  environment: { name: staging }
   script:
     - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
@@ -384,9 +382,7 @@ package:production:
   dependencies:
     - build:production
   cache: {}
-  environment: {
-    name: production
-  }
+  environment: { name: production }
   script:
     - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
@@ -419,9 +415,7 @@ deploy:staging:
   needs: ["package:staging"]
   dependencies: []
   cache: {}
-  environment: {
-    name: staging
-  }
+  environment: { name: staging }
   script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
@@ -438,9 +432,7 @@ deploy:production:
   needs: ["package:production"]
   dependencies: []
   cache: {}
-  environment: {
-    name: production
-  }
+  environment: { name: production }
   script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
