@@ -124,7 +124,8 @@
                           type="text">
                         <span class="col">
                             <small i18n>Flurstückskennzeichen</small>
-                            <svg fill-rule="evenodd"
+                            <svg class="mr-4"
+                                 fill-rule="evenodd"
                                  viewBox="0 0 20 22"
                                  width="24"
                                  height="20"
@@ -135,23 +136,22 @@
                                           stroke="#96999e"
                                           d="M 27.237147,57.888549 51.106583,52.026518 66.420364,96.500039 40.933018,96.903113 Z" />
                                 </g>
-                            </svg> <small> :</small>
+                            </svg>
                             <span class="flurstueck">
                                 <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
-                                    <small class="ml-2 mr-4"
+                                    <small class="ml-2 mr-2"
                                            i18n>Gemarkung:
                                         {{ flurstueck.features[0].properties.gemarkungsnummer }}
                                     </small>
                                 </span>
                                 <span *ngIf="flurstueck.features[0]?.properties.flurnummer">
-                                    <small class="mr-4"
+                                    <small class="mr-2"
                                            i18n>Flurnummer:
                                         {{ flurstueck.features[0].properties.flurnummer }}
                                     </small>
                                 </span>
                                 <span *ngIf="flurstueck.features[0]?.properties.zaehler">
-                                    <small i18n>Zähler<span
-                                              *ngIf="flurstueck.features[0]?.properties.nenner">/Nenner</span>:
+                                    <small i18n>Flurstück:
                                         {{ flurstueck.features[0].properties.zaehler }}</small>
                                     <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
                                         flurstueck.features[0].properties.nenner }}
