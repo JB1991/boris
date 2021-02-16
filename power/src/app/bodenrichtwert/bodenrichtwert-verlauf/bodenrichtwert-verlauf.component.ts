@@ -29,6 +29,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         { stag: '2017', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: '2018', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: '2019', brw: null, nutzung: '', verg: '', verf: '' },
+        { stag: '2020', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: 'heute', brw: null, nutzung: '', verg: '', verf: '' }
     ];
 
@@ -98,7 +99,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         },
         xAxis: {
             type: 'category',
-            data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+            data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'],
             nameLocation: 'start',
             axisLine: {
                 symbol: ['none', 'arrow'],
@@ -156,7 +157,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         const filteredFeatures = [];
         for (const feature of features) {
             const year = feature.properties.stag.substring(0, 4);
-            if (year >= 2012 && year <= 2019) {
+            if (year >= 2012 && year <= 2020) {
                 filteredFeatures.push(feature);
             }
         }
