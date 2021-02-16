@@ -1375,8 +1375,8 @@
                 ]
             },
             "paint": {
-                "text-color": "#bbb",
-                "text-halo-color": "#fff",
+                "text-color": "rgb(117, 129, 145)",
+                "text-halo-color": "rgb(242,243,240)",
                 "text-translate": [
                     0,
                     0
