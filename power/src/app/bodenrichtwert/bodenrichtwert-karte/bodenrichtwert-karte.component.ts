@@ -208,6 +208,15 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         if (changes.features && !changes.features.firstChange) {
             this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
         }
+        if (changes.stichtag) {
+            if (changes.stichtag.currentValue === '2020-12-31' && this.adresse?.properties.kreis === 'Stadt Bremen') {
+                this.alerts.NewAlert(
+                    'info',
+                    $localize`Diese Daten sind noch nicht verfügbar!`,
+                    $localize`Die Daten für Bremen des Jahres 2020 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
+                );
+            }
+        }
     }
 
     ngOnInit() {
