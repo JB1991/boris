@@ -101,6 +101,24 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.teilmarkt = this.bodenrichtwertService.TEILMAERKTE[0];
     }
 
+    getStichtag(): number {
+        const year: number = this.stichtag.slice(0, 4);
+        if (this.features?.features[0].properties.gema === 'Bremerhaven') {
+            if (year % 2 === 0) {
+                return year - 1;
+            }
+            return year;
+        };
+
+        if (this.features?.features[0].properties.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
+            if (year % 2 === 0) {
+                return year;
+            }
+            return year - 1;
+        }
+        return year;
+    }
+
     /**
      * Destroys all active subscriptions
      */

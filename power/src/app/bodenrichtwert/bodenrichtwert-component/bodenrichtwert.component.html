@@ -306,7 +306,8 @@
                                      class="text-center col-36">
                                     <p class="m-3 mx-center"
                                        i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich auf den
-                                        aktuell ausgewählten Standort.</p>
+                                        aktuell ausgewählten Standort und auf den Stichtag 31.12.{{ getStichtag() }}.
+                                    </p>
                                 </div>
                                 <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"
                                      class="text-center col-36">
