@@ -177,9 +177,25 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.srTableData.length).toBe(1);
     });
 
+    it('getBremenStichtag should calculate last Stichtag of Bremen', () => {
+        spyOn(component, 'getCurrentYear').and.returnValues(2020, 2021);
+        let result = component.getBremenStichtag();
+        expect(result).toEqual('31.12.2017.');
+        result = component.getBremenStichtag();
+        expect(result).toEqual('31.12.2019.');
+    });
+
     it ('getCurrentYear should caculate the current year', () => {
         const res = component.getCurrentYear();
         expect(typeof(res)).toBe('number');
+    });
+
+    it('getBremenStichtag should calculate last Stichtag of Bremerhaven', () => {
+        spyOn(component, 'getCurrentYear').and.returnValues(2021, 2020);
+        let result = component.getBremerhavenStichtag();
+        expect(result).toEqual('31.12.2018.');
+        result = component.getBremerhavenStichtag();
+        expect(result).toEqual('31.12.2018.');
     });
 
 });

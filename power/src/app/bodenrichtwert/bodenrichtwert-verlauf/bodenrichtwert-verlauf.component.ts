@@ -483,7 +483,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     getBremenStichtag(): string {
         const year = this.getCurrentYear() - 1;
-        if (year % 2 === 0) {
+        if (year % 2 !== 0) {
             return ('31.' + '12.' + (year - 2) + '.');
         } else {
             return ('31.' + '12.' + (year - 1) + '.');
@@ -492,7 +492,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     getBremerhavenStichtag(): string {
         const year = this.getCurrentYear() - 1;
-        if (year % 2 !== 0) {
+        if (year % 2 === 0) {
             return ('31.' + '12.' + (year - 2) + '.');
         } else {
             return ('31.' + '12.' + (year - 1) + '.');
