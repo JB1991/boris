@@ -231,7 +231,7 @@ test:helm-dry-run:
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
   script:
-    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --dry-run
+    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --dry-run
   only:
     - dev
     - staging
@@ -504,7 +504,7 @@ deploy:development:
     - kubectl config use-context default
   script:
     - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
-      --set labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
   only:
     - dev
 
@@ -526,7 +526,7 @@ deploy:staging:
     - kubectl config use-context default
   script:
     - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install
-      --set labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
   only:
     - staging
 
@@ -548,6 +548,6 @@ deploy:production:
     - kubectl config use-context default
   script:
     - helm upgrade power ./chart/power -n prod -f ./chart/power/values-production.yaml --install
-      --set labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
   only:
     - production
