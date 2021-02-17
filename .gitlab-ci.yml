@@ -395,7 +395,7 @@ scan:development:
   stage: scan
   image: de.icr.io/lgln/kube-tools:latest
   dependencies:
-    - build
+    - package
   cache: {}
   script:
     - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
@@ -410,7 +410,7 @@ scan:staging:
   stage: scan
   image: de.icr.io/lgln/kube-tools:latest
   dependencies:
-    - build
+    - package
   cache: {}
   environment: { name: staging }
   script:
@@ -426,7 +426,7 @@ scan:production:
   stage: scan
   image: de.icr.io/lgln/kube-tools:latest
   dependencies:
-    - build:production
+    - package:production
   cache: {}
   environment: { name: production }
   script:
