@@ -33,10 +33,6 @@ footer li::before {
     content: '\00BB \0020';
 }
 
-.min-height {
-    min-height: calc(100vh - 57px - 306px);
-}
-
 nav {
     box-shadow: 0 0 0.25rem #343a40;
     -webkit-box-shadow: 0 0 0.25rem #343a40;

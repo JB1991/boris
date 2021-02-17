@@ -283,66 +283,10 @@
         </alert>
     </div>
 
-    <div (mouseenter)="isCollapsed = true; isCollapsedBRW = true; isCollapsedImmo = true; isCollapsedAcc = true;"
-         class="min-height">
+    <div (mouseenter)="isCollapsed = true; isCollapsedBRW = true; isCollapsedImmo = true; isCollapsedAcc = true;">
         <router-outlet></router-outlet>
     </div>
 
-    <!-- <div class="container-fluid">
-        <footer class="pt-4 my-md-5 pt-md-5 border-top w-100 m-0 overflow-hidden">
-            <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
-                 class="row justify-content-end">
-                <div class="col-md-4 text-right">
-                    <p class="text-muted"
-                       i18n>* Pflichtfeld</p>
-                </div>
-            </div>
-            <div class="row justify-content-around">
-                <div class="col text-center">
-                    <h5 id="languages"
-                        aria-label="Sprachauswahl"
-                        i18n-aria-label
-                        i18n>Sprache</h5>
-                    <a href="{{ baseurl }}"
-                       class="footer-link"
-                       rel="noopener"
-                       aria-labelledby="languages">Deutsch</a>
-                    - <a href="/en{{ baseurl }}"
-                       class="footer-link"
-                       rel="noopener"
-                       aria-labelledby="languages">English</a>
-                    <hr>
-                    <h5 i18n>Informationen</h5>
-                    <ul class="list-unstyled text-small">
-                        <li class="m-2">
-                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html"
-                               class="footer-link"
-                               target="_blank"
-                               rel="noopener noreferrer nofollow"
-                               i18n>Impressum</a>
-                        </li>
-                        <li class="m-2">
-                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html"
-                               class="footer-link"
-                               target="_blank"
-                               rel="noopener noreferrer nofollow"
-                               i18n>Datenschutz</a>
-                        </li>
-                        <li class="m-2">
-                            <a href="https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/allgemeine_geschafts_und_nutzungsbedingungen_agnb/allgemeine-geschafts-und-nutzungsbedingungen-agnb-97401.html"
-                               class="footer-link"
-                               target="_blank"
-                               rel="noopener noreferrer nofollow"
-                               i18n>Allgemeine Geschäfts- und Nutzungsbedingungen</a>
-                        </li>
-                    </ul>
-                    <p class="text-muted">
-                        <span i18n>Version</span>: {{ appVersion.branch }}/{{ appVersion.version }}
-                    </p>
-                </div>
-            </div>
-        </footer>
-    </div> -->
     <div class="container-fluid p-0 m-0">
         <footer class="pt-5 pb-2 px-1 px-md-5 overflow-hidden">
             <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
