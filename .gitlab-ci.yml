@@ -17,12 +17,10 @@ cache: &global_cache
     - power/node_modules/
   policy: pull-push
 
-install:
+init:npm:
   stage: init
   image: node:lts-alpine
   interruptible: true
-  needs: []
-  dependencies: []
   cache:
     <<: *global_cache
   script:
@@ -39,8 +37,6 @@ install:
 init:helm-dev:
   stage: init
   interruptible: true
-  needs: []
-  dependencies: []
   cache: {}
   script:
     - helm template power ./chart/power -f ./chart/power/values-dev.yaml --dependency-update --output-dir manifest-dev
@@ -58,8 +54,6 @@ init:helm-dev:
 init:helm-staging:
   stage: init
   interruptible: true
-  needs: []
-  dependencies: []
   cache: {}
   script:
     - helm template power ./chart/power -f ./chart/power/values-staging.yaml --dependency-update --output-dir manifest-staging
@@ -75,8 +69,6 @@ init:helm-staging:
 init:helm-production:
   stage: init
   interruptible: true
-  needs: []
-  dependencies: []
   cache: {}
   script:
     - helm template power ./chart/power -f ./chart/power/values-production.yaml --dependency-update --output-dir manifest-production
@@ -94,7 +86,7 @@ test:karma:
   image: trion/ng-cli-karma:latest
   interruptible: true
   needs:
-    - job: install
+    - job: init:npm
       artifacts: false
   dependencies: []
   cache:
@@ -122,7 +114,7 @@ test:e2e:
   image: trion/ng-cli-e2e:latest
   interruptible: true
   needs:
-    - job: install
+    - job: init:npm
       artifacts: false
   dependencies: []
   cache:
@@ -169,7 +161,7 @@ test:lint:
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: install
+    - job: init:npm
       artifacts: false
   dependencies: []
   cache:
@@ -190,7 +182,7 @@ test:lint-html:
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: install
+    - job: init:npm
       artifacts: false
   dependencies: []
   cache:
@@ -211,7 +203,7 @@ test:lint-styles:
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: install
+    - job: init:npm
       artifacts: false
   dependencies: []
   cache:
@@ -341,7 +333,7 @@ build:
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: install
+    - job: init:npm
       artifacts: false
   dependencies: []
   cache:
@@ -367,7 +359,7 @@ build:production:
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: install
+    - job: init:npm
       artifacts: false
   dependencies: []
   cache:
