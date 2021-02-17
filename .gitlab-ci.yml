@@ -8,6 +8,7 @@ stages:
   - test
   - build
   - package
+  - scan
   - deploy
 
 cache: &global_cache
@@ -392,6 +393,54 @@ package:production:
   only:
     - production
   when: manual
+
+scan:development:
+  stage: scan
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies:
+    - build
+  cache: {}
+  script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker pull "$CI_REGISTRY_IMAGE:latest"
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
+  only:
+    - dev
+  allow_failure: true
+
+scan:staging:
+  stage: scan
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies:
+    - build
+  cache: {}
+  environment: { name: staging }
+  script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker pull "$CI_REGISTRY_IMAGE:staging"
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
+  only:
+    - staging
+  allow_failure: true
+
+scan:production:
+  stage: scan
+  image: de.icr.io/lgln/kube-tools:latest
+  dependencies:
+    - build:production
+  cache: {}
+  environment: { name: production }
+  script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - docker pull "$CI_REGISTRY_IMAGE:production"
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:production"
+  only:
+    - production
+  when: manual
+  allow_failure: true
 
 deploy:development:
   stage: deploy
