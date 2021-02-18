@@ -37,7 +37,7 @@ const routes: Routes = [
     {
         path: 'grundstuecksmarktberichte',
         loadChildren: () => import('./gmb/gmb.module')
-            .then(m => m.GmbModule),
+        .then(m => m.GmbModule),
         canActivate: [ModuleGuard],
         data: {'mode': 'gmb'}
     },
