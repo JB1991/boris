@@ -35,10 +35,18 @@ const routes: Routes = [
         canActivate: [ModuleGuard]
     },
     {
-        path: 'gmb',
+        path: 'grundstuecksmarktberichte',
         loadChildren: () => import('./gmb/gmb.module')
             .then(m => m.GmbModule),
-        canActivate: [ModuleGuard]
+        canActivate: [ModuleGuard],
+        data: {'mode': 'gmb'}
+    },
+    {
+        path: 'landesgrundstuecksmarktberichte',
+        loadChildren: () => import('./gmb/gmb.module')
+        .then(m => m.GmbModule),
+        canActivate: [ModuleGuard],
+        data: {'mode': 'lmb'}
     },
     {
         path: '**',
