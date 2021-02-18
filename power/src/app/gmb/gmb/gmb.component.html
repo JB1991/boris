@@ -24,13 +24,15 @@
     <div *ngIf="mode === 'gmb'" class="row subtitle">
         <h2 *ngIf="selectedKreis === undefined" i18n>Bitte wählen Sie einen Landkreis</h2>
         <h2 *ngIf="selectedKreis !== undefined" i18n>Berichte für den Landkreis "{{kreise[selectedKreis]}}"</h2>
-        <select id="landkreise" class="form-select" aria-label="Wählen die einen Landkreis" (change)="onChange($event.target.value)">
-            <ng-container *ngFor="let kreis of selectMenu()">
-                <option *ngIf="selectedKreis === kreis.key" value="{{ kreis.key }}" selected>{{ kreis.value }}</option>
-                <option *ngIf="selectedKreis !== kreis.key" value="{{ kreis.key }}">{{ kreis.value }}</option>
+        <div class="col-md-12 dropdown">
+            <select id="landkreise" class="form-select" aria-label="Wählen die einen Landkreis" (change)="onChange($event.target.value)">
+                <ng-container *ngFor="let kreis of selectMenu()">
+                    <option *ngIf="selectedKreis === kreis.key" value="{{ kreis.key }}" selected>{{ kreis.value }}</option>
+                    <option *ngIf="selectedKreis !== kreis.key" value="{{ kreis.key }}">{{ kreis.value }}</option>
 
-            </ng-container>
-        </select>
+                </ng-container>
+            </select>
+        </div>
 
     </div>
 
