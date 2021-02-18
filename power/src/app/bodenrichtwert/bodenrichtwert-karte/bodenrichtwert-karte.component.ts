@@ -607,6 +607,16 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     onStichtagChange(stichtag: any) {
         this.stichtag = stichtag;
+
+        const stichtagIsEqual = this.location.path().includes('stichtag=' + this.stichtag);
+        // push info alert
+        if (!stichtagIsEqual) {
+            this.alerts.NewAlert(
+                'info',
+                $localize`Stichtag gewechselt`,
+                $localize`Der Stichtag wurde zu ` + stichtag + $localize` gewechselt.`);
+        }
+
         this.stichtagChange.next(stichtag);
 
         this.repaintMap();
