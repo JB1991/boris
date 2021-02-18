@@ -104,17 +104,17 @@ export class BodenrichtwertComponent implements OnDestroy {
     getStichtag(): number {
         const year: number = this.stichtag.slice(0, 4);
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
-            if (year % 2 === 0) {
-                return year - 2;
+            if (year % 2 !== 0) {
+                return year;
             }
             return year - 1;
         };
 
         if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
             if (year % 2 !== 0) {
-                return year;
+                return year -1;
             }
-            return year - 1;
+            return year;
         }
         return year;
     }
