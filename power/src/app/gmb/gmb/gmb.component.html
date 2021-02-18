@@ -1,14 +1,27 @@
 <div class="container-xl">
 
     <div class="row title">
-        <h1 i18n>Grundstücksmarktberichte (Archiv)</h1>
+        <h1 *ngIf="mode === 'gmb'" i18n>Grundstücksmarktberichte (Archiv)</h1>
+        <h1 *ngIf="mode === 'lmb'" i18n>Landesgrundstücksmarktberichte (Archiv)</h1>
     </div>
 
-    <div echarts [options]="mapOptions" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
-         (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
+    <div *ngIf="mode === 'gmb'" class="alert alert-info alert-gmb" role="alert">
+        Ein Archiv der Landesgrundstücksmarktberichte finden sie <a [routerLink]="['/landesgrundstuecksmarktberichte']" i18n>hier</a>.
+    </div>
+
+    <div *ngIf="mode === 'lmb'" class="alert alert-info alert-gmb" role="alert">
+        Die Grundstücksmarktberichte finden sie <a [routerLink]="['/grundstuecksmarktberichte']" i18n>hier</a>.
+    </div>
+
+    <div *ngIf="mode === 'gmb'" echarts
+         [options]="mapOptions"
+         [loading]="!mapLoaded"
+         (chartInit)="onChartInit($event)"
+         (chartMapSelectChanged)="onMapSelectChange($event)"
+         class="demo-chart chart-map"></div>
 
 
-    <div class="row subtitle">
+    <div *ngIf="mode === 'gmb'" class="row subtitle">
         <h2 *ngIf="selectedKreis === undefined" i18n>Bitte wählen Sie einen Landkreis</h2>
         <h2 *ngIf="selectedKreis !== undefined" i18n>Berichte für den Landkreis "{{kreise[selectedKreis]}}"</h2>
         <select id="landkreise" class="form-select" aria-label="Wählen die einen Landkreis" (change)="onChange($event.target.value)">
@@ -20,6 +33,8 @@
         </select>
 
     </div>
+
+    <br *ngIf="mode === 'lmb'">
 
     <div *ngFor="let rd of berichteFiltered" class="card m-0 mb-2" role="table">
         <div class="card-header">
@@ -66,7 +81,7 @@
     <br>
     <br>
 
-    <small i18n>
+    <small *ngIf="mode === 'gmb'" i18n>
         * Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar.<br>
         Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.
     </small>

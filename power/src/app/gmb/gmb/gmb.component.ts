@@ -103,17 +103,38 @@ export class GmbComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private titleService: Title,
+        private route: ActivatedRoute,
+        private location: Location,
         private cdr: ChangeDetectorRef
     ) {
-        this.titleService.setTitle($localize`Grundstücksmarktberichte (Archiv)`);
+        this.changeTitle();
     }
 
+    changeTitle() {
+        if (this.mode === 'gmb') {
+            this.titleService.setTitle($localize`Grundstücksmarktberichte (Archiv)`);
+        } else if (this.mode === 'lmb') {
+            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte (Archiv)`);
+        }
+    }
     /**
      * OnInit
      * Load geojson for Landkreise
      */
     ngOnInit(): void {
         this.mapInit();
+        this.route.data.subscribe(routedata => {
+            if (routedata['mode'] === 'lmb') {
+                this.mode = 'lmb';
+                this.filterBerichte(true);
+            }
+            if (routedata['mode'] === 'gmb') {
+                this.mode = 'gmb';
+            }
+            this.changeTitle();
+            this.cdr.detectChanges();
+
+        });
     }
 
     mapInit() {
@@ -191,51 +212,53 @@ export class GmbComponent implements OnInit {
                 res.push(arr[i]);
             }
         }
-
         return res.join('; ');
     }
 
     /**
      * Filter Berichte based on selection
      */
-    filterBerichte() {
-        if (this.selectedKreis === undefined) {
+    filterBerichte(lmb = false) {
+        if (this.selectedKreis === undefined && !lmb) {
             this.berichteFiltered = [];
             return;
         }
 
-        const ber = Object.keys(this.berichte);
         const bf = [];
 
-        for (let i = 0; i < ber.length; i++) {
-            const yr = {};
-            const yk = Object.keys(this.berichte[ber[i]]);
-            for (let y = 0; y < yk.length; y++) {
-                if ((this.berichte[ber[i]][yk[y]]['bereich'] !== undefined) &&
-                    (this.berichte[ber[i]][yk[y]]['bereich'].includes(this.selectedKreis))) {
-                    yr[yk[y]] = this.berichte[ber[i]][yk[y]];
+        if (!lmb) {
+            const ber = Object.keys(this.berichte);
+            for (let i = 0; i < ber.length; i++) {
+                const yr = {};
+                const yk = Object.keys(this.berichte[ber[i]]);
+                for (let y = 0; y < yk.length; y++) {
+                    if ((this.berichte[ber[i]][yk[y]]['bereich'] !== undefined) &&
+                        (this.berichte[ber[i]][yk[y]]['bereich'].includes(this.selectedKreis))) {
+                        yr[yk[y]] = this.berichte[ber[i]][yk[y]];
+                    }
+                }
+
+                const yl = Object.keys(yr);
+                if (yl.length > 0) {
+                    bf.push({
+                        'name': ber[i],
+                        'berichte': yr,
+                        'start': yl[0]
+                    });
                 }
             }
 
-            const yl = Object.keys(yr);
-            if (yl.length > 0) {
-                bf.push({
-                    'name': ber[i],
-                    'berichte': yr,
-                    'start': yl[0]
-                });
-            }
+            bf.sort(function(a, b) {
+                return a['start'] - b['start'];
+            });
         }
 
-        bf.sort(function(a, b) {
-            return a['start'] - b['start'];
-        });
-
-        // Always Display LMB
-        bf.push({
-            'name': 'Niedersachsen',
-            'berichte': this.berichte['Niedersachsen']
-        });
+        if (lmb) {
+            bf.push({
+                'name': 'Niedersachsen',
+                'berichte': this.berichte['Niedersachsen']
+            });
+        }
 
         this.berichteFiltered = bf;
     }
