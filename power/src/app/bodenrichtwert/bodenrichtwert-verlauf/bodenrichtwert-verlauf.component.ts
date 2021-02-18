@@ -481,18 +481,18 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return today.getFullYear();
     }
 
-    getBremenStichtag(): string {
+    getBremerhavenStichtag(): string {
         const year = this.getCurrentYear() - 1;
-        if (year % 2 !== 0) {
+        if (year % 2 === 0) {
             return ('31.' + '12.' + (year - 2) + '.');
         } else {
             return ('31.' + '12.' + (year - 1) + '.');
         }
     }
 
-    getBremerhavenStichtag(): string {
+    getBremenStichtag(): string {
         const year = this.getCurrentYear() - 1;
-        if (year % 2 === 0) {
+        if (year % 2 !== 0) {
             return ('31.' + '12.' + (year - 2) + '.');
         } else {
             return ('31.' + '12.' + (year - 1) + '.');

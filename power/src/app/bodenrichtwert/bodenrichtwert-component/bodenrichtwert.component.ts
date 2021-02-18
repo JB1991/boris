@@ -105,7 +105,7 @@ export class BodenrichtwertComponent implements OnDestroy {
         const year: number = this.stichtag.slice(0, 4);
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
             if (year % 2 === 0) {
-                return year;
+                return year - 2;
             }
             return year - 1;
         };
