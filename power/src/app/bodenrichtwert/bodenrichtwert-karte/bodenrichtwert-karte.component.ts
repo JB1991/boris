@@ -619,7 +619,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
-                $localize`Der Stichtag wurde zu ` + stichtag + $localize` gewechselt.`);
+                $localize`Der Stichtag wurde zu ` + '31.12.' + stichtag.slice(0, 4) + $localize` gewechselt.`);
         }
 
         this.stichtagChange.next(stichtag);
