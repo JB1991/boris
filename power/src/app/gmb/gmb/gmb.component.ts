@@ -15,7 +15,7 @@ import * as kreise_raw from './kreise.json';
     styleUrls: ['./gmb.component.scss']
 })
 export class GmbComponent implements OnInit {
-    downloadPath = 'http://localhost/';
+    downloadPath = 'https://s3.eu-de.cloud-object-storage.appdomain.cloud/grundstuecksmarktberichte';
     berichte = data['default'];
     kreise = kreise_raw['default'];
 
@@ -27,6 +27,7 @@ export class GmbComponent implements OnInit {
 
     selectedKreis = undefined;
     berichteFiltered = [];
+    berichteOpened = [];
 
     /**
      * MapOptions
@@ -140,6 +141,35 @@ export class GmbComponent implements OnInit {
             this.cdr.detectChanges();
 
         });
+
+        this.route.queryParams.subscribe(params => {
+            if (this.mode === 'gmb') {
+                if (params['landkreis']) {
+                    this.mode = 'gmb';
+                    const lk = params['landkreis'];
+                    const lok = Object.keys(this.kreise);
+                    for (let i = 0; i < lok.length; i++) {
+                        if (this.kreise[lok[i]] === lk) {
+                            this.selectedKreis = lok[i];
+                            this.filterBerichte();
+                            this.myMapOptions['series'][0]['data'] = this.getRegionen();
+                            if (this.map['setOptions'] !== undefined) {
+                                this.map['setOptions'](this.myMapOptions);
+                            }
+                            i = lok.length;
+                        }
+                    }
+                }
+            }
+            if (params['berichte']) {
+                const berichte = params['berichte'].split(',');
+                this.berichteOpened = berichte;
+            }
+
+            this.cdr.detectChanges();
+
+        });
+
     }
 
     mapInit() {
@@ -151,6 +181,10 @@ export class GmbComponent implements OnInit {
      */
     onChartInit(ec) {
         this.map = ec;
+
+        if (this.selectedKreis !== undefined) {
+            this.updateMapSelect();
+        }
     }
 
     /**
@@ -195,6 +229,9 @@ export class GmbComponent implements OnInit {
                     }
                 }
             };
+            if (this.selectedKreis === keys[i]) {
+                region['selected'] = true;
+            }
             res.push(region);
         }
         return res;
@@ -306,29 +343,72 @@ export class GmbComponent implements OnInit {
         for (let i = 0; i < ok.length; i++) {
             if (selectedlist[ok[i]] === true) {
                 this.selectedKreis = ok[i];
+                this.berichteOpened = [];
                 this.filterBerichte();
+                this.changeURL();
                 return;
             }
         }
     }
 
-    /**
-     * Handle Landkreis Select change
-     *
-     * @param newValue New selected Landkreis
-     */
-    onChange(newValue) {
-        this.selectedKreis = newValue;
-
+    private updateMapSelect() {
         if (this.map['dispatchAction'] !== undefined) {
             this.map['dispatchAction']({
                 type: 'mapSelect',
                 name: this.selectedKreis
             });
         }
+    }
+    /**
+     * Handle Landkreis Select change
+     *
+     * @param newValue New selected Landkreis
+     */
+    onChange(newValue) {
+        if (newValue === null) {
+            this.selectedKreis = undefined;
+        } else {
+            this.selectedKreis = newValue;
+        }
+        this.berichteOpened = [];
+        this.changeURL();
+        this.updateMapSelect();
         this.filterBerichte();
     }
 
+    keyPress(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            event.target['checked'] = !event.target['checked'];
+        }
+    }
+
+    checkValue(event: any){
+        if (event.target['checked'] === true) {
+            this.berichteOpened.push(event.target['id'].substring(2));
+        } else {
+            const index = this.berichteOpened.indexOf(event.target['id'].substring(2));
+            if (index > -1) {
+                this.berichteOpened.splice(index, 1);
+            }
+        }
+        this.changeURL();
+    }
+
+    private changeURL() {
+        const params = new URLSearchParams({});
+        if (this.mode === 'gmb' && this.selectedKreis) {
+            params.append('landkreis', this.kreise[this.selectedKreis]);
+        }
+        if (this.berichteOpened.length > 0) {
+            params.append('berichte', this.berichteOpened.join(','));
+        }
+        if (this.mode === 'gmb') {
+            this.location.replaceState('/grundstuecksmarktberichte', params.toString());
+        }
+        if (this.mode === 'lmb') {
+            this.location.replaceState('/landesgrundstuecksmarktberichte', params.toString());
+        }
+    }
 
     /**
      * Convert REM to PX

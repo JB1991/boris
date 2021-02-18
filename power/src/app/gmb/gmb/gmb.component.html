@@ -51,9 +51,9 @@
             <dl *ngFor="let bj of rd.berichte | keyvalue" class="row" role="rowgroup">
                 <div class="col-md-12">
                     <!-- Bodenrichtwert (brz) -->
-                    <input type="checkbox" id="dl{{bj.value['checksum']['md5']}}">
+                    <input type="checkbox" [checked]="berichteOpened.indexOf(bj.value['file'].split('.')[0]) !== -1" (change)="checkValue($event)" id="dl{{bj.value['file'].split('.')[0]}}" (keypress)="keyPress($event)">
                     <dt class="col-md-12" role="rowheader">
-                    <label for="dl{{bj.value['checksum']['md5']}}">
+                    <label for="dl{{bj.value['file'].split('.')[0]}}">
                         <i-bs name="plusCircle" class="remove-check" aria-hidden="true"></i-bs>
                         <i-bs name="dashCircle" class="display-check" aria-hidden="true"></i-bs>&nbsp;
                         <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb" i18n>Landesgrundstücksmarktbericht</ng-container>
@@ -62,7 +62,7 @@
                     </label>
                     </dt>
                     <dd class="col-md-12 fileinfo display-check" role="cell">
-                    <i-bs name="download" aria-hidden="true"></i-bs> {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}" i18n>Downlaod</a>)<br>
+                    <i-bs name="download" aria-hidden="true"></i-bs> {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}" target="_blank" i18n>Downlaod</a>)<br>
                     <small>
                         <ng-container i18n>Bereiche</ng-container>: {{generateKreisliste(bj.value['bereich'])}}
                     </small>
