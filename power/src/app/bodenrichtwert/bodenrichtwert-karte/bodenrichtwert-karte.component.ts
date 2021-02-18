@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges, SimpleChange } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { DatePipe, Location } from '@angular/common';
 import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
@@ -51,6 +51,7 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
     selector: 'power-bodenrichtwertkarte',
     templateUrl: './bodenrichtwert-karte.component.html',
     styleUrls: ['./bodenrichtwert-karte.component.scss'],
+    providers: [DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
@@ -180,7 +181,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         private route: ActivatedRoute,
         private location: Location,
         private cdr: ChangeDetectorRef,
-        public alerts: AlertsService
+        public alerts: AlertsService,
+        private datePipe: DatePipe,
     ) { }
 
     /* eslint-disable-next-line complexity */
@@ -619,7 +621,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
-                $localize`Der Stichtag wurde zu ` + '31.12.' + stichtag.slice(0, 4) + $localize` gewechselt.`);
+                $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
         }
 
         this.stichtagChange.next(stichtag);

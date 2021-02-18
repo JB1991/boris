@@ -4,12 +4,13 @@ import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
     templateUrl: './bodenrichtwert-verlauf.component.html',
     styleUrls: ['./bodenrichtwert-verlauf.component.scss'],
-    providers: [NutzungPipe, VerfahrensartPipe],
+    providers: [NutzungPipe, VerfahrensartPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges {
@@ -130,8 +131,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     echartsInstance;
 
-    constructor(private nutzungPipe: NutzungPipe, private verfahrensartPipe: VerfahrensartPipe) {
-    }
+    constructor(
+        private nutzungPipe: NutzungPipe,
+        private verfahrensartPipe: VerfahrensartPipe
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features) {
@@ -484,18 +487,18 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     getBremerhavenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
-            return ('31.' + '12.' + year + '.');
+            return year.toString() + '-12-31';
         } else {
-            return ('31.' + '12.' + (year - 1) + '.');
+            return (year-1).toString() + '-12-31';
         }
     }
 
     getBremenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
-            return ('31.' + '12.' + (year - 1) + '.');
+            return (year-1).toString() + '-12-31';
         } else {
-            return ('31.' + '12.' + year + '.');
+            return year.toString() + '-12-31';
         }
     }
 }

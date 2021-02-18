@@ -11,6 +11,7 @@ import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.servic
 import { ConfigService } from '@app/config.service';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
+import { DatePipe } from '@angular/common';
 
 /**
  * Bodenrichtwert-Component arranges all Components on a single page
@@ -19,6 +20,7 @@ import proj4 from 'proj4';
     selector: 'power-main',
     templateUrl: 'bodenrichtwert.component.html',
     styleUrls: ['bodenrichtwert.component.scss'],
+    providers: [DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertComponent implements OnDestroy {
@@ -101,22 +103,20 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.teilmarkt = this.bodenrichtwertService.TEILMAERKTE[0];
     }
 
-    getStichtag(): number {
+    getStichtag(): string {
         const year: number = this.stichtag.slice(0, 4);
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
-            if (year % 2 !== 0) {
-                return year;
+            if (year % 2 === 0) {
+                return (year - 1).toString() + '-12-31';
             }
-            return year - 1;
         };
 
         if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
             if (year % 2 !== 0) {
-                return year -1;
+                return (year - 1).toString() + '-12-31';
             }
-            return year;
         }
-        return year;
+        return year.toString() + '-12-31';
     }
 
     /**
