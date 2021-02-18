@@ -23,6 +23,15 @@ div.subtitle h2 {
     font-size: 1rem;
 }
 
+div.alert-gmb {
+    margin-top: 1rem;
+}
+
+div.dropdown {
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
 .card {
     margin-bottom: 1.5rem;
 }
@@ -54,7 +63,14 @@ label {
 }
 
 input[type=checkbox] {
-    display: none;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+input[type=checkbox]:focus ~ dt label {
+    outline: rgb(59, 153, 252) auto 5px;
 }
 
 input[type=checkbox]:checked ~ .remove-check {

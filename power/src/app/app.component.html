@@ -85,20 +85,20 @@
                     <div class="dropdown-menu dropdown-menu-right"
                          aria-labelledby="navbarImmo"
                          [collapse]="isCollapsedImmo">
-                        <a class="dropdown-item"
-                           *ngIf="config.modules.includes('grundstuecksmarktberichte')"
-                           (click)="isCollapsed = true; isCollapsedImmo = true"
-                           href="https://www.gag.niedersachsen.de/startseite/grundstucksmarktberichte/download/grundstuecksmarktberichte---download-88368.html"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Grundstücksmarktberichte</a>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('gmb')"
-                           (click)="isCollapsed = true; isCollapsedBRW = true"
-                           [routerLink]="['/gmb']"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           [routerLink]="['/grundstuecksmarktberichte']"
                            routerLinkActive="active"
-                           i18n>Grundstücksmarktberichte (Archiv)</a>
+                           i18n>Grundstücksmarktberichte</a>
+
+			<a class="dropdown-item"
+			   *ngIf="config.modules.includes('gmb')"
+			   (click)="isCollapsed = true; isCollapsedImmo = true"
+			   [routerLink]="['/landesgrundstuecksmarktberichte']"
+			   routerLinkActive="active"
+			   i18n>Landesgrundstücksmarktberichte (Archiv)</a>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"

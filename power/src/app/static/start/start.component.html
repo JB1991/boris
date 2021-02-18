@@ -223,9 +223,8 @@
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('grundstuecksmarktberichte')">
                 <a class="h2 display-4"
-                   href="https://www.gag.niedersachsen.de/startseite/grundstucksmarktberichte/download/grundstuecksmarktberichte---download-88368.html"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow">
+		   [routerLink]="['/grundstuecksmarktberichte']"
+                   >
                     <span style="color: #343a40;"
                           i18n>Grundstücksmarkt&shy;berichte</span>
                 </a>
@@ -242,9 +241,7 @@
             </div>
             <div class="col-md-5"
                  aria-hidden="true">
-                <a href="https://www.gag.niedersachsen.de/startseite/grundstucksmarktberichte/download/grundstuecksmarktberichte---download-88368.html"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow"
+                <a [routerLink]="['/grundstuecksmarktberichte']"
                    i18n-title
                    title="Grundstücksmarktberichte"
                    tabindex="-1">
