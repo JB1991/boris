@@ -605,6 +605,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.map.removeLayer('building-extrusion');
     }
 
+    /**
+     * onStichtagChange changes the stichtag to another stichtag and
+     * updates the brw/url
+     * @param teilmarkt teilmarkt to be switched to
+     */
     onStichtagChange(stichtag: any) {
         this.stichtag = stichtag;
 
