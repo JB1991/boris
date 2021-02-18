@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges, SimpleChange } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { DatePipe, Location } from '@angular/common';
 import { LngLat, LngLatBounds, Map, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
@@ -51,6 +51,7 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
     selector: 'power-bodenrichtwertkarte',
     templateUrl: './bodenrichtwert-karte.component.html',
     styleUrls: ['./bodenrichtwert-karte.component.scss'],
+    providers: [DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
@@ -180,7 +181,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         private route: ActivatedRoute,
         private location: Location,
         private cdr: ChangeDetectorRef,
-        public alerts: AlertsService
+        public alerts: AlertsService,
+        private datePipe: DatePipe,
     ) { }
 
     /* eslint-disable-next-line complexity */
@@ -213,7 +215,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.alerts.NewAlert(
                     'info',
                     $localize`Diese Daten sind noch nicht verfügbar!`,
-                    $localize`Die Daten für Bremen des Jahres 2020 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
+                    $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
                 );
             }
         }
@@ -325,12 +327,12 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             .subscribe(
                 res => {
                     this.bodenrichtwertService.updateFeatures(res);
-                    // temporary alert for data of bremen for the year 2020
+                    // temporary alert for data of bremen for the year 2021
                     if (res.features[0]?.properties.gabe.includes('Bremen') && this.stichtag === '2020-12-31') {
                         this.alerts.NewAlert(
                             'info',
                             $localize`Diese Daten sind noch nicht verfügbar!`,
-                            $localize`Die Daten für Bremen des Jahres 2020 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
+                            $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
                         );
                     }
                 },
@@ -605,8 +607,23 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.map.removeLayer('building-extrusion');
     }
 
+    /**
+     * onStichtagChange changes the stichtag to another stichtag and
+     * updates the brw/url
+     * @param stichtag stichtag to be switched to
+     */
     onStichtagChange(stichtag: any) {
         this.stichtag = stichtag;
+
+        const stichtagIsEqual = this.location.path().includes('stichtag=' + this.stichtag);
+        // push info alert
+        if (!stichtagIsEqual) {
+            this.alerts.NewAlert(
+                'info',
+                $localize`Stichtag gewechselt`,
+                $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
+        }
+
         this.stichtagChange.next(stichtag);
 
         this.repaintMap();
