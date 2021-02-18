@@ -1,11 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 import * as echarts from 'echarts';
 import * as data from './gmb.json';
 import * as kreise_raw from './kreise.json';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-gmb',
     templateUrl: './gmb.component.html',
@@ -15,6 +18,8 @@ export class GmbComponent implements OnInit {
     downloadPath = 'http://localhost/';
     berichte = data['default'];
     kreise = kreise_raw['default'];
+
+    mode = undefined;
 
     map = {};
     mapLoaded = false;
@@ -193,6 +198,24 @@ export class GmbComponent implements OnInit {
             res.push(region);
         }
         return res;
+    }
+
+    selectMenu() {
+        const res = [];
+        const ok = Object.keys(this.kreise);
+        for (let i = 0; i < ok.length; i++) {
+            res.push({
+                'key': ok[i],
+                'value': this.kreise[ok[i]]
+            });
+        }
+        res.sort(function(a, b) {
+            if (a['value'] < b['value']) { return -1; }
+            if (a['value'] > b['value']) { return 1; }
+            return 0;
+        });
+
+        return [{ 'key': null, 'value': '-- ' + $localize`Landkreis` + ' --' }, ...res];
     }
 
     /**
