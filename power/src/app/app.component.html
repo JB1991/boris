@@ -55,14 +55,6 @@
                            i18n>Bodenrichtwerte</a>
 
                         <a class="dropdown-item"
-                           *ngIf="config.modules.includes('bodenrichtwerte-altsystem')"
-                           (click)="isCollapsed = true; isCollapsedBRW = true"
-                           href="https://www.boris.niedersachsen.de/boris/login"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Bodenrichtwerte - amtlicher Ausdruck</a>
-
-                        <a class="dropdown-item"
                            *ngIf="config.modules.includes('bodenwertkalkulator')"
                            (click)="isCollapsed = true; isCollapsedBRW = true"
                            [routerLink]="['/bodenwertkalkulator']"
@@ -87,18 +79,18 @@
                          [collapse]="isCollapsedImmo">
 
                         <a class="dropdown-item"
-                           *ngIf="config.modules.includes('gmb')"
+                           *ngIf="config.modules.includes('grundstuecksmarktberichte')"
                            (click)="isCollapsed = true; isCollapsedImmo = true"
                            [routerLink]="['/grundstuecksmarktberichte']"
                            routerLinkActive="active"
                            i18n>Grundstücksmarktberichte</a>
 
-			<a class="dropdown-item"
-			   *ngIf="config.modules.includes('gmb')"
-			   (click)="isCollapsed = true; isCollapsedImmo = true"
-			   [routerLink]="['/landesgrundstuecksmarktberichte']"
-			   routerLinkActive="active"
-			   i18n>Landesgrundstücksmarktberichte (Archiv)</a>
+                        <a class="dropdown-item"
+                           *ngIf="config.modules.includes('landesgrundstuecksmarktberichte')"
+                           (click)="isCollapsed = true; isCollapsedImmo = true"
+                           [routerLink]="['/landesgrundstuecksmarktberichte']"
+                           routerLinkActive="active"
+                           i18n>Landesgrundstücksmarktberichte (Archiv)</a>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"
