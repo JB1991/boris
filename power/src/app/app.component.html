@@ -33,7 +33,17 @@
              [ngbCollapse]="isCollapsed"
              *ngIf="config.modules.length > 0">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item"
+                    *ngIf="config.modules.includes('bodenrichtwerte') && !config.modules.includes('bodenwertkalkulator')">
+                    <a class="nav-link"
+                       (click)="isCollapsed = true"
+                       [routerLink]="['/bodenrichtwerte']"
+                       routerLinkActive="active"
+                       i18n>Bodenrichtwerte</a>
+                </li>
+
                 <li class="nav-item dropdown"
+                    *ngIf="config.modules.includes('bodenwertkalkulator')"
                     (click)="isCollapsedImmo = true; isCollapsedAcc = true;">
                     <a class="nav-link dropdown-toggle clickable"
                        [routerLink]=""
