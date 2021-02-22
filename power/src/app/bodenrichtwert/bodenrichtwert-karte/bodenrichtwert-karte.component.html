@@ -80,6 +80,7 @@
                 <div class="nav">
                     <div class="btn-group"
                          role="group"
+                         (isOpenChange)="functionsActive = !functionsActive"
                          dropdown>
                         <button class="btn btn-block dropdown-toggle nav-link"
                                 type="button"
@@ -88,7 +89,6 @@
                                 [ngClass]="{'active' : functionsActive}"
                                 dropdownToggle
                                 id="dropdownMenuButton"
-                                (click)="functionsActive = !functionsActive"
                                 aria-haspopup="true"
                                 aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -277,6 +277,7 @@
                     <div class="btn-group d-flex">
                         <div class="btn-group"
                              role="group"
+                             (isOpenChange)="functionsActive = !functionsActive"
                              dropdown>
                             <button class="btn btn-block nav-link dropdown-toggle"
                                     [ngClass]="{'active': functionsActive}"
@@ -284,7 +285,6 @@
                                     title="Weitere Funktionen"
                                     i18n-title
                                     dropdownToggle
-                                    (click)="functionsActive = !functionsActive"
                                     aria-haspopup="true"
                                     aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg"

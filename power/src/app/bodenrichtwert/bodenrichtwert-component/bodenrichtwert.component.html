@@ -222,7 +222,7 @@
                 </button>
                 <div *ngIf="!isCollapsed"
                      class="col-md-6 col-sm-4 col-36 p-0 d-flex justify-content-end">
-                    <a *ngIf="features?.features.length"
+                    <a *ngIf="features?.features.length && checkIfStichtagFtsExist()"
                        class="nav-link btn p-1 align-self-center"
                        role="button"
                        [href]="printURL()"

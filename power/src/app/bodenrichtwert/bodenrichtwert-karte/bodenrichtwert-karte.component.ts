@@ -207,9 +207,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.fskIsChanged = !this.fskIsChanged;
             }
         }
-        if (changes.features && !changes.features.firstChange) {
-            this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
-        }
+        // if (changes.features && !changes.features.firstChange) {
+        //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
+        // }
         if (changes.stichtag) {
             if (changes.stichtag.currentValue === '2020-12-31' && this.adresse?.properties.kreis === 'Stadt Bremen') {
                 this.alerts.NewAlert(
@@ -391,7 +391,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     public onRotate() {
-        this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
+        // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
     }
 
     doNotDisplay = [
