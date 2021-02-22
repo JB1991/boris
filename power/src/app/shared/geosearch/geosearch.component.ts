@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
@@ -12,6 +12,8 @@ import { AlertsService } from '../alerts/alerts.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeosearchComponent implements OnChanges {
+
+    @ViewChild('geosearch') geosearchElement: ElementRef;
 
     constructor(public geosearchService: GeosearchService, public alerts: AlertsService) {
     }
@@ -42,6 +44,15 @@ export class GeosearchComponent implements OnChanges {
         if (changes.adresse) {
             this.model = changes.adresse.currentValue;
         }
+    }
+
+    /**
+     * setFocus sets the focus on the geosearch input field
+     */
+    public setFocus() {
+        setTimeout(() => {
+            this.geosearchElement.nativeElement.focus();
+        });
     }
 
     /**
