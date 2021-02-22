@@ -2,22 +2,22 @@
 
     <div class="row title justify-content-center m-0 p-2 p-lg-3 text-center">
         <h1 *ngIf="mode === 'gmb'"
-            i18n>Grundstücksmarktberichte (Archiv)</h1>
+            i18n>Grund&shy;stücks&shy;markt&shy;berichte (Archiv)</h1>
         <h1 *ngIf="mode === 'lmb'"
-            i18n>Landesgrundstücksmarktberichte (Archiv)</h1>
+            i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;berichte (Archiv)</h1>
     </div>
 
     <div *ngIf="mode === 'gmb'"
          class="alert alert-info alert-gmb"
          role="alert">
-        Ein Archiv der Landesgrundstücksmarktberichte finden sie <a [routerLink]="['/landesgrundstuecksmarktberichte']"
+        Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie <a [routerLink]="['/landesgrundstuecksmarktberichte']"
            i18n>hier</a>.
     </div>
 
     <div *ngIf="mode === 'lmb'"
          class="alert alert-info alert-gmb"
          role="alert">
-        Die Grundstücksmarktberichte finden sie <a [routerLink]="['/grundstuecksmarktberichte']"
+        Die Grund&shy;stücks&shy;markt&shy;berichte finden sie <a [routerLink]="['/grundstuecksmarktberichte']"
            i18n>hier</a>.
     </div>
 
@@ -82,30 +82,44 @@
                            (keypress)="keyPress($event)">
                     <dt class="col-md-12"
                         role="rowheader">
-                        <label for="dl{{bj.value['file'].split('.')[0]}}">
-                            <i-bs name="plusCircle"
-                                  class="remove-check"
-                                  aria-hidden="true"></i-bs>
-                            <i-bs name="dashCircle"
-                                  class="display-check"
-                                  aria-hidden="true"></i-bs>&nbsp;
-                            <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb"
-                                          i18n>Landesgrundstücksmarktbericht</ng-container>
-                            <ng-template #gmb
-                                         i18n>Grundstücksmarktbericht</ng-template>
-                            {{bj.key}}
+                        <label class="tab" for="dl{{bj.value['file'].split('.')[0]}}">
+                            <span>
+                                <i-bs name="plusCircle"
+                                      class="remove-check"
+                                      aria-hidden="true"></i-bs>
+                                <i-bs name="dashCircle"
+                                      class="display-check"
+                                      aria-hidden="true"></i-bs>
+                            </span>
+                            <span>
+                                <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb"
+                                      i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;bericht</ng-container>
+                                <ng-template #gmb
+                                      i18n>Grund&shy;stücks&shy;markt&shy;bericht</ng-template>
+                                {{bj.key}}
+                            </span>
                         </label>
                     </dt>
                     <dd class="col-md-12 p-0 fileinfo display-check"
                         role="cell">
-                        <i-bs name="download"
-                              aria-hidden="true"></i-bs> {{bj.value['file']}} (<a
-                           href="{{downloadPath}}/{{bj.value['fileurl']}}"
-                           target="_blank"
-                           i18n>Download</a>)<br>
-                        <small>
-                            <ng-container i18n>Bereiche</ng-container>: {{generateKreisliste(bj.value['bereich'])}}
-                        </small>
+                        <div class="dl">
+                            <span class="tc">
+                                <i-bs name="download"
+                                      aria-hidden="true"></i-bs>
+                            </span>
+                            <span class="tc">
+                                {{bj.value['file']}} (<a
+                                  href="{{downloadPath}}/{{bj.value['fileurl']}}"
+                                  target="_blank"
+                                  i18n>Download</a>)
+                            </span>
+                        </div>
+                        <div class="dl">
+                            <small class="tc">
+                                <ng-container i18n>Bereiche</ng-container>: {{generateKreisliste(bj.value['bereich'])}}
+                            </small>
+                        </div>
+                        <br>
                         <div class="checksum">
                             <div>MD5: {{bj.value['checksum']['md5']}}</div>
                             <div>SHA1: {{bj.value['checksum']['sha1']}}</div>

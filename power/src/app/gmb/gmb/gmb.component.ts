@@ -44,7 +44,7 @@ export class GmbComponent implements OnInit {
             {
                 type: 'text',
                 id: 'copyright',
-                left: 90,
+                left: 10,
                 bottom: 10,
                 z: 100,
                 style: {
@@ -350,6 +350,11 @@ export class GmbComponent implements OnInit {
                 return;
             }
         }
+
+        this.selectedKreis = undefined;
+        this.berichteOpened = [];
+        this.filterBerichte();
+        this.changeURL();
     }
 
     private updateMapSelect() {
