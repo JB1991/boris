@@ -170,6 +170,20 @@ export class BodenrichtwertComponent implements OnDestroy {
         // return url
         return url;
     }
+
+    /**
+     * checkIfStichtagFtsExist checks if features for the currently selected stichtag exist
+     */
+    public checkIfStichtagFtsExist(): boolean {
+        const filteredFts = this.features.features.filter((ft: Feature) =>
+            ft.properties.stag.substr(0, 10) === this.stichtag
+        );
+        if (filteredFts.length) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
