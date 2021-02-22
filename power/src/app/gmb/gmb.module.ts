@@ -16,6 +16,7 @@ import {
 } from 'ngx-bootstrap-icons';
 
 import * as echarts from 'echarts';
+import { GmbofflineComponent } from './gmboffline/gmboffline.component';
 
 // Select some icons (use an object, not an array)
 /* eslint-disable object-shorthand */
@@ -27,7 +28,7 @@ const icons = {
 };
 
 @NgModule({
-    declarations: [GmbComponent],
+    declarations: [GmbComponent, GmbofflineComponent],
     imports: [
         CommonModule,
         GmbRoutingModule,
