@@ -1,9 +1,6 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
-import { merge, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { ImmobilienChartOptions } from './immobilien.chartoptions';
 import { ImmobilienHelper } from './immobilien.helper';

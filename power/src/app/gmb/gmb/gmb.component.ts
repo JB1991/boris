@@ -12,7 +12,8 @@ import * as kreise_raw from './kreise.json';
 @Component({
     selector: 'power-gmb',
     templateUrl: './gmb.component.html',
-    styleUrls: ['./gmb.component.scss']
+    styleUrls: ['./gmb.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GmbComponent implements OnInit {
     downloadPath = 'https://s3.eu-de.cloud-object-storage.appdomain.cloud/grundstuecksmarktberichte';
@@ -246,7 +247,7 @@ export class GmbComponent implements OnInit {
                 'value': this.kreise[ok[i]]
             });
         }
-        res.sort(function(a, b) {
+        res.sort(function (a, b) {
             if (a['value'] < b['value']) { return -1; }
             if (a['value'] > b['value']) { return 1; }
             return 0;
@@ -308,7 +309,7 @@ export class GmbComponent implements OnInit {
                 }
             }
 
-            bf.sort(function(a, b) {
+            bf.sort(function (a, b) {
                 return a['start'] - b['start'];
             });
         }
@@ -382,7 +383,7 @@ export class GmbComponent implements OnInit {
         }
     }
 
-    checkValue(event: any){
+    checkValue(event: any) {
         if (event.target['checked'] === true) {
             this.berichteOpened.push(event.target['id'].substring(2));
         } else {
