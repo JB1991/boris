@@ -63,6 +63,8 @@
                            [routerLink]="['/bodenrichtwerte']"
                            routerLinkActive="active"
                            i18n>Bodenrichtwerte</a>
+                        <div class="dropdown-divider"
+                             *ngIf="config.modules.includes('bodenrichtwerte')"></div>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('bodenwertkalkulator')"
@@ -94,6 +96,8 @@
                            [routerLink]="['/grundstuecksmarktberichte']"
                            routerLinkActive="active"
                            i18n>Grundstücksmarktberichte</a>
+                        <div class="dropdown-divider"
+                             *ngIf="config.modules.includes('grundstuecksmarktberichte')"></div>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('landesgrundstuecksmarktberichte')"
@@ -101,6 +105,8 @@
                            [routerLink]="['/landesgrundstuecksmarktberichte']"
                            routerLinkActive="active"
                            i18n>Landesgrundstücksmarktberichte (Archiv)</a>
+                        <div class="dropdown-divider"
+                             *ngIf="config.modules.includes('landesgrundstuecksmarktberichte')"></div>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"
@@ -109,6 +115,8 @@
                            target="_blank"
                            rel="noopener noreferrer nofollow"
                            i18n>Landesgrundstücksmarktdaten</a>
+                        <div class="dropdown-divider"
+                             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"></div>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('immobilienpreisindex')"
@@ -116,6 +124,8 @@
                            [routerLink]="['/immobilienpreisindex']"
                            routerLinkActive="active"
                            i18n>Niedersächsischer Immobilienpreisindex - NIPIX</a>
+                        <div class="dropdown-divider"
+                             *ngIf="config.modules.includes('immobilienpreisindex')"></div>
 
                         <a class="dropdown-item"
                            *ngIf="config.modules.includes('immobilienpreiskalkulator')"
