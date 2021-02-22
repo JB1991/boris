@@ -1,25 +1,42 @@
 <div class="container-xl">
 
     <div class="row title">
-        <h1 i18n>Grundstücksmarktberichte (Archiv)</h1>
+        <h1 *ngIf="mode === 'gmb'" i18n>Grundstücksmarktberichte (Archiv)</h1>
+        <h1 *ngIf="mode === 'lmb'" i18n>Landesgrundstücksmarktberichte (Archiv)</h1>
     </div>
 
-    <div echarts [options]="mapOptions" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
-         (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
+    <div *ngIf="mode === 'gmb'" class="alert alert-info alert-gmb" role="alert">
+        Ein Archiv der Landesgrundstücksmarktberichte finden sie <a [routerLink]="['/landesgrundstuecksmarktberichte']" i18n>hier</a>.
+    </div>
+
+    <div *ngIf="mode === 'lmb'" class="alert alert-info alert-gmb" role="alert">
+        Die Grundstücksmarktberichte finden sie <a [routerLink]="['/grundstuecksmarktberichte']" i18n>hier</a>.
+    </div>
+
+    <div *ngIf="mode === 'gmb'" echarts
+         [options]="mapOptions"
+         [loading]="!mapLoaded"
+         (chartInit)="onChartInit($event)"
+         (chartMapSelectChanged)="onMapSelectChange($event)"
+         class="demo-chart chart-map"></div>
 
 
-    <div class="row subtitle">
+    <div *ngIf="mode === 'gmb'" class="row subtitle">
         <h2 *ngIf="selectedKreis === undefined" i18n>Bitte wählen Sie einen Landkreis</h2>
         <h2 *ngIf="selectedKreis !== undefined" i18n>Berichte für den Landkreis "{{kreise[selectedKreis]}}"</h2>
-        <select id="landkreise" class="form-select" aria-label="Wählen die einen Landkreis" (change)="onChange($event.target.value)">
-            <ng-container *ngFor="let kreis of kreise | keyvalue">
-                <option *ngIf="selectedKreis === kreis.key" value="{{ kreis.key }}" selected>{{ kreis.value }}</option>
-                <option *ngIf="selectedKreis !== kreis.key" value="{{ kreis.key }}">{{ kreis.value }}</option>
+        <div class="col-md-12 dropdown">
+            <select id="landkreise" class="form-select" aria-label="Wählen die einen Landkreis" (change)="onChange($event.target.value)">
+                <ng-container *ngFor="let kreis of selectMenu()">
+                    <option *ngIf="selectedKreis === kreis.key" value="{{ kreis.key }}" selected>{{ kreis.value }}</option>
+                    <option *ngIf="selectedKreis !== kreis.key" value="{{ kreis.key }}">{{ kreis.value }}</option>
 
-            </ng-container>
-        </select>
+                </ng-container>
+            </select>
+        </div>
 
     </div>
+
+    <br *ngIf="mode === 'lmb'">
 
     <div *ngFor="let rd of berichteFiltered" class="card m-0 mb-2" role="table">
         <div class="card-header">
@@ -36,9 +53,9 @@
             <dl *ngFor="let bj of rd.berichte | keyvalue" class="row" role="rowgroup">
                 <div class="col-md-12">
                     <!-- Bodenrichtwert (brz) -->
-                    <input type="checkbox" id="dl{{bj.value['checksum']['md5']}}">
+                    <input type="checkbox" [checked]="berichteOpened.indexOf(bj.value['file'].split('.')[0]) !== -1" (change)="checkValue($event)" id="dl{{bj.value['file'].split('.')[0]}}" (keypress)="keyPress($event)">
                     <dt class="col-md-12" role="rowheader">
-                    <label for="dl{{bj.value['checksum']['md5']}}">
+                    <label for="dl{{bj.value['file'].split('.')[0]}}">
                         <i-bs name="plusCircle" class="remove-check" aria-hidden="true"></i-bs>
                         <i-bs name="dashCircle" class="display-check" aria-hidden="true"></i-bs>&nbsp;
                         <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb" i18n>Landesgrundstücksmarktbericht</ng-container>
@@ -47,7 +64,7 @@
                     </label>
                     </dt>
                     <dd class="col-md-12 fileinfo display-check" role="cell">
-                    <i-bs name="download" aria-hidden="true"></i-bs> {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}" i18n>Downlaod</a>)<br>
+                    <i-bs name="download" aria-hidden="true"></i-bs> {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}" target="_blank" i18n>Downlaod</a>)<br>
                     <small>
                         <ng-container i18n>Bereiche</ng-container>: {{generateKreisliste(bj.value['bereich'])}}
                     </small>
@@ -66,7 +83,7 @@
     <br>
     <br>
 
-    <small i18n>
+    <small *ngIf="mode === 'gmb'" i18n>
         * Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar.<br>
         Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.
     </small>

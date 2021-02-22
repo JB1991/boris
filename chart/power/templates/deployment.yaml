@@ -39,9 +39,12 @@ spec:
           - name: power-modules-config
             mountPath: "/usr/share/nginx/html/assets/config"
             readOnly: true
-          envFrom:
-            - secretRef:
-                name: power-secret
+          env:
+            - name: BKG_GEOCODING_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: power-secret
+                  key: BKG_GEOCODING_SECRET
           ports:
             - name: http
               containerPort: 80

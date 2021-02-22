@@ -16,7 +16,7 @@ export class UpdateService {
             /* istanbul ignore next */
             updates.unrecoverable.subscribe(event => {
                 console.error(event);
-                // this.cleanupServiceWorker();
+                this.cleanupServiceWorker();
                 window.location.reload();
             });
         }

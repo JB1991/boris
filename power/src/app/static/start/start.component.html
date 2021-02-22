@@ -9,19 +9,20 @@
                      i18n-alt
                      alt="Bodenrichtwerte"
                      class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;">BORIS</span>
                         <span style="color: #c4153a;">.NI</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
-                            i18n>Bodenrichtwerte</h3>
-                        <p i18n>Bodenrichtwertinformationssystem Niedersachsen</p>
+                            i18n>Bodenrichtwert&shy;informationssystem Niedersachsen</h3>
+                        <p i18n>Auskünfte über Bodenrichtwerte für Bauland und Flächen der Land- und Forstwirtschaft</p>
                         <a class="btn btn-primary"
-                           [routerLink]="['/bodenrichtwerte']"
+                           href="javascript:;"
+                           (click)="scrollToElement('bodenrichtwerte')"
                            role="button"
-                           i18n>Zur Anwendung</a>
+                           i18n>Mehr dazu</a>
                     </div>
                 </div>
             </slide>
@@ -30,18 +31,19 @@
                      i18n-alt
                      alt="Grundstücksmarktberichte"
                      class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;"
-                              i18n>Grundstücksmarktberichte</span>
+                              i18n>Grundstücks&shy;markt&shy;berichte</span>
                     </h2>
                     <div class="lead text-dark">
+                        <p i18n>Einblicke in den Grundstücksmarkt und der Entwicklung des Preisniveau der einzelnen
+                            Gutachterausschüsse</p>
                         <a class="btn btn-primary"
+                           href="javascript:;"
+                           (click)="scrollToElement('grundstuecksmarktberichte')"
                            role="button"
-                           href="https://www.boris.niedersachsen.de/boris/gmbdownload"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Zur Anwendung</a>
+                           i18n>Mehr dazu</a>
                     </div>
                 </div>
             </slide>
@@ -50,18 +52,19 @@
                      i18n-alt
                      alt="Landesgrundstücksmarktdaten"
                      class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;"
-                              i18n>Landesgrundstücksmarktdaten</span>
+                              i18n>Landesgrund&shy;stücks&shy;markt&shy;daten</span>
                     </h2>
                     <div class="lead text-dark">
+                        <p i18n>Eine Analyse des Grundstücksmarktes in ganz Niedersachsen vom oberen Gutachterausschuss
+                        </p>
                         <a class="btn btn-primary"
+                           href="javascript:;"
+                           (click)="scrollToElement('landesgrundstuecksmarktdaten')"
                            role="button"
-                           href="https://www.gag.niedersachsen.de/grundstuecksmarktinformationen/2021/grundstucksmarktdaten-2021-196961.html"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Zur Anwendung</a>
+                           i18n>Mehr dazu</a>
                     </div>
                 </div>
             </slide>
@@ -70,19 +73,20 @@
                      i18n-alt
                      alt="Immobilienpreisindex"
                      class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #c4153a;">NI</span>
                         <span style="color: #343a40;">PIX</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
-                            i18n>Immobilienpreise</h3>
-                        <p i18n>Niedersächsischer Immobilienpreisindex</p>
+                            i18n>Niedersächsischer Immobilienpreisindex</h3>
+                        <p i18n>Darstellung der Preisentwicklung von Eigenheimen und Eigentumswohnungen</p>
                         <a class="btn btn-primary"
-                           [routerLink]="['/immobilienpreisindex']"
+                           href="javascript:;"
+                           (click)="scrollToElement('immobilienpreisindex')"
                            role="button"
-                           i18n>Zur Anwendung</a>
+                           i18n>Mehr dazu</a>
                     </div>
                 </div>
             </slide>
@@ -91,7 +95,7 @@
                      i18n-alt
                      alt="Immobilien-Preis-Kalkulator"
                      class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;"
                               i18n>IPK</span>
@@ -99,12 +103,12 @@
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Immobilien-Preis-Kalkulator</h3>
+                        <p i18n>Ein Rechner zum ermitteln eines geschätzten Preisniveau einer Immobilien</p>
                         <a class="btn btn-primary"
+                           href="javascript:;"
+                           (click)="scrollToElement('immobilienpreiskalkulator')"
                            role="button"
-                           href="https://www.boris.niedersachsen.de/boris/ipk"
-                           target="_blank"
-                           rel="noopener noreferrer nofollow"
-                           i18n>Zur Anwendung</a>
+                           i18n>Mehr dazu</a>
                     </div>
                 </div>
             </slide>
@@ -113,19 +117,20 @@
                      i18n-alt
                      alt="Bodenwertkalkulator"
                      class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;">BOWERT</span>
                         <span style="color: #c4153a;">.NI</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
-                            i18n>Bodenwerte</h3>
-                        <p i18n>Bodenwertkalkulator Niedersachsen</p>
+                            i18n>Bodenwertkalkulator Niedersachsen</h3>
+                        <p i18n>Rechner zum summieren von geschätzten Preisen von Flurstücken</p>
                         <a class="btn btn-primary"
-                           [routerLink]="['/bodenwertkalkulator']"
+                           href="javascript:;"
+                           (click)="scrollToElement('bodenwertkalkulator')"
                            role="button"
-                           i18n>Zur Anwendung</a>
+                           i18n>Mehr dazu</a>
                     </div>
                 </div>
             </slide>
@@ -134,7 +139,7 @@
                      i18n-alt
                      alt="Formulare"
                      class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;"
                               i18n>Formulare</span>
@@ -142,10 +147,12 @@
                     <div class="lead text-dark">
                         <h3 class="h5"
                             i18n>Online Formular Service</h3>
+                        <p i18n>Wenn Sie ein Formular einreichen wollen, finden Sie hier unsere Formulare</p>
                         <a class="btn btn-primary"
-                           [routerLink]="['/forms']"
+                           href="javascript:;"
+                           (click)="scrollToElement('forms')"
                            role="button"
-                           i18n>Zur Anwendung</a>
+                           i18n>Mehr dazu</a>
                     </div>
                 </div>
             </slide>
@@ -154,7 +161,7 @@
                      i18n-alt
                      alt="Feedback"
                      class="carousel-image">
-                <div class="carousel-caption text-center py-2 py-md-3 my-4 my-md-5">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;"
                               i18n>Feedback</span>
@@ -175,7 +182,8 @@
 
     <div class="container marketing">
         <div class="row"
-             *ngIf="config.modules.includes('bodenrichtwerte')">
+             *ngIf="config.modules.includes('bodenrichtwerte')"
+             id="bodenrichtwerte">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('bodenrichtwerte')">
                 <a class="h2 display-4"
@@ -185,7 +193,7 @@
                 </a>
                 <div class="lead">
                     <h3 class="h5 text-break"
-                        i18n>Bodenrichtwertinformationssystem Niedersachsen</h3>
+                        i18n>Bodenrichtwertinformations&shy;system Niedersachsen</h3>
                     <p class="text-justify"
                        i18n>Die Gutachterausschüsse und der Obere Gutachterausschuss für
                         Grundstückswerte in Niedersachsen und Bremen stellen interessierten Nutzern unter BORIS.NI
@@ -210,15 +218,14 @@
             *ngIf="config.modules.includes('bodenrichtwerte')">
 
         <div class="row"
-             *ngIf="config.modules.includes('grundstuecksmarktberichte')">
+             *ngIf="config.modules.includes('grundstuecksmarktberichte')"
+             id="grundstuecksmarktberichte">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('grundstuecksmarktberichte')">
                 <a class="h2 display-4"
-                   href="https://www.boris.niedersachsen.de/boris/gmbdownload"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow">
+                   [routerLink]="['/grundstuecksmarktberichte']">
                     <span style="color: #343a40;"
-                          i18n>Grundstücksmarktberichte</span>
+                          i18n>Grundstücksmarkt&shy;berichte</span>
                 </a>
                 <div class="lead">
                     <p class="text-justify"
@@ -233,9 +240,7 @@
             </div>
             <div class="col-md-5"
                  aria-hidden="true">
-                <a href="https://www.boris.niedersachsen.de/boris/gmbdownload"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow"
+                <a [routerLink]="['/grundstuecksmarktberichte']"
                    i18n-title
                    title="Grundstücksmarktberichte"
                    tabindex="-1">
@@ -250,7 +255,8 @@
             *ngIf="config.modules.includes('grundstuecksmarktberichte')">
 
         <div class="row"
-             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
+             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"
+             id="landesgrundstuecksmarktdaten">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('landesgrundstuecksmarktdaten')">
                 <a class="h2 display-4"
@@ -258,7 +264,7 @@
                    target="_blank"
                    rel="noopener noreferrer nofollow">
                     <span style="color: #343a40;"
-                          i18n>Landesgrundstücksmarktdaten</span>
+                          i18n>Landesgrundstücks&shy;markt&shy;daten</span>
                 </a>
                 <div class="lead">
                     <p class="text-justify"
@@ -289,7 +295,8 @@
             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
 
         <div class="row"
-             *ngIf="config.modules.includes('immobilienpreisindex')">
+             *ngIf="config.modules.includes('immobilienpreisindex')"
+             id="immobilienpreisindex">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('immobilienpreisindex')">
                 <a class="h2 display-4"
@@ -326,7 +333,8 @@
             *ngIf="config.modules.includes('immobilienpreisindex')">
 
         <div class="row"
-             *ngIf="config.modules.includes('immobilienpreiskalkulator')">
+             *ngIf="config.modules.includes('immobilienpreiskalkulator')"
+             id="immobilienpreiskalkulator">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('immobilienpreiskalkulator')">
                 <a class="h2 display-4"
@@ -367,7 +375,8 @@
             *ngIf="config.modules.includes('immobilienpreiskalkulator')">
 
         <div class="row"
-             *ngIf="config.modules.includes('bodenwertkalkulator')">
+             *ngIf="config.modules.includes('bodenwertkalkulator')"
+             id="bodenwertkalkulator">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('bodenwertkalkulator')">
                 <a class="h2 display-4"
@@ -402,7 +411,8 @@
             *ngIf="config.modules.includes('bodenwertkalkulator')">
 
         <div class="row mb-1"
-             *ngIf="config.modules.includes('forms')">
+             *ngIf="config.modules.includes('forms')"
+             id="forms">
             <div class="col-md-7"
                  [class.order-md-2]="getCardOrder('forms')">
                 <a class="h2 display-4"

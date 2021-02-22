@@ -65,5 +65,12 @@ describe('Static.Start.StartComponent', () => {
         expect(component.getCardOrder('C')).toBeFalse();
         expect(component.getCardOrder('D')).toBeTrue();
     });
+
+    it('should scroll', () => {
+        spyOn(document, 'getElementById').and.returnValue(document.createElement('div'));
+        component.scrollToElement('test');
+        expect(document.getElementById).toHaveBeenCalledTimes(1);
+        expect(document.getElementById).toHaveBeenCalledWith('test');
+    });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

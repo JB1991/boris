@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
 
 import { GmbComponent } from './gmb.component';
 
@@ -35,7 +36,8 @@ describe('GmbComponent', () => {
             imports: [
                 HttpClientTestingModule,
                 NgxBootstrapIconsModule.forRoot(icons),
-                NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
+                NgxEchartsModule.forRoot({ echarts }), // eslint-disable-line object-shorthand
+                RouterModule.forRoot([])
             ],
             declarations: [ GmbComponent ]
         })
@@ -98,10 +100,10 @@ describe('GmbComponent', () => {
                 'berichte': component.berichte['Lüneburg'],
                 'start': Object.keys(component.berichte['Lüneburg'])[0]
             },
-            {
+            /* {
                 'name': 'Niedersachsen',
                 'berichte': component.berichte['Niedersachsen']
-            }
+            } */
         ];
         expect(component.berichteFiltered).toEqual(eq);
     });
