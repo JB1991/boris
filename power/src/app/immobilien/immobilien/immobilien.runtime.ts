@@ -19,6 +19,7 @@ interface NipixRuntimeState {
     activeSelection?: number;
     highlightedSeries?: string;
     selectedMyRegion?: string;
+    mapWidth?: number;
 }
 
 interface NipixRuntimeCalculated {
@@ -58,7 +59,8 @@ export class NipixRuntime {
         'selection': [],
         'activeSelection': 0,
         'highlightedSeries': '',
-        'selectedMyRegion': ''
+        'selectedMyRegion': '',
+        'mapWidth': 10000
     };
 
     public availableQuartal = [];

@@ -16,7 +16,6 @@ div.title h1 {
 
 .checksum div {
     padding: 1rem;
-    margin: 0.5rem -1rem 0.5rem -1rem;
 }
 
 .checksum div:nth-child(2) {
@@ -34,6 +33,7 @@ div.subtitle {
 
 div.subtitle h2 {
     margin: auto;
+    text-align: center;
     font-size: 1rem;
 }
 
@@ -44,6 +44,19 @@ div.alert-gmb {
 div.dropdown {
     text-align: center;
     padding-top: 0.5rem;
+}
+
+label.tab,
+div.dl {
+    display: table;
+    border-spacing: 0.5em;
+}
+
+label.tab span,
+span.tc,
+small.tc {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .card {
