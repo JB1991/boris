@@ -230,6 +230,7 @@ export class ImmobilienComponent implements OnInit {
             'geoCoordMapTop': this.nipixStatic.data.geoCoordMap['top'],
             'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
+        this.nipixRuntime.state.mapWidth=10000;
         // Update Map Selection; Wait a little time for browser to render
         setTimeout(this.updateMapSelect.bind(this), 100);
 
@@ -352,8 +353,29 @@ export class ImmobilienComponent implements OnInit {
      */
     onChartFinished(ec) {
         this.nipixRuntime.export.chartRenderFinished();
-    }
 
+        const width = this.nipixRuntime.map.obj.getWidth();
+        if ((width < 400) &&
+            (this.nipixRuntime.state.mapWidth >= 400)) {
+            this.nipixRuntime.state.mapWidth = width;
+            this.nipixRuntime.map.obj.setOption({
+                'title': {
+                    'text': $localize`Wohnungsmarktregionen\nin Niedersachsen`
+                }
+            });
+        }
+
+        if ((width >= 400) &&
+            (this.nipixRuntime.state.mapWidth < 400)) {
+            this.nipixRuntime.state.mapWidth = width;
+            this.nipixRuntime.map.obj.setOption({
+                'title': {
+                    'text': $localize`Wohnungsmarktregionen in Niedersachsen`
+                }
+            });
+        }
+
+    }
 
     /**
      * Change between NiPix Category (Eigenheime, Wohnungen)
