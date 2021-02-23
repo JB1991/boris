@@ -11,7 +11,7 @@ import { AuthService } from '@app/shared/auth/auth.service';
 })
 export class FeedbackComponent implements OnInit {
     public mail = 'incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
-    public stateFilter = 'all';
+    public stateFilter = 'opened';
     public search = '';
     public rss = [];
     /* eslint-disable-next-line max-len */
