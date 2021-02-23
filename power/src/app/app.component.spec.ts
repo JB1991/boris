@@ -45,10 +45,6 @@ describe('AppComponent', () => {
         app.ngAfterViewChecked();
     }));
 
-    it('should have "power" as title', waitForAsync(() => {
-        expect(app.title).toContain('Immobilienmarkt.NI');
-    }));
-
     it('should have a version number including a dot', waitForAsync(() => {
         expect(app.appVersion.version).toEqual('local');
     }));

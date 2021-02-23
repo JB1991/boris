@@ -4,7 +4,7 @@ import { Platform } from '@angular/cdk/platform';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 
-import { Config, ConfigService } from '@app/config.service';
+import { Config, Version, ConfigService } from '@app/config.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
 
@@ -14,22 +14,19 @@ import { UpdateService } from './update.service';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
-    public title = 'Immobilienmarkt.NI';
     public isCollapsed = true;
     public isCollapsedAcc = true;
     public isCollapsedBRW = true;
     public isCollapsedImmo = true;
     public showBrowserNotice = true;
     public showOfflineNotice = true;
-    public show = false;
-    public name: string;
     public config: Config;
     public appVersion: any = { version: 'local', branch: 'dev' };
     public hasInternet = navigator.onLine;
     public uri = location;
     public baseurl = location.pathname + location.search;
-    private _subscription: Subscription;
 
+    private _subscription: Subscription;
     private unsubscribe$: Subject<void> = new Subject<void>();
 
     constructor(@Inject(LOCALE_ID) public locale: string,
@@ -71,13 +68,13 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.httpClient.get('/assets/version.json').subscribe(data => {
             if (data && data['version']) {
                 this.appVersion = data;
-                this.configService.appVersion = data;
+                this.configService.version = this.appVersion as Version;
             }
         }, error => {
             // failed to load
             console.error('could not load version.json');
             this.appVersion = { version: 'local', branch: 'offline' };
-            this.configService.appVersion = this.appVersion;
+            this.configService.version = this.appVersion as Version;
         });
 
         // disable warning for known browsers

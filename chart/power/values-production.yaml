@@ -107,3 +107,4 @@ config:
     - "landesgrundstuecksmarktberichte"
     - "feedback"
   authentication: true
+  localized: false
