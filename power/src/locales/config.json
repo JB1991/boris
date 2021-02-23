@@ -8,6 +8,7 @@
     "encoding": "UTF-8",
     "defaultLanguage": "de",
     "languages": [
+      "de-simple",
       "en"
     ],
     "removeUnusedIds": true,

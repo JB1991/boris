@@ -1,18 +1,18 @@
 <div class="col-md-12 p-0">
     <ng-container *ngIf="chartOption?.series.length != 0">
         <h3 i18n>Zeitliche Entwicklung</h3>
-        <ng-container *ngIf="features?.features[0].properties.gema == 'Bremerhaven'; else bremen">
-            <p> Die Bodenrichtwerte in Bremerhaven werden in einem zwei Jahreszyklus mit Stichtag 31.12. festgelegt.
-                Der letzte Stichtag war der {{ getBremerhavenStichtag() }}
+        <ng-container *ngIf="features?.features[0].properties.gema === 'Bremerhaven'; else bremen">
+            <p> Die Bodenrichtwerte in Bremerhaven werden in einem Zweijahreszyklus mit Stichtag 31.12. festgelegt.
+                Der letzte Stichtag war der {{ getBremerhavenStichtag() | date }}.
                 Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem Stichtag
                 ermittelt werden.
                 Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
         </ng-container>
         <ng-template #bremen>
-            <ng-container *ngIf="features?.features[0].properties.gabe == 'Gutachterausschuss für Grundstückswerte in Bremen';
+            <ng-container *ngIf="features?.features[0].properties.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen';
                      else niedersachsen">
-                <p> Die Bremer Bodenrichtwerte werden in einem zwei Jahreszyklus mit Stichtag 31.12. festgelegt.
-                    Der letzte Stichtag war der {{ getBremenStichtag() }}
+                <p> Die Bremer Bodenrichtwerte werden in einem Zweijahreszyklus mit Stichtag 31.12. festgelegt.
+                    Der letzte Stichtag war der {{ getBremenStichtag() | date }}.
                     Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem Stichtag
                     ermittelt werden.
                     Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>

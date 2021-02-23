@@ -1,42 +1,44 @@
 <div class="input-group p-1">
-       <input type="text"
-              class="form-control"
-              placement="bottom"
-              placeholder="Bitte Adresse eingeben..."
-              i18n-placeholder
-              aria-label="Suche"
-              aria-placeholder="Bitte geben Sie eine Adresse ein."
-              i18n-aria-placeholder
-              [(ngModel)]="model"
-              [ngbTypeahead]="search"
-              [inputFormatter]="inputFormatter"
-              [resultTemplate]="results"
-              [focusFirst]="false"
-              (selectItem)="onSelect($event.item)"
-              (focus)="$event.target.select()">
+    <input #geosearch
+           id="geosearch-input"
+           type="text"
+           class="form-control"
+           placement="bottom"
+           placeholder="Bitte Adresse eingeben..."
+           i18n-placeholder
+           aria-label="Suche"
+           aria-placeholder="Bitte geben Sie eine Adresse ein."
+           i18n-aria-placeholder
+           [(ngModel)]="model"
+           [ngbTypeahead]="search"
+           [inputFormatter]="inputFormatter"
+           [resultTemplate]="results"
+           [focusFirst]="false"
+           (selectItem)="onSelect($event.item)"
+           (focus)="$event.target.select()">
 </div>
 <ng-template #results
              class="template"
              let-p="result.properties"
              let-t="term">
-       <div *ngIf="p.typ === 'Ort'">
-              <ngb-highlight [result]="p.text"
-                             [term]="t"></ngb-highlight>
-       </div>
-       <div *ngIf="p.typ === 'Strasse'">
-              <ngb-highlight [result]="p.strasse"
-                             [term]="t"></ngb-highlight>
-              <br>
-              <ngb-highlight class="template-item-strasse"
-                             [result]="p.ortsteil ? p.plz + ' ' + p.ort + ' - ' + p.ortsteil : p.plz + ' ' + p.ort"
-                             [term]="t"></ngb-highlight>
-       </div>
-       <div *ngIf="p.typ === 'Haus'">
-              <ngb-highlight [result]="p.strasse + ' ' + p.haus"
-                             [term]="t"></ngb-highlight>
-              <br>
-              <ngb-highlight class="template-item-haus"
-                             [result]="p.ortsteil ? p.plz + ' ' + p.ort + ' - ' + p.ortsteil : p.plz + ' ' + p.ort"
-                             [term]="t"></ngb-highlight>
-       </div>
+    <div *ngIf="p.typ === 'Ort'">
+        <ngb-highlight [result]="p.text"
+                       [term]="t"></ngb-highlight>
+    </div>
+    <div *ngIf="p.typ === 'Strasse'">
+        <ngb-highlight [result]="p.strasse"
+                       [term]="t"></ngb-highlight>
+        <br>
+        <ngb-highlight class="template-item-strasse"
+                       [result]="p.ortsteil ? p.plz + ' ' + p.ort + ' - ' + p.ortsteil : p.plz + ' ' + p.ort"
+                       [term]="t"></ngb-highlight>
+    </div>
+    <div *ngIf="p.typ === 'Haus'">
+        <ngb-highlight [result]="p.strasse + ' ' + p.haus"
+                       [term]="t"></ngb-highlight>
+        <br>
+        <ngb-highlight class="template-item-haus"
+                       [result]="p.ortsteil ? p.plz + ' ' + p.ort + ' - ' + p.ortsteil : p.plz + ' ' + p.ort"
+                       [term]="t"></ngb-highlight>
+    </div>
 </ng-template>

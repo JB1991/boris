@@ -71,7 +71,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 2. Sprachstrings exportieren
    ```
    cd power
-   ng extract-i18n --format=xlf2 --ivy --output-path src/locales
+   ng extract-i18n power --format=xlf2 --ivy=true --output-path src/locales
    ```
    * Bitte die Datei `messages.xlf` nach dem String `node_modules` durchsuchen und die entsprechenden Einträge entfernen.
    Leider gibt es derzeit keinen `exclude`-Parameter (siehe https://github.com/angular/angular-cli/issues/18885).

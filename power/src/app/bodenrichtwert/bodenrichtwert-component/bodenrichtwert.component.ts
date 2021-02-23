@@ -11,6 +11,7 @@ import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.servic
 import { ConfigService } from '@app/config.service';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
+import { DatePipe } from '@angular/common';
 
 /**
  * Bodenrichtwert-Component arranges all Components on a single page
@@ -19,6 +20,7 @@ import proj4 from 'proj4';
     selector: 'power-main',
     templateUrl: 'bodenrichtwert.component.html',
     styleUrls: ['bodenrichtwert.component.scss'],
+    providers: [DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertComponent implements OnDestroy {
@@ -101,6 +103,22 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.teilmarkt = this.bodenrichtwertService.TEILMAERKTE[0];
     }
 
+    getStichtag(): string {
+        const year: number = this.stichtag.slice(0, 4);
+        if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
+            if (year % 2 === 0) {
+                return (year - 1).toString() + '-12-31';
+            }
+        };
+
+        if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
+            if (year % 2 !== 0) {
+                return (year - 1).toString() + '-12-31';
+            }
+        }
+        return year.toString() + '-12-31';
+    }
+
     /**
      * Destroys all active subscriptions
      */
@@ -120,7 +138,7 @@ export class BodenrichtwertComponent implements OnDestroy {
     }
 
     public printURL(): string {
-        let url = '/boris-print/';
+        let url = '/boris-print/?';
 
         // coordinates
         const lnglat_coordinates = this.map.marker.getLngLat();
@@ -151,6 +169,20 @@ export class BodenrichtwertComponent implements OnDestroy {
 
         // return url
         return url;
+    }
+
+    /**
+     * checkIfStichtagFtsExist checks if features for the currently selected stichtag exist
+     */
+    public checkIfStichtagFtsExist(): boolean {
+        const filteredFts = this.features.features.filter((ft: Feature) =>
+            ft.properties.stag.substr(0, 10) === this.stichtag
+        );
+        if (filteredFts.length) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

@@ -42,8 +42,8 @@ $grid-gutter-width: 0rem !default;
     }
 
     .details {
-        max-height: calc(100vh - 107px);
-        height: 100% !important;
+        max-height: initial !important;
+        height: initial !important;
     }
 
     .overflow-auto {

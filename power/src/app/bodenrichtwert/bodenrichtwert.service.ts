@@ -13,6 +13,7 @@ export class BodenrichtwertService {
      * Possible selections of Stichtage
      */
     public STICHTAGE = [
+        '2020-12-31',
         '2019-12-31',
         '2018-12-31',
         '2017-12-31',

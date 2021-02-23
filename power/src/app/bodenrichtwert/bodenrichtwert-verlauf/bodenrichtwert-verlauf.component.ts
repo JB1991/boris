@@ -4,12 +4,13 @@ import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
     templateUrl: './bodenrichtwert-verlauf.component.html',
     styleUrls: ['./bodenrichtwert-verlauf.component.scss'],
-    providers: [NutzungPipe, VerfahrensartPipe],
+    providers: [NutzungPipe, VerfahrensartPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges {
@@ -29,6 +30,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         { stag: '2017', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: '2018', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: '2019', brw: null, nutzung: '', verg: '', verf: '' },
+        { stag: '2020', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: 'heute', brw: null, nutzung: '', verg: '', verf: '' }
     ];
 
@@ -98,7 +100,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         },
         xAxis: {
             type: 'category',
-            data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+            data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'],
             nameLocation: 'start',
             axisLine: {
                 symbol: ['none', 'arrow'],
@@ -129,8 +131,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     echartsInstance;
 
-    constructor(private nutzungPipe: NutzungPipe, private verfahrensartPipe: VerfahrensartPipe) {
-    }
+    constructor(
+        private nutzungPipe: NutzungPipe,
+        private verfahrensartPipe: VerfahrensartPipe
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features) {
@@ -156,7 +160,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         const filteredFeatures = [];
         for (const feature of features) {
             const year = feature.properties.stag.substring(0, 4);
-            if (year >= 2012 && year <= 2019) {
+            if (year >= 2012 && year <= 2020) {
                 filteredFeatures.push(feature);
             }
         }
@@ -480,21 +484,21 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return today.getFullYear();
     }
 
-    getBremenStichtag(): string {
+    getBremerhavenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
-            return ('31.' + '12.' + (year - 2) + '.');
+            return year.toString() + '-12-31';
         } else {
-            return ('31.' + '12.' + (year - 1) + '.');
+            return (year-1).toString() + '-12-31';
         }
     }
 
-    getBremerhavenStichtag(): string {
+    getBremenStichtag(): string {
         const year = this.getCurrentYear() - 1;
-        if (year % 2 === 0) {
-            return ('31.' + '12.' + (year - 2) + '.');
+        if (year % 2 !== 0) {
+            return (year-1).toString() + '-12-31';
         } else {
-            return ('31.' + '12.' + (year - 1) + '.');
+            return year.toString() + '-12-31';
         }
     }
 }

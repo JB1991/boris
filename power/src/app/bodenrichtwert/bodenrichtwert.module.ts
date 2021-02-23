@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -71,7 +71,7 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         AlertModule.forRoot(),
         CollapseModule.forRoot()
     ],
-    providers: [BodenrichtwertService]
+    providers: [BodenrichtwertService, DatePipe]
 })
 export class BodenrichtwertModule {
 }

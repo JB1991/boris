@@ -57,5 +57,13 @@ export class StartComponent implements OnInit {
         }
         this.cardorder[module] = Object.keys(this.cardorder).length % 2 === 1;
     }
+
+    /**
+     * Scrolls to element
+     * @param id Element id
+     */
+    public scrollToElement(id: string) {
+        document.getElementById(id).scrollIntoView();
+    }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -80,6 +80,7 @@
                 <div class="nav">
                     <div class="btn-group"
                          role="group"
+                         (isOpenChange)="functionsActive = !functionsActive"
                          dropdown>
                         <button class="btn btn-block dropdown-toggle nav-link"
                                 type="button"
@@ -88,7 +89,6 @@
                                 [ngClass]="{'active' : functionsActive}"
                                 dropdownToggle
                                 id="dropdownMenuButton"
-                                (click)="functionsActive = !functionsActive"
                                 aria-haspopup="true"
                                 aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +253,7 @@
                     <button class="nav-link btn"
                             [ngClass]="{'active': searchActive}"
                             type="button"
-                            (click)="searchActive = !searchActive"
+                            (click)="searchActive = !searchActive; geosearch.setFocus()"
                             alt="Suche"
                             title="Suche"
                             i18n-alt
@@ -277,6 +277,7 @@
                     <div class="btn-group d-flex">
                         <div class="btn-group"
                              role="group"
+                             (isOpenChange)="functionsActive = !functionsActive"
                              dropdown>
                             <button class="btn btn-block nav-link dropdown-toggle"
                                     [ngClass]="{'active': functionsActive}"
@@ -284,7 +285,6 @@
                                     title="Weitere Funktionen"
                                     i18n-title
                                     dropdownToggle
-                                    (click)="functionsActive = !functionsActive"
                                     aria-haspopup="true"
                                     aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -420,7 +420,8 @@
         </div>
     </div>
 
-    <power-geosearch [class.d-none]="!searchActive"
+    <power-geosearch #geosearch
+                     [class.d-none]="!searchActive"
                      [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
                      [adresse]="adresse"
                      (selectResult)="onSearchSelect($event)"></power-geosearch>

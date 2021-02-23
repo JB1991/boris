@@ -19,6 +19,7 @@
                     "baseHref": ""
                 },
                 "locales": {
+                    "de-simple": "src/locales/messages.de-simple.xlf",
                     "en": "src/locales/messages.en.xlf"
                 }
             },
@@ -129,6 +130,12 @@
                             ],
                             "baseHref": "/"
                         },
+                        "de-simple": {
+                            "localize": [
+                                "de-simple"
+                            ],
+                            "baseHref": "/"
+                        },
                         "en": {
                             "localize": [
                                 "en"
@@ -154,6 +161,9 @@
                         },
                         "de": {
                             "browserTarget": "power:build:de"
+                        },
+                        "de-simple": {
+                            "browserTarget": "power:build:de-simple"
                         },
                         "en": {
                             "browserTarget": "power:build:en"
