@@ -1,0 +1,22 @@
+<div class="container-xl">
+
+    <div class="row title justify-content-center m-0 p-2 p-lg-3 text-center">
+        <h1 *ngIf="mode === 'gmb'"
+         i18n>Grund&shy;stücks&shy;markt&shy;berichte (Archiv)</h1>
+        <h1 *ngIf="mode === 'lmb'"
+         i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;berichte (Archiv)</h1>
+    </div>
+
+    <div *ngIf="mode === 'lmb'"
+         class="alert alert-info alert-gmb"
+         role="alert">
+        Ab dem 01.03.2021 finden Sie an dieser Stelle ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte.
+    </div>
+
+    <div *ngIf="mode === 'gmb'"
+         class="alert alert-info alert-gmb"
+         role="alert">
+        Ab dem 01.03.2021 finden Sie an dieser Stelle die Grund&shy;stücks&shy;markt&shy;berichte.
+    </div>
+</div>
+<!-- vim: set expandtab ts=4 sw=4 sts=4 :-->
