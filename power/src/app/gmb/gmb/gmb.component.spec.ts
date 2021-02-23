@@ -35,11 +35,11 @@ describe('GmbComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                NgxBootstrapIconsModule.forRoot(icons),
+                NgxBootstrapIconsModule.pick(icons),
                 NgxEchartsModule.forRoot({ echarts }), // eslint-disable-line object-shorthand
                 RouterModule.forRoot([])
             ],
-            declarations: [ GmbComponent ]
+            declarations: [GmbComponent]
         })
             .compileComponents();
     });
@@ -109,17 +109,17 @@ describe('GmbComponent', () => {
     });
 
     it('Map Tooltip Formatter works', () => {
-        const res = component.myMapOptions['tooltip']['formatter']({'name': '033550000'});
+        const res = component.myMapOptions['tooltip']['formatter']({ 'name': '033550000' });
         expect(res).toEqual('Lüneburg');
 
-        const res1 = component.myMapOptions['tooltip']['formatter']({'name': 'foobar'});
+        const res1 = component.myMapOptions['tooltip']['formatter']({ 'name': 'foobar' });
         expect(res1).toEqual('foobar');
     });
 
     it('onMapSelectChange works', () => {
         const param = {
             'type': 'mapselectchanged',
-            'batch': [ { 'selected': {'033550000': true} } ]
+            'batch': [{ 'selected': { '033550000': true } }]
         };
 
         component.filterBerichte = jasmine.createSpy();
@@ -130,7 +130,7 @@ describe('GmbComponent', () => {
         expect(component.filterBerichte).toHaveBeenCalled();
 
         component.selectedKreis = undefined;
-        component.onMapSelectChange({'selected': {'foo': false}});
+        component.onMapSelectChange({ 'selected': { 'foo': false } });
 
         expect(component.selectedKreis).toEqual(undefined);
     });
