@@ -253,7 +253,7 @@
                     <button class="nav-link btn"
                             [ngClass]="{'active': searchActive}"
                             type="button"
-                            (click)="searchActive = !searchActive; geosearch.setFocus()"
+                            (click)="searchActive = !searchActive; geosearchComponent.setFocus()"
                             alt="Suche"
                             title="Suche"
                             i18n-alt
@@ -420,7 +420,7 @@
         </div>
     </div>
 
-    <power-geosearch #geosearch
+    <power-geosearch #geosearchComponent
                      [class.d-none]="!searchActive"
                      [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
                      [adresse]="adresse"

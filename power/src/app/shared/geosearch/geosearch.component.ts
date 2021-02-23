@@ -13,7 +13,7 @@ import { AlertsService } from '../alerts/alerts.service';
 })
 export class GeosearchComponent implements OnChanges {
 
-    @ViewChild('geosearch') geosearchElement: ElementRef;
+    @ViewChild('geosearchInput') geosearchElement: ElementRef;
 
     constructor(public geosearchService: GeosearchService, public alerts: AlertsService) {
     }

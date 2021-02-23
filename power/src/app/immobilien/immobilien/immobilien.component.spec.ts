@@ -98,7 +98,7 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
                 BrowserAnimationsModule,
                 AccordionModule.forRoot(),
                 BsDropdownModule.forRoot(),
-                NgxBootstrapIconsModule.forRoot(icons),
+                NgxBootstrapIconsModule.pick(icons),
                 NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
             providers: [

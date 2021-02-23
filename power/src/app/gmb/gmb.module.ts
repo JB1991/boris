@@ -33,7 +33,7 @@ const icons = {
         CommonModule,
         GmbRoutingModule,
         NgxEchartsModule.forRoot({ echarts }), // eslint-disable-line object-shorthand
-        NgxBootstrapIconsModule.forRoot(icons)
+        NgxBootstrapIconsModule.pick(icons)
     ]
 })
 export class GmbModule { }
