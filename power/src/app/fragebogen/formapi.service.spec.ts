@@ -43,9 +43,11 @@ describe('Fragebogen.FormAPIService', () => {
                 AuthService
             ]
         });
+
+        spyOn(console, 'log');
+        spyOn(console, 'error');
         service = TestBed.inject(FormAPIService);
         httpTestingController = TestBed.inject(HttpTestingController);
-        spyOn(console, 'log');
     }));
 
     it('should be created', () => {

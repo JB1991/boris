@@ -35,7 +35,8 @@ describe('Fragebogen.Details.PublishComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
-        fixture.detectChanges(); // onInit
+        spyOn(console, 'error');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

@@ -81,7 +81,7 @@ export class PublicDashboardComponent implements OnInit {
             }
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             /* istanbul ignore else */

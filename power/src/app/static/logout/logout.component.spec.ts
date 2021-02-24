@@ -29,13 +29,15 @@ describe('Static.Logout.LogoutComponent', () => {
 
         fixture = TestBed.createComponent(LogoutComponent);
         component = fixture.componentInstance;
-        redirectspy = spyOn(component, 'redirect');
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
+
+        redirectspy = spyOn(component, 'redirect');
         localStorage.removeItem('user');
         component.auth.user = null;
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

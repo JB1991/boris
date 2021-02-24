@@ -31,23 +31,22 @@
 
                 <div class="lead">
                     <form #pinFormular="ngForm"
-                          (ngSubmit)="submitPIN(pin.value)"
+                          (ngSubmit)="submitPIN(pinInput.value)"
                           class="form-inline">
                         <label class="control-label sr-only"
-                               id="pin"
+                               id="pinLabel"
                                i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu
                             gelangen.</label>
                         <input type="text"
                                class="form-control mr-2 w-mobile"
-                               name="pin"
-                               [(ngModel)]="form.pin"
-                               #pin="ngModel"
-                               [ngClass]="{ 'is-invalid': pinFormular.submitted && pin.invalid}"
-                               required
+                               #pinInput="ngModel"
+                               name="pinInput"
+                               [(ngModel)]="pin"
+                               [class.is-invalid]="pinFormular.submitted && pinInput.invalid"
                                i18n-placeholder
                                placeholder="Formular PIN"
-                               aria-labelledby="pin"
-                               aria-placeholder="">
+                               aria-labelledby="pinLabel"
+                               required>
                         <button type="submit"
                                 class="btn btn-success"
                                 i18n-title

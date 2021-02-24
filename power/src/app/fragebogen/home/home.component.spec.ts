@@ -29,10 +29,12 @@ describe('Fragebogen.Home.HomeComponent', () => {
 
         fixture = TestBed.createComponent(HomeComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
+        spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {
@@ -47,9 +49,9 @@ describe('Fragebogen.Home.HomeComponent', () => {
     });
 
     it('should not redirect', () => {
-        expect(() => {
-            component.submitPIN('');
-        }).toThrowError('pin is required');
+        component.submitPIN('');
+        expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.router.navigate).toHaveBeenCalledTimes(0);
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -40,10 +40,11 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
 
         fixture = TestBed.createComponent(FormularSettingsComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

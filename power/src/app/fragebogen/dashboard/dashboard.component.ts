@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
             this.updateTasks(false);
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
         }
@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit {
                         this.updateForms(false);
                     })
                     .catch((error) => {
-                        console.log(error);
+                        console.error(error);
                         this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
                     });
             };
@@ -150,7 +150,7 @@ export class DashboardComponent implements OnInit {
             this.formPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {
@@ -185,7 +185,7 @@ export class DashboardComponent implements OnInit {
             this.taskPageSizes = Array.from(Array(maxPages), (_, i) => (i + 1) * 5);
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {
@@ -201,7 +201,7 @@ export class DashboardComponent implements OnInit {
             this.tags = response.tags;
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             if (navigate) {

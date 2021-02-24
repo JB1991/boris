@@ -31,8 +31,10 @@ describe('Static.Start.StartComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     });
 
     it('should create', () => {
@@ -50,6 +52,7 @@ describe('Static.Start.StartComponent', () => {
     it('should not redirect', () => {
         component.submitPIN('');
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
+        expect(component.router.navigate).toHaveBeenCalledTimes(0);
     });
 
     it('should order cards', () => {

@@ -32,10 +32,10 @@ describe('AppComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(AppComponent);
         app = fixture.componentInstance;
+        httpTestingController = TestBed.inject(HttpTestingController);
 
         spyOn(console, 'log');
         spyOn(console, 'error');
-        httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
     it('should create the app', waitForAsync(() => {

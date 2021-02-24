@@ -13,7 +13,7 @@ import { Config, ConfigService } from '@app/config.service';
 export class StartComponent implements OnInit {
     public config: Config;
     public cardorder = {};
-    public form: any = {};
+    public pin: string;
 
     constructor(public title: Title,
         public router: Router,
@@ -41,7 +41,7 @@ export class StartComponent implements OnInit {
      */
     public submitPIN(pin: string) {
         if (!pin) {
-            this.alerts.NewAlert('danger', $localize`Bitte Pin eingeben`, '');
+            this.alerts.NewAlert('danger', $localize`Eingabe ungültig`, $localize`Bitte geben Sie eine PIN ein.`);
             return;
         }
         this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });

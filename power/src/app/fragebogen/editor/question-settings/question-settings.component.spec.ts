@@ -50,11 +50,11 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
 
         fixture = TestBed.createComponent(QuestionSettingsComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.alerts, 'NewAlert');
-        spyOn(component.cdr, 'detectChanges');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

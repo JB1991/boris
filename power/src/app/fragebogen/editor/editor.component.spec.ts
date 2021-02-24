@@ -57,9 +57,9 @@ describe('Fragebogen.Editor.EditorComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
-        spyOn(component.cdr, 'detectChanges');
         fixture.detectChanges();
     }));
 

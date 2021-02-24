@@ -58,7 +58,7 @@ export class NewformComponent {
             })
             .catch((error: Error) => {
                 // failed to load form
-                console.log(error);
+                console.error(error);
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
             });
     }
@@ -84,7 +84,7 @@ export class NewformComponent {
                     this.modal.close();
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formAPI.getErrorMessage(error));
                 });
             return;
@@ -110,7 +110,7 @@ export class NewformComponent {
             const r = await this.formAPI.createForm({ tags: this.tagList, content: template, access: 'public' });
             this.out.emit(r.id);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
         }
     }

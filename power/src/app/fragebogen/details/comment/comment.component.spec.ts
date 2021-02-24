@@ -35,8 +35,8 @@ describe('Fragebogen.Details.CommentComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
-        // spyOn(component.alerts, 'NewAlert');
-        fixture.detectChanges(); // onInit
+        spyOn(console, 'error');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

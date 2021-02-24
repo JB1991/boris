@@ -44,11 +44,12 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
 
         fixture = TestBed.createComponent(DashboardComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

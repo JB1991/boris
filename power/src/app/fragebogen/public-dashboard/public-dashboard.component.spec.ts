@@ -38,11 +38,12 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
 
         fixture = TestBed.createComponent(PublicDashboardComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should be created', () => {

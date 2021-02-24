@@ -94,7 +94,7 @@ export class FilloutComponent implements AfterViewInit {
             this.loadingscreen.setVisible(false);
         }).catch((error: Error) => {
             // failed to load form
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
@@ -121,7 +121,7 @@ export class FilloutComponent implements AfterViewInit {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            console.log(error);
+            console.error(error);
             result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen.`);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
@@ -145,7 +145,7 @@ export class FilloutComponent implements AfterViewInit {
             this.loadingscreen.setVisible(false);
         } catch (error) {
             // failed to load task
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
@@ -170,7 +170,7 @@ export class FilloutComponent implements AfterViewInit {
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
-            console.log(error);
+            console.error(error);
             result.options.showDataSavingError($localize`Das Speichern auf dem Server ist fehlgeschlagen.`);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
@@ -194,7 +194,7 @@ export class FilloutComponent implements AfterViewInit {
             this.setUnsavedChanges(false);
         }).catch((error: Error) => {
             // failed to save task
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }

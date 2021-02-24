@@ -41,9 +41,10 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
-        fixture.detectChanges(); // onInit
+        fixture.detectChanges();
     }));
 
     /**
