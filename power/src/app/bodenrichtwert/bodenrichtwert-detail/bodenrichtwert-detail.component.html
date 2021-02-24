@@ -246,30 +246,33 @@
                 {{feature.properties.bem | hyphenate}}
             </dd>
             <!-- Umrechnungskoeffizienten -->
-            <!-- Umrechnungstabellenwerte - currently deactivated because of insufficient data quality -->
-            <!-- <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte"> -->
-            <!-- [html-validate-disable-next element-permitted-content] -->
-            <!-- <dt class="col-md-5"
-                    role="rowheader">
-                    {{brzStrings.umwert | hyphenate}}
-                </dt> -->
-            <!-- [html-validate-disable-next element-permitted-content] -->
-            <!-- <dd class="col-md-7"
-                    role="cell">
-                    <a class="btn-link"
-                       title="Umrechnungstabelle"
-                       i18n-title
-                       [routerLink]=""
-                       (click)="umrechnungstabelle.open()">
-                        {{umrechnung.text | einflussgroesse}}
-                    </a>
-                    <power-bodenrichtwert-detail-umrechnung #umrechnungstabelle
-                                                            [table]="umrechnung"
-                                                            [brw]="feature.properties.brw"
-                                                            [actualValue]="umrechnung.text === 'Art der Bebauung' ? feature.properties.nutzung[0]['enuta'] : feature.properties[umrechnung.text.toLowerCase()]">
-                    </power-bodenrichtwert-detail-umrechnung>
-                </dd>
-            </ng-container> -->
+            <!-- Umrechnungstabellenwerte - currently just for brw zones which don't have an umrechnungsdatei -->
+            <ng-container
+                          *ngIf="feature.properties.umrechnungstabellenwerte && !feature.properties.umrechnungstabellendatei.length">
+                <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte">
+                    <!-- [html-validate-disable-next element-permitted-content] -->
+                    <dt class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.umwert | hyphenate}}
+                    </dt>
+                    <!-- [html-validate-disable-next element-permitted-content] -->
+                    <dd class="col-md-7"
+                        role="cell">
+                        <a class="btn-link"
+                           title="Umrechnungstabelle"
+                           i18n-title
+                           [routerLink]=""
+                           (click)="umrechnungstabelle.open()">
+                            {{umrechnung.text | einflussgroesse}}
+                        </a>
+                        <power-bodenrichtwert-detail-umrechnung #umrechnungstabelle
+                                                                [table]="umrechnung"
+                                                                [brw]="feature.properties.brw"
+                                                                [actualValue]="umrechnung.text === 'Art der Bebauung' ? feature.properties.nutzung[0]['enuta'] : feature.properties[umrechnung.text.toLowerCase()]">
+                        </power-bodenrichtwert-detail-umrechnung>
+                    </dd>
+                </ng-container>
+            </ng-container>
 
             <!-- Umrechnungsdateien -->
             <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellendatei">
