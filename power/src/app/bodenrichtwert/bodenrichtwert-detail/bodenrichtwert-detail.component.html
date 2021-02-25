@@ -247,16 +247,16 @@
             </dd>
             <!-- Umrechnungskoeffizienten -->
             <!-- Umrechnungstabellenwerte - currently just for brw zones which don't have an umrechnungsdatei -->
-            <ng-container
+            <!-- <ng-container
                           *ngIf="feature.properties.umrechnungstabellenwerte && !feature.properties.umrechnungstabellendatei.length">
-                <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte">
-                    <!-- [html-validate-disable-next element-permitted-content] -->
-                    <dt class="col-md-5"
+                <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte"> -->
+            <!-- [html-validate-disable-next element-permitted-content] -->
+            <!-- <dt class="col-md-5"
                         role="rowheader">
                         {{brzStrings.umwert | hyphenate}}
-                    </dt>
-                    <!-- [html-validate-disable-next element-permitted-content] -->
-                    <dd class="col-md-7"
+                    </dt> -->
+            <!-- [html-validate-disable-next element-permitted-content] -->
+            <!-- <dd class="col-md-7"
                         role="cell">
                         <a class="btn-link"
                            title="Umrechnungstabelle"
@@ -272,7 +272,7 @@
                         </power-bodenrichtwert-detail-umrechnung>
                     </dd>
                 </ng-container>
-            </ng-container>
+            </ng-container> -->
 
             <!-- Umrechnungsdateien -->
             <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellendatei">
