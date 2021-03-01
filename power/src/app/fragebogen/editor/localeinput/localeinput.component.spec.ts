@@ -23,9 +23,10 @@ describe('Fragebogen.Editor.LocaleInputComponent', () => {
         component = fixture.componentInstance;
         component.locale = {};
         component.eid = 'abc';
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

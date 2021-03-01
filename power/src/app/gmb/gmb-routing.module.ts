@@ -6,7 +6,7 @@ import { GmbofflineComponent } from './gmboffline/gmboffline.component';
 const routes: Routes = [
     {
         path: '',
-        component: GmbofflineComponent,
+        component: GmbComponent,
         children: [
         ]
     }];

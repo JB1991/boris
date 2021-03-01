@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs/observable/of';
+import { Location } from '@angular/common';
 
 import { GmbComponent } from './gmb.component';
 
@@ -31,15 +34,35 @@ describe('GmbComponent', () => {
     let fixture: ComponentFixture<GmbComponent>;
     let httpTestingController: HttpTestingController;
 
+    const location = {
+        'replaceState': jasmine.createSpy()
+    };
+
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
                 NgxBootstrapIconsModule.pick(icons),
                 NgxEchartsModule.forRoot({ echarts }), // eslint-disable-line object-shorthand
-                RouterModule.forRoot([])
+                RouterTestingModule.withRoutes([]),
+                RouterTestingModule
             ],
-            declarations: [GmbComponent]
+            declarations: [GmbComponent],
+            providers: [
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        data: of({
+                            'mode': 'gmb'
+                        }),
+                        queryParams: of({
+                            'landkreis': 'Lüneburg',
+                            'berichte': 'Lüneburg_2006'
+                        })
+                    }
+                },
+                { provide: Location, useValue: location }
+            ]
         })
             .compileComponents();
     });
@@ -90,22 +113,34 @@ describe('GmbComponent', () => {
 
         expect(component.berichteFiltered).toEqual([]);
 
-        component.selectedKreis = '033550000';
+        component.selectedKreis = '032410000';
 
         component.filterBerichte();
 
         const eq = [
             {
-                'name': 'Lüneburg',
-                'berichte': component.berichte['Lüneburg'],
-                'start': Object.keys(component.berichte['Lüneburg'])[0]
+                'name': 'Hannover',
+                'berichte': component.berichte['Hannover'],
+                'start': Object.keys(component.berichte['Hannover'])[0]
             },
-            /* {
+            {
+                'name': 'Hameln-Hannover',
+                'berichte': component.berichte['Hameln-Hannover'],
+                'start': Object.keys(component.berichte['Hameln-Hannover'])[0]
+            },
+        ];
+        const eq1 = [
+            {
                 'name': 'Niedersachsen',
                 'berichte': component.berichte['Niedersachsen']
-            } */
+            }
         ];
         expect(component.berichteFiltered).toEqual(eq);
+
+        component.mode = 'lmb';
+        component.filterBerichte(true);
+        expect(component.berichteFiltered).toEqual(eq1);
+
     });
 
     it('Map Tooltip Formatter works', () => {
@@ -145,6 +180,94 @@ describe('GmbComponent', () => {
 
         expect(component.selectedKreis).toEqual('033550000');
         expect(component.map['dispatchAction']).toHaveBeenCalled();
+
+        component.onChange(null);
+        expect(component.selectedKreis).toEqual(undefined);
+    });
+
+    it('keyPress works', () => {
+        const event = {
+            'key': 'Enter',
+            'target': {
+                'checked': false
+            }
+        };
+
+        component.keyPress(event);
+        expect(event.target['checked']).toEqual(true);
+    });
+
+    it('changeURL works', () => {
+
+        component.mode = 'gmb';
+        component.selectedKreis = '033550000';
+        component.berichteOpened = [ 'Lüneburg_2222' ];
+
+        component.changeURL();
+
+        expect(location.replaceState).toHaveBeenCalledWith(
+            '/grundstuecksmarktberichte',
+            'landkreis=L%C3%BCneburg&berichte=L%C3%BCneburg_2222'
+        );
+
+        component.mode = 'lmb';
+        component.berichteOpened = [ 'Lüneburg_2222' ];
+
+        component.changeURL();
+
+        expect(location.replaceState).toHaveBeenCalledWith(
+            '/landesgrundstuecksmarktberichte',
+            'berichte=L%C3%BCneburg_2222'
+        );
+
+
+    });
+
+    it('selectMenu works', () => {
+        component.kreise = {
+            'b': 'foo',
+            'a': 'bar',
+            'c': 'tom'
+        };
+
+        const res = component.selectMenu();
+
+        expect(res).toEqual([
+            { 'key': null, 'value': '-- Landkreis --' },
+            { 'key': 'a', 'value': 'bar' },
+            { 'key': 'b', 'value': 'foo' },
+            { 'key': 'c', 'value': 'tom' }
+        ]);
+    });
+
+    it('checkValue works', () => {
+        const event = {
+            'target': {
+                'checked': true,
+                'id': 'id0815'
+            }
+        };
+
+        component.berichteOpened = [];
+
+        component.changeURL = jasmine.createSpy();
+
+        component.checkValue(event);
+        expect(component.berichteOpened).toEqual(['0815']);
+
+        event.target.checked = false;
+        component.checkValue(event);
+        expect(component.berichteOpened).toEqual([]);
+
+        expect(component.changeURL).toHaveBeenCalled();
+    });
+
+    it('changeTitle works', () => {
+        component.mode = 'gmb';
+        component.changeTitle();
+
+        component.mode = 'lmb';
+        component.changeTitle();
     });
 
     /**

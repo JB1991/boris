@@ -32,10 +32,10 @@ describe('AppComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(AppComponent);
         app = fixture.componentInstance;
+        httpTestingController = TestBed.inject(HttpTestingController);
 
         spyOn(console, 'log');
         spyOn(console, 'error');
-        httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
     it('should create the app', waitForAsync(() => {
@@ -43,10 +43,6 @@ describe('AppComponent', () => {
 
         spyOn(app.cdRef, 'detectChanges');
         app.ngAfterViewChecked();
-    }));
-
-    it('should have "power" as title', waitForAsync(() => {
-        expect(app.title).toContain('Immobilienmarkt.NI');
     }));
 
     it('should have a version number including a dot', waitForAsync(() => {

@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthService } from '@app/shared/auth/auth.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 @Component({
     selector: 'power-feedback',
@@ -21,7 +22,8 @@ export class FeedbackComponent implements OnInit {
 
     constructor(public titleService: Title,
         private httpClient: HttpClient,
-        public auth: AuthService) {
+        public auth: AuthService,
+        public alerts: AlertsService,) {
         this.titleService.setTitle($localize`Feedback - Immobilienmarkt.NI`);
     }
 
@@ -40,14 +42,22 @@ export class FeedbackComponent implements OnInit {
             uri += '&search=' + encodeURIComponent(this.search);
         }
 
-        const tmp = await this.httpClient.get(uri, this.auth.getHeaders('text', 'application/atom+xml', false)).toPromise();
-        const parser = new DOMParser();
-        const di = parser.parseFromString(tmp.toString(), 'application/xml');
-        const childs = di.getElementsByTagName('entry');
+        try {
+            // get rss feed
+            const tmp = await this.httpClient.get(uri, this.auth.getHeaders('text', 'application/atom+xml', false)).toPromise();
 
-        this.rss = [];
-        for (let i = 0; i < childs.length; i++) {
-            this.rss.push(childs[i]);
+            // parse rss feed
+            const parser = new DOMParser();
+            const di = parser.parseFromString(tmp.toString(), 'application/xml');
+            const childs = di.getElementsByTagName('entry');
+
+            this.rss = [];
+            for (let i = 0; i < childs.length; i++) {
+                this.rss.push(childs[i]);
+            }
+        } catch (error) {
+            console.error(error);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, $localize`Es konnte kein Feedback geladen werden.`);
         }
     }
 

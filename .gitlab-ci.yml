@@ -341,7 +341,7 @@ build:
     policy: pull
   script:
     - cd power
-    - npm run build -- -c staging,de
+    - npm run build -- -c staging
   artifacts:
     name: "compiled dist"
     expire_in: 2 days

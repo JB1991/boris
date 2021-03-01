@@ -18,7 +18,9 @@ describe('Fragebogen.Editor.HistoryService', () => {
                 StorageService
             ]
         });
+
         spyOn(console, 'log');
+        spyOn(console, 'error');
         service = TestBed.inject(HistoryService);
     }));
 

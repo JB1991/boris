@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Title } from '@angular/platform-browser';
-import { PaginationModule, PaginationComponent } from 'ngx-bootstrap/pagination';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { DetailsComponent } from './details.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { FormAPIService } from '../formapi.service';
-import { PreviewComponent } from '../surveyjs/preview/preview.component';
+import { User } from '../formapi.model';
 import { SharedModule } from '@app/shared/shared.module';
+import { SurveyjsModule } from '../surveyjs/surveyjs.module';
 
 /* eslint-disable max-lines */
 describe('Fragebogen.Details.DetailsComponent', () => {
@@ -31,6 +32,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: 'forms', component: MockDashboardComponent }
                 ]),
+                SurveyjsModule,
                 SharedModule
             ],
             providers: [
@@ -45,44 +47,34 @@ describe('Fragebogen.Details.DetailsComponent', () => {
                 MockMaketaskComponent,
                 MockPublishComponent,
                 MockCommentComponent,
-                MockSettingsComponent,
-                PreviewComponent
+                MockSettingsComponent
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(DetailsComponent);
         component = fixture.componentInstance;
-        const previewFixture = TestBed.createComponent(PreviewComponent);
-        component.preview = previewFixture.componentInstance;
-        const paginationFixture = TestBed.createComponent(PaginationComponent);
-        component.pagination = paginationFixture.componentInstance;
-        // fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {
         expect(component).toBeTruthy();
+        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('123');
         spyOn(component, 'updateTasks');
         spyOn(component, 'updateForm');
-        component.id = '123';
         component.ngOnInit();
         expect(component.updateTasks).toHaveBeenCalledTimes(1);
     });
 
     it('should not create', () => {
         expect(component).toBeTruthy();
-        component.id = null;
+        spyOn(component.route.snapshot.paramMap, 'get').and.returnValue('');
         component.ngOnInit();
-        expect(component.router.navigate).toHaveBeenCalledTimes(1);
-    });
-
-    it('should not create 2', () => {
-        expect(component).toBeTruthy();
-        component.ngOnInit();
-        expect(component.router.navigate).toHaveBeenCalledTimes(1);
+        expect(component.router.navigate).toHaveBeenCalledTimes(2);
     });
 
     /**
@@ -388,10 +380,13 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      * OPEN TASK
      */
     it('should open task', () => {
+        component.form = JSON.parse(JSON.stringify(getForm.form));
+        fixture.detectChanges();
+
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
         spyOn(component.preview, 'open');
         component.openTask(0);
-        expect(component.preview.open).toHaveBeenCalled();
+        expect(component.preview.open).toHaveBeenCalledTimes(1);
     });
 
     it('should open task crash', () => {
@@ -567,6 +562,10 @@ describe('Fragebogen.Details.DetailsComponent', () => {
      */
     it('should createTaskEvent', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
+        component.form.status = 'published';
+        component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+        fixture.detectChanges();
+
         spyOn(component.formapi, 'createTask').and.returnValue(Promise.resolve({
             ids: ['123'],
             pins: ['123456'],
@@ -658,7 +657,11 @@ class MockPublishComponent { }
     selector: 'power-forms-details-settings',
     template: ''
 })
-class MockSettingsComponent { }
+class MockSettingsComponent {
+    @Input() public availableTags: Array<string>;
+    @Input() public availableGroups: Array<string>;
+    @Input() public availableUsers: Array<User>;
+}
 @Component({
     selector: 'power-forms-dashboard',
     template: ''

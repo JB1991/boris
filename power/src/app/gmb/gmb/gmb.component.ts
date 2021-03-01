@@ -382,7 +382,7 @@ export class GmbComponent implements OnInit {
         this.filterBerichte();
     }
 
-    keyPress(event: KeyboardEvent) {
+    keyPress(event: any) {
         if (event.key === 'Enter') {
             event.target['checked'] = !event.target['checked'];
         }
@@ -400,7 +400,7 @@ export class GmbComponent implements OnInit {
         this.changeURL();
     }
 
-    private changeURL() {
+    changeURL() {
         const params = new URLSearchParams({});
         if (this.mode === 'gmb' && this.selectedKreis) {
             params.append('landkreis', this.kreise[this.selectedKreis]);

@@ -62,7 +62,8 @@
                             name="form-locale"
                             aria-describedby="form-localeHelp">
                         <option *ngFor="let lang of languages | keyvalue; index as i"
-                                [ngValue]="lang.key">
+                                [ngValue]="lang.key"
+                                [lang]="lang.key">
                             {{ lang.value }}
                         </option>
                     </select>

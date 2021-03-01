@@ -354,6 +354,10 @@ export class ImmobilienComponent implements OnInit {
     onChartFinished(ec) {
         this.nipixRuntime.export.chartRenderFinished();
 
+        if (this.nipixRuntime.map.obj === null) {
+            return;
+        }
+
         const width = this.nipixRuntime.map.obj.getWidth();
         if ((width < 400) &&
             (this.nipixRuntime.state.mapWidth >= 400)) {

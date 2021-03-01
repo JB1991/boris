@@ -22,9 +22,10 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
         fixture = TestBed.createComponent(WrapperComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

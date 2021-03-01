@@ -38,15 +38,17 @@ describe('Static.Login.LoginComponent', () => {
 
         fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;
-        redirectspy = spyOn(component, 'redirect');
-        fixture.detectChanges();
+        httpTestingController = TestBed.inject(HttpTestingController);
 
         spyOn(console, 'log');
         spyOn(console, 'error');
         spyOn(component.router, 'navigate');
-        httpTestingController = TestBed.inject(HttpTestingController);
+        spyOn(component.alerts, 'NewAlert');
+
+        redirectspy = spyOn(component, 'redirect');
         localStorage.removeItem('user');
         component.auth.user = null;
+        fixture.detectChanges();
     }));
 
     it('should create', () => {
