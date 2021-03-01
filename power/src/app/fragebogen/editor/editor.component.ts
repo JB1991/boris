@@ -187,7 +187,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.loadingscreen.setVisible(false);
         } catch (error) {
             // failed to load form
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
@@ -459,7 +459,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.cdr.detectChanges();
         }).catch((error: Error) => {
             // failed to save
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
@@ -643,7 +643,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
                 $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);
         }).catch((error) => {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Favoriten hinzufügen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
@@ -676,7 +676,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
                 this.alerts.NewAlert('success', $localize`Favoriten gelöscht`,
                     $localize`Die Frage wurde erfolgreich aus den Favoriten entfernt.`);
             }).catch((error) => {
-                console.log(error);
+                console.error(error);
                 this.alerts.NewAlert('danger', $localize`Favorite löschen fehlgeschlagen`, this.formapi.getErrorMessage(error));
             });
     }

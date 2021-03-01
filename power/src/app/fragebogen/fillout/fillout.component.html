@@ -17,11 +17,13 @@
                     id="language"
                     name="language">
                 <!--<option *ngFor="let lang of languages | keyvalue; index as i"
-                        [ngValue]="lang.key">
+                        [ngValue]="lang.key"
+                        [lang]="lang.key">
                     {{ lang.value }}
                 </option>-->
                 <option *ngFor="let lang of wrapper.survey.getUsedLocales(); index as i"
-                        [ngValue]="lang">
+                        [ngValue]="lang"
+                        [lang]="lang">
                     {{ languages[lang] }}
                 </option>
             </select>

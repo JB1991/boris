@@ -4,7 +4,6 @@ Disallow: /geocoding/
 Disallow: /feedback-rss/
 Disallow: /boris-print/
 Disallow: /formapi/
-Disallow: /assets/
 Disallow: /forms/fillout/
 Disallow: /login
 Disallow: /logout

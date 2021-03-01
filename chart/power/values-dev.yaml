@@ -96,3 +96,4 @@ config:
     - "feedback"
     - "login"
   authentication: true
+  localized: true

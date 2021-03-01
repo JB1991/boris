@@ -38,11 +38,12 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
         fixture = TestBed.createComponent(NewformComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

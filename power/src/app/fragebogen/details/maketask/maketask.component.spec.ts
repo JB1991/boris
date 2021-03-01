@@ -33,6 +33,7 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         fixture.detectChanges();
     }));
 

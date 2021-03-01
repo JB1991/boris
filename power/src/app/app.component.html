@@ -336,22 +336,32 @@
                     </ul>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 p-1 m-0">
-                    <!--<h5 id="languages"
-                        title="Sprachauswahl"
-                        i18n
-                        i18n-title>Sprache</h5>
-                    <ul class="list-unstyled text-small">
-                        <li class="my-1">
-                            <a href="{{ baseurl }}"
-                               class="footer-link"
-                               rel="noopener">Deutsch</a>
-                        </li>
-                        <li class="my-1">
-                            <a href="/en{{ baseurl }}"
-                               class="footer-link"
-                               rel="noopener">English</a>
-                        </li>
-                    </ul>-->
+                    <ng-container *ngIf="config.localized">
+                        <h5 id="languages"
+                            title="Sprachauswahl"
+                            i18n
+                            i18n-title>Sprache</h5>
+                        <ul class="list-unstyled text-small">
+                            <li class="my-1">
+                                <a href="{{ baseurl }}"
+                                   class="footer-link"
+                                   lang="de"
+                                   rel="noopener">Deutsch</a>
+                            </li>
+                            <li class="my-1">
+                                <a href="/de-simple{{ baseurl }}"
+                                   class="footer-link"
+                                   lang="de"
+                                   rel="noopener">Einfache Sprache</a>
+                            </li>
+                            <li class="my-1">
+                                <a href="/en{{ baseurl }}"
+                                   class="footer-link"
+                                   lang="en"
+                                   rel="noopener">English</a>
+                            </li>
+                        </ul>
+                    </ng-container>
                 </div>
                 <div class="col-12 col-md-12 col-lg-4 p-1 m-0">
                     <!-- Only for Modules Bodenrichtwerte/Bodenwertkalkulator -->

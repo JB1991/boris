@@ -353,7 +353,9 @@
                         Eigentumswohnung abschätzen. Der Immobilien-Preis-Kalkulator basiert auf Marktmodellen
                         (Vergleichsfaktoren), die durch die Gutachterausschüsse für Grundstückswerte aus der
                         Kaufpreissammlung mit Hilfe mathematisch-statistischer Verfahren (multiple Regression) ermittelt
-                        werden. Eine Auskunft auf Grundlage des Immobilien-Preis-Kalkulators ist gebührenpflichtig.</p>
+                        werden. Eine Auskunft auf Grundlage des Immobilien-Preis-Kalkulators ist
+                        <strong class="font-weight-bold">gebührenpflichtig</strong>.
+                    </p>
                 </div>
             </div>
             <div class="col-md-5 d-flex justify-content-center align-self-center"
@@ -429,24 +431,22 @@
                         direkt über die PIN abrufen und ausfüllen.</p>
 
                     <form #pinFormular="ngForm"
-                          (ngSubmit)="submitPIN(pin.value)"
+                          (ngSubmit)="submitPIN(pinInput.value)"
                           class="form-inline mb-3">
                         <label class="control-label sr-only"
-                               id="formPIN"
+                               id="pinLabel"
                                i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu
                             gelangen.</label>
                         <input type="text"
                                class="form-control mr-2 w-mobile"
-                               name="pin"
-                               [(ngModel)]="form.pin"
-                               #pin="ngModel"
-                               [ngClass]="{ 'is-invalid': pinFormular.submitted && pin.invalid}"
-                               required
-                               id="pin"
+                               #pinInput="ngModel"
+                               name="pinInput"
+                               [(ngModel)]="pin"
+                               [class.is-invalid]="pinFormular.submitted && pinInput.invalid"
                                i18n-placeholder
                                placeholder="Formular PIN"
-                               aria-labelledby="formPIN"
-                               aria-placeholder="">
+                               aria-labelledby="pinLabel"
+                               required>
 
                         <button type="submit"
                                 class="btn btn-success"
