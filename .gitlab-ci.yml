@@ -299,6 +299,7 @@ test:kube-linter-dev:
     - merge_requests
     - tags
     - dev
+  allow_failure: true
 
 test:kube-linter-staging:
   stage: test
@@ -313,6 +314,7 @@ test:kube-linter-staging:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-staging/power/templates/*.yaml
   only:
     - staging
+  allow_failure: true
 
 test:kube-linter-production:
   stage: test
@@ -327,6 +329,7 @@ test:kube-linter-production:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-production/power/templates/*.yaml
   only:
     - production
+  allow_failure: true
 
 build:
   stage: build
