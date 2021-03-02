@@ -152,18 +152,28 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('flyTo should focus the map to specific coordinates', () => {
         component.zoomFactor = 6;
+        component.teilmarkt.viewValue = 'Land- und forstwirtschaftliche Flächen';
         let eventType = false;
         component.flyTo(lat, lon, eventType);
-        expect(component.zoomFactor).toEqual(15.1);
+        expect(component.zoomFactor).toEqual(11);
         expect(component.map.getZoom).toHaveBeenCalledTimes(1);
         expect(component.map.flyTo).toHaveBeenCalledTimes(1);
 
+        component.zoomFactor = 12;
+        component.teilmarkt.viewValue = 'Land- und forstwirtschaftliche Flächen';
+        component.map.setZoom(component.zoomFactor);
+        component.flyTo(lat, lon, eventType);
+        expect(component.zoomFactor).toEqual(12);
+        expect(component.map.getZoom).toHaveBeenCalledTimes(2);
+        expect(component.map.flyTo).toHaveBeenCalledTimes(2);
+
         component.zoomFactor = 14;
+        component.teilmarkt.viewValue = 'Bauland';
         component.map.setZoom(component.zoomFactor);
         component.flyTo(lat, lon, eventType);
         expect(component.zoomFactor).toEqual(14);
         expect(component.map.getZoom).toHaveBeenCalledTimes(3);
-        expect(component.map.flyTo).toHaveBeenCalledTimes(2);
+        expect(component.map.flyTo).toHaveBeenCalledTimes(3);
 
         component.zoomFactor = 14;
         eventType = true;
@@ -171,7 +181,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         component.flyTo(lat, lon, eventType);
         expect(component.zoomFactor).toEqual(15.1);
         expect(component.map.getZoom).toHaveBeenCalledTimes(4);
-        expect(component.map.flyTo).toHaveBeenCalledTimes(3);
+        expect(component.map.flyTo).toHaveBeenCalledTimes(4);
     });
 
     it('toggle3dView should toggle the state of threeDActive', () => {

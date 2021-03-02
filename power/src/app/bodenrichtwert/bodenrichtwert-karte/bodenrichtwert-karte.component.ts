@@ -62,7 +62,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public functionsActive = false;
 
     public isDragged = false;
+
     public zoomFactor: number;
+    // Flurstuecke become visible at Zoomfactor 15.1
+    public standardBaulandZoom = 15.1;
+    public standardLandZoom = 11;
 
     public baulandColorPalette = ['#794c74', '#c56183', '#fadcaa', '#b2deec'];
 
@@ -308,10 +312,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     flyTo(lat: number, lng: number, eventType?: any) {
-        if (this.map.getZoom() > 11.25 && !eventType) {
-            this.zoomFactor = this.map.getZoom();
+        const currentZoom = this.map.getZoom();
+        if (this.teilmarkt.viewValue !== 'Bauland' && !eventType) {
+            if (currentZoom > 10) {
+                this.zoomFactor = currentZoom;
+            } else {
+                this.zoomFactor = this.standardLandZoom;
+            }
+        } else if (currentZoom > 11 && !eventType) {
+            this.zoomFactor = currentZoom;
         } else {
-            this.zoomFactor = 15.1;
+            this.zoomFactor = this.standardBaulandZoom;
         }
         this.map.flyTo({
             center: [lng, lat],
@@ -649,14 +660,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         }
 
         // ease to zoom lvl
-        if (teilmarkt.viewValue === 'Bauland' && this.marker.getLngLat()) {
+        if (teilmarkt.viewValue === 'Bauland' && this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
             this.map.easeTo({
-                zoom: 14,
+                zoom: this.standardBaulandZoom,
                 center: this.marker.getLngLat()
             });
-        } else if (this.marker.getLngLat()) {
+        } else if (this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
             this.map.easeTo({
-                zoom: 11,
+                zoom: this.standardLandZoom,
                 center: this.marker.getLngLat()
             });
         }
