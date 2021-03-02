@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Feature, FeatureCollection } from 'geojson';
 
 @Component({
     selector: 'power-bodenrichtwert-detail',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core
     styleUrls: ['./bodenrichtwert-detail.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertDetailComponent implements OnInit {
+export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
 
     brzStrings = {
         'brz': $localize`Bodenrichtwertzone`,
@@ -34,11 +35,21 @@ export class BodenrichtwertDetailComponent implements OnInit {
         'bem': $localize`Bemerkung`
     };
 
-    @Input() feature: any;
+    @Input() stichtag: string;
 
     @Input() teilmarkt: any;
 
+    @Input() features: FeatureCollection;
+
+    public filteredFeatures: Feature[];
+
     ngOnInit() {
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.features || changes.stichtag || changes.teilmarkt) {
+            this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z');
+        }
     }
 
     enutaBremen(feature) {

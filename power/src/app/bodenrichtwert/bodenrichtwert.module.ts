@@ -12,7 +12,6 @@ import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
-import { BodenrichtwertListeComponent } from './bodenrichtwert-liste/bodenrichtwert-liste.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
@@ -46,7 +45,6 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         BodenrichtwertComponent,
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
-        BodenrichtwertListeComponent,
         UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,
