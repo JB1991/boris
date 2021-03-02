@@ -22,6 +22,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     srTableHeader: Array<string> = [];
 
     seriesTemplate = [
+        // stag refers on the 31.12. of the year
         { stag: '2012', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: '2013', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: '2014', brw: null, nutzung: '', verg: '', verf: '' },
@@ -73,7 +74,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                         }
                     }
                 }
-                return ([year, '<br />', res.join('')].join(''));
+                return (['31.' + '12.' + (year - 1), '<br />', res.join('')].join(''));
             },
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
             borderWidth: 1,
@@ -100,7 +101,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         },
         xAxis: {
             type: 'category',
-            data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'],
+            data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
             nameLocation: 'start',
             axisLine: {
                 symbol: ['none', 'arrow'],
@@ -134,7 +135,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     constructor(
         private nutzungPipe: NutzungPipe,
         private verfahrensartPipe: VerfahrensartPipe
-    ) {}
+    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features) {
@@ -489,14 +490,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         if (year % 2 !== 0) {
             return year.toString() + '-12-31';
         } else {
-            return (year-1).toString() + '-12-31';
+            return (year - 1).toString() + '-12-31';
         }
     }
 
     getBremenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
-            return (year-1).toString() + '-12-31';
+            return (year - 1).toString() + '-12-31';
         } else {
             return year.toString() + '-12-31';
         }
