@@ -34,8 +34,9 @@
          class="row subtitle">
         <h2 *ngIf="selectedKreis === undefined"
             i18n>Bitte wählen Sie einen Landkreis</h2>
-        <h2 *ngIf="selectedKreis !== undefined"
-            i18n>Berichte für den Landkreis "{{kreise[selectedKreis]}}"</h2>
+        <h2 *ngIf="selectedKreis !== undefined">
+            <span i18n>Berichte für den Landkreis</span> "{{kreise[selectedKreis]}}"
+        </h2>
         <div class="col-md-12 dropdown">
             <select id="landkreise"
                     class="form-select"
@@ -135,9 +136,7 @@
     <br>
 
     <small *ngIf="mode === 'gmb'"
-           i18n>* Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar.
-        <br>Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.
-    </small>
+           i18n>* Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar. Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.</small>
 </div>
 
 <!-- vim: set expandtab ts=4 sw=4 sts=4 :-->

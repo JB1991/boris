@@ -632,7 +632,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
-                $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
+                $localize`Der Stichtag wurde zu` + ' ' + this.datePipe.transform(stichtag) + ' ' + $localize`gewechselt.`);
         }
 
         this.stichtagChange.next(stichtag);
@@ -656,7 +656,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Teilmarkt gewechselt`,
-                $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
+                $localize`Der Teilmarkt wurde zu` + ' ' + teilmarkt.viewValue + ' ' + $localize`gewechselt.`);
         }
 
         // ease to zoom lvl
