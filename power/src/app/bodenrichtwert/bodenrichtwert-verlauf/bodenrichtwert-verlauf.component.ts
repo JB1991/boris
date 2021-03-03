@@ -134,7 +134,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     constructor(
         private nutzungPipe: NutzungPipe,
         private verfahrensartPipe: VerfahrensartPipe
-    ) {}
+    ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features) {
@@ -156,18 +156,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.srTableData = [];
     }
 
-    filterByStichtag(features: Array<any>): Array<any> {
-        const filteredFeatures = [];
-        for (const feature of features) {
-            const year = feature.properties.stag.substring(0, 4);
-            if (year >= 2012 && year <= 2020) {
-                filteredFeatures.push(feature);
-            }
-        }
-        return filteredFeatures;
+    filterByStichtag(features: Array<Feature>): Array<Feature> {
+        const filteredFts = features.filter((ft: Feature) =>
+            ft.properties.stag.substr(0, 4) >= 2012 && ft.properties.stag.substr(0, 4) <= 2020
+        );
+        return filteredFts;
     }
 
-    generateChart(features: Array<any>): void {
+    generateChart(features: Array<Feature>): void {
         // grouped by Nutzungsart
         let groupedByProperty: Map<Array<any>, any> =
             this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
@@ -489,14 +485,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         if (year % 2 !== 0) {
             return year.toString() + '-12-31';
         } else {
-            return (year-1).toString() + '-12-31';
+            return (year - 1).toString() + '-12-31';
         }
     }
 
     getBremenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
-            return (year-1).toString() + '-12-31';
+            return (year - 1).toString() + '-12-31';
         } else {
             return year.toString() + '-12-31';
         }
