@@ -12,11 +12,12 @@ import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point, Vecto
 })
 export class BodenwertKalkulatorComponent implements OnInit {
 
-    threeDActive = false;
-    searchActive = false;
-    filterActive = false;
-    locationTrackingActive = false;
-    isCollapsed = true;
+    public threeDActive = false;
+    public searchActive = false;
+    public filterActive = false;
+    public locationTrackingActive = false;
+    public functionsActive = false;
+    public isCollapsed = true;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
