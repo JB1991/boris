@@ -276,6 +276,68 @@ export class GmbComponent implements OnInit {
         return res.join('; ');
     }
 
+    filterBerichteGMB() {
+        const bf = [];
+        const ber = Object.keys(this.berichte);
+        for (let i = 0; i < ber.length; i++) {
+            const yr = [];
+            const yk = Object.keys(this.berichte[ber[i]]);
+            for (let y = 0; y < yk.length; y++) {
+                if ((this.berichte[ber[i]][yk[y]]['bereich'] !== undefined) &&
+                    (this.berichte[ber[i]][yk[y]]['bereich'].includes(this.selectedKreis))) {
+                    yr.push({
+                        'key': yk[y],
+                        'value': this.berichte[ber[i]][yk[y]]
+                    });
+                }
+            }
+
+            if (yr.length > 0) {
+                yr.sort(function (b, a) {
+                    return a['key'] - b['key'];
+                });
+
+                bf.push({
+                    'name': ber[i],
+                    'berichte': yr,
+                    'start': yr[yr.length-1]['key']
+                });
+            }
+        }
+
+        bf.sort(function (b, a) {
+            return a['start'] - b['start'];
+        });
+
+        return bf;
+    }
+
+    filterBerichteLMB() {
+
+        const bf = [];
+        const bb = [];
+        const yk = Object.keys(this.berichte['Niedersachsen']);
+
+        for (let y = 0; y < yk.length; y++) {
+            bb.push({
+                'key': yk[y],
+                'value': this.berichte['Niedersachsen'][yk[y]]
+            });
+
+        }
+
+        bb.sort(function (b, a) {
+            return a['key'] - b['key'];
+        });
+
+        bf.push({
+            'name': 'Niedersachsen',
+            'berichte': bb
+        });
+
+        return bf;
+    }
+
     /**
      * Filter Berichte based on selection
      */
@@ -285,43 +347,11 @@ export class GmbComponent implements OnInit {
             return;
         }
 
-        const bf = [];
-
         if (!lmb) {
-            const ber = Object.keys(this.berichte);
-            for (let i = 0; i < ber.length; i++) {
-                const yr = {};
-                const yk = Object.keys(this.berichte[ber[i]]);
-                for (let y = 0; y < yk.length; y++) {
-                    if ((this.berichte[ber[i]][yk[y]]['bereich'] !== undefined) &&
-                        (this.berichte[ber[i]][yk[y]]['bereich'].includes(this.selectedKreis))) {
-                        yr[yk[y]] = this.berichte[ber[i]][yk[y]];
-                    }
-                }
-
-                const yl = Object.keys(yr);
-                if (yl.length > 0) {
-                    bf.push({
-                        'name': ber[i],
-                        'berichte': yr,
-                        'start': yl[0]
-                    });
-                }
-            }
-
-            bf.sort(function (a, b) {
-                return a['start'] - b['start'];
-            });
+            this.berichteFiltered = this.filterBerichteGMB();
+        } else {
+            this.berichteFiltered = this.filterBerichteLMB();
         }
-
-        if (lmb) {
-            bf.push({
-                'name': 'Niedersachsen',
-                'berichte': this.berichte['Niedersachsen']
-            });
-        }
-
-        this.berichteFiltered = bf;
     }
 
 
