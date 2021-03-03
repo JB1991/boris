@@ -28,7 +28,7 @@ const icons = {
 };
 /* eslint-enable object-shorthand */
 
-
+/* eslint-disable max-lines */
 describe('GmbComponent', () => {
     let component: GmbComponent;
     let fixture: ComponentFixture<GmbComponent>;
@@ -119,20 +119,20 @@ describe('GmbComponent', () => {
 
         const eq = [
             {
-                'name': 'Hannover',
-                'berichte': component.berichte['Hannover'],
-                'start': Object.keys(component.berichte['Hannover'])[0]
+                'name': 'Hameln-Hannover',
+                'berichte': keyValueSort(component.berichte['Hameln-Hannover']),
+                'start': Object.keys(component.berichte['Hameln-Hannover'])[0]
             },
             {
-                'name': 'Hameln-Hannover',
-                'berichte': component.berichte['Hameln-Hannover'],
-                'start': Object.keys(component.berichte['Hameln-Hannover'])[0]
+                'name': 'Hannover',
+                'berichte': keyValueSort(component.berichte['Hannover']),
+                'start': Object.keys(component.berichte['Hannover'])[0]
             },
         ];
         const eq1 = [
             {
                 'name': 'Niedersachsen',
-                'berichte': component.berichte['Niedersachsen']
+                'berichte': keyValueSort(component.berichte['Niedersachsen'])
             }
         ];
         expect(component.berichteFiltered).toEqual(eq);
@@ -287,6 +287,25 @@ describe('GmbComponent', () => {
     };
 
     const deepCopy = (data) => JSON.parse(JSON.stringify(data));
+
+    const keyValueSort = (data) => {
+        const bb = [];
+        const yk = Object.keys(data);
+
+        for (let y = 0; y < yk.length; y++) {
+            bb.push({
+                'key': yk[y],
+                'value': data[yk[y]]
+            });
+
+        }
+
+        bb.sort(function (b, a) {
+            return a['key'] - b['key'];
+        });
+
+        return bb;
+    };
 
     afterEach(() => {
         // Verify that no requests are remaining
