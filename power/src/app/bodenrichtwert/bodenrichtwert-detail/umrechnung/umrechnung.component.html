@@ -115,17 +115,20 @@
                     <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{actualKoef?.koef | number}}</p>
                     <ng-container *ngIf="table.text != 'Art der Bebauung'">
                         <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}:
-                            {{table.werte[0].bzwt | number}}</p>
+                            {{table.werte[0].bzwt | number}}
+                        </p>
                     </ng-container>
                     <ng-container *ngIf="table.text == 'Art der Bebauung'">
                         <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}:
-                            {{table.werte[0].bzwt | artDerBebauung}}</p>
+                            {{table.werte[0].bzwt | artDerBebauung}}
+                        </p>
                     </ng-container>
                     <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{table.werte[0].koef | number}}</p>
                     <p><span i18n>Individueller Bodenrichtwert</span>: {{brw}} €/m² / {{actualKoef?.koef | number}} *
                         {{table.werte[0].koef | number}} ≈
                         {{brw / actualKoef?.koef * table.werte[0].koef | number:'1.0-0'}} €
-                        / m²</p>
+                        / m²
+                    </p>
                 </div>
             </div>
         </div>

@@ -191,10 +191,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.isCollapsed && this.map) {
+        if (changes.collapsed && this.map) {
             this.map.resize();
             if (!this.resetMapFired) {
-                this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
+                // this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
             } else {
                 this.map.fitBounds(this.bounds, {
                     pitch: 0,
