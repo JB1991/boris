@@ -2,7 +2,7 @@
      [class]="isCollapsed ? '' : 'border'">
     <!-- desktop -->
     <div [class]="isCollapsed ? 'd-none d-lg-block' : 'd-none d-xxl-block'">
-        <div class="nav-scroller bg-white shadow-sm border-top">
+        <!-- <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline d-flex justify-content-between p-0">
                 <div class="nav">
                     <div class="btn-group d-flex">
@@ -220,11 +220,11 @@
                     </div>
                 </div>
             </nav>
-        </div>
+        </div> -->
     </div>
 
     <!-- mobile -->
-    <div [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
+    <!-- <div [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
         <div class="nav-scroller bg-white shadow-sm border-top">
             <nav class="nav nav-underline d-flex justify-content-between p-0">
                 <div class="nav mr-auto">
@@ -418,15 +418,15 @@
                 </div>
             </nav>
         </div>
-    </div>
+    </div> -->
 
-    <power-geosearch #geosearchComponent
+    <!-- <power-geosearch #geosearchComponent
                      [class.d-none]="!searchActive"
                      [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
                      [adresse]="adresse"
-                     (selectResult)="onSearchSelect($event)"></power-geosearch>
+                     (selectResult)="onSearchSelect($event)"></power-geosearch> -->
 
-    <div [class.d-none]="!filterActive"
+    <!-- <div [class.d-none]="!filterActive"
          [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
         <div class="btn-group d-flex w-100">
             <div class="btn-group"
@@ -501,7 +501,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <mgl-map (click)="onMapClickEvent($event)"
              (mouseUp)="onDragEnd()"
@@ -717,5 +717,6 @@
     </mgl-map>
 </div>
 
-<power-flurstueck-search #flurstueckssearch
-                         (fskChange)="onFlurstueckChange()"></power-flurstueck-search>
+<power-flurstueck-search #flurstueckssearch>
+    <!-- (fskChange)="onFlurstueckChange()" -->
+</power-flurstueck-search>

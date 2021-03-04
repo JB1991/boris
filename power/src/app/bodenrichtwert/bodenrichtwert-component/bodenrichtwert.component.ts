@@ -9,7 +9,7 @@ import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { ConfigService } from '@app/config.service';
-import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
+import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
 import { DatePipe } from '@angular/common';
 
@@ -88,7 +88,7 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.adresse = adr;
-            this.cdr.detectChanges();
+            // this.cdr.detectChanges();
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
@@ -141,12 +141,12 @@ export class BodenrichtwertComponent implements OnDestroy {
         let url = '/boris-print/?';
 
         // coordinates
-        const lnglat_coordinates = this.map.marker.getLngLat();
+        // const lnglat_coordinates = this.map.marker.getLngLat();
         const wgs84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
         const utm = '+proj=utm +zone=32';
-        const utm_cordinates = proj4(wgs84, utm, [lnglat_coordinates.lng, lnglat_coordinates.lat]);
-        url += 'east=' + encodeURIComponent(utm_cordinates[0].toFixed(0));
-        url += '&north=' + encodeURIComponent(utm_cordinates[1].toFixed(0));
+        // const utm_cordinates = proj4(wgs84, utm, [lnglat_coordinates.lng, lnglat_coordinates.lat]);
+        // url += 'east=' + encodeURIComponent(utm_cordinates[0].toFixed(0));
+        // url += '&north=' + encodeURIComponent(utm_cordinates[1].toFixed(0));
 
         // year
         url += '&year=' + encodeURIComponent(parseInt(this.stichtag.substring(0, 4), 10) + 1);

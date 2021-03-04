@@ -11,9 +11,10 @@ import * as echarts from 'echarts';
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
-import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
+import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/karte/bodenrichtwert-karte.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
+import { NavigationComponent } from './bodenrichtwert-karte/navigation.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
@@ -34,8 +35,7 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
  * Therefore it contains:
  * (1) Bodenrichtwert-Detail
  * (2) Bodenrichtwert-Karte
- * (3) Bodenrichtwert-Liste
- * (4) Bodenrichtwert-Verlauf
+ * (3) Bodenrichtwert-Verlauf
  * All subcomponents are arranged in Bodenrichtwert-Component
  * All data is loaded via Bodenrichtwert-Service.
  */
@@ -46,6 +46,7 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
         UmrechnungComponent,
+        NavigationComponent,
         NutzungPipe,
         BeitragPipe,
         UmlautCorrectionPipe,
