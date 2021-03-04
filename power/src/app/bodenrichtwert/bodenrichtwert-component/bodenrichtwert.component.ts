@@ -58,21 +58,33 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * Actual selected Stichtag
      */
-    public stichtag;
+    public stichtag: string;
 
     /**
      * Actual selected Teilmarkt
      */
     public teilmarkt: any;
 
+    /**
+     * isCollapsed holds the state for details component collapsed or not (click events)
+     */
     public isCollapsed = true;
 
+    /**
+     * collapsed holds the state for details component completly collapsed
+     * (fired by collapse event)
+     */
     public collapsed = false;
 
+    /**
+     * expanded holds the state for details component completly expanded
+     * (fired by collapse event)
+     */
     public expanded = true;
 
-    public showPrintNotice = true;
-
+    /**
+     * hintsActive holds the state for hints on/off
+     */
     public hintsActive = false;
 
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
@@ -88,7 +100,8 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.adresse = adr;
-            // this.cdr.detectChanges();
+            this.hintsActive = false;
+            this.cdr.detectChanges();
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
             this.features = ft;
@@ -103,8 +116,19 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.teilmarkt = this.bodenrichtwertService.TEILMAERKTE[0];
     }
 
-    getStichtag(): string {
-        const year: number = this.stichtag.slice(0, 4);
+    /**
+     * Destroys all active subscriptions
+     */
+    ngOnDestroy(): void {
+        this.adresseSubscription.unsubscribe();
+        this.featureSubscription.unsubscribe();
+    }
+
+    /**
+     * getStichtag returns the correct stichtag for Bremen/Bremerhaven
+     */
+    public getStichtag(): string {
+        const year: number = Number(this.stichtag.slice(0, 4));
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
             if (year % 2 === 0) {
                 return (year - 1).toString() + '-12-31';
@@ -120,23 +144,24 @@ export class BodenrichtwertComponent implements OnDestroy {
     }
 
     /**
-     * Destroys all active subscriptions
+     * updates collapsed and expanded onCollapsingEnds
      */
-    ngOnDestroy(): void {
-        this.adresseSubscription.unsubscribe();
-        this.featureSubscription.unsubscribe();
-    }
-
     public onCollapsingEnds() {
         this.collapsed = !this.collapsed;
         this.expanded = false;
     }
 
+    /**
+     * updates collapsed and expanded onExpandingEnds
+     */
     public onExpandingEnds() {
         this.expanded = !this.expanded;
         this.collapsed = false;
     }
 
+    /**
+     * printURL builds the url for the current location
+     */
     public printURL(): string {
         let url = '/boris-print/?';
 

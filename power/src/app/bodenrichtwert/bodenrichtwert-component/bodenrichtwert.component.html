@@ -24,7 +24,7 @@
              [class]="isCollapsed ? 'col-auto' : 'col-lg-6'">
             <div class="row m-0 p-0">
                 <div class="px-1 py-0"
-                     [class]="isCollapsed ? 'col-12' : 'd-none d-lg-block col-lg-1'">
+                     [class]="isCollapsed ? 'd-none d-lg-block col-lg-12' : 'd-none d-lg-block col-lg-1'">
                     <button *ngIf="adresse || features"
                             class="btn p-0 w-100 rounded-0 collapse-btn-width"
                             type="button"
@@ -41,7 +41,7 @@
                 </div>
                 <div id="collapseDetails"
                      class="p-0"
-                     [class]="isCollapsed ? 'd-none' : 'col-lg-11 col-12'"
+                     [class]="isCollapsed ? 'd-block d-lg-none' : 'col-lg-11 col-12'"
                      [collapse]="isCollapsed"
                      (collapsed)="onCollapsingEnds()"
                      (expanded)="onExpandingEnds()"
@@ -65,8 +65,7 @@
                             <ng-template [ngTemplateOutlet]="flurstueckskennzeichen"></ng-template>
                         </div>
                         <div class="col-12 col-lg-auto p-0">
-                            <ng-template *ngIf="!isCollapsed"
-                                         [ngTemplateOutlet]="detailsFunctionButtons"></ng-template>
+                            <ng-template [ngTemplateOutlet]="detailsFunctionButtons"></ng-template>
                         </div>
                     </div>
                     <ng-template [ngTemplateOutlet]="detailsContent"></ng-template>
@@ -78,11 +77,11 @@
 
 <!-- DetailsContent Template-->
 <ng-template #detailsContent>
-    <div class="overflow-auto details-content-height">
-        <div class="row m-0 p-lg-2 p-1 well well-lg card card-block card-header rounded-0">
+    <div class="p-1 overflow-auto card card-header rounded-0 details-content-height">
+        <div class="row m-0 p-lg-2 p-1">
+            <ng-template [ngTemplateOutlet]="detailsHints"></ng-template>
             <div *ngIf="features?.features.length"
                  class="col-12 p-0">
-                <ng-template [ngTemplateOutlet]="detailsHints"></ng-template>
 
                 <power-bodenrichtwert-detail [stichtag]="stichtag"
                                              [teilmarkt]="teilmarkt"
@@ -100,9 +99,9 @@
 <!-- DetailsHeaderButtons Template -->
 <ng-template #detailsFunctionButtons>
     <div class="row p-0 m-0 h-100 justify-content-end">
-        <div class="col-auto col-lg-6 p-0">
-            <a *ngIf="features?.features.length && checkIfStichtagFtsExist()"
-               class="nav-link btn p-2"
+        <div *ngIf="features?.features.length && checkIfStichtagFtsExist()"
+             class="col-auto col-lg-6 p-0">
+            <a class="nav-link btn p-2"
                role="button"
                [href]="printURL()"
                target="_blank"
@@ -127,8 +126,8 @@
             </a>
         </div>
         <div class="p-0"
-             [class]="features?.features.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-12'">
-            <button [disabled]="!adresse && !features.features.length"
+             [class]="features?.features.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-auto col-lg-12'">
+            <button [disabled]="!adresse && !features?.features.length"
                     class="nav-link btn py-2 pl-1 pr-3"
                     [ngClass]="{'active': hintsActive}"
                     type="button"
@@ -157,7 +156,7 @@
 <!-- DetailsHints Template -->
 <ng-template #detailsHints>
     <!-- hints for no address and no features -->
-    <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features.features.length"
+    <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features?.features.length"
          class="text-center">
         <p class="p-1 m-0"
            i18n>Keine gültige Adresse!</p>
@@ -169,7 +168,7 @@
     </div>
     <!-- hints from info button -->
     <div [class]="hintsActive ? 'd-block pb-2' : 'd-none'">
-        <div *ngIf="adresse || features.features.length"
+        <div *ngIf="adresse || features?.features.length"
              class="text-center">
             <p class="p-1 m-0 small"
                i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
@@ -183,12 +182,12 @@
                 aktuell ausgewählten Standort und auf den Stichtag {{ getStichtag() | date }}.
             </p>
         </div>
-        <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"
+        <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features?.features.length"
              class="text-center">
             <p class="p-1 m-0 small"
                i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
         </div>
-        <div *ngIf="!adresse && features.features.length"
+        <div *ngIf="!adresse && features?.features.length"
              class="text-center">
             <p class="p-1 m-0 small"
                i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
@@ -202,7 +201,6 @@
 <!-- Flurstueckskennzeichen Template -->
 <ng-template #flurstueckskennzeichen>
     <span *ngIf="flurstueck?.features.length"
-          [class.d-none]="isCollapsed"
           class="row p-0 m-0 text-center"
           type="text">
         <span class="col px-1 px-lg-2">
