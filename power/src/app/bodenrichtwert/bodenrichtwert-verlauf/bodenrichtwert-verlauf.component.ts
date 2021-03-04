@@ -6,6 +6,15 @@ import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
 import { DatePipe } from '@angular/common';
 
+export interface SeriesItem {
+    stag: string
+    brw: string
+    nutzung: string
+    verg: string
+    verf: string
+    forwarded?: boolean
+}
+
 @Component({
     selector: 'power-bodenrichtwert-verlauf',
     templateUrl: './bodenrichtwert-verlauf.component.html',
@@ -15,13 +24,13 @@ import { DatePipe } from '@angular/common';
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges {
 
-    state: any;
+    public state: any;
 
-    // screenreader
-    srTableData: Array<any> = [];
-    srTableHeader: Array<string> = [];
+    // table data for screenreader
+    public srTableData: Array<any> = [];
+    public srTableHeader: Array<string> = [];
 
-    seriesTemplate = [
+    seriesTemplate: Array<SeriesItem> = [
         { stag: '2012', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: '2013', brw: null, nutzung: '', verg: '', verf: '' },
         { stag: '2014', brw: null, nutzung: '', verg: '', verf: '' },
@@ -38,43 +47,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         tooltip: {
             trigger: 'axis',
             confine: 'true',
-            formatter: function (params) {
-                const res = [];
-                const year = params[0].axisValue;
-                for (let j = 0; j < params.length; j++) {
-                    if (params[j].value !== undefined && typeof (params[j].value) !== 'string') {
-                        let seriesName = params[j].seriesName;
-                        seriesName = seriesName.replace('Sanierungsgebiet', '');
-                        seriesName = seriesName.replace('Entwicklungsbereich', '');
-                        seriesName = seriesName.replace('Soziale Stadt', '');
-                        seriesName = seriesName.replace('Stadtumbau', '');
-                        seriesName = seriesName.replace('sanierungsunbeeinflusster Wert', '');
-                        seriesName = seriesName.replace('sanierungsbeeinflusster Wert', '');
-                        if (window.innerWidth < 480 && seriesName.length > 25) {
-                            const splittedNameSmallView = seriesName.split(/(?:\n| )/);
-                            const concatSplittedName = [];
-                            let i = 0;
-                            splittedNameSmallView.forEach((element) => {
-                                if (!concatSplittedName[i]) {
-                                    concatSplittedName[i] = element + ' ';
-                                } else if (concatSplittedName[i].length < 23) {
-                                    concatSplittedName[i] += element + ' ';
-                                } else {
-                                    i++;
-                                    if (!concatSplittedName[i]) {
-                                        concatSplittedName[i] = element + ' ';
-                                    } else { concatSplittedName[i] += element + ' '; }
-                                }
-                            });
-                            const resName = concatSplittedName.join('<br />');
-                            res.push(`${params[j].marker} ${resName} : ${params[j].value} € <br />`);
-                        } else {
-                            res.push(`${params[j].marker} ${seriesName} : ${params[j].value} € <br />`);
-                        }
-                    }
-                }
-                return ([year, '<br />', res.join('')].join(''));
-            },
+            formatter: (params: any) => this.tooltipFormatter(params),
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
             borderWidth: 1,
             borderColor: '#ccc',
@@ -129,7 +102,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     @Input() features: FeatureCollection;
 
-    echartsInstance;
+    public echartsInstance: any;
 
     constructor(
         private nutzungPipe: NutzungPipe,
@@ -145,8 +118,17 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
     }
+    /**
+     * onChartInit initializes the chart
+     */
+    public onChartInit(event: any): void {
+        this.echartsInstance = event;
+    }
 
-    clearChart(): void {
+    /**
+     * clearChart clears the chartOptions
+     */
+    public clearChart(): void {
         this.chartOption.series = [];
         this.chartOption.legend.data = [];
         this.chartOption.legend.formatter = '';
@@ -156,29 +138,82 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.srTableData = [];
     }
 
-    filterByStichtag(features: Array<Feature>): Array<Feature> {
+    /**
+     * tooltipFormatter formats the content of the tooltip floating layer
+     * @param params params
+     */
+    public tooltipFormatter(params: any) {
+        const res = [];
+        const year = params[0].axisValue;
+        for (let j = 0; j < params.length; j++) {
+            if (params[j].value !== undefined && typeof (params[j].value) !== 'string') {
+                let seriesName = params[j].seriesName;
+                seriesName = seriesName.replace('Sanierungsgebiet', '');
+                seriesName = seriesName.replace('Entwicklungsbereich', '');
+                seriesName = seriesName.replace('Soziale Stadt', '');
+                seriesName = seriesName.replace('Stadtumbau', '');
+                seriesName = seriesName.replace('sanierungsunbeeinflusster Wert', '');
+                seriesName = seriesName.replace('sanierungsbeeinflusster Wert', '');
+                if (window.innerWidth < 480 && seriesName.length > 25) {
+                    const splittedNameSmallView = seriesName.split(/(?:\n| )/);
+                    const concatSplittedName = [];
+                    let i = 0;
+                    splittedNameSmallView.forEach((element: string) => {
+                        if (!concatSplittedName[i]) {
+                            concatSplittedName[i] = element + ' ';
+                        } else if (concatSplittedName[i].length < 23) {
+                            concatSplittedName[i] += element + ' ';
+                        } else {
+                            i++;
+                            if (!concatSplittedName[i]) {
+                                concatSplittedName[i] = element + ' ';
+                            } else { concatSplittedName[i] += element + ' '; }
+                        }
+                    });
+                    const resName = concatSplittedName.join('<br />');
+                    res.push(`${params[j].marker} ${resName} : ${params[j].value} € <br />`);
+                } else {
+                    res.push(`${params[j].marker} ${seriesName} : ${params[j].value} € <br />`);
+                }
+            }
+        }
+        return ([year, '<br />', res.join('')].join(''));
+    }
+
+    /**
+     * filterByStichtag filters out the features between the first and last year of the series
+     * @param features features
+     */
+    public filterByStichtag(features: Array<Feature>): Array<Feature> {
+        const firstYear = this.seriesTemplate[0].stag;
+        const lastYear = this.seriesTemplate[this.seriesTemplate.length - 1].stag;
+
         const filteredFts = features.filter((ft: Feature) =>
-            ft.properties.stag.substr(0, 4) >= 2012 && ft.properties.stag.substr(0, 4) <= 2020
+            ft.properties.stag.substr(0, 4) >= firstYear && ft.properties.stag.substr(0, 4) <= lastYear
         );
         return filteredFts;
     }
 
-    generateChart(features: Array<Feature>): void {
+    /**
+     * generateChart generates a chart for given features
+     * @param features features
+     */
+    public generateChart(features: Array<Feature>): void {
         // grouped by Nutzungsart
-        let groupedByProperty: Map<Array<any>, any> =
-            this.groupBy(features, item => this.nutzungPipe.transform(item.properties.nutzung));
+        let groupedByProperty: Map<string, Array<Feature>> =
+            this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties.nutzung));
         for (const [key, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
-                const valuesFiltered = value.filter(item => item.properties.stag.substring(0, 4) === seriesTuple.stag);
+                const valuesFiltered = value.filter((item: Feature) => item.properties.stag.substring(0, 4) === seriesTuple.stag);
                 if (valuesFiltered.length > 1) {
                     // grouped by Bodenrichtwertnummer
-                    groupedByProperty = this.groupBy(features, item => item.properties.wnum);
+                    groupedByProperty = this.groupBy(features, (item: Feature) => item.properties.wnum);
                     break;
                 }
             }
         }
         for (const [key, value] of groupedByProperty.entries()) {
-            const seriesArray: Array<any> = [];
+            const seriesArray: Array<Array<SeriesItem>> = [];
             features = Array.from(value);
 
             seriesArray[0] = this.getSeriesData(features);
@@ -187,9 +222,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             });
             this.deleteSeriesVergItems(seriesArray[0]);
 
-            let label;
+            let label: string;
             seriesArray.forEach((series) => {
-                let seriesFillLine;
+                let seriesFillLine: Array<SeriesItem>;
                 [series, seriesFillLine] = this.fillLineDuringYear(series);
                 label = this.getLabel(key, series);
                 this.chartOption.legend.data.push(label);
@@ -204,7 +239,32 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
-    getSeriesData(features: Array<any>): Array<any> {
+    /**
+     * groupBy groups a given feature array by a specific callback function
+     * @param list feature array
+     * @param keyGetter keyGetter
+     */
+    public groupBy(list: Array<Feature>, keyGetter: Function): Map<string, Array<Feature>> {
+        const map = new Map<string, Array<Feature>>();
+        list.forEach((item) => {
+            const key = keyGetter(item);
+            if (key !== null) {
+                const collection = map.get(key);
+                if (!collection) {
+                    map.set(key, [item]);
+                } else {
+                    collection.push(item);
+                }
+            }
+        });
+        return map;
+    }
+
+    /**
+     * getSeriesData 
+     * @param features features
+     */
+    public getSeriesData(features: Array<Feature>): Array<SeriesItem> {
         const series = this.deepCopy(this.seriesTemplate);
         for (let i = 0; i < series.length; i++) {
             const feature = features.find(f => f.properties.stag.includes(series[i].stag));
@@ -218,12 +278,16 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return series;
     };
 
-    getVergSeries(series: Array<any>): Array<any> {
-        const seriesVergValuesTotal: Array<Array<any>> = [];
+    /**
+     * getVergSeries
+     * @param series series
+     */
+    public getVergSeries(series: Array<SeriesItem>): Array<Array<SeriesItem>> {
+        const seriesVergValuesTotal: Array<Array<SeriesItem>> = [];
         let seriesVergValues = this.deepCopy(this.seriesTemplate);
         const defaultVerg: Array<string> = ['San', 'Entw', 'SoSt', 'StUb'];
         const defaultVerf: Array<string> = ['SU', 'EU', 'SB', 'EB'];
-        const copyData = function (i) {
+        const copyData = function (i: number) {
             if (i < 8 && series[i + 1].brw !== null && (series[i + 1].verg === '' || series[i + 1].verg === null)) {
                 seriesVergValues[i + 1].brw = (series[i + 1].brw).toString();
                 seriesVergValues[i + 1].nutzung = series[i + 1].nutzung;
@@ -266,13 +330,18 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return seriesVergValuesTotal;
     }
 
-    getLabel(key, series: Array<any>): string {
+    /**
+     * getLabel
+     * @param key key
+     * @param series array with seriesItems
+     */
+    public getLabel(key, series: Array<SeriesItem>): string {
         let nutzung: string = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung;
         const wnum = Number(key);
         if (wnum && nutzung) {
             nutzung += '\n' + wnum;
         }
-        let seriesIncludesVerg;
+        let seriesIncludesVerg: boolean;
         series.forEach(element => {
             if (element.verg && element.verg !== null && element.verg !== '') {
                 seriesIncludesVerg = true;
@@ -307,10 +376,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return nutzung;
     }
 
+    /**
+     * fillLineDuringYear
+     * @param series series
+     */
     /* eslint-disable complexity */
-    fillLineDuringYear(series: Array<any>): [Array<any>, Array<any>] {
+    public fillLineDuringYear(series: Array<SeriesItem>): [Array<SeriesItem>, Array<SeriesItem>] {
         // check gap in same series
-        const seriesFillLine: Array<any> = this.deepCopy(this.seriesTemplate);
+        const seriesFillLine: Array<SeriesItem> = this.deepCopy(this.seriesTemplate);
         let i = -1;
         do {
             i++;
@@ -332,8 +405,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         // Forwarding the last element of the series
         let seriesValues = series.filter(element => element.brw);
         if (seriesValues.length > 0 && typeof (seriesValues[seriesValues.length - 1]).brw !== 'string') {
-            seriesValues = seriesValues[seriesValues.length - 1].stag;
-            const idx = series.findIndex(element => element.stag === seriesValues);
+            const lastItemStag = seriesValues[seriesValues.length - 1].stag;
+            const idx = series.findIndex(element => element.stag === lastItemStag);
             series[idx + 1].brw = (series[idx].brw).toString();
             series[idx + 1].nutzung = series[idx].nutzung;
             series[idx + 1].verg = series[idx].verg;
@@ -343,7 +416,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return [series, seriesFillLine];
     }
 
-    deleteSeriesVergItems(series: Array<any>): Array<any> {
+    /**
+     * deleteSeriesVergItems removes the verg attribute of a given series
+     * @param series series
+     */
+    public deleteSeriesVergItems(series: Array<SeriesItem>): Array<SeriesItem> {
         let i: number;
         if (series.find((element, index) => {
             if ((element.verg === '' || element.verg === null) && element.brw !== null) {
@@ -374,12 +451,17 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return series;
     }
 
-    setChartOptionsSeries(series: Array<any>, label: string): void {
+    /**
+     * setChartOptionsSeries
+     * @param series array with seriesItems
+     * @param label label
+     */
+    setChartOptionsSeries(series: Array<SeriesItem>, label: string): void {
         this.chartOption.series.push({
             name: label,
             type: 'line',
             step: 'end',
-            symbolSize: function (value) {
+            symbolSize: function (value: any) {
                 if (typeof (value) === 'string') {
                     return 0;
                 } else {
@@ -390,9 +472,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         });
     }
 
+    /**
+     * setLegendFormat
+     */
     /* eslint-disable complexity */
-    setLegendFormat() {
-        this.chartOption.legend.formatter = function (name) {
+    public setLegendFormat() {
+        this.chartOption.legend.formatter = function (name: string) {
             const splittedName = name.split('\n');
             const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
             const verf = splittedName.find(item => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert' || item === 'entwicklungsbeeinflusster Wert' || item === 'entwicklungsunbeeinflusster Wert');
@@ -437,7 +522,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.grid.top = '15%';
     }
 
-    generateSrTable(label: string, series: Array<any>): void {
+    /**
+     * generateSrTable generates the table for screenreader
+     * @param label label
+     * @param series array with seriesItems
+     */
+    public generateSrTable(label: string, series: Array<SeriesItem>): void {
         const indexes: Array<number> = [];
         for (let i = 0; i < series.length; i++) {
             if (series[i].forwarded) {
@@ -451,36 +541,26 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
     }
 
-    groupBy(list, keyGetter): Map<any, any> {
-        const map = new Map();
-        list.forEach((item) => {
-            const key = keyGetter(item);
-            if (key !== null) {
-                const collection = map.get(key);
-                if (!collection) {
-                    map.set(key, [item]);
-                } else {
-                    collection.push(item);
-                }
-            }
-        });
-        return map;
-    }
-
-    deepCopy(data) {
+    /**
+     * deepCopy
+     * @param data array with seriesItems
+     */
+    public deepCopy(data: Array<SeriesItem>) {
         return JSON.parse(JSON.stringify(data));
     }
 
-    onChartInit(event: any): void {
-        this.echartsInstance = event;
-    }
-
-    getCurrentYear(): number {
+    /**
+     * getCurrentYear return the current year
+     */
+    public getCurrentYear(): number {
         const today = new Date();
         return today.getFullYear();
     }
 
-    getBremerhavenStichtag(): string {
+    /**
+     * getBremerhavenStichtag returns the correct stichtag for bremerhaven
+     */
+    public getBremerhavenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
             return year.toString() + '-12-31';
@@ -489,7 +569,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         }
     }
 
-    getBremenStichtag(): string {
+    /**
+     * getBremenStichtag returns the correct stichtag for bremen
+     */
+    public getBremenStichtag(): string {
         const year = this.getCurrentYear() - 1;
         if (year % 2 !== 0) {
             return (year - 1).toString() + '-12-31';
