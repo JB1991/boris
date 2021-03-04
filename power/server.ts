@@ -2,7 +2,7 @@ const domino = require('domino');
 const fs = require('fs');
 const path = require('path');
 const template = fs
-    .readFileSync(path.join('dist/browser/de', 'index.html'))
+    .readFileSync(path.join('dist/power/browser/de', 'index.html'))
     .toString();
 const window = domino.createWindow(template);
 
@@ -24,6 +24,7 @@ const window = domino.createWindow(template);
 };
 (global as any).object = window.object;
 (global as any).navigator = window.navigator;
+(global as any).location = window.location;
 (global as any).localStorage = window.localStorage;
 (global as any).DOMTokenList = window.DOMTokenList;
 
