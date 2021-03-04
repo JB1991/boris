@@ -335,7 +335,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * @param key key
      * @param series array with seriesItems
      */
-    public getLabel(key, series: Array<SeriesItem>): string {
+    public getLabel(key: string, series: Array<SeriesItem>): string {
         let nutzung: string = (series.find(seriesItem => seriesItem.nutzung !== null && seriesItem.nutzung !== ''))?.nutzung;
         const wnum = Number(key);
         if (wnum && nutzung) {
@@ -456,7 +456,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * @param series array with seriesItems
      * @param label label
      */
-    setChartOptionsSeries(series: Array<SeriesItem>, label: string): void {
+    public setChartOptionsSeries(series: Array<SeriesItem>, label: string): void {
         this.chartOption.series.push({
             name: label,
             type: 'line',
