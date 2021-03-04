@@ -100,6 +100,7 @@ export class BodenrichtwertComponent implements OnDestroy {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.adresse = adr;
+            this.hintsActive = false;
             this.cdr.detectChanges();
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
