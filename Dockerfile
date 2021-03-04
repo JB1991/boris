@@ -5,12 +5,12 @@ ARG COMMIT="dev"
 LABEL branch=${BRANCH}
 LABEL commit=${COMMIT}
 
-COPY /power/dist/power /usr/share/nginx/html
+COPY /power/dist/power/browser /usr/share/nginx/html
 COPY nginx-default.conf /etc/nginx/conf.d/default.conf.template
 COPY docker-entrypoint.sh /
 
 RUN apk update \
-    && apk upgrade \ 
+    && apk upgrade \
     && mv /usr/share/nginx/html/de/* /usr/share/nginx/html/ \
     && rm -rf /usr/share/nginx/html/de/ \
     && echo "{\"version\":\"$COMMIT\",\"branch\":\"$BRANCH\"}" > /usr/share/nginx/html/assets/version.json

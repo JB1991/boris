@@ -1,3 +1,4 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,6 +46,7 @@ export const load = (httpClient: HttpClient, configService: ConfigService) =>
         AppComponent
     ],
     imports: [
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         AppRoutingModule,
         CommonModule,
         PlatformModule,
@@ -77,6 +79,5 @@ export const load = (httpClient: HttpClient, configService: ConfigService) =>
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

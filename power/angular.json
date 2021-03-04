@@ -29,7 +29,7 @@
                     "options": {
                         "localize": true,
                         "aot": true,
-                        "outputPath": "dist/power",
+                        "outputPath": "dist/power/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -202,6 +202,54 @@
                             "src/**/*.ts",
                             "src/**/*.html"
                         ]
+                    }
+                },
+                "server": {
+                    "builder": "@angular-devkit/build-angular:server",
+                    "options": {
+                        "outputPath": "dist/power/server",
+                        "main": "server.ts",
+                        "tsConfig": "src/tsconfig.server.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "outputHashing": "media",
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "sourceMap": false,
+                            "optimization": true,
+                            "localize": true
+                        }
+                    }
+                },
+                "serve-ssr": {
+                    "builder": "@nguniversal/builders:ssr-dev-server",
+                    "options": {
+                        "browserTarget": "power:build",
+                        "serverTarget": "power:server"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "power:build:production",
+                            "serverTarget": "power:server:production"
+                        }
+                    }
+                },
+                "prerender": {
+                    "builder": "@nguniversal/builders:prerender",
+                    "options": {
+                        "browserTarget": "power:build:production",
+                        "serverTarget": "power:server:production",
+                        "routes": [
+                            "/"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {}
                     }
                 }
             }
