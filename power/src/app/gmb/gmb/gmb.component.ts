@@ -119,9 +119,9 @@ export class GmbComponent implements OnInit {
 
     changeTitle() {
         if (this.mode === 'gmb') {
-            this.titleService.setTitle($localize`Grundstücksmarktberichte (Archiv)`);
+            this.titleService.setTitle($localize`Grundstücksmarktberichte`);
         } else if (this.mode === 'lmb') {
-            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte (Archiv)`);
+            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte`);
         }
     }
     /**
@@ -444,6 +444,35 @@ export class GmbComponent implements OnInit {
         if (this.mode === 'lmb') {
             this.location.replaceState('/landesgrundstuecksmarktberichte', params.toString());
         }
+    }
+
+    ariaLabelBericht(year, rd, dl=false) {
+        let label = '';
+
+        if (dl) {
+            label += $localize`Download des` + ' ';
+
+
+            if (rd === 'Niedersachsen') {
+                label += $localize`Landesgrundstücksmarktberichtes`;
+            } else {
+                label += $localize`Grundstücksmarktberichtes`;
+            }
+        } else {
+            if (rd === 'Niedersachsen') {
+                label += $localize`Landesgrundstücksmarktbericht`;
+            } else {
+                label += $localize`Grundstücksmarktbericht`;
+            }
+
+        }
+        label += ' ' + year;
+
+        if(rd !== 'Niedersachsen') {
+            label += ' ' + $localize`vom Gutachterausschuss` + ' ' + rd;
+        }
+
+        return label;
     }
 
     /**
