@@ -13,7 +13,7 @@
         "lint:styles": "npx stylelint \"src/app/**/*.{css,html,scss}\"",
         "e2e": "ng e2e",
         "dev:ssr": "ng run power:serve-ssr",
-        "serve:ssr": "node dist/power/server/main.js",
+        "serve:ssr": "node dist/power/server/de/main.js",
         "build:ssr": "ng build --prod && ng run power:server:production",
         "prerender": "ng run power:prerender"
     },
