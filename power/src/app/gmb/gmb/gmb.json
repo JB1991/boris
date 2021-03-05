@@ -2553,6 +2553,21 @@
                 "sha256": "238bf07ede01460c2993962c29218d186156b030ef2bbf051c864f7b09462632",
                 "sha1": "f148ab7912dcea3dfd4654c7af599408017583ed"
             }
+        },
+        "2021": {
+            "fileurl": "Otterndorf/Otterndorf_2021.pdf",
+            "file": "Otterndorf_2021.pdf",
+            "bereich": [
+                "033520000",
+                "033560000",
+                "033570000",
+                "033590000"
+            ],
+            "checksum": {
+                "md5": "2a6e67c7009084af71d5e3599f49ab1a",
+                "sha256": "85cd74e536c2e5cf9353daa2a908d83db18fbd0a3b7e745f9c2aca1e0c6de849",
+                "sha1": "244c31738cbff8ac773ae1f39403d461ac4ecbd3"
+            }
         }
     },
     "Sulingen": {
@@ -2763,6 +2778,21 @@
                 "md5": "efe4ede21dcb046e300068a08f6db950",
                 "sha256": "9f8088f06630a0f0b8f26d6674b9260a3fc9e32cf6901604f6ff3d0eba96b22b",
                 "sha1": "e91d3019aba7fcf83f3e7e8f8760c9f31f3a0e08"
+            }
+        },
+        "2021": {
+            "fileurl": "Sulingen-Verden/Sulingen-Verden_2021.pdf",
+            "file": "Sulingen-Verden_2021.pdf",
+            "bereich": [
+                "032510000",
+                "033580000",
+                "032560000",
+                "033610000"
+            ],
+            "checksum": {
+                "md5": "60e0d7ac777012fed269349c779a7b20",
+                "sha256": "66c6811371f199d367ba2dcab97bd6bc6af69ad1acffb2f1d24ef0ee83e5f25f",
+                "sha1": "9ff9a4cf564ed9ab58d5778efef0996f0fb9b813"
             }
         }
     },
