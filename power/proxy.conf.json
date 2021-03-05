@@ -5,12 +5,6 @@
         "secure": false,
         "debugLevel": "info"
     },
-    "/geocoding/suggestions/": {
-        "target": "https://dev.power.niedersachsen.dev",
-        "changeOrigin": true,
-        "secure": false,
-        "debugLevel": "info"
-    },
     "/geoserver/": {
         "target": "https://dev.power.niedersachsen.dev",
         "changeOrigin": true,
