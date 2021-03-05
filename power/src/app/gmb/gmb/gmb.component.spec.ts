@@ -270,6 +270,24 @@ describe('GmbComponent', () => {
         component.changeTitle();
     });
 
+    it('ariaLabelBericht works', () => {
+        const resg = component.ariaLabelBericht(2000, 'Foobar');
+        const resn = component.ariaLabelBericht(2000, 'Niedersachsen');
+
+        const resgd = component.ariaLabelBericht(2000, 'Foobar', true);
+        const resnd = component.ariaLabelBericht(2000, 'Niedersachsen', true);
+
+        const dl = 'Download des ';
+        const n = 'Landesgrundstücksmarktbericht';
+        const g = 'Grundstücksmarktbericht';
+
+        expect(resg).toEqual(g + ' 2000 vom Gutachterausschuss Foobar' );
+        expect(resn).toEqual(n + ' 2000' );
+
+        expect(resgd).toEqual(dl + g + 'es 2000 vom Gutachterausschuss Foobar' );
+        expect(resnd).toEqual(dl + n + 'es 2000' );
+    });
+
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer
      * @param url The URL of the HTTP request
