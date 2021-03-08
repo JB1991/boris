@@ -8,3 +8,5 @@ Disallow: /forms/fillout/
 Disallow: /login
 Disallow: /logout
 Allow: /
+
+Sitemap: https://immobilienmarkt.niedersachsen.de/sitemap.xml
