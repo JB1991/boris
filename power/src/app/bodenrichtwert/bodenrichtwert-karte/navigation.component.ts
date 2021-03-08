@@ -1,38 +1,50 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DatePipe, Location } from '@angular/common';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
-import { Feature } from '@turf/turf';
 
 @Component({
     selector: 'power-navigation',
     templateUrl: './navigation.component.html',
-    styleUrls: ['./navigation.component.scss']
+    styleUrls: ['./navigation.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationComponent implements OnInit {
+
+export class NavigationComponent implements OnInit, OnChanges {
 
     public lat: number;
     public lng: number;
+    @Output() latChange = new EventEmitter<number>();
+
+    public latitude: number;
 
     @Input() adresse: Feature;
-    @Output() adresseChange = new EventEmitter();
+    // @Output() adresseChange = new EventEmitter();
 
     @Input() features: FeatureCollection;
-    @Output() featuresChange = new EventEmitter();
+    // @Output() featuresChange = new EventEmitter();
 
     @Input() teilmarkt: any;
-    @Output() teilmarktChange = new EventEmitter();
+    // @Output() teilmarktChange = new EventEmitter();
 
     @Input() stichtag: string;
-    @Output() stichtagChange = new EventEmitter();
+    // @Output() stichtagChange = new EventEmitter();
 
     @Input() flurstueck: FeatureCollection;
+    // @Output() flurstueckChange = new EventEmitter();
+
+    @Input() isCollapsed;
+    @Output() isCollapsedChange = new EventEmitter();
+
+    @Input() expanded;
+
+    @Input() collapsed;
 
     public searchActive = false;
     public filterActive = false;
@@ -45,9 +57,22 @@ export class NavigationComponent implements OnInit {
         public alerts: AlertsService,
         public alkisWfsService: AlkisWfsService,
         private datePipe: DatePipe,
-        private location: Location,) { }
+        private location: Location,
+        private cdr: ChangeDetectorRef,) { }
+
+    ngOnChanges(changes: SimpleChanges) {
+    }
 
     ngOnInit(): void {
+    }
+
+
+    updateLatLng(event: number) {
+        this.lat = event[0];
+        this.lng = event[1];
+        this.getAddressFromLatLng(this.lat, this.lng);
+        this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        this.changeURL();
     }
 
     public getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>): void {
@@ -99,7 +124,7 @@ export class NavigationComponent implements OnInit {
                 $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
         }
 
-        this.stichtagChange.next(stichtag);
+        // this.stichtagChange.next(stichtag);
 
         // this.repaintMap();
 
@@ -107,10 +132,10 @@ export class NavigationComponent implements OnInit {
     }
 
     /**
- * onTeilmarktChange changes the teilmarkt to another teilmarkt and
- * updates the brw/url
- * @param teilmarkt teilmarkt to be switched to
- */
+     * onTeilmarktChange changes the teilmarkt to another teilmarkt and
+     * updates the brw/url
+     * @param teilmarkt teilmarkt to be switched to
+     */
     public onTeilmarktChange(teilmarkt: any): void {
         this.teilmarkt = teilmarkt;
 
@@ -123,20 +148,7 @@ export class NavigationComponent implements OnInit {
                 $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
         }
 
-        // // ease to zoom lvl
-        // if (teilmarkt.viewValue === 'Bauland' && this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
-        //     this.map.easeTo({
-        //         zoom: this.standardBaulandZoom,
-        //         center: this.marker.getLngLat()
-        //     });
-        // } else if (this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
-        //     this.map.easeTo({
-        //         zoom: this.standardLandZoom,
-        //         center: this.marker.getLngLat()
-        //     });
-        // }
-
-        this.teilmarktChange.emit(this.teilmarkt);
+        // this.teilmarktChange.emit(this.teilmarkt);
         if (this.lat && this.lng) {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
         }
@@ -144,16 +156,13 @@ export class NavigationComponent implements OnInit {
         this.changeURL();
     }
 
-    public onSearchSelect(event: any): void {
-        // this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
-        this.lat = event.geometry.coordinates[1];
-        this.lng = event.geometry.coordinates[0];
+    public onAdressChange(event: any): void {
+        // this.adresse = adresse;
+        this.lat = event?.geometry.coordinates[1];
+        this.lng = event?.geometry.coordinates[0];
         this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
-        this.getAddressFromLatLng(this.lat, this.lng);
-        // this.flyTo(this.lat, this.lng);
         this.changeURL();
     }
-
 
     /**
      * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
@@ -161,13 +170,13 @@ export class NavigationComponent implements OnInit {
     public onFlurstueckChange(): void {
         // this.fskIsChanged = true;
         const wgs84_coords = this.pointOnFlurstueck();
-        // this.lat = wgs84_coords[1];
-        // this.lng = wgs84_coords[0];
+        this.lat = wgs84_coords[1];
+        this.lng = wgs84_coords[0];
         // this.marker.setLngLat([wgs84_coords[0], wgs84_coords[1]]).addTo(this.map);
         this.getAddressFromLatLng(wgs84_coords[1], wgs84_coords[0]);
         this.getBodenrichtwertzonen(wgs84_coords[1], wgs84_coords[0], this.teilmarkt.value);
         // this.flyTo(wgs84_coords[1], wgs84_coords[0]);
-        // this.changeURL();
+        this.changeURL();
     }
 
     /**
