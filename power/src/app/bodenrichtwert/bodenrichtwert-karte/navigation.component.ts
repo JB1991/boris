@@ -31,10 +31,10 @@ export class NavigationComponent implements OnInit, OnChanges {
     // @Output() featuresChange = new EventEmitter();
 
     @Input() teilmarkt: any;
-    // @Output() teilmarktChange = new EventEmitter();
+    @Output() teilmarktChange = new EventEmitter();
 
     @Input() stichtag: string;
-    // @Output() stichtagChange = new EventEmitter();
+    @Output() stichtagChange = new EventEmitter();
 
     @Input() flurstueck: FeatureCollection;
     // @Output() flurstueckChange = new EventEmitter();
@@ -72,6 +72,7 @@ export class NavigationComponent implements OnInit, OnChanges {
         this.lng = event[1];
         this.getAddressFromLatLng(this.lat, this.lng);
         this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        this.getFlurstueckFromLatLng(this.lat, this.lng);
         this.changeURL();
     }
 
@@ -124,7 +125,7 @@ export class NavigationComponent implements OnInit, OnChanges {
                 $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
         }
 
-        // this.stichtagChange.next(stichtag);
+        this.stichtagChange.next(stichtag);
 
         // this.repaintMap();
 
@@ -148,7 +149,7 @@ export class NavigationComponent implements OnInit, OnChanges {
                 $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
         }
 
-        // this.teilmarktChange.emit(this.teilmarkt);
+        this.teilmarktChange.emit(this.teilmarkt);
         if (this.lat && this.lng) {
             this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
         }
@@ -161,6 +162,7 @@ export class NavigationComponent implements OnInit, OnChanges {
         this.lat = event?.geometry.coordinates[1];
         this.lng = event?.geometry.coordinates[0];
         this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+        this.getFlurstueckFromLatLng(this.lat, this.lng);
         this.changeURL();
     }
 

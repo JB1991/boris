@@ -194,17 +194,19 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
         console.log('Karte');
-        if (changes.teilmarkt && !changes.teilmarkt.firstChange &&
-            changes.teilmarkt.currentValue.viewValue === 'Bauland' && this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
+        if (changes.teilmarkt && !changes.teilmarkt.firstChange && this.marker.getLngLat().lat !== 0) {
+            if (changes.teilmarkt.currentValue.viewValue === 'Bauland') {
+                this.zoomFactor = this.standardBaulandZoom;
+            } else {
+                this.zoomFactor = this.standardLandZoom;
+            }
             this.map.easeTo({
-                zoom: this.standardBaulandZoom,
+                zoom: this.zoomFactor,
                 center: this.marker.getLngLat()
             });
-        } else if (changes.teilmarkt && !changes.teilmarkt.firstChange && this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
-            this.map.easeTo({
-                zoom: this.standardLandZoom,
-                center: this.marker.getLngLat()
-            });
+        }
+        if (changes.stichtag && !changes.stichtag.firstChange) {
+            this.repaintMap();
         }
         if (changes.lat && changes.lng && !changes.lng.firstChange && !changes.lat.firstChange) {
             console.log('lngLatChange');

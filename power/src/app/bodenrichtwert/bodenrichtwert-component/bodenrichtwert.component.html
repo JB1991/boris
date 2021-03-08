@@ -4,8 +4,8 @@
              class="p-0 border-bottom map-height"
              [class]="isCollapsed ? 'col d-block' : 'col-lg-6'">
             <!-- map component -->
-            <power-navigation [stichtag]="stichtag"
-                              [teilmarkt]="teilmarkt"
+            <power-navigation [(stichtag)]="stichtag"
+                              [(teilmarkt)]="teilmarkt"
                               [flurstueck]="flurstueck"
                               [features]="features"
                               [adresse]="adresse"
