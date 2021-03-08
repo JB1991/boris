@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { Config, ConfigService } from '@app/config.service';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'power-start',
     templateUrl: './start.component.html',
-    styleUrls: ['./start.component.scss']
+    styleUrls: ['./start.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StartComponent implements OnInit {
-    public config: Config;
+export class StartComponent {
+    public config = environment.config;
     public cardorder = {};
     public pin: string;
 
     constructor(public title: Title,
         public router: Router,
         public route: ActivatedRoute,
-        public alerts: AlertsService,
-        public configService: ConfigService) {
+        public alerts: AlertsService) {
         this.title.setTitle($localize`Immobilienmarkt.NI`);
         // check if logged out
         /* istanbul ignore next */
@@ -29,10 +29,6 @@ export class StartComponent implements OnInit {
                     $localize`Sie wurden erfolgreich ausgeloggt.`);
             }
         });
-    }
-
-    ngOnInit() {
-        this.config = this.configService.config;
     }
 
     /**

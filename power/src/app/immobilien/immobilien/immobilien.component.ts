@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
@@ -40,6 +41,8 @@ export class ImmobilienComponent implements OnInit {
      * @param titleService Service for settings the title of the HTML document
      */
     constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         private http: HttpClient,
         private titleService: Title,
         private cdr: ChangeDetectorRef
@@ -114,7 +117,9 @@ export class ImmobilienComponent implements OnInit {
      * Init the Application.
      */
     ngOnInit() {
-        this.initNipix();
+        if (isPlatformBrowser(this.platformId)) {
+            this.initNipix();
+        }
     }
 
     /**
@@ -230,7 +235,7 @@ export class ImmobilienComponent implements OnInit {
             'geoCoordMapTop': this.nipixStatic.data.geoCoordMap['top'],
             'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
-        this.nipixRuntime.state.mapWidth=10000;
+        this.nipixRuntime.state.mapWidth = 10000;
         // Update Map Selection; Wait a little time for browser to render
         setTimeout(this.updateMapSelect.bind(this), 100);
 

@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 
-import { ConfigService } from '@app/config.service';
-
 /**
  * AuthService handles authentication
  */
@@ -17,10 +15,11 @@ export class AuthService {
 
     constructor(@Inject(LOCALE_ID) public locale: string,
         public router: Router,
-        public httpClient: HttpClient,
-        public conf: ConfigService) {
-        // load session
-        this.loadSession(true);
+        public httpClient: HttpClient) {
+        if (localStorage) {
+            // load session
+            this.loadSession(true);
+        }
     }
 
     /**
@@ -34,17 +33,20 @@ export class AuthService {
             this.sessionCheck();
             return;
         }
+
         // load session from localstorage
         this.user = JSON.parse(localStorage.getItem('user'));
         // fix wrong timezone after parsing from json
         if (this.user && this.user.expires) {
             this.user.expires = new Date(this.user.expires);
         }
+
         // check if session is still valid
         if (this.IsAuthenticated()) {
             this.sessionCheck();
             return;
         }
+
         // session needs refresh
         if (refresh && this.user && this.user.token && this.user.token.refresh_token) {
             // craft post object
@@ -203,7 +205,7 @@ export class AuthService {
      * IsAuthEnabled returns true if auth module is enabled
      */
     public IsAuthEnabled(): boolean {
-        if (!environment.production || !(this.conf.config && this.conf.config['authentication'])) {
+        if (!environment.production) {
             return false;
         }
         return true;
