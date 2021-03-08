@@ -22,19 +22,21 @@ export class LogoutComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadingscreen.setVisible(true);
+        if (localStorage) {
+            this.loadingscreen.setVisible(true);
 
-        // delete localStorage
-        localStorage.removeItem('user');
-        this.auth.user = null;
+            // delete localStorage
+            localStorage.removeItem('user');
+            this.auth.user = null;
 
-        // redirect to logout page
-        this.redirect(environment.auth.url + 'logout' +
-            '?client_id=' + encodeURIComponent(environment.auth.clientid) +
-            '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host +
-                /* istanbul ignore next */
-                (this.locale === 'de' ? '' : '/' + this.locale + '/')
-                + '?logout=true'));
+            // redirect to logout page
+            this.redirect(environment.auth.url + 'logout' +
+                '?client_id=' + encodeURIComponent(environment.auth.clientid) +
+                '&redirect_uri=' + encodeURIComponent(location.protocol + '//' + location.host +
+                    /* istanbul ignore next */
+                    (this.locale === 'de' ? '' : '/' + this.locale + '/')
+                    + '?logout=true'));
+        }
     }
 
     /**

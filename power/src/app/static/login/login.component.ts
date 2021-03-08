@@ -25,8 +25,10 @@ export class LoginComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.loadingscreen.setVisible(true);
-        await this.authenticate();
+        if (localStorage) {
+            this.loadingscreen.setVisible(true);
+            await this.authenticate();
+        }
     }
 
     /**

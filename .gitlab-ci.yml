@@ -350,7 +350,7 @@ build:
     expire_in: 2 days
     public: false
     paths:
-      - power/dist/power
+      - power/dist/power/browser
   only:
     - merge_requests
     - tags
@@ -376,7 +376,7 @@ build:production:
     expire_in: 2 days
     public: false
     paths:
-      - power/dist/power
+      - power/dist/power/browser
   only:
     - production
 

@@ -207,6 +207,7 @@
                 "server": {
                     "builder": "@angular-devkit/build-angular:server",
                     "options": {
+                        "localize": false,
                         "outputPath": "dist/power/server",
                         "main": "server.ts",
                         "tsConfig": "src/tsconfig.server.json"
@@ -218,6 +219,18 @@
                                 {
                                     "replace": "src/environments/environment.ts",
                                     "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "sourceMap": false,
+                            "optimization": true,
+                            "localize": true
+                        },
+                        "staging": {
+                            "outputHashing": "media",
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.staging.ts"
                                 }
                             ],
                             "sourceMap": false,
@@ -236,6 +249,10 @@
                         "production": {
                             "browserTarget": "power:build:production",
                             "serverTarget": "power:server:production"
+                        },
+                        "staging": {
+                            "browserTarget": "power:build:staging",
+                            "serverTarget": "power:server:staging"
                         }
                     }
                 },
@@ -245,11 +262,28 @@
                         "browserTarget": "power:build:production",
                         "serverTarget": "power:server:production",
                         "routes": [
-                            "/"
+                            "/",
+                            "/login",
+                            "/logout",
+                            "/feedback",
+                            "/bodenrichtwerte",
+                            "/bodenwertkalkulator",
+                            "/forms",
+                            "/forms/public-dashboard",
+                            "/grundstuecksmarktberichte",
+                            "/landesgrundstuecksmarktberichte",
+                            "/immobilienpreisindex"
                         ]
                     },
                     "configurations": {
-                        "production": {}
+                        "production": {
+                            "browserTarget": "power:build:production",
+                            "serverTarget": "power:server:production"
+                        },
+                        "staging": {
+                            "browserTarget": "power:build:staging",
+                            "serverTarget": "power:server:staging"
+                        }
                     }
                 }
             }

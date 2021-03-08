@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
@@ -20,7 +21,8 @@ export class FeedbackComponent implements OnInit {
     private reg_servicedesk = /Service Desk (.*?): /gm;
     private reg_tel = /(\+[0-9 -]*)/gm;
 
-    constructor(public titleService: Title,
+    constructor(@Inject(PLATFORM_ID) public platformId: Object,
+        public titleService: Title,
         private httpClient: HttpClient,
         public auth: AuthService,
         public alerts: AlertsService,) {
@@ -28,7 +30,9 @@ export class FeedbackComponent implements OnInit {
     }
 
     public async ngOnInit() {
-        await this.loadRSSFeed();
+        if (isPlatformBrowser(this.platformId)) {
+            await this.loadRSSFeed();
+        }
     }
 
     /**

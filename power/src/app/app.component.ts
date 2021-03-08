@@ -1,12 +1,13 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { Platform } from '@angular/cdk/platform';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 
-import { Config, Version, ConfigService } from '@app/config.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'power-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedImmo = true;
     public showBrowserNotice = true;
     public showOfflineNotice = true;
-    public config: Config;
+    public config: any;
     public appVersion: any = { version: 'local', branch: 'dev' };
     public hasInternet = navigator.onLine;
     public uri = location;
@@ -30,8 +31,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     private unsubscribe$: Subject<void> = new Subject<void>();
 
     constructor(@Inject(LOCALE_ID) public locale: string,
+        @Inject(PLATFORM_ID) public platformId: Object,
         public cdRef: ChangeDetectorRef,
-        public configService: ConfigService,
         public httpClient: HttpClient,
         public auth: AuthService,
         public router: Router,
@@ -59,27 +60,34 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     ngOnInit() {
-        this.config = this.configService.config;
+        this.config = environment.config;
         if (this.config.modules.length === 0) {
             this.hasInternet = false;
         }
 
-        // load version
-        this.httpClient.get('/assets/version.json').subscribe(data => {
-            if (data && data['version']) {
-                this.appVersion = data;
-                this.configService.version = this.appVersion as Version;
-            }
-        }, error => {
-            // failed to load
-            console.error('could not load version.json');
-            this.appVersion = { version: 'local', branch: 'offline' };
-            this.configService.version = this.appVersion as Version;
-        });
+        if (isPlatformBrowser(this.platformId)) {
+            // load version
+            this.httpClient.get('/assets/version.json').subscribe(data => {
+                if (data && data['version']) {
+                    this.appVersion = data;
+                    environment.config.version = this.appVersion;
+                }
+                this.showOfflineNotice = false;
+            }, error => {
+                // failed to load
+                console.error('could not load version.json');
+                this.appVersion = { version: 'local', branch: 'offline' };
+                environment.config.version = this.appVersion;
+            });
 
-        // disable warning for known browsers
-        /* istanbul ignore else */
-        if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
+            // disable warning for known browsers
+            /* istanbul ignore else */
+            if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
+                this.showBrowserNotice = false;
+            }
+        } else {
+            // disable warnings
+            this.showOfflineNotice = false;
             this.showBrowserNotice = false;
         }
     }

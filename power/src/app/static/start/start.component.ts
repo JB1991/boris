@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { Config, ConfigService } from '@app/config.service';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'power-start',
@@ -11,15 +11,14 @@ import { Config, ConfigService } from '@app/config.service';
     styleUrls: ['./start.component.scss']
 })
 export class StartComponent implements OnInit {
-    public config: Config;
+    public config: any;
     public cardorder = {};
     public pin: string;
 
     constructor(public title: Title,
         public router: Router,
         public route: ActivatedRoute,
-        public alerts: AlertsService,
-        public configService: ConfigService) {
+        public alerts: AlertsService) {
         this.title.setTitle($localize`Immobilienmarkt.NI`);
         // check if logged out
         /* istanbul ignore next */
@@ -32,7 +31,7 @@ export class StartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.config = this.configService.config;
+        this.config = environment.config;
     }
 
     /**

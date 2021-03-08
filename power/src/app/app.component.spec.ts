@@ -3,7 +3,6 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
-import { ConfigService } from './config.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
 
@@ -19,7 +18,6 @@ describe('AppComponent', () => {
                 RouterTestingModule,
             ],
             providers: [
-                ConfigService,
                 AuthService,
                 UpdateService,
                 { provide: UpdateService, useClass: MockUpdateService }
@@ -50,7 +48,6 @@ describe('AppComponent', () => {
     }));
 
     it('should load version', () => {
-        app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         app.ngOnInit();
         answerHTTPRequest('/assets/version.json', 'GET', { version: '123456', branch: 'prod' });
         expect(app.appVersion).toEqual({ version: '123456', branch: 'prod' });
