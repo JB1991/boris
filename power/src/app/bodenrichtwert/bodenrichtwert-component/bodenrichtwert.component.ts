@@ -167,6 +167,31 @@ export class BodenrichtwertComponent implements OnDestroy {
             }
         }
 
+        // zoom
+        url += '&zoom=';
+        const zoom = this.map.map.getZoom();
+        if (this.teilmarkt.viewValue === this.bodenrichtwertService.TEILMAERKTE[0].viewValue) {
+            // Bauland
+            if (zoom >= 16) {
+                url += '2500';
+            } else if (zoom >= 15) {
+                url += '5000';
+            } else if (zoom >= 14) {
+                url += '10000';
+            } else if (zoom >= 13) {
+                url += '25000';
+            } else {
+                url += '50000';
+            }
+        } else {
+            // Landwirtschaft
+            if (zoom >= 10.5) {
+                url += '100000';
+            } else {
+                url += '200000';
+            }
+        }
+
         // return url
         return url;
     }
