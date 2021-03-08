@@ -15,7 +15,7 @@
         "dev:ssr": "ng run power:serve-ssr",
         "serve:ssr": "node dist/power/server/de/main.js",
         "build:ssr": "ng build -c production && ng run power:server:production",
-        "prerender": "ng run power:prerender"
+        "prerender": "ng run power:prerender:production"
     },
     "private": true,
     "dependencies": {

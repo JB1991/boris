@@ -1,11 +1,12 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { StartComponent } from './start.component';
-import { ConfigService } from '@app/config.service';
 import { SharedModule } from '@app/shared/shared.module';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Static.Start.StartComponent', () => {
     let component: StartComponent;
@@ -13,7 +14,6 @@ describe('Static.Start.StartComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [StartComponent],
             imports: [
                 RouterTestingModule.withRoutes([]),
                 FormsModule,
@@ -21,12 +21,14 @@ describe('Static.Start.StartComponent', () => {
                 CarouselModule.forRoot()
             ],
             providers: [
-                ConfigService
+                Title,
+                AlertsService
+            ],
+            declarations: [
+                StartComponent
             ]
         }).compileComponents();
-    }));
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(StartComponent);
         component = fixture.componentInstance;
 
@@ -35,7 +37,7 @@ describe('Static.Start.StartComponent', () => {
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
         fixture.detectChanges();
-    });
+    }));
 
     it('should create', () => {
         component.ngOnInit();

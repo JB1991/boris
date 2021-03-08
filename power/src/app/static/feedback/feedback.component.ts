@@ -21,7 +21,9 @@ export class FeedbackComponent implements OnInit {
     private reg_servicedesk = /Service Desk (.*?): /gm;
     private reg_tel = /(\+[0-9 -]*)/gm;
 
-    constructor(@Inject(PLATFORM_ID) public platformId: Object,
+    constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         public titleService: Title,
         private httpClient: HttpClient,
         public auth: AuthService,

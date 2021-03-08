@@ -31,6 +31,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     private unsubscribe$: Subject<void> = new Subject<void>();
 
     constructor(@Inject(LOCALE_ID) public locale: string,
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
         public cdRef: ChangeDetectorRef,
         public httpClient: HttpClient,

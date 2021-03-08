@@ -11,7 +11,7 @@ import { environment } from '@env/environment';
     styleUrls: ['./start.component.scss']
 })
 export class StartComponent implements OnInit {
-    public config: any;
+    public config = { modules: [] };
     public cardorder = {};
     public pin: string;
 
@@ -31,7 +31,7 @@ export class StartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.config = environment.config;
+        //this.config = environment.config;
     }
 
     /**

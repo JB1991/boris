@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ModuleGuard } from './module.guard';
-import { ConfigService } from './config.service';
+import { environment } from '@env/environment';
 
 describe('Shared.Auth.AuthGuard', () => {
     let guard: ModuleGuard;
@@ -14,9 +14,6 @@ describe('Shared.Auth.AuthGuard', () => {
             imports: [
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([])
-            ],
-            providers: [
-                ConfigService
             ]
         });
         guard = TestBed.inject(ModuleGuard);
@@ -30,7 +27,7 @@ describe('Shared.Auth.AuthGuard', () => {
 
     it('should disable access', (done) => {
         // set config
-        guard.config.config = { 'modules': ['forms', 'feedback'], 'authentication': true };
+        environment.config = { modules: ['forms', 'feedback'], localized: false, version: {} };
 
         guard.canActivate(new ActivatedRouteSnapshot(), { url: '/nipix' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeFalse();
@@ -40,7 +37,7 @@ describe('Shared.Auth.AuthGuard', () => {
 
     it('should allow access', (done) => {
         // set config
-        guard.config.config = { 'modules': ['forms', 'feedback'], 'authentication': true };
+        environment.config = { modules: ['forms', 'feedback'], localized: false, version: {} };
 
         guard.canActivate(new ActivatedRouteSnapshot(), { url: '/forms/dashboard' } as RouterStateSnapshot)
             .then((value) => {

@@ -236,22 +236,37 @@
                             "sourceMap": false,
                             "optimization": true,
                             "localize": true
+                        },
+                        "de": {
+                            "localize": [
+                                "de"
+                            ]
+                        },
+                        "de-simple": {
+                            "localize": [
+                                "de-simple"
+                            ]
+                        },
+                        "en": {
+                            "localize": [
+                                "en"
+                            ]
                         }
                     }
                 },
                 "serve-ssr": {
                     "builder": "@nguniversal/builders:ssr-dev-server",
                     "options": {
-                        "browserTarget": "power:build",
+                        "browserTarget": "power:build:de",
                         "serverTarget": "power:server"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "power:build:production",
+                            "browserTarget": "power:build:production,de",
                             "serverTarget": "power:server:production"
                         },
                         "staging": {
-                            "browserTarget": "power:build:staging",
+                            "browserTarget": "power:build:staging,de",
                             "serverTarget": "power:server:staging"
                         }
                     }
@@ -283,6 +298,18 @@
                         "staging": {
                             "browserTarget": "power:build:staging",
                             "serverTarget": "power:server:staging"
+                        },
+                        "de": {
+                            "browserTarget": "power:build:production,de",
+                            "serverTarget": "power:server:production,de"
+                        },
+                        "de-simple": {
+                            "browserTarget": "power:build:production,de-simple",
+                            "serverTarget": "power:server:production,de-simple"
+                        },
+                        "en": {
+                            "browserTarget": "power:build:production,en",
+                            "serverTarget": "power:server:production,en"
                         }
                     }
                 }
