@@ -21,6 +21,9 @@ export const environment = {
             'feedback'
         ],
         localized: false,
-        version: {}
+        version: {
+            version: 'local',
+            branch: 'offline'
+        }
     }
 };

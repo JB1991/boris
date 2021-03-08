@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedImmo = true;
     public showBrowserNotice = true;
     public showOfflineNotice = true;
-    public config: any;
+    public config = environment.config;
     public appVersion: any = { version: 'local', branch: 'dev' };
     public hasInternet = navigator.onLine;
     public uri = location;
@@ -61,11 +61,6 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     ngOnInit() {
-        this.config = environment.config;
-        if (this.config.modules.length === 0) {
-            this.hasInternet = false;
-        }
-
         if (isPlatformBrowser(this.platformId)) {
             // load version
             this.httpClient.get('/assets/version.json').subscribe(data => {
@@ -79,6 +74,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 console.error('could not load version.json');
                 this.appVersion = { version: 'local', branch: 'offline' };
                 environment.config.version = this.appVersion;
+                this.hasInternet = false;
             });
 
             // disable warning for known browsers
@@ -90,6 +86,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             // disable warnings
             this.showOfflineNotice = false;
             this.showBrowserNotice = false;
+            this.hasInternet = true;
         }
     }
 

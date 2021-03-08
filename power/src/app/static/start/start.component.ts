@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -8,10 +8,11 @@ import { environment } from '@env/environment';
 @Component({
     selector: 'power-start',
     templateUrl: './start.component.html',
-    styleUrls: ['./start.component.scss']
+    styleUrls: ['./start.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StartComponent implements OnInit {
-    public config = { modules: [] };
+export class StartComponent {
+    public config = environment.config;
     public cardorder = {};
     public pin: string;
 
@@ -28,10 +29,6 @@ export class StartComponent implements OnInit {
                     $localize`Sie wurden erfolgreich ausgeloggt.`);
             }
         });
-    }
-
-    ngOnInit() {
-        //this.config = environment.config;
     }
 
     /**

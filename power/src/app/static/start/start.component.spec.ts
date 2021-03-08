@@ -40,7 +40,6 @@ describe('Static.Start.StartComponent', () => {
     }));
 
     it('should create', () => {
-        component.ngOnInit();
         expect(component).toBeTruthy();
     });
 
@@ -58,6 +57,7 @@ describe('Static.Start.StartComponent', () => {
     });
 
     it('should order cards', () => {
+        component.cardorder = {};
         component.getCardOrder('A');
         component.getCardOrder('A');
         component.getCardOrder('B');

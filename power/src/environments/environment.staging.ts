@@ -25,6 +25,9 @@ export const environment = {
             'logout'
         ],
         localized: true,
-        version: {}
+        version: {
+            version: 'local',
+            branch: 'offline'
+        }
     }
 };
