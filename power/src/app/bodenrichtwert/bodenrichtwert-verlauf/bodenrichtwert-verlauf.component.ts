@@ -244,7 +244,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * @param list feature array
      * @param keyGetter keyGetter
      */
-    public groupBy(list: Array<Feature>, keyGetter: Function): Map<string, Array<Feature>> {
+    public groupBy(list: Array<Feature>, keyGetter: (item: Feature) => string): Map<string, Array<Feature>> {
         const map = new Map<string, Array<Feature>>();
         list.forEach((item) => {
             const key = keyGetter(item);
