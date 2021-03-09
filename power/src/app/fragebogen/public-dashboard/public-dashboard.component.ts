@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -25,6 +26,8 @@ export class PublicDashboardComponent implements OnInit {
     public desc = false;
 
     constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         public titleService: Title,
         public meta: Meta,
         public router: Router,
@@ -38,7 +41,10 @@ export class PublicDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.update(true);
+        console.log("HALLO WELT");
+        if (isPlatformBrowser(this.platformId)) {
+            this.update(true);
+        }
     }
 
     public changeFormSort(sort: PublicFormField) {

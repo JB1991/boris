@@ -344,7 +344,7 @@ build:
     policy: pull
   script:
     - cd power
-    - npm run build -- -c staging
+    - ng run power:prerender:staging
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
@@ -370,7 +370,7 @@ build:production:
     policy: pull
   script:
     - cd power
-    - npm run build -- -c production,de
+    - ng run power:prerender:de
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
