@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DatePipe, Location } from '@angular/common';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
+import { BodenrichtwertComponent } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Feature, FeatureCollection } from 'geojson';
@@ -8,19 +9,19 @@ import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service
 import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
+import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 
 @Component({
-    selector: 'power-navigation',
-    templateUrl: './navigation.component.html',
-    styleUrls: ['./navigation.component.scss'],
+    selector: 'power-bodenrichtwert-navigation',
+    templateUrl: './bodenrichtwert-navigation.component.html',
+    styleUrls: ['./bodenrichtwert-navigation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class NavigationComponent implements OnInit, OnChanges {
+export class BodenrichtwertNavigationComponent implements OnInit, OnChanges {
 
     public lat: number;
     public lng: number;
-    @Output() latChange = new EventEmitter<number>();
 
     public latitude: number;
 
@@ -30,21 +31,16 @@ export class NavigationComponent implements OnInit, OnChanges {
     @Input() features: FeatureCollection;
     // @Output() featuresChange = new EventEmitter();
 
-    @Input() teilmarkt: any;
-    @Output() teilmarktChange = new EventEmitter();
+    @Input() teilmarkt: Teilmarkt;
+    @Output() teilmarktChange = new EventEmitter<Teilmarkt>();
 
     @Input() stichtag: string;
-    @Output() stichtagChange = new EventEmitter();
+    @Output() stichtagChange = new EventEmitter<string>();
 
     @Input() flurstueck: FeatureCollection;
     // @Output() flurstueckChange = new EventEmitter();
 
-    @Input() isCollapsed;
-    @Output() isCollapsedChange = new EventEmitter();
-
-    @Input() expanded;
-
-    @Input() collapsed;
+    @Input() isCollapsed: boolean;
 
     public searchActive = false;
     public filterActive = false;
@@ -53,14 +49,17 @@ export class NavigationComponent implements OnInit, OnChanges {
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
+        public bodenrichtwert: BodenrichtwertComponent,
         public geosearchService: GeosearchService,
         public alerts: AlertsService,
         public alkisWfsService: AlkisWfsService,
         private datePipe: DatePipe,
-        private location: Location,
-        private cdr: ChangeDetectorRef,) { }
+        private location: Location,) { }
 
     ngOnChanges(changes: SimpleChanges) {
+        if (changes.lat) {
+            console.log('navigation' + changes.lat);
+        }
     }
 
     ngOnInit(): void {
@@ -140,7 +139,7 @@ export class NavigationComponent implements OnInit, OnChanges {
     public onTeilmarktChange(teilmarkt: any): void {
         this.teilmarkt = teilmarkt;
 
-        const teilmarktIsEqual = this.location.path().includes('teilmarkt=' + this.teilmarkt.viewValue.split(' ', 1));
+        const teilmarktIsEqual = this.location.path().includes('teilmarkt=' + this.teilmarkt.text.split(' ', 1));
         // push info alert
         if (!teilmarktIsEqual) {
             this.alerts.NewAlert(
@@ -158,7 +157,6 @@ export class NavigationComponent implements OnInit, OnChanges {
     }
 
     public onAdressChange(event: any): void {
-        // this.adresse = adresse;
         this.lat = event?.geometry.coordinates[1];
         this.lng = event?.geometry.coordinates[0];
         this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
@@ -170,14 +168,11 @@ export class NavigationComponent implements OnInit, OnChanges {
      * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
      */
     public onFlurstueckChange(): void {
-        // this.fskIsChanged = true;
         const wgs84_coords = this.pointOnFlurstueck();
         this.lat = wgs84_coords[1];
         this.lng = wgs84_coords[0];
-        // this.marker.setLngLat([wgs84_coords[0], wgs84_coords[1]]).addTo(this.map);
         this.getAddressFromLatLng(wgs84_coords[1], wgs84_coords[0]);
         this.getBodenrichtwertzonen(wgs84_coords[1], wgs84_coords[0], this.teilmarkt.value);
-        // this.flyTo(wgs84_coords[1], wgs84_coords[0]);
         this.changeURL();
     }
 
@@ -208,6 +203,25 @@ export class NavigationComponent implements OnInit, OnChanges {
         );
     };
 
+    // enableLocationTracking() {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(location => {
+    //             const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
+    //             this.map.easeTo({
+    //                 pitch: 0,
+    //                 zoom: 14,
+    //                 center: lngLat
+    //             });
+    //             this.lat = lngLat.lat;
+    //             this.lng = lngLat.lng;
+    //             // this.marker.setLngLat(lngLat).addTo(this.map);
+    //             // this.getAddressFromLatLng(this.lat, this.lng);
+    //             // this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
+    //             // this.changeURL();
+    //         });
+    //     }
+    // }
+
     private changeURL() {
         const params = new URLSearchParams({});
         if (this.lat) {
@@ -217,7 +231,7 @@ export class NavigationComponent implements OnInit, OnChanges {
             params.append('lng', this.lng.toString());
         }
         if (this.teilmarkt) {
-            params.append('teilmarkt', this.teilmarkt.viewValue.toString());
+            params.append('teilmarkt', this.teilmarkt.text.toString());
         }
         if (this.stichtag) {
             params.append('stichtag', this.stichtag.toString());

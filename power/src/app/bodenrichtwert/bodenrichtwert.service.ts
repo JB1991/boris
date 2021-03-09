@@ -9,28 +9,6 @@ import { environment } from '@env/environment';
     providedIn: 'root'
 })
 export class BodenrichtwertService {
-    /**
-     * Possible selections of Stichtage
-     */
-    public STICHTAGE = [
-        '2020-12-31',
-        '2019-12-31',
-        '2018-12-31',
-        '2017-12-31',
-        '2016-12-31',
-        '2015-12-31',
-        '2014-12-31',
-        '2013-12-31',
-        '2012-12-31',
-    ];
-
-    /**
-     * Possible selections of Teilmärkte
-     */
-    public TEILMAERKTE = [
-        { value: ['B', 'SF', 'R', 'E'], viewValue: $localize`Bauland`, color: '#c4153a' },
-        { value: ['LF'], viewValue: $localize`Land- und forstwirtschaftliche Flächen`, color: '#009900' },
-    ];
 
     /**
      * URL where to fetch GeoJSON from
@@ -51,11 +29,6 @@ export class BodenrichtwertService {
      * Selected Feature, that can be subscribed to
      */
     private selected = new Subject<Feature>();
-
-    /**
-     * Selected Stichtag, that can be subscribed to
-     */
-    private stichtag = new Subject<Date>();
 
     constructor(private http: HttpClient) {
     }
@@ -88,21 +61,6 @@ export class BodenrichtwertService {
      */
     updateSelected(feature: Feature) {
         this.selected.next(feature);
-    }
-
-    /**
-     * Return the stichtag as an Observable
-     */
-    getStichtag(): Observable<Date> {
-        return this.stichtag.asObservable();
-    }
-
-    /**
-     * Update the stichtag by feeding it to the Subject
-     * @param date New stichtag
-     */
-    updateStichtag(date: Date) {
-        this.stichtag.next(date);
     }
 
     /**

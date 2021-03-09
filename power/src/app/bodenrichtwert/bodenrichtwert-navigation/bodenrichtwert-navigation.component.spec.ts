@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavigationComponent } from './navigation.component';
+import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation.component';
 
 describe('NavigationComponent', () => {
-    let component: NavigationComponent;
-    let fixture: ComponentFixture<NavigationComponent>;
+    let component: BodenrichtwertNavigationComponent;
+    let fixture: ComponentFixture<BodenrichtwertNavigationComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [NavigationComponent]
+            declarations: [BodenrichtwertNavigationComponent]
         })
             .compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(NavigationComponent);
+        fixture = TestBed.createComponent(BodenrichtwertNavigationComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

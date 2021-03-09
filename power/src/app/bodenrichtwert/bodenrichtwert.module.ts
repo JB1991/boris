@@ -11,10 +11,9 @@ import * as echarts from 'echarts';
 import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
-import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/karte/bodenrichtwert-karte.component';
+import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
-import { NavigationComponent } from './bodenrichtwert-karte/navigation.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
@@ -29,6 +28,7 @@ import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
 import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
 import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
+import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/bodenrichtwert-navigation.component';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -46,7 +46,6 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
         UmrechnungComponent,
-        NavigationComponent,
         NutzungPipe,
         BeitragPipe,
         UmlautCorrectionPipe,
@@ -58,7 +57,8 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         BauweisePipe,
         BodenartPipe,
         VerfahrensartPipe,
-        NutzungBremenPipe
+        NutzungBremenPipe,
+        BodenrichtwertNavigationComponent
     ],
     imports: [
         BodenrichtwertRoutingModule,

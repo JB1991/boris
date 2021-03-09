@@ -1,17 +1,24 @@
 import {
     Component, OnDestroy,
-    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
+    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, OnInit, DoCheck
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { ConfigService } from '@app/config.service';
-import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/karte/bodenrichtwert-karte.component';
-import proj4 from 'proj4';
+import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
+
 import { DatePipe } from '@angular/common';
+
+export interface Teilmarkt {
+    value: Array<string>
+    text: string
+    hexColor: string
+}
 
 /**
  * Bodenrichtwert-Component arranges all Components on a single page
@@ -23,7 +30,7 @@ import { DatePipe } from '@angular/common';
     providers: [DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertComponent implements OnDestroy {
+export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
 
     /**
      * Adresse to be shown
@@ -38,7 +45,7 @@ export class BodenrichtwertComponent implements OnDestroy {
     /**
      * Features (Bodenrichtwerte as GeoJSON) to be shown
      */
-    public features = null;
+    public features: FeatureCollection = null;
 
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
@@ -65,6 +72,8 @@ export class BodenrichtwertComponent implements OnDestroy {
      */
     public teilmarkt: any;
 
+    public latLng: Array<number>;
+
     /**
      * isCollapsed holds the state for details component collapsed or not (click events)
      */
@@ -89,13 +98,37 @@ export class BodenrichtwertComponent implements OnDestroy {
 
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
+    /**
+  * Possible selections of Stichtage
+  */
+    public STICHTAGE: Array<string> = [
+        '2020-12-31',
+        '2019-12-31',
+        '2018-12-31',
+        '2017-12-31',
+        '2016-12-31',
+        '2015-12-31',
+        '2014-12-31',
+        '2013-12-31',
+        '2012-12-31',
+    ];
+
+    /**
+     * Possible selections of Teilmärkte
+     */
+    public TEILMAERKTE: Array<Teilmarkt> = [
+        { value: ['B', 'SF', 'R', 'E'], text: $localize`Bauland`, hexColor: '#c4153a' },
+        { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' },
+    ];
+
     constructor(
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
         public configService: ConfigService,
         private titleService: Title,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private route: ActivatedRoute
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
@@ -112,8 +145,32 @@ export class BodenrichtwertComponent implements OnDestroy {
             this.flurstueck = fst;
             this.cdr.detectChanges();
         });
-        this.stichtag = this.bodenrichtwertService.STICHTAGE[0];
-        this.teilmarkt = this.bodenrichtwertService.TEILMAERKTE[0];
+        this.stichtag = this.STICHTAGE[0];
+        this.teilmarkt = this.TEILMAERKTE[0];
+    }
+
+    ngOnInit() { }
+
+    ngDoCheck() {
+        this.route.queryParams.subscribe(params => {
+            // lat and lat
+            if (params['lat'] && params['lng']) {
+                this.latLng[0] = params['lat'];
+                this.latLng[1] = params['lng'];
+            }
+
+            // teilmarkt
+            if (params['teilmarkt']) {
+                this.teilmarkt = params['teilmarkt'];
+            }
+
+            // stichtag
+            if (params['stichtag']) {
+                this.teilmarkt = params['teilmarkt'];
+            }
+            this.cdr.detectChanges();
+
+        });
     }
 
     /**
@@ -179,11 +236,11 @@ export class BodenrichtwertComponent implements OnDestroy {
         // submarket
         url += '&submarket=';
         switch (this.teilmarkt.viewValue) {
-            case this.bodenrichtwertService.TEILMAERKTE[0].viewValue: {
+            case this.TEILMAERKTE[0].text: {
                 url += encodeURIComponent('Bauland');
                 break;
             }
-            case this.bodenrichtwertService.TEILMAERKTE[1].viewValue: {
+            case this.TEILMAERKTE[1].text: {
                 url += encodeURIComponent('Landwirtschaft');
                 break;
             }

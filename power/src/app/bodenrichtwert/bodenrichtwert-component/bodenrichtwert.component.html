@@ -4,23 +4,27 @@
              class="p-0 border-bottom map-height"
              [class]="isCollapsed ? 'col d-block' : 'col-lg-6'">
             <!-- map component -->
-            <power-navigation [(stichtag)]="stichtag"
-                              [(teilmarkt)]="teilmarkt"
-                              [flurstueck]="flurstueck"
-                              [features]="features"
-                              [adresse]="adresse"
-                              [(isCollapsed)]="isCollapsed"
-                              [collapsed]="collapsed"
-                              [expanded]="expanded"></power-navigation>
-            <!-- <power-bodenrichtwertkarte #map
+            <power-bodenrichtwert-navigation [(stichtag)]="stichtag"
+                                             [(teilmarkt)]="teilmarkt"
+                                             [(flurstueck)]="flurstueck"
+                                             [features]="features"
+                                             [adresse]="adresse"
+                                             [(isCollapsed)]="isCollapsed">
+                <!-- 
+                                             [collapsed]="collapsed"
+                                             [expanded]="expanded" -->
+            </power-bodenrichtwert-navigation>
+            <power-bodenrichtwertkarte #map
                                        [(isCollapsed)]="isCollapsed"
                                        [collapsed]="collapsed"
                                        [expanded]="expanded"
+                                       [stichtag]="stichtag"
+                                       [teilmarkt]="teilmarkt"
+                                       [(latLng)]="latLng">
+                <!-- [(flurstueck)]="flurstueck"
                                        [(adresse)]="adresse"
-                                       [(features)]="features"
-                                       [(stichtag)]="stichtag"
-                                       [(teilmarkt)]="teilmarkt"
-                                       [(flurstueck)]="flurstueck"></power-bodenrichtwertkarte> -->
+                                       [(features)]="features" -->
+            </power-bodenrichtwertkarte>
         </div>
         <!-- collapsing sidebar -->
         <div class="p-0 border-left"

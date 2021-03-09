@@ -1,11 +1,11 @@
 <div class="bg-white shadow-sm border-top">
     <nav class="navbar d-flex flex-nowrap text-nowrap justify-content-between p-0"
          role="navigation">
-        <div [class]="isCollapsed ? 'd-none d-lg-inline-block' : 'd-none d-xl-inline-block'">
+        <div [class]="isCollapsed ? 'd-none d-lg-inline-block' : 'd-none d-xxl-inline-block'">
             <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
             <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
         </div>
-        <div [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'">
+        <div [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
             <ng-template [ngTemplateOutlet]="teilmarktStichtagMobile"></ng-template>
         </div>
         <ng-template [ngTemplateOutlet]="geosearch"></ng-template>
@@ -63,11 +63,11 @@
                 <button class="btn dropdown-item nav-link"
                         type="button"
                         role="menuitem"
-                        (click)="map.enableLocationTracking()"
                         alt="Eigenen Standort anzeigen"
                         title="Eigenen Standort anzeigen"
                         i18n-alt
                         i18n-title>
+                    <!-- (click)="enableLocationTracking()" -->
                     <svg width="20px"
                          height="20px"
                          viewBox="0 0 16 16"
@@ -84,11 +84,11 @@
                         [ngClass]="{'active': threeDActive}"
                         type="button"
                         role="menuitem"
-                        (click)="map.toggle3dView()"
                         alt="3D aktivieren/deaktivieren"
                         title="3D aktivieren/deaktivieren"
                         i18n-alt
                         i18n-title>
+                    <!-- (click)="map.toggle3dView()" -->
                     <svg width="20px"
                          height="20px"
                          viewBox="0 0 16 16"
@@ -108,10 +108,10 @@
                         class="btn dropdown-item nav-link"
                         alt="Markierung fokussieren"
                         title="Markierung fokussieren"
-                        *ngIf="map.marker.getLngLat() && map.marker.getLngLat().lat != 0"
-                        (click)="map.flyTo(map.marker.getLngLat().lat, map.marker.getLngLat().lng, $event.type)"
                         i18n-alt
                         i18n-title>
+                    <!-- *ngIf="map.marker.getLngLat() && map.marker.getLngLat().lat != 0"
+                        (click)="map.flyTo(map.marker.getLngLat().lat, map.marker.getLngLat().lng, $event.type)" -->
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="20px"
                          height="20px"
@@ -131,12 +131,12 @@
                 <button class="btn dropdown-item nav-link"
                         type="button"
                         role="menuitem"
-                        (click)="map.resetMap()"
                         alt="Karte zurücksetzen"
                         title="Karte zurücksetzen"
                         aria-label="Karte und Adresseingabe zurücksetzen"
                         i18n-alt
                         i18n-title>
+                    <!-- (click)="map.resetMap()" -->
                     <svg width="20px"
                          height="20px"
                          viewBox="0 0 16 16"
@@ -155,11 +155,13 @@
 </div>
 
 <!-- For mobile view -->
-<div [class.d-none]="!searchActive">
+<div [class.d-none]="!searchActive"
+     class="d-sm-none">
     <ng-template [ngTemplateOutlet]="geosearchBar"></ng-template>
 </div>
 
-<div [class.d-none]="!filterActive">
+<div [class.d-none]="!filterActive"
+     [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
     <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
     <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
 </div>
@@ -190,7 +192,7 @@
             <button type="button"
                     role="menuitem"
                     class="dropdown-item nav-link"
-                    *ngFor="let stag of bodenrichtwertService.STICHTAGE"
+                    *ngFor="let stag of bodenrichtwert.STICHTAGE"
                     (click)="onStichtagChange(stag)">
                 {{stag | date}}
             </button>
@@ -209,7 +211,7 @@
                 class="btn dropdown-toggle nav-link"
                 aria-controls="dropdown-teilmarkt-1"
                 aria-haspopup="true">
-            <span i18n>Teilmarkt</span>: {{teilmarkt.viewValue}}
+            <span i18n>Teilmarkt</span>: {{teilmarkt.text}}
             <span class="caret"
                   aria-hidden="true"></span>
         </button>
@@ -221,13 +223,13 @@
             <button type="button"
                     role="menuitem"
                     class="dropdown-item nav-link"
-                    *ngFor="let tm of bodenrichtwertService.TEILMAERKTE"
+                    *ngFor="let tm of bodenrichtwert.TEILMAERKTE"
                     (click)="onTeilmarktChange(tm)">
                 <svg width="0.75em"
                      height="0.75em"
                      viewBox="0 0 16 16"
                      class="bi bi-circle-fill"
-                     [attr.fill]="tm.color"
+                     [attr.fill]="tm.hexColor"
                      xmlns="http://www.w3.org/2000/svg"
                      focusable="false"
                      aria-hidden="true">
@@ -235,7 +237,7 @@
                             cy="8"
                             r="8" />
                 </svg>
-                {{tm.viewValue}}
+                {{tm.text}}
             </button>
         </div>
     </div>
@@ -267,17 +269,15 @@
 
 <!-- Geosearch bar view -->
 <ng-template #geosearch>
-    <div class="nav px-auto w-100 max-search-width"
-         [class]="isCollapsed ? 'd-none d-lg-inline-block' : 'd-none d-xl-inline-block'"
+    <div class="nav px-auto w-100 max-search-width d-none d-sm-inline-block"
          style="position: relative;">
         <ng-template [ngTemplateOutlet]="geosearchBar"></ng-template>
     </div>
-    <div [class]="isCollapsed ? 'd-lg-none' : 'd-xl-none'"
-         class="nav ml-auto">
+    <div class="nav ml-auto d-sm-none">
         <button class="nav-link btn"
                 [ngClass]="{'active': searchActive}"
                 type="button"
-                (click)="searchActive = !searchActive; geosearchComponent.setFocus()"
+                (click)="searchActive = !searchActive"
                 alt="Suche"
                 title="Suche"
                 i18n-alt
@@ -306,18 +306,6 @@
         <!-- (selectResult)="onSearchSelect($event)" -->
     </power-geosearch>
 </ng-template>
-
-<power-bodenrichtwertkarte #map
-                           [stichtag]="stichtag"
-                           [teilmarkt]="teilmarkt"
-                           [lat]="lat"
-                           [lng]="lng"
-                           [(isCollapsed)]="isCollapsed"
-                           [collapsed]="collapsed"
-                           [expanded]="expanded"
-                           (latLngChange)="updateLatLng($event)">
-    <!-- [flurstueck]="flurstueck" -->
-</power-bodenrichtwertkarte>
 
 <power-flurstueck-search #flurstueckssearch
                          (fskChange)="onFlurstueckChange()">
