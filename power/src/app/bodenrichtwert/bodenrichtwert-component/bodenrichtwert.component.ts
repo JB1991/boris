@@ -70,7 +70,7 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
     /**
      * Actual selected Teilmarkt
      */
-    public teilmarkt: any;
+    public teilmarkt: Teilmarkt;
 
     public latLng: Array<number>;
 
@@ -95,6 +95,8 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
      * hintsActive holds the state for hints on/off
      */
     public hintsActive = false;
+
+    public threeDActive = false;
 
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
@@ -149,9 +151,7 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
         this.teilmarkt = this.TEILMAERKTE[0];
     }
 
-    ngOnInit() { }
-
-    ngDoCheck() {
+    ngOnInit() {
         this.route.queryParams.subscribe(params => {
             // lat and lat
             if (params['lat'] && params['lng']) {
@@ -172,6 +172,27 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
 
         });
     }
+
+    ngDoCheck() {
+
+    }
+
+    // private changeURL() {
+    //     const params = new URLSearchParams({});
+    //     if (this.lat) {
+    //         params.append('lat', this.lat.toString());
+    //     }
+    //     if (this.lng) {
+    //         params.append('lng', this.lng.toString());
+    //     }
+    //     if (this.teilmarkt) {
+    //         params.append('teilmarkt', this.teilmarkt.viewValue.toString());
+    //     }
+    //     if (this.stichtag) {
+    //         params.append('stichtag', this.stichtag.toString());
+    //     }
+    //     this.location.replaceState('/bodenrichtwerte', params.toString());
+    // }
 
     /**
      * Destroys all active subscriptions
@@ -235,7 +256,7 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
 
         // submarket
         url += '&submarket=';
-        switch (this.teilmarkt.viewValue) {
+        switch (this.teilmarkt.text) {
             case this.TEILMAERKTE[0].text: {
                 url += encodeURIComponent('Bauland');
                 break;

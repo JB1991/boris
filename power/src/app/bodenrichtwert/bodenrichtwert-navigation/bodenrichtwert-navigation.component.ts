@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe, Location } from '@angular/common';
 import { BodenrichtwertService } from '../bodenrichtwert.service';
 import { BodenrichtwertComponent } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
@@ -10,6 +10,7 @@ import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
+import { LngLat } from 'mapbox-gl';
 
 @Component({
     selector: 'power-bodenrichtwert-navigation',
@@ -18,18 +19,16 @@ import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component'
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class BodenrichtwertNavigationComponent implements OnInit, OnChanges {
+export class BodenrichtwertNavigationComponent implements OnChanges {
 
-    public lat: number;
-    public lng: number;
-
-    public latitude: number;
+    @Input() latLng: Array<number>;
+    @Output() latLngChange = new EventEmitter<Array<number>>();
 
     @Input() adresse: Feature;
-    // @Output() adresseChange = new EventEmitter();
+    @Output() adresseChange = new EventEmitter();
 
     @Input() features: FeatureCollection;
-    // @Output() featuresChange = new EventEmitter();
+    @Output() featuresChange = new EventEmitter();
 
     @Input() teilmarkt: Teilmarkt;
     @Output() teilmarktChange = new EventEmitter<Teilmarkt>();
@@ -38,14 +37,20 @@ export class BodenrichtwertNavigationComponent implements OnInit, OnChanges {
     @Output() stichtagChange = new EventEmitter<string>();
 
     @Input() flurstueck: FeatureCollection;
-    // @Output() flurstueckChange = new EventEmitter();
+    @Output() flurstueckChange = new EventEmitter();
 
     @Input() isCollapsed: boolean;
+    @Output() isCollapsedChange = new EventEmitter<boolean>();
+
+    @Input() threeDActive: boolean;
+    @Output() threeDActiveChange = new EventEmitter<boolean>();
 
     public searchActive = false;
     public filterActive = false;
-    public threeDActive = false;
     public functionsActive = false;
+
+    public fskIsChanged = false;
+
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
@@ -57,22 +62,24 @@ export class BodenrichtwertNavigationComponent implements OnInit, OnChanges {
         private location: Location,) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.lat) {
-            console.log('navigation' + changes.lat);
+        if (changes.latLng && !changes.latLng.firstChange) {
+            console.log('Changes LatLng');
+            this.getAddressFromLatLng(this.latLng[0], this.latLng[1]);
+            this.getBodenrichtwertzonen(this.latLng[0], this.latLng[1], this.teilmarkt.value);
+
+            if (!this.fskIsChanged) {
+                this.getFlurstueckFromLatLng(this.latLng[0], this.latLng[1]);
+            } else {
+                this.fskIsChanged = !this.fskIsChanged;
+            }
         }
-    }
-
-    ngOnInit(): void {
-    }
-
-
-    updateLatLng(event: number) {
-        this.lat = event[0];
-        this.lng = event[1];
-        this.getAddressFromLatLng(this.lat, this.lng);
-        this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
-        this.getFlurstueckFromLatLng(this.lat, this.lng);
-        this.changeURL();
+        if (changes.stichtag && changes.stichtag.currentValue === '2020-12-31' && this.adresse?.properties.kreis === 'Stadt Bremen') {
+            this.alerts.NewAlert(
+                'info',
+                $localize`Diese Daten sind noch nicht verfügbar!`,
+                $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
+            );
+        }
     }
 
     public getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>): void {
@@ -112,23 +119,16 @@ export class BodenrichtwertNavigationComponent implements OnInit, OnChanges {
      * updates the brw/url
      * @param stichtag stichtag to be switched to
      */
-    public onStichtagChange(stichtag: any): void {
-        this.stichtag = stichtag;
-
-        const stichtagIsEqual = this.location.path().includes('stichtag=' + this.stichtag);
+    public onStichtagChange(stichtag: string): void {
         // push info alert
-        if (!stichtagIsEqual) {
+        if (this.stichtag !== stichtag) {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
                 $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
         }
 
-        this.stichtagChange.next(stichtag);
-
-        // this.repaintMap();
-
-        this.changeURL();
+        this.stichtagChange.emit(stichtag);
     }
 
     /**
@@ -137,31 +137,58 @@ export class BodenrichtwertNavigationComponent implements OnInit, OnChanges {
      * @param teilmarkt teilmarkt to be switched to
      */
     public onTeilmarktChange(teilmarkt: any): void {
-        this.teilmarkt = teilmarkt;
-
-        const teilmarktIsEqual = this.location.path().includes('teilmarkt=' + this.teilmarkt.text.split(' ', 1));
         // push info alert
-        if (!teilmarktIsEqual) {
+        if (this.teilmarkt !== teilmarkt) {
             this.alerts.NewAlert(
                 'info',
                 $localize`Teilmarkt gewechselt`,
                 $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
         }
 
-        this.teilmarktChange.emit(this.teilmarkt);
-        if (this.lat && this.lng) {
-            this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
-        }
-
-        this.changeURL();
+        this.teilmarktChange.emit(teilmarkt);
     }
 
-    public onAdressChange(event: any): void {
-        this.lat = event?.geometry.coordinates[1];
-        this.lng = event?.geometry.coordinates[0];
-        this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
-        this.getFlurstueckFromLatLng(this.lat, this.lng);
-        this.changeURL();
+    public onAdressChange(feature: Feature): void {
+        this.latLngChange.emit([feature?.geometry['coordinates'][1], feature?.geometry['coordinates'][0]]);
+    }
+
+    toggle3dView() {
+        this.threeDActiveChange.emit(!this.threeDActive);
+    }
+
+    /**
+     * resetMap resets all configurations set/made by the user
+     */
+    public resetMap() {
+        // reset URL
+        this.location.replaceState('/bodenrichtwerte');
+
+        // reset coordinates
+        this.latLngChange.emit(undefined);
+
+        if (this.threeDActive) {
+            this.threeDActiveChange.emit(false);
+        }
+
+        if (this.adresse) {
+            this.adresseChange.emit(undefined);
+        }
+        if (this.features) {
+            this.featuresChange.emit(undefined);
+        }
+        if (this.flurstueck) {
+            this.flurstueckChange.emit(undefined);
+        }
+        if (!this.isCollapsed) {
+            this.isCollapsedChange.emit(true);
+        }
+        if (this.teilmarkt.text !== this.bodenrichtwert.TEILMAERKTE[0].text) {
+            this.teilmarktChange.emit(this.bodenrichtwert.TEILMAERKTE[0]);
+        }
+
+        if (this.stichtag !== this.bodenrichtwert.STICHTAGE[0]) {
+            this.stichtagChange.emit(this.bodenrichtwert.STICHTAGE[0]);
+        }
     }
 
     /**
@@ -169,11 +196,8 @@ export class BodenrichtwertNavigationComponent implements OnInit, OnChanges {
      */
     public onFlurstueckChange(): void {
         const wgs84_coords = this.pointOnFlurstueck();
-        this.lat = wgs84_coords[1];
-        this.lng = wgs84_coords[0];
-        this.getAddressFromLatLng(wgs84_coords[1], wgs84_coords[0]);
-        this.getBodenrichtwertzonen(wgs84_coords[1], wgs84_coords[0], this.teilmarkt.value);
-        this.changeURL();
+        this.fskIsChanged = !this.fskIsChanged;
+        this.latLngChange.emit([wgs84_coords[1], wgs84_coords[0]]);
     }
 
     /**
@@ -203,40 +227,13 @@ export class BodenrichtwertNavigationComponent implements OnInit, OnChanges {
         );
     };
 
-    // enableLocationTracking() {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(location => {
-    //             const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
-    //             this.map.easeTo({
-    //                 pitch: 0,
-    //                 zoom: 14,
-    //                 center: lngLat
-    //             });
-    //             this.lat = lngLat.lat;
-    //             this.lng = lngLat.lng;
-    //             // this.marker.setLngLat(lngLat).addTo(this.map);
-    //             // this.getAddressFromLatLng(this.lat, this.lng);
-    //             // this.getBodenrichtwertzonen(this.lat, this.lng, this.teilmarkt.value);
-    //             // this.changeURL();
-    //         });
-    //     }
-    // }
-
-    private changeURL() {
-        const params = new URLSearchParams({});
-        if (this.lat) {
-            params.append('lat', this.lat.toString());
+    enableLocationTracking() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(location => {
+                const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
+                this.latLngChange.emit([lngLat.lat, lngLat.lng]);
+            });
         }
-        if (this.lng) {
-            params.append('lng', this.lng.toString());
-        }
-        if (this.teilmarkt) {
-            params.append('teilmarkt', this.teilmarkt.text.toString());
-        }
-        if (this.stichtag) {
-            params.append('stichtag', this.stichtag.toString());
-        }
-        this.location.replaceState('/bodenrichtwerte', params.toString());
     }
 
     /**

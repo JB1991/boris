@@ -63,11 +63,11 @@
                 <button class="btn dropdown-item nav-link"
                         type="button"
                         role="menuitem"
+                        (click)="enableLocationTracking()"
                         alt="Eigenen Standort anzeigen"
                         title="Eigenen Standort anzeigen"
                         i18n-alt
                         i18n-title>
-                    <!-- (click)="enableLocationTracking()" -->
                     <svg width="20px"
                          height="20px"
                          viewBox="0 0 16 16"
@@ -84,11 +84,12 @@
                         [ngClass]="{'active': threeDActive}"
                         type="button"
                         role="menuitem"
+                        (click)="toggle3dView()"
                         alt="3D aktivieren/deaktivieren"
                         title="3D aktivieren/deaktivieren"
                         i18n-alt
                         i18n-title>
-                    <!-- (click)="map.toggle3dView()" -->
+
                     <svg width="20px"
                          height="20px"
                          viewBox="0 0 16 16"
@@ -131,12 +132,12 @@
                 <button class="btn dropdown-item nav-link"
                         type="button"
                         role="menuitem"
+                        (click)="resetMap()"
                         alt="Karte zurücksetzen"
                         title="Karte zurücksetzen"
                         aria-label="Karte und Adresseingabe zurücksetzen"
                         i18n-alt
                         i18n-title>
-                    <!-- (click)="map.resetMap()" -->
                     <svg width="20px"
                          height="20px"
                          viewBox="0 0 16 16"

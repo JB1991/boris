@@ -1,12 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
-import { LngLat, LngLatBounds, Map, MapboxEvent, MapMouseEvent, MapTouchEvent, Marker, VectorSource } from 'mapbox-gl';
+import { LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import { BodenrichtwertKarte3dLayerService } from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-3d-layer.service';
 import { environment } from '@env/environment';
-import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { FeatureCollection } from 'geojson';
 import * as turf from '@turf/turf';
@@ -51,9 +50,11 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
     styleUrls: ['./bodenrichtwert-karte.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
+export class BodenrichtwertKarteComponent implements OnChanges {
 
     public isDragged = false;
+
+    @Input() threeDActive: boolean;
 
     public zoomFactor: number;
     // Flurstuecke become visible at Zoomfactor 15.1
@@ -143,9 +144,9 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public marker: Marker = new Marker({
         color: '#c4153a',
         draggable: true
-    }).on('dragstart', () => {
-        this.isDragged = !this.isDragged;
-    });
+    }).on('dragend', () => {
+        this.onDragEnd();
+    })
 
     @Input() latLng: Array<number>;
     @Output() latLngChange = new EventEmitter<Array<number>>();
@@ -172,19 +173,15 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         public bodenrichtwert3DLayer: BodenrichtwertKarte3dLayerService,
         public geosearchService: GeosearchService,
         public alkisWfsService: AlkisWfsService,
-        private route: ActivatedRoute,
-        private location: Location,
-        private cdr: ChangeDetectorRef,
         public alerts: AlertsService,
     ) { }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
-        console.log('Karte');
-        if (changes.teilmarkt && !changes.teilmarkt.firstChange && this.marker.getLngLat()?.lat !== 0) {
-            if (changes.teilmarkt.currentValue.viewValue === 'Bauland') {
+        if (changes.teilmarkt && !changes.teilmarkt.firstChange && this.marker.getLngLat()?.lat !== undefined) {
+            if (changes.teilmarkt.currentValue.text === 'Bauland') {
                 this.zoomFactor = this.standardBaulandZoom;
-            } else if (this.marker.getLngLat()?.lat !== 0) {
+            } else {
                 this.zoomFactor = this.standardLandZoom;
             }
             this.map.easeTo({
@@ -195,11 +192,10 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         if (changes.stichtag && !changes.stichtag.firstChange) {
             this.repaintMap();
         }
-        // if (changes.lat && changes.lng && !changes.lng.firstChange && !changes.lat.firstChange) {
-        //     console.log('lngLatChange');
-        //     this.marker.setLngLat([this.lng, this.lat]).addTo(this.map);
-        //     this.flyTo(this.lat, this.lng);
-        // }
+        if (changes.latLng && !changes.latLng.firstChange) {
+            this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
+            this.flyTo(this.latLng[0], this.latLng[1]);
+        }
 
         if (changes.collapsed && this.map) {
             this.map.resize();
@@ -213,32 +209,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 this.resetMapFired = !this.resetMapFired;
             }
         }
-        // if ((changes.adresse && changes.adresse?.currentValue ||
-        //     changes.features && changes.features?.currentValue) && this.map) {
-        //     console.log(this.adresse);
-        //     // this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
-        //     if (!this.fskIsChanged) {
-        //         // this.getFlurstueckFromLatLng(this.lat, this.lng);
-        //     } else {
-        //         this.fskIsChanged = !this.fskIsChanged;
-        //     }
-        // }
+        if (changes.threeDActive?.currentValue && this.map) {
+            this.activate3dView();
+        } else if (changes.threeDActive?.currentValue === false && !changes.threeDActive?.firstChange && this.map) {
+            this.deactivate3dView();
+        }
         // // if (changes.features && !changes.features.firstChange) {
         // //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
         // // }
-        // if (changes.stichtag) {
-        //     if (changes.stichtag.currentValue === '2020-12-31' && this.adresse?.properties.kreis === 'Stadt Bremen') {
-        //         this.alerts.NewAlert(
-        //             'info',
-        //             $localize`Diese Daten sind noch nicht verfügbar!`,
-        //             $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-        //         );
-        //     }
-        // }
-    }
-
-    ngOnInit() {
-        console.log(this.teilmarkt);
     }
 
     loadMap(event: Map) {
@@ -279,12 +257,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         });
     }
 
-    onDragEnd(event: MapMouseEvent | MapTouchEvent) {
-        this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
+    onDragEnd() {
+        this.latLngChange.emit([this.marker.getLngLat().lat, this.marker.getLngLat().lng]);
     }
 
     onMapClickEvent(event: MapMouseEvent | MapTouchEvent) {
-        this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
+        if (event.lngLat) {
+            this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
+        }
     }
 
     public onRotate() {
@@ -430,33 +410,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         }
     }
 
-    // toggle3dView() {
-    //     if (!this.threeDActive) {
-    //         this.activate3dView();
-    //     } else if (this.threeDActive) {
-    //         this.deactivate3dView();
-    //     }
-    //     this.threeDActive = !this.threeDActive;
-    //     // this.changeURL();
-    // }
-
-    // private changeURL() {
-    //     const params = new URLSearchParams({});
-    //     if (this.lat) {
-    //         params.append('lat', this.lat.toString());
-    //     }
-    //     if (this.lng) {
-    //         params.append('lng', this.lng.toString());
-    //     }
-    //     if (this.teilmarkt) {
-    //         params.append('teilmarkt', this.teilmarkt.viewValue.toString());
-    //     }
-    //     if (this.stichtag) {
-    //         params.append('stichtag', this.stichtag.toString());
-    //     }
-    //     this.location.replaceState('/bodenrichtwerte', params.toString());
-    // }
-
     private activate3dView() {
         this.zoomFactor = this.map.getZoom();
         this.map.addLayer({
@@ -504,54 +457,42 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         }
     }
 
-    /**
-     * resetMap resets all configurations set/made by the user
-     */
-    public resetMap() {
-        this.resetMapFired = true;
-        // reset URL
-        this.location.replaceState('/bodenrichtwerte');
-
-        // reset coordinates
-        // this.lat = undefined;
-        // this.lng = undefined;
-
-        // if (this.threeDActive) {
-        //     this.deactivate3dView();
-        //     this.threeDActive = !this.threeDActive;
-        // }
-        if (this.marker) {
-            this.marker.setLngLat([null, null]);
-            this.marker.remove();
-        }
-        // if (this.adresse) {
-        //     this.adresseChange.emit(undefined);
-        // }
-        // if (this.features) {
-        //     this.featuresChange.emit(undefined);
-        // }
-        if (!this.isCollapsed) {
-            this.isCollapsedChange.emit(true);
-        } else {
-            this.map.fitBounds(this.bounds, {
-                pitch: 0,
-                bearing: 0
-            });
-            this.map.resize();
-            this.resetMapFired = !this.resetMapFired;
-        }
-    }
-
     // /**
-    //  * Transforms coordinates from one projection to another projection with EPSG-Codes
-    //  * @param from projection from (EPSG-Code)
-    //  * @param to projection to (EPSG-Code)
-    //  * @param coord coordinate [x, y]
+    //  * resetMap resets all configurations set/made by the user
     //  */
+    // public resetMap() {
+    //     this.resetMapFired = true;
+    //     // reset URL
+    //     this.location.replaceState('/bodenrichtwerte');
 
-    // private transformCoordinates(from: string, to: string, coord: number[]): number[] {
-    //     const result = proj4(from, to).forward(coord);
-    //     return result;
+    //     // reset coordinates
+    //     // this.lat = undefined;
+    //     // this.lng = undefined;
+
+    //     // if (this.threeDActive) {
+    //     //     this.deactivate3dView();
+    //     //     this.threeDActive = !this.threeDActive;
+    //     // }
+    //     if (this.marker) {
+    //         this.marker.setLngLat([null, null]);
+    //         this.marker.remove();
+    //     }
+    //     // if (this.adresse) {
+    //     //     this.adresseChange.emit(undefined);
+    //     // }
+    //     // if (this.features) {
+    //     //     this.featuresChange.emit(undefined);
+    //     // }
+    //     if (!this.isCollapsed) {
+    //         this.isCollapsedChange.emit(true);
+    //     } else {
+    //         this.map.fitBounds(this.bounds, {
+    //             pitch: 0,
+    //             bearing: 0
+    //         });
+    //         this.map.resize();
+    //         this.resetMapFired = !this.resetMapFired;
+    //     }
     // }
 }
 
