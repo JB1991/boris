@@ -41,7 +41,6 @@ export class PublicDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log("HALLO WELT");
         if (isPlatformBrowser(this.platformId)) {
             this.update(true);
         }
