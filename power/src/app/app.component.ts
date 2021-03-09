@@ -70,8 +70,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 const links = this.doc.head.getElementsByTagName('link');
                 for (let i = 0; i < links.length; i++) {
                     if (links[i].getAttribute('rel') === 'canonical') {
-                        links[i].setAttribute('href', 'https://immobilienmarkt.niedersachsen.de' + event.url.split('?')[0]);
-                        links[i].setAttribute('hreflang', this.locale);
+                        links[i].setAttribute('href', 'https://immobilienmarkt.niedersachsen.de'
+                            + (this.locale !== 'de' ? '/' + this.locale : '')
+                            + event.url.split('?')[0]);
                     }
                 }
             }
