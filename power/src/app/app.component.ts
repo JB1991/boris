@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public showBrowserNotice = true;
     public showOfflineNotice = true;
     public config = environment.config;
-    public appVersion: any = { version: 'local', branch: 'dev' };
+    public appVersion: any = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
     public uri = location;
     public baseurl = location.pathname + location.search;
@@ -80,7 +80,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             }, error => {
                 // failed to load
                 console.error('could not load version.json');
-                this.appVersion = { version: 'local', branch: 'offline' };
+                this.appVersion = { version: 'cache', branch: 'offline' };
                 environment.config.version = this.appVersion;
                 this.hasInternet = false;
             });
@@ -95,6 +95,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             this.showOfflineNotice = false;
             this.showBrowserNotice = false;
             this.hasInternet = true;
+            this.appVersion = { version: 'cache', branch: 'rendered' };
+            environment.config.version = this.appVersion;
         }
     }
 
