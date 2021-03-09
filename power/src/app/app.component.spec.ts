@@ -43,8 +43,9 @@ describe('AppComponent', () => {
         app.ngAfterViewChecked();
     }));
 
-    it('should have a version number including a dot', waitForAsync(() => {
-        expect(app.appVersion.version).toEqual('local');
+    it('should have a version number', waitForAsync(() => {
+        expect(app.appVersion.version).toEqual('dev');
+        expect(app.appVersion.branch).toEqual('local');
     }));
 
     it('should load version', () => {
@@ -56,13 +57,13 @@ describe('AppComponent', () => {
     it('should fail load version', () => {
         app.ngOnInit();
         answerHTTPRequest('/assets/version.json', 'GET', null, { status: 404, statusText: 'Not Found' });
-        expect(app.appVersion).toEqual({ version: 'local', branch: 'offline' });
+        expect(app.appVersion).toEqual({ version: 'cache', branch: 'offline' });
     });
 
     it('should fail load version 2', () => {
         app.ngOnInit();
         answerHTTPRequest('/assets/version.json', 'GET', { branch: 'toast' });
-        expect(app.appVersion).toEqual({ version: 'local', branch: 'dev' });
+        expect(app.appVersion).toEqual({ version: 'dev', branch: 'local' });
     });
 
     /**
