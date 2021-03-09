@@ -1,5 +1,5 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { Platform } from '@angular/cdk/platform';
@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     constructor(
         public titleService: Title,
         public meta: Meta,
+        @Inject(DOCUMENT) private doc,
         @Inject(LOCALE_ID) public locale: string,
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -60,9 +61,18 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 this.isCollapsedImmo = true;
 
                 // update baseurl
-                this.baseurl = location.pathname + location.search;
+                this.baseurl = event.url;
                 if (this.baseurl.startsWith('/' + this.locale + '/')) {
                     this.baseurl = this.baseurl.substr(this.locale.length + 1);
+                }
+
+                // update canonical url
+                const links = this.doc.head.getElementsByTagName('link');
+                for (let i = 0; i < links.length; i++) {
+                    if (links[i].getAttribute('rel') === 'canonical') {
+                        links[i].setAttribute('href', 'https://immobilienmarkt.niedersachsen.de' + event.url.split('?')[0]);
+                        links[i].setAttribute('hreflang', this.locale);
+                    }
                 }
             }
         });
