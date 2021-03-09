@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 import { ImmobilienChartOptions } from './immobilien.chartoptions';
@@ -43,11 +43,14 @@ export class ImmobilienComponent implements OnInit {
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
-        private http: HttpClient,
         private titleService: Title,
+        private meta: Meta,
+        private http: HttpClient,
         private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Der Immobilienpreisindex bildet die Preisentwicklung von Eigenheimen und Eigentumswohnungen in Niedersachsen ab` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Immobilienpreisindex, NIPIX, Preisentwicklung, Wohnungsmarktregion, Eigenheim, Eigentumswohnung` });
     }
 
     title = 'lgln';

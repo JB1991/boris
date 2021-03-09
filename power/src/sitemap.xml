@@ -2,26 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://immobilienmarkt.niedersachsen.de/</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>monthly</changefreq>
    </url>
    <url>
       <loc>https://immobilienmarkt.niedersachsen.de/bodenrichtwerte</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>monthly</changefreq>
    </url>
    <url>
       <loc>https://immobilienmarkt.niedersachsen.de/grundstuecksmarktberichte</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>monthly</changefreq>
    </url>
    <url>
       <loc>https://immobilienmarkt.niedersachsen.de/landesgrundstuecksmarktberichte</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>monthly</changefreq>
    </url>
    <url>
       <loc>https://immobilienmarkt.niedersachsen.de/immobilienpreisindex</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>monthly</changefreq>
    </url>
    <url>
       <loc>https://immobilienmarkt.niedersachsen.de/feedback</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>monthly</changefreq>
    </url>
 </urlset>

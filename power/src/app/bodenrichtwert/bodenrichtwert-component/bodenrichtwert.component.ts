@@ -2,7 +2,7 @@ import {
     Component, OnInit, OnDestroy,
     ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import { Feature, FeatureCollection } from 'geojson';
@@ -84,9 +84,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
         private titleService: Title,
+        private meta: Meta,
         private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Wertermittlung, Bodenrichtwerte, BORIS.NI, Bo­den­richt­wert­zo­ne` });
+
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.adresse = adr;
             this.cdr.detectChanges();

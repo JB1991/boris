@@ -95,8 +95,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'getForm').and.returnValue(Promise.reject('Failed 1'));
 
         component.updateForm(true).then(() => {
-            expect(component.form).toBeNull();
-            expect(component.tasks.length).toEqual(0);
+            expect(component.form).toBeUndefined();
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
     });

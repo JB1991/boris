@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
@@ -40,12 +40,15 @@ export class DashboardComponent implements OnInit {
 
     constructor(
         public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public formAPI: FormAPIService
     ) {
         this.titleService.setTitle($localize`Dashboard - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
     ngOnInit() {

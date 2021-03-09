@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -24,12 +24,17 @@ export class PublicDashboardComponent implements OnInit {
     public sort: PublicFormField = 'extract';
     public desc = false;
 
-    constructor(public titleService: Title,
+    constructor(
+        public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public formAPI: FormAPIService) {
+        public formAPI: FormAPIService
+    ) {
         this.titleService.setTitle($localize`Öffentliche Formulare - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
     ngOnInit() {

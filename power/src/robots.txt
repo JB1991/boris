@@ -1,9 +1,5 @@
 User-agent: *
-Disallow: /geoserver/
-Disallow: /geocoding/
-Disallow: /feedback-rss/
 Disallow: /boris-print/
-Disallow: /formapi/
 Disallow: /forms/fillout/
 Disallow: /login
 Disallow: /logout

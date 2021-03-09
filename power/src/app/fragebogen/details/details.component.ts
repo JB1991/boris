@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -41,15 +41,19 @@ export class DetailsComponent implements OnInit {
     public taskSort: TaskField = 'updated';
     public taskSortDesc = true;
 
-    constructor(public titleService: Title,
+    constructor(
+        public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public formapi: FormAPIService,
-        public auth: AuthService) {
+        public auth: AuthService
+    ) {
         this.titleService.setTitle($localize`Formular Details - Immobilienmarkt.NI`);
-        this.resetService();
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
     ngOnInit() {
@@ -99,12 +103,6 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public resetService() {
-        this.form = null;
-        this.tasks = [];
-        this.taskTotal = 0;
-        this.taskPerPage = 5;
-    }
     /**
      * Deletes form
      */

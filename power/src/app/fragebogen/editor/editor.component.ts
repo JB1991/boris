@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult, ContainerOptions } from 'ngx-smooth-dnd';
 import { environment } from '@env/environment';
@@ -31,16 +31,22 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     public timerHandle: NodeJS.Timeout;
     public favorites = [];
 
-    constructor(public route: ActivatedRoute,
+    constructor(
+        public route: ActivatedRoute,
         public router: Router,
         public titleService: Title,
+        public meta: Meta,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public storage: StorageService,
         public formapi: FormAPIService,
         public history: HistoryService,
-        public cdr: ChangeDetectorRef) {
+        public cdr: ChangeDetectorRef
+    ) {
         this.titleService.setTitle($localize`Formular Editor - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
+
         this.storage.resetService();
         this.history.resetService();
     }

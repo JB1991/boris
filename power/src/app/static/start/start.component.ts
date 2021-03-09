@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
@@ -16,11 +16,17 @@ export class StartComponent {
     public cardorder = {};
     public pin: string;
 
-    constructor(public title: Title,
+    constructor(
+        public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
-        public alerts: AlertsService) {
-        this.title.setTitle($localize`Immobilienmarkt.NI`);
+        public alerts: AlertsService
+    ) {
+        this.titleService.setTitle($localize`Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS.NI, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+
         // check if logged out
         /* istanbul ignore next */
         this.route.queryParams.subscribe(params => {

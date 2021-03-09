@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthService } from '@app/shared/auth/auth.service';
@@ -25,13 +25,17 @@ export class FeedbackComponent implements OnInit {
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
         public titleService: Title,
+        public meta: Meta,
         private httpClient: HttpClient,
         public auth: AuthService,
-        public alerts: AlertsService,) {
+        public alerts: AlertsService
+    ) {
         this.titleService.setTitle($localize`Feedback - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Helfen Sie uns unseren Service zu verbessern, indem Sie uns wertvolles Feedback senden` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Feedback` });
     }
 
-    public async ngOnInit() {
+    async ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
             await this.loadRSSFeed();
         }
