@@ -259,7 +259,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     public changeURL() {
         const params = new URLSearchParams({});
-        if (this.latLng) {
+        if (this.latLng?.length) {
             params.append('lat', this.latLng[0].toString());
             params.append('lng', this.latLng[1].toString());
         }
