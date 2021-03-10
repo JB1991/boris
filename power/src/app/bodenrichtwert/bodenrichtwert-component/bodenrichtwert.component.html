@@ -82,10 +82,12 @@
                 (click)="isCollapsed = !isCollapsed"
                 [attr.aria-expanded]="!isCollapsed"
                 aria-controls="collapseBasic">
-            <img src="{{ isCollapsed ? '/assets/icons/chevron-left.svg' : '/assets/icons/chevron-right.svg'}}"
-                 alt="Einklappen/ausklappen"
-                 class="h-100 w-100"
-                 i18n-alt>
+            <i class="bi"
+               role="img"
+               i18n-aria-label
+               aria-label="Detailansicht ein- bzw. ausklappen"
+               [class.bi-chevron-left]="isCollapsed"
+               [class.bi-chevron-right]="!isCollapsed"></i>
         </button>
         <div [class]="isCollapsed ? 'col-36 border-top' : 'col-lg-18 border-bottom'">
             <div class="row border-bottom">
@@ -104,11 +106,12 @@
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseBasic">
-                    <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
-                         width="80"
-                         height="25"
-                         alt="Einklappen/ausklappen"
-                         i18n-alt>
+                    <i class="bi"
+                       role="img"
+                       i18n-aria-label
+                       aria-label="Detailansicht ein- bzw. ausklappen"
+                       [class.bi-chevron-up]="isCollapsed"
+                       [class.bi-chevron-down]="!isCollapsed"></i>
                 </button>
                 <!-- Case 2 -->
                 <button *ngIf="!adresse && features && features.features.length"

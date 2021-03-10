@@ -11,7 +11,7 @@
                             <div class="nav px-auto w-50 offset-md-3"
                                  style="position: relative;">
                                 <power-geosearch (selectResult)="flyTo($event)"></power-geosearch>
-                                <!-- Following button is for SR-User, so they are able to use these service. 
+                                <!-- Following button is for SR-User, so they are able to use these service.
                                 <button class="nav-link btn"
                                         type="button"
                                         (click)="selectingFlurstueck()"
@@ -393,11 +393,12 @@
                             [attr.aria-expanded]="!isCollapsed"
                             aria-controls="collapseBasic">
                         <span i18n>Flurstücksauswahl</span>
-                        <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
-                             width="25"
-                             height="25"
-                             alt="Einklappen/ausklappen"
-                             i18n-alt>
+                        <i class="bi"
+                           role="img"
+                           i18n-aria-label
+                           aria-label="Detailansicht ein- bzw. ausklappen"
+                           [class.bi-chevron-up]="isCollapsed"
+                           [class.bi-chevron-down]="!isCollapsed"></i>
                     </button>
                 </div>
             </div>
