@@ -182,6 +182,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.adresseSubscription.unsubscribe();
         this.featureSubscription.unsubscribe();
+        this.flurstueckSubscription.unsubscribe();
     }
 
     /**

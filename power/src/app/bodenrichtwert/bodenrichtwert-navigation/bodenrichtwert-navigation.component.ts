@@ -52,9 +52,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     public filterActive = false;
     public functionsActive = false;
 
-    public fskIsChanged = false;
-
-
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
         public bodenrichtwert: BodenrichtwertComponent,
@@ -65,25 +62,20 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         private location: Location,) { }
 
     ngOnChanges(changes: SimpleChanges) {
+        if (this.latLng?.length &&
+            ((changes.latLng && changes.latLng.currentValue) ||
+                (changes.teilmarkt && !changes.teilmarkt.firstChange) ||
+                (changes.stichtag && !changes.stichtag.firstChange))) {
+            this.updateData();
+        }
+    }
 
-        if (this.latLng?.length && ((changes.latLng && changes.latLng.currentValue) ||
-            (changes.teilmarkt && !changes.teilmarkt.firstChange) ||
-            (changes.stichtag && !changes.stichtag.firstChange))) {
-            this.getAddressFromLatLng(this.latLng[0], this.latLng[1]);
-            this.getBodenrichtwertzonen(this.latLng[0], this.latLng[1], this.teilmarkt.value);
-            if (!this.fskIsChanged) {
-                this.getFlurstueckFromLatLng(this.latLng[0], this.latLng[1]);
-            } else {
-                this.fskIsChanged = !this.fskIsChanged;
-            }
-        }
-        if (changes.stichtag && changes.stichtag.currentValue === '2020-12-31' && this.adresse?.properties.kreis === 'Stadt Bremen') {
-            this.alerts.NewAlert(
-                'info',
-                $localize`Diese Daten sind noch nicht verfügbar!`,
-                $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-            );
-        }
+    private updateData() {
+        const lat = this.latLng[0];
+        const lng = this.latLng[1];
+        this.getAddressFromLatLng(lat, lng);
+        this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
+        this.getFlurstueckFromLatLng(lat, lng);
     }
 
     public getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>): void {
@@ -118,19 +110,37 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             );
     };
 
+    public getFlurstueckFromLatLng(lat: number, lng: number): void {
+        this.alkisWfsService.getFlurstueckfromCoordinates(lng, lat).subscribe(
+            res => this.alkisWfsService.updateFeatures(res),
+            err => {
+                console.log(err);
+                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
+            }
+        );
+    };
+
     /**
      * onStichtagChange changes the stichtag to another stichtag and
      * updates the brw/url
      * @param stichtag stichtag to be switched to
      */
     public onStichtagChange(stichtag: string): void {
-        // push info alert
-        if (this.stichtag !== stichtag) {
+        // push info alert for data bremen 2020
+        if (stichtag === '2020-12-31' && this.adresse?.properties.kreis === 'Stadt Bremen') {
+            this.alerts.NewAlert(
+                'info',
+                $localize`Diese Daten sind noch nicht verfügbar!`,
+                $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
+            );
+            // push info alert for stichtag changed
+        } else if (this.stichtag !== stichtag) {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
                 $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
         }
+
         this.stichtagChange.emit(stichtag);
     }
 
@@ -150,11 +160,44 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         this.teilmarktChange.emit(teilmarkt);
     }
 
-    public onAdressChange(feature: Feature): void {
+    /**
+     * onAddressChange
+     * @param feature feature
+     */
+    public onAddressChange(feature: Feature): void {
         this.latLngChange.emit([feature?.geometry['coordinates'][1], feature?.geometry['coordinates'][0]]);
     }
 
-    toggle3dView() {
+    /**
+     * onFlurstueckChange
+     * @param fts features
+     */
+    public onFlurstueckChange(fts: FeatureCollection): void {
+        const latLng = this.pointOnFlurstueck(fts.features[0]);
+        this.latLngChange.emit([latLng[1], latLng[0]]);
+    }
+
+    /**
+     * pointOnFlurstueck returns a point (transformed to wgs84) guranteed to be on the feature
+     */
+    public pointOnFlurstueck(ft: Feature): number[] {
+        const polygon = turf.polygon(ft.geometry['coordinates']);
+        const point = turf.pointOnFeature(polygon);
+        const wgs84_point = this.transformCoordinates(
+            epsg['EPSG:3857'],
+            epsg['EPSG:4326'],
+            [
+                point.geometry.coordinates[0],
+                point.geometry.coordinates[1]
+            ]
+        );
+        return wgs84_point;
+    }
+
+    /**
+     * toggle3dView
+     */
+    public toggle3dView() {
         this.threeDActiveChange.emit(!this.threeDActive);
     }
 
@@ -198,45 +241,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         // reset URL
         this.location.replaceState('/bodenrichtwerte');
     }
-
-    /**
-     * Update Address, BRZ, Marker, Map, URL onFlurstueckChange
-     */
-    public onFlurstueckChange(): void {
-        const wgs84_coords = this.pointOnFlurstueck();
-        this.fskIsChanged = !this.fskIsChanged;
-        this.latLngChange.emit([wgs84_coords[1], wgs84_coords[0]]);
-    }
-
-    /**
-     * pointOnFlurstueck returns a point (transformed to wgs84) guranteed to be on the feature
-     */
-    public pointOnFlurstueck(): number[] {
-        const polygon = turf.polygon(this.flurstueck.features[0].geometry['coordinates']);
-        const point = turf.pointOnFeature(polygon);
-        const wgs84_point = this.transformCoordinates(
-            epsg['EPSG:3857'],
-            epsg['EPSG:4326'],
-            [
-                point.geometry.coordinates[0],
-                point.geometry.coordinates[1]
-            ]
-        );
-        return wgs84_point;
-    }
-
-    public getFlurstueckFromLatLng(lat: number, lng: number): void {
-        this.alkisWfsService.getFlurstueckfromCoordinates(lng, lat).subscribe(
-            res => this.alkisWfsService.updateFeatures(res),
-            err => {
-                console.log(err);
-                this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
-            }
-        );
-    };
-
-
-
 
     enableLocationTracking() {
         if (navigator.geolocation) {
