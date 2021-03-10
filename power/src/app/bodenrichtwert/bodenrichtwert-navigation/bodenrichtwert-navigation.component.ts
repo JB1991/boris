@@ -75,8 +75,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         const lng = this.latLng[1];
         this.getAddressFromLatLng(lat, lng);
         this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
-
-        // get called twice searching a flurstueck
         this.getFlurstueckFromLatLng(lat, lng);
     }
 
