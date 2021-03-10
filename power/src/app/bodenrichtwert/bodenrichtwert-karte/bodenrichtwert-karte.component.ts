@@ -145,7 +145,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         draggable: true
     }).on('dragend', () => {
         this.onDragEnd();
-    })
+    });
 
     @Input() latLng: Array<number>;
     @Output() latLngChange = new EventEmitter<Array<number>>();
@@ -174,12 +174,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         public geosearchService: GeosearchService,
         public alkisWfsService: AlkisWfsService,
         public alerts: AlertsService,
-    ) {
-    }
+    ) { }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
         if (this.map) {
+            // Teilmarkt changed
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
                 this.determineZoomFactor();
                 this.map.easeTo({
@@ -187,42 +187,50 @@ export class BodenrichtwertKarteComponent implements OnChanges {
                     center: this.latLng.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
                 });
             }
+            // Stichtag changed
             if (changes.stichtag && !changes.stichtag.firstChange) {
-                this.onMoveEnd();
+                // needed to update labeling
+                this.map.easeTo({
+                    zoom: this.map.getZoom()
+                });
             }
-            if (changes.latLng && changes.latLng.currentValue) {
-
-                if (changes.latLng.currentValue !== undefined) {
-                    this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
-                    if (this.expanded) {
-                        this.flyTo(this.latLng[0], this.latLng[1]);
-                    }
+            // latLng changed
+            if (changes.latLng && changes.latLng.currentValue !== undefined) {
+                this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
+                if (this.expanded) {
+                    this.flyTo(this.latLng[0], this.latLng[1]);
                 }
             }
+            // collapsed
             if (changes.collapsed) {
                 this.map.resize();
+                // resetMap only if details was expanded
                 if (this.resetMapFired) {
                     this.onResetMap();
                 }
             }
+            // expanded
             if (changes.expanded && this.latLng) {
                 if (changes.expanded.currentValue) {
                     this.flyTo(this.latLng[0], this.latLng[1]);
                 }
             }
+            // resetMapFired triggered by navigation resetMap only if details are collapsed
             if (changes.resetMapFired?.currentValue && !changes.resetMapFired.firstChange) {
                 if (this.collapsed) {
                     this.onResetMap();
                 }
             }
+            // threeDActive
             if (changes.threeDActive?.currentValue) {
                 this.activate3dView();
             } else if (changes.threeDActive?.currentValue === false && !changes.threeDActive?.firstChange) {
                 this.deactivate3dView();
             }
-            // // if (changes.features && !changes.features.firstChange) {
-            // //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
-            // // }
+            // 3D-Modus temporarly deactivated (WIP)
+            // if (changes.features && !changes.features.firstChange) {
+            //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
+            // }
         }
     }
 
@@ -244,7 +252,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
     }
 
-    loadMap(event: Map) {
+    public loadMap(event: Map) {
         this.map = event;
 
         this.map.addSource('geoserver_br_br', this.bremenSource);
@@ -254,13 +262,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
         if (this.latLng.length) {
+            this.map.resize();
             this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
             this.flyTo(this.latLng[0], this.latLng[1]);
         }
-
     }
 
-    flyTo(lat: number, lng: number) {
+    private flyTo(lat: number, lng: number) {
         this.determineZoomFactor();
         this.map.flyTo({
             center: [lng, lat],
@@ -271,8 +279,10 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         });
     }
 
-    onDragEnd() {
-        this.latLngChange.emit([this.marker.getLngLat().lat, this.marker.getLngLat().lng]);
+    public onDragEnd() {
+        const lat = this.marker.getLngLat().lat;
+        const lng = this.marker.getLngLat().lng;
+        this.latLngChange.emit([lat, lng]);
     }
 
     onMapClickEvent(event: MapMouseEvent | MapTouchEvent) {
