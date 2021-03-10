@@ -180,16 +180,11 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
         if (this.map) {
-            if (changes.teilmarkt && !changes.teilmarkt.firstChange && this.marker.getLngLat()?.lat && !this.resetMapFired) {
-                if (changes.teilmarkt.currentValue.text === 'Bauland') {
-                    this.zoomFactor = this.standardBaulandZoom;
-                } else {
-                    this.zoomFactor = this.standardLandZoom;
-                }
-                this.onMoveEnd();
+            if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
+                this.determineZoomFactor();
                 this.map.easeTo({
                     zoom: this.zoomFactor,
-                    center: this.marker.getLngLat()
+                    center: this.latLng.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
                 });
             }
             if (changes.stichtag && !changes.stichtag.firstChange) {
@@ -231,6 +226,24 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
     }
 
+    private determineZoomFactor() {
+        const currentZoom = this.map.getZoom();
+        // Landwirtschaft
+        if (this.teilmarkt.text !== 'Bauland') {
+            this.zoomFactor = this.standardLandZoom;
+            // if (currentZoom > 10) {
+            //     this.zoomFactor = currentZoom;
+            // } else {
+            //     this.zoomFactor = this.standardLandZoom;
+            // }
+            // Bauland
+            // } else if (currentZoom > 11) {
+            // this.zoomFactor = currentZoom;
+        } else {
+            this.zoomFactor = this.standardBaulandZoom;
+        }
+    }
+
     loadMap(event: Map) {
         this.map = event;
 
@@ -247,19 +260,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
     }
 
-    flyTo(lat: number, lng: number, eventType?: MouseEvent) {
-        const currentZoom = this.map.getZoom();
-        if (this.teilmarkt.text !== 'Bauland' && !eventType) {
-            if (currentZoom > 10) {
-                this.zoomFactor = currentZoom;
-            } else {
-                this.zoomFactor = this.standardLandZoom;
-            }
-        } else if (currentZoom > 11 && !eventType) {
-            this.zoomFactor = currentZoom;
-        } else {
-            this.zoomFactor = this.standardBaulandZoom;
-        }
+    flyTo(lat: number, lng: number) {
+        this.determineZoomFactor();
         this.map.flyTo({
             center: [lng, lat],
             zoom: this.zoomFactor,

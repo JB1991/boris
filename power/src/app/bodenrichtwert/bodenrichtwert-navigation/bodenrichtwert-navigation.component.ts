@@ -63,9 +63,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (this.latLng?.length &&
-            ((changes.latLng && changes.latLng.currentValue) ||
-                (changes.teilmarkt && !changes.teilmarkt.firstChange) ||
-                (changes.stichtag && !changes.stichtag.firstChange))) {
+            (changes.latLng || changes.teilmarkt || changes.stichtag)) {
             this.updateData();
         }
     }
@@ -205,8 +203,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * resetMap resets all configurations set/made by the user
      */
     public resetMap() {
-
-
         // reset coordinates
         if (this.latLng) {
             this.latLngChange.emit(undefined);
