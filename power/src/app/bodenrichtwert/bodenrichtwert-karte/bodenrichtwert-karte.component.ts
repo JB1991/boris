@@ -196,6 +196,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
                 if (this.marker) {
                     this.marker.setLngLat([null, null]);
                     this.marker.remove();
+                    if (this.collapsed) {
+                        this.map.resize();
+                        this.map.fitBounds(this.bounds, {
+                            pitch: 0,
+                            bearing: 0
+                        });
+                    }
                 }
             } else {
                 this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
