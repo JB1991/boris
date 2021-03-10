@@ -7,11 +7,11 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
-    const changes: SimpleChanges = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-changes.json');
-    const features = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-features.json');
-    const featureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
-    const series = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-series.json');
-    const deleteSeries = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-deleteSeries.json');
+    const changes: SimpleChanges = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-changes.json');
+    const features = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-features.json');
+    const featureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
+    const series = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-series.json');
+    const deleteSeries = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-deleteSeries.json');
 
     let component: BodenrichtwertVerlaufComponent;
     let fixture: ComponentFixture<BodenrichtwertVerlaufComponent>;
@@ -185,9 +185,9 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(result).toEqual('2020-12-31');
     });
 
-    it ('getCurrentYear should caculate the current year', () => {
+    it('getCurrentYear should caculate the current year', () => {
         const res = component.getCurrentYear();
-        expect(typeof(res)).toBe('number');
+        expect(typeof (res)).toBe('number');
     });
 
     it('getBremerhavenStichtag should calculate last Stichtag of Bremerhaven', () => {

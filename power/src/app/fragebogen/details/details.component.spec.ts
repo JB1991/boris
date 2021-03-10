@@ -19,10 +19,10 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
     let fixture: ComponentFixture<DetailsComponent>;
 
-    const getTags = require('../../../assets/fragebogen/get-tags.json');
-    const getForm = require('../../../assets/fragebogen/get-form.json');
-    const getTasks = require('../../../assets/fragebogen/get-tasks.json');
-    const getTask = require('../../../assets/fragebogen/get-task.json');
+    const getTags = require('../../../testdata/fragebogen/get-tags.json');
+    const getForm = require('../../../testdata/fragebogen/get-form.json');
+    const getTasks = require('../../../testdata/fragebogen/get-tasks.json');
+    const getTask = require('../../../testdata/fragebogen/get-task.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

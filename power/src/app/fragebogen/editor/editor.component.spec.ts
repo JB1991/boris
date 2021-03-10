@@ -22,10 +22,10 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     let component: EditorComponent;
     let fixture: ComponentFixture<EditorComponent>;
 
-    const formContent = require('../../../assets/fragebogen/form-content.json');
-    const getForm = require('../../../assets/fragebogen/get-form.json');
-    const getElements = require('../../../assets/fragebogen/get-elements.json');
-    const getElement = require('../../../assets/fragebogen/get-element.json');
+    const formContent = require('../../../testdata/fragebogen/form-content.json');
+    const getForm = require('../../../testdata/fragebogen/get-form.json');
+    const getElements = require('../../../testdata/fragebogen/get-elements.json');
+    const getElement = require('../../../testdata/fragebogen/get-element.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
