@@ -530,14 +530,14 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             }
 
             if (this.map.getZoom() > 15) {
-                const p = turf.pointOnFeature(featureView)
+                const p = turf.pointOnFeature(featureView);
 
                 if (p) {
                     return {
                         type: 'Feature',
                         geometry: p.geometry,
                         properties: properties,
-                    }
+                    };
                 }
             }
 
