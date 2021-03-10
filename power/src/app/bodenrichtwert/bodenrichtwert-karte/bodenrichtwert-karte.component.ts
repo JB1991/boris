@@ -174,14 +174,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         public geosearchService: GeosearchService,
         public alkisWfsService: AlkisWfsService,
         public alerts: AlertsService,
-    ) { }
+    ) {
+    }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
-
         if (this.map) {
-            console.log(changes.latLng);
-            if (changes.teilmarkt && !changes.teilmarkt.firstChange && this.marker.getLngLat()?.lat !== undefined) {
+            if (changes.teilmarkt && !changes.teilmarkt.firstChange && this.marker.getLngLat()?.lat && !this.resetMapFired) {
                 if (changes.teilmarkt.currentValue.text === 'Bauland') {
                     this.zoomFactor = this.standardBaulandZoom;
                 } else {
@@ -241,10 +240,10 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
-        // if (this.latLng.length) {
-        //     this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
-        //     this.flyTo(this.latLng[0], this.latLng[1]);
-        // }
+        if (this.latLng.length) {
+            this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
+            this.flyTo(this.latLng[0], this.latLng[1]);
+        }
 
     }
 
