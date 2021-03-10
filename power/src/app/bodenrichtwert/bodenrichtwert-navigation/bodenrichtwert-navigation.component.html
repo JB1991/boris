@@ -302,12 +302,12 @@
 
 <ng-template #geosearchBar>
     <power-geosearch #geosearchComponent
-                     (selectResult)="onAdressChange($event)"
+                     (selectResult)="onAddressChange($event)"
                      [adresse]="adresse">
         <!-- (selectResult)="onSearchSelect($event)" -->
     </power-geosearch>
 </ng-template>
 
 <power-flurstueck-search #flurstueckssearch
-                         (fskChange)="onFlurstueckChange()">
+                         (selectFlurstueckResult)="onFlurstueckChange($event)">
 </power-flurstueck-search>
