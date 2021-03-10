@@ -174,8 +174,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         public geosearchService: GeosearchService,
         public alkisWfsService: AlkisWfsService,
         public alerts: AlertsService,
-    ) {
-    }
+    ) { }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {

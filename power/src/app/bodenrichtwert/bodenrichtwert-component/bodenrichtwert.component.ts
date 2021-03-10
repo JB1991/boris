@@ -253,7 +253,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
         }
 
-        // return url
         return url;
     }
 
