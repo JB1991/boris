@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { BodenrichtwertComponent } from './bodenrichtwert.component';
-import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/karte/bodenrichtwert-karte.component';
+import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertVerlaufComponent } from '../bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
