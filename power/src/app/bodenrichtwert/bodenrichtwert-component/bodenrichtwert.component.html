@@ -5,13 +5,17 @@
              [class]="isCollapsed ? 'col d-block' : 'col-lg-6'">
             <!-- map component -->
             <power-bodenrichtwert-navigation [(stichtag)]="stichtag"
+                                             (stichtagChange)="changeURL()"
                                              [(teilmarkt)]="teilmarkt"
+                                             (teilmarktChange)="changeURL()"
                                              [(flurstueck)]="flurstueck"
                                              [(features)]="features"
                                              [(adresse)]="adresse"
                                              [(isCollapsed)]="isCollapsed"
                                              [(threeDActive)]="threeDActive"
-                                             [(latLng)]="latLng">
+                                             [(latLng)]="latLng"
+                                             (latLngChange)="changeURL()"
+                                             [(resetMapFired)]="resetMapFired">
                 <!-- 
                                              [collapsed]="collapsed"
                                              [expanded]="expanded" -->
@@ -23,7 +27,9 @@
                                        [stichtag]="stichtag"
                                        [teilmarkt]="teilmarkt"
                                        [(latLng)]="latLng"
-                                       [threeDActive]="threeDActive">
+                                       (latLngChange)="changeURL()"
+                                       [threeDActive]="threeDActive"
+                                       [(resetMapFired)]="resetMapFired">
                 <!-- [(flurstueck)]="flurstueck"
                                        [(adresse)]="adresse"
                                        [(features)]="features" -->

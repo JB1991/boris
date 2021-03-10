@@ -505,7 +505,6 @@
 
     <mgl-map (click)="onMapClickEvent($event)"
              (moveEnd)="onMoveEnd()"
-             (resize)="onMoveEnd()"
              (load)="loadMap($event)"
              (rotate)="onRotate()"
              [bounds]="bounds"
@@ -572,7 +571,7 @@
                             'stops' : [[11,0],[13,1]]
                         }
                     }"
-                   [layout]="teilmarkt?.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
@@ -591,7 +590,7 @@
                                 'stops' : [[11,0],[13,.6]]
                             }
                     }"
-                   [layout]="teilmarkt?.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
@@ -609,7 +608,7 @@
                             'stops' : [[8,0],[10,1]]
                         }
                     }"
-                   [layout]="teilmarkt?.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
+                   [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]">
         </mgl-layer>
 
@@ -628,7 +627,7 @@
                             'stops' : [[11,0],[13,1]]
                         }
                     }"
-                   [layout]="teilmarkt?.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'entw', 'B', 'SF', 'R', 'E'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
@@ -647,7 +646,7 @@
                                 'stops' : [[11,0],[13,.6]]
                             }
                     }"
-                   [layout]="teilmarkt?.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
+                   [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
         </mgl-layer>
 
@@ -665,7 +664,7 @@
                             'stops' : [[8,0],[10,1]]
                         }
                     }"
-                   [layout]="teilmarkt?.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
+                   [layout]="teilmarkt.value.includes('LF') ? {visibility: 'visible'} : {visibility: 'none'}"
                    [filter]="['all',['==', 'entw', 'LF'], ['==','stag',stichtag]]">
         </mgl-layer>
 

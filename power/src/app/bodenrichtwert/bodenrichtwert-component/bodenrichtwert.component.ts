@@ -1,6 +1,6 @@
 import {
     Component, OnDestroy,
-    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, OnInit, DoCheck
+    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, OnInit, Input
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.servic
 import { ConfigService } from '@app/config.service';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 
 export interface Teilmarkt {
     value: Array<string>
@@ -30,7 +30,7 @@ export interface Teilmarkt {
     providers: [DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
+export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
      * Adresse to be shown
@@ -72,7 +72,7 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
      */
     public teilmarkt: Teilmarkt;
 
-    public latLng: Array<number>;
+    public latLng: Array<number> = [];
 
     /**
      * isCollapsed holds the state for details component collapsed or not (click events)
@@ -97,6 +97,8 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
     public hintsActive = false;
 
     public threeDActive = false;
+
+    public resetMapFired = false;
 
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
@@ -130,7 +132,8 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
         public configService: ConfigService,
         private titleService: Title,
         private cdr: ChangeDetectorRef,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private location: Location
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
@@ -161,38 +164,17 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
 
             // teilmarkt
             if (params['teilmarkt']) {
-                this.teilmarkt = params['teilmarkt'];
+                const filteredTeilmarkt = this.TEILMAERKTE.filter((res: Teilmarkt) => res.text === params['teilmarkt']);
+                this.teilmarkt = filteredTeilmarkt[0];
             }
 
             // stichtag
             if (params['stichtag']) {
-                this.teilmarkt = params['teilmarkt'];
+                this.stichtag = params['stichtag'];
             }
             this.cdr.detectChanges();
-
         });
     }
-
-    ngDoCheck() {
-
-    }
-
-    // private changeURL() {
-    //     const params = new URLSearchParams({});
-    //     if (this.lat) {
-    //         params.append('lat', this.lat.toString());
-    //     }
-    //     if (this.lng) {
-    //         params.append('lng', this.lng.toString());
-    //     }
-    //     if (this.teilmarkt) {
-    //         params.append('teilmarkt', this.teilmarkt.viewValue.toString());
-    //     }
-    //     if (this.stichtag) {
-    //         params.append('stichtag', this.stichtag.toString());
-    //     }
-    //     this.location.replaceState('/bodenrichtwerte', params.toString());
-    // }
 
     /**
      * Destroys all active subscriptions
@@ -272,6 +254,21 @@ export class BodenrichtwertComponent implements OnInit, DoCheck, OnDestroy {
 
         // return url
         return url;
+    }
+
+    public changeURL() {
+        const params = new URLSearchParams({});
+        if (this.latLng) {
+            params.append('lat', this.latLng[0].toString());
+            params.append('lng', this.latLng[1].toString());
+        }
+        if (this.teilmarkt) {
+            params.append('teilmarkt', this.teilmarkt.text.toString());
+        }
+        if (this.stichtag) {
+            params.append('stichtag', this.stichtag.toString());
+        }
+        this.location.replaceState('/bodenrichtwerte', params.toString());
     }
 
     /**

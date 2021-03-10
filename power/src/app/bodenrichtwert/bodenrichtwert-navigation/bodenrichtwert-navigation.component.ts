@@ -45,6 +45,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     @Input() threeDActive: boolean;
     @Output() threeDActiveChange = new EventEmitter<boolean>();
 
+    @Input() resetMapFired: boolean;
+    @Output() resetMapFiredChange = new EventEmitter<boolean>();
+
     public searchActive = false;
     public filterActive = false;
     public functionsActive = false;
@@ -65,7 +68,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         if (changes.latLng && !changes.latLng.firstChange && changes.latLng.currentValue !== undefined) {
             this.getAddressFromLatLng(this.latLng[0], this.latLng[1]);
             this.getBodenrichtwertzonen(this.latLng[0], this.latLng[1], this.teilmarkt.value);
-
             if (!this.fskIsChanged) {
                 this.getFlurstueckFromLatLng(this.latLng[0], this.latLng[1]);
             } else {
@@ -78,6 +80,10 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 $localize`Diese Daten sind noch nicht verfügbar!`,
                 $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
             );
+        }
+        if (changes.teilmarkt || changes.Stichtag) {
+            this.getAddressFromLatLng(this.latLng[0], this.latLng[1]);
+            this.getBodenrichtwertzonen(this.latLng[0], this.latLng[1], this.teilmarkt.value);
         }
     }
 
@@ -126,7 +132,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 $localize`Stichtag gewechselt`,
                 $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
         }
-
         this.stichtagChange.emit(stichtag);
     }
 
@@ -135,15 +140,14 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * updates the brw/url
      * @param teilmarkt teilmarkt to be switched to
      */
-    public onTeilmarktChange(teilmarkt: any): void {
+    public onTeilmarktChange(teilmarkt: Teilmarkt): void {
         // push info alert
         if (this.teilmarkt !== teilmarkt) {
             this.alerts.NewAlert(
                 'info',
                 $localize`Teilmarkt gewechselt`,
-                $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
+                $localize`Der Teilmarkt wurde zu ` + teilmarkt.text + $localize` gewechselt.`);
         }
-
         this.teilmarktChange.emit(teilmarkt);
     }
 
@@ -163,7 +167,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         this.location.replaceState('/bodenrichtwerte');
 
         // reset coordinates
-        this.latLngChange.emit(undefined);
+        if (this.latLng) {
+            this.latLngChange.emit(undefined);
+        }
 
         if (this.threeDActive) {
             this.threeDActiveChange.emit(false);
@@ -188,6 +194,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         if (this.stichtag !== this.bodenrichtwert.STICHTAGE[0]) {
             this.stichtagChange.emit(this.bodenrichtwert.STICHTAGE[0]);
         }
+
+        this.resetMapFiredChange.emit(true);
     }
 
     /**
@@ -225,6 +233,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             }
         );
     };
+
+
+
 
     enableLocationTracking() {
         if (navigator.geolocation) {
