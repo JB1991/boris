@@ -195,7 +195,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
                 this.onMoveEnd();
             }
             if (changes.latLng && changes.latLng.currentValue) {
-
                 if (changes.latLng.currentValue !== undefined) {
                     this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
                     if (this.expanded) {
@@ -224,12 +223,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             } else if (changes.threeDActive?.currentValue === false && !changes.threeDActive?.firstChange) {
                 this.deactivate3dView();
             }
-            // // if (changes.features && !changes.features.firstChange) {
-            // //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
-            // // }
+            // if (changes.features && !changes.features.firstChange) {
+            //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
+            // }
         }
     }
 
+    // TODO: if detailsComponent (feature and adress available) is expanded the map does not set col to 6 
     loadMap(event: Map) {
         this.map = event;
 
@@ -243,7 +243,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
             this.flyTo(this.latLng[0], this.latLng[1]);
         }
-
     }
 
     flyTo(lat: number, lng: number, eventType?: MouseEvent) {
