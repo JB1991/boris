@@ -62,17 +62,10 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         private location: Location,) { }
 
     ngOnChanges(changes: SimpleChanges) {
-<<<<<<< HEAD
-        if (((changes.latLng && !changes.latLng.firstChange) ||
-            (changes.teilmarkt && !changes.teilmarkt.firstChange) ||
-            (changes.stichtag && !changes.stichtag.firstChange)) && this.latLng?.length
-        ) {
-=======
         if (this.latLng?.length &&
             ((changes.latLng && changes.latLng.currentValue) ||
                 (changes.teilmarkt && !changes.teilmarkt.firstChange) ||
                 (changes.stichtag && !changes.stichtag.firstChange))) {
->>>>>>> 66cae4ef90b686c87d5f1eb6140c6cf743ca4d24
             this.updateData();
         }
     }
