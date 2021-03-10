@@ -149,7 +149,7 @@ export function init(Survey) {
                         return Number(value).toFixed(question.decimals);
                     },
                     from: function (value) {
-                        return Number(value).toFixed(question.decimals);
+                        return question.decimals > 0 ? parseFloat(value) : parseInt(value);
                     }
                 },
                 range: {

@@ -406,9 +406,8 @@
                         <input type="number"
                                class="form-control"
                                step="1"
-                               min="0"
                                [(ngModel)]="model.pages[page].elements[question].rangeMin"
-                               [class.is-invalid]="model.pages[page].elements[question].rangeMin % 1 !== 0 || model.pages[page].elements[question].rangeMin < 0 || model.pages[page].elements[question].rangeMin >= model.pages[page].elements[question].rangeMax"
+                               [class.is-invalid]="model.pages[page].elements[question].rangeMin % 1 !== 0 || model.pages[page].elements[question].rangeMin >= model.pages[page].elements[question].rangeMax"
                                name="question-rangeMin"
                                id="question-rangeMin">
                     </div>
@@ -420,9 +419,8 @@
                         <input type="number"
                                class="form-control"
                                step="1"
-                               min="0"
                                [(ngModel)]="model.pages[page].elements[question].rangeMax"
-                               [class.is-invalid]="model.pages[page].elements[question].rangeMax % 1 !== 0 || model.pages[page].elements[question].rangeMax < 0 || model.pages[page].elements[question].rangeMin >= model.pages[page].elements[question].rangeMax"
+                               [class.is-invalid]="model.pages[page].elements[question].rangeMax % 1 !== 0 || model.pages[page].elements[question].rangeMin >= model.pages[page].elements[question].rangeMax"
                                name="question-rangeMax"
                                id="question-rangeMax">
                     </div>
