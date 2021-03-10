@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { Location } from '@angular/common';
-import { LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, VectorSource } from 'mapbox-gl';
+import { LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
@@ -193,20 +192,27 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             this.repaintMap();
         }
         if (changes.latLng && !changes.latLng.firstChange) {
-            this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
-            this.flyTo(this.latLng[0], this.latLng[1]);
-        }
-
-        if (changes.collapsed && this.map) {
-            this.map.resize();
-            if (!this.resetMapFired) {
-                this.flyTo(this.marker.getLngLat().lat, this.marker.getLngLat().lng);
-            } else {
+            if (changes.latLng.currentValue === undefined) {
+                if (this.marker) {
+                    this.marker.setLngLat([null, null]);
+                    this.marker.remove();
+                }
                 this.map.fitBounds(this.bounds, {
                     pitch: 0,
                     bearing: 0
                 });
-                this.resetMapFired = !this.resetMapFired;
+                // this.map.resize();
+            } else {
+                this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
+                if (this.expanded) {
+                    this.flyTo(this.latLng[0], this.latLng[1]);
+                }
+            }
+        }
+        if (changes.collapsed && this.map) {
+            this.map.resize();
+            if (!changes.collapsed.currentValue) {
+                this.flyTo(this.latLng[0], this.latLng[1]);
             }
         }
         if (changes.threeDActive?.currentValue && this.map) {
@@ -456,44 +462,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             });
         }
     }
-
-    // /**
-    //  * resetMap resets all configurations set/made by the user
-    //  */
-    // public resetMap() {
-    //     this.resetMapFired = true;
-    //     // reset URL
-    //     this.location.replaceState('/bodenrichtwerte');
-
-    //     // reset coordinates
-    //     // this.lat = undefined;
-    //     // this.lng = undefined;
-
-    //     // if (this.threeDActive) {
-    //     //     this.deactivate3dView();
-    //     //     this.threeDActive = !this.threeDActive;
-    //     // }
-    //     if (this.marker) {
-    //         this.marker.setLngLat([null, null]);
-    //         this.marker.remove();
-    //     }
-    //     // if (this.adresse) {
-    //     //     this.adresseChange.emit(undefined);
-    //     // }
-    //     // if (this.features) {
-    //     //     this.featuresChange.emit(undefined);
-    //     // }
-    //     if (!this.isCollapsed) {
-    //         this.isCollapsedChange.emit(true);
-    //     } else {
-    //         this.map.fitBounds(this.bounds, {
-    //             pitch: 0,
-    //             bearing: 0
-    //         });
-    //         this.map.resize();
-    //         this.resetMapFired = !this.resetMapFired;
-    //     }
-    // }
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

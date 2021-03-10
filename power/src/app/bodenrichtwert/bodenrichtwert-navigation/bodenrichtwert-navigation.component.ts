@@ -62,8 +62,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         private location: Location,) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.latLng && !changes.latLng.firstChange) {
-            console.log('Changes LatLng');
+        if (changes.latLng && !changes.latLng.firstChange && changes.latLng.currentValue !== undefined) {
             this.getAddressFromLatLng(this.latLng[0], this.latLng[1]);
             this.getBodenrichtwertzonen(this.latLng[0], this.latLng[1], this.teilmarkt.value);
 
