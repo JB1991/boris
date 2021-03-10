@@ -16,9 +16,6 @@
                                              [(latLng)]="latLng"
                                              (latLngChange)="changeURL()"
                                              [(resetMapFired)]="resetMapFired">
-                <!-- 
-                                             [collapsed]="collapsed"
-                                             [expanded]="expanded" -->
             </power-bodenrichtwert-navigation>
             <power-bodenrichtwertkarte #map
                                        [(isCollapsed)]="isCollapsed"
@@ -30,14 +27,11 @@
                                        (latLngChange)="changeURL()"
                                        [threeDActive]="threeDActive"
                                        [(resetMapFired)]="resetMapFired">
-                <!-- [(flurstueck)]="flurstueck"
-                                       [(adresse)]="adresse"
-                                       [(features)]="features" -->
             </power-bodenrichtwertkarte>
         </div>
         <!-- collapsing sidebar -->
         <div class="p-0 border-left"
-             [class]="isCollapsed ? 'col-auto' : 'col-lg-6'">
+             [class]="isCollapsed && map.map ? 'col-auto' : 'col-lg-6'">
             <div class="row m-0 p-0">
                 <div class="px-1 py-0"
                      [class]="isCollapsed ? 'd-none d-lg-block col-lg-12' : 'd-none d-lg-block col-lg-1'">

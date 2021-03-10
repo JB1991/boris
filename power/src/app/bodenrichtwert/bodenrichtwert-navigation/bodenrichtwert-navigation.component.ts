@@ -65,7 +65,10 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         private location: Location,) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.latLng && !changes.latLng.firstChange && changes.latLng.currentValue !== undefined) {
+
+        if (this.latLng?.length && ((changes.latLng && changes.latLng.currentValue) ||
+            (changes.teilmarkt && !changes.teilmarkt.firstChange) ||
+            (changes.stichtag && !changes.stichtag.firstChange))) {
             this.getAddressFromLatLng(this.latLng[0], this.latLng[1]);
             this.getBodenrichtwertzonen(this.latLng[0], this.latLng[1], this.teilmarkt.value);
             if (!this.fskIsChanged) {
@@ -80,10 +83,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 $localize`Diese Daten sind noch nicht verfügbar!`,
                 $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
             );
-        }
-        if (changes.teilmarkt || changes.Stichtag) {
-            this.getAddressFromLatLng(this.latLng[0], this.latLng[1]);
-            this.getBodenrichtwertzonen(this.latLng[0], this.latLng[1], this.teilmarkt.value);
         }
     }
 
@@ -163,8 +162,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * resetMap resets all configurations set/made by the user
      */
     public resetMap() {
-        // reset URL
-        this.location.replaceState('/bodenrichtwerte');
+
 
         // reset coordinates
         if (this.latLng) {
@@ -196,6 +194,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         }
 
         this.resetMapFiredChange.emit(true);
+
+        // reset URL
+        this.location.replaceState('/bodenrichtwerte');
     }
 
     /**
