@@ -197,11 +197,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
                     this.marker.setLngLat([null, null]);
                     this.marker.remove();
                 }
-                this.map.fitBounds(this.bounds, {
-                    pitch: 0,
-                    bearing: 0
-                });
-                // this.map.resize();
             } else {
                 this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
                 if (this.expanded) {
@@ -211,7 +206,15 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
         if (changes.collapsed && this.map) {
             this.map.resize();
-            if (!changes.collapsed.currentValue) {
+            if (!this.latLng) {
+                this.map.fitBounds(this.bounds, {
+                    pitch: 0,
+                    bearing: 0
+                });
+            }
+        }
+        if (changes.expanded && this.latLng) {
+            if (changes.expanded.currentValue) {
                 this.flyTo(this.latLng[0], this.latLng[1]);
             }
         }
