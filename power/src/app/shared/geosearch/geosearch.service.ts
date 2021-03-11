@@ -10,10 +10,10 @@ import { Feature, FeatureCollection } from 'geojson';
 export class GeosearchService {
 
     // Geosearch URL
-    url = '/geocoding/geosearch/';
+    private url = '/geocoding/geosearch/';
 
     // Subject with feature object which contains a geometry and associated properties
-    features = new Subject<Feature>();
+    private features = new Subject<Feature>();
 
     constructor(private http: HttpClient) {
     }
@@ -21,7 +21,7 @@ export class GeosearchService {
     /**
      * Returns the features as an Observable
      */
-    getFeatures(): Observable<Feature> {
+    public getFeatures(): Observable<Feature> {
         return this.features.asObservable();
     }
 
@@ -29,7 +29,7 @@ export class GeosearchService {
      * Updates the features by feeding a new value to the Subject
      * @param feature New feature
      */
-    updateFeatures(feature: Feature) {
+    public updateFeatures(feature: Feature) {
         this.features.next(feature);
     }
 
@@ -37,7 +37,7 @@ export class GeosearchService {
      * Search for locations in lower saxony
      * @param search The search string to be passed to the GeoCoder
      */
-    search(search: string): Observable<FeatureCollection> {
+    public search(search: string): Observable<FeatureCollection> {
         const header = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Cache-Control', 'no-cache')
             .set('Pragma', 'no-cache')
@@ -59,7 +59,7 @@ export class GeosearchService {
      * @param lon Longitude
      * If the parameter `distance` changes, the html text in `bodenrichtwert.component` must be changed accordingly.
      */
-    getAddressFromCoordinates(lat, lon): Observable<FeatureCollection> {
+    public getAddressFromCoordinates(lat: number, lon: number): Observable<FeatureCollection> {
         const header = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Cache-Control', 'no-cache')
             .set('Pragma', 'no-cache')
@@ -68,8 +68,8 @@ export class GeosearchService {
         return this.http.get<FeatureCollection>(this.url, {
             headers: header,
             responseType: 'json',
-            params: new HttpParams().set('query', 'typ: haus').append('lat', lat)
-                .append('lon', lon).append('distance', '50')
+            params: new HttpParams().set('query', 'typ: haus').append('lat', lat.toString())
+                .append('lon', lon.toString()).append('distance', '50')
         }).pipe(
             catchError(GeosearchService.handleError)
         );
