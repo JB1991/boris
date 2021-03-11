@@ -267,6 +267,13 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
+     * onFocus emits the current location to trigger a map focus
+     */
+    public onFocus() {
+        this.latLngChange.emit([this.latLng[0], this.latLng[1]]);
+    }
+
+    /**
     * transformCoordinates transforms coordinates from one projection to another projection with EPSG-Codes
     * @param from projection from (EPSG-Code)
     * @param to projection to (EPSG-Code)
