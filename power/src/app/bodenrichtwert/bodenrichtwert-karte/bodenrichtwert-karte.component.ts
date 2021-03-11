@@ -299,6 +299,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     public onDragEnd(): void {
         const lat = this.marker.getLngLat().lat;
         const lng = this.marker.getLngLat().lng;
+
         this.latLngChange.emit([lat, lng]);
     }
 
