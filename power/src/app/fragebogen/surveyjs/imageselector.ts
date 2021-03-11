@@ -156,6 +156,8 @@ export function init(Survey) {
                 for (const button of el.getElementsByTagName('button') as HTMLButtonElement[]) {
                     button.disabled = true;
                     button.setAttribute('aria-disabled', 'true');
+                    button.style.opacity = '0.5';
+                    button.style.cursor = 'unset';
                 }
             }
 
@@ -165,9 +167,13 @@ export function init(Survey) {
                     if (question.isReadOnly) {
                         button.disabled = true;
                         button.setAttribute('aria-disabled', 'true');
+                        button.style.opacity = '0.5';
+                        button.style.cursor = 'unset';
                     } else {
                         button.disabled = false;
                         button.setAttribute('aria-disabled', 'false');
+                        button.style.opacity = '1';
+                        button.style.cursor = 'pointer';
                     }
                 }
             };
