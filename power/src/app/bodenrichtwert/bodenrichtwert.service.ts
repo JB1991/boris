@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Feature, FeatureCollection } from 'geojson';
+import { FeatureCollection } from 'geojson';
 import { environment } from '@env/environment';
 
 @Injectable({
