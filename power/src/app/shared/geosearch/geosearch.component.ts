@@ -15,11 +15,10 @@ export class GeosearchComponent implements OnChanges {
 
     @ViewChild('geosearchInput') geosearchElement: ElementRef;
 
-    constructor(public geosearchService: GeosearchService, public alerts: AlertsService) {
-    }
-
-    // @Input() resetGeosearch: boolean;
-    // @Output() resetGeosearchChange = new EventEmitter();
+    constructor(
+        public geosearchService: GeosearchService,
+        public alerts: AlertsService
+    ) { }
 
     @Output() selectResult = new EventEmitter();
 
@@ -31,10 +30,10 @@ export class GeosearchComponent implements OnChanges {
      * Return the text property
      * @param feature GeoJSON feature
      */
-    inputFormatter = (feature) => feature.properties.text;
+    public inputFormatter = (feature: Feature) => feature.properties.text;
 
 
-    resultFormatter = (feature) => feature.properties.text;
+    public resultFormatter = (feature: Feature) => feature.properties.text;
 
     /**
      * Initialization of the search form
@@ -67,7 +66,7 @@ export class GeosearchComponent implements OnChanges {
                 this.geosearchService.search(term).pipe(
                     catchError((error) => {
                         console.log(error);
-                        this.alerts.NewAlert('danger', $localize`Angegebene Adresse konnte nicht gefunden werden.`, $localize`Adresse`+ ': ' + term);
+                        this.alerts.NewAlert('danger', $localize`Angegebene Adresse konnte nicht gefunden werden.`, $localize`Adresse` + ': ' + term);
                         return of([]);
                     })
                 )

@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { ConfigService } from '@app/config.service';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
+import proj4 from 'proj4';
 
 import { DatePipe, Location } from '@angular/common';
 
@@ -96,15 +97,21 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public hintsActive = false;
 
+    /**
+     * threeDActive holds the state for 3D-Modus on/off
+     */
     public threeDActive = false;
 
+    /**
+     * resetMapFired triggers the resetMap for the map
+     */
     public resetMapFired = false;
 
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
     /**
-  * Possible selections of Stichtage
-  */
+     * Possible selections of Stichtage
+     */
     public STICHTAGE: Array<string> = [
         '2020-12-31',
         '2019-12-31',
@@ -227,12 +234,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         let url = '/boris-print/?';
 
         // coordinates
-        // const lnglat_coordinates = this.map.marker.getLngLat();
         const wgs84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
         const utm = '+proj=utm +zone=32';
-        // const utm_cordinates = proj4(wgs84, utm, [lnglat_coordinates.lng, lnglat_coordinates.lat]);
-        // url += 'east=' + encodeURIComponent(utm_cordinates[0].toFixed(0));
-        // url += '&north=' + encodeURIComponent(utm_cordinates[1].toFixed(0));
+        const utm_coords = proj4(wgs84, utm, [Number(this.latLng[1]), Number(this.latLng[0])]);
+        url += 'east=' + encodeURIComponent(utm_coords[0].toFixed(0));
+        url += '&north=' + encodeURIComponent(utm_coords[1].toFixed(0));
 
         // year
         url += '&year=' + encodeURIComponent(parseInt(this.stichtag.substring(0, 4), 10) + 1);
@@ -256,6 +262,9 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         return url;
     }
 
+    /**
+     * changeURL updates the URL if stichtag, teilmarkt or latLng changed
+     */
     public changeURL() {
         const params = new URLSearchParams({});
         if (this.latLng?.length) {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Feature, FeatureCollection } from 'geojson';
+import { FeatureCollection } from 'geojson';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -25,18 +25,13 @@ export class BodenrichtwertService {
      */
     private features = new Subject<FeatureCollection>();
 
-    /**
-     * Selected Feature, that can be subscribed to
-     */
-    private selected = new Subject<Feature>();
-
     constructor(private http: HttpClient) {
     }
 
     /**
      * Returns the features as an Observable
      */
-    getFeatures(): Observable<FeatureCollection> {
+    public getFeatures(): Observable<FeatureCollection> {
         return this.features.asObservable();
     }
 
@@ -44,23 +39,8 @@ export class BodenrichtwertService {
      * Updates the features by feeding it to the Subject
      * @param features Updated FeatureCollection
      */
-    updateFeatures(features: FeatureCollection) {
+    public updateFeatures(features: FeatureCollection) {
         this.features.next(features);
-    }
-
-    /**
-     * Return the selected Feature as an Observable
-     */
-    getSelected(): Observable<Feature> {
-        return this.selected.asObservable();
-    }
-
-    /**
-     * Update the selected Feature by feeding it to the Subject
-     * @param feature Selected Feature
-     */
-    updateSelected(feature: Feature) {
-        this.selected.next(feature);
     }
 
     /**
@@ -68,9 +48,8 @@ export class BodenrichtwertService {
      * @param lat Latitude
      * @param lon Longitude
      * @param entw Teilmarkt
-     * @param state 'Niedersachsen' or 'Bremen'
      */
-    getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>): Observable<FeatureCollection> {
+    public getFeatureByLatLonEntw(lat: number, lon: number, entw: Array<string>): Observable<FeatureCollection> {
         // OGC Filter for each teilmarkt/entwicklungszustand
         let ogcFilter = '';
 
