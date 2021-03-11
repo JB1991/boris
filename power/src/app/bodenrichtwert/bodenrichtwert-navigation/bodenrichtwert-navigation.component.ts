@@ -64,7 +64,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (this.latLng?.length &&
             (changes.latLng || changes.teilmarkt || changes.stichtag)) {
-            console.log(changes.latLng);
             this.updateData();
         }
     }
@@ -208,11 +207,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         if (this.latLng) {
             this.latLngChange.emit(undefined);
         }
-
         if (this.threeDActive) {
             this.threeDActiveChange.emit(false);
         }
-
         if (this.adresse) {
             this.adresseChange.emit(undefined);
         }
@@ -228,7 +225,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         if (this.teilmarkt.text !== this.bodenrichtwert.TEILMAERKTE[0].text) {
             this.teilmarktChange.emit(this.bodenrichtwert.TEILMAERKTE[0]);
         }
-
         if (this.stichtag !== this.bodenrichtwert.STICHTAGE[0]) {
             this.stichtagChange.emit(this.bodenrichtwert.STICHTAGE[0]);
         }
