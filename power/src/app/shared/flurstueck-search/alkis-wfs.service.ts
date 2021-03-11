@@ -1,9 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FeatureCollection } from 'geojson';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-// import { Flurstueck } from './flurstueck-search.component';
 
 @Injectable({
     providedIn: 'root'
@@ -86,7 +85,7 @@ export class AlkisWfsService {
      * @param lat Latitude
      * @param lon Longitude
      */
-    public getFlurstueckfromCoordinates(lng, lat): Observable<FeatureCollection> {
+    public getFlurstueckfromCoordinates(lng: number, lat: number): Observable<FeatureCollection> {
         const filter = '<wfs:GetFeature ' +
             'xmlns:ogc="http://www.opengis.net/ogc" ' +
             'xmlns:wfs="http://www.opengis.net/wfs" ' +

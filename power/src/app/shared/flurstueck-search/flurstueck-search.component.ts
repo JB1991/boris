@@ -30,10 +30,6 @@ export class FlurstueckSearchComponent {
 
     @Input() adresse: string;
 
-    public model: any;
-
-    filteredResults: Feature[];
-
     constructor(
         public alkisWfsService: AlkisWfsService,
         public alerts: AlertsService,
