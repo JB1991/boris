@@ -3,7 +3,9 @@
         <div id="mapWrapper"
              class="p-0 border-bottom map-height"
              [class]="isCollapsed ? 'col d-block' : 'col-lg-6'">
-            <power-bodenrichtwert-navigation [(stichtag)]="stichtag"
+            <power-bodenrichtwert-navigation [(latLng)]="latLng"
+                                             (latLngChange)="changeURL()"
+                                             [(stichtag)]="stichtag"
                                              (stichtagChange)="changeURL()"
                                              [(teilmarkt)]="teilmarkt"
                                              (teilmarktChange)="changeURL()"
@@ -12,18 +14,16 @@
                                              [(adresse)]="adresse"
                                              [(isCollapsed)]="isCollapsed"
                                              [(threeDActive)]="threeDActive"
-                                             [(latLng)]="latLng"
-                                             (latLngChange)="changeURL()"
                                              [(resetMapFired)]="resetMapFired">
             </power-bodenrichtwert-navigation>
             <power-bodenrichtwertkarte #map
+                                       [(latLng)]="latLng"
+                                       (latLngChange)="changeURL()"
+                                       [stichtag]="stichtag"
+                                       [teilmarkt]="teilmarkt"
                                        [(isCollapsed)]="isCollapsed"
                                        [collapsed]="collapsed"
                                        [expanded]="expanded"
-                                       [stichtag]="stichtag"
-                                       [teilmarkt]="teilmarkt"
-                                       [(latLng)]="latLng"
-                                       (latLngChange)="changeURL()"
                                        [threeDActive]="threeDActive"
                                        [(resetMapFired)]="resetMapFired">
             </power-bodenrichtwertkarte>
@@ -33,9 +33,9 @@
              [class]="isCollapsed ? 'col-auto' : 'col-lg-6'">
             <div class="row m-0 p-0">
                 <div *ngIf="adresse || features"
-                     class="px-1 py-0"
-                     [class]="isCollapsed ? 'd-none d-lg-block' : 'd-none d-lg-block col-lg-1'">
-                    <button class="btn p-0 w-100 rounded-0 collapse-btn-width"
+                     class="px-1 py-0 d-none d-lg-flex"
+                     [ngClass]="{'col-lg-1' : !isCollapsed}">
+                    <button class="btn p-0 w-100 rounded-0 collapse-btn-size"
                             type="button"
                             title="Detailansicht ein- bzw. ausklappen"
                             i18n-title
@@ -91,7 +91,6 @@
             <ng-template [ngTemplateOutlet]="detailsHints"></ng-template>
             <div *ngIf="features?.features.length"
                  class="col-12 p-0">
-
                 <power-bodenrichtwert-detail [stichtag]="stichtag"
                                              [teilmarkt]="teilmarkt"
                                              [features]="features">

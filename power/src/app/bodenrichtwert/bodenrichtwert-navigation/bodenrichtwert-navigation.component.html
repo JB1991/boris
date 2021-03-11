@@ -1,7 +1,8 @@
 <div class="bg-white shadow-sm border-top">
     <nav class="navbar d-flex flex-nowrap text-nowrap justify-content-between p-0"
          role="navigation">
-        <div [class]="isCollapsed ? 'd-none d-lg-inline-block' : 'd-none d-xxl-inline-block'">
+        <div class="d-none"
+             [class]="isCollapsed ? 'd-lg-inline-block' : 'd-xxl-inline-block'">
             <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
             <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
         </div>
@@ -89,7 +90,6 @@
                         title="3D aktivieren/deaktivieren"
                         i18n-alt
                         i18n-title>
-
                     <svg width="20px"
                          height="20px"
                          viewBox="0 0 16 16"
@@ -156,12 +156,12 @@
 </div>
 
 <!-- For mobile view -->
-<div [class.d-none]="!searchActive"
+<div [ngClass]="{'d-none' : !searchActive}"
      class="d-sm-none">
     <ng-template [ngTemplateOutlet]="geosearchBar"></ng-template>
 </div>
 
-<div [class.d-none]="!filterActive"
+<div [ngClass]="{'d-none' : !filterActive}"
      [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
     <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
     <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
@@ -304,7 +304,6 @@
     <power-geosearch #geosearchComponent
                      (selectResult)="onAddressChange($event)"
                      [adresse]="adresse">
-        <!-- (selectResult)="onSearchSelect($event)" -->
     </power-geosearch>
 </ng-template>
 
