@@ -16,12 +16,21 @@ export function init(Survey) {
             Survey.JsonObject.metaData.addClass('imageselector', [], null, 'imagepicker');
         },
         afterRender: function (question, el) {
+            // check size
+            let maring = 'm-2';
+            let width = question.imageWidth + 'px';
+            if (screen.width < 576) {
+                question.imageHeight = 0;
+                maring = 'm-0';
+                width = '100%';
+            }
+
             // forearch create element
             for (const choice of question.choices) {
                 // create container
                 const figure = document.createElement('button');
-                figure.style.width = question.imageWidth + 'px';
-                figure.classList.add('figure', 'align-top', 'm-2', 'p-1');
+                figure.style.width = width;
+                figure.classList.add('figure', 'align-top', maring, 'p-1');
                 figure.type = 'button';
                 figure.style.fontSize = 'inherit';
                 figure.style.fontWeight = 'inherit';
@@ -89,10 +98,11 @@ export function init(Survey) {
                 const img = document.createElement('img');
                 img.classList.add('figure-img', 'img-fluid', 'rounded');
                 img.src = choice.imageLink;
-                img.width = question.imageWidth;
-                img.height = question.imageHeight;
-                img.style.width = question.imageWidth + 'px';
-                img.style.height = question.imageHeight + 'px';
+                img.style.width = width;
+                if (question.imageHeight) {
+                    img.height = question.imageHeight;
+                    img.style.height = question.imageHeight + 'px';
+                }
                 img.style.objectFit = question.imageFit;
                 img.alt = choice.text;
 
