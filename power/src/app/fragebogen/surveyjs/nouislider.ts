@@ -213,6 +213,7 @@ export function init(Survey) {
                 question.noUiSlider.destroy();
                 question.noUiSlider = null;
             }
+            question.valueChangedCallback = null;
             question.readOnlyChangedCallback = null;
         },
         pdfRender: function (_, options) {

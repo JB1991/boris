@@ -641,13 +641,13 @@
                 <hr>
                 <power-forms-editor-answers [model]="model"
                                             [(data)]="model.pages[page].elements[question].choices"
-                                            [hasImg]="model.pages[page].elements[question].type === 'imagepicker'">
+                                            [hasImg]="model.pages[page].elements[question].type === 'imageselector'">
                 </power-forms-editor-answers>
                 <hr>
 
                 <!-- question-hasOther -->
                 <div class="custom-control custom-checkbox mb-3"
-                     *ngIf="model.pages[page].elements[question].type !== 'imagepicker'">
+                     *ngIf="model.pages[page].elements[question].type !== 'imageselector'">
                     <input type="checkbox"
                            class="custom-control-input"
                            [(ngModel)]="model.pages[page].elements[question].hasOther"
@@ -712,7 +712,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="model.pages[page].elements[question].type === 'imagepicker'">
+                <div *ngIf="model.pages[page].elements[question].type === 'imageselector'">
                     <!-- question-multiSelect -->
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox"
@@ -792,7 +792,8 @@
                 </div>
 
                 <!-- question-colCount -->
-                <div class="form-group">
+                <div class="form-group"
+                     *ngIf="model.pages[page].elements[question].type !== 'imageselector'">
                     <label for="question-colCount"
                            i18n>Darstellung in Spalten</label>
                     <input type="number"
