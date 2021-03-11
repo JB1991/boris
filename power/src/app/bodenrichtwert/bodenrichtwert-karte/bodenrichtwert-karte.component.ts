@@ -184,7 +184,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
                 this.determineZoomFactor();
                 this.map.easeTo({
                     zoom: this.zoomFactor,
-                    center: this.latLng.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
+                    center: this.latLng?.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
                 });
             }
             // Stichtag changed
@@ -239,7 +239,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
     /**
      * loadMap initializes the Mapbox GL map object
-     * @param event 
+     * @param event map
      */
     public loadMap(event: Map) {
         this.map = event;
@@ -262,20 +262,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
      */
     private determineZoomFactor() {
-        const currentZoom = this.map.getZoom();
-        // Landwirtschaft
-        if (this.teilmarkt.text !== 'Bauland') {
-            this.zoomFactor = this.standardLandZoom;
-            // if (currentZoom > 10) {
-            //     this.zoomFactor = currentZoom;
-            // } else {
-            //     this.zoomFactor = this.standardLandZoom;
-            // }
-            // Bauland
-            // } else if (currentZoom > 11) {
-            // this.zoomFactor = currentZoom;
-        } else {
+        // Bauland
+        if (this.teilmarkt.text === 'Bauland') {
             this.zoomFactor = this.standardBaulandZoom;
+            // Landwirtschaft
+        } else {
+            this.zoomFactor = this.standardLandZoom;
         }
     }
 

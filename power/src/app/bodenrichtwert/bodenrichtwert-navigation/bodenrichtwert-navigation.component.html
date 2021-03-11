@@ -119,10 +119,10 @@
                         class="btn dropdown-item nav-link"
                         alt="Markierung fokussieren"
                         title="Markierung fokussieren"
+                        (click)="onFocus()"
+                        [disabled]="!this.latLng?.length"
                         i18n-alt
                         i18n-title>
-                    <!-- *ngIf="map.marker.getLngLat() && map.marker.getLngLat().lat != 0"
-                        (click)="map.flyTo(map.marker.getLngLat().lat, map.marker.getLngLat().lng, $event.type)" -->
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="20px"
                          height="20px"

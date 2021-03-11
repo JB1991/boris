@@ -1,32 +1,38 @@
 <div class="container-fluid p-0 m-0 border-bottom">
     <div class="row m-0">
         <div id="mapWrapper"
-             class="p-0 border-bottom map-height"
+             class="p-0 border-bottom"
              [class]="isCollapsed ? 'col d-block' : 'col-lg-6'">
-            <power-bodenrichtwert-navigation [(latLng)]="latLng"
-                                             (latLngChange)="changeURL()"
-                                             [(stichtag)]="stichtag"
-                                             (stichtagChange)="changeURL()"
-                                             [(teilmarkt)]="teilmarkt"
-                                             (teilmarktChange)="changeURL()"
-                                             [(flurstueck)]="flurstueck"
-                                             [(features)]="features"
-                                             [(adresse)]="adresse"
-                                             [(isCollapsed)]="isCollapsed"
-                                             [(threeDActive)]="threeDActive"
-                                             [(resetMapFired)]="resetMapFired">
-            </power-bodenrichtwert-navigation>
-            <power-bodenrichtwertkarte #map
-                                       [(latLng)]="latLng"
-                                       (latLngChange)="changeURL()"
-                                       [stichtag]="stichtag"
-                                       [teilmarkt]="teilmarkt"
-                                       [(isCollapsed)]="isCollapsed"
-                                       [collapsed]="collapsed"
-                                       [expanded]="expanded"
-                                       [threeDActive]="threeDActive"
-                                       [(resetMapFired)]="resetMapFired">
-            </power-bodenrichtwertkarte>
+            <div class="row">
+                <div class="col-12">
+                    <power-bodenrichtwert-navigation [(latLng)]="latLng"
+                                                     (latLngChange)="changeURL()"
+                                                     [(stichtag)]="stichtag"
+                                                     (stichtagChange)="changeURL()"
+                                                     [(teilmarkt)]="teilmarkt"
+                                                     (teilmarktChange)="changeURL()"
+                                                     [(flurstueck)]="flurstueck"
+                                                     [(features)]="features"
+                                                     [(adresse)]="adresse"
+                                                     [(isCollapsed)]="isCollapsed"
+                                                     [(threeDActive)]="threeDActive"
+                                                     [(resetMapFired)]="resetMapFired">
+                    </power-bodenrichtwert-navigation>
+                </div>
+                <div class="col-12 map-height">
+                    <power-bodenrichtwertkarte #map
+                                               [(latLng)]="latLng"
+                                               (latLngChange)="changeURL()"
+                                               [stichtag]="stichtag"
+                                               [teilmarkt]="teilmarkt"
+                                               [(isCollapsed)]="isCollapsed"
+                                               [collapsed]="collapsed"
+                                               [expanded]="expanded"
+                                               [threeDActive]="threeDActive"
+                                               [(resetMapFired)]="resetMapFired">
+                    </power-bodenrichtwertkarte>
+                </div>
+            </div>
         </div>
         <!-- collapsing sidebar -->
         <div class="p-0 border-left"
