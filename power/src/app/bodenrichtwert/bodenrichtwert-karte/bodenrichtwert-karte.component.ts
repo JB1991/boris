@@ -413,7 +413,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         'DENIBR4317B37171',
         'DENIBR4314B37171',
         'DENIBR4313B37171',
-        'DENIBR4320B07171'
+        'DENIBR4320B07171',
+
+        'DENIBR8020B02418',
+        'DENIBR8017B02418',
+        'DENIBR8014B02418',
+        'DENIBR8016B02418',
+        'DENIBR8019B02418',
+        'DENIBR8013B02418',
+        'DENIBR8018B02418',
+        'DENIBR8015B02418',
+        'DENIBR8021B02418'
     ];
 
     onMoveEnd() {
