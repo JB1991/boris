@@ -181,6 +181,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         try {
             const result = await this.formapi.getForm(id, { fields: ['content'] });
             this.storage.model = result.form.content;
+            this.migration();
+
             const elements = await this.formapi.getElements({ fields: ['id', 'content'] });
             this.favorites = elements.elements;
             this.cdr.detectChanges();
@@ -199,6 +201,23 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             return;
+        }
+    }
+
+    /**
+     * Migrates survey to newest version
+     */
+    /* istanbul ignore next */
+    /* eslint-disable-next-line complexity */
+    private migration() {
+        for (const page of this.storage.model.pages) {
+            for (const element of page.elements) {
+                // convert imagepicker to imageselector
+                if (element.type === 'imagepicker') {
+                    element.type = 'imageselector';
+                    this.storage.setUnsavedChanges(true);
+                }
+            }
         }
     }
 
