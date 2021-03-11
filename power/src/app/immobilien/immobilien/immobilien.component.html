@@ -4,7 +4,7 @@
 <div class="row mh-100" [ngClass]="{'rowrtl': nipixStatic.layoutRtl === true}">
     <div class="col-sm-8">
         <div echarts [options]="this.nipixRuntime.map.options" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
-             (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
+             (chartSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
         <div echarts [options]="this.nipixRuntime.chart.options" (chartInit)="onChartChartInit($event)"
              (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)"
              (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>

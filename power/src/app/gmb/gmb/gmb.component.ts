@@ -276,7 +276,7 @@ export class GmbComponent implements OnInit {
 
         if (this.map['dispatchAction'] !== undefined) {
             this.map['dispatchAction']({
-                type: 'mapSelect',
+                type: 'select',
                 name: this.selectedKreis
             });
         }

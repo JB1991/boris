@@ -3,26 +3,23 @@ function getScatter(position) {
         'type': 'effectScatter',
         'coordinateSystem': 'geo',
         'zlevel': 2,
-
         'label': {
             'fontSize': null,
-            'normal': {
-                'show': true,
-                'position': position,
-                'offset': [0, 0],
-                'formatter': '{b}',
-                'backgroundColor': 'rgba(255,255,255,0.7)'
-            },
-            'emphasis': {
+            'show': true,
+            'position': position,
+            'offset': [0, 0],
+            'formatter': '{b}',
+            'backgroundColor': 'rgba(255,255,255,0.7)'
+        },
+        'emphasis': {
+            'label': {
                 'show': true
             }
         },
         'symbol': 'circle',
         'symbolSize': 4,
         'itemStyle': {
-            'normal': {
-                'show': true,
-            }
+            'show': true,
         },
         'data': null
     };
@@ -95,17 +92,18 @@ export const mapOptions = {
             'type': 'map',
             'aspectScale': 1,
             'roam': false,
-            'mapType': 'NDS', // map type should be registered
-            'itemStyle': {
-                'normal': {
-                    'label': {
-                        'show': false
-                    }
-                },
-                'emphasis': {
-                    'label': {
-                        'show': false
-                    }
+            'map': 'NDS', // map type should be registered
+            'label': {
+                'show': false
+            },
+            'select': {
+                'label': {
+                    'show': false
+                }
+            },
+            'emphasis': {
+                'label': {
+                    'show': false
                 }
             },
             'selectedMode': null,

@@ -7,7 +7,7 @@ import { ImmobilienUtils } from './immobilien.utils';
 
 interface NipixRuntimeMap {
     obj?: any;
-    options?: echarts.EChartOption;
+    options?: echarts.EChartsOption;
 }
 
 interface NipixRuntimeState {

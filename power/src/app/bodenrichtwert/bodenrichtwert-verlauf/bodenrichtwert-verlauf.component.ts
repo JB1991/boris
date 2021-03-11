@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { EChartOption } from 'echarts';
+import { EChartsOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
@@ -32,10 +32,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         { stag: 'heute', brw: null, nutzung: '', verg: '', verf: '' }
     ];
 
-    public chartOption: EChartOption = {
+    public chartOption: EChartsOption = {
         tooltip: {
             trigger: 'axis',
-            confine: 'true',
+            confine: true,
             formatter: function (params) {
                 const res = [];
                 const year = params[0].axisValue;
@@ -144,10 +144,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     clearChart(): void {
         this.chartOption.series = [];
-        this.chartOption.legend.data = [];
-        this.chartOption.legend.formatter = '';
-        this.chartOption.legend.textStyle.rich = '';
-        this.chartOption.grid.top = '10%';
+        (this.chartOption.legend as any).data = [];
+        (this.chartOption.legend as any).formatter = '';
+        (this.chartOption.legend as any).textStyle.rich = '';
+        (this.chartOption.grid as any).top = '10%';
         this.srTableHeader = [];
         this.srTableData = [];
     }
@@ -192,7 +192,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 let seriesFillLine;
                 [series, seriesFillLine] = this.fillLineDuringYear(series);
                 label = this.getLabel(key, series);
-                this.chartOption.legend.data.push(label);
+                (this.chartOption.legend as any).data.push(label);
                 this.setChartOptionsSeries(series, label);
                 if (seriesFillLine.find(item => item.brw !== null)) {
                     this.setChartOptionsSeries(seriesFillLine, label);
@@ -375,7 +375,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     setChartOptionsSeries(series: Array<any>, label: string): void {
-        this.chartOption.series.push({
+        (this.chartOption.series as any).push({
             name: label,
             type: 'line',
             step: 'end',
@@ -392,7 +392,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     /* eslint-disable complexity */
     setLegendFormat() {
-        this.chartOption.legend.formatter = function (name) {
+        (this.chartOption.legend as any).formatter = function (name) {
             const splittedName = name.split('\n');
             const verg = splittedName.find(item => item === 'Sanierungsgebiet' || item === 'Entwicklungsbereich' || item === 'Soziale Stadt' || item === 'Stadtumbau');
             const verf = splittedName.find(item => item === 'sanierungsbeeinflusster Wert' || item === 'sanierungsunbeeinflusster Wert' || item === 'entwicklungsbeeinflusster Wert' || item === 'entwicklungsunbeeinflusster Wert');
@@ -414,7 +414,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
             return name;
         };
-        this.chartOption.legend.textStyle.rich = {
+        (this.chartOption.legend as any).textStyle.rich = {
             'nutzung': {
                 padding: [0, 0, 0, 0],
                 align: 'center'
@@ -434,7 +434,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 align: 'center'
             },
         };
-        this.chartOption.grid.top = '15%';
+        (this.chartOption.grid as any).top = '15%';
     }
 
     generateSrTable(label: string, series: Array<any>): void {

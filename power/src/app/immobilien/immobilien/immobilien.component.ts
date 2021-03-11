@@ -475,7 +475,7 @@ export class ImmobilienComponent implements OnInit {
             'datastart': range_start,
             'dataend': range_end
         });
-        chartOptionMerge.series.push(this.chart_range);
+        (chartOptionMerge.series as any).push(this.chart_range);
 
         // Set Options to chart
         if (this.nipixRuntime.chart.obj !== null) {

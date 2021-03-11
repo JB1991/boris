@@ -43,6 +43,11 @@ export class ImmobilienUtils {
                     'borderColor': bc,
                     'borderWidth': bw
                 }
+            },
+            'select': {
+                'itemStyle': {
+                    'areaColor': area
+                }
             }
         };
     }
@@ -113,11 +118,9 @@ export class ImmobilienUtils {
                 }
             },
             label: {
-                normal: {
-                    show: true,
-                    position: 'right',
-                    formatter: labelFormatter
-                },
+                show: true,
+                position: 'right',
+                formatter: labelFormatter
             },
             'data': data
         };
@@ -146,7 +149,7 @@ export class ImmobilienUtils {
         xIndex = 0,
         yIndex = 0,
         seriesType = 'line'
-    ): echarts.EChartOption.SeriesLine {
+    ): any {
 
         let seriesColor = ImmobilienHelper.convertColor(color);
         let zindex = 0;
@@ -277,13 +280,13 @@ export class ImmobilienUtils {
         if (select) {
             // Select
             obj.dispatchAction({
-                type: 'mapSelect',
+                type: 'select',
                 name: name
             });
         } else {
             // Unselect
             obj.dispatchAction({
-                type: 'mapUnSelect',
+                type: 'unselect',
                 name: name
             });
 

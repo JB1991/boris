@@ -16,7 +16,7 @@ export class ImmobilienChartOptions {
     static getMapOptions(
         opt: any = { 'text': {} },
         selectType: any = 'multiple'
-    ): echarts.EChartOption {
+    ): echarts.EChartsOption {
 
         const ret = JSON.parse(JSON.stringify(MO.mapOptions));
         ret.title.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage);
@@ -48,7 +48,7 @@ export class ImmobilienChartOptions {
     /**
      * Configuration Option for the Chart
      */
-    static getChartOptions(opt: any = { 'text': {} }): echarts.EChartOption {
+    static getChartOptions(opt: any = { 'text': {} }): echarts.EChartsOption {
         const ret = JSON.parse(JSON.stringify(CO.chartOptions));
         ret.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizeBase);
         ret.title.textStyle.fontSize = ImmobilienHelper.convertRemToPixels(opt.text.fontSizePage);
@@ -71,7 +71,7 @@ export class ImmobilienChartOptions {
     /**
      * Configuration Option for the Chart
      */
-    static getChartOptionsMerge(opt: any = { 'text': {} }): echarts.EChartOption {
+    static getChartOptionsMerge(opt: any = { 'text': {} }): echarts.EChartsOption {
         const ret = JSON.parse(JSON.stringify(CO.chartOptionsMerge));
         ret.graphic[0] = opt.graphic0;
         ret.graphic[1].left = opt.graphic1left;
