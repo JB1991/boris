@@ -11,6 +11,7 @@ export const environment = {
         url: 'https://keycloak.power.niedersachsen.dev/auth/realms/power/protocol/openid-connect/',
     },
     config: {
+        // Hinweis: Beim aktivieren von Modulen auf Prod. diese URL bitte in der sitemap.xml hinzufügen
         modules: [
             'bodenrichtwerte',
             'immobilienpreisindex',
