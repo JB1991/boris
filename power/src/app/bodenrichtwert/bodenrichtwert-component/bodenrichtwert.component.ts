@@ -110,8 +110,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
     /**
-  * Possible selections of Stichtage
-  */
+     * Possible selections of Stichtage
+     */
     public STICHTAGE: Array<string> = [
         '2020-12-31',
         '2019-12-31',

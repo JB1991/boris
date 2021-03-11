@@ -51,8 +51,6 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
 })
 export class BodenrichtwertKarteComponent implements OnChanges {
 
-    // public isDragged = false;
-
     // zoomFactor
     public zoomFactor: number;
 
