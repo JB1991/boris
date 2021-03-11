@@ -51,18 +51,40 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
 })
 export class BodenrichtwertKarteComponent implements OnChanges {
 
-    public isDragged = false;
+    // public isDragged = false;
 
-    @Input() threeDActive: boolean;
-
+    // zoomFactor
     public zoomFactor: number;
+
     // Flurstuecke become visible at Zoomfactor 15.1
     public standardBaulandZoom = 15.1;
     public standardLandZoom = 11;
 
+    // Mapbox GL Map Object
+    public map: Map;
+
+    // baseUrl
     public baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 
-    // Bremen - Tile Source
+    // map style url
+    public MAP_STYLE_URL = environment.basemap;
+
+    // NDS Bounds MapBox Type
+    public bounds = new LngLatBounds([
+        [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
+    ]);
+
+    // Mapbox GL Marker
+    public marker: Marker = new Marker({
+        color: '#c4153a',
+        draggable: true
+    }).on('dragend', () => {
+        this.onDragEnd();
+    });
+
+    // Bremen - Tile Source, Bounds, Source
+    public brBounds = [8.483772095325497, 53.01056958991861, 8.990848892958946, 53.61043564706235];
+
     public brTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
         + '&SERVICE=WMTS'
@@ -74,15 +96,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         + '&TILECOL={x}'
         + '&TILEROW={y}';
 
-    public brBounds = [8.483772095325497, 53.01056958991861, 8.990848892958946, 53.61043564706235];
-
     public bremenSource: VectorSource = {
         type: 'vector',
         tiles: [this.baseUrl + this.brTiles],
         bounds: this.brBounds,
     };
 
-    // NDS - Tile Sources
+    // NDS - Tile Sources, Bounds, Source
     public ndsBounds = [6.19523325024787, 51.2028429493903, 11.7470832174838, 54.1183357191213];
 
     // Bodenrichtwerte
@@ -131,22 +151,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         features: []
     };
 
-    // Labels
-
-    public MAP_STYLE_URL = environment.basemap;
-
-    public map: Map;
-    public bounds = new LngLatBounds([
-        [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
-    ]);
-
-    public marker: Marker = new Marker({
-        color: '#c4153a',
-        draggable: true
-    }).on('dragend', () => {
-        this.onDragEnd();
-    });
-
     @Input() latLng: Array<number>;
     @Output() latLngChange = new EventEmitter<Array<number>>();
 
@@ -161,12 +165,10 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
     @Input() collapsed: boolean;
 
-    // variables for resetMap()
-    @Output() adresseChange = new EventEmitter();
-    @Output() featuresChange = new EventEmitter<FeatureCollection>();
-
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
+
+    @Input() threeDActive: boolean;
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
@@ -237,6 +239,30 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
     }
 
+    /**
+     * loadMap initializes the Mapbox GL map object
+     * @param event 
+     */
+    public loadMap(event: Map) {
+        this.map = event;
+
+        this.map.addSource('geoserver_br_br', this.bremenSource);
+
+        this.map.addSource('geoserver_nds_br', this.ndsSource);
+
+        this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
+
+        // update the map on reload if coordinates exist
+        if (this.latLng.length) {
+            this.map.resize();
+            this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
+            this.flyTo(this.latLng[0], this.latLng[1]);
+        }
+    }
+
+    /**
+     * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
+     */
     private determineZoomFactor() {
         const currentZoom = this.map.getZoom();
         // Landwirtschaft
@@ -255,22 +281,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
     }
 
-    public loadMap(event: Map) {
-        this.map = event;
-
-        this.map.addSource('geoserver_br_br', this.bremenSource);
-
-        this.map.addSource('geoserver_nds_br', this.ndsSource);
-
-        this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
-
-        if (this.latLng.length) {
-            this.map.resize();
-            this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
-            this.flyTo(this.latLng[0], this.latLng[1]);
-        }
-    }
-
+    /**
+     * flyTo executes a flyTo for a given latLng
+     */
     private flyTo(lat: number, lng: number) {
         this.determineZoomFactor();
         this.map.flyTo({
@@ -282,18 +295,28 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         });
     }
 
+    /**
+     * onDragEnd updates latLng if marker was moved
+     */
     public onDragEnd(): void {
         const lat = this.marker.getLngLat().lat;
         const lng = this.marker.getLngLat().lng;
         this.latLngChange.emit([lat, lng]);
     }
 
+    /**
+     * onMapClickEvent updates latLng for the clicked location
+     * @param event MapEvent with coordinates
+     */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
         if (event.lngLat) {
             this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
         }
     }
 
+    /**
+     * onResetMap updates the marker and map bounds if resetMapFired was triggered
+     */
     private onResetMap(): void {
         if (this.marker) {
             this.marker.setLngLat([null, null]);
@@ -307,10 +330,15 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         this.resetMapFiredChange.emit(false);
     }
 
+    // temporarly deactivated
+    /**
+     * onRotate updates the 3D-Layer on rotations
+     */
     public onRotate() {
         // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
     }
 
+    // list of ids where the label shouldn't be displayed
     doNotDisplay = [
         'DENIBR4319B07171',
         'DENIBR4316B37171',
@@ -322,33 +350,40 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         'DENIBR4320B07171'
     ];
 
-    onMoveEnd() {
-        if (!this.map) {
-            return;
-        }
+    /**
+     * onMoveEnd
+     */
+    public onMoveEnd() {
+        if (this.map) {
+            if (this.teilmarkt.value.includes('B')) {
 
-        if (this.teilmarkt.value.includes('B')) {
+                this.landwirtschaftData.features = [];
+                const source = this.map.getSource('landwirtschaftSource');
+                if (source.type === 'geojson') {
+                    source.setData(this.landwirtschaftData);
+                }
 
-            this.landwirtschaftData.features = [];
-            const source = this.map.getSource('landwirtschaftSource');
-            if (source.type === 'geojson') {
-                source.setData(this.landwirtschaftData);
+                this.dynamicLabelling(this.baulandData, ['bauland', 'bauland_bremen'], 'baulandSource');
+            } else {
+
+                this.baulandData.features = [];
+                const source = this.map.getSource('baulandSource');
+                if (source.type === 'geojson') {
+                    source.setData(this.baulandData);
+                }
+
+                this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
             }
-
-            this.dynamicLabelling(this.baulandData, ['bauland', 'bauland_bremen'], 'baulandSource');
-        } else {
-
-            this.baulandData.features = [];
-            const source = this.map.getSource('baulandSource');
-            if (source.type === 'geojson') {
-                source.setData(this.baulandData);
-            }
-
-            this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
         }
     }
 
-    dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
+    /**
+     * dynamicLabelling
+     * @param labelData 
+     * @param layerNames 
+     * @param sourceName 
+     */
+    private dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
         labelData.features = [];
 
         const featureMap: Record<string, GeoJSON.Feature<Polygon>[]> = {};
@@ -450,6 +485,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
     }
 
+    /**
+     * activate3dView adds a building transition layer to the map
+     */
     private activate3dView() {
         this.zoomFactor = this.map.getZoom();
         this.map.addLayer({
@@ -475,26 +513,16 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
     }
 
+    /**
+     * deactivate3dView removes the building extrusion layer from the map 
+     */
     private deactivate3dView() {
         this.map.easeTo({
             pitch: 0,
             zoom: this.zoomFactor,
             center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
         this.map.removeLayer('building-extrusion');
-    }
-
-    public repaintMap() {
-        if (this.map) {
-            this.map.flyTo({
-                center: this.map.getCenter(),
-                zoom: this.map.getZoom(),
-                speed: 1,
-                curve: 1,
-                bearing: 0
-            });
-        }
     }
 }
 

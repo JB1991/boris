@@ -12,8 +12,6 @@ import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.servic
 import { ConfigService } from '@app/config.service';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
-import * as epsg from 'epsg';
-import * as turf from '@turf/turf';
 
 import { DatePipe, Location } from '@angular/common';
 
@@ -99,8 +97,14 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public hintsActive = false;
 
+    /**
+     * threeDActive holds the state for 3D-Modus on/off
+     */
     public threeDActive = false;
 
+    /**
+     * resetMapFired triggers the resetMap for the map
+     */
     public resetMapFired = false;
 
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
@@ -258,6 +262,9 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         return url;
     }
 
+    /**
+     * changeURL updates the URL if stichtag, teilmarkt or latLng changed
+     */
     public changeURL() {
         const params = new URLSearchParams({});
         if (this.latLng?.length) {
