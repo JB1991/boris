@@ -1,5 +1,10 @@
+// following map-height classes are used for mobile
 .map-height {
-    height: calc(100vh - 206.4px);
+    height: calc(100vh - 143px);
+}
+
+.map-height-active-details {
+    height: calc(100vh - 290px);
 }
 
 a.nav-link:hover {
@@ -25,7 +30,12 @@ a.nav-link:hover {
         height: 103.4px;
     }
 
+    // following map-height classes are used for desktop
     .map-height {
+        height: calc(100vh - 143px);
+    }
+
+    .map-height-active-details {
         height: calc(100vh - 103px);
     }
 

@@ -19,7 +19,8 @@
                                                      [(resetMapFired)]="resetMapFired">
                     </power-bodenrichtwert-navigation>
                 </div>
-                <div class="col-12 map-height">
+                <div class="col-12 map-height"
+                     [ngClass]="{'map-height-active-details' : latLng?.length}">
                     <power-bodenrichtwertkarte #map
                                                [(latLng)]="latLng"
                                                (latLngChange)="changeURL()"
@@ -61,32 +62,40 @@
                      (collapsed)="onCollapsingEnds()"
                      (expanded)="onExpandingEnds()"
                      [isAnimated]="true">
-                    <div class="row p-0 pb-2 m-0 border-bottom align-items-center details-header-height">
-                        <div class="col-12 col-lg p-0">
-                            <!-- no address and no features -->
-                            <h6 *ngIf="!adresse && !features?.features.length"
-                                class="px-1 px-lg-2 pt-2 m-0 text-center"
-                                i18n>Wählen Sie eine Position</h6>
-                            <!-- - no address but features -->
-                            <h6 *ngIf="!adresse && features?.features.length "
-                                class="px-1 px-lg-2 pt-2 m-0 text-center">
-                                {{ features.features[0].properties.brzname}}
-                            </h6>
-                            <!-- address and features -->
-                            <h6 *ngIf="adresse"
-                                class="px-1 px-lg-2 pt-2 m-0 text-center">
-                                {{ adresse.properties.text }}
-                            </h6>
-                            <ng-template [ngTemplateOutlet]="flurstueckskennzeichen"></ng-template>
+                    <ng-container *ngIf="latLng?.length">
+                        <div class="row p-0 pb-2 m-0 border-bottom align-items-center details-header-height">
+                            <div class="col-12 col-lg p-0">
+                                <!-- no address and no features -->
+                                <h6 *ngIf="!adresse && !features?.features.length"
+                                    class="px-1 px-lg-2 pt-2 m-0 text-center"
+                                    i18n>Wählen Sie eine Position</h6>
+                                <!-- - no address but features -->
+                                <h6 *ngIf="!adresse && features?.features.length "
+                                    class="px-1 px-lg-2 pt-2 m-0 text-center">
+                                    {{ features.features[0].properties.brzname}}
+                                </h6>
+                                <!-- address and features -->
+                                <h6 *ngIf="adresse"
+                                    class="px-1 px-lg-2 pt-2 m-0 text-center">
+                                    {{ adresse.properties.text }}
+                                </h6>
+                                <ng-template [ngTemplateOutlet]="flurstueckskennzeichen"></ng-template>
+                            </div>
+                            <div class="col-12 col-lg-auto p-0">
+                                <ng-template [ngTemplateOutlet]="detailsFunctionButtons"></ng-template>
+                            </div>
                         </div>
-                        <div class="col-12 col-lg-auto p-0">
-                            <ng-template [ngTemplateOutlet]="detailsFunctionButtons"></ng-template>
-                        </div>
-                    </div>
-                    <ng-template [ngTemplateOutlet]="detailsContent"></ng-template>
+                        <ng-template [ngTemplateOutlet]="detailsContent"></ng-template>
+                    </ng-container>
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <!-- no address and no features - inital state -->
+        <h5 *ngIf="!latLng?.length"
+            class="px-1 px-lg-2 pt-2 text-center"
+            i18n>Wählen Sie eine Position</h5>
     </div>
 </div>
 
@@ -141,7 +150,7 @@
         </div>
         <div class="p-0"
              [class]="features?.features.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-auto col-lg-12'">
-            <button [disabled]="!adresse && !features?.features.length"
+            <button [class.d-none]="!adresse && !features?.features.length"
                     class="nav-link btn py-2 pl-1 pr-3"
                     [ngClass]="{'active': hintsActive}"
                     type="button"
@@ -170,7 +179,7 @@
 <!-- DetailsHints Template -->
 <ng-template #detailsHints>
     <!-- hints for no address and no features -->
-    <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && !features?.features.length"
+    <div *ngIf="(!adresse || adresse.properties.bundesland != 'Niedersachsen' || adresse.properties.bundesland != 'Bremen') && features && !features.features.length"
          class="text-center">
         <p class="p-1 m-0"
            i18n>Keine gültige Adresse!</p>
