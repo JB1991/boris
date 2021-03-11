@@ -68,6 +68,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         }
     }
 
+    /**
+     * updateData updates the address, bodenrichtwerte and the flurstueck
+     */
     private updateData() {
         const lat = this.latLng[0];
         const lng = this.latLng[1];
@@ -76,6 +79,12 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         this.getFlurstueckFromLatLng(lat, lng);
     }
 
+    /**
+     * getBodenrichtwertzonen subscribes the bodenrichtwertservice to update the current brwzonen for the current location
+     * @param lat latitude
+     * @param lng longitude
+     * @param entw teilmarkt
+     */
     public getBodenrichtwertzonen(lat: number, lng: number, entw: Array<string>): void {
         this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
             .subscribe(
@@ -97,6 +106,11 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             );
     }
 
+    /**
+     * getAddressFromLatLng subscribes the geosearchservice to update the address for the current location
+     * @param lat latitude
+     * @param lng longitude
+     */
     public getAddressFromLatLng(lat: number, lng: number): void {
         this.geosearchService.getAddressFromCoordinates(lat, lng)
             .subscribe(
@@ -108,6 +122,11 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             );
     };
 
+    /**
+     * getFlurstueckFromLatLng subscribes the alkisWfsService to update the flurstueck for the current location
+     * @param lat latitude
+     * @param lng longitude
+     */
     public getFlurstueckFromLatLng(lat: number, lng: number): void {
         this.alkisWfsService.getFlurstueckfromCoordinates(lng, lat).subscribe(
             res => this.alkisWfsService.updateFeatures(res),
@@ -120,7 +139,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     /**
      * onStichtagChange changes the stichtag to another stichtag and
-     * updates the brw/url
+     * emits the selected stichtag
      * @param stichtag stichtag to be switched to
      */
     public onStichtagChange(stichtag: string): void {
@@ -144,7 +163,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     /**
      * onTeilmarktChange changes the teilmarkt to another teilmarkt and
-     * updates the brw/url
+     * emits the selected teilmarkt
      * @param teilmarkt teilmarkt to be switched to
      */
     public onTeilmarktChange(teilmarkt: Teilmarkt): void {
@@ -159,7 +178,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-     * onAddressChange
+     * onAddressChange emits the selected location (latLng) on gesearch item is selected
      * @param feature feature
      */
     public onAddressChange(feature: Feature): void {
@@ -167,7 +186,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-     * onFlurstueckChange
+     * onFlurstueckChange emits the selected location (latLng) on flurstuecksearch item is selected
      * @param fts features
      */
     public onFlurstueckChange(fts: FeatureCollection): void {
@@ -193,7 +212,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-     * toggle3dView
+     * toggle3dView emits the selected state on/off for the 3D-View
      */
     public toggle3dView() {
         this.threeDActiveChange.emit(!this.threeDActive);
@@ -203,7 +222,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * resetMap resets all configurations set/made by the user
      */
     public resetMap() {
-        // reset coordinates
         if (this.latLng) {
             this.latLngChange.emit(undefined);
         }
@@ -229,13 +247,17 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             this.stichtagChange.emit(this.bodenrichtwert.STICHTAGE[0]);
         }
 
+        // triggers onResetMap of the map component
         this.resetMapFiredChange.emit(true);
 
         // reset URL
         this.location.replaceState('/bodenrichtwerte');
     }
 
-    enableLocationTracking() {
+    /**
+     * enableLocationTracking emits the current geolocation (latLng)
+     */
+    public enableLocationTracking() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(location => {
                 const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
@@ -245,7 +267,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-    * Transforms coordinates from one projection to another projection with EPSG-Codes
+    * transformCoordinates transforms coordinates from one projection to another projection with EPSG-Codes
     * @param from projection from (EPSG-Code)
     * @param to projection to (EPSG-Code)
     * @param coord coordinate [x, y]
