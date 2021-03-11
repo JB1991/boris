@@ -216,9 +216,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
                 }
             }
             // resetMapFired triggered by navigation resetMap only if details are collapsed
-            if (changes.resetMapFired?.currentValue && !changes.resetMapFired.firstChange) {
-                if (this.collapsed) {
+            if (changes.resetMapFired && !changes.resetMapFired.firstChange) {
+                if (changes.resetMapFired.currentValue && this.collapsed) {
                     this.onResetMap();
+                } else {
+                    // resizes the map canvas to full display width
+                    this.map.resize();
                 }
             }
             // threeDActive
@@ -279,13 +282,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         });
     }
 
-    public onDragEnd() {
+    public onDragEnd(): void {
         const lat = this.marker.getLngLat().lat;
         const lng = this.marker.getLngLat().lng;
         this.latLngChange.emit([lat, lng]);
     }
 
-    onMapClickEvent(event: MapMouseEvent | MapTouchEvent) {
+    public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
         if (event.lngLat) {
             this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
         }
@@ -296,7 +299,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             this.marker.setLngLat([null, null]);
             this.marker.remove();
         }
-        this.map.resize()
+
         this.map.fitBounds(this.bounds, {
             pitch: 0,
             bearing: 0
@@ -343,7 +346,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
             this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
         }
-        // this.repaintMap();
     }
 
     dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {

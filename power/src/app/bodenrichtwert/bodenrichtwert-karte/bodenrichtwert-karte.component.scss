@@ -9,22 +9,3 @@ mgl-map {
     height: 100%;
     width: 100%;
 }
-
-.nav-scroller {
-    width: 100%;
-    z-index: 1000;
-    height: 2.75rem;
-}
-
-.nav-scroller .nav {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    padding-bottom: 1rem;
-    margin-top: -1px;
-    color: rgba(255, 255, 255, 0.75);
-    text-align: center;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-}
