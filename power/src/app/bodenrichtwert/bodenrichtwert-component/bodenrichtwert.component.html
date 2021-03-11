@@ -34,9 +34,9 @@
              [class]="isCollapsed ? 'col-auto' : 'col-lg-6'">
             <div class="row m-0 p-0">
                 <div *ngIf="adresse || features"
-                     class="px-1 py-0"
-                     [class]="isCollapsed ? 'd-none d-lg-block' : 'd-none d-lg-block col-lg-1'">
-                    <button class="btn p-0 w-100 rounded-0 collapse-btn-width"
+                     class="px-1 py-0 d-none d-lg-flex"
+                     [class.col-lg-1]="!isCollapsed">
+                    <button class="btn p-0 w-100 rounded-0 collapse-btn-size"
                             type="button"
                             title="Detailansicht ein- bzw. ausklappen"
                             i18n-title

@@ -1,12 +1,5 @@
 .map-height {
-        height: calc(100vh - 184.4px);
-}
-
-
-.collapse-btn-width {
-    min-width: 30px;
-    max-width: 40px;
-    height: calc(100vh - 57px);
+    height: calc(100vh - 184.4px);
 }
 
 a.nav-link:hover {
@@ -23,11 +16,11 @@ a.nav-link:hover {
     color: #c4153a !important;
 }
 
-@media(min-width: 991px) {
+@media (min-width: 991px) {
     .details-content-height {
         height: calc(100vh - 160.4px);
     }
-    
+
     .details-header-height {
         height: 103.4px;
     }
@@ -35,10 +28,16 @@ a.nav-link:hover {
     .map-height {
         height: calc(100vh - 102px);
     }
+
+    .collapse-btn-size {
+        min-width: 40px;
+        max-width: 50px;
+        height: calc(100vh - 57px);
+    }
 }
 
-@media(max-width: 991px) {
+@media (max-width: 991px) {
     .overflow-auto {
-            overflow: unset !important;
-        }
+        overflow: unset !important;
+    }
 }
