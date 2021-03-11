@@ -33,10 +33,10 @@
         <div class="p-0 border-left"
              [class]="isCollapsed ? 'col-auto' : 'col-lg-6'">
             <div class="row m-0 p-0">
-                <div class="px-1 py-0"
-                     [class]="isCollapsed ? 'd-none d-lg-block col-lg-12' : 'd-none d-lg-block col-lg-1'">
-                    <button *ngIf="adresse || features"
-                            class="btn p-0 w-100 rounded-0 collapse-btn-width"
+                <div *ngIf="adresse || features"
+                     class="px-1 py-0"
+                     [class]="isCollapsed ? 'd-none d-lg-block' : 'd-none d-lg-block col-lg-1'">
+                    <button class="btn p-0 w-100 rounded-0 collapse-btn-width"
                             type="button"
                             title="Detailansicht ein- bzw. ausklappen"
                             i18n-title
@@ -51,7 +51,7 @@
                 </div>
                 <div id="collapseDetails"
                      class="p-0"
-                     [class]="isCollapsed ? 'd-block d-lg-none' : 'col-lg-11 col-12'"
+                     [class]="isCollapsed ? 'd-block d-lg-none' : 'col-lg-11'"
                      [collapse]="isCollapsed"
                      (collapsed)="onCollapsingEnds()"
                      (expanded)="onExpandingEnds()"
