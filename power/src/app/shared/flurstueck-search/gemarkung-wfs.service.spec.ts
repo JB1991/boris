@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { GemarkungWfsService } from './gemarkung-wfs.service';
 
 describe('GemarkungWfsService', () => {
-    const feature: Feature = require('../../../assets/boden/flurstueck-search-samples/gemarkung-feature.json');
-    const gemarkungCollection: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/gemarkung-collection.json');
+    const feature: Feature = require('../../../testdata/flurstueck-search/gemarkung-feature.json');
+    const gemarkungCollection: FeatureCollection = require('../../../testdata/flurstueck-search/gemarkung-collection.json');
 
     const searchText = '1205';
     const url = '/geoserver/alkis/ows?';

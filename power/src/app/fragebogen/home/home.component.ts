@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@app/shared/auth/auth.service';
@@ -13,11 +13,16 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 export class HomeComponent {
     public pin: string;
 
-    constructor(public titleService: Title,
+    constructor(
+        public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public auth: AuthService,
-        public alerts: AlertsService) {
+        public alerts: AlertsService
+    ) {
         this.titleService.setTitle($localize`Formulare - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
     /**

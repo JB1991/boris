@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LogoutComponent } from './logout.component';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 describe('Static.Logout.LogoutComponent', () => {
     let component: LogoutComponent;
@@ -23,7 +25,10 @@ describe('Static.Logout.LogoutComponent', () => {
                 LogoutComponent
             ],
             providers: [
-                AuthService
+                Title,
+                Meta,
+                AuthService,
+                LoadingscreenService,
             ]
         }).compileComponents();
 

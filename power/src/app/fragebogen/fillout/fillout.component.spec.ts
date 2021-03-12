@@ -14,9 +14,9 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
     let component: FilloutComponent;
     let fixture: ComponentFixture<FilloutComponent>;
 
-    const getPublicForm = require('../../../assets/fragebogen/get-public-form.json');
-    const getPublicTask = require('../../../assets/fragebogen/get-public-task.json');
-    const taskContent = require('../../../assets/fragebogen/task-content.json');
+    const getPublicForm = require('../../../testdata/fragebogen/get-public-form.json');
+    const getPublicTask = require('../../../testdata/fragebogen/get-public-task.json');
+    const taskContent = require('../../../testdata/fragebogen/task-content.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
@@ -110,6 +110,7 @@ export class GmbComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private titleService: Title,
+        private meta: Meta,
         private route: ActivatedRoute,
         private location: Location,
         private cdr: ChangeDetectorRef
@@ -119,9 +120,13 @@ export class GmbComponent implements OnInit {
 
     changeTitle() {
         if (this.mode === 'gmb') {
-            this.titleService.setTitle($localize`Grundstücksmarktberichte (Archiv)`);
+            this.titleService.setTitle($localize`Grundstücksmarktberichte - Immobilienmarkt.NI`);
+            this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
+            this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktberichte, Landkreis` });
         } else if (this.mode === 'lmb') {
-            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte (Archiv)`);
+            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte - Immobilienmarkt.NI`);
+            this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
+            this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
         }
     }
     /**
@@ -276,6 +281,68 @@ export class GmbComponent implements OnInit {
         return res.join('; ');
     }
 
+    filterBerichteGMB() {
+        const bf = [];
+        const ber = Object.keys(this.berichte);
+        for (let i = 0; i < ber.length; i++) {
+            const yr = [];
+            const yk = Object.keys(this.berichte[ber[i]]);
+            for (let y = 0; y < yk.length; y++) {
+                if ((this.berichte[ber[i]][yk[y]]['bereich'] !== undefined) &&
+                    (this.berichte[ber[i]][yk[y]]['bereich'].includes(this.selectedKreis))) {
+                    yr.push({
+                        'key': yk[y],
+                        'value': this.berichte[ber[i]][yk[y]]
+                    });
+                }
+            }
+
+            if (yr.length > 0) {
+                yr.sort(function (b, a) {
+                    return a['key'] - b['key'];
+                });
+
+                bf.push({
+                    'name': ber[i],
+                    'berichte': yr,
+                    'start': yr[yr.length - 1]['key']
+                });
+            }
+        }
+
+        bf.sort(function (b, a) {
+            return a['start'] - b['start'];
+        });
+
+        return bf;
+    }
+
+    filterBerichteLMB() {
+
+        const bf = [];
+        const bb = [];
+        const yk = Object.keys(this.berichte['Niedersachsen']);
+
+        for (let y = 0; y < yk.length; y++) {
+            bb.push({
+                'key': yk[y],
+                'value': this.berichte['Niedersachsen'][yk[y]]
+            });
+
+        }
+
+        bb.sort(function (b, a) {
+            return a['key'] - b['key'];
+        });
+
+        bf.push({
+            'name': 'Niedersachsen',
+            'berichte': bb
+        });
+
+        return bf;
+    }
+
     /**
      * Filter Berichte based on selection
      */
@@ -285,43 +352,11 @@ export class GmbComponent implements OnInit {
             return;
         }
 
-        const bf = [];
-
         if (!lmb) {
-            const ber = Object.keys(this.berichte);
-            for (let i = 0; i < ber.length; i++) {
-                const yr = {};
-                const yk = Object.keys(this.berichte[ber[i]]);
-                for (let y = 0; y < yk.length; y++) {
-                    if ((this.berichte[ber[i]][yk[y]]['bereich'] !== undefined) &&
-                        (this.berichte[ber[i]][yk[y]]['bereich'].includes(this.selectedKreis))) {
-                        yr[yk[y]] = this.berichte[ber[i]][yk[y]];
-                    }
-                }
-
-                const yl = Object.keys(yr);
-                if (yl.length > 0) {
-                    bf.push({
-                        'name': ber[i],
-                        'berichte': yr,
-                        'start': yl[0]
-                    });
-                }
-            }
-
-            bf.sort(function (a, b) {
-                return a['start'] - b['start'];
-            });
+            this.berichteFiltered = this.filterBerichteGMB();
+        } else {
+            this.berichteFiltered = this.filterBerichteLMB();
         }
-
-        if (lmb) {
-            bf.push({
-                'name': 'Niedersachsen',
-                'berichte': this.berichte['Niedersachsen']
-            });
-        }
-
-        this.berichteFiltered = bf;
     }
 
 
@@ -414,6 +449,35 @@ export class GmbComponent implements OnInit {
         if (this.mode === 'lmb') {
             this.location.replaceState('/landesgrundstuecksmarktberichte', params.toString());
         }
+    }
+
+    ariaLabelBericht(year, rd, dl = false) {
+        let label = '';
+
+        if (dl) {
+            label += $localize`Download des` + ' ';
+
+
+            if (rd === 'Niedersachsen') {
+                label += $localize`Landesgrundstücksmarktberichtes`;
+            } else {
+                label += $localize`Grundstücksmarktberichtes`;
+            }
+        } else {
+            if (rd === 'Niedersachsen') {
+                label += $localize`Landesgrundstücksmarktbericht`;
+            } else {
+                label += $localize`Grundstücksmarktbericht`;
+            }
+
+        }
+        label += ' ' + year;
+
+        if (rd !== 'Niedersachsen') {
+            label += ' ' + $localize`vom Gutachterausschuss` + ' ' + rd;
+        }
+
+        return label;
     }
 
     /**

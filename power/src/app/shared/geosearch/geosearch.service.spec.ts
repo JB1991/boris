@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { Feature, FeatureCollection } from 'geojson';
 
 describe('Shared.Geosearch.GeosearchService', () => {
-    const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
-    const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
+    const feature: Feature = require('../../../testdata/geosearch/feature.json');
+    const featureCollection: FeatureCollection = require('../../../testdata/geosearch/featurecollection.json');
 
     const searchQuery = 'podbi';
     const searchUrl = '/geocoding/geosearch/?query=text:(' + searchQuery + ')%20AND%20(typ:ort%20OR%20typ:strasse%20OR%20typ:haus%5E0.2)%20AND%20(bundesland:Niedersachsen%20OR%20bundesland:Bremen)&minScore=1&count=10';

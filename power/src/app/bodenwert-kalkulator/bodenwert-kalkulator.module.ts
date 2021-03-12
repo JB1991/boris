@@ -6,6 +6,7 @@ import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator/bodenwert-k
 import { BodenwertKalkulatorRoutingModule } from './bodenwert-kalkulator-routing.module';
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
         CommonModule,
         NgxMapboxGLModule,
         SharedModule,
+        BsDropdownModule.forRoot(),
         CollapseModule
     ],
     exports: []

@@ -5,7 +5,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { environment } from '@env/environment';
 
 import { AuthService } from './auth.service';
-import { ConfigService } from '@app/config.service';
 
 describe('Shared.Auth.AuthService', () => {
     let service: AuthService;
@@ -19,9 +18,6 @@ describe('Shared.Auth.AuthService', () => {
                     { path: '', component: MockHomeComponent },
                     { path: 'home', component: MockHomeComponent }
                 ])
-            ],
-            providers: [
-                ConfigService
             ]
         });
         service = TestBed.inject(AuthService);
@@ -69,23 +65,15 @@ describe('Shared.Auth.AuthService', () => {
 
     it('should IsAuthEnabled correct', () => {
         // auth enabled
-        service.conf.config = { 'modules': [], 'authentication': true };
         environment.production = true;
         expect(service.IsAuthEnabled()).toBeTrue();
 
         // auth disabled
-        service.conf.config = { 'modules': [], 'authentication': false };
-        environment.production = true;
-        expect(service.IsAuthEnabled()).toBeFalse();
-
-        // auth disabled, non-production
-        service.conf.config = { 'modules': [], 'authentication': true };
         environment.production = false;
         expect(service.IsAuthEnabled()).toBeFalse();
     });
 
     it('should IsAuthenticated correct', () => {
-        service.conf.config = { 'modules': [], 'authentication': true };
         environment.production = true;
         const expire = new Date();
         expire.setSeconds(expire.getSeconds() + 900);
@@ -228,7 +216,6 @@ describe('Shared.Auth.AuthService', () => {
         expect(service.IsAuthorized(['user'], 'abc', [])).toBeTrue();
 
         // auth enabled but not authenticated
-        service.conf.config = { 'modules': [], 'authentication': true };
         environment.production = true;
         expect(service.IsAuthorized(['user'], 'abc', [])).toBeFalse();
 

@@ -1,17 +1,17 @@
 import {
-    Component, OnDestroy,
+    Component, OnInit, OnDestroy,
     ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { ConfigService } from '@app/config.service';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
 import { DatePipe } from '@angular/common';
+import { environment } from '@env/environment';
 
 /**
  * Bodenrichtwert-Component arranges all Components on a single page
@@ -23,7 +23,7 @@ import { DatePipe } from '@angular/common';
     providers: [DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertComponent implements OnDestroy {
+export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
      * Adresse to be shown
@@ -75,17 +75,22 @@ export class BodenrichtwertComponent implements OnDestroy {
 
     public hintsActive = false;
 
+    public config: any;
+
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
     constructor(
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
-        public configService: ConfigService,
         private titleService: Title,
+        private meta: Meta,
         private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Wertermittlung, Bodenrichtwerte, BORIS.NI, Bo­den­richt­wert­zo­ne` });
+
         this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.adresse = adr;
             this.cdr.detectChanges();
@@ -101,6 +106,10 @@ export class BodenrichtwertComponent implements OnDestroy {
         });
         this.stichtag = this.bodenrichtwertService.STICHTAGE[0];
         this.teilmarkt = this.bodenrichtwertService.TEILMAERKTE[0];
+    }
+
+    ngOnInit() {
+        this.config = environment.config;
     }
 
     getStichtag(): string {
@@ -164,6 +173,31 @@ export class BodenrichtwertComponent implements OnDestroy {
             }
             default: {
                 throw new Error('Unknown teilmarkt');
+            }
+        }
+
+        // zoom
+        url += '&zoom=';
+        const zoom = this.map.map.getZoom();
+        if (this.teilmarkt.viewValue === this.bodenrichtwertService.TEILMAERKTE[0].viewValue) {
+            // Bauland
+            if (zoom >= 16) {
+                url += '2500';
+            } else if (zoom >= 15) {
+                url += '5000';
+            } else if (zoom >= 14) {
+                url += '10000';
+            } else if (zoom >= 13) {
+                url += '25000';
+            } else {
+                url += '50000';
+            }
+        } else {
+            // Landwirtschaft
+            if (zoom >= 10.5) {
+                url += '100000';
+            } else {
+                url += '200000';
             }
         }
 

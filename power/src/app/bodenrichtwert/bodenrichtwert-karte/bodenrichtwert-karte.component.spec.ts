@@ -14,8 +14,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Feature, FeatureCollection } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
-    const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
-    const flurstueck: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/flurstueck-collection.json');
+    const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
+    const flurstueck: FeatureCollection = require('../../../testdata/flurstueck-search/flurstueck-collection.json');
 
     const entw = ['B'];
     const lat = 52.40729;

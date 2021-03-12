@@ -35,10 +35,6 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          volumeMounts:
-          - name: power-modules-config
-            mountPath: "/usr/share/nginx/html/assets/config"
-            readOnly: true
           env:
             - name: BKG_GEOCODING_SECRET
               valueFrom:
@@ -59,10 +55,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      volumes:
-      - name: power-modules-config
-        configMap:
-          name: {{ .Release.Name }}-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
