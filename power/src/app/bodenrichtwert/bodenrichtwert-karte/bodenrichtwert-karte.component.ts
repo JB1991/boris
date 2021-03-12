@@ -337,6 +337,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         this.bodenrichtwertService.getFeatureByLatLonEntw(lat, lng, entw)
             .subscribe(
                 res => {
+                    console.log(res);
                     this.bodenrichtwertService.updateFeatures(res);
                     // temporary alert for data of bremen for the year 2021
                     if (res.features[0]?.properties.gabe.includes('Bremen') && this.stichtag === '2020-12-31') {
@@ -406,14 +407,15 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     doNotDisplay = [
-        'DENIBR4319B07171',
-        'DENIBR4316B37171',
         'DENIBR4318B07171',
+        'DENIBR4316B37171',
+        'DENIBR4319B07171',
         'DENIBR4315B37171',
-        'DENIBR4317B37171',
-        'DENIBR4314B37171',
-        'DENIBR4313B37171',
         'DENIBR4320B07171',
+        'DENIBR4321B07171',
+        'DENIBR4317B37171',
+        'DENIBR4313B37171',
+        'DENIBR4314B37171',
 
         'DENIBR8020B02418',
         'DENIBR8017B02418',
@@ -560,7 +562,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 console.log(e);
             }
 
-            if (this.map.getZoom() > 15) {
+            if (this.map.getZoom() > 14) {
                 const p = turf.pointOnFeature(union);
 
                 if (p && p.geometry) {
