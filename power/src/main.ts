@@ -8,10 +8,12 @@ if (environment.production) {
     enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-    .then(() => {
-        if ('serviceWorker' in navigator && environment.production) {
-            navigator.serviceWorker.register('./ngsw-worker.js');
-        }
-    })
-    .catch(err => console.error(err));
+document.addEventListener('DOMContentLoaded', () => {
+    platformBrowserDynamic().bootstrapModule(AppModule)
+        .then(() => {
+            if ('serviceWorker' in navigator && environment.production) {
+                navigator.serviceWorker.register('./ngsw-worker.js');
+            }
+        })
+        .catch(err => console.error(err));
+});

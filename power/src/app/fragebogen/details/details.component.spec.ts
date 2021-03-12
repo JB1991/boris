@@ -19,10 +19,10 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     let component: DetailsComponent;
     let fixture: ComponentFixture<DetailsComponent>;
 
-    const getTags = require('../../../assets/fragebogen/get-tags.json');
-    const getForm = require('../../../assets/fragebogen/get-form.json');
-    const getTasks = require('../../../assets/fragebogen/get-tasks.json');
-    const getTask = require('../../../assets/fragebogen/get-task.json');
+    const getTags = require('../../../testdata/fragebogen/get-tags.json');
+    const getForm = require('../../../testdata/fragebogen/get-form.json');
+    const getTasks = require('../../../testdata/fragebogen/get-tasks.json');
+    const getTask = require('../../../testdata/fragebogen/get-task.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -95,8 +95,8 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component.formapi, 'getForm').and.returnValue(Promise.reject('Failed 1'));
 
         component.updateForm(true).then(() => {
-            expect(component.form).toBeNull();
-            expect(component.tasks.length).toEqual(0);
+            expect(component.form).toBeUndefined();
+            expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();
         });
     });

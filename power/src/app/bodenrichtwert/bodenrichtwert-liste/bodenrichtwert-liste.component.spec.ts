@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () => {
-    const changes = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-liste-changes.json');
+    const changes = require('../../../testdata/bodenrichtwert/bodenrichtwert-liste-changes.json');
 
     let component: BodenrichtwertListeComponent;
     let fixture: ComponentFixture<BodenrichtwertListeComponent>;
@@ -32,7 +32,7 @@ describe('Bodenrichtwert.BodenrichtwertListe.BodenrichtwertListeComponent', () =
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertListeComponent);
         component = fixture.componentInstance;
-        component.features = {features: [], type: 'FeatureCollection'};
+        component.features = { features: [], type: 'FeatureCollection' };
         fixture.detectChanges();
 
         httpTestingController = TestBed.inject(HttpTestingController);

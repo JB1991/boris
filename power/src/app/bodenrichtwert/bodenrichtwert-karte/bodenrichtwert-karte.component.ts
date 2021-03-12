@@ -62,7 +62,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public functionsActive = false;
 
     public isDragged = false;
+
     public zoomFactor: number;
+    // Flurstuecke become visible at Zoomfactor 15.1
+    public standardBaulandZoom = 15.1;
+    public standardLandZoom = 11;
 
     public baulandColorPalette = ['#794c74', '#c56183', '#fadcaa', '#b2deec'];
 
@@ -308,10 +312,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     flyTo(lat: number, lng: number, eventType?: any) {
-        if (this.map.getZoom() > 11.25 && !eventType) {
-            this.zoomFactor = this.map.getZoom();
+        const currentZoom = this.map.getZoom();
+        if (this.teilmarkt.viewValue !== 'Bauland' && !eventType) {
+            if (currentZoom > 10) {
+                this.zoomFactor = currentZoom;
+            } else {
+                this.zoomFactor = this.standardLandZoom;
+            }
+        } else if (currentZoom > 11 && !eventType) {
+            this.zoomFactor = currentZoom;
         } else {
-            this.zoomFactor = 15.1;
+            this.zoomFactor = this.standardBaulandZoom;
         }
         this.map.flyTo({
             center: [lng, lat],
@@ -402,7 +413,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         'DENIBR4317B37171',
         'DENIBR4314B37171',
         'DENIBR4313B37171',
-        'DENIBR4320B07171'
+        'DENIBR4320B07171',
+
+        'DENIBR8020B02418',
+        'DENIBR8017B02418',
+        'DENIBR8014B02418',
+        'DENIBR8016B02418',
+        'DENIBR8019B02418',
+        'DENIBR8013B02418',
+        'DENIBR8018B02418',
+        'DENIBR8015B02418',
+        'DENIBR8021B02418'
     ];
 
     onMoveEnd() {
@@ -480,6 +501,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             }
         });
 
+        let buffer = 0;
+
+        if (this.map.getZoom() > 17) {
+            buffer = -10;
+        } else if (this.map.getZoom() > 15) {
+            buffer = -50;
+        } else if (this.map.getZoom() > 14) {
+            buffer = -100;
+        }
+
+        // eslint-disable-next-line complexity
         const features: Array<GeoJSON.Feature<GeoJSON.Geometry>> = Object.keys(featureMap).map(key => {
             const properties = featureMap[key][0].properties;
             let union: Polygon;
@@ -489,7 +521,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             } else {
 
                 featureMap[key].forEach(f => {
-                    if (union) {
+                    if (union && union.coordinates) {
                         const u = turf.union(union, f.geometry);
                         switch (u.geometry.type) {
                             case 'Polygon':
@@ -509,18 +541,40 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
                 type: 'Polygon',
                 coordinates: mapViewBound,
             }, union);
-            if (!featureView) {
-                console.log('no featureView: ' + properties['display']);
-                return {
-                    type: 'Feature',
-                    geometry: union,
-                    properties: properties,
-                };
+
+            if (featureView && featureView.geometry) {
+                if (featureView.geometry.type === 'MultiPolygon') {
+                    union = getLargestPolygon(featureView.geometry);
+                } else {
+                    union = featureView.geometry;
+                }
+            }
+
+            try {
+                const buf = turf.buffer(union, buffer, {units: 'meters'});
+
+                if (buf && buf.geometry) {
+                    union = buf.geometry;
+                }
+            } catch (e) {
+                console.log(e);
+            }
+
+            if (this.map.getZoom() > 15) {
+                const p = turf.pointOnFeature(union);
+
+                if (p && p.geometry) {
+                    return {
+                        type: 'Feature',
+                        geometry: p.geometry,
+                        properties: properties,
+                    };
+                }
             }
 
             return {
                 type: 'Feature',
-                geometry: featureView.geometry,
+                geometry: union,
                 properties: properties,
             };
         });
@@ -621,7 +675,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
-                $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
+                $localize`Der Stichtag wurde zu` + ' ' + this.datePipe.transform(stichtag) + ' ' + $localize`gewechselt.`);
         }
 
         this.stichtagChange.next(stichtag);
@@ -645,18 +699,18 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Teilmarkt gewechselt`,
-                $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
+                $localize`Der Teilmarkt wurde zu` + ' ' + teilmarkt.viewValue + ' ' + $localize`gewechselt.`);
         }
 
         // ease to zoom lvl
-        if (teilmarkt.viewValue === 'Bauland' && this.marker.getLngLat()) {
+        if (teilmarkt.viewValue === 'Bauland' && this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
             this.map.easeTo({
-                zoom: 14,
+                zoom: this.standardBaulandZoom,
                 center: this.marker.getLngLat()
             });
-        } else if (this.marker.getLngLat()) {
+        } else if (this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
             this.map.easeTo({
-                zoom: 11,
+                zoom: this.standardLandZoom,
                 center: this.marker.getLngLat()
             });
         }

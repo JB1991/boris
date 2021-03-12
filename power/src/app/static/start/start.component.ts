@@ -1,26 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
-import { Config, ConfigService } from '@app/config.service';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'power-start',
     templateUrl: './start.component.html',
-    styleUrls: ['./start.component.scss']
+    styleUrls: ['./start.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StartComponent implements OnInit {
-    public config: Config;
+export class StartComponent {
+    public config = environment.config;
     public cardorder = {};
     public pin: string;
 
-    constructor(public title: Title,
+    constructor(
+        public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
-        public alerts: AlertsService,
-        public configService: ConfigService) {
-        this.title.setTitle($localize`Immobilienmarkt.NI`);
+        public alerts: AlertsService
+    ) {
+        this.titleService.setTitle($localize`Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS.NI, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+
         // check if logged out
         /* istanbul ignore next */
         this.route.queryParams.subscribe(params => {
@@ -29,10 +35,6 @@ export class StartComponent implements OnInit {
                     $localize`Sie wurden erfolgreich ausgeloggt.`);
             }
         });
-    }
-
-    ngOnInit() {
-        this.config = this.configService.config;
     }
 
     /**

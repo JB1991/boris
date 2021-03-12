@@ -162,6 +162,7 @@
                         <option value="all"
                                 i18n>Alle Tickets</option>
                         <option value="opened"
+                                selected
                                 i18n>Offene Tickets</option>
                         <option value="closed"
                                 i18n>Geschlossene Tickets</option>
@@ -191,8 +192,7 @@
             <div *ngIf="this.rss.length === 0">
                 <div class="text-center">
                     <span i18n>Leider konnten wir noch keine Tickets finden. Bei Bedarf können Sie uns gerne
-                        kontaktieren.
-                    </span>
+                        kontaktieren.</span>
                 </div>
             </div>
         </div>

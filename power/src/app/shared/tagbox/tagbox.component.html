@@ -27,8 +27,7 @@
             (keyup.enter)="addTag()"
             [name]="eid"
             [id]="eid">
-        <option value=""
-                i18n>{{ placeholder }}</option>
+        <option value="">{{ placeholder }}</option>
         <option *ngFor="let tag of dataList; index as i"
                 [value]="tag">{{ tag }}</option>
     </select>

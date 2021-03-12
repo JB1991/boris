@@ -82,18 +82,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-config:
-  modules:
-    - "bodenrichtwerte"
-    - "bodenwertkalkulator"
-    - "immobilienpreisindex"
-    - "immobilienpreiskalkulator"
-    - "grundstuecksmarktberichte"
-    - "landesgrundstuecksmarktdaten"
-    - "landesgrundstuecksmarktberichte"
-    - "forms"
-    - "feedback"
-    - "login"
-  authentication: true
-  localized: true

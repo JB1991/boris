@@ -1,5 +1,5 @@
 <div class="container my-4"
-     *ngIf="configService.config.modules.includes('bodenrichtwerte-altsystem') && showPrintNotice">
+     *ngIf="config.modules.includes('bodenrichtwerte-altsystem') && showPrintNotice">
     <alert type="info"
            role="alert">
         <button i18n-aria-label
@@ -82,10 +82,12 @@
                 (click)="isCollapsed = !isCollapsed"
                 [attr.aria-expanded]="!isCollapsed"
                 aria-controls="collapseBasic">
-            <img src="{{ isCollapsed ? '/assets/icons/chevron-left.svg' : '/assets/icons/chevron-right.svg'}}"
-                 alt="Einklappen/ausklappen"
-                 class="h-100 w-100"
-                 i18n-alt>
+            <i class="bi"
+               role="img"
+               i18n-aria-label
+               aria-label="Detailansicht ein- bzw. ausklappen"
+               [class.bi-chevron-left]="isCollapsed"
+               [class.bi-chevron-right]="!isCollapsed"></i>
         </button>
         <div [class]="isCollapsed ? 'col-36 border-top' : 'col-lg-18 border-bottom'">
             <div class="row border-bottom">
@@ -104,11 +106,12 @@
                         (click)="isCollapsed = !isCollapsed"
                         [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseBasic">
-                    <img src="{{ isCollapsed ? '/assets/icons/chevron-up.svg' : '/assets/icons/chevron-down.svg'}}"
-                         width="80"
-                         height="25"
-                         alt="Einklappen/ausklappen"
-                         i18n-alt>
+                    <i class="bi"
+                       role="img"
+                       i18n-aria-label
+                       aria-label="Detailansicht ein- bzw. ausklappen"
+                       [class.bi-chevron-up]="isCollapsed"
+                       [class.bi-chevron-down]="!isCollapsed"></i>
                 </button>
                 <!-- Case 2 -->
                 <button *ngIf="!adresse && features && features.features.length"
@@ -139,20 +142,22 @@
                             </svg>
                             <span class="flurstueck">
                                 <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
-                                    <small class="ml-2 mr-2"
-                                           i18n>Gemarkung:
+                                    <small class="ml-2 mr-2">
+                                        <span i18n>Gemarkung</span>:
                                         {{ flurstueck.features[0].properties.gemarkungsnummer }}
                                     </small>
                                 </span>
                                 <span *ngIf="flurstueck.features[0]?.properties.flurnummer">
-                                    <small class="mr-2"
-                                           i18n>Flurnummer:
+                                    <small class="mr-2">
+                                        <span i18n>Flurnummer</span>:
                                         {{ flurstueck.features[0].properties.flurnummer }}
                                     </small>
                                 </span>
                                 <span *ngIf="flurstueck.features[0]?.properties.zaehler">
-                                    <small i18n>Flurstück:
-                                        {{ flurstueck.features[0].properties.zaehler }}</small>
+                                    <small>
+                                        <span i18n>Flurstück</span>:
+                                        {{ flurstueck.features[0].properties.zaehler }}
+                                    </small>
                                     <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
                                         flurstueck.features[0].properties.nenner }}
                                     </small>
@@ -198,20 +203,22 @@
                             </svg>
                             <span class="flurstueck">
                                 <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
-                                    <small class="ml-2 mr-2"
-                                           i18n>Gemarkung:
+                                    <small class="ml-2 mr-2">
+                                        <span i18n>Gemarkung</span>:
                                         {{ flurstueck.features[0].properties.gemarkungsnummer }}
                                     </small>
                                 </span>
                                 <span *ngIf="flurstueck.features[0]?.properties.flurnummer">
-                                    <small class="mr-2"
-                                           i18n>Flurnummer:
+                                    <small class="mr-2">
+                                        <span i18n>Flurnummer</span>:
                                         {{ flurstueck.features[0].properties.flurnummer }}
                                     </small>
                                 </span>
                                 <span *ngIf="flurstueck.features[0]?.properties.zaehler">
-                                    <small i18n>Flurstück:
-                                        {{ flurstueck.features[0].properties.zaehler }}</small>
+                                    <small>
+                                        <span i18n>Flurstück</span>:
+                                        {{ flurstueck.features[0].properties.zaehler }}
+                                    </small>
                                     <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
                                         flurstueck.features[0].properties.nenner }}
                                     </small>
@@ -287,7 +294,7 @@
                                 <p class="m-3 mx-center lead"
                                    i18n>Keine gültige Adresse!</p>
                                 <p class="m-3 mx-center lead"
-                                   i18n>Hinweis:</p>
+                                   i18n>Hinweis</p>:
                                 <p class="m-3 mx-center"
                                    i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder
                                     Bremen
@@ -304,9 +311,11 @@
                                 </div>
                                 <div *ngIf="flurstueck"
                                      class="text-center col-36">
-                                    <p class="m-3 mx-center"
-                                       i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich auf den
-                                        aktuell ausgewählten Standort und auf den Stichtag {{ getStichtag() | date }}.
+                                    <p class="m-3 mx-center">
+                                        <span i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich
+                                            auf den
+                                            aktuell ausgewählten Standort und auf den Stichtag</span>
+                                        {{ getStichtag() | date }}.
                                     </p>
                                 </div>
                                 <div *ngIf="adresse && (adresse.properties.bundesland == 'Niedersachsen' || adresse.properties.bundesland == 'Bremen') && !features.features.length"

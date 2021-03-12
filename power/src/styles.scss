@@ -1,9 +1,10 @@
 /*!* You can add global styles to this file, and also import other style files *!*/
 /*// @import 'theme.scss';*/
 @import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
 @import '~nouislider/distribute/nouislider.css';
-@import '~mapbox-gl/dist/mapbox-gl.css';
 @import '~survey-angular/survey.css';
+@import '~mapbox-gl/dist/mapbox-gl.css';
 @import 'app/fragebogen/fragebogen.scss';
 
 @mixin font($font-family, $font-file) {
@@ -39,9 +40,11 @@ $font-family-sans-serif: // Safari for macOS and iOS (San Francisco)
     // Android
     'Roboto',
     // Basic web fallback
-    'Helvetica Neue', Arial, sans-serif,
+    'Helvetica Neue',
+    Arial, sans-serif,
     // Emoji fonts
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !default;
+    'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol' !default;
 
 a:not([href]),
 a:not([href]):hover {
