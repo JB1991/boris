@@ -142,7 +142,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * tooltipFormatter formats the content of the tooltip floating layer
      * @param params params
      */
-    public tooltipFormatter(params: Array<any>) {
+    public tooltipFormatter(params: Array<any>): string {
         const res = [];
         const year = params[0].axisValue;
         for (let j = 0; j < params.length; j++) {
@@ -160,7 +160,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     /**
-     * removeStringinTooltip removes the text of verfahrensgrund (San, Entw, SoSt, StUb) 
+     * removesStringinTooltip removes the text of verfahrensgrund (San, Entw, SoSt, StUb) 
      * and verfharensart(SU, EU, SB, EB)
      * @param tooltipText string
      * @returns a string with modified tooltip text
