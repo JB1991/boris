@@ -196,6 +196,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     /**
      * pointOnFlurstueck returns a point (transformed to wgs84) guranteed to be on the feature
+     * @param ft feature
      */
     public pointOnFlurstueck(ft: Feature): number[] {
         const polygon = turf.polygon(ft.geometry['coordinates']);

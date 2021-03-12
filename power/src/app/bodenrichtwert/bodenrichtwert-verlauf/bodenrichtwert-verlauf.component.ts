@@ -142,49 +142,69 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * tooltipFormatter formats the content of the tooltip floating layer
      * @param params params
      */
-    public tooltipFormatter(params: any) {
+    public tooltipFormatter(params: Array<any>) {
         const res = [];
         const year = params[0].axisValue;
         for (let j = 0; j < params.length; j++) {
-            if (params[j].value !== undefined && typeof (params[j].value) !== 'string') {
-                let seriesName = params[j].seriesName;
-                seriesName = seriesName.replace('Sanierungsgebiet', '');
-                seriesName = seriesName.replace('Entwicklungsbereich', '');
-                seriesName = seriesName.replace('Soziale Stadt', '');
-                seriesName = seriesName.replace('Stadtumbau', '');
-                seriesName = seriesName.replace('sanierungsunbeeinflusster Wert', '');
-                seriesName = seriesName.replace('sanierungsbeeinflusster Wert', '');
-                if (window.innerWidth < 480 && seriesName.length > 25) {
-                    const splittedNameSmallView = seriesName.split(/(?:\n| )/);
-                    const concatSplittedName = [];
-                    let i = 0;
-                    splittedNameSmallView.forEach((element: string) => {
-                        if (!concatSplittedName[i]) {
-                            concatSplittedName[i] = element + ' ';
-                        } else if (concatSplittedName[i].length < 23) {
-                            concatSplittedName[i] += element + ' ';
-                        } else {
-                            i++;
-                            if (!concatSplittedName[i]) {
-                                concatSplittedName[i] = element + ' ';
-                            } else { concatSplittedName[i] += element + ' '; }
-                        }
-                    });
-                    const resName = concatSplittedName.join('<br />');
-                    res.push(`${params[j].marker} ${resName} : ${params[j].value} € <br />`);
-                } else {
-                    res.push(`${params[j].marker} ${seriesName} : ${params[j].value} € <br />`);
+            if (params[j].value && typeof (params[j].value) !== 'string') {
+                params[j].seriesName = this.removesStringinTooltip(params[j].seriesName);
+
+                if (window.innerWidth < 480 && params[j].seriesName.length > 25) {
+                    params[j].seriesName = this.formatTooltipforSmallViews(params[j].seriesName);
                 }
+                // result with modified tooltip text 
+                res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} € <br />`);
             }
         }
         return ([year, '<br />', res.join('')].join(''));
     }
 
     /**
+     * removeStringinTooltip removes the text of verfahrensgrund (San, Entw, SoSt, StUb) 
+     * and verfharensart(SU, EU, SB, EB)
+     * @param tooltipText string
+     * @returns a string with modified tooltip text
+     */
+    private removesStringinTooltip(tooltipText: string): string {
+        tooltipText = tooltipText.replace('Sanierungsgebiet', '');
+        tooltipText = tooltipText.replace('Entwicklungsbereich', '');
+        tooltipText = tooltipText.replace('Soziale Stadt', '');
+        tooltipText = tooltipText.replace('Stadtumbau', '');
+        tooltipText = tooltipText.replace('sanierungsunbeeinflusster Wert', '');
+        tooltipText = tooltipText.replace('sanierungsbeeinflusster Wert', '');
+
+        return tooltipText;
+    }
+
+    /**
+     * formatTooltipforSmallViews formats the tooltip specially needed for small Viewports
+     * @param tooltipText string
+     * @returns a string with modified tooltip text
+     */
+    private formatTooltipforSmallViews(tooltipText: string): string {
+        const splittedNameSmallView: Array<string> = tooltipText.split(/(?:\n| )/);
+        const concatSplittedName: Array<string> = [];
+        let i = 0;
+        splittedNameSmallView.forEach((element: string) => {
+            if (!concatSplittedName[i]) {
+                concatSplittedName[i] = element + ' ';
+            } else if (concatSplittedName[i].length < 23) {
+                concatSplittedName[i] += element + ' ';
+            } else {
+                i++;
+                if (!concatSplittedName[i]) {
+                    concatSplittedName[i] = element + ' ';
+                } else { concatSplittedName[i] += element + ' '; }
+            }
+        });
+        return concatSplittedName.join('<br />');
+    }
+
+    /**
      * filterByStichtag filters out the features between the first and last year of the series
      * @param features features
      */
-    public filterByStichtag(features: Array<Feature>): Array<Feature> {
+    private filterByStichtag(features: Array<Feature>): Array<Feature> {
         const firstYear = this.seriesTemplate[0].stag;
         const lastYear = this.seriesTemplate[this.seriesTemplate.length - 1].stag;
 
