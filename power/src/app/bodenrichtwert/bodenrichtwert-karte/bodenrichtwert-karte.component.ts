@@ -261,7 +261,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /**
      * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
      */
-    private determineZoomFactor() {
+    public determineZoomFactor() {
         // Bauland
         if (this.teilmarkt.text === 'Bauland') {
             this.zoomFactor = this.standardBaulandZoom;
@@ -274,7 +274,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /**
      * flyTo executes a flyTo for a given latLng
      */
-    private flyTo(lat: number, lng: number) {
+    public flyTo(lat: number, lng: number) {
         this.determineZoomFactor();
         this.map.flyTo({
             center: [lng, lat],
@@ -300,6 +300,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * @param event MapEvent with coordinates
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
+        console.log(event);
         if (event.lngLat) {
             this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
         }
@@ -308,7 +309,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /**
      * onResetMap updates the marker and map bounds if resetMapFired was triggered
      */
-    private onResetMap(): void {
+    public onResetMap(): void {
         if (this.marker) {
             this.marker.setLngLat([null, null]);
             this.marker.remove();
@@ -479,7 +480,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /**
      * activate3dView adds a building transition layer to the map
      */
-    private activate3dView() {
+    public activate3dView() {
         this.zoomFactor = this.map.getZoom();
         this.map.addLayer({
             id: 'building-extrusion',
@@ -507,7 +508,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /**
      * deactivate3dView removes the building extrusion layer from the map 
      */
-    private deactivate3dView() {
+    public deactivate3dView() {
         this.map.easeTo({
             pitch: 0,
             zoom: this.zoomFactor,
