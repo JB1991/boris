@@ -17,6 +17,9 @@ fullnameOverride: ""
 labels:
   commit: ""
 
+annotations:
+  deployedAt: ""
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: false

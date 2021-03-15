@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Feature, FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection, Geometry } from 'geojson';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import Fuse from 'fuse.js';
 
 @Injectable({
     providedIn: 'root'
@@ -109,7 +110,7 @@ export class GemarkungWfsService {
             'xmlns:ogc="http://www.opengis.net/ogc" ' +
             'xmlns:wfs="http://www.opengis.net/wfs" ' +
             'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
-            'service="WFS" version="1.1.0" outputFormat="JSON" maxFeatures="10">' +
+            'service="WFS" version="1.1.0" outputFormat="JSON">' +
             '<wfs:Query typeName="gemarkungen">' +
             '<ogc:Filter>' +
             '<ogc:Or>' + filterWords + filterNumbers + '</ogc:Or>' +
@@ -121,7 +122,29 @@ export class GemarkungWfsService {
             this.url,
             filter,
             { 'responseType': 'json' }
-        ).pipe(catchError(GemarkungWfsService.handleError));
+        ).pipe(map(response => {
+            response.features = this.fuzzySearch(response.features, searchText);
+            return response;
+        }), catchError(GemarkungWfsService.handleError));
+    }
+
+    /**
+     * fuzzySearch filters the wfs search response with fuzzy searching
+     * @param res response of the wfs search
+     * @param searchText searchText
+     * @returns first 10 filtered items by fuzzy search
+     */
+    private fuzzySearch(res: Array<Feature>, searchText: string): Array<Feature> {
+        const options = {
+            keys: [
+                'properties.gemarkung',
+                'properties.gemeinde',
+                'properties.gemarkungsschluessel'
+            ]
+        };
+        const fuse = new Fuse(res, options);
+
+        return fuse.search(searchText).map(items => items.item).slice(0, 10);
     }
 
     /**

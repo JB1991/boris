@@ -44,6 +44,7 @@
         "epsg": "^0.5.0",
         "express": "^4.15.2",
         "fast-xml-parser": "^3.18.0",
+        "fuse.js": "^6.4.6",
         "geojson": "^0.5.0",
         "hyphen": "^1.6.2",
         "knockout": "^3.5.1",
