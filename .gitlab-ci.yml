@@ -508,7 +508,7 @@ deploy:development:
   script:
     - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
       --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
-      --set-string labels.deployedAt="$CI_JOB_STARTED_AT"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - dev
 
@@ -531,7 +531,7 @@ deploy:staging:
   script:
     - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install
       --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
-      --set-string labels.deployedAt="$CI_JOB_STARTED_AT"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - staging
 
@@ -554,6 +554,6 @@ deploy:production:
   script:
     - helm upgrade power ./chart/power -n prod -f ./chart/power/values-production.yaml --install
       --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
-      --set-string labels.deployedAt="$CI_JOB_STARTED_AT"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - production

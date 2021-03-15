@@ -7,6 +7,10 @@ metadata:
     {{- if .Values.labels }}
       {{- toYaml .Values.labels | nindent 4 }}
     {{- end }}
+  annotations:
+    {{- if .Values.annotations }}
+      {{- toYaml .Values.annotations | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -20,6 +24,10 @@ spec:
         {{- include "power.selectorLabels" . | nindent 8 }}
         {{- if .Values.labels }}
           {{- toYaml .Values.labels | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- if .Values.annotations }}
+          {{- toYaml .Values.annotations | nindent 8 }}
         {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}

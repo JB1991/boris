@@ -16,6 +16,8 @@ fullnameOverride: ""
 
 labels:
   commit: ""
+
+annotations:
   deployedAt: ""
 
 serviceAccount:
