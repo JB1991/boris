@@ -22,7 +22,7 @@ export class GeosearchComponent implements OnChanges {
 
     @Output() selectResult = new EventEmitter();
 
-    @Input() addresse: string;
+    @Input() address: string;
 
     public model: Feature;
 
@@ -40,8 +40,8 @@ export class GeosearchComponent implements OnChanges {
      */
 
     public ngOnChanges(changes: SimpleChanges) {
-        if (changes.addresse) {
-            this.model = changes.addresse.currentValue;
+        if (changes.address) {
+            this.model = changes.address.currentValue;
         }
     }
 

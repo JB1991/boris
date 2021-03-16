@@ -13,7 +13,7 @@
                                                      (teilmarktChange)="changeURL()"
                                                      [(flurstueck)]="flurstueck"
                                                      [(features)]="features"
-                                                     [(addresse)]="addresse"
+                                                     [(address)]="address"
                                                      [(isCollapsed)]="isCollapsed"
                                                      [(threeDActive)]="threeDActive"
                                                      [(resetMapFired)]="resetMapFired">
@@ -39,7 +39,7 @@
         <div class="p-0 border-left"
              [class]="isCollapsed ? 'col-auto' : 'col-lg-6'">
             <div class="row m-0 p-0">
-                <div *ngIf="addresse || features"
+                <div *ngIf="address || features"
                      class="px-1 py-0 d-none d-lg-flex"
                      [ngClass]="{'col-lg-1' : !isCollapsed}">
                     <button class="btn p-0 w-100 rounded-0 collapse-btn-size"
@@ -65,19 +65,19 @@
                     <ng-container *ngIf="latLng?.length">
                         <div class="row p-0 pb-2 m-0 border-bottom align-items-center details-header-height">
                             <div class="col-12 col-lg p-0">
-                                <!-- no address and no features -->
-                                <h6 *ngIf="!addresse && !features?.features.length"
+                                <!-- no address and no features but latLng set-->
+                                <h6 *ngIf="!address && !features?.features.length"
                                     class="px-1 px-lg-2 pt-2 m-0 text-center"
                                     i18n>Wählen Sie eine Position</h6>
                                 <!-- - no address but features -->
-                                <h6 *ngIf="!addresse && features?.features.length "
+                                <h6 *ngIf="!address && features?.features.length "
                                     class="px-1 px-lg-2 pt-2 m-0 text-center">
                                     {{ features.features[0].properties.brzname}}
                                 </h6>
                                 <!-- address and features -->
-                                <h6 *ngIf="addresse"
+                                <h6 *ngIf="address"
                                     class="px-1 px-lg-2 pt-2 m-0 text-center">
-                                    {{ addresse.properties.text }}
+                                    {{ address.properties.text }}
                                 </h6>
                                 <ng-template [ngTemplateOutlet]="flurstueckskennzeichen"></ng-template>
                             </div>
@@ -150,7 +150,7 @@
         </div>
         <div class="p-0"
              [class]="features?.features.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-auto col-lg-12'">
-            <button [class.d-none]="!addresse && !features?.features.length"
+            <button [class.d-none]="!address && !features?.features.length"
                     class="nav-link btn py-2 pl-1 pr-3"
                     [ngClass]="{'active': hintsActive}"
                     type="button"
@@ -179,7 +179,7 @@
 <!-- DetailsHints Template -->
 <ng-template #detailsHints>
     <!-- hints for no address and no features -->
-    <div *ngIf="(!addresse || addresse.properties.bundesland != 'Niedersachsen' || addresse.properties.bundesland != 'Bremen') && features && !features.features.length"
+    <div *ngIf="(!address || address.properties.bundesland != 'Niedersachsen' || address.properties.bundesland != 'Bremen') && features && !features.features.length"
          class="text-center">
         <p class="p-1 m-0"
            i18n>Keine gültige Adresse!</p>
@@ -191,7 +191,7 @@
     </div>
     <!-- hints from info button -->
     <div [class]="hintsActive ? 'd-block pb-2' : 'd-none'">
-        <div *ngIf="addresse || features?.features.length"
+        <div *ngIf="address || features?.features.length"
              class="text-center">
             <p class="p-1 m-0 small"
                i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
@@ -205,12 +205,12 @@
                 aktuell ausgewählten Standort und auf den Stichtag {{ getStichtag() | date }}.
             </p>
         </div>
-        <div *ngIf="addresse && (addresse.properties.bundesland == 'Niedersachsen' || addresse.properties.bundesland == 'Bremen') && !features?.features.length"
+        <div *ngIf="address && (address.properties.bundesland == 'Niedersachsen' || address.properties.bundesland == 'Bremen') && !features?.features.length"
              class="text-center">
             <p class="p-1 m-0 small"
                i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
         </div>
-        <div *ngIf="!addresse && features?.features.length"
+        <div *ngIf="!address && features?.features.length"
              class="text-center">
             <p class="p-1 m-0 small"
                i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine

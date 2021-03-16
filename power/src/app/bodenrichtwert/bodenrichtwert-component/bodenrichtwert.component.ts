@@ -34,14 +34,14 @@ export interface Teilmarkt {
 export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
-     * Addresse to be shown
+     * Address to be shown
      */
-    public addresse: Feature;
+    public address: Feature;
 
     /**
-     * Subscription to addresse, loaded by Geosearch-Service
+     * Subscription to address, loaded by Geosearch-Service
      */
-    public addresseSubscription: Subscription;
+    public addressSubscription: Subscription;
 
     /**
      * Features (Bodenrichtwerte as GeoJSON) to be shown
@@ -144,8 +144,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         public location: Location
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
-        this.addresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
-            this.addresse = adr;
+        this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
+            this.address = adr;
             this.hintsActive = false;
             this.cdr.detectChanges();
         });
@@ -189,7 +189,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Destroys all active subscriptions
      */
     ngOnDestroy(): void {
-        this.addresseSubscription.unsubscribe();
+        this.addressSubscription.unsubscribe();
         this.featureSubscription.unsubscribe();
         this.flurstueckSubscription.unsubscribe();
     }

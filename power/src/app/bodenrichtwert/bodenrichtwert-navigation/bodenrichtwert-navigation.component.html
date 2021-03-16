@@ -14,7 +14,7 @@
         <div class="nav px-auto w-100 max-search-width d-none d-sm-inline-block"
              style="position: relative;">
             <power-geosearch (selectResult)="onAddressChange($event)"
-                             [addresse]="addresse">
+                             [address]="address">
             </power-geosearch>
         </div>
 
@@ -170,7 +170,7 @@
      class="d-sm-none">
     <power-geosearch #geosearchComponent
                      (selectResult)="onAddressChange($event)"
-                     [addresse]="addresse">
+                     [address]="address">
     </power-geosearch>
 </div>
 

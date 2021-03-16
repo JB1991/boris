@@ -24,8 +24,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     @Input() latLng: Array<number>;
     @Output() latLngChange = new EventEmitter<Array<number>>();
 
-    @Input() addresse: Feature;
-    @Output() addresseChange = new EventEmitter();
+    @Input() address: Feature;
+    @Output() addressChange = new EventEmitter();
 
     @Input() features: FeatureCollection;
     @Output() featuresChange = new EventEmitter();
@@ -145,7 +145,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public onStichtagChange(stichtag: string): void {
         // push info alert for data bremen 2020
-        if (stichtag === '2020-12-31' && this.addresse?.properties.kreis === 'Stadt Bremen') {
+        if (stichtag === '2020-12-31' && this.address?.properties.kreis === 'Stadt Bremen') {
             this.alerts.NewAlert(
                 'info',
                 $localize`Diese Daten sind noch nicht verfügbar!`,
@@ -230,8 +230,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         if (this.threeDActive) {
             this.threeDActiveChange.emit(false);
         }
-        if (this.addresse) {
-            this.addresseChange.emit(undefined);
+        if (this.address) {
+            this.addressChange.emit(undefined);
         }
         if (this.features) {
             this.featuresChange.emit(undefined);

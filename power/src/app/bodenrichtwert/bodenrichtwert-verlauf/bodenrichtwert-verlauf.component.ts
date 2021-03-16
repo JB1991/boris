@@ -96,7 +96,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         series: [],
     };
 
-    @Input() addresse: Feature;
+    @Input() address: Feature;
 
     @Input() features: FeatureCollection;
 
