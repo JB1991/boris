@@ -57,7 +57,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     });
 
     it('getStichtag should return the correct stichtag for data of Bremen/Bremerhaven', () => {
-        component.features = features;
+        component.features = JSON.parse(JSON.stringify(features));
         // Bremerhaven
         component.features.features[0].properties.gema = 'Bremerhaven';
         expect(component.features.features[0].properties.gema).toEqual('Bremerhaven');
@@ -107,7 +107,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     });
 
     it('checkIfStichtagFtsExist should return true/false depending on features exist for the current stichtag', () => {
-        component.features = features;
+        component.features = JSON.parse(JSON.stringify(features));
         component.stichtag = '2019-12-31';
         expect(component.checkIfStichtagFtsExist()).toBeTrue();
         component.stichtag = '1930-12-31';

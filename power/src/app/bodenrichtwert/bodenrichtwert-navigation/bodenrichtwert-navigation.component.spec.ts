@@ -149,7 +149,7 @@ describe('NavigationComponent', () => {
         spyOn(component.flurstueckChange, 'emit');
         spyOn(component.isCollapsedChange, 'emit');
         spyOn(component.stichtagChange, 'emit');
-        component.features = featureCollection;
+        component.features = JSON.parse(JSON.stringify(featureCollection));
         component.flurstueck = flurstueck;
         component.isCollapsed = false;
         component.stichtag = stichtag;

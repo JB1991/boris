@@ -34,7 +34,6 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertDetailComponent);
         component = fixture.componentInstance;
-        component.features = features;
         fixture.detectChanges();
     });
 
@@ -42,18 +41,18 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
         expect(component).toBeTruthy();
     });
 
-    it('should return true', () => {
-        let result = component.enutaBremen(component.features[0]);
+    it('should return false', () => {
+        component.features = JSON.parse(JSON.stringify(features));
+        const result = component.enutaBremen(component.features.features[0]);
         expect(result).toBeFalse();
-        component.features[0] = {
-            properties: {
-                nutzung: [{ nutz: 'W', 'enuta': ['G3'] }],
-                entw: 'B',
-                verf: 'SU'
-            }
-        };
-        result = component.enutaBremen(component.features[0]);
-        expect(result).toBe(true);
+    });
+
+    it('should return true', () => {
+        component.features = JSON.parse(JSON.stringify(features));
+        component.features.features[0].properties.nutzung[0].enuta[0] = 'G3';
+
+        const result = component.enutaBremen(component.features.features[0]);
+        expect(result).toBeTrue();
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
