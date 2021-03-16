@@ -8,6 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SimpleChange } from '@angular/core';
+import { SharedModule } from '@app/shared/shared.module';
 
 describe('NavigationComponent', () => {
     const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
@@ -29,6 +30,7 @@ describe('NavigationComponent', () => {
             imports: [
                 CommonModule,
                 HttpClientTestingModule,
+                SharedModule,
                 RouterModule.forRoot([]),
             ],
             providers: [
@@ -148,6 +150,7 @@ describe('NavigationComponent', () => {
         spyOn(component.flurstueckChange, 'emit');
         spyOn(component.isCollapsedChange, 'emit');
         spyOn(component.stichtagChange, 'emit');
+        spyOn(component.addresseChange, 'emit');
         component.features = JSON.parse(JSON.stringify(featureCollection));
         component.flurstueck = flurstueck;
         component.isCollapsed = false;

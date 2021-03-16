@@ -14,6 +14,8 @@ export interface ExtrusionLayerOptions {
 @Injectable({
     providedIn: 'root'
 })
+/* istanbul ignore next */
+
 export class BodenrichtwertKarte3dLayerService {
 
     // layer ids for label layer (Bauland, Landwirtschaft)
