@@ -2,8 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { Feature } from '@turf/turf';
-import { FeatureCollection } from 'geojson';
+import { FeatureCollection, Feature } from 'geojson';
 import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AlertsService } from '../alerts/alerts.service';
@@ -124,7 +123,7 @@ describe('FlurstueckSearchComponent', () => {
 
     it('selectItem selects an item from the result list', (done) => {
         spyOn(component.gemarkungService, 'updateFeatures');
-        component.selectResult.subscribe(next => {
+        component.selectGemarkungResult.subscribe(next => {
             expect(next).toEqual(feature);
             done();
         });

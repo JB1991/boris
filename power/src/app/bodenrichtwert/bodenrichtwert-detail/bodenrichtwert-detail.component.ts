@@ -52,7 +52,7 @@ export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
         }
     }
 
-    enutaBremen(feature) {
+    enutaBremen(feature: Feature) {
         if (feature.properties.nutzung[0].enuta[0] === 'G1' ||
             feature.properties.nutzung[0].enuta[0] === 'G2' ||
             feature.properties.nutzung[0].enuta[0] === 'G3' ||

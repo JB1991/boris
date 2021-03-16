@@ -50,31 +50,6 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
         service.updateFeatures(features);
     });
 
-    it('getSelected should return an Observable', () => {
-        expect(service.getSelected()).toBeInstanceOf(Observable);
-    });
-
-    it('updateSelected should feed the feature to the subject', (done) => {
-        service.getSelected().subscribe(next => {
-            expect(next).toEqual(feature);
-            expect(next.type).toEqual('Feature');
-            done();
-        });
-        service.updateSelected(feature);
-    });
-
-    it('getStichtag should return an Observable', () => {
-        expect(service.getStichtag()).toBeInstanceOf(Observable);
-    });
-
-    it('updateStichtag should feed the date to the subject', (done) => {
-        service.getStichtag().subscribe(next => {
-            expect(next).toEqual(date);
-            done();
-        });
-        service.updateStichtag(date);
-    });
-
     it('getFeatureByLatLonEntw should return a feature', (done) => {
         service.getFeatureByLatLonEntw(lat, lon, entw).subscribe(next => {
             expect(next).toEqual(featureByLatLonEntw);
