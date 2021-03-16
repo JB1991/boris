@@ -8,11 +8,13 @@ import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { Map, Marker, } from 'mapbox-gl';
+import { LngLat, Map, MapMouseEvent, Marker, } from 'mapbox-gl';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import { Feature } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
+    const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
+    const featureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
 
     const lat = 52.40729;
     const lng = 9.80205;
@@ -47,27 +49,18 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         fixture.detectChanges();
 
         const map = new Map({
-            container: 'map'
+            container: 'map',
         });
         component.marker = new Marker();
         component.latLng = [lat, lng]
         component.loadMap(map);
         component.marker.setLngLat([lng, lat]).addTo(component.map);
 
-        spyOn(component.map, 'addLayer');
         spyOn(component.map, 'easeTo');
-        spyOn(component.map, 'fitBounds');
-        spyOn(component.map, 'flyTo');
-        spyOn(component.map, 'setPaintProperty');
-        spyOn(component.map, 'removeLayer');
-        spyOn(component.map, 'resize');
         spyOn(component.map, 'getZoom').and.callThrough();
-        spyOn(component.map, 'setZoom').and.callThrough();
-        spyOn(component.map, 'getSource');
-        spyOn(component.marker, 'setLngLat').and.callThrough();
         spyOn(component.marker, 'getLngLat').and.callThrough();
         spyOn(component, 'determineZoomFactor').and.callThrough();
-
+        spyOn(component.latLngChange, 'emit');
     });
 
     afterEach(() => {
@@ -81,6 +74,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('ngOnChanges should work for changes', () => {
         component.resetMapFired = false;
+        spyOn(component.map, 'resize');
+        spyOn(component.marker, 'setLngLat').and.callThrough();
         spyOn(component, 'activate3dView');
         spyOn(component, 'deactivate3dView');
         spyOn(component, 'flyTo');
@@ -92,23 +87,25 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             latLng: new SimpleChange(true, false, false),
             collapsed: new SimpleChange(true, false, false),
             expanded: new SimpleChange(false, true, false),
-            threeDActive: new SimpleChange(false, true, false)
+            threeDActive: new SimpleChange(false, true, false),
+            resetMapFired: new SimpleChange(false, true, false)
         });
         expect(component.determineZoomFactor).toHaveBeenCalledTimes(1);
         expect(component.map.easeTo).toHaveBeenCalledTimes(2);
         expect(component.map.getZoom).toHaveBeenCalledTimes(1);
-        expect(component.map.resize).toHaveBeenCalledTimes(1);
+        expect(component.map.resize).toHaveBeenCalledTimes(2);
         expect(component.marker.setLngLat).toHaveBeenCalledTimes(1);
         expect(component.flyTo).toHaveBeenCalledTimes(2);
         expect(component.activate3dView).toHaveBeenCalledTimes(1);
 
         component.resetMapFired = true;
+        component.collapsed = true;
         component.ngOnChanges({
             collapsed: new SimpleChange(true, false, false),
             resetMapFired: new SimpleChange(false, true, false),
             threeDActive: new SimpleChange(true, false, false)
         });
-        expect(component.onResetMap).toHaveBeenCalledTimes(1);
+        expect(component.onResetMap).toHaveBeenCalledTimes(2);
         expect(component.deactivate3dView).toHaveBeenCalledTimes(1);
         expect(component.map.resize).toHaveBeenCalledTimes(3);
     });
@@ -123,34 +120,34 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     });
 
     it('flyTo should focus the map to specific coordinates', () => {
+        spyOn(component.map, 'flyTo');
         component.flyTo(lat, lng);
         expect(component.determineZoomFactor).toHaveBeenCalledTimes(1);
         expect(component.map.flyTo).toHaveBeenCalledTimes(1);
     });
 
     it('onDragEnd should process the drag', () => {
-        spyOn(component.latLngChange, 'emit');
         component.onDragEnd();
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
     });
 
-    // it('onMapClickEvent should process the event', () => {
-
-    //     const event: MapMouseEvent = [{
-    //         type: 'click',
-    //         point: new Point(314, 449),
-    //         lngLat: {
-    //             'lng': 52.40729,
-    //             'lat': 9.80205
-    //         },
-    //         target: {},
-    //         originalEvent: new MouseEvent('click')
-    //     }];
-    //     component.onMapClickEvent(event);
-    // });
-
+    it('onMapClickEvent should process the event', () => {
+        const center = new LngLat(component.map.getCenter().lng, component.map.getCenter().lat);
+        const event: MapMouseEvent = {
+            type: 'click',
+            target: component.map,
+            originalEvent: new MouseEvent('click'),
+            point: component.map.project(center),
+            lngLat: center,
+            defaultPrevented: false,
+            preventDefault() { }
+        };
+        component.onMapClickEvent(event);
+        expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
+    });
 
     it('onResetMap should reset the map', () => {
+        spyOn(component.map, 'fitBounds');
         spyOn(component.resetMapFiredChange, 'emit');
         component.onResetMap();
         expect(component.marker.getLngLat().lat).toBe(0);
@@ -159,17 +156,41 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.resetMapFiredChange.emit).toHaveBeenCalledTimes(1);
     });
 
-    // it('onMoveEnd should process the dynamic labelling', () => {
-    //     component.teilmarkt.value = ['B']
-    //     spyOn(component, 'dynamicLabelling');
-    //     console.log(component.map);
-    //     component.onMoveEnd();
-    //     expect(component.map.getSource).toHaveBeenCalledTimes(1);
-    //     expect(component.map.getSource).toHaveBeenCalledWith('landwirtschaftSource');
-    //     expect(component.dynamicLabelling).toHaveBeenCalledTimes(1);
-    // });
+    it('onMoveEnd should process the dynamic labelling', () => {
+        component.map.addSource('landwirtschaftSource', {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                properties: {},
+                geometry: feature.geometry
+            }
+        });
+        spyOn(component.map, 'getSource').and.callThrough();
+        spyOn(component, 'dynamicLabelling');
+        component.teilmarkt.value = ['B']
+        component.onMoveEnd();
+        expect(component.map.getSource).toHaveBeenCalledTimes(1);
+        expect(component.map.getSource).toHaveBeenCalledWith('landwirtschaftSource');
+        expect(component.dynamicLabelling).toHaveBeenCalledTimes(1);
 
-    it('activate3dView should activate the 3d View', () => {
+        component.teilmarkt.value = ['LF']
+        component.map.addSource('baulandSource', {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                properties: {},
+                geometry: feature.geometry
+            }
+        });
+        component.onMoveEnd();
+        expect(component.map.getSource).toHaveBeenCalledTimes(2);
+        expect(component.map.getSource).toHaveBeenCalledWith('baulandSource');
+        expect(component.dynamicLabelling).toHaveBeenCalledTimes(2);
+    });
+
+    it('activate3dView should activate the 3d view', () => {
+        spyOn(component.map, 'setPaintProperty');
+        spyOn(component.map, 'addLayer');
         component.activate3dView();
         expect(component.map.getZoom).toHaveBeenCalledTimes(1);
         expect(component.map.addLayer).toHaveBeenCalledTimes(1);
@@ -178,7 +199,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
     });
 
-    it('deactivate3dView should deactivate the 3d View', () => {
+    it('deactivate3dView should deactivate the 3d view', () => {
+        spyOn(component.map, 'removeLayer');
         component.deactivate3dView();
         expect(component.map.easeTo).toHaveBeenCalledTimes(1);
         expect(component.map.removeLayer).toHaveBeenCalledTimes(1);

@@ -51,7 +51,7 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     it('ngOnChanges should work', () => {
         component.model = feature;
         component.ngOnChanges({
-            adresse: new SimpleChange(null, changedFeature, false)
+            addresse: new SimpleChange(null, changedFeature, false)
         });
         expect(component.model).toEqual(changedFeature);
     });

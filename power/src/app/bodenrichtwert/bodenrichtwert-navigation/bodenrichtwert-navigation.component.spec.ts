@@ -56,6 +56,7 @@ describe('NavigationComponent', () => {
         spyOn(component.latLngChange, 'emit');
         spyOn(component.threeDActiveChange, 'emit');
         spyOn(component.teilmarktChange, 'emit');
+        spyOn(component.alerts, 'NewAlert');
     });
 
     it('should create', () => {
@@ -78,7 +79,7 @@ describe('NavigationComponent', () => {
         expect(component.updateData).toHaveBeenCalledTimes(3);
     });
 
-    it('updateData should update Adress, BRW and Flurstueck', () => {
+    it('updateData should update address, BRW and Flurstueck', () => {
         spyOn(component, 'getAddressFromLatLng');
         spyOn(component, 'getBodenrichtwertzonen');
         spyOn(component, 'getFlurstueckFromLatLng');
@@ -90,7 +91,7 @@ describe('NavigationComponent', () => {
 
     it('getBodenrichtwertzonen should call BodenrichtwertService', () => {
         spyOn(component.bodenrichtwertService, 'getFeatureByLatLonEntw').and.callThrough();
-        component.getBodenrichtwertzonen(lat, lng, component.teilmarkt.value);
+        component.getBodenrichtwertzonen(lat, lng, component.teilmarkt.value)
         expect(component.bodenrichtwertService.getFeatureByLatLonEntw).toHaveBeenCalledTimes(1);
     });
 
@@ -108,14 +109,12 @@ describe('NavigationComponent', () => {
 
     it('onStichtagChange should update the Stichtag attribute', () => {
         spyOn(component.stichtagChange, 'emit').and.callThrough();
-        spyOn(component.alerts, 'NewAlert');
         component.onStichtagChange(stichtag);
         expect(component.stichtagChange.emit).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
     });
 
     it('onTeilmarktChange should update the Teilmarkt attribute', () => {
-        spyOn(component.alerts, 'NewAlert');
         const teilmarkt = {
             'value': [''],
             'text': '',
@@ -149,13 +148,16 @@ describe('NavigationComponent', () => {
         spyOn(component.flurstueckChange, 'emit');
         spyOn(component.isCollapsedChange, 'emit');
         spyOn(component.stichtagChange, 'emit');
+        spyOn(component.addresseChange, 'emit');
         component.features = featureCollection;
         component.flurstueck = flurstueck;
         component.isCollapsed = false;
         component.stichtag = stichtag;
+        component.addresse = feature;
         component.resetMap();
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
         expect(component.threeDActiveChange.emit).toHaveBeenCalledTimes(1);
+        expect(component.addresseChange.emit).toHaveBeenCalledTimes(1);
         expect(component.featuresChange.emit).toHaveBeenCalledTimes(1);
         expect(component.isCollapsedChange.emit).toHaveBeenCalledTimes(1);
         expect(component.teilmarktChange.emit).toHaveBeenCalledTimes(1);

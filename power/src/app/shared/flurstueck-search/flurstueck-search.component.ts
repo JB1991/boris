@@ -28,7 +28,7 @@ export class FlurstueckSearchComponent {
 
     @Output() selectFlurstueckResult = new EventEmitter();
 
-    @Input() adresse: string;
+    @Input() addresse: string;
 
     constructor(
         public alkisWfsService: AlkisWfsService,
