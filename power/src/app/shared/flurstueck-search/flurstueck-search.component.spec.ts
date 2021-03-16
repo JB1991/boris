@@ -63,7 +63,7 @@ describe('FlurstueckSearchComponent', () => {
     });
 
     it('onClose should reset fsk', () => {
-        component.fsk = fsk;
+        component.fsk = JSON.parse(JSON.stringify(fsk));;
         component.onClose();
         expect(component.fsk).toEqual({});
     });
@@ -130,5 +130,12 @@ describe('FlurstueckSearchComponent', () => {
         component.onSelect(feature);
         expect(component.gemarkungService.updateFeatures).toHaveBeenCalled();
         expect(component.inputFormatter(feature)).toEqual('Schwinge (1205) - Fredenbeck');
+    });
+
+    it('onEmpty should reset the selected variable if input field is empty', () => {
+        component.selected = true;
+        component.fsk = JSON.parse(JSON.stringify(fsk));
+        component.onEmpty('Delete');
+        expect(component.selected).toBeFalse();
     });
 });
