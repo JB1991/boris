@@ -8,10 +8,12 @@ import { HyphenatePipe } from '@app/shared/pipes/hyphenate.pipe';
 import { EntwicklungszusatzPipe } from '../pipes/entwicklungszusatz.pipe';
 import { EntwicklungszustandPipe } from '../pipes/entwicklungszustand.pipe';
 import { NutzungBremenPipe } from '../pipes/nutzung-bremen.pipe';
+import { FeatureCollection } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
     let component: BodenrichtwertDetailComponent;
     let fixture: ComponentFixture<BodenrichtwertDetailComponent>;
+    const features: FeatureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -32,7 +34,8 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertDetailComponent);
         component = fixture.componentInstance;
-        component.feature = {
+        component.features = features;
+        component.features[0] = {
             properties: {
                 nutzung: [{ nutz: 'W', 'enuta': ['G3'] }],
                 entw: 'B',
@@ -47,7 +50,7 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     });
 
     it('should return true', () => {
-        const result = component.enutaBremen(component.feature);
+        const result = component.enutaBremen(component.features[0]);
         expect(result).toBe(true);
     });
 });
