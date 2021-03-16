@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { SimpleChange } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -15,14 +14,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
 
-
     const lat = 52.40729;
     const lng = 9.80205;
 
     let component: BodenrichtwertKarteComponent;
     let fixture: ComponentFixture<BodenrichtwertKarteComponent>;
-    let httpClient: HttpClient;
-    let httpTestingController: HttpTestingController;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -67,11 +63,11 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.map, 'resize');
         spyOn(component.map, 'getZoom').and.callThrough();
         spyOn(component.map, 'setZoom').and.callThrough();
+        spyOn(component.map, 'getSource');
         spyOn(component.marker, 'setLngLat').and.callThrough();
+        spyOn(component.marker, 'getLngLat').and.callThrough();
         spyOn(component, 'determineZoomFactor').and.callThrough();
 
-        httpClient = TestBed.inject(HttpClient);
-        httpTestingController = TestBed.inject(HttpTestingController);
     });
 
     afterEach(() => {
@@ -161,6 +157,32 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.marker.getLngLat().lng).toBe(0);
         expect(component.map.fitBounds).toHaveBeenCalledTimes(1);
         expect(component.resetMapFiredChange.emit).toHaveBeenCalledTimes(1);
+    });
+
+    // it('onMoveEnd should process the dynamic labelling', () => {
+    //     component.teilmarkt.value = ['B']
+    //     spyOn(component, 'dynamicLabelling');
+    //     console.log(component.map);
+    //     component.onMoveEnd();
+    //     expect(component.map.getSource).toHaveBeenCalledTimes(1);
+    //     expect(component.map.getSource).toHaveBeenCalledWith('landwirtschaftSource');
+    //     expect(component.dynamicLabelling).toHaveBeenCalledTimes(1);
+    // });
+
+    it('activate3dView should activate the 3d View', () => {
+        component.activate3dView();
+        expect(component.map.getZoom).toHaveBeenCalledTimes(1);
+        expect(component.map.addLayer).toHaveBeenCalledTimes(1);
+        expect(component.map.easeTo).toHaveBeenCalledTimes(1);
+        expect(component.map.setPaintProperty).toHaveBeenCalledTimes(1);
+        expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
+    });
+
+    it('deactivate3dView should deactivate the 3d View', () => {
+        component.deactivate3dView();
+        expect(component.map.easeTo).toHaveBeenCalledTimes(1);
+        expect(component.map.removeLayer).toHaveBeenCalledTimes(1);
+        expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
     });
 
 });

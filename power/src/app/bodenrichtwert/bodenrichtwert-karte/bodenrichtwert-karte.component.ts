@@ -375,7 +375,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * @param layerNames 
      * @param sourceName 
      */
-    private dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
+    public dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
         labelData.features = [];
 
         const featureMap: Record<string, GeoJSON.Feature<Polygon>[]> = {};
