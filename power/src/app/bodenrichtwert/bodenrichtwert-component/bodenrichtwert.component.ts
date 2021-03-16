@@ -16,9 +16,9 @@ import proj4 from 'proj4';
 import { DatePipe, Location } from '@angular/common';
 
 export interface Teilmarkt {
-    value: Array<string>
-    text: string
-    hexColor: string
+    value: Array<string>;
+    text: string;
+    hexColor: string;
 }
 
 /**
@@ -198,7 +198,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * getStichtag returns the correct stichtag for Bremen/Bremerhaven
      */
     public getStichtag(): string {
-        const year: number = Number(this.stichtag.slice(0, 4));
+        const year = Number(this.stichtag.slice(0, 4));
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
             if (year % 2 === 0) {
                 return (year - 1).toString() + '-12-31';

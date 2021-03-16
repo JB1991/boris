@@ -81,7 +81,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
             marker: 'marker',
             axisValue: 2018,
             value: 200
-        }]
+        }];
         spyOn(component, 'removeTextInTooltip').and.callThrough();
         const result = component.tooltipFormatter(params);
         expect(component.removeTextInTooltip).toHaveBeenCalledTimes(1);
@@ -91,7 +91,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
 
     it('removeTextInTooltip should remove some strings in the tooltip text', () => {
         let tooltipText = 'SanierungsgebietEntwicklungsbereichSoziale StadtStadtumbau' +
-            'sanierungsunbeeinflusster Wertsanierungsbeeinflusster Wert'
+            'sanierungsunbeeinflusster Wertsanierungsbeeinflusster Wert';
         tooltipText = component.removeTextInTooltip(tooltipText);
         expect(tooltipText).toEqual('');
     });
@@ -144,7 +144,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         spyOn(component, 'groupBy').and.callThrough();
         const res = component.getKeyValuePairs(features);
         expect(component.groupBy).toHaveBeenCalledTimes(1);
-    })
+    });
 
     it('onChartInit should set the echartsInstance', () => {
         const echartsInstance = echarts.init(document.getElementById('eChartInstance'));

@@ -47,7 +47,7 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
         httpClient = TestBed.inject(HttpClient);
 
         component.threeDActive = true;
-        component.latLng = [lat, lng]
+        component.latLng = [lat, lng];
         component.teilmarkt = {
             'value': [''],
             'text': '',
@@ -92,7 +92,7 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
 
     it('getBodenrichtwertzonen should call BodenrichtwertService', () => {
         spyOn(component.bodenrichtwertService, 'getFeatureByLatLonEntw').and.callThrough();
-        component.getBodenrichtwertzonen(lat, lng, component.teilmarkt.value)
+        component.getBodenrichtwertzonen(lat, lng, component.teilmarkt.value);
         expect(component.bodenrichtwertService.getFeatureByLatLonEntw).toHaveBeenCalledTimes(1);
     });
 

@@ -80,7 +80,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-     * getBodenrichtwertzonen subscribes the bodenrichtwertservice to update the current brwzonen for the current location
+     * getBodenrichtwertzonen subscribes the bodenrichtwertservice to update
+     * the current brwzonen for the current location
      * @param lat latitude
      * @param lng longitude
      * @param entw teilmarkt
@@ -275,11 +276,11 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-    * transformCoordinates transforms coordinates from one projection to another projection with EPSG-Codes
-    * @param from projection from (EPSG-Code)
-    * @param to projection to (EPSG-Code)
-    * @param coord coordinate [x, y]
-    */
+     * transformCoordinates transforms coordinates from one projection to another projection with EPSG-Codes
+     * @param from projection from (EPSG-Code)
+     * @param to projection to (EPSG-Code)
+     * @param coord coordinate [x, y]
+     */
     private transformCoordinates(from: string, to: string, coord: number[]): number[] {
         const result = proj4(from, to).forward(coord);
         return result;

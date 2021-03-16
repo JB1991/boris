@@ -232,7 +232,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             }
             // 3D-Modus temporarly deactivated (WIP)
             // if (changes.features && !changes.features.firstChange) {
-            //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
+            //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features,
+            //         this.map, this.stichtag, this.teilmarkt);
             // }
         }
     }
@@ -370,9 +371,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
     /**
      * dynamicLabelling
-     * @param labelData 
-     * @param layerNames 
-     * @param sourceName 
+     * @param labelData
+     * @param layerNames
+     * @param sourceName
      */
     public dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
         labelData.features = [];
@@ -505,7 +506,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     }
 
     /**
-     * deactivate3dView removes the building extrusion layer from the map 
+     * deactivate3dView removes the building extrusion layer from the map
      */
     public deactivate3dView() {
         this.map.easeTo({

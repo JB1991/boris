@@ -51,7 +51,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             container: 'map',
         });
         component.marker = new Marker();
-        component.latLng = [lat, lng]
+        component.latLng = [lat, lng];
         component.loadMap(map);
         component.marker.setLngLat([lng, lat]).addTo(component.map);
 
@@ -130,6 +130,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
     });
 
+    /* eslint object-shorthand: "error" */
     it('onMapClickEvent should process the event', () => {
         const center = new LngLat(component.map.getCenter().lng, component.map.getCenter().lat);
         const event: MapMouseEvent = {
@@ -166,13 +167,13 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         });
         spyOn(component.map, 'getSource').and.callThrough();
         spyOn(component, 'dynamicLabelling');
-        component.teilmarkt.value = ['B']
+        component.teilmarkt.value = ['B'];
         component.onMoveEnd();
         expect(component.map.getSource).toHaveBeenCalledTimes(1);
         expect(component.map.getSource).toHaveBeenCalledWith('landwirtschaftSource');
         expect(component.dynamicLabelling).toHaveBeenCalledTimes(1);
 
-        component.teilmarkt.value = ['LF']
+        component.teilmarkt.value = ['LF'];
         component.map.addSource('baulandSource', {
             type: 'geojson',
             data: {

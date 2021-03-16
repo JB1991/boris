@@ -7,12 +7,12 @@ import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe'
 import { DatePipe } from '@angular/common';
 
 export interface SeriesItem {
-    stag: string
-    brw: string
-    nutzung: string
-    verg: string
-    verf: string
-    forwarded?: boolean
+    stag: string;
+    brw: string;
+    nutzung: string;
+    verg: string;
+    verf: string;
+    forwarded?: boolean;
 }
 
 @Component({
@@ -149,7 +149,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 if (window.innerWidth < 480 && params[j].seriesName.length > 25) {
                     params[j].seriesName = this.formatTooltipforSmallViews(params[j].seriesName);
                 }
-                // result with modified tooltip text 
+                // result with modified tooltip text
                 res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} € <br />`);
             }
         }
@@ -157,7 +157,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     /**
-     * removesStringInTooltip removes the text of verfahrensgrund (San, Entw, SoSt, StUb) 
+     * removesStringInTooltip removes the text of verfahrensgrund (San, Entw, SoSt, StUb)
      * and verfharensart(SU, EU, SB, EB)
      * @param tooltipText string
      * @returns a string with modified tooltip text
@@ -228,9 +228,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
             let label: string;
             seriesArray.forEach((series) => {
-                let seriesFilledGap: Array<SeriesItem>;
                 series = this.copyLastItem(series);
-                seriesFilledGap = this.fillGapWithinAYear(series);
+                const seriesFilledGap: Array<SeriesItem> = this.fillGapWithinAYear(series);
                 label = this.createLegendLabel(key, series);
                 this.chartOption.legend.data.push(label);
                 this.setChartOptionsSeries(series, label);
@@ -247,7 +246,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     /**
      * getKeyValuePairs grouped the feature items by the name of the Nutzungsart or the Bodenrichtwertnummer
-     * @param features 
+     * @param features
      * @returns the feature items grouped
      */
     public getKeyValuePairs(features: Array<Feature>): Map<string, Array<Feature>> {
@@ -256,7 +255,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.groupBy(features, (item: Feature) => this.nutzungPipe.transform(item.properties.nutzung));
         for (const [key, value] of groupedByProperty.entries()) {
             for (const seriesTuple of this.seriesTemplate) {
-                const valuesFiltered = value.filter((item: Feature) => item.properties.stag.substring(0, 4) === seriesTuple.stag);
+                const valuesFiltered = value.filter((item: Feature) =>
+                    item.properties.stag.substring(0, 4) === seriesTuple.stag);
                 if (valuesFiltered.length > 1) {
                     // grouped by Bodenrichtwertnummer
                     groupedByProperty = this.groupBy(features, (item: Feature) => item.properties.wnum);
@@ -339,7 +339,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                         seriesVergValuesTotal.push(seriesVergValues);
                     }
                 });
-                // if no Verfahrensart exists 
+                // if no Verfahrensart exists
             } else {
                 for (let i = 0; i < series.length; i++) {
                     if (series[i].verg === verg) {
@@ -358,12 +358,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     /**
      * copySeriesData copies the series items into a new array
-     * @param series 
-     * @param seriesVergValues 
-     * @param idx 
+     * @param series
+     * @param seriesVergValues
+     * @param idx
      * @returns the series copied into new array
      */
-    public copySeriesData(series: Array<SeriesItem>, seriesVergValues: Array<SeriesItem>, idx: number): Array<SeriesItem> {
+    public copySeriesData(series: Array<SeriesItem>,
+        seriesVergValues: Array<SeriesItem>, idx: number): Array<SeriesItem> {
         if (idx < 8 && series[idx + 1].brw !== null && (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
             seriesVergValues[idx + 1].brw = (series[idx + 1].brw).toString();
             seriesVergValues[idx + 1].nutzung = series[idx + 1].nutzung;
@@ -376,7 +377,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     /**
-     * fillGapWithinAYear fills a gap within a year if the series is interrupted and reused at a later time 
+     * fillGapWithinAYear fills a gap within a year if the series is interrupted and reused at a later time
      * @param series series
      * @returns a series with filled gaps
      */
@@ -406,12 +407,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     /**
      * copyLastItem copies the last item of the series into the same array one index higher
-     * @param series 
+     * @param series
      * @returns the series including the last item copied
      */
     public copyLastItem(series: Array<SeriesItem>) {
         // Forwarding the last element of the series
-        let seriesValues = series.filter(element => element.brw);
+        const seriesValues = series.filter(element => element.brw);
         if (seriesValues.length > 0 && typeof (seriesValues[seriesValues.length - 1]).brw !== 'string') {
             const lastItemStag = seriesValues[seriesValues.length - 1].stag;
             const idx = series.findIndex(element => element.stag === lastItemStag);
@@ -527,9 +528,11 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         return nutzung;
     }
 
+
     /**
      * setLegendFormat formats the labels of the legend block
      */
+    /* eslint-disable complexity */
     public setLegendFormat() {
         this.chartOption.legend.formatter = function (name: string) {
             const splittedName = name.split('\n');
