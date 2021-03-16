@@ -35,13 +35,6 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
         fixture = TestBed.createComponent(BodenrichtwertDetailComponent);
         component = fixture.componentInstance;
         component.features = features;
-        component.features[0] = {
-            properties: {
-                nutzung: [{ nutz: 'W', 'enuta': ['G3'] }],
-                entw: 'B',
-                verf: 'SU'
-            }
-        };
         fixture.detectChanges();
     });
 
@@ -50,7 +43,16 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     });
 
     it('should return true', () => {
-        const result = component.enutaBremen(component.features[0]);
+        let result = component.enutaBremen(component.features[0]);
+        expect(result).toBeFalse();
+        component.features[0] = {
+            properties: {
+                nutzung: [{ nutz: 'W', 'enuta': ['G3'] }],
+                entw: 'B',
+                verf: 'SU'
+            }
+        };
+        result = component.enutaBremen(component.features[0]);
         expect(result).toBe(true);
     });
 });

@@ -58,11 +58,6 @@ describe('NavigationComponent', () => {
         spyOn(component.teilmarktChange, 'emit');
     });
 
-<<<<<<< HEAD
-    // it('should create', () => {
-    //     expect(component).toBeTruthy();
-    // });
-=======
     it('should create', () => {
         expect(component).toBeTruthy();
     });
@@ -187,5 +182,4 @@ describe('NavigationComponent', () => {
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
     });
 
->>>>>>> 975c75e510284e9a41edf12e82920fb325660c17
 });
