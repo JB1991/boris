@@ -431,6 +431,7 @@ package:production:
   only:
     - production
   when: manual
+  allow_failure: false
 
 scan:development:
   stage: scan
