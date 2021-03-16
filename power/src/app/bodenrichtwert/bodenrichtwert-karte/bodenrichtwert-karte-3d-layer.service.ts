@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Injectable } from '@angular/core';
 import { SimpleChange } from '@angular/core';
 import { Properties } from '@turf/turf';
@@ -14,7 +15,7 @@ export interface ExtrusionLayerOptions {
 @Injectable({
     providedIn: 'root'
 })
-/* istanbul ignore next */
+
 
 export class BodenrichtwertKarte3dLayerService {
 
