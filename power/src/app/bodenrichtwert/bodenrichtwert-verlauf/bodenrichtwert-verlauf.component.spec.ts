@@ -42,7 +42,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('ngOnChanges should work', () => {
-        component.features = featureCollection;
+        component.features = JSON.parse(JSON.stringify(featureCollection));
         spyOn(component, 'clearChart');
         spyOn(component, 'filterByStichtag');
         spyOn(component, 'generateChart');

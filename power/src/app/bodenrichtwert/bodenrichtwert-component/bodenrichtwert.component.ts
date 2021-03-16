@@ -132,6 +132,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' },
     ];
 
+    /* intanbuld ignore next */
     constructor(
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
@@ -140,7 +141,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         private titleService: Title,
         private cdr: ChangeDetectorRef,
         private route: ActivatedRoute,
-        private location: Location
+        public location: Location
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.addresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
@@ -161,6 +162,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.teilmarkt = this.TEILMAERKTE[0];
     }
 
+    /* intanbuld ignore next */
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
             // lat and lat

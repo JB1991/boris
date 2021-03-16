@@ -46,6 +46,7 @@ export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
     ngOnInit() {
     }
 
+    /* istanbul ignore next */
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features || changes.stichtag || changes.teilmarkt) {
             this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z');
