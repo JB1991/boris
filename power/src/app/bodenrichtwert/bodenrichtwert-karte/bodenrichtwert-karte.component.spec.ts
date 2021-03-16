@@ -205,7 +205,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.map.removeLayer).toHaveBeenCalledTimes(1);
         expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
     });
-
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

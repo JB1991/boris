@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { SimpleChange } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
 
-describe('NavigationComponent', () => {
+describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationComponent', () => {
     const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
     const featureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
     const flurstueck: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/flurstueck-collection.json');
@@ -35,8 +35,7 @@ describe('NavigationComponent', () => {
             ],
             providers: [
                 DatePipe,
-                BodenrichtwertComponent
-            ]
+                BodenrichtwertComponent],
         })
             .compileComponents();
     }));

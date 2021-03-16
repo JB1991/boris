@@ -53,6 +53,11 @@ export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
         }
     }
 
+    /**
+     * enutaBremen validates if in the brwz of Bremen is set a erweiterte Nutzungsart (enuta) 
+     * @param feature feature
+     * @returns true if one of the specific enuta is set else false
+     */
     enutaBremen(feature: Feature) {
         if (feature.properties.nutzung[0].enuta[0] === 'G1' ||
             feature.properties.nutzung[0].enuta[0] === 'G2' ||

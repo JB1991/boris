@@ -143,6 +143,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     it('getKeyValuePairs should group the feature by Nutzungsart bzw. BRW-Nummer', () => {
         spyOn(component, 'groupBy').and.callThrough();
         const res = component.getKeyValuePairs(features);
+        expect(component.groupBy).toHaveBeenCalledTimes(1);
     })
 
     it('onChartInit should set the echartsInstance', () => {

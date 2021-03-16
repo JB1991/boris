@@ -13,6 +13,7 @@ import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwe
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
+import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/bodenrichtwert-navigation.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
@@ -28,7 +29,6 @@ import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
 import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
 import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
-import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/bodenrichtwert-navigation.component';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -45,6 +45,7 @@ import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/b
         BodenrichtwertComponent,
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
+        BodenrichtwertNavigationComponent,
         UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,
@@ -57,8 +58,7 @@ import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/b
         BauweisePipe,
         BodenartPipe,
         VerfahrensartPipe,
-        NutzungBremenPipe,
-        BodenrichtwertNavigationComponent
+        NutzungBremenPipe
     ],
     imports: [
         BodenrichtwertRoutingModule,
