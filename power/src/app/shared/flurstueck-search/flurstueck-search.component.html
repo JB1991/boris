@@ -1,6 +1,5 @@
 <power-modalmini #flurstueckssearchmodal
                  (closing)="onClose()">
-<<<<<<< HEAD
     <form novalidate
           (ngSubmit)="searchFlurstueck(form.value)"
           #form="ngForm">
@@ -30,43 +29,10 @@
                        aria-describedby="gemarkungHelpText">
                 <small id="gemarkungHelpText"
                        class="form-text text-muted"
-                       i18n>Suche nach Gemarkung, Gemeinde oder Gemarkungschlüssel
-                </small>
-=======
-      <form novalidate
-            (ngSubmit)="searchFlurstueck(form.value)"
-            #form="ngForm">
-            <div class="form-row py-1">
-                  <div class="col-12">
-                        <label i18n>Gemarkung</label>
-                        <input type="text"
-                               class="form-control"
-                               [class]="gemarkung.valid && selected ? 'is-valid' : 'is-invalid'"
-                               name="gemarkung"
-                               placement="bottom"
-                               placeholder="Gemarkung"
-                               i18n-placeholder
-                               aria-label="Suche"
-                               aria-placeholder="Bitte Gemarkung eingeben"
-                               i18n-aria-placeholder
-                               #gemarkung="ngModel"
-                               [(ngModel)]="fsk.gemarkung"
-                               [ngbTypeahead]="search"
-                               [inputFormatter]="inputFormatter"
-                               [resultTemplate]="results"
-                               [focusFirst]="false"
-                               (selectItem)="onSelect($event.item)"
-                               (keydown)="onEmpty($event.key)"
-                               required
-                               aria-labelledby="germarkungsnr"
-                               aria-describedby="gemarkungHelpText">
-                        <small id="gemarkungHelpText"
-                               class="form-text text-muted"
-                               i18n>Suche nach Gemarkung, Gemeinde oder Gemarkungschlüssel</small>
-                  </div>
->>>>>>> dev
+                       i18n>Suche nach Gemarkung, Gemeinde oder Gemarkungschlüssel</small>
             </div>
         </div>
+
         <div class="form-row py-1">
             <div class="col-12">
                 <label for="flur"
