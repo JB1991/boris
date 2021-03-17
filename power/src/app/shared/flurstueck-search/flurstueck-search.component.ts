@@ -21,17 +21,14 @@ export class FlurstueckSearchComponent {
     public title = $localize`Flurstückssuche`;
 
     public fsk: Flurstueckskennzeichen;
-    @Output() fskChange = new EventEmitter();
 
     public selected = false;
 
-    @Output() selectResult = new EventEmitter();
+    @Output() selectGemarkungResult = new EventEmitter();
 
-    @Input() adresse: string;
+    @Output() selectFlurstueckResult = new EventEmitter();
 
-    public model: any;
-
-    filteredResults: Feature[];
+    @Input() address: string;
 
     constructor(
         public alkisWfsService: AlkisWfsService,
@@ -46,7 +43,7 @@ export class FlurstueckSearchComponent {
      * Return the text property
      * @param feature GeoJSON feature
      */
-    public inputFormatter = (feature) =>
+    public inputFormatter = (feature: Feature) =>
         feature.properties.gemarkung + ' (' +
         feature.properties.gemarkungsschluessel + ')' +
         ' - ' + feature.properties.gemeinde;
@@ -84,8 +81,8 @@ export class FlurstueckSearchComponent {
      */
     public handleHttpResponse(res: FeatureCollection) {
         if (res.features.length > 0) {
+            this.selectFlurstueckResult.next(res);
             this.alkisWfsService.updateFeatures(res);
-            this.fskChange.emit();
         } else {
             this.alerts.NewAlert(
                 'danger',
@@ -132,7 +129,7 @@ export class FlurstueckSearchComponent {
      * @param item GeoJSON feature
      */
     public onSelect(item: any) {
-        this.selectResult.next(item);
+        this.selectGemarkungResult.next(item);
         this.gemarkungService.updateFeatures(item);
         this.selected = true;
     }

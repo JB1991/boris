@@ -1,100 +1,10 @@
-$grid-columns: 36 !default;
-/* stylelint-disable-next-line */
-$grid-gutter-width: 0rem !default;
-
-.map {
-    height: calc(100vh - 57px);
-    padding: 0;
+// following map-height classes are used for mobile
+.map-height {
+    height: calc(100vh - 143px);
 }
 
-.flurstueck {
-    display: inline-block;
-}
-
-@media (max-width: 1305px) {
-    .address-header {
-        min-height: 77px !important;
-        height: 100% !important;
-    }
-
-    .address-header-c3 {
-        transform: translate(8%, 15%) !important;
-    }
-
-    .details {
-        height: calc(100vh - 134px) !important;
-    }
-}
-
-@media (max-width: 991px) {
-    .map {
-        height: calc(100vh - 301px);
-        padding: 0;
-    }
-
-    .map-collapsed {
-        height: calc(100vh - 112px) !important;
-    }
-
-    .verlauf {
-        min-height: calc(100vh - 114px);
-        min-height: 100% !important;
-    }
-
-    .details {
-        max-height: initial !important;
-        height: initial !important;
-    }
-
-    .overflow-auto {
-        overflow: unset !important;
-    }
-
-    .height-lg {
-        height: 100%;
-    }
-
-    .address-header {
-        min-height: 57px !important;
-        height: 100% !important;
-    }
-
-    .address-header-c3 {
-        transform: translate(5%, 0%) !important;
-    }
-}
-
-@media (max-width: 767px) {
-    .address-header {
-        min-height: 100% !important;
-    }
-}
-
-.map-collapsed {
-    height: calc(100vh - 57px);
-    padding: 0;
-}
-
-.map-default {
-    height: calc(100vh - 112px);
-    padding: 0;
-}
-
-.verlauf {
-    min-height: calc(100vh - 107px);
-}
-
-.details {
-    height: calc(100vh - 114px);
-}
-
-.address-header {
-    height: 100%;
-    min-height: 57px;
-}
-
-.address-header-c3 {
-    transform: translate(8%, 0%);
+.map-height-active-details {
+    height: calc(100vh - 290px);
 }
 
 a.nav-link:hover {
@@ -111,4 +21,33 @@ a.nav-link:hover {
     color: #c4153a !important;
 }
 
-@import '~bootstrap/scss/bootstrap-grid.scss';
+@media (min-width: 991px) {
+    .details-content-height {
+        height: calc(100vh - 160.4px);
+    }
+
+    .details-header-height {
+        height: 103.4px;
+    }
+
+    // following map-height classes are used for desktop
+    .map-height {
+        height: calc(100vh - 143px);
+    }
+
+    .map-height-active-details {
+        height: calc(100vh - 103px);
+    }
+
+    .collapse-btn-size {
+        min-width: 40px;
+        max-width: 50px;
+        height: calc(100vh - 57px);
+    }
+}
+
+@media (max-width: 991px) {
+    .overflow-auto {
+        overflow: unset !important;
+    }
+}

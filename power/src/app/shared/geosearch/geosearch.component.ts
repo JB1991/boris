@@ -15,15 +15,14 @@ export class GeosearchComponent implements OnChanges {
 
     @ViewChild('geosearchInput') geosearchElement: ElementRef;
 
-    constructor(public geosearchService: GeosearchService, public alerts: AlertsService) {
-    }
-
-    // @Input() resetGeosearch: boolean;
-    // @Output() resetGeosearchChange = new EventEmitter();
+    constructor(
+        public geosearchService: GeosearchService,
+        public alerts: AlertsService
+    ) { }
 
     @Output() selectResult = new EventEmitter();
 
-    @Input() adresse: string;
+    @Input() address: string;
 
     public model: Feature;
 
@@ -31,25 +30,27 @@ export class GeosearchComponent implements OnChanges {
      * Return the text property
      * @param feature GeoJSON feature
      */
-    inputFormatter = (feature) => feature.properties.text;
+    public inputFormatter = (feature: Feature) => feature.properties.text;
 
 
-    resultFormatter = (feature) => feature.properties.text;
+    public resultFormatter = (feature: Feature) => feature.properties.text;
 
     /**
      * Initialization of the search form
      */
 
     public ngOnChanges(changes: SimpleChanges) {
-        if (changes.adresse) {
-            this.model = changes.adresse.currentValue;
+        if (changes.address) {
+            this.model = changes.address.currentValue;
         }
     }
 
     /**
      * setFocus sets the focus on the geosearch input field
      */
+    /* istanbul ignore next */
     public setFocus() {
+        // eslint-disable-next-line
         setTimeout(() => {
             this.geosearchElement.nativeElement.focus();
         });

@@ -115,7 +115,9 @@
                 "nutzung": [
                     {
                         "nutz": "GE",
-                        "enuta": []
+                        "enuta": [
+                            ""
+                        ]
                     }
                 ],
                 "bauw": null,
