@@ -10,7 +10,6 @@ import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service
 import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
 import { DatePipe, Location } from '@angular/common';
 
@@ -110,8 +109,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * currentZoom holds the current zoom of the map object
      */
     public currentZoom: number;
-
-    @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
     /**
      * Possible selections of Stichtage
