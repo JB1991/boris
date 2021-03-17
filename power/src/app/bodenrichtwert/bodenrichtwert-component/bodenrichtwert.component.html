@@ -1,10 +1,10 @@
 <div class="container-fluid p-0 m-0 border-bottom">
     <div class="row m-0">
         <div id="mapWrapper"
-             class="p-0 border-bottom"
+             class="border-bottom"
              [class]="isCollapsed ? 'col d-block' : 'col-lg-6'">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 p-0">
                     <power-bodenrichtwert-navigation [(latLng)]="latLng"
                                                      (latLngChange)="changeURL()"
                                                      [(stichtag)]="stichtag"
@@ -19,7 +19,7 @@
                                                      [(resetMapFired)]="resetMapFired">
                     </power-bodenrichtwert-navigation>
                 </div>
-                <div class="col-12 map-height"
+                <div class="col-12 p-0 map-height"
                      [ngClass]="{'map-height-active-details' : latLng?.length}">
                     <power-bodenrichtwertkarte #map
                                                [(latLng)]="latLng"
