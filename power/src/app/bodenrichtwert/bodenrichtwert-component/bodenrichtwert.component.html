@@ -49,10 +49,12 @@
                             (click)="isCollapsed = !isCollapsed"
                             [attr.aria-expanded]="!isCollapsed"
                             aria-controls="collapseDetails">
-                        <img src="{{ isCollapsed ? '/assets/icons/chevron-left.svg' : '/assets/icons/chevron-right.svg'}}"
-                             alt="Einklappen/ausklappen"
-                             class="h-100 w-100"
-                             i18n-alt>
+                        <i class="bi d-block w-100"
+                           role="img"
+                           i18n-aria-label
+                           aria-label="Detailansicht ein- bzw. ausklappen"
+                           [class.bi-chevron-left]="isCollapsed"
+                           [class.bi-chevron-right]="!isCollapsed"></i>
                     </button>
                 </div>
                 <div id="collapseDetails"

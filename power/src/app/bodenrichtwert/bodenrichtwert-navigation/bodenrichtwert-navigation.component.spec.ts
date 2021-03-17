@@ -11,9 +11,9 @@ import { SimpleChange } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
 
 describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationComponent', () => {
-    const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
-    const featureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
-    const flurstueck: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/flurstueck-collection.json');
+    const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
+    const featureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
+    const flurstueck: FeatureCollection = require('../../../testdata/flurstueck-search/flurstueck-collection.json');
 
     let component: BodenrichtwertNavigationComponent;
     let fixture: ComponentFixture<BodenrichtwertNavigationComponent>;

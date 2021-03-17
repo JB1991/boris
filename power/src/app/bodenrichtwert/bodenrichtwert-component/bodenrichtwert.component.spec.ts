@@ -18,7 +18,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     let fixture: ComponentFixture<BodenrichtwertComponent>;
     let httpTestingController: HttpTestingController;
 
-    const features: FeatureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
+    const features: FeatureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -79,6 +79,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     });
 
     it('printURL should return an URL for the printing service ALT-Boris', () => {
+        spyOn(component.map.map, 'getZoom').and.returnValue(15);
         component.stichtag = '2020-12-31';
         component.latLng = [52.38253373875585, 9.832944728398047];
         // component.teilmarkt = {
@@ -89,7 +90,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         // expect(component.printURL()).toThrow(new Error('Unknown teilmarkt'));
         component.teilmarkt = component.TEILMAERKTE[0];
         expect(component.printURL()).toEqual('/boris-print/?east=556693&north=5803913&year=2021&submarket=Bauland');
-
+        expect(component.map.map.getZoom).toHaveBeenCalledTimes(1);
         component.teilmarkt = component.TEILMAERKTE[1];
         expect(component.printURL()).toEqual('/boris-print/?east=556693&north=5803913&year=2021&submarket=Landwirtschaft');
     });

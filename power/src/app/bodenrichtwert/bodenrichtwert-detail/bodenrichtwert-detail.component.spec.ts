@@ -13,7 +13,7 @@ import { FeatureCollection } from 'geojson';
 describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
     let component: BodenrichtwertDetailComponent;
     let fixture: ComponentFixture<BodenrichtwertDetailComponent>;
-    const features: FeatureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
+    const features: FeatureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
