@@ -12,7 +12,7 @@ describe('Fragebogen.Details.CommentComponent', () => {
     let component: CommentComponent;
     let fixture: ComponentFixture<CommentComponent>;
 
-    const getTask = require('../../../../assets/fragebogen/get-task.json');
+    const getTask = require('../../../../testdata/fragebogen/get-task.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -35,8 +35,8 @@ describe('Fragebogen.Details.CommentComponent', () => {
         component = fixture.componentInstance;
 
         spyOn(console, 'log');
-        // spyOn(component.alerts, 'NewAlert');
-        fixture.detectChanges(); // onInit
+        spyOn(console, 'error');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

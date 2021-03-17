@@ -60,8 +60,8 @@
                                 <span *ngIf="taskSort && taskSort === 'form.extract'">
                                     <span *ngIf="!taskSortDesc"
                                           id="ascFormular"
-                                          aria-label="Aufsteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Aufsteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -78,8 +78,8 @@
                                     </span>
                                     <span *ngIf="taskSortDesc"
                                           id="descFormular"
-                                          aria-label="Absteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Absteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -109,8 +109,8 @@
                                 <span *ngIf="taskSort && taskSort === 'pin'">
                                     <span *ngIf="!taskSortDesc"
                                           id="ascPin"
-                                          aria-label="Aufsteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Aufsteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -127,8 +127,8 @@
                                     </span>
                                     <span *ngIf="taskSortDesc"
                                           id="descPin"
-                                          aria-label="Absteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Absteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -158,8 +158,8 @@
                                 <span *ngIf="taskSort && taskSort === 'description'">
                                     <span *ngIf="!taskSortDesc"
                                           id="ascDescription"
-                                          aria-label="Aufsteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Aufsteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -176,8 +176,8 @@
                                     </span>
                                     <span *ngIf="taskSortDesc"
                                           id="descDescription"
-                                          aria-label="Absteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Absteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -207,8 +207,8 @@
                                 <span *ngIf="taskSort && taskSort === 'status'">
                                     <span *ngIf="!taskSortDesc"
                                           id="ascStatus"
-                                          aria-label="Aufsteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Aufsteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -225,8 +225,8 @@
                                     </span>
                                     <span *ngIf="taskSortDesc"
                                           id="descStatus"
-                                          aria-label="Absteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Absteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -256,8 +256,8 @@
                                 <span *ngIf="taskSort && taskSort === 'created'">
                                     <span *ngIf="!taskSortDesc"
                                           id="ascCreated"
-                                          aria-label="Aufsteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Aufsteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -274,8 +274,8 @@
                                     </span>
                                     <span *ngIf="taskSortDesc"
                                           id="descCreated"
-                                          aria-label="Absteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Absteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -305,8 +305,8 @@
                                 <span *ngIf="taskSort && taskSort === 'updated'">
                                     <span *ngIf="!taskSortDesc"
                                           id="ascUpdated"
-                                          aria-label="Aufsteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Aufsteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -323,8 +323,8 @@
                                     </span>
                                     <span *ngIf="taskSortDesc"
                                           id="descUpdated"
-                                          aria-label="Absteigend sortiert"
-                                          i18n-aria-label>
+                                          title="Absteigend sortiert"
+                                          i18n-title>
                                         <svg width="1em"
                                              height="0.8em"
                                              viewBox="0 1.2 16 16"
@@ -348,8 +348,7 @@
                             <td>
                                 <a i18n-title
                                    title="Formular öffnen"
-                                   [routerLink]="['/forms/details', task.form.id]"
-                                   i18n>{{ task.form.extract }}</a>
+                                   [routerLink]="['/forms/details', task.form.id]">{{ task.form.extract }}</a>
                             </td>
                             <td><span *ngIf="task.pin">{{ task.pin }}</span></td>
                             <td>

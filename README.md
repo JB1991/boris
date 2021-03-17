@@ -20,21 +20,27 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 ## Getting started
 
 1. Projekt klonen
-    ```
+   ```
    git clone ...
    ```
 2. Abhängigkeiten installieren
-    ```
-    cd power
-    npm install
+   ```
+   cd power
+   npm install
    ```
 
 3. Lokalen Entwicklungsserver starten
-    ```
-    ng serve --open
+   ```
+   ng serve --open
    ```
     Dies startet einen Webserver, der unter [http://localhost:4200](http://localhost:4200) erreicht werden kann.
     Bei Änderungen am Code werden Änderungen automatisch übertragen.
+
+4. Lokalen SSR Server starten
+   ```
+   cd power
+   npm run dev:ssr
+   ```
 
 ## Tests
 
@@ -71,7 +77,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 2. Sprachstrings exportieren
    ```
    cd power
-   ng extract-i18n --format=xlf2 --ivy --output-path src/locales
+   ng extract-i18n power --format=xlf2 --ivy=true --output-path src/locales
    ```
    * Bitte die Datei `messages.xlf` nach dem String `node_modules` durchsuchen und die entsprechenden Einträge entfernen.
    Leider gibt es derzeit keinen `exclude`-Parameter (siehe https://github.com/angular/angular-cli/issues/18885).

@@ -7,11 +7,11 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
-    const changes: SimpleChanges = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-changes.json');
-    const features = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-features.json');
-    const featureCollection = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-featurecollection.json');
-    const series = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-series.json');
-    const deleteSeries = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-verlauf-deleteSeries.json');
+    const changes: SimpleChanges = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-changes.json');
+    const features = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-features.json');
+    const featureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
+    const series = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-series.json');
+    const deleteSeries = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-deleteSeries.json');
 
     let component: BodenrichtwertVerlaufComponent;
     let fixture: ComponentFixture<BodenrichtwertVerlaufComponent>;
@@ -42,7 +42,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('ngOnChanges should work', () => {
-        component.features = featureCollection;
+        component.features = JSON.parse(JSON.stringify(featureCollection));
         spyOn(component, 'clearChart');
         spyOn(component, 'filterByStichtag');
         spyOn(component, 'generateChart');
@@ -53,8 +53,8 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('clearChart should delete the chart data', () => {
-        component.chartOption.legend.data = ['foo'];
         component.chartOption.series = ['bar'];
+        component.chartOption.legend.data = ['foo'];
         component.chartOption.legend.formatter = ['pluto'];
         component.chartOption.legend.textStyle.rich = 'toto';
         component.chartOption.grid.top = '20%';
@@ -75,20 +75,53 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(result.length).toBe(8);
     });
 
+    it('tooltipFormatter should format the tooltip text', () => {
+        const params = [{
+            seriesName: 'Wohngebiet Stadtumbau',
+            marker: 'marker',
+            axisValue: 2018,
+            value: 200
+        }];
+        spyOn(component, 'removeTextInTooltip').and.callThrough();
+        const result = component.tooltipFormatter(params);
+        expect(component.removeTextInTooltip).toHaveBeenCalledTimes(1);
+        expect(result).toEqual('31.12.2017' + '<br />' + 'marker' + ' Wohngebiet' +
+            '  : ' + 200 + ' € ' + '<br />');
+    });
+
+    it('removeTextInTooltip should remove some strings in the tooltip text', () => {
+        let tooltipText = 'SanierungsgebietEntwicklungsbereichSoziale StadtStadtumbau' +
+            'sanierungsunbeeinflusster Wertsanierungsbeeinflusster Wert';
+        tooltipText = component.removeTextInTooltip(tooltipText);
+        expect(tooltipText).toEqual('');
+    });
+
+    it('formatTooltipforSmallViews should break the tooltip text', () => {
+        let tooltipText = 'Mischgebiet';
+        tooltipText = component.formatTooltipforSmallViews(tooltipText);
+        expect(tooltipText).toEqual('Mischgebiet ');
+
+        tooltipText = 'Mischgebiet sanierungsunbeeinflusster Wert';
+        tooltipText = component.formatTooltipforSmallViews(tooltipText);
+        expect(tooltipText).toEqual('Mischgebiet sanierungsunbeeinflusster <br />Wert ');
+    });
+
     it('generateChart should insert data into chart options', () => {
         component.echartsInstance = echarts.init(document.getElementById('eChartInstance'));
         component.echartsInstance.setOption(component.chartOption);
         expect(component.chartOption.legend.data.length).toBe(0);
         expect(component.chartOption.series.length).toBe(0);
-        spyOn(component, 'groupBy').and.callThrough();
+        spyOn(component, 'getKeyValuePairs').and.callThrough();
         spyOn(component, 'getSeriesData').and.callThrough();
-        spyOn(component, 'getVergSeries').and.callThrough();
+        spyOn(component, 'getVergOfSeries').and.callThrough();
         spyOn(component, 'deleteSeriesVergItems').and.callThrough();
-        spyOn(component, 'getLabel').and.callThrough();
+        spyOn(component, 'createLegendLabel').and.callThrough();
         spyOn(component, 'setChartOptionsSeries').and.callThrough();
-        spyOn(component, 'fillLineDuringYear').and.callThrough();
+        spyOn(component, 'copyLastItem').and.callThrough();
+        spyOn(component, 'fillGapWithinAYear').and.callThrough();
         spyOn(component, 'generateSrTable').and.callThrough();
         spyOn(component, 'setLegendFormat').and.callThrough();
+        spyOn(component, 'setTextStyleOfLegend').and.callThrough();
         component.generateChart(features);
         expect(component.chartOption.legend.data.length).toBe(1);
         expect(component.chartOption.series.length).toBe(2);
@@ -96,14 +129,21 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(typeof 'component.chartOption.serie[3].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[6].brw').toBe('string');
         expect(component.setChartOptionsSeries).toHaveBeenCalledTimes(2);
-        expect(component.fillLineDuringYear).toHaveBeenCalledTimes(1);
-        expect(component.groupBy).toHaveBeenCalledTimes(1);
+        expect(component.copyLastItem).toHaveBeenCalledTimes(1);
+        expect(component.fillGapWithinAYear).toHaveBeenCalledTimes(1);
+        expect(component.getKeyValuePairs).toHaveBeenCalledTimes(1);
         expect(component.getSeriesData).toHaveBeenCalledTimes(1);
-        expect(component.getVergSeries).toHaveBeenCalledTimes(1);
+        expect(component.getVergOfSeries).toHaveBeenCalledTimes(1);
         expect(component.deleteSeriesVergItems).toHaveBeenCalledTimes(1);
-        expect(component.getLabel).toHaveBeenCalledTimes(1);
+        expect(component.createLegendLabel).toHaveBeenCalledTimes(1);
         expect(component.generateSrTable).toHaveBeenCalledTimes(1);
         expect(component.setLegendFormat).toHaveBeenCalledTimes(1);
+    });
+
+    it('getKeyValuePairs should group the feature by Nutzungsart bzw. BRW-Nummer', () => {
+        spyOn(component, 'groupBy').and.callThrough();
+        const res = component.getKeyValuePairs(features);
+        expect(component.groupBy).toHaveBeenCalledTimes(1);
     });
 
     it('onChartInit should set the echartsInstance', () => {
@@ -120,11 +160,20 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(result.length).toBeGreaterThan(8);
     });
 
-    it('getVergSeries should filter brws which inculdes a Verfahrensgrund', () => {
+    it('getVergOfSeries should filter brws which inculdes a Verfahrensgrund', () => {
         spyOn(component, 'deepCopy').and.callThrough();
-        const result = component.getVergSeries(series);
-        expect(component.deepCopy).toHaveBeenCalledTimes(17);
+        const result = component.getVergOfSeries(series);
+        expect(component.deepCopy).toHaveBeenCalledTimes(16);
         expect(result.length).toBe(4);
+    });
+
+    it('copyLastItem should copy the last item of the series', () => {
+        const modifiedSeries = component.copyLastItem(series);
+        expect(modifiedSeries[8].stag).toEqual('heute');
+        expect(modifiedSeries[8].nutzung).toEqual('Wohnbaufläche');
+        expect(modifiedSeries[8].brw).toEqual('8');
+        expect(modifiedSeries[8].verf).toEqual('EB');
+        expect(modifiedSeries[8].verg).toEqual('Entw');
     });
 
     it('deleteSeriesVergItems should delete the data with verg and/or verf', () => {
@@ -141,9 +190,9 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(deleteSeries[5].nutzung).toEqual(null);
     });
 
-    it('getLabel should filter the label of series', () => {
+    it('createLegendLabel should create the label of series', () => {
         const key = '12345';
-        const res = component.getLabel(key, series);
+        const res = component.createLegendLabel(key, series);
         expect(res).toEqual('Wohnbaufläche' +
             '\n' + 12345 +
             '\nSanierungsgebiet' +
@@ -162,11 +211,10 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.chartOption.series[0].step).toEqual('end');
     });
 
-    it('fillLineDuringYear should fill gaps in graph', () => {
-        const [serie, serieFilledLine] = component.fillLineDuringYear(series);
-        expect(typeof (serieFilledLine[4].brw)).toEqual('string');
-        expect(serieFilledLine[4].forwarded).toEqual(true);
-        expect(serie[8].forwarded).toEqual(true);
+    it('fillGapWithinAYear should fill gaps in graph', () => {
+        const serieFilledGap = component.fillGapWithinAYear(series);
+        expect(typeof (serieFilledGap[4].brw)).toEqual('string');
+        expect(serieFilledGap[4].forwarded).toEqual(true);
     });
 
     it('generateSrTable should create a table which inculdes the brw-data', () => {
@@ -180,22 +228,22 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     it('getBremenStichtag should calculate last Stichtag of Bremen', () => {
         spyOn(component, 'getCurrentYear').and.returnValues(2020, 2021);
         let result = component.getBremenStichtag();
-        expect(result).toEqual('31.12.2017.');
+        expect(result).toEqual('2018-12-31');
         result = component.getBremenStichtag();
-        expect(result).toEqual('31.12.2019.');
+        expect(result).toEqual('2020-12-31');
     });
 
-    it ('getCurrentYear should caculate the current year', () => {
+    it('getCurrentYear should caculate the current year', () => {
         const res = component.getCurrentYear();
-        expect(typeof(res)).toBe('number');
+        expect(typeof (res)).toBe('number');
     });
 
-    it('getBremenStichtag should calculate last Stichtag of Bremerhaven', () => {
+    it('getBremerhavenStichtag should calculate last Stichtag of Bremerhaven', () => {
         spyOn(component, 'getCurrentYear').and.returnValues(2021, 2020);
         let result = component.getBremerhavenStichtag();
-        expect(result).toEqual('31.12.2018.');
+        expect(result).toEqual('2019-12-31');
         result = component.getBremerhavenStichtag();
-        expect(result).toEqual('31.12.2018.');
+        expect(result).toEqual('2019-12-31');
     });
 
 });

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -12,8 +12,8 @@ import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
-import { BodenrichtwertListeComponent } from './bodenrichtwert-liste/bodenrichtwert-liste.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
+import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/bodenrichtwert-navigation.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
@@ -35,8 +35,7 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
  * Therefore it contains:
  * (1) Bodenrichtwert-Detail
  * (2) Bodenrichtwert-Karte
- * (3) Bodenrichtwert-Liste
- * (4) Bodenrichtwert-Verlauf
+ * (3) Bodenrichtwert-Verlauf
  * All subcomponents are arranged in Bodenrichtwert-Component
  * All data is loaded via Bodenrichtwert-Service.
  */
@@ -46,7 +45,7 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         BodenrichtwertComponent,
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
-        BodenrichtwertListeComponent,
+        BodenrichtwertNavigationComponent,
         UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,
@@ -71,7 +70,7 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         AlertModule.forRoot(),
         CollapseModule.forRoot()
     ],
-    providers: [BodenrichtwertService]
+    providers: [BodenrichtwertService, DatePipe]
 })
 export class BodenrichtwertModule {
 }

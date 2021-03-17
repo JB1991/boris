@@ -6,8 +6,21 @@ div.title {
 }
 
 div.title h1 {
-    margin: auto;
+    margin: 0;
     font-size: 1.25rem;
+}
+
+.checksum {
+    font-size: 0.75rem;
+}
+
+.checksum div {
+    padding: 1rem;
+}
+
+.checksum div:nth-child(2) {
+    background-color: darkgrey;
+    color: white;
 }
 
 div.subtitle {
@@ -20,7 +33,30 @@ div.subtitle {
 
 div.subtitle h2 {
     margin: auto;
+    text-align: center;
     font-size: 1rem;
+}
+
+div.alert-gmb {
+    margin-top: 1rem;
+}
+
+div.dropdown {
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+label.tab,
+div.dl {
+    display: table;
+    border-spacing: 0.5em;
+}
+
+label.tab span,
+span.tc,
+small.tc {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .card {
@@ -53,27 +89,34 @@ label {
     cursor: pointer;
 }
 
-input[type=checkbox] {
+input[type='checkbox'] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+input[type='checkbox']:focus ~ dt label {
+    outline: rgb(59, 153, 252) auto 5px;
+}
+
+input[type='checkbox']:checked ~ .remove-check {
     display: none;
 }
 
-input[type=checkbox]:checked ~ .remove-check {
-    display: none;
-}
-
-input[type=checkbox]:checked ~ .display-check {
+input[type='checkbox']:checked ~ .display-check {
     display: block;
 }
 
-input[type=checkbox]:checked ~ dt .remove-check {
+input[type='checkbox']:checked ~ dt .remove-check {
     display: none;
 }
 
-input[type=checkbox]:checked ~ dt .display-check {
+input[type='checkbox']:checked ~ dt .display-check {
     display: block;
 }
 
-input[type=checkbox]:checked ~ dt i-bs.display-check {
+input[type='checkbox']:checked ~ dt i-bs.display-check {
     display: inline !important;
 }
 

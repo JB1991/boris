@@ -21,7 +21,7 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
     let component: QuestionSettingsComponent;
     let fixture: ComponentFixture<QuestionSettingsComponent>;
 
-    const formContent = require('../../../../assets/fragebogen/form-content.json');
+    const formContent = require('../../../../testdata/fragebogen/form-content.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -50,11 +50,11 @@ describe('Fragebogen.Editor.QuestionSettingsComponent', () => {
 
         fixture = TestBed.createComponent(QuestionSettingsComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.alerts, 'NewAlert');
-        spyOn(component.cdr, 'detectChanges');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

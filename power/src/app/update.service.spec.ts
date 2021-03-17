@@ -28,6 +28,7 @@ describe('UpdateService', () => {
                 { provide: SwUpdate, useClass: SwUpdateServerMock }
             ]
         });
+
         spyOn(console, 'log');
         spyOn(console, 'error');
         service = TestBed.inject(UpdateService);

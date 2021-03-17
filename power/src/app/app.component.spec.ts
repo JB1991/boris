@@ -3,7 +3,6 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
-import { ConfigService } from './config.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
 
@@ -19,7 +18,6 @@ describe('AppComponent', () => {
                 RouterTestingModule,
             ],
             providers: [
-                ConfigService,
                 AuthService,
                 UpdateService,
                 { provide: UpdateService, useClass: MockUpdateService }
@@ -32,10 +30,10 @@ describe('AppComponent', () => {
         }).compileComponents();
         fixture = TestBed.createComponent(AppComponent);
         app = fixture.componentInstance;
+        httpTestingController = TestBed.inject(HttpTestingController);
 
         spyOn(console, 'log');
         spyOn(console, 'error');
-        httpTestingController = TestBed.inject(HttpTestingController);
     }));
 
     it('should create the app', waitForAsync(() => {
@@ -45,16 +43,12 @@ describe('AppComponent', () => {
         app.ngAfterViewChecked();
     }));
 
-    it('should have "power" as title', waitForAsync(() => {
-        expect(app.title).toContain('Immobilienmarkt.NI');
-    }));
-
-    it('should have a version number including a dot', waitForAsync(() => {
-        expect(app.appVersion.version).toEqual('local');
+    it('should have a version number', waitForAsync(() => {
+        expect(app.appVersion.version).toEqual('dev');
+        expect(app.appVersion.branch).toEqual('local');
     }));
 
     it('should load version', () => {
-        app.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         app.ngOnInit();
         answerHTTPRequest('/assets/version.json', 'GET', { version: '123456', branch: 'prod' });
         expect(app.appVersion).toEqual({ version: '123456', branch: 'prod' });
@@ -63,13 +57,13 @@ describe('AppComponent', () => {
     it('should fail load version', () => {
         app.ngOnInit();
         answerHTTPRequest('/assets/version.json', 'GET', null, { status: 404, statusText: 'Not Found' });
-        expect(app.appVersion).toEqual({ version: 'local', branch: 'offline' });
+        expect(app.appVersion).toEqual({ version: 'cache', branch: 'offline' });
     });
 
     it('should fail load version 2', () => {
         app.ngOnInit();
         answerHTTPRequest('/assets/version.json', 'GET', { branch: 'toast' });
-        expect(app.appVersion).toEqual({ version: 'local', branch: 'dev' });
+        expect(app.appVersion).toEqual({ version: 'dev', branch: 'local' });
     });
 
     /**

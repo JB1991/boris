@@ -15,7 +15,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         const chunkFailedMessage = /Loading chunk [\d]+ failed/;
         if (chunkFailedMessage.test(error.message)) {
             console.error(error);
-            // this.us.cleanupServiceWorker();
+            this.us.cleanupServiceWorker();
             this.reload();
             return;
         }

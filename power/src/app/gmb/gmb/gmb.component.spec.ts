@@ -1,5 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs/observable/of';
+import { Location } from '@angular/common';
 
 import { GmbComponent } from './gmb.component';
 
@@ -24,20 +28,41 @@ const icons = {
 };
 /* eslint-enable object-shorthand */
 
-
+/* eslint-disable max-lines */
 describe('GmbComponent', () => {
     let component: GmbComponent;
     let fixture: ComponentFixture<GmbComponent>;
     let httpTestingController: HttpTestingController;
 
+    const location = {
+        'replaceState': jasmine.createSpy()
+    };
+
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                NgxBootstrapIconsModule.forRoot(icons),
-                NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
+                NgxBootstrapIconsModule.pick(icons),
+                NgxEchartsModule.forRoot({ echarts }), // eslint-disable-line object-shorthand
+                RouterTestingModule.withRoutes([]),
+                RouterTestingModule
             ],
-            declarations: [ GmbComponent ]
+            declarations: [GmbComponent],
+            providers: [
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        data: of({
+                            'mode': 'gmb'
+                        }),
+                        queryParams: of({
+                            'landkreis': 'Lüneburg',
+                            'berichte': 'Lüneburg_2006'
+                        })
+                    }
+                },
+                { provide: Location, useValue: location }
+            ]
         })
             .compileComponents();
     });
@@ -88,36 +113,48 @@ describe('GmbComponent', () => {
 
         expect(component.berichteFiltered).toEqual([]);
 
-        component.selectedKreis = '033550000';
+        component.selectedKreis = '032410000';
 
         component.filterBerichte();
 
         const eq = [
             {
-                'name': 'Lüneburg',
-                'berichte': component.berichte['Lüneburg'],
-                'start': Object.keys(component.berichte['Lüneburg'])[0]
+                'name': 'Hameln-Hannover',
+                'berichte': keyValueSort(component.berichte['Hameln-Hannover']),
+                'start': Object.keys(component.berichte['Hameln-Hannover'])[0]
             },
             {
+                'name': 'Hannover',
+                'berichte': keyValueSort(component.berichte['Hannover']),
+                'start': Object.keys(component.berichte['Hannover'])[0]
+            },
+        ];
+        const eq1 = [
+            {
                 'name': 'Niedersachsen',
-                'berichte': component.berichte['Niedersachsen']
+                'berichte': keyValueSort(component.berichte['Niedersachsen'])
             }
         ];
         expect(component.berichteFiltered).toEqual(eq);
+
+        component.mode = 'lmb';
+        component.filterBerichte(true);
+        expect(component.berichteFiltered).toEqual(eq1);
+
     });
 
     it('Map Tooltip Formatter works', () => {
-        const res = component.myMapOptions['tooltip']['formatter']({'name': '033550000'});
+        const res = component.myMapOptions['tooltip']['formatter']({ 'name': '033550000' });
         expect(res).toEqual('Lüneburg');
 
-        const res1 = component.myMapOptions['tooltip']['formatter']({'name': 'foobar'});
+        const res1 = component.myMapOptions['tooltip']['formatter']({ 'name': 'foobar' });
         expect(res1).toEqual('foobar');
     });
 
     it('onMapSelectChange works', () => {
         const param = {
             'type': 'mapselectchanged',
-            'batch': [ { 'selected': {'033550000': true} } ]
+            'batch': [{ 'selected': { '033550000': true } }]
         };
 
         component.filterBerichte = jasmine.createSpy();
@@ -128,7 +165,7 @@ describe('GmbComponent', () => {
         expect(component.filterBerichte).toHaveBeenCalled();
 
         component.selectedKreis = undefined;
-        component.onMapSelectChange({'selected': {'foo': false}});
+        component.onMapSelectChange({ 'selected': { 'foo': false } });
 
         expect(component.selectedKreis).toEqual(undefined);
     });
@@ -143,6 +180,112 @@ describe('GmbComponent', () => {
 
         expect(component.selectedKreis).toEqual('033550000');
         expect(component.map['dispatchAction']).toHaveBeenCalled();
+
+        component.onChange(null);
+        expect(component.selectedKreis).toEqual(undefined);
+    });
+
+    it('keyPress works', () => {
+        const event = {
+            'key': 'Enter',
+            'target': {
+                'checked': false
+            }
+        };
+
+        component.keyPress(event);
+        expect(event.target['checked']).toEqual(true);
+    });
+
+    it('changeURL works', () => {
+
+        component.mode = 'gmb';
+        component.selectedKreis = '033550000';
+        component.berichteOpened = [ 'Lüneburg_2222' ];
+
+        component.changeURL();
+
+        expect(location.replaceState).toHaveBeenCalledWith(
+            '/grundstuecksmarktberichte',
+            'landkreis=L%C3%BCneburg&berichte=L%C3%BCneburg_2222'
+        );
+
+        component.mode = 'lmb';
+        component.berichteOpened = [ 'Lüneburg_2222' ];
+
+        component.changeURL();
+
+        expect(location.replaceState).toHaveBeenCalledWith(
+            '/landesgrundstuecksmarktberichte',
+            'berichte=L%C3%BCneburg_2222'
+        );
+
+
+    });
+
+    it('selectMenu works', () => {
+        component.kreise = {
+            'b': 'foo',
+            'a': 'bar',
+            'c': 'tom'
+        };
+
+        const res = component.selectMenu();
+
+        expect(res).toEqual([
+            { 'key': null, 'value': '-- Landkreis --' },
+            { 'key': 'a', 'value': 'bar' },
+            { 'key': 'b', 'value': 'foo' },
+            { 'key': 'c', 'value': 'tom' }
+        ]);
+    });
+
+    it('checkValue works', () => {
+        const event = {
+            'target': {
+                'checked': true,
+                'id': 'id0815'
+            }
+        };
+
+        component.berichteOpened = [];
+
+        component.changeURL = jasmine.createSpy();
+
+        component.checkValue(event);
+        expect(component.berichteOpened).toEqual(['0815']);
+
+        event.target.checked = false;
+        component.checkValue(event);
+        expect(component.berichteOpened).toEqual([]);
+
+        expect(component.changeURL).toHaveBeenCalled();
+    });
+
+    it('changeTitle works', () => {
+        component.mode = 'gmb';
+        component.changeTitle();
+
+        component.mode = 'lmb';
+        component.changeTitle();
+    });
+
+    it('ariaLabelBericht works', () => {
+        const resg = component.ariaLabelBericht(2000, 'Foobar');
+        const resn = component.ariaLabelBericht(2000, 'Niedersachsen');
+
+        const resgd = component.ariaLabelBericht(2000, 'Foobar', true);
+        const resnd = component.ariaLabelBericht(2000, 'Niedersachsen', true);
+
+        const dl = 'Download des ';
+        const n = 'Landesgrundstücksmarktbericht';
+        const g = 'Grundstücksmarktbericht';
+
+        expect(resg).toEqual(g + ' 2000 vom Gutachterausschuss Foobar' );
+        expect(resn).toEqual(n + ' 2000' );
+
+        expect(resgd).toEqual(dl + g + 'es 2000 vom Gutachterausschuss Foobar' );
+        expect(resnd).toEqual(dl + n + 'es 2000' );
     });
 
     /**
@@ -162,6 +305,25 @@ describe('GmbComponent', () => {
     };
 
     const deepCopy = (data) => JSON.parse(JSON.stringify(data));
+
+    const keyValueSort = (data) => {
+        const bb = [];
+        const yk = Object.keys(data);
+
+        for (let y = 0; y < yk.length; y++) {
+            bb.push({
+                'key': yk[y],
+                'value': data[yk[y]]
+            });
+
+        }
+
+        bb.sort(function (b, a) {
+            return a['key'] - b['key'];
+        });
+
+        return bb;
+    };
 
     afterEach(() => {
         // Verify that no requests are remaining

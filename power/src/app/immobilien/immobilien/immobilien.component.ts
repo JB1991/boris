@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
-import { merge, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { ImmobilienChartOptions } from './immobilien.chartoptions';
 import { ImmobilienHelper } from './immobilien.helper';
@@ -43,11 +41,16 @@ export class ImmobilienComponent implements OnInit {
      * @param titleService Service for settings the title of the HTML document
      */
     constructor(
-        private http: HttpClient,
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         private titleService: Title,
+        private meta: Meta,
+        private http: HttpClient,
         private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Der Immobilienpreisindex bildet die Preisentwicklung von Eigenheimen und Eigentumswohnungen in Niedersachsen ab` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Immobilienpreisindex, NIPIX, Preisentwicklung, Wohnungsmarktregion, Eigenheim, Eigentumswohnung` });
     }
 
     title = 'lgln';
@@ -117,7 +120,9 @@ export class ImmobilienComponent implements OnInit {
      * Init the Application.
      */
     ngOnInit() {
-        this.initNipix();
+        if (isPlatformBrowser(this.platformId)) {
+            this.initNipix();
+        }
     }
 
     /**
@@ -233,6 +238,7 @@ export class ImmobilienComponent implements OnInit {
             'geoCoordMapTop': this.nipixStatic.data.geoCoordMap['top'],
             'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
+        this.nipixRuntime.state.mapWidth = 10000;
         // Update Map Selection; Wait a little time for browser to render
         setTimeout(this.updateMapSelect.bind(this), 100);
 
@@ -355,8 +361,33 @@ export class ImmobilienComponent implements OnInit {
      */
     onChartFinished(ec) {
         this.nipixRuntime.export.chartRenderFinished();
-    }
 
+        if (this.nipixRuntime.map.obj === null) {
+            return;
+        }
+
+        const width = this.nipixRuntime.map.obj.getWidth();
+        if ((width < 400) &&
+            (this.nipixRuntime.state.mapWidth >= 400)) {
+            this.nipixRuntime.state.mapWidth = width;
+            this.nipixRuntime.map.obj.setOption({
+                'title': {
+                    'text': $localize`Wohnungsmarktregionen\nin Niedersachsen`
+                }
+            });
+        }
+
+        if ((width >= 400) &&
+            (this.nipixRuntime.state.mapWidth < 400)) {
+            this.nipixRuntime.state.mapWidth = width;
+            this.nipixRuntime.map.obj.setOption({
+                'title': {
+                    'text': $localize`Wohnungsmarktregionen in Niedersachsen`
+                }
+            });
+        }
+
+    }
 
     /**
      * Change between NiPix Category (Eigenheime, Wohnungen)

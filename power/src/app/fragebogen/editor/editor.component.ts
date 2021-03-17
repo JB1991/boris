@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult, ContainerOptions } from 'ngx-smooth-dnd';
 import { environment } from '@env/environment';
@@ -31,16 +31,22 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     public timerHandle: NodeJS.Timeout;
     public favorites = [];
 
-    constructor(public route: ActivatedRoute,
+    constructor(
+        public route: ActivatedRoute,
         public router: Router,
         public titleService: Title,
+        public meta: Meta,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public storage: StorageService,
         public formapi: FormAPIService,
         public history: HistoryService,
-        public cdr: ChangeDetectorRef) {
+        public cdr: ChangeDetectorRef
+    ) {
         this.titleService.setTitle($localize`Formular Editor - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
+
         this.storage.resetService();
         this.history.resetService();
     }
@@ -175,6 +181,8 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         try {
             const result = await this.formapi.getForm(id, { fields: ['content'] });
             this.storage.model = result.form.content;
+            this.migration();
+
             const elements = await this.formapi.getElements({ fields: ['id', 'content'] });
             this.favorites = elements.elements;
             this.cdr.detectChanges();
@@ -187,12 +195,29 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.loadingscreen.setVisible(false);
         } catch (error) {
             // failed to load form
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
             this.router.navigate(['/forms/dashboard'], { replaceUrl: true });
             return;
+        }
+    }
+
+    /**
+     * Migrates survey to newest version
+     */
+    /* istanbul ignore next */
+    /* eslint-disable-next-line complexity */
+    private migration() {
+        for (const page of this.storage.model.pages) {
+            for (const element of page.elements) {
+                // convert imagepicker to imageselector
+                if (element.type === 'imagepicker') {
+                    element.type = 'imageselector';
+                    this.storage.setUnsavedChanges(true);
+                }
+            }
         }
     }
 
@@ -459,7 +484,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.cdr.detectChanges();
         }).catch((error: Error) => {
             // failed to save
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Speichern fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
@@ -643,7 +668,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             this.alerts.NewAlert('success', $localize`Favoriten hinzugefügt`,
                 $localize`Die Frage wurde erfolgreich als Favoriten hinzugefügt.`);
         }).catch((error) => {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Favoriten hinzufügen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
@@ -676,7 +701,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
                 this.alerts.NewAlert('success', $localize`Favoriten gelöscht`,
                     $localize`Die Frage wurde erfolgreich aus den Favoriten entfernt.`);
             }).catch((error) => {
-                console.log(error);
+                console.error(error);
                 this.alerts.NewAlert('danger', $localize`Favorite löschen fehlgeschlagen`, this.formapi.getErrorMessage(error));
             });
     }

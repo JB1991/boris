@@ -38,7 +38,7 @@ export const mapOptions = {
         {
             type: 'text',
             id: 'copyright',
-            left: 90,
+            left: 30,
             bottom: null,
             z: 100,
             style: {

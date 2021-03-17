@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -41,19 +41,25 @@ export class DetailsComponent implements OnInit {
     public taskSort: TaskField = 'updated';
     public taskSortDesc = true;
 
-    constructor(public titleService: Title,
+    constructor(
+        public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public formapi: FormAPIService,
-        public auth: AuthService) {
+        public auth: AuthService
+    ) {
         this.titleService.setTitle($localize`Formular Details - Immobilienmarkt.NI`);
-        this.resetService();
-        this.id = this.route.snapshot.paramMap.get('id');
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
     ngOnInit() {
+        // get id
+        this.loadingscreen.setVisible(true);
+        this.id = this.route.snapshot.paramMap.get('id');
         if (this.id) {
             // load data
             this.updateForm(true);
@@ -86,7 +92,7 @@ export class DetailsComponent implements OnInit {
             this.owner = r.form.owner;
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
 
@@ -97,12 +103,6 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public resetService() {
-        this.form = null;
-        this.tasks = [];
-        this.taskTotal = 0;
-        this.taskPerPage = 5;
-    }
     /**
      * Deletes form
      */
@@ -120,7 +120,7 @@ export class DetailsComponent implements OnInit {
 
         } catch (error) {
             // failed to delete form
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -141,7 +141,7 @@ export class DetailsComponent implements OnInit {
                 $localize`Das Formular wurde erfolgreich archiviert.`);
         } catch (error) {
             // failed to publish form
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Archivieren fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -166,7 +166,7 @@ export class DetailsComponent implements OnInit {
             }
         } catch (error) {
             // failed to load results
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Download fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -191,7 +191,7 @@ export class DetailsComponent implements OnInit {
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
         } catch (error) {
             // failed to delete task
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Löschen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
         if (this.tasks.length === 0) {
@@ -219,7 +219,7 @@ export class DetailsComponent implements OnInit {
                 $localize`Die neue Pin wurde erfolgreich generiert.`);
         } catch (error) {
             // failed to delete task
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Neue Pin generieren fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
         if (this.tasks.length === 0) {
@@ -247,7 +247,7 @@ export class DetailsComponent implements OnInit {
                 $localize`Die Antwort wurde erfolgreich abgeschlossen.`);
         } catch (error) {
             // failed to delete task
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Antwort abschließen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
         if (this.tasks.length === 0) {
@@ -268,7 +268,7 @@ export class DetailsComponent implements OnInit {
             this.preview.open('display', this.tasks[i].content);
         } catch (error) {
             // failed to delete task
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Öffnen fehlgeschlagen`, $localize`Die Vorschau konnte nicht geöffnet werden.`);
         }
     }
@@ -293,7 +293,7 @@ export class DetailsComponent implements OnInit {
             }
         }).catch((error: Error) => {
             // failed to load form
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         });
     }
@@ -303,7 +303,7 @@ export class DetailsComponent implements OnInit {
             const r = await this.formapi.getTags({});
             this.availableTags = r.tags;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -313,7 +313,7 @@ export class DetailsComponent implements OnInit {
             const r = await this.formapi.getGroups({});
             this.availableGroups = r.groups;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -323,7 +323,7 @@ export class DetailsComponent implements OnInit {
             const r = await this.formapi.getUsers({ fields: ['id', 'name'] });
             this.availableUsers = r.users;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -360,7 +360,7 @@ export class DetailsComponent implements OnInit {
             }
             this.loadingscreen.setVisible(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.loadingscreen.setVisible(false);
             this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
@@ -391,7 +391,7 @@ export class DetailsComponent implements OnInit {
             await this.formapi.updateForm(event.id, b);
             this.updateForm(true);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Änderung am Formular fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -401,7 +401,7 @@ export class DetailsComponent implements OnInit {
             await this.formapi.updateForm(event.id, { access: event.access, status: 'published' });
             this.updateForm(false);
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Veröffentlichen des Formulars fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -411,7 +411,7 @@ export class DetailsComponent implements OnInit {
             await this.formapi.updateTask(event.id, { description: event.description });
             this.updateTasks();
         } catch (error) {
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Änderung des Kommentars fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }
@@ -443,7 +443,7 @@ export class DetailsComponent implements OnInit {
             }
         } catch (error) {
             // failed to create task
-            console.log(error);
+            console.error(error);
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formapi.getErrorMessage(error));
         }
     }

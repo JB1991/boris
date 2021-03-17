@@ -18,20 +18,20 @@ describe('Fragebogen.FormAPIService', () => {
     let service: FormAPIService;
     let httpTestingController: HttpTestingController;
 
-    const getForms = require('../../assets/fragebogen/get-forms.json');
-    const getForm = require('../../assets/fragebogen/get-form.json');
-    const formContent = require('../../assets/fragebogen/form-content.json');
-    const getTasks = require('../../assets/fragebogen/get-tasks.json');
-    const getTask = require('../../assets/fragebogen/get-task.json');
-    const taskContent = require('../../assets/fragebogen/task-content.json');
-    const getElements = require('../../assets/fragebogen/get-elements.json');
-    const getElement = require('../../assets/fragebogen/get-element.json');
-    const elementContent = require('../../assets/fragebogen/element-content.json');
-    const getTags = require('../../assets/fragebogen/get-tags.json');
-    const getGroups = require('../../assets/fragebogen/get-groups.json');
-    const getPublicTask = require('../../assets/fragebogen/get-public-task.json');
-    const getPublicForms = require('../../assets/fragebogen/get-public-forms.json');
-    const getPublicForm = require('../../assets/fragebogen/get-public-form.json');
+    const getForms = require('../../testdata/fragebogen/get-forms.json');
+    const getForm = require('../../testdata/fragebogen/get-form.json');
+    const formContent = require('../../testdata/fragebogen/form-content.json');
+    const getTasks = require('../../testdata/fragebogen/get-tasks.json');
+    const getTask = require('../../testdata/fragebogen/get-task.json');
+    const taskContent = require('../../testdata/fragebogen/task-content.json');
+    const getElements = require('../../testdata/fragebogen/get-elements.json');
+    const getElement = require('../../testdata/fragebogen/get-element.json');
+    const elementContent = require('../../testdata/fragebogen/element-content.json');
+    const getTags = require('../../testdata/fragebogen/get-tags.json');
+    const getGroups = require('../../testdata/fragebogen/get-groups.json');
+    const getPublicTask = require('../../testdata/fragebogen/get-public-task.json');
+    const getPublicForms = require('../../testdata/fragebogen/get-public-forms.json');
+    const getPublicForm = require('../../testdata/fragebogen/get-public-form.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -43,9 +43,11 @@ describe('Fragebogen.FormAPIService', () => {
                 AuthService
             ]
         });
+
+        spyOn(console, 'log');
+        spyOn(console, 'error');
         service = TestBed.inject(FormAPIService);
         httpTestingController = TestBed.inject(HttpTestingController);
-        spyOn(console, 'log');
     }));
 
     it('should be created', () => {

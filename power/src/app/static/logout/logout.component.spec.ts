@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LogoutComponent } from './logout.component';
 import { AuthService } from '@app/shared/auth/auth.service';
+import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 
 describe('Static.Logout.LogoutComponent', () => {
     let component: LogoutComponent;
@@ -23,19 +25,24 @@ describe('Static.Logout.LogoutComponent', () => {
                 LogoutComponent
             ],
             providers: [
-                AuthService
+                Title,
+                Meta,
+                AuthService,
+                LoadingscreenService,
             ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(LogoutComponent);
         component = fixture.componentInstance;
-        redirectspy = spyOn(component, 'redirect');
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
+
+        redirectspy = spyOn(component, 'redirect');
         localStorage.removeItem('user');
         component.auth.user = null;
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

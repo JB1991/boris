@@ -1,62 +1,139 @@
 <div class="container-xl">
 
-    <div class="row title">
-        <h1 i18n>Grundstücksmarktberichte (Archiv)</h1>
+    <div class="row title justify-content-center m-0 p-2 p-lg-3 text-center">
+        <h1 *ngIf="mode === 'gmb'"
+            i18n>Grund&shy;stücks&shy;markt&shy;berichte</h1>
+        <h1 *ngIf="mode === 'lmb'"
+            i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;berichte</h1>
     </div>
 
-    <div echarts [options]="mapOptions" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
-         (chartMapSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
+    <div *ngIf="mode === 'gmb'"
+         class="alert alert-info alert-gmb"
+         role="alert">
+        <span i18n>
+            Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie
+        </span> <a [routerLink]="['/landesgrundstuecksmarktberichte']"
+              i18n>hier</a>.
+    </div>
+
+    <div *ngIf="mode === 'lmb'"
+         class="alert alert-info alert-gmb"
+         role="alert">
+        <span i18n>
+              Die Grund&shy;stücks&shy;markt&shy;berichte finden sie
+        </span> <a [routerLink]="['/grundstuecksmarktberichte']"
+           i18n>hier</a>.
+    </div>
+
+    <div *ngIf="mode === 'gmb'"
+         echarts
+         [options]="mapOptions"
+         [loading]="!mapLoaded"
+         (chartInit)="onChartInit($event)"
+         (chartMapSelectChanged)="onMapSelectChange($event)"
+         class="demo-chart chart-map"></div>
 
 
-    <div class="row subtitle">
-        <h2 *ngIf="selectedKreis === undefined" i18n>Bitte wählen Sie einen Landkreis</h2>
-        <h2 *ngIf="selectedKreis !== undefined" i18n>Berichte für den Landkreis "{{kreise[selectedKreis]}}"</h2>
-        <select id="landkreise" class="form-select" aria-label="Wählen die einen Landkreis" (change)="onChange($event.target.value)">
-            <ng-container *ngFor="let kreis of kreise | keyvalue">
-                <option *ngIf="selectedKreis === kreis.key" value="{{ kreis.key }}" selected>{{ kreis.value }}</option>
-                <option *ngIf="selectedKreis !== kreis.key" value="{{ kreis.key }}">{{ kreis.value }}</option>
+    <div *ngIf="mode === 'gmb'"
+         class="row subtitle">
+        <h2 *ngIf="selectedKreis === undefined"
+            i18n>Bitte wählen Sie einen Landkreis</h2>
+        <h2 *ngIf="selectedKreis !== undefined">
+            <span i18n>Berichte für den Landkreis</span> "{{kreise[selectedKreis]}}"
+        </h2>
+        <div class="col-md-12 dropdown">
+            <select id="landkreise"
+                    class="form-select"
+                    aria-label="Wählen die einen Landkreis"
+                    (change)="onChange($event.target.value)">
+                <ng-container *ngFor="let kreis of selectMenu()">
+                    <option *ngIf="selectedKreis === kreis.key"
+                            value="{{ kreis.key }}"
+                            selected>{{ kreis.value }}</option>
+                    <option *ngIf="selectedKreis !== kreis.key"
+                            value="{{ kreis.key }}">{{ kreis.value }}</option>
 
-            </ng-container>
-        </select>
+                </ng-container>
+            </select>
+        </div>
 
     </div>
 
-    <div *ngFor="let rd of berichteFiltered" class="card m-0 mb-2" role="table">
+    <br *ngIf="mode === 'lmb'">
+
+    <div *ngFor="let rd of berichteFiltered"
+         class="card m-0 mb-2"
+         role="table">
         <div class="card-header">
             <div class="row">
                 <h5 class="col-md-12 mb-0"
-                    role="rowheader"><b>{{rd.name}}</b>
+                    role="rowheader">
+                    <b *ngIf="rd.name !== 'Niedersachsen'" i18n>Gutachterausschuss </b>
+                    <b>{{rd.name}}</b>
                 </h5>
-                <!--<h5 class="col-md-7 mb-0"
-                    role="cell">(bis 2012)
-                </h5>-->
             </div>
         </div>
         <div class="card-body">
-            <dl *ngFor="let bj of rd.berichte | keyvalue" class="row" role="rowgroup">
-                <div class="col-md-12">
+            <dl *ngFor="let bj of rd.berichte"
+                class="row"
+                role="rowgroup">
+                <div class="col-md-12 p-0">
                     <!-- Bodenrichtwert (brz) -->
-                    <input type="checkbox" id="dl{{bj.value['checksum']['md5']}}">
-                    <dt class="col-md-12" role="rowheader">
-                    <label for="dl{{bj.value['checksum']['md5']}}">
-                        <i-bs name="plusCircle" class="remove-check" aria-hidden="true"></i-bs>
-                        <i-bs name="dashCircle" class="display-check" aria-hidden="true"></i-bs>&nbsp;
-                        <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb" i18n>Landesgrundstücksmarktbericht</ng-container>
-                        <ng-template #gmb i18n>Grundstücksmarktbericht</ng-template>
-                        {{bj.key}}
-                    </label>
+                    <input type="checkbox"
+                           [checked]="berichteOpened.indexOf(bj.value['file'].split('.')[0]) !== -1"
+                           (change)="checkValue($event)"
+                           id="dl{{bj.value['file'].split('.')[0]}}"
+                           (keypress)="keyPress($event)">
+                    <dt class="col-md-12"
+                        role="rowheader">
+                        <label
+                            class="tab"
+                            for="dl{{bj.value['file'].split('.')[0]}}"
+                            [attr.aria-label]="ariaLabelBericht(bj.key, rd.name)"
+                            >
+                            <span>
+                                <i-bs name="plusCircle"
+                                      class="remove-check"
+                                      aria-hidden="true"></i-bs>
+                                <i-bs name="dashCircle"
+                                      class="display-check"
+                                      aria-hidden="true"></i-bs>
+                            </span>
+                            <span>
+                                <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb"
+                                      i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;bericht</ng-container>
+                                <ng-template #gmb
+                                      i18n>Grund&shy;stücks&shy;markt&shy;bericht</ng-template>
+                                {{bj.key}}
+                            </span>
+                        </label>
                     </dt>
-                    <dd class="col-md-12 fileinfo display-check" role="cell">
-                    <i-bs name="download" aria-hidden="true"></i-bs> {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}" i18n>Downlaod</a>)<br>
-                    <small>
-                        <ng-container i18n>Bereiche</ng-container>: {{generateKreisliste(bj.value['bereich'])}}
-                    </small>
-                    <br><br>
-                    <small>
-                        MD5: {{bj.value['checksum']['md5']}}<br>
-                        SHA1: {{bj.value['checksum']['sha1']}}<br>
-                        SHA256: {{bj.value['checksum']['sha256']}}
-                    </small>
+                    <dd class="col-md-12 p-0 fileinfo display-check"
+                        role="cell">
+                        <div class="dl">
+                            <span class="tc">
+                                <i-bs name="download"
+                                      aria-hidden="true"></i-bs>
+                            </span>
+                            <span class="tc">
+                                {{bj.value['file']}} (<a
+                                  href="{{downloadPath}}/{{bj.value['fileurl']}}"
+                                  target="_blank"
+                                  [attr.aria-label]="ariaLabelBericht(bj.key, rd.name, true)"
+                                  i18n>Download</a>)
+                            </span>
+                        </div>
+                        <div class="dl">
+                            <small class="tc">
+                                <ng-container i18n>Bereiche</ng-container>: {{generateKreisliste(bj.value['bereich'])}}
+                            </small>
+                        </div>
+                        <br>
+                        <div class="checksum">
+                            <div>MD5: {{bj.value['checksum']['md5']}}</div>
+                            <div>SHA1: {{bj.value['checksum']['sha1']}}</div>
+                            <div>SHA256: {{bj.value['checksum']['sha256']}}</div>
+                        </div>
                     </dd>
                 </div>
             </dl>
@@ -66,10 +143,8 @@
     <br>
     <br>
 
-    <small i18n>
-        * Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar.<br>
-        Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.
-    </small>
+    <small *ngIf="mode === 'gmb'"
+           i18n>* Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar. Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.</small>
 </div>
 
 <!-- vim: set expandtab ts=4 sw=4 sts=4 :-->

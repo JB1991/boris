@@ -1,4 +1,4 @@
-image: docker:19
+image: de.icr.io/lgln/kube-tools:latest
 
 services:
   - docker:19-dind
@@ -8,6 +8,7 @@ stages:
   - test
   - build
   - package
+  - scan
   - deploy
 
 cache: &global_cache
@@ -16,15 +17,13 @@ cache: &global_cache
     - power/node_modules/
   policy: pull-push
 
-install:
+init:npm:
   stage: init
   image: node:lts-alpine
-  needs: []
-  dependencies: []
+  interruptible: true
   cache:
     <<: *global_cache
   script:
-    # install node modules
     - cd power
     - npm ci
     - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json -p es2015
@@ -37,17 +36,16 @@ install:
 
 init:helm-dev:
   stage: init
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: []
-  dependencies: []
+  interruptible: true
   cache: {}
-  artifacts:
-    name: "manifest"
-    expire_in: 2 days
-    paths:
-      - manifest-dev
   script:
     - helm template power ./chart/power -f ./chart/power/values-dev.yaml --dependency-update --output-dir manifest-dev
+  artifacts:
+    name: "manifest"
+    expire_in: 2 hrs
+    public: false
+    paths:
+      - manifest-dev
   only:
     - merge_requests
     - tags
@@ -55,55 +53,55 @@ init:helm-dev:
 
 init:helm-staging:
   stage: init
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: []
-  dependencies: []
+  interruptible: true
   cache: {}
-  artifacts:
-    name: "manifest"
-    expire_in: 2 days
-    paths:
-      - manifest-staging
   script:
     - helm template power ./chart/power -f ./chart/power/values-staging.yaml --dependency-update --output-dir manifest-staging
+  artifacts:
+    name: "manifest"
+    expire_in: 2 hrs
+    public: false
+    paths:
+      - manifest-staging
   only:
     - staging
 
 init:helm-production:
   stage: init
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: []
-  dependencies: []
+  interruptible: true
   cache: {}
-  artifacts:
-    name: "manifest"
-    expire_in: 2 days
-    paths:
-      - manifest-production
   script:
     - helm template power ./chart/power -f ./chart/power/values-production.yaml --dependency-update --output-dir manifest-production
+  artifacts:
+    name: "manifest"
+    expire_in: 2 hrs
+    public: false
+    paths:
+      - manifest-production
   only:
     - production
 
 test:karma:
   stage: test
   image: trion/ng-cli-karma:latest
-  needs: ["install"]
+  interruptible: true
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
+  script:
+    - cd power
+    - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   artifacts:
-    expire_in: 2 weeks
+    expire_in: 2 days
+    public: false
     reports:
       junit: power/output/junit_karma.xml
     paths:
       - power/output/junit_karma.xml
-  coverage: '/Lines \W+: (\d+\.\d+)%.*/'
-  script:
-    # Run Karma tests
-    - cd power
-    - node_modules/@angular/cli/bin/ng test --browsers ChromeHeadlessNoSandbox --progress false --watch false --code-coverage
   only:
     - merge_requests
     - tags
@@ -114,21 +112,24 @@ test:karma:
 test:e2e:
   stage: test
   image: trion/ng-cli-e2e:latest
-  needs: ["install"]
+  interruptible: true
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
+  script:
+    - cd power
+    - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   artifacts:
-    expire_in: 2 weeks
+    expire_in: 2 days
+    public: false
     reports:
       junit: power/output/junit_e2e.xml
     paths:
       - power/output/junit_e2e.xml
-  script:
-    # Run E2E tests
-    - cd power
-    - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
   only:
     - merge_requests
     - tags
@@ -140,6 +141,7 @@ test:e2e:
 test:audit:
   stage: test
   image: node:lts-alpine
+  interruptible: true
   needs: []
   dependencies: []
   cache: {}
@@ -157,7 +159,10 @@ test:audit:
 test:lint:
   stage: test
   image: node:lts-alpine
-  needs: ["install"]
+  interruptible: true
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
   cache:
     <<: *global_cache
@@ -175,7 +180,10 @@ test:lint:
 test:lint-html:
   stage: test
   image: node:lts-alpine
-  needs: ["install"]
+  interruptible: true
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
   cache:
     <<: *global_cache
@@ -193,7 +201,10 @@ test:lint-html:
 test:lint-styles:
   stage: test
   image: node:lts-alpine
-  needs: ["install"]
+  interruptible: true
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
   cache:
     <<: *global_cache
@@ -210,16 +221,17 @@ test:lint-styles:
 
 test:helm-dry-run:
   stage: test
-  image: de.icr.io/lgln/kube-tools:latest
+  interruptible: true
   needs: []
   dependencies: []
   cache: {}
-  script:
+  before_script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --set=image.tag="$CI_COMMIT_SHORT_SHA" --dry-run
+  script:
+    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --dry-run
   only:
     - dev
     - staging
@@ -227,8 +239,10 @@ test:helm-dry-run:
 
 test:kubesec-dev:
   stage: test
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["init:helm-dev"]
+  interruptible: true
+  needs:
+    - job: init:helm-dev
+      artifacts: true
   dependencies:
     - init:helm-dev
   cache: {}
@@ -242,8 +256,10 @@ test:kubesec-dev:
 
 test:kubesec-staging:
   stage: test
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["init:helm-staging"]
+  interruptible: true
+  needs:
+    - job: init:helm-staging
+      artifacts: true
   dependencies:
     - init:helm-staging
   cache: {}
@@ -255,8 +271,10 @@ test:kubesec-staging:
 
 test:kubesec-production:
   stage: test
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["init:helm-production"]
+  interruptible: true
+  needs:
+    - job: init:helm-production
+      artifacts: true
   dependencies:
     - init:helm-production
   cache: {}
@@ -268,8 +286,10 @@ test:kubesec-production:
 
 test:kube-linter-dev:
   stage: test
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["init:helm-dev"]
+  interruptible: true
+  needs:
+    - job: init:helm-dev
+      artifacts: true
   dependencies:
     - init:helm-dev
   cache: {}
@@ -279,11 +299,14 @@ test:kube-linter-dev:
     - merge_requests
     - tags
     - dev
+  allow_failure: true
 
 test:kube-linter-staging:
   stage: test
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["init:helm-staging"]
+  interruptible: true
+  needs:
+    - job: init:helm-staging
+      artifacts: true
   dependencies:
     - init:helm-staging
   cache: {}
@@ -291,11 +314,14 @@ test:kube-linter-staging:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-staging/power/templates/*.yaml
   only:
     - staging
+  allow_failure: true
 
 test:kube-linter-production:
   stage: test
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["init:helm-production"]
+  interruptible: true
+  needs:
+    - job: init:helm-production
+      artifacts: true
   dependencies:
     - init:helm-production
   cache: {}
@@ -303,23 +329,28 @@ test:kube-linter-production:
     - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-production/power/templates/*.yaml
   only:
     - production
+  allow_failure: true
 
 build:
   stage: build
   image: node:lts-alpine
-  needs: ["install"]
+  interruptible: true
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
   script:
     - cd power
-    - npm run build -- -c staging
+    - node_modules/@angular/cli/bin/ng run power:prerender:staging
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
+    public: false
     paths:
-      - power/dist/power
+      - power/dist/power/browser
   only:
     - merge_requests
     - tags
@@ -329,124 +360,201 @@ build:
 build:production:
   stage: build
   image: node:lts-alpine
-  needs: ["install"]
+  interruptible: true
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
   cache:
     <<: *global_cache
     policy: pull
   script:
     - cd power
-    - npm run build -- --prod
+    - node_modules/@angular/cli/bin/ng run power:prerender:de
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
+    public: false
     paths:
-      - power/dist/power
+      - power/dist/power/browser
   only:
     - production
 
 package:development:
   stage: package
-  image: de.icr.io/lgln/kube-tools:latest
+  interruptible: false
   dependencies:
     - build
   cache: {}
-  script:
+  before_script:
     - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE:latest" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
     - docker push "$CI_REGISTRY_IMAGE:latest"
   only:
     - dev
 
 package:staging:
   stage: package
-  image: de.icr.io/lgln/kube-tools:latest
+  interruptible: false
   dependencies:
     - build
   cache: {}
-  environment: {
+  environment:
     name: staging
-  }
-  script:
+    action: prepare
+  before_script:
     - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE:staging" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
     - docker push "$CI_REGISTRY_IMAGE:staging"
   only:
     - staging
 
 package:production:
   stage: package
-  image: de.icr.io/lgln/kube-tools:latest
+  interruptible: false
   dependencies:
     - build:production
   cache: {}
-  environment: {
+  environment:
     name: production
-  }
-  script:
+    action: prepare
+  before_script:
     - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE:production" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:production"
     - docker push "$CI_REGISTRY_IMAGE:production"
   only:
     - production
   when: manual
+  allow_failure: false
+
+scan:development:
+  stage: scan
+  interruptible: false
+  needs:
+    - job: package:development
+      artifacts: false
+  dependencies: []
+  cache: {}
+  before_script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
+    - docker pull "$CI_REGISTRY_IMAGE:latest"
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
+  only:
+    - dev
+  allow_failure: true
+
+scan:staging:
+  stage: scan
+  interruptible: false
+  needs:
+    - job: package:staging
+      artifacts: false
+  dependencies: []
+  cache: {}
+  environment:
+    name: staging
+    action: prepare
+  before_script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
+    - docker pull "$CI_REGISTRY_IMAGE:staging"
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
+  only:
+    - staging
+  allow_failure: true
+
+scan:production:
+  stage: scan
+  interruptible: false
+  needs:
+    - job: package:production
+      artifacts: false
+  dependencies: []
+  cache: {}
+  environment:
+    name: production
+    action: prepare
+  before_script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
+    - docker pull "$CI_REGISTRY_IMAGE:production"
+    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:production"
+  only:
+    - production
+  allow_failure: true
 
 deploy:development:
   stage: deploy
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["package:development"]
+  interruptible: false
+  needs:
+    - job: package:development
+      artifacts: false
   dependencies: []
   cache: {}
-  script:
+  before_script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
+  script:
     - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
-      --set labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - dev
 
 deploy:staging:
   stage: deploy
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["package:staging"]
+  interruptible: false
+  needs:
+    - job: package:staging
+      artifacts: false
   dependencies: []
   cache: {}
-  environment: {
+  environment:
     name: staging
-  }
-  script:
+    action: start
+  before_script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
+  script:
     - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install
-      --set labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - staging
 
 deploy:production:
   stage: deploy
-  image: de.icr.io/lgln/kube-tools:latest
-  needs: ["package:production"]
+  interruptible: false
+  needs:
+    - job: package:production
+      artifacts: false
   dependencies: []
   cache: {}
-  environment: {
+  environment:
     name: production
-  }
-  script:
+    action: start
+  before_script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
+  script:
     - helm upgrade power ./chart/power -n prod -f ./chart/power/values-production.yaml --install
-      --set labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - production

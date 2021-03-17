@@ -2,34 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Feature, FeatureCollection } from 'geojson';
+import { FeatureCollection } from 'geojson';
 import { environment } from '@env/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class BodenrichtwertService {
-    /**
-     * Possible selections of Stichtage
-     */
-    public STICHTAGE = [
-        '2019-12-31',
-        '2018-12-31',
-        '2017-12-31',
-        '2016-12-31',
-        '2015-12-31',
-        '2014-12-31',
-        '2013-12-31',
-        '2012-12-31',
-    ];
-
-    /**
-     * Possible selections of Teilmärkte
-     */
-    public TEILMAERKTE = [
-        { value: ['B', 'SF', 'R', 'E'], viewValue: $localize`Bauland`, color: '#c4153a' },
-        { value: ['LF'], viewValue: $localize`Land- und forstwirtschaftliche Flächen`, color: '#009900' },
-    ];
 
     /**
      * URL where to fetch GeoJSON from
@@ -46,23 +25,13 @@ export class BodenrichtwertService {
      */
     private features = new Subject<FeatureCollection>();
 
-    /**
-     * Selected Feature, that can be subscribed to
-     */
-    private selected = new Subject<Feature>();
-
-    /**
-     * Selected Stichtag, that can be subscribed to
-     */
-    private stichtag = new Subject<Date>();
-
     constructor(private http: HttpClient) {
     }
 
     /**
      * Returns the features as an Observable
      */
-    getFeatures(): Observable<FeatureCollection> {
+    public getFeatures(): Observable<FeatureCollection> {
         return this.features.asObservable();
     }
 
@@ -70,38 +39,8 @@ export class BodenrichtwertService {
      * Updates the features by feeding it to the Subject
      * @param features Updated FeatureCollection
      */
-    updateFeatures(features: FeatureCollection) {
+    public updateFeatures(features: FeatureCollection) {
         this.features.next(features);
-    }
-
-    /**
-     * Return the selected Feature as an Observable
-     */
-    getSelected(): Observable<Feature> {
-        return this.selected.asObservable();
-    }
-
-    /**
-     * Update the selected Feature by feeding it to the Subject
-     * @param feature Selected Feature
-     */
-    updateSelected(feature: Feature) {
-        this.selected.next(feature);
-    }
-
-    /**
-     * Return the stichtag as an Observable
-     */
-    getStichtag(): Observable<Date> {
-        return this.stichtag.asObservable();
-    }
-
-    /**
-     * Update the stichtag by feeding it to the Subject
-     * @param date New stichtag
-     */
-    updateStichtag(date: Date) {
-        this.stichtag.next(date);
     }
 
     /**
@@ -109,9 +48,8 @@ export class BodenrichtwertService {
      * @param lat Latitude
      * @param lon Longitude
      * @param entw Teilmarkt
-     * @param state 'Niedersachsen' or 'Bremen'
      */
-    getFeatureByLatLonEntw(lat: any, lon: any, entw: Array<string>): Observable<FeatureCollection> {
+    public getFeatureByLatLonEntw(lat: number, lon: number, entw: Array<string>): Observable<FeatureCollection> {
         // OGC Filter for each teilmarkt/entwicklungszustand
         let ogcFilter = '';
 

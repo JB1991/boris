@@ -1,0 +1,1439 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "br_brzone_flat.fid-6d7007e2_17573bbcfb5_1102",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            1091154.0804,
+                            6874481.3997
+                        ],
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ],
+                        [
+                            1091315.9779,
+                            6874476.3152
+                        ],
+                        [
+                            1091329.1181,
+                            6874481.0886
+                        ],
+                        [
+                            1091337.333,
+                            6874484.2769
+                        ],
+                        [
+                            1091465.2819,
+                            6874515.6483
+                        ],
+                        [
+                            1091468.2616,
+                            6874489.3749
+                        ],
+                        [
+                            1091473.9657,
+                            6874413.8714
+                        ],
+                        [
+                            1091485.3972,
+                            6874412.1036
+                        ],
+                        [
+                            1091485.2149,
+                            6874395.7058
+                        ],
+                        [
+                            1091484.7226,
+                            6874351.4319
+                        ],
+                        [
+                            1091492.5909,
+                            6874323.4644
+                        ],
+                        [
+                            1091495.7346,
+                            6874311.9495
+                        ],
+                        [
+                            1091116.6631,
+                            6874057.0673
+                        ],
+                        [
+                            1090986.4707,
+                            6873969.9604
+                        ],
+                        [
+                            1090963.5543,
+                            6873968.5752
+                        ],
+                        [
+                            1090869.2097,
+                            6874609.2079
+                        ],
+                        [
+                            1091079.4717,
+                            6874687.2328
+                        ],
+                        [
+                            1091112.8053,
+                            6874595.02
+                        ],
+                        [
+                            1091154.0804,
+                            6874481.3997
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "objectid": 6513030436152,
+                "objektidentifikator": "DENIBR4313B36152",
+                "gesl": "032410010000",
+                "gena": "Hannover. Landeshauptst.",
+                "gasl": "03043",
+                "gabe": "Gutachterausschuss für Grundstückswerte Hameln-Hannover",
+                "genu": "033847",
+                "gema": "Klein-Buchholz",
+                "ortst": null,
+                "wnum": "04306152",
+                "brw": 155,
+                "stag": "2012-12-31Z",
+                "brke": "1",
+                "bedw": null,
+                "plz": null,
+                "bas__basbe": "AK5",
+                "bas__basma": 5000,
+                "entw": "B",
+                "beit": "1",
+                "nutzung": [
+                    {
+                        "nutz": "GE",
+                        "enuta": [
+                            ""
+                        ]
+                    }
+                ],
+                "bauw": null,
+                "gez": null,
+                "wgfz": null,
+                "grz": null,
+                "bmz": null,
+                "flae": null,
+                "gtie": null,
+                "gbrei": null,
+                "erve": null,
+                "bod": null,
+                "acza": null,
+                "grza": null,
+                "aufw": null,
+                "weer": null,
+                "bem": null,
+                "frei": "Dienstleistung",
+                "brzname": "Bothfeld Sutelstr.",
+                "verg": null,
+                "verf": null,
+                "vernum": null,
+                "umrechnungstabellendatei": null,
+                "umrechnungstabellenwerte": null,
+                "bbox": [
+                    1090869.2097,
+                    6873968.5752,
+                    1091495.7346,
+                    6874687.2328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "br_brzone_flat.fid-6d7007e2_17573bbcfb5_1103",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            1091154.0804,
+                            6874481.3997
+                        ],
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ],
+                        [
+                            1091315.9779,
+                            6874476.3152
+                        ],
+                        [
+                            1091329.1181,
+                            6874481.0886
+                        ],
+                        [
+                            1091337.333,
+                            6874484.2769
+                        ],
+                        [
+                            1091465.2819,
+                            6874515.6483
+                        ],
+                        [
+                            1091468.2616,
+                            6874489.3749
+                        ],
+                        [
+                            1091473.9657,
+                            6874413.8714
+                        ],
+                        [
+                            1091485.3972,
+                            6874412.1036
+                        ],
+                        [
+                            1091485.2149,
+                            6874395.7058
+                        ],
+                        [
+                            1091484.7226,
+                            6874351.4319
+                        ],
+                        [
+                            1091492.5909,
+                            6874323.4644
+                        ],
+                        [
+                            1091495.7346,
+                            6874311.9495
+                        ],
+                        [
+                            1091116.6631,
+                            6874057.0673
+                        ],
+                        [
+                            1090986.4707,
+                            6873969.9604
+                        ],
+                        [
+                            1090963.5543,
+                            6873968.5752
+                        ],
+                        [
+                            1090869.2097,
+                            6874609.2079
+                        ],
+                        [
+                            1091079.4717,
+                            6874687.2328
+                        ],
+                        [
+                            1091112.8053,
+                            6874595.02
+                        ],
+                        [
+                            1091154.0804,
+                            6874481.3997
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "objectid": 6514030436152,
+                "objektidentifikator": "DENIBR4314B36152",
+                "gesl": "032410010000",
+                "gena": "Hannover. Landeshauptst.",
+                "gasl": "03043",
+                "gabe": "Gutachterausschuss für Grundstückswerte Hameln-Hannover",
+                "genu": "033847",
+                "gema": "Klein-Buchholz",
+                "ortst": null,
+                "wnum": "04306152",
+                "brw": 155,
+                "stag": "2013-12-31Z",
+                "brke": "1",
+                "bedw": null,
+                "plz": null,
+                "bas__basbe": "AK5",
+                "bas__basma": 5000,
+                "entw": "B",
+                "beit": "1",
+                "nutzung": [
+                    {
+                        "nutz": "GE",
+                        "enuta": []
+                    }
+                ],
+                "bauw": null,
+                "gez": null,
+                "wgfz": null,
+                "grz": null,
+                "bmz": null,
+                "flae": null,
+                "gtie": null,
+                "gbrei": null,
+                "erve": null,
+                "bod": null,
+                "acza": null,
+                "grza": null,
+                "aufw": null,
+                "weer": null,
+                "bem": null,
+                "frei": "Dienstleistung",
+                "brzname": "Bothfeld Sutelstr.",
+                "verg": null,
+                "verf": null,
+                "vernum": null,
+                "umrechnungstabellendatei": null,
+                "umrechnungstabellenwerte": null,
+                "bbox": [
+                    1090869.2097,
+                    6873968.5752,
+                    1091495.7346,
+                    6874687.2328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "br_brzone_flat.fid-6d7007e2_17573bbcfb5_1104",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ],
+                        [
+                            1091337.333,
+                            6874484.2769
+                        ],
+                        [
+                            1091465.2819,
+                            6874515.6483
+                        ],
+                        [
+                            1091473.9657,
+                            6874413.8714
+                        ],
+                        [
+                            1091485.3972,
+                            6874412.1036
+                        ],
+                        [
+                            1091489.8821,
+                            6874352.1068
+                        ],
+                        [
+                            1091495.7346,
+                            6874311.9495
+                        ],
+                        [
+                            1090986.4707,
+                            6873969.9604
+                        ],
+                        [
+                            1090963.5543,
+                            6873968.5752
+                        ],
+                        [
+                            1090869.2097,
+                            6874609.2079
+                        ],
+                        [
+                            1091079.4717,
+                            6874687.2328
+                        ],
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "objectid": 6515030436152,
+                "objektidentifikator": "DENIBR4315B36152",
+                "gesl": "032410010000",
+                "gena": "Hannover. Landeshauptst.",
+                "gasl": "03043",
+                "gabe": "Gutachterausschuss für Grundstückswerte Hameln-Hannover",
+                "genu": "033847",
+                "gema": "Klein-Buchholz",
+                "ortst": null,
+                "wnum": "04306152",
+                "brw": 160,
+                "stag": "2014-12-31Z",
+                "brke": "1",
+                "bedw": null,
+                "plz": null,
+                "bas__basbe": "AK5",
+                "bas__basma": 5000,
+                "entw": "B",
+                "beit": "1",
+                "nutzung": [
+                    {
+                        "nutz": "GE",
+                        "enuta": []
+                    }
+                ],
+                "bauw": null,
+                "gez": null,
+                "wgfz": null,
+                "grz": null,
+                "bmz": null,
+                "flae": null,
+                "gtie": null,
+                "gbrei": null,
+                "erve": null,
+                "bod": null,
+                "acza": null,
+                "grza": null,
+                "aufw": null,
+                "weer": null,
+                "bem": null,
+                "frei": "Dienstleistung",
+                "brzname": "Bothfeld Sutelstr.",
+                "verg": null,
+                "verf": null,
+                "vernum": null,
+                "umrechnungstabellendatei": null,
+                "umrechnungstabellenwerte": null,
+                "bbox": [
+                    1090869.2097,
+                    6873968.5752,
+                    1091495.7346,
+                    6874687.2328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "br_brzone_flat.fid-6d7007e2_17573bbcfb5_1105",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ],
+                        [
+                            1091337.333,
+                            6874484.2769
+                        ],
+                        [
+                            1091465.2819,
+                            6874515.6483
+                        ],
+                        [
+                            1091473.9657,
+                            6874413.8714
+                        ],
+                        [
+                            1091485.3972,
+                            6874412.1036
+                        ],
+                        [
+                            1091489.8821,
+                            6874352.1068
+                        ],
+                        [
+                            1091495.7346,
+                            6874311.9495
+                        ],
+                        [
+                            1090986.4707,
+                            6873969.9604
+                        ],
+                        [
+                            1090963.5543,
+                            6873968.5752
+                        ],
+                        [
+                            1090869.2097,
+                            6874609.2079
+                        ],
+                        [
+                            1091079.4717,
+                            6874687.2328
+                        ],
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "objectid": 6516030436152,
+                "objektidentifikator": "DENIBR4316B36152",
+                "gesl": "032410010000",
+                "gena": "Hannover. Landeshauptst.",
+                "gasl": "03043",
+                "gabe": "Gutachterausschuss für Grundstückswerte Hameln-Hannover",
+                "genu": "033847",
+                "gema": "Klein-Buchholz",
+                "ortst": null,
+                "wnum": "04306152",
+                "brw": 160,
+                "stag": "2015-12-31Z",
+                "brke": "1",
+                "bedw": null,
+                "plz": null,
+                "bas__basbe": "AK5",
+                "bas__basma": 5000,
+                "entw": "B",
+                "beit": "1",
+                "nutzung": [
+                    {
+                        "nutz": "GE",
+                        "enuta": []
+                    }
+                ],
+                "bauw": null,
+                "gez": null,
+                "wgfz": null,
+                "grz": null,
+                "bmz": null,
+                "flae": null,
+                "gtie": null,
+                "gbrei": null,
+                "erve": null,
+                "bod": null,
+                "acza": null,
+                "grza": null,
+                "aufw": null,
+                "weer": null,
+                "bem": null,
+                "frei": "Dienstleistung",
+                "brzname": "Bothfeld-Sutelstr.",
+                "verg": null,
+                "verf": null,
+                "vernum": null,
+                "umrechnungstabellendatei": null,
+                "umrechnungstabellenwerte": null,
+                "bbox": [
+                    1090869.2097,
+                    6873968.5752,
+                    1091495.7346,
+                    6874687.2328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "br_brzone_flat.fid-6d7007e2_17573bbcfb5_1106",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ],
+                        [
+                            1091337.333,
+                            6874484.2769
+                        ],
+                        [
+                            1091465.2819,
+                            6874515.6483
+                        ],
+                        [
+                            1091473.9657,
+                            6874413.8714
+                        ],
+                        [
+                            1091485.3972,
+                            6874412.1036
+                        ],
+                        [
+                            1091489.8821,
+                            6874352.1068
+                        ],
+                        [
+                            1091495.7346,
+                            6874311.9495
+                        ],
+                        [
+                            1090986.4707,
+                            6873969.9604
+                        ],
+                        [
+                            1090963.5543,
+                            6873968.5752
+                        ],
+                        [
+                            1090869.2097,
+                            6874609.2079
+                        ],
+                        [
+                            1091079.4717,
+                            6874687.2328
+                        ],
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "objectid": 6517030436152,
+                "objektidentifikator": "DENIBR4317B36152",
+                "gesl": "032410010000",
+                "gena": "Hannover. Landeshauptst.",
+                "gasl": "03043",
+                "gabe": "Gutachterausschuss für Grundstückswerte Hameln-Hannover",
+                "genu": "033847",
+                "gema": "Klein-Buchholz",
+                "ortst": null,
+                "wnum": "04306152",
+                "brw": 165,
+                "stag": "2016-12-31Z",
+                "brke": "1",
+                "bedw": null,
+                "plz": null,
+                "bas__basbe": "AK5",
+                "bas__basma": 5000,
+                "entw": "B",
+                "beit": "1",
+                "nutzung": [
+                    {
+                        "nutz": "GE",
+                        "enuta": []
+                    }
+                ],
+                "bauw": null,
+                "gez": null,
+                "wgfz": null,
+                "grz": null,
+                "bmz": null,
+                "flae": null,
+                "gtie": null,
+                "gbrei": null,
+                "erve": null,
+                "bod": null,
+                "acza": null,
+                "grza": null,
+                "aufw": null,
+                "weer": null,
+                "bem": null,
+                "frei": "Dienstleistung",
+                "brzname": "Bothfeld-Sutelstr.",
+                "verg": null,
+                "verf": null,
+                "vernum": null,
+                "umrechnungstabellendatei": null,
+                "umrechnungstabellenwerte": null,
+                "bbox": [
+                    1090869.2097,
+                    6873968.5752,
+                    1091495.7346,
+                    6874687.2328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "br_brzone_flat.fid-6d7007e2_17573bbcfb5_110f",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ],
+                        [
+                            1091337.333,
+                            6874484.2769
+                        ],
+                        [
+                            1091465.2819,
+                            6874515.6483
+                        ],
+                        [
+                            1091473.9657,
+                            6874413.8714
+                        ],
+                        [
+                            1091485.3972,
+                            6874412.1036
+                        ],
+                        [
+                            1091489.8821,
+                            6874352.1068
+                        ],
+                        [
+                            1091495.7346,
+                            6874311.9495
+                        ],
+                        [
+                            1090986.4707,
+                            6873969.9604
+                        ],
+                        [
+                            1090963.5543,
+                            6873968.5752
+                        ],
+                        [
+                            1090881.197,
+                            6874527.8128
+                        ],
+                        [
+                            1090948.6424,
+                            6874549.943
+                        ],
+                        [
+                            1090932.0279,
+                            6874632.5194
+                        ],
+                        [
+                            1091079.4717,
+                            6874687.2328
+                        ],
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "objectid": 65180304306152,
+                "objektidentifikator": "DENIBR4318B06152",
+                "gesl": "032410010000",
+                "gena": "Hannover. Landeshauptst.",
+                "gasl": "03043",
+                "gabe": "Gutachterausschuss für Grundstückswerte Hameln-Hannover",
+                "genu": "033847",
+                "gema": "Klein-Buchholz",
+                "ortst": null,
+                "wnum": "04306152",
+                "brw": 165,
+                "stag": "2017-12-31Z",
+                "brke": "1",
+                "bedw": null,
+                "plz": null,
+                "bas__basbe": "AK5",
+                "bas__basma": 5000,
+                "entw": "B",
+                "beit": "1",
+                "nutzung": [
+                    {
+                        "nutz": "GE",
+                        "enuta": []
+                    }
+                ],
+                "bauw": null,
+                "gez": null,
+                "wgfz": null,
+                "grz": null,
+                "bmz": null,
+                "flae": null,
+                "gtie": null,
+                "gbrei": null,
+                "erve": null,
+                "bod": null,
+                "acza": null,
+                "grza": null,
+                "aufw": null,
+                "weer": null,
+                "bem": null,
+                "frei": "Dienstleistung",
+                "brzname": "Bothfeld-Sutelstr.",
+                "verg": null,
+                "verf": null,
+                "vernum": null,
+                "umrechnungstabellendatei": null,
+                "umrechnungstabellenwerte": null,
+                "bbox": [
+                    1090881.197,
+                    6873968.5752,
+                    1091495.7346,
+                    6874687.2328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "br_brzone_flat.fid-6d7007e2_17573bbcfb5_1112",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ],
+                        [
+                            1091337.333,
+                            6874484.2769
+                        ],
+                        [
+                            1091465.2819,
+                            6874515.6483
+                        ],
+                        [
+                            1091473.9657,
+                            6874413.8714
+                        ],
+                        [
+                            1091485.3972,
+                            6874412.1036
+                        ],
+                        [
+                            1091489.8821,
+                            6874352.1068
+                        ],
+                        [
+                            1091495.7346,
+                            6874311.9495
+                        ],
+                        [
+                            1090986.4707,
+                            6873969.9604
+                        ],
+                        [
+                            1090963.5543,
+                            6873968.5752
+                        ],
+                        [
+                            1090881.197,
+                            6874527.8128
+                        ],
+                        [
+                            1090948.6424,
+                            6874549.943
+                        ],
+                        [
+                            1090932.0279,
+                            6874632.5194
+                        ],
+                        [
+                            1091079.4717,
+                            6874687.2328
+                        ],
+                        [
+                            1091171.4734,
+                            6874427.0861
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "objectid": 65190304306152,
+                "objektidentifikator": "DENIBR4319B06152",
+                "gesl": "032410010000",
+                "gena": "Hannover. Landeshauptst.",
+                "gasl": "03043",
+                "gabe": "Gutachterausschuss für Grundstückswerte Hameln-Hannover",
+                "genu": "033847",
+                "gema": "Klein-Buchholz",
+                "ortst": null,
+                "wnum": "04306152",
+                "brw": 170,
+                "stag": "2018-12-31Z",
+                "brke": "1",
+                "bedw": null,
+                "plz": null,
+                "bas__basbe": "AK5",
+                "bas__basma": 5000,
+                "entw": "B",
+                "beit": "1",
+                "nutzung": [
+                    {
+                        "nutz": "GE",
+                        "enuta": []
+                    }
+                ],
+                "bauw": null,
+                "gez": null,
+                "wgfz": null,
+                "grz": null,
+                "bmz": null,
+                "flae": null,
+                "gtie": null,
+                "gbrei": null,
+                "erve": null,
+                "bod": null,
+                "acza": null,
+                "grza": null,
+                "aufw": null,
+                "weer": null,
+                "bem": null,
+                "frei": "Dienstleistung",
+                "brzname": "Bothfeld-Sutelstr.",
+                "verg": null,
+                "verf": null,
+                "vernum": null,
+                "umrechnungstabellendatei": null,
+                "umrechnungstabellenwerte": null,
+                "bbox": [
+                    1090881.197,
+                    6873968.5752,
+                    1091495.7346,
+                    6874687.2328
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "br_brzone_flat.fid-6d7007e2_17573bbcfb5_1113",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            1091171.4939,
+                            6874433.2037
+                        ],
+                        [
+                            1091174.1287,
+                            6874425.9572
+                        ],
+                        [
+                            1091185.7709,
+                            6874430.2312
+                        ],
+                        [
+                            1091195.6302,
+                            6874433.8523
+                        ],
+                        [
+                            1091214.2743,
+                            6874440.7128
+                        ],
+                        [
+                            1091244.3561,
+                            6874452.2841
+                        ],
+                        [
+                            1091252.9955,
+                            6874455.402
+                        ],
+                        [
+                            1091254.5351,
+                            6874455.9542
+                        ],
+                        [
+                            1091261.1583,
+                            6874458.3299
+                        ],
+                        [
+                            1091274.6908,
+                            6874463.1963
+                        ],
+                        [
+                            1091305.2653,
+                            6874473.4331
+                        ],
+                        [
+                            1091309.1885,
+                            6874474.6527
+                        ],
+                        [
+                            1091315.4421,
+                            6874476.601
+                        ],
+                        [
+                            1091336.0453,
+                            6874483.0128
+                        ],
+                        [
+                            1091353.1133,
+                            6874487.9218
+                        ],
+                        [
+                            1091367.0126,
+                            6874491.9161
+                        ],
+                        [
+                            1091387.1603,
+                            6874497.2353
+                        ],
+                        [
+                            1091391.5246,
+                            6874498.3843
+                        ],
+                        [
+                            1091398.1869,
+                            6874500.1459
+                        ],
+                        [
+                            1091429.5158,
+                            6874507.7012
+                        ],
+                        [
+                            1091461.0188,
+                            6874514.5653
+                        ],
+                        [
+                            1091464.1648,
+                            6874515.4744
+                        ],
+                        [
+                            1091464.9983,
+                            6874510.0911
+                        ],
+                        [
+                            1091467.2428,
+                            6874496.0172
+                        ],
+                        [
+                            1091467.9115,
+                            6874491.826
+                        ],
+                        [
+                            1091468.2205,
+                            6874489.885
+                        ],
+                        [
+                            1091468.4395,
+                            6874483.2231
+                        ],
+                        [
+                            1091475.0838,
+                            6874453.8929
+                        ],
+                        [
+                            1091476.1584,
+                            6874421.114
+                        ],
+                        [
+                            1091470.4328,
+                            6874421.1778
+                        ],
+                        [
+                            1091470.6245,
+                            6874414.8609
+                        ],
+                        [
+                            1091479.6423,
+                            6874413.7266
+                        ],
+                        [
+                            1091481.3452,
+                            6874352.4956
+                        ],
+                        [
+                            1091481.3924,
+                            6874350.8561
+                        ],
+                        [
+                            1091489.6184,
+                            6874351.6634
+                        ],
+                        [
+                            1091492.1108,
+                            6874327.0606
+                        ],
+                        [
+                            1091495.6104,
+                            6874312.1924
+                        ],
+                        [
+                            1091493.7154,
+                            6874311.219
+                        ],
+                        [
+                            1091464.1644,
+                            6874291.4266
+                        ],
+                        [
+                            1091435.0587,
+                            6874271.9245
+                        ],
+                        [
+                            1091433.6301,
+                            6874270.7576
+                        ],
+                        [
+                            1091384.5275,
+                            6874238.0665
+                        ],
+                        [
+                            1091306.3902,
+                            6874185.7047
+                        ],
+                        [
+                            1091282.9221,
+                            6874169.9769
+                        ],
+                        [
+                            1091208.7086,
+                            6874120.2615
+                        ],
+                        [
+                            1091171.4958,
+                            6874095.3236
+                        ],
+                        [
+                            1091149.6258,
+                            6874080.6606
+                        ],
+                        [
+                            1091127.4187,
+                            6874066.4344
+                        ],
+                        [
+                            1091127.1067,
+                            6874066.195
+                        ],
+                        [
+                            1091125.6445,
+                            6874065.0826
+                        ],
+                        [
+                            1091126.2673,
+                            6874062.9462
+                        ],
+                        [
+                            1091043.516,
+                            6874007.5403
+                        ],
+                        [
+                            1090991.8482,
+                            6873976.5579
+                        ],
+                        [
+                            1090984.8864,
+                            6873971.4871
+                        ],
+                        [
+                            1090984.6855,
+                            6873971.527
+                        ],
+                        [
+                            1090983.2109,
+                            6873970.6198
+                        ],
+                        [
+                            1090982.4511,
+                            6873970.2755
+                        ],
+                        [
+                            1090981.6704,
+                            6873969.9741
+                        ],
+                        [
+                            1090980.8756,
+                            6873969.7204
+                        ],
+                        [
+                            1090980.0665,
+                            6873969.5129
+                        ],
+                        [
+                            1090979.2465,
+                            6873969.3513
+                        ],
+                        [
+                            1090978.4189,
+                            6873969.2391
+                        ],
+                        [
+                            1090977.5885,
+                            6873969.1762
+                        ],
+                        [
+                            1090976.7521,
+                            6873969.1592
+                        ],
+                        [
+                            1090975.9179,
+                            6873969.1931
+                        ],
+                        [
+                            1090975.0875,
+                            6873969.2745
+                        ],
+                        [
+                            1090974.2641,
+                            6873969.4034
+                        ],
+                        [
+                            1090973.4479,
+                            6873969.5814
+                        ],
+                        [
+                            1090972.6419,
+                            6873969.8052
+                        ],
+                        [
+                            1090971.8529,
+                            6873970.0765
+                        ],
+                        [
+                            1090970.563,
+                            6873970.6355
+                        ],
+                        [
+                            1090970.0586,
+                            6873970.897
+                        ],
+                        [
+                            1090969.0782,
+                            6873971.4788
+                        ],
+                        [
+                            1090968.1462,
+                            6873972.1371
+                        ],
+                        [
+                            1090967.2706,
+                            6873972.8671
+                        ],
+                        [
+                            1090966.4562,
+                            6873973.6619
+                        ],
+                        [
+                            1090965.8626,
+                            6873974.4363
+                        ],
+                        [
+                            1090964.7979,
+                            6873975.9787
+                        ],
+                        [
+                            1090963.9424,
+                            6873977.6452
+                        ],
+                        [
+                            1090963.309,
+                            6873979.4109
+                        ],
+                        [
+                            1090962.9103,
+                            6873981.2429
+                        ],
+                        [
+                            1090943.1128,
+                            6874112.4747
+                        ],
+                        [
+                            1090941.3596,
+                            6874124.1373
+                        ],
+                        [
+                            1090939.5511,
+                            6874136.1287
+                        ],
+                        [
+                            1090937.4425,
+                            6874150.1364
+                        ],
+                        [
+                            1090935.0257,
+                            6874166.177
+                        ],
+                        [
+                            1090933.1335,
+                            6874178.7436
+                        ],
+                        [
+                            1090932.2459,
+                            6874184.6218
+                        ],
+                        [
+                            1090923.7121,
+                            6874241.3106
+                        ],
+                        [
+                            1090919.7644,
+                            6874267.5122
+                        ],
+                        [
+                            1090914.7206,
+                            6874301.0218
+                        ],
+                        [
+                            1090913.4325,
+                            6874309.61
+                        ],
+                        [
+                            1090912.8304,
+                            6874313.623
+                        ],
+                        [
+                            1090910.4925,
+                            6874329.1167
+                        ],
+                        [
+                            1090909.4769,
+                            6874335.848
+                        ],
+                        [
+                            1090904.6045,
+                            6874365.471
+                        ],
+                        [
+                            1090901.2965,
+                            6874386.6292
+                        ],
+                        [
+                            1090891.611,
+                            6874454.0766
+                        ],
+                        [
+                            1090880.5477,
+                            6874527.6382
+                        ],
+                        [
+                            1090904.9779,
+                            6874535.6166
+                        ],
+                        [
+                            1090927.8133,
+                            6874543.0778
+                        ],
+                        [
+                            1090947.9928,
+                            6874549.6692
+                        ],
+                        [
+                            1090948.6606,
+                            6874549.887
+                        ],
+                        [
+                            1090947.039,
+                            6874554.587
+                        ],
+                        [
+                            1090932.02,
+                            6874631.9622
+                        ],
+                        [
+                            1090968.8989,
+                            6874645.7712
+                        ],
+                        [
+                            1091024.0779,
+                            6874666.3645
+                        ],
+                        [
+                            1091031.7346,
+                            6874669.2475
+                        ],
+                        [
+                            1091060.1375,
+                            6874679.9034
+                        ],
+                        [
+                            1091079.3248,
+                            6874687.1521
+                        ],
+                        [
+                            1091079.4803,
+                            6874687.2095
+                        ],
+                        [
+                            1091087.1512,
+                            6874665.5638
+                        ],
+                        [
+                            1091131.5048,
+                            6874543.2506
+                        ],
+                        [
+                            1091142.4109,
+                            6874513.2315
+                        ],
+                        [
+                            1091154.088,
+                            6874481.0121
+                        ],
+                        [
+                            1091171.4939,
+                            6874433.2037
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "geom",
+            "properties": {
+                "objectid": 65200304306152,
+                "objektidentifikator": "DENIBR4320B06152",
+                "gesl": "032410010000",
+                "gena": "Hannover. Landeshauptst.",
+                "gasl": "03043",
+                "gabe": "Gutachterausschuss für Grundstückswerte Hameln-Hannover",
+                "genu": "033847",
+                "gema": "Klein-Buchholz",
+                "ortst": null,
+                "wnum": "04306152",
+                "brw": 175,
+                "stag": "2019-12-31Z",
+                "brke": "1",
+                "bedw": null,
+                "plz": null,
+                "bas__basbe": "AK5",
+                "bas__basma": 5000,
+                "entw": "B",
+                "beit": "1",
+                "nutzung": [
+                    {
+                        "nutz": "GE",
+                        "enuta": []
+                    }
+                ],
+                "bauw": null,
+                "gez": null,
+                "wgfz": null,
+                "grz": null,
+                "bmz": null,
+                "flae": null,
+                "gtie": null,
+                "gbrei": null,
+                "erve": null,
+                "bod": null,
+                "acza": null,
+                "grza": null,
+                "aufw": null,
+                "weer": null,
+                "bem": null,
+                "frei": "Dienstleistung",
+                "brzname": "Bothfeld-Sutelstr.",
+                "verg": null,
+                "verf": null,
+                "vernum": null,
+                "umrechnungstabellendatei": null,
+                "umrechnungstabellenwerte": null,
+                "bbox": [
+                    1090880.5477,
+                    6873969.1592,
+                    1091495.6104,
+                    6874687.2095
+                ]
+            }
+        }
+    ],
+    "totalFeatures": 23,
+    "numberMatched": 23,
+    "numberReturned": 23,
+    "timeStamp": "2020-10-29T13:15:09.492Z",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:EPSG::3857"
+        }
+    },
+    "bbox": [
+        1088826.4459,
+        6873690.8025,
+        1092990.0405,
+        6878393.2537
+    ]
+}

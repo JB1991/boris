@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
 import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point, VectorSource } from 'mapbox-gl';
@@ -12,11 +12,12 @@ import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point, Vecto
 })
 export class BodenwertKalkulatorComponent implements OnInit {
 
-    threeDActive = false;
-    searchActive = false;
-    filterActive = false;
-    locationTrackingActive = false;
-    isCollapsed = true;
+    public threeDActive = false;
+    public searchActive = false;
+    public filterActive = false;
+    public locationTrackingActive = false;
+    public functionsActive = false;
+    public isCollapsed = true;
 
     baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
     MAP_STYLE_URL = environment.basemap;
@@ -50,14 +51,19 @@ export class BodenwertKalkulatorComponent implements OnInit {
     });
 
     data;
-    adresse;
+    address;
     flurstueckSelection = new Map<string, MapboxGeoJSONFeature>();
 
     features: any;
 
-    constructor(private titleService: Title,
-        public alerts: AlertsService) {
+    constructor(
+        private titleService: Title,
+        private meta: Meta,
+        public alerts: AlertsService
+    ) {
         this.titleService.setTitle($localize`Bodenwerte - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Rechner zum bestimmen von Bodenwerten` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenwertkalkulator, Bodenwerte` });
     }
 
     ngOnInit() {
@@ -152,7 +158,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     }
 
     flyTo(event: any) {
-        this.adresse = event.properties.text;
+        this.address = event.properties.text;
         if (this.marker) {
             this.marker.remove();
         }

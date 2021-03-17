@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthService } from '@app/shared/auth/auth.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 @Component({
     selector: 'power-feedback',
@@ -11,7 +13,7 @@ import { AuthService } from '@app/shared/auth/auth.service';
 })
 export class FeedbackComponent implements OnInit {
     public mail = 'incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
-    public stateFilter = 'all';
+    public stateFilter = 'opened';
     public search = '';
     public rss = [];
     /* eslint-disable-next-line max-len */
@@ -19,14 +21,24 @@ export class FeedbackComponent implements OnInit {
     private reg_servicedesk = /Service Desk (.*?): /gm;
     private reg_tel = /(\+[0-9 -]*)/gm;
 
-    constructor(public titleService: Title,
+    constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
+        public titleService: Title,
+        public meta: Meta,
         private httpClient: HttpClient,
-        public auth: AuthService) {
+        public auth: AuthService,
+        public alerts: AlertsService
+    ) {
         this.titleService.setTitle($localize`Feedback - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Helfen Sie uns unseren Service zu verbessern, indem Sie uns wertvolles Feedback senden` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Feedback` });
     }
 
-    public async ngOnInit() {
-        await this.loadRSSFeed();
+    async ngOnInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            await this.loadRSSFeed();
+        }
     }
 
     /**
@@ -40,14 +52,22 @@ export class FeedbackComponent implements OnInit {
             uri += '&search=' + encodeURIComponent(this.search);
         }
 
-        const tmp = await this.httpClient.get(uri, this.auth.getHeaders('text', 'application/atom+xml', false)).toPromise();
-        const parser = new DOMParser();
-        const di = parser.parseFromString(tmp.toString(), 'application/xml');
-        const childs = di.getElementsByTagName('entry');
+        try {
+            // get rss feed
+            const tmp = await this.httpClient.get(uri, this.auth.getHeaders('text', 'application/atom+xml', false)).toPromise();
 
-        this.rss = [];
-        for (let i = 0; i < childs.length; i++) {
-            this.rss.push(childs[i]);
+            // parse rss feed
+            const parser = new DOMParser();
+            const di = parser.parseFromString(tmp.toString(), 'application/xml');
+            const childs = di.getElementsByTagName('entry');
+
+            this.rss = [];
+            for (let i = 0; i < childs.length; i++) {
+                this.rss.push(childs[i]);
+            }
+        } catch (error) {
+            console.error(error);
+            this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, $localize`Es konnte kein Feedback geladen werden.`);
         }
     }
 

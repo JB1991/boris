@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+
 import { AuthService } from '@app/shared/auth/auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
@@ -9,19 +10,20 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+    public pin: string;
 
-    constructor(public titleService: Title,
+    constructor(
+        public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public auth: AuthService,
-        public alerts: AlertsService) {
+        public alerts: AlertsService
+    ) {
         this.titleService.setTitle($localize`Formulare - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
-
-    ngOnInit() {
-    }
-
-    form: any = {};
 
     /**
      * Redirects to formular fillout dialogue
@@ -29,8 +31,8 @@ export class HomeComponent implements OnInit {
      */
     submitPIN(pin: string) {
         if (!pin) {
-            this.alerts.NewAlert('danger', $localize`Bitte Pin eingeben`, '');
-            throw new Error('pin is required');
+            this.alerts.NewAlert('danger', $localize`Eingabe ungültig`, $localize`Bitte geben Sie eine PIN ein.`);
+            return;
         }
         this.router.navigate(['/forms', 'fillout', encodeURIComponent(pin)], { replaceUrl: true });
     }

@@ -14,7 +14,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let component: PublicDashboardComponent;
     let fixture: ComponentFixture<PublicDashboardComponent>;
 
-    const getPublicForms = require('../../../assets/fragebogen/get-public-forms.json');
+    const getPublicForms = require('../../../testdata/fragebogen/get-public-forms.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -38,11 +38,12 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
 
         fixture = TestBed.createComponent(PublicDashboardComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should be created', () => {

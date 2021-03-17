@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
@@ -13,15 +13,16 @@ import { AlertsService } from '../alerts/alerts.service';
 })
 export class GeosearchComponent implements OnChanges {
 
-    constructor(public geosearchService: GeosearchService, public alerts: AlertsService) {
-    }
+    @ViewChild('geosearchInput') geosearchElement: ElementRef;
 
-    // @Input() resetGeosearch: boolean;
-    // @Output() resetGeosearchChange = new EventEmitter();
+    constructor(
+        public geosearchService: GeosearchService,
+        public alerts: AlertsService
+    ) { }
 
     @Output() selectResult = new EventEmitter();
 
-    @Input() adresse: string;
+    @Input() address: string;
 
     public model: Feature;
 
@@ -29,19 +30,30 @@ export class GeosearchComponent implements OnChanges {
      * Return the text property
      * @param feature GeoJSON feature
      */
-    inputFormatter = (feature) => feature.properties.text;
+    public inputFormatter = (feature: Feature) => feature.properties.text;
 
 
-    resultFormatter = (feature) => feature.properties.text;
+    public resultFormatter = (feature: Feature) => feature.properties.text;
 
     /**
      * Initialization of the search form
      */
 
     public ngOnChanges(changes: SimpleChanges) {
-        if (changes.adresse) {
-            this.model = changes.adresse.currentValue;
+        if (changes.address) {
+            this.model = changes.address.currentValue;
         }
+    }
+
+    /**
+     * setFocus sets the focus on the geosearch input field
+     */
+    /* istanbul ignore next */
+    public setFocus() {
+        // eslint-disable-next-line
+        setTimeout(() => {
+            this.geosearchElement.nativeElement.focus();
+        });
     }
 
     /**
@@ -56,7 +68,7 @@ export class GeosearchComponent implements OnChanges {
                 this.geosearchService.search(term).pipe(
                     catchError((error) => {
                         console.log(error);
-                        this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
+                        this.alerts.NewAlert('danger', $localize`Angegebene Adresse konnte nicht gefunden werden.`, $localize`Adresse` + ': ' + term);
                         return of([]);
                     })
                 )

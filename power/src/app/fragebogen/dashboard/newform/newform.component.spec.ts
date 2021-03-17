@@ -14,7 +14,7 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
     let component: NewformComponent;
     let fixture: ComponentFixture<NewformComponent>;
 
-    const getForm = require('../../../../assets/fragebogen/get-form.json');
+    const getForm = require('../../../../testdata/fragebogen/get-form.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -38,11 +38,12 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
 
         fixture = TestBed.createComponent(NewformComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
 
         spyOn(console, 'log');
+        spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
+        fixture.detectChanges();
     }));
 
     it('should create', () => {

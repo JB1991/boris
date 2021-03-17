@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { GeosearchComponent } from './geosearch.component';
@@ -9,10 +9,10 @@ import { TestScheduler } from 'rxjs/testing';
 import { SimpleChange } from '@angular/core';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
-    const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
-    const changedFeature: Feature = require('../../../assets/boden/geosearch-samples/featureChange.json');
+    const feature: Feature = require('../../../testdata/geosearch/feature.json');
+    const changedFeature: Feature = require('../../../testdata/geosearch/featureChange.json');
 
-    const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
+    const featureCollection: FeatureCollection = require('../../../testdata/geosearch/featurecollection.json');
 
     let component: GeosearchComponent;
     let fixture: ComponentFixture<GeosearchComponent>;
@@ -51,7 +51,7 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     it('ngOnChanges should work', () => {
         component.model = feature;
         component.ngOnChanges({
-            adresse: new SimpleChange(null, changedFeature, false)
+            address: new SimpleChange(null, changedFeature, false)
         });
         expect(component.model).toEqual(changedFeature);
     });
