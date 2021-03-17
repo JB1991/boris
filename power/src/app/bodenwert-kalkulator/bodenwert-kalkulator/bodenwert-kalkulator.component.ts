@@ -51,7 +51,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     });
 
     data;
-    adresse;
+    address;
     flurstueckSelection = new Map<string, MapboxGeoJSONFeature>();
 
     features: any;
@@ -158,7 +158,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     }
 
     flyTo(event: any) {
-        this.adresse = event.properties.text;
+        this.address = event.properties.text;
         if (this.marker) {
             this.marker.remove();
         }

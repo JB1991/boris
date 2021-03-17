@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { GeosearchComponent } from './geosearch.component';
@@ -51,7 +51,7 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
     it('ngOnChanges should work', () => {
         component.model = feature;
         component.ngOnChanges({
-            adresse: new SimpleChange(null, changedFeature, false)
+            address: new SimpleChange(null, changedFeature, false)
         });
         expect(component.model).toEqual(changedFeature);
     });
