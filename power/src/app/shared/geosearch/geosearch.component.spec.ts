@@ -90,15 +90,5 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
         });
         expect(component.geosearchService.search).toHaveBeenCalled();
     });
-
-    it('setFocus should set the focus on the input field', fakeAsync(() => {
-        spyOn(component.geosearchElement.nativeElement, 'focus');
-        component.setFocus();
-        tick(100);
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(component.geosearchElement.nativeElement.focus).toHaveBeenCalled();
-        });
-    }));
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

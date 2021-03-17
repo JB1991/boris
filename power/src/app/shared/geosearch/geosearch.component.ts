@@ -48,6 +48,7 @@ export class GeosearchComponent implements OnChanges {
     /**
      * setFocus sets the focus on the geosearch input field
      */
+    /* istanbul ignore next */
     public setFocus() {
         // eslint-disable-next-line
         setTimeout(() => {

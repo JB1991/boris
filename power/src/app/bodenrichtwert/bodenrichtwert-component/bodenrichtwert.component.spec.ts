@@ -79,7 +79,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     });
 
     it('printURL should return an URL for the printing service ALT-Boris', () => {
-        spyOn(component.map.map, 'getZoom').and.returnValue(15);
+        component.currentZoom = 15;
         component.stichtag = '2020-12-31';
         component.latLng = [52.38253373875585, 9.832944728398047];
         // component.teilmarkt = {
@@ -89,10 +89,10 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         // };
         // expect(component.printURL()).toThrow(new Error('Unknown teilmarkt'));
         component.teilmarkt = component.TEILMAERKTE[0];
-        expect(component.printURL()).toEqual('/boris-print/?east=556693&north=5803913&year=2021&submarket=Bauland');
-        expect(component.map.map.getZoom).toHaveBeenCalledTimes(1);
+        expect(component.printURL()).toEqual('/boris-print/?east=556693&north=5803913&year=2021&submarket=Bauland&zoom=5000');
+
         component.teilmarkt = component.TEILMAERKTE[1];
-        expect(component.printURL()).toEqual('/boris-print/?east=556693&north=5803913&year=2021&submarket=Landwirtschaft');
+        expect(component.printURL()).toEqual('/boris-print/?east=556693&north=5803913&year=2021&submarket=Landwirtschaft&zoom=100000');
     });
 
     it('changeURL should change the current URL params if changes are applied', () => {
