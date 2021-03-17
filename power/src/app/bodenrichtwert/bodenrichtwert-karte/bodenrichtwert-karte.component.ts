@@ -230,6 +230,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
     @Input() threeDActive: boolean;
 
+    @Input() currentZoom: number;
+    @Output() currentZoomChange = new EventEmitter<number>();
+
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
         public bodenrichtwert3DLayer: BodenrichtwertKarte3dLayerService,
@@ -321,6 +324,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
     }
 
+    /**
+     * onZoomEnd emits the current zoom level onZoomEnd
+     */
+    public onZoomEnd() {
+        this.currentZoomChange.emit(this.map.getZoom());
+    }
     /**
      * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
      */

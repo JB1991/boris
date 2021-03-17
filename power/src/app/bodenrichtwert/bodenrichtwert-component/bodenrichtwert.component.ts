@@ -105,6 +105,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public resetMapFired = false;
 
+    /**
+     * currentZoom holds the current zoom of the map object
+     */
+    public currentZoom: number;
+
     @ViewChild('map') public map: BodenrichtwertKarteComponent;
 
     /**
@@ -264,7 +269,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
         // zoom
         url += '&zoom=';
-        const zoom = this.map.map.getZoom();
+        const zoom = this.currentZoom;
         if (this.teilmarkt.text === this.TEILMAERKTE[0].text) {
             // Bauland
             if (zoom >= 16) {

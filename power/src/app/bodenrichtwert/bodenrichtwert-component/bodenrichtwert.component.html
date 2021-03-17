@@ -30,7 +30,9 @@
                                                [collapsed]="collapsed"
                                                [expanded]="expanded"
                                                [threeDActive]="threeDActive"
-                                               [(resetMapFired)]="resetMapFired">
+                                               [(resetMapFired)]="resetMapFired"
+                                               [(currentZoom)]="currentZoom"
+                                               (currentZoomChange)="changeURL()">
                     </power-bodenrichtwertkarte>
                 </div>
             </div>
