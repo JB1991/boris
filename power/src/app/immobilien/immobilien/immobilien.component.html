@@ -1,25 +1,14 @@
 <div class="row title justify-content-center m-0 p-2 p-lg-3 text-center">
     <h1 i18n>Niedersächsischer Immobilienpreisindex</h1>
 </div>
-<<<<<<< HEAD
-<div class="row mh-100" [ngClass]="{'rowrtl': nipixStatic.layoutRtl === true}">
-    <div class="col-sm-8">
-        <div echarts [options]="this.nipixRuntime.map.options" [loading]="!mapLoaded" (chartInit)="onChartInit($event)"
-             (chartSelectChanged)="onMapSelectChange($event)" class="demo-chart chart-map"></div>
-        <div echarts [options]="this.nipixRuntime.chart.options" (chartInit)="onChartChartInit($event)"
-             (chartDataZoom)="onDataZoom($event)" (chartClick)="chartClicked($event)"
-             (chartFinished)="onChartFinished($event)" class="demo-chart chart-graph"></div>
-        <div style="text-align: center;" [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}"
-            i18n aria-hidden="true">HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl und lässt sich mit den Reglern dynamisch anpassen.</div>
-=======
-<div class="row mh-100 m-0"
+<div class="row mh-100"
      [ngClass]="{'rowrtl': nipixStatic.layoutRtl === true}">
-    <div class="col-sm-8 p-0">
+    <div class="col-sm-8">
         <div echarts
              [options]="this.nipixRuntime.map.options"
              [loading]="!mapLoaded"
              (chartInit)="onChartInit($event)"
-             (chartMapSelectChanged)="onMapSelectChange($event)"
+             (chartSelectChanged)="onMapSelectChange($event)"
              class="demo-chart chart-map"></div>
         <div echarts
              [options]="this.nipixRuntime.chart.options"
@@ -33,7 +22,6 @@
              i18n
              aria-hidden="true">HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl
             und lässt sich mit den Reglern dynamisch anpassen.</div>
->>>>>>> dev
     </div>
     <div class="col-sm-4 p-0 py-3">
 
@@ -130,7 +118,8 @@
                 <div *ngIf="select['type'] === 'multiSelect'"
                      style="padding-left: 40px; margin-bottom: 1rem;"
                      i18n
-                     aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</div>
+                     aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht
+                    möglich.</div>
 
                 <!-- Select DrawValues: Einzeldarstellung, Vergleiche -->
                 <ul class="tab"
@@ -374,7 +363,8 @@
                     <span i18n>Zeitraum auswählen</span>
                 </button>
                 <span i18n
-                      aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem Graphen erfolgen.</span><br>
+                      aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem
+                    Graphen erfolgen.</span><br>
 
                 <span id="dropdownTime1Label"
                       i18n>Zeitraum von</span>
@@ -538,7 +528,8 @@
                     {{ nipixRuntime.translate(regionName(selectedWoMa['woma_id'])) }}
                 </ng-container>
                 <ng-template i18n
-                             #noRegionBlock>Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!</ng-template>
+                             #noRegionBlock>Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!
+                </ng-template>
             </accordion-group>
         </accordion>
 
