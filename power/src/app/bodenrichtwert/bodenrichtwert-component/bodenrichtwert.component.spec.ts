@@ -11,7 +11,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { ConfigService } from '@app/config.service';
 import { FeatureCollection } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
@@ -29,9 +28,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 BodenrichtwertVerlaufComponent,
                 BodenrichtwertNavigationComponent
             ],
-            providers: [
-                ConfigService
-            ],
             imports: [
                 CommonModule,
                 BrowserAnimationsModule,
@@ -48,7 +44,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertComponent);
         component = fixture.componentInstance;
-        component.configService.config = { 'modules': ['a', 'b'], 'authentication': false };
         fixture.detectChanges();
 
         httpTestingController = TestBed.inject(HttpTestingController);

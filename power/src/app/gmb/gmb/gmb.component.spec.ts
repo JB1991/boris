@@ -28,7 +28,7 @@ const icons = {
 };
 /* eslint-enable object-shorthand */
 
-
+/* eslint-disable max-lines */
 describe('GmbComponent', () => {
     let component: GmbComponent;
     let fixture: ComponentFixture<GmbComponent>;
@@ -119,20 +119,20 @@ describe('GmbComponent', () => {
 
         const eq = [
             {
-                'name': 'Hannover',
-                'berichte': component.berichte['Hannover'],
-                'start': Object.keys(component.berichte['Hannover'])[0]
+                'name': 'Hameln-Hannover',
+                'berichte': keyValueSort(component.berichte['Hameln-Hannover']),
+                'start': Object.keys(component.berichte['Hameln-Hannover'])[0]
             },
             {
-                'name': 'Hameln-Hannover',
-                'berichte': component.berichte['Hameln-Hannover'],
-                'start': Object.keys(component.berichte['Hameln-Hannover'])[0]
+                'name': 'Hannover',
+                'berichte': keyValueSort(component.berichte['Hannover']),
+                'start': Object.keys(component.berichte['Hannover'])[0]
             },
         ];
         const eq1 = [
             {
                 'name': 'Niedersachsen',
-                'berichte': component.berichte['Niedersachsen']
+                'berichte': keyValueSort(component.berichte['Niedersachsen'])
             }
         ];
         expect(component.berichteFiltered).toEqual(eq);
@@ -270,6 +270,24 @@ describe('GmbComponent', () => {
         component.changeTitle();
     });
 
+    it('ariaLabelBericht works', () => {
+        const resg = component.ariaLabelBericht(2000, 'Foobar');
+        const resn = component.ariaLabelBericht(2000, 'Niedersachsen');
+
+        const resgd = component.ariaLabelBericht(2000, 'Foobar', true);
+        const resnd = component.ariaLabelBericht(2000, 'Niedersachsen', true);
+
+        const dl = 'Download des ';
+        const n = 'Landesgrundstücksmarktbericht';
+        const g = 'Grundstücksmarktbericht';
+
+        expect(resg).toEqual(g + ' 2000 vom Gutachterausschuss Foobar' );
+        expect(resn).toEqual(n + ' 2000' );
+
+        expect(resgd).toEqual(dl + g + 'es 2000 vom Gutachterausschuss Foobar' );
+        expect(resnd).toEqual(dl + n + 'es 2000' );
+    });
+
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer
      * @param url The URL of the HTTP request
@@ -287,6 +305,25 @@ describe('GmbComponent', () => {
     };
 
     const deepCopy = (data) => JSON.parse(JSON.stringify(data));
+
+    const keyValueSort = (data) => {
+        const bb = [];
+        const yk = Object.keys(data);
+
+        for (let y = 0; y < yk.length; y++) {
+            bb.push({
+                'key': yk[y],
+                'value': data[yk[y]]
+            });
+
+        }
+
+        bb.sort(function (b, a) {
+            return a['key'] - b['key'];
+        });
+
+        return bb;
+    };
 
     afterEach(() => {
         // Verify that no requests are remaining

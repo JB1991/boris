@@ -14,12 +14,12 @@ import { GemarkungWfsService } from './gemarkung-wfs.service';
 
 describe('FlurstueckSearchComponent', () => {
 
-    const fst: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/flurstueck-collection.json');
-    const emptyCollection: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/empty-collection.json');
-    const fsk: Flurstueckskennzeichen = require('../../../assets/boden/flurstueck-search-samples/fsk.json');
+    const fst: FeatureCollection = require('../../../testdata/flurstueck-search/flurstueck-collection.json');
+    const emptyCollection: FeatureCollection = require('../../../testdata/flurstueck-search/empty-collection.json');
+    const fsk: Flurstueckskennzeichen = require('../../../testdata/flurstueck-search/fsk.json');
 
-    const gemarkungen: FeatureCollection = require('../../../assets/boden/flurstueck-search-samples/gemarkung-collection.json');
-    const feature: Feature = require('../../../assets/boden/flurstueck-search-samples/gemarkung-feature.json');
+    const gemarkungen: FeatureCollection = require('../../../testdata/flurstueck-search/gemarkung-collection.json');
+    const feature: Feature = require('../../../testdata/flurstueck-search/gemarkung-feature.json');
 
     let component: FlurstueckSearchComponent;
     let fixture: ComponentFixture<FlurstueckSearchComponent>;

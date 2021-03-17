@@ -13,7 +13,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Feature } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () => {
+<<<<<<< HEAD
     const feature: Feature = require('../../../assets/boden/bodenrichtwert-samples/bodenrichtwert-karte-feature.json');
+=======
+    const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
+    const flurstueck: FeatureCollection = require('../../../testdata/flurstueck-search/flurstueck-collection.json');
+>>>>>>> dev
 
     const lat = 52.40729;
     const lng = 9.80205;

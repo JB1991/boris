@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 
 import { AuthService } from '@app/shared/auth/auth.service';
@@ -14,19 +14,26 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(@Inject(LOCALE_ID) public locale: string,
+    constructor(
+        @Inject(LOCALE_ID) public locale: string,
         public titleService: Title,
+        public meta: Meta,
         public activatedRoute: ActivatedRoute,
         public router: Router,
         public auth: AuthService,
         public loadingscreen: LoadingscreenService,
-        public alerts: AlertsService) {
+        public alerts: AlertsService
+    ) {
         this.titleService.setTitle($localize`Login - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Einloggen am Immobilienmarkt.NI Portal` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Login` });
     }
 
     async ngOnInit() {
-        this.loadingscreen.setVisible(true);
-        await this.authenticate();
+        if (localStorage) {
+            this.loadingscreen.setVisible(true);
+            await this.authenticate();
+        }
     }
 
     /**

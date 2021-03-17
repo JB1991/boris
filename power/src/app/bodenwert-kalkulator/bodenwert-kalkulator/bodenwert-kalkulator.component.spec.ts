@@ -12,9 +12,9 @@ import { FlurstueckPipe } from '../flurstueck-pipe.pipe';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent', () => {
-    const feature = require('../../../assets/boden/bodenwert-samples/feature.json');
-    const flurstueck = require('../../../assets/boden/bodenwert-samples/flurstueck.json')[0];
-    const style = require('../../../assets/boden/bodenwert-samples/style.json');
+    const feature = require('../../../testdata/bodenwert/feature.json');
+    const flurstueck = require('../../../testdata/bodenwert/flurstueck.json')[0];
+    const style = require('../../../testdata/bodenwert/style.json');
 
     const lat = 52.40729;
     const lon = 9.80205;

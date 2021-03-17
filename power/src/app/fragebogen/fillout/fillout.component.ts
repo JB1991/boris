@@ -1,5 +1,5 @@
 import { Component, HostListener, ViewChild, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { environment } from '@env/environment';
@@ -33,15 +33,19 @@ export class FilloutComponent implements AfterViewInit {
 
     public task: PublicTask;
 
-    constructor(@Inject(LOCALE_ID) public locale: string,
+    constructor(
+        @Inject(LOCALE_ID) public locale: string,
         public titleService: Title,
+        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public formapi: FormAPIService) {
+        public formapi: FormAPIService
+    ) {
         this.titleService.setTitle($localize`Formulare - Immobilienmarkt.NI`);
-        this.resetService();
+        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
     ngAfterViewInit() {
@@ -205,13 +209,6 @@ export class FilloutComponent implements AfterViewInit {
      */
     public changed(result: any) {
         this.setUnsavedChanges(true);
-    }
-
-    public resetService() {
-        this.data.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
-        this.pin = '';
-        this.form = null;
-        this.data.UnsavedChanges = false;
     }
 
     /**

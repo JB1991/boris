@@ -78,9 +78,10 @@ export class QuestionSettingsComponent {
      * Migrates element to newest version
      */
     /* istanbul ignore next */
+    /* eslint-disable-next-line complexity */
     private migration() {
         // add commentText
-        if (['radiogroup', 'checkbox', 'imagepicker', 'rating', 'file', 'nouislider']
+        if (['radiogroup', 'checkbox', 'imageselector', 'rating', 'file', 'nouislider']
             .includes(this.model.pages[this.page].elements[this.question].type)) {
             if (!this.model.pages[this.page].elements[this.question].commentText) {
                 this.model.pages[this.page].elements[this.question]['commentText'] = {};

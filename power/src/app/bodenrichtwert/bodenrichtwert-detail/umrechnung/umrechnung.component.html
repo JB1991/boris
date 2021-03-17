@@ -60,8 +60,7 @@
                             <p i18n>Als Maß für die bauliche Ausnutzung gilt die wertrelevante Geschoßflächenzahl
                                 (WGFZ), die das Verhältnis zwischen Grundstücksgröße und wertrelevanter Geschoßfläche
                                 festlegt (WGFZ 1,0 bedeutet, dass 100 % der Grundstücksfläche als wertrelevante
-                                Geschoßfläche auf dem Baugrundstück realisiert werden soll bzw. bereits vorhanden ist).
-                            </p>
+                                Geschoßfläche auf dem Baugrundstück realisiert werden soll bzw. bereits vorhanden ist).</p>
                             <p i18n>Die wertrelevante Geschossfläche ist nach den Außenmaßen der Gebäude in allen
                                 Vollgeschossen zu ermitteln.</p>
                             <p i18n>Die Flächen von Aufenthaltsräumen in anderen Geschossen einschließlich der zu ihnen
@@ -111,7 +110,7 @@
                 </div>
                 <div class="card-body">
                     <p><span i18n>Bodenrichtwert</span>: {{brw}} € / m²</p>
-                    <p><span i18n>{{einflussgroesse}} des Richtgrundstücks</span>: {{actualValue}}</p>
+                    <p>{{einflussgroesse}} <span i18n>des Richtgrundstücks</span>: {{actualValue}}</p>
                     <p><span i18n>Dazugehöriger Umrechnungskoeffizient</span>: {{actualKoef?.koef | number}}</p>
                     <ng-container *ngIf="table.text != 'Art der Bebauung'">
                         <p><span i18n>Individueller Wert für</span> {{einflussgroesse}}:

@@ -2,22 +2,26 @@
 
     <div class="row title justify-content-center m-0 p-2 p-lg-3 text-center">
         <h1 *ngIf="mode === 'gmb'"
-            i18n>Grund&shy;stücks&shy;markt&shy;berichte (Archiv)</h1>
+            i18n>Grund&shy;stücks&shy;markt&shy;berichte</h1>
         <h1 *ngIf="mode === 'lmb'"
-            i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;berichte (Archiv)</h1>
+            i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;berichte</h1>
     </div>
 
     <div *ngIf="mode === 'gmb'"
          class="alert alert-info alert-gmb"
          role="alert">
-        Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie <a [routerLink]="['/landesgrundstuecksmarktberichte']"
-           i18n>hier</a>.
+        <span i18n>
+            Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie
+        </span> <a [routerLink]="['/landesgrundstuecksmarktberichte']"
+              i18n>hier</a>.
     </div>
 
     <div *ngIf="mode === 'lmb'"
          class="alert alert-info alert-gmb"
          role="alert">
-        Die Grund&shy;stücks&shy;markt&shy;berichte finden sie <a [routerLink]="['/grundstuecksmarktberichte']"
+        <span i18n>
+              Die Grund&shy;stücks&shy;markt&shy;berichte finden sie
+        </span> <a [routerLink]="['/grundstuecksmarktberichte']"
            i18n>hier</a>.
     </div>
 
@@ -34,8 +38,9 @@
          class="row subtitle">
         <h2 *ngIf="selectedKreis === undefined"
             i18n>Bitte wählen Sie einen Landkreis</h2>
-        <h2 *ngIf="selectedKreis !== undefined"
-            i18n>Berichte für den Landkreis "{{kreise[selectedKreis]}}"</h2>
+        <h2 *ngIf="selectedKreis !== undefined">
+            <span i18n>Berichte für den Landkreis</span> "{{kreise[selectedKreis]}}"
+        </h2>
         <div class="col-md-12 dropdown">
             <select id="landkreise"
                     class="form-select"
@@ -62,15 +67,14 @@
         <div class="card-header">
             <div class="row">
                 <h5 class="col-md-12 mb-0"
-                    role="rowheader"><b>{{rd.name}}</b>
+                    role="rowheader">
+                    <b *ngIf="rd.name !== 'Niedersachsen'" i18n>Gutachterausschuss </b>
+                    <b>{{rd.name}}</b>
                 </h5>
-                <!--<h5 class="col-md-7 mb-0"
-                    role="cell">(bis 2012)
-                </h5>-->
             </div>
         </div>
         <div class="card-body">
-            <dl *ngFor="let bj of rd.berichte | keyvalue"
+            <dl *ngFor="let bj of rd.berichte"
                 class="row"
                 role="rowgroup">
                 <div class="col-md-12 p-0">
@@ -82,7 +86,11 @@
                            (keypress)="keyPress($event)">
                     <dt class="col-md-12"
                         role="rowheader">
-                        <label class="tab" for="dl{{bj.value['file'].split('.')[0]}}">
+                        <label
+                            class="tab"
+                            for="dl{{bj.value['file'].split('.')[0]}}"
+                            [attr.aria-label]="ariaLabelBericht(bj.key, rd.name)"
+                            >
                             <span>
                                 <i-bs name="plusCircle"
                                       class="remove-check"
@@ -111,6 +119,7 @@
                                 {{bj.value['file']}} (<a
                                   href="{{downloadPath}}/{{bj.value['fileurl']}}"
                                   target="_blank"
+                                  [attr.aria-label]="ariaLabelBericht(bj.key, rd.name, true)"
                                   i18n>Download</a>)
                             </span>
                         </div>
@@ -135,9 +144,7 @@
     <br>
 
     <small *ngIf="mode === 'gmb'"
-           i18n>* Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar.
-        <br>Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.
-    </small>
+           i18n>* Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar. Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.</small>
 </div>
 
 <!-- vim: set expandtab ts=4 sw=4 sts=4 :-->

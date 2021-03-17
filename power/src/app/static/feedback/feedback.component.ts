@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthService } from '@app/shared/auth/auth.service';
@@ -20,15 +21,24 @@ export class FeedbackComponent implements OnInit {
     private reg_servicedesk = /Service Desk (.*?): /gm;
     private reg_tel = /(\+[0-9 -]*)/gm;
 
-    constructor(public titleService: Title,
+    constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
+        public titleService: Title,
+        public meta: Meta,
         private httpClient: HttpClient,
         public auth: AuthService,
-        public alerts: AlertsService,) {
+        public alerts: AlertsService
+    ) {
         this.titleService.setTitle($localize`Feedback - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Helfen Sie uns unseren Service zu verbessern, indem Sie uns wertvolles Feedback senden` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Feedback` });
     }
 
-    public async ngOnInit() {
-        await this.loadRSSFeed();
+    async ngOnInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            await this.loadRSSFeed();
+        }
     }
 
     /**

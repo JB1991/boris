@@ -5,6 +5,7 @@ import {
 import { ShowdownConverter } from 'ngx-showdown';
 import * as Survey from 'survey-angular';
 import * as Slider from './nouislider';
+import * as Image from './imageselector';
 
 @Component({
     selector: 'power-forms-surveyjs-wrapper',
@@ -50,6 +51,7 @@ export class WrapperComponent implements OnChanges {
 
         // load custom widgets
         Slider.init(Survey);
+        Image.init(Survey);
 
         // create survey
         this.survey = new Survey.Model(this.model);

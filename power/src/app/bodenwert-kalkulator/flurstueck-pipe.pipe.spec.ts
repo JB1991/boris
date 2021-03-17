@@ -3,7 +3,7 @@ import { FlurstueckPipe } from './flurstueck-pipe.pipe';
 describe('BodenwertKalkulator.FlurstueckPipe', () => {
     let pipe: FlurstueckPipe;
 
-    const flurstueck = require('../../assets/boden/bodenwert-samples/flurstueck.json');
+    const flurstueck = require('../../testdata/bodenwert/flurstueck.json');
 
     beforeEach(() => {
         pipe = new FlurstueckPipe();

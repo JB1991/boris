@@ -7,6 +7,10 @@ metadata:
     {{- if .Values.labels }}
       {{- toYaml .Values.labels | nindent 4 }}
     {{- end }}
+  annotations:
+    {{- if .Values.annotations }}
+      {{- toYaml .Values.annotations | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -20,6 +24,10 @@ spec:
         {{- include "power.selectorLabels" . | nindent 8 }}
         {{- if .Values.labels }}
           {{- toYaml .Values.labels | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- if .Values.annotations }}
+          {{- toYaml .Values.annotations | nindent 8 }}
         {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}
@@ -35,10 +43,6 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          volumeMounts:
-          - name: power-modules-config
-            mountPath: "/usr/share/nginx/html/assets/config"
-            readOnly: true
           env:
             - name: BKG_GEOCODING_SECRET
               valueFrom:
@@ -59,10 +63,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      volumes:
-      - name: power-modules-config
-        configMap:
-          name: {{ .Release.Name }}-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

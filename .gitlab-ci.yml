@@ -344,13 +344,13 @@ build:
     policy: pull
   script:
     - cd power
-    - npm run build -- -c staging
+    - node_modules/@angular/cli/bin/ng run power:prerender:staging
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
     public: false
     paths:
-      - power/dist/power
+      - power/dist/power/browser
   only:
     - merge_requests
     - tags
@@ -370,13 +370,13 @@ build:production:
     policy: pull
   script:
     - cd power
-    - npm run build -- -c production,de
+    - node_modules/@angular/cli/bin/ng run power:prerender:de
   artifacts:
     name: "compiled dist"
     expire_in: 2 days
     public: false
     paths:
-      - power/dist/power
+      - power/dist/power/browser
   only:
     - production
 
@@ -431,6 +431,7 @@ package:production:
   only:
     - production
   when: manual
+  allow_failure: false
 
 scan:development:
   stage: scan
@@ -508,6 +509,7 @@ deploy:development:
   script:
     - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
       --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - dev
 
@@ -530,6 +532,7 @@ deploy:staging:
   script:
     - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install
       --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - staging
 
@@ -552,5 +555,6 @@ deploy:production:
   script:
     - helm upgrade power ./chart/power -n prod -f ./chart/power/values-production.yaml --install
       --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - production

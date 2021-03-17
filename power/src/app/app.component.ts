@@ -1,12 +1,14 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 import { Platform } from '@angular/cdk/platform';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 
-import { Config, Version, ConfigService } from '@app/config.service';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'power-root',
@@ -20,8 +22,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedImmo = true;
     public showBrowserNotice = true;
     public showOfflineNotice = true;
-    public config: Config;
-    public appVersion: any = { version: 'local', branch: 'dev' };
+    public config = environment.config;
+    public appVersion: any = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
     public uri = location;
     public baseurl = location.pathname + location.search;
@@ -29,15 +31,24 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     private _subscription: Subscription;
     private unsubscribe$: Subject<void> = new Subject<void>();
 
-    constructor(@Inject(LOCALE_ID) public locale: string,
+    constructor(
+        public titleService: Title,
+        public meta: Meta,
+        @Inject(DOCUMENT) private doc,
+        @Inject(LOCALE_ID) public locale: string,
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         public cdRef: ChangeDetectorRef,
-        public configService: ConfigService,
         public httpClient: HttpClient,
         public auth: AuthService,
         public router: Router,
         public platform: Platform,
         public us: UpdateService
     ) {
+        this.titleService.setTitle($localize`Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS.NI, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+
         // check for updates
         this.us.checkForUpdates();
 
@@ -50,37 +61,53 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 this.isCollapsedImmo = true;
 
                 // update baseurl
-                this.baseurl = location.pathname + location.search;
+                this.baseurl = event.url;
                 if (this.baseurl.startsWith('/' + this.locale + '/')) {
                     this.baseurl = this.baseurl.substr(this.locale.length + 1);
+                }
+
+                // update canonical url
+                const links = this.doc.head.getElementsByTagName('link');
+                for (let i = 0; i < links.length; i++) {
+                    if (links[i].getAttribute('rel') === 'canonical') {
+                        links[i].setAttribute('href', 'https://immobilienmarkt.niedersachsen.de'
+                            + (this.locale !== 'de' ? '/' + this.locale : '')
+                            + event.url.split('?')[0]);
+                    }
                 }
             }
         });
     }
 
     ngOnInit() {
-        this.config = this.configService.config;
-        if (this.config.modules.length === 0) {
-            this.hasInternet = false;
-        }
+        if (isPlatformBrowser(this.platformId)) {
+            // load version
+            this.httpClient.get('/assets/version.json').subscribe(data => {
+                if (data && data['version']) {
+                    this.appVersion = data;
+                    environment.config.version = this.appVersion;
+                }
+                this.showOfflineNotice = false;
+            }, error => {
+                // failed to load
+                console.error('could not load version.json');
+                this.appVersion = { version: 'cache', branch: 'offline' };
+                environment.config.version = this.appVersion;
+                this.hasInternet = false;
+            });
 
-        // load version
-        this.httpClient.get('/assets/version.json').subscribe(data => {
-            if (data && data['version']) {
-                this.appVersion = data;
-                this.configService.version = this.appVersion as Version;
+            // disable warning for known browsers
+            /* istanbul ignore else */
+            if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
+                this.showBrowserNotice = false;
             }
-        }, error => {
-            // failed to load
-            console.error('could not load version.json');
-            this.appVersion = { version: 'local', branch: 'offline' };
-            this.configService.version = this.appVersion as Version;
-        });
-
-        // disable warning for known browsers
-        /* istanbul ignore else */
-        if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
+        } else {
+            // disable warnings
+            this.showOfflineNotice = false;
             this.showBrowserNotice = false;
+            this.hasInternet = true;
+            this.appVersion = { version: 'cache', branch: 'rendered' };
+            environment.config.version = this.appVersion;
         }
     }
 
