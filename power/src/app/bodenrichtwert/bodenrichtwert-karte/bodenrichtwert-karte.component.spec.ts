@@ -190,20 +190,18 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('activate3dView should activate the 3d view', () => {
         spyOn(component.map, 'setPaintProperty');
-        spyOn(component.map, 'addLayer');
         component.activate3dView();
         expect(component.map.getZoom).toHaveBeenCalledTimes(1);
-        expect(component.map.addLayer).toHaveBeenCalledTimes(1);
         expect(component.map.easeTo).toHaveBeenCalledTimes(1);
         expect(component.map.setPaintProperty).toHaveBeenCalledTimes(1);
         expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
     });
 
     it('deactivate3dView should deactivate the 3d view', () => {
-        spyOn(component.map, 'removeLayer');
+        spyOn(component.map, 'setPaintProperty');
         component.deactivate3dView();
         expect(component.map.easeTo).toHaveBeenCalledTimes(1);
-        expect(component.map.removeLayer).toHaveBeenCalledTimes(1);
+        expect(component.map.setPaintProperty).toHaveBeenCalledTimes(1);
         expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
     });
 });

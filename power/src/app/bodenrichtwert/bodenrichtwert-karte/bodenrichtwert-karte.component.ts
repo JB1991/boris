@@ -582,21 +582,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      */
     public activate3dView() {
         this.zoomFactor = this.map.getZoom();
-        this.map.addLayer({
-            id: 'building-extrusion',
-            type: 'fill-extrusion',
-            source: 'openmaptiles',
-            'source-layer': 'building',
-            paint: {
-                'fill-extrusion-color': 'rgb(219, 219, 218)',
-                'fill-extrusion-height': 0,
-                'fill-extrusion-opacity': 0.7,
-                'fill-extrusion-height-transition': {
-                    duration: 600,
-                    delay: 0
-                }
-            }
-        });
         this.map.easeTo({
             pitch: 60,
             zoom: 17,
@@ -614,7 +599,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             zoom: this.zoomFactor,
             center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
-        this.map.removeLayer('building-extrusion');
+        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
     }
 }
 
