@@ -153,7 +153,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} € <br />`);
             }
         }
-        return ([year, '<br />', res.join('')].join(''));
+        return (['31.'+ '12.' + (year - 1), '<br />', res.join('')].join(''));
     }
 
     /**
