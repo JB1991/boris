@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {
     Component, OnDestroy,
     ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, OnInit
@@ -321,7 +322,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         } else {
             return false;
         }
+
     }
 }
-
 /* vim: set expandtab ts=4 sw=4 sts=4: */
