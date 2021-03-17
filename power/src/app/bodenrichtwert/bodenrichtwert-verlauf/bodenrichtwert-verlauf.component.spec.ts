@@ -85,7 +85,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         spyOn(component, 'removeTextInTooltip').and.callThrough();
         const result = component.tooltipFormatter(params);
         expect(component.removeTextInTooltip).toHaveBeenCalledTimes(1);
-        expect(result).toEqual('2018' + '<br />' + 'marker' + ' Wohngebiet' +
+        expect(result).toEqual('31.12.2017' + '<br />' + 'marker' + ' Wohngebiet' +
             '  : ' + 200 + ' € ' + '<br />');
     });
 
