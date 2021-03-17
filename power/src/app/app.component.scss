@@ -34,9 +34,9 @@ footer li::before {
 }
 
 nav {
-    box-shadow: 0 0 0.25rem #343a40;
     -webkit-box-shadow: 0 0 0.25rem #343a40;
     -moz-box-shadow: 0 0 0.25rem #343a40;
+    box-shadow: 0 0 0.25rem #343a40;
 }
 
 @media (max-width: 576px) {

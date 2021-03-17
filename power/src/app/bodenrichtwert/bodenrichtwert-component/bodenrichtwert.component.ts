@@ -2,17 +2,15 @@ import {
     Component, OnDestroy,
     ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, OnInit
 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { ConfigService } from '@app/config.service';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
-
 import { DatePipe, Location } from '@angular/common';
 
 export interface Teilmarkt {
@@ -137,13 +135,16 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
-        public configService: ConfigService,
         private titleService: Title,
         private cdr: ChangeDetectorRef,
         private route: ActivatedRoute,
-        public location: Location
+        public location: Location,
+        private meta: Meta,
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Wertermittlung, Bodenrichtwerte, BORIS.NI, Bo­den­richt­wert­zo­ne` });
+
         this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.address = adr;
             this.hintsActive = false;
@@ -261,6 +262,32 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
         }
 
+        // zoom
+        url += '&zoom=';
+        const zoom = this.map.map.getZoom();
+        if (this.teilmarkt.text === this.TEILMAERKTE[0].text) {
+            // Bauland
+            if (zoom >= 16) {
+                url += '2500';
+            } else if (zoom >= 15) {
+                url += '5000';
+            } else if (zoom >= 14) {
+                url += '10000';
+            } else if (zoom >= 13) {
+                url += '25000';
+            } else {
+                url += '50000';
+            }
+        } else {
+            // Landwirtschaft
+            if (zoom >= 10.5) {
+                url += '100000';
+            } else {
+                url += '200000';
+            }
+        }
+
+        // return url
         return url;
     }
 

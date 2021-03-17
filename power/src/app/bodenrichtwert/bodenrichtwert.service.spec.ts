@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { Feature, FeatureCollection } from 'geojson';
 
 describe('Bodenrichtwert.BodenrichtwertService', () => {
-    const feature: Feature = require('../../assets/boden/geosearch-samples/feature.json');
-    const features: FeatureCollection = require('../../assets/boden/geosearch-samples/featurecollection.json');
-    const featureByLatLonEntw: FeatureCollection = require('../../assets/boden/bodenrichtwert-samples/feature-by-lat-lon-entw.json');
+    const feature: Feature = require('../../testdata/geosearch/feature.json');
+    const features: FeatureCollection = require('../../testdata/geosearch/featurecollection.json');
+    const featureByLatLonEntw: FeatureCollection = require('../../testdata/bodenrichtwert/feature-by-lat-lon-entw.json');
 
     const date = new Date('2018-12-31');
     const entw = ['B'];

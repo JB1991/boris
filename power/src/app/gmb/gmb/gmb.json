@@ -236,6 +236,23 @@
                 "sha256": "f43ef160c64ea9a090abb63718410b2d48e10a31500638bd607a4de1b3356ca9",
                 "sha1": "92e65544cddd42ac7bb103fcaa0573f007d22b74"
             }
+        },
+        "2021": {
+            "fileurl": "Aurich/Aurich_2021.pdf",
+            "file": "Aurich_2021.pdf",
+            "bereich": [
+                "034020000",
+                "034050000",
+                "034520000",
+                "034550000",
+                "034570000",
+                "034620000"
+            ],
+            "checksum": {
+                "md5": "19866c423ea77834ea86a4bf933f54bd",
+                "sha256": "248b9b5fb99060216eee258657b65c58f68ab35151877cb6b92d1fe5c547c305",
+                "sha1": "ce5eb0e85d22134a2a77209cd36076b16fd0d518"
+            }
         }
     },
     "Braunschweig": {
@@ -497,6 +514,25 @@
                 "md5": "9df35c48f48dfd3122c6a823dc58808d",
                 "sha256": "f5f648466579fde922486a9975196146df9a8a318b3d147390a68fd62a1e75d3",
                 "sha1": "e64c345a7d1389726f48b215ba13bc4f85c4c396"
+            }
+        },
+        "2021": {
+            "fileurl": "Braunschweig-Wolfsburg/Braunschweig-Wolfsburg_2021.pdf",
+            "file": "Braunschweig-Wolfsburg_2021.pdf",
+            "bereich": [
+                "031010000",
+                "031020000",
+                "031030000",
+                "033510000",
+                "031510000",
+                "031540000",
+                "031570000",
+                "031580000"
+            ],
+            "checksum": {
+                "md5": "f0d4da668af614e0b19cd77e4dd2b64e",
+                "sha256": "7c5dad9797f46ec462e16ad77337ac02c732bf0718903680ea4776e26b1e273c",
+                "sha1": "d4172b91941b358cb08e80cd7ddaff9f035961d5"
             }
         }
     },
@@ -879,6 +915,21 @@
                 "sha256": "0b73f517ed7d50b54ca60f34da503d7074c2d37100ee798999828401d180758f",
                 "sha1": "1540fd2f0cf9f8339c6c5b7192247209ab8d9f8f"
             }
+        },
+        "2021": {
+            "fileurl": "Hameln-Hannover/Hameln-Hannover_2021.pdf",
+            "file": "Hameln-Hannover_2021.pdf",
+            "bereich": [
+                "032520000",
+                "032540000",
+                "032570000",
+                "032410000"
+            ],
+            "checksum": {
+                "md5": "69d084953505f574492be20a229e532d",
+                "sha256": "e84006077ee3fe8c567286b0a0ffd493a493e765ece7e084fd36b2158e3561b1",
+                "sha1": "88aa1f4b1ec122b897b5bf5efc353a6a1d99ed49"
+            }
         }
     },
     "Hannover": {
@@ -1227,6 +1278,21 @@
                 "md5": "0c02b72d05a2ea00044c7fb4f28eb83f",
                 "sha256": "c8fa51882fe1dc053e942c9371361774adc0ee197e3eefaae17cd0701953d46b",
                 "sha1": "0f80223bc048da30ca4c77eba888c360cfd89cd3"
+            }
+        },
+        "2021": {
+            "fileurl": "Lueneburg/Lueneburg_2021.pdf",
+            "file": "Lueneburg_2021.pdf",
+            "bereich": [
+                "033530000",
+                "033540000",
+                "033550000",
+                "033600000"
+            ],
+            "checksum": {
+                "md5": "4329d0f9b9fc88210a2d59d81587fe18",
+                "sha256": "fdf27cad9fd9cb5253314aba226360eee12df1258c8d25eb53347f4cbb49e824",
+                "sha1": "ac10f02dca201d200799bc4a80081722aa9b8156"
             }
         }
     },
@@ -2025,6 +2091,24 @@
                 "sha256": "7da7315335766b6b6b96d675694515ec00c26219458cc7ec2318d287669a3a59",
                 "sha1": "7dc92b35b44d6bb02ee11f69625881eea1dd5ee0"
             }
+        },
+        "2021": {
+            "fileurl": "Oldenburg-Cloppenburg/Oldenburg-Cloppenburg_2021.pdf",
+            "file": "Oldenburg-Cloppenburg_2021.pdf",
+            "bereich": [
+                "034010000",
+                "034030000",
+                "034510000",
+                "034530000",
+                "034580000",
+                "034600000",
+                "034610000"
+            ],
+            "checksum": {
+                "md5": "b34874a0bf9702d8ca961bcdae51b469",
+                "sha256": "94d213b4bd561b6e15d5e0128bd145874d8c01c690bfc330779ffbd1253f3cd1",
+                "sha1": "1f22444fb83ccf830c42bdfda48ee8f11d8108a7"
+            }
         }
     },
     "Osnabrück-Meppen": {
@@ -2116,6 +2200,21 @@
                 "md5": "4f582cf7c23b391dc421b661d517b178",
                 "sha256": "cc4570b9fa8ce041f79e8a251dd3bd3311910110e64e05cef0fdb66ea077a4af",
                 "sha1": "07c576a263e7e1524661bc435bef5f90c80d65d7"
+            }
+        },
+        "2021": {
+            "fileurl": "Osnabrueck-Meppen/Osnabrück-Meppen_2021.pdf",
+            "file": "Osnabrück-Meppen_2021.pdf",
+            "bereich": [
+                "034040000",
+                "034540000",
+                "034560000",
+                "034590000"
+            ],
+            "checksum": {
+                "md5": "43805fb04a25dcab1103ddcb9c66795c",
+                "sha256": "6d13ba1d9f016312aad3bbe880d24a2c00fc3c3c9cc54bf61620b5b0e09cdeba",
+                "sha1": "455128385b6230ca11eceaea26b42302465cf2d5"
             }
         }
     },
@@ -2454,6 +2553,21 @@
                 "sha256": "238bf07ede01460c2993962c29218d186156b030ef2bbf051c864f7b09462632",
                 "sha1": "f148ab7912dcea3dfd4654c7af599408017583ed"
             }
+        },
+        "2021": {
+            "fileurl": "Otterndorf/Otterndorf_2021.pdf",
+            "file": "Otterndorf_2021.pdf",
+            "bereich": [
+                "033520000",
+                "033560000",
+                "033570000",
+                "033590000"
+            ],
+            "checksum": {
+                "md5": "2a6e67c7009084af71d5e3599f49ab1a",
+                "sha256": "85cd74e536c2e5cf9353daa2a908d83db18fbd0a3b7e745f9c2aca1e0c6de849",
+                "sha1": "244c31738cbff8ac773ae1f39403d461ac4ecbd3"
+            }
         }
     },
     "Sulingen": {
@@ -2664,6 +2778,21 @@
                 "md5": "efe4ede21dcb046e300068a08f6db950",
                 "sha256": "9f8088f06630a0f0b8f26d6674b9260a3fc9e32cf6901604f6ff3d0eba96b22b",
                 "sha1": "e91d3019aba7fcf83f3e7e8f8760c9f31f3a0e08"
+            }
+        },
+        "2021": {
+            "fileurl": "Sulingen-Verden/Sulingen-Verden_2021.pdf",
+            "file": "Sulingen-Verden_2021.pdf",
+            "bereich": [
+                "032510000",
+                "033580000",
+                "032560000",
+                "033610000"
+            ],
+            "checksum": {
+                "md5": "60e0d7ac777012fed269349c779a7b20",
+                "sha256": "66c6811371f199d367ba2dcab97bd6bc6af69ad1acffb2f1d24ef0ee83e5f25f",
+                "sha1": "9ff9a4cf564ed9ab58d5778efef0996f0fb9b813"
             }
         }
     },

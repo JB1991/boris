@@ -7,10 +7,10 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
     let component: UmrechnungComponent;
     let fixture: ComponentFixture<UmrechnungComponent>;
 
-    const tableWgfz: UmrechnungsTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-wgfz.json');
-    const tableArtBebauung: UmrechnungsTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-artbebauung.json');
-    const tableFlae: UmrechnungsTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-flae.json');
-    const tableFail: UmrechnungsTable = require('../../../../assets/boden/bodenrichtwert-samples/umrechnung-table-fail.json');
+    const tableWgfz: UmrechnungsTable = require('../../../../testdata/bodenrichtwert/umrechnung-table-wgfz.json');
+    const tableArtBebauung: UmrechnungsTable = require('../../../../testdata/bodenrichtwert/umrechnung-table-artbebauung.json');
+    const tableFlae: UmrechnungsTable = require('../../../../testdata/bodenrichtwert/umrechnung-table-flae.json');
+    const tableFail: UmrechnungsTable = require('../../../../testdata/bodenrichtwert/umrechnung-table-fail.json');
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({

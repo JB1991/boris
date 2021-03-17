@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 
 import { LoginComponent } from './login.component';
@@ -30,6 +30,7 @@ describe('Static.Login.LoginComponent', () => {
             ],
             providers: [
                 Title,
+                Meta,
                 AuthService,
                 LoadingscreenService,
                 AlertsService

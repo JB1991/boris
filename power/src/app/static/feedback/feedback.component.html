@@ -4,8 +4,8 @@
             i18n>Feedback</h1>
 
         <p class="lead mb-3"
-           i18n>Bitte schauen Sie in der Feedbackübersicht, ob Ihr Anliegen uns bereits geschickt wurde. Sollte dies
-            nicht der Fall sein nutzen Sie bitte die Kontaktfunktion.</p>
+           i18n="@@feedback_header">Bitte schauen Sie in der Feedbackübersicht, ob Ihr Anliegen uns bereits geschickt
+            wurde. Sollte dies nicht der Fall sein nutzen Sie bitte die Kontaktfunktion.</p>
     </div>
 </div>
 
@@ -29,16 +29,17 @@
             </h1>
 
             <p class="lead"
-               i18n>Geben Sie bitte eine genaue Beschreibung des Problems oder Ihres Vorschlages an, welche Schritte
-                haben zu diesem Problem
-                geführt? Wenn möglich senden Sie bitte ein Bildschirmfoto und die Adresszeile der Seite mit.</p>
+               i18n="@@feedback_steps">Geben Sie bitte eine genaue Beschreibung des Problems oder Ihres Vorschlages an,
+                welche Schritte haben zu diesem Problem geführt? Wenn möglich senden Sie bitte ein Bildschirmfoto und
+                die Adresszeile der Seite mit.</p>
 
             <p class="lead"
-               i18n>Ihr Feedback wird manuell freigeschaltet, bevor es in der Feedbackübersicht angezeigt wird.</p>
+               i18n="@@feedback_activation">Ihr Feedback wird manuell freigeschaltet, bevor es in der Feedbackübersicht
+                angezeigt wird.</p>
 
             <p class="lead"
-               i18n>Bitte denken Sie daran, Ihre Mailsignatur zu entfernen, wenn Sie nicht wünschen, dass diese in der
-                Feedbackübersicht rechts angezeigt werden soll.</p>
+               i18n="@@feedback_signature">Bitte denken Sie daran, Ihre Mailsignatur zu entfernen, wenn Sie nicht
+                wünschen, dass diese in der Feedbackübersicht rechts angezeigt werden soll.</p>
 
             <div class="text-center">
                 <a class="btn btn-primary btn-lg"
@@ -161,6 +162,7 @@
                         <option value="all"
                                 i18n>Alle Tickets</option>
                         <option value="opened"
+                                selected
                                 i18n>Offene Tickets</option>
                         <option value="closed"
                                 i18n>Geschlossene Tickets</option>
@@ -190,8 +192,7 @@
             <div *ngIf="this.rss.length === 0">
                 <div class="text-center">
                     <span i18n>Leider konnten wir noch keine Tickets finden. Bei Bedarf können Sie uns gerne
-                        kontaktieren.
-                    </span>
+                        kontaktieren.</span>
                 </div>
             </div>
         </div>

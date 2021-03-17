@@ -82,11 +82,16 @@ mgl-map {
 
 .active {
     color: #c4153a !important;
+    background-color: transparent !important;
 }
 
 .nav-underline .active {
     font-weight: 500;
     color: #c4153a;
+}
+
+.dropdown-menu {
+    min-width: 100% !important;
 }
 
 :host ::ng-deep .card-header {

@@ -9,10 +9,10 @@ import { TestScheduler } from 'rxjs/testing';
 import { SimpleChange } from '@angular/core';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
-    const feature: Feature = require('../../../assets/boden/geosearch-samples/feature.json');
-    const changedFeature: Feature = require('../../../assets/boden/geosearch-samples/featureChange.json');
+    const feature: Feature = require('../../../testdata/geosearch/feature.json');
+    const changedFeature: Feature = require('../../../testdata/geosearch/featureChange.json');
 
-    const featureCollection: FeatureCollection = require('../../../assets/boden/geosearch-samples/featurecollection.json');
+    const featureCollection: FeatureCollection = require('../../../testdata/geosearch/featurecollection.json');
 
     let component: GeosearchComponent;
     let fixture: ComponentFixture<GeosearchComponent>;
