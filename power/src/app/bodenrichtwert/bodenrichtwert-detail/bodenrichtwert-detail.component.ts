@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { Feature, FeatureCollection } from 'geojson';
+import { GagKontaktdatenPipe } from '../pipes/gag-kontaktdaten.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-detail',
@@ -41,7 +42,7 @@ export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
 
     @Input() features: FeatureCollection;
 
-    public filteredFeatures: Feature[];
+    public filteredFeatures: Array<Feature>;
 
     ngOnInit() {
     }

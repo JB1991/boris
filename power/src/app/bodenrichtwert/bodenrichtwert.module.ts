@@ -29,6 +29,7 @@ import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
 import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
 import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
+import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
@@ -58,7 +59,8 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         BauweisePipe,
         BodenartPipe,
         VerfahrensartPipe,
-        NutzungBremenPipe
+        NutzungBremenPipe,
+        GagKontaktdatenPipe
     ],
     imports: [
         BodenrichtwertRoutingModule,
