@@ -12,6 +12,7 @@ import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { LngLat } from 'mapbox-gl';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-bodenrichtwert-navigation',
     templateUrl: './bodenrichtwert-navigation.component.html',
@@ -47,6 +48,15 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
+
+    @Input() currentZoom: number;
+    @Output() currentZoomChange = new EventEmitter<number>();
+
+    @Input() currentRotation: number;
+    @Output() currentRotationChange = new EventEmitter<number>();
+
+    @Input() standardBaulandZoom: number;
+    @Input() standardLandZoom: number;
 
     public searchActive = false;
     public filterActive = false;
@@ -175,6 +185,15 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 $localize`Teilmarkt gewechselt`,
                 $localize`Der Teilmarkt wurde zu ` + teilmarkt.text + $localize` gewechselt.`);
         }
+        let zoom: number;
+        // Bauland
+        if (teilmarkt.text === 'Bauland') {
+            zoom = this.standardBaulandZoom;
+            // Landwirtschaft
+        } else {
+            zoom = this.standardLandZoom;
+        }
+        this.currentZoomChange.emit(zoom);
         this.teilmarktChange.emit(teilmarkt);
     }
 

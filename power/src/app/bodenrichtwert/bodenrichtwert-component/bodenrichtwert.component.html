@@ -16,7 +16,13 @@
                                                      [(address)]="address"
                                                      [(isCollapsed)]="isCollapsed"
                                                      [(threeDActive)]="threeDActive"
-                                                     [(resetMapFired)]="resetMapFired">
+                                                     [(resetMapFired)]="resetMapFired"
+                                                     [(currentZoom)]="currentZoom"
+                                                     (currentZoomChange)="changeURL()"
+                                                     [(currentRotation)]="currentRotation"
+                                                     (currentRotationChange)="changeURL()"
+                                                     [standardBaulandZoom]="standardBaulandZoom"
+                                                     [standardLandZoom]="standardLandZoom">
                     </power-bodenrichtwert-navigation>
                 </div>
                 <div class="col-12 p-0 map-height"
@@ -31,7 +37,12 @@
                                                [expanded]="expanded"
                                                [threeDActive]="threeDActive"
                                                [(resetMapFired)]="resetMapFired"
-                                               [(currentZoom)]="currentZoom">
+                                               [(currentZoom)]="currentZoom"
+                                               (currentZoomChange)="changeURL()"
+                                               [(currentRotation)]="currentRotation"
+                                               (currentRotationChange)="changeURL()"
+                                               [standardBaulandZoom]="standardBaulandZoom"
+                                               [standardLandZoom]="standardLandZoom">
                     </power-bodenrichtwertkarte>
                 </div>
             </div>

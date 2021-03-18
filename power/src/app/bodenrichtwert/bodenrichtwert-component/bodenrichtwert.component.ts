@@ -105,10 +105,19 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public resetMapFired = false;
 
+    // Flurstuecke become visible at Zoomfactor 15.1
+    public standardBaulandZoom = 15.1;
+    public standardLandZoom = 11;
+
     /**
      * currentZoom holds the current zoom of the map object
      */
     public currentZoom: number;
+
+    /**
+     * currentRotation
+     */
+    public currentRotation: number;
 
     /**
      * Possible selections of Stichtage
@@ -164,6 +173,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         });
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
+        this.changeURL();
     }
 
     /* istanbul ignore next */
@@ -184,6 +194,16 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             // stichtag
             if (params['stichtag']) {
                 this.stichtag = params['stichtag'];
+            }
+
+            // zoom
+            if (params['zoom']) {
+                this.currentZoom = params['zoom'];
+            }
+
+            // rotation
+            if (params['rotation']) {
+                this.currentRotation = params['rotation'];
             }
             this.cdr.detectChanges();
         });
@@ -308,6 +328,12 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         }
         if (this.stichtag) {
             params.append('stichtag', this.stichtag.toString());
+        }
+        if (this.currentZoom) {
+            params.append('zoom', this.currentZoom.toFixed(2).toString());
+        }
+        if (this.currentRotation) {
+            params.append('rotation', this.currentRotation.toFixed(2).toString());
         }
         this.location.replaceState('/bodenrichtwerte', params.toString());
     }
