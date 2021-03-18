@@ -38,12 +38,12 @@
                      width="20px"
                      height="20px"
                      fill="currentColor"
-                     class="bi bi-filter-right"
+                     class="bi bi-three-dots-vertical"
                      viewBox="0 0 16 16"
                      focusable="false"
                      aria-hidden="true">
                     <path
-                          d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
+                          d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                 </svg> <span class="caret"
                       aria-hidden="true"></span>
             </button>
@@ -173,8 +173,9 @@
     </power-geosearch>
 </div>
 
-<div [ngClass]="{'d-none' : !filterActive}"
-     [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'">
+<div [ngClass]="{'d-none' : filterActive}"
+     [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
+     class="bg-light border">
     <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
     <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
 </div>
@@ -267,7 +268,7 @@
 <!-- Mobile - Teilmarkt and Stichtag dropdown button -->
 <ng-template #teilmarktStichtagDropdownButton>
     <button class="nav-link btn"
-            [ngClass]="{'active': filterActive}"
+            [ngClass]="{'active': !filterActive}"
             type="button"
             (click)="filterActive = !filterActive"
             alt="Stichtag und Teilmarkt filtern"
@@ -277,13 +278,15 @@
         <svg width="20px"
              height="20px"
              viewBox="0 0 16 16"
-             class="bi bi-filter"
+             class="bi bi-chevron-double-down"
              fill="currentColor"
              xmlns="http://www.w3.org/2000/svg"
              focusable="false"
              aria-hidden="true">
             <path fill-rule="evenodd"
-                  d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                  d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+            <path fill-rule="evenodd"
+                  d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
         </svg>
     </button>
 </ng-template>
