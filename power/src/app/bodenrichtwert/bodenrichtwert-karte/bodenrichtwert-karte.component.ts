@@ -492,21 +492,25 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
+            if (!f ||!f.geometry) {
+                return;
+            }
+
             if (this.doNotDisplay.includes(f.properties['objektidentifikator'])) {
                 return;
             };
 
             let p: Polygon;
 
-            if (f && f.type === 'Feature') {
-                switch (f.geometry.type) {
-                    case 'MultiPolygon':
-                        p = getLargestPolygon(f.geometry);
-                        break;
-                    case 'Polygon':
-                        p = f.geometry;
-                        break;
-                }
+            switch (f.geometry.type) {
+                case 'MultiPolygon':
+                    p = getLargestPolygon(f.geometry);
+                    break;
+                case 'Polygon':
+                    p = f.geometry;
+                    break;
+                default:
+                    return;
             }
 
             if (p && p.coordinates) {

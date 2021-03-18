@@ -302,11 +302,12 @@
             </div>
         </div>
     </div>
-    <a [href]="filteredFeatures[0].properties.gabe | gagKontaktdaten"
+    <a *ngIf="filteredFeatures[0]"
+       [href]="filteredFeatures[0].properties.gabe | gagKontaktdaten"
        target="_blank"
        rel="noopener noreferrer nofollow"
        alt="Herausgeber"
        title="Herausgeber"
        i18n-title
-       i18n>{{ filteredFeatures[0].properties.gabe }}</a>
+       i18n>{{ filteredFeatures[0]?.properties.gabe }}</a>
 </div>
