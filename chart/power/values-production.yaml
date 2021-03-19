@@ -95,3 +95,13 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+networkPolicy:
+  enabled: true
+  extraFrom:
+    - namespaceSelector:
+        matchLabels:
+          name: kong
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: kong
