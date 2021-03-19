@@ -202,19 +202,27 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * getStichtag returns the correct stichtag for Bremen/Bremerhaven
      */
     public getStichtag(): string {
+        const index = this.STICHTAGE.indexOf(this.stichtag);
+        if (index < 0) {
+            return this.STICHTAGE[0];
+        }
+        if (index >= this.STICHTAGE.length -1) {
+            return this.STICHTAGE[this.STICHTAGE.length -1];
+        }
+
         const year = Number(this.stichtag.slice(0, 4));
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
             if (year % 2 === 0) {
-                return (year - 1).toString() + '-12-31';
+                return this.STICHTAGE[index+1];
             }
         };
 
         if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
             if (year % 2 !== 0) {
-                return (year - 1).toString() + '-12-31';
+                return this.STICHTAGE[index+1];
             }
         }
-        return year.toString() + '-12-31';
+        return this.STICHTAGE[index];
     }
 
     /**
