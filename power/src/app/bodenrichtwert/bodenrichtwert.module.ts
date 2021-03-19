@@ -28,7 +28,6 @@ import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
 import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
 import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
-import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
 import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
 
 /**
@@ -59,7 +58,6 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         BauweisePipe,
         BodenartPipe,
         VerfahrensartPipe,
-        NutzungBremenPipe,
         GagKontaktdatenPipe
     ],
     imports: [
