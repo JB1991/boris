@@ -101,14 +101,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             .subscribe(
                 res => {
                     this.bodenrichtwertService.updateFeatures(res);
-                    // temporary alert for data of bremen for the year 2021
-                    if (res.features[0]?.properties.gabe.includes('Bremen') && this.stichtag === '2020-12-31') {
-                        this.alerts.NewAlert(
-                            'info',
-                            $localize`Diese Daten sind noch nicht verfügbar!`,
-                            $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-                        );
-                    }
                 },
                 err => {
                     console.log(err);
@@ -154,15 +146,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param stichtag stichtag to be switched to
      */
     public onStichtagChange(stichtag: string): void {
-        // push info alert for data bremen 2020
-        if (stichtag === '2020-12-31' && this.address?.properties.kreis === 'Stadt Bremen') {
-            this.alerts.NewAlert(
-                'info',
-                $localize`Diese Daten sind noch nicht verfügbar!`,
-                $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-            );
-            // push info alert for stichtag changed
-        } else if (this.stichtag !== stichtag) {
+        // push info alert for stichtag changed
+        if (this.stichtag !== stichtag) {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
