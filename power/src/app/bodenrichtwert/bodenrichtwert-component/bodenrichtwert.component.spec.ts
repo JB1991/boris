@@ -97,6 +97,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         component.latLng = [200, 300];
         component.stichtag = '2030-12-31';
         component.teilmarkt = component.TEILMAERKTE[0];
+        component.currentZoom = 15.1;
         component.changeURL();
         expect(component.location.replaceState).toHaveBeenCalled();
     });

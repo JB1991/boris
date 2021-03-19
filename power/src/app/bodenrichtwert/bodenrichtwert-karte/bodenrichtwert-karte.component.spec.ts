@@ -89,9 +89,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             threeDActive: new SimpleChange(false, true, false),
             resetMapFired: new SimpleChange(false, true, false)
         });
-        expect(component.determineZoomFactor).toHaveBeenCalledTimes(1);
         expect(component.map.easeTo).toHaveBeenCalledTimes(2);
-        expect(component.map.getZoom).toHaveBeenCalledTimes(1);
         expect(component.map.resize).toHaveBeenCalledTimes(2);
         expect(component.marker.setLngLat).toHaveBeenCalledTimes(1);
         expect(component.flyTo).toHaveBeenCalledTimes(2);
@@ -110,18 +108,17 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     });
 
     it('determineZoomFactor should set the zoom factor', () => {
+        component.standardBaulandZoom = 15.1;
+        component.standardLandZoom = 11;
         component.teilmarkt.text = 'Bauland';
-        component.determineZoomFactor();
-        expect(component.zoomFactor).toEqual(15.1);
+        expect(component.determineZoomFactor()).toEqual(15.1);
         component.teilmarkt.text = 'LF';
-        component.determineZoomFactor();
-        expect(component.zoomFactor).toEqual(11);
+        expect(component.determineZoomFactor()).toEqual(11);
     });
 
     it('flyTo should focus the map to specific coordinates', () => {
         spyOn(component.map, 'flyTo');
         component.flyTo(lat, lng);
-        expect(component.determineZoomFactor).toHaveBeenCalledTimes(1);
         expect(component.map.flyTo).toHaveBeenCalledTimes(1);
     });
 
@@ -191,7 +188,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     it('activate3dView should activate the 3d view', () => {
         spyOn(component.map, 'setPaintProperty');
         component.activate3dView();
-        expect(component.map.getZoom).toHaveBeenCalledTimes(1);
         expect(component.map.easeTo).toHaveBeenCalledTimes(1);
         expect(component.map.setPaintProperty).toHaveBeenCalledTimes(1);
         expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);

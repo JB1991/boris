@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, VectorSource } from 'mapbox-gl';
+import { GeolocateControl, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
@@ -112,13 +112,6 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodenrichtwertKarteComponent implements OnChanges {
-
-    // zoomFactor
-    public zoomFactor: number;
-
-    // Flurstuecke become visible at Zoomfactor 15.1
-    public standardBaulandZoom = 15.1;
-    public standardLandZoom = 11;
 
     // Mapbox GL Map Object
     public map: Map;
@@ -233,6 +226,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() currentZoom: number;
     @Output() currentZoomChange = new EventEmitter<number>();
 
+    @Input() currentPitch: number;
+    @Output() currentPitchChange = new EventEmitter<number>();
+
+    @Input() standardBaulandZoom: number;
+    @Input() standardLandZoom: number;
+
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
         public bodenrichtwert3DLayer: BodenrichtwertKarte3dLayerService,
@@ -246,9 +245,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         if (this.map) {
             // Teilmarkt changed
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
-                this.determineZoomFactor();
                 this.map.easeTo({
-                    zoom: this.zoomFactor,
+                    zoom: this.currentZoom,
                     center: this.latLng?.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
                 });
             }
@@ -316,6 +314,16 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
+        // add navigation control
+        const navControl = new NavigationControl({
+            visualizePitch: true
+        });
+        this.map.addControl(navControl, 'top-left');
+
+        // add geolocation control
+        const geolocateControl = new GeolocateControl();
+        this.map.addControl(geolocateControl, 'top-left');
+
         // update the map on reload if coordinates exist
         if (this.latLng.length) {
             this.map.resize();
@@ -330,16 +338,27 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     public onZoomEnd() {
         this.currentZoomChange.emit(this.map.getZoom());
     }
+
+    /**
+     * onRotate emits the current rotation level onRotate
+     */
+    public onRotate() {
+        this.currentPitchChange.emit(this.map.getPitch());
+
+        // 3D-Layer temporarly deactivated
+        // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
+    }
+
     /**
      * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
      */
-    public determineZoomFactor() {
+    public determineZoomFactor(): number {
         // Bauland
         if (this.teilmarkt.text === 'Bauland') {
-            this.zoomFactor = this.standardBaulandZoom;
+            return this.standardBaulandZoom;
             // Landwirtschaft
         } else {
-            this.zoomFactor = this.standardLandZoom;
+            return this.standardLandZoom;
         }
     }
 
@@ -347,13 +366,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * flyTo executes a flyTo for a given latLng
      */
     public flyTo(lat: number, lng: number) {
-        this.determineZoomFactor();
         this.map.flyTo({
             center: [lng, lat],
-            zoom: this.zoomFactor,
+            zoom: this.currentZoom,
             speed: 1,
             curve: 1,
-            bearing: 0
+            bearing: 0,
+            pitch: this.currentPitch
         });
     }
 
@@ -372,6 +391,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * @param event MapEvent with coordinates
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
+        if (!this.latLng.length) {
+            this.currentZoomChange.emit(this.determineZoomFactor());
+        }
         if (event.lngLat) {
             this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
         }
@@ -391,14 +413,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             bearing: 0
         });
         this.resetMapFiredChange.emit(false);
-    }
-
-    // temporarly deactivated
-    /**
-     * onRotate updates the 3D-Layer on rotations
-     */
-    public onRotate() {
-        // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
     }
 
     // list of ids where the label shouldn't be displayed
@@ -492,7 +506,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
-            if (!f ||!f.geometry) {
+            if (!f || !f.geometry) {
                 return;
             }
 
@@ -585,7 +599,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * activate3dView adds a building transition layer to the map
      */
     public activate3dView() {
-        this.zoomFactor = this.map.getZoom();
+        // this.zoomFactor = this.map.getZoom();
         this.map.easeTo({
             pitch: 60,
             zoom: 17,
@@ -600,7 +614,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     public deactivate3dView() {
         this.map.easeTo({
             pitch: 0,
-            zoom: this.zoomFactor,
+            zoom: this.determineZoomFactor(),
             center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);

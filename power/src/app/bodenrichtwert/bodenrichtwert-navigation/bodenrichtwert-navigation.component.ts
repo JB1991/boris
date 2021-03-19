@@ -12,6 +12,7 @@ import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { LngLat } from 'mapbox-gl';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-bodenrichtwert-navigation',
     templateUrl: './bodenrichtwert-navigation.component.html',
@@ -47,6 +48,15 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
+
+    @Input() currentZoom: number;
+    @Output() currentZoomChange = new EventEmitter<number>();
+
+    @Input() currentPitch: number;
+    @Output() currentPitchChange = new EventEmitter<number>();
+
+    @Input() standardBaulandZoom: number;
+    @Input() standardLandZoom: number;
 
     public searchActive = false;
     public filterActive = false;
@@ -91,14 +101,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             .subscribe(
                 res => {
                     this.bodenrichtwertService.updateFeatures(res);
-                    // temporary alert for data of bremen for the year 2021
-                    if (res.features[0]?.properties.gabe.includes('Bremen') && this.stichtag === '2020-12-31') {
-                        this.alerts.NewAlert(
-                            'info',
-                            $localize`Diese Daten sind noch nicht verfügbar!`,
-                            $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-                        );
-                    }
                 },
                 err => {
                     console.log(err);
@@ -144,15 +146,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param stichtag stichtag to be switched to
      */
     public onStichtagChange(stichtag: string): void {
-        // push info alert for data bremen 2020
-        if (stichtag === '2020-12-31' && this.address?.properties.kreis === 'Stadt Bremen') {
-            this.alerts.NewAlert(
-                'info',
-                $localize`Diese Daten sind noch nicht verfügbar!`,
-                $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-            );
-            // push info alert for stichtag changed
-        } else if (this.stichtag !== stichtag) {
+        // push info alert for stichtag changed
+        if (this.stichtag !== stichtag) {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
@@ -175,7 +170,22 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 $localize`Teilmarkt gewechselt`,
                 $localize`Der Teilmarkt wurde zu ` + teilmarkt.text + $localize` gewechselt.`);
         }
+
+        this.currentZoomChange.emit(this.determineZoomFactor(teilmarkt));
         this.teilmarktChange.emit(teilmarkt);
+    }
+
+    /**
+     * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
+     */
+    public determineZoomFactor(teilmarkt: Teilmarkt): number {
+        // Bauland
+        if (this.teilmarkt.text === 'Bauland') {
+            return this.standardBaulandZoom;
+            // Landwirtschaft
+        } else {
+            return this.standardLandZoom;
+        }
     }
 
     /**
@@ -272,6 +282,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * onFocus emits the current location to trigger a map focus
      */
     public onFocus() {
+        this.currentZoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         this.latLngChange.emit([this.latLng[0], this.latLng[1]]);
     }
 
