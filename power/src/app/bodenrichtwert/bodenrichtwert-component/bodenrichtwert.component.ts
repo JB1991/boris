@@ -198,12 +198,12 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
             // zoom
             if (params['zoom']) {
-                this.currentZoom = params['zoom'];
+                this.currentZoom = Number(params['zoom']);
             }
 
             // rotation
             if (params['pitch']) {
-                this.currentPitch = params['pitch'];
+                this.currentPitch = Number(params['pitch']);
             }
             this.cdr.detectChanges();
         });
@@ -333,7 +333,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             params.append('zoom', this.currentZoom.toFixed(2).toString());
         }
         if (this.currentPitch) {
-            params.append('rotation', this.currentPitch.toString());
+            params.append('pitch', this.currentPitch.toFixed(2).toString());
         }
         this.location.replaceState('/bodenrichtwerte', params.toString());
     }
