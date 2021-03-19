@@ -10,6 +10,12 @@ export default class BodenrichtwertKartePitchControl {
 
     constructor() { }
 
+    /**
+     * onAdd creates a button and icon html element and add these to the map
+     * @param map Map
+     * @returns a div container including a button and i element
+     */
+
     onAdd(map) {
         this.map = map;
         this.btn = document.createElement('button');
@@ -67,6 +73,9 @@ export default class BodenrichtwertKartePitchControl {
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
     }
 
+    /**
+     * onRemove removes the html container and the map
+     */
     onRemove() {
         this.container.parentNode.removeChild(this.container);
         this.map = undefined;
