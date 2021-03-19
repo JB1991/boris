@@ -75,8 +75,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         component.resetMapFired = false;
         spyOn(component.map, 'resize');
         spyOn(component.marker, 'setLngLat').and.callThrough();
-        spyOn(component, 'activate3dView');
-        spyOn(component, 'deactivate3dView');
         spyOn(component, 'flyTo');
         spyOn(component, 'onResetMap');
         component.expanded = true;
@@ -86,24 +84,20 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             latLng: new SimpleChange(true, false, false),
             collapsed: new SimpleChange(true, false, false),
             expanded: new SimpleChange(false, true, false),
-            threeDActive: new SimpleChange(false, true, false),
             resetMapFired: new SimpleChange(false, true, false)
         });
         expect(component.map.easeTo).toHaveBeenCalledTimes(2);
         expect(component.map.resize).toHaveBeenCalledTimes(2);
         expect(component.marker.setLngLat).toHaveBeenCalledTimes(1);
         expect(component.flyTo).toHaveBeenCalledTimes(2);
-        expect(component.activate3dView).toHaveBeenCalledTimes(1);
 
         component.resetMapFired = true;
         component.collapsed = true;
         component.ngOnChanges({
             collapsed: new SimpleChange(true, false, false),
             resetMapFired: new SimpleChange(false, true, false),
-            threeDActive: new SimpleChange(true, false, false)
         });
         expect(component.onResetMap).toHaveBeenCalledTimes(2);
-        expect(component.deactivate3dView).toHaveBeenCalledTimes(1);
         expect(component.map.resize).toHaveBeenCalledTimes(3);
     });
 
@@ -183,22 +177,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.map.getSource).toHaveBeenCalledTimes(2);
         expect(component.map.getSource).toHaveBeenCalledWith('baulandSource');
         expect(component.dynamicLabelling).toHaveBeenCalledTimes(2);
-    });
-
-    it('activate3dView should activate the 3d view', () => {
-        spyOn(component.map, 'setPaintProperty');
-        component.activate3dView();
-        expect(component.map.easeTo).toHaveBeenCalledTimes(1);
-        expect(component.map.setPaintProperty).toHaveBeenCalledTimes(1);
-        expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
-    });
-
-    it('deactivate3dView should deactivate the 3d view', () => {
-        spyOn(component.map, 'setPaintProperty');
-        component.deactivate3dView();
-        expect(component.map.easeTo).toHaveBeenCalledTimes(1);
-        expect(component.map.setPaintProperty).toHaveBeenCalledTimes(1);
-        expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
     });
 });
 

@@ -46,7 +46,6 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
         fixture.detectChanges();
         httpClient = TestBed.inject(HttpClient);
 
-        component.threeDActive = true;
         component.latLng = [lat, lng];
         component.teilmarkt = {
             'value': [''],
@@ -55,7 +54,6 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
         };
 
         spyOn(component.latLngChange, 'emit');
-        spyOn(component.threeDActiveChange, 'emit');
         spyOn(component.teilmarktChange, 'emit');
         spyOn(component.alerts, 'NewAlert');
     });
@@ -138,12 +136,6 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
     });
 
-    it('toggle3dView should toggle the state of threeDActive', () => {
-        component.toggle3dView();
-        expect(component.threeDActiveChange.emit).toHaveBeenCalledTimes(1);
-        expect(component.threeDActiveChange.emit).toHaveBeenCalledWith(!component.threeDActive);
-    });
-
     it('resetMap should emit changes to reset the map', () => {
         spyOn(component.featuresChange, 'emit');
         spyOn(component.flurstueckChange, 'emit');
@@ -157,27 +149,11 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
         component.address = feature;
         component.resetMap();
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
-        expect(component.threeDActiveChange.emit).toHaveBeenCalledTimes(1);
         expect(component.addressChange.emit).toHaveBeenCalledTimes(1);
         expect(component.featuresChange.emit).toHaveBeenCalledTimes(1);
         expect(component.isCollapsedChange.emit).toHaveBeenCalledTimes(1);
         expect(component.teilmarktChange.emit).toHaveBeenCalledTimes(1);
         expect(component.stichtagChange.emit).toHaveBeenCalledTimes(1);
-    });
-
-    it('enableLocationTracking should get the current position', () => {
-        spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake(function () {
-            const position = {
-                coords: {
-                    latitude: lat,
-                    longitude: lng
-                }
-            };
-            arguments[0](position);
-        });
-
-        component.enableLocationTracking();
-        expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
     });
 
     it('onFocus should emit latLng to trigger map focus', () => {
