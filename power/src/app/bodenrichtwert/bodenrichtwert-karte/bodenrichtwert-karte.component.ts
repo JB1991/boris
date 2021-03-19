@@ -113,9 +113,6 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
 })
 export class BodenrichtwertKarteComponent implements OnChanges {
 
-    // zoomFactor
-    public zoomFactor: number;
-
     // Mapbox GL Map Object
     public map: Map;
 
@@ -229,8 +226,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() currentZoom: number;
     @Output() currentZoomChange = new EventEmitter<number>();
 
-    @Input() currentRotation: number;
-    @Output() currentRotationChange = new EventEmitter<number>();
+    @Input() currentPitch: number;
+    @Output() currentPitchChange = new EventEmitter<number>();
 
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
@@ -346,7 +343,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * onRotate emits the current rotation level onRotate
      */
     public onRotate() {
-        this.currentRotationChange.emit(this.map.getPitch());
+        this.currentPitchChange.emit(this.map.getPitch());
 
         // 3D-Layer temporarly deactivated
         // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
@@ -368,13 +365,14 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /**
      * flyTo executes a flyTo for a given latLng
      */
-    public flyTo(lat: number, lng: number, zoom?: number) {
+    public flyTo(lat: number, lng: number) {
         this.map.flyTo({
             center: [lng, lat],
             zoom: this.currentZoom,
             speed: 1,
             curve: 1,
-            bearing: 0
+            bearing: 0,
+            pitch: this.currentPitch
         });
     }
 
@@ -508,7 +506,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
-            if (!f ||!f.geometry) {
+            if (!f || !f.geometry) {
                 return;
             }
 

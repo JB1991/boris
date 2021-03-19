@@ -117,7 +117,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * currentRotation
      */
-    public currentRotation: number;
+    public currentPitch = 0;
 
     /**
      * Possible selections of Stichtage
@@ -202,8 +202,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
 
             // rotation
-            if (params['rotation']) {
-                this.currentRotation = params['rotation'];
+            if (params['pitch']) {
+                this.currentPitch = params['pitch'];
             }
             this.cdr.detectChanges();
         });
@@ -332,8 +332,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         if (this.currentZoom) {
             params.append('zoom', this.currentZoom.toFixed(2).toString());
         }
-        if (this.currentRotation) {
-            params.append('rotation', this.currentRotation.toFixed(2).toString());
+        if (this.currentPitch) {
+            params.append('rotation', this.currentPitch.toString());
         }
         this.location.replaceState('/bodenrichtwerte', params.toString());
     }

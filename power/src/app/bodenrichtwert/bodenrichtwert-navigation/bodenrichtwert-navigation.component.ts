@@ -52,8 +52,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     @Input() currentZoom: number;
     @Output() currentZoomChange = new EventEmitter<number>();
 
-    @Input() currentRotation: number;
-    @Output() currentRotationChange = new EventEmitter<number>();
+    @Input() currentPitch: number;
+    @Output() currentPitchChange = new EventEmitter<number>();
 
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
@@ -185,16 +185,22 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 $localize`Teilmarkt gewechselt`,
                 $localize`Der Teilmarkt wurde zu ` + teilmarkt.text + $localize` gewechselt.`);
         }
-        let zoom: number;
+
+        this.currentZoomChange.emit(this.determineZoomFactor(teilmarkt));
+        this.teilmarktChange.emit(teilmarkt);
+    }
+
+    /**
+     * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
+     */
+    public determineZoomFactor(teilmarkt: Teilmarkt): number {
         // Bauland
-        if (teilmarkt.text === 'Bauland') {
-            zoom = this.standardBaulandZoom;
+        if (this.teilmarkt.text === 'Bauland') {
+            return this.standardBaulandZoom;
             // Landwirtschaft
         } else {
-            zoom = this.standardLandZoom;
+            return this.standardLandZoom;
         }
-        this.currentZoomChange.emit(zoom);
-        this.teilmarktChange.emit(teilmarkt);
     }
 
     /**
@@ -291,6 +297,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * onFocus emits the current location to trigger a map focus
      */
     public onFocus() {
+        this.currentZoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         this.latLngChange.emit([this.latLng[0], this.latLng[1]]);
     }
 
