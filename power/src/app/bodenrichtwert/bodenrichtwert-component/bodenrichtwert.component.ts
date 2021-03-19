@@ -227,16 +227,20 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             return this.STICHTAGE[0];
         }
 
-        if (index >= this.STICHTAGE.length -1) {
-            return '2011-12-31';
-        }
-
         const year = Number(this.stichtag.slice(0, 4));
+
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
+            if (index >= this.STICHTAGE.length -1) {
+                return '2011-12-31';
+            }
             if (year % 2 === 0) {
                 return this.STICHTAGE[index+1];
             }
         };
+
+        if (index >= this.STICHTAGE.length -1) {
+            return this.STICHTAGE[this.STICHTAGE.length -1];
+        }
 
         if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
             if (year % 2 !== 0) {
