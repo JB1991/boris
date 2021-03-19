@@ -98,7 +98,7 @@ affinity: {}
 
 networkPolicy:
   enabled: true
-  extraFrom:
+  from:
     - namespaceSelector:
         matchLabels:
           name: kong

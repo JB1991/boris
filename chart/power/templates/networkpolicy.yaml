@@ -11,9 +11,9 @@ spec:
   podSelector:
     matchLabels:
       {{- include "power.selectorLabels" . | nindent 6 }}
-  {{- if .Values.networkPolicy.extraFrom }}
+  {{- if .Values.networkPolicy.from }}
   ingress:
-    {{- with .Values.networkPolicy.extraFrom }}
+    {{- with .Values.networkPolicy.from }}
     - from:
         {{- toYaml . | nindent 8 }}
       ports:
