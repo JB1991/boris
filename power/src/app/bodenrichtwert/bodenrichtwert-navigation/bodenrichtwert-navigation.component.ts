@@ -10,7 +10,6 @@ import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
-import { LngLat } from 'mapbox-gl';
 
 /* eslint-disable max-lines */
 @Component({
@@ -42,9 +41,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     @Input() isCollapsed: boolean;
     @Output() isCollapsedChange = new EventEmitter<boolean>();
-
-    @Input() threeDActive: boolean;
-    @Output() threeDActiveChange = new EventEmitter<boolean>();
 
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
@@ -224,21 +220,11 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-     * toggle3dView emits the selected state on/off for the 3D-View
-     */
-    public toggle3dView() {
-        this.threeDActiveChange.emit(!this.threeDActive);
-    }
-
-    /**
      * resetMap resets all configurations set/made by the user
      */
     public resetMap() {
         if (this.latLng) {
             this.latLngChange.emit(undefined);
-        }
-        if (this.threeDActive) {
-            this.threeDActiveChange.emit(false);
         }
         if (this.address) {
             this.addressChange.emit(undefined);
@@ -264,18 +250,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
         // reset URL
         this.location.replaceState('/bodenrichtwerte');
-    }
-
-    /**
-     * enableLocationTracking emits the current geolocation (latLng)
-     */
-    public enableLocationTracking() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(location => {
-                const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
-                this.latLngChange.emit([lngLat.lat, lngLat.lng]);
-            });
-        }
     }
 
     /**

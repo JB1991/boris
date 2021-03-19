@@ -96,11 +96,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     public hintsActive = false;
 
     /**
-     * threeDActive holds the state for 3D-Modus on/off
-     */
-    public threeDActive = false;
-
-    /**
      * resetMapFired triggers the resetMap for the map
      */
     public resetMapFired = false;

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { GeolocateControl, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
+import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
@@ -221,8 +222,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
 
-    @Input() threeDActive: boolean;
-
     @Input() currentZoom: number;
     @Output() currentZoomChange = new EventEmitter<number>();
 
@@ -287,12 +286,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
                     this.map.resize();
                 }
             }
-            // threeDActive
-            if (changes.threeDActive?.currentValue) {
-                this.activate3dView();
-            } else if (changes.threeDActive?.currentValue === false && !changes.threeDActive?.firstChange) {
-                this.deactivate3dView();
-            }
             // 3D-Modus temporarly deactivated (WIP)
             // if (changes.features && !changes.features.firstChange) {
             //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features,
@@ -324,6 +317,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         const geolocateControl = new GeolocateControl();
         this.map.addControl(geolocateControl, 'top-left');
 
+        const pitchControl = new BodenrichtwertKartePitchControl();
+        this.map.addControl(pitchControl, 'top-left');
+
         // update the map on reload if coordinates exist
         if (this.latLng.length) {
             this.map.resize();
@@ -337,6 +333,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      */
     public onZoomEnd() {
         this.currentZoomChange.emit(this.map.getZoom());
+    }
+
+    /**
+     * onPitchEnd emits the current pitch onPitchEnd
+     */
+    public onPitchEnd() {
+        this.currentPitchChange.emit(this.map.getPitch());
     }
 
     /**
@@ -391,7 +394,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * @param event MapEvent with coordinates
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
-        if (!this.latLng.length) {
+        if (!this.latLng?.length) {
             this.currentZoomChange.emit(this.determineZoomFactor());
         }
         if (event.lngLat) {
@@ -593,31 +596,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         if (source.type === 'geojson') {
             source.setData(labelData);
         }
-    }
-
-    /**
-     * activate3dView adds a building transition layer to the map
-     */
-    public activate3dView() {
-        // this.zoomFactor = this.map.getZoom();
-        this.map.easeTo({
-            pitch: 60,
-            zoom: 17,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-        });
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
-    }
-
-    /**
-     * deactivate3dView removes the building extrusion layer from the map
-     */
-    public deactivate3dView() {
-        this.map.easeTo({
-            pitch: 0,
-            zoom: this.determineZoomFactor(),
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-        });
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
     }
 }
 
