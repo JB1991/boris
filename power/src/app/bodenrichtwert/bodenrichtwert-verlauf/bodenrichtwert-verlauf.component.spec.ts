@@ -5,6 +5,9 @@ import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.compone
 import { SimpleChanges } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
     const changes: SimpleChanges = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-changes.json');
@@ -18,9 +21,12 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
 
+    registerLocaleData(localeDe);
+
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [BodenrichtwertVerlaufComponent],
+            providers: [{ provide: LOCALE_ID, useValue: 'de' }],
             imports: [
                 HttpClientTestingModule,
                 NgxEchartsModule.forRoot({ echarts: echarts }),

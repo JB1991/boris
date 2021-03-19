@@ -104,7 +104,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     constructor(
         private nutzungPipe: NutzungPipe,
-        private verfahrensartPipe: VerfahrensartPipe
+        private verfahrensartPipe: VerfahrensartPipe,
+        private datePipe: DatePipe
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -153,7 +154,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} € <br />`);
             }
         }
-        return (['31.'+ '12.' + (year - 1), '<br />', res.join('')].join(''));
+        return ([this.datePipe.transform((year - 1) + '12-31'), '<br />', res.join('')].join(''));
     }
 
     /**
