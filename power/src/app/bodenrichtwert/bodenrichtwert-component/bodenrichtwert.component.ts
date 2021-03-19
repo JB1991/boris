@@ -206,8 +206,9 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         if (index < 0) {
             return this.STICHTAGE[0];
         }
+
         if (index >= this.STICHTAGE.length -1) {
-            return this.STICHTAGE[this.STICHTAGE.length -1];
+            return '2011-12-31';
         }
 
         const year = Number(this.stichtag.slice(0, 4));

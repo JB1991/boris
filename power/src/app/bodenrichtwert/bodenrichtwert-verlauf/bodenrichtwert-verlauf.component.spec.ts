@@ -82,6 +82,8 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('tooltipFormatter should format the tooltip text', () => {
+        component.STICHTAGE = ['2020-12-31', '2019-12-31', '2018-12-31', '2017-12-31'];
+
         const params = [{
             seriesName: 'Wohngebiet Stadtumbau',
             marker: 'marker',
@@ -232,23 +234,16 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('getBremenStichtag should calculate last Stichtag of Bremen', () => {
-        spyOn(component, 'getCurrentYear').and.returnValues(2020, 2021);
-        let result = component.getBremenStichtag();
-        expect(result).toEqual('2018-12-31');
-        result = component.getBremenStichtag();
+        component.STICHTAGE = ['2020-12-31', '2019-12-31', '2018-12-31', '2017-12-31'];
+
+        const result = component.getStichtag('BREMEN');
         expect(result).toEqual('2020-12-31');
     });
 
-    it('getCurrentYear should caculate the current year', () => {
-        const res = component.getCurrentYear();
-        expect(typeof (res)).toBe('number');
-    });
-
     it('getBremerhavenStichtag should calculate last Stichtag of Bremerhaven', () => {
-        spyOn(component, 'getCurrentYear').and.returnValues(2021, 2020);
-        let result = component.getBremerhavenStichtag();
-        expect(result).toEqual('2019-12-31');
-        result = component.getBremerhavenStichtag();
+        component.STICHTAGE = ['2020-12-31', '2019-12-31', '2018-12-31', '2017-12-31'];
+
+        const result = component.getStichtag('BREMERHAVEN');
         expect(result).toEqual('2019-12-31');
     });
 

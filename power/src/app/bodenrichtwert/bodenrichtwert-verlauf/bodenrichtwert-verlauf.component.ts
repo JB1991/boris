@@ -24,6 +24,8 @@ export interface SeriesItem {
 })
 export class BodenrichtwertVerlaufComponent implements OnChanges {
 
+    @Input() STICHTAGE: string[];
+
     // table data for screenreader
     public srTableData: Array<any> = [];
     public srTableHeader: Array<string> = [];
@@ -143,7 +145,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      */
     public tooltipFormatter(params: Array<any>): string {
         const res = [];
-        const year = params[0].axisValue;
+        const year: number = params[0].axisValue;
         for (let j = 0; j < params.length; j++) {
             if (params[j].value && typeof (params[j].value) !== 'string') {
                 params[j].seriesName = this.removeTextInTooltip(params[j].seriesName);
@@ -154,7 +156,26 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} € <br />`);
             }
         }
-        return ([this.datePipe.transform((year - 1) + '12-31'), '<br />', res.join('')].join(''));
+
+        let isSet = false;
+        let smallestDiff: number;
+        let index: number;
+
+        this.STICHTAGE.forEach((v, i) => {
+            const diff = Math.abs(new Date(year + '-01-01').getTime() - new Date(v).getTime());
+            if (!isSet) {
+                smallestDiff = diff;
+                index = i;
+                isSet = true;
+                return;
+            }
+            if (diff < smallestDiff) {
+                smallestDiff = diff;
+                index = i;
+            }
+        });
+
+        return ([this.datePipe.transform(this.STICHTAGE[index]), '<br />', res.join('')].join(''));
     }
 
     /**
@@ -614,34 +635,19 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     /**
-     * getCurrentYear return the current year
+     * getStichtag returns the correct stichtag for bremerhaven or bremen
      */
-    public getCurrentYear(): number {
-        const today = new Date();
-        return today.getFullYear();
-    }
-
-    /**
-     * getBremerhavenStichtag returns the correct stichtag for bremerhaven
-     */
-    public getBremerhavenStichtag(): string {
-        const year = this.getCurrentYear() - 1;
-        if (year % 2 !== 0) {
-            return year.toString() + '-12-31';
+    public getStichtag(l: 'BREMEN' | 'BREMERHAVEN'): string {
+        if (new Date().getFullYear() % 2 !== 0) {
+            if (l === 'BREMERHAVEN') {
+                return this.STICHTAGE[1];
+            }
+            return this.STICHTAGE[0];
         } else {
-            return (year - 1).toString() + '-12-31';
-        }
-    }
-
-    /**
-     * getBremenStichtag returns the correct stichtag for bremen
-     */
-    public getBremenStichtag(): string {
-        const year = this.getCurrentYear() - 1;
-        if (year % 2 !== 0) {
-            return (year - 1).toString() + '-12-31';
-        } else {
-            return year.toString() + '-12-31';
+            if (l === 'BREMERHAVEN') {
+                return this.STICHTAGE[0];
+            }
+            return this.STICHTAGE[1];
         }
     }
 }
