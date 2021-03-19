@@ -16,7 +16,13 @@
                                                      [(address)]="address"
                                                      [(isCollapsed)]="isCollapsed"
                                                      [(threeDActive)]="threeDActive"
-                                                     [(resetMapFired)]="resetMapFired">
+                                                     [(resetMapFired)]="resetMapFired"
+                                                     [(currentZoom)]="currentZoom"
+                                                     (currentZoomChange)="changeURL()"
+                                                     [(currentPitch)]="currentPitch"
+                                                     (currentPitchChange)="changeURL()"
+                                                     [standardBaulandZoom]="standardBaulandZoom"
+                                                     [standardLandZoom]="standardLandZoom">
                     </power-bodenrichtwert-navigation>
                 </div>
                 <div class="col-12 p-0 map-height"
@@ -31,7 +37,12 @@
                                                [expanded]="expanded"
                                                [threeDActive]="threeDActive"
                                                [(resetMapFired)]="resetMapFired"
-                                               [(currentZoom)]="currentZoom">
+                                               [(currentZoom)]="currentZoom"
+                                               (currentZoomChange)="changeURL()"
+                                               [(currentPitch)]="currentPitch"
+                                               (currentPitchChange)="changeURL()"
+                                               [standardBaulandZoom]="standardBaulandZoom"
+                                               [standardLandZoom]="standardLandZoom">
                     </power-bodenrichtwertkarte>
                 </div>
             </div>
@@ -114,7 +125,8 @@
                 </power-bodenrichtwert-detail>
             </div>
             <div class="col-12 p-0">
-                <power-bodenrichtwert-verlauf [features]="features"></power-bodenrichtwert-verlauf>
+                <power-bodenrichtwert-verlauf [features]="features"
+                                              [STICHTAGE]="STICHTAGE"></power-bodenrichtwert-verlauf>
 
             </div>
         </div>

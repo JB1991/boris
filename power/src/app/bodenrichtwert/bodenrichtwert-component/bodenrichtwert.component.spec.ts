@@ -59,9 +59,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         component.features.features[0].properties.gema = 'Bremerhaven';
         expect(component.features.features[0].properties.gema).toEqual('Bremerhaven');
 
-        component.stichtag = '2021-12-31';
-        expect(component.getStichtag()).toEqual('2021-12-31');
-
         component.stichtag = '2020-12-31';
         expect(component.getStichtag()).toEqual('2019-12-31');
 
@@ -100,6 +97,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         component.latLng = [200, 300];
         component.stichtag = '2030-12-31';
         component.teilmarkt = component.TEILMAERKTE[0];
+        component.currentZoom = 15.1;
         component.changeURL();
         expect(component.location.replaceState).toHaveBeenCalled();
     });

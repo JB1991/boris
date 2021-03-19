@@ -5,6 +5,9 @@ import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf.compone
 import { SimpleChanges } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
     const changes: SimpleChanges = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-changes.json');
@@ -18,9 +21,12 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     let httpClient: HttpClient;
     let httpTestingController: HttpTestingController;
 
+    registerLocaleData(localeDe);
+
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [BodenrichtwertVerlaufComponent],
+            providers: [{ provide: LOCALE_ID, useValue: 'de' }],
             imports: [
                 HttpClientTestingModule,
                 NgxEchartsModule.forRoot({ echarts: echarts }),
@@ -76,6 +82,8 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('tooltipFormatter should format the tooltip text', () => {
+        component.STICHTAGE = ['2020-12-31', '2019-12-31', '2018-12-31', '2017-12-31'];
+
         const params = [{
             seriesName: 'Wohngebiet Stadtumbau',
             marker: 'marker',
@@ -226,23 +234,16 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('getBremenStichtag should calculate last Stichtag of Bremen', () => {
-        spyOn(component, 'getCurrentYear').and.returnValues(2020, 2021);
-        let result = component.getBremenStichtag();
-        expect(result).toEqual('2018-12-31');
-        result = component.getBremenStichtag();
+        component.STICHTAGE = ['2020-12-31', '2019-12-31', '2018-12-31', '2017-12-31'];
+
+        const result = component.getStichtag('BREMEN');
         expect(result).toEqual('2020-12-31');
     });
 
-    it('getCurrentYear should caculate the current year', () => {
-        const res = component.getCurrentYear();
-        expect(typeof (res)).toBe('number');
-    });
-
     it('getBremerhavenStichtag should calculate last Stichtag of Bremerhaven', () => {
-        spyOn(component, 'getCurrentYear').and.returnValues(2021, 2020);
-        let result = component.getBremerhavenStichtag();
-        expect(result).toEqual('2019-12-31');
-        result = component.getBremerhavenStichtag();
+        component.STICHTAGE = ['2020-12-31', '2019-12-31', '2018-12-31', '2017-12-31'];
+
+        const result = component.getStichtag('BREMERHAVEN');
         expect(result).toEqual('2019-12-31');
     });
 
