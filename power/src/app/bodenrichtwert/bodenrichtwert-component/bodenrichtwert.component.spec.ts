@@ -59,9 +59,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         component.features.features[0].properties.gema = 'Bremerhaven';
         expect(component.features.features[0].properties.gema).toEqual('Bremerhaven');
 
-        component.stichtag = '2021-12-31';
-        expect(component.getStichtag()).toEqual('2021-12-31');
-
         component.stichtag = '2020-12-31';
         expect(component.getStichtag()).toEqual('2019-12-31');
 
