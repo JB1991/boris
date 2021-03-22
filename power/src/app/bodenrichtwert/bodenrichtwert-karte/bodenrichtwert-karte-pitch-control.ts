@@ -1,4 +1,4 @@
-import { Map } from 'mapbox-gl';
+import { Map, Marker } from 'mapbox-gl';
 
 export default class BodenrichtwertKartePitchControl {
     private map: Map;
@@ -6,8 +6,11 @@ export default class BodenrichtwertKartePitchControl {
     private container: HTMLDivElement;
 
     private currentZoom: number;
+    private marker: Marker;
 
-    constructor() { }
+    constructor(marker: Marker) {
+        this.marker = marker;
+    }
 
     /**
      * onAdd creates a button and icon html element and add these to the map
@@ -15,7 +18,7 @@ export default class BodenrichtwertKartePitchControl {
      * @returns a div container including a button and i element
      */
 
-    onAdd(map) {
+    onAdd(map: Map) {
         this.map = map;
         this.btn = document.createElement('button');
         this.btn.className = 'btn';
@@ -51,8 +54,7 @@ export default class BodenrichtwertKartePitchControl {
         this.map.easeTo({
             pitch: 60,
             zoom: 17,
-            center: this.map.getCenter()
-            // this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
     }
@@ -64,8 +66,7 @@ export default class BodenrichtwertKartePitchControl {
         this.map.easeTo({
             pitch: 0,
             zoom: this.currentZoom,
-            center: this.map.getCenter()
-            // this.marker ? this.marker.getLngLat() : this.map.getCenter()
+            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
         });
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
     }

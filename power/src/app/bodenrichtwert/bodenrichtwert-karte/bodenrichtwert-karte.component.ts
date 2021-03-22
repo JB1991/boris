@@ -317,7 +317,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         const geolocateControl = new GeolocateControl();
         this.map.addControl(geolocateControl, 'top-left');
 
-        const pitchControl = new BodenrichtwertKartePitchControl();
+        const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
         this.map.addControl(pitchControl, 'top-left');
 
         // update the map on reload if coordinates exist
