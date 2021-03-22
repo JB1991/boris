@@ -3,7 +3,7 @@
     <mgl-map (click)="onMapClickEvent($event)"
              (moveEnd)="onMoveEnd()"
              (load)="loadMap($event)"
-             (rotate)="onRotate()"
+             (rotateEnd)="onRotate()"
              (zoomEnd)="onZoomEnd()"
              (pitchEnd)="onPitchEnd()"
              [bounds]="bounds"

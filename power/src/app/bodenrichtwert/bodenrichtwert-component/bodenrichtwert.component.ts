@@ -105,14 +105,19 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     public standardLandZoom = 11;
 
     /**
-     * currentZoom holds the current zoom of the map object
+     * zoom holds the current zoom of the map object
      */
-    public currentZoom: number;
+    public zoom: number;
 
     /**
-     * currentRotation
+     * pitch
      */
-    public currentPitch = 0;
+    public pitch = 0;
+
+    /**
+     * bearing
+     */
+    public bearing = 0;
 
     /**
      * Possible selections of Stichtage
@@ -168,7 +173,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         });
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
-        this.changeURL();
     }
 
     /* istanbul ignore next */
@@ -193,12 +197,17 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
             // zoom
             if (params['zoom']) {
-                this.currentZoom = Number(params['zoom']);
+                this.zoom = Number(params['zoom']);
             }
 
             // rotation
             if (params['pitch']) {
-                this.currentPitch = Number(params['pitch']);
+                this.pitch = Number(params['pitch']);
+            }
+
+            // bearing
+            if (params['bearing']) {
+                this.bearing = Number(params['bearing']);
             }
             this.cdr.detectChanges();
         });
@@ -225,21 +234,21 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         const year = Number(this.stichtag.slice(0, 4));
 
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
-            if (index >= this.STICHTAGE.length -1) {
+            if (index >= this.STICHTAGE.length - 1) {
                 return '2011-12-31';
             }
             if (year % 2 === 0) {
-                return this.STICHTAGE[index+1];
+                return this.STICHTAGE[index + 1];
             }
         };
 
-        if (index >= this.STICHTAGE.length -1) {
-            return this.STICHTAGE[this.STICHTAGE.length -1];
+        if (index >= this.STICHTAGE.length - 1) {
+            return this.STICHTAGE[this.STICHTAGE.length - 1];
         }
 
         if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
             if (year % 2 !== 0) {
-                return this.STICHTAGE[index+1];
+                return this.STICHTAGE[index + 1];
             }
         }
         return this.STICHTAGE[index];
@@ -295,7 +304,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
         // zoom
         url += '&zoom=';
-        const zoom = this.currentZoom;
+        const zoom = this.zoom;
         if (this.teilmarkt.text === this.TEILMAERKTE[0].text) {
             // Bauland
             if (zoom >= 16) {
@@ -337,11 +346,14 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         if (this.stichtag) {
             params.append('stichtag', this.stichtag.toString());
         }
-        if (this.currentZoom) {
-            params.append('zoom', this.currentZoom.toFixed(2).toString());
+        if (this.zoom) {
+            params.append('zoom', this.zoom.toFixed(2).toString());
         }
-        if (this.currentPitch) {
-            params.append('pitch', this.currentPitch.toFixed(2).toString());
+        if (this.pitch) {
+            params.append('pitch', this.pitch.toFixed(2).toString());
+        }
+        if (this.bearing) {
+            params.append('bearing', this.bearing.toFixed(2).toString());
         }
         this.location.replaceState('/bodenrichtwerte', params.toString());
     }

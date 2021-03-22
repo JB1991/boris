@@ -222,11 +222,14 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
 
-    @Input() currentZoom: number;
-    @Output() currentZoomChange = new EventEmitter<number>();
+    @Input() zoom: number;
+    @Output() zoomChange = new EventEmitter<number>();
 
-    @Input() currentPitch: number;
-    @Output() currentPitchChange = new EventEmitter<number>();
+    @Input() pitch: number;
+    @Output() pitchChange = new EventEmitter<number>();
+
+    @Input() bearing: number;
+    @Output() bearingChange = new EventEmitter<number>();
 
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
@@ -245,7 +248,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             // Teilmarkt changed
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
                 this.map.easeTo({
-                    zoom: this.currentZoom,
+                    zoom: this.zoom,
                     center: this.latLng?.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
                 });
             }
@@ -332,21 +335,22 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * onZoomEnd emits the current zoom level onZoomEnd
      */
     public onZoomEnd() {
-        this.currentZoomChange.emit(this.map.getZoom());
+        this.zoomChange.emit(this.map.getZoom());
     }
 
     /**
      * onPitchEnd emits the current pitch onPitchEnd
      */
     public onPitchEnd() {
-        this.currentPitchChange.emit(this.map.getPitch());
+        this.pitchChange.emit(this.map.getPitch());
     }
 
     /**
      * onRotate emits the current rotation level onRotate
      */
     public onRotate() {
-        this.currentPitchChange.emit(this.map.getPitch());
+        this.pitchChange.emit(this.map.getPitch());
+        this.bearingChange.emit(this.map.getBearing());
 
         // 3D-Layer temporarly deactivated
         // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
@@ -371,11 +375,11 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     public flyTo(lat: number, lng: number) {
         this.map.flyTo({
             center: [lng, lat],
-            zoom: this.currentZoom,
+            zoom: this.zoom,
             speed: 1,
             curve: 1,
-            bearing: 0,
-            pitch: this.currentPitch
+            bearing: this.bearing,
+            pitch: this.pitch
         });
     }
 
@@ -395,7 +399,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
         if (!this.latLng?.length) {
-            this.currentZoomChange.emit(this.determineZoomFactor());
+            this.zoomChange.emit(this.determineZoomFactor());
         }
         if (event.lngLat) {
             this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
@@ -412,9 +416,10 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
 
         this.map.fitBounds(this.bounds, {
-            pitch: 0,
-            bearing: 0
+            pitch: this.pitch,
+            bearing: this.bearing
         });
+
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
         this.resetMapFiredChange.emit(false);
     }

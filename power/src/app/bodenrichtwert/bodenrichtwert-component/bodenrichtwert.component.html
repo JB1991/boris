@@ -16,10 +16,12 @@
                                                      [(address)]="address"
                                                      [(isCollapsed)]="isCollapsed"
                                                      [(resetMapFired)]="resetMapFired"
-                                                     [(currentZoom)]="currentZoom"
-                                                     (currentZoomChange)="changeURL()"
-                                                     [(currentPitch)]="currentPitch"
-                                                     (currentPitchChange)="changeURL()"
+                                                     [(zoom)]="zoom"
+                                                     (zoomChange)="changeURL()"
+                                                     [(pitch)]="pitch"
+                                                     (pitchChange)="changeURL()"
+                                                     [(bearing)]="bearing"
+                                                     (bearingChange)="changeURL()"
                                                      [standardBaulandZoom]="standardBaulandZoom"
                                                      [standardLandZoom]="standardLandZoom">
                     </power-bodenrichtwert-navigation>
@@ -35,10 +37,12 @@
                                                [collapsed]="collapsed"
                                                [expanded]="expanded"
                                                [(resetMapFired)]="resetMapFired"
-                                               [(currentZoom)]="currentZoom"
-                                               (currentZoomChange)="changeURL()"
-                                               [(currentPitch)]="currentPitch"
-                                               (currentPitchChange)="changeURL()"
+                                               [(zoom)]="zoom"
+                                               (zoomChange)="changeURL()"
+                                               [(pitch)]="pitch"
+                                               (pitchChange)="changeURL()"
+                                               [(bearing)]="bearing"
+                                               (bearingChange)="changeURL()"
                                                [standardBaulandZoom]="standardBaulandZoom"
                                                [standardLandZoom]="standardLandZoom">
                     </power-bodenrichtwertkarte>

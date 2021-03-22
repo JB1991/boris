@@ -45,11 +45,14 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
 
-    @Input() currentZoom: number;
-    @Output() currentZoomChange = new EventEmitter<number>();
+    @Input() zoom: number;
+    @Output() zoomChange = new EventEmitter<number>();
 
-    @Input() currentPitch: number;
-    @Output() currentPitchChange = new EventEmitter<number>();
+    @Input() pitch: number;
+    @Output() pitchChange = new EventEmitter<number>();
+
+    @Input() bearing: number;
+    @Output() bearingChange = new EventEmitter<number>();
 
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
@@ -167,7 +170,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 $localize`Der Teilmarkt wurde zu ` + teilmarkt.text + $localize` gewechselt.`);
         }
 
-        this.currentZoomChange.emit(this.determineZoomFactor(teilmarkt));
+        this.zoomChange.emit(this.determineZoomFactor(teilmarkt));
         this.teilmarktChange.emit(teilmarkt);
     }
 
@@ -244,6 +247,12 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         if (this.stichtag !== this.bodenrichtwert.STICHTAGE[0]) {
             this.stichtagChange.emit(this.bodenrichtwert.STICHTAGE[0]);
         }
+        if (this.pitch) {
+            this.pitchChange.emit(0);
+        }
+        if (this.bearing) {
+            this.bearingChange.emit(0);
+        }
 
         // triggers onResetMap of the map component
         this.resetMapFiredChange.emit(true);
@@ -256,7 +265,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * onFocus emits the current location to trigger a map focus
      */
     public onFocus() {
-        this.currentZoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         this.latLngChange.emit([this.latLng[0], this.latLng[1]]);
     }
 
