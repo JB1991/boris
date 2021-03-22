@@ -76,7 +76,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     });
 
     it('printURL should return an URL for the printing service ALT-Boris', () => {
-        component.currentZoom = 15;
+        component.zoom = 15;
         component.stichtag = '2020-12-31';
         component.latLng = [52.38253373875585, 9.832944728398047];
         // component.teilmarkt = {
@@ -97,7 +97,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
         component.latLng = [200, 300];
         component.stichtag = '2030-12-31';
         component.teilmarkt = component.TEILMAERKTE[0];
-        component.currentZoom = 15.1;
+        component.zoom = 15.1;
         component.changeURL();
         expect(component.location.replaceState).toHaveBeenCalled();
     });
