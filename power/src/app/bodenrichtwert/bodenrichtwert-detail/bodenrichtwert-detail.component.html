@@ -1,4 +1,4 @@
-<div class="pb-3 pt-0 px-0">
+<div class="p-0">
     <div class="p-0"
          *ngFor="let feature of filteredFeatures">
         <!-- Keine Nutzung des <table>-Elements, da fehlendes responsive-Verhalten  -->
@@ -291,12 +291,29 @@
             </div>
         </div>
     </div>
-    <a *ngIf="filteredFeatures[0]"
-       [href]="filteredFeatures[0].properties.gabe | gagKontaktdaten"
-       target="_blank"
-       rel="noopener noreferrer nofollow"
-       alt="Herausgeber"
-       title="Herausgeber"
-       i18n-title
-       i18n>{{ filteredFeatures[0]?.properties.gabe }}</a>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <h5 class="col-12 mb-0"
+                    role="rowheader"><b>Herausgeber</b>
+                </h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <dl class="row"
+                role="rowgroup">
+                <dd class="col-12"
+                    role="cell">
+                    <a *ngIf="filteredFeatures[0]"
+                       [href]="filteredFeatures[0].properties.gabe | gagKontaktdaten"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow"
+                       alt="Herausgeber"
+                       title="Herausgeber"
+                       i18n-title
+                       i18n>{{ filteredFeatures[0]?.properties.gabe }}</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
