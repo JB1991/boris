@@ -415,6 +415,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             pitch: 0,
             bearing: 0
         });
+        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
         this.resetMapFiredChange.emit(false);
     }
 

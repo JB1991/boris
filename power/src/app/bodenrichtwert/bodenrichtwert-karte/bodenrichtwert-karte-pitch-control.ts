@@ -5,7 +5,6 @@ export default class BodenrichtwertKartePitchControl {
     private btn: HTMLButtonElement;
     private container: HTMLDivElement;
 
-    private threeDActive = false;
     private currentZoom: number;
 
     constructor() { }
@@ -23,12 +22,10 @@ export default class BodenrichtwertKartePitchControl {
         this.btn.type = 'button';
         this.btn.title = '3D aktivieren/deaktivieren';
         this.btn.onclick = () => {
-            if (this.threeDActive) {
-                this.deactivate3dView();
-                this.threeDActive = !this.threeDActive;
-            } else {
+            if (this.map.getPaintProperty('building-extrusion', 'fill-extrusion-height') === 0) {
                 this.activate3dView();
-                this.threeDActive = !this.threeDActive;
+            } else {
+                this.deactivate3dView();
             }
         };
 
