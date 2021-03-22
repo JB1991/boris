@@ -176,7 +176,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public determineZoomFactor(teilmarkt: Teilmarkt): number {
         // Bauland
-        if (this.teilmarkt.text === 'Bauland') {
+        if (this.teilmarkt.text !== 'Bauland') {
             return this.standardBaulandZoom;
             // Landwirtschaft
         } else {
