@@ -194,7 +194,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     public onAddressChange(feature: Feature): void {
         this.latLngChange.emit([feature?.geometry['coordinates'][1], feature?.geometry['coordinates'][0]]);
         if (!this.latLng?.length) {
-            console.log('test');
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         }
     }
