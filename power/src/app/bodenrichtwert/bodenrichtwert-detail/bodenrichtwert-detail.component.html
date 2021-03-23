@@ -225,7 +225,7 @@
                     <dd *ngIf="feature.properties.frei"
                         class="col-md-7"
                         role="cell">
-                        {{feature.properties.frei | hyphenate}}
+                        {{feature.properties.frei | umlautCorrection | hyphenate}}
                     </dd>
                     <dt *ngIf="feature.properties.bem"
                         class="col-md-5"
