@@ -283,7 +283,6 @@
                             "/logout",
                             "/feedback",
                             "/bodenrichtwerte",
-                            "/bodenwertkalkulator",
                             "/forms",
                             "/forms/public-dashboard"
                         ]
