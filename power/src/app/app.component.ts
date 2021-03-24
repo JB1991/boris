@@ -1,6 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationError, Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { Platform } from '@angular/cdk/platform';
 import { HttpClient } from '@angular/common/http';
@@ -74,6 +74,11 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                             + (this.locale !== 'de' ? '/' + this.locale : '')
                             + event.url.split('?')[0]);
                     }
+                }
+            } else if (event instanceof NavigationError) {
+                // log navigation error if not in production
+                if (!environment.production) {
+                    console.error(event.error);
                 }
             }
         });

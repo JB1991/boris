@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import {
-    Component, OnDestroy,
-    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, OnInit
+    Component, OnDestroy, Inject, PLATFORM_ID,
+    ChangeDetectionStrategy, ChangeDetectorRef, OnInit
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import proj4 from 'proj4';
-import { DatePipe, Location } from '@angular/common';
+import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -120,6 +120,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     public bearing = 0;
 
     /**
+     * true if is browser
+     */
+    public isBrowser = true;
+
+    /**
      * Possible selections of Stichtage
      */
     public STICHTAGE: Array<string> = [
@@ -144,6 +149,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /* istanbul ignore next */
     constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
@@ -173,6 +180,10 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         });
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
+
+        if (!isPlatformBrowser(this.platformId)) {
+            this.isBrowser = false;
+        }
     }
 
     /* istanbul ignore next */

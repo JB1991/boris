@@ -64,11 +64,13 @@ export function app(lang: string): express.Express {
     server.get('*', (req, res) => {
         res.render(indexHtml, {
             req,
-            res,
             providers: [
                 {
                     provide: APP_BASE_HREF,
                     useValue: req.baseUrl
+                }, {
+                    provide: LOCALE_ID,
+                    useValue: lang
                 }
             ]
         });
@@ -80,14 +82,14 @@ export function app(lang: string): express.Express {
 function run(): void {
     const port = process.env.PORT || 4000;
     const appDE = app('de');
-    //const appDESIMPLE = app('de-simple');
-    //const appEN = app('en');
+    const appDESIMPLE = app('de-simple');
+    const appEN = app('en');
 
     // Start up the Node server
     const server = express();
-    //server.use('/en', appEN);
-    //server.use('/de-simple', appDESIMPLE);
     server.use('', appDE);
+    server.use('/de-simple', appDESIMPLE);
+    server.use('/en', appEN);
     server.listen(port, () => {
         console.log(`Node Express server listening on http://localhost:${port}`);
     });

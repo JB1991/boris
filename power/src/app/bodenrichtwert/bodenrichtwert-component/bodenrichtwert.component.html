@@ -1,283 +1,285 @@
-<div class="container-fluid p-0 m-0 border-bottom">
-    <div class="row m-0">
-        <div id="mapWrapper"
-             class="border-bottom"
-             [class]="isCollapsed ? 'col d-block' : 'col-lg-6'">
-            <div class="row">
+<ng-container *ngIf="isBrowser">
+    <div class="container-fluid p-0 m-0 border-bottom">
+        <div class="row m-0">
+            <div id="mapWrapper"
+                 class="border-bottom"
+                 [class]="isCollapsed ? 'col d-block' : 'col-lg-6'">
+                <div class="row">
+                    <div class="col-12 p-0">
+                        <power-bodenrichtwert-navigation [(latLng)]="latLng"
+                                                         (latLngChange)="changeURL()"
+                                                         [(stichtag)]="stichtag"
+                                                         (stichtagChange)="changeURL()"
+                                                         [(teilmarkt)]="teilmarkt"
+                                                         (teilmarktChange)="changeURL()"
+                                                         [(flurstueck)]="flurstueck"
+                                                         [(features)]="features"
+                                                         [(address)]="address"
+                                                         [(isCollapsed)]="isCollapsed"
+                                                         [(resetMapFired)]="resetMapFired"
+                                                         [(zoom)]="zoom"
+                                                         (zoomChange)="changeURL()"
+                                                         [(pitch)]="pitch"
+                                                         (pitchChange)="changeURL()"
+                                                         [(bearing)]="bearing"
+                                                         (bearingChange)="changeURL()"
+                                                         [standardBaulandZoom]="standardBaulandZoom"
+                                                         [standardLandZoom]="standardLandZoom">
+                        </power-bodenrichtwert-navigation>
+                    </div>
+                    <div class="col-12 p-0 map-height"
+                         [ngClass]="{'map-height-active-details' : latLng?.length}">
+                        <power-bodenrichtwertkarte #map
+                                                   [(latLng)]="latLng"
+                                                   (latLngChange)="changeURL()"
+                                                   [stichtag]="stichtag"
+                                                   [teilmarkt]="teilmarkt"
+                                                   [(isCollapsed)]="isCollapsed"
+                                                   [collapsed]="collapsed"
+                                                   [expanded]="expanded"
+                                                   [(resetMapFired)]="resetMapFired"
+                                                   [(zoom)]="zoom"
+                                                   (zoomChange)="changeURL()"
+                                                   [(pitch)]="pitch"
+                                                   (pitchChange)="changeURL()"
+                                                   [(bearing)]="bearing"
+                                                   (bearingChange)="changeURL()"
+                                                   [standardBaulandZoom]="standardBaulandZoom"
+                                                   [standardLandZoom]="standardLandZoom">
+                        </power-bodenrichtwertkarte>
+                    </div>
+                </div>
+            </div>
+            <!-- collapsing sidebar -->
+            <div class="p-0 border-left"
+                 [class]="isCollapsed ? 'col-auto' : 'col-lg-6'">
+                <div class="row m-0 p-0">
+                    <div *ngIf="address || features"
+                         class="px-1 py-0 d-none d-lg-flex"
+                         [ngClass]="{'col-lg-1' : !isCollapsed}">
+                        <button class="btn p-0 w-100 rounded-0 collapse-btn-size"
+                                type="button"
+                                title="Detailansicht ein- bzw. ausklappen"
+                                i18n-title
+                                (click)="isCollapsed = !isCollapsed"
+                                [attr.aria-expanded]="!isCollapsed"
+                                aria-controls="collapseDetails">
+                            <i class="bi d-block w-100"
+                               role="img"
+                               aria-hidden="true"
+                               [class.bi-chevron-left]="isCollapsed"
+                               [class.bi-chevron-right]="!isCollapsed"></i>
+                        </button>
+                    </div>
+                    <div id="collapseDetails"
+                         class="p-0"
+                         [class]="isCollapsed ? 'd-block d-lg-none' : 'col-lg-11'"
+                         [collapse]="isCollapsed"
+                         (collapsed)="onCollapsingEnds()"
+                         (expanded)="onExpandingEnds()"
+                         [isAnimated]="true">
+                        <ng-container *ngIf="latLng?.length">
+                            <div class="row p-0 pb-2 m-0 border-bottom align-items-center details-header-height">
+                                <div class="col-12 col-lg p-0">
+                                    <!-- no address and no features but latLng set-->
+                                    <h6 *ngIf="!address && !features?.features.length"
+                                        class="px-1 px-lg-2 pt-2 m-0 text-center"
+                                        i18n>Es liegen keine Bodenrichtwertdaten für diese Koordinate vor.</h6>
+                                    <!-- - no address but features -->
+                                    <h6 *ngIf="!address && features?.features.length "
+                                        class="px-1 px-lg-2 pt-2 m-0 text-center">
+                                        {{ features.features[0].properties.brzname}}
+                                    </h6>
+                                    <!-- address and features -->
+                                    <h6 *ngIf="address"
+                                        class="px-1 px-lg-2 pt-2 m-0 text-center">
+                                        {{ address.properties.text }}
+                                    </h6>
+                                    <ng-template [ngTemplateOutlet]="flurstueckskennzeichen"></ng-template>
+                                </div>
+                                <div class="col-12 col-lg-auto p-0">
+                                    <ng-template [ngTemplateOutlet]="detailsFunctionButtons"></ng-template>
+                                </div>
+                            </div>
+                            <ng-template [ngTemplateOutlet]="detailsContent"></ng-template>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <!-- no address and no features - inital state -->
+            <h5 *ngIf="!latLng?.length"
+                class="px-1 px-lg-2 pt-2 text-center"
+                i18n>Wählen Sie eine Position</h5>
+        </div>
+    </div>
+
+    <!-- DetailsContent Template-->
+    <ng-template #detailsContent>
+        <div class="p-1 overflow-auto card card-header rounded-0 details-content-height">
+            <div class="row m-0 p-lg-2 p-1">
+                <ng-template [ngTemplateOutlet]="detailsHints"></ng-template>
+                <div *ngIf="features?.features.length"
+                     class="col-12 p-0">
+                    <power-bodenrichtwert-detail [stichtag]="stichtag"
+                                                 [teilmarkt]="teilmarkt"
+                                                 [features]="features">
+                    </power-bodenrichtwert-detail>
+                </div>
                 <div class="col-12 p-0">
-                    <power-bodenrichtwert-navigation [(latLng)]="latLng"
-                                                     (latLngChange)="changeURL()"
-                                                     [(stichtag)]="stichtag"
-                                                     (stichtagChange)="changeURL()"
-                                                     [(teilmarkt)]="teilmarkt"
-                                                     (teilmarktChange)="changeURL()"
-                                                     [(flurstueck)]="flurstueck"
-                                                     [(features)]="features"
-                                                     [(address)]="address"
-                                                     [(isCollapsed)]="isCollapsed"
-                                                     [(resetMapFired)]="resetMapFired"
-                                                     [(zoom)]="zoom"
-                                                     (zoomChange)="changeURL()"
-                                                     [(pitch)]="pitch"
-                                                     (pitchChange)="changeURL()"
-                                                     [(bearing)]="bearing"
-                                                     (bearingChange)="changeURL()"
-                                                     [standardBaulandZoom]="standardBaulandZoom"
-                                                     [standardLandZoom]="standardLandZoom">
-                    </power-bodenrichtwert-navigation>
-                </div>
-                <div class="col-12 p-0 map-height"
-                     [ngClass]="{'map-height-active-details' : latLng?.length}">
-                    <power-bodenrichtwertkarte #map
-                                               [(latLng)]="latLng"
-                                               (latLngChange)="changeURL()"
-                                               [stichtag]="stichtag"
-                                               [teilmarkt]="teilmarkt"
-                                               [(isCollapsed)]="isCollapsed"
-                                               [collapsed]="collapsed"
-                                               [expanded]="expanded"
-                                               [(resetMapFired)]="resetMapFired"
-                                               [(zoom)]="zoom"
-                                               (zoomChange)="changeURL()"
-                                               [(pitch)]="pitch"
-                                               (pitchChange)="changeURL()"
-                                               [(bearing)]="bearing"
-                                               (bearingChange)="changeURL()"
-                                               [standardBaulandZoom]="standardBaulandZoom"
-                                               [standardLandZoom]="standardLandZoom">
-                    </power-bodenrichtwertkarte>
+                    <power-bodenrichtwert-verlauf [features]="features"
+                                                  [STICHTAGE]="STICHTAGE"></power-bodenrichtwert-verlauf>
+
                 </div>
             </div>
         </div>
-        <!-- collapsing sidebar -->
-        <div class="p-0 border-left"
-             [class]="isCollapsed ? 'col-auto' : 'col-lg-6'">
-            <div class="row m-0 p-0">
-                <div *ngIf="address || features"
-                     class="px-1 py-0 d-none d-lg-flex"
-                     [ngClass]="{'col-lg-1' : !isCollapsed}">
-                    <button class="btn p-0 w-100 rounded-0 collapse-btn-size"
-                            type="button"
-                            title="Detailansicht ein- bzw. ausklappen"
-                            i18n-title
-                            (click)="isCollapsed = !isCollapsed"
-                            [attr.aria-expanded]="!isCollapsed"
-                            aria-controls="collapseDetails">
-                        <i class="bi d-block w-100"
-                           role="img"
-                           aria-hidden="true"
-                           [class.bi-chevron-left]="isCollapsed"
-                           [class.bi-chevron-right]="!isCollapsed"></i>
-                    </button>
-                </div>
-                <div id="collapseDetails"
-                     class="p-0"
-                     [class]="isCollapsed ? 'd-block d-lg-none' : 'col-lg-11'"
-                     [collapse]="isCollapsed"
-                     (collapsed)="onCollapsingEnds()"
-                     (expanded)="onExpandingEnds()"
-                     [isAnimated]="true">
-                    <ng-container *ngIf="latLng?.length">
-                        <div class="row p-0 pb-2 m-0 border-bottom align-items-center details-header-height">
-                            <div class="col-12 col-lg p-0">
-                                <!-- no address and no features but latLng set-->
-                                <h6 *ngIf="!address && !features?.features.length"
-                                    class="px-1 px-lg-2 pt-2 m-0 text-center"
-                                    i18n>Es liegen keine Bodenrichtwertdaten für diese Koordinate vor.</h6>
-                                <!-- - no address but features -->
-                                <h6 *ngIf="!address && features?.features.length "
-                                    class="px-1 px-lg-2 pt-2 m-0 text-center">
-                                    {{ features.features[0].properties.brzname}}
-                                </h6>
-                                <!-- address and features -->
-                                <h6 *ngIf="address"
-                                    class="px-1 px-lg-2 pt-2 m-0 text-center">
-                                    {{ address.properties.text }}
-                                </h6>
-                                <ng-template [ngTemplateOutlet]="flurstueckskennzeichen"></ng-template>
-                            </div>
-                            <div class="col-12 col-lg-auto p-0">
-                                <ng-template [ngTemplateOutlet]="detailsFunctionButtons"></ng-template>
-                            </div>
-                        </div>
-                        <ng-template [ngTemplateOutlet]="detailsContent"></ng-template>
-                    </ng-container>
-                </div>
+    </ng-template>
+
+    <!-- DetailsHeaderButtons Template -->
+    <ng-template #detailsFunctionButtons>
+        <div class="row p-0 m-0 h-100 justify-content-end">
+            <div *ngIf="features?.features.length && checkIfStichtagFtsExist()"
+                 class="col-auto col-lg-6 p-0">
+                <a class="nav-link btn p-2"
+                   role="button"
+                   [href]="printURL()"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   alt="Bodenrichtwerte - amtlicher Ausdruck"
+                   title="Bodenrichtwerte - amtlicher Ausdruck"
+                   i18n-title>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="20px"
+                         height="20px"
+                         fill="currentColor"
+                         class="bi bi-printer"
+                         viewBox="0 0 16 16"
+                         focusable="false"
+                         aria-hidden="true">
+                        <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                        <path
+                              d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                    </svg>
+                    <span class="d-none"
+                          aria-hidden="true">Bodenrichtwerte - amtlicher Ausdruck </span>
+                </a>
+            </div>
+            <div class="p-0"
+                 [class]="features?.features.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-auto col-lg-12'">
+                <button [class.d-none]="!address && !features?.features.length"
+                        class="nav-link btn py-2 pl-1 pr-3"
+                        [ngClass]="{'active': hintsActive}"
+                        type="button"
+                        alt="Hinweise zur aktuellen Darstellung"
+                        title="Hinweise zur aktuellen Darstellung"
+                        (click)="hintsActive = !hintsActive"
+                        i18n-alt
+                        i18n-title>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="20px"
+                         height="20px"
+                         fill="currentColor"
+                         class="bi bi-info-circle"
+                         viewBox="0 0 16 16"
+                         focusable="false"
+                         aria-hidden="true">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                              d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                    </svg>
+                </button>
             </div>
         </div>
-    </div>
-    <div>
-        <!-- no address and no features - inital state -->
-        <h5 *ngIf="!latLng?.length"
-            class="px-1 px-lg-2 pt-2 text-center"
-            i18n>Wählen Sie eine Position</h5>
-    </div>
-</div>
+    </ng-template>
 
-<!-- DetailsContent Template-->
-<ng-template #detailsContent>
-    <div class="p-1 overflow-auto card card-header rounded-0 details-content-height">
-        <div class="row m-0 p-lg-2 p-1">
-            <ng-template [ngTemplateOutlet]="detailsHints"></ng-template>
-            <div *ngIf="features?.features.length"
-                 class="col-12 p-0">
-                <power-bodenrichtwert-detail [stichtag]="stichtag"
-                                             [teilmarkt]="teilmarkt"
-                                             [features]="features">
-                </power-bodenrichtwert-detail>
+    <!-- DetailsHints Template -->
+    <ng-template #detailsHints>
+        <!-- hints for no address and no features -->
+        <div *ngIf="(!address || address.properties.bundesland != 'Niedersachsen' || address.properties.bundesland != 'Bremen') && features && !features.features.length"
+             class="text-center">
+            <p class="p-1 m-0"
+               i18n>Keine gültige Adresse!</p>
+            <p class="p-1 m-0"
+               i18n>Hinweis:</p>
+            <p class="p-1 m-0 small"
+               i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder
+                Bremen aus. Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
+        </div>
+        <!-- hints from info button -->
+        <div [class]="hintsActive ? 'd-block pb-2' : 'd-none'">
+            <div *ngIf="address || features?.features.length"
+                 class="text-center">
+                <p class="p-1 m-0 small"
+                   i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
+                    Suchergebnisse
+                    von der Kartendarstellung abweichen.</p>
             </div>
-            <div class="col-12 p-0">
-                <power-bodenrichtwert-verlauf [features]="features"
-                                              [STICHTAGE]="STICHTAGE"></power-bodenrichtwert-verlauf>
-
+            <div *ngIf="flurstueck"
+                 class="text-center">
+                <p class="p-1 m-0 small"
+                   i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich auf den
+                    aktuell ausgewählten Standort und auf den Stichtag {{ getStichtag() | date }}.
+                </p>
+            </div>
+            <div *ngIf="address && (address.properties.bundesland == 'Niedersachsen' || address.properties.bundesland == 'Bremen') && !features?.features.length"
+                 class="text-center">
+                <p class="p-1 m-0 small"
+                   i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
+            </div>
+            <div *ngIf="!address && features?.features.length"
+                 class="text-center">
+                <p class="p-1 m-0 small"
+                   i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
+                    Adresse für diesen Standort gefunden werden.</p>
+                <p class="p-1 m-0 small"
+                   i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
             </div>
         </div>
-    </div>
-</ng-template>
+    </ng-template>
 
-<!-- DetailsHeaderButtons Template -->
-<ng-template #detailsFunctionButtons>
-    <div class="row p-0 m-0 h-100 justify-content-end">
-        <div *ngIf="features?.features.length && checkIfStichtagFtsExist()"
-             class="col-auto col-lg-6 p-0">
-            <a class="nav-link btn p-2"
-               role="button"
-               [href]="printURL()"
-               target="_blank"
-               rel="noopener noreferrer nofollow"
-               alt="Bodenrichtwerte - amtlicher Ausdruck"
-               title="Bodenrichtwerte - amtlicher Ausdruck"
-               i18n-title>
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     width="20px"
-                     height="20px"
-                     fill="currentColor"
-                     class="bi bi-printer"
-                     viewBox="0 0 16 16"
+    <!-- Flurstueckskennzeichen Template -->
+    <ng-template #flurstueckskennzeichen>
+        <span *ngIf="flurstueck?.features.length"
+              class="row p-0 m-0 text-center"
+              type="text">
+            <span class="col px-1 px-lg-2">
+                <small i18n>Flurstückskennzeichen</small>
+                <svg class="mr-4"
+                     fill-rule="evenodd"
+                     viewBox="0 0 20 22"
+                     width="24"
+                     height="20"
                      focusable="false"
                      aria-hidden="true">
-                    <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                    <path
-                          d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                    <g transform="translate(-10,-20) scale(0.5,0.4)">
+                        <path fill="none"
+                              stroke="#96999e"
+                              d="M 27.237147,57.888549 51.106583,52.026518 66.420364,96.500039 40.933018,96.903113 Z" />
+                    </g>
                 </svg>
-                <span class="d-none"
-                      aria-hidden="true">Bodenrichtwerte - amtlicher Ausdruck </span>
-            </a>
-        </div>
-        <div class="p-0"
-             [class]="features?.features.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-auto col-lg-12'">
-            <button [class.d-none]="!address && !features?.features.length"
-                    class="nav-link btn py-2 pl-1 pr-3"
-                    [ngClass]="{'active': hintsActive}"
-                    type="button"
-                    alt="Hinweise zur aktuellen Darstellung"
-                    title="Hinweise zur aktuellen Darstellung"
-                    (click)="hintsActive = !hintsActive"
-                    i18n-alt
-                    i18n-title>
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     width="20px"
-                     height="20px"
-                     fill="currentColor"
-                     class="bi bi-info-circle"
-                     viewBox="0 0 16 16"
-                     focusable="false"
-                     aria-hidden="true">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                    <path
-                          d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                </svg>
-            </button>
-        </div>
-    </div>
-</ng-template>
-
-<!-- DetailsHints Template -->
-<ng-template #detailsHints>
-    <!-- hints for no address and no features -->
-    <div *ngIf="(!address || address.properties.bundesland != 'Niedersachsen' || address.properties.bundesland != 'Bremen') && features && !features.features.length"
-         class="text-center">
-        <p class="p-1 m-0"
-           i18n>Keine gültige Adresse!</p>
-        <p class="p-1 m-0"
-           i18n>Hinweis:</p>
-        <p class="p-1 m-0 small"
-           i18n>Bitte wählen Sie eine gültige Adresse innerhalb von Niedersachsen oder
-            Bremen aus. Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
-    </div>
-    <!-- hints from info button -->
-    <div [class]="hintsActive ? 'd-block pb-2' : 'd-none'">
-        <div *ngIf="address || features?.features.length"
-             class="text-center">
-            <p class="p-1 m-0 small"
-               i18n>Aufgrund von unterschiedlichen Aktualisierungsintervallen können die
-                Suchergebnisse
-                von der Kartendarstellung abweichen.</p>
-        </div>
-        <div *ngIf="flurstueck"
-             class="text-center">
-            <p class="p-1 m-0 small"
-               i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich auf den
-                aktuell ausgewählten Standort und auf den Stichtag {{ getStichtag() | date }}.
-            </p>
-        </div>
-        <div *ngIf="address && (address.properties.bundesland == 'Niedersachsen' || address.properties.bundesland == 'Bremen') && !features?.features.length"
-             class="text-center">
-            <p class="p-1 m-0 small"
-               i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>
-        </div>
-        <div *ngIf="!address && features?.features.length"
-             class="text-center">
-            <p class="p-1 m-0 small"
-               i18n>Es liegen Bodenrichtwertdaten für diese Koordinate vor. Jedoch konnte keine
-                Adresse für diesen Standort gefunden werden.</p>
-            <p class="p-1 m-0 small"
-               i18n>Die Genauigkeit des Suchradius für die Adresse beträgt 50 Meter.</p>
-        </div>
-    </div>
-</ng-template>
-
-<!-- Flurstueckskennzeichen Template -->
-<ng-template #flurstueckskennzeichen>
-    <span *ngIf="flurstueck?.features.length"
-          class="row p-0 m-0 text-center"
-          type="text">
-        <span class="col px-1 px-lg-2">
-            <small i18n>Flurstückskennzeichen</small>
-            <svg class="mr-4"
-                 fill-rule="evenodd"
-                 viewBox="0 0 20 22"
-                 width="24"
-                 height="20"
-                 focusable="false"
-                 aria-hidden="true">
-                <g transform="translate(-10,-20) scale(0.5,0.4)">
-                    <path fill="none"
-                          stroke="#96999e"
-                          d="M 27.237147,57.888549 51.106583,52.026518 66.420364,96.500039 40.933018,96.903113 Z" />
-                </g>
-            </svg>
-            <span class="d-inline-block">
-                <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
-                    <small class="ml-2 mr-2"
-                           i18n>Gemarkung:
-                        {{ flurstueck.features[0].properties.gemarkungsnummer }}
-                    </small>
-                </span>
-                <span *ngIf="flurstueck.features[0]?.properties.flurnummer">
-                    <small class="mr-2"
-                           i18n>Flurnummer:
-                        {{ flurstueck.features[0].properties.flurnummer }}
-                    </small>
-                </span>
-                <span *ngIf="flurstueck.features[0]?.properties.zaehler">
-                    <small i18n>Flurstück:
-                        {{ flurstueck.features[0].properties.zaehler }}</small>
-                    <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
-                        flurstueck.features[0].properties.nenner }}
-                    </small>
+                <span class="d-inline-block">
+                    <span *ngIf="flurstueck.features[0]?.properties.gemarkungsnummer">
+                        <small class="ml-2 mr-2"
+                               i18n>Gemarkung:
+                            {{ flurstueck.features[0].properties.gemarkungsnummer }}
+                        </small>
+                    </span>
+                    <span *ngIf="flurstueck.features[0]?.properties.flurnummer">
+                        <small class="mr-2"
+                               i18n>Flurnummer:
+                            {{ flurstueck.features[0].properties.flurnummer }}
+                        </small>
+                    </span>
+                    <span *ngIf="flurstueck.features[0]?.properties.zaehler">
+                        <small i18n>Flurstück:
+                            {{ flurstueck.features[0].properties.zaehler }}</small>
+                        <small *ngIf="flurstueck.features[0]?.properties.nenner">/{{
+                            flurstueck.features[0].properties.nenner }}
+                        </small>
+                    </span>
                 </span>
             </span>
         </span>
-    </span>
-</ng-template>
+    </ng-template>
+</ng-container>
