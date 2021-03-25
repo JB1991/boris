@@ -3,12 +3,8 @@
 </div>
 <div class="row mh-100"
      [ngClass]="{'rowrtl': nipixStatic.layoutRtl === true}">
-<<<<<<< HEAD
-    <div class="col-sm-8">
-=======
     <div class="col-sm-8 p-0"
          *ngIf="isBrowser">
->>>>>>> dev
         <div echarts
              [options]="this.nipixRuntime.map.options"
              [loading]="!mapLoaded"
