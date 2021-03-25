@@ -47,7 +47,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: kong
     konghq.com/override: power-https-redirect
-    konghq.com/plugins: power-rate-limiting-by-ip,power-cors,power-security-headers
+    konghq.com/plugins: power-cors,power-security-headers,power-rate-limiting-by-ip-30
   hosts:
     - host: staging.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
       paths:
