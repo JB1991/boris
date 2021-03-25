@@ -34,6 +34,9 @@ export class ImmobilienComponent implements OnInit {
     // Accordion State
     accOpen = {};
 
+    // true if is browser
+    isBrowser = true;
+
     /**
      * Constructor:
      *
@@ -51,6 +54,10 @@ export class ImmobilienComponent implements OnInit {
         this.titleService.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
         this.meta.updateTag({ name: 'description', content: $localize`Der Immobilienpreisindex bildet die Preisentwicklung von Eigenheimen und Eigentumswohnungen in Niedersachsen ab` });
         this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Immobilienpreisindex, NIPIX, Preisentwicklung, Wohnungsmarktregion, Eigenheim, Eigentumswohnung` });
+
+        if (!isPlatformBrowser(this.platformId)) {
+            this.isBrowser = false;
+        }
     }
 
     title = 'lgln';

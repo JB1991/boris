@@ -285,6 +285,7 @@
                             "/bodenrichtwerte",
                             "/grundstuecksmarktberichte",
                             "/landesgrundstuecksmarktberichte",
+                            "/immobilienpreisindex",
                             "/forms",
                             "/forms/public-dashboard"
                         ]
