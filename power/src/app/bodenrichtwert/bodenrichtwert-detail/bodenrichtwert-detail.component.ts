@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { Feature, FeatureCollection } from 'geojson';
+import { GagKontaktdatenPipe } from '../pipes/gag-kontaktdaten.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-detail',
@@ -41,7 +42,7 @@ export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
 
     @Input() features: FeatureCollection;
 
-    public filteredFeatures: Feature[];
+    public filteredFeatures: Array<Feature>;
 
     ngOnInit() {
     }
@@ -52,22 +53,6 @@ export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
             this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z');
         }
     }
-
-    /**
-     * enutaBremen validates if in the brwz of Bremen is set a erweiterte Nutzungsart (enuta)
-     * @param feature feature
-     * @returns true if one of the specific enuta is set else false
-     */
-    enutaBremen(feature: Feature) {
-        if (feature.properties.nutzung[0].enuta[0] === 'G1' ||
-            feature.properties.nutzung[0].enuta[0] === 'G2' ||
-            feature.properties.nutzung[0].enuta[0] === 'G3' ||
-            feature.properties.nutzung[0].enuta[0] === 'G4') {
-            return true;
-        }
-        return false;
-    }
-
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, VectorSource } from 'mapbox-gl';
+import { GeolocateControl, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
+import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
@@ -113,13 +114,6 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
 })
 export class BodenrichtwertKarteComponent implements OnChanges {
 
-    // zoomFactor
-    public zoomFactor: number;
-
-    // Flurstuecke become visible at Zoomfactor 15.1
-    public standardBaulandZoom = 15.1;
-    public standardLandZoom = 11;
-
     // Mapbox GL Map Object
     public map: Map;
 
@@ -228,10 +222,17 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
 
-    @Input() threeDActive: boolean;
+    @Input() zoom: number;
+    @Output() zoomChange = new EventEmitter<number>();
 
-    @Input() currentZoom: number;
-    @Output() currentZoomChange = new EventEmitter<number>();
+    @Input() pitch: number;
+    @Output() pitchChange = new EventEmitter<number>();
+
+    @Input() bearing: number;
+    @Output() bearingChange = new EventEmitter<number>();
+
+    @Input() standardBaulandZoom: number;
+    @Input() standardLandZoom: number;
 
     constructor(
         public bodenrichtwertService: BodenrichtwertService,
@@ -246,9 +247,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         if (this.map) {
             // Teilmarkt changed
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
-                this.determineZoomFactor();
                 this.map.easeTo({
-                    zoom: this.zoomFactor,
+                    zoom: this.zoom,
                     center: this.latLng?.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
                 });
             }
@@ -289,12 +289,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
                     this.map.resize();
                 }
             }
-            // threeDActive
-            if (changes.threeDActive?.currentValue) {
-                this.activate3dView();
-            } else if (changes.threeDActive?.currentValue === false && !changes.threeDActive?.firstChange) {
-                this.deactivate3dView();
-            }
             // 3D-Modus temporarly deactivated (WIP)
             // if (changes.features && !changes.features.firstChange) {
             //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features,
@@ -316,6 +310,19 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
+        // add navigation control
+        const navControl = new NavigationControl({
+            visualizePitch: true
+        });
+        this.map.addControl(navControl, 'top-left');
+
+        // add geolocation control
+        const geolocateControl = new GeolocateControl();
+        this.map.addControl(geolocateControl, 'top-left');
+
+        const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
+        this.map.addControl(pitchControl, 'top-left');
+
         // update the map on reload if coordinates exist
         if (this.latLng.length) {
             this.map.resize();
@@ -328,18 +335,37 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * onZoomEnd emits the current zoom level onZoomEnd
      */
     public onZoomEnd() {
-        this.currentZoomChange.emit(this.map.getZoom());
+        this.zoomChange.emit(this.map.getZoom());
     }
+
+    /**
+     * onPitchEnd emits the current pitch onPitchEnd
+     */
+    public onPitchEnd() {
+        this.pitchChange.emit(this.map.getPitch());
+    }
+
+    /**
+     * onRotate emits the current rotation level onRotate
+     */
+    public onRotate() {
+        this.pitchChange.emit(this.map.getPitch());
+        this.bearingChange.emit(this.map.getBearing());
+
+        // 3D-Layer temporarly deactivated
+        // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
+    }
+
     /**
      * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
      */
-    public determineZoomFactor() {
+    public determineZoomFactor(): number {
         // Bauland
         if (this.teilmarkt.text === 'Bauland') {
-            this.zoomFactor = this.standardBaulandZoom;
+            return this.standardBaulandZoom;
             // Landwirtschaft
         } else {
-            this.zoomFactor = this.standardLandZoom;
+            return this.standardLandZoom;
         }
     }
 
@@ -347,13 +373,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * flyTo executes a flyTo for a given latLng
      */
     public flyTo(lat: number, lng: number) {
-        this.determineZoomFactor();
         this.map.flyTo({
             center: [lng, lat],
-            zoom: this.zoomFactor,
+            zoom: this.zoom,
             speed: 1,
             curve: 1,
-            bearing: 0
+            bearing: this.bearing,
+            pitch: this.pitch
         });
     }
 
@@ -372,6 +398,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * @param event MapEvent with coordinates
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
+        if (!this.latLng?.length) {
+            this.zoomChange.emit(this.determineZoomFactor());
+        }
         if (event.lngLat) {
             this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
         }
@@ -387,18 +416,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
 
         this.map.fitBounds(this.bounds, {
-            pitch: 0,
-            bearing: 0
+            pitch: this.pitch,
+            bearing: this.bearing
         });
-        this.resetMapFiredChange.emit(false);
-    }
 
-    // temporarly deactivated
-    /**
-     * onRotate updates the 3D-Layer on rotations
-     */
-    public onRotate() {
-        // this.bodenrichtwert3DLayer.onRotate(this.features, this.map, this.stichtag, this.teilmarkt);
+        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+        this.resetMapFiredChange.emit(false);
     }
 
     // list of ids where the label shouldn't be displayed
@@ -492,21 +515,25 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
+            if (!f || !f.geometry) {
+                return;
+            }
+
             if (this.doNotDisplay.includes(f.properties['objektidentifikator'])) {
                 return;
             };
 
             let p: Polygon;
 
-            if (f && f.type === 'Feature') {
-                switch (f.geometry.type) {
-                    case 'MultiPolygon':
-                        p = getLargestPolygon(f.geometry);
-                        break;
-                    case 'Polygon':
-                        p = f.geometry;
-                        break;
-                }
+            switch (f.geometry.type) {
+                case 'MultiPolygon':
+                    p = getLargestPolygon(f.geometry);
+                    break;
+                case 'Polygon':
+                    p = f.geometry;
+                    break;
+                default:
+                    return;
             }
 
             if (p && p.coordinates) {
@@ -575,46 +602,6 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         if (source.type === 'geojson') {
             source.setData(labelData);
         }
-    }
-
-    /**
-     * activate3dView adds a building transition layer to the map
-     */
-    public activate3dView() {
-        this.zoomFactor = this.map.getZoom();
-        this.map.addLayer({
-            id: 'building-extrusion',
-            type: 'fill-extrusion',
-            source: 'openmaptiles',
-            'source-layer': 'building',
-            paint: {
-                'fill-extrusion-color': 'rgb(219, 219, 218)',
-                'fill-extrusion-height': 0,
-                'fill-extrusion-opacity': 0.7,
-                'fill-extrusion-height-transition': {
-                    duration: 600,
-                    delay: 0
-                }
-            }
-        });
-        this.map.easeTo({
-            pitch: 60,
-            zoom: 17,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-        });
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
-    }
-
-    /**
-     * deactivate3dView removes the building extrusion layer from the map
-     */
-    public deactivate3dView() {
-        this.map.easeTo({
-            pitch: 0,
-            zoom: this.zoomFactor,
-            center: this.marker ? this.marker.getLngLat() : this.map.getCenter()
-        });
-        this.map.removeLayer('building-extrusion');
     }
 }
 

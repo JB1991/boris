@@ -3,8 +3,9 @@
     <mgl-map (click)="onMapClickEvent($event)"
              (moveEnd)="onMoveEnd()"
              (load)="loadMap($event)"
-             (rotate)="onRotate()"
+             (rotateEnd)="onRotate()"
              (zoomEnd)="onZoomEnd()"
+             (pitchEnd)="onPitchEnd()"
              [bounds]="bounds"
              [maxZoom]="18"
              [minZoom]="5"
@@ -37,7 +38,22 @@
                         }
                     }">
         </mgl-layer>
-
+        <!-- Building Extrusion Layer -->
+        <mgl-layer id="building-extrusion"
+                   type="fill-extrusion"
+                   source="openmaptiles"
+                   [minzoom]="15"
+                   sourceLayer="building"
+                   [paint]="{
+                        'fill-extrusion-color': 'rgb(219, 219, 218)',
+                        'fill-extrusion-height': 0,
+                        'fill-extrusion-opacity': 0.7,
+                        'fill-extrusion-height-transition': {
+                            duration: 600,
+                            delay: 0
+                        }
+                    }">
+        </mgl-layer>
         <!-- Niedersachsen -->
         <mgl-layer id="flurstuecke"
                    type="line"

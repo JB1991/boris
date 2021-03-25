@@ -83,7 +83,6 @@
                 "@typescript-eslint/naming-convention": "off",
                 "@typescript-eslint/prefer-for-of": "off",
                 "@typescript-eslint/quotes": "off",
-                /** ScanJS rules **/
                 "scanjs-rules/accidental_assignment": 1,
                 "scanjs-rules/assign_to_hostname": 1,
                 "scanjs-rules/assign_to_href": 1,

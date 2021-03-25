@@ -75,8 +75,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         component.resetMapFired = false;
         spyOn(component.map, 'resize');
         spyOn(component.marker, 'setLngLat').and.callThrough();
-        spyOn(component, 'activate3dView');
-        spyOn(component, 'deactivate3dView');
         spyOn(component, 'flyTo');
         spyOn(component, 'onResetMap');
         component.expanded = true;
@@ -86,42 +84,35 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             latLng: new SimpleChange(true, false, false),
             collapsed: new SimpleChange(true, false, false),
             expanded: new SimpleChange(false, true, false),
-            threeDActive: new SimpleChange(false, true, false),
             resetMapFired: new SimpleChange(false, true, false)
         });
-        expect(component.determineZoomFactor).toHaveBeenCalledTimes(1);
         expect(component.map.easeTo).toHaveBeenCalledTimes(2);
-        expect(component.map.getZoom).toHaveBeenCalledTimes(1);
         expect(component.map.resize).toHaveBeenCalledTimes(2);
         expect(component.marker.setLngLat).toHaveBeenCalledTimes(1);
         expect(component.flyTo).toHaveBeenCalledTimes(2);
-        expect(component.activate3dView).toHaveBeenCalledTimes(1);
 
         component.resetMapFired = true;
         component.collapsed = true;
         component.ngOnChanges({
             collapsed: new SimpleChange(true, false, false),
             resetMapFired: new SimpleChange(false, true, false),
-            threeDActive: new SimpleChange(true, false, false)
         });
         expect(component.onResetMap).toHaveBeenCalledTimes(2);
-        expect(component.deactivate3dView).toHaveBeenCalledTimes(1);
         expect(component.map.resize).toHaveBeenCalledTimes(3);
     });
 
     it('determineZoomFactor should set the zoom factor', () => {
+        component.standardBaulandZoom = 15.1;
+        component.standardLandZoom = 11;
         component.teilmarkt.text = 'Bauland';
-        component.determineZoomFactor();
-        expect(component.zoomFactor).toEqual(15.1);
+        expect(component.determineZoomFactor()).toEqual(15.1);
         component.teilmarkt.text = 'LF';
-        component.determineZoomFactor();
-        expect(component.zoomFactor).toEqual(11);
+        expect(component.determineZoomFactor()).toEqual(11);
     });
 
     it('flyTo should focus the map to specific coordinates', () => {
         spyOn(component.map, 'flyTo');
         component.flyTo(lat, lng);
-        expect(component.determineZoomFactor).toHaveBeenCalledTimes(1);
         expect(component.map.flyTo).toHaveBeenCalledTimes(1);
     });
 
@@ -186,25 +177,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.map.getSource).toHaveBeenCalledTimes(2);
         expect(component.map.getSource).toHaveBeenCalledWith('baulandSource');
         expect(component.dynamicLabelling).toHaveBeenCalledTimes(2);
-    });
-
-    it('activate3dView should activate the 3d view', () => {
-        spyOn(component.map, 'setPaintProperty');
-        spyOn(component.map, 'addLayer');
-        component.activate3dView();
-        expect(component.map.getZoom).toHaveBeenCalledTimes(1);
-        expect(component.map.addLayer).toHaveBeenCalledTimes(1);
-        expect(component.map.easeTo).toHaveBeenCalledTimes(1);
-        expect(component.map.setPaintProperty).toHaveBeenCalledTimes(1);
-        expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
-    });
-
-    it('deactivate3dView should deactivate the 3d view', () => {
-        spyOn(component.map, 'removeLayer');
-        component.deactivate3dView();
-        expect(component.map.easeTo).toHaveBeenCalledTimes(1);
-        expect(component.map.removeLayer).toHaveBeenCalledTimes(1);
-        expect(component.marker.getLngLat).toHaveBeenCalledTimes(1);
     });
 });
 

@@ -1,7 +1,7 @@
 image: de.icr.io/lgln/kube-tools:latest
 
 services:
-  - docker:19-dind
+  - docker:dind
 
 stages:
   - init

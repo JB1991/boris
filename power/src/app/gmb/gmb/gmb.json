@@ -1819,6 +1819,22 @@
                 "sha256": "65d5293cbdd7386c32df309da9bda8d93b6b2f03b9245745c771e01799c3173f",
                 "sha1": "bea6358e2612f108cbc111e1476b5093618dda94"
             }
+        },
+        "2021": {
+            "fileurl": "Northeim/Northeim_2021.pdf",
+            "file": "Northeim_2021.pdf",
+            "bereich": [
+                "031590000",
+                "031530000",
+                "032550000",
+                "031550000",
+                "Osterode am Harz"
+            ],
+            "checksum": {
+                "md5": "96c4065c75a1557764f64afd678dd4c7",
+                "sha256": "577831119d11bded6fd7c49cca807cf4c96ec37994c1e0d621ad423e8f4ac67f",
+                "sha1": "5aa21ddd52c41b5fc8e91b58c49aaf17dab90f37"
+            }
         }
     },
     "Oldenburg": {

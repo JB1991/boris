@@ -15,7 +15,7 @@ import { FormAPIService, GetPublicFormsParams } from '../formapi.service';
     encapsulation: ViewEncapsulation.None
 })
 export class PublicDashboardComponent implements OnInit {
-    public data: Array<PublicForm>;
+    public data: Array<PublicForm> = [];
     public total: number;
     public page = 1;
     public perPage = 5;

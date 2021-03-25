@@ -10,8 +10,8 @@ import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
-import { LngLat } from 'mapbox-gl';
 
+/* eslint-disable max-lines */
 @Component({
     selector: 'power-bodenrichtwert-navigation',
     templateUrl: './bodenrichtwert-navigation.component.html',
@@ -42,11 +42,20 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     @Input() isCollapsed: boolean;
     @Output() isCollapsedChange = new EventEmitter<boolean>();
 
-    @Input() threeDActive: boolean;
-    @Output() threeDActiveChange = new EventEmitter<boolean>();
-
     @Input() resetMapFired: boolean;
     @Output() resetMapFiredChange = new EventEmitter<boolean>();
+
+    @Input() zoom: number;
+    @Output() zoomChange = new EventEmitter<number>();
+
+    @Input() pitch: number;
+    @Output() pitchChange = new EventEmitter<number>();
+
+    @Input() bearing: number;
+    @Output() bearingChange = new EventEmitter<number>();
+
+    @Input() standardBaulandZoom: number;
+    @Input() standardLandZoom: number;
 
     public searchActive = false;
     public filterActive = false;
@@ -91,14 +100,6 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             .subscribe(
                 res => {
                     this.bodenrichtwertService.updateFeatures(res);
-                    // temporary alert for data of bremen for the year 2021
-                    if (res.features[0]?.properties.gabe.includes('Bremen') && this.stichtag === '2020-12-31') {
-                        this.alerts.NewAlert(
-                            'info',
-                            $localize`Diese Daten sind noch nicht verfügbar!`,
-                            $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-                        );
-                    }
                 },
                 err => {
                     console.log(err);
@@ -144,15 +145,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param stichtag stichtag to be switched to
      */
     public onStichtagChange(stichtag: string): void {
-        // push info alert for data bremen 2020
-        if (stichtag === '2020-12-31' && this.address?.properties.kreis === 'Stadt Bremen') {
-            this.alerts.NewAlert(
-                'info',
-                $localize`Diese Daten sind noch nicht verfügbar!`,
-                $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-            );
-            // push info alert for stichtag changed
-        } else if (this.stichtag !== stichtag) {
+        // push info alert for stichtag changed
+        if (this.stichtag !== stichtag) {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
@@ -175,7 +169,22 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 $localize`Teilmarkt gewechselt`,
                 $localize`Der Teilmarkt wurde zu ` + teilmarkt.text + $localize` gewechselt.`);
         }
+
+        this.zoomChange.emit(this.determineZoomFactor(teilmarkt));
         this.teilmarktChange.emit(teilmarkt);
+    }
+
+    /**
+     * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
+     */
+    public determineZoomFactor(teilmarkt: Teilmarkt): number {
+        // Bauland
+        if (teilmarkt.text === 'Bauland') {
+            return this.standardBaulandZoom;
+            // Landwirtschaft
+        } else {
+            return this.standardLandZoom;
+        }
     }
 
     /**
@@ -184,6 +193,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public onAddressChange(feature: Feature): void {
         this.latLngChange.emit([feature?.geometry['coordinates'][1], feature?.geometry['coordinates'][0]]);
+        if (!this.latLng?.length) {
+            this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        }
     }
 
     /**
@@ -214,21 +226,11 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-     * toggle3dView emits the selected state on/off for the 3D-View
-     */
-    public toggle3dView() {
-        this.threeDActiveChange.emit(!this.threeDActive);
-    }
-
-    /**
      * resetMap resets all configurations set/made by the user
      */
     public resetMap() {
         if (this.latLng) {
             this.latLngChange.emit(undefined);
-        }
-        if (this.threeDActive) {
-            this.threeDActiveChange.emit(false);
         }
         if (this.address) {
             this.addressChange.emit(undefined);
@@ -248,6 +250,12 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         if (this.stichtag !== this.bodenrichtwert.STICHTAGE[0]) {
             this.stichtagChange.emit(this.bodenrichtwert.STICHTAGE[0]);
         }
+        if (this.pitch) {
+            this.pitchChange.emit(0);
+        }
+        if (this.bearing) {
+            this.bearingChange.emit(0);
+        }
 
         // triggers onResetMap of the map component
         this.resetMapFiredChange.emit(true);
@@ -257,21 +265,10 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     }
 
     /**
-     * enableLocationTracking emits the current geolocation (latLng)
-     */
-    public enableLocationTracking() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(location => {
-                const lngLat = new LngLat(location.coords.longitude, location.coords.latitude);
-                this.latLngChange.emit([lngLat.lat, lngLat.lng]);
-            });
-        }
-    }
-
-    /**
      * onFocus emits the current location to trigger a map focus
      */
     public onFocus() {
+        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         this.latLngChange.emit([this.latLng[0], this.latLng[1]]);
     }
 

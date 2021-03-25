@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import {
-    Component, OnDestroy,
-    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, OnInit
+    Component, OnDestroy, Inject, PLATFORM_ID,
+    ChangeDetectionStrategy, ChangeDetectorRef, OnInit
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import proj4 from 'proj4';
-import { DatePipe, Location } from '@angular/common';
+import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -96,19 +96,33 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     public hintsActive = false;
 
     /**
-     * threeDActive holds the state for 3D-Modus on/off
-     */
-    public threeDActive = false;
-
-    /**
      * resetMapFired triggers the resetMap for the map
      */
     public resetMapFired = false;
 
+    // Flurstuecke become visible at Zoomfactor 15.1
+    public standardBaulandZoom = 15.1;
+    public standardLandZoom = 11;
+
     /**
-     * currentZoom holds the current zoom of the map object
+     * zoom holds the current zoom of the map object
      */
-    public currentZoom: number;
+    public zoom: number;
+
+    /**
+     * pitch
+     */
+    public pitch = 0;
+
+    /**
+     * bearing
+     */
+    public bearing = 0;
+
+    /**
+     * true if is browser
+     */
+    public isBrowser = true;
 
     /**
      * Possible selections of Stichtage
@@ -135,6 +149,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /* istanbul ignore next */
     constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
@@ -164,6 +180,10 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         });
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
+
+        if (!isPlatformBrowser(this.platformId)) {
+            this.isBrowser = false;
+        }
     }
 
     /* istanbul ignore next */
@@ -185,6 +205,21 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             if (params['stichtag']) {
                 this.stichtag = params['stichtag'];
             }
+
+            // zoom
+            if (params['zoom']) {
+                this.zoom = Number(params['zoom']);
+            }
+
+            // rotation
+            if (params['pitch']) {
+                this.pitch = Number(params['pitch']);
+            }
+
+            // bearing
+            if (params['bearing']) {
+                this.bearing = Number(params['bearing']);
+            }
             this.cdr.detectChanges();
         });
     }
@@ -202,19 +237,32 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * getStichtag returns the correct stichtag for Bremen/Bremerhaven
      */
     public getStichtag(): string {
+        const index = this.STICHTAGE.indexOf(this.stichtag);
+        if (index < 0) {
+            return this.STICHTAGE[0];
+        }
+
         const year = Number(this.stichtag.slice(0, 4));
+
         if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
+            if (index >= this.STICHTAGE.length - 1) {
+                return '2011-12-31';
+            }
             if (year % 2 === 0) {
-                return (year - 1).toString() + '-12-31';
+                return this.STICHTAGE[index + 1];
             }
         };
 
+        if (index >= this.STICHTAGE.length - 1) {
+            return this.STICHTAGE[this.STICHTAGE.length - 1];
+        }
+
         if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
             if (year % 2 !== 0) {
-                return (year - 1).toString() + '-12-31';
+                return this.STICHTAGE[index + 1];
             }
         }
-        return year.toString() + '-12-31';
+        return this.STICHTAGE[index];
     }
 
     /**
@@ -267,7 +315,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
         // zoom
         url += '&zoom=';
-        const zoom = this.currentZoom;
+        const zoom = this.zoom;
         if (this.teilmarkt.text === this.TEILMAERKTE[0].text) {
             // Bauland
             if (zoom >= 16) {
@@ -308,6 +356,15 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         }
         if (this.stichtag) {
             params.append('stichtag', this.stichtag.toString());
+        }
+        if (this.zoom) {
+            params.append('zoom', this.zoom.toFixed(2).toString());
+        }
+        if (this.pitch) {
+            params.append('pitch', this.pitch.toFixed(2).toString());
+        }
+        if (this.bearing) {
+            params.append('bearing', this.bearing.toFixed(2).toString());
         }
         this.location.replaceState('/bodenrichtwerte', params.toString());
     }
