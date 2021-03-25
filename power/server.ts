@@ -17,6 +17,7 @@ const window = createWindow(template);
 
 (global as any).window = window;
 (global as any).window.URL = {};
+(global as any).getComputedStyle = window.getComputedStyle;
 (global as any).self = {};
 const createObjectURL = require('create-object-url');
 (global as any).window.URL.createObjectURL = createObjectURL;
