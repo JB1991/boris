@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Component, OnInit, ChangeDetectionStrategy, Inject, PLATFORM_ID, } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
