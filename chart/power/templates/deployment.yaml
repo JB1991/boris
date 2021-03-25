@@ -46,6 +46,7 @@ spec:
               mountPath: /opt/bitnami/nginx/conf/server_blocks/
             - name: nginxconf
               mountPath: /config/
+              readOnly: true
           env:
             - name: BKG_GEOCODING_SECRET
               valueFrom:
@@ -75,8 +76,12 @@ spec:
           volumeMounts:
             - name: tmp-config
               mountPath: /opt/bitnami/nginx/conf/server_blocks
+              readOnly: true
         {{- if .Values.metrics.enabled }}
         - name: metrics
+          securityContext:
+            runAsUser: 1001
+            runAsNonRoot: true
           image: "{{ .Values.metrics.image.registry }}/{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
           imagePullPolicy: {{ .Values.metrics.image.pullPolicy | quote }}
           command: ['/usr/bin/exporter', '-nginx.scrape-uri', 'http://127.0.0.1:8080/status']

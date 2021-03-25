@@ -102,7 +102,11 @@ metrics:
   service:
     port: 9113
   resources:
-    limits: {}
-    requests: {}
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 0m
+      memory: 128Mi
   serviceMonitor:
     enabled: true
