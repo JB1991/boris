@@ -403,7 +403,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         let i: number;
         if (series.find((element, index) => {
             // find first series element with no verg and brw
-            if ((element.verg === '' || element.verg === null) && element.brw !== null) {
+            if (!element.verg && element.brw !== null) {
                 i = index;
                 return true;
             }
@@ -419,12 +419,12 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     series[i - 1].brw? series[i].brw = (series[i].brw).toString() : series[i].brw = null;
                     series = series.slice(0, i + 1);
-                    return series;
+                    break;
                 }
             }
         }
         // if Verfahrensgrund is in the past
-        series.forEach(element => element.verg? [element.verg, element.brw, element.nutzung, element.verf] = [null, null, null, null] : '');
+        series.forEach(element => element.verg? [element.nutzung, element.brw, element.verg, element.verf] = [null, null, null, null] : '');
         return series;
     }
 

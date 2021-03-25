@@ -63,7 +63,6 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         component.chartOption.legend['data'] = ['foo'];
         component.chartOption.legend['formatter'] = ['pluto'];
         component.chartOption.legend['textStyle'].rich = 'toto';
-        component.chartOption.grid['top'] = '20%';
         component.srTableData = ['tata'];
         component.srTableHeader = ['paperino'];
         component.clearChart();
@@ -73,7 +72,6 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         expect(component.srTableData.length).toBe(0);
         expect(component.chartOption.legend['formatter']).toBe('');
         expect(component.chartOption.legend['textStyle'].rich).toBe('');
-        expect(component.chartOption.grid['top']).toBe('10%');
     });
 
     it('filterByStichtag should filter the features by Stichtag', () => {
@@ -130,7 +128,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
         spyOn(component, 'setTextStyleOfLegend').and.callThrough();
         component.generateChart(features);
         expect(component.chartOption.legend['data'].length).toBe(1);
-        expect(component.chartOption.series['length']).toBe(2);
+        expect(component.chartOption.series['length']).toBe(1);
         expect(typeof 'component.chartOption.serie[8].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[3].brw').toBe('string');
         expect(typeof 'component.chartOption.serie[6].brw').toBe('string');
@@ -172,17 +170,25 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     });
 
     it('deleteSeriesVergItems should delete the data with verg and/or verf', () => {
-        component.deleteSeriesVergItems(deleteSeries);
-        expect(typeof (deleteSeries[3].brw)).toEqual('string');
-        expect(deleteSeries[3].verg).toEqual(null);
-        expect(deleteSeries[0].verg).toEqual(null);
-        expect(deleteSeries[0].brw).toEqual(null);
-        expect(deleteSeries[0].verf).toEqual(null);
-        expect(deleteSeries[0].nutzung).toEqual(null);
-        expect(deleteSeries[5].verg).toEqual(null);
-        expect(deleteSeries[5].brw).toEqual(null);
-        expect(deleteSeries[5].verf).toEqual(null);
-        expect(deleteSeries[5].nutzung).toEqual(null);
+        const deletedSeries = component.deleteSeriesVergItems(deleteSeries);
+        expect(deletedSeries[0].verg).toEqual(null);
+        expect(deletedSeries[0].brw).toEqual(null);
+        expect(deletedSeries[0].verf).toEqual(null);
+        expect(deletedSeries[0].nutzung).toEqual(null);
+
+        expect(deletedSeries[2].stag).toEqual('2014');
+        expect(deletedSeries[2].nutzung).toEqual('Wohnbaufläche');
+        expect(deletedSeries[2].verg).toEqual(null);
+        expect(deletedSeries[2].verf).toEqual(null);
+
+        expect(deletedSeries[3].stag).toEqual('2015');
+        expect(deletedSeries[3].brw).toEqual('4');
+        expect(typeof (deletedSeries[3].brw)).toEqual('string');
+        expect(deletedSeries[3].nutzung).toEqual(null);
+        expect(deletedSeries[3].verg).toEqual(null);
+
+        expect(deletedSeries.length).toEqual(4);
+
     });
 
     it('createLegendLabel should create the label of series', () => {
