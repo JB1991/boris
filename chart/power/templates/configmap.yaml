@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "power.fullname" . }}-nginx
+  labels:
+    {{- include "power.labels" . | nindent 4 }}
+data:
+  power.conf: |-
+    {{ .Files.Get "power.conf" | b64enc }}

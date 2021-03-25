@@ -22,7 +22,7 @@ annotations:
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -30,17 +30,12 @@ serviceAccount:
   name:
 
 podSecurityContext:
-  {}
-  # fsGroup: 2000
+  fsGroup: 1001
 
-securityContext:
-  {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+containerSecurityContext:
+  runAsUser: 1001
+  runAsNonRoot: true
+  readOnlyRootFilesystem: false
 
 service:
   type: ClusterIP
@@ -95,3 +90,23 @@ networkPolicy:
       podSelector:
         matchLabels:
           app.kubernetes.io/name: kong
+
+metrics:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/nginx-exporter
+    tag: 0.8.0-debian-10-r247
+    pullPolicy: IfNotPresent
+  podAnnotations: {}
+  service:
+    port: 9113
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 20m
+      memory: 128Mi
+  serviceMonitor:
+    enabled: true

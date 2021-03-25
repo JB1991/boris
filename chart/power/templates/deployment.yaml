@@ -37,21 +37,31 @@ spec:
       serviceAccountName: {{ include "power.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+      initContainers:
+        - name: config
+          image: busybox
+          command: ["/bin/sh", "-c", "base64 -d /config/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /opt/bitnami/nginx/conf/server_blocks/power.conf"]
+          volumeMounts:
+            - name: tmp-config
+              mountPath: /opt/bitnami/nginx/conf/server_blocks/
+            - name: nginxconf
+              mountPath: /config/
+              readOnly: true
           env:
             - name: BKG_GEOCODING_SECRET
               valueFrom:
                 secretKeyRef:
                   name: power-secret
                   key: BKG_GEOCODING_SECRET
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8081
               protocol: TCP
           livenessProbe:
             httpGet:
@@ -63,6 +73,43 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: tmp-config
+              mountPath: /opt/bitnami/nginx/conf/server_blocks
+              readOnly: true
+        {{- if .Values.metrics.enabled }}
+        - name: metrics
+          securityContext:
+            runAsUser: 1001
+            runAsNonRoot: true
+          image: "{{ .Values.metrics.image.registry }}/{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
+          imagePullPolicy: {{ .Values.metrics.image.pullPolicy | quote }}
+          command: ['/usr/bin/exporter', '-nginx.scrape-uri', 'http://127.0.0.1:8080/status']
+          ports:
+            - name: metrics
+              containerPort: 9113
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+          {{- if .Values.metrics.resources }}
+          resources: {{- toYaml .Values.metrics.resources | nindent 12 }}
+          {{- end }}
+        {{- end }}
+      volumes:
+        - name: nginxconf
+          configMap:
+            name: {{ include "power.fullname" . }}-nginx
+        - name: tmp-config
+          emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
