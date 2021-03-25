@@ -56,8 +56,8 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         legend: {
             data: [],
             type: 'scroll',
-            top: '0%',
             formatter: '',
+            top: '1%',
             textStyle: {
                 rich: {}
             },
@@ -66,6 +66,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             left: '1%',
             right: '4%',
             bottom: '3%',
+            top: '15%',
             containLabel: true
         },
         xAxis: {
@@ -131,7 +132,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         this.chartOption.legend['data'] = [];
         this.chartOption.legend['formatter'] = '';
         this.chartOption.legend['textStyle'].rich = '';
-        this.chartOption.grid['top'] = '10%';
         this.srTableHeader = [];
         this.srTableData = [];
     }
@@ -223,7 +223,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.getVergOfSeries(seriesArray[0]).forEach(element => {
                 seriesArray.push(element);
             });
-            this.deleteSeriesVergItems(seriesArray[0]);
+            seriesArray[0] = this.deleteSeriesVergItems(seriesArray[0]);
             let label: string;
             seriesArray.forEach((series) => {
                 label = this.createLegendLabel(key, series);
@@ -359,11 +359,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     public copySeriesData(series: Array<SeriesItem>,
         seriesVergValues: Array<SeriesItem>, idx: number): Array<SeriesItem> {
         // series changes from a verg to normal
-        // if (idx < 8 && series[idx + 1].brw !== null &&
-        //  (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
-        //     seriesVergValues[idx + 1].brw = (series[idx + 1].brw).toString();
-        //     seriesVergValues[idx + 1].nutzung = series[idx + 1].nutzung;
-        // }
+        if (idx < (series.length - 1) && series[idx + 1].brw !== null &&
+         (series[idx + 1].verg === '' || series[idx + 1].verg === null)) {
+            seriesVergValues[idx + 1].brw = (series[idx + 1].brw).toString();
+            seriesVergValues[idx + 1].nutzung = series[idx + 1].nutzung;
+            seriesVergValues = seriesVergValues.slice(0, idx + 2);
+
+        }
         seriesVergValues[idx].brw = series[idx].brw;
         seriesVergValues[idx].nutzung = series[idx].nutzung;
         seriesVergValues[idx].verg = series[idx].verg;
@@ -378,34 +380,29 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     public deleteSeriesVergItems(series: Array<SeriesItem>): Array<SeriesItem> {
         let i: number;
         if (series.find((element, index) => {
-            // find first element in series
+            // find first series element with no verg and brw
             if ((element.verg === '' || element.verg === null) && element.brw !== null) {
                 i = index;
                 return true;
             }
         })
         ) {
+            // from no Verfahrensgrund set to a set Verfahrensgrund
             for (i; i < series.length; i++) {
-                // if series gets interrupted cause of a verg the two graphs should be connected
-                if (series[i].verg !== null && series[i].verg !== '') {
+                if (series[i].verg) {
                     series[i].verg = null;
                     series[i].verf = null;
                     series[i].nutzung = null;
-                    series[i].brw = null;
-                    // series[i].brw = (series[i].brw).toString();
-                    break;
+                    // if series gets interrupted cause of a verg the two graphs should be connected
+                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                    series[i - 1].brw? series[i].brw = (series[i].brw).toString() : series[i].brw = null;
+                    series = series.slice(0, i + 1);
+                    return series;
                 }
             }
         }
-        // each element which includes a verfahrensgrund attribute are removed
-        series.forEach(element => {
-            if (element.verg !== null) {
-                element.brw = null;
-                element.verg = null;
-                element.verf = null;
-                element.nutzung = null;
-            }
-        });
+        // if Verfahrensgrund is in the past
+        series.forEach(element => element.verg? [element.verg, element.brw, element.nutzung, element.verf] = [null, null, null, null] : '');
         return series;
     }
 
@@ -419,14 +416,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             name: label,
             type: 'line',
             step: 'end',
-            symbolSize: 4,
-            // function (value: any) {
-            //     if (typeof (value) === 'string') {
-            //         return 0;
-            //     } else {
-            //         return 4;
-            //     }
-            // },
+            symbolSize:  function (value: any) {
+                if (typeof (value) === 'string') {
+                    return 0;
+                } else {
+                    return 4;
+                }
+            },
             data: series.map(t => t.brw),
         });
     }
@@ -532,7 +528,6 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 align: 'center'
             },
         };
-        this.chartOption['top'] = '15%';
     }
 
     /**
