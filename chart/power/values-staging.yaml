@@ -35,6 +35,7 @@ podSecurityContext:
 containerSecurityContext:
   runAsUser: 1001
   runAsNonRoot: true
+  readOnlyRootFilesystem: false
 
 service:
   type: ClusterIP
