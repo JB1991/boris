@@ -4,10 +4,6 @@ metadata:
   name: {{ include "power.fullname" . }}-nginx
   labels:
     {{- include "power.labels" . | nindent 4 }}
-  {{- with .Values.service.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
 data:
   power.conf: |-
     {{ .Files.Get "power.conf" | b64enc }}

@@ -15,5 +15,10 @@ spec:
       targetPort: 8081
       protocol: TCP
       name: http
+    {{- if .Values.metrics.enabled }}
+    - name: metrics
+      port: {{ .Values.metrics.service.port }}
+      targetPort: metrics
+    {{- end }}
   selector:
     {{- include "power.selectorLabels" . | nindent 4 }}

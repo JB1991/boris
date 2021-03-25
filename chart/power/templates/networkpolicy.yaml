@@ -20,6 +20,16 @@ spec:
         - protocol: TCP
           port: 8081
     {{- end }}
+    {{- if .Values.metrics.enabled }}
+    - from:
+        - podSelector: {}
+          namespaceSelector:
+            matchLabels:
+              name: prometheus
+      ports:
+        - protocol: TCP
+          port: 9113
+    {{- end }}
   {{- end }}
 {{- end }}
 
