@@ -294,7 +294,7 @@ test:kube-linter-dev:
     - init:helm-dev
   cache: {}
   script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-dev/power/templates/*.yaml
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-dev/power/templates/*.yaml
   only:
     - merge_requests
     - tags
@@ -311,7 +311,7 @@ test:kube-linter-staging:
     - init:helm-staging
   cache: {}
   script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-staging/power/templates/*.yaml
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-staging/power/templates/*.yaml
   only:
     - staging
   allow_failure: true
@@ -326,7 +326,7 @@ test:kube-linter-production:
     - init:helm-production
   cache: {}
   script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-production/power/templates/*.yaml
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-production/power/templates/*.yaml
   only:
     - production
   allow_failure: true

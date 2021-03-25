@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       ports:
         - protocol: TCP
-          port: {{ $.Values.service.port }}
+          port: 8081
     {{- end }}
   {{- end }}
 {{- end }}

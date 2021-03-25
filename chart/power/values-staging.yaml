@@ -22,7 +22,7 @@ annotations:
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -30,17 +30,11 @@ serviceAccount:
   name:
 
 podSecurityContext:
-  {}
-  # fsGroup: 2000
+  fsGroup: 1001
 
-securityContext:
-  {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+containerSecurityContext:
+  runAsUser: 1001
+  runAsNonRoot: true
 
 service:
   type: ClusterIP
