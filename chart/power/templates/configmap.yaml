@@ -6,4 +6,6 @@ metadata:
     {{- include "power.labels" . | nindent 4 }}
 data:
   power.conf: |-
-    {{ .Files.Get "power.conf" | b64enc }}
+    {{ tpl (.Files.Get "power.conf") . | quote }}
+  nginx.conf: |-
+    {{ tpl (.Files.Get "nginx.conf") . | quote }}

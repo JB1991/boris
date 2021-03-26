@@ -41,11 +41,11 @@ spec:
         - name: config
           image: busybox:latest
           imagePullPolicy: IfNotPresent
-          command: ["/bin/sh", "-c", "base64 -d /config/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /opt/bitnami/nginx/conf/server_blocks/power.conf"]
+          command: ["/bin/sh", "-c", "cat /config/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /opt/bitnami/nginx/conf/server_blocks/power.conf"]
           volumeMounts:
-            - name: tmp-config
+            - name: power-config
               mountPath: /opt/bitnami/nginx/conf/server_blocks/
-            - name: nginxconf
+            - name: nginx-config
               mountPath: /config/
               readOnly: true
           env:
@@ -75,7 +75,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: tmp-config
+            - name: nginx-config
+              mountPath: /opt/bitnami/nginx/conf/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            - name: power-config
               mountPath: /opt/bitnami/nginx/conf/server_blocks
               readOnly: true
         {{- if .Values.metrics.enabled }}
@@ -106,10 +110,10 @@ spec:
           {{- end }}
         {{- end }}
       volumes:
-        - name: nginxconf
+        - name: nginx-config
           configMap:
             name: {{ include "power.fullname" . }}-nginx
-        - name: tmp-config
+        - name: power-config
           emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
