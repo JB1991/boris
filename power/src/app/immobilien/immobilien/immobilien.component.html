@@ -3,7 +3,8 @@
 </div>
 <div class="row mh-100 m-0"
      [ngClass]="{'rowrtl': nipixStatic.layoutRtl === true}">
-    <div class="col-sm-8 p-0">
+    <div class="col-sm-8 p-0"
+         *ngIf="isBrowser">
         <div echarts
              [options]="this.nipixRuntime.map.options"
              [loading]="!mapLoaded"
@@ -118,7 +119,8 @@
                 <div *ngIf="select['type'] === 'multiSelect'"
                      style="padding-left: 40px; margin-bottom: 1rem;"
                      i18n
-                     aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</div>
+                     aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht
+                    möglich.</div>
 
                 <!-- Select DrawValues: Einzeldarstellung, Vergleiche -->
                 <ul class="tab"
@@ -362,7 +364,8 @@
                     <span i18n>Zeitraum auswählen</span>
                 </button>
                 <span i18n
-                      aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem Graphen erfolgen.</span><br>
+                      aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem
+                    Graphen erfolgen.</span><br>
 
                 <span id="dropdownTime1Label"
                       i18n>Zeitraum von</span>
@@ -526,7 +529,8 @@
                     {{ nipixRuntime.translate(regionName(selectedWoMa['woma_id'])) }}
                 </ng-container>
                 <ng-template i18n
-                             #noRegionBlock>Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!</ng-template>
+                             #noRegionBlock>Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!
+                </ng-template>
             </accordion-group>
         </accordion>
 

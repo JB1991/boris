@@ -1,17 +1,23 @@
+/* eslint-disable max-lines */
 import {
-    Component, OnInit, OnDestroy,
-    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
+    Component, OnDestroy, Inject, PLATFORM_ID,
+    ChangeDetectionStrategy, ChangeDetectorRef, OnInit
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import proj4 from 'proj4';
-import { DatePipe } from '@angular/common';
-import { environment } from '@env/environment';
+import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
+
+export interface Teilmarkt {
+    value: Array<string>;
+    text: string;
+    hexColor: string;
+}
 
 /**
  * Bodenrichtwert-Component arranges all Components on a single page
@@ -26,19 +32,19 @@ import { environment } from '@env/environment';
 export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
-     * Adresse to be shown
+     * Address to be shown
      */
-    public adresse: Feature;
+    public address: Feature;
 
     /**
-     * Subscription to adresse, loaded by Geosearch-Service
+     * Subscription to address, loaded by Geosearch-Service
      */
-    public adresseSubscription: Subscription;
+    public addressSubscription: Subscription;
 
     /**
      * Features (Bodenrichtwerte as GeoJSON) to be shown
      */
-    public features = null;
+    public features: FeatureCollection = null;
 
     /**
      * Subscription to features, loaded by Bodenrichtwert-Service
@@ -58,41 +64,109 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * Actual selected Stichtag
      */
-    public stichtag;
+    public stichtag: string;
 
     /**
      * Actual selected Teilmarkt
      */
-    public teilmarkt: any;
+    public teilmarkt: Teilmarkt;
 
+    public latLng: Array<number> = [];
+
+    /**
+     * isCollapsed holds the state for details component collapsed or not (click events)
+     */
     public isCollapsed = true;
 
+    /**
+     * collapsed holds the state for details component completly collapsed
+     * (fired by collapse event)
+     */
     public collapsed = false;
 
+    /**
+     * expanded holds the state for details component completly expanded
+     * (fired by collapse event)
+     */
     public expanded = true;
 
-    public showPrintNotice = true;
-
+    /**
+     * hintsActive holds the state for hints on/off
+     */
     public hintsActive = false;
 
-    public config: any;
+    /**
+     * resetMapFired triggers the resetMap for the map
+     */
+    public resetMapFired = false;
 
-    @ViewChild('map') public map: BodenrichtwertKarteComponent;
+    // Flurstuecke become visible at Zoomfactor 15.1
+    public standardBaulandZoom = 15.1;
+    public standardLandZoom = 11;
 
+    /**
+     * zoom holds the current zoom of the map object
+     */
+    public zoom: number;
+
+    /**
+     * pitch
+     */
+    public pitch = 0;
+
+    /**
+     * bearing
+     */
+    public bearing = 0;
+
+    /**
+     * true if is browser
+     */
+    public isBrowser = true;
+
+    /**
+     * Possible selections of Stichtage
+     */
+    public STICHTAGE: Array<string> = [
+        '2020-12-31',
+        '2019-12-31',
+        '2018-12-31',
+        '2017-12-31',
+        '2016-12-31',
+        '2015-12-31',
+        '2014-12-31',
+        '2013-12-31',
+        '2012-12-31',
+    ];
+
+    /**
+     * Possible selections of Teilmärkte
+     */
+    public TEILMAERKTE: Array<Teilmarkt> = [
+        { value: ['B', 'SF', 'R', 'E'], text: $localize`Bauland`, hexColor: '#c4153a' },
+        { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' },
+    ];
+
+    /* istanbul ignore next */
     constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
         private titleService: Title,
+        private cdr: ChangeDetectorRef,
+        private route: ActivatedRoute,
+        public location: Location,
         private meta: Meta,
-        private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.meta.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
         this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Wertermittlung, Bodenrichtwerte, BORIS.NI, Bo­den­richt­wert­zo­ne` });
 
-        this.adresseSubscription = this.geosearchService.getFeatures().subscribe(adr => {
-            this.adresse = adr;
+        this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
+            this.address = adr;
+            this.hintsActive = false;
             this.cdr.detectChanges();
         });
         this.featureSubscription = this.bodenrichtwertService.getFeatures().subscribe(ft => {
@@ -104,70 +178,133 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             this.flurstueck = fst;
             this.cdr.detectChanges();
         });
-        this.stichtag = this.bodenrichtwertService.STICHTAGE[0];
-        this.teilmarkt = this.bodenrichtwertService.TEILMAERKTE[0];
-    }
+        this.stichtag = this.STICHTAGE[0];
+        this.teilmarkt = this.TEILMAERKTE[0];
 
-    ngOnInit() {
-        this.config = environment.config;
-    }
-
-    getStichtag(): string {
-        const year: number = this.stichtag.slice(0, 4);
-        if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
-            if (year % 2 === 0) {
-                return (year - 1).toString() + '-12-31';
-            }
-        };
-
-        if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
-            if (year % 2 !== 0) {
-                return (year - 1).toString() + '-12-31';
-            }
+        if (!isPlatformBrowser(this.platformId)) {
+            this.isBrowser = false;
         }
-        return year.toString() + '-12-31';
+    }
+
+    /* istanbul ignore next */
+    ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            // lat and lat
+            if (params['lat'] && params['lng']) {
+                this.latLng[0] = params['lat'];
+                this.latLng[1] = params['lng'];
+            }
+
+            // teilmarkt
+            if (params['teilmarkt']) {
+                const filteredTeilmarkt = this.TEILMAERKTE.filter((res: Teilmarkt) => res.text === params['teilmarkt']);
+                this.teilmarkt = filteredTeilmarkt[0];
+            }
+
+            // stichtag
+            if (params['stichtag']) {
+                this.stichtag = params['stichtag'];
+            }
+
+            // zoom
+            if (params['zoom']) {
+                this.zoom = Number(params['zoom']);
+            }
+
+            // rotation
+            if (params['pitch']) {
+                this.pitch = Number(params['pitch']);
+            }
+
+            // bearing
+            if (params['bearing']) {
+                this.bearing = Number(params['bearing']);
+            }
+            this.cdr.detectChanges();
+        });
     }
 
     /**
      * Destroys all active subscriptions
      */
     ngOnDestroy(): void {
-        this.adresseSubscription.unsubscribe();
+        this.addressSubscription.unsubscribe();
         this.featureSubscription.unsubscribe();
+        this.flurstueckSubscription.unsubscribe();
     }
 
+    /**
+     * getStichtag returns the correct stichtag for Bremen/Bremerhaven
+     */
+    public getStichtag(): string {
+        const index = this.STICHTAGE.indexOf(this.stichtag);
+        if (index < 0) {
+            return this.STICHTAGE[0];
+        }
+
+        const year = Number(this.stichtag.slice(0, 4));
+
+        if (this.features?.features[0]?.properties?.gema === 'Bremerhaven') {
+            if (index >= this.STICHTAGE.length - 1) {
+                return '2011-12-31';
+            }
+            if (year % 2 === 0) {
+                return this.STICHTAGE[index + 1];
+            }
+        };
+
+        if (index >= this.STICHTAGE.length - 1) {
+            return this.STICHTAGE[this.STICHTAGE.length - 1];
+        }
+
+        if (this.features?.features[0]?.properties?.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen') {
+            if (year % 2 !== 0) {
+                return this.STICHTAGE[index + 1];
+            }
+        }
+        return this.STICHTAGE[index];
+    }
+
+    /**
+     * updates collapsed and expanded onCollapsingEnds
+     */
     public onCollapsingEnds() {
         this.collapsed = !this.collapsed;
         this.expanded = false;
     }
 
+    /**
+     * updates collapsed and expanded onExpandingEnds
+     */
     public onExpandingEnds() {
         this.expanded = !this.expanded;
         this.collapsed = false;
     }
 
+    /**
+     * printURL builds the url for the current location
+     */
     public printURL(): string {
         let url = '/boris-print/?';
 
         // coordinates
-        const lnglat_coordinates = this.map.marker.getLngLat();
         const wgs84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
         const utm = '+proj=utm +zone=32';
-        const utm_cordinates = proj4(wgs84, utm, [lnglat_coordinates.lng, lnglat_coordinates.lat]);
-        url += 'east=' + encodeURIComponent(utm_cordinates[0].toFixed(0));
-        url += '&north=' + encodeURIComponent(utm_cordinates[1].toFixed(0));
+        const utm_coords = proj4(wgs84, utm, [Number(this.latLng[1]), Number(this.latLng[0])]);
+        url += 'east=' + encodeURIComponent(utm_coords[0].toFixed(0));
+        url += '&north=' + encodeURIComponent(utm_coords[1].toFixed(0));
 
         // year
         url += '&year=' + encodeURIComponent(parseInt(this.stichtag.substring(0, 4), 10) + 1);
 
         // submarket
         url += '&submarket=';
-        switch (this.teilmarkt.viewValue) {
-            case this.bodenrichtwertService.TEILMAERKTE[0].viewValue: {
+        switch (this.teilmarkt.text) {
+            case this.TEILMAERKTE[0].text: {
                 url += encodeURIComponent('Bauland');
                 break;
             }
-            case this.bodenrichtwertService.TEILMAERKTE[1].viewValue: {
+            case this.TEILMAERKTE[1].text: {
                 url += encodeURIComponent('Landwirtschaft');
                 break;
             }
@@ -178,8 +315,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
         // zoom
         url += '&zoom=';
-        const zoom = this.map.map.getZoom();
-        if (this.teilmarkt.viewValue === this.bodenrichtwertService.TEILMAERKTE[0].viewValue) {
+        const zoom = this.zoom;
+        if (this.teilmarkt.text === this.TEILMAERKTE[0].text) {
             // Bauland
             if (zoom >= 16) {
                 url += '2500';
@@ -206,6 +343,33 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * changeURL updates the URL if stichtag, teilmarkt or latLng changed
+     */
+    public changeURL() {
+        const params = new URLSearchParams({});
+        if (this.latLng?.length) {
+            params.append('lat', this.latLng[0].toString());
+            params.append('lng', this.latLng[1].toString());
+        }
+        if (this.teilmarkt) {
+            params.append('teilmarkt', this.teilmarkt.text.toString());
+        }
+        if (this.stichtag) {
+            params.append('stichtag', this.stichtag.toString());
+        }
+        if (this.zoom) {
+            params.append('zoom', this.zoom.toFixed(2).toString());
+        }
+        if (this.pitch) {
+            params.append('pitch', this.pitch.toFixed(2).toString());
+        }
+        if (this.bearing) {
+            params.append('bearing', this.bearing.toFixed(2).toString());
+        }
+        this.location.replaceState('/bodenrichtwerte', params.toString());
+    }
+
+    /**
      * checkIfStichtagFtsExist checks if features for the currently selected stichtag exist
      */
     public checkIfStichtagFtsExist(): boolean {
@@ -217,7 +381,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         } else {
             return false;
         }
+
     }
 }
-
 /* vim: set expandtab ts=4 sw=4 sts=4: */

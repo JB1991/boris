@@ -1,19 +1,31 @@
-const domino = require('domino');
-const fs = require('fs');
-const path = require('path');
-const template = fs
-    .readFileSync(path.join('dist/power/browser/de', 'index.html'))
-    .toString();
-const window = domino.createWindow(template);
+import 'zone.js/dist/zone-node';
+
+import { ngExpressEngine } from '@nguniversal/express-engine';
+import * as express from 'express';
+import { join } from 'path';
+import { existsSync, readFileSync } from 'fs';
+import { createWindow } from 'domino';
+
+import { AppServerModule } from './src/main.server';
+import { APP_BASE_HREF } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+import { enableProdMode } from '@angular/core';
+
+enableProdMode();
+const template = readFileSync(join('dist/power/browser/de', 'index.html')).toString();
+const window = createWindow(template);
 
 (global as any).window = window;
+(global as any).window.URL = {};
+(global as any).getComputedStyle = window.getComputedStyle;
+(global as any).self = {};
+const createObjectURL = require('create-object-url');
+(global as any).window.URL.createObjectURL = createObjectURL;
 (global as any).document = window.document;
-(global as any).Event = window.Event;
-(global as any).KeyboardEvent = window.KeyboardEvent;
-(global as any).MouseEvent = window.MouseEvent;
-(global as any).FocusEvent = window.FocusEvent;
-(global as any).PointerEvent = window.PointerEvent;
-(global as any).HTMLElement = window.HTMLElement;
+(global as any).navigator = window.navigator;
+(global as any).location = window.location;
+(global as any).localStorage = window.localStorage;
+(global as any).HTMLElement = (window as any).HTMLElement;
 (global as any).HTMLElement.prototype.getBoundingClientRect = () => {
     return {
         left: '',
@@ -22,22 +34,9 @@ const window = domino.createWindow(template);
         bottom: ''
     };
 };
-(global as any).object = window.object;
-(global as any).navigator = window.navigator;
-(global as any).location = window.location;
-(global as any).localStorage = window.localStorage;
-(global as any).DOMTokenList = window.DOMTokenList;
-
-import 'zone.js/dist/zone-node';
-
-import { ngExpressEngine } from '@nguniversal/express-engine';
-import * as express from 'express';
-import { join } from 'path';
-
-import { AppServerModule } from './src/main.server';
-import { APP_BASE_HREF } from '@angular/common';
-import { LOCALE_ID } from '@angular/core';
-import { existsSync } from 'fs';
+//(global as any).self.navigator = {};
+const Blobx = require('node-blob');
+(global as any).Blob = Blobx;
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(lang: string): express.Express {
@@ -64,7 +63,18 @@ export function app(lang: string): express.Express {
 
     // All regular routes use the Universal engine
     server.get('*', (req, res) => {
-        res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+        res.render(indexHtml, {
+            req,
+            providers: [
+                {
+                    provide: APP_BASE_HREF,
+                    useValue: req.baseUrl
+                }, {
+                    provide: LOCALE_ID,
+                    useValue: lang
+                }
+            ]
+        });
     });
 
     return server;
@@ -73,13 +83,14 @@ export function app(lang: string): express.Express {
 function run(): void {
     const port = process.env.PORT || 4000;
     const appDE = app('de');
+    const appDESIMPLE = app('de-simple');
     const appEN = app('en');
 
     // Start up the Node server
     const server = express();
-    server.use('/en', appEN);
-    server.use('/de', appDE);
     server.use('', appDE);
+    server.use('/de-simple', appDESIMPLE);
+    server.use('/en', appEN);
     server.listen(port, () => {
         console.log(`Node Express server listening on http://localhost:${port}`);
     });

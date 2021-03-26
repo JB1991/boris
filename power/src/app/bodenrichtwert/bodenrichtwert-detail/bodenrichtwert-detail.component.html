@@ -1,262 +1,254 @@
-<!-- Keine Nutzung des <table>-Elements, da fehlendes responsive-Verhalten  -->
-<div class="card m-0 mb-2"
-     role="table">
-    <div class="card-header">
-        <div class="sr-only caption">
-            <span i18n>Tabelle Bodenrichtwertzone</span> {{ feature.properties.nutzung | nutzung }}</div>
-        <div class="row">
-            <h5 class="col-md-5 mb-0"
-                role="rowheader"><b>{{brzStrings.brz | hyphenate}} </b>
-                <svg *ngIf="teilmarkt?.value[0] === 'LF'; else svgBauland"
-                     viewBox="0 0 20 22"
-                     width="24"
-                     height="20"
-                     focusable="false"
-                     aria-hidden="true">
-                    <g transform="translate(0,0) scale(0.4,0.4)">
-                        <path fill-rule="evenodd"
-                              stroke="#009900"
-                              d="m 54.81168,4.3383871 -12.199218,3.1015625 -0.0039,0.00195 L 1.7472268,21.271981 8.0108986,27.52784 7.4073836,46.160653 32.714024,38.143075 31.481602,32.734871 55.339024,28.217293 Z m -0.257812,0.3378907 0.515625,23.3222652 -23.90625,4.527344 1.240234,5.439453 -24.7187504,7.830078 0.595703,-18.375 L 2.2355081,21.385262 42.682774,7.695809 Z" />
-                    </g>
-                </svg>
-                <ng-template #svgBauland>
-                    <svg viewBox="0 0 20 22"
-                         width="24"
-                         height="20"
-                         focusable="false"
-                         aria-hidden="true">
-                        <g transform="translate(0,0) scale(0.4,0.4)">
-                            <path fill-rule="evenodd"
-                                  stroke="#c4153a"
-                                  d="m 54.81168,4.3383871 -12.199218,3.1015625 -0.0039,0.00195 L 1.7472268,21.271981 8.0108986,27.52784 7.4073836,46.160653 32.714024,38.143075 31.481602,32.734871 55.339024,28.217293 Z m -0.257812,0.3378907 0.515625,23.3222652 -23.90625,4.527344 1.240234,5.439453 -24.7187504,7.830078 0.595703,-18.375 L 2.2355081,21.385262 42.682774,7.695809 Z" />
-                        </g>
-                    </svg>
-                </ng-template>
-            </h5>
-            <h5 class="col-md-7 mb-0"
-                role="cell">{{feature.properties.wnum}}
-            </h5>
-        </div>
-    </div>
-    <div class="card-body">
-        <dl class="row"
-            role="rowgroup">
-            <!-- Bodenrichtwert (brz) -->
-            <dt class="col-md-5"
-                role="rowheader">
-                {{brzStrings.value | hyphenate}}
-            </dt>
-            <dd class="col-md-7"
-                role="cell">
-                {{feature.properties.brw | number}} &euro; / m&#178;
-            </dd>
-            <!-- Entwicklungszustand (entw) -->
-            <dt class="col-md-5"
-                role="rowheader">
-                {{brzStrings.entw | hyphenate}}
-            </dt>
-            <dd class="col-md-7"
-                role="cell">
-                {{feature.properties.entw | entwicklungszustand | hyphenate}}
-            </dd>
-            <!-- Entwicklungszustandzusatz (verf, verg)-->
-            <dt *ngIf="feature.properties.verg"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.verg | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.verg"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.verg | verfahrensart | hyphenate}}
-            </dd>
-            <dt *ngIf="feature.properties.verf"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.verf | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.verf"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.verf | entwicklungszusatz | hyphenate}}
-            </dd>
-            <!-- Beitragsrechtlicher Zustand (beit) -->
-            <dt *ngIf="feature.properties.beit"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.state | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.beit"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.beit | beitrag | hyphenate}}
-            </dd>
-            <!-- Nutzung - Art und Ergänzung (nuta, enuta)-->
-            <dt class="col-md-5"
-                role="rowheader">
-                {{brzStrings.usage | hyphenate}}
-            </dt>
-            <dd class="col-md-7"
-                role="cell">
-                {{feature.properties.nutzung | nutzung | hyphenate}}
-            </dd>
-            <!-- Länderspezifische Angabe - Bremen (enuta)-->
-            <dt *ngIf="enutaBremen(feature)"
-                class="col-md-5"
-                role="rowheader">
-                Länderspezifische Angabe
-            </dt>
-            <dd *ngIf="enutaBremen(feature)"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.nutzung | nutzungBremen | hyphenate}}
-            </dd>
-            <!-- Bauweise oder Anbauart (bauw) -->
-            <dt *ngIf="feature.properties.bauw"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.bauw | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.bauw"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.bauw | bauweise | hyphenate}}
-            </dd>
-            <!-- Maß der baulichen Nutzung (bmz, gez, grz, wgfz) -->
-            <dt *ngIf="feature.properties.bmz"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.bmz | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.bmz"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.bmz | number}}
-            </dd>
-            <dt *ngIf="feature.properties.gez"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.gez | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.gez"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.gez }}
-            </dd>
-            <dt *ngIf="feature.properties.grz"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.grz | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.grz"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.grz | number}}
-            </dd>
-            <dt *ngIf="feature.properties.wgfz"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.wgfz | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.wgfz"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.wgfz | number}}
-            </dd>
-            <!-- Merkmale der Land- und forstwirtschaftlichen Flächen (acza, bod, grza) -->
-            <dt *ngIf="feature.properties.acza"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.acza | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.acza"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.acza | number}}
-            </dd>
-            <dt *ngIf="feature.properties.bod"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.bod | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.bod"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.bod | bodenart | hyphenate}}
-            </dd>
-            <dt *ngIf="feature.properties.grza"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.grza | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.grza"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.grza | number}}
-            </dd>
-            <!-- Angaben zum Grundstück (gbrei, flae, gtie) -->
-            <dt *ngIf="feature.properties.flae"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.flae | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.flae"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.flae | number}} m&#178;
-            </dd>
-            <dt *ngIf="feature.properties.gbrei"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.gbrei | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.gbrei"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.gbrei | number}} m;
-            </dd>
-            <dt *ngIf="feature.properties.gtie"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.gtie | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.gtie"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.gtie | number}} m;
-            </dd>
-            <dt *ngIf="feature.properties.frei"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.frei | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.frei"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.frei | hyphenate}}
-            </dd>
-            <dt *ngIf="feature.properties.bem"
-                class="col-md-5"
-                role="rowheader">
-                {{brzStrings.bem | hyphenate}}
-            </dt>
-            <dd *ngIf="feature.properties.bem"
-                class="col-md-7"
-                role="cell">
-                {{feature.properties.bem | hyphenate}}
-            </dd>
-            <!-- Umrechnungskoeffizienten -->
-            <!-- Umrechnungstabellenwerte -->
-            <!-- <ng-container
+<div class="p-0">
+    <div class="p-0"
+         *ngFor="let feature of filteredFeatures">
+        <!-- Keine Nutzung des <table>-Elements, da fehlendes responsive-Verhalten  -->
+        <div class="card m-0 mb-2"
+             role="table">
+            <div class="card-header">
+                <div class="sr-only caption"
+                     i18n>Tabelle Bodenrichtwertzone {{ feature.properties.nutzung | nutzung }}</div>
+                <div class="row">
+                    <h5 class="col-md-5 mb-0"
+                        role="rowheader"><b>{{brzStrings.brz | hyphenate}} </b>
+                        <svg *ngIf="teilmarkt?.value[0] === 'LF'; else svgBauland"
+                             viewBox="0 0 20 22"
+                             width="24"
+                             height="20"
+                             focusable="false"
+                             aria-hidden="true">
+                            <g transform="translate(0,0) scale(0.4,0.4)">
+                                <path fill-rule="evenodd"
+                                      stroke="#009900"
+                                      d="m 54.81168,4.3383871 -12.199218,3.1015625 -0.0039,0.00195 L 1.7472268,21.271981 8.0108986,27.52784 7.4073836,46.160653 32.714024,38.143075 31.481602,32.734871 55.339024,28.217293 Z m -0.257812,0.3378907 0.515625,23.3222652 -23.90625,4.527344 1.240234,5.439453 -24.7187504,7.830078 0.595703,-18.375 L 2.2355081,21.385262 42.682774,7.695809 Z" />
+                            </g>
+                        </svg>
+                        <ng-template #svgBauland>
+                            <svg viewBox="0 0 20 22"
+                                 width="24"
+                                 height="20"
+                                 focusable="false"
+                                 aria-hidden="true">
+                                <g transform="translate(0,0) scale(0.4,0.4)">
+                                    <path fill-rule="evenodd"
+                                          stroke="#c4153a"
+                                          d="m 54.81168,4.3383871 -12.199218,3.1015625 -0.0039,0.00195 L 1.7472268,21.271981 8.0108986,27.52784 7.4073836,46.160653 32.714024,38.143075 31.481602,32.734871 55.339024,28.217293 Z m -0.257812,0.3378907 0.515625,23.3222652 -23.90625,4.527344 1.240234,5.439453 -24.7187504,7.830078 0.595703,-18.375 L 2.2355081,21.385262 42.682774,7.695809 Z" />
+                                </g>
+                            </svg>
+                        </ng-template>
+                    </h5>
+                    <h5 class="col-md-7 mb-0"
+                        role="cell">{{feature.properties.wnum}}
+                    </h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <dl class="row"
+                    role="rowgroup">
+                    <!-- Bodenrichtwert (brz) -->
+                    <dt class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.value | hyphenate}}
+                    </dt>
+                    <dd class="col-md-7"
+                        role="cell">
+                        {{feature.properties.brw | number}} &euro; / m&#178;
+                    </dd>
+                    <!-- Entwicklungszustand (entw) -->
+                    <dt class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.entw | hyphenate}}
+                    </dt>
+                    <dd class="col-md-7"
+                        role="cell">
+                        {{feature.properties.entw | entwicklungszustand | hyphenate}}
+                    </dd>
+                    <!-- Entwicklungszustandzusatz (verf, verg)-->
+                    <dt *ngIf="feature.properties.verg"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.verg | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.verg"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.verg | verfahrensart | hyphenate}}
+                    </dd>
+                    <dt *ngIf="feature.properties.verf"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.verf | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.verf"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.verf | entwicklungszusatz | hyphenate}}
+                    </dd>
+                    <!-- Beitragsrechtlicher Zustand (beit) -->
+                    <dt *ngIf="feature.properties.beit"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.state | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.beit"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.beit | beitrag | hyphenate}}
+                    </dd>
+                    <!-- Nutzung - Art und Ergänzung (nuta, enuta)-->
+                    <dt class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.usage | hyphenate}}
+                    </dt>
+                    <dd class="col-md-7"
+                        role="cell">
+                        {{feature.properties.nutzung | nutzung | hyphenate}}
+                    </dd>
+                    <!-- Bauweise oder Anbauart (bauw) -->
+                    <dt *ngIf="feature.properties.bauw"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.bauw | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.bauw"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.bauw | bauweise | hyphenate}}
+                    </dd>
+                    <!-- Maß der baulichen Nutzung (bmz, gez, grz, wgfz) -->
+                    <dt *ngIf="feature.properties.bmz"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.bmz | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.bmz"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.bmz | number}}
+                    </dd>
+                    <dt *ngIf="feature.properties.gez"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.gez | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.gez"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.gez }}
+                    </dd>
+                    <dt *ngIf="feature.properties.grz"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.grz | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.grz"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.grz | number}}
+                    </dd>
+                    <dt *ngIf="feature.properties.wgfz"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.wgfz | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.wgfz"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.wgfz | number}}
+                    </dd>
+                    <!-- Merkmale der Land- und forstwirtschaftlichen Flächen (acza, bod, grza) -->
+                    <dt *ngIf="feature.properties.acza"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.acza | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.acza"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.acza | number}}
+                    </dd>
+                    <dt *ngIf="feature.properties.bod"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.bod | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.bod"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.bod | bodenart | hyphenate}}
+                    </dd>
+                    <dt *ngIf="feature.properties.grza"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.grza | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.grza"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.grza | number}}
+                    </dd>
+                    <!-- Angaben zum Grundstück (gbrei, flae, gtie) -->
+                    <dt *ngIf="feature.properties.flae"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.flae | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.flae"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.flae | number}} m&#178;
+                    </dd>
+                    <dt *ngIf="feature.properties.gbrei"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.gbrei | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.gbrei"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.gbrei | number}} m;
+                    </dd>
+                    <dt *ngIf="feature.properties.gtie"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.gtie | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.gtie"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.gtie | number}} m;
+                    </dd>
+                    <dt *ngIf="feature.properties.frei"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.frei | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.frei"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.frei | umlautCorrection | hyphenate}}
+                    </dd>
+                    <dt *ngIf="feature.properties.bem"
+                        class="col-md-5"
+                        role="rowheader">
+                        {{brzStrings.bem | hyphenate}}
+                    </dt>
+                    <dd *ngIf="feature.properties.bem"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.bem | hyphenate}}
+                    </dd>
+                    <!-- Umrechnungskoeffizienten -->
+                    <!-- Umrechnungstabellenwerte -->
+                    <!-- <ng-container
                           *ngIf="feature.properties.umrechnungstabellenwerte && !feature.properties.umrechnungstabellendatei.length">
                 <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellenwerte"> -->
-            <!-- [html-validate-disable-next element-permitted-content] -->
-            <!-- <dt class="col-md-5"
+                    <!-- [html-validate-disable-next element-permitted-content] -->
+                    <!-- <dt class="col-md-5"
                         role="rowheader">
                         {{brzStrings.umwert | hyphenate}}
                     </dt> -->
-            <!-- [html-validate-disable-next element-permitted-content] -->
-            <!-- <dd class="col-md-7"
+                    <!-- [html-validate-disable-next element-permitted-content] -->
+                    <!-- <dd class="col-md-7"
                         role="cell">
                         <a class="btn-link"
                            title="Umrechnungstabelle"
@@ -274,27 +266,55 @@
                 </ng-container>
             </ng-container> -->
 
-            <!-- Umrechnungsdateien -->
-            <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellendatei">
-                <!-- [html-validate-disable-next element-permitted-content] -->
-                <dt class="col-md-5"
-                    role="rowheader">
-                    {{brzStrings.umdatei | hyphenate}}
-                </dt>
-                <!-- [html-validate-disable-next element-permitted-content] -->
-                <dd class="col-md-7"
+                    <!-- Umrechnungsdateien -->
+                    <ng-container *ngFor="let umrechnung of feature.properties.umrechnungstabellendatei">
+                        <!-- [html-validate-disable-next element-permitted-content] -->
+                        <dt class="col-md-5"
+                            role="rowheader">
+                            {{brzStrings.umdatei | hyphenate}}
+                        </dt>
+                        <!-- [html-validate-disable-next element-permitted-content] -->
+                        <dd class="col-md-7"
+                            role="cell">
+                            <a class="btn-link"
+                               role="button"
+                               title="Umrechnungsdatei"
+                               i18n-title
+                               [href]="umrechnung.dateiname.substr(0, umrechnung.dateiname.lastIndexOf('.')).replace('http://', 'https://') + '.pdf'"
+                               target="_blank"
+                               rel="noopener noreferrer nofollow">
+                                {{umrechnung.text | einflussgroesse}}
+                            </a>
+                        </dd>
+                    </ng-container>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="filteredFeatures[0]"
+         class="card">
+        <div class="card-header">
+            <div class="row">
+                <h5 class="col-12 mb-0"
+                    role="rowheader"><b>Herausgeber</b>
+                </h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <dl class="row"
+                role="rowgroup">
+                <dd class="col-12"
                     role="cell">
-                    <a class="btn-link"
-                       role="button"
-                       title="Umrechnungsdatei"
-                       i18n-title
-                       [href]="umrechnung.dateiname.substr(0, umrechnung.dateiname.lastIndexOf('.')).replace('http://', 'https://') + '.pdf'"
+                    <a *ngIf="filteredFeatures[0]"
+                       [href]="filteredFeatures[0].properties.gabe | gagKontaktdaten"
                        target="_blank"
-                       rel="noopener noreferrer nofollow">
-                        {{umrechnung.text | einflussgroesse}}
-                    </a>
+                       rel="noopener noreferrer nofollow"
+                       alt="Herausgeber"
+                       title="Herausgeber"
+                       i18n-title
+                       i18n>{{ filteredFeatures[0]?.properties.gabe }}</a>
                 </dd>
-            </ng-container>
-        </dl>
+            </dl>
+        </div>
     </div>
 </div>

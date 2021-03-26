@@ -282,6 +282,10 @@
                             "/login",
                             "/logout",
                             "/feedback",
+                            "/bodenrichtwerte",
+                            "/grundstuecksmarktberichte",
+                            "/landesgrundstuecksmarktberichte",
+                            "/immobilienpreisindex",
                             "/forms",
                             "/forms/public-dashboard"
                         ]

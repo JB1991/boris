@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+/* eslint-disable max-lines */
+import { Component, OnInit, ChangeDetectionStrategy, Inject, PLATFORM_ID, } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
@@ -51,12 +53,19 @@ export class BodenwertKalkulatorComponent implements OnInit {
     });
 
     data;
-    adresse;
+    address;
     flurstueckSelection = new Map<string, MapboxGeoJSONFeature>();
 
     features: any;
 
+    /**
+     * true if is browser
+     */
+    public isBrowser = true;
+
     constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         private titleService: Title,
         private meta: Meta,
         public alerts: AlertsService
@@ -64,6 +73,10 @@ export class BodenwertKalkulatorComponent implements OnInit {
         this.titleService.setTitle($localize`Bodenwerte - Immobilienmarkt.NI`);
         this.meta.updateTag({ name: 'description', content: $localize`Rechner zum bestimmen von Bodenwerten` });
         this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenwertkalkulator, Bodenwerte` });
+
+        if (!isPlatformBrowser(this.platformId)) {
+            this.isBrowser = false;
+        }
     }
 
     ngOnInit() {
@@ -158,7 +171,7 @@ export class BodenwertKalkulatorComponent implements OnInit {
     }
 
     flyTo(event: any) {
-        this.adresse = event.properties.text;
+        this.address = event.properties.text;
         if (this.marker) {
             this.marker.remove();
         }

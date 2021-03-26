@@ -1,10 +1,12 @@
 {
     "name": "Immobilienmarkt.NI",
-    "version": "0.5.0",
+    "version": "1.0.0",
     "short_name": "Immobilienmarkt.NI",
-    "theme_color": "#1976d2",
+    "lang": "de-DE",
+    "theme_color": "#c4153a",
     "background_color": "#fafafa",
     "display": "standalone",
+    "prefer_related_applications": false,
     "scope": ".",
     "start_url": "./",
     "icons": [
@@ -55,6 +57,12 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable any"
+        }
+    ],
+    "related_applications": [
+        {
+            "platform": "webapp",
+            "url": "https://immobilienmarkt.niedersachsen.de/manifest.webmanifest"
         }
     ]
 }

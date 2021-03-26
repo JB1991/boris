@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Injectable } from '@angular/core';
 import { SimpleChange } from '@angular/core';
 import { Properties } from '@turf/turf';
@@ -14,6 +15,8 @@ export interface ExtrusionLayerOptions {
 @Injectable({
     providedIn: 'root'
 })
+
+
 export class BodenrichtwertKarte3dLayerService {
 
     // layer ids for label layer (Bauland, Landwirtschaft)

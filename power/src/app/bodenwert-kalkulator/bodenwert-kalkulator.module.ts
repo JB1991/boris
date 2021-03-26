@@ -11,8 +11,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
     declarations: [
-        FlurstueckPipe,
         BodenwertKalkulatorComponent,
+        FlurstueckPipe,
     ],
     imports: [
         BodenwertKalkulatorRoutingModule,
@@ -20,7 +20,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
         NgxMapboxGLModule,
         SharedModule,
         BsDropdownModule.forRoot(),
-        CollapseModule
+        CollapseModule.forRoot()
     ],
     exports: []
 })

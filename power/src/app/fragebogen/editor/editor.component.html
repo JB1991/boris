@@ -492,8 +492,9 @@
                                         *ngFor="let container of storage.model.pages; index as j">
                                         <a class="dropdown-item"
                                            [class.disabled]="j === storage.selectedPageID"
-                                           href="javascript:;"
-                                           (click)="wsElementToPage(i, storage.selectedPageID, j)">Seite {{ j+1 }}</a>
+                                           href=""
+                                           (click)="$event.preventDefault(); wsElementToPage(i, storage.selectedPageID, j)">Seite
+                                            {{ j+1 }}</a>
                                     </li>
                                 </ul>
                             </div>

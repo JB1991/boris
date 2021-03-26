@@ -22,33 +22,32 @@ annotations:
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
 
 podSecurityContext:
-  {}
-  # fsGroup: 2000
+  fsGroup: 1001
 
-securityContext:
-  {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+containerSecurityContext:
+  runAsUser: 1001
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
 
 service:
   type: ClusterIP
   port: 80
+  annotations: {}
 
 ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: kong
     konghq.com/override: power-https-redirect
-    konghq.com/plugins: power-rate-limiting-by-ip,power-cors
+    konghq.com/plugins: power-cors,power-security-headers,power-rate-limiting-by-ip
   hosts:
     - host: prod.power-production-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud
       paths:
@@ -95,3 +94,33 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+networkPolicy:
+  enabled: true
+  from:
+    - namespaceSelector:
+        matchLabels:
+          name: kong
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: kong
+
+metrics:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/nginx-exporter
+    tag: 0.9.0-debian-10-r2
+    pullPolicy: IfNotPresent
+  podAnnotations: {}
+  service:
+    port: 9113
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 20m
+      memory: 128Mi
+  serviceMonitor:
+    enabled: true
