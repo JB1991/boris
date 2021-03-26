@@ -39,7 +39,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
         - name: config
-          image: busybox:stable
+          image: busybox:latest
           imagePullPolicy: IfNotPresent
           command: ["/bin/sh", "-c", "base64 -d /config/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /opt/bitnami/nginx/conf/server_blocks/power.conf"]
           volumeMounts:
