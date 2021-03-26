@@ -27,13 +27,19 @@ type MultiPolygon = {
 };
 
 function polygonToPoint(p: Polygon): Point {
-    const point = turf.pointOnFeature(p);
+    try {
+        const point = turf.pointOnFeature(p);
 
-    if (point && point.geometry) {
-        return {
-            type: 'Point',
-            coordinates: point.geometry.coordinates,
-        };
+        if (point && point.geometry) {
+            return {
+                type: 'Point',
+                coordinates: point.geometry.coordinates,
+            };
+        }
+    } catch (e) {
+        if (!environment.production) {
+            console.log(e);
+        }
     }
 
     return;
@@ -51,33 +57,45 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
     let largest: Polygon;
 
     multiPolygonToPolygons(mp).forEach(p => {
-        const a = turf.area(p);
-        if (!largest || a > area) {
-            if (a > area) {
-                area = a;
-                largest = {
-                    type: 'Polygon',
-                    coordinates: p.coordinates,
-                };
+        try {
+            const a = turf.area(p);
+            if (!largest || a > area) {
+                if (a > area) {
+                    area = a;
+                    largest = {
+                        type: 'Polygon',
+                        coordinates: p.coordinates,
+                    };
+                }
+            }
+        } catch (e) {
+            if (!environment.production) {
+                console.log(e);
             }
         }
     });
-
     return largest;
 }
 
 function intersectPolygon(p: Polygon | MultiPolygon, intersect: Polygon): Array<Polygon> {
-    const f = turf.intersect(intersect, p);
-    if (f && f.geometry) {
-        switch (f.geometry.type) {
-            case 'Polygon':
-                return [f.geometry];
-            case 'MultiPolygon':
-                return multiPolygonToPolygons(f.geometry);
+    try {
+        const f = turf.intersect(intersect, p);
+        if (f && f.geometry) {
+            switch (f.geometry.type) {
+                case 'Polygon':
+                    return [f.geometry];
+                case 'MultiPolygon':
+                    return multiPolygonToPolygons(f.geometry);
+            }
+        }
+
+        return [];
+    } catch (e) {
+        if (!environment.production) {
+            console.log(e);
         }
     }
-
-    return [];
+    return;
 }
 
 function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon> {
@@ -98,7 +116,9 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
             }
         }
     } catch (e) {
-        // console.log(e);
+        if (!environment.production) {
+            console.log(e);
+        }
     }
 
     return [];
@@ -560,18 +580,24 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             let p: Polygon;
 
             featureMap[key].forEach(each => {
-                if (p && p.coordinates) {
-                    const union = turf.union(p, each);
-                    switch (union.geometry.type) {
-                        case 'Polygon':
-                            p = union.geometry;
-                            return;
-                        case 'MultiPolygon':
-                            p = getLargestPolygon(union.geometry);
-                            return;
+                try {
+                    if (p && p.coordinates) {
+                        const union = turf.union(p, each);
+                        switch (union.geometry.type) {
+                            case 'Polygon':
+                                p = union.geometry;
+                                return;
+                            case 'MultiPolygon':
+                                p = getLargestPolygon(union.geometry);
+                                return;
+                        }
+                    }
+                    p = each.geometry;
+                } catch (e) {
+                    if (!environment.production) {
+                        console.log(e);
                     }
                 }
-                p = each.geometry;
             });
 
             intersectPolygon(p, mapViewBound).forEach(i => {
