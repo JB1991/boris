@@ -118,9 +118,7 @@
                 <div *ngIf="select['type'] === 'multiSelect'"
                      style="padding-left: 40px; margin-bottom: 1rem;"
                      i18n
-                     aria-hidden="true">
-                    HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.
-                </div>
+                     aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</div>
 
                 <!-- Select DrawValues: Einzeldarstellung, Vergleiche -->
                 <ul class="tab"
@@ -361,14 +359,13 @@
                     <i-bs name="dash-circle"
                           *ngIf="staticExpand(97) === true"
                           aria-hidden="true"></i-bs>
-                    Zeitraum auswählen
+                    <span i18n>Zeitraum auswählen</span>
                 </button>
                 <span i18n
-                      aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem
-                    Graphen erfolgen.<br></span>
+                      aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem Graphen erfolgen.</span><br>
 
                 <span id="dropdownTime1Label"
-                      i18n>Zeitraum von </span>
+                      i18n>Zeitraum von</span>
 
                 <div dropdown
                      class="btn-group"
@@ -394,7 +391,7 @@
                 </div>
 
                 <span i18n
-                      id="dropdownTime2Label"> bis </span>
+                      id="dropdownTime2Label">bis</span>
 
                 <div dropdown
                      class="btn-group"
@@ -529,9 +526,7 @@
                     {{ nipixRuntime.translate(regionName(selectedWoMa['woma_id'])) }}
                 </ng-container>
                 <ng-template i18n
-                             #noRegionBlock>
-                    Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!
-                </ng-template>
+                             #noRegionBlock>Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!</ng-template>
             </accordion-group>
         </accordion>
 

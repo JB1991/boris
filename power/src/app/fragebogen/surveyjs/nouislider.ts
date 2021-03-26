@@ -149,7 +149,7 @@ export function init(Survey) {
                         return Number(value).toFixed(question.decimals);
                     },
                     from: function (value) {
-                        return Number(value).toFixed(question.decimals);
+                        return question.decimals > 0 ? parseFloat(value) : parseInt(value, 10);
                     }
                 },
                 range: {
@@ -213,6 +213,7 @@ export function init(Survey) {
                 question.noUiSlider.destroy();
                 question.noUiSlider = null;
             }
+            question.valueChangedCallback = null;
             question.readOnlyChangedCallback = null;
         },
         pdfRender: function (_, options) {

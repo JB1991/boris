@@ -20,21 +20,27 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 ## Getting started
 
 1. Projekt klonen
-    ```
+   ```
    git clone ...
    ```
 2. Abhängigkeiten installieren
-    ```
-    cd power
-    npm install
+   ```
+   cd power
+   npm install
    ```
 
 3. Lokalen Entwicklungsserver starten
-    ```
-    ng serve --open
+   ```
+   ng serve --open
    ```
     Dies startet einen Webserver, der unter [http://localhost:4200](http://localhost:4200) erreicht werden kann.
     Bei Änderungen am Code werden Änderungen automatisch übertragen.
+
+4. Lokalen SSR Server starten
+   ```
+   cd power
+   npm run dev:ssr
+   ```
 
 ## Tests
 

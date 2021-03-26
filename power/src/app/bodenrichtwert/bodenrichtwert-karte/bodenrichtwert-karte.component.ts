@@ -10,9 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import * as epsg from 'epsg';
 import proj4 from 'proj4';
-import { FeatureCollection } from 'geojson';
+import { FeatureCollection, Feature } from 'geojson';
 import * as turf from '@turf/turf';
 
+type Point = {
+    type: 'Point';
+    coordinates: number[];
+};
 
 type Polygon = {
     type: 'Polygon';
@@ -24,14 +28,31 @@ type MultiPolygon = {
     coordinates: number[][][][];
 };
 
+function polygonToPoint(p: Polygon): Point {
+    const point = turf.pointOnFeature(p);
+
+    if (point && point.geometry) {
+        return {
+            type: 'Point',
+            coordinates: point.geometry.coordinates,
+        };
+    }
+
+    return;
+}
+
+function multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
+    return mp.coordinates.map(f => ({
+        type: 'Polygon',
+        coordinates: f,
+    }));
+}
+
 function getLargestPolygon(mp: MultiPolygon): Polygon {
     let area = 0;
     let largest: Polygon;
-    mp.coordinates.forEach(c => {
-        const p = {
-            type: 'Polygon',
-            coordinates: c,
-        };
+
+    multiPolygonToPolygons(mp).forEach(p => {
         const a = turf.area(p);
         if (!largest || a > area) {
             if (a > area) {
@@ -43,8 +64,48 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
             }
         }
     });
+
     return largest;
 }
+
+function intersectPolygon(p: Polygon | MultiPolygon, intersect: Polygon): Array<Polygon> {
+    const f = turf.intersect(intersect, p);
+    if (f && f.geometry) {
+        switch (f.geometry.type) {
+            case 'Polygon':
+                return [f.geometry];
+            case 'MultiPolygon':
+                return multiPolygonToPolygons(f.geometry);
+        }
+    }
+
+    return [];
+}
+
+function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon> {
+    try {
+        const f = turf.buffer(p, buffer, {units: 'meters'});
+        if (f && f.geometry) {
+            switch (f.geometry.type) {
+                case 'Polygon':
+                    return [f.geometry];
+                case 'MultiPolygon':
+                    const arr = multiPolygonToPolygons(f.geometry);
+
+                    if (arr.length > 2) {
+                        return [arr.shift(), arr.pop()];
+                    }
+
+                    return arr;
+            }
+        }
+    } catch(e) {
+        // console.log(e);
+    }
+
+    return [];
+}
+
 
 /* eslint-disable max-lines */
 @Component({
@@ -62,7 +123,11 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     public functionsActive = false;
 
     public isDragged = false;
+
     public zoomFactor: number;
+    // Flurstuecke become visible at Zoomfactor 15.1
+    public standardBaulandZoom = 15.1;
+    public standardLandZoom = 11;
 
     public baulandColorPalette = ['#794c74', '#c56183', '#fadcaa', '#b2deec'];
 
@@ -210,15 +275,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
         // if (changes.features && !changes.features.firstChange) {
         //     this.bodenrichtwert3DLayer.onFeaturesChange(changes.features, this.map, this.stichtag, this.teilmarkt);
         // }
-        if (changes.stichtag) {
-            if (changes.stichtag.currentValue === '2020-12-31' && this.adresse?.properties.kreis === 'Stadt Bremen') {
-                this.alerts.NewAlert(
-                    'info',
-                    $localize`Diese Daten sind noch nicht verfügbar!`,
-                    $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-                );
-            }
-        }
     }
 
     ngOnInit() {
@@ -243,8 +299,8 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
      * pointOnFlurstueck returns a point (transformed to wgs84) guranteed to be on the feature
      */
     public pointOnFlurstueck(): number[] {
-        const polygon = turf.polygon(this.flurstueck.features[0].geometry['coordinates']);
-        const point = turf.pointOnFeature(polygon);
+        const p = turf.polygon(this.flurstueck.features[0].geometry['coordinates']);
+        const point = turf.pointOnFeature(p);
         const wgs84_point = this.transformCoordinates(
             epsg['EPSG:3857'],
             epsg['EPSG:4326'],
@@ -308,10 +364,17 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     flyTo(lat: number, lng: number, eventType?: any) {
-        if (this.map.getZoom() > 11.25 && !eventType) {
-            this.zoomFactor = this.map.getZoom();
+        const currentZoom = this.map.getZoom();
+        if (this.teilmarkt.viewValue !== 'Bauland' && !eventType) {
+            if (currentZoom > 10) {
+                this.zoomFactor = currentZoom;
+            } else {
+                this.zoomFactor = this.standardLandZoom;
+            }
+        } else if (currentZoom > 11 && !eventType) {
+            this.zoomFactor = currentZoom;
         } else {
-            this.zoomFactor = 15.1;
+            this.zoomFactor = this.standardBaulandZoom;
         }
         this.map.flyTo({
             center: [lng, lat],
@@ -327,14 +390,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             .subscribe(
                 res => {
                     this.bodenrichtwertService.updateFeatures(res);
-                    // temporary alert for data of bremen for the year 2021
-                    if (res.features[0]?.properties.gabe.includes('Bremen') && this.stichtag === '2020-12-31') {
-                        this.alerts.NewAlert(
-                            'info',
-                            $localize`Diese Daten sind noch nicht verfügbar!`,
-                            $localize`Die Daten für Bremen des Jahres 2021 sind noch im Zulauf, sobald sich dies ändert können die Daten hier dargestellt werden.`
-                        );
-                    }
                 },
                 err => {
                     console.log(err);
@@ -395,14 +450,25 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
     }
 
     doNotDisplay = [
-        'DENIBR4319B07171',
-        'DENIBR4316B37171',
         'DENIBR4318B07171',
+        'DENIBR4316B37171',
+        'DENIBR4319B07171',
         'DENIBR4315B37171',
+        'DENIBR4320B07171',
+        'DENIBR4321B07171',
         'DENIBR4317B37171',
-        'DENIBR4314B37171',
         'DENIBR4313B37171',
-        'DENIBR4320B07171'
+        'DENIBR4314B37171',
+
+        'DENIBR8020B02418',
+        'DENIBR8017B02418',
+        'DENIBR8014B02418',
+        'DENIBR8016B02418',
+        'DENIBR8019B02418',
+        'DENIBR8013B02418',
+        'DENIBR8018B02418',
+        'DENIBR8015B02418',
+        'DENIBR8021B02418'
     ];
 
     onMoveEnd() {
@@ -416,7 +482,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             const source = this.map.getSource('landwirtschaftSource');
             if (source.type === 'geojson') {
                 source.setData(this.landwirtschaftData);
-            }
+            };
 
             this.dynamicLabelling(this.baulandData, ['bauland', 'bauland_bremen'], 'baulandSource');
         } else {
@@ -425,104 +491,122 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             const source = this.map.getSource('baulandSource');
             if (source.type === 'geojson') {
                 source.setData(this.baulandData);
-            }
+            };
 
             this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
-        }
+        };
     }
 
     dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
         labelData.features = [];
 
-        const featureMap: Record<string, GeoJSON.Feature<Polygon>[]> = {};
+        const featureMap: Record<string, Feature<Polygon>[]> = {};
 
         const mapSW = this.map.getBounds().getSouthWest();
         const mapNE = this.map.getBounds().getNorthEast();
 
-        const mapViewBound = [
-            [
-                [mapSW.lng, mapSW.lat],
-                [mapSW.lng, mapNE.lat],
-                [mapNE.lng, mapNE.lat],
-                [mapNE.lng, mapSW.lat],
-                [mapSW.lng, mapSW.lat]
+        const mapViewBound: Polygon = {
+            type: 'Polygon',
+            coordinates: [
+                [
+                    [mapSW.lng, mapSW.lat],
+                    [mapSW.lng, mapNE.lat],
+                    [mapNE.lng, mapNE.lat],
+                    [mapNE.lng, mapSW.lat],
+                    [mapSW.lng, mapSW.lat]
+                ]
             ]
-        ];
+        };
+
+        let buffer: number;
+        if (this.map.getZoom() > 17) {
+            buffer = -10;
+        } else if (this.map.getZoom() > 16) {
+            buffer = -20;
+        } else if (this.map.getZoom() > 15) {
+            buffer = -30;
+        } else if (this.map.getZoom() > 14) {
+            buffer = -40;
+        } else if (this.map.getZoom() < 14) {
+            buffer = -50;
+        }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
-            const oid = f.properties['objektidentifikator'];
-            if (this.doNotDisplay.includes(oid)) {
+            if (this.doNotDisplay.includes(f.properties['objektidentifikator'])) {
                 return;
             };
+
+            let p: Polygon;
+
             if (f && f.type === 'Feature') {
-                if (f.geometry.type === 'MultiPolygon') {
-                    f.geometry = getLargestPolygon(f.geometry);
+                switch (f.geometry.type) {
+                    case 'MultiPolygon':
+                        p = getLargestPolygon(f.geometry);
+                        break;
+                    case 'Polygon':
+                        p = f.geometry;
+                        break;
                 }
-                if (f.geometry.type === 'Polygon') {
-                    if (featureMap[f.properties.objektidentifikator]) {
-                        featureMap[f.properties.objektidentifikator].push({
-                            type: 'Feature',
-                            geometry: f.geometry,
-                            properties: f.properties,
-                        });
-                    } else {
-                        featureMap[f.properties.objektidentifikator] = [{
-                            type: 'Feature',
-                            geometry: f.geometry,
-                            properties: f.properties,
-                        }];
-                    }
+            }
+
+            if (p && p.coordinates) {
+                if (featureMap[f.properties.objektidentifikator]) {
+                    featureMap[f.properties.objektidentifikator].push({
+                        type: 'Feature',
+                        geometry: p,
+                        properties: f.properties,
+                    });
                 } else {
-                    console.log('missing type case: ' + f.geometry.type);
+                    featureMap[f.properties.objektidentifikator] = [{
+                        type: 'Feature',
+                        geometry: p,
+                        properties: f.properties,
+                    }];
                 }
-            } else {
-                console.log('empty feature');
             }
         });
 
-        const features: Array<GeoJSON.Feature<GeoJSON.Geometry>> = Object.keys(featureMap).map(key => {
-            const properties = featureMap[key][0].properties;
-            let union: Polygon;
+        const features: Array<Feature<Polygon | Point>> = [];
 
-            if (featureMap[key].length === 1) {
-                union = featureMap[key][0].geometry;
-            } else {
+        // eslint-disable-next-line complexity
+        Object.keys(featureMap).forEach(key => {
+            let p: Polygon;
 
-                featureMap[key].forEach(f => {
-                    if (union) {
-                        const u = turf.union(union, f.geometry);
-                        switch (u.geometry.type) {
-                            case 'Polygon':
-                                union = u.geometry;
-                                break;
-                            case 'MultiPolygon':
-                                union = getLargestPolygon(u.geometry);
-                                break;
-                        };
-                    } else {
-                        union = f.geometry;
+            featureMap[key].forEach(each => {
+                if (p && p.coordinates) {
+                    const union = turf.union(p, each);
+                    switch (union.geometry.type) {
+                        case 'Polygon':
+                            p = union.geometry;
+                            return;
+                        case 'MultiPolygon':
+                            p = getLargestPolygon(union.geometry);
+                            return;
                     }
+                }
+                p = each.geometry;
+            });
+
+            intersectPolygon(p, mapViewBound).forEach(i => {
+                bufferPolygon(i, buffer).forEach(b => {
+                    if (this.map.getZoom() > 14) {
+                        const point = polygonToPoint(b);
+                        if (point && point.coordinates) {
+                            features.push({
+                                type: 'Feature',
+                                geometry: point,
+                                properties: featureMap[key][0].properties,
+                            });
+                            return;
+                        }
+                    }
+                    features.push({
+                        type: 'Feature',
+                        geometry: b,
+                        properties: featureMap[key][0].properties,
+                    });
                 });
-            };
-
-            const featureView = turf.intersect({
-                type: 'Polygon',
-                coordinates: mapViewBound,
-            }, union);
-            if (!featureView) {
-                console.log('no featureView: ' + properties['display']);
-                return {
-                    type: 'Feature',
-                    geometry: union,
-                    properties: properties,
-                };
-            }
-
-            return {
-                type: 'Feature',
-                geometry: featureView.geometry,
-                properties: properties,
-            };
+            });
         });
 
         labelData.features = features;
@@ -532,7 +616,6 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             source.setData(labelData);
         }
     }
-
 
     onSearchSelect(event: any) {
         this.marker.setLngLat(event.geometry.coordinates).addTo(this.map);
@@ -621,7 +704,7 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
-                $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
+                $localize`Der Stichtag wurde zu` + ' ' + this.datePipe.transform(stichtag) + ' ' + $localize`gewechselt.`);
         }
 
         this.stichtagChange.next(stichtag);
@@ -645,18 +728,18 @@ export class BodenrichtwertKarteComponent implements OnInit, OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Teilmarkt gewechselt`,
-                $localize`Der Teilmarkt wurde zu ` + teilmarkt.viewValue + $localize` gewechselt.`);
+                $localize`Der Teilmarkt wurde zu` + ' ' + teilmarkt.viewValue + ' ' + $localize`gewechselt.`);
         }
 
         // ease to zoom lvl
-        if (teilmarkt.viewValue === 'Bauland' && this.marker.getLngLat()) {
+        if (teilmarkt.viewValue === 'Bauland' && this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
             this.map.easeTo({
-                zoom: 14,
+                zoom: this.standardBaulandZoom,
                 center: this.marker.getLngLat()
             });
-        } else if (this.marker.getLngLat()) {
+        } else if (this.marker.getLngLat() && this.marker.getLngLat().lat !== 0) {
             this.map.easeTo({
-                zoom: 11,
+                zoom: this.standardLandZoom,
                 center: this.marker.getLngLat()
             });
         }

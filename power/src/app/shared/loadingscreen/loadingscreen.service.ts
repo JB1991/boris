@@ -14,7 +14,9 @@ export class LoadingscreenService implements OnDestroy {
             // enable/disable loadingscreen with navigation
             if (event instanceof NavigationEnd) {
                 this.visible = false;
-                window.scrollTo(0, 0);
+                if (typeof window.scrollTo === 'function') {
+                    window.scrollTo(0, 0);
+                }
             } else if (event instanceof NavigationStart) {
                 this.visible = true;
             } else if (event instanceof NavigationCancel) {

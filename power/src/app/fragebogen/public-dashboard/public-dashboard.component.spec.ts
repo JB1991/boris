@@ -14,7 +14,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     let component: PublicDashboardComponent;
     let fixture: ComponentFixture<PublicDashboardComponent>;
 
-    const getPublicForms = require('../../../assets/fragebogen/get-public-forms.json');
+    const getPublicForms = require('../../../testdata/fragebogen/get-public-forms.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

@@ -564,7 +564,7 @@ export class FormAPIService {
             return $localize`Bitte geben Sie nicht mehr als 5 Gruppen an.`;
 
         } else if (msg.startsWith('element has no title: ')) {
-            return $localize`Bitte geben sie einen Titel an: ` + msg.slice(22);
+            return $localize`Bitte geben sie einen Titel an:` + ' ' + msg.slice(22);
 
         } else if (msg.startsWith('unknown group:')) {
             return $localize`Die Gruppe konnte nicht gefunden werden.`;

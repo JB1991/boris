@@ -37,18 +37,7 @@ describe('Shared.Auth.AuthGuard', () => {
     });
 
     it('should open in dev', (done) => {
-        // auth disabled
-        guard.auth.conf.config = { 'modules': [], 'authentication': false };
-        environment.production = true;
-        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
-            expect(value).toBeTrue();
-            done();
-        });
-    });
-
-    it('should open in dev 2', (done) => {
         // not in production
-        guard.auth.conf.config = { 'modules': [], 'authentication': true };
         environment.production = false;
         guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeTrue();
@@ -58,7 +47,6 @@ describe('Shared.Auth.AuthGuard', () => {
 
     it('should deny access', (done) => {
         // unauthorized
-        guard.auth.conf.config = { 'modules': [], 'authentication': true };
         environment.production = true;
         guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeFalse();
@@ -68,7 +56,6 @@ describe('Shared.Auth.AuthGuard', () => {
 
     it('should allow access', (done) => {
         // authorized
-        guard.auth.conf.config = { 'modules': [], 'authentication': true };
         environment.production = true;
         const expire = new Date();
         expire.setSeconds(expire.getSeconds() + 900);

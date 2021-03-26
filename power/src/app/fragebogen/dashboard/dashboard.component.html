@@ -348,8 +348,7 @@
                             <td>
                                 <a i18n-title
                                    title="Formular öffnen"
-                                   [routerLink]="['/forms/details', task.form.id]"
-                                   i18n>{{ task.form.extract }}</a>
+                                   [routerLink]="['/forms/details', task.form.id]">{{ task.form.extract }}</a>
                             </td>
                             <td><span *ngIf="task.pin">{{ task.pin }}</span></td>
                             <td>

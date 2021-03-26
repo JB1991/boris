@@ -29,7 +29,7 @@
                     "options": {
                         "localize": true,
                         "aot": true,
-                        "outputPath": "dist/power",
+                        "outputPath": "dist/power/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -38,6 +38,7 @@
                             "src/favicon.ico",
                             "src/assets",
                             "src/robots.txt",
+                            "src/sitemap.xml",
                             "src/manifest.webmanifest"
                         ],
                         "styles": [
@@ -202,6 +203,110 @@
                             "src/**/*.ts",
                             "src/**/*.html"
                         ]
+                    }
+                },
+                "server": {
+                    "builder": "@angular-devkit/build-angular:server",
+                    "options": {
+                        "localize": false,
+                        "outputPath": "dist/power/server",
+                        "main": "server.ts",
+                        "tsConfig": "src/tsconfig.server.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "outputHashing": "media",
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "sourceMap": false,
+                            "optimization": true,
+                            "localize": true
+                        },
+                        "staging": {
+                            "outputHashing": "media",
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.staging.ts"
+                                }
+                            ],
+                            "sourceMap": false,
+                            "optimization": true,
+                            "localize": true
+                        },
+                        "de": {
+                            "localize": [
+                                "de"
+                            ]
+                        },
+                        "de-simple": {
+                            "localize": [
+                                "de-simple"
+                            ]
+                        },
+                        "en": {
+                            "localize": [
+                                "en"
+                            ]
+                        }
+                    }
+                },
+                "serve-ssr": {
+                    "builder": "@nguniversal/builders:ssr-dev-server",
+                    "options": {
+                        "browserTarget": "power:build:de",
+                        "serverTarget": "power:server"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "power:build:production,de",
+                            "serverTarget": "power:server:production"
+                        },
+                        "staging": {
+                            "browserTarget": "power:build:staging,de",
+                            "serverTarget": "power:server:staging"
+                        }
+                    }
+                },
+                "prerender": {
+                    "builder": "@nguniversal/builders:prerender",
+                    "options": {
+                        "browserTarget": "power:build:production",
+                        "serverTarget": "power:server:production",
+                        "routes": [
+                            "/",
+                            "/login",
+                            "/logout",
+                            "/feedback",
+                            "/forms",
+                            "/forms/public-dashboard"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "power:build:production",
+                            "serverTarget": "power:server:production"
+                        },
+                        "staging": {
+                            "browserTarget": "power:build:staging",
+                            "serverTarget": "power:server:staging"
+                        },
+                        "de": {
+                            "browserTarget": "power:build:production,de",
+                            "serverTarget": "power:server:production,de"
+                        },
+                        "de-simple": {
+                            "browserTarget": "power:build:production,de-simple",
+                            "serverTarget": "power:server:production,de-simple"
+                        },
+                        "en": {
+                            "browserTarget": "power:build:production,en",
+                            "serverTarget": "power:server:production,en"
+                        }
                     }
                 }
             }

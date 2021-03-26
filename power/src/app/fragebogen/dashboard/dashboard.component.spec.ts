@@ -17,9 +17,9 @@ describe('Fragebogen.Dashboard.DashboardComponent', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
 
-    const getForms = require('../../../assets/fragebogen/get-forms.json');
-    const getTasks = require('../../../assets/fragebogen/get-tasks.json');
-    const getTags = require('../../../assets/fragebogen/get-tags.json');
+    const getForms = require('../../../testdata/fragebogen/get-forms.json');
+    const getTasks = require('../../../testdata/fragebogen/get-tasks.json');
+    const getTags = require('../../../testdata/fragebogen/get-tags.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({

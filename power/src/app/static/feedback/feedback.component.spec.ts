@@ -2,8 +2,11 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { FeedbackComponent } from './feedback.component';
+import { AuthService } from '@app/shared/auth/auth.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 describe('Static.Feedback.FeedbackComponent', () => {
     let component: FeedbackComponent;
@@ -15,6 +18,12 @@ describe('Static.Feedback.FeedbackComponent', () => {
                 HttpClientTestingModule,
                 RouterTestingModule.withRoutes([]),
                 FormsModule
+            ],
+            providers: [
+                Title,
+                Meta,
+                AuthService,
+                AlertsService
             ],
             declarations: [
                 FeedbackComponent

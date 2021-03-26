@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,6 +13,7 @@ export class GmbofflineComponent implements OnInit {
 
     constructor(
         private titleService: Title,
+        private meta: Meta,
         private route: ActivatedRoute,
     ) {
         this.changeTitle();
@@ -20,9 +21,13 @@ export class GmbofflineComponent implements OnInit {
 
     changeTitle() {
         if (this.mode === 'gmb') {
-            this.titleService.setTitle($localize`Grundstücksmarktberichte (Archiv)`);
+            this.titleService.setTitle($localize`Grundstücksmarktberichte (Archiv) - Immobilienmarkt.NI`);
+            this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
+            this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktberichte, Landkreis` });
         } else if (this.mode === 'lmb') {
-            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte (Archiv)`);
+            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte (Archiv) - Immobilienmarkt.NI`);
+            this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
+            this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
         }
     }
 

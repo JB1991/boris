@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 import { ImmobilienChartOptions } from './immobilien.chartoptions';
@@ -40,11 +41,16 @@ export class ImmobilienComponent implements OnInit {
      * @param titleService Service for settings the title of the HTML document
      */
     constructor(
-        private http: HttpClient,
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         private titleService: Title,
+        private meta: Meta,
+        private http: HttpClient,
         private cdr: ChangeDetectorRef
     ) {
         this.titleService.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
+        this.meta.updateTag({ name: 'description', content: $localize`Der Immobilienpreisindex bildet die Preisentwicklung von Eigenheimen und Eigentumswohnungen in Niedersachsen ab` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Immobilienpreisindex, NIPIX, Preisentwicklung, Wohnungsmarktregion, Eigenheim, Eigentumswohnung` });
     }
 
     title = 'lgln';
@@ -114,7 +120,9 @@ export class ImmobilienComponent implements OnInit {
      * Init the Application.
      */
     ngOnInit() {
-        this.initNipix();
+        if (isPlatformBrowser(this.platformId)) {
+            this.initNipix();
+        }
     }
 
     /**
@@ -230,7 +238,7 @@ export class ImmobilienComponent implements OnInit {
             'geoCoordMapTop': this.nipixStatic.data.geoCoordMap['top'],
             'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
-        this.nipixRuntime.state.mapWidth=10000;
+        this.nipixRuntime.state.mapWidth = 10000;
         // Update Map Selection; Wait a little time for browser to render
         setTimeout(this.updateMapSelect.bind(this), 100);
 

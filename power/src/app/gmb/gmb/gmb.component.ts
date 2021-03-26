@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
@@ -110,6 +110,7 @@ export class GmbComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private titleService: Title,
+        private meta: Meta,
         private route: ActivatedRoute,
         private location: Location,
         private cdr: ChangeDetectorRef
@@ -119,9 +120,13 @@ export class GmbComponent implements OnInit {
 
     changeTitle() {
         if (this.mode === 'gmb') {
-            this.titleService.setTitle($localize`Grundstücksmarktberichte (Archiv)`);
+            this.titleService.setTitle($localize`Grundstücksmarktberichte - Immobilienmarkt.NI`);
+            this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
+            this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktberichte, Landkreis` });
         } else if (this.mode === 'lmb') {
-            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte (Archiv)`);
+            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte - Immobilienmarkt.NI`);
+            this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
+            this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
         }
     }
     /**
@@ -300,7 +305,7 @@ export class GmbComponent implements OnInit {
                 bf.push({
                     'name': ber[i],
                     'berichte': yr,
-                    'start': yr[yr.length-1]['key']
+                    'start': yr[yr.length - 1]['key']
                 });
             }
         }
@@ -444,6 +449,35 @@ export class GmbComponent implements OnInit {
         if (this.mode === 'lmb') {
             this.location.replaceState('/landesgrundstuecksmarktberichte', params.toString());
         }
+    }
+
+    ariaLabelBericht(year, rd, dl = false) {
+        let label = '';
+
+        if (dl) {
+            label += $localize`Download des` + ' ';
+
+
+            if (rd === 'Niedersachsen') {
+                label += $localize`Landesgrundstücksmarktberichtes`;
+            } else {
+                label += $localize`Grundstücksmarktberichtes`;
+            }
+        } else {
+            if (rd === 'Niedersachsen') {
+                label += $localize`Landesgrundstücksmarktbericht`;
+            } else {
+                label += $localize`Grundstücksmarktbericht`;
+            }
+
+        }
+        label += ' ' + year;
+
+        if (rd !== 'Niedersachsen') {
+            label += ' ' + $localize`vom Gutachterausschuss` + ' ' + rd;
+        }
+
+        return label;
     }
 
     /**
