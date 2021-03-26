@@ -96,7 +96,7 @@ metrics:
   image:
     registry: docker.io
     repository: bitnami/nginx-exporter
-    tag: 0.8.0-debian-10-r247
+    tag: 0.9.0-debian-10-r2
     pullPolicy: IfNotPresent
   podAnnotations: {}
   service:
