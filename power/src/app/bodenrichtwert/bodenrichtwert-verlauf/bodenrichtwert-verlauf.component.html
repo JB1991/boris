@@ -2,7 +2,7 @@
     <ng-container *ngIf="chartOption?.series.length != 0">
         <h3 i18n>Zeitliche Entwicklung</h3>
         <ng-container *ngIf="features?.features[0].properties.gema === 'Bremerhaven'; else bremen">
-            <p> Die Bodenrichtwerte in Bremerhaven werden in einem Zweijahreszyklus festgelegt.
+            <p i18n> Die Bodenrichtwerte in Bremerhaven werden in einem Zweijahreszyklus festgelegt.
                 Der letzte Stichtag war der {{ getStichtag('BREMERHAVEN') | date }}.
                 Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem Stichtag
                 ermittelt werden.
@@ -11,7 +11,7 @@
         <ng-template #bremen>
             <ng-container *ngIf="features?.features[0].properties.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen';
                      else niedersachsen">
-                <p> Die Bremer Bodenrichtwerte werden in einem Zweijahreszyklus festgelegt.
+                <p i18n> Die Bremer Bodenrichtwerte werden in einem Zweijahreszyklus festgelegt.
                     Der letzte Stichtag war der {{ getStichtag('BREMEN') | date }}.
                     Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem Stichtag
                     ermittelt werden.
@@ -20,9 +20,8 @@
         </ng-template>
         <ng-template #niedersachsen>
             <p i18n>Die zeitliche Entwicklungsreihe der niedersächsischen Bodenrichtwerte berücksichtigt nur die
-                Bodenrichtwerte, die zum Stichtag des
-                jeweiligen
-                Jahres ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+                Bodenrichtwerte, die zum Stichtag des jeweiligen Jahres ermittelt werden. Sie berücksichtigt keine
+                unterjährigen konjunkturellen Entwicklungen.</p>
         </ng-template>
 
         <!-- eChart in table-form for accessibility -->
@@ -66,8 +65,8 @@
     </ng-container>
 
     <div>
-        <p i18n
-           *ngIf="chartOption?.series.length >= 2">Für die ausgewählte Koordinate liegen seit dem Jahr 2013 mehrere
+        <p *ngIf="chartOption?.series.length >= 2"
+           i18n>Für die ausgewählte Koordinate liegen seit dem Jahr 2013 mehrere
             Bodenrichtwertzonen vor. In der zeitlichen Entwicklungsreihe sind alle Zonen für die Zeiträume ihrer
             Gültigkeit dargestellt.</p>
     </div>

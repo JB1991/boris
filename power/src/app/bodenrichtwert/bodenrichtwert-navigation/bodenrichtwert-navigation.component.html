@@ -111,9 +111,11 @@
                href="https://www.boris.niedersachsen.de/boris/bodenrichtwerte"
                target="_blank"
                rel="noopener noreferrer nofollow"
+               i18n-alt
                alt="Bodenrichtwerte vor 2012 in der Altanwendung"
                title="Bodenrichtwerte vor 2012 in der Altanwendung"
-               i18n-title>vor 2012</a>
+               i18n-title
+               i18n>vor 2012</a>
         </div>
     </div>
 </ng-template>
@@ -220,10 +222,10 @@
             type="button"
             role="menuitem"
             (click)="flurstueckssearch.modal.open(flurstueckssearch.title)"
-            alt="Flurstückssuche"
-            title="Flurstückssuche"
             i18n-alt
-            i18n-title>
+            alt="Flurstückssuche"
+            i18n-title
+            title="Flurstückssuche">
         <svg width="20px"
              height="20px"
              viewBox="0 0 16 16"
@@ -239,12 +241,12 @@
     <button type="button"
             role="menuitem"
             class="btn dropdown-item nav-link"
+            i18n-alt
             alt="Markierung fokussieren"
+            i18n-title
             title="Markierung fokussieren"
             (click)="onFocus()"
-            [disabled]="!this.latLng?.length"
-            i18n-alt
-            i18n-title>
+            [disabled]="!this.latLng?.length">
         <svg xmlns="http://www.w3.org/2000/svg"
              width="20px"
              height="20px"
@@ -269,7 +271,8 @@
             title="Karte zurücksetzen"
             aria-label="Karte und Adresseingabe zurücksetzen"
             i18n-alt
-            i18n-title>
+            i18n-title
+            i18n-aria-label>
         <svg width="20px"
              height="20px"
              viewBox="0 0 16 16"

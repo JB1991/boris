@@ -150,7 +150,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Stichtag gewechselt`,
-                $localize`Der Stichtag wurde zu ` + this.datePipe.transform(stichtag) + $localize` gewechselt.`);
+                $localize`Der Stichtag wurde zu` + ' ' + this.datePipe.transform(stichtag) + ' ' + $localize`gewechselt.`);
         }
 
         this.stichtagChange.emit(stichtag);
@@ -167,7 +167,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             this.alerts.NewAlert(
                 'info',
                 $localize`Teilmarkt gewechselt`,
-                $localize`Der Teilmarkt wurde zu ` + teilmarkt.text + $localize` gewechselt.`);
+                $localize`Der Teilmarkt wurde zu` + ' ' + teilmarkt.text + ' ' + $localize`gewechselt.`);
         }
 
         this.zoomChange.emit(this.determineZoomFactor(teilmarkt));
