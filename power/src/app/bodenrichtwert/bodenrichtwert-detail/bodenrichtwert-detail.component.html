@@ -5,8 +5,10 @@
         <div class="card m-0 mb-2"
              role="table">
             <div class="card-header">
-                <div class="sr-only caption"
-                     i18n>Tabelle Bodenrichtwertzone {{ feature.properties.nutzung | nutzung }}</div>
+                <div class="sr-only caption">
+                    <span i18n>Tabelle Bodenrichtwertzone</span>
+                    {{ feature.properties.nutzung | nutzung }}
+                </div>
                 <div class="row">
                     <h5 class="col-md-5 mb-0"
                         role="rowheader"><b>{{brzStrings.brz | hyphenate}} </b>
@@ -296,7 +298,7 @@
         <div class="card-header">
             <div class="row">
                 <h5 class="col-12 mb-0"
-                    role="rowheader"><b>Herausgeber</b>
+                    role="rowheader"><b i18n>Herausgeber</b>
                 </h5>
             </div>
         </div>
@@ -309,10 +311,10 @@
                        [href]="filteredFeatures[0].properties.gabe | gagKontaktdaten"
                        target="_blank"
                        rel="noopener noreferrer nofollow"
+                       i18n-alt
                        alt="Herausgeber"
                        title="Herausgeber"
-                       i18n-title
-                       i18n>{{ filteredFeatures[0]?.properties.gabe }}</a>
+                       i18n-title>{{ filteredFeatures[0]?.properties.gabe }}</a>
                 </dd>
             </dl>
         </div>

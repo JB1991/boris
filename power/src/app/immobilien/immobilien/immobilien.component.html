@@ -191,7 +191,8 @@
                                            type="checkbox"
                                            class="custom-control-input"
                                            (click)="toggleAllSelect(itm)"
-                                           attr.aria-label="Alles/Nichts auswählen"
+                                           i18n-aria-label
+                                           aria-label="Alles/Nichts auswählen"
                                            *ngIf="select['preset'].length === 1">
 
                                     <input id="{{i}}vall_"
@@ -199,7 +200,8 @@
                                            type="checkbox"
                                            class="custom-control-input"
                                            (click)="toggleAllSelect(itm)"
-                                           attr.aria-label="Alles/Nichts auswählen (Vergleich {{i+1}})"
+                                           i18n-aria-label
+                                           aria-label="Alles/Nichts auswählen (Vergleich {{i+1}})"
                                            *ngIf="select['preset'].length > 1">
 
                                     <label for="{{i}}vall"
@@ -379,7 +381,8 @@
                             id="dropdownTime1"
                             aria-controls="dropdown-basic"
                             aria-haspopup="true"
-                            attr.aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}">
+                            i18n-aria-label
+                            aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}">
                         {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}
                         <span class="caret"></span>
                     </button>
@@ -404,7 +407,8 @@
                             class="btn dropdown-toggle"
                             id="dropdownTime2"
                             aria-haspopup="listbox"
-                            attr.aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}">
+                            i18n-aria-label
+                            aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}">
                         {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}
                         <span class="caret"></span>
                     </button>

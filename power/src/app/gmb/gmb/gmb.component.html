@@ -44,6 +44,7 @@
         <div class="col-md-12 dropdown">
             <select id="landkreise"
                     class="form-select"
+                    i18n-aria-label
                     aria-label="Wählen die einen Landkreis"
                     (change)="onChange($event.target.value)">
                 <ng-container *ngFor="let kreis of selectMenu()">

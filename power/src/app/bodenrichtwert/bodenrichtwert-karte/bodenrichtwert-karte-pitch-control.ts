@@ -23,7 +23,7 @@ export default class BodenrichtwertKartePitchControl {
         this.btn = document.createElement('button');
         this.btn.className = 'btn';
         this.btn.type = 'button';
-        this.btn.title = '3D aktivieren/deaktivieren';
+        this.btn.title = $localize`3D aktivieren/deaktivieren`;
         this.btn.onclick = () => {
             if (this.map.getPaintProperty('building-extrusion', 'fill-extrusion-height') === 0) {
                 this.activate3dView();
