@@ -100,6 +100,7 @@ export class FeedbackComponent implements OnInit {
      */
     /* istanbul ignore next */
     public copyEmailToClipboard() {
+        throw Error('I SUCK');
         const selBox = document.createElement('textarea');
         selBox.style.position = 'fixed';
         selBox.style.left = '0';

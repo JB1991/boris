@@ -33,7 +33,15 @@ export class GlobalErrorHandler implements ErrorHandler {
         container.style.backgroundColor = '#FFFFFF';
         container.classList.add('p-3');
 
-        container.innerText = $localize`Ein kritischer Fehler ist aufgetreten, nachfolgender Code enhält die notwendigen Informationen für unsere Entwickler. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
+        const text = document.createElement('div');
+        text.innerText = $localize`Ein kritischer Fehler ist aufgetreten, nachfolgender Code enhält die notwendigen Informationen für unsere Entwickler. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
+        container.appendChild(text);
+
+        const link = document.createElement('a');
+        link.href = 'mailto:incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com?body=' + btoa(navigator.userAgent + '\n\n' + error.stack);
+        link.innerText = $localize`E-Mail Programm öffnen`;
+        container.appendChild(link);
+
         /* eslint-disable-next-line no-unsanitized/method */
         container.insertAdjacentHTML('beforeend', '<br><br><div class="small"><code>' +
             btoa(navigator.userAgent + '\n\n' + error.stack) + '</code></div>');
