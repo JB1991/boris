@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { StaticRoutingModule } from './static-routing.module';
@@ -10,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SharedModule } from '@app/shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
         DatenschutzComponent,
         LoginComponent,
         LogoutComponent,
-        FeedbackComponent
+        FeedbackComponent,
+        NotfoundComponent
     ]
 })
 export class StaticModule {
