@@ -10,7 +10,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         public alerts: AlertsService,
         public us: UpdateService) { }
 
-    handleError(error) {
+    handleError(error: Error) {
         // check if app needs reload
         console.error(error);
         const chunkFailedMessage = /Loading chunk [\d]+ failed/;
@@ -20,6 +20,9 @@ export class GlobalErrorHandler implements ErrorHandler {
             this.reload();
             return;
         }
+
+        // craft error
+        const msg = btoa(location.href + '\n' + navigator.userAgent + '\n\n' + (error?.stack || error.toString()));
 
         // show error
         const container = document.createElement('div');
@@ -38,13 +41,12 @@ export class GlobalErrorHandler implements ErrorHandler {
         container.appendChild(text);
 
         const link = document.createElement('a');
-        link.href = 'mailto:incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com?body=' + btoa(navigator.userAgent + '\n\n' + error.stack);
+        link.href = 'mailto:incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com?body=' + msg;
         link.innerText = $localize`E-Mail Programm öffnen`;
         container.appendChild(link);
 
         /* eslint-disable-next-line no-unsanitized/method */
-        container.insertAdjacentHTML('beforeend', '<br><br><div class="small"><code>' +
-            btoa(navigator.userAgent + '\n\n' + error.stack) + '</code></div>');
+        container.insertAdjacentHTML('beforeend', '<br><br><div class="small"><code>' + msg + '</code></div>');
 
         document.body.appendChild(container);
         document.body.classList.add('overflow-hidden');
