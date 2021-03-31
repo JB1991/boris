@@ -22,7 +22,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         }
 
         // craft error
-        const msg = btoa(location.href + '\n' + navigator.userAgent + '\n\n' + (error?.stack || error.toString()));
+        const msg = btoa(location.href + '\n' + navigator.userAgent + '\n\n' + error.toString() + '\n' + error?.stack);
 
         // show error
         const container = document.createElement('div');
@@ -37,7 +37,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         container.classList.add('p-3');
 
         const text = document.createElement('div');
-        text.innerText = $localize`Ein kritischer Fehler ist aufgetreten, nachfolgender Code enhält die notwendigen Informationen für unsere Entwickler. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
+        text.innerText = $localize`Ein Fehler ist aufgetreten, um den Fehler zu beheben, versuchen Sie bitte folgendes: Löschen Sie den Browser-Cache, deaktivieren Sie alle Browser-Plugins und aktualisieren Sie Ihren Webbrowser. Sollten diese Schritte Ihr Problem nicht beheben, dann kontaktieren Sie uns bitte mit dem untenstehenden Code. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
         container.appendChild(text);
 
         const link = document.createElement('a');
