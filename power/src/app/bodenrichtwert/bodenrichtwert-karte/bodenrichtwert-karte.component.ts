@@ -334,14 +334,14 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         const navControl = new NavigationControl({
             visualizePitch: true
         });
-        this.map.addControl(navControl, 'top-left');
+        this.map.addControl(navControl, 'top-right');
 
         // add geolocation control
         const geolocateControl = new GeolocateControl();
-        this.map.addControl(geolocateControl, 'top-left');
+        this.map.addControl(geolocateControl, 'top-right');
 
         const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
-        this.map.addControl(pitchControl, 'top-left');
+        this.map.addControl(pitchControl, 'top-right');
 
         // update the map on reload if coordinates exist
         if (this.latLng.length) {

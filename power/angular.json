@@ -282,6 +282,7 @@
                             "/login",
                             "/logout",
                             "/feedback",
+                            "/notfound",
                             "/bodenrichtwerte",
                             "/grundstuecksmarktberichte",
                             "/landesgrundstuecksmarktberichte",

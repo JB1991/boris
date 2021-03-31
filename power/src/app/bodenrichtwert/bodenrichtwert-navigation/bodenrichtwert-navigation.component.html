@@ -71,9 +71,13 @@
 
 <div [ngClass]="{'d-none' : filterActive}"
      [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
-     class="bg-light border">
-    <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
-    <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
+     class="bg-light border position-absolute z-index">
+    <div>
+        <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
+    </div>
+    <div>
+        <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
+    </div>
 </div>
 
 
@@ -87,7 +91,7 @@
         <button id="button-stichtage-1"
                 dropdownToggle
                 type="button"
-                class="btn dropdown-toggle nav-link"
+                class="btn dropdown-toggle nav-link mobileBtn"
                 aria-controls="dropdown-stichtage-1"
                 aria-haspopup="true">
             <span i18n>Stichtag</span> : {{stichtag | date}}
@@ -122,13 +126,13 @@
 
 <!-- Teilmarkt button view -->
 <ng-template #teilmarktButton>
-    <div class="btn-group"
+    <div class="btn-group p-0"
          role="group"
          dropdown>
         <button id="button-teilmarkt-1"
                 dropdownToggle
                 type="button"
-                class="btn dropdown-toggle nav-link"
+                class="btn dropdown-toggle nav-link mobileBtn"
                 aria-controls="dropdown-teilmarkt-1"
                 aria-haspopup="true">
             <span i18n>Teilmarkt</span>: {{teilmarkt?.text}}
@@ -142,7 +146,7 @@
              aria-labelledby="button-teilmarkt-1">
             <button type="button"
                     role="menuitem"
-                    class="dropdown-item nav-link"
+                    class="dropdown-item nav-link mobileBtn"
                     *ngFor="let tm of bodenrichtwert.TEILMAERKTE"
                     (click)="onTeilmarktChange(tm)">
                 <svg width="0.75em"
