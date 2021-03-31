@@ -41,7 +41,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         container.appendChild(text);
 
         const mail = document.createElement('div');
-        mail.innerHTML = $localize`Kontakt:` + ' incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
+        mail.innerText = $localize`Kontakt:` + ' incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
         container.appendChild(mail);
 
         const link = document.createElement('a');
