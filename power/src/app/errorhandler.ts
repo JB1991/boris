@@ -40,8 +40,12 @@ export class GlobalErrorHandler implements ErrorHandler {
         text.innerText = $localize`Ein Fehler ist aufgetreten, um den Fehler zu beheben, versuchen Sie bitte folgendes: Löschen Sie den Browser-Cache, deaktivieren Sie alle Browser-Plugins und aktualisieren Sie Ihren Webbrowser. Sollten diese Schritte Ihr Problem nicht beheben, dann kontaktieren Sie uns bitte mit dem untenstehenden Code. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
         container.appendChild(text);
 
+        const mail = document.createElement('div');
+        mail.innerHTML = $localize`Kontakt:` + ' incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
+        container.appendChild(mail);
+
         const link = document.createElement('a');
-        link.href = 'mailto:incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com?body=' + msg;
+        link.href = 'mailto:incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com?subject=Fehlerbericht&body=' + msg;
         link.innerText = $localize`E-Mail Programm öffnen`;
         container.appendChild(link);
 
