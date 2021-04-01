@@ -82,6 +82,8 @@ spec:
             - name: power-config
               mountPath: /opt/bitnami/nginx/conf/server_blocks
               readOnly: true
+            - name: bitnami-tmp
+              mountPath: /opt/bitnami/nginx/tmp
             - name: root-tmp
               mountPath: /tmp
         {{- if .Values.metrics.enabled }}
@@ -116,6 +118,8 @@ spec:
           configMap:
             name: {{ include "power.fullname" . }}-nginx
         - name: power-config
+          emptyDir: {}
+        - name: bitnami-tmp
           emptyDir: {}
         - name: root-tmp
           emptyDir: {}
