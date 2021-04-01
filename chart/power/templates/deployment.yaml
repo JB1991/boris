@@ -91,6 +91,7 @@ spec:
           securityContext:
             runAsUser: 1001
             runAsNonRoot: true
+            readOnlyRootFilesystem: true
           image: "{{ .Values.metrics.image.registry }}/{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
           imagePullPolicy: {{ .Values.metrics.image.pullPolicy | quote }}
           command: ['/usr/bin/exporter', '-nginx.scrape-uri', 'http://127.0.0.1:8080/status']
