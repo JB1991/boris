@@ -159,9 +159,13 @@ test:lint:
   stage: test
   image: node:lts-alpine
   interruptible: true
-  needs: []
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
-  cache: {}
+  cache:
+    <<: *global_cache
+    policy: pull
   script:
     - cd power
     - node_modules/@angular/cli/bin/ng lint power
@@ -176,9 +180,13 @@ test:lint-html:
   stage: test
   image: node:lts-alpine
   interruptible: true
-  needs: []
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
-  cache: {}
+  cache:
+    <<: *global_cache
+    policy: pull
   script:
     - cd power
     - npm run lint:html
@@ -193,9 +201,13 @@ test:lint-styles:
   stage: test
   image: node:lts-alpine
   interruptible: true
-  needs: []
+  needs:
+    - job: init:npm
+      artifacts: false
   dependencies: []
-  cache: {}
+  cache:
+    <<: *global_cache
+    policy: pull
   script:
     - cd power
     - npm run lint:styles
