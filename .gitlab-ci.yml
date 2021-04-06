@@ -122,7 +122,7 @@ test:e2e:
     policy: pull
   script:
     - cd power
-    - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
+    - node_modules/@angular/cli/bin/ng e2e -c staging
   artifacts:
     expire_in: 2 days
     public: false
@@ -136,7 +136,6 @@ test:e2e:
     - dev
     - staging
     - production
-  when: manual
 
 test:audit:
   stage: test
@@ -160,9 +159,7 @@ test:lint:
   stage: test
   image: node:lts-alpine
   interruptible: true
-  needs:
-    - job: init:npm
-      artifacts: false
+  needs: []
   dependencies: []
   cache:
     <<: *global_cache
@@ -181,9 +178,7 @@ test:lint-html:
   stage: test
   image: node:lts-alpine
   interruptible: true
-  needs:
-    - job: init:npm
-      artifacts: false
+  needs: []
   dependencies: []
   cache:
     <<: *global_cache
@@ -202,9 +197,7 @@ test:lint-styles:
   stage: test
   image: node:lts-alpine
   interruptible: true
-  needs:
-    - job: init:npm
-      artifacts: false
+  needs: []
   dependencies: []
   cache:
     <<: *global_cache
