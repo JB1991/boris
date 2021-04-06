@@ -161,9 +161,7 @@ test:lint:
   interruptible: true
   needs: []
   dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
   script:
     - cd power
     - node_modules/@angular/cli/bin/ng lint power
@@ -180,9 +178,7 @@ test:lint-html:
   interruptible: true
   needs: []
   dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
   script:
     - cd power
     - npm run lint:html
@@ -199,9 +195,7 @@ test:lint-styles:
   interruptible: true
   needs: []
   dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
+  cache: {}
   script:
     - cd power
     - npm run lint:styles
