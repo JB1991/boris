@@ -446,7 +446,7 @@ scan:development:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - docker pull "$CI_REGISTRY_IMAGE:latest"
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
+    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
   only:
     - dev
   allow_failure: true
@@ -467,7 +467,7 @@ scan:staging:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - docker pull "$CI_REGISTRY_IMAGE:staging"
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
+    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
   only:
     - staging
   allow_failure: true
@@ -488,7 +488,7 @@ scan:production:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - docker pull "$CI_REGISTRY_IMAGE:production"
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:production"
+    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:production"
   only:
     - production
   allow_failure: true
