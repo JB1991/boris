@@ -104,6 +104,7 @@ networkPolicy:
       podSelector:
         matchLabels:
           app.kubernetes.io/name: kong
+          app.kubernetes.io/instance: kong
 
 metrics:
   enabled: true

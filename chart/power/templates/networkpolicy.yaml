@@ -22,7 +22,9 @@ spec:
     {{- end }}
     {{- if .Values.metrics.enabled }}
     - from:
-        - podSelector: {}
+        - podSelector:
+            matchLabels:
+              app: prometheus
           namespaceSelector:
             matchLabels:
               name: prometheus
