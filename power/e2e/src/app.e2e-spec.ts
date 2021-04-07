@@ -32,7 +32,7 @@ describe('POWER-Frontend', () => {
         for (let pageUrl of PAGES) {
             page.navigateTo(pageUrl);
             let bodySize = await page.getBodyWidth();
-            expect(bodySize.width).toBeLessThanOrEqual(windowSize.width - 30);
+            expect(bodySize.width).toBeLessThanOrEqual(windowSize.width);
         }
     });
 });
