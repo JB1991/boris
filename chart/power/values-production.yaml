@@ -113,15 +113,18 @@ metrics:
     repository: bitnami/nginx-exporter
     tag: 0.9.0-debian-10-r13
     pullPolicy: IfNotPresent
-  podAnnotations: {}
+  containerSecurityContext:
+    runAsUser: 1001
+    runAsNonRoot: true
+    readOnlyRootFilesystem: true
   service:
     port: 9113
   resources:
+    requests:
+      cpu: 20m
+      memory: 32Mi
     limits:
       cpu: 200m
       memory: 256Mi
-    requests:
-      cpu: 20m
-      memory: 128Mi
   serviceMonitor:
     enabled: true
