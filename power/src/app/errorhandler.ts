@@ -1,4 +1,5 @@
 import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
+import { environment } from '@env/environment';
 
 import { UpdateService } from './update.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -25,7 +26,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         this.errorList.splice(0, 0, error);
 
         // craft error
-        let msgStr = location.href + '\n' + navigator.userAgent;
+        let msgStr = location.href + '\n' + navigator.userAgent + '\n' + environment.config.version.branch + '/' + environment.config.version.version;
         for (const err of this.errorList) {
             msgStr += '\n\n' + err.toString() + '\n' + err?.stack;
         }
