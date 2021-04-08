@@ -113,7 +113,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features) {
             this.clearChart();
-            if (this.features) {
+            if (this.features && !changes.features.firstChange) {
                 this.features.features = this.filterByStichtag(this.features.features);
                 this.generateChart(this.features.features);
             }

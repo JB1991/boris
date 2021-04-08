@@ -10,6 +10,7 @@ import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
+import { LngLat } from 'mapbox-gl';
 
 /* eslint-disable max-lines */
 @Component({
@@ -21,8 +22,8 @@ import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component'
 
 export class BodenrichtwertNavigationComponent implements OnChanges {
 
-    @Input() latLng: Array<number>;
-    @Output() latLngChange = new EventEmitter<Array<number>>();
+    @Input() latLng: LngLat;
+    @Output() latLngChange = new EventEmitter<LngLat>();
 
     @Input() address: Feature;
     @Output() addressChange = new EventEmitter();
@@ -71,7 +72,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         private location: Location,) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.latLng?.length &&
+        if (this.latLng &&
             (changes.latLng || changes.teilmarkt || changes.stichtag)) {
             this.updateData();
         }
@@ -81,8 +82,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * updateData updates the address, bodenrichtwerte and the flurstueck
      */
     public updateData() {
-        const lat = this.latLng[0];
-        const lng = this.latLng[1];
+        const lat = this.latLng.lat;
+        const lng = this.latLng.lng;
         this.getAddressFromLatLng(lat, lng);
         this.getBodenrichtwertzonen(lat, lng, this.teilmarkt.value);
         this.getFlurstueckFromLatLng(lat, lng);
@@ -192,8 +193,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param feature feature
      */
     public onAddressChange(feature: Feature): void {
-        this.latLngChange.emit([feature?.geometry['coordinates'][1], feature?.geometry['coordinates'][0]]);
-        if (!this.latLng?.length) {
+        this.latLngChange.emit(new LngLat(feature?.geometry['coordinates'][1], feature?.geometry['coordinates'][0]));
+        if (!this.latLng) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         }
     }
@@ -204,7 +205,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public onFlurstueckChange(fts: FeatureCollection): void {
         const latLng = this.pointOnFlurstueck(fts.features[0]);
-        this.latLngChange.emit([latLng[1], latLng[0]]);
+        this.latLngChange.emit(new LngLat(latLng[1], latLng[0]));
     }
 
     /**
@@ -269,7 +270,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public onFocus() {
         this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
-        this.latLngChange.emit([this.latLng[0], this.latLng[1]]);
+        this.latLngChange.emit(new LngLat(this.latLng.lng, this.latLng.lat));
     }
 
     /**
