@@ -22,10 +22,12 @@
             "resources": {
                 "files": [
                     "/assets/**",
-                    "/vector-tiles/**",
                     "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)",
                     "!/assets/config/config.json",
                     "!/assets/version.json"
+                ],
+                "urls": [
+                    "/vector-tiles/**"
                 ]
             }
         }
@@ -38,8 +40,9 @@
         "!/health",
         "!/geocoding/**",
         "!/geoserver/**",
+        "!/vector-tiles/**",
+        "!/download/**",
         "!/formapi/**",
-        "!/wfs/**",
         "!/feedback-rss/**",
         "!/boris-print/**"
     ],

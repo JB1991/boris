@@ -28,7 +28,7 @@
                         </power-bodenrichtwert-navigation>
                     </div>
                     <div class="col-12 p-0 map-height"
-                         [ngClass]="{'map-height-active-details' : latLng?.length}">
+                         [ngClass]="{'map-height-active-details' : latLng}">
                         <power-bodenrichtwertkarte #map
                                                    [(latLng)]="latLng"
                                                    (latLngChange)="changeURL()"
@@ -78,7 +78,7 @@
                          (collapsed)="onCollapsingEnds()"
                          (expanded)="onExpandingEnds()"
                          [isAnimated]="true">
-                        <ng-container *ngIf="latLng?.length">
+                        <ng-container *ngIf="latLng">
                             <div class="row p-0 pb-2 m-0 border-bottom align-items-center details-header-height">
                                 <div class="col-12 col-lg p-0">
                                     <!-- no address and no features but latLng set-->
@@ -109,7 +109,7 @@
         </div>
         <div>
             <!-- no address and no features - inital state -->
-            <h5 *ngIf="!latLng?.length"
+            <h5 *ngIf="!latLng"
                 class="px-1 px-lg-2 pt-2 text-center"
                 i18n>Wählen Sie eine Position</h5>
         </div>

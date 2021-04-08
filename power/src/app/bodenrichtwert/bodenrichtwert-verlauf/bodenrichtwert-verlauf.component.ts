@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, AfterViewChecked, AfterViewInit, AfterContentInit } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
@@ -109,11 +109,10 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
         private verfahrensartPipe: VerfahrensartPipe,
         private datePipe: DatePipe
     ) { }
-
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features) {
             this.clearChart();
-            if (this.features) {
+            if (this.features && !changes.features.firstChange) {
                 this.features.features = this.filterByStichtag(this.features.features);
                 this.generateChart(this.features.features);
             }
@@ -263,7 +262,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.setLegendFormat();
             this.setTextStyleOfLegend();
         }
-        this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        this.echartsInstance?.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
     /**

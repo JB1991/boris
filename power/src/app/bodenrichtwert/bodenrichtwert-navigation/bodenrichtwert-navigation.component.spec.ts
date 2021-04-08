@@ -9,6 +9,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SimpleChange } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
+import { LngLat } from 'mapbox-gl';
 
 describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationComponent', () => {
     const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');
@@ -46,7 +47,7 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
         fixture.detectChanges();
         httpClient = TestBed.inject(HttpClient);
 
-        component.latLng = [lat, lng];
+        component.latLng = new LngLat(lng, lat);
         component.teilmarkt = {
             'value': [''],
             'text': '',

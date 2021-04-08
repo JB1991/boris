@@ -12,6 +12,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FeatureCollection } from 'geojson';
+import { LngLat } from 'mapbox-gl';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -78,7 +79,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
     it('printURL should return an URL for the printing service ALT-Boris', () => {
         component.zoom = 15;
         component.stichtag = '2020-12-31';
-        component.latLng = [52.38253373875585, 9.832944728398047];
+        component.latLng = new LngLat(9.832944728398047, 52.38253373875585);
         // component.teilmarkt = {
         //     value: ['B', 'SF', 'R', 'E'],
         //     text: $localize`Teilmarkt`,
@@ -94,7 +95,7 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
 
     it('changeURL should change the current URL params if changes are applied', () => {
         spyOn(component.location, 'replaceState');
-        component.latLng = [200, 300];
+        component.latLng = new LngLat(50, 9);
         component.stichtag = '2030-12-31';
         component.teilmarkt = component.TEILMAERKTE[0];
         component.zoom = 15.1;
