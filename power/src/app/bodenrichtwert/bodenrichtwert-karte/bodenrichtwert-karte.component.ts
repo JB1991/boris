@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { GeolocateControl, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
+import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
@@ -197,6 +197,24 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         bounds: this.ndsBounds,
     };
 
+    // Sanierungsgebiete - Verg (Verfahrensgrundlage)
+    public ndsVergTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=boris:br_verfahren'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public ndsVergSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.ndsVergTiles],
+        bounds: this.ndsBounds,
+    };
+
     // Flurstuecke
     public ndsFstTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
@@ -225,8 +243,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         features: []
     };
 
-    @Input() latLng: Array<number>;
-    @Output() latLngChange = new EventEmitter<Array<number>>();
+    @Input() latLng: LngLat;
+    @Output() latLngChange = new EventEmitter<LngLat>();
 
     @Input() teilmarkt: Teilmarkt;
 
@@ -269,7 +287,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
                 this.map.easeTo({
                     zoom: this.zoom,
-                    center: this.latLng?.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
+                    center: this.latLng ? [this.latLng.lng, this.latLng.lat] : this.map.getCenter()
                 });
             }
             // Stichtag changed
@@ -281,9 +299,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             }
             // latLng changed
             if (changes.latLng && changes.latLng.currentValue !== undefined) {
-                this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
+                this.marker.setLngLat(this.latLng).addTo(this.map);
                 if (this.expanded) {
-                    this.flyTo(this.latLng[0], this.latLng[1]);
+                    this.flyTo();
                 }
             }
             // collapsed
@@ -297,7 +315,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             // expanded
             if (changes.expanded && this.latLng) {
                 if (changes.expanded.currentValue) {
-                    this.flyTo(this.latLng[0], this.latLng[1]);
+                    this.flyTo();
                 }
             }
             // resetMapFired triggered by navigation resetMap only if details are collapsed
@@ -330,6 +348,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
+        this.map.addSource('geoserver_br_verg', this.ndsVergSource);
+
         // add navigation control
         const navControl = new NavigationControl({
             visualizePitch: true
@@ -344,10 +364,10 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         this.map.addControl(pitchControl, 'top-right');
 
         // update the map on reload if coordinates exist
-        if (this.latLng.length) {
+        if (this.latLng) {
             this.map.resize();
-            this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
-            this.flyTo(this.latLng[0], this.latLng[1]);
+            this.marker.setLngLat(this.latLng).addTo(this.map);
+            this.flyTo();
         }
     }
 
@@ -392,9 +412,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /**
      * flyTo executes a flyTo for a given latLng
      */
-    public flyTo(lat: number, lng: number) {
+    public flyTo() {
         this.map.flyTo({
-            center: [lng, lat],
+            center: [this.latLng.lng, this.latLng.lat],
             zoom: this.zoom,
             speed: 1,
             curve: 1,
@@ -407,10 +427,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * onDragEnd updates latLng if marker was moved
      */
     public onDragEnd(): void {
-        const lat = this.marker.getLngLat().lat;
-        const lng = this.marker.getLngLat().lng;
-
-        this.latLngChange.emit([lat, lng]);
+        this.latLngChange.emit(this.marker.getLngLat());
     }
 
     /**
@@ -418,11 +435,11 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * @param event MapEvent with coordinates
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
-        if (!this.latLng?.length) {
+        if (!this.latLng) {
             this.zoomChange.emit(this.determineZoomFactor());
         }
         if (event.lngLat) {
-            this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
+            this.latLngChange.emit(event.lngLat);
         }
     }
 

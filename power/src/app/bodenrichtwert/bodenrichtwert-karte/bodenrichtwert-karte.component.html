@@ -92,9 +92,9 @@
 
         <mgl-layer id="sanierungsgebiet"
                    type="line"
-                   [source]="ndsSource"
+                   [source]="ndsVergSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat_with_display'"
+                   [sourceLayer]="'br_verfahren'"
                    [paint]="{
                         'line-color': '#0080FF',
                         'line-dasharray': [7,5],
@@ -106,7 +106,7 @@
                             }
                     }"
                    [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
-                   [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
+                   [filter]="['==', 'stag', stichtag]">
         </mgl-layer>
 
         <mgl-layer id="landwirtschaft"

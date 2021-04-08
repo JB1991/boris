@@ -51,7 +51,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             container: 'map',
         });
         component.marker = new Marker();
-        component.latLng = [lat, lng];
+        component.latLng = new LngLat(lng, lat);
         component.loadMap(map);
         component.marker.setLngLat([lng, lat]).addTo(component.map);
 
@@ -112,7 +112,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
 
     it('flyTo should focus the map to specific coordinates', () => {
         spyOn(component.map, 'flyTo');
-        component.flyTo(lat, lng);
+        component.flyTo();
         expect(component.map.flyTo).toHaveBeenCalledTimes(1);
     });
 
