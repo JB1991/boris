@@ -1,4 +1,6 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Feature, FeatureCollection } from 'geojson';
+import { GagKontaktdatenPipe } from '../pipes/gag-kontaktdaten.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-detail',
@@ -6,7 +8,7 @@ import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core
     styleUrls: ['./bodenrichtwert-detail.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertDetailComponent implements OnInit {
+export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
 
     brzStrings = {
         'brz': $localize`Bodenrichtwertzone`,
@@ -34,23 +36,23 @@ export class BodenrichtwertDetailComponent implements OnInit {
         'bem': $localize`Bemerkung`
     };
 
-    @Input() feature: any;
+    @Input() stichtag: string;
 
     @Input() teilmarkt: any;
+
+    @Input() features: FeatureCollection;
+
+    public filteredFeatures: Array<Feature>;
 
     ngOnInit() {
     }
 
-    enutaBremen(feature) {
-        if (feature.properties.nutzung[0].enuta[0] === 'G1' ||
-            feature.properties.nutzung[0].enuta[0] === 'G2' ||
-            feature.properties.nutzung[0].enuta[0] === 'G3' ||
-            feature.properties.nutzung[0].enuta[0] === 'G4') {
-            return true;
+    /* istanbul ignore next */
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.features || changes.stichtag || changes.teilmarkt) {
+            this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
         }
-        return false;
     }
-
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

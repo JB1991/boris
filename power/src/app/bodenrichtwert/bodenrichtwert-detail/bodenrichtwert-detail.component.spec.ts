@@ -7,11 +7,13 @@ import { UmlautCorrectionPipe } from '@app/bodenrichtwert/pipes/umlaut-correctio
 import { HyphenatePipe } from '@app/shared/pipes/hyphenate.pipe';
 import { EntwicklungszusatzPipe } from '../pipes/entwicklungszusatz.pipe';
 import { EntwicklungszustandPipe } from '../pipes/entwicklungszustand.pipe';
-import { NutzungBremenPipe } from '../pipes/nutzung-bremen.pipe';
+import { FeatureCollection } from 'geojson';
+import { GagKontaktdatenPipe } from '../pipes/gag-kontaktdaten.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', () => {
     let component: BodenrichtwertDetailComponent;
     let fixture: ComponentFixture<BodenrichtwertDetailComponent>;
+    const features: FeatureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -19,11 +21,11 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
                 BodenrichtwertDetailComponent,
                 BeitragPipe,
                 NutzungPipe,
-                NutzungBremenPipe,
                 HyphenatePipe,
                 UmlautCorrectionPipe,
                 EntwicklungszusatzPipe,
-                EntwicklungszustandPipe
+                EntwicklungszustandPipe,
+                GagKontaktdatenPipe
             ]
         })
             .compileComponents();
@@ -32,23 +34,13 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertDetailComponent);
         component = fixture.componentInstance;
-        component.feature = {
-            properties: {
-                nutzung: [{ nutz: 'W', 'enuta': ['G3'] }],
-                entw: 'B',
-                verf: 'SU'
-            }
-        };
+        component.features = JSON.parse(JSON.stringify(features));
+        component.filteredFeatures = JSON.parse(JSON.stringify(features.features));
         fixture.detectChanges();
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
-
-    it('should return true', () => {
-        const result = component.enutaBremen(component.feature);
-        expect(result).toBe(true);
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

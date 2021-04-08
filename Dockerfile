@@ -1,20 +1,14 @@
-FROM nginx:alpine
+FROM bitnami/nginx:latest
 
 ARG BRANCH="local"
 ARG COMMIT="dev"
 LABEL branch=${BRANCH}
 LABEL commit=${COMMIT}
 
-COPY /power/dist/power/browser /usr/share/nginx/html
-COPY nginx-default.conf /etc/nginx/conf.d/default.conf.template
-COPY docker-entrypoint.sh /
+USER root
+COPY /power/dist/power/browser /app
 
-RUN apk update \
-    && apk upgrade \
-    && mv /usr/share/nginx/html/de/* /usr/share/nginx/html/ \
-    && rm -rf /usr/share/nginx/html/de/ \
-    && echo "{\"version\":\"$COMMIT\",\"branch\":\"$BRANCH\"}" > /usr/share/nginx/html/assets/version.json
-
-EXPOSE 80
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["nginx", "-g", "daemon off;"]
+RUN mv /app/de/* /app/ \
+    && rm -rf /app/de/ \
+    && echo "{\"version\":\"$COMMIT\",\"branch\":\"$BRANCH\"}" > /app/assets/version.json
+USER 1001

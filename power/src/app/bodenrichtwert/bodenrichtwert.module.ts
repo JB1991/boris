@@ -12,8 +12,8 @@ import { BodenrichtwertRoutingModule } from './bodenrichtwert-routing.module';
 import { BodenrichtwertComponent } from './bodenrichtwert-component/bodenrichtwert.component';
 import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
-import { BodenrichtwertListeComponent } from './bodenrichtwert-liste/bodenrichtwert-liste.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
+import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/bodenrichtwert-navigation.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
@@ -28,15 +28,14 @@ import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
 import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
 import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
-import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
+import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
 
 /**
  * This module provides user interface for Bodenrichtwerte.
  * Therefore it contains:
  * (1) Bodenrichtwert-Detail
  * (2) Bodenrichtwert-Karte
- * (3) Bodenrichtwert-Liste
- * (4) Bodenrichtwert-Verlauf
+ * (3) Bodenrichtwert-Verlauf
  * All subcomponents are arranged in Bodenrichtwert-Component
  * All data is loaded via Bodenrichtwert-Service.
  */
@@ -46,7 +45,7 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         BodenrichtwertComponent,
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
-        BodenrichtwertListeComponent,
+        BodenrichtwertNavigationComponent,
         UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,
@@ -59,7 +58,7 @@ import { NutzungBremenPipe } from './pipes/nutzung-bremen.pipe';
         BauweisePipe,
         BodenartPipe,
         VerfahrensartPipe,
-        NutzungBremenPipe
+        GagKontaktdatenPipe
     ],
     imports: [
         BodenrichtwertRoutingModule,

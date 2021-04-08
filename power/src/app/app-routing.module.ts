@@ -39,23 +39,24 @@ const routes: Routes = [
         loadChildren: () => import('./gmb/gmb.module')
             .then(m => m.GmbModule),
         canActivate: [ModuleGuard],
-        data: {'mode': 'gmb'}
+        data: { 'mode': 'gmb' }
     },
     {
         path: 'landesgrundstuecksmarktberichte',
         loadChildren: () => import('./gmb/gmb.module')
             .then(m => m.GmbModule),
         canActivate: [ModuleGuard],
-        data: {'mode': 'lmb'}
+        data: { 'mode': 'lmb' }
     },
     {
         path: '**',
-        redirectTo: '', pathMatch: 'full'
+        redirectTo: '/notfound',
+        pathMatch: 'full'
     }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: false })],
+    imports: [RouterModule.forRoot(routes, { initialNavigation: 'enabled' })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {

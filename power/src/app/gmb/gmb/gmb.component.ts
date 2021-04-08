@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
+import { Location, isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import * as kreise_raw from './kreise.json';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GmbComponent implements OnInit {
-    downloadPath = 'https://s3.eu-de.cloud-object-storage.appdomain.cloud/grundstuecksmarktberichte';
+    downloadPath = '/download';
     berichte = data['default'];
     kreise = kreise_raw['default'];
 
@@ -29,6 +29,7 @@ export class GmbComponent implements OnInit {
     selectedKreis = undefined;
     berichteFiltered = [];
     berichteOpened = [];
+    isBrowser = true;
 
     /**
      * MapOptions
@@ -108,6 +109,8 @@ export class GmbComponent implements OnInit {
      * @param titleService Service for settings the title of the HTML document
      */
     constructor(
+        /* eslint-disable-next-line @typescript-eslint/ban-types */
+        @Inject(PLATFORM_ID) public platformId: Object,
         private http: HttpClient,
         private titleService: Title,
         private meta: Meta,
@@ -116,6 +119,10 @@ export class GmbComponent implements OnInit {
         private cdr: ChangeDetectorRef
     ) {
         this.changeTitle();
+
+        if (!isPlatformBrowser(this.platformId)) {
+            this.isBrowser = false;
+        }
     }
 
     changeTitle() {
@@ -129,12 +136,16 @@ export class GmbComponent implements OnInit {
             this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
         }
     }
+
     /**
      * OnInit
      * Load geojson for Landkreise
      */
     ngOnInit(): void {
-        this.mapInit();
+        if (isPlatformBrowser(this.platformId)) {
+            this.mapInit();
+        }
+
         this.route.data.subscribe(routedata => {
             if (routedata['mode'] === 'lmb') {
                 this.mode = 'lmb';

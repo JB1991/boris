@@ -3,7 +3,8 @@
 </div>
 <div class="row mh-100 m-0"
      [ngClass]="{'rowrtl': nipixStatic.layoutRtl === true}">
-    <div class="col-sm-8 p-0">
+    <div class="col-sm-8 p-0"
+         *ngIf="isBrowser">
         <div echarts
              [options]="this.nipixRuntime.map.options"
              [loading]="!mapLoaded"
@@ -118,7 +119,8 @@
                 <div *ngIf="select['type'] === 'multiSelect'"
                      style="padding-left: 40px; margin-bottom: 1rem;"
                      i18n
-                     aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht möglich.</div>
+                     aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht
+                    möglich.</div>
 
                 <!-- Select DrawValues: Einzeldarstellung, Vergleiche -->
                 <ul class="tab"
@@ -189,7 +191,8 @@
                                            type="checkbox"
                                            class="custom-control-input"
                                            (click)="toggleAllSelect(itm)"
-                                           attr.aria-label="Alles/Nichts auswählen"
+                                           i18n-aria-label
+                                           aria-label="Alles/Nichts auswählen"
                                            *ngIf="select['preset'].length === 1">
 
                                     <input id="{{i}}vall_"
@@ -197,7 +200,8 @@
                                            type="checkbox"
                                            class="custom-control-input"
                                            (click)="toggleAllSelect(itm)"
-                                           attr.aria-label="Alles/Nichts auswählen (Vergleich {{i+1}})"
+                                           i18n-aria-label
+                                           aria-label="Alles/Nichts auswählen (Vergleich {{i+1}})"
                                            *ngIf="select['preset'].length > 1">
 
                                     <label for="{{i}}vall"
@@ -362,7 +366,8 @@
                     <span i18n>Zeitraum auswählen</span>
                 </button>
                 <span i18n
-                      aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem Graphen erfolgen.</span><br>
+                      aria-hidden="true">HINWEIS: Die Auswahl des Zetraumes kann ebenfalls mit den Schiebereglern in dem
+                    Graphen erfolgen.</span><br>
 
                 <span id="dropdownTime1Label"
                       i18n>Zeitraum von</span>
@@ -376,7 +381,8 @@
                             id="dropdownTime1"
                             aria-controls="dropdown-basic"
                             aria-haspopup="true"
-                            attr.aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}">
+                            i18n-aria-label
+                            aria-label="Startzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}">
                         {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeStartIndex]}}
                         <span class="caret"></span>
                     </button>
@@ -401,7 +407,8 @@
                             class="btn dropdown-toggle"
                             id="dropdownTime2"
                             aria-haspopup="listbox"
-                            attr.aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}">
+                            i18n-aria-label
+                            aria-label="Endzeitraum auswählen. Aktuelle Auswahl: {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}">
                         {{nipixRuntime.availableQuartal[nipixRuntime.state.rangeEndIndex]}}
                         <span class="caret"></span>
                     </button>
@@ -526,7 +533,8 @@
                     {{ nipixRuntime.translate(regionName(selectedWoMa['woma_id'])) }}
                 </ng-container>
                 <ng-template i18n
-                             #noRegionBlock>Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!</ng-template>
+                             #noRegionBlock>Für die aktuelle Eingabe kann keine Wohnungsmarktregion ermittelt werden!
+                </ng-template>
             </accordion-group>
         </accordion>
 

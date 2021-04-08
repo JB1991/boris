@@ -2,6 +2,7 @@
     <nav class="navbar navbar-light navbar-expand-lg border-bottom bg-white"
          style="z-index: 1000;">
         <a class="navbar-brand"
+           i18n-title
            title="Zur Startseite"
            [routerLink]="['/']"
            style="color: #343a40;">
@@ -22,6 +23,7 @@
                 style="border: none; padding-right: 0;"
                 type="button"
                 (click)="isCollapsed = !isCollapsed"
+                i18n-aria-label
                 aria-label="Navigation umschalten"
                 *ngIf="config.modules.length > 0">
             <span class="navbar-toggler-icon"
@@ -46,12 +48,12 @@
                     *ngIf="config.modules.includes('bodenwertkalkulator')"
                     (click)="isCollapsedImmo = true; isCollapsedAcc = true;">
                     <a class="nav-link dropdown-toggle clickable"
-                       [routerLink]=""
+                       href=""
                        id="navbarBRW"
                        role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true"
-                       (click)="isCollapsedBRW = !isCollapsedBRW"
+                       (click)="$event.preventDefault(); isCollapsedBRW = !isCollapsedBRW"
                        i18n>Bodenwerte</a>
 
                     <div class="dropdown-menu dropdown-menu-right"
@@ -78,12 +80,12 @@
                 <li class="nav-item dropdown"
                     (click)="isCollapsedBRW = true; isCollapsedAcc = true;">
                     <a class="nav-link dropdown-toggle clickable"
-                       [routerLink]=""
+                       href=""
                        id="navbarImmo"
                        role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true"
-                       (click)="isCollapsedImmo = !isCollapsedImmo"
+                       (click)="$event.preventDefault(); isCollapsedImmo = !isCollapsedImmo"
                        i18n>Immobilien</a>
 
                     <div class="dropdown-menu dropdown-menu-right"
@@ -169,12 +171,12 @@
                     (click)="isCollapsedImmo = true; isCollapsedBRW = true;"
                     *ngIf="config.modules.includes('login') && auth.IsAuthenticated() && auth.user.data && auth.user.data.preferred_username">
                     <a class="nav-link dropdown-toggle clickable"
-                       [routerLink]=""
+                       href=""
                        id="navbarUser"
                        role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true"
-                       (click)="isCollapsedAcc = !isCollapsedAcc">
+                       (click)="$event.preventDefault(); isCollapsedAcc = !isCollapsedAcc">
                         <svg width="1.3em"
                              height="1.3em"
                              viewBox="0 0 16 16"
@@ -197,7 +199,8 @@
                          aria-labelledby="navbarUser"
                          [collapse]="isCollapsedAcc">
                         <a class="dropdown-item"
-                           [routerLink]="">{{ auth.user.data.email }}</a>
+                           href=""
+                           (click)="$event.preventDefault()">{{ auth.user.data.email }}</a>
 
                         <div class="dropdown-divider"></div>
 
@@ -338,9 +341,9 @@
                 <div class="col-12 col-md-6 col-lg-4 p-1 m-0">
                     <ng-container *ngIf="config.localized">
                         <h5 id="languages"
+                            i18n-title
                             title="Sprachauswahl"
-                            i18n
-                            i18n-title>Sprache</h5>
+                            i18n>Sprache</h5>
                         <ul class="list-unstyled text-small">
                             <li class="my-1">
                                 <a href="{{ baseurl }}"
@@ -367,8 +370,6 @@
                     <!-- Only for Modules Bodenrichtwerte/Bodenwertkalkulator -->
                     <div *ngIf="router.url.includes('/bodenrichtwerte') || router.url.includes('/bodenwertkalkulator')">
                         <h5 id="borisInfo"
-                            aria-label="Informationen Bodenrichtwerte"
-                            i18n-aria-label
                             i18n>Bodenrichtwerte</h5>
                         <ul class="list-unstyled text-small">
                             <li class="my-1">

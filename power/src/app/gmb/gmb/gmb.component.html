@@ -13,19 +13,19 @@
         <span i18n>
             Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie
         </span> <a [routerLink]="['/landesgrundstuecksmarktberichte']"
-              i18n>hier</a>.
+           i18n>hier</a>.
     </div>
 
     <div *ngIf="mode === 'lmb'"
          class="alert alert-info alert-gmb"
          role="alert">
         <span i18n>
-              Die Grund&shy;stücks&shy;markt&shy;berichte finden sie
+            Die Grund&shy;stücks&shy;markt&shy;berichte finden sie
         </span> <a [routerLink]="['/grundstuecksmarktberichte']"
            i18n>hier</a>.
     </div>
 
-    <div *ngIf="mode === 'gmb'"
+    <div *ngIf="isBrowser && mode === 'gmb'"
          echarts
          [options]="mapOptions"
          [loading]="!mapLoaded"
@@ -44,6 +44,7 @@
         <div class="col-md-12 dropdown">
             <select id="landkreise"
                     class="form-select"
+                    i18n-aria-label
                     aria-label="Wählen die einen Landkreis"
                     (change)="onChange($event.target.value)">
                 <ng-container *ngFor="let kreis of selectMenu()">
@@ -68,7 +69,8 @@
             <div class="row">
                 <h5 class="col-md-12 mb-0"
                     role="rowheader">
-                    <b *ngIf="rd.name !== 'Niedersachsen'" i18n>Gutachterausschuss </b>
+                    <b *ngIf="rd.name !== 'Niedersachsen'"
+                       i18n>Gutachterausschuss </b>
                     <b>{{rd.name}}</b>
                 </h5>
             </div>
@@ -86,11 +88,9 @@
                            (keypress)="keyPress($event)">
                     <dt class="col-md-12"
                         role="rowheader">
-                        <label
-                            class="tab"
-                            for="dl{{bj.value['file'].split('.')[0]}}"
-                            [attr.aria-label]="ariaLabelBericht(bj.key, rd.name)"
-                            >
+                        <label class="tab"
+                               for="dl{{bj.value['file'].split('.')[0]}}"
+                               [attr.aria-label]="ariaLabelBericht(bj.key, rd.name)">
                             <span>
                                 <i-bs name="plusCircle"
                                       class="remove-check"
@@ -101,9 +101,9 @@
                             </span>
                             <span>
                                 <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb"
-                                      i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;bericht</ng-container>
+                                              i18n>Landes&shy;grund&shy;stücks&shy;markt&shy;bericht</ng-container>
                                 <ng-template #gmb
-                                      i18n>Grund&shy;stücks&shy;markt&shy;bericht</ng-template>
+                                             i18n>Grund&shy;stücks&shy;markt&shy;bericht</ng-template>
                                 {{bj.key}}
                             </span>
                         </label>
@@ -116,11 +116,10 @@
                                       aria-hidden="true"></i-bs>
                             </span>
                             <span class="tc">
-                                {{bj.value['file']}} (<a
-                                  href="{{downloadPath}}/{{bj.value['fileurl']}}"
-                                  target="_blank"
-                                  [attr.aria-label]="ariaLabelBericht(bj.key, rd.name, true)"
-                                  i18n>Download</a>)
+                                {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}"
+                                   target="_blank"
+                                   [attr.aria-label]="ariaLabelBericht(bj.key, rd.name, true)"
+                                   i18n>Download</a>)
                             </span>
                         </div>
                         <div class="dl">
@@ -144,7 +143,8 @@
     <br>
 
     <small *ngIf="mode === 'gmb'"
-           i18n>* Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar. Es können Abweichungen zu den Ständen der Grundstücksmarktberichte vorhanden sein.</small>
+           i18n>* Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar. Es können Abweichungen zu
+        den Ständen der Grundstücksmarktberichte vorhanden sein.</small>
 </div>
 
 <!-- vim: set expandtab ts=4 sw=4 sts=4 :-->
