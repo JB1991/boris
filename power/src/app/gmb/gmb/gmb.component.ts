@@ -16,7 +16,7 @@ import * as kreise_raw from './kreise.json';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GmbComponent implements OnInit {
-    downloadPath = 'https://s3.eu-de.cloud-object-storage.appdomain.cloud/grundstuecksmarktberichte';
+    downloadPath = '/download';
     berichte = data['default'];
     kreise = kreise_raw['default'];
 
