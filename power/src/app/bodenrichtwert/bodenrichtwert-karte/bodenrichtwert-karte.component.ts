@@ -495,6 +495,16 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     }
 
     /**
+     * transformRequest
+     */
+    public transformRequest(url, resourceType) {
+        if (!url.startsWith('http') && resourceType === 'Tile') {
+            return { url: location.protocol + '//' + location.host + url };
+        }
+        return { url: url };
+    }
+
+    /**
      * dynamicLabelling
      * @param labelData
      * @param layerNames

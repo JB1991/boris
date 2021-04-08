@@ -216,6 +216,16 @@ export class BodenwertKalkulatorComponent implements OnInit {
         this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 15);
     }
 
+    /**
+     * transformRequest
+     */
+    public transformRequest(url, resourceType) {
+        if (!url.startsWith('http') && resourceType === 'Tile') {
+            return { url: location.protocol + '//' + location.host + url };
+        }
+        return { url: url };
+    }
+
     add3dLayer() {
         this.map.addLayer({
             id: 'building-extrusion',
