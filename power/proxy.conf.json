@@ -37,5 +37,11 @@
         "changeOrigin": true,
         "secure": false,
         "debugLevel": "info"
+    },
+    "/download/": {
+        "target": "https://dev.power.niedersachsen.dev",
+        "changeOrigin": true,
+        "secure": false,
+        "debugLevel": "info"
     }
 }
