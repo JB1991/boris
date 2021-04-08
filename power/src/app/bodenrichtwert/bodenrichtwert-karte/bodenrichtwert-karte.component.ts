@@ -197,6 +197,24 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         bounds: this.ndsBounds,
     };
 
+    // Sanierungsgebiete - Verg (Verfahrensgrundlage)
+    public ndsVergTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=boris:br_verfahren'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public ndsVergSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.ndsVergTiles],
+        bounds: this.ndsBounds,
+    };
+
     // Flurstuecke
     public ndsFstTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
@@ -329,6 +347,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         this.map.addSource('geoserver_nds_br', this.ndsSource);
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
+
+        this.map.addSource('geoserver_br_verg', this.ndsVergSource);
 
         // add navigation control
         const navControl = new NavigationControl({
