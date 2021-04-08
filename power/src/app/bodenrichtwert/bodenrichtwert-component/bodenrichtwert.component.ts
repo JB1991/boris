@@ -110,7 +110,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * zoom holds the current zoom of the map object
      */
-    public zoom: number;
+    public zoom = 7;
 
     /**
      * pitch
@@ -183,6 +183,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         });
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
+
+        this.changeURL();
 
         if (!isPlatformBrowser(this.platformId)) {
             this.isBrowser = false;

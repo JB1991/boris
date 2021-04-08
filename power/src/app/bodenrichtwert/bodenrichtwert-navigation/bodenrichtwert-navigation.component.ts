@@ -193,7 +193,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param feature feature
      */
     public onAddressChange(feature: Feature): void {
-        this.latLngChange.emit(new LngLat(feature?.geometry['coordinates'][1], feature?.geometry['coordinates'][0]));
+        this.latLngChange.emit(new LngLat(feature?.geometry['coordinates'][0], feature?.geometry['coordinates'][1]));
         if (!this.latLng) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         }
@@ -205,7 +205,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public onFlurstueckChange(fts: FeatureCollection): void {
         const latLng = this.pointOnFlurstueck(fts.features[0]);
-        this.latLngChange.emit(new LngLat(latLng[1], latLng[0]));
+        this.latLngChange.emit(new LngLat(latLng[0], latLng[1]));
     }
 
     /**
