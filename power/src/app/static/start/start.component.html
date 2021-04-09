@@ -162,6 +162,29 @@
                     </div>
                 </div>
             </slide>
+            <slide *ngIf="config.modules.includes('ogc-services')">
+                <img src="./assets/images/bg-bodenrichtwerte.png"
+                     i18n-alt
+                     alt="OGC Darstellungs- und Downloaddienste"
+                     class="carousel-image">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
+                    <h2 class="display-4">
+                        <span style="color: #343a40;"
+                              i18n>Datendienste</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>OGC Darstellungs- und Downloaddienste</h3>
+                        <p i18n>Das LGLN stellt gebührenfreie OGC Darstellungs- und Downloaddienste über WMS und WFS
+                            Schnittstellen bereit</p>
+                        <a class="btn btn-primary"
+                           href=""
+                           (click)="$event.preventDefault(); scrollToElement('ogc-services')"
+                           role="button"
+                           i18n>Mehr dazu</a>
+                    </div>
+                </div>
+            </slide>
             <slide *ngIf="config.modules.includes('feedback')">
                 <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
@@ -489,6 +512,40 @@
                          class="img-thumbnail img-fluid mx-auto"
                          i18n-alt
                          alt="Formulare">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('forms')">
+
+        <div class="row"
+             *ngIf="config.modules.includes('ogc-services')"
+             id="ogc-services">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('ogc-services')">
+                <a class="h2 display-4"
+                   [routerLink]="['/ogc-services']">
+                    <span style="color: #343a40;">Datendienste</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>OGC Darstellungs- und Downloaddienste</h3>
+                    <p class="text-justify"
+                       i18n>Mithilfe der OGC konformen Dienste Web Map Service (WMS) und Web Feature Service (WFS) der
+                        Bodenrichtwerte können Nutzer die Daten in Ihren eigenen GIS-Systemen nutzen, bzw. in eigene
+                        Applikationen einbinden.</p>
+                </div>
+            </div>
+            <div class="col-md-5 d-flex justify-content-center align-self-center"
+                 aria-hidden="true">
+                <a [routerLink]="['/ogc-services']"
+                   i18n-title
+                   title="OGC Darstellungs- und Downloaddienste"
+                   tabindex="-1">
+                    <img src="./assets/images/ogcdienste.png"
+                         class="img-thumbnail img-fluid mx-auto"
+                         i18n-alt
+                         alt="OGC Darstellungs- und Downloaddienste">
                 </a>
             </div>
         </div>

@@ -24,4 +24,8 @@
       <loc>https://immobilienmarkt.niedersachsen.de/feedback</loc>
       <changefreq>monthly</changefreq>
    </url>
+   <url>
+      <loc>https://immobilienmarkt.niedersachsen.de/ogc-services</loc>
+      <changefreq>monthly</changefreq>
+   </url>
 </urlset>

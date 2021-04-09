@@ -12,6 +12,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { OgcServicesComponent } from './ogc-services/ogc-services.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
         LoginComponent,
         LogoutComponent,
         FeedbackComponent,
-        NotfoundComponent
+        NotfoundComponent,
+        OgcServicesComponent
     ]
 })
 export class StaticModule {

@@ -19,7 +19,8 @@ export const environment = {
             'grundstuecksmarktberichte',
             'landesgrundstuecksmarktdaten',
             'landesgrundstuecksmarktberichte',
-            'feedback'
+            'feedback',
+            'ogc-services'
         ],
         localized: false,
         version: {
