@@ -328,6 +328,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * loadMap initializes the Mapbox GL map object
      * @param event map
      */
+    /* istanbul ignore next */
     public loadMap(event: Map) {
         this.map = event;
 
