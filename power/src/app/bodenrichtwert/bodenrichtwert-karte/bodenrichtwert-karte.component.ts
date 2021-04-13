@@ -1,12 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
-import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
-import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
-import { BodenrichtwertKarte3dLayerService } from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-3d-layer.service';
 import { environment } from '@env/environment';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { FeatureCollection, Feature } from 'geojson';
 import * as turf from '@turf/turf';
@@ -272,13 +267,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
 
-    constructor(
-        public bodenrichtwertService: BodenrichtwertService,
-        public bodenrichtwert3DLayer: BodenrichtwertKarte3dLayerService,
-        public geosearchService: GeosearchService,
-        public alkisWfsService: AlkisWfsService,
-        public alerts: AlertsService,
-    ) { }
+    constructor( ) { }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
@@ -457,7 +446,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             bearing: this.bearing
         });
 
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+        if (this.map.getLayer('building-extrusion')) {
+            this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+        }
         this.resetMapFiredChange.emit(false);
     }
 

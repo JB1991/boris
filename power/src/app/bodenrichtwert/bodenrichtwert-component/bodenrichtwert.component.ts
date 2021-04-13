@@ -197,6 +197,12 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             // lat and lat
             if (params['lat'] && params['lng']) {
                 this.latLng = new LngLat(params['lng'], params['lat']);
+                // coordinate exists but no zoom
+                if (!params['zoom'] && params['teilmarkt'] === 'Bauland') {
+                    this.zoom = this.standardBaulandZoom;
+                } else {
+                    this.zoom = this.standardLandZoom;
+                }
             }
 
             // teilmarkt
