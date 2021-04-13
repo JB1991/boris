@@ -28,14 +28,15 @@
 
         <mgl-layer id="nds"
                    type="line"
+                   [maxzoom]="11"
                    [source]="'ndsgeojson'"
                    [paint]="{
                         'line-color': '#c4153a',
                         'line-width': {
-                            'stops': [[8,1],[10,1],[18,1]]
+                            'stops': [[8,1],[11,1]]
                         },
                         'line-opacity': {
-                            'stops':[[8,1],[10,1],[12,0]]
+                            'stops':[[8,1],[11,1]]
                         }
                     }">
         </mgl-layer>
