@@ -18,7 +18,7 @@ export const environment = {
     auth: {
         clientid: 'power',
         clientsecret: 'f53dc4b4-42fa-40bc-8ce3-63760a994b88',
-        url: 'https://dev.power.niedersachsen.dev/iam/auth/realms/power/protocol/openid-connect/',
+        url: 'https://iam.power.niedersachsen.dev/auth/realms/power/protocol/openid-connect/',
     },
     config: {
         modules: [
