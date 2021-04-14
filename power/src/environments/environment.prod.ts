@@ -7,8 +7,8 @@ export const environment = {
     formAPI: '/formapi/',
     auth: {
         clientid: 'power',
-        clientsecret: 'f53dc4b4-42fa-40bc-8ce3-63760a994b88',
-        url: 'https://iam.power.niedersachsen.dev/auth/realms/power/protocol/openid-connect/',
+        clientsecret: 'PLACEHOLDER-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+        url: 'https://immobilienmarkt.niedersachsen.de/iam/auth/realms/power/protocol/openid-connect/',
     },
     config: {
         // Hinweis: Beim aktivieren von Modulen auf Prod. diese URL bitte in der sitemap.xml hinzufügen
