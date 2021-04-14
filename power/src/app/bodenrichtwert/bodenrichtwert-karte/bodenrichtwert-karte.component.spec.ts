@@ -33,8 +33,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
                 SharedModule,
                 RouterModule.forRoot([]),
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -50,6 +49,14 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         const map = new Map({
             container: 'map',
         });
+        component.map = map;
+        spyOn(component, 'loadMap').and.callFake(() => {
+            component.map = map;
+            component.map.addSource('geoserver_br_br', component.bremenSource);
+            component.map.addSource('geoserver_nds_br', component.ndsSource);
+            component.map.addSource('geoserver_nds_fst', component.ndsFstSource);
+            component.map.addSource('geoserver_br_verg', component.ndsVergSource);
+        });
         component.loadMap(map);
         component.marker = new Marker();
         component.marker.setLngLat([lng, lat]).addTo(component.map);
@@ -58,6 +65,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         spyOn(component.map, 'getZoom').and.callThrough();
         spyOn(component.marker, 'getLngLat').and.callThrough();
         spyOn(component, 'determineZoomFactor').and.callThrough();
+        spyOn(component.map, 'getPitch');
         spyOn(component.latLngChange, 'emit');
     });
 
@@ -100,6 +108,32 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         expect(component.map.resize).toHaveBeenCalledTimes(3);
     });
 
+    it('onZoomEnd should emit zoom factor of map', () => {
+        spyOn(component.zoomChange, 'emit');
+        component.onZoomEnd();
+        expect(component.zoomChange.emit).toHaveBeenCalled();
+        expect(component.map.getZoom).toHaveBeenCalled();
+    });
+
+
+    it('onPitchEnd should emit pitch factor of map', () => {
+        spyOn(component.pitchChange, 'emit');
+        component.onPitchEnd();
+        expect(component.pitchChange.emit).toHaveBeenCalled();
+        expect(component.map.getPitch).toHaveBeenCalled();
+    });
+
+    it('onRotate should emit pitch and bearing factor of map', () => {
+        spyOn(component.pitchChange, 'emit');
+        spyOn(component.bearingChange, 'emit');
+        spyOn(component.map, 'getBearing');
+        component.onRotate();
+        expect(component.pitchChange.emit).toHaveBeenCalled();
+        expect(component.map.getPitch).toHaveBeenCalled();
+        expect(component.bearingChange.emit).toHaveBeenCalled();
+        expect(component.map.getBearing).toHaveBeenCalled();
+    });
+
     it('determineZoomFactor should set the zoom factor', () => {
         component.standardBaulandZoom = 15.1;
         component.standardLandZoom = 11;
@@ -134,6 +168,11 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         };
         component.onMapClickEvent(event);
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
+
+        component.latLng = undefined;
+        spyOn(component.zoomChange, 'emit');
+        component.onMapClickEvent(event);
+        expect(component.zoomChange.emit).toHaveBeenCalled();
     });
 
     it('onResetMap should reset the map', () => {
