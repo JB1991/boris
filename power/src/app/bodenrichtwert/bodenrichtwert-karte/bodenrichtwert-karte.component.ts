@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
+import BodenrichtwertKarteLayerControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-layer-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { FeatureCollection, Feature } from 'geojson';
@@ -138,6 +139,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     // map style url
     public MAP_STYLE_URL = environment.basemap;
 
+    // font
+    // public font = 'Klokantech Noto Sans Regular';
+
     // NDS Bounds MapBox Type
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
@@ -267,7 +271,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
 
-    constructor( ) { }
+    constructor() { }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
@@ -349,8 +353,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         const geolocateControl = new GeolocateControl();
         this.map.addControl(geolocateControl, 'top-right');
 
-        const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
-        this.map.addControl(pitchControl, 'top-right');
+        // temporarily deactivated
+        // const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
+        // this.map.addControl(pitchControl, 'top-right');
+
+        const layerControl = new BodenrichtwertKarteLayerControl();
+        this.map.addControl(layerControl, 'top-right');
 
         // update the map on reload if coordinates exist
         if (this.latLng) {

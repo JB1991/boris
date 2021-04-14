@@ -8,6 +8,12 @@ export const environment = {
     appName: 'POWER',
     ows: '/geoserver/boris/ows?',
     basemap: '/assets/boden/basemap.json',
+    baviStyles: [
+        'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-classic.json',
+        'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-color.json',
+        'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-light.json',
+        'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-grayscale.json',
+    ],
     formAPI: 'http://localhost:8080/',
     auth: {
         clientid: 'power',
