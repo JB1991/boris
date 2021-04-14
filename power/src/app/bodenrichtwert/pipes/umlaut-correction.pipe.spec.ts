@@ -11,11 +11,11 @@ describe('Bodenrichtwert.Pipes.UmlautCorrectionPipe', () => {
         expect(pipe).toBeTruthy();
     });
 
-    it('should do nothing with "Uelzen"', () => {
+    it('should transform "Buero, hochw. Dienste" to Büro, "hochw. Dienste"', () => {
         expect(pipe.transform('Buero, hochw. Dienste')).toEqual('Büro, hochw. Dienste');
     });
 
-    it('should transform "Wuelfel" to "Wülfel"', () => {
+    it('should transform "Verbrauchermaerkte" to "Verbrauchermärkte"', () => {
         expect(pipe.transform('Verbrauchermaerkte')).toEqual('Verbrauchermärkte');
     });
 

@@ -51,9 +51,15 @@
                         role="rowheader">
                         {{brzStrings.value | hyphenate}}
                     </dt>
-                    <dd class="col-md-7"
+                    <dd *ngIf="feature.properties.entw == 'B'"
+                        class="col-md-7"
                         role="cell">
-                        {{feature.properties.brw | number}} &euro; / m&#178;
+                        {{feature.properties.brw | number:'1.0-1'}} &euro; / m&#178;
+                    </dd>
+                    <dd *ngIf="feature.properties.entw == 'LF'"
+                        class="col-md-7"
+                        role="cell">
+                        {{feature.properties.brw | number:'1.2-2'}} &euro; / m&#178;
                     </dd>
                     <!-- Entwicklungszustand (entw) -->
                     <dt class="col-md-5"
