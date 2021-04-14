@@ -92,12 +92,10 @@
                                for="dl{{bj.value['file'].split('.')[0]}}"
                                [attr.aria-label]="ariaLabelBericht(bj.key, rd.name)">
                             <span>
-                                <i-bs name="plusCircle"
-                                      class="remove-check"
-                                      aria-hidden="true"></i-bs>
-                                <i-bs name="dashCircle"
-                                      class="display-check"
-                                      aria-hidden="true"></i-bs>
+                                <i class="bi bi-plus-circle remove-check"
+                                      aria-hidden="true"></i>
+                                <i class="bi bi-dash-circle display-check"
+                                      aria-hidden="true"></i>
                             </span>
                             <span>
                                 <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb"
@@ -112,8 +110,8 @@
                         role="cell">
                         <div class="dl">
                             <span class="tc">
-                                <i-bs name="download"
-                                      aria-hidden="true"></i-bs>
+                                <i class="bi bi-download"
+                                      aria-hidden="true"></i>
                             </span>
                             <span class="tc">
                                 {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}"
