@@ -25,7 +25,7 @@ export default class BodenrichtwertKarteLayerControl {
             this.timesClicked++;
             this.mapIndex += 1;
 
-            if (this.timesClicked % 2 == 0) {
+            if (this.timesClicked % 2 === 0) {
                 this.map.setStyle(environment.basemap);
                 this.btn.title = 'Basemap wechseln - Standard';
             } else {
