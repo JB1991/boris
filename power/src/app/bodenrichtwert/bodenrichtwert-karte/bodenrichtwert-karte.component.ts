@@ -549,16 +549,18 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         };
 
         let buffer: number;
-        if (this.map.getZoom() > 17) {
-            buffer = -10;
+        if (this.map.getZoom() > 18) {
+            buffer = 0;
+        } else if (this.map.getZoom() > 17) {
+            buffer = -5;
         } else if (this.map.getZoom() > 16) {
-            buffer = -20;
+            buffer = -10;
         } else if (this.map.getZoom() > 15) {
-            buffer = -30;
+            buffer = -20;
         } else if (this.map.getZoom() > 14) {
-            buffer = -40;
+            buffer = -30;
         } else if (this.map.getZoom() < 14) {
-            buffer = -50;
+            buffer = -40;
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
