@@ -17,13 +17,13 @@
         "openmaptiles": {
             "type": "vector",
             "tiles": [
-                "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/{z}/{x}/{y}.pbf"
+                "/vector-tiles/{z}/{x}/{y}.pbf"
             ],
             "maxzoom": 14,
             "attribution": "<a href=\"https://openmaptiles.org/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">© OpenMapTiles</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">© OpenStreetMap contributors</a>"
         }
     },
-    "glyphs": "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/fonts/{fontstack}/{range}.pbf",
+    "glyphs": "/vector-tiles/fonts/{fontstack}/{range}.pbf",
     "layers": [
         {
             "id": "background",
@@ -1442,19 +1442,20 @@
                 "admin_level",
                 4
             ],
+            "minzoom": 11,
             "layout": {
                 "line-cap": "round",
                 "line-join": "round",
                 "visibility": "visible"
             },
             "paint": {
-                "line-color": "rgb(230, 204, 207)",
+                "line-color": "rgb(219,114,136)",
                 "line-width": {
                     "base": 1.3,
                     "stops": [
                         [
-                            3,
-                            1
+                            11,
+                            4
                         ],
                         [
                             22,
@@ -1483,38 +1484,32 @@
                 "admin_level",
                 2
             ],
+            "minzoom": 11,
             "layout": {
                 "line-cap": "round",
-                "line-join": "round"
+                "line-join": "round",
+                "visibility": "visible"
             },
             "paint": {
-                "line-color": "rgb(230, 204, 207)",
+                "line-color": "rgb(219,114,136)",
                 "line-width": {
-                    "base": 1.1,
+                    "base": 1.3,
                     "stops": [
                         [
-                            3,
-                            1
-                        ],
-                        [
-                            22,
-                            20
-                        ]
-                    ]
-                },
-                "line-blur": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            0,
-                            0.4
-                        ],
-                        [
-                            22,
+                            11,
                             4
+                        ],
+                        [
+                            22,
+                            15
                         ]
                     ]
                 },
+                "line-blur": 0.4,
+                "line-dasharray": [
+                    2,
+                    2
+                ],
                 "line-opacity": 1
             }
         },

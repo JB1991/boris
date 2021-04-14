@@ -82,13 +82,14 @@ spec:
             - name: power-config
               mountPath: /opt/bitnami/nginx/conf/server_blocks
               readOnly: true
+            - name: bitnami-tmp
+              mountPath: /opt/bitnami/nginx/tmp
             - name: root-tmp
               mountPath: /tmp
         {{- if .Values.metrics.enabled }}
         - name: metrics
           securityContext:
-            runAsUser: 1001
-            runAsNonRoot: true
+            {{- toYaml .Values.metrics.containerSecurityContext | nindent 12 }}
           image: "{{ .Values.metrics.image.registry }}/{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
           imagePullPolicy: {{ .Values.metrics.image.pullPolicy | quote }}
           command: ['/usr/bin/exporter', '-nginx.scrape-uri', 'http://127.0.0.1:8080/status']
@@ -116,6 +117,8 @@ spec:
           configMap:
             name: {{ include "power.fullname" . }}-nginx
         - name: power-config
+          emptyDir: {}
+        - name: bitnami-tmp
           emptyDir: {}
         - name: root-tmp
           emptyDir: {}

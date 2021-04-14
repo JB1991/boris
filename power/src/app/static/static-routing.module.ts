@@ -1,13 +1,16 @@
-import { DatenschutzComponent } from './datenschutz/datenschutz.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { StartComponent } from './start/start.component';
-import { ImpressumComponent } from '@app/static/impressum/impressum.component';
+import { DatenschutzComponent } from './datenschutz/datenschutz.component';
+import { ImpressumComponent } from './impressum/impressum.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { FeedbackComponent } from '@app/static/feedback/feedback.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { OgcServicesComponent } from './ogc-services/ogc-services.component';
 
-import { ModuleGuard } from '../module.guard';
+import { ModuleGuard } from '@app/module.guard';
 
 const routes: Routes = [
     {
@@ -38,6 +41,15 @@ const routes: Routes = [
         path: 'feedback',
         component: FeedbackComponent,
         canActivate: [ModuleGuard]
+    },
+    {
+        path: 'ogc-services',
+        component: OgcServicesComponent,
+        canActivate: [ModuleGuard]
+    },
+    {
+        path: 'notfound',
+        component: NotfoundComponent
     }
 ];
 

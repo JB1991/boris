@@ -27,7 +27,7 @@
                     "!/assets/version.json"
                 ],
                 "urls": [
-                    "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/**"
+                    "/vector-tiles/**"
                 ]
             }
         }
@@ -40,8 +40,9 @@
         "!/health",
         "!/geocoding/**",
         "!/geoserver/**",
+        "!/vector-tiles/**",
+        "!/download/**",
         "!/formapi/**",
-        "!/wfs/**",
         "!/feedback-rss/**",
         "!/boris-print/**"
     ],

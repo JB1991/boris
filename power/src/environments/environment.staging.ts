@@ -21,6 +21,7 @@ export const environment = {
             'landesgrundstuecksmarktberichte',
             'forms',
             'feedback',
+            'ogc-services',
             'login',
             'logout'
         ],

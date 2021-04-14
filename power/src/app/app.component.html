@@ -9,6 +9,7 @@
             <img src="./assets/logos/gag-mini.png"
                  class="mr-2 align-top"
                  aria-hidden="true"
+                 width="25px"
                  height="25px"
                  i18n-alt
                  alt="LGLN Logo">
@@ -313,25 +314,26 @@
             </div>
             <div class="row border-top pt-3 mx-1 mx-md-0">
                 <div class="col-12 col-md-6 col-lg-4 p-1 m-0">
-                    <h5 i18n>Informationen</h5>
+                    <div class="h5"
+                         i18n>Informationen</div>
                     <ul class="list-unstyled text-small">
-                        <li class="my-1">
+                        <li>
                             <a href="https://www.gag.niedersachsen.de/startseite/gutachterausschusse/"
-                               class="footer-link"
+                               class="footer-link d-inline-block py-2"
                                target="_blank"
                                rel="noopener noreferrer nofollow"
                                i18n>Impressum</a>
                         </li>
-                        <li class="my-1">
+                        <li>
                             <a href="https://www.gag.niedersachsen.de/startseite/service/datenschutzerklarung/"
-                               class="footer-link"
+                               class="footer-link d-inline-block py-2"
                                target="_blank"
                                rel="noopener noreferrer nofollow"
                                i18n>Datenschutz</a>
                         </li>
-                        <li class="my-1">
+                        <li>
                             <a href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/nutzungsbedingungen/"
-                               class="footer-link"
+                               class="footer-link d-inline-block py-2"
                                target="_blank"
                                rel="noopener noreferrer nofollow"
                                i18n>Nutzungsbedingungen</a>
@@ -340,26 +342,27 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 p-1 m-0">
                     <ng-container *ngIf="config.localized">
-                        <h5 id="languages"
-                            i18n-title
-                            title="Sprachauswahl"
-                            i18n>Sprache</h5>
+                        <div class="h5"
+                             id="languages"
+                             i18n-title
+                             title="Sprachauswahl"
+                             i18n>Sprache</div>
                         <ul class="list-unstyled text-small">
-                            <li class="my-1">
+                            <li>
                                 <a href="{{ baseurl }}"
-                                   class="footer-link"
+                                   class="footer-link d-inline-block py-2"
                                    lang="de"
                                    rel="noopener">Deutsch</a>
                             </li>
-                            <li class="my-1">
+                            <li>
                                 <a href="/de-simple{{ baseurl }}"
-                                   class="footer-link"
+                                   class="footer-link d-inline-block py-2"
                                    lang="de"
                                    rel="noopener">Einfache Sprache</a>
                             </li>
-                            <li class="my-1">
+                            <li>
                                 <a href="/en{{ baseurl }}"
-                                   class="footer-link"
+                                   class="footer-link d-inline-block py-2"
                                    lang="en"
                                    rel="noopener">English</a>
                             </li>
@@ -369,36 +372,42 @@
                 <div class="col-12 col-md-12 col-lg-4 p-1 m-0">
                     <!-- Only for Modules Bodenrichtwerte/Bodenwertkalkulator -->
                     <div *ngIf="router.url.includes('/bodenrichtwerte') || router.url.includes('/bodenwertkalkulator')">
-                        <h5 id="borisInfo"
-                            i18n>Bodenrichtwerte</h5>
+                        <div class="h5"
+                             id="borisInfo"
+                             i18n>Bodenrichtwerte</div>
                         <ul class="list-unstyled text-small">
-                            <li class="my-1">
+                            <li>
                                 <a href="https://www.gag.niedersachsen.de/startseite/gutachterausschusse/kontakt/"
-                                   class="footer-link"
+                                   class="footer-link d-inline-block py-2"
                                    target="_blank"
                                    rel="noopener noreferrer nofollow"
                                    i18n>Kontakt</a>
                             </li>
-                            <li class="my-1">
+                            <li>
                                 <a href="https://www.gag.niedersachsen.de/startseite/gutachterausschusse/"
-                                   class="footer-link"
+                                   class="footer-link d-inline-block py-2"
                                    target="_blank"
                                    rel="noopener noreferrer nofollow"
                                    i18n>Gutachterausschüsse - Niedersachsen</a>
                             </li>
-                            <li class="my-1">
+                            <li>
                                 <a href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_bauland/"
-                                   class="footer-link"
+                                   class="footer-link d-inline-block py-2"
                                    target="_blank"
                                    rel="noopener noreferrer nofollow"
                                    i18n>Legende zur Bodenrichtwertkarte Bauland</a>
                             </li>
-                            <li class="my-1">
+                            <li>
                                 <a href="https://www.gag.niedersachsen.de/startseite/bodenrichtwerte/legende_landwirtschaft/"
-                                   class="footer-link"
+                                   class="footer-link d-inline-block py-2"
                                    target="_blank"
                                    rel="noopener noreferrer nofollow"
                                    i18n>Legende zur Bodenrichtwertkarte Landwirtschaft</a>
+                            </li>
+                            <li *ngIf="config.modules.includes('ogc-services')">
+                                <a [routerLink]="['/ogc-services']"
+                                   class="footer-link d-inline-block py-2"
+                                   i18n>OGC Dienste</a>
                             </li>
                         </ul>
                     </div>

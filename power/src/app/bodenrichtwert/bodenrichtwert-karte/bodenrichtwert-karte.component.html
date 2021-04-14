@@ -6,6 +6,7 @@
              (rotateEnd)="onRotate()"
              (zoomEnd)="onZoomEnd()"
              (pitchEnd)="onPitchEnd()"
+             [transformRequest]="transformRequest"
              [bounds]="bounds"
              [maxZoom]="18"
              [minZoom]="5"
@@ -27,14 +28,15 @@
 
         <mgl-layer id="nds"
                    type="line"
+                   [maxzoom]="11"
                    [source]="'ndsgeojson'"
                    [paint]="{
                         'line-color': '#c4153a',
                         'line-width': {
-                            'stops': [[8,1],[10,1],[18,1]]
+                            'stops': [[8,1],[11,1]]
                         },
                         'line-opacity': {
-                            'stops':[[8,1],[10,1],[12,0]]
+                            'stops':[[8,1],[11,1]]
                         }
                     }">
         </mgl-layer>
@@ -91,9 +93,9 @@
 
         <mgl-layer id="sanierungsgebiet"
                    type="line"
-                   [source]="ndsSource"
+                   [source]="ndsVergSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat_with_display'"
+                   [sourceLayer]="'br_verfahren'"
                    [paint]="{
                         'line-color': '#0080FF',
                         'line-dasharray': [7,5],
@@ -105,7 +107,7 @@
                             }
                     }"
                    [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
-                   [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
+                   [filter]="['==', 'stag', stichtag]">
         </mgl-layer>
 
         <mgl-layer id="landwirtschaft"

@@ -3,6 +3,7 @@ Disallow: /boris-print/
 Disallow: /forms/fillout/
 Disallow: /login
 Disallow: /logout
+Disallow: /notfound
 Allow: /
 
 Sitemap: https://immobilienmarkt.niedersachsen.de/sitemap.xml

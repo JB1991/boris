@@ -12,6 +12,9 @@ import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import proj4 from 'proj4';
 import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
+import { LngLat } from 'mapbox-gl';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { LayerComponent } from 'ngx-mapbox-gl/lib/layer/layer.component';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -71,7 +74,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public teilmarkt: Teilmarkt;
 
-    public latLng: Array<number> = [];
+    public latLng: LngLat;
 
     /**
      * isCollapsed holds the state for details component collapsed or not (click events)
@@ -107,7 +110,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     /**
      * zoom holds the current zoom of the map object
      */
-    public zoom: number;
+    public zoom = 7;
 
     /**
      * pitch
@@ -162,7 +165,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     ) {
         this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
         this.meta.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Wertermittlung, Bodenrichtwerte, BORIS.NI, Bo­den­richt­wert­zo­ne` });
+        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Bremerhaven, Wertermittlung, Bodenrichtwerte, BORIS, Bo­den­richt­wert­zo­ne` });
 
         this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.address = adr;
@@ -181,6 +184,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
 
+        this.changeURL();
+
         if (!isPlatformBrowser(this.platformId)) {
             this.isBrowser = false;
         }
@@ -191,8 +196,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.route.queryParams.subscribe(params => {
             // lat and lat
             if (params['lat'] && params['lng']) {
-                this.latLng[0] = params['lat'];
-                this.latLng[1] = params['lng'];
+                this.latLng = new LngLat(params['lng'], params['lat']);
+                // coordinate exists but no zoom
+                if (!params['zoom'] && params['teilmarkt'] === 'Bauland') {
+                    this.zoom = this.standardBaulandZoom;
+                } else {
+                    this.zoom = this.standardLandZoom;
+                }
             }
 
             // teilmarkt
@@ -290,7 +300,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         // coordinates
         const wgs84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
         const utm = '+proj=utm +zone=32';
-        const utm_coords = proj4(wgs84, utm, [Number(this.latLng[1]), Number(this.latLng[0])]);
+        const utm_coords = proj4(wgs84, utm, [Number(this.latLng.lng), Number(this.latLng.lat)]);
         url += 'east=' + encodeURIComponent(utm_coords[0].toFixed(0));
         url += '&north=' + encodeURIComponent(utm_coords[1].toFixed(0));
 
@@ -347,9 +357,9 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public changeURL() {
         const params = new URLSearchParams({});
-        if (this.latLng?.length) {
-            params.append('lat', this.latLng[0].toString());
-            params.append('lng', this.latLng[1].toString());
+        if (this.latLng) {
+            params.append('lat', this.latLng.lat.toString());
+            params.append('lng', this.latLng.lng.toString());
         }
         if (this.teilmarkt) {
             params.append('teilmarkt', this.teilmarkt.text.toString());
