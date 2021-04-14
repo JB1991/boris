@@ -15,30 +15,6 @@ import * as echarts from 'echarts';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import {
-    building,
-    houseFill,
-    plusCircle,
-    dashCircle,
-    fileEarmarkImage,
-    fileEarmarkSpreadsheet,
-    fileEarmarkRichtext
-} from 'ngx-bootstrap-icons';
-
-// Select some icons (use an object, not an array)
-/* eslint-disable object-shorthand */
-const icons = {
-    building,
-    houseFill,
-    plusCircle,
-    dashCircle,
-    fileEarmarkImage,
-    fileEarmarkSpreadsheet,
-    fileEarmarkRichtext
-};
-/* eslint-enable object-shorthand */
-
 /* eslint-disable max-lines */
 describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     let component: ImmobilienComponent;
@@ -98,7 +74,6 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
                 BrowserAnimationsModule,
                 AccordionModule.forRoot(),
                 BsDropdownModule.forRoot(),
-                NgxBootstrapIconsModule.pick(icons),
                 NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
             providers: [
