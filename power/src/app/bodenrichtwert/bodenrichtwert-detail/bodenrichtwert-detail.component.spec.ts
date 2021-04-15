@@ -14,6 +14,7 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
     let component: BodenrichtwertDetailComponent;
     let fixture: ComponentFixture<BodenrichtwertDetailComponent>;
     const features: FeatureCollection = require('../../../testdata/bodenrichtwert/bodenrichtwert-verlauf-featurecollection.json');
+    const teilmarkt = { value: ['B', 'SF', 'R', 'E'], text: $localize`Bauland`, hexColor: '#c4153a' };
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -36,6 +37,7 @@ describe('Bodenrichtwert.BodenrichtwertDetail.BodenrichtwertDetailComponent', ()
         component = fixture.componentInstance;
         component.features = JSON.parse(JSON.stringify(features));
         component.filteredFeatures = JSON.parse(JSON.stringify(features.features));
+        component.teilmarkt = teilmarkt;
         fixture.detectChanges();
     });
 
