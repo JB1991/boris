@@ -68,6 +68,7 @@
                                 </span>
                                 <span *ngIf="desc"
                                       id="descSortedTitle"
+                                      i18n-title
                                       title="Absteigend sortiert.">
                                     <svg width="1em"
                                          height="0.8em"
@@ -172,11 +173,10 @@
                                 firstText="&laquo;"
                                 lastText="&raquo;"
                                 role="navigation"
-                                aria-label="Pagination"
+                                aria-label="Seitennavigation"
                                 [attr.aria-description]="'Derzeit ist Seite ' + page +
                                                     ' von ' + totalPages + ' Seiten ausgewählt.'"
-                                i18n-aria-label
-                                i18n-aria-description>
+                                i18n-aria-label>
                     </pagination>
                 </div>
             </div>

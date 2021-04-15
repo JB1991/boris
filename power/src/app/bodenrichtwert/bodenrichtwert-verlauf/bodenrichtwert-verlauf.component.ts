@@ -4,7 +4,8 @@ import { EChartsOption, SeriesOption } from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 
 export interface SeriesItem {
     stag: string;
@@ -24,6 +25,7 @@ export interface SeriesItem {
 export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     @Input() STICHTAGE: string[];
+    @Input() teilmarkt: Teilmarkt;
 
     // table data for screenreader
     public srTableData: Array<any> = [];
@@ -108,13 +110,13 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     constructor(
         private nutzungPipe: NutzungPipe,
         private verfahrensartPipe: VerfahrensartPipe,
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private decimalPipe: DecimalPipe
     ) { }
-
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.features) {
             this.clearChart();
-            if (this.features) {
+            if (this.features && !changes.features.firstChange) {
                 this.features.features = this.filterByStichtag(this.features.features);
                 this.generateChart(this.features.features);
             }
@@ -152,8 +154,14 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
                 if (window.innerWidth < 480 && params[j].seriesName.length > 25) {
                     params[j].seriesName = this.formatTooltipforSmallViews(params[j].seriesName);
                 }
+                let value: string;
+                if (this.teilmarkt.text === 'Bauland') {
+                    value = this.decimalPipe.transform(params[j].value, '1.0-1');
+                } else {
+                    value = this.decimalPipe.transform(params[j].value, '1.2-2');
+                }
                 // result with modified tooltip text
-                res.push(`${params[j].marker} ${params[j].seriesName} : ${params[j].value} € <br />`);
+                res.push(`${params[j].marker} ${params[j].seriesName} : ${value} € <br />`);
             }
         }
 
@@ -256,7 +264,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             this.setLegendFormat();
             this.setTextStyleOfLegend();
         }
-        this.echartsInstance.setOption(Object.assign(this.chartOption, this.chartOption), true);
+        this.echartsInstance?.setOption(Object.assign(this.chartOption, this.chartOption), true);
     }
 
     /**

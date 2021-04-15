@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -70,7 +70,7 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         AlertModule.forRoot(),
         CollapseModule.forRoot()
     ],
-    providers: [BodenrichtwertService, DatePipe]
+    providers: [BodenrichtwertService, DatePipe, DecimalPipe]
 })
 export class BodenrichtwertModule {
 }

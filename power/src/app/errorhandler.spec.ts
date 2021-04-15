@@ -20,9 +20,8 @@ describe('GlobalErrorHandler', () => {
     });
 
     it('should handle error', () => {
-        expect(() => {
-            handler.handleError(new Error('Fatal error: Out of pizza (allocated 8 pieces) (tried to allocate 1 more piece)'));
-        }).toThrowError('Fatal error: Out of pizza (allocated 8 pieces) (tried to allocate 1 more piece)');
+        handler.handleError(new Error('Fatal error: Out of pizza (allocated 8 pieces) (tried to allocate 1 more piece)'));
+        expect(handler.reload).toHaveBeenCalledTimes(0);
     });
 
     it('should reload on chunk error', () => {

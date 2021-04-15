@@ -29,18 +29,20 @@
              role="group"
              (isOpenChange)="functionsActive = !functionsActive"
              dropdown>
-            <button class="btn dropdown-toggle nav-link"
+            <button class="btn bg-light border dropdown-toggle nav-link"
                     type="button"
                     title="Weitere Funktionen"
+                    alt="Weitere Funktionen"
                     i18n-title
+                    i18n-alt
                     [ngClass]="{'active' : functionsActive}"
                     dropdownToggle
                     id="dropdownMenuButton"
                     aria-haspopup="true"
                     aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg"
-                     width="20px"
-                     height="20px"
+                     width="18px"
+                     height="18px"
                      fill="currentColor"
                      class="bi bi-three-dots-vertical"
                      viewBox="0 0 16 16"
@@ -71,9 +73,13 @@
 
 <div [ngClass]="{'d-none' : filterActive}"
      [class]="isCollapsed ? 'd-lg-none' : 'd-xxl-none'"
-     class="bg-light border">
-    <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
-    <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
+     class="bg-light border position-absolute z-index">
+    <div>
+        <ng-template [ngTemplateOutlet]="stichtagButton"></ng-template>
+    </div>
+    <div>
+        <ng-template [ngTemplateOutlet]="teilmarktButton"></ng-template>
+    </div>
 </div>
 
 
@@ -87,7 +93,7 @@
         <button id="button-stichtage-1"
                 dropdownToggle
                 type="button"
-                class="btn dropdown-toggle nav-link"
+                class="btn dropdown-toggle nav-link mobileBtn"
                 aria-controls="dropdown-stichtage-1"
                 aria-haspopup="true">
             <span i18n>Stichtag</span> : {{stichtag | date}}
@@ -111,22 +117,24 @@
                href="https://www.boris.niedersachsen.de/boris/bodenrichtwerte"
                target="_blank"
                rel="noopener noreferrer nofollow"
+               i18n-alt
                alt="Bodenrichtwerte vor 2012 in der Altanwendung"
                title="Bodenrichtwerte vor 2012 in der Altanwendung"
-               i18n-title>vor 2012</a>
+               i18n-title
+               i18n>vor 2012</a>
         </div>
     </div>
 </ng-template>
 
 <!-- Teilmarkt button view -->
 <ng-template #teilmarktButton>
-    <div class="btn-group"
+    <div class="btn-group p-0"
          role="group"
          dropdown>
         <button id="button-teilmarkt-1"
                 dropdownToggle
                 type="button"
-                class="btn dropdown-toggle nav-link"
+                class="btn dropdown-toggle nav-link mobileBtn"
                 aria-controls="dropdown-teilmarkt-1"
                 aria-haspopup="true">
             <span i18n>Teilmarkt</span>: {{teilmarkt?.text}}
@@ -140,7 +148,7 @@
              aria-labelledby="button-teilmarkt-1">
             <button type="button"
                     role="menuitem"
-                    class="dropdown-item nav-link"
+                    class="dropdown-item nav-link mobileBtn"
                     *ngFor="let tm of bodenrichtwert.TEILMAERKTE"
                     (click)="onTeilmarktChange(tm)">
                 <svg width="0.75em"
@@ -163,7 +171,7 @@
 
 <!-- Mobile - Teilmarkt and Stichtag dropdown button -->
 <ng-template #teilmarktStichtagDropdownButton>
-    <button class="nav-link btn"
+    <button class="nav-link btn bg-light border"
             [ngClass]="{'active': !filterActive}"
             type="button"
             (click)="filterActive = !filterActive"
@@ -171,8 +179,8 @@
             title="Stichtag und Teilmarkt filtern"
             i18n-alt
             i18n-title>
-        <svg width="20px"
-             height="20px"
+        <svg width="18px"
+             height="18px"
              viewBox="0 0 16 16"
              class="bi bi-chevron-double-down"
              fill="currentColor"
@@ -220,10 +228,10 @@
             type="button"
             role="menuitem"
             (click)="flurstueckssearch.modal.open(flurstueckssearch.title)"
-            alt="Flurstückssuche"
-            title="Flurstückssuche"
             i18n-alt
-            i18n-title>
+            alt="Flurstückssuche"
+            i18n-title
+            title="Flurstückssuche">
         <svg width="20px"
              height="20px"
              viewBox="0 0 16 16"
@@ -239,12 +247,12 @@
     <button type="button"
             role="menuitem"
             class="btn dropdown-item nav-link"
+            i18n-alt
             alt="Markierung fokussieren"
+            i18n-title
             title="Markierung fokussieren"
             (click)="onFocus()"
-            [disabled]="!this.latLng?.length"
-            i18n-alt
-            i18n-title>
+            [disabled]="!this.latLng">
         <svg xmlns="http://www.w3.org/2000/svg"
              width="20px"
              height="20px"
@@ -269,7 +277,8 @@
             title="Karte zurücksetzen"
             aria-label="Karte und Adresseingabe zurücksetzen"
             i18n-alt
-            i18n-title>
+            i18n-title
+            i18n-aria-label>
         <svg width="20px"
              height="20px"
              viewBox="0 0 16 16"

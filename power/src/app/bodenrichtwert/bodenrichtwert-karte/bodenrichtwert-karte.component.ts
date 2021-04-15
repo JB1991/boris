@@ -1,12 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { GeolocateControl, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
+import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
-import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
-import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
-import { BodenrichtwertKarte3dLayerService } from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-3d-layer.service';
+import BodenrichtwertKarteLayerControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-layer-control';
 import { environment } from '@env/environment';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { FeatureCollection, Feature } from 'geojson';
 import * as turf from '@turf/turf';
@@ -27,13 +23,19 @@ type MultiPolygon = {
 };
 
 function polygonToPoint(p: Polygon): Point {
-    const point = turf.pointOnFeature(p);
+    try {
+        const point = turf.pointOnFeature(p);
 
-    if (point && point.geometry) {
-        return {
-            type: 'Point',
-            coordinates: point.geometry.coordinates,
-        };
+        if (point && point.geometry) {
+            return {
+                type: 'Point',
+                coordinates: point.geometry.coordinates,
+            };
+        }
+    } catch (e) {
+        if (!environment.production) {
+            console.log(e);
+        }
     }
 
     return;
@@ -51,33 +53,45 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
     let largest: Polygon;
 
     multiPolygonToPolygons(mp).forEach(p => {
-        const a = turf.area(p);
-        if (!largest || a > area) {
-            if (a > area) {
-                area = a;
-                largest = {
-                    type: 'Polygon',
-                    coordinates: p.coordinates,
-                };
+        try {
+            const a = turf.area(p);
+            if (!largest || a > area) {
+                if (a > area) {
+                    area = a;
+                    largest = {
+                        type: 'Polygon',
+                        coordinates: p.coordinates,
+                    };
+                }
+            }
+        } catch (e) {
+            if (!environment.production) {
+                console.log(e);
             }
         }
     });
-
     return largest;
 }
 
 function intersectPolygon(p: Polygon | MultiPolygon, intersect: Polygon): Array<Polygon> {
-    const f = turf.intersect(intersect, p);
-    if (f && f.geometry) {
-        switch (f.geometry.type) {
-            case 'Polygon':
-                return [f.geometry];
-            case 'MultiPolygon':
-                return multiPolygonToPolygons(f.geometry);
+    try {
+        const f = turf.intersect(intersect, p);
+        if (f && f.geometry) {
+            switch (f.geometry.type) {
+                case 'Polygon':
+                    return [f.geometry];
+                case 'MultiPolygon':
+                    return multiPolygonToPolygons(f.geometry);
+            }
+        }
+
+        return [];
+    } catch (e) {
+        if (!environment.production) {
+            console.log(e);
         }
     }
-
-    return [];
+    return;
 }
 
 function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon> {
@@ -98,7 +112,9 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
             }
         }
     } catch (e) {
-        // console.log(e);
+        if (!environment.production) {
+            console.log(e);
+        }
     }
 
     return [];
@@ -122,6 +138,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
     // map style url
     public MAP_STYLE_URL = environment.basemap;
+
+    // font
+    // public font = 'Klokantech Noto Sans Regular';
 
     // NDS Bounds MapBox Type
     public bounds = new LngLatBounds([
@@ -177,6 +196,24 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         bounds: this.ndsBounds,
     };
 
+    // Sanierungsgebiete - Verg (Verfahrensgrundlage)
+    public ndsVergTiles = '/geoserver/gwc/service/wmts?'
+        + 'REQUEST=GetTile'
+        + '&SERVICE=WMTS'
+        + '&VERSION=1.0.0'
+        + '&LAYER=boris:br_verfahren'
+        + '&STYLE=&TILEMATRIX=EPSG:900913:{z}'
+        + '&TILEMATRIXSET=EPSG:900913'
+        + '&FORMAT=application/vnd.mapbox-vector-tile'
+        + '&TILECOL={x}'
+        + '&TILEROW={y}';
+
+    public ndsVergSource: VectorSource = {
+        type: 'vector',
+        tiles: [this.baseUrl + this.ndsVergTiles],
+        bounds: this.ndsBounds,
+    };
+
     // Flurstuecke
     public ndsFstTiles = '/geoserver/gwc/service/wmts?'
         + 'REQUEST=GetTile'
@@ -205,8 +242,8 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         features: []
     };
 
-    @Input() latLng: Array<number>;
-    @Output() latLngChange = new EventEmitter<Array<number>>();
+    @Input() latLng: LngLat;
+    @Output() latLngChange = new EventEmitter<LngLat>();
 
     @Input() teilmarkt: Teilmarkt;
 
@@ -234,13 +271,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
 
-    constructor(
-        public bodenrichtwertService: BodenrichtwertService,
-        public bodenrichtwert3DLayer: BodenrichtwertKarte3dLayerService,
-        public geosearchService: GeosearchService,
-        public alkisWfsService: AlkisWfsService,
-        public alerts: AlertsService,
-    ) { }
+    constructor() { }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
@@ -249,7 +280,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
                 this.map.easeTo({
                     zoom: this.zoom,
-                    center: this.latLng?.length ? [this.latLng[1], this.latLng[0]] : this.map.getCenter()
+                    center: this.latLng ? [this.latLng.lng, this.latLng.lat] : this.map.getCenter()
                 });
             }
             // Stichtag changed
@@ -261,9 +292,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             }
             // latLng changed
             if (changes.latLng && changes.latLng.currentValue !== undefined) {
-                this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
+                this.marker.setLngLat(this.latLng).addTo(this.map);
                 if (this.expanded) {
-                    this.flyTo(this.latLng[0], this.latLng[1]);
+                    this.flyTo();
                 }
             }
             // collapsed
@@ -277,7 +308,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             // expanded
             if (changes.expanded && this.latLng) {
                 if (changes.expanded.currentValue) {
-                    this.flyTo(this.latLng[0], this.latLng[1]);
+                    this.flyTo();
                 }
             }
             // resetMapFired triggered by navigation resetMap only if details are collapsed
@@ -301,6 +332,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * loadMap initializes the Mapbox GL map object
      * @param event map
      */
+    /* istanbul ignore next */
     public loadMap(event: Map) {
         this.map = event;
 
@@ -310,24 +342,30 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
 
+        this.map.addSource('geoserver_br_verg', this.ndsVergSource);
+
         // add navigation control
         const navControl = new NavigationControl({
             visualizePitch: true
         });
-        this.map.addControl(navControl, 'top-left');
+        this.map.addControl(navControl, 'top-right');
 
         // add geolocation control
         const geolocateControl = new GeolocateControl();
-        this.map.addControl(geolocateControl, 'top-left');
+        this.map.addControl(geolocateControl, 'top-right');
 
-        const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
-        this.map.addControl(pitchControl, 'top-left');
+        // temporarily deactivated
+        // const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
+        // this.map.addControl(pitchControl, 'top-right');
+
+        const layerControl = new BodenrichtwertKarteLayerControl();
+        this.map.addControl(layerControl, 'top-right');
 
         // update the map on reload if coordinates exist
-        if (this.latLng.length) {
+        if (this.latLng) {
             this.map.resize();
-            this.marker.setLngLat([this.latLng[1], this.latLng[0]]).addTo(this.map);
-            this.flyTo(this.latLng[0], this.latLng[1]);
+            this.marker.setLngLat(this.latLng).addTo(this.map);
+            this.flyTo();
         }
     }
 
@@ -372,9 +410,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     /**
      * flyTo executes a flyTo for a given latLng
      */
-    public flyTo(lat: number, lng: number) {
+    public flyTo() {
         this.map.flyTo({
-            center: [lng, lat],
+            center: [this.latLng.lng, this.latLng.lat],
             zoom: this.zoom,
             speed: 1,
             curve: 1,
@@ -387,10 +425,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * onDragEnd updates latLng if marker was moved
      */
     public onDragEnd(): void {
-        const lat = this.marker.getLngLat().lat;
-        const lng = this.marker.getLngLat().lng;
-
-        this.latLngChange.emit([lat, lng]);
+        this.latLngChange.emit(this.marker.getLngLat());
     }
 
     /**
@@ -398,11 +433,11 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * @param event MapEvent with coordinates
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
-        if (!this.latLng?.length) {
+        if (!this.latLng) {
             this.zoomChange.emit(this.determineZoomFactor());
         }
         if (event.lngLat) {
-            this.latLngChange.emit([event.lngLat.lat, event.lngLat.lng]);
+            this.latLngChange.emit(event.lngLat);
         }
     }
 
@@ -420,7 +455,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             bearing: this.bearing
         });
 
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+        if (this.map.getLayer('building-extrusion')) {
+            this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+        }
         this.resetMapFiredChange.emit(false);
     }
 
@@ -475,6 +512,16 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     }
 
     /**
+     * transformRequest
+     */
+    public transformRequest(url, resourceType) {
+        if (!url.startsWith('http') && resourceType === 'Tile') {
+            return { url: location.protocol + '//' + location.host + url };
+        }
+        return { url: url };
+    }
+
+    /**
      * dynamicLabelling
      * @param labelData
      * @param layerNames
@@ -502,16 +549,18 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         };
 
         let buffer: number;
-        if (this.map.getZoom() > 17) {
-            buffer = -10;
+        if (this.map.getZoom() > 18) {
+            buffer = 0;
+        } else if (this.map.getZoom() > 17) {
+            buffer = -5;
         } else if (this.map.getZoom() > 16) {
-            buffer = -20;
+            buffer = -10;
         } else if (this.map.getZoom() > 15) {
-            buffer = -30;
+            buffer = -20;
         } else if (this.map.getZoom() > 14) {
-            buffer = -40;
+            buffer = -30;
         } else if (this.map.getZoom() < 14) {
-            buffer = -50;
+            buffer = -40;
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
@@ -560,18 +609,24 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             let p: Polygon;
 
             featureMap[key].forEach(each => {
-                if (p && p.coordinates) {
-                    const union = turf.union(p, each);
-                    switch (union.geometry.type) {
-                        case 'Polygon':
-                            p = union.geometry;
-                            return;
-                        case 'MultiPolygon':
-                            p = getLargestPolygon(union.geometry);
-                            return;
+                try {
+                    if (p && p.coordinates) {
+                        const union = turf.union(p, each);
+                        switch (union.geometry.type) {
+                            case 'Polygon':
+                                p = union.geometry;
+                                return;
+                            case 'MultiPolygon':
+                                p = getLargestPolygon(union.geometry);
+                                return;
+                        }
+                    }
+                    p = each.geometry;
+                } catch (e) {
+                    if (!environment.production) {
+                        console.log(e);
                     }
                 }
-                p = each.geometry;
             });
 
             intersectPolygon(p, mapViewBound).forEach(i => {

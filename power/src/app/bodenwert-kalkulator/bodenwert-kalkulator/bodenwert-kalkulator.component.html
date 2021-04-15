@@ -337,6 +337,7 @@
                     <mgl-map id="map"
                              (click)="onMapClickEvent($event)"
                              (load)="loadMap($event)"
+                             [transformRequest]="transformRequest"
                              [bounds]="bounds"
                              [maxZoom]="20"
                              [minZoom]="5"

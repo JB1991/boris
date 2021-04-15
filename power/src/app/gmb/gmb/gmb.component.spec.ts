@@ -10,24 +10,6 @@ import { GmbComponent } from './gmb.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 
-import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import {
-    download,
-    plusCircle,
-    dashCircle,
-    infoCircle
-} from 'ngx-bootstrap-icons';
-
-// Select some icons (use an object, not an array)
-/* eslint-disable object-shorthand */
-const icons = {
-    download,
-    plusCircle,
-    dashCircle,
-    infoCircle
-};
-/* eslint-enable object-shorthand */
-
 /* eslint-disable max-lines */
 describe('GmbComponent', () => {
     let component: GmbComponent;
@@ -42,7 +24,6 @@ describe('GmbComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                NgxBootstrapIconsModule.pick(icons),
                 NgxEchartsModule.forRoot({ echarts }), // eslint-disable-line object-shorthand
                 RouterTestingModule.withRoutes([]),
                 RouterTestingModule

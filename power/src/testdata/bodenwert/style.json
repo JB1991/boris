@@ -8,7 +8,7 @@
     "zoom": 0.8902641636539237,
     "bearing": 0,
     "pitch": 0,
-    "glyphs": "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/fonts/{fontstack}/{range}.pbf",
+    "glyphs": "/vector-tiles/fonts/{fontstack}/{range}.pbf",
     "transition": {
         "duration": 1000,
         "delay": 0
@@ -17,7 +17,7 @@
         "openmaptiles": {
             "type": "vector",
             "tiles": [
-                "https://s3.ap.cloud-object-storage.appdomain.cloud/vector-tiles-lgln/{z}/{x}/{y}.pbf"
+                "/vector-tiles/{z}/{x}/{y}.pbf"
             ],
             "maxzoom": 14,
             "attribution": "<a href=\"https://openmaptiles.org/\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">© OpenMapTiles</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">© OpenStreetMap Mitwirkende</a>"

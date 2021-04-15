@@ -122,7 +122,8 @@ test:e2e:
     policy: pull
   script:
     - cd power
-    - node_modules/@angular/cli/bin/ng e2e --protractor-config e2e/protractor-ci.conf.js
+    - node_modules/protractor/bin/webdriver-manager update --versions.chrome 89.0.4389.23 --gecko false --standalone false
+    - node_modules/@angular/cli/bin/ng e2e -c staging --webdriver-update=false
   artifacts:
     expire_in: 2 days
     public: false
@@ -136,7 +137,6 @@ test:e2e:
     - dev
     - staging
     - production
-  when: manual
 
 test:audit:
   stage: test
@@ -294,7 +294,7 @@ test:kube-linter-dev:
     - init:helm-dev
   cache: {}
   script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-dev/power/templates/*.yaml
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-dev/power/templates/*.yaml
   only:
     - merge_requests
     - tags
@@ -311,7 +311,7 @@ test:kube-linter-staging:
     - init:helm-staging
   cache: {}
   script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-staging/power/templates/*.yaml
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-staging/power/templates/*.yaml
   only:
     - staging
   allow_failure: true
@@ -326,7 +326,7 @@ test:kube-linter-production:
     - init:helm-production
   cache: {}
   script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner,default-service-account,run-as-non-root,no-read-only-root-fs manifest-production/power/templates/*.yaml
+    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-production/power/templates/*.yaml
   only:
     - production
   allow_failure: true
@@ -382,21 +382,24 @@ build:production:
 
 package:development:
   stage: package
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [ "" ]
   interruptible: false
   dependencies:
     - build
   cache: {}
-  before_script:
-    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:latest" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - docker push "$CI_REGISTRY_IMAGE:latest"
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:latest --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
   only:
     - dev
 
 package:staging:
   stage: package
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [ "" ]
   interruptible: false
   dependencies:
     - build
@@ -404,17 +407,17 @@ package:staging:
   environment:
     name: staging
     action: prepare
-  before_script:
-    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:staging" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - docker push "$CI_REGISTRY_IMAGE:staging"
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:staging --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
   only:
     - staging
 
 package:production:
   stage: package
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [ "" ]
   interruptible: false
   dependencies:
     - build:production
@@ -422,12 +425,9 @@ package:production:
   environment:
     name: production
     action: prepare
-  before_script:
-    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:production" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME" .
-    - docker push "$CI_REGISTRY_IMAGE:production"
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:production --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
   only:
     - production
   when: manual
@@ -446,7 +446,7 @@ scan:development:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - docker pull "$CI_REGISTRY_IMAGE:latest"
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
+    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
   only:
     - dev
   allow_failure: true
@@ -467,7 +467,7 @@ scan:staging:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - docker pull "$CI_REGISTRY_IMAGE:staging"
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
+    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
   only:
     - staging
   allow_failure: true
@@ -488,7 +488,7 @@ scan:production:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
     - docker pull "$CI_REGISTRY_IMAGE:production"
-    - trivy image --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:production"
+    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:production"
   only:
     - production
   allow_failure: true

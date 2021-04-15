@@ -6,6 +6,7 @@
              (rotateEnd)="onRotate()"
              (zoomEnd)="onZoomEnd()"
              (pitchEnd)="onPitchEnd()"
+             [transformRequest]="transformRequest"
              [bounds]="bounds"
              [maxZoom]="18"
              [minZoom]="5"
@@ -27,19 +28,22 @@
 
         <mgl-layer id="nds"
                    type="line"
+                   [maxzoom]="11"
                    [source]="'ndsgeojson'"
                    [paint]="{
                         'line-color': '#c4153a',
                         'line-width': {
-                            'stops': [[8,1],[10,1],[18,1]]
+                            'stops': [[8,1],[11,1]]
                         },
                         'line-opacity': {
-                            'stops':[[8,1],[10,1],[12,0]]
+                            'stops':[[8,1],[11,1]]
                         }
                     }">
         </mgl-layer>
+
+        <!-- temporarily deactivated -->
         <!-- Building Extrusion Layer -->
-        <mgl-layer id="building-extrusion"
+        <!-- <mgl-layer id="building-extrusion"
                    type="fill-extrusion"
                    source="openmaptiles"
                    [minzoom]="15"
@@ -53,7 +57,8 @@
                             delay: 0
                         }
                     }">
-        </mgl-layer>
+        </mgl-layer> -->
+
         <!-- Niedersachsen -->
         <mgl-layer id="flurstuecke"
                    type="line"
@@ -91,9 +96,9 @@
 
         <mgl-layer id="sanierungsgebiet"
                    type="line"
-                   [source]="ndsSource"
+                   [source]="ndsVergSource"
                    [minzoom]="11"
-                   [sourceLayer]="'br_brzone_flat_with_display'"
+                   [sourceLayer]="'br_verfahren'"
                    [paint]="{
                         'line-color': '#0080FF',
                         'line-dasharray': [7,5],
@@ -105,7 +110,7 @@
                             }
                     }"
                    [layout]="teilmarkt.value.includes('B') ? {visibility: 'visible'} : {visibility: 'none'}"
-                   [filter]="['all',['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'],['==', 'stag', stichtag]]">
+                   [filter]="['==', 'stag', stichtag]">
         </mgl-layer>
 
         <mgl-layer id="landwirtschaft"
@@ -200,7 +205,7 @@
                         'text-size': {
                             'stops': [[12, 10], [15, 16]]
                         },
-                        'text-font': ['Klokantech Noto Sans Regular']
+                        'text-font': ['Cantarell Regular']
                    }">
         </mgl-layer>
 
@@ -220,7 +225,7 @@
                         'text-size': {
                             'stops': [[10, 20], [15, 24]]
                         },
-                        'text-font': ['Klokantech Noto Sans Regular']
+                        'text-font': ['Cantarell Regular']
                     }">
         </mgl-layer>
 

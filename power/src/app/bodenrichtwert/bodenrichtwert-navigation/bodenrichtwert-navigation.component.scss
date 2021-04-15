@@ -4,7 +4,6 @@
 
 .active {
     color: #c4153a !important;
-    background-color: transparent !important;
 }
 
 .nav-link:hover {
@@ -15,13 +14,26 @@
     min-width: 100% !important;
 }
 
+.z-index {
+    z-index: 1000;
+}
+
+@media (max-width: 460px) {
+    .mobileBtn {
+        white-space: normal !important;
+        word-wrap: break-word;
+        text-align: start;
+        width: calc(100vw - 85px);
+    }
+}
+
 $grid-breakpoints: (
     xs: 0,
     sm: 576px,
     md: 768px,
     lg: 992px,
     xl: 1200px,
-    xxl: 1700px
+    xxl: 1700px,
 );
 
 $container-max-widths: (
@@ -29,7 +41,7 @@ $container-max-widths: (
     md: 720px,
     lg: 960px,
     xl: 1140px,
-    xxl: 1660px
+    xxl: 1660px,
 );
 
 @import '~bootstrap/scss/bootstrap-grid.scss';

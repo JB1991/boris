@@ -8,11 +8,17 @@ export const environment = {
     appName: 'POWER',
     ows: '/geoserver/boris/ows?',
     basemap: '/assets/boden/basemap.json',
+    baviStyles: [
+        'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-classic.json',
+        'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-color.json',
+        'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-light.json',
+        'https://dev.basisvisualisierung.niedersachsen.dev/styles/vt-style-grayscale.json',
+    ],
     formAPI: 'http://localhost:8080/',
     auth: {
         clientid: 'power',
         clientsecret: 'f53dc4b4-42fa-40bc-8ce3-63760a994b88',
-        url: 'https://keycloak.power.niedersachsen.dev/auth/realms/power/protocol/openid-connect/',
+        url: 'https://iam.power.niedersachsen.dev/auth/realms/power/protocol/openid-connect/',
     },
     config: {
         modules: [
@@ -25,6 +31,7 @@ export const environment = {
             'landesgrundstuecksmarktberichte',
             'forms',
             'feedback',
+            'ogc-services',
             'login',
             'logout'
         ],

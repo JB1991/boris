@@ -282,6 +282,8 @@
                             "/login",
                             "/logout",
                             "/feedback",
+                            "/ogc-services",
+                            "/notfound",
                             "/bodenrichtwerte",
                             "/grundstuecksmarktberichte",
                             "/landesgrundstuecksmarktberichte",
