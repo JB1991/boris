@@ -11,3 +11,20 @@ th {
 .borderless th {
     border: none;
 }
+
+code {
+    color: #d23838 !important;
+}
+
+.servicelist {
+    font-size: 0.75rem;
+}
+
+.servicelist div {
+    padding: 0.5rem;
+}
+
+.servicelist div:nth-child(2n + 1) {
+    background-color: #6c757d;
+    color: white;
+}
