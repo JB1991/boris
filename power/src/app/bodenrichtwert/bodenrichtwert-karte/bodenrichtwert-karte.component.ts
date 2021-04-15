@@ -4,7 +4,7 @@ import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-
 import BodenrichtwertKarteLayerControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-layer-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
-import { FeatureCollection, Feature } from 'geojson';
+import { FeatureCollection, Feature, } from 'geojson';
 import * as turf from '@turf/turf';
 
 type Point = {
@@ -351,8 +351,13 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         this.map.addControl(navControl, 'top-right');
 
         // add geolocation control
-        const geolocateControl = new GeolocateControl();
+        const geolocateControl = new GeolocateControl({
+            showUserLocation: false
+        });
         this.map.addControl(geolocateControl, 'top-right');
+        geolocateControl.on('geolocate', (evt) => {
+            this.latLngChange.emit(new LngLat(evt.coords.longitude, evt.coords.latitude));
+        });
 
         // temporarily deactivated
         // const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
