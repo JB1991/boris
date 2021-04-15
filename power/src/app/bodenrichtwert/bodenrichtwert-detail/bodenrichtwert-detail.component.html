@@ -51,12 +51,12 @@
                         role="rowheader">
                         {{brzStrings.value | hyphenate}}
                     </dt>
-                    <dd *ngIf="this.teilmarkt.value.includes('B')"
+                    <dd *ngIf="teilmarkt.value.includes('B')"
                         class="col-md-7"
                         role="cell">
                         {{feature.properties.brw | number:'1.0-1'}} &euro; / m&#178;
                     </dd>
-                    <dd *ngIf="this.teilmarkt.value.includes('LF')"
+                    <dd *ngIf="teilmarkt.value.includes('LF')"
                         class="col-md-7"
                         role="cell">
                         {{feature.properties.brw | number:'1.2-2'}} &euro; / m&#178;
