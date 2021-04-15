@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
+import BodenrichtwertKarteLayerControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-layer-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { FeatureCollection, Feature } from 'geojson';
@@ -138,6 +139,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     // map style url
     public MAP_STYLE_URL = environment.basemap;
 
+    // font
+    // public font = 'Klokantech Noto Sans Regular';
+
     // NDS Bounds MapBox Type
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
@@ -267,7 +271,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
 
-    constructor( ) { }
+    constructor() { }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
@@ -350,8 +354,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         const geolocateControl = new GeolocateControl();
         this.map.addControl(geolocateControl, 'top-right');
 
-        const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
-        this.map.addControl(pitchControl, 'top-right');
+        // temporarily deactivated
+        // const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
+        // this.map.addControl(pitchControl, 'top-right');
+
+        const layerControl = new BodenrichtwertKarteLayerControl();
+        this.map.addControl(layerControl, 'top-right');
 
         // update the map on reload if coordinates exist
         if (this.latLng) {
@@ -541,16 +549,18 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         };
 
         let buffer: number;
-        if (this.map.getZoom() > 17) {
-            buffer = -10;
+        if (this.map.getZoom() > 18) {
+            buffer = 0;
+        } else if (this.map.getZoom() > 17) {
+            buffer = -5;
         } else if (this.map.getZoom() > 16) {
-            buffer = -20;
+            buffer = -10;
         } else if (this.map.getZoom() > 15) {
-            buffer = -30;
+            buffer = -20;
         } else if (this.map.getZoom() > 14) {
-            buffer = -40;
+            buffer = -30;
         } else if (this.map.getZoom() < 14) {
-            buffer = -50;
+            buffer = -40;
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
