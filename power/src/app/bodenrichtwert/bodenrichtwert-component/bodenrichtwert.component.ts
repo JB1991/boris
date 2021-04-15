@@ -13,8 +13,6 @@ import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.servic
 import proj4 from 'proj4';
 import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
 import { LngLat } from 'mapbox-gl';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { LayerComponent } from 'ngx-mapbox-gl/lib/layer/layer.component';
 
 export interface Teilmarkt {
     value: Array<string>;
