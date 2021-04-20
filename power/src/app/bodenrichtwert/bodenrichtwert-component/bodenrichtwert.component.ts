@@ -183,8 +183,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
 
-        this.changeURL();
-
         if (!isPlatformBrowser(this.platformId)) {
             this.isBrowser = false;
         }
@@ -230,6 +228,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
                 this.bearing = Number(params['bearing']);
             }
             this.cdr.detectChanges();
+            this.changeURL();
         });
     }
 
