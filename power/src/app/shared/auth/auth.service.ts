@@ -16,6 +16,7 @@ export class AuthService {
     constructor(@Inject(LOCALE_ID) public locale: string,
         public router: Router,
         public httpClient: HttpClient) {
+        /* istanbul ignore else */
         if (localStorage) {
             // load session
             this.loadSession(true);

@@ -85,6 +85,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     ngOnInit() {
+        /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             // load version
             this.httpClient.get('/assets/version.json').subscribe(data => {

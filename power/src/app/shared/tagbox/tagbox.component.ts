@@ -24,6 +24,7 @@ export class TagboxComponent {
     @Input() public dataList: string[];
     @Input() public tagList: string[];
     @Input() public editable = true;
+    @Input() public max: number;
     public tagInput = '';
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
@@ -39,6 +40,9 @@ export class TagboxComponent {
             return;
         }
         if (!this.tagList.includes(this.tagInput)) {
+            if (typeof this.max === 'number' && this.tagList.length >= this.max) {
+                throw new Error('Reached tagbox limit');
+            }
             this.tagList.push(this.tagInput);
         }
         this.tagInput = '';

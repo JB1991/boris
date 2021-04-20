@@ -57,4 +57,14 @@ describe('Shared.TagboxComponent', () => {
         component.addTag();
         expect(component.tagList.length).toEqual(1);
     });
+
+    it('should reach limit', () => {
+        component.max = 2;
+        component.tagList = ['MyTag A', 'MyTag B'];
+        component.tagInput = 'MyTag C';
+        expect(() => {
+            component.addTag();
+        }).toThrowError('Reached tagbox limit');
+        expect(component.tagList.length).toEqual(2);
+    });
 });

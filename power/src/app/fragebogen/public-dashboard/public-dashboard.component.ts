@@ -41,6 +41,7 @@ export class PublicDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
+        /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             this.update(true);
         }
