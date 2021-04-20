@@ -114,7 +114,6 @@ export class FlurstueckSearchComponent {
             switchMap(term => term.length < 1 ? of([]) :
                 this.gemarkungService.getGemarkungBySearchText(term).pipe(
                     catchError((error) => {
-                        console.log(error);
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([]);
                     })

@@ -66,8 +66,7 @@ export class GeosearchComponent implements OnChanges {
             distinctUntilChanged(),
             switchMap(term => term.length < 1 ? of([]) :
                 this.geosearchService.search(term).pipe(
-                    catchError((error) => {
-                        console.log(error);
+                    catchError(() => {
                         this.alerts.NewAlert('danger', $localize`Angegebene Adresse konnte nicht gefunden werden.`, $localize`Adresse` + ': ' + term);
                         return of([]);
                     })

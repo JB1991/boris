@@ -28,7 +28,7 @@ export class BodenrichwertnummerSearchComponent {
 
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
 
-    public brwNummer: number;
+    public brwNummer: Feature;
 
     public selected = false;
 
@@ -126,7 +126,6 @@ export class BodenrichwertnummerSearchComponent {
             switchMap(term => term.length < 1 ? of([]) :
                 this.bodenrichtwertService.getFeatureByBRWNumber(term, this.stichtag).pipe(
                     catchError((error) => {
-                        console.log(error);
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([]);
                     })

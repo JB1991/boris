@@ -1,14 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FeatureCollection, Feature } from 'geojson';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AlertsService } from '../../alerts/alerts.service';
-import { ModalComponent } from '../../modal/modal.component';
 import { SharedModule } from '../../shared.module';
 import { AdvancedSearchComponent } from '../advanced-search.component';
 import { AlkisWfsService } from './alkis-wfs.service';
@@ -33,8 +31,7 @@ describe('FlurstueckSearchComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
-                FlurstueckSearchComponent,
-                AdvancedSearchComponent
+                FlurstueckSearchComponent
             ],
             providers: [
                 AlertsService,
@@ -64,6 +61,14 @@ describe('FlurstueckSearchComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should reset fsk and selected on reset', () => {
+        component.selected = true;
+        component.fsk = JSON.parse(JSON.stringify(fsk));
+        component.reset();
+        expect(component.selected).toBeFalse();
+        expect(component.fsk).toEqual({});
     });
 
     it('searchFlurstueck should successfully call alkisWfsService', () => {
