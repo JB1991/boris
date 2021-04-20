@@ -14,13 +14,16 @@ export class ModalminiComponent implements OnDestroy {
     @ViewChild('modalmini') public modal: ModalDirective;
     @ViewChild('mymodal') public div: ElementRef;
     @Input() public checkInvalid = false;
+    @Input() public easyclose = true;
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
     public focusedElement: any;
     public isOpen = false;
     public title = '';
 
-    constructor(public modalService: BsModalService,
-        public cdr: ChangeDetectorRef) { }
+    constructor(
+        public modalService: BsModalService,
+        public cdr: ChangeDetectorRef
+    ) { }
 
     ngOnDestroy() {
         if (this.isOpen) {
@@ -37,6 +40,8 @@ export class ModalminiComponent implements OnDestroy {
         // open modal
         this.title = title;
         this.isOpen = true;
+        this.modal.config.ignoreBackdropClick = !this.easyclose;
+        this.modal.config.keyboard = this.easyclose;
         this.modal.show();
         document.body.appendChild(this.div.nativeElement);
         this.cdr.detectChanges();
