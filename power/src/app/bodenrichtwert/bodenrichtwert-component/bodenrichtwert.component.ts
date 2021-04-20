@@ -6,7 +6,7 @@ import {
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
-import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
+import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { Subscription } from 'rxjs';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
@@ -176,6 +176,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             this.cdr.detectChanges();
         });
         this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(fst => {
+            console.log(fst);
             this.flurstueck = fst;
             this.cdr.detectChanges();
         });
