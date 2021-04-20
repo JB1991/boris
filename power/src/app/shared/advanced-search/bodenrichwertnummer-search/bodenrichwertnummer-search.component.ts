@@ -71,7 +71,7 @@ export class BodenrichwertnummerSearchComponent {
     /**
      * pointOnPolygon returns a point on the given feature geometry in WGS84 coordinates
      * @param ft feature
-     * @returns 
+     * @returns point
      */
     public pointOnPolygon(ft: Feature) {
         const polygon = turf.polygon(ft.geometry['coordinates']);

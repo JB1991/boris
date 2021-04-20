@@ -176,7 +176,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             this.cdr.detectChanges();
         });
         this.flurstueckSubscription = this.alkisWfsService.getFeatures().subscribe(fst => {
-            console.log(fst);
             this.flurstueck = fst;
             this.cdr.detectChanges();
         });

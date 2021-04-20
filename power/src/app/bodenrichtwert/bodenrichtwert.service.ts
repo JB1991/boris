@@ -43,7 +43,7 @@ export class BodenrichtwertService {
         this.features.next(features);
     }
 
-    public getFeatureByBRWNumber(number: string, stichtag: string) {
+    public getFeatureByBRWNumber(brwNumber: string, stichtag: string) {
 
         // OGC Query for each layer to be searched
         let ogcQuery = '';
@@ -59,7 +59,7 @@ export class BodenrichtwertService {
                 '</ogc:PropertyIsEqualTo>' +
                 '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
                 '<ogc:PropertyName>wnum</ogc:PropertyName>' +
-                '<ogc:Literal>' + number + '*' + '</ogc:Literal>' +
+                '<ogc:Literal>' + brwNumber + '*' + '</ogc:Literal>' +
                 '</ogc:PropertyIsLike>' +
                 '</ogc:And>' +
                 '</ogc:Filter>' +

@@ -72,7 +72,7 @@ describe('BodenrichwertnummerSearchComponent', () => {
 
     it('searchBodenrichtwert should successfully call bodenrichtwertService', () => {
         spyOn(component.bodenrichtwertService, 'getFeatureByLatLonEntw').and.callThrough();
-        let brwNummer = JSON.parse(JSON.stringify(brw));
+        const brwNummer = JSON.parse(JSON.stringify(brw));
         component.searchBodenrichtwert(brwNummer.features[0]);
         expect(component.bodenrichtwertService.getFeatureByLatLonEntw).toHaveBeenCalledTimes(1);
     });
