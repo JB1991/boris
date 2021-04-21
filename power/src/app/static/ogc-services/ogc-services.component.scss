@@ -28,3 +28,13 @@ code {
     background-color: #6c757d;
     color: white;
 }
+
+:host ::ng-deep .card-body {
+    padding: 0.25em !important;
+}
+
+@media (min-width: 992px) {
+    :host ::ng-deep .card-body {
+        padding: 1rem !important;
+    }
+}
