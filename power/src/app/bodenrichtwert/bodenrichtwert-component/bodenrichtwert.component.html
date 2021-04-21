@@ -142,15 +142,13 @@
         <div class="row p-0 m-0 h-100 justify-content-end">
             <div *ngIf="features?.features.length && checkIfStichtagFtsExist()"
                  class="col-auto col-lg-6 p-0">
-                <a class="nav-link btn p-2"
-                   role="button"
-                   [href]="printURL()"
-                   target="_blank"
-                   rel="noopener noreferrer nofollow"
-                   i18n-alt
-                   alt="Bodenrichtwerte - amtlicher Ausdruck"
-                   title="Bodenrichtwerte - amtlicher Ausdruck"
-                   i18n-title>
+                <button class="nav-link btn p-2 m-2"
+                        type="button"
+                        i18n-alt
+                        alt="Bodenrichtwerte - amtlicher Ausdruck"
+                        title="Bodenrichtwerte - amtlicher Ausdruck"
+                        i18n-title
+                        (click)="openPrintModal()">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="20px"
                          height="20px"
@@ -163,15 +161,14 @@
                         <path
                               d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
                     </svg>
-                    <span class="d-none"
-                          aria-hidden="true"
+                    <span class="sr-only"
                           i18n>Bodenrichtwerte - amtlicher Ausdruck</span>
-                </a>
+                </button>
             </div>
             <div class="p-0"
                  [class]="features?.features.length && checkIfStichtagFtsExist() ? 'col-auto col-lg-6' : 'col-auto col-lg-12'">
                 <button [class.d-none]="!address && !features?.features.length"
-                        class="nav-link btn py-2 pl-1 pr-3"
+                        class="nav-link btn p-2 m-2"
                         [ngClass]="{'active': hintsActive}"
                         type="button"
                         i18n-alt
@@ -287,3 +284,31 @@
         </span>
     </ng-template>
 </ng-container>
+
+<power-modalmini #print>
+    <span i18n>Wenn Sie die Adresse vom Objekt im amtlichen Ausdrück benötigen, dann verwenden Sie bitte die</span>
+    <span>&nbsp;</span>
+    <a href="https://www.boris.niedersachsen.de/boris/bodenrichtwerte"
+       target="_blank"
+       rel="noopener noreferrer nofollow"
+       (click)="print.close()"
+       i18n>Altanwendung BORIS.NI</a>.
+
+    <!-- modal buttons -->
+    <div class="modal-footer"
+         powerModalminiFooter>
+        <a class="btn btn-primary"
+           role="button"
+           [href]="printURL()"
+           target="_blank"
+           rel="noopener noreferrer nofollow"
+           (click)="print.close()"
+           title="Bodenrichtwerte - amtlicher Ausdruck"
+           i18n-title>
+            <i class="bi bi-printer mr-2"
+               role="img"
+               aria-hidden="true"></i>
+            <span i18n>Zum Ausdruck</span>
+        </a>
+    </div>
+</power-modalmini>
