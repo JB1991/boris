@@ -1,7 +1,7 @@
 <div class="container px-1 px-lg-3 pt-2">
     <div class="text-center mb-5">
         <h1 class="display-3 m-0"
-            i18n>Daten&shy;dienste</h1>
+            i18n>OGC Dienste</h1>
 
         <p class="lead mb-2"
            i18n>Das LGLN stellt gebührenfreie WMS und WFS Dienste der Bodenrichtwerte in Niedersachsen bereit. Die
@@ -101,48 +101,37 @@
             </button>
 
             <div class="h5"
-                 i18n>Nutzungsbeispiel</div>
-            <div class="small mb-4">
-                <code>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris?VERSION=1.3.0&amp;SERVICE=WMS&amp;REQUEST=getCapabilities</code>
-            </div>
-
-            <div class="h5"
                  i18n>Aktuelles Jahr</div>
             <div class="mb-2"
                  i18n>Diese Adresse referenziert immer auf das aktuelle Jahr. Für alle WFS-Dienste ist der
-                GetFeatureInfo Request frei geschaltet.</div>
+                GetFeatureInfo Request freigeschaltet.</div>
             <div class="servicelist mb-4">
                 <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris</div>
             </div>
 
             <div class="h5"
-                 i18n>Jahrgangsdienstedienste</div>
-            <div class="mb-2"
-                 i18n>Die WMS-Dienste der Jahrgänge 2000 und 2001 enthalten die Bodenrichtwerte in D-Mark, alle anderen
-                in Euro. Dienste vor 2012 sind nicht VBORIS2 konform.</div>
-            <div class="servicelist">
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2021</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2020</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2019</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2018</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2017</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2016</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2015</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2014</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2013</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2012</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2011</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2010</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2009</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2008</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2007</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2006</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2005</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2004</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2003</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2002</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2001</div>
+                 i18n>Jahrgangsdienste</div>
+            <div class="mb-2">
+                <span i18n>Die URL endet mit dem gewünschten Jahr für die Daten, ist ein Jahr nicht vorhanden, so ist
+                    keine Verbindung möglich. Der älteste Jahrgang des WMS ist 2000. Die WMS-Dienste der Jahrgänge 2000
+                    und 2001 enthalten die Bodenrichtwerte in D-Mark, alle anderen in Euro. Dienste vor 2012 sind
+                    nicht</span>
+                <span>&nbsp;</span>
+                <a href="http://www.adv-online.de/AdV-Produkte/Weitere-Produkte/VBORIS/"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n>VBORIS2</a>
+                <span>&nbsp;</span>
+                <span i18n>konform.</span>
+            </div>
+            <div class="servicelist mb-4">
                 <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2000</div>
+            </div>
+
+            <div class="h5"
+                 i18n>Nutzungsbeispiel</div>
+            <div class="small">
+                <code>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris?VERSION=1.3.0&amp;SERVICE=WMS&amp;REQUEST=getCapabilities</code>
             </div>
         </accordion-group>
 
@@ -158,33 +147,29 @@
             </button>
 
             <div class="h5"
-                 i18n>Nutzungsbeispiel</div>
-            <div class="small mb-4">
-                <code>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris?VERSION=2.0.0&amp;SERVICE=WFS&amp;REQUEST=getCapabilities</code>
-            </div>
-
-            <div class="h5"
                  i18n>Aktuelles Jahr</div>
             <div class="mb-2"
                  i18n>Diese Adresse referenziert immer auf das aktuelle Jahr. Für alle WFS-Dienste ist der
-                GetFeatureInfo Request frei geschaltet.</div>
+                GetFeatureInfo Request freigeschaltet.</div>
             <div class="servicelist mb-4">
                 <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris</div>
             </div>
 
             <div class="h5"
-                 i18n>Jahrgangsdienstedienste</div>
-            <div class="servicelist">
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2021</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2020</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2019</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2018</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2017</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2016</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2015</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2014</div>
-                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2013</div>
+                 i18n>Jahrgangsdienste</div>
+            <div class="mb-2"
+                 i18n>Die URL endet mit dem gewünschten Jahr für die Daten, ist ein Jahr nicht vorhanden, so ist keine
+                Verbindung möglich. Der älteste Jahrgang des WFS ist 2012. Die WMS-Dienste der Jahrgänge 2000 und 2001
+                enthalten die Bodenrichtwerte in D-Mark, alle anderen in Euro. Dienste vor 2012 sind nicht.
+            </div>
+            <div class="servicelist mb-4">
                 <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2012</div>
+            </div>
+
+            <div class="h5"
+                 i18n>Nutzungsbeispiel</div>
+            <div class="small">
+                <code>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris?VERSION=2.0.0&amp;SERVICE=WFS&amp;REQUEST=getCapabilities</code>
             </div>
         </accordion-group>
     </accordion>
