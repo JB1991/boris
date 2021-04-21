@@ -299,7 +299,7 @@
          powerModalminiFooter>
         <a class="btn btn-primary"
            role="button"
-           [href]="printURL()"
+           [href]="(features?.features.length && checkIfStichtagFtsExist() ? printURL() : '')"
            target="_blank"
            rel="noopener noreferrer nofollow"
            (click)="print.close()"
