@@ -8,6 +8,7 @@
                [(ngModel)]="tagInput"
                (change)="addTag()"
                (keyup.enter)="addTag()"
+               [disabled]="max && tagList && max > 0 && tagList.length >= max"
                [name]="eid"
                [id]="eid"
                maxlength="50"
@@ -25,6 +26,7 @@
             [(ngModel)]="tagInput"
             (change)="addTag()"
             (keyup.enter)="addTag()"
+            [disabled]="max && tagList && max > 0 && tagList.length >= max"
             [name]="eid"
             [id]="eid">
         <option value="">{{ placeholder }}</option>
@@ -32,20 +34,42 @@
                 [value]="tag">{{ tag }}</option>
     </select>
 
-    <div *ngFor="let tag of tagList; index as i"
-         class="d-inline">
-        <span class="badge badge-primary mr-1">
-            {{ tag }}
+    <!-- tag list -->
+    <div>
+        <div *ngFor="let tag of tagList; index as i"
+             class="d-inline">
+            <span class="badge badge-primary mr-2 mt-2">
+                <span class="d-inline-block py-1">{{ tag }}</span>
 
+                <button type="button"
+                        class="close ml-1 text-white"
+                        i18n-title
+                        title="Löschen"
+                        i18n-alt
+                        alt="Löschen"
+                        (click)="removeTag(i)">
+                    <i class="bi bi-x"
+                       role="img"
+                       aria-hidden="true"></i>
+                    <span class="sr-only"
+                          i18n>Löschen</span>
+                </button>
+            </span>
+        </div>
+
+        <!-- delete all -->
+        <div class="d-inline"
+             *ngIf="tagList.length > 0">
             <button type="button"
-                    class="close ml-1"
+                    class="badge badge-danger mr-2 mt-2 border-0"
                     i18n-title
-                    title="Löschen"
-                    (click)="removeTag(i)">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only"
-                      i18n>Löschen</span>
+                    title="Alle löschen"
+                    i18n-alt
+                    alt="Alle löschen"
+                    (click)="removeAll()">
+                <span class="d-inline-block py-1"
+                      i18n>Alle löschen</span>
             </button>
-        </span>
+        </div>
     </div>
 </div>

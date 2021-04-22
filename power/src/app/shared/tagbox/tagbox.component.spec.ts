@@ -67,4 +67,11 @@ describe('Shared.TagboxComponent', () => {
         }).toThrowError('Reached tagbox limit');
         expect(component.tagList.length).toEqual(2);
     });
+
+    it('should delete all', () => {
+        component.tagList = ['MyTag A', 'MyTag B'];
+        expect(component.tagList.length).toEqual(2);
+        component.removeAll();
+        expect(component.tagList.length).toEqual(0);
+    });
 });
