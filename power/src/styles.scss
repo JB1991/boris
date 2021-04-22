@@ -1,5 +1,5 @@
 /*!* You can add global styles to this file, and also import other style files *!*/
-$primary: #0061ea;
+$primary: #005ee4;
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 @import '~nouislider/distribute/nouislider.css';
@@ -29,6 +29,10 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden !important;
+}
+
+code {
+    color: #c43434 !important;
 }
 
 $font-family-sans-serif: // Safari for macOS and iOS (San Francisco)
