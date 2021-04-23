@@ -359,12 +359,11 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             this.latLngChange.emit(new LngLat(evt.coords.longitude, evt.coords.latitude));
         });
 
-        // temporarily deactivated
-        // const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
-        // this.map.addControl(pitchControl, 'top-right');
+        const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
+        this.map.addControl(pitchControl, 'top-right');
 
-        const layerControl = new BodenrichtwertKarteLayerControl();
-        this.map.addControl(layerControl, 'top-right');
+        // const layerControl = new BodenrichtwertKarteLayerControl();
+        // this.map.addControl(layerControl, 'top-right');
 
         // update the map on reload if coordinates exist
         if (this.latLng) {
