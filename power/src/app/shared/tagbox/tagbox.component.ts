@@ -40,6 +40,7 @@ export class TagboxComponent {
         if (!this.tagInput || !this.tagInput.trim()) {
             return;
         }
+        this.tagInput = this.tagInput.toLowerCase();
         if (!this.tagList.includes(this.tagInput)) {
             if (typeof this.max === 'number' && this.tagList.length >= this.max) {
                 throw new Error('Reached tagbox limit');
