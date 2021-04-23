@@ -20,7 +20,7 @@ export const environment = {
             'landesgrundstuecksmarktdaten',
             'landesgrundstuecksmarktberichte',
             'feedback',
-            'ogc-services'
+            'ogc-dienste'
         ],
         localized: false,
         version: {

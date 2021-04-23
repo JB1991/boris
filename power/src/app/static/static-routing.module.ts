@@ -43,7 +43,7 @@ const routes: Routes = [
         canActivate: [ModuleGuard]
     },
     {
-        path: 'ogc-services',
+        path: 'ogc-dienste',
         component: OgcServicesComponent,
         canActivate: [ModuleGuard]
     },

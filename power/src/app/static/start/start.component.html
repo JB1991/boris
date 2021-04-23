@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </slide>
-            <slide *ngIf="config.modules.includes('ogc-services')">
+            <slide *ngIf="config.modules.includes('ogc-dienste')">
                 <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="OGC Darstellungs- und Downloaddienste"
@@ -170,7 +170,7 @@
                 <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;"
-                              i18n>Datendienste</span>
+                              i18n>OGC Dienste</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
@@ -179,7 +179,7 @@
                             Schnittstellen bereit</p>
                         <a class="btn btn-primary"
                            href=""
-                           (click)="$event.preventDefault(); scrollToElement('ogc-services')"
+                           (click)="$event.preventDefault(); scrollToElement('ogc-dienste')"
                            role="button"
                            i18n>Mehr dazu</a>
                     </div>
@@ -519,13 +519,13 @@
             *ngIf="config.modules.includes('forms')">
 
         <div class="row my-1"
-             *ngIf="config.modules.includes('ogc-services')"
-             id="ogc-services">
+             *ngIf="config.modules.includes('ogc-dienste')"
+             id="ogc-dienste">
             <div class="col-md-7"
-                 [class.order-md-2]="getCardOrder('ogc-services')">
+                 [class.order-md-2]="getCardOrder('ogc-dienste')">
                 <a class="h2 display-4"
-                   [routerLink]="['/ogc-services']">
-                    <span style="color: #343a40;">Datendienste</span>
+                   [routerLink]="['/ogc-dienste']">
+                    <span style="color: #343a40;">OGC Dienste</span>
                 </a>
                 <div class="lead">
                     <h3 class="h5 text-break"
@@ -538,7 +538,7 @@
             </div>
             <div class="col-md-5 d-flex justify-content-center align-self-center"
                  aria-hidden="true">
-                <a [routerLink]="['/ogc-services']"
+                <a [routerLink]="['/ogc-dienste']"
                    i18n-title
                    title="OGC Darstellungs- und Downloaddienste"
                    tabindex="-1">

@@ -23,6 +23,7 @@ export class TagboxComponent {
     @Input() public eid: string;
     @Input() public dataList: string[];
     @Input() public tagList: string[];
+    @Output() public tagListChange = new EventEmitter<string[]>();
     @Input() public editable = true;
     @Input() public max: number;
     public tagInput = '';
@@ -39,11 +40,13 @@ export class TagboxComponent {
         if (!this.tagInput || !this.tagInput.trim()) {
             return;
         }
+        this.tagInput = this.tagInput.toLowerCase();
         if (!this.tagList.includes(this.tagInput)) {
             if (typeof this.max === 'number' && this.tagList.length >= this.max) {
                 throw new Error('Reached tagbox limit');
             }
             this.tagList.push(this.tagInput);
+            this.tagListChange.emit(this.tagList);
         }
         this.tagInput = '';
     }
@@ -59,6 +62,15 @@ export class TagboxComponent {
                 throw new Error('Invalid i');
             }
             this.tagList.splice(i, 1);
+            this.tagListChange.emit(this.tagList);
         }
+    }
+
+    /**
+     * Deletes all tags from list
+     */
+    public removeAll() {
+        this.tagList = [];
+        this.tagListChange.emit(this.tagList);
     }
 }

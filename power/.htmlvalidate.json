@@ -12,6 +12,6 @@
         "missing-doctype": "off",
         "no-missing-references": "off",
         "heading-level": "warn",
-        "input-missing-label": "warn"
+        "input-missing-label": "off"
     }
 }

@@ -1,3 +1,9 @@
 .close {
     font-size: 1rem !important;
+    text-shadow: none;
+    opacity: 1;
+}
+
+.form-control {
+    text-transform: lowercase;
 }

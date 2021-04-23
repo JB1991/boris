@@ -1,18 +1,21 @@
 /* eslint-disable max-lines */
 import {
-    Component, OnDestroy, Inject, PLATFORM_ID,
-    ChangeDetectionStrategy, ChangeDetectorRef, OnInit
+    Component, OnDestroy, Inject, PLATFORM_ID, OnInit,
+    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { LngLat } from 'mapbox-gl';
+import { Feature, FeatureCollection } from 'geojson';
+import proj4 from 'proj4';
+
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
-import { Feature, FeatureCollection } from 'geojson';
-import { Subscription } from 'rxjs';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import proj4 from 'proj4';
-import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
-import { LngLat } from 'mapbox-gl';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -147,6 +150,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         { value: ['B', 'SF', 'R', 'E'], text: $localize`Bauland`, hexColor: '#c4153a' },
         { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' },
     ];
+
+    /**
+     * Print modal
+     */
+    @ViewChild('print') public printModal: ModalminiComponent;
 
     /* istanbul ignore next */
     constructor(
@@ -347,6 +355,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
         // return url
         return url;
+    }
+
+    /**
+     * Opens print modal
+     */
+    public openPrintModal() {
+        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
     }
 
     /**
