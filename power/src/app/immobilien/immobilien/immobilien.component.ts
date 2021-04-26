@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Location, isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 import { ImmobilienChartOptions } from './immobilien.chartoptions';
 import { ImmobilienHelper } from './immobilien.helper';
@@ -37,6 +38,9 @@ export class ImmobilienComponent implements OnInit {
     // true if is browser
     isBrowser = true;
 
+    // URL
+    urlIndex = null;
+
     /**
      * Constructor:
      *
@@ -48,6 +52,8 @@ export class ImmobilienComponent implements OnInit {
         @Inject(PLATFORM_ID) public platformId: Object,
         private titleService: Title,
         private meta: Meta,
+        private route: ActivatedRoute,
+        private location: Location,
         private http: HttpClient,
         private cdr: ChangeDetectorRef
     ) {
@@ -182,6 +188,147 @@ export class ImmobilienComponent implements OnInit {
     }
 
     /**
+     * parseURLTimeRange
+     */
+    parseURLTimeRange(params) {
+        if (params['t1']) {
+            this.nipixRuntime.state.rangeStartIndex = this.nipixRuntime.availableQuartal.indexOf(params['t1']);
+        }
+
+        if (params['t2']) {
+            this.nipixRuntime.state.rangeEndIndex = this.nipixRuntime.availableQuartal.indexOf(params['t2']);
+        }
+
+        // Update Range
+        this.nipixStatic.referenceDate =
+            this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex].replace('/', '_');
+        this.chart_range['data'][2] = [
+            this.nipixRuntime.state.rangeStartIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
+            -1
+        ];
+        this.chart_range['data'][3] = [
+            this.nipixRuntime.state.rangeEndIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
+            -1
+        ];
+    }
+
+    /**
+     * parseURLAggr
+     */
+    parseURLAggr(selectionId, params) {
+
+        const prelist = params['a'].split(',');
+        const itm = this.nipixStatic.data.selections[selectionId];
+
+        let ncat = null;
+        if (itm['type'] === 'multiIndex' && params['i']) {
+            ncat = this.checkURLNipixCategory(params['i']);
+        }
+
+        for (let i = 0; i < itm['preset'].length; i++) {
+            const di = this.nipixRuntime.getDrawPreset(itm['preset'][i]);
+
+            if (ncat !== null) {
+                di.nipixCategory = ncat;
+            }
+
+            if (prelist.includes(itm['preset'][i])) {
+                di.show = true;
+                di.fromurl = false;
+            } else {
+                di.show = false;
+                di.fromurl = true;
+            }
+        }
+    }
+
+    /**
+     * parseURLSingle
+     */
+    parseURLSingle(selectionId, params) {
+
+        const list = params['s'].split(',');
+
+        const val = this.unmakeValuesHumanReadable(list);
+
+        const itm = this.nipixStatic.data.selections[selectionId];
+        const preset = this.nipixRuntime.getDrawPreset(itm['preset'][0]);
+
+        if (preset && preset['type'] === 'single') {
+            preset['values'] = val;
+            if (params['i']) {
+                preset['nipixCategory'] = this.checkURLNipixCategory(params['i']);
+            }
+        }
+    }
+
+    /**
+     * parse URLMultiSelect
+     */
+    parseURLMultiSelect(selectionId, params) {
+
+        const inp = params['m'].split(';');
+
+        const itm = this.nipixStatic.data.selections[selectionId];
+
+        const itmpreset = JSON.parse(JSON.stringify(itm['preset']));
+
+        for (let i = 0; i < inp.length; i++) {
+            const vgl = inp[i].split(':');
+
+            if (itmpreset.includes(vgl[0])) {
+                const di = this.nipixRuntime.getDrawPreset(vgl[0]);
+                itmpreset[itmpreset.indexOf(vgl[0])] = null;
+                di.show = true;
+                di.values = this.unmakeValuesHumanReadable(vgl[2]);
+                di.nipixCategory = this.checkURLNipixCategory(vgl[1]);
+            }
+        }
+        let count = 0;
+        for (let i = 0; i < itmpreset.length; i++) {
+            if (itmpreset[i]) {
+                const di = this.nipixRuntime.getDrawPreset(itmpreset[i]);
+                di.show = false;
+            } else {
+                count = i;
+            }
+        }
+        itm['selected'] = count+1;
+    }
+
+    /**
+     * Query URL Params
+     */
+    queryURL(params) {
+
+        this.parseURLTimeRange(params);
+
+        if (params['c']) {
+            let selectionId = 0; // Default ID: 0
+            for (let i = 0; i<this.nipixStatic.data.selections.length; i++) {
+                const item = this.nipixStatic.data.selections[i];
+                const eqName = item.name.replace(/[^a-zA-Z0-9]/g, '');
+                if (eqName === params['c']) {
+                    selectionId = i;
+                    break;
+                }
+            }
+            this.nipixRuntime.state.activeSelection = selectionId;
+
+            if (params['a']) { // Aggr
+                this.parseURLAggr(selectionId, params);
+            } else if (params['s']) { // Single
+                this.parseURLSingle(selectionId, params);
+            } else if (params['m']) { // MultiSelect
+                this.parseURLMultiSelect(selectionId, params);
+            }
+            setTimeout(this.staticChange.bind(this), 50, selectionId, true);
+
+        }
+        this.cdr.detectChanges();
+
+    }
+    /**
      * Load Map
      *
      * @param {string} url Url to Map GeoJSON
@@ -216,7 +363,7 @@ export class ImmobilienComponent implements OnInit {
                         true
                     );
                     this.nipixRuntime.updateAvailableNipixCategories();
-                    setTimeout(this.staticChange.bind(this), 50, 0, true);
+                    // setTimeout(this.staticChange.bind(this), 50, 0, true);
 
                     // register map:
                     echarts.registerMap('NDS', geoMap['map']);
@@ -225,8 +372,14 @@ export class ImmobilienComponent implements OnInit {
                     this.nipixRuntime.state.initState++;
 
                     this.setMapOptions();
+
+
+
+                    this.route.queryParams.subscribe(this.queryURL.bind(this));
+
                     this.cdr.detectChanges();
                 });
+
     }
 
 
@@ -456,6 +609,9 @@ export class ImmobilienComponent implements OnInit {
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if (this.nipixRuntime.drawPresets[i].name === name) {
                 this.nipixRuntime.drawPresets[i].show = !this.nipixRuntime.drawPresets[i].show;
+                if (this.nipixRuntime.drawPresets[i].fromurl) {
+                    delete(this.nipixRuntime.drawPresets[i].fromurl);
+                }
             }
         }
         this.updateChart();
@@ -475,6 +631,7 @@ export class ImmobilienComponent implements OnInit {
             range_end = end;
         }
         this.nipixRuntime.updateRange(range_start, range_end);
+        this.changeURL();
 
         const range_text = $localize`Zeitraum von` + ' ' +
             this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex] +
@@ -564,6 +721,7 @@ export class ImmobilienComponent implements OnInit {
 
     /* eslint-disable-next-line complexity */
     onPanelChangeIndex(selection_id: number) {
+        this.urlIndex=selection_id;
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if ((this.nipixRuntime.drawPresets[i].show) &&
                 (this.nipixRuntime.drawPresets[i].type === 'aggr') &&
@@ -618,6 +776,7 @@ export class ImmobilienComponent implements OnInit {
                 } else {
                     this.nipixRuntime.drawPresets[i].values = this.nipixStatic.data.allItems;
                 }
+
                 this.updateMapSelect();
                 this.updateChart();
                 return;
@@ -674,10 +833,12 @@ export class ImmobilienComponent implements OnInit {
         for (let i = 0; i < preset.length; i++) {
             for (let d = 0; d < this.nipixRuntime.drawPresets.length; d++) {
                 if (this.nipixRuntime.drawPresets[d]['name'] === preset[i]) {
-                    if (i >= count) {
-                        this.nipixRuntime.drawPresets[d]['show'] = false;
-                    } else {
-                        this.nipixRuntime.drawPresets[d]['show'] = true;
+                    if (!this.nipixRuntime.drawPresets[d]['fromurl']) {
+                        if (i >= count) {
+                            this.nipixRuntime.drawPresets[d]['show'] = false;
+                        } else {
+                            this.nipixRuntime.drawPresets[d]['show'] = true;
+                        }
                     }
                 }
             }
@@ -746,6 +907,105 @@ export class ImmobilienComponent implements OnInit {
             this.onPanelChangeWoMa();
         }
 
+    }
+
+    makeValuesHumanReadable(values) {
+        const val = [];
+        for (let i = 0; i < values.length; i++) {
+            val.push(this.nipixStatic.data.regionen[values[i]]['short'].replace(/[^a-zA-Z0-9]/g, ''));
+        }
+        return val;
+    }
+
+    unmakeValuesHumanReadable(list) {
+        const val = [];
+        const reg = Object.keys(this.nipixStatic.data.regionen);
+        for (let i = 0; i < reg.length; i++) {
+            if (list.includes(this.nipixStatic.data.regionen[reg[i]]['short'].replace(/[^a-zA-Z0-9]/g, ''))) {
+                val.push(reg[i]);
+            }
+        }
+        return val;
+    }
+
+    checkURLNipixCategory(ncat) {
+        let val = this.nipixRuntime.availableNipixCategories[0];
+        for (let i = 0; i < this.nipixRuntime.availableNipixCategories.length; i++) {
+            if (this.nipixRuntime.availableNipixCategories[i].replace(/[^a-zA-Z0-9]/g, '') === ncat) {
+                val = this.nipixRuntime.availableNipixCategories[i];
+            }
+        }
+        return val;
+    }
+
+    changeURLAppendPresets(selection, params) {
+
+        const presetName = selection['preset'];
+
+        if (presetName.length === 1) {
+            const preset = this.nipixRuntime.getDrawPreset(presetName[0]);
+            if (preset['type'] === 'single') {
+                params.append('i', preset['nipixCategory'].replace(/[^a-zA-Z0-9]/g, ''));
+                params.append('s', this.makeValuesHumanReadable(preset['values']).join(','));
+            }
+        } else {
+            const preset = this.nipixRuntime.getDrawPreset(presetName[0]);
+            if (preset.name.length > 3) {
+                if (selection['type'] === 'multiIndex') {
+                    params.append('i', preset['nipixCategory'].replace(/[^a-zA-Z]/g, ''));
+                }
+                const pre = [];
+                for (let i = 0; i < presetName.length; i++) {
+                    if (this.nipixRuntime.getDrawPreset(presetName[i]).show) {
+                        pre.push(presetName[i]);
+                    }
+                }
+                params.append('a', pre.join(','));
+
+            } else { // Sonderfall manueller Vergleich
+                const pval = [];
+                for (let i = 0; i < presetName.length; i++) {
+                    const spreset = this.nipixRuntime.getDrawPreset(presetName[i]);
+                    if (spreset['values'].length > 0) {
+                        pval.push(
+                            presetName[i].replace(/[^a-zA-Z0-9]/g, '') + ':' +
+                            spreset['nipixCategory'].replace(/[^a-zA-Z0-9]/g, '') + ':' +
+                            this.makeValuesHumanReadable(spreset['values']).join(',')
+                        );
+                    }
+                }
+                if (pval.length > 0) {
+                    params.append('m', pval.join(';'));
+                }
+            }
+        }
+    }
+
+    changeURL() {
+        const params = new URLSearchParams({});
+
+        params.append(
+            't1',
+            this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex]
+        );
+
+        params.append(
+            't2',
+            this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeEndIndex]
+        );
+
+        if (this.urlIndex !== null) {
+            params.append(
+                'c',
+                this.nipixStatic.data.selections[this.urlIndex].name.replace(/[^a-zA-Z0-9]/g, '')
+            );
+        }
+        const selection = this.nipixStatic.data.selections[this.urlIndex];
+        if (selection !== undefined) {
+            this.changeURLAppendPresets(selection, params);
+        }
+
+        this.location.replaceState('/immobilienpreisindex', params.toString());
     }
 
 }
