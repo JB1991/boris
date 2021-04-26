@@ -417,7 +417,7 @@ export class GmbComponent implements OnInit {
      * @param newValue New selected Landkreis
      */
     onChange(newValue) {
-        if (newValue === null) {
+        if (!newValue) {
             this.selectedKreis = undefined;
         } else {
             this.selectedKreis = newValue;
