@@ -1,14 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
-import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
-import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
-import { BodenrichtwertKarte3dLayerService } from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-3d-layer.service';
+import BodenrichtwertKarteLayerControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-layer-control';
 import { environment } from '@env/environment';
-import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
-import { FeatureCollection, Feature } from 'geojson';
+import { FeatureCollection, Feature, } from 'geojson';
 import * as turf from '@turf/turf';
 
 type Point = {
@@ -143,6 +139,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     // map style url
     public MAP_STYLE_URL = environment.basemap;
 
+    // font
+    // public font = 'Klokantech Noto Sans Regular';
+
     // NDS Bounds MapBox Type
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
@@ -272,13 +271,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     @Input() standardBaulandZoom: number;
     @Input() standardLandZoom: number;
 
-    constructor(
-        public bodenrichtwertService: BodenrichtwertService,
-        public bodenrichtwert3DLayer: BodenrichtwertKarte3dLayerService,
-        public geosearchService: GeosearchService,
-        public alkisWfsService: AlkisWfsService,
-        public alerts: AlertsService,
-    ) { }
+    constructor() { }
 
     /* eslint-disable-next-line complexity */
     ngOnChanges(changes: SimpleChanges) {
@@ -339,6 +332,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
      * loadMap initializes the Mapbox GL map object
      * @param event map
      */
+    /* istanbul ignore next */
     public loadMap(event: Map) {
         this.map = event;
 
@@ -357,11 +351,19 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         this.map.addControl(navControl, 'top-right');
 
         // add geolocation control
-        const geolocateControl = new GeolocateControl();
+        const geolocateControl = new GeolocateControl({
+            showUserLocation: false
+        });
         this.map.addControl(geolocateControl, 'top-right');
+        geolocateControl.on('geolocate', (evt) => {
+            this.latLngChange.emit(new LngLat(evt.coords.longitude, evt.coords.latitude));
+        });
 
         const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
         this.map.addControl(pitchControl, 'top-right');
+
+        // const layerControl = new BodenrichtwertKarteLayerControl();
+        // this.map.addControl(layerControl, 'top-right');
 
         // update the map on reload if coordinates exist
         if (this.latLng) {
@@ -457,7 +459,9 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             bearing: this.bearing
         });
 
-        this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+        if (this.map.getLayer('building-extrusion')) {
+            this.map.setPaintProperty('building-extrusion', 'fill-extrusion-height', 0);
+        }
         this.resetMapFiredChange.emit(false);
     }
 
@@ -549,16 +553,18 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         };
 
         let buffer: number;
-        if (this.map.getZoom() > 17) {
-            buffer = -10;
+        if (this.map.getZoom() > 18) {
+            buffer = 0;
+        } else if (this.map.getZoom() > 17) {
+            buffer = -5;
         } else if (this.map.getZoom() > 16) {
-            buffer = -20;
+            buffer = -10;
         } else if (this.map.getZoom() > 15) {
-            buffer = -30;
+            buffer = -20;
         } else if (this.map.getZoom() > 14) {
-            buffer = -40;
+            buffer = -30;
         } else if (this.map.getZoom() < 14) {
-            buffer = -50;
+            buffer = -40;
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {

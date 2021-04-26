@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { AlertsService } from '../alerts/alerts.service';
+import { AlertsService } from '../../alerts/alerts.service';
 import { AlkisWfsService } from './alkis-wfs.service';
 import { GemarkungWfsService } from './gemarkung-wfs.service';
 import { Feature, FeatureCollection } from 'geojson';
-import { ModalminiComponent } from '../modalmini/modalmini.component';
+import { ModalminiComponent } from '../../modalmini/modalmini.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-
 
 @Component({
     selector: 'power-flurstueck-search',
@@ -16,25 +15,33 @@ import { Observable, of } from 'rxjs';
 })
 
 export class FlurstueckSearchComponent {
-    @ViewChild('flurstueckssearchmodal') public modal: ModalminiComponent;
-
-    public title = $localize`Flurstückssuche`;
 
     public fsk: Flurstueckskennzeichen;
 
     public selected = false;
 
+    @Output() public closing: EventEmitter<boolean> = new EventEmitter();
+
+    @Output() flurstueckChange = new EventEmitter<FeatureCollection>();
+
     @Output() selectGemarkungResult = new EventEmitter();
 
-    @Output() selectFlurstueckResult = new EventEmitter();
-
     @Input() address: string;
+    component: any;
 
     constructor(
         public alkisWfsService: AlkisWfsService,
         public alerts: AlertsService,
         public gemarkungService: GemarkungWfsService
     ) {
+        this.fsk = {};
+        this.selected = false;
+    }
+
+    /**
+     * Reset flurstueckskennzeichen onClose
+     */
+    public reset() {
         this.fsk = {};
         this.selected = false;
     }
@@ -47,14 +54,6 @@ export class FlurstueckSearchComponent {
         feature.properties.gemarkung + ' (' +
         feature.properties.gemarkungsschluessel + ')' +
         ' - ' + feature.properties.gemeinde;
-
-    /**
-     * Reset flurstueckskennzeichen onClose
-     */
-    public onClose() {
-        this.fsk = {};
-        this.selected = false;
-    }
 
     /**
      * search for flurstueck on form submit
@@ -72,7 +71,7 @@ export class FlurstueckSearchComponent {
             (res: FeatureCollection) => this.handleHttpResponse(res),
             (err: HttpErrorResponse) => this.handleHttpError(err)
         );
-        this.modal.close();
+        this.closing.emit(true);
     }
 
     /**
@@ -81,7 +80,7 @@ export class FlurstueckSearchComponent {
      */
     public handleHttpResponse(res: FeatureCollection) {
         if (res.features.length > 0) {
-            this.selectFlurstueckResult.next(res);
+            this.flurstueckChange.next(res);
             this.alkisWfsService.updateFeatures(res);
         } else {
             this.alerts.NewAlert(
@@ -115,7 +114,6 @@ export class FlurstueckSearchComponent {
             switchMap(term => term.length < 1 ? of([]) :
                 this.gemarkungService.getGemarkungBySearchText(term).pipe(
                     catchError((error) => {
-                        console.log(error);
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([]);
                     })

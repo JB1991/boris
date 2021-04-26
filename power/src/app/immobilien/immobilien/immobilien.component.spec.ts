@@ -1,6 +1,11 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs/observable/of';
+import { Location } from '@angular/common';
+
 
 import { ImmobilienComponent } from './immobilien.component';
 import * as ImmobilienNipixStatic from './immobilien.static';
@@ -15,30 +20,6 @@ import * as echarts from 'echarts';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import {
-    building,
-    houseFill,
-    plusCircle,
-    dashCircle,
-    fileEarmarkImage,
-    fileEarmarkSpreadsheet,
-    fileEarmarkRichtext
-} from 'ngx-bootstrap-icons';
-
-// Select some icons (use an object, not an array)
-/* eslint-disable object-shorthand */
-const icons = {
-    building,
-    houseFill,
-    plusCircle,
-    dashCircle,
-    fileEarmarkImage,
-    fileEarmarkSpreadsheet,
-    fileEarmarkRichtext
-};
-/* eslint-enable object-shorthand */
-
 /* eslint-disable max-lines */
 describe('Immobilien.Immobilien.ImmobilienComponent', () => {
     let component: ImmobilienComponent;
@@ -47,6 +28,10 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
 
     let niStatic;
     let niRuntime;
+
+    const location = {
+        'replaceState': jasmine.createSpy()
+    };
 
     const prepareNiStatic = function () {
         niStatic = Object.create(ImmobilienNipixStatic.NipixStatic.prototype);
@@ -98,13 +83,22 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
                 BrowserAnimationsModule,
                 AccordionModule.forRoot(),
                 BsDropdownModule.forRoot(),
-                NgxBootstrapIconsModule.pick(icons),
+                RouterTestingModule.withRoutes([]),
+                RouterTestingModule,
                 NgxEchartsModule.forRoot({ echarts }) // eslint-disable-line object-shorthand
             ],
             providers: [
                 ImmobilienUtils,
                 ImmobilienHelper,
-                ImmobilienChartOptions
+                ImmobilienChartOptions,
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        queryParams: of({
+                        })
+                    }
+                },
+                { provide: Location, useValue: location }
             ]
         })
             .compileComponents();

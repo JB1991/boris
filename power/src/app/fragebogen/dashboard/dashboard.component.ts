@@ -102,7 +102,10 @@ export class DashboardComponent implements OnInit {
                         content: JSON.parse(reader.result.toString()),
                     })
                     .then(() => {
+                        this.formSortDesc = true;
+                        this.formSort = 'created';
                         this.updateForms(false);
+                        this.alerts.NewAlert('success', $localize`Import erfolgreich`, $localize`Der Fragebogen wurde erfolgreich importiert`);
                     })
                     .catch((error) => {
                         console.error(error);

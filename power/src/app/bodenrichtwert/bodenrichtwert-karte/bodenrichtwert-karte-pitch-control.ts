@@ -1,12 +1,12 @@
 import { Map, Marker } from 'mapbox-gl';
 
 export default class BodenrichtwertKartePitchControl {
-    private map: Map;
-    private btn: HTMLButtonElement;
-    private container: HTMLDivElement;
+    public map: Map;
+    public btn: HTMLButtonElement;
+    public container: HTMLDivElement;
 
-    private currentZoom: number;
-    private marker: Marker;
+    public currentZoom: number;
+    public marker: Marker;
 
     constructor(marker: Marker) {
         this.marker = marker;
@@ -21,6 +21,7 @@ export default class BodenrichtwertKartePitchControl {
     onAdd(map: Map) {
         this.map = map;
         this.btn = document.createElement('button');
+        this.btn.id = '3D';
         this.btn.className = 'btn';
         this.btn.type = 'button';
         this.btn.title = $localize`3D aktivieren/deaktivieren`;

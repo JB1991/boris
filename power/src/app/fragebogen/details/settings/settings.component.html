@@ -17,8 +17,8 @@
                i18n>Gruppen bearbeiten</label>
         <power-tagbox [(tagList)]="groups"
                       [dataList]="availableGroups"
-                      eid="form-groups"
                       [editable]="false"
+                      eid="form-groups"
                       i18n-placeholder
                       placeholder="Gruppe auswählen zum hinzufügen"></power-tagbox>
     </div>
@@ -27,9 +27,10 @@
     <div class="form-group"
          *ngIf="old && old.tags">
         <label for="form-tags"
-               i18n>Tags bearbeiten</label>
+               i18n>Tags bearbeiten (maximal 5)</label>
         <power-tagbox [(tagList)]="tags"
                       [dataList]="availableTags"
+                      [max]="5"
                       eid="form-tags"
                       i18n-placeholder
                       placeholder="Tag mit Enter hinzufügen"></power-tagbox>

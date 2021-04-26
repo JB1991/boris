@@ -5,7 +5,7 @@ import { BodenrichtwertComponent } from '@app/bodenrichtwert/bodenrichtwert-comp
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Feature, FeatureCollection } from 'geojson';
-import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
+import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
 import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
@@ -204,15 +204,16 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param fts features
      */
     public onFlurstueckChange(fts: FeatureCollection): void {
-        const latLng = this.pointOnFlurstueck(fts.features[0]);
+        const latLng = this.pointOnPolygon(fts.features[0]);
+        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         this.latLngChange.emit(new LngLat(latLng[0], latLng[1]));
     }
 
     /**
-     * pointOnFlurstueck returns a point (transformed to wgs84) guranteed to be on the feature
+     * pointOnPolygon returns a point (transformed to wgs84) guranteed to be on the feature
      * @param ft feature
      */
-    public pointOnFlurstueck(ft: Feature): number[] {
+    public pointOnPolygon(ft: Feature): number[] {
         const polygon = turf.polygon(ft.geometry['coordinates']);
         const point = turf.pointOnFeature(polygon);
         const wgs84_point = this.transformCoordinates(

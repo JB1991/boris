@@ -1,0 +1,177 @@
+<div class="container px-1 px-lg-3 pt-2">
+    <div class="text-center mb-5">
+        <h1 class="display-3 m-0"
+            i18n>OGC Dienste</h1>
+
+        <p class="lead mb-2"
+           i18n>Das LGLN stellt gebührenfreie WMS und WFS Dienste der Bodenrichtwerte in Niedersachsen bereit. Die
+            Bodenrichtwerte werden als Jahrgangsdienstedienste zur Verfügung gestellt und sind VBORIS2 konform. Unsere
+            Datendienste werden unter der Datenlizenz Deutschland Namensnennung 2.0 bereitgestellt.</p>
+        <a class="btn btn-primary mr-0 mr-sm-2 mb-2 mb-sm-0 d-block d-sm-inline"
+           role="button"
+           href="https://www.govdata.de/dl-de/by-2-0"
+           target="_blank"
+           rel="noopener noreferrer nofollow"
+           i18n>Mehr über die Lizenz</a>
+        <a class="btn btn-primary d-block d-sm-inline"
+           role="button"
+           href="http://www.adv-online.de/AdV-Produkte/Weitere-Produkte/VBORIS/"
+           target="_blank"
+           rel="noopener noreferrer nofollow"
+           i18n>Mehr über VBORIS2</a>
+    </div>
+
+    <div class="mb-5">
+        <div class="h4 m-0"
+             i18n>Technischer Support</div>
+
+        <table class="table table-responsive borderless">
+            <caption class="sr-only"
+                     i18n>Support Kontaktinformationen</caption>
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        <i class="bi bi-building"
+                           role="img"
+                           i18n-aria-label
+                           aria-label="Ansprechpartner"></i>
+                    </th>
+                    <td><span i18n>Landesamt für Geoinformation und Landesvermessung Niedersachsen (LGLN)</span>
+                        <br> - <span i18n>Landesbetrieb</span>
+                        <span i18n>Landesvermessung und Geobasisinformation</span>
+                        <br><span i18n>Kundenservice - Geodatenmanagement</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <i class="bi bi-geo-alt"
+                           role="img"
+                           i18n-aria-label
+                           aria-label="Adresse"></i>
+                    </th>
+                    <td>
+                        <span i18n>Podbielskistraße 331</span>
+                        <br><span i18n>30659 Hannover</span>
+                        <br><span i18n>Deutschland</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <i class="bi bi-telephone"
+                           role="img"
+                           i18n-aria-label
+                           aria-label="Telefon"></i>
+                    </th>
+                    <td>+49 511 64609 555</td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <i class="bi bi-envelope"
+                           role="img"
+                           i18n-aria-label
+                           aria-label="E-Mail"></i>
+                    </th>
+                    <td>
+                        <a href="mailto:geodatendienste@lgln.niedersachsen.de">geodatendienste@lgln.niedersachsen.de</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <i class="bi bi-clock"
+                           role="img"
+                           i18n-aria-label
+                           aria-label="Geschäftszeiten"></i>
+                    </th>
+                    <td i18n>09:00 - 18:00 GMT+1, Mo bis Fr</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <accordion [isAnimated]="true"
+               [closeOthers]="true">
+        <!-- WMS -->
+        <accordion-group class="mb-2">
+            <button class="btn btn-link btn-block text-left p-0"
+                    accordion-heading
+                    type="button">
+                <i class="bi bi-map mr-2"
+                   role="img"
+                   aria-hidden="true"></i>
+                <span i18n>WMS (Version 1.1 und 1.3)</span>
+            </button>
+
+            <div class="h5"
+                 i18n>Aktuelles Jahr</div>
+            <div class="mb-2"
+                 i18n>Diese Adresse referenziert immer auf das aktuelle Jahr. Für alle WFS-Dienste ist der
+                GetFeatureInfo Request freigeschaltet.</div>
+            <div class="servicelist mb-4">
+                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris</div>
+            </div>
+
+            <div class="h5"
+                 i18n>Jahrgangsdienste</div>
+            <div class="mb-2">
+                <span i18n>Die URL endet mit dem gewünschten Jahr für die Daten, ist ein Jahr nicht vorhanden, so ist
+                    keine Verbindung möglich. Der älteste Jahrgang des WMS ist 2000. Die WMS-Dienste der Jahrgänge 2000
+                    und 2001 enthalten die Bodenrichtwerte in D-Mark, alle anderen in Euro. Dienste vor 2012 sind
+                    nicht</span>
+                <span>&nbsp;</span>
+                <a href="http://www.adv-online.de/AdV-Produkte/Weitere-Produkte/VBORIS/"
+                   target="_blank"
+                   rel="noopener noreferrer nofollow"
+                   i18n>VBORIS2</a>
+                <span>&nbsp;</span>
+                <span i18n>konform.</span>
+            </div>
+            <div class="servicelist mb-4">
+                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris_2000</div>
+            </div>
+
+            <div class="h5"
+                 i18n>Nutzungsbeispiel</div>
+            <div class="small">
+                <code>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WMS_boris?VERSION=1.3.0&amp;SERVICE=WMS&amp;REQUEST=getCapabilities</code>
+            </div>
+        </accordion-group>
+
+        <!-- WFS -->
+        <accordion-group>
+            <button class="btn btn-link btn-block text-left p-0"
+                    accordion-heading
+                    type="button">
+                <i class="bi bi-map mr-2"
+                   role="img"
+                   aria-hidden="true"></i>
+                <span i18n>WFS (Version 1.0.0, 1.1.0 und 2.0.0)</span>
+            </button>
+
+            <div class="h5"
+                 i18n>Aktuelles Jahr</div>
+            <div class="mb-2"
+                 i18n>Diese Adresse referenziert immer auf das aktuelle Jahr. Für alle WFS-Dienste ist der
+                GetFeatureInfo Request freigeschaltet.</div>
+            <div class="servicelist mb-4">
+                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris</div>
+            </div>
+
+            <div class="h5"
+                 i18n>Jahrgangsdienste</div>
+            <div class="mb-2"
+                 i18n>Die URL endet mit dem gewünschten Jahr für die Daten, ist ein Jahr nicht vorhanden, so ist keine
+                Verbindung möglich. Der älteste Jahrgang des WFS ist 2012. Die WMS-Dienste der Jahrgänge 2000 und 2001
+                enthalten die Bodenrichtwerte in D-Mark, alle anderen in Euro. Dienste vor 2012 sind nicht.
+            </div>
+            <div class="servicelist mb-4">
+                <div>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris_2012</div>
+            </div>
+
+            <div class="h5"
+                 i18n>Nutzungsbeispiel</div>
+            <div class="small">
+                <code>https://www.geobasisdaten.niedersachsen.de/doorman/noauth/WFS_boris?VERSION=2.0.0&amp;SERVICE=WFS&amp;REQUEST=getCapabilities</code>
+            </div>
+        </accordion-group>
+    </accordion>
+</div>

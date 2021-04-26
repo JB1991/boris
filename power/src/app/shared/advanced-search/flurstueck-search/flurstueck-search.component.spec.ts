@@ -3,23 +3,24 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FeatureCollection, Feature } from 'geojson';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { AlertsService } from '../alerts/alerts.service';
-import { ModalComponent } from '../modal/modal.component';
-import { SharedModule } from '../shared.module';
+import { AlertsService } from '../../alerts/alerts.service';
+import { SharedModule } from '../../shared.module';
+import { AdvancedSearchComponent } from '../advanced-search.component';
 import { AlkisWfsService } from './alkis-wfs.service';
 import { FlurstueckSearchComponent, Flurstueckskennzeichen } from './flurstueck-search.component';
 import { GemarkungWfsService } from './gemarkung-wfs.service';
 
 describe('FlurstueckSearchComponent', () => {
 
-    const fst: FeatureCollection = require('../../../testdata/flurstueck-search/flurstueck-collection.json');
-    const emptyCollection: FeatureCollection = require('../../../testdata/flurstueck-search/empty-collection.json');
-    const fsk: Flurstueckskennzeichen = require('../../../testdata/flurstueck-search/fsk.json');
+    const fst: FeatureCollection = require('../../../../testdata/flurstueck-search/flurstueck-collection.json');
+    const emptyCollection: FeatureCollection = require('../../../../testdata/flurstueck-search/empty-collection.json');
+    const fsk: Flurstueckskennzeichen = require('../../../../testdata/flurstueck-search/fsk.json');
 
-    const gemarkungen: FeatureCollection = require('../../../testdata/flurstueck-search/gemarkung-collection.json');
-    const feature: Feature = require('../../../testdata/flurstueck-search/gemarkung-feature.json');
+    const gemarkungen: FeatureCollection = require('../../../../testdata/flurstueck-search/gemarkung-collection.json');
+    const feature: Feature = require('../../../../testdata/flurstueck-search/gemarkung-feature.json');
 
     let component: FlurstueckSearchComponent;
     let fixture: ComponentFixture<FlurstueckSearchComponent>;
@@ -30,8 +31,7 @@ describe('FlurstueckSearchComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
-                FlurstueckSearchComponent,
-                ModalComponent
+                FlurstueckSearchComponent
             ],
             providers: [
                 AlertsService,
@@ -40,6 +40,7 @@ describe('FlurstueckSearchComponent', () => {
             ],
             imports: [
                 SharedModule,
+                ModalModule,
                 HttpClientTestingModule,
                 NgbTypeaheadModule
             ]
@@ -62,18 +63,18 @@ describe('FlurstueckSearchComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('onClose should reset fsk', () => {
-        component.fsk = JSON.parse(JSON.stringify(fsk));;
-        component.onClose();
+    it('should reset fsk and selected on reset', () => {
+        component.selected = true;
+        component.fsk = JSON.parse(JSON.stringify(fsk));
+        component.reset();
+        expect(component.selected).toBeFalse();
         expect(component.fsk).toEqual({});
     });
 
     it('searchFlurstueck should successfully call alkisWfsService', () => {
         spyOn(component.alkisWfsService, 'getFlurstueckByFsk').and.callThrough();
-        spyOn(component.modal, 'close');
         component.searchFlurstueck(fsk);
         expect(component.alkisWfsService.getFlurstueckByFsk).toHaveBeenCalledTimes(1);
-        expect(component.modal.close).toHaveBeenCalledTimes(1);
         expect(component.fsk).toEqual(fsk);
     });
 

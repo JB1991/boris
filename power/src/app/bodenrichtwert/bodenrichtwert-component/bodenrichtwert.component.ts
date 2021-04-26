@@ -1,20 +1,21 @@
 /* eslint-disable max-lines */
 import {
-    Component, OnDestroy, Inject, PLATFORM_ID,
-    ChangeDetectionStrategy, ChangeDetectorRef, OnInit
+    Component, OnDestroy, Inject, PLATFORM_ID, OnInit,
+    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
-import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
-import { Feature, FeatureCollection } from 'geojson';
-import { Subscription } from 'rxjs';
-import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import proj4 from 'proj4';
 import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LngLat } from 'mapbox-gl';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { LayerComponent } from 'ngx-mapbox-gl/lib/layer/layer.component';
+import { Feature, FeatureCollection } from 'geojson';
+import proj4 from 'proj4';
+
+import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
+import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+
+import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -150,6 +151,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' },
     ];
 
+    /**
+     * Print modal
+     */
+    @ViewChild('print') public printModal: ModalminiComponent;
+
     /* istanbul ignore next */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
@@ -184,8 +190,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
 
-        this.changeURL();
-
         if (!isPlatformBrowser(this.platformId)) {
             this.isBrowser = false;
         }
@@ -197,6 +201,12 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             // lat and lat
             if (params['lat'] && params['lng']) {
                 this.latLng = new LngLat(params['lng'], params['lat']);
+                // coordinate exists but no zoom
+                if (!params['zoom'] && params['teilmarkt'] === 'Bauland') {
+                    this.zoom = this.standardBaulandZoom;
+                } else {
+                    this.zoom = this.standardLandZoom;
+                }
             }
 
             // teilmarkt
@@ -225,6 +235,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
                 this.bearing = Number(params['bearing']);
             }
             this.cdr.detectChanges();
+            this.changeURL();
         });
     }
 
@@ -344,6 +355,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
         // return url
         return url;
+    }
+
+    /**
+     * Opens print modal
+     */
+    public openPrintModal() {
+        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
     }
 
     /**

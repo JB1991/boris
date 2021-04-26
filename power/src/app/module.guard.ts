@@ -24,6 +24,7 @@ export class ModuleGuard implements CanActivate {
         }
 
         // disabled
+        /* istanbul ignore else */
         if (!environment.production) {
             console.error('Module is disabled');
         }

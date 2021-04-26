@@ -6,7 +6,7 @@ import { SimpleChanges } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { DecimalPipe, registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 
 describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', () => {
@@ -26,7 +26,9 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [BodenrichtwertVerlaufComponent],
-            providers: [{ provide: LOCALE_ID, useValue: 'de' }],
+            providers: [
+                { provide: LOCALE_ID, useValue: 'de' },
+                DecimalPipe],
             imports: [
                 HttpClientTestingModule,
                 NgxEchartsModule.forRoot({ echarts: echarts }),
@@ -83,6 +85,7 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
 
     it('tooltipFormatter should format the tooltip text', () => {
         component.STICHTAGE = ['2020-12-31', '2019-12-31', '2018-12-31', '2017-12-31'];
+        component.teilmarkt = {text: 'Bauland', value: ['B'], hexColor: '#c4153a'};
 
         const params = [{
             seriesName: 'Wohngebiet Stadtumbau',
@@ -91,10 +94,15 @@ describe('Bodenrichtwert.BodenrichtwertVerlauf.BodenrichtwertVerlaufComponent', 
             value: 200
         }];
         spyOn(component, 'removeTextInTooltip').and.callThrough();
-        const result = component.tooltipFormatter(params);
+        let result = component.tooltipFormatter(params);
         expect(component.removeTextInTooltip).toHaveBeenCalledTimes(1);
         expect(result).toEqual('31.12.2017' + '<br />' + 'marker' + ' Wohngebiet' +
             '  : ' + 200 + ' € ' + '<br />');
+
+        component.teilmarkt = {text: 'LF', value: ['B'], hexColor: '#c4153a'};
+        result = component.tooltipFormatter(params);
+        expect(result).toEqual('31.12.2017' + '<br />' + 'marker' + ' Wohngebiet' +
+            '  : ' + '200,00' + ' € ' + '<br />');
     });
 
     it('removeTextInTooltip should remove some strings in the tooltip text', () => {

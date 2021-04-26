@@ -1,0 +1,36 @@
+td,
+th {
+    padding: 0.25rem;
+}
+
+th {
+    width: 32px;
+}
+
+.borderless td,
+.borderless th {
+    border: none;
+}
+
+.servicelist {
+    font-size: 0.75rem;
+}
+
+.servicelist div {
+    padding: 0.5rem;
+}
+
+.servicelist div:nth-child(2n + 1) {
+    background-color: #6c757d;
+    color: white;
+}
+
+:host ::ng-deep .card-body {
+    padding: 0.25em !important;
+}
+
+@media (min-width: 992px) {
+    :host ::ng-deep .card-body {
+        padding: 1rem !important;
+    }
+}

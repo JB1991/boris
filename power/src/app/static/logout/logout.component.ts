@@ -27,6 +27,7 @@ export class LogoutComponent implements OnInit {
     }
 
     ngOnInit() {
+        /* istanbul ignore else */
         if (localStorage) {
             this.loadingscreen.setVisible(true);
 

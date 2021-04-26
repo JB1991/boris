@@ -30,7 +30,7 @@ describe('Shared.TagboxComponent', () => {
         component.tagInput = 'MyTag';
         component.addTag();
         expect(component.tagList.length).toEqual(1);
-        expect(component.tagList[0]).toEqual('MyTag');
+        expect(component.tagList[0]).toEqual('mytag');
 
         component.removeTag(0);
         expect(component.tagList.length).toEqual(0);
@@ -41,7 +41,7 @@ describe('Shared.TagboxComponent', () => {
         component.addTag();
         expect(component.tagList.length).toEqual(0);
 
-        component.tagInput = 'MyTag';
+        component.tagInput = 'mytag';
         component.addTag();
         expect(() => {
             component.removeTag(-1);
@@ -52,9 +52,26 @@ describe('Shared.TagboxComponent', () => {
     });
 
     it('should not add same tag', () => {
-        component.tagList = ['MyTag'];
+        component.tagList = ['mytag'];
         component.tagInput = 'MyTag';
         component.addTag();
         expect(component.tagList.length).toEqual(1);
+    });
+
+    it('should reach limit', () => {
+        component.max = 2;
+        component.tagList = ['mytag A', 'mytag B'];
+        component.tagInput = 'mytag C';
+        expect(() => {
+            component.addTag();
+        }).toThrowError('Reached tagbox limit');
+        expect(component.tagList.length).toEqual(2);
+    });
+
+    it('should delete all', () => {
+        component.tagList = ['mytag A', 'mytag B'];
+        expect(component.tagList.length).toEqual(2);
+        component.removeAll();
+        expect(component.tagList.length).toEqual(0);
     });
 });
