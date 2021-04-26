@@ -122,7 +122,8 @@ test:e2e:
     policy: pull
   script:
     - cd power
-    - node_modules/@angular/cli/bin/ng e2e -c staging
+    - node_modules/protractor/bin/webdriver-manager update --versions.chrome 89.0.4389.23 --gecko false --standalone false
+    - node_modules/@angular/cli/bin/ng e2e -c staging --webdriver-update=false
   artifacts:
     expire_in: 2 days
     public: false
