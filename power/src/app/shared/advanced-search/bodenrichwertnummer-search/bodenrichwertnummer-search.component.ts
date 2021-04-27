@@ -132,7 +132,7 @@ export class BodenrichwertnummerSearchComponent {
 
     /**
      * checkFeatures checks the result for existing features,
-     * an alert is returned if the result does not contain any features 
+     * an alert is returned if the result does not contain any features
      * @param fts result feature collection
      * @returns array with features
      */

@@ -1,27 +1,25 @@
-<form #form="ngForm">
-    <div class="form-row py-1">
-        <div class="col-12">
-            <label i18n>Bodenrichtwertnummer</label>
-            <input type="text"
-                   class="form-control"
-                   name="bodenrichtwertnummer"
-                   placement="bottom"
-                   placeholder="Bodenrichtwertnummer"
-                   i18n-placeholder
-                   aria-label="Suche"
-                   i18n-aria-label
-                   aria-placeholder="Bitte Bodenrichtwertnummer eingeben"
-                   i18n-aria-placeholder
-                   [(ngModel)]="brwNummer"
-                   [ngbTypeahead]="search"
-                   [inputFormatter]="inputFormatter"
-                   [resultTemplate]="results"
-                   [focusFirst]="false"
-                   (selectItem)="searchBodenrichtwert($event.item)"
-                   aria-labelledby="Bodenrichtwertnummer">
-        </div>
+<div class="form-row py-1">
+    <div class="col-12">
+        <label i18n>Bodenrichtwertnummer</label>
+        <input type="text"
+               class="form-control"
+               name="bodenrichtwertnummer"
+               placement="bottom"
+               placeholder="Bodenrichtwertnummer"
+               i18n-placeholder
+               aria-label="Suche"
+               i18n-aria-label
+               aria-placeholder="Bitte Bodenrichtwertnummer eingeben"
+               i18n-aria-placeholder
+               [(ngModel)]="brwNummer"
+               [ngbTypeahead]="search"
+               [inputFormatter]="inputFormatter"
+               [resultTemplate]="results"
+               [focusFirst]="false"
+               (selectItem)="searchBodenrichtwert($event.item)"
+               aria-labelledby="Bodenrichtwertnummer">
     </div>
-</form>
+</div>
 
 <!-- Flurstück Result Template -->
 <ng-template #results

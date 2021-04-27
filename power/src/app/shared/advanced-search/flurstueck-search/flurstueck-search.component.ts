@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { AlertsService } from '../../alerts/alerts.service';
 import { AlkisWfsService } from './alkis-wfs.service';
 import { GemarkungWfsService } from './gemarkung-wfs.service';
 import { Feature, FeatureCollection } from 'geojson';
-import { ModalminiComponent } from '../../modalmini/modalmini.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
