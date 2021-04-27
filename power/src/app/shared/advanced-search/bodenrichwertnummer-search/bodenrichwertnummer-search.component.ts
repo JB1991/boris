@@ -30,14 +30,11 @@ export class BodenrichwertnummerSearchComponent {
 
     public brwNummer: Feature;
 
-    public selected = false;
-
     constructor(
         public alerts: AlertsService,
         public bodenrichtwertService: BodenrichtwertService
     ) {
         this.brwNummer = undefined;
-        this.selected = false;
     }
 
     /**
@@ -45,7 +42,6 @@ export class BodenrichwertnummerSearchComponent {
      */
     public reset() {
         this.brwNummer = undefined;
-        this.selected = false;
     }
 
     /**
@@ -133,21 +129,4 @@ export class BodenrichwertnummerSearchComponent {
             ),
             map(result => result['features'])
         );
-
-    /**
-     * setSelected sets selected true (necessary for input validation)
-     */
-    public setSelected() {
-        this.selected = true;
-    }
-
-    /**
-     * onEmpty sets selected to false if the input field brwNummer is empty
-     * @param key pressed key
-     */
-    public onEmpty(key: any) {
-        if ((key === 'Backspace' || key === 'Delete') && this.brwNummer) {
-            this.selected = false;
-        }
-    }
 }

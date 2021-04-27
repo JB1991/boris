@@ -1,12 +1,9 @@
-<form novalidate
-      (ngSubmit)="searchBodenrichtwert(form.value.bodenrichtwertnummer)"
-      #form="ngForm">
+<form #form="ngForm">
     <div class="form-row py-1">
         <div class="col-12">
             <label i18n>Bodenrichtwertnummer</label>
             <input type="text"
                    class="form-control"
-                   [class]="brwNr.valid && selected ? 'is-valid' : 'is-invalid'"
                    name="bodenrichtwertnummer"
                    placement="bottom"
                    placeholder="Bodenrichtwertnummer"
@@ -15,40 +12,15 @@
                    i18n-aria-label
                    aria-placeholder="Bitte Bodenrichtwertnummer eingeben"
                    i18n-aria-placeholder
-                   #brwNr="ngModel"
                    [(ngModel)]="brwNummer"
                    [ngbTypeahead]="search"
                    [inputFormatter]="inputFormatter"
                    [resultTemplate]="results"
                    [focusFirst]="false"
-                   (selectItem)="setSelected()"
-                   (keydown)="onEmpty($event.key)"
-                   required
+                   (selectItem)="searchBodenrichtwert($event.item)"
                    aria-labelledby="Bodenrichtwertnummer">
         </div>
     </div>
-    <hr>
-    <button type="submit"
-            class="btn btn-success float-right"
-            i18n-title
-            title="Bodenrichtwertnummer suchen"
-            [disabled]="!form.valid || !selected">
-        <svg width="1em"
-             height="1em"
-             viewBox="0 0 16 16"
-             class="bi bi-search"
-             fill="currentColor"
-             xmlns="http://www.w3.org/2000/svg"
-             focusable="false"
-             aria-hidden="true">
-            <path fill-rule="evenodd"
-                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-            <path fill-rule="evenodd"
-                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-        </svg>
-        <span class="ml-1"
-              i18n>Suchen</span>
-    </button>
 </form>
 
 <!-- Flurstück Result Template -->
