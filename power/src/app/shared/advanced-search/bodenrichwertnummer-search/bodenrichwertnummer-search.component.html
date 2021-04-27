@@ -32,7 +32,13 @@
         <ngb-highlight [result]="p.wnum"
                        [term]="t"></ngb-highlight>
         <br>
-        <ngb-highlight [result]="p.brzname"
-                       [term]="t"></ngb-highlight>
+        <ngb-highlight *ngIf="p.gema"
+                       [result]="p.gema"></ngb-highlight>
+        <ngb-highlight *ngIf="p.objektidentifikator.includes('DEHBBR')"
+                       result=" - Bremen">
+        </ngb-highlight>
+        <ngb-highlight *ngIf="p.objektidentifikator.includes('DENIBR')"
+                       result=" - Niedersachsen">
+        </ngb-highlight>
     </div>
 </ng-template>
