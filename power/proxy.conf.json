@@ -6,7 +6,7 @@
         "debugLevel": "info"
     },
     "/geoserver/": {
-        "target": "https://staging.power.niedersachsen.dev",
+        "target": "https://dev.power.niedersachsen.dev",
         "changeOrigin": true,
         "secure": false,
         "debugLevel": "info"

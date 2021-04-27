@@ -33,12 +33,12 @@
                        [term]="t"></ngb-highlight>
         <br>
         <ngb-highlight *ngIf="p.gema"
-                       [result]="p.gema"></ngb-highlight>
+                       [result]="p.gema + ' - '"></ngb-highlight>
         <ngb-highlight *ngIf="p.objektidentifikator.includes('DEHBBR')"
-                       result=" - Bremen">
+                       result="Bremen">
         </ngb-highlight>
         <ngb-highlight *ngIf="p.objektidentifikator.includes('DENIBR')"
-                       result=" - Niedersachsen">
+                       result="Niedersachsen">
         </ngb-highlight>
     </div>
 </ng-template>

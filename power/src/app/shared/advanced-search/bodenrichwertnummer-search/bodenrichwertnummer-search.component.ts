@@ -127,6 +127,20 @@ export class BodenrichwertnummerSearchComponent {
                     })
                 )
             ),
-            map(result => result['features'])
+            map((result: FeatureCollection) => this.checkFeatures(result))
         );
+
+    /**
+     * checkFeatures checks the result for existing features,
+     * an alert is returned if the result does not contain any features 
+     * @param fts result feature collection
+     * @returns array with features
+     */
+    public checkFeatures(fts: FeatureCollection) {
+        if (fts.features?.length) {
+            return fts.features;
+        } else {
+            this.alerts.NewAlert('info', $localize`Keine Ergebnisse`, $localize`Es konnte leider keine Bodenrichtwertzone gefunden werden.`);
+        }
+    }
 }
