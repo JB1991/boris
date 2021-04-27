@@ -120,16 +120,4 @@ describe('BodenrichwertnummerSearchComponent', () => {
         });
         expect(component.bodenrichtwertService.getFeatureByBRWNumber).toHaveBeenCalled();
     });
-
-    it('setSelected should set selected true', () => {
-        component.setSelected();
-        expect(component.selected).toBeTrue();
-    });
-
-    it('onEmpty should reset the selected variable if input field is empty', () => {
-        component.selected = true;
-        component.brwNummer = JSON.parse(JSON.stringify(brw));
-        component.onEmpty('Delete');
-        expect(component.selected).toBeFalse();
-    });
 });
