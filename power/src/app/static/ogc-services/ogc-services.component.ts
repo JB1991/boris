@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'power-ogc-services',
     templateUrl: './ogc-services.component.html',
-    styleUrls: ['./ogc-services.component.scss']
+    styleUrls: ['./ogc-services.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OgcServicesComponent {
 
