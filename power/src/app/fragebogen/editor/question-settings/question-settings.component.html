@@ -3,7 +3,7 @@
              (closing)="close($event)">
     <div class="container px-1 px-lg-3"
          *ngIf="question !== null && model.pages[page].elements[question]">
-        <accordion [isAnimated]="true"
+        <accordion [isAnimated]="false"
                    [closeOthers]="true">
             <!-- common -->
             <accordion-group i18n-heading
