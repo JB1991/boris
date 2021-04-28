@@ -75,6 +75,17 @@ export class QuestionSettingsComponent {
     }
 
     /**
+     * Switches title on or off
+     */
+    public toggleQuestionTitle() {
+        if (!this.model.pages[this.page].elements[this.question].titleLocation || this.model.pages[this.page].elements[this.question].titleLocation === 'default') {
+            this.model.pages[this.page].elements[this.question].titleLocation = 'hidden';
+        } else {
+            this.model.pages[this.page].elements[this.question].titleLocation = 'default';
+        }
+    }
+
+    /**
      * Migrates element to newest version
      */
     /* istanbul ignore next */
