@@ -610,6 +610,9 @@ export class FormAPIService {
 
         } else if (msg.startsWith('cannot create tasks for forms with public access')) {
             return $localize`Diese Aktion ist mit öffentlichen Formularen nicht möglich.`;
+
+        } else if (msg.startsWith('The property type is incorrect in the object')) {
+            return $localize`Das Dokument ist kein gültiges Formular.`;
         }
 
         return msg;
