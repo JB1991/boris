@@ -16,7 +16,7 @@ describe('BodenrichtwertKartePitchControl', () => {
             declarations: [BodenrichtwertKarteComponent],
             imports: [
                 NgxMapboxGLModule,
-            ],providers: [
+            ], providers: [
                 HTMLButtonElement,
                 HTMLDivElement
             ]
@@ -42,8 +42,9 @@ describe('BodenrichtwertKartePitchControl', () => {
                     'title': 'geojson',
                     'marker-symbol': 'monument'
                 }
-            }});
-        componentMap.map.addLayer({id: 'building-extrusion', type: 'fill-extrusion', source: 'openmaptiles'});
+            }
+        });
+        componentMap.map.addLayer({ id: 'building-extrusion', type: 'fill-extrusion', source: 'openmaptiles' });
         componentMap.map.setZoom(10);
         component.map = componentMap.map;
     });
@@ -67,9 +68,11 @@ describe('BodenrichtwertKartePitchControl', () => {
         expect(container.innerHTML).toContain('<i class="bi bi-badge-3d">');
 
         componentMap.map.addControl(component);
-        componentMap.teilmarkt = {text: 'Bauland',
+        componentMap.teilmarkt = {
+            text: 'Bauland',
             value: ['B', 'SF', 'R', 'E'],
-            hexColor: '#c4153a'};
+            hexColor: '#c4153a'
+        };
         const button = document.getElementById('3D');
         spyOn(component, 'activate3dView');
         spyOn(component, 'deactivate3dView');
@@ -102,7 +105,7 @@ describe('BodenrichtwertKartePitchControl', () => {
     it('onRemove should remove the html container and the map', () => {
         const container = component.onAdd(componentMap.map);
         const parentNode = document.createElement('div');
-        parentNode.append(container);
+        parentNode.appendChild(container);
         component.onRemove();
         expect(component.map).toBeUndefined();
     });
