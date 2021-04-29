@@ -1,5 +1,6 @@
 import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { environment } from '@env/environment';
+import { Platform } from '@angular/cdk/platform';
 
 import { UpdateService } from './update.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -11,6 +12,7 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     constructor(@Inject(LOCALE_ID) public locale: string,
         public alerts: AlertsService,
+        public platform: Platform,
         public us: UpdateService) { }
 
     handleError(error: Error) {
@@ -47,8 +49,13 @@ export class GlobalErrorHandler implements ErrorHandler {
         this.container.classList.add('p-3');
 
         const text = document.createElement('div');
-        text.innerText = $localize`Ein Fehler ist aufgetreten, um den Fehler zu beheben, versuchen Sie bitte folgendes: Löschen Sie den Browser-Cache, deaktivieren Sie alle Browser-Plugins und aktualisieren Sie Ihren Webbrowser. Sollten diese Schritte Ihr Problem nicht beheben, dann kontaktieren Sie uns bitte mit dem untenstehenden Code. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
+        /* istanbul ignore else */
+        if (!(this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK)) {
+            text.innerText = $localize`Ihr Webbrowser ist veraltet und wird von uns nicht unterstützt. Bitte verwenden Sie einen aktuelleren Webbrowser, wie Google Chrome oder Mozilla Firefox.` + ' ';
+        }
+        text.innerText += $localize`Ein Fehler ist aufgetreten, um den Fehler zu beheben, versuchen Sie bitte folgendes: Löschen Sie den Browser-Cache, deaktivieren Sie alle Browser-Plugins und aktualisieren Sie Ihren Webbrowser. Sollten diese Schritte Ihr Problem nicht beheben, dann kontaktieren Sie uns bitte mit dem untenstehenden Code. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
         this.container.appendChild(text);
+
 
         const mail = document.createElement('div');
         mail.innerText = $localize`Kontakt:` + ' incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
