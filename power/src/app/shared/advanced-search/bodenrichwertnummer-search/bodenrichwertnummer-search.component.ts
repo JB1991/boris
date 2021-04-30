@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
@@ -30,18 +30,33 @@ export class BodenrichwertnummerSearchComponent {
 
     public brwNummer: Feature;
 
+    public loading = false;
+
     constructor(
         public alerts: AlertsService,
-        public bodenrichtwertService: BodenrichtwertService
+        public bodenrichtwertService: BodenrichtwertService,
+        private cdr: ChangeDetectorRef,
     ) {
         this.brwNummer = undefined;
     }
 
     /**
-     * Reset bodenrichtwertForm onClose
+     * reset bodenrichtwertForm onClose
      */
     public reset() {
         this.brwNummer = undefined;
+        // manual change detection necessary
+        this.cdr.detectChanges();
+    }
+
+    /**
+     * onInput sets the loading status true if the input field contains characters
+     * @param event input event
+     */
+    public onInput(event: any) {
+        if (event.target.textLength > 0) {
+            this.loading = true;
+        }
     }
 
     /**
@@ -137,10 +152,13 @@ export class BodenrichwertnummerSearchComponent {
      * @returns array with features
      */
     public checkFeatures(fts: FeatureCollection) {
-        if (fts.features?.length) {
-            return fts.features;
-        } else {
+        this.loading = false;
+        // manual change detection necessary
+        this.cdr.detectChanges();
+        if (fts.features?.length === 0) {
             this.alerts.NewAlert('info', $localize`Keine Ergebnisse`, $localize`Es konnte leider keine Bodenrichtwertzone gefunden werden.`);
+        } else {
+            return fts.features;
         }
     }
 }

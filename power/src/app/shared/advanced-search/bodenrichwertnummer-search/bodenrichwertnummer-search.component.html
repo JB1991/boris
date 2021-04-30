@@ -1,6 +1,17 @@
-<div class="form-row py-1">
+<div class="form-row py-1 align-items-center">
     <div class="col-12">
         <label i18n>Bodenrichtwertnummer</label>
+    </div>
+    <div class="col-auto"
+         [ngClass]="loading ? 'd-block' : 'd-none'">
+        <div class="spinner-border spinner-border-sm text-secondary"
+             role="status"
+             aria-hidden="true">
+            <span class="sr-only"
+                  i18n>Wird geladen....</span>
+        </div>
+    </div>
+    <div class="col">
         <input type="text"
                class="form-control"
                name="bodenrichtwertnummer"
@@ -15,7 +26,8 @@
                [ngbTypeahead]="search"
                [inputFormatter]="inputFormatter"
                [resultTemplate]="results"
-               [focusFirst]="false"
+               [focusFirst]="true"
+               (input)="onInput($event)"
                (selectItem)="searchBodenrichtwert($event.item)"
                aria-labelledby="Bodenrichtwertnummer">
     </div>
