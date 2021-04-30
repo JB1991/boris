@@ -7,6 +7,7 @@ import { Feature, FeatureCollection } from 'geojson';
 import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { SimpleChange } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('Shared.Geosearch.GeosearchComponent', () => {
     const feature: Feature = require('../../../testdata/geosearch/feature.json');
@@ -89,6 +90,15 @@ describe('Shared.Geosearch.GeosearchComponent', () => {
             expectObservable(component.search(input$));
         });
         expect(component.geosearchService.search).toHaveBeenCalled();
+    });
+
+    it('onInput should set loading true if textLength > 0', () => {
+        const input = fixture.debugElement.query(By.css('input')).nativeElement;
+
+        input.textLength = 2;
+        input.dispatchEvent(new Event('input'));
+
+        expect(component.loading).toBeTrue();
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */
