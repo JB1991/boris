@@ -14,6 +14,13 @@ export function init(Survey) {
         htmlTemplate: '<div></div>',
         activatedByChanged: function (activatedBy) {
             Survey.JsonObject.metaData.addClass('imageselector', [], null, 'imagepicker');
+            Survey.JsonObject.metaData.addProperties('imageselector', [
+                {
+                    name: 'mobiletext:boolean',
+                    category: 'imageselector',
+                    default: false,
+                }
+            ]);
         },
         afterRender: function (question, el) {
             // check size
@@ -21,11 +28,12 @@ export function init(Survey) {
             let width = question.imageWidth + 'px';
             if (screen.width < 576) {
                 question.imageHeight = 0;
-                maring = 'm-0';
+                maring = 'mb-2';
                 width = '100%';
             }
 
             // forearch create element
+            let i = 1;
             for (const choice of question.choices) {
                 // create container
                 const figure = document.createElement('button');
@@ -95,26 +103,39 @@ export function init(Survey) {
                 });
 
                 // create image
-                const img = document.createElement('img');
-                img.classList.add('figure-img', 'img-fluid', 'rounded');
-                img.src = choice.imageLink;
-                img.style.width = width;
-                if (question.imageHeight) {
-                    img.height = question.imageHeight;
-                    img.style.height = question.imageHeight + 'px';
+                if (!question.mobiletext || screen.width >= 576) {
+                    const img = document.createElement('img');
+                    img.classList.add('figure-img', 'img-fluid', 'rounded');
+                    img.src = choice.imageLink;
+                    img.style.width = width;
+                    if (question.imageHeight) {
+                        img.height = question.imageHeight;
+                        img.style.height = question.imageHeight + 'px';
+                    }
+                    img.style.objectFit = question.imageFit;
+                    img.alt = choice.text;
+
+                    // create caption
+                    const figcaption = document.createElement('figcaption');
+                    figcaption.classList.add('text-left');
+                    figcaption.innerText = choice.text;
+
+                    // append
+                    figure.appendChild(img);
+                    figure.appendChild(figcaption);
+                } else {
+                    // mobile without image
+                    figure.style.textAlign = 'left';
+                    figure.innerText = choice.text;
                 }
-                img.style.objectFit = question.imageFit;
-                img.alt = choice.text;
-
-                // create caption
-                const figcaption = document.createElement('figcaption');
-                figcaption.classList.add('text-left');
-                figcaption.innerText = choice.text;
-
-                // append
-                figure.appendChild(img);
-                figure.appendChild(figcaption);
                 el.appendChild(figure);
+
+                // rows
+                if (question.colCount > 0 && i % question.colCount === 0) {
+                    const divcontainer = document.createElement('div');
+                    el.appendChild(divcontainer);
+                }
+                i++;
             }
 
             // value changed from surveyjs

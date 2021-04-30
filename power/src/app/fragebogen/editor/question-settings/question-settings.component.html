@@ -738,6 +738,18 @@
                                i18n>Mehrfachauswahl erlauben</label>
                     </div>
 
+                    <!-- question-mobiletext -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].mobiletext"
+                               name="question-mobiletext"
+                               id="question-mobiletext">
+                        <label class="custom-control-label"
+                               for="question-mobiletext"
+                               i18n>Auf Mobilgeräten nur Text anzeigen</label>
+                    </div>
+
                     <!-- question-imageWidth -->
                     <div class="form-group">
                         <label for="question-imageWidth"
@@ -805,8 +817,7 @@
                 </div>
 
                 <!-- question-colCount -->
-                <div class="form-group"
-                     *ngIf="model.pages[page].elements[question].type !== 'imageselector'">
+                <div class="form-group">
                     <label for="question-colCount"
                            i18n>Darstellung in Spalten</label>
                     <input type="number"
