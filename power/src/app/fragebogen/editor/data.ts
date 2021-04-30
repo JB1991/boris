@@ -251,6 +251,7 @@ export const FormularFields = [
             colCount: 0,
             choicesOrder: 'none',
             showLabel: true,
+            mobiletext: false,
             imageFit: 'fill',
             imageWidth: 200,
             imageHeight: 150,
