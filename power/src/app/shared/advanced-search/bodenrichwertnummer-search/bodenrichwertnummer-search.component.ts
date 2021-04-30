@@ -85,16 +85,10 @@ export class BodenrichwertnummerSearchComponent {
      * @returns point
      */
     public pointOnPolygon(ft: Feature) {
-        const polygon = turf.polygon(ft.geometry['coordinates']);
+        let polygon = turf.polygon(ft.geometry['coordinates']);
+        polygon = turf.toWgs84(polygon);
         const point = turf.pointOnFeature(polygon);
-        const wgs84Point = proj4(
-            epsg['EPSG:3857'],
-            epsg['EPSG:4326']
-        ).forward([
-            point.geometry.coordinates[0],
-            point.geometry.coordinates[1]
-        ]);
-        return wgs84Point;
+        return point.geometry.coordinates;
     }
 
     /**
@@ -135,7 +129,7 @@ export class BodenrichwertnummerSearchComponent {
             debounceTime(300),
             distinctUntilChanged(),
             switchMap(term => term.length < 1 ? of([]) :
-                this.bodenrichtwertService.getFeatureByBRWNumber(term, this.stichtag).pipe(
+                this.bodenrichtwertService.getFeatureByBRWNumber(term, this.stichtag, this.teilmarkt).pipe(
                     catchError((error) => {
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([]);
