@@ -398,7 +398,7 @@ export const FormularFields = [
             waitForUpload: true,
             allowMultiple: false,
             allowImagesPreview: true,
-            acceptedTypes: 'image/png,image/jpeg,image/gif',
+            acceptedTypes: 'image/png,image/jpeg',
             imageWidth: 200,
             maxSize: 5242880,
             commentText: {},
