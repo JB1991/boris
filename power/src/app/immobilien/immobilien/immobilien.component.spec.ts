@@ -385,6 +385,149 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(ret1).toEqual('');
     });
 
+    it('selectSingle works', () => {
+        niStatic.data.selections = [ {'type': 'single'}, {'type': 'foo'} ];
+        const res = component.selectSingle();
+        expect(res).toEqual(0);
+    });
+
+    it('onSelectWoMa works', () => {
+        niStatic.data.gemeinden = [ {'name': 'foo', 'woma_id': 'foo'} ];
+        component.selectedWoMaValue = 'foo';
+
+        component.accOpen = { '0': false, '1': false };
+        spyOn(component, 'selectSingle').and.returnValue(0);
+
+        niStatic.data.selections = [ {'preset': ['foo']} ];
+        niRuntime.drawPresets = [{ 'name': 'foo', 'nipixCategory': 'bar', 'values': ['bar'] }];
+
+        spyOn(component, 'updateChart').and.callFake(function () { });
+        spyOn(component, 'updateMapSelect').and.callFake(function () { });
+
+        component.onSelectWoMa();
+
+        expect(niRuntime.drawPresets[0]['values']).toEqual(['foo']);
+        expect(niRuntime.state.activeSelection).toEqual(0);
+    });
+
+    it('parseURLTimeRange works', () => {
+        niRuntime.availableQuartal = ['foo', 'bar', 'foobar'];
+        const params = {
+            't1': 'foo',
+            't2': 'foobar'
+        };
+
+        component.parseURLTimeRange(params);
+
+        expect(niRuntime.state.rangeStartIndex).toEqual(0);
+        expect(niRuntime.state.rangeEndIndex).toEqual(2);
+    });
+
+    it('parseURLAggr works', () => {
+
+        spyOn(component, 'checkURLNipixCategory').and.returnValue('bar');
+        const di = {};
+        niRuntime.getDrawPreset = function(val) { return this; }.bind(di);
+
+        niStatic.data.selections = [{
+            'type': 'multiIndex',
+            'preset': ['a']
+        }];
+        const params = {
+            'a': 'a,b,c',
+            'i': 'foo'
+        };
+
+        component.parseURLAggr(0, params);
+
+        expect(di['nipixCategory']).toEqual('bar');
+        expect(di['show']).toEqual(true);
+    });
+
+    it('parseURLSingle works', () => {
+
+        spyOn(component, 'checkURLNipixCategory').and.returnValue('bar');
+        const di = {
+            'type': 'single'
+        };
+        niRuntime.getDrawPreset = function(val) { return this; }.bind(di);
+
+        spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function(val) { return val; });
+
+        niStatic.data.selections = [{
+            'type': 'multiIndex',
+            'preset': ['a']
+        }];
+
+        const params = {
+            's': 'a,b,c',
+            'i': 'foo'
+        };
+
+        component.parseURLSingle(0, params);
+
+        expect(di['nipixCategory']).toEqual('bar');
+        expect(di['values']).toEqual(['a','b','c']);
+    });
+
+    it('parseURLMultiSelect works', () => {
+
+        spyOn(component, 'checkURLNipixCategory').and.returnValue('bar');
+        const di = {
+            'type': 'single'
+        };
+        niRuntime.getDrawPreset = function(val) { return this; }.bind(di);
+
+        spyOn(component, 'unmakeValuesHumanReadable').and.callFake(function(val) { return val; });
+
+        niStatic.data.selections = [{
+            'type': 'multiIndex',
+            'preset': ['a']
+        }];
+
+        const params = {
+            'm': 'a:foo:a;b:foo:b;c:foo:c'
+        };
+
+
+        component.parseURLMultiSelect(0, params);
+    });
+
+    it('queryURL works', () => {
+        niStatic.data.selections = [
+            {'name': 'bar'},
+            {'name': '1'}
+        ];
+        const params = {
+            'c': '1'
+        };
+        spyOn(component, 'parseURLTimeRange').and.callFake( function(par) {} );
+        spyOn(component, 'staticChange').and.callFake( function() {} );
+
+        spyOn(component, 'parseURLAggr').and.returnValue();
+        spyOn(component, 'parseURLSingle').and.returnValue();
+        spyOn(component, 'parseURLMultiSelect').and.returnValue();
+
+        component.queryURL({'c': '1', 'a': 'foo'});
+        expect(component.parseURLAggr).toHaveBeenCalled();
+
+        component.queryURL({'c': '1', 's': 'foo'});
+        expect(component.parseURLSingle).toHaveBeenCalled();
+
+        component.queryURL({'c': '1', 'm': 'foo'});
+        expect(component.parseURLMultiSelect).toHaveBeenCalled();
+    });
+
+    it('onChangeQuartal works', () => {
+        spyOn(component, 'updateChart').and.callFake( function(t1, t2) {} );
+        niRuntime.availableQuartal= [ 'foo', 'bar', 'foobar' ];
+        component.onChangeQuartal(0,2);
+        expect(niRuntime.state.rangeStartIndex).toEqual(0);
+        expect(niRuntime.state.rangeEndIndex).toEqual(2);
+        expect(component.updateChart).toHaveBeenCalledWith(0,100);
+
+    });
+
     it('getCustomColor works', () => {
         niRuntime.getDrawPreset = jasmine.createSpy().and.returnValue({ 'colors': 'foobar' });
         spyOn(ImmobilienHelper, 'convertColor').and.callFake(function (par) { return par; });
@@ -425,6 +568,94 @@ describe('Immobilien.Immobilien.ImmobilienComponent', () => {
         expect(niRuntime.toggleNipixCategory).toHaveBeenCalledWith('foobar');
         expect(component.updateChart).toHaveBeenCalled();
     });
+
+    it('staticChange works', () => {
+        component.accOpen = {};
+        spyOn(component, 'onPanelChangeIndex').and.returnValue();
+        spyOn(component, 'onPanelChangeWoMa').and.returnValue();
+
+        component.staticChange(0, true);
+        expect(component.onPanelChangeIndex).toHaveBeenCalledWith(0);
+        expect(component.accOpen[0]).toEqual(true);
+
+        component.staticChange(99, true);
+        expect(component.onPanelChangeWoMa).toHaveBeenCalled();
+        expect(component.accOpen[99]).toEqual(true);
+    });
+
+    it('makeValuesHumanReadable works', () => {
+        niStatic.data.regionen = {
+            'foo': { 'short': 'a b&$%§=012' }
+        };
+        const res = component.makeValuesHumanReadable(['foo']);
+        expect(res).toEqual(['ab012']);
+    });
+
+    it('unmakeValuesHumanReadable works', () => {
+        niStatic.data.regionen = {
+            'foo': { 'short': 'a b&$%§=012' }
+        };
+        const res = component.unmakeValuesHumanReadable(['ab012']);
+        expect(res).toEqual(['foo']);
+    });
+
+    it('checkURLNipixCategory works', () => {
+        niRuntime.availableNipixCategories = ['f oo', 'b ar'];
+        const res = component.checkURLNipixCategory('bar');
+        expect(res).toEqual('b ar');
+    });
+
+    it('changeURLAppendPresets works', () => {
+
+
+        let param = {};
+        const params = {
+            'append': function(k, v) { param[k]=v; }
+        };
+
+
+        spyOn(component, 'makeValuesHumanReadable').and.returnValue(['foobar']);
+
+        const dpreset = {
+            'nipixCategory': 'foobar',
+            'name': 'barfoo',
+            'type': 'single',
+            'show': true,
+            'values': ['foo','bar']
+        };
+
+        niRuntime.getDrawPreset = function(val) {
+            return dpreset;
+        };
+
+        let res = component.changeURLAppendPresets({'preset': ['foo'], 'nipixCategory': 'bar'}, params);
+        expect(param).toEqual({
+            'i': 'foobar',
+            's': 'foobar'
+        });
+
+        param = {};
+
+        res = component.changeURLAppendPresets({'preset': ['foo', 'bar'], 'type': 'multiIndex'}, params);
+        expect(param).toEqual({
+            'i': 'foobar',
+            'a': 'foo,bar'
+        });
+
+        param = {};
+
+
+        dpreset['name'] = 'bf';
+
+        res = component.changeURLAppendPresets({'preset': ['fo', 'ba'], 'type': 'multiIndex'}, params);
+        expect(param).toEqual({
+            'm': 'fo:foobar:foobar;ba:foobar:foobar'
+        });
+
+
+
+    });
+
 
     /**
      * Mocks the API by taking HTTP requests form the queue and returning the answer
