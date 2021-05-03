@@ -46,22 +46,10 @@
                         ],
                         "scripts": [],
                         "allowedCommonJsDependencies": [
-                            "bootstrap-slider",
-                            "ngx-bootstrap-icons",
-                            "css-element-queries",
-                            "epsg",
-                            "hyphen",
-                            "lodash",
                             "echarts",
-                            "zrender",
+                            "hyphen",
                             "showdown",
-                            "inputmask",
-                            "nouislider",
-                            "suggestions",
-                            "fast-xml-parser",
-                            "surveyjs-widgets",
-                            "@mapbox/mapbox-gl-geocoder",
-                            "@mapbox/mapbox-sdk"
+                            "@mapbox/mapbox-gl-geocoder"
                         ]
                     },
                     "configurations": {

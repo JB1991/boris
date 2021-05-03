@@ -142,6 +142,9 @@ export function init(Survey) {
                         to: function (pVal) {
                             return Number(pVal).toFixed(question.decimals);
                         },
+                        from: function (pVal) {
+                            return false;
+                        }
                     },
                 },
                 format: {
@@ -185,7 +188,7 @@ export function init(Survey) {
                     slider.set(input.value);
                 };
                 slider.on('update', function () {
-                    input.value = slider.get();
+                    input.value = slider.get().toString();
                 });
             }
 
