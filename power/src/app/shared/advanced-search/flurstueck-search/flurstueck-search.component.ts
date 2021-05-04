@@ -52,7 +52,7 @@ export class FlurstueckSearchComponent {
      * @param event input event
      */
     public onInput(event: any) {
-        if (event.target.textLength > 0) {
+        if (event.target.value) {
             this.loading = true;
         }
     }
