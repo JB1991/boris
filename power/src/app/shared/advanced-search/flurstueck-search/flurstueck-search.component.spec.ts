@@ -144,7 +144,7 @@ describe('FlurstueckSearchComponent', () => {
     it('onInput should set loading true if textLength > 0', () => {
         const input = fixture.debugElement.query(By.css('input')).nativeElement;
 
-        input.textLength = 2;
+        input.value = 2;
         input.dispatchEvent(new Event('input'));
 
         expect(component.loading).toBeTrue();
