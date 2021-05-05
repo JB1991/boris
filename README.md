@@ -62,7 +62,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 4. Linter ausführen (TypeScript, CSS/SCSS und HTML)
    ```
-   npm run lint
+   npm run lint power
    npm run lint:styles
    npm run lint:html
    ```

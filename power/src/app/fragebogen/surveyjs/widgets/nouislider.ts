@@ -1,12 +1,12 @@
+import { CustomWidgetCollection, JsonObject, QuestionCustomWidget } from 'survey-angular';
 import noUiSlider from 'nouislider';
 
 /* eslint-disable complexity */
 /* istanbul ignore next */
-export function init(Survey) {
+export function init() {
     const widget = {
         name: 'nouislider',
         title: 'noUiSlider',
-        iconName: 'icon-nouislider',
         widgetIsLoaded: function () {
             return typeof noUiSlider !== 'undefined';
         },
@@ -15,9 +15,9 @@ export function init(Survey) {
         },
         htmlTemplate:
             '<div><div></div></div>',
-        activatedByChanged: function (activatedBy) {
-            Survey.JsonObject.metaData.addClass('nouislider', [], null, 'rating');
-            Survey.JsonObject.metaData.addProperties('nouislider', [
+        activatedByChanged: function (activatedBy: string) {
+            JsonObject.metaData.addClass('nouislider', [], null, 'rating');
+            JsonObject.metaData.addProperties('nouislider', [
                 {
                     name: 'step:number',
                     category: 'slider',
@@ -74,6 +74,11 @@ export function init(Survey) {
                     category: 'slider',
                     default: 2,
                 },
+                {
+                    name: 'circa:boolean',
+                    category: 'slider',
+                    default: false,
+                },
             ]);
         },
         afterRender: function (question, el) {
@@ -81,9 +86,6 @@ export function init(Survey) {
             el.style.paddingLeft = '22px';
             el.style.paddingRight = '29px';
             el.style.paddingTop = '44px';
-            if (question.inputbox) {
-                el.style.paddingTop = '19px';
-            }
 
             el = el.children[0];
             el.style.marginBottom = '60px';
@@ -167,29 +169,70 @@ export function init(Survey) {
                 question.value = slider.get();
             });
 
-            if (question.inputbox) {
+            // modifications
+            if (question.inputbox || question.circa) {
                 const container = document.createElement('div');
-                container.className = 'mb-5';
-                container.setAttribute('aria-hidden', 'true');
+                container.style.marginTop = '-40px';
+                container.style.marginBottom = '60px';
 
-                const input = document.createElement('input');
-                input.type = 'number';
-                input.min = question.rangeMin;
-                input.max = question.rangeMax;
-                input.step = question.step;
-                input.className = 'ml-2';
+                // Circa value
+                if (question.circa) {
+                    const divcirca = document.createElement('div');
 
-                container.appendChild(document.createTextNode($localize`Eingabewert`));
-                container.appendChild(input);
+                    // create element
+                    const divform = document.createElement('div');
+                    divform.classList.add('custom-control', 'custom-checkbox');
+                    const input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.classList.add('custom-control-input');
+                    input.id = question.id + '-circa';
+                    const label = document.createElement('label');
+                    label.classList.add('custom-control-label');
+                    label.innerText = $localize`Angabe ist ein Schätzwert`;
+                    label.htmlFor = question.id + '-circa';
+
+                    // handler
+                    input.onchange = function () {
+                        question.circaValue = input.checked;
+                    };
+
+                    // append
+                    divform.appendChild(input);
+                    divform.appendChild(label);
+                    divcirca.appendChild(divform);
+                    container.append(divcirca);
+                }
+
+                // value input
+                if (question.inputbox) {
+                    const divinputbox = document.createElement('div');
+                    divinputbox.setAttribute('aria-hidden', 'true');
+
+                    // create element
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.min = question.rangeMin;
+                    input.max = question.rangeMax;
+                    input.step = question.step;
+                    input.className = 'ml-2';
+
+                    // handler
+                    input.onchange = function () {
+                        question.value = input.value;
+                        slider.set(input.value);
+                    };
+                    slider.on('update', function () {
+                        input.value = slider.get().toString();
+                    });
+
+                    // append
+                    divinputbox.appendChild(document.createTextNode($localize`Eingabewert`));
+                    divinputbox.appendChild(input);
+                    container.appendChild(divinputbox);
+                }
+
+                // append
                 el.parentNode.insertBefore(container, el.parentNode.firstChild);
-
-                input.onchange = () => {
-                    question.value = input.value;
-                    slider.set(input.value);
-                };
-                slider.on('update', function () {
-                    input.value = slider.get().toString();
-                });
             }
 
             const updateValueHandler = function () {
@@ -220,34 +263,9 @@ export function init(Survey) {
             question.readOnlyChangedCallback = null;
         },
         pdfRender: function (_, options) {
-            if (options.question.getType() === 'nouislider') {
-                const point = options.module.SurveyHelper.createPoint(
-                    options.module.SurveyHelper.mergeRects.apply(null, options.bricks)
-                );
-                point.xLeft += options.controller.unitWidth;
-                point.yTop +=
-                    options.controller.unitHeight *
-                    options.module.FlatQuestion.CONTENT_GAP_VERT_SCALE;
-                const rect = options.module.SurveyHelper.createTextFieldRect(
-                    point,
-                    options.controller
-                );
-                const textboxBrick = new options.module.TextFieldBrick(
-                    options.question,
-                    options.controller,
-                    rect,
-                    true,
-                    options.question.id,
-                    options.question.value || options.question.defaultValue || '',
-                    '',
-                    options.question.isReadOnly,
-                    false,
-                    'text'
-                );
-                options.bricks.push(textboxBrick);
-            }
+            // TODO
         },
     };
 
-    Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, 'customtype');
+    CustomWidgetCollection.Instance.addCustomWidget(widget, 'customtype');
 }

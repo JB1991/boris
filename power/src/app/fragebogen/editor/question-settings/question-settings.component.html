@@ -368,6 +368,18 @@
                                i18n>Zusätzliches Eingabefeld aktivieren</label>
                     </div>
 
+                    <!-- question-circa -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].circa"
+                               name="question-circa"
+                               id="question-circa">
+                        <label class="custom-control-label"
+                               for="question-circa"
+                               i18n>Schätzwertangabe</label>
+                    </div>
+
                     <!-- question-step -->
                     <div class="form-group">
                         <label for="question-step"
