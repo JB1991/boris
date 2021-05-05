@@ -69,12 +69,15 @@ export class WrapperComponent implements OnChanges {
         });
 
         // add handler
+        /* istanbul ignore next */
         this.survey.onValueChanged.add((sender: SurveyModel, _) => {
             this.changes.emit(sender.data);
         });
+        /* istanbul ignore next */
         this.survey.onCurrentPageChanged.add((sender: SurveyModel, _) => {
             this.interimResult.emit(sender.data);
         });
+        /* istanbul ignore next */
         this.survey.onComplete.add((sender: SurveyModel, options) => {
             this.submitResult.emit({ result: sender.data, options: options });
         });
