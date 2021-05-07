@@ -305,9 +305,17 @@
 
     <div class="container-fluid p-0 m-0">
         <footer class="mt-5 pb-2 px-1 px-md-5 overflow-hidden">
-            <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
-                 class="row justify-content-end mr-1 mr-md-0">
-                <div class="col text-right p-1 m-0">
+            <div class="row p-0 m-0">
+                <div *ngIf="router.url.includes('/forms/editor/')"
+                     class="col p-0 m-0">
+                    <a href="https://youtu.be/bjr1PsH3a5I"
+                       class="footer-link d-inline-block py-2"
+                       target="_blank"
+                       rel="noopener noreferrer nofollow"><i class="bi bi-youtube align-middle"
+                           style="font-size: 1.5rem;"></i><span i18n> How to - Fragebogen Online</span></a>
+                </div>
+                <div *ngIf="router.url.includes('/forms/fillout/form/') || router.url.includes('/forms/editor/')"
+                     class="col text-right p-1 m-0">
                     <p class="text-muted"
                        i18n>* Pflichtfeld</p>
                 </div>
