@@ -97,17 +97,22 @@ export class DashboardComponent implements OnInit {
             const reader = new FileReader();
             // Upload success
             reader.onload = () => {
-                this.formAPI
-                    .createForm({
+                try {
+                    this.formAPI.createForm({
                         content: JSON.parse(reader.result.toString()),
-                    })
-                    .then(() => {
+                    }).then(() => {
+                        this.formSortDesc = true;
+                        this.formSort = 'created';
                         this.updateForms(false);
-                    })
-                    .catch((error) => {
+                        this.alerts.NewAlert('success', $localize`Import erfolgreich`, $localize`Der Fragebogen wurde erfolgreich importiert`);
+                    }).catch((error) => {
                         console.error(error);
                         this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
                     });
+                } catch (e) {
+                    console.error(e);
+                    this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, $localize`Das Dokument ist kein gültiges Formular.`);
+                }
             };
             // FileReader is async -> call readAsText() after declaring the onload handler
             reader.readAsText(file);

@@ -28,17 +28,19 @@
 
         <mgl-layer id="nds"
                    type="line"
+                   [maxzoom]="11"
                    [source]="'ndsgeojson'"
                    [paint]="{
                         'line-color': '#c4153a',
                         'line-width': {
-                            'stops': [[8,1],[10,1],[18,1]]
+                            'stops': [[8,1],[11,1]]
                         },
                         'line-opacity': {
-                            'stops':[[8,1],[10,1],[12,0]]
+                            'stops':[[8,1],[11,1]]
                         }
                     }">
         </mgl-layer>
+
         <!-- Building Extrusion Layer -->
         <mgl-layer id="building-extrusion"
                    type="fill-extrusion"
@@ -55,6 +57,7 @@
                         }
                     }">
         </mgl-layer>
+
         <!-- Niedersachsen -->
         <mgl-layer id="flurstuecke"
                    type="line"
@@ -201,7 +204,7 @@
                         'text-size': {
                             'stops': [[12, 10], [15, 16]]
                         },
-                        'text-font': ['Klokantech Noto Sans Regular']
+                        'text-font': ['Cantarell Regular']
                    }">
         </mgl-layer>
 
@@ -221,7 +224,7 @@
                         'text-size': {
                             'stops': [[10, 20], [15, 24]]
                         },
-                        'text-font': ['Klokantech Noto Sans Regular']
+                        'text-font': ['Cantarell Regular']
                     }">
         </mgl-layer>
 

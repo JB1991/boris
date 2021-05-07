@@ -7,11 +7,11 @@
         "attr-case": "off",
         "element-name": "off",
         "no-inline-style": "warn",
-        "prefer-native-element": "warn",
+        "prefer-native-element": "off",
         "text-content": "warn",
         "missing-doctype": "off",
         "no-missing-references": "off",
         "heading-level": "warn",
-        "input-missing-label": "warn"
+        "input-missing-label": "off"
     }
 }

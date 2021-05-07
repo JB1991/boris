@@ -1,0 +1,19 @@
+<power-modalmini #advancedSearchModal
+                 (closing)="onClose()">
+    <tabset>
+        <tab heading="Flurstück">
+            <power-flurstueck-search #flurstueckForm
+                                     (closing)="closing()"
+                                     (flurstueckChange)="onFlurstueckChange($event)">
+            </power-flurstueck-search>
+        </tab>
+        <tab heading="Bodenrichtwertnummer">
+            <power-bodenrichwertnummer-search #bodenrichtwertForm
+                                              [stichtag]="stichtag"
+                                              [teilmarkt]="teilmarkt"
+                                              (closing)="closing()"
+                                              (bodenrichwertChange)="onBodenrichtwertChange($event)">
+            </power-bodenrichwertnummer-search>
+        </tab>
+    </tabset>
+</power-modalmini>

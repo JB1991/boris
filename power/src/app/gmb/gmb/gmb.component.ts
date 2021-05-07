@@ -128,11 +128,11 @@ export class GmbComponent implements OnInit {
     changeTitle() {
         if (this.mode === 'gmb') {
             this.titleService.setTitle($localize`Grundstücksmarktberichte - Immobilienmarkt.NI`);
-            this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
+            this.meta.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
             this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktberichte, Landkreis` });
         } else if (this.mode === 'lmb') {
             this.titleService.setTitle($localize`Landesgrundstücksmarktberichte - Immobilienmarkt.NI`);
-            this.meta.updateTag({ name: 'description', content: $localize`Kostenloser Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
+            this.meta.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
             this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
         }
     }
@@ -417,7 +417,7 @@ export class GmbComponent implements OnInit {
      * @param newValue New selected Landkreis
      */
     onChange(newValue) {
-        if (newValue === null) {
+        if (!newValue) {
             this.selectedKreis = undefined;
         } else {
             this.selectedKreis = newValue;

@@ -131,9 +131,9 @@ describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationCompon
     });
 
     it('onFlurstueckChange should emit latLng', () => {
-        spyOn(component, 'pointOnFlurstueck').and.callThrough();
+        spyOn(component, 'pointOnPolygon').and.callThrough();
         component.onFlurstueckChange(flurstueck);
-        expect(component.pointOnFlurstueck).toHaveBeenCalledTimes(1);
+        expect(component.pointOnPolygon).toHaveBeenCalledTimes(1);
         expect(component.latLngChange.emit).toHaveBeenCalledTimes(1);
     });
 

@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     }
 
     async ngOnInit() {
+        /* istanbul ignore else */
         if (localStorage) {
             this.loadingscreen.setVisible(true);
             await this.authenticate();

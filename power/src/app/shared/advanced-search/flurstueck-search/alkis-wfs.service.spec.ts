@@ -5,7 +5,7 @@ import { AlkisWfsService } from './alkis-wfs.service';
 import { FeatureCollection } from 'geojson';
 
 describe('Shared.Flurstueck-search.AlkisWfsService', () => {
-    const fst: FeatureCollection = require('../../../testdata/flurstueck-search/flurstueck-collection.json');
+    const fst: FeatureCollection = require('../../../../testdata/flurstueck-search/flurstueck-collection.json');
 
     const url = '/geoserver/alkis/ows?';
 

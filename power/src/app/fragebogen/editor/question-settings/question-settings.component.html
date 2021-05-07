@@ -3,7 +3,7 @@
              (closing)="close($event)">
     <div class="container px-1 px-lg-3"
          *ngIf="question !== null && model.pages[page].elements[question]">
-        <accordion [isAnimated]="true"
+        <accordion [isAnimated]="false"
                    [closeOthers]="true">
             <!-- common -->
             <accordion-group i18n-heading
@@ -41,7 +41,7 @@
                            i18n>Fragen Titel *</label>
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].title"
                                                     eid="question-title"
-                                                    required="true"
+                                                    [required]="true"
                                                     maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
@@ -49,14 +49,14 @@
                 <div class="form-group">
                     <label for="question-description"
                            i18n>Fragen Beschreibung</label>
-                    <power-forms-editor-localeinput textarea="true"
+                    <power-forms-editor-localeinput [textarea]="true"
                                                     [(locale)]="model.pages[page].elements[question].description"
                                                     eid="question-description"
                                                     describedby="question-descriptionHelp">
                     </power-forms-editor-localeinput>
                     <small id="question-descriptionHelp"
                            class="form-text text-muted"
-                           i18n>Dieser Text wird unter der Frage angezeigt.</small>
+                           i18n>Dieser Text wird unter dem Titel angezeigt.</small>
                 </div>
 
                 <!-- markdown-instructions -->
@@ -90,6 +90,19 @@
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].requiredErrorText"
                                                     eid="question-requiredErrorText"
                                                     maxlength="200"></power-forms-editor-localeinput>
+                </div>
+
+                <!-- question-titleLocation -->
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox"
+                           class="custom-control-input"
+                           [checked]="!model.pages[page].elements[question].titleLocation || model.pages[page].elements[question].titleLocation === 'default'"
+                           (click)="toggleQuestionTitle()"
+                           name="question-titleLocation"
+                           id="question-titleLocation">
+                    <label class="custom-control-label"
+                           for="question-titleLocation"
+                           i18n>Titel und Beschreibung anzeigen</label>
                 </div>
 
                 <!-- question-hasComment -->

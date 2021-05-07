@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { OgcServicesComponent } from './ogc-services/ogc-services.component';
 
 import { ModuleGuard } from '@app/module.guard';
 
@@ -39,6 +40,11 @@ const routes: Routes = [
     {
         path: 'feedback',
         component: FeedbackComponent,
+        canActivate: [ModuleGuard]
+    },
+    {
+        path: 'ogc-dienste',
+        component: OgcServicesComponent,
         canActivate: [ModuleGuard]
     },
     {

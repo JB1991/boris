@@ -36,6 +36,7 @@ export class FeedbackComponent implements OnInit {
     }
 
     async ngOnInit() {
+        /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             await this.loadRSSFeed();
         }

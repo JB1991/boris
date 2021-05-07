@@ -17,6 +17,7 @@ import { AuthModule } from '@app/shared/auth/auth.module';
 import { AlertsModule } from '@app/shared/alerts/alerts.module';
 import { LoadingscreenModule } from '@app/shared/loadingscreen/loadingscreen.module';
 import { UpdateService } from './update.service';
+import { SEOService } from './shared/seo/seo.service';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { environment } from '../environments/environment';
     providers: [
         ModuleGuard,
         UpdateService,
+        SEOService,
         {
             provide: ErrorHandler,
             useClass: GlobalErrorHandler

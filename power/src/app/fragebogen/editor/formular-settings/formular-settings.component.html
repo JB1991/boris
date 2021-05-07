@@ -1,5 +1,5 @@
 <power-modal #formsettingsmodal
-             checkInvalid="true"
+             [checkInvalid]="true"
              (closing)="close($event)">
     <div class="container px-1 px-lg-3"
          *ngIf="model">
@@ -17,7 +17,7 @@
                            i18n>Formular Titel *</label>
                     <power-forms-editor-localeinput [(locale)]="model.title"
                                                     eid="form-title"
-                                                    required="true"
+                                                    [required]="true"
                                                     maxlength="200"
                                                     i18n-placeholder
                                                     placeholder="Formular Titel"></power-forms-editor-localeinput>
@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label for="form-description"
                            i18n>Formular Beschreibung</label>
-                    <power-forms-editor-localeinput textarea="true"
+                    <power-forms-editor-localeinput [textarea]="true"
                                                     [(locale)]="model.description"
                                                     eid="form-description"
                                                     describedby="form-descriptionHelp"></power-forms-editor-localeinput>
@@ -111,7 +111,7 @@
                     <label for="form-completedHtml"
                            role="button"
                            i18n>Abschlusstext</label>
-                    <power-forms-editor-localeinput textarea="true"
+                    <power-forms-editor-localeinput [textarea]="true"
                                                     [(locale)]="model.completedHtml"
                                                     eid="form-completedHtml"></power-forms-editor-localeinput>
                 </div>
@@ -414,7 +414,7 @@
                         <div class="form-group">
                             <label for="page-description-{{ i }}"
                                    i18n>Seiten Beschreibung</label>
-                            <power-forms-editor-localeinput textarea="true"
+                            <power-forms-editor-localeinput [textarea]="true"
                                                             [(locale)]="page.description"
                                                             eid="page-description-{{ i }}">
                             </power-forms-editor-localeinput>

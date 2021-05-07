@@ -162,6 +162,29 @@
                     </div>
                 </div>
             </slide>
+            <slide *ngIf="config.modules.includes('ogc-dienste')">
+                <img src="./assets/images/bg-bodenrichtwerte.png"
+                     i18n-alt
+                     alt="OGC Darstellungs- und Downloaddienste"
+                     class="carousel-image">
+                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
+                    <h2 class="display-4">
+                        <span style="color: #343a40;"
+                              i18n>OGC Dienste</span>
+                    </h2>
+                    <div class="lead text-dark">
+                        <h3 class="h5"
+                            i18n>OGC Darstellungs- und Downloaddienste</h3>
+                        <p i18n>Das LGLN stellt gebührenfreie OGC Darstellungs- und Downloaddienste über WMS und WFS
+                            Schnittstellen bereit</p>
+                        <a class="btn btn-primary"
+                           href=""
+                           (click)="$event.preventDefault(); scrollToElement('ogc-dienste')"
+                           role="button"
+                           i18n>Mehr dazu</a>
+                    </div>
+                </div>
+            </slide>
             <slide *ngIf="config.modules.includes('feedback')">
                 <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
@@ -188,7 +211,7 @@
     </div>
 
     <div class="container marketing">
-        <div class="row"
+        <div class="row my-1"
              *ngIf="config.modules.includes('bodenrichtwerte')"
              id="bodenrichtwerte">
             <div class="col-md-7"
@@ -216,7 +239,7 @@
                    title="Bodenrichtwerte"
                    tabindex="-1">
                     <img src="./assets/images/bodenrichtwerte.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Bodenrichtwerte">
                 </a>
@@ -225,7 +248,7 @@
         <hr class="my-5"
             *ngIf="config.modules.includes('bodenrichtwerte')">
 
-        <div class="row"
+        <div class="row my-1"
              *ngIf="config.modules.includes('grundstuecksmarktberichte')"
              id="grundstuecksmarktberichte">
             <div class="col-md-7"
@@ -253,7 +276,7 @@
                    title="Grundstücksmarktberichte"
                    tabindex="-1">
                     <img src="./assets/images/grundstuecksmarktberichte.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Grundstücksmarktberichte">
                 </a>
@@ -262,7 +285,7 @@
         <hr class="my-5"
             *ngIf="config.modules.includes('grundstuecksmarktberichte')">
 
-        <div class="row"
+        <div class="row my-1"
              *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')"
              id="landesgrundstuecksmarktdaten">
             <div class="col-md-7"
@@ -293,7 +316,7 @@
                    title="Landesgrundstücksmarktdaten"
                    tabindex="-1">
                     <img src="./assets/images/landesgrundstuecksmarktdaten.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Landesgrundstücksmarktdaten">
                 </a>
@@ -302,7 +325,7 @@
         <hr class="my-5"
             *ngIf="config.modules.includes('landesgrundstuecksmarktdaten')">
 
-        <div class="row"
+        <div class="row my-1"
              *ngIf="config.modules.includes('immobilienpreisindex')"
              id="immobilienpreisindex">
             <div class="col-md-7"
@@ -330,7 +353,7 @@
                    title="Immobilienpreisindex"
                    tabindex="-1">
                     <img src="./assets/images/immobilienpreisindex.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Immobilienpreisindex">
                 </a>
@@ -339,7 +362,7 @@
         <hr class="my-5"
             *ngIf="config.modules.includes('immobilienpreisindex')">
 
-        <div class="row"
+        <div class="row my-1"
              *ngIf="config.modules.includes('immobilienpreiskalkulator')"
              id="immobilienpreiskalkulator">
             <div class="col-md-7"
@@ -375,7 +398,7 @@
                    title="Immobilienpreiskalkulator"
                    tabindex="-1">
                     <img src="./assets/images/immobilienpreiskalkulator.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Immobilienpreiskalkulator">
                 </a>
@@ -384,7 +407,7 @@
         <hr class="my-5"
             *ngIf="config.modules.includes('immobilienpreiskalkulator')">
 
-        <div class="row"
+        <div class="row my-1"
              *ngIf="config.modules.includes('bodenwertkalkulator')"
              id="bodenwertkalkulator">
             <div class="col-md-7"
@@ -411,7 +434,7 @@
                    title="Bodenwertkalkulator"
                    tabindex="-1">
                     <img src="./assets/images/bodenwertkalkulator.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Bodenwertkalkulator">
                 </a>
@@ -420,7 +443,7 @@
         <hr class="my-5"
             *ngIf="config.modules.includes('bodenwertkalkulator')">
 
-        <div class="row mb-1"
+        <div class="row my-1"
              *ngIf="config.modules.includes('forms')"
              id="forms">
             <div class="col-md-7"
@@ -486,9 +509,43 @@
                    title="Formulare"
                    tabindex="-1">
                     <img src="./assets/images/forms.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Formulare">
+                </a>
+            </div>
+        </div>
+        <hr class="my-5"
+            *ngIf="config.modules.includes('forms')">
+
+        <div class="row my-1"
+             *ngIf="config.modules.includes('ogc-dienste')"
+             id="ogc-dienste">
+            <div class="col-md-7"
+                 [class.order-md-2]="getCardOrder('ogc-dienste')">
+                <a class="h2 display-4"
+                   [routerLink]="['/ogc-dienste']">
+                    <span style="color: #343a40;">OGC Dienste</span>
+                </a>
+                <div class="lead">
+                    <h3 class="h5 text-break"
+                        i18n>OGC Darstellungs- und Downloaddienste</h3>
+                    <p class="text-justify"
+                       i18n>Mithilfe der OGC konformen Dienste Web Map Service (WMS) und Web Feature Service (WFS) der
+                        Bodenrichtwerte können Nutzer die Daten in Ihren eigenen GIS-Systemen nutzen, bzw. in eigene
+                        Applikationen einbinden.</p>
+                </div>
+            </div>
+            <div class="col-md-5 d-flex justify-content-center align-self-center"
+                 aria-hidden="true">
+                <a [routerLink]="['/ogc-dienste']"
+                   i18n-title
+                   title="OGC Darstellungs- und Downloaddienste"
+                   tabindex="-1">
+                    <img src="./assets/images/ogcdienste.png"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
+                         i18n-alt
+                         alt="OGC Darstellungs- und Downloaddienste">
                 </a>
             </div>
         </div>
