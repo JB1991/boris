@@ -1,6 +1,6 @@
 import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import * as Survey from 'survey-angular';
+import { surveyLocalization } from 'survey-angular';
 
 import { StorageService } from '../storage.service';
 import { HistoryService } from '../history.service';
@@ -19,7 +19,7 @@ export class FormularSettingsComponent {
     @Input() public model: any;
     @Output() public modelChange = new EventEmitter<any>();
     public copy = '';
-    public languages = Survey.surveyLocalization.localeNames;
+    public languages = surveyLocalization.localeNames;
 
     constructor(public alerts: AlertsService,
         public storage: StorageService,

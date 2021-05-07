@@ -1,10 +1,11 @@
+import { CustomWidgetCollection, JsonObject } from 'survey-angular';
+
 /* eslint-disable complexity */
 /* istanbul ignore next */
-export function init(Survey) {
+export function init() {
     const widget = {
         name: 'imageselector',
         title: 'Imageselector',
-        iconName: 'icon-imageselector',
         widgetIsLoaded: function () {
             return true;
         },
@@ -12,9 +13,9 @@ export function init(Survey) {
             return question.getType() === 'imageselector';
         },
         htmlTemplate: '<div></div>',
-        activatedByChanged: function (activatedBy) {
-            Survey.JsonObject.metaData.addClass('imageselector', [], null, 'imagepicker');
-            Survey.JsonObject.metaData.addProperties('imageselector', [
+        activatedByChanged: function (activatedBy: string) {
+            JsonObject.metaData.addClass('imageselector', [], null, 'imagepicker');
+            JsonObject.metaData.addProperties('imageselector', [
                 {
                     name: 'mobiletext:boolean',
                     category: 'imageselector',
@@ -231,5 +232,5 @@ export function init(Survey) {
         },
     };
 
-    Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, 'customtype');
+    CustomWidgetCollection.Instance.addCustomWidget(widget, 'customtype');
 }
