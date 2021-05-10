@@ -168,6 +168,7 @@ export class GmbComponent implements OnInit {
                     for (let i = 0; i < lok.length; i++) {
                         if (this.kreise[lok[i]] === lk) {
                             this.selectedKreis = lok[i];
+                            this.updateMapSelect();
                             this.filterBerichte();
                             this.myMapOptions['series'][0]['data'] = this.getRegionen();
                             if (this.map['setOptions'] !== undefined) {
