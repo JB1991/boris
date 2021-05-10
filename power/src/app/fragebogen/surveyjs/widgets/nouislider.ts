@@ -1,5 +1,5 @@
-import { CustomWidgetCollection, JsonObject, QuestionCustomWidget } from 'survey-angular';
-import noUiSlider from 'nouislider';
+import { CustomWidgetCollection, JsonObject } from 'survey-angular';
+import { create } from 'nouislider';
 
 /* eslint-disable complexity */
 /* istanbul ignore next */
@@ -8,7 +8,7 @@ export function init() {
         name: 'nouislider',
         title: 'noUiSlider',
         widgetIsLoaded: function () {
-            return typeof noUiSlider !== 'undefined';
+            return typeof create !== 'undefined';
         },
         isFit: function (question) {
             return question.getType() === 'nouislider';
@@ -128,7 +128,7 @@ export function init() {
                 connect = [false, true, false];
             }
 
-            const slider = noUiSlider.create(el, {
+            const slider = create(el, {
                 start: start,
                 connect: connect,
                 step: question.step,
@@ -239,23 +239,28 @@ export function init() {
                 el.parentNode.insertBefore(container, el.parentNode.firstChild);
             }
 
+            // handler
             const updateValueHandler = function () {
                 slider.set(question.value);
             };
-
-            if (question.isReadOnly) {
-                el.setAttribute('disabled', true);
-            }
-            updateValueHandler();
-            question.noUiSlider = slider;
-            question.valueChangedCallback = updateValueHandler;
-            question.readOnlyChangedCallback = function () {
+            const readOnlyChangedCallback = function () {
                 if (question.isReadOnly) {
                     el.setAttribute('disabled', true);
+                    for (const input of el.parentNode.firstChild.getElementsByTagName('input')) {
+                        input.setAttribute('disabled', true);
+                    }
                 } else {
                     el.removeAttribute('disabled');
+                    for (const input of el.parentNode.firstChild.getElementsByTagName('input')) {
+                        input.removeAttribute('disabled');
+                    }
                 }
             };
+            updateValueHandler();
+            readOnlyChangedCallback();
+            question.noUiSlider = slider;
+            question.valueChangedCallback = updateValueHandler;
+            question.readOnlyChangedCallback = readOnlyChangedCallback;
             question.value = slider.get();
         },
         willUnmount: function (question, el) {
