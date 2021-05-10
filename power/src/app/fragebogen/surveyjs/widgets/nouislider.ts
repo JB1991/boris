@@ -177,6 +177,9 @@ export function init() {
 
                 // Circa value
                 if (question.circa) {
+                    if (typeof question.survey.getValue(question.name + '-circa') === 'undefined') {
+                        question.survey.setValue(question.name + '-circa', false);
+                    }
                     const divcirca = document.createElement('div');
 
                     // create element
@@ -184,6 +187,7 @@ export function init() {
                     divform.classList.add('custom-control', 'custom-checkbox');
                     const input = document.createElement('input');
                     input.type = 'checkbox';
+                    input.checked = question.survey.getValue(question.name + '-circa') === true;
                     input.classList.add('custom-control-input');
                     input.id = question.id + '-circa';
                     const label = document.createElement('label');
@@ -193,7 +197,7 @@ export function init() {
 
                     // handler
                     input.onchange = function () {
-                        question.circaValue = input.checked;
+                        question.survey.setValue(question.name + '-circa', input.checked);
                     };
 
                     // append
