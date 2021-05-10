@@ -3,7 +3,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { environment } from '@env/environment';
-import * as Survey from 'survey-angular';
+import { surveyLocalization } from 'survey-angular';
 
 import { FormAPIService } from '../formapi.service';
 import { WrapperComponent } from '../surveyjs/wrapper.component';
@@ -21,7 +21,7 @@ export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper: WrapperComponent;
     public language = 'de';
     public submitted = false;
-    public languages = Survey.surveyLocalization.localeNames;
+    public languages = surveyLocalization.localeNames;
 
     public pin = '';
     public form: PublicForm;

@@ -1,9 +1,20 @@
 <form novalidate
       (ngSubmit)="searchFlurstueck(form.value)"
       #form="ngForm">
-    <div class="form-row py-1">
+    <div class="form-row py-1 align-items-center">
         <div class="col-12">
             <label i18n>Gemarkung</label>
+        </div>
+        <div class="col-auto"
+             [ngClass]="loading ? 'd-block' : 'd-none'">
+            <div class="spinner-border spinner-border-sm text-secondary"
+                 role="status"
+                 aria-hidden="true">
+                <span class="sr-only"
+                      i18n>Wird geladen....</span>
+            </div>
+        </div>
+        <div class="col">
             <input type="text"
                    class="form-control"
                    [class]="gemarkung.valid && selected ? 'is-valid' : 'is-invalid'"
@@ -23,9 +34,12 @@
                    [focusFirst]="false"
                    (selectItem)="onSelect($event.item)"
                    (keydown)="onEmpty($event.key)"
+                   (input)="onInput($event)"
                    required
                    aria-labelledby="germarkungsnr"
                    aria-describedby="gemarkungHelpText">
+        </div>
+        <div class="col-12">
             <small id="gemarkungHelpText"
                    class="form-text text-muted"
                    i18n>Suche nach Gemarkung, Gemeinde oder Gemarkungschlüssel</small>
