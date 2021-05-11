@@ -138,7 +138,8 @@ export const Bootstrap4_CSS = {
         itemDecorator: 'sv-hidden',
         cellText: 'sv_q_m_cell_text',
         cellTextSelected: 'sv_q_m_cell_selected bg-primary',
-        cellLabel: 'sv_q_m_cell_label'
+        cellLabel: 'sv_q_m_cell_label',
+        headerCell: 'text-rotate-90'
     },
     multipletext: {
         root: 'table',
