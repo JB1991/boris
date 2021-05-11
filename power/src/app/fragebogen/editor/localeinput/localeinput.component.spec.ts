@@ -40,4 +40,11 @@ describe('Fragebogen.Editor.LocaleInputComponent', () => {
         component.updateValue();
         expect(component.localeChange.emit).toHaveBeenCalledTimes(1);
     });
+
+    it('should escape input', () => {
+        component.displayLang = 'de';
+        component.locale = { 'de': '<br>' };
+        component.updateValue();
+        expect(component.locale['de']).toEqual('&lt;br&gt;');
+    });
 });
