@@ -40,6 +40,6 @@ export class LocaleInputComponent {
      * Escape user input
      */
     public escapeHtml(unsafe: string): string {
-        return unsafe.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        return unsafe.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 }

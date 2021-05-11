@@ -35,6 +35,8 @@ describe('Fragebogen.Editor.LocaleInputComponent', () => {
 
     it('should update', () => {
         spyOn(component.localeChange, 'emit');
+        component.displayLang = 'de';
+        component.locale = { 'de': 'Test' };
         component.updateValue();
         expect(component.localeChange.emit).toHaveBeenCalledTimes(1);
     });
