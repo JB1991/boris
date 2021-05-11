@@ -73,6 +73,7 @@ export class NewformComponent {
                 $localize`Bitte geben Sie einen Titel an.`);
             return;
         }
+
         // load template
         if (this.template) {
             this.formAPI
@@ -89,6 +90,7 @@ export class NewformComponent {
                 });
             return;
         }
+
         // make new form
         this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
         this.modal.close();
@@ -106,6 +108,7 @@ export class NewformComponent {
             if (!this.title) {
                 throw new Error('title is required');
             }
+            this.escapeTitle();
             template.title.default = this.title;
             const r = await this.formAPI.createForm({ tags: this.tagList, content: template, access: 'public' });
             this.out.emit(r.id);
@@ -113,6 +116,14 @@ export class NewformComponent {
             console.error(error);
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
         }
+    }
+
+    /**
+     * Escapes Title
+     * @param data data
+     */
+    public escapeTitle() {
+        this.title = this.title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */
