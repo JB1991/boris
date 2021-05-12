@@ -46,6 +46,12 @@ init:npm-branches:
     - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json -p es2015
   only:
     - branches
+  except:
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
   when: manual
 
 init:helm-dev:
@@ -367,6 +373,12 @@ build:
       - power/dist/power/browser
   only:
     - branches
+  except:
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
 
 build:
   stage: build
@@ -431,6 +443,12 @@ package:branches:
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
   only:
     - branches
+  except:
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
 
 package:development:
   stage: package
