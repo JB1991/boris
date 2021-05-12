@@ -351,7 +351,7 @@ test:kube-linter-production:
     - production
   allow_failure: true
 
-build:
+build:branches:
   stage: build
   image: node:lts-alpine
   interruptible: true
@@ -379,6 +379,7 @@ build:
     - dev
     - staging
     - production
+  when: manual
 
 build:
   stage: build
@@ -436,7 +437,7 @@ package:branches:
     entrypoint: [ "" ]
   interruptible: false
   dependencies:
-    - build
+    - build:branches
   cache: {}
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
@@ -449,6 +450,7 @@ package:branches:
     - dev
     - staging
     - production
+  when: manual
 
 package:development:
   stage: package
