@@ -564,7 +564,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         } else if (this.map.getZoom() > 14) {
             buffer = -30;
         } else if (this.map.getZoom() < 14) {
-            buffer = -40;
+            buffer = 0;
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
