@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
-import BodenrichtwertKarteLayerControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-layer-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { FeatureCollection, Feature, } from 'geojson';
@@ -102,13 +101,7 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
                 case 'Polygon':
                     return [f.geometry];
                 case 'MultiPolygon':
-                    const arr = multiPolygonToPolygons(f.geometry);
-
-                    if (arr.length > 2) {
-                        return [arr.shift(), arr.pop()];
-                    }
-
-                    return arr;
+                    return multiPolygonToPolygons(f.geometry);
             }
         }
     } catch (e) {
@@ -553,18 +546,18 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         };
 
         let buffer: number;
-        if (this.map.getZoom() > 18) {
-            buffer = 0;
-        } else if (this.map.getZoom() > 17) {
-            buffer = -5;
-        } else if (this.map.getZoom() > 16) {
-            buffer = -10;
-        } else if (this.map.getZoom() > 15) {
-            buffer = -20;
-        } else if (this.map.getZoom() > 14) {
-            buffer = -30;
-        } else if (this.map.getZoom() < 14) {
-            buffer = 0;
+        if (this.teilmarkt.value.includes('B')) {
+            if (this.map.getZoom() > 17) {
+                buffer = 0;
+            } else if (this.map.getZoom() > 16) {
+                buffer = -10;
+            } else if (this.map.getZoom() > 15) {
+                buffer = -20;
+            } else if (this.map.getZoom() > 14) {
+                buffer = -40;
+            } else if (this.map.getZoom() < 14) {
+                buffer = -80;
+            }
         }
 
         this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
@@ -634,17 +627,32 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             });
 
             intersectPolygon(p, mapViewBound).forEach(i => {
-                bufferPolygon(i, buffer).forEach(b => {
-                    if (this.map.getZoom() > 14) {
-                        const point = polygonToPoint(b);
-                        if (point && point.coordinates) {
-                            features.push({
-                                type: 'Feature',
-                                geometry: point,
-                                properties: featureMap[key][0].properties,
-                            });
-                            return;
-                        }
+                if (this.teilmarkt.value.includes('LF')) {
+                    const point = polygonToPoint(i);
+                    if (point && point.coordinates) {
+                        features.push({
+                            type: 'Feature',
+                            geometry: point,
+                            properties: featureMap[key][0].properties,
+                        });
+                        return;
+                    }
+                    features.push({
+                        type: 'Feature',
+                        geometry: i,
+                        properties: featureMap[key][0].properties,
+                    });
+                    return;
+                };
+                bufferPolygon(i, buffer).sort((a, b) => turf.area(b) - turf.area(a)).slice(0, 2).forEach(b => {
+                    const point = polygonToPoint(b);
+                    if (point && point.coordinates) {
+                        features.push({
+                            type: 'Feature',
+                            geometry: point,
+                            properties: featureMap[key][0].properties,
+                        });
+                        return;
                     }
                     features.push({
                         type: 'Feature',
