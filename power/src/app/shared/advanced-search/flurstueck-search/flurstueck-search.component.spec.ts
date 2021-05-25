@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FeatureCollection, Feature } from 'geojson';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -138,5 +139,14 @@ describe('FlurstueckSearchComponent', () => {
         component.fsk = JSON.parse(JSON.stringify(fsk));
         component.onEmpty('Delete');
         expect(component.selected).toBeFalse();
+    });
+
+    it('onInput should set loading true if textLength > 0', () => {
+        const input = fixture.debugElement.query(By.css('input')).nativeElement;
+
+        input.value = 2;
+        input.dispatchEvent(new Event('input'));
+
+        expect(component.loading).toBeTrue();
     });
 });

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GeosearchService } from './geosearch.service';
 import { Observable, of } from 'rxjs';
@@ -17,7 +17,8 @@ export class GeosearchComponent implements OnChanges {
 
     constructor(
         public geosearchService: GeosearchService,
-        public alerts: AlertsService
+        public alerts: AlertsService,
+        private cdr: ChangeDetectorRef
     ) { }
 
     @Output() selectResult = new EventEmitter();
@@ -25,6 +26,8 @@ export class GeosearchComponent implements OnChanges {
     @Input() address: string;
 
     public model: Feature;
+
+    public loading = false;
 
     /**
      * Return the text property
@@ -57,6 +60,16 @@ export class GeosearchComponent implements OnChanges {
     }
 
     /**
+     * onInput sets the loading status true if the input field contains characters
+     * @param event input event
+     */
+    public onInput(event: any) {
+        if (event.target.value) {
+            this.loading = true;
+        }
+    }
+
+    /**
      * Pass the search input to the Geosearch service
      * @param text$ Input as Observable
      */
@@ -72,7 +85,11 @@ export class GeosearchComponent implements OnChanges {
                     })
                 )
             ),
-            map(result => result['features'])
+            map(result => {
+                this.loading = false;
+                this.cdr.detectChanges();
+                return result['features'];
+            })
         );
 
     /**

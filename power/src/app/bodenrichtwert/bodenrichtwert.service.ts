@@ -4,6 +4,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FeatureCollection } from 'geojson';
 import { environment } from '@env/environment';
+import { Teilmarkt } from './bodenrichtwert-component/bodenrichtwert.component';
 
 @Injectable({
     providedIn: 'root'
@@ -43,7 +44,17 @@ export class BodenrichtwertService {
         this.features.next(features);
     }
 
-    public getFeatureByBRWNumber(brwNumber: string, stichtag: string) {
+    public getFeatureByBRWNumber(brwNumber: string, stichtag: string, teilmarkt: Teilmarkt) {
+
+        // OGC Filter for each teilmarkt/entwicklungszustand
+        let ogcFilter = '';
+
+        teilmarkt.value.forEach(entwType => {
+            ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
+                '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
+                '            <ogc:Literal>' + entwType + '</ogc:Literal>\n' +
+                '        </ogc:PropertyIsEqualTo>\n';
+        });
 
         // OGC Query for each layer to be searched
         let ogcQuery = '';
@@ -53,6 +64,7 @@ export class BodenrichtwertService {
                 '<wfs:Query typeName="' + layer + '" srsName="EPSG:3857">' +
                 '<ogc:Filter>' +
                 '<ogc:And>' +
+                '<ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
                 '<ogc:PropertyIsEqualTo>' +
                 '<ogc:PropertyName>stag</ogc:PropertyName>' +
                 '<ogc:Literal>' + stichtag + '</ogc:Literal>' +

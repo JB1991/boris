@@ -41,6 +41,70 @@ describe('Immobilien.Immobilien.ImmobilienStatic', () => {
         expect(component.data.gemeinden).toEqual([{'name': '4411', 'ags': '1234567', 'woma_id': 'bla' }]);
     });
 
+    it('procMap works', () => {
+        const geoJson = {
+            'features': [
+                {
+                    'properties': {
+                        'name': 'geom',
+                        'WOMA_NAME': 'point',
+                        'WOMA_SHORT': 'pt',
+                        'WOMA_COLOR': '000',
+                        'WOMA_COLORH': '111',
+                        'nipix': JSON.stringify({'foo': 'bar'})
+                    },
+                    'geometry': {
+                        'type': 'NoPoint'
+                    }
+                },
+                {
+                    'properties': {
+                        'name': 'point',
+                        'position': 'top'
+                    },
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': 'coord'
+                    }
+                },
+
+            ]
+        };
+
+        const res = component.procMap(geoJson);
+
+        expect(component.data.regionen).toEqual(
+            {
+                'geom':  {
+                    'name': 'point',
+                    'short': 'pt',
+                    'color': '000',
+                    'colorh': '111'
+                }
+            });
+
+        expect(component.data.geoCoordMap).toEqual(
+            {
+                'left': [],
+                'right': [],
+                'top': [
+                    {
+                        'name': 'point',
+                        'value': 'coord'
+                    }
+                ],
+                'bottom': []
+            });
+
+        expect(component.data.nipix).toEqual(
+            {
+                'foo': {
+                    'geom': 'bar'
+                }
+            });
+
+    });
+
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

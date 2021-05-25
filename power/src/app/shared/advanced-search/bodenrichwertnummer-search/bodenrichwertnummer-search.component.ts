@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
@@ -30,18 +30,33 @@ export class BodenrichwertnummerSearchComponent {
 
     public brwNummer: Feature;
 
+    public loading = false;
+
     constructor(
         public alerts: AlertsService,
-        public bodenrichtwertService: BodenrichtwertService
+        public bodenrichtwertService: BodenrichtwertService,
+        private cdr: ChangeDetectorRef,
     ) {
         this.brwNummer = undefined;
     }
 
     /**
-     * Reset bodenrichtwertForm onClose
+     * reset bodenrichtwertForm onClose
      */
     public reset() {
         this.brwNummer = undefined;
+        // manual change detection necessary
+        this.cdr.detectChanges();
+    }
+
+    /**
+     * onInput sets the loading status true if the input field contains characters
+     * @param event input event
+     */
+    public onInput(event: any) {
+        if (event.target.value) {
+            this.loading = true;
+        }
     }
 
     /**
@@ -70,16 +85,10 @@ export class BodenrichwertnummerSearchComponent {
      * @returns point
      */
     public pointOnPolygon(ft: Feature) {
-        const polygon = turf.polygon(ft.geometry['coordinates']);
+        let polygon = turf.polygon(ft.geometry['coordinates']);
+        polygon = turf.toWgs84(polygon);
         const point = turf.pointOnFeature(polygon);
-        const wgs84Point = proj4(
-            epsg['EPSG:3857'],
-            epsg['EPSG:4326']
-        ).forward([
-            point.geometry.coordinates[0],
-            point.geometry.coordinates[1]
-        ]);
-        return wgs84Point;
+        return point.geometry.coordinates;
     }
 
     /**
@@ -120,7 +129,7 @@ export class BodenrichwertnummerSearchComponent {
             debounceTime(300),
             distinctUntilChanged(),
             switchMap(term => term.length < 1 ? of([]) :
-                this.bodenrichtwertService.getFeatureByBRWNumber(term, this.stichtag).pipe(
+                this.bodenrichtwertService.getFeatureByBRWNumber(term, this.stichtag, this.teilmarkt).pipe(
                     catchError((error) => {
                         this.alerts.NewAlert('danger', $localize`Es ist ein Fehler aufgetreten`, error.message);
                         return of([]);
@@ -137,10 +146,13 @@ export class BodenrichwertnummerSearchComponent {
      * @returns array with features
      */
     public checkFeatures(fts: FeatureCollection) {
-        if (fts.features?.length) {
-            return fts.features;
-        } else {
+        this.loading = false;
+        // manual change detection necessary
+        this.cdr.detectChanges();
+        if (fts.features?.length === 0) {
             this.alerts.NewAlert('info', $localize`Keine Ergebnisse`, $localize`Es konnte leider keine Bodenrichtwertzone gefunden werden.`);
+        } else {
+            return fts.features;
         }
     }
 }

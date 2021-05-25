@@ -368,6 +368,18 @@
                                i18n>Zusätzliches Eingabefeld aktivieren</label>
                     </div>
 
+                    <!-- question-circa -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].circa"
+                               name="question-circa"
+                               id="question-circa">
+                        <label class="custom-control-label"
+                               for="question-circa"
+                               i18n>Schätzwertangabe</label>
+                    </div>
+
                     <!-- question-step -->
                     <div class="form-group">
                         <label for="question-step"
@@ -528,7 +540,7 @@
                     </div>
 
                     <!-- question-acceptedTypes-->
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="form-acceptedTypes"
                                i18n>Erlaubte Dateitypen</label>
                         <select class="custom-select"
@@ -537,10 +549,10 @@
                                 name="form-acceptedTypes">
                             <option value="application/pdf"
                                     i18n>PDF-Dokumente</option>
-                            <option value="image/png,image/jpeg,image/gif"
+                            <option value="image/png,image/jpeg"
                                     i18n>Bilder</option>
                         </select>
-                    </div>-->
+                    </div>
 
                     <!-- question-maxSize -->
                     <div class="form-group">
@@ -738,6 +750,18 @@
                                i18n>Mehrfachauswahl erlauben</label>
                     </div>
 
+                    <!-- question-mobiletext -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].mobiletext"
+                               name="question-mobiletext"
+                               id="question-mobiletext">
+                        <label class="custom-control-label"
+                               for="question-mobiletext"
+                               i18n>Auf Mobilgeräten nur Text anzeigen</label>
+                    </div>
+
                     <!-- question-imageWidth -->
                     <div class="form-group">
                         <label for="question-imageWidth"
@@ -805,8 +829,7 @@
                 </div>
 
                 <!-- question-colCount -->
-                <div class="form-group"
-                     *ngIf="model.pages[page].elements[question].type !== 'imageselector'">
+                <div class="form-group">
                     <label for="question-colCount"
                            i18n>Darstellung in Spalten</label>
                     <input type="number"

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { AlertsService } from '../../alerts/alerts.service';
 import { AlkisWfsService } from './alkis-wfs.service';
@@ -19,6 +19,8 @@ export class FlurstueckSearchComponent {
 
     public selected = false;
 
+    public loading = false;
+
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
 
     @Output() flurstueckChange = new EventEmitter<FeatureCollection>();
@@ -26,12 +28,12 @@ export class FlurstueckSearchComponent {
     @Output() selectGemarkungResult = new EventEmitter();
 
     @Input() address: string;
-    component: any;
 
     constructor(
         public alkisWfsService: AlkisWfsService,
         public alerts: AlertsService,
-        public gemarkungService: GemarkungWfsService
+        public gemarkungService: GemarkungWfsService,
+        private cdr: ChangeDetectorRef
     ) {
         this.fsk = {};
         this.selected = false;
@@ -43,6 +45,16 @@ export class FlurstueckSearchComponent {
     public reset() {
         this.fsk = {};
         this.selected = false;
+    }
+
+    /**
+     * onInput sets the loading status true if the input field contains characters
+     * @param event input event
+     */
+    public onInput(event: any) {
+        if (event.target.value) {
+            this.loading = true;
+        }
     }
 
     /**
@@ -118,7 +130,11 @@ export class FlurstueckSearchComponent {
                     })
                 )
             ),
-            map(result => result['features'])
+            map(result => {
+                this.loading = false;
+                this.cdr.detectChanges();
+                return result['features'];
+            })
         );
 
     /**
