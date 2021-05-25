@@ -144,7 +144,14 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      */
     it('should submit task', fakeAsync(() => {
         spyOn(component.formapi, 'createPublicTask').and.returnValue(Promise.resolve(getPublicTask));
-        component.submitTask('123', getPublicTask.task.content);
+        component.submitTask('123', {
+            result: getPublicTask.task.content,
+            options: {
+                showDataSaving: () => { },
+                showDataSavingClear: () => { },
+                showDataSavingError: () => { }
+            }
+        });
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('success', 'Speichern erfolgreich',
@@ -153,8 +160,14 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     it('should fail to submit task', fakeAsync(() => {
         spyOn(component.formapi, 'createPublicTask').and.returnValue(Promise.reject('Failed to submit task'));
-        component.submitTask('123',
-            { result: getPublicTask.task.content, options: { showDataSavingError: () => { } } });
+        component.submitTask('123', {
+            result: getPublicTask.task.content,
+            options: {
+                showDataSaving: () => { },
+                showDataSavingClear: () => { },
+                showDataSavingError: () => { }
+            }
+        });
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Speichern fehlgeschlagen',
@@ -166,7 +179,14 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
      */
     it('should submit data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.resolve(getPublicTask));
-        component.submit({ result: taskContent });
+        component.submit({
+            result: taskContent,
+            options: {
+                showDataSaving: () => { },
+                showDataSavingClear: () => { },
+                showDataSavingError: () => { }
+            }
+        });
         fixture.detectChanges();
         tick();
         expect(component.data.UnsavedChanges).toBeFalse();
@@ -177,7 +197,14 @@ describe('Fragebogen.Fillout.FilloutComponent', () => {
 
     it('should fail to submit data', fakeAsync(() => {
         spyOn(component.formapi, 'updatePublicTask').and.returnValue(Promise.reject('Failed to submit data'));
-        component.submit({ result: taskContent, options: { showDataSavingError: () => { } } });
+        component.submit({
+            result: taskContent,
+            options: {
+                showDataSaving: () => { },
+                showDataSavingClear: () => { },
+                showDataSavingError: () => { }
+            }
+        });
         fixture.detectChanges();
         tick();
         expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);

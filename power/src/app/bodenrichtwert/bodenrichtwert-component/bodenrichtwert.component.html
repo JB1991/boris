@@ -217,9 +217,9 @@
             </div>
             <div *ngIf="flurstueck"
                  class="text-center">
-                <p class="p-1 m-0 small"
-                   i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich auf den
-                    aktuell ausgewählten Standort und auf den Stichtag {{ getStichtag() | date }}.
+                <p class="p-1 m-0 small">
+                    <span i18n>Die aufgeführten Informationen zum Flurstück beziehen sich lediglich auf den
+                        aktuell ausgewählten Standort und auf den Stichtag</span> {{ getStichtag() | date }}.
                 </p>
             </div>
             <div *ngIf="address && (address.properties.bundesland == 'Niedersachsen' || address.properties.bundesland == 'Bremen') && !features?.features.length"

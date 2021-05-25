@@ -226,6 +226,12 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         expect(component.alerts.NewAlert).toHaveBeenCalledWith('danger', 'Ungültige Einstellungen',
             'Bitte geben Sie einen Titel an.');
     });
+
+    it('should escape input', () => {
+        component.title = '<br>';
+        component.escapeTitle();
+        expect(component.title).toEqual('&lt;br&gt;');
+    });
 });
 
 @Component({

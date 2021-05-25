@@ -119,9 +119,12 @@ export class FilloutComponent implements AfterViewInit {
         if (!result) {
             throw new Error('no data provided');
         }
+        result.options.showDataSaving($localize`Die Ergebnisse werden auf dem Server gespeichert, dies kann einige Sekunden dauern.`);
+        this.submitted = true;
 
         this.formapi.createPublicTask(id, result.result).then(() => {
             this.setUnsavedChanges(false);
+            result.options.showDataSavingClear();
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
@@ -166,11 +169,13 @@ export class FilloutComponent implements AfterViewInit {
         if (!result) {
             throw new Error('no data provided');
         }
+        result.options.showDataSaving($localize`Die Ergebnisse werden auf dem Server gespeichert, dies kann einige Sekunden dauern.`);
         this.submitted = true;
 
         // complete
         this.formapi.updatePublicTask(this.pin, result.result, true).then(() => {
             this.setUnsavedChanges(false);
+            result.options.showDataSavingClear();
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task

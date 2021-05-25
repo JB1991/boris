@@ -10,18 +10,16 @@
     <div *ngIf="mode === 'gmb'"
          class="alert alert-info alert-gmb"
          role="alert">
-        <span i18n>
-            Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie
-        </span> <a [routerLink]="['/landesgrundstuecksmarktberichte']"
+        <span i18n>Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie</span>&nbsp;<a
+           [routerLink]="['/landesgrundstuecksmarktberichte']"
            i18n>hier</a>.
     </div>
 
     <div *ngIf="mode === 'lmb'"
          class="alert alert-info alert-gmb"
          role="alert">
-        <span i18n>
-            Die Grund&shy;stücks&shy;markt&shy;berichte finden sie
-        </span> <a [routerLink]="['/grundstuecksmarktberichte']"
+        <span i18n>Die Grund&shy;stücks&shy;markt&shy;berichte finden sie</span>&nbsp;<a
+           [routerLink]="['/grundstuecksmarktberichte']"
            i18n>hier</a>.
     </div>
 
@@ -70,7 +68,8 @@
                 <h5 class="col-md-12 mb-0"
                     role="rowheader">
                     <b *ngIf="rd.name !== 'Niedersachsen'"
-                       i18n>Gutachterausschuss </b>
+                       class="mr-1"
+                       i18n>Gutachterausschuss</b>
                     <b>{{rd.name}}</b>
                 </h5>
             </div>

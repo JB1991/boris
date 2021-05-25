@@ -34,6 +34,26 @@ init:npm:
     - staging
     - production
 
+init:npm-branches:
+  stage: init
+  image: node:lts-alpine
+  interruptible: true
+  cache:
+    <<: *global_cache
+  script:
+    - cd power
+    - npm ci
+    - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json -p es2015
+  only:
+    - branches
+  except:
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
+  when: manual
+
 init:helm-dev:
   stage: init
   interruptible: true
@@ -331,6 +351,36 @@ test:kube-linter-production:
     - production
   allow_failure: true
 
+build:branches:
+  stage: build
+  image: node:lts-alpine
+  interruptible: true
+  needs:
+    - job: init:npm-branches
+      artifacts: false
+  dependencies: []
+  cache:
+    <<: *global_cache
+    policy: pull
+  script:
+    - cd power
+    - node_modules/@angular/cli/bin/ng run power:prerender:staging
+  artifacts:
+    name: "compiled dist"
+    expire_in: 2 days
+    public: false
+    paths:
+      - power/dist/power/browser
+  only:
+    - branches
+  except:
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
+  when: manual
+
 build:
   stage: build
   image: node:lts-alpine
@@ -379,6 +429,28 @@ build:production:
       - power/dist/power/browser
   only:
     - production
+
+package:branches:
+  stage: package
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [ "" ]
+  interruptible: false
+  dependencies:
+    - build:branches
+  cache: {}
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
+  only:
+    - branches
+  except:
+    - merge_requests
+    - tags
+    - dev
+    - staging
+    - production
+  when: manual
 
 package:development:
   stage: package

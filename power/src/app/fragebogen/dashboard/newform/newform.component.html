@@ -6,6 +6,7 @@
         <input type="text"
                class="form-control"
                [(ngModel)]="title"
+               (input)="escapeTitle()"
                [class.is-invalid]="!title"
                id="formtitle"
                name="formtitle"

@@ -13,20 +13,20 @@ import { FlurstueckSearchComponent } from './flurstueck-search/flurstueck-search
 export class AdvancedSearchComponent {
 
     @ViewChild('advancedSearchModal') public modal: ModalminiComponent;
-
     @ViewChild('flurstueckForm') public flurstueckForm: FlurstueckSearchComponent;
-
     @ViewChild('bodenrichtwertForm') public bodenrichtwertForm: BodenrichwertnummerSearchComponent;
 
     @Output() flurstueckChange = new EventEmitter<FeatureCollection>();
-
     @Output() bodenrichtwertChange = new EventEmitter<FeatureCollection>();
 
-    public title = $localize`Erweiterte Suche`;
+    // public title = $localize`Erweiterte Suche`;
 
+    @Input() title = $localize`Erweiterte Suche`;
     @Input() stichtag: string;
-
     @Input() teilmarkt: Teilmarkt;
+
+    @Input() flurstueckSearchActive = true;
+    @Input() bodenrichtwertSearchActive = true;
 
     constructor() { }
 
@@ -57,7 +57,11 @@ export class AdvancedSearchComponent {
      * Reset flurstueck-search and bodenrichtwertnummern-search onClose
      */
     public onClose() {
-        this.flurstueckForm.reset();
-        this.bodenrichtwertForm.reset();
+        if (this.flurstueckSearchActive) {
+            this.flurstueckForm.reset();
+        }
+        if (this.bodenrichtwertSearchActive) {
+            this.bodenrichtwertForm.reset();
+        }
     }
 }
