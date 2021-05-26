@@ -128,7 +128,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public isBrowser = true;
 
-    /** 
+    /**
      * NDS Bounds MapBox Type
      */
     public bounds = new LngLatBounds([
@@ -203,22 +203,21 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /* istanbul ignore next */
     ngOnInit() {
+        // eslint-disable-next-line complexity
         this.route.queryParams.subscribe(params => {
             // lat and lat
-            if (params['lat'] && params['lng']) {
+            if (Number(params['lat']) && Number(params['lng'])) {
                 const lat = Number(params['lat']);
                 const lng = Number(params['lng']);
-                if (lat && lng) {
-                    const latLngParam = new LngLat(lng, lat);
-                    if (latLngParam && this.bounds.contains(latLngParam)) {
-                        this.latLng = latLngParam;
-                        // coordinate exists but no zoom
-                        if (!params['zoom'] && params['teilmarkt'] === 'Bauland') {
-                            this.zoom = this.standardBaulandZoom;
-                        } else {
-                            this.zoom = this.standardLandZoom;
-                        }
-                    }
+                const latLngParam = new LngLat(lng, lat);
+                if (latLngParam && this.bounds.contains(latLngParam)) {
+                    this.latLng = latLngParam;
+                }
+                // coordinate exists but no zoom
+                if (this.latLng && !params['zoom'] && params['teilmarkt'] === 'Bauland') {
+                    this.zoom = this.standardBaulandZoom;
+                } else {
+                    this.zoom = this.standardLandZoom;
                 }
             }
 
@@ -239,50 +238,40 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
 
             // zoom
-            if (params['zoom']) {
+            if (Number(params['zoom'])) {
                 const zoomParam = Number(params['zoom']);
-                if (zoomParam) {
-                    if (zoomParam >= 18) {
-                        this.zoom = 18;
-                    } else if (zoomParam <= 5) {
-                        this.zoom = 5;
-                    } else {
-                        this.zoom = zoomParam;
-                    }
+                if (zoomParam >= 18) {
+                    this.zoom = 18;
+                } else if (zoomParam <= 5) {
+                    this.zoom = 5;
                 } else {
-                    this.zoom = 7;
+                    this.zoom = zoomParam;
                 }
+            } else {
+                this.zoom = 7;
             }
 
             // rotation
-            if (params['pitch']) {
+            if (Number(params['pitch'])) {
                 const pitchParam = Number(params['pitch']);
-                if (pitchParam) {
-                    if (pitchParam >= 60) {
-                        this.pitch = 60;
-                    } else if (pitchParam <= 0) {
-                        this.pitch = 0;
-                    } else {
-                        this.pitch = pitchParam;
-                    }
-                } else {
+                if (pitchParam >= 60) {
+                    this.pitch = 60;
+                } else if (pitchParam <= 0) {
                     this.pitch = 0;
+                } else {
+                    this.pitch = pitchParam;
                 }
             }
 
             // bearing
-            if (params['bearing']) {
+            if (Number(params['bearing'])) {
                 const bearingParam = Number(params['bearing']);
-                if (bearingParam) {
-                    if (bearingParam >= 180) {
-                        this.bearing = 180;
-                    } else if (bearingParam <= -180) {
-                        this.bearing = -180;
-                    } else {
-                        this.bearing = bearingParam;
-                    }
+                if (bearingParam >= 180) {
+                    this.bearing = 180;
+                } else if (bearingParam <= -180) {
+                    this.bearing = -180;
                 } else {
-                    this.bearing = 0;
+                    this.bearing = bearingParam;
                 }
             }
             this.cdr.detectChanges();
