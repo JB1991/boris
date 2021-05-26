@@ -37,45 +37,12 @@
              *ngIf="config.modules.length > 0">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"
-                    *ngIf="config.modules.includes('bodenrichtwerte') && !config.modules.includes('bodenwertkalkulator')">
+                    *ngIf="config.modules.includes('bodenrichtwerte')">
                     <a class="nav-link"
                        (click)="isCollapsed = true"
                        [routerLink]="['/bodenrichtwerte']"
                        routerLinkActive="active"
                        i18n>Bodenrichtwerte</a>
-                </li>
-
-                <li class="nav-item dropdown"
-                    *ngIf="config.modules.includes('bodenwertkalkulator')"
-                    (click)="isCollapsedImmo = true; isCollapsedAcc = true;">
-                    <a class="nav-link dropdown-toggle clickable"
-                       href=""
-                       id="navbarBRW"
-                       role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       (click)="$event.preventDefault(); isCollapsedBRW = !isCollapsedBRW"
-                       i18n>Bodenwerte</a>
-
-                    <div class="dropdown-menu dropdown-menu-right"
-                         aria-labelledby="navbarBRW"
-                         [collapse]="isCollapsedBRW">
-                        <a class="dropdown-item"
-                           *ngIf="config.modules.includes('bodenrichtwerte')"
-                           (click)="isCollapsed = true; isCollapsedBRW = true"
-                           [routerLink]="['/bodenrichtwerte']"
-                           routerLinkActive="active"
-                           i18n>Bodenrichtwerte</a>
-                        <div class="dropdown-divider"
-                             *ngIf="config.modules.includes('bodenrichtwerte')"></div>
-
-                        <a class="dropdown-item"
-                           *ngIf="config.modules.includes('bodenwertkalkulator')"
-                           (click)="isCollapsed = true; isCollapsedBRW = true"
-                           [routerLink]="['/bodenwertkalkulator']"
-                           routerLinkActive="active"
-                           i18n>Bodenwertkalkulator</a>
-                    </div>
                 </li>
 
                 <li class="nav-item dropdown"
@@ -382,8 +349,8 @@
                     </ng-container>
                 </div>
                 <div class="col-12 col-md-12 col-lg-4 p-1 m-0">
-                    <!-- Only for Modules Bodenrichtwerte/Bodenwertkalkulator -->
-                    <div *ngIf="router.url.includes('/bodenrichtwerte') || router.url.includes('/bodenwertkalkulator')">
+                    <!-- Only for Modules Bodenrichtwerte -->
+                    <div *ngIf="router.url.includes('/bodenrichtwerte')">
                         <div class="h5"
                              id="borisInfo"
                              i18n>Bodenrichtwerte</div>

@@ -23,7 +23,6 @@ export const environment = {
     config: {
         modules: [
             'bodenrichtwerte',
-            'bodenwertkalkulator',
             'immobilienpreisindex',
             'immobilienpreiskalkulator',
             'grundstuecksmarktberichte',

@@ -45,7 +45,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
         fixture.detectChanges();
 
         const map = new Map({
-            container: 'map',
+            container: component.mapContainer.nativeElement,
         });
         component.map = map;
         spyOn(component, 'loadMap').and.callFake(() => {
@@ -55,7 +55,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             component.map.addSource('geoserver_nds_fst', component.ndsFstSource);
             component.map.addSource('geoserver_br_verg', component.ndsVergSource);
         });
-        component.loadMap(map);
+        component.loadMap();
         component.marker = new Marker();
         component.marker.setLngLat([lng, lat]).addTo(component.map);
         component.latLng = new LngLat(lng, lat);

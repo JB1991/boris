@@ -23,12 +23,6 @@ const routes: Routes = [
         canActivate: [ModuleGuard]
     },
     {
-        path: 'bodenwertkalkulator',
-        loadChildren: () => import('./bodenwert-kalkulator/bodenwert-kalkulator.module')
-            .then(m => m.BodenwertKalkulatorModule),
-        canActivate: [ModuleGuard]
-    },
-    {
         path: 'forms',
         loadChildren: () => import('./fragebogen/fragebogen.module')
             .then(m => m.FragebogenModule),

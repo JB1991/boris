@@ -25,7 +25,7 @@ describe('BodenrichtwertKartePitchControl', () => {
         fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
         componentMap = fixture.componentInstance;
         const map = new Map({
-            container: 'map',
+            container: componentMap.mapContainer.nativeElement,
         });
         componentMap.map = map;
         componentMap.map.addSource('openmaptiles', {

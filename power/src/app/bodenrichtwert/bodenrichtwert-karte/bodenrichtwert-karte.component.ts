@@ -124,7 +124,7 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
 export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
     @ViewChild('map')
-    private mapContainer: ElementRef<HTMLElement>;
+    public mapContainer: ElementRef<HTMLElement>;
 
     // Maplibre GL Map Object
     public map: Map;
