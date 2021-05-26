@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { environment } from '@env/environment';
-import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point, VectorSource } from 'mapbox-gl';
+import { Layer, LngLat, LngLatBounds, MapboxGeoJSONFeature, Marker, Point, VectorSource } from 'maplibre-gl';
 
 @Component({
     selector: 'power-bodenwert-kalkulator',

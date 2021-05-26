@@ -9,7 +9,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SimpleChange } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
-import { LngLat } from 'mapbox-gl';
+import { LngLat } from 'maplibre-gl';
 
 describe('Bodenrichtwert.BodenrichtwertNavigation.BodenrichtwertNavigationComponent', () => {
     const feature: Feature = require('../../../testdata/bodenrichtwert/bodenrichtwert-karte-feature.json');

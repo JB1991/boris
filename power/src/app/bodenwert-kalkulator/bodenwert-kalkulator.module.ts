@@ -5,7 +5,6 @@ import { FlurstueckPipe } from './flurstueck-pipe.pipe';
 import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator/bodenwert-kalkulator.component';
 import { BodenwertKalkulatorRoutingModule } from './bodenwert-kalkulator-routing.module';
 
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
@@ -17,7 +16,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     imports: [
         BodenwertKalkulatorRoutingModule,
         CommonModule,
-        NgxMapboxGLModule,
         SharedModule,
         BsDropdownModule.forRoot(),
         CollapseModule.forRoot()

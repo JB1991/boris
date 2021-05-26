@@ -48,8 +48,7 @@
                         "allowedCommonJsDependencies": [
                             "echarts",
                             "hyphen",
-                            "showdown",
-                            "@mapbox/mapbox-gl-geocoder"
+                            "showdown"
                         ]
                     },
                     "configurations": {

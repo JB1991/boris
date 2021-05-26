@@ -188,7 +188,7 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 * Abhängigkeiten
   * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [BORIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/borisni-database-vboris2)
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
-  * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
+  * [Maplibre GL](https://www.npmjs.com/package/maplibre-gl)
   * [ECharts](https://www.npmjs.com/package/echarts)
   * [GeoJSON](https://www.npmjs.com/package/geojson)
 
@@ -204,7 +204,7 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 * Abhängigkeiten
   * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [ALKIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/alkis-database)
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
-  * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
+  * [Maplibre GL](https://www.npmjs.com/package/maplibre-gl)
 
 ### Fragebogenonline
 * Dynamisches erstellen von Fragebogen, welche online ausgefüllt werden können

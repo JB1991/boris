@@ -7,7 +7,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LngLat, LngLatBounds } from 'mapbox-gl';
+import { LngLat, LngLatBounds } from 'maplibre-gl';
 import { Feature, FeatureCollection } from 'geojson';
 import proj4 from 'proj4';
 
@@ -129,7 +129,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     public isBrowser = true;
 
     /**
-     * NDS Bounds MapBox Type
+     * NDS Bounds MapLibre Type
      */
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]

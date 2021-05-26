@@ -4,7 +4,6 @@ import { BodenrichtwertComponent } from './bodenrichtwert.component';
 import { BodenrichtwertKarteComponent } from '../bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertVerlaufComponent } from '../bodenrichtwert-verlauf/bodenrichtwert-verlauf.component';
 import { BodenrichtwertNavigationComponent } from '../bodenrichtwert-navigation/bodenrichtwert-navigation.component';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -12,7 +11,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FeatureCollection } from 'geojson';
-import { LngLat } from 'mapbox-gl';
+import { LngLat } from 'maplibre-gl';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -34,7 +33,6 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
                 BrowserAnimationsModule,
                 HttpClientTestingModule,
                 RouterModule.forRoot([]),
-                NgxMapboxGLModule,
                 SharedModule,
                 CollapseModule.forRoot(),
                 AlertModule.forRoot()

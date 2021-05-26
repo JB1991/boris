@@ -10,7 +10,7 @@ import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
-import { LngLat } from 'mapbox-gl';
+import { LngLat } from 'maplibre-gl';
 
 /* eslint-disable max-lines */
 @Component({

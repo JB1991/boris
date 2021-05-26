@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'maplibre-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
@@ -121,9 +121,12 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
     styleUrls: ['./bodenrichtwert-karte.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertKarteComponent implements OnChanges {
+export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
-    // Mapbox GL Map Object
+    @ViewChild('map')
+    private mapContainer: ElementRef<HTMLElement>;
+
+    // Maplibre GL Map Object
     public map: Map;
 
     // baseUrl
@@ -135,12 +138,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     // font
     // public font = 'Klokantech Noto Sans Regular';
 
-    // NDS Bounds MapBox Type
+    // NDS Bounds Maplibre Type
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
     ]);
 
-    // Mapbox GL Marker
+    // Maplibre GL Marker
     public marker: Marker = new Marker({
         color: '#c4153a',
         draggable: true
@@ -321,21 +324,239 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
     }
 
+    ngAfterViewInit() {
+        // create Maplibre object
+        this.map = new Map({
+            container: this.mapContainer.nativeElement,
+            style: this.MAP_STYLE_URL,
+            zoom: 7,
+            transformRequest: this.transformRequest,
+            bounds: this.bounds,
+            maxZoom: 18,
+            minZoom: 5,
+            trackResize: true
+        });
+
+        // add load handler
+        this.map.on('load', () => {
+            this.loadMap();
+        });
+    }
+
     /**
-     * loadMap initializes the Mapbox GL map object
+     * loadMap initializes the Maplibre GL map object
      * @param event map
      */
     /* istanbul ignore next */
-    public loadMap(event: Map) {
-        this.map = event;
+    public loadMap() {
+        this.map.addSource('ndsgeojson', { type: 'geojson', data: this.baseUrl + '/assets/boden/niedersachsen.geojson' });
+        this.map.addSource('baulandSource', { type: 'geojson', data: this.baulandData });
+        this.map.addSource('landwirtschaftSource', { type: 'geojson', data: this.landwirtschaftData });
 
         this.map.addSource('geoserver_br_br', this.bremenSource);
-
         this.map.addSource('geoserver_nds_br', this.ndsSource);
-
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
-
         this.map.addSource('geoserver_br_verg', this.ndsVergSource);
+
+        this.map.addLayer({
+            id: 'nds',
+            type: 'line',
+            maxzoom: 11,
+            source: 'ndsgeojson',
+            paint: {
+                'line-color': '#c4153a',
+                'line-width': {
+                    'stops': [[8, 1], [11, 1]]
+                },
+                'line-opacity': {
+                    'stops': [[8, 1], [11, 1]]
+                }
+            }
+        });
+        this.map.addLayer({
+            id: 'building-extrusion',
+            type: 'fill-extrusion',
+            minzoom: 15,
+            source: 'openmaptiles',
+            'source-layer': 'building',
+            paint: {
+                'fill-extrusion-color': 'rgb(219, 219, 218)',
+                'fill-extrusion-height': 0,
+                'fill-extrusion-opacity': 0.7,
+                'fill-extrusion-height-transition': {
+                    duration: 600,
+                    delay: 0
+                }
+            }
+        });
+        this.map.addLayer({
+            id: 'flurstuecke',
+            type: 'line',
+            minzoom: 15,
+            source: this.ndsFstSource,
+            'source-layer': 'ax_flurstueck_nds',
+            paint: {
+                'line-color': '#96999e',
+                'line-width': {
+                    'stops': [[15, 0], [16, 1], [18, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[15, 0.5]]
+                }
+            }
+        });
+        this.map.addLayer({
+            id: 'bauland',
+            type: 'line',
+            minzoom: 11,
+            source: this.ndsSource,
+            'source-layer': 'br_brzone_flat_with_display',
+            paint: {
+                'line-color': this.teilmarkt.hexColor,
+                'line-width': {
+                    'stops': [[11, 0], [13, 1], [18, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[11, 0], [13, 1]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]
+        });
+        this.map.addLayer({
+            id: 'sanierungsgebiet',
+            type: 'line',
+            minzoom: 11,
+            source: this.ndsVergSource,
+            'source-layer': 'br_verfahren',
+            paint: {
+                'line-color': '#0080FF',
+                'line-dasharray': [7, 5],
+                'line-width': {
+                    'stops': [[11, 0], [13, 2], [18, 4]]
+                },
+                'line-opacity': {
+                    'stops': [[11, 0], [13, .6]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['==', 'stag', this.stichtag]
+        });
+        this.map.addLayer({
+            id: 'landwirtschaft',
+            type: 'line',
+            minzoom: 10,
+            source: this.ndsSource,
+            'source-layer': 'br_brzone_flat_with_display',
+            paint: {
+                'line-color': this.teilmarkt.hexColor,
+                'line-width': {
+                    'stops': [[8, 0], [10, 1], [11, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[8, 0], [10, 1]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]
+        });
+        this.map.addLayer({
+            id: 'bauland_labels',
+            type: 'symbol',
+            source: 'baulandSource',
+            paint: {
+                'text-halo-color': '#fff',
+                'text-halo-width': 2,
+                'text-halo-blur': 2,
+                'text-color': this.teilmarkt.hexColor
+            },
+            layout: {
+                'visibility': 'visible',
+                'text-field': ['get', 'display'],
+                'text-max-width': 0,
+                'text-size': {
+                    'stops': [[12, 10], [15, 16]]
+                },
+                'text-font': ['Cantarell Regular']
+            }
+        });
+        this.map.addLayer({
+            id: 'landwirtschaft_labels',
+            type: 'symbol',
+            source: 'landwirtschaftSource',
+            paint: {
+                'text-halo-color': '#fff',
+                'text-halo-width': 2,
+                'text-halo-blur': 2,
+                'text-color': this.teilmarkt.hexColor
+            },
+            layout: {
+                'visibility': 'visible',
+                'text-field': ['get', 'display'],
+                'text-max-width': 0,
+                'text-size': {
+                    'stops': [[10, 20], [15, 24]]
+                },
+                'text-font': ['Cantarell Regular']
+            }
+        });
+
+
+        this.map.addLayer({
+            id: 'bauland_bremen',
+            type: 'line',
+            minzoom: 11,
+            source: this.bremenSource,
+            'source-layer': 'br_brzone_flat_bremen_with_display',
+            paint: {
+                'line-color': this.teilmarkt.hexColor,
+                'line-width': {
+                    'stops': [[11, 0], [13, 1], [18, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[11, 0], [13, 1]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]
+        });
+        this.map.addLayer({
+            id: 'sanierungsgebiet_bremen',
+            type: 'line',
+            minzoom: 11,
+            source: this.bremenSource,
+            'source-layer': 'br_brzone_flat_bremen_with_display',
+            paint: {
+                'line-color': '#0080FF',
+                'line-dasharray': [7, 5],
+                'line-width': {
+                    'stops': [[11, 0], [13, 2], [18, 4]]
+                },
+                'line-opacity': {
+                    'stops': [[11, 0], [13, .6]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'], ['==', 'stag', this.stichtag]]
+        });
+        this.map.addLayer({
+            id: 'landwirtschaft_bremen',
+            type: 'line',
+            minzoom: 10,
+            source: this.bremenSource,
+            'source-layer': 'br_brzone_flat_bremen_with_display',
+            paint: {
+                'line-color': this.teilmarkt.hexColor,
+                'line-width': {
+                    'stops': [[8, 0], [10, 1], [11, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[8, 0], [10, 1]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]
+        });
 
         // add navigation control
         const navControl = new NavigationControl({
@@ -364,6 +585,23 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             this.marker.setLngLat(this.latLng).addTo(this.map);
             this.flyTo();
         }
+
+        // add handler
+        this.map.on('click', (event) => {
+            this.onMapClickEvent(event);
+        });
+        this.map.on('moveend', () => {
+            this.onMoveEnd();
+        });
+        this.map.on('rotateend', () => {
+            this.onRotate();
+        });
+        this.map.on('zoomend', () => {
+            this.onZoomEnd();
+        });
+        this.map.on('pitchend', () => {
+            this.onPitchEnd();
+        });
     }
 
     /**
@@ -490,7 +728,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
                 this.landwirtschaftData.features = [];
                 const source = this.map.getSource('landwirtschaftSource');
-                if (source.type === 'geojson') {
+                if (source && source.type === 'geojson') {
                     source.setData(this.landwirtschaftData);
                 }
 
@@ -499,7 +737,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
                 this.baulandData.features = [];
                 const source = this.map.getSource('baulandSource');
-                if (source.type === 'geojson') {
+                if (source && source.type === 'geojson') {
                     source.setData(this.baulandData);
                 };
 

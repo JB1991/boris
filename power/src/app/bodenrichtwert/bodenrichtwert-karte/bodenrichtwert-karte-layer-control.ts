@@ -1,4 +1,4 @@
-import { Map } from 'mapbox-gl';
+import { Map } from 'maplibre-gl';
 import { environment } from '@env/environment';
 
 export default class BodenrichtwertKarteLayerControl {

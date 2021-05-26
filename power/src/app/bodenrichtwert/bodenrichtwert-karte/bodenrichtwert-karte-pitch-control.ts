@@ -1,4 +1,4 @@
-import { Map, Marker } from 'mapbox-gl';
+import { Map, Marker } from 'maplibre-gl';
 
 export default class BodenrichtwertKartePitchControl {
     public map: Map;

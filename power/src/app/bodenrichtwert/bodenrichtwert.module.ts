@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -63,7 +62,6 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
     imports: [
         BodenrichtwertRoutingModule,
         CommonModule,
-        NgxMapboxGLModule,
         NgxEchartsModule.forRoot({ echarts: echarts }),
         SharedModule,
         BsDropdownModule.forRoot(),

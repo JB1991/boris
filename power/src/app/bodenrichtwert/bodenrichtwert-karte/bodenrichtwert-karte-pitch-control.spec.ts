@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Map, Marker } from 'mapbox-gl';
+import { Map, Marker } from 'maplibre-gl';
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
 import BodenrichtwertKartePitchControl from './bodenrichtwert-karte-pitch-control';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 describe('BodenrichtwertKartePitchControl', () => {
 
@@ -14,9 +13,8 @@ describe('BodenrichtwertKartePitchControl', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [BodenrichtwertKarteComponent],
-            imports: [
-                NgxMapboxGLModule,
-            ], providers: [
+            imports: [],
+            providers: [
                 HTMLButtonElement,
                 HTMLDivElement
             ]

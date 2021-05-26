@@ -5,10 +5,9 @@ import { SimpleChange } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte.component';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { LngLat, Map, MapMouseEvent, Marker} from 'mapbox-gl';
+import { LngLat, Map, MapMouseEvent, Marker } from 'maplibre-gl';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Feature } from 'geojson';
 
@@ -28,7 +27,6 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
                 CommonModule,
                 BrowserAnimationsModule,
                 HttpClientTestingModule,
-                NgxMapboxGLModule,
                 BsDropdownModule.forRoot(),
                 SharedModule,
                 RouterModule.forRoot([]),
@@ -176,8 +174,8 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
     });
 
     it('onResetMap should reset the map', () => {
-        component.map.addSource('openmaptiles', {'type': 'geojson'});
-        component.map.addLayer({id: 'building-extrusion', type: 'fill-extrusion', source: 'openmaptiles'});
+        component.map.addSource('openmaptiles', { 'type': 'geojson' });
+        component.map.addLayer({ id: 'building-extrusion', type: 'fill-extrusion', source: 'openmaptiles' });
         spyOn(component.map, 'fitBounds');
         spyOn(component.resetMapFiredChange, 'emit');
         component.onResetMap();

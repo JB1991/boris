@@ -2,10 +2,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BodenwertKalkulatorComponent } from './bodenwert-kalkulator.component';
 import { CommonModule } from '@angular/common';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { SharedModule } from '@app/shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Map } from 'mapbox-gl';
+import { Map } from 'maplibre-gl';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlurstueckPipe } from '../flurstueck-pipe.pipe';
@@ -32,7 +31,6 @@ describe('BodenwertKalkulator.BodenwertKalkulator.BodenwertKalkulatorComponent',
                 CommonModule,
                 BrowserAnimationsModule,
                 HttpClientTestingModule,
-                NgxMapboxGLModule,
                 SharedModule,
                 CollapseModule
             ],

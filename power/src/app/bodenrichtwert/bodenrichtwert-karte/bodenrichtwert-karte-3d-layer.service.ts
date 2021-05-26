@@ -1,9 +1,8 @@
 /* istanbul ignore file */
 import { Injectable } from '@angular/core';
 import { SimpleChange } from '@angular/core';
-import { Properties } from '@turf/turf';
 import { FeatureCollection } from 'geojson';
-import { FillExtrusionLayer, Map, SymbolLayer } from 'mapbox-gl';
+import { FillExtrusionLayer, Map } from 'maplibre-gl';
 
 export interface ExtrusionLayerOptions {
     extrusionHeight: number;
