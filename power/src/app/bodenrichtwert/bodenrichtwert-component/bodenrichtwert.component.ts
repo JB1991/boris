@@ -7,7 +7,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LngLat } from 'mapbox-gl';
+import { LngLat, LngLatBounds } from 'mapbox-gl';
 import { Feature, FeatureCollection } from 'geojson';
 import proj4 from 'proj4';
 
@@ -128,6 +128,12 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      */
     public isBrowser = true;
 
+    /** 
+     * NDS Bounds MapBox Type
+     */
+    public bounds = new LngLatBounds([
+        [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
+    ]);
     /**
      * Possible selections of Stichtage
      */
@@ -200,39 +206,84 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.route.queryParams.subscribe(params => {
             // lat and lat
             if (params['lat'] && params['lng']) {
-                this.latLng = new LngLat(params['lng'], params['lat']);
-                // coordinate exists but no zoom
-                if (!params['zoom'] && params['teilmarkt'] === 'Bauland') {
-                    this.zoom = this.standardBaulandZoom;
-                } else {
-                    this.zoom = this.standardLandZoom;
+                const lat = Number(params['lat']);
+                const lng = Number(params['lng']);
+                if (lat && lng) {
+                    const latLngParam = new LngLat(lng, lat);
+                    if (latLngParam && this.bounds.contains(latLngParam)) {
+                        this.latLng = latLngParam;
+                        // coordinate exists but no zoom
+                        if (!params['zoom'] && params['teilmarkt'] === 'Bauland') {
+                            this.zoom = this.standardBaulandZoom;
+                        } else {
+                            this.zoom = this.standardLandZoom;
+                        }
+                    }
                 }
             }
 
             // teilmarkt
             if (params['teilmarkt']) {
                 const filteredTeilmarkt = this.TEILMAERKTE.filter((res: Teilmarkt) => res.text === params['teilmarkt']);
-                this.teilmarkt = filteredTeilmarkt[0];
+                if (filteredTeilmarkt.length) {
+                    this.teilmarkt = filteredTeilmarkt[0];
+                }
             }
 
             // stichtag
             if (params['stichtag']) {
-                this.stichtag = params['stichtag'];
+                const stagParam = params['stichtag'];
+                if (this.STICHTAGE.includes(stagParam)) {
+                    this.stichtag = stagParam;
+                }
             }
 
             // zoom
             if (params['zoom']) {
-                this.zoom = Number(params['zoom']);
+                const zoomParam = Number(params['zoom']);
+                if (zoomParam) {
+                    if (zoomParam >= 18) {
+                        this.zoom = 18;
+                    } else if (zoomParam <= 5) {
+                        this.zoom = 5;
+                    } else {
+                        this.zoom = zoomParam;
+                    }
+                } else {
+                    this.zoom = 7;
+                }
             }
 
             // rotation
             if (params['pitch']) {
-                this.pitch = Number(params['pitch']);
+                const pitchParam = Number(params['pitch']);
+                if (pitchParam) {
+                    if (pitchParam >= 60) {
+                        this.pitch = 60;
+                    } else if (pitchParam <= 0) {
+                        this.pitch = 0;
+                    } else {
+                        this.pitch = pitchParam;
+                    }
+                } else {
+                    this.pitch = 0;
+                }
             }
 
             // bearing
             if (params['bearing']) {
-                this.bearing = Number(params['bearing']);
+                const bearingParam = Number(params['bearing']);
+                if (bearingParam) {
+                    if (bearingParam >= 180) {
+                        this.bearing = 180;
+                    } else if (bearingParam <= -180) {
+                        this.bearing = -180;
+                    } else {
+                        this.bearing = bearingParam;
+                    }
+                } else {
+                    this.bearing = 0;
+                }
             }
             this.cdr.detectChanges();
             this.changeURL();
