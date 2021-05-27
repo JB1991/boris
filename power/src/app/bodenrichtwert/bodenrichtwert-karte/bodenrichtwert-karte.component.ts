@@ -559,8 +559,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         });
 
         // add scale
-        var scale = new ScaleControl({
-            maxWidth: 80,
+        const scale = new ScaleControl({
             unit: 'metric'
         });
         this.map.addControl(scale, 'bottom-left');
