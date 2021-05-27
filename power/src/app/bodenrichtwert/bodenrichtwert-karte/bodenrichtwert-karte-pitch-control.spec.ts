@@ -24,7 +24,7 @@ describe('BodenrichtwertKartePitchControl', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
         componentMap = fixture.componentInstance;
-        /**
+        /*
         const map = new Map({
             container: componentMap.mapContainer.nativeElement,
         });
@@ -49,7 +49,7 @@ describe('BodenrichtwertKartePitchControl', () => {
         */
     });
 
-    /**
+    /*
     afterEach(() => {
         // Clean up and release all internal resources associated with this map
         componentMap.map.remove();
@@ -65,7 +65,8 @@ describe('BodenrichtwertKartePitchControl', () => {
 
     it('onAdd should create a button and icon html element and add these to the map', () => {
         const container = component.onAdd(component.map);
-        expect(container.innerHTML).toContain('<button id="3D" class="btn" type="button" title="3D aktivieren/deaktivieren">');
+        expect(container.innerHTML)
+        .toContain('<button id="3D" class="btn" type="button" title="3D aktivieren/deaktivieren">');
         expect(container.innerHTML).toContain('<i class="bi bi-badge-3d">');
 
         componentMap.map.addControl(component);
