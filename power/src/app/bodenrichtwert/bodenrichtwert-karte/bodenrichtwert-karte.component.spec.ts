@@ -42,6 +42,7 @@ describe('Bodenrichtwert.BodenrichtwertKarte.BodenrichtwertkarteComponent', () =
             'text': '',
             'hexColor': ''
         };
+        spyOn(component, 'ngAfterViewInit');
         fixture.detectChanges();
 
         const map = new Map({
