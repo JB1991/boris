@@ -24,6 +24,7 @@ describe('BodenrichtwertKartePitchControl', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(BodenrichtwertKarteComponent);
         componentMap = fixture.componentInstance;
+        /**
         const map = new Map({
             container: componentMap.mapContainer.nativeElement,
         });
@@ -45,8 +46,10 @@ describe('BodenrichtwertKartePitchControl', () => {
         componentMap.map.addLayer({ id: 'building-extrusion', type: 'fill-extrusion', source: 'openmaptiles' });
         componentMap.map.setZoom(10);
         component.map = componentMap.map;
+        */
     });
 
+    /**
     afterEach(() => {
         // Clean up and release all internal resources associated with this map
         componentMap.map.remove();
@@ -107,4 +110,5 @@ describe('BodenrichtwertKartePitchControl', () => {
         component.onRemove();
         expect(component.map).toBeUndefined();
     });
+     */
 });

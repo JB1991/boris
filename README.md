@@ -192,20 +192,6 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
   * [ECharts](https://www.npmjs.com/package/echarts)
   * [GeoJSON](https://www.npmjs.com/package/geojson)
 
-### Bodenwerte
-* Visualisierung von Bodenwerten (Flurstück)
-* Funktionen
-  * Adresssuche, Reverse Geocoding
-  * Geolocation Positionsbestimmung
-  * 3D-Gebäude
-  * Selektion und Addition von Flurstücken
-* Benötigt Datensatz mit Flurstücken und Werten
-* Derzeit mit offiziellen LGLN Testdaten + zufällig generierten Werten (100.000€ - 1.000.000€)
-* Abhängigkeiten
-  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [ALKIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/alkis-database)
-  * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
-  * [Maplibre GL](https://www.npmjs.com/package/maplibre-gl)
-
 ### Fragebogenonline
 * Dynamisches erstellen von Fragebogen, welche online ausgefüllt werden können
 * Funktionen
@@ -243,7 +229,7 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 * Funktionen
   * Adresssuche (Von Adresse zu Geokoordinaten)
   * Reverse Geocoding (Von Geokoordinaten zu Adresse)
-* Verwendung in den Modulen Bodenrichtwerte und Bodenwerte
+* Verwendung in dem Modul Bodenrichtwerte
 * Weiterleitung der Anfragen per nginx Reverse Proxy an den BKG Geocoder (siehe Abhängigkeiten)
 * Abhängigkeiten:
   * [BKG GeoCoder](https://www.bkg.bund.de/SharedDocs/Produktinformationen/BKG/DE/P-2015/150119-Geokodierung.html)
