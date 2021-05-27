@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'maplibre-gl';
+import { GeolocateControl, LngLat, LngLatBounds, Map, ScaleControl, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'maplibre-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
@@ -557,6 +557,13 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             layout: this.teilmarkt.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
             filter: ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]
         });
+
+        // add scale
+        var scale = new ScaleControl({
+            maxWidth: 80,
+            unit: 'metric'
+        });
+        this.map.addControl(scale, 'bottom-left');
 
         // add navigation control
         const navControl = new NavigationControl({
