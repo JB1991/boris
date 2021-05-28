@@ -88,7 +88,7 @@
                                     <!-- - no address but features -->
                                     <h6 *ngIf="!address && features?.features.length "
                                         class="px-1 px-lg-2 pt-2 m-0 text-center">
-                                        {{ features.features[0].properties.brzname}}
+                                        {{ features.features[0].properties.brzname | umlautCorrection }}
                                     </h6>
                                     <!-- address and features -->
                                     <h6 *ngIf="address"
