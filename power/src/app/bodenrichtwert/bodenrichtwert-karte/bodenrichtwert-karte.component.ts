@@ -745,10 +745,10 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 const source = this.map.getSource('baulandSource');
                 if (source && source.type === 'geojson') {
                     source.setData(this.baulandData);
-                };
+                }
 
                 this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
-            };
+            }
         }
     }
 
@@ -811,7 +811,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
             if (this.doNotDisplay.includes(f.properties['objektidentifikator'])) {
                 return;
-            };
+            }
 
             let p: Polygon;
 
@@ -887,7 +887,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                         properties: featureMap[key][0].properties,
                     });
                     return;
-                };
+                }
                 bufferPolygon(i, buffer).sort((a, b) => turf.area(b) - turf.area(a)).slice(0, 2).forEach(b => {
                     const point = polygonToPoint(b);
                     if (point && point.coordinates) {

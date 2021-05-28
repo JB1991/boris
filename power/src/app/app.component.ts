@@ -87,6 +87,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 this.showOfflineNotice = false;
             }, error => {
                 // failed to load
+                console.error(error);
                 console.error('could not load version.json');
                 this.appVersion = { version: 'cache', branch: 'offline' };
                 environment.config.version = this.appVersion;

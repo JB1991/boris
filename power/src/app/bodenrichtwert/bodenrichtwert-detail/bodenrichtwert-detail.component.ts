@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { Feature, FeatureCollection } from 'geojson';
-import { GagKontaktdatenPipe } from '../pipes/gag-kontaktdaten.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-detail',
@@ -8,7 +7,7 @@ import { GagKontaktdatenPipe } from '../pipes/gag-kontaktdaten.pipe';
     styleUrls: ['./bodenrichtwert-detail.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
+export class BodenrichtwertDetailComponent implements OnChanges {
 
     brzStrings = {
         'brz': $localize`Bodenrichtwertzone`,
@@ -43,9 +42,6 @@ export class BodenrichtwertDetailComponent implements OnInit, OnChanges {
     @Input() features: FeatureCollection;
 
     public filteredFeatures: Array<Feature>;
-
-    ngOnInit() {
-    }
 
     /* istanbul ignore next */
     ngOnChanges(changes: SimpleChanges): void {

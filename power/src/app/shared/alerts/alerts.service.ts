@@ -19,7 +19,7 @@ export class AlertsService {
      * @param timeout Timeout in milliseconds
      */
     public NewAlert(type: 'success' | 'danger' | 'info' | 'warning',
-        title: string, text: string, timeout: number = 5000) {
+        title: string, text: string, timeout = 5000) {
         // check if type is set
         if (!type) {
             throw new Error('Type is required');

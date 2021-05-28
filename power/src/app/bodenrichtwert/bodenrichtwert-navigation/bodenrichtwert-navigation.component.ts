@@ -123,7 +123,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
                 }
             );
-    };
+    }
 
     /**
      * getFlurstueckFromLatLng subscribes the alkisWfsService to update the flurstueck for the current location
@@ -138,7 +138,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
             }
         );
-    };
+    }
 
     /**
      * onStichtagChange changes the stichtag to another stichtag and

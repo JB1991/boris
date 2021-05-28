@@ -335,7 +335,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
         return series;
-    };
+    }
 
     /**
      * getVergOfSeries extracts the Verfahrensgrund (San, Entw, Sost, StUb) if existing from the series

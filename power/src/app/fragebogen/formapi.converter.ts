@@ -52,7 +52,7 @@ export function FormFilterToString(f: FormFilter): string {
         return 'created-' + TimeFilterToString(f['created']);
     } else {
         return 'updated-' + TimeFilterToString(f['updated']);
-    };
+    }
 }
 
 /* eslint-disable-next-line complexity */
