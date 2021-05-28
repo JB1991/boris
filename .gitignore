@@ -9,8 +9,10 @@ power/dist/
 power/documentation/
 power/output/
 power/debug.log
+chart/power/charts
 /tmp
 /out-tsc
+*.lock
 
 # dependencies
 power/node_modules/
