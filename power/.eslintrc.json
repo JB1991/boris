@@ -8,6 +8,7 @@
       "files": [
         "*.ts"
       ],
+      "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": [
           "src/tsconfig.app.json",
@@ -19,10 +20,11 @@
         "scanjs-rules"
       ],
       "extends": [
-        "plugin:@angular-eslint/ng-cli-compat",
-        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:no-unsanitized/DOM"
+        "plugin:no-unsanitized/DOM",
+        "plugin:jsdoc/recommended"
       ],
       "rules": {
         "arrow-body-style": "error",
@@ -41,8 +43,6 @@
             "SwitchCase": 1
           }
         ],
-        "jsdoc/newline-after-description": "off",
-        "jsdoc/no-types": "off",
         "max-len": [
           "error",
           {
@@ -64,7 +64,6 @@
           "error",
           "never"
         ],
-        "prefer-arrow/prefer-arrow-functions": "off",
         "quotes": [
           "error",
           "single"
@@ -75,6 +74,8 @@
           "error",
           "always"
         ],
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-var-requires": "off",
         "@angular-eslint/component-selector": "off",
         "@angular-eslint/directive-selector": "off",
         "@typescript-eslint/consistent-type-assertions": "error",
@@ -122,6 +123,7 @@
       "files": [
         "*.html"
       ],
+      "parser": "@angular-eslint/template-parser",
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
