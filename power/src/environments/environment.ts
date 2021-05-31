@@ -35,6 +35,11 @@ export const environment = {
             'logout'
         ],
         localized: true,
+        languages: [
+            { short: 'de', name: 'Deutsch', url: '' },
+            { short: 'de-simple', name: 'Einfache Sprache', url: '/de-simple' },
+            { short: 'en', name: 'English', url: '/en' },
+        ],
         version: {
             version: 'local',
             branch: 'offline'
