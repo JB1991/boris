@@ -63,10 +63,12 @@
     <div *ngFor="let rd of berichteFiltered"
          class="card m-0 mb-2"
          role="table">
-        <div class="card-header">
-            <div class="row">
+        <div class="card-header"
+             role="rowgroup">
+            <div class="row"
+                 role="row">
                 <h5 class="col-md-12 mb-0"
-                    role="rowheader">
+                    role="columnheader">
                     <b *ngIf="rd.name !== 'Niedersachsen'"
                        class="mr-1"
                        i18n>Gutachterausschuss</b>
@@ -74,10 +76,11 @@
                 </h5>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body"
+             role="rowgroup">
             <dl *ngFor="let bj of rd.berichte"
                 class="row"
-                role="rowgroup">
+                role="row">
                 <div class="col-md-12 p-0">
                     <!-- Bodenrichtwert (brz) -->
                     <input type="checkbox"
@@ -140,9 +143,9 @@
          class="my-5">
         <div class="h5">Landkreise</div>
         <span *ngFor="let kreis of selectMenu() | slice:1; let i = index">
-            <a [routerLink]="['/grundstuecksmarktberichte']"
+            <a class="p-2 d-inline-block"
+               [routerLink]="['/grundstuecksmarktberichte']"
                [queryParams]="{landkreis: kreis.value}">{{ kreis.value }}</a>
-            <ng-container *ngIf="i < selectMenu().length - 2"> - </ng-container>
         </span>
     </div>
 
