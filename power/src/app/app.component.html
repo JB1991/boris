@@ -327,23 +327,11 @@
                              title="Sprachauswahl"
                              i18n>Sprache</div>
                         <ul class="list-unstyled text-small">
-                            <li>
-                                <a href="{{ baseurl }}"
+                            <li *ngFor="let lang of config.languages">
+                                <a href="{{ lang.url }}{{ baseurl }}"
                                    class="footer-link d-inline-block py-2"
-                                   lang="de"
-                                   rel="noopener">Deutsch</a>
-                            </li>
-                            <li>
-                                <a href="/de-simple{{ baseurl }}"
-                                   class="footer-link d-inline-block py-2"
-                                   lang="de"
-                                   rel="noopener">Einfache Sprache</a>
-                            </li>
-                            <li>
-                                <a href="/en{{ baseurl }}"
-                                   class="footer-link d-inline-block py-2"
-                                   lang="en"
-                                   rel="noopener">English</a>
+                                   lang="{{ lang.short }}"
+                                   rel="noopener">{{ lang.name }}</a>
                             </li>
                         </ul>
                     </ng-container>

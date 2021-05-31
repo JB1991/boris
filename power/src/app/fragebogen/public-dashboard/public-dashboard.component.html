@@ -22,15 +22,21 @@
                   aria-hidden="true"
                   i18n>Formulare</span>
             <div class="float-right">
-                <input class="form-control"
-                       id="form-search"
-                       type="text"
-                       role="search"
-                       placeholder="Suche"
-                       aria-description="Suchen Sie hier nach einem Formular."
-                       i18n-placeholder
-                       i18n-aria-description
-                       (change)="search = $event.target.value; update(false)">
+                <form role="search"
+                      i18n-aria-label
+                      aria-label="Formulare">
+                    <div class="form-group">
+                        <label for="form-search"
+                               class="sr-only"
+                               i18n>Formular suchen</label>
+                        <input class="form-control"
+                               id="form-search"
+                               type="search"
+                               i18n-placeholder
+                               placeholder="Suche"
+                               (change)="search = $event.target.value; update(false)">
+                    </div>
+                </form>
             </div>
         </div>
         <div class="card-body table-responsive p-0">
@@ -173,9 +179,7 @@
                                 firstText="&laquo;"
                                 lastText="&raquo;"
                                 role="navigation"
-                                aria-label="Seitennavigation"
-                                [attr.aria-description]="'Derzeit ist Seite ' + page +
-                                                    ' von ' + totalPages + ' Seiten ausgewählt.'"
+                                aria-label="Formulare"
                                 i18n-aria-label>
                     </pagination>
                 </div>
