@@ -47,6 +47,10 @@ export class PublicDashboardComponent implements OnInit {
         }
     }
 
+    public printX(str) {
+        console.log(str);
+    }
+
     public changeFormSort(sort: PublicFormField) {
         if (this.sort === sort) {
             this.desc = !this.desc;

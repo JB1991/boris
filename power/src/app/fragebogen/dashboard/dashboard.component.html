@@ -440,21 +440,17 @@
             <div class="float-sm-right">
                 <div class="d-inline-block w-50 pr-2 align-top"
                      style="min-width: 100px; max-width: 200px;">
-                    <form role="search"
-                          i18n-aria-label
-                          aria-label="Formulare">
-                        <div class="form-group">
-                            <label for="form-search"
-                                   class="sr-only"
-                                   i18n>Formular suchen</label>
-                            <input class="form-control"
-                                   id="form-search"
-                                   type="search"
-                                   i18n-placeholder
-                                   placeholder="Suche"
-                                   (change)="formSearch = $event.target.value; updateForms(false)">
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <label for="form-search"
+                               class="sr-only"
+                               i18n>Formular suchen</label>
+                        <input class="form-control"
+                               id="form-search"
+                               type="search"
+                               i18n-placeholder
+                               placeholder="Suche"
+                               (change)="formSearch = $event.target.value; updateForms(false)">
+                    </div>
                 </div>
                 <div class="d-inline-block w-50"
                      style="min-width: 100px; max-width: 200px;">

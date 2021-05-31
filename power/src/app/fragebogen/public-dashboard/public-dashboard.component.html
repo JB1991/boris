@@ -22,21 +22,17 @@
                   aria-hidden="true"
                   i18n>Formulare</span>
             <div class="float-right">
-                <form role="search"
-                      i18n-aria-label
-                      aria-label="Formulare">
-                    <div class="form-group">
-                        <label for="form-search"
-                               class="sr-only"
-                               i18n>Formular suchen</label>
-                        <input class="form-control"
-                               id="form-search"
-                               type="search"
-                               i18n-placeholder
-                               placeholder="Suche"
-                               (change)="search = $event.target.value; update(false)">
-                    </div>
-                </form>
+                <div class="form-group">
+                    <label for="form-search"
+                           class="sr-only"
+                           i18n>Formular suchen</label>
+                    <input class="form-control"
+                           id="form-search"
+                           type="search"
+                           i18n-placeholder
+                           placeholder="Suche"
+                           (change)="search = $event.target.value; update(false)">
+                </div>
             </div>
         </div>
         <div class="card-body table-responsive p-0">
