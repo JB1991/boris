@@ -9,7 +9,8 @@
                     <span i18n>Tabelle Bodenrichtwertzone</span>
                     {{ feature.properties.nutzung | nutzung }}
                 </div>
-                <div class="row">
+                <div class="row"
+                     role="row">
                     <h5 class="col-md-5 mb-0"
                         role="rowheader"><b>{{brzStrings.brz | hyphenate}} </b>
                         <svg *ngIf="teilmarkt?.value[0] === 'LF'; else svgBauland"
@@ -43,9 +44,10 @@
                     </h5>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body"
+                 role="rowgroup">
                 <dl class="row"
-                    role="rowgroup">
+                    role="row">
                     <!-- Bodenrichtwert (brz) -->
                     <dt class="col-md-5"
                         role="rowheader">
@@ -300,17 +302,19 @@
         </div>
     </div>
     <div *ngIf="filteredFeatures[0]"
-         class="card">
+         class="card"
+         role="table">
         <div class="card-header">
-            <div class="row">
+            <div class="row"
+                 role="row">
                 <h5 class="col-12 mb-0"
-                    role="rowheader"><b i18n>Herausgeber</b>
+                    role="columnheader"><b i18n>Herausgeber</b>
                 </h5>
             </div>
         </div>
         <div class="card-body">
             <dl class="row"
-                role="rowgroup">
+                role="row">
                 <dd class="col-12"
                     role="cell">
                     <img width="200px"
