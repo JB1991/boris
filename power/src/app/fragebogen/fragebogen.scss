@@ -105,9 +105,9 @@ td {
 @media (max-width: 767px) {
     .text-rotate-90 span {
         width: auto;
-        writing-mode: vertical-rl;
         -webkit-writing-mode: vertical-rl;
         -ms-writing-mode: vertical-rl;
+        writing-mode: vertical-rl;
     }
 }
 
