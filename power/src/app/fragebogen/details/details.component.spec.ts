@@ -580,7 +580,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         component.createTaskEvent({
             amount: 10,
-            copy: true,
+            copyvalue: true,
         }).then(() => {
             expect(component.updateTasks).toHaveBeenCalledTimes(1);
             done();
@@ -593,7 +593,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         component.createTaskEvent({
             amount: 10,
-            copy: true,
+            copyvalue: true,
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();

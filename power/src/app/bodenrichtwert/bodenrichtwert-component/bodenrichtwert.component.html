@@ -196,7 +196,7 @@
     <!-- DetailsHints Template -->
     <ng-template #detailsHints>
         <!-- hints for no address and no features -->
-        <div *ngIf="(!address || address.properties.bundesland != 'Niedersachsen' || address.properties.bundesland != 'Bremen') && features && !features.features.length"
+        <div *ngIf="(!address || address.properties.bundesland !== 'Niedersachsen' || address.properties.bundesland !== 'Bremen') && features && !features.features.length"
              class="text-center">
             <p class="p-1 m-0"
                i18n>Keine gültige Adresse!</p>
@@ -222,7 +222,7 @@
                         aktuell ausgewählten Standort und auf den Stichtag</span> {{ getStichtag() | date }}.
                 </p>
             </div>
-            <div *ngIf="address && (address.properties.bundesland == 'Niedersachsen' || address.properties.bundesland == 'Bremen') && !features?.features.length"
+            <div *ngIf="address && (address.properties.bundesland === 'Niedersachsen' || address.properties.bundesland === 'Bremen') && !features?.features.length"
                  class="text-center">
                 <p class="p-1 m-0 small"
                    i18n>Es liegen keine Bodenrichtwertdaten für diese Adresse vor.</p>

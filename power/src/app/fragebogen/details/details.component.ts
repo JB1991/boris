@@ -426,7 +426,7 @@ export class DetailsComponent implements OnInit {
     /**
      * createTaskEvent
      */
-    public async createTaskEvent(event: { amount: number; copy: boolean }) {
+    public async createTaskEvent(event: { amount: number; copyvalue: boolean }) {
         try {
             const r = await this.formapi.createTask(this.form.id, {}, event.amount);
             this.taskSort = 'created';
@@ -435,7 +435,7 @@ export class DetailsComponent implements OnInit {
             this.updateTasks();
             // copy to clipboard
             /* istanbul ignore else */
-            if (event.copy) {
+            if (event.copyvalue) {
                 const selBox = document.createElement('textarea');
                 selBox.style.position = 'fixed';
                 selBox.style.left = '0';

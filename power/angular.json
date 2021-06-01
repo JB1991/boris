@@ -28,7 +28,6 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "localize": true,
-                        "aot": true,
                         "outputPath": "dist/power/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -49,7 +48,13 @@
                             "echarts",
                             "hyphen",
                             "showdown"
-                        ]
+                        ],
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true
                     },
                     "configurations": {
                         "production": {
@@ -75,7 +80,6 @@
                             "outputHashing": "all",
                             "sourceMap": false,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -105,7 +109,6 @@
                             "outputHashing": "all",
                             "sourceMap": false,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -198,7 +201,9 @@
                         "localize": false,
                         "outputPath": "dist/power/server",
                         "main": "server.ts",
-                        "tsConfig": "src/tsconfig.server.json"
+                        "tsConfig": "src/tsconfig.server.json",
+                        "sourceMap": true,
+                        "optimization": false
                     },
                     "configurations": {
                         "production": {

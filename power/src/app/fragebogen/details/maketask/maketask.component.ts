@@ -10,7 +10,7 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 export class MaketaskComponent {
     @Output() out = new EventEmitter<{
         amount: number;
-        copy: boolean;
+        copyvalue: boolean;
     }>();
 
     @ViewChild('maketaskmodal') public modal: ModalminiComponent;

@@ -1,5 +1,5 @@
 <div class="p-0">
-    <ng-container *ngIf="chartOption?.series.length != 0">
+    <ng-container *ngIf="chartOption?.series.length !== 0">
         <h3 i18n>Zeitliche Entwicklung</h3>
         <ng-container *ngIf="features?.features[0].properties.gema === 'Bremerhaven'; else bremen">
             <p>
