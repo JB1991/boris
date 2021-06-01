@@ -6,7 +6,8 @@ import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
-import * as turf from '@turf/turf';
+import pointOnFeature from '@turf/point-on-feature';
+import polygon from '@turf/unkink-polygon';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
@@ -214,8 +215,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param ft feature
      */
     public pointOnPolygon(ft: Feature): number[] {
-        const polygon = turf.polygon(ft.geometry['coordinates']);
-        const point = turf.pointOnFeature(polygon);
+        const poly = polygon(ft.geometry['coordinates']);
+        const point = pointOnFeature(poly);
         const wgs84_point = this.transformCoordinates(
             epsg['EPSG:3857'],
             epsg['EPSG:4326'],

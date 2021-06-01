@@ -4,7 +4,11 @@ import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { FeatureCollection, Feature, } from 'geojson';
-import * as turf from '@turf/turf';
+import area from '@turf/area';
+import buffer from '@turf/buffer';
+import intersect from '@turf/intersect';
+import pointOnFeature from '@turf/point-on-feature';
+import union from '@turf/union';
 
 type Point = {
     type: 'Point';
@@ -23,7 +27,7 @@ type MultiPolygon = {
 
 function polygonToPoint(p: Polygon): Point {
     try {
-        const point = turf.pointOnFeature(p);
+        const point = pointOnFeature(p);
 
         if (point && point.geometry) {
             return {
@@ -48,15 +52,15 @@ function multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
 }
 
 function getLargestPolygon(mp: MultiPolygon): Polygon {
-    let area = 0;
+    let areaX = 0;
     let largest: Polygon;
 
     multiPolygonToPolygons(mp).forEach(p => {
         try {
-            const a = turf.area(p);
-            if (!largest || a > area) {
-                if (a > area) {
-                    area = a;
+            const a = area(p);
+            if (!largest || a > areaX) {
+                if (a > areaX) {
+                    areaX = a;
                     largest = {
                         type: 'Polygon',
                         coordinates: p.coordinates,
@@ -72,9 +76,9 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
     return largest;
 }
 
-function intersectPolygon(p: Polygon | MultiPolygon, intersect: Polygon): Array<Polygon> {
+function intersectPolygon(p: Polygon | MultiPolygon, intersec: Polygon): Array<Polygon> {
     try {
-        const f = turf.intersect(intersect, p);
+        const f = intersect(intersec, p);
         if (f && f.geometry) {
             switch (f.geometry.type) {
                 case 'Polygon':
@@ -93,9 +97,9 @@ function intersectPolygon(p: Polygon | MultiPolygon, intersect: Polygon): Array<
     return;
 }
 
-function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon> {
+function bufferPolygon(p: Polygon | MultiPolygon, buff: number): Array<Polygon> {
     try {
-        const f = turf.buffer(p, buffer, { units: 'meters' });
+        const f = buffer(p, buff, { units: 'meters' });
         if (f && f.geometry) {
             switch (f.geometry.type) {
                 case 'Polygon':
@@ -852,13 +856,13 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             featureMap[key].forEach(each => {
                 try {
                     if (p && p.coordinates) {
-                        const union = turf.union(p, each);
-                        switch (union.geometry.type) {
+                        const unionX = union(p, each);
+                        switch (unionX.geometry.type) {
                             case 'Polygon':
-                                p = union.geometry;
+                                p = unionX.geometry;
                                 return;
                             case 'MultiPolygon':
-                                p = getLargestPolygon(union.geometry);
+                                p = getLargestPolygon(unionX.geometry);
                                 return;
                         }
                     }
@@ -888,7 +892,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     });
                     return;
                 }
-                bufferPolygon(i, buffer).sort((a, b) => turf.area(b) - turf.area(a)).slice(0, 2).forEach(b => {
+                bufferPolygon(i, buffer).sort((a, b) => area(b) - area(a)).slice(0, 2).forEach(b => {
                     const point = polygonToPoint(b);
                     if (point && point.coordinates) {
                         features.push({

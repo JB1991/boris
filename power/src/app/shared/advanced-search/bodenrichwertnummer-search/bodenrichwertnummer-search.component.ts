@@ -6,9 +6,9 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { Feature, FeatureCollection } from 'geojson';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import * as turf from '@turf/turf';
-import * as epsg from 'epsg';
-import proj4 from 'proj4';
+import pointOnFeature from '@turf/point-on-feature';
+import polygon from '@turf/unkink-polygon';
+import { toWgs84 } from '@turf/projection';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 
 @Component({
@@ -85,9 +85,9 @@ export class BodenrichwertnummerSearchComponent {
      * @returns point
      */
     public pointOnPolygon(ft: Feature) {
-        let polygon = turf.polygon(ft.geometry['coordinates']);
-        polygon = turf.toWgs84(polygon);
-        const point = turf.pointOnFeature(polygon);
+        let poly = polygon(ft.geometry['coordinates']);
+        poly = toWgs84(poly);
+        const point = pointOnFeature(poly);
         return point.geometry.coordinates;
     }
 
