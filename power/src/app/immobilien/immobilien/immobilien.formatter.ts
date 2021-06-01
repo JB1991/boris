@@ -79,7 +79,7 @@ export class ImmobilienFormatter {
             }
 
             if ((this.nipixRuntime.state.selectedChartLine !== '')
-                && (this.nipixRuntime.state.selectedChartLine !== name)) {
+                && (this.nipixRuntime.state.selectedChartLine !== params.seriesName)) {
                 printlegend = false;
             }
 

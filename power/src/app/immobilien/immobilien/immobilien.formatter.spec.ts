@@ -177,10 +177,10 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
         expect(res).toEqual('short');
     });
 
-    it('formatLabel should return empty string if selected', function () {
+    it('formatLabel should return name if selected', function () {
         niRuntime.state.selectedChartLine = 'sel';
         const res = component.formatLabel({ 'dataIndex': 10, seriesIndex: 0, 'seriesName': 'sel' });
-        expect(res).toEqual('');
+        expect(res).toEqual('sel');
     });
 
     it('formatLegend should return name', function () {
