@@ -206,12 +206,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         // eslint-disable-next-line complexity
         this.route.queryParams.subscribe(params => {
             // lat and lat
-            if (Number(params['lat']) && Number(params['lng'])) {
-                const lat = Number(params['lat']);
-                const lng = Number(params['lng']);
-                const latLngParam = new LngLat(lng, lat);
-                if (latLngParam && this.bounds.contains(latLngParam)) {
-                    this.latLng = latLngParam;
+            const lat = +params['lat'];
+            const lng = +params['lng'];
+            if (lat && lng) {
+                if (this.validateLngLat(lat, lng)) {
+                    this.latLng = new LngLat(lng, lat);
                 }
                 // coordinate exists but no zoom
                 if (this.latLng && !params['zoom'] && params['teilmarkt'] === 'Bauland') {
@@ -230,16 +229,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
 
             // stichtag
-            if (params['stichtag']) {
-                const stagParam = params['stichtag'];
-                if (this.STICHTAGE.includes(stagParam)) {
-                    this.stichtag = stagParam;
-                }
+            if (this.STICHTAGE.includes(params['stichtag'])) {
+                this.stichtag = params['stichtag'];
             }
 
             // zoom
-            if (Number(params['zoom'])) {
-                const zoomParam = Number(params['zoom']);
+            const zoomParam = +params['zoom'];
+            if (zoomParam) {
                 if (zoomParam >= 18) {
                     this.zoom = 18;
                 } else if (zoomParam <= 5) {
@@ -252,8 +248,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
 
             // rotation
-            if (Number(params['pitch'])) {
-                const pitchParam = Number(params['pitch']);
+            const pitchParam = +params['pitch'];
+            if (pitchParam) {
                 if (pitchParam >= 60) {
                     this.pitch = 60;
                 } else if (pitchParam <= 0) {
@@ -264,8 +260,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             }
 
             // bearing
-            if (Number(params['bearing'])) {
-                const bearingParam = Number(params['bearing']);
+            const bearingParam = +params['bearing'];
+            if (bearingParam) {
                 if (bearingParam >= 180) {
                     this.bearing = 180;
                 } else if (bearingParam <= -180) {
@@ -286,6 +282,25 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.addressSubscription.unsubscribe();
         this.featureSubscription.unsubscribe();
         this.flurstueckSubscription.unsubscribe();
+    }
+
+    /**
+     * validateLngLat validates the latitude and longitude
+     * @param lat latitude
+     * @param lng longitude
+     * @returns true/false if lat and lng are valid
+     */
+    private validateLngLat(lat: number, lng: number): boolean {
+        if ((lat <= 90 && lat >= -90) && (lng <= 180 && lng >= -180)) {
+            const latLng = new LngLat(lng, lat);
+            if (this.bounds.contains(latLng)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     /**
