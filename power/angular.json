@@ -47,7 +47,8 @@
                         "allowedCommonJsDependencies": [
                             "echarts",
                             "hyphen",
-                            "showdown"
+                            "showdown",
+                            "rbush"
                         ],
                         "vendorChunk": true,
                         "extractLicenses": false,
