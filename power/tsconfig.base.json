@@ -37,6 +37,7 @@
     },
     "angularCompilerOptions": {
         "enableIvy": true,
-        "allowEmptyCodegenFiles": true
+        "enableI18nLegacyMessageIdFormat": false,
+        "trace": false
     }
 }
