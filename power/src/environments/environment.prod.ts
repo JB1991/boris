@@ -30,9 +30,9 @@ export const environment = {
         ],
         localized: false,
         languages: [
-            { short: 'de-DE', name: 'Deutsch', url: '' },
+            { short: 'de', name: 'Deutsch', url: '' },
             { short: 'de-simple', name: 'Einfache Sprache', url: '/de-simple' },
-            { short: 'en-US', name: 'English', url: '/en' },
+            { short: 'en', name: 'English', url: '/en' },
         ],
         version: {
             version: 'local',
