@@ -364,7 +364,7 @@ trivy:
 helm-deploy:
   stage: deploy
   needs:
-    - job: docker-build
+    - job: kaniko-build
       artifacts: false
   dependencies: []
   cache: {}
