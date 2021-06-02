@@ -18,7 +18,7 @@ image:
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -55,18 +55,7 @@ clusterDomain: cluster.local
 
 ## Extra objects to deploy (value evaluated as a template)
 ##
-extraDeploy:
-  - |
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: power-custom-config
-      labels: {{- include "common.labels.standard" . | nindent 4 }}
-    data:
-      power.conf: |-
-    {{ .Files.Get "power.conf" | nindent 4 }}
-      nginx.conf: |-
-    {{ .Files.Get "nginx.conf" | nindent 4 }}
+extraDeploy: []
 
 ## Add labels to all the deployed resources
 ##
@@ -288,7 +277,7 @@ containerSecurityContext:
 ## Configures the ports NGINX listens on
 ##
 containerPorts:
-  http: 8080
+  http: 8081
   # https: 8443
 
 ## NGINX containers' resource requests and limits
@@ -344,14 +333,6 @@ autoscaling:
 ## Array to add extra volumes (evaluated as a template)
 ##
 extraVolumes:
-  - name: nginx-config
-    configMap:
-      name: power-custom-config
-      items:
-        - key: power.conf
-          path: power.conf
-        - key: nginx.conf
-          path: nginx.conf
   - name: power-config
     emptyDir: {}
   - name: bitnami-tmp
@@ -362,12 +343,8 @@ extraVolumes:
 ## Array to add extra mounts (normally used with extraVolumes, evaluated as a template)
 ##
 extraVolumeMounts:
-  - name: nginx-config
-    mountPath: /opt/bitnami/nginx/conf/nginx.conf
-    subPath: nginx.conf
-    readOnly: true
   - name: power-config
-    mountPath: /opt/bitnami/nginx/conf/server_blocks/power
+    mountPath: /opt/bitnami/nginx/conf/server_blocks/common
     readOnly: true
   - name: bitnami-tmp
     mountPath: /opt/bitnami/nginx/tmp
@@ -590,15 +567,12 @@ sidecars:
 ##
 initContainers:
   - name: config
-    image: busybox:latest
-    imagePullPolicy: IfNotPresent
-    command: ["/bin/sh", "-c", "cat /config/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /opt/bitnami/nginx/conf/server_blocks/power/power.conf"]
+    image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    imagePullPolicy: Always
+    command: ["/bin/sh", "-c", "cat /opt/bitnami/nginx/conf/server_blocks/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /server_blocks/power.conf"]
     volumeMounts:
       - name: power-config
-        mountPath: /opt/bitnami/nginx/conf/server_blocks/power/
-      - name: nginx-config
-        mountPath: /config/
-        readOnly: true
+        mountPath: /server_blocks/
     env:
       - name: BKG_GEOCODING_SECRET
         valueFrom:
