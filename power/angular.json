@@ -86,7 +86,7 @@
                                 "fonts": true
                             },
                             "outputHashing": "all",
-                            "subresourceIntegrity": true,
+                            "subresourceIntegrity": false,
                             "crossOrigin": "anonymous",
                             "sourceMap": false,
                             "namedChunks": false,
@@ -124,7 +124,7 @@
                                 "fonts": true
                             },
                             "outputHashing": "all",
-                            "subresourceIntegrity": true,
+                            "subresourceIntegrity": false,
                             "crossOrigin": "anonymous",
                             "sourceMap": false,
                             "namedChunks": false,
