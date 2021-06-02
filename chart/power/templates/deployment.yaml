@@ -39,15 +39,12 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
         - name: config
-          image: busybox:latest
-          imagePullPolicy: IfNotPresent
-          command: ["/bin/sh", "-c", "cat /config/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /opt/bitnami/nginx/conf/server_blocks/power.conf"]
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh", "-c", "cat /opt/bitnami/nginx/conf/server_blocks/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /opt/bitnami/nginx/conf/server_blocks/power.conf"]
           volumeMounts:
             - name: power-config
-              mountPath: /opt/bitnami/nginx/conf/server_blocks/
-            - name: nginx-config
-              mountPath: /config/
-              readOnly: true
+              mountPath: /server_blocks/
           env:
             - name: BKG_GEOCODING_SECRET
               valueFrom:
@@ -75,10 +72,6 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: nginx-config
-              mountPath: /opt/bitnami/nginx/conf/nginx.conf
-              subPath: nginx.conf
-              readOnly: true
             - name: power-config
               mountPath: /opt/bitnami/nginx/conf/server_blocks
               readOnly: true
@@ -113,9 +106,6 @@ spec:
           {{- end }}
         {{- end }}
       volumes:
-        - name: nginx-config
-          configMap:
-            name: {{ include "power.fullname" . }}-nginx
         - name: power-config
           emptyDir: {}
         - name: bitnami-tmp
