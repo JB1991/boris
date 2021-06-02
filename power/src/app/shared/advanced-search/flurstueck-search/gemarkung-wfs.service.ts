@@ -82,7 +82,7 @@ export class GemarkungWfsService {
         const numbers: Array<string> = searchText.match(regNumbers);
         const words: Array<string> = searchText.match(regWords);
 
-        let filterNumbers: string;
+        let filterNumbers = '';
         numbers?.forEach(n => {
             n = n.padEnd(4, '*');
             filterNumbers +=
@@ -92,7 +92,7 @@ export class GemarkungWfsService {
                 '</ogc:PropertyIsLike>';
         });
 
-        let filterWords: string;
+        let filterWords = '';
         words?.forEach(w => {
             w = w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() + '*';
             filterWords +=
