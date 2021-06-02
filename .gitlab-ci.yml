@@ -10,6 +10,7 @@ stages:
   - package
   - scan
   - deploy
+  - quality
 
 cache: &global_cache
   key: ${CI_COMMIT_REF_SLUG}
