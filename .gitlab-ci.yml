@@ -54,53 +54,6 @@ init:npm-branches:
     - production
   when: manual
 
-init:helm-dev:
-  stage: init
-  interruptible: true
-  cache: {}
-  script:
-    - helm template power ./chart/power -f ./chart/power/values-dev.yaml --dependency-update --output-dir manifest-dev
-  artifacts:
-    name: "manifest"
-    expire_in: 2 hrs
-    public: false
-    paths:
-      - manifest-dev
-  only:
-    - merge_requests
-    - tags
-    - dev
-
-init:helm-staging:
-  stage: init
-  interruptible: true
-  cache: {}
-  script:
-    - helm template power ./chart/power -f ./chart/power/values-staging.yaml --dependency-update --output-dir manifest-staging
-  artifacts:
-    name: "manifest"
-    expire_in: 2 hrs
-    public: false
-    paths:
-      - manifest-staging
-  only:
-    - staging
-
-init:helm-production:
-  stage: init
-  interruptible: true
-  cache: {}
-  script:
-    - helm template power ./chart/power -f ./chart/power/values-production.yaml --dependency-update --output-dir manifest-production
-  artifacts:
-    name: "manifest"
-    expire_in: 2 hrs
-    public: false
-    paths:
-      - manifest-production
-  only:
-    - production
-
 test:karma:
   stage: test
   image: trion/ng-cli-karma:latest
@@ -261,15 +214,12 @@ test:helm-dry-run:
 test:kubesec-dev:
   stage: test
   interruptible: true
-  needs:
-    - job: init:helm-dev
-      artifacts: true
-  dependencies:
-    - init:helm-dev
+  needs: []
+  dependencies: []
   cache: {}
   script:
-    - cat manifest-dev/power/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-dev/power/templates/*.yaml | kubesec-check.sh -
+    - helm template power ./chart/power -f ./chart/power/values-dev.yaml | kubesec-scan.sh -
+    - helm template power ./chart/power -f ./chart/power/values-dev.yaml | kubesec-check.sh -
   only:
     - merge_requests
     - tags
@@ -278,79 +228,26 @@ test:kubesec-dev:
 test:kubesec-staging:
   stage: test
   interruptible: true
-  needs:
-    - job: init:helm-staging
-      artifacts: true
-  dependencies:
-    - init:helm-staging
+  needs: []
+  dependencies: []
   cache: {}
   script:
-    - cat manifest-staging/power/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-staging/power/templates/*.yaml | kubesec-check.sh -
+    - helm template power ./chart/power -f ./chart/power/values-staging.yaml | kubesec-scan.sh -
+    - helm template power ./chart/power -f ./chart/power/values-staging.yaml | kubesec-check.sh -
   only:
     - staging
 
 test:kubesec-production:
   stage: test
   interruptible: true
-  needs:
-    - job: init:helm-production
-      artifacts: true
-  dependencies:
-    - init:helm-production
+  needs: []
+  dependencies: []
   cache: {}
   script:
-    - cat manifest-production/power/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-production/power/templates/*.yaml | kubesec-check.sh -
+    - helm template power ./chart/power -f ./chart/power/values-production.yaml | kubesec-scan.sh -
+    - helm template power ./chart/power -f ./chart/power/values-production.yaml | kubesec-check.sh -
   only:
     - production
-
-test:kube-linter-dev:
-  stage: test
-  interruptible: true
-  needs:
-    - job: init:helm-dev
-      artifacts: true
-  dependencies:
-    - init:helm-dev
-  cache: {}
-  script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-dev/power/templates/*.yaml
-  only:
-    - merge_requests
-    - tags
-    - dev
-  allow_failure: true
-
-test:kube-linter-staging:
-  stage: test
-  interruptible: true
-  needs:
-    - job: init:helm-staging
-      artifacts: true
-  dependencies:
-    - init:helm-staging
-  cache: {}
-  script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-staging/power/templates/*.yaml
-  only:
-    - staging
-  allow_failure: true
-
-test:kube-linter-production:
-  stage: test
-  interruptible: true
-  needs:
-    - job: init:helm-production
-      artifacts: true
-  dependencies:
-    - init:helm-production
-  cache: {}
-  script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-production/power/templates/*.yaml
-  only:
-    - production
-  allow_failure: true
 
 build:branches:
   stage: build
