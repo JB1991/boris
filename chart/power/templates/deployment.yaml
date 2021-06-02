@@ -41,7 +41,7 @@ spec:
         - name: config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh", "-c", "cat /opt/bitnami/nginx/conf/server_blocks/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /opt/bitnami/nginx/conf/server_blocks/power.conf"]
+          command: ["/bin/sh", "-c", "cat /opt/bitnami/nginx/conf/server_blocks/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /server_blocks/power.conf"]
           volumeMounts:
             - name: power-config
               mountPath: /server_blocks/
