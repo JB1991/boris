@@ -40,7 +40,7 @@ spec:
       initContainers:
         - name: config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: Always
           command: ["/bin/sh", "-c", "cat /opt/bitnami/nginx/conf/server_blocks/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /server_blocks/power.conf"]
           volumeMounts:
             - name: power-config

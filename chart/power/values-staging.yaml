@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: de.icr.io/power/power
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   tag: staging
 
 imagePullSecrets:
