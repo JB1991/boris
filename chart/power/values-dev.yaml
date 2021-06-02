@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: de.icr.io/power/power
   pullPolicy: IfNotPresent
-  tag: latest
+  tag: dev
 
 imagePullSecrets:
   - name: de-icr-io
