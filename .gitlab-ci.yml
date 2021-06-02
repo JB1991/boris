@@ -392,8 +392,6 @@ sonarqube-check:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   needs:
-    - job: test:karma
-      artifacts: true
     - job: build
       artifacts: false
   variables:
