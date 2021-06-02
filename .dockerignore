@@ -1,7 +1,6 @@
 .git/
 .gitlab/
 .vscode/
-chart/
 doc/
 scripts/
 manifest-dev/

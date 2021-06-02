@@ -7,6 +7,7 @@ LABEL commit=${COMMIT}
 
 USER root
 COPY /power/dist/power/browser /app
+COPY /chart/power/conf /opt/bitnami/nginx/conf/custom
 
 RUN mv /app/de/* /app/ \
     && rm -rf /app/de/ \
