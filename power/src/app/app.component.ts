@@ -73,6 +73,13 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 }
             }
         });
+
+        // set baseurl
+        if (location.origin.startsWith('https://demo-')) {
+            environment.baseurl = 'https://dev.power.niedersachsen.dev';
+            environment.ows = environment.baseurl + environment.ows;
+            environment.formAPI = environment.baseurl + environment.formAPI;
+        }
     }
 
     ngOnInit() {

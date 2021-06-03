@@ -2,6 +2,7 @@ export const environment = {
     production: true,
     test: false,
     appName: 'POWER',
+    baseurl: '',
     ows: '/geoserver/boris/ows?',
     basemap: '/assets/boden/basemap.json',
     baviStyles: [
