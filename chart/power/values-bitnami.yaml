@@ -99,7 +99,7 @@ cloneStaticSiteFromGit:
   image:
     registry: docker.io
     repository: bitnami/git
-    tag: 2.31.1-debian-10-r52
+    # tag: 2.31.1-debian-10-r52
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -428,7 +428,7 @@ ldapDaemon:
   image:
     registry: docker.io
     repository: bitnami/nginx-ldap-auth-daemon
-    tag: 0.20200116.0-debian-10-r348
+    # tag: 0.20200116.0-debian-10-r348
     pullPolicy: IfNotPresent
 
   ## LDAP Daemon port
@@ -570,6 +570,10 @@ initContainers:
     image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
     imagePullPolicy: Always
     command: ["/bin/sh", "-c", "cat /opt/bitnami/nginx/conf/server_blocks/power.conf | sed --expression=\"s#\\${BKG_GEOCODING_SECRET}#${BKG_GEOCODING_SECRET}#g\" > /server_blocks/power.conf"]
+    securityContext:
+      runAsUser: 1001
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
     volumeMounts:
       - name: power-config
         mountPath: /server_blocks/

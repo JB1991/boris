@@ -13,7 +13,7 @@ stages:
   - delete
 
 cache: &global_cache
-  key: ${CI_COMMIT_REF_SLUG}
+  key: "${CI_COMMIT_REF_SLUG}"
   paths:
     - power/node_modules/
   policy: pull-push
@@ -106,7 +106,7 @@ npm-audit:
   cache: {}
   script:
     - cd power
-    - npm audit
+    - npm audit --production
   only:
     - merge_requests
     - tags
@@ -114,7 +114,6 @@ npm-audit:
     - staging
     - production
     - /^demo-.*/
-  allow_failure: true
 
 lint-ts:
   stage: test
@@ -194,7 +193,7 @@ helm-dry-run:
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
   script:
-    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-$CI_COMMIT_REF_NAME.yaml --install --dry-run
+    - helm upgrade power ./chart/power -n dev -f "./chart/power/values-$CI_COMMIT_REF_NAME.yaml" --install --dry-run
   only:
     - dev
     - staging
@@ -207,8 +206,8 @@ kubesec:
   dependencies: []
   cache: {}
   script:
-    - helm template power ./chart/power -f ./chart/power/values-$CI_COMMIT_REF_NAME.yaml | kubesec-scan.sh -
-    - helm template power ./chart/power -f ./chart/power/values-$CI_COMMIT_REF_NAME.yaml | kubesec-check.sh -
+    - helm template power ./chart/power -f "./chart/power/values-$CI_COMMIT_REF_NAME.yaml" | kubesec-scan.sh -
+    - helm template power ./chart/power -f "./chart/power/values-$CI_COMMIT_REF_NAME.yaml" | kubesec-check.sh -
   only:
     - dev
     - staging
@@ -290,8 +289,8 @@ trivy:
   dependencies: []
   cache: {}
   before_script:
-    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i="$(( i + 1 ))" ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
   script:
     - docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
     - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
@@ -300,7 +299,6 @@ trivy:
     - staging
     - production
     - /^demo-.*/
-  allow_failure: true
 
 sonarqube:
   stage: scan
@@ -327,7 +325,7 @@ helm-deploy:
   dependencies: []
   cache: {}
   environment:
-    name: $CI_COMMIT_REF_NAME
+    name: "$CI_COMMIT_REF_NAME"
     action: start
   before_script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
@@ -348,9 +346,9 @@ helm-deploy:branches:
   dependencies: []
   cache: {}
   environment:
-    name: $CI_COMMIT_REF_NAME
+    name: "$CI_COMMIT_REF_NAME"
     action: start
-    url: https://$CI_COMMIT_REF_NAME.power.niedersachsen.dev
+    url: "https://$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
     on_stop: helm-delete:branches
   before_script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
@@ -358,7 +356,7 @@ helm-deploy:branches:
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
   script:
-    - helm upgrade $CI_COMMIT_REF_NAME ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
+    - helm upgrade "$CI_COMMIT_REF_NAME" ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
       --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
       --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
       --set-string image.tag="$CI_COMMIT_REF_NAME"
@@ -379,17 +377,17 @@ helm-delete:branches:
   variables:
     GIT_STRATEGY: none
   environment:
-    name: $CI_COMMIT_REF_NAME
+    name: "$CI_COMMIT_REF_NAME"
     action: stop
   before_script:
     - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - TOKEN=$(curl -X POST https://iam.cloud.ibm.com/identity/token -H "content-type:application/x-www-form-urlencoded" -H "accept:application/json" -d 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey='$IBM_CR_APIKEY | jq -r '.access_token')
+    - TOKEN=$(curl -s -X POST https://iam.cloud.ibm.com/identity/token -H "content-type:application/x-www-form-urlencoded" -H "accept:application/json" -d 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey='$IBM_CR_APIKEY | jq -r '.access_token')
   script:
-    - helm uninstall $CI_COMMIT_REF_NAME -n dev
-    - curl -X DELETE -H "Account:$IBM_ACCOUNT_ID" -H "Authorization:Bearer $TOKEN" -H "accept:application/json" --url 'https://de.icr.io/api/v1/images/de.icr.io%2Fpower%2Fpower%3A'$CI_COMMIT_REF_NAME
+    - helm uninstall "$CI_COMMIT_REF_NAME" -n dev
+    - curl -s -X DELETE -H "Account:$IBM_ACCOUNT_ID" -H "Authorization:Bearer $TOKEN" -H "accept:application/json" --url 'https://de.icr.io/api/v1/images/de.icr.io%2Fpower%2Fpower%3A'$CI_COMMIT_REF_NAME
   only:
     - merge_requests
     - /^demo-.*/
