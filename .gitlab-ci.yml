@@ -229,7 +229,7 @@ build-test:
     - node_modules/@angular/cli/bin/ng run power:prerender:staging
   artifacts:
     name: "compiled dist"
-    expire_in: 2 days
+    expire_in: 2 hours
     public: false
     paths:
       - power/dist/power/browser
