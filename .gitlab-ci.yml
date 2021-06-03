@@ -349,6 +349,7 @@ helm-deploy:branches:
       --set ingress.hosts[1].host="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
       --set ingress.tls[1].hosts[0]="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
       --set ingress.hosts[1].paths[0].serviceName="$CI_COMMIT_REF_NAME-power"
+      --set defaultDenyNetworkPolicy=false
   only:
     - /^demo-.*/
 
