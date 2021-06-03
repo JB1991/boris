@@ -10,6 +10,8 @@ stages:
   - package
   - scan
   - deploy
+  - delete
+  - quality
 
 cache: &global_cache
   key: ${CI_COMMIT_REF_SLUG}
@@ -33,26 +35,7 @@ npm-install:
     - dev
     - staging
     - production
-
-init:npm-branches:
-  stage: init
-  image: node:lts-alpine
-  interruptible: true
-  cache:
-    <<: *global_cache
-  script:
-    - cd power
-    - npm ci
-    - node_modules/.bin/ngcc --tsconfig ./src/tsconfig.app.json -p es2015
-  only:
-    - branches
-  except:
-    - merge_requests
-    - tags
-    - dev
-    - staging
-    - production
-  when: manual
+    - /^demo-.*/
 
 test-karma:
   stage: test
@@ -81,6 +64,7 @@ test-karma:
     - dev
     - staging
     - production
+    - /^demo-.*/
 
 test-e2e:
   stage: test
@@ -110,6 +94,7 @@ test-e2e:
     - dev
     - staging
     - production
+    - /^demo-.*/
   when: manual
 
 npm-audit:
@@ -128,6 +113,7 @@ npm-audit:
     - dev
     - staging
     - production
+    - /^demo-.*/
   allow_failure: true
 
 lint-ts:
@@ -150,6 +136,7 @@ lint-ts:
     - dev
     - staging
     - production
+    - /^demo-.*/
 
 lint-html:
   stage: test
@@ -171,6 +158,7 @@ lint-html:
     - dev
     - staging
     - production
+    - /^demo-.*/
 
 lint-styles:
   stage: test
@@ -192,6 +180,7 @@ lint-styles:
     - dev
     - staging
     - production
+    - /^demo-.*/
 
 helm-dry-run:
   stage: test
@@ -225,36 +214,6 @@ kubesec:
     - staging
     - production
 
-build:branches:
-  stage: build
-  image: node:lts-alpine
-  interruptible: true
-  needs:
-    - job: init:npm-branches
-      artifacts: false
-  dependencies: []
-  cache:
-    <<: *global_cache
-    policy: pull
-  script:
-    - cd power
-    - node_modules/@angular/cli/bin/ng run power:prerender:staging
-  artifacts:
-    name: "compiled dist"
-    expire_in: 2 days
-    public: false
-    paths:
-      - power/dist/power/browser
-  only:
-    - branches
-  except:
-    - merge_requests
-    - tags
-    - dev
-    - staging
-    - production
-  when: manual
-
 build-test:
   stage: build
   image: node:lts-alpine
@@ -280,6 +239,7 @@ build-test:
     - tags
     - dev
     - staging
+    - /^demo-.*/
 
 build-production:
   stage: build
@@ -297,33 +257,12 @@ build-production:
     - node_modules/@angular/cli/bin/ng run power:prerender:de
   artifacts:
     name: "compiled dist"
-    expire_in: 2 days
+    expire_in: 2 hours
     public: false
     paths:
       - power/dist/power/browser
   only:
     - production
-
-package:branches:
-  stage: package
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  dependencies:
-    - build:branches
-  cache: {}
-  script:
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
-  only:
-    - branches
-  except:
-    - merge_requests
-    - tags
-    - dev
-    - staging
-    - production
-  when: manual
 
 kaniko-build:
   stage: package
@@ -344,6 +283,7 @@ kaniko-build:
     - dev
     - staging
     - production
+    - /^demo-.*/
 
 trivy:
   stage: scan
@@ -359,13 +299,11 @@ trivy:
     - dev
     - staging
     - production
+    - /^demo-.*/
   allow_failure: true
 
 helm-deploy:
   stage: deploy
-  needs:
-    - job: kaniko-build
-      artifacts: false
   dependencies: []
   cache: {}
   environment:
@@ -385,16 +323,65 @@ helm-deploy:
     - staging
     - production
 
+helm-deploy:branches:
+  stage: deploy
+  dependencies: []
+  cache: {}
+  environment:
+    name: $CI_COMMIT_REF_NAME
+    action: start
+    url: https://$CI_COMMIT_REF_NAME.power.niedersachsen.dev
+    on_stop: helm-delete:branches
+  before_script:
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+  script:
+    - helm upgrade $CI_COMMIT_REF_NAME ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
+      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
+      --set-string image.tag="$CI_COMMIT_REF_NAME"
+      --set ingress.hosts[0].host="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
+      --set ingress.tls[0].hosts[0]="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
+      --set ingress.hosts[0].paths[0].serviceName="$CI_COMMIT_REF_NAME-power"
+      --set ingress.hosts[1].host="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
+      --set ingress.tls[1].hosts[0]="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
+      --set ingress.hosts[1].paths[0].serviceName="$CI_COMMIT_REF_NAME-power"
+  only:
+    - /^demo-.*/
+
+helm-delete:branches:
+  stage: delete
+  dependencies: []
+  cache: {}
+  variables:
+    GIT_STRATEGY: none
+  environment:
+    name: $CI_COMMIT_REF_NAME
+    action: stop
+  before_script:
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - TOKEN=$(curl -X POST https://iam.cloud.ibm.com/identity/token -H "content-type:application/x-www-form-urlencoded" -H "accept:application/json" -d 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey='$IBM_CR_APIKEY | jq -r '.access_token')
+  script:
+    - helm uninstall $CI_COMMIT_REF_NAME -n dev
+    - curl -X DELETE -H "Account:$IBM_ACCOUNT_ID" -H "Authorization:Bearer $TOKEN" -H "accept:application/json" --url 'https://de.icr.io/api/v1/images/de.icr.io%2Fpower%2Fpower%3A'$CI_COMMIT_REF_NAME
+  only:
+    - merge_requests
+    - /^demo-.*/
+  when: manual
+
 sonarqube-check:
   stage: quality
   image:
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   needs:
-    - job: test:karma
+    - job: test-karma
       artifacts: true
-    - job: build
-      artifacts: false
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" # Defines the location of the analysis task cache
     GIT_DEPTH: "0" # Tells git to fetch all the branches of the project, required by the analysis task
