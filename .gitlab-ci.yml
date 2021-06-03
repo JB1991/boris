@@ -106,7 +106,7 @@ npm-audit:
   cache: {}
   script:
     - cd power
-    - npm audit
+    - npm audit --production
   only:
     - merge_requests
     - tags
@@ -114,7 +114,6 @@ npm-audit:
     - staging
     - production
     - /^demo-.*/
-  allow_failure: true
 
 lint-ts:
   stage: test
