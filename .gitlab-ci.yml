@@ -285,10 +285,6 @@ kaniko-build:
     - staging
     - production
     - /^demo-.*/
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "production"'
-      when: manual
-    - when: on_success
 
 trivy:
   stage: scan
