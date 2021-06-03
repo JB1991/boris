@@ -4,6 +4,7 @@ import { Feature, FeatureCollection, Geometry } from 'geojson';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import Fuse from 'fuse.js';
+import { environment } from '@env/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class GemarkungWfsService {
     /**
      * ALKIS WFS URL
      */
-    private url = '/geoserver/alkis/ows?';
+    private url = environment.alkisOws;
 
     /**
      * Subject with feature object which contains a flurstueck and associated properties

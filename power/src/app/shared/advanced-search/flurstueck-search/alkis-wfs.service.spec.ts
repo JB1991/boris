@@ -3,11 +3,12 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Observable } from 'rxjs';
 import { AlkisWfsService } from './alkis-wfs.service';
 import { FeatureCollection } from 'geojson';
+import { environment } from '@env/environment';
 
 describe('Shared.Flurstueck-search.AlkisWfsService', () => {
     const fst: FeatureCollection = require('../../../../testdata/flurstueck-search/flurstueck-collection.json');
 
-    const url = '/geoserver/alkis/ows?';
+    const url = environment.alkisOws;
 
     let service: AlkisWfsService;
     let httpController: HttpTestingController;

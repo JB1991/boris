@@ -1,5 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { environment } from '@env/environment';
 import { Feature, FeatureCollection } from 'geojson';
 import { Observable } from 'rxjs';
 
@@ -10,7 +11,7 @@ describe('GemarkungWfsService', () => {
     const gemarkungCollection: FeatureCollection = require('../../../../testdata/flurstueck-search/gemarkung-collection.json');
 
     const searchText = '1205';
-    const url = '/geoserver/alkis/ows?';
+    const url = environment.alkisOws;
 
     let service: GemarkungWfsService;
     let httpController: HttpTestingController;

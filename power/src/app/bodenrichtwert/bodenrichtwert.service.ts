@@ -14,7 +14,7 @@ export class BodenrichtwertService {
     /**
      * URL where to fetch GeoJSON from
      */
-    private url = environment.ows;
+    private url = environment.borisOws;
 
     /**
      * Boris BRZ Layer

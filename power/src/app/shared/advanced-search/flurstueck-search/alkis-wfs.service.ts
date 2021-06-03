@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
 import { FeatureCollection } from 'geojson';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -12,7 +13,7 @@ export class AlkisWfsService {
     /**
      * ALKIS WFS URL
      */
-    private url = '/geoserver/alkis/ows?';
+    private url = environment.alkisOws;
 
     /**
      * Subject with feature object which contains a flurstueck and associated properties

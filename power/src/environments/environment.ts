@@ -7,7 +7,8 @@ export const environment = {
     test: true,
     appName: 'POWER',
     baseurl: '',
-    ows: '/geoserver/boris/ows?',
+    borisOws: '/geoserver/boris/ows?',
+    alkisOws: '/geoserver/alkis/ows?',
     basemap: '/assets/boden/basemap.json',
     baviStyles: [
         'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-classic.json',

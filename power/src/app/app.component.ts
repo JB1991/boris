@@ -77,7 +77,8 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         // set baseurl
         if (location.origin.startsWith('https://demo-')) {
             environment.baseurl = 'https://dev.power.niedersachsen.dev';
-            environment.ows = environment.baseurl + environment.ows;
+            environment.borisOws = environment.baseurl + environment.borisOws;
+            environment.alkisOws = environment.baseurl + environment.alkisOws;
             environment.formAPI = environment.baseurl + environment.formAPI;
         }
     }

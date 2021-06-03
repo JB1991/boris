@@ -134,7 +134,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     public map: Map;
 
     // baseUrl
-    public baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+    public baseUrl = environment.baseurl;
 
     // map style url
     public MAP_STYLE_URL = environment.basemap;
