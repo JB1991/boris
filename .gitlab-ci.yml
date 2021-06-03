@@ -386,10 +386,10 @@ helm-delete:branches:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
-    - TOKEN=$(curl -X POST https://iam.cloud.ibm.com/identity/token -H "content-type:application/x-www-form-urlencoded" -H "accept:application/json" -d 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey='$IBM_CR_APIKEY | jq -r '.access_token')
+    - TOKEN=$(curl -s -X POST https://iam.cloud.ibm.com/identity/token -H "content-type:application/x-www-form-urlencoded" -H "accept:application/json" -d 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey='$IBM_CR_APIKEY | jq -r '.access_token')
   script:
     - helm uninstall $CI_COMMIT_REF_NAME -n dev
-    - curl -X DELETE -H "Account:$IBM_ACCOUNT_ID" -H "Authorization:Bearer $TOKEN" -H "accept:application/json" --url 'https://de.icr.io/api/v1/images/de.icr.io%2Fpower%2Fpower%3A'$CI_COMMIT_REF_NAME
+    - curl -s -X DELETE -H "Account:$IBM_ACCOUNT_ID" -H "Authorization:Bearer $TOKEN" -H "accept:application/json" --url 'https://de.icr.io/api/v1/images/de.icr.io%2Fpower%2Fpower%3A'$CI_COMMIT_REF_NAME
   only:
     - merge_requests
     - /^demo-.*/
