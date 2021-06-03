@@ -375,6 +375,7 @@ helm-delete:branches:
     - merge_requests
     - /^demo-.*/
   when: manual
+  allow_failure: false
 
 sonarqube-check:
   stage: quality

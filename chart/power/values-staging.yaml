@@ -92,6 +92,9 @@ networkPolicy:
           app.kubernetes.io/name: kong
           app.kubernetes.io/instance: kong
 
+# Default true for power, for demo-Branches set to false
+defaultDenyNetworkPolicy: true
+
 metrics:
   enabled: true
   image:
