@@ -58,6 +58,7 @@ test-karma:
       junit: power/output/junit_karma.xml
     paths:
       - power/output/junit_karma.xml
+      - power/coverage/report-lcov/lcov.info
   only:
     - merge_requests
     - tags
