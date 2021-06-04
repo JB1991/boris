@@ -69,6 +69,7 @@ export class BodenrichwertnummerSearchComponent {
     /**
      * search for selected brw-nummer on form submit
      * @param value form value as feature
+     * @param ft
      */
     public searchBodenrichtwert(ft: Feature) {
         const latLng = this.pointOnPolygon(ft);

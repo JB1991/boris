@@ -16,7 +16,7 @@ export class HistoryService {
     /**
      * Resets service to empty model
      */
-    public resetService() {
+    public resetService(): void {
         this.undoBuffer = [];
         this.redoBuffer = [];
     }
@@ -26,7 +26,7 @@ export class HistoryService {
      * @param data JSON data
      * @param del True to delete future
      */
-    public makeHistory(data: any, del = true) {
+    public makeHistory(data: any, del = true): void {
         // check data
         if (!data) {
             return;
@@ -49,7 +49,7 @@ export class HistoryService {
      * Creates future to redo things
      * @param data JSON data
      */
-    public makeFuture(data: any) {
+    public makeFuture(data: any): void {
         // check data
         if (!data) {
             return;
@@ -65,6 +65,7 @@ export class HistoryService {
 
     /**
      * Undo last change
+     * @returns True if changes are undone
      */
     public undoChanges(): boolean {
         // check if future exists
@@ -85,6 +86,7 @@ export class HistoryService {
 
     /**
      * Redo last change
+     * @returns True if changes are redone
      */
     public redoChanges(): boolean {
         // check if history exists

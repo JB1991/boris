@@ -22,7 +22,7 @@ export class ConditionModalComponent {
      * Close callback of modal
      * @param value True if no invalid forms found
      */
-    public close(value: boolean) {
+    public close(value: boolean): void {
         if (value) {
             this.alerts.NewAlert('success', $localize`Änderungen übernommen`,
                 $localize`Ihre Änderungen wurden erfolgreich zwischen gespeichert.`);

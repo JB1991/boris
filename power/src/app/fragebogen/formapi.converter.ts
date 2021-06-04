@@ -2,6 +2,9 @@ import {
     ElementFilter, FormFilter, GroupTagFilter, TaskFilter, TextFilter, TimeFilter, UserFilter
 } from './formapi.model';
 
+/**
+ * @param f Filter
+ */
 /* eslint-disable-next-line complexity */
 export function FormFilterToString(f: FormFilter): string {
     if (f.hasOwnProperty('and')) {
@@ -55,6 +58,9 @@ export function FormFilterToString(f: FormFilter): string {
     }
 }
 
+/**
+ * @param f Filter
+ */
 /* eslint-disable-next-line complexity */
 export function TaskFilterToString(f: TaskFilter): string {
     if (f.hasOwnProperty('and')) {
@@ -106,6 +112,9 @@ export function TaskFilterToString(f: TaskFilter): string {
     }
 }
 
+/**
+ * @param f Filter
+ */
 /* eslint-disable-next-line complexity */
 export function UserFilterToString(f: UserFilter): string {
     if (f.hasOwnProperty('and')) {
@@ -149,6 +158,9 @@ export function UserFilterToString(f: UserFilter): string {
     }
 }
 
+/**
+ * @param f Filter
+ */
 /* eslint-disable-next-line complexity */
 export function GroupTagFilterToString(f: GroupTagFilter): string {
     if (f.hasOwnProperty('and')) {
@@ -186,6 +198,9 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
     }
 }
 
+/**
+ * @param f Filter
+ */
 /* eslint-disable-next-line complexity */
 export function ElementFilterToString(f: ElementFilter): string {
     if (f.hasOwnProperty('and')) {
@@ -233,6 +248,9 @@ export function ElementFilterToString(f: ElementFilter): string {
     }
 }
 
+/**
+ * @param f Filter
+ */
 export function TextFilterToString(f: TextFilter): string {
     if (f.hasOwnProperty('contains')) {
         return (f.lower ? 'lower-' : '') + 'contains=' + f['contains'];
@@ -240,6 +258,9 @@ export function TextFilterToString(f: TextFilter): string {
     return (f.lower ? 'lower-' : '') + 'equals=' + f['equals'];
 }
 
+/**
+ * @param f Filter
+ */
 export function TimeFilterToString(f: TimeFilter): string {
     if (f.hasOwnProperty('after')) {
         return 'after=' + f['after'];
@@ -247,6 +268,11 @@ export function TimeFilterToString(f: TimeFilter): string {
     return 'before=' + f['before'];
 }
 
+/**
+ * @param s
+ * @param s.field
+ * @param s.desc
+ */
 export function SortToString(s: {
     field: string;
     desc: boolean;

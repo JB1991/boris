@@ -47,7 +47,7 @@ export class FilloutComponent implements AfterViewInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         // get pin
         this.pin = this.route.snapshot.paramMap.get('pin');
         if (this.pin) {
@@ -63,6 +63,10 @@ export class FilloutComponent implements AfterViewInit {
         }
     }
 
+    /**
+     * canDeactivate event handler
+     * @returns True if can leave page
+     */
     @HostListener('window:beforeunload') canDeactivate(): boolean {
         // on test environment skip
         if (!environment.production) {
@@ -74,11 +78,15 @@ export class FilloutComponent implements AfterViewInit {
     /**
      * Set language
      */
-    public setLanguage() {
+    public setLanguage(): void {
         this.wrapper.survey.locale = this.language;
     }
 
-    public loadForm(id: string) {
+    /**
+     * Loads form
+     * @param id Form id
+     */
+    public loadForm(id: string): void {
         // load form by id
         this.loadingscreen.setVisible(true);
         this.formapi.getPublicForm(id, { fields: ['id', 'content', 'access'] }).then(result => {
@@ -106,11 +114,11 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /**
-     * submit Task
+     * Submits task
      * @param id Form pin
      * @param result Task result
      */
-    public submitTask(id: string, result: any) {
+    public submitTask(id: string, result: any): void {
         // check data
         if (!id) {
             throw new Error('id is required');
@@ -134,9 +142,10 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /**
-     * Load form data
+     * Loads form data
+     * @returns Promise
      */
-    public async loadData() {
+    public async loadData(): Promise<void> {
         if (!this.pin) {
             throw new Error('pin is required');
         }
@@ -163,7 +172,7 @@ export class FilloutComponent implements AfterViewInit {
      * Submits form after completing it
      * @param result Data
      */
-    public submit(result: any) {
+    public submit(result: any): void {
         // check data
         if (!result) {
             throw new Error('no data provided');
@@ -188,7 +197,7 @@ export class FilloutComponent implements AfterViewInit {
      * Receives form data to save it
      * @param result Data
      */
-    public progress(result: any) {
+    public progress(result: any): void {
         // check data
         if (!result) {
             throw new Error('no data provided');
@@ -211,20 +220,21 @@ export class FilloutComponent implements AfterViewInit {
      * Receives change events
      * @param result Data
      */
-    public changed(result: any) {
+    public changed(result: any): void {
         this.setUnsavedChanges(true);
     }
 
     /**
-     * Sets unsaved changes state
+     * Set unsaved changes state
      * @param state true or false
      */
-    public setUnsavedChanges(state: boolean) {
+    public setUnsavedChanges(state: boolean): void {
         this.data.UnsavedChanges = state;
     }
 
     /**
-     * Returns true if unsaved changes exists
+     * Returns unsaved changes state
+     * @returns True if unsaved changes exists
      */
     public getUnsavedChanges(): boolean {
         return this.data.UnsavedChanges;

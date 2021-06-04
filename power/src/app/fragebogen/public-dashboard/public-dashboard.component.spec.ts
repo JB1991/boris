@@ -55,6 +55,8 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
     */
     it('should succeed', (done) => {
         spyOn(component.formAPI, 'getPublicForms').and.returnValue(Promise.resolve(getPublicForms));
+
+        /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'something';
         component.sort = 'id';
         component.update(false).then(() => {
@@ -70,6 +72,7 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
             total: 100,
             status: 200,
         }));
+        /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'something';
         component.update(false).then(() => {
             expect(component.pageSizes.length).toBe(10);

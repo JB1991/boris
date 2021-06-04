@@ -39,18 +39,14 @@ export class PublicDashboardComponent implements OnInit {
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             this.update(true);
         }
     }
 
-    public printX(str) {
-        console.log(str);
-    }
-
-    public changeFormSort(sort: PublicFormField) {
+    public changeFormSort(sort: PublicFormField): void {
         if (this.sort === sort) {
             this.desc = !this.desc;
         } else {
@@ -60,7 +56,7 @@ export class PublicDashboardComponent implements OnInit {
         this.update(false);
     }
 
-    public async update(navigate: boolean) {
+    public async update(navigate: boolean): Promise<void> {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetPublicFormsParams = {

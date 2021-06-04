@@ -31,7 +31,7 @@ export class PreviewComponent {
      * @param mode Survey mode [edit, display]
      * @param data Survey data
      */
-    public open(mode?: 'edit' | 'display', data?: any) {
+    public open(mode?: 'edit' | 'display', data?: any): void {
         // set mode
         if (mode) {
             this.mode = mode;
@@ -56,7 +56,7 @@ export class PreviewComponent {
     /**
      * Closes full formular preview
      */
-    public close() {
+    public close(): void {
         this.data = null;
         this.isVisible = false;
         this.cdr.detectChanges();
@@ -66,7 +66,7 @@ export class PreviewComponent {
      * Debug prints result in console
      * @param data Data
      */
-    public debugPrint(data: any) {
+    public debugPrint(data: any): void {
         if (!environment.production) {
             console.log(data);
         }
@@ -75,7 +75,7 @@ export class PreviewComponent {
     /**
      * Set language
      */
-    public setLanguage() {
+    public setLanguage(): void {
         this.wrapper.survey.locale = this.language;
     }
 }

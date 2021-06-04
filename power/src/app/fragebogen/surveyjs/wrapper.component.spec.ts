@@ -8,8 +8,6 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
     let component: WrapperComponent;
     let fixture: ComponentFixture<WrapperComponent>;
 
-    const formContent = require('../../../testdata/fragebogen/form-content.json');
-
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [

@@ -98,19 +98,19 @@ export class NewformComponent {
 
     /**
      * Makes new formular
-     * @param template SurveyJS Template
+     * @param tpl SurveyJS Template
      */
-    public async makeForm(template: any): Promise<void> {
+    public async makeForm(tpl: any): Promise<void> {
         try {
-            if (!template) {
+            if (!tpl) {
                 throw new Error('template is required');
             }
             if (!this.title) {
                 throw new Error('title is required');
             }
             this.escapeTitle();
-            template.title.default = this.title;
-            const r = await this.formAPI.createForm({ tags: this.tagList, content: template, access: 'public' });
+            tpl.title.default = this.title;
+            const r = await this.formAPI.createForm({ tags: this.tagList, content: tpl, access: 'public' });
             this.out.emit(r.id);
         } catch (error) {
             console.error(error);
@@ -120,7 +120,6 @@ export class NewformComponent {
 
     /**
      * Escapes Title
-     * @param data data
      */
     public escapeTitle(): void {
         this.title = this.title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');

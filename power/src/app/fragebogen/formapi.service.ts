@@ -32,15 +32,18 @@ export enum Method {
     providedIn: 'root',
 })
 export class FormAPIService {
-    constructor(private httpClient: HttpClient, public auth: AuthService) { }
+    constructor(
+        private httpClient: HttpClient,
+        public auth: AuthService
+    ) { }
 
     /**
      * Helper function to reduce code duplication
-     * @param required Required json keys from response
      * @param method Http method
      * @param uri URL
      * @param params Query parameters
      * @param body Body for POST
+     * @returns Promise<ArrayBuffer>
      */
     private async Do(method: Method, uri: string, params: Record<string, string>, body?: any) {
         const p = new URLSearchParams(params);
@@ -66,6 +69,8 @@ export class FormAPIService {
 
     /**
      * Returns tag list
+     * @param params Params
+     * @returns Promise of tag list
      */
     public async getTags(
         params: GetGroupTagParams
@@ -92,6 +97,8 @@ export class FormAPIService {
 
     /**
      * Returns group list
+     * @param params Params
+     * @returns Promise of group list
      */
     public async getGroups(
         params: GetGroupTagParams
@@ -116,6 +123,11 @@ export class FormAPIService {
         return this.Do(Method.GET, 'intern/groups', p);
     }
 
+    /**
+     * Returns user list
+     * @param params Params
+     * @returns Promise of user list
+     */
     public async getUsers(
         params: GetUsersParams
     ): Promise<{

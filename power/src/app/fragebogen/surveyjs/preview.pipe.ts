@@ -13,6 +13,8 @@ export class PreviewPipe implements PipeTransform {
     /**
      * Wraps a single formular element into a minimal preview formular
      * @param value formular element
+     * @param lang Language
+     * @returns Surveyjs
      */
     transform(value: any, lang = this.locale): any {
         return {

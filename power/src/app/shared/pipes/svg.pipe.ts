@@ -14,6 +14,7 @@ export class SvgPipe implements PipeTransform {
     /**
      * Svg Pipe allows inserting svg html into web page
      * @param value formular element
+     * @returns Trusted html
      */
     transform(value: any): any {
         return this.sanitized.bypassSecurityTrustHtml(value);

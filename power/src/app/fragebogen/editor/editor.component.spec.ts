@@ -76,6 +76,7 @@ describe('Fragebogen.Editor.EditorComponent', () => {
     });
 
     it('should destroy', () => {
+        /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         component.timerHandle = setTimeout(() => null, 100);
         component.ngOnDestroy();
         expect(component.timerHandle).toBeNull();

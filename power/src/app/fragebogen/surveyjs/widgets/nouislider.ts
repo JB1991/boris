@@ -3,7 +3,10 @@ import { create } from 'nouislider';
 
 /* eslint-disable complexity */
 /* istanbul ignore next */
-export function init() {
+/**
+ * Initializes nouislider widget
+ */
+export function init(): void {
     const widget = {
         name: 'nouislider',
         title: 'noUiSlider',

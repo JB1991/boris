@@ -83,6 +83,7 @@ export class AlkisWfsService {
 
     /**
      * Use geo coordinates to get Flurstueck feature
+     * @param lng
      * @param lat Latitude
      * @param lon Longitude
      */

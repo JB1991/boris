@@ -28,7 +28,7 @@ export class HomeComponent {
      * Redirects to formular fillout dialogue
      * @param pin Formular pin
      */
-    submitPIN(pin: string) {
+    public submitPIN(pin: string): void {
         if (!pin) {
             this.alerts.NewAlert('danger', $localize`Eingabe ungültig`, $localize`Bitte geben Sie eine PIN ein.`);
             return;

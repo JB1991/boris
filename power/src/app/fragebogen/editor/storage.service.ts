@@ -26,7 +26,7 @@ export class StorageService {
     /**
      * Resets service to empty model
      */
-    public resetService() {
+    public resetService(): void {
         this.model = JSON.parse(JSON.stringify(templates.defaultTemplate));
         this.css_style = JSON.parse(JSON.stringify(Bootstrap4_CSS));
         // overwrite style class
@@ -43,15 +43,16 @@ export class StorageService {
     }
 
     /**
-     * Sets unsaved changes state
+     * Set unsaved changes state
      * @param state true or false
      */
-    public setUnsavedChanges(state: boolean) {
+    public setUnsavedChanges(state: boolean): void {
         this.UnsavedChanges = state;
     }
 
     /**
-     * Returns true if unsaved changes exists
+     * Returns unsaved changes state
+     * @returns True if unsaved changes exists
      */
     public getUnsavedChanges(): boolean {
         return this.UnsavedChanges;
@@ -61,12 +62,13 @@ export class StorageService {
      * Enables or disables autosave
      * @param state true or false
      */
-    public setAutoSaveEnabled(state: boolean) {
+    public setAutoSaveEnabled(state: boolean): void {
         this.AutoSaveEnabled = state;
     }
 
     /**
-     * Returns true if autosave is enabled
+     * Returns autosave state
+     * @returns True if autosave is enabled
      */
     public getAutoSaveEnabled(): boolean {
         return this.AutoSaveEnabled;
@@ -74,6 +76,7 @@ export class StorageService {
 
     /**
      * Get next unique page id
+     * @returns Page id
      */
     public newPageID(): string {
         // first page id 'p1'
@@ -96,6 +99,7 @@ export class StorageService {
 
     /**
      * Get next unique element id
+     * @returns Element id
      */
     public newElementID(): string {
         // first element id 'e1'

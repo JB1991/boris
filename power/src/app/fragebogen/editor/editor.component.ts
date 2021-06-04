@@ -50,7 +50,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         this.history.resetService();
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         // get id
         this.loadingscreen.setVisible(true);
         const id = this.route.snapshot.paramMap.get('id');
@@ -63,7 +63,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         // delete auto save method
         if (this.timerHandle) {
             clearInterval(this.timerHandle);
@@ -71,54 +71,82 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /**
+     * CTRL+Z event handler
+     * @param event Event
+     */
     /* istanbul ignore next */
-    @HostListener('document:keydown.control.z', ['$event']) onUndoHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.control.z', ['$event']) onUndoHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.undoChanges();
         }
     }
 
+    /**
+     * CTRL+Y event handler
+     * @param event Event
+     */
     /* istanbul ignore next */
-    @HostListener('document:keydown.control.y', ['$event']) onRedoHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.control.y', ['$event']) onRedoHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             this.history.redoChanges();
         }
     }
 
+    /**
+     * CTRL+S event handler
+     * @param event Event
+     */
     /* istanbul ignore next */
-    @HostListener('document:keydown.control.s', ['$event']) onSaveHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.control.s', ['$event']) onSaveHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
             this.wsSave();
         }
     }
 
+    /**
+     * CTRL+V event handler
+     * @param event Event
+     */
     /* istanbul ignore next */
-    @HostListener('document:keydown.control.v', ['$event']) onPasteHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.control.v', ['$event']) onPasteHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
             this.wsNewElement('elementcopy');
         }
     }
 
+    /**
+     * CTRL+P event handler
+     * @param event Event
+     */
     /* istanbul ignore next */
-    @HostListener('document:keydown.control.p', ['$event']) onAddPageHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.control.p', ['$event']) onAddPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
             this.wsPageCreate(this.storage.selectedPageID + 1);
         }
     }
 
+    /**
+     * CTRL+D event handler
+     * @param event Event
+     */
     /* istanbul ignore next */
-    @HostListener('document:keydown.control.d', ['$event']) onDelPageHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.control.d', ['$event']) onDelPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             event.preventDefault();
             this.wsPageDelete(this.storage.selectedPageID);
         }
     }
 
+    /**
+     * Arrow left event handler
+     * @param event Event
+     */
     /* istanbul ignore next */
-    @HostListener('document:keydown.control.arrowleft', ['$event']) onLeftPageHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.control.arrowleft', ['$event']) onLeftPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID !== 0) {
                 this.wsPageSelect(this.storage.selectedPageID - 1);
@@ -126,8 +154,12 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /**
+     * Arrow right event handler
+     * @param event Event
+     */
     /* istanbul ignore next */
-    @HostListener('document:keydown.control.arrowright', ['$event']) onRightPageHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.control.arrowright', ['$event']) onRightPageHandler(event: KeyboardEvent): void {
         if (this.storage.getAutoSaveEnabled()) {
             if (this.storage.selectedPageID < this.storage.model.pages.length - 1) {
                 this.wsPageSelect(this.storage.selectedPageID + 1);
@@ -135,6 +167,10 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
+    /**
+     * canDeactivate event handler
+     * @returns True if can leave page
+     */
     @HostListener('window:beforeunload') canDeactivate(): boolean {
         // on test environment skip
         if (!environment.production) {
@@ -143,7 +179,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         return !this.storage.getUnsavedChanges();
     }
 
-    @HostListener('window:scroll', ['$event']) onScroll(event) {
+    /**
+     * Scroll event handler
+     * @param event Event
+     */
+    @HostListener('window:scroll', ['$event']) onScroll(event: Event): void {
         const tb = document.getElementById('toolbox').parentElement;
         const fr = document.getElementById('favorites').parentElement;
 
@@ -159,7 +199,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
         }
     }
 
-    @HostListener('window:resize', ['$event']) onResize(event) {
+    /**
+     * Resize event handler
+     * @param event Event
+     */
+    @HostListener('window:resize', ['$event']) onResize(event: Event): void {
         // check if not mobile device
         const div = document.getElementById('toolbox').parentElement;
         if (window.innerWidth < 992) {
@@ -170,8 +214,9 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     /**
      * Load form data
      * @param id Form id
+     * @returns Promise
      */
-    public async loadData(id: string) {
+    public async loadData(id: string): Promise<void> {
         // check data
         if (!id) {
             throw new Error('id is required');
@@ -188,6 +233,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
             // auto save
             /* istanbul ignore next */
+            /* eslint-disable-next-line scanjs-rules/call_setInterval */
             this.timerHandle = setInterval(() => {
                 this.wsSave();
             }, 5 * 60000);
@@ -208,7 +254,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      */
     /* istanbul ignore next */
     /* eslint-disable-next-line complexity */
-    private migration() {
+    private migration(): void {
         for (const page of this.storage.model.pages) {
             for (const element of page.elements) {
                 // convert imagepicker to imageselector
@@ -224,7 +270,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Handles drag and drop into pagination zone
      * @param dropResult Event
      */
-    public onDropPagination(dropResult: DropResult) {
+    public onDropPagination(dropResult: DropResult): void {
         if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }
         if (dropResult.addedIndex === dropResult.removedIndex) { return; }
@@ -257,7 +303,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Handles drag and drop into workspace zone
      * @param dropResult Event
      */
-    public onDropWorkspace(dropResult: DropResult) {
+    public onDropWorkspace(dropResult: DropResult): void {
         if (!dropResult) { return; }
         if (dropResult.addedIndex === null) { return; }
         if (dropResult.addedIndex === dropResult.removedIndex) { return; }
@@ -298,10 +344,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
     /**
      * Returns true if drop down is enabled
-     * @param sourceContainerOptions
-     * @param payload
+     * @param sourceContainerOptions ContainerOptions
+     * @param payload Payload
+     * @returns True of should drag
      */
-    public shouldAcceptDropPagination(sourceContainerOptions: ContainerOptions, payload): boolean {
+    public shouldAcceptDropPagination(sourceContainerOptions: ContainerOptions, payload: any): boolean {
         // enable drag from pagination and workspace
         if (sourceContainerOptions.groupName === 'pagination') {
             return true;
@@ -313,10 +360,11 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
 
     /**
      * Returns true if drop down is enabled
-     * @param sourceContainerOptions
-     * @param payload
+     * @param sourceContainerOptions ContainerOptions
+     * @param payload Payload
+     * @returns True of should drag
      */
-    public shouldAcceptDropWorkspace(sourceContainerOptions: ContainerOptions, payload): boolean {
+    public shouldAcceptDropWorkspace(sourceContainerOptions: ContainerOptions, payload: any): boolean {
         // enable drag from toolbox and workspace
         if (sourceContainerOptions.groupName === 'toolbox') {
             return true;
@@ -331,32 +379,36 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     /**
      * Sets drop from infos
      * @param index id
+     * @returns drag and drop info
      */
-    public getPayloadToolbox(index: number): any {
+    public getPayloadToolbox(index: number): { from: string, index: number } {
         return { from: 'toolbox', index: index };
     }
 
     /**
      * Sets drop from infos
      * @param index id
+     * @returns drag and drop info
      */
-    public getPayloadFavorites(index: number): any {
+    public getPayloadFavorites(index: number): { from: string, index: number } {
         return { from: 'favorites', index: index };
     }
 
     /**
      * Sets drop from infos
      * @param index id
+     * @returns drag and drop info
      */
-    public getPayloadPagination(index: number): any {
+    public getPayloadPagination(index: number): { from: string, index: number } {
         return { from: 'pagination', index: index };
     }
 
     /**
      * Sets drop from infos
      * @param index id
+     * @returns drag and drop info
      */
-    public getPayloadWorkspace(index: number): any {
+    public getPayloadWorkspace(index: number): { from: string, index: number } {
         return { from: 'workspace', index: index };
     }
 
@@ -364,7 +416,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Creates new element
      * @param type Element identifier
      */
-    public wsNewElement(type: string) {
+    public wsNewElement(type: string): void {
         // check data
         if (!type) {
             throw new Error('type is required');
@@ -393,7 +445,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Adds new page to the end or after given page
      * @param page Page number
      */
-    public wsPageCreate(page: number = this.storage.model.pages.length) {
+    public wsPageCreate(page: number = this.storage.model.pages.length): void {
         // check data
         if (page < 0 || page > this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -416,7 +468,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Removes page id
      * @param page Page number
      */
-    public wsPageDelete(page: number) {
+    public wsPageDelete(page: number): void {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -450,7 +502,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Changes currently selected page
      * @param page Page number
      */
-    public wsPageSelect(page: number) {
+    public wsPageSelect(page: number): void {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -465,7 +517,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     /**
      * Saves changes to server
      */
-    public wsSave() {
+    public wsSave(): void {
         // check for changes and if saving is enabled
         if (!this.storage.getUnsavedChanges() || !this.storage.getAutoSaveEnabled()) {
             return;
@@ -494,7 +546,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param element Element number
      * @param page Page number
      */
-    public wsElementCopy(element: number, page: number = this.storage.selectedPageID) {
+    public wsElementCopy(element: number, page: number = this.storage.selectedPageID): void {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -510,6 +562,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
             $localize`Sie finden Ihre Zwischenablage ganz unten in der Toolbox.`);
 
         // scroll top
+        /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         setTimeout(() => {
             const div = document.getElementById('toolbox');
             /* istanbul ignore next */
@@ -524,7 +577,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param element Element number
      * @param page Page number
      */
-    public wsElementRemove(element: number, page: number = this.storage.selectedPageID) {
+    public wsElementRemove(element: number, page: number = this.storage.selectedPageID): void {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -548,7 +601,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param element Element number
      * @param page Page number
      */
-    public wsElementMoveup(element: number, page: number = this.storage.selectedPageID) {
+    public wsElementMoveup(element: number, page: number = this.storage.selectedPageID): void {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -571,7 +624,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param element Element number
      * @param page Page number
      */
-    public wsElementMovedown(element: number, page: number = this.storage.selectedPageID) {
+    public wsElementMovedown(element: number, page: number = this.storage.selectedPageID): void {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -596,7 +649,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param newPage New Page number
      * @param newElement Place to insert element
      */
-    public wsElementToPage(element: number, page: number, newPage: number, newElement = 0) {
+    public wsElementToPage(element: number, page: number, newPage: number, newElement = 0): void {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -624,7 +677,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * Adds favorite to workspace
      * @param i Favorite index
      */
-    public insertFavorite(i: number) {
+    public insertFavorite(i: number): void {
         // check data
         if (i < 0 || i >= this.favorites.length) {
             throw new Error('i is invalid');
@@ -642,7 +695,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param element Element number
      * @param page Page number
      */
-    public addFavorite(element: number, page: number = this.storage.selectedPageID) {
+    public addFavorite(element: number, page: number = this.storage.selectedPageID): void {
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
         }
@@ -677,7 +730,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
      * @param element Element number
      * @param page Page number
      */
-    public delFavorite(element: number, page: number = this.storage.selectedPageID) {
+    public delFavorite(element: number, page: number = this.storage.selectedPageID): void {
         // check data
         if (page < 0 || page >= this.storage.model.pages.length) {
             throw new Error('page is invalid');
@@ -708,6 +761,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     /**
      * Checks if an element is a favorite
      * @param element Question
+     * @returns Number of favorite, null if it is not a favorite
      */
     public isFavorite(element: any): number {
         // prepare data
@@ -726,6 +780,7 @@ export class EditorComponent implements OnInit, OnDestroy, ComponentCanDeactivat
     /**
      * Returns question svg
      * @param type Question type
+     * @returns Icon svg code
      */
     public getIcon(type: string): string {
         return this.storage.FormularFields.filter(p => p.type === type)[0].icon;

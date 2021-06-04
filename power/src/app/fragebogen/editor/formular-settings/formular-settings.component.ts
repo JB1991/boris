@@ -28,7 +28,7 @@ export class FormularSettingsComponent {
     /**
      * Opens modal
      */
-    public open() {
+    public open(): void {
         this.copy = JSON.stringify(this.model);
         this.storage.setAutoSaveEnabled(false);
         this.modal.open($localize`Formular Einstellungen`);
@@ -38,7 +38,7 @@ export class FormularSettingsComponent {
      * Modal close callback
      * @param value True if no invalid forms found
      */
-    public close(value: boolean) {
+    public close(value: boolean): void {
         if (value) {
             // changed something
             if (this.copy && this.copy !== JSON.stringify(this.model)) {
@@ -60,7 +60,7 @@ export class FormularSettingsComponent {
      * Moves page up
      * @param i Page number
      */
-    public moveUp(i: number) {
+    public moveUp(i: number): void {
         // check data
         if (i < 0 || i >= this.model.pages.length) {
             throw new Error('page is invalid');
@@ -78,7 +78,7 @@ export class FormularSettingsComponent {
      * Moves page down
      * @param i Page number
      */
-    public moveDown(i: number) {
+    public moveDown(i: number): void {
         // check data
         if (i < 0 || i >= this.model.pages.length) {
             throw new Error('page is invalid');
@@ -96,7 +96,7 @@ export class FormularSettingsComponent {
      * Open page tab
      */
     /* istanbul ignore next */
-    public openPage() {
-        (document.activeElement as any).click();
+    public openPage(): void {
+        (document.activeElement as HTMLElement).click();
     }
 }

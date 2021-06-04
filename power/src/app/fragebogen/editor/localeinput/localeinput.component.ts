@@ -29,15 +29,16 @@ export class LocaleInputComponent {
 
     /**
      * Updates values
-     * @param data data
      */
-    public updateValue() {
+    public updateValue(): void {
         this.locale[this.displayLang] = this.escapeHtml(this.locale[this.displayLang]);
         this.localeChange.emit(this.locale);
     }
 
     /**
      * Escape user input
+     * @param unsafe Unsafe string
+     * @returns Escaped string
      */
     public escapeHtml(unsafe: string): string {
         return unsafe.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');

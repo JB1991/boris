@@ -38,7 +38,7 @@ export class ValueComponent implements OnChanges {
         this.css_style.question.formGroup = 'd-none';
     }
 
-    ngOnChanges() {
+    ngOnChanges(): void {
         this.data[this.question.name] = this.value;
     }
 
@@ -46,7 +46,7 @@ export class ValueComponent implements OnChanges {
      * Updates values
      * @param data data
      */
-    public updateValue(data: any) {
+    public updateValue(data: any): void {
         this.value = data[this.question.name];
         this.data[this.question.name] = this.value;
         this.valueChange.emit(this.value);
@@ -55,7 +55,7 @@ export class ValueComponent implements OnChanges {
     /**
      * Resets value
      */
-    public resetValue() {
+    public resetValue(): void {
         this.value = undefined;
         this.data = {};
         this.valueChange.emit(this.value);

@@ -21,7 +21,7 @@ export class MaketaskComponent {
     /**
      * Opens make task modal
      */
-    public open() {
+    public open(): void {
         this.amount = 1;
         this.pinList = [];
         this.modal.open($localize`PINs erstellen`);

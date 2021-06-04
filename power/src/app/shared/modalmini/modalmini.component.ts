@@ -16,7 +16,7 @@ export class ModalminiComponent implements OnDestroy {
     @Input() public checkInvalid = false;
     @Input() public easyclose = true;
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
-    public focusedElement: any;
+    public focusedElement: HTMLElement;
     public isOpen = false;
     public title = '';
 
@@ -47,7 +47,7 @@ export class ModalminiComponent implements OnDestroy {
         this.cdr.detectChanges();
 
         // focus
-        this.focusedElement = document.activeElement;
+        this.focusedElement = document.activeElement as HTMLElement;
         this.div.nativeElement.children[2].focus();
     }
 

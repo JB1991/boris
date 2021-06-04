@@ -20,8 +20,9 @@ export class PublishComponent {
 
     /**
      * Opens modal
+     * @param id Survey ID
      */
-    public open(id: string) {
+    public open(id: string): void {
         this.id = id;
         this.modal.open($localize`Veröffentlichen`);
     }
@@ -29,7 +30,7 @@ export class PublishComponent {
     /**
      * Publishes form
      */
-    public Publish() {
+    public Publish(): void {
         // Ask user to confirm achivation
         if (!confirm($localize`Möchten Sie dieses Formular wirklich veröffentlichen?\n\
             Das Formular lässt sich danach nicht mehr bearbeiten.\n\

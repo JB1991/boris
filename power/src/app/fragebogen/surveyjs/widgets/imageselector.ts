@@ -2,7 +2,10 @@ import { CustomWidgetCollection, JsonObject } from 'survey-angular';
 
 /* eslint-disable complexity */
 /* istanbul ignore next */
-export function init() {
+/**
+ * Initializes nouislider widget
+ */
+export function init(): void {
     const widget = {
         name: 'imageselector',
         title: 'Imageselector',
@@ -60,6 +63,7 @@ export function init() {
                 }
 
                 // click event
+                /* eslint-disable-next-line scanjs-rules/call_addEventListener */
                 figure.addEventListener('click', function (event) {
                     if (!question.multiSelect) {
                         // single value
@@ -107,6 +111,7 @@ export function init() {
                 if (!question.mobiletext || screen.width >= 576) {
                     const img = document.createElement('img');
                     img.classList.add('figure-img', 'img-fluid', 'rounded');
+                    /* eslint-disable-next-line scanjs-rules/assign_to_src */
                     img.src = choice.imageLink;
                     img.style.width = width;
                     if (question.imageHeight) {
