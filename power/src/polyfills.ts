@@ -61,6 +61,7 @@ import '@angular/localize/init';
  * APPLICATION IMPORTS
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // aws-sdk requires global to exist
 (window as any).global = window;
 

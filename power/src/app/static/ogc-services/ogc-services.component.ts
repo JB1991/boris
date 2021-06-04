@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 @Component({
     selector: 'power-ogc-services',
@@ -10,11 +10,10 @@ import { Meta, Title } from '@angular/platform-browser';
 export class OgcServicesComponent {
 
     constructor(
-        private titleService: Title,
-        private meta: Meta
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`OGC Dienste - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Das LGLN stellt gebührenfreie OGC Darstellungs- und Downloaddienste über WMS und WFS Schnittstellen bereit` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, LGLN, OGC, WMS, WFS, Geodatendienste` });
+        this.seo.setTitle($localize`OGC Dienste - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Das LGLN stellt gebührenfreie OGC Darstellungs- und Downloaddienste über WMS und WFS Schnittstellen bereit` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, LGLN, OGC, WMS, WFS, Geodatendienste` });
     }
 }

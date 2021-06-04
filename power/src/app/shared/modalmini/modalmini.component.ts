@@ -25,7 +25,7 @@ export class ModalminiComponent implements OnDestroy {
         public cdr: ChangeDetectorRef
     ) { }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.isOpen) {
             this.close();
         }
@@ -36,7 +36,7 @@ export class ModalminiComponent implements OnDestroy {
      * Opens modal
      * @param title Title to display
      */
-    public open(title?: string) {
+    public open(title?: string): void {
         // open modal
         this.title = title;
         this.isOpen = true;
@@ -54,7 +54,7 @@ export class ModalminiComponent implements OnDestroy {
     /**
      * Closes modal
      */
-    public close() {
+    public close(): void {
         if (!this.isOpen) {
             return;
         }
@@ -84,7 +84,7 @@ export class ModalminiComponent implements OnDestroy {
      * Toggles modal
      * @param title Title to display
      */
-    public toggle(title?: string) {
+    public toggle(title?: string): void {
         if (this.isOpen) {
             this.close();
         } else {
@@ -93,7 +93,8 @@ export class ModalminiComponent implements OnDestroy {
     }
 
     /**
-     * Returns true if modal is visible
+     * Returns visibility state
+     * @returns True if modal is visible
      */
     public isVisible(): boolean {
         return this.isOpen;

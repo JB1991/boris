@@ -30,7 +30,7 @@ export class NewformComponent {
     /**
      * Opens new form modal
      */
-    public open() {
+    public open(): void {
         this.searchText = '';
         this.title = '';
         this.tagList = [];
@@ -41,7 +41,7 @@ export class NewformComponent {
     /**
      * Fetch all Templates (Forms with id, title) for the current search text
      */
-    public fetchTemplates() {
+    public fetchTemplates(): void {
         const queryParams: GetFormsParams = {
             fields: ['id', 'content', 'owner.name', 'extract'],
             filter: {
@@ -66,7 +66,7 @@ export class NewformComponent {
     /**
      * Creates new formular
      */
-    public NewForm() {
+    public NewForm(): void {
         // check if form is filled incorrect
         if (!this.title) {
             this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`,
@@ -100,7 +100,7 @@ export class NewformComponent {
      * Makes new formular
      * @param template SurveyJS Template
      */
-    public async makeForm(template: any) {
+    public async makeForm(template: any): Promise<void> {
         try {
             if (!template) {
                 throw new Error('template is required');
@@ -122,7 +122,7 @@ export class NewformComponent {
      * Escapes Title
      * @param data data
      */
-    public escapeTitle() {
+    public escapeTitle(): void {
         this.title = this.title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 }

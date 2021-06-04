@@ -15,7 +15,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         public platform: Platform,
         public us: UpdateService) { }
 
-    handleError(error: Error) {
+    handleError(error: Error): void {
         // check if app needs reload
         console.error(error);
         if (error.message.indexOf('Loading chunk') !== -1) {
@@ -62,6 +62,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         this.container.appendChild(mail);
 
         const link = document.createElement('a');
+        /* eslint-disable-next-line scanjs-rules/assign_to_href */
         link.href = 'mailto:incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com?subject=Fehlerbericht&body=' + msgB64;
         link.innerText = $localize`E-Mail Programm öffnen`;
         this.container.appendChild(link);
@@ -77,7 +78,7 @@ export class GlobalErrorHandler implements ErrorHandler {
      * Reloads page
      */
     /* istanbul ignore next */
-    public reload() {
+    public reload(): void {
         window.location.reload();
     }
 }

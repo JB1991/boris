@@ -1,13 +1,10 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AppModule } from './app.module';
 
 describe('AppModule', () => {
     let appModule: AppModule;
-    let httpClient: HttpClient;
-    let httpTestingController: HttpTestingController;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -18,8 +15,6 @@ describe('AppModule', () => {
 
         spyOn(console, 'log');
         spyOn(console, 'error');
-        httpClient = TestBed.inject(HttpClient);
-        httpTestingController = TestBed.inject(HttpTestingController);
         appModule = new AppModule();
     }));
 

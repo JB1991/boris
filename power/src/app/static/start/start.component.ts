@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Meta, Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { SEOService } from '@app/shared/seo/seo.service';
 import { environment } from '@env/environment';
 
 @Component({
@@ -17,15 +17,14 @@ export class StartComponent {
     public pin: string;
 
     constructor(
-        public titleService: Title,
-        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
-        public alerts: AlertsService
+        public alerts: AlertsService,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+        this.seo.setTitle($localize`Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
 
         // check if logged out
         /* istanbul ignore next */
@@ -41,7 +40,7 @@ export class StartComponent {
      * Redirects to formular fillout dialogue
      * @param pin Formular pin
      */
-    public submitPIN(pin: string) {
+    public submitPIN(pin: string): void {
         if (!pin) {
             this.alerts.NewAlert('danger', $localize`Eingabe ungültig`, $localize`Bitte geben Sie eine PIN ein.`);
             return;
@@ -52,6 +51,7 @@ export class StartComponent {
     /**
      * Returns true for every second module
      * @param module Module name
+     * @returns True if card should be left
      */
     public getCardOrder(module: string): boolean {
         if (typeof this.cardorder[module] !== 'undefined') {
@@ -64,7 +64,7 @@ export class StartComponent {
      * Scrolls to element
      * @param id Element id
      */
-    public scrollToElement(id: string) {
+    public scrollToElement(id: string): void {
         document.getElementById(id).scrollIntoView();
     }
 }

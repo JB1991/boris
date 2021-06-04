@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthService } from '@app/shared/auth/auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 @Component({
     selector: 'power-feedback',
@@ -24,18 +24,17 @@ export class FeedbackComponent implements OnInit {
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
-        public titleService: Title,
-        public meta: Meta,
         private httpClient: HttpClient,
         public auth: AuthService,
-        public alerts: AlertsService
+        public alerts: AlertsService,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Feedback - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Helfen Sie uns unseren Service zu verbessern, indem Sie uns wertvolles Feedback senden` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Feedback` });
+        this.seo.setTitle($localize`Feedback - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Helfen Sie uns unseren Service zu verbessern, indem Sie uns wertvolles Feedback senden` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Feedback` });
     }
 
-    async ngOnInit() {
+    async ngOnInit(): Promise<void> {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             await this.loadRSSFeed();
@@ -44,9 +43,10 @@ export class FeedbackComponent implements OnInit {
 
     /**
      * Loads RSS feed XML from gitlab
+     * @returns Promise
      */
     /* istanbul ignore next */
-    public async loadRSSFeed() {
+    public async loadRSSFeed(): Promise<void> {
         // craft uri
         let uri = '/feedback-rss/?state=' + encodeURIComponent(this.stateFilter);
         if (this.search) {
@@ -59,6 +59,7 @@ export class FeedbackComponent implements OnInit {
 
             // parse rss feed
             const parser = new DOMParser();
+            /* eslint-disable-next-line scanjs-rules/call_parseFromString */
             const di = parser.parseFromString(tmp.toString(), 'application/xml');
             const childs = di.getElementsByTagName('entry');
 
@@ -74,8 +75,10 @@ export class FeedbackComponent implements OnInit {
 
     /**
      * Searches for keywords in rss feed from github
+     * @returns Promise
      */
-    public async doSearch() {
+    public async doSearch(): Promise<void> {
+        /* eslint-disable-next-line scanjs-rules/assign_to_search */
         this.search = this.search.replace(this.reg_email, '');
         await this.loadRSSFeed();
     }
@@ -83,6 +86,7 @@ export class FeedbackComponent implements OnInit {
     /**
      * Filters title
      * @param param Title
+     * @returns Filtered title
      */
     public filterTitle(param: string): string {
         return param.replace(this.reg_servicedesk, '').replace(this.reg_email, '***@email');
@@ -91,6 +95,7 @@ export class FeedbackComponent implements OnInit {
     /**
      * Filters body
      * @param param Title
+     * @returns Filtered body
      */
     public filterBody(param: string): string {
         return param.replace(this.reg_email, '***@email').replace(this.reg_tel, '***');
@@ -100,7 +105,7 @@ export class FeedbackComponent implements OnInit {
      * Copies the Email-Address to the clipboard
      */
     /* istanbul ignore next */
-    public copyEmailToClipboard() {
+    public copyEmailToClipboard(): void {
         const selBox = document.createElement('textarea');
         selBox.style.position = 'fixed';
         selBox.style.left = '0';

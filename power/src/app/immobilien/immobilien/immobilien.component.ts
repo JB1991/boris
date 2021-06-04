@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
 import { Location, isPlatformBrowser } from '@angular/common';
-import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '@env/environment';
@@ -12,6 +11,7 @@ import * as ImmobilenNipixStatic from './immobilien.static';
 import * as ImmobilenNipixRuntime from './immobilien.runtime';
 
 import * as echarts from 'echarts';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 declare const require: any;
 
@@ -46,21 +46,19 @@ export class ImmobilienComponent implements OnInit {
      * Constructor:
      *
      * @param http Inject HttpClient
-     * @param titleService Service for settings the title of the HTML document
      */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
-        private titleService: Title,
-        private meta: Meta,
         private route: ActivatedRoute,
         private location: Location,
         private http: HttpClient,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Der Immobilienpreisindex bildet die Preisentwicklung von Eigenheimen und Eigentumswohnungen in Niedersachsen ab` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Immobilienpreisindex, NIPIX, Preisentwicklung, Wohnungsmarktregion, Eigenheim, Eigentumswohnung` });
+        this.seo.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Der Immobilienpreisindex bildet die Preisentwicklung von Eigenheimen und Eigentumswohnungen in Niedersachsen ab` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Immobilienpreisindex, NIPIX, Preisentwicklung, Wohnungsmarktregion, Eigenheim, Eigentumswohnung` });
 
         if (!isPlatformBrowser(this.platformId)) {
             this.isBrowser = false;

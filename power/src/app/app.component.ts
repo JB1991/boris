@@ -1,7 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, NavigationError, Router } from '@angular/router';
-import { Meta, Title } from '@angular/platform-browser';
 import { Platform } from '@angular/cdk/platform';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
@@ -24,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public showBrowserNotice = true;
     public showOfflineNotice = true;
     public config = environment.config;
-    public appVersion: any = { version: 'dev', branch: 'local' };
+    public appVersion = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
     public uri = location;
     public baseurl = location.pathname + location.search;
@@ -33,8 +32,6 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     private unsubscribe$: Subject<void> = new Subject<void>();
 
     constructor(
-        public titleService: Title,
-        public meta: Meta,
         @Inject(LOCALE_ID) public locale: string,
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -46,9 +43,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         public us: UpdateService,
         public seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+        this.seo.setTitle($localize`Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
 
         // check for updates
         this.us.checkForUpdates();
@@ -83,13 +80,13 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             // load version
             this.httpClient.get('/assets/version.json').subscribe(data => {
                 if (data && data['version']) {
-                    this.appVersion = data;
+                    this.appVersion = data as { version: string, branch: string };
                     environment.config.version = this.appVersion;
                 }
                 this.showOfflineNotice = false;
@@ -117,11 +114,11 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
     }
 
-    ngAfterViewChecked() {
+    ngAfterViewChecked(): void {
         this.cdRef.detectChanges();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
         this._subscription.unsubscribe();

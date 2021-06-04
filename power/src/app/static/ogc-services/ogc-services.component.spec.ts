@@ -1,7 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Meta, Title } from '@angular/platform-browser';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { OgcServicesComponent } from './ogc-services.component';
@@ -16,10 +15,6 @@ describe('OgcServicesComponent', () => {
                 RouterTestingModule.withRoutes([]),
                 BrowserAnimationsModule,
                 AccordionModule.forRoot()
-            ],
-            providers: [
-                Title,
-                Meta
             ],
             declarations: [
                 OgcServicesComponent

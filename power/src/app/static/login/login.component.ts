@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Meta, Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
 
 import { AuthService } from '@app/shared/auth/auth.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 @Component({
     selector: 'power-login',
@@ -16,20 +16,19 @@ export class LoginComponent implements OnInit {
 
     constructor(
         @Inject(LOCALE_ID) public locale: string,
-        public titleService: Title,
-        public meta: Meta,
         public activatedRoute: ActivatedRoute,
         public router: Router,
         public auth: AuthService,
         public loadingscreen: LoadingscreenService,
-        public alerts: AlertsService
+        public alerts: AlertsService,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Login - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Einloggen am Immobilienmarkt.NI Portal` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Login` });
+        this.seo.setTitle($localize`Login - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Einloggen am Immobilienmarkt.NI Portal` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Login` });
     }
 
-    async ngOnInit() {
+    async ngOnInit(): Promise<void> {
         /* istanbul ignore else */
         if (localStorage) {
             this.loadingscreen.setVisible(true);
@@ -40,7 +39,7 @@ export class LoginComponent implements OnInit {
     /**
      * Handles user authentication
      */
-    public async authenticate() {
+    public async authenticate(): Promise<void> {
         // get redirect uri
         let redirect = this.activatedRoute.snapshot.queryParamMap.get('redirect');
         if (redirect) {
@@ -102,7 +101,8 @@ export class LoginComponent implements OnInit {
      * Redirects to external page. This exists to prevent redirect on karma tests
      * @param url redirect url
      */
-    public redirect(url) {
+    public redirect(url: string): void {
+        /* eslint-disable-next-line scanjs-rules/assign_to_href */
         document.location.href = url;
     }
 }

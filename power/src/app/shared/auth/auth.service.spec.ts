@@ -93,7 +93,7 @@ describe('Shared.Auth.AuthService', () => {
 
     it('should get token', (done) => {
         // get correct token
-        service.KeycloakToken('abc').then((value) => {
+        service.KeycloakToken('abc').then(() => {
             expect(service.getBearer()).toEqual('Bearer abc.e30=.123');
             done();
         });
@@ -104,7 +104,7 @@ describe('Shared.Auth.AuthService', () => {
 
     it('should not get token', (done) => {
         // get error
-        service.KeycloakToken('abc').then((value) => {
+        service.KeycloakToken('abc').then(() => {
             expect(service.getBearer()).toBeNull();
             done();
         });
@@ -114,7 +114,7 @@ describe('Shared.Auth.AuthService', () => {
 
     it('should not get token 2', (done) => {
         // get nothing
-        service.KeycloakToken('abc').then((value) => {
+        service.KeycloakToken('abc').then(() => {
             expect(service.getBearer()).toBeNull();
             done();
         });
@@ -124,7 +124,7 @@ describe('Shared.Auth.AuthService', () => {
 
     it('should not get token 3', (done) => {
         // get error status code
-        service.KeycloakToken('abc').then((value) => {
+        service.KeycloakToken('abc').then(() => {
             expect(service.getBearer()).toBeNull();
             done();
         });
@@ -147,7 +147,7 @@ describe('Shared.Auth.AuthService', () => {
         expire.setSeconds(expire.getSeconds() + 200);
         localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
-        service.loadSession(false).then((value) => {
+        service.loadSession(false).then(() => {
             expect(service.IsAuthenticated()).toBeTrue();
             done();
         });
@@ -159,7 +159,7 @@ describe('Shared.Auth.AuthService', () => {
         expire.setSeconds(expire.getSeconds() - 200);
         localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
-        service.loadSession().then((value) => {
+        service.loadSession().then(() => {
             expect(service.IsAuthenticated()).toBeTrue();
             done();
         });
@@ -174,7 +174,7 @@ describe('Shared.Auth.AuthService', () => {
         expire.setSeconds(expire.getSeconds() - 200);
         localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
-        service.loadSession().then((value) => {
+        service.loadSession().then(() => {
             expect(service.IsAuthenticated()).toBeFalse();
             done();
         });
@@ -188,7 +188,7 @@ describe('Shared.Auth.AuthService', () => {
         expire.setSeconds(expire.getSeconds() - 200);
         localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
-        service.loadSession().then((value) => {
+        service.loadSession().then(() => {
             expect(service.IsAuthenticated()).toBeFalse();
             done();
         });
@@ -202,7 +202,7 @@ describe('Shared.Auth.AuthService', () => {
         expire.setSeconds(expire.getSeconds() - 200);
         localStorage.setItem('user', JSON.stringify({ 'expires': expire, 'token': { 'refresh_token': 'XXX' } }));
 
-        service.loadSession().then((value) => {
+        service.loadSession().then(() => {
             expect(service.IsAuthenticated()).toBeFalse();
             done();
         });

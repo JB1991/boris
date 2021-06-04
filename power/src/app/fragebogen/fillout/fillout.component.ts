@@ -1,5 +1,4 @@
 import { Component, HostListener, ViewChild, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { environment } from '@env/environment';
@@ -11,6 +10,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 import { PublicForm, PublicTask } from '../formapi.model';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 @Component({
     selector: 'power-forms-fillout',
@@ -35,17 +35,16 @@ export class FilloutComponent implements AfterViewInit {
 
     constructor(
         @Inject(LOCALE_ID) public locale: string,
-        public titleService: Title,
-        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public formapi: FormAPIService
+        public formapi: FormAPIService,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Formulare - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
+        this.seo.setTitle($localize`Formulare - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
     ngAfterViewInit() {

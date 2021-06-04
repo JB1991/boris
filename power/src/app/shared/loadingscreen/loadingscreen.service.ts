@@ -26,7 +26,7 @@ export class LoadingscreenService implements OnDestroy {
         });
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this._subscription.unsubscribe();
     }
 
@@ -34,12 +34,13 @@ export class LoadingscreenService implements OnDestroy {
      * Shows or hides loadingscreen
      * @param state new state
      */
-    public setVisible(state: boolean) {
+    public setVisible(state: boolean): void {
         this.visible = state;
     }
 
     /**
      * Returns loadingscreen state
+     * @returns True if visible
      */
     public isVisible(): boolean {
         return this.visible;
@@ -48,7 +49,7 @@ export class LoadingscreenService implements OnDestroy {
     /**
      * Resets service to empty model
      */
-    public resetService() {
+    public resetService(): void {
         this.visible = false;
     }
 }

@@ -3,7 +3,6 @@ import {
     Component, OnDestroy, Inject, PLATFORM_ID, OnInit,
     ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
 import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,6 +15,7 @@ import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/a
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -169,15 +169,14 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
-        private titleService: Title,
         private cdr: ChangeDetectorRef,
         private route: ActivatedRoute,
         public location: Location,
-        private meta: Meta,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Bremerhaven, Wertermittlung, Bodenrichtwerte, BORIS, Bo­den­richt­wert­zo­ne` });
+        this.seo.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Bremerhaven, Wertermittlung, Bodenrichtwerte, BORIS, Bo­den­richt­wert­zo­ne` });
 
         this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.address = adr;

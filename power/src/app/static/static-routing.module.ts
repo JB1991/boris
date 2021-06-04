@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { StartComponent } from './start/start.component';
-import { DatenschutzComponent } from './datenschutz/datenschutz.component';
-import { ImpressumComponent } from './impressum/impressum.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { FeedbackComponent } from './feedback/feedback.component';
@@ -16,16 +14,6 @@ const routes: Routes = [
     {
         path: '',
         component: StartComponent
-    },
-    {
-        path: 'impressum',
-        component: ImpressumComponent,
-        canActivate: [ModuleGuard]
-    },
-    {
-        path: 'datenschutz',
-        component: DatenschutzComponent,
-        canActivate: [ModuleGuard]
     },
     {
         path: 'login',

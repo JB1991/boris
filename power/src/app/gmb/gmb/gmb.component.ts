@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
 import { Location, isPlatformBrowser } from '@angular/common';
-import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-
 import * as echarts from 'echarts';
+
+import { SEOService } from '@app/shared/seo/seo.service';
 import * as data from './gmb.json';
 import * as kreise_raw from './kreise.json';
 
@@ -106,19 +106,18 @@ export class GmbComponent implements OnInit {
      * Constructor:
      *
      * @param http Inject HttpClient
-     * @param titleService Service for settings the title of the HTML document
      */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
         private http: HttpClient,
-        private titleService: Title,
-        private meta: Meta,
         private route: ActivatedRoute,
         private location: Location,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private seo: SEOService
     ) {
         this.changeTitle();
+        this.seo.addURLParameter('landkreis');
 
         if (!isPlatformBrowser(this.platformId)) {
             this.isBrowser = false;
@@ -127,13 +126,13 @@ export class GmbComponent implements OnInit {
 
     changeTitle() {
         if (this.mode === 'gmb') {
-            this.titleService.setTitle($localize`Grundstücksmarktberichte - Immobilienmarkt.NI`);
-            this.meta.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
-            this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktberichte, Landkreis` });
+            this.seo.setTitle($localize`Grundstücksmarktberichte - Immobilienmarkt.NI`);
+            this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
+            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktberichte, Landkreis` });
         } else if (this.mode === 'lmb') {
-            this.titleService.setTitle($localize`Landesgrundstücksmarktberichte - Immobilienmarkt.NI`);
-            this.meta.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
-            this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
+            this.seo.setTitle($localize`Landesgrundstücksmarktberichte - Immobilienmarkt.NI`);
+            this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
+            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
         }
     }
 

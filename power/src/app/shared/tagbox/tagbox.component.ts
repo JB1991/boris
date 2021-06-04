@@ -33,7 +33,7 @@ export class TagboxComponent {
     /**
      * Adds tag to list
      */
-    public addTag() {
+    public addTag(): void {
         if (!this.tagList) {
             this.tagList = [];
         }
@@ -55,7 +55,7 @@ export class TagboxComponent {
      * Removes tag from list
      * @param i Tag number
      */
-    public removeTag(i: number) {
+    public removeTag(i: number): void {
         /* istanbul ignore else */
         if (this.tagList) {
             if (i < 0 || i >= this.tagList.length) {
@@ -69,7 +69,7 @@ export class TagboxComponent {
     /**
      * Deletes all tags from list
      */
-    public removeAll() {
+    public removeAll(): void {
         this.tagList = [];
         this.tagListChange.emit(this.tagList);
     }

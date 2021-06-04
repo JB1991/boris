@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Meta, Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LogoutComponent } from './logout.component';
@@ -11,7 +10,7 @@ import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.se
 describe('Static.Logout.LogoutComponent', () => {
     let component: LogoutComponent;
     let fixture: ComponentFixture<LogoutComponent>;
-    let redirectspy: jasmine.Spy<(url: any) => void>;
+    let redirectspy: jasmine.Spy<(url: string) => void>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -25,8 +24,6 @@ describe('Static.Logout.LogoutComponent', () => {
                 LogoutComponent
             ],
             providers: [
-                Title,
-                Meta,
                 AuthService,
                 LoadingscreenService,
             ]

@@ -19,7 +19,7 @@ export class AlertsService {
      * @param timeout Timeout in milliseconds
      */
     public NewAlert(type: 'success' | 'danger' | 'info' | 'warning',
-        title: string, text: string, timeout = 5000) {
+        title: string, text: string, timeout = 5000): void {
         // check if type is set
         if (!type) {
             throw new Error('Type is required');
@@ -38,7 +38,7 @@ export class AlertsService {
     /**
      * Resets service to empty model
      */
-    public resetService() {
+    public resetService(): void {
         this.alertslist = [];
     }
 }
