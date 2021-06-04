@@ -3,6 +3,7 @@ import { Location, isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '@env/environment';
 
 import { ImmobilienChartOptions } from './immobilien.chartoptions';
 import { ImmobilienHelper } from './immobilien.helper';
@@ -162,7 +163,7 @@ export class ImmobilienComponent implements OnInit {
 
                 this.nipixRuntime.calculated.chartTitle = this.nipixStatic.data.selections[0]['name'];
                 this.loadGemeinden(json['gemeindenUrl']);
-                this.loadGeoMap(json['mapUrl']);
+                this.loadGeoMap(environment.baseurl + json['mapUrl']);
                 this.cdr.detectChanges();
             });
     }
@@ -293,7 +294,7 @@ export class ImmobilienComponent implements OnInit {
                 count = i;
             }
         }
-        itm['selected'] = count+1;
+        itm['selected'] = count + 1;
     }
 
     /**
@@ -305,7 +306,7 @@ export class ImmobilienComponent implements OnInit {
 
         if (params['c']) {
             let selectionId = 0; // Default ID: 0
-            for (let i = 0; i<this.nipixStatic.data.selections.length; i++) {
+            for (let i = 0; i < this.nipixStatic.data.selections.length; i++) {
                 const item = this.nipixStatic.data.selections[i];
                 const eqName = item.name.replace(/[^a-zA-Z0-9]/g, '');
                 if (eqName === params['c']) {
@@ -610,7 +611,7 @@ export class ImmobilienComponent implements OnInit {
             if (this.nipixRuntime.drawPresets[i].name === name) {
                 this.nipixRuntime.drawPresets[i].show = !this.nipixRuntime.drawPresets[i].show;
                 if (this.nipixRuntime.drawPresets[i].fromurl) {
-                    delete(this.nipixRuntime.drawPresets[i].fromurl);
+                    delete (this.nipixRuntime.drawPresets[i].fromurl);
                 }
             }
         }
@@ -721,7 +722,7 @@ export class ImmobilienComponent implements OnInit {
 
     /* eslint-disable-next-line complexity */
     onPanelChangeIndex(selection_id: number) {
-        this.urlIndex=selection_id;
+        this.urlIndex = selection_id;
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if ((this.nipixRuntime.drawPresets[i].show) &&
                 (this.nipixRuntime.drawPresets[i].type === 'aggr') &&
