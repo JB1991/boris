@@ -1,13 +1,15 @@
 <power-modalmini #advancedSearchModal
                  (closing)="onClose()">
     <tabset>
-        <tab heading="Flurstück">
+        <tab *ngIf="flurstueckSearchActive"
+             heading="Flurstück">
             <power-flurstueck-search #flurstueckForm
                                      (closing)="closing()"
                                      (flurstueckChange)="onFlurstueckChange($event)">
             </power-flurstueck-search>
         </tab>
-        <tab heading="Bodenrichtwertnummer">
+        <tab *ngIf="bodenrichtwertSearchActive"
+             heading="Bodenrichtwertnummer">
             <power-bodenrichwertnummer-search #bodenrichtwertForm
                                               [stichtag]="stichtag"
                                               [teilmarkt]="teilmarkt"

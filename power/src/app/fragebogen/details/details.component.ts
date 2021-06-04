@@ -7,7 +7,7 @@ import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.compo
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { FormAPIService, GetTasksParams } from '../formapi.service';
+import { FormAPIService, GetTasksParams, GetTaskParams } from '../formapi.service';
 import { TaskStatus, TaskField, Form, Task, User, Access } from '../formapi.model';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { PaginationComponent } from 'ngx-bootstrap/pagination';
@@ -259,13 +259,20 @@ export class DetailsComponent implements OnInit {
      * Opens preview of task results
      * @param i Number of task
      */
-    public openTask(i: number) {
+    public async openTask(i: number) {
         try {
             // check data
             if (i < 0 || i >= this.tasks.length) {
                 throw new Error('invalid i');
             }
-            this.preview.open('display', this.tasks[i].content);
+
+            const params: GetTaskParams = {
+                fields: ['content'],
+            };
+
+            const r = await this.formapi.getTask(this.tasks[i].id, params);
+
+            this.preview.open('display', r.task.content);
         } catch (error) {
             // failed to delete task
             console.error(error);
@@ -331,7 +338,7 @@ export class DetailsComponent implements OnInit {
     public async updateTasks() {
         this.loadingscreen.setVisible(true);
         const params: GetTasksParams = {
-            fields: ['id', 'pin', 'description', 'created', 'updated', 'status', 'content'],
+            fields: ['id', 'pin', 'description', 'created', 'updated', 'status'],
             filter: { form: { id: this.id } },
             limit: Number(this.taskPerPage),
             offset: (this.taskPage - 1) * this.taskPerPage,
