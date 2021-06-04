@@ -33,7 +33,7 @@ npm-install:
     - tags
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
 
 test-karma:
@@ -63,7 +63,7 @@ test-karma:
     - tags
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
 
 test-e2e:
@@ -93,7 +93,7 @@ test-e2e:
     - tags
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
   when: manual
 
@@ -112,7 +112,7 @@ npm-audit:
     - tags
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
 
 lint-ts:
@@ -134,7 +134,7 @@ lint-ts:
     - tags
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
 
 lint-html:
@@ -156,7 +156,7 @@ lint-html:
     - tags
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
 
 lint-styles:
@@ -178,7 +178,7 @@ lint-styles:
     - tags
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
 
 helm-dry-run:
@@ -197,7 +197,7 @@ helm-dry-run:
   only:
     - dev
     - staging
-    - production
+    - prod
 
 kubesec:
   stage: test
@@ -211,7 +211,7 @@ kubesec:
   only:
     - dev
     - staging
-    - production
+    - prod
 
 build-test:
   stage: build
@@ -240,7 +240,7 @@ build-test:
     - staging
     - /^demo-.*/
 
-build-production:
+build-prod:
   stage: build
   image: node:lts-alpine
   interruptible: true
@@ -261,7 +261,7 @@ build-production:
     paths:
       - power/dist/power/browser
   only:
-    - production
+    - prod
 
 kaniko-build:
   stage: package
@@ -270,18 +270,15 @@ kaniko-build:
     entrypoint: [""]
   dependencies:
     - build-test
-    - build-production
+    - build-prod
   cache: {}
-  environment:
-    name: production
-    action: prepare
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context "$CI_PROJECT_DIR" --dockerfile "$CI_PROJECT_DIR/Dockerfile" --destination "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
   only:
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
 
 trivy:
@@ -297,7 +294,7 @@ trivy:
   only:
     - dev
     - staging
-    - production
+    - prod
     - /^demo-.*/
 
 sonarqube:
@@ -339,7 +336,7 @@ helm-deploy:
   only:
     - dev
     - staging
-    - production
+    - prod
 
 helm-deploy:branches:
   stage: deploy
