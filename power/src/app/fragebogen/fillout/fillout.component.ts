@@ -1,6 +1,5 @@
 import { Component, HostListener, ViewChild, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '@env/environment';
 import { surveyLocalization } from 'survey-angular';
 

@@ -2,8 +2,7 @@ import {
     Component, OnInit, OnDestroy, HostListener,
     ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DropResult, ContainerOptions } from 'ngx-smooth-dnd';
 import { environment } from '@env/environment';

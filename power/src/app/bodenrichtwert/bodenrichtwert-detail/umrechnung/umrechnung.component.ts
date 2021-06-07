@@ -2,7 +2,6 @@ import { Component, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@a
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { EinflussgroessePipe } from '@app/bodenrichtwert/pipes/einflussgroesse.pipe';
 import { ObjectIdPipe } from '@app/bodenrichtwert/pipes/object-id.pipe';
-import { BeitragPipe } from '@app/bodenrichtwert/pipes/beitrag.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-detail-umrechnung',

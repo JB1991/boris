@@ -1,6 +1,5 @@
 /* istanbul ignore file */
-import { Injectable } from '@angular/core';
-import { SimpleChange } from '@angular/core';
+import { Injectable, SimpleChange } from '@angular/core';
 import { FeatureCollection } from 'geojson';
 import { FillExtrusionLayer, Map } from 'maplibre-gl';
 
