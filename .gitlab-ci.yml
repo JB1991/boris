@@ -296,6 +296,7 @@ trivy:
     - staging
     - prod
     - /^demo-.*/
+  allow_failure: true
 
 sonarqube:
   stage: scan
