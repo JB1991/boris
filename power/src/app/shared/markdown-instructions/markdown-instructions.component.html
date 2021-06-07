@@ -1,22 +1,26 @@
 <button type="button"
-class="btn btn-sm btn-link pl-0 pb-4"
-i18n-title
-title="Hilfe zur Formatierung"
-(click)="formattinghelpmodal.open(title)"
-i18n>Hilfe zur Formatierung</button>
+        class="btn btn-sm btn-link pl-0 pb-4"
+        i18n-title
+        title="Hilfe zur Formatierung"
+        (click)="formattinghelpmodal.open(title)"
+        i18n>Hilfe zur Formatierung</button>
 <br>
 
 <power-modalmini #formattinghelpmodal>
     <p>
         <label i18n>Für die Formatierung und Gliederung von Texten wird "Markdown" verwendet. Eine Einführung finden Sie
             unter:</label>
-        <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener noreferrer nofollow"> Wikipedia</a>
+        <a href="https://en.wikipedia.org/wiki/Markdown"
+           target="_blank"
+           rel="noopener noreferrer nofollow"> Wikipedia</a>
     </p>
 
     <p>
         <label i18n>Es ist eine Auszeichnungssprache und ist im Internet im technischen Umfeld verbreitet. Lesen Sie
             weitere Details unter der folgenden Seite:</label>
-        <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank" rel="noopener noreferrer nofollow">
+        <a href="https://daringfireball.net/projects/markdown/syntax"
+           target="_blank"
+           rel="noopener noreferrer nofollow">
             https://daringfireball.net/projects/markdown/syntax</a>
     </p>
 
@@ -31,15 +35,15 @@ i18n>Hilfe zur Formatierung</button>
         <tbody>
 
             <tr>
-                <td><i><label i18n>kursiv</label></i></td>
+                <td><em><label i18n>kursiv</label></em></td>
                 <td><label>*text*</label></td>
             </tr>
             <tr>
-                <td><b><label i18n>fett</label></b></td>
+                <td><strong><label i18n>fett</label></strong></td>
                 <td><label>**text**</label></td>
             </tr>
             <tr>
-                <td><b><i><label i18n>kursiv und fett</label></i></b></td>
+                <td><strong><em><label i18n>kursiv und fett</label></em></strong></td>
                 <td><label>***text***</label></td>
             </tr>
             <tr>
@@ -50,7 +54,8 @@ i18n>Hilfe zur Formatierung</button>
                     </ul>
                 </td>
                 <td><label>* text</label><br>
-                    <label>* text</label></td>
+                    <label>* text</label>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -89,12 +94,16 @@ i18n>Hilfe zur Formatierung</button>
                 <td><label>#### text</label></td>
             </tr>
             <tr>
-                <td><label><a href="https://en.wikipedia.org/wiki/Markdown" rel="noopener noreferrer nofollow">Link</a></label></td>
+                <td><label><a href="https://en.wikipedia.org/wiki/Markdown"
+                           rel="noopener noreferrer nofollow">Link</a></label></td>
                 <td><label>[Link](https://en.wikipedia.org/wiki/Markdown)</label></td>
             </tr>
             <tr>
                 <td><label i18n>Bild einbinden</label>
-                <img src="/assets/logos/logo.png" alt="Logo" title="Logo LGLN" height="25px">
+                    <img src="/assets/logos/logo.png"
+                         alt="Logo"
+                         title="Logo LGLN"
+                         height="25px">
                 </td>
                 <td><label>![Logo](/assets/logos/logo.png "Logo LGLN")</label></td>
             </tr>

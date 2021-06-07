@@ -142,12 +142,12 @@ describe('Immobilien.Immobilien.ImmobilienFormatter', () => {
             null
         );
 
-        expect(res).toEqual('<b>blub</b><br>Preisentwicklung seit : 0%<br>Zugrunde liegende Fälle (foo): 0');
+        expect(res).toEqual('<strong>blub</strong><br>Preisentwicklung seit : 0%<br>Zugrunde liegende Fälle (foo): 0');
     });
 
     it('chartTooltipFormatter should return region', function () {
         const res = component.chartTooltipFormatter({ 'seriesName': 'foo', 'name': 'foo', 'marker': '', 'data': 200, 'dataIndex': 0 }, null, null);
-        expect(res).toEqual('<b>bar</b><br>Preisentwicklung seit : +100%<br>Zugrunde liegende Fälle (foo): 100');
+        expect(res).toEqual('<strong>bar</strong><br>Preisentwicklung seit : +100%<br>Zugrunde liegende Fälle (foo): 100');
     });
 
 

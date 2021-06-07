@@ -72,7 +72,7 @@
                     <b *ngIf="rd.name !== 'Niedersachsen'"
                        class="mr-1"
                        i18n>Gutachterausschuss</b>
-                    <b>{{rd.name}}</b>
+                    <strong>{{rd.name}}</strong>
                 </h5>
             </div>
         </div>
@@ -118,6 +118,7 @@
                             <span class="tc">
                                 {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}"
                                    target="_blank"
+                                   rel="noopener"
                                    [attr.aria-label]="ariaLabelBericht(bj.key, rd.name, true)"
                                    i18n>Download</a>)
                             </span>
