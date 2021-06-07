@@ -100,7 +100,7 @@ metrics:
   image:
     registry: docker.io
     repository: bitnami/nginx-exporter
-    tag: 0.9.0-debian-10-r67
+    tag: 0.9.0-debian-10-r68
     pullPolicy: IfNotPresent
   containerSecurityContext:
     runAsUser: 1001
