@@ -25,6 +25,11 @@ type MultiPolygon = {
     coordinates: number[][][][];
 };
 
+/**
+ *
+ * @param p
+ * @returns
+ */
 function polygonToPoint(p: Polygon): Point {
     try {
         const point = pointOnFeature(p);
@@ -44,6 +49,11 @@ function polygonToPoint(p: Polygon): Point {
     return;
 }
 
+/**
+ *
+ * @param mp
+ * @returns
+ */
 function multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
     return mp.coordinates.map(f => ({
         type: 'Polygon',
@@ -51,6 +61,11 @@ function multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
     }));
 }
 
+/**
+ *
+ * @param mp
+ * @returns
+ */
 function getLargestPolygon(mp: MultiPolygon): Polygon {
     let areaX = 0;
     let largest: Polygon;
@@ -76,6 +91,12 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
     return largest;
 }
 
+/**
+ *
+ * @param p
+ * @param intersec
+ * @returns
+ */
 function intersectPolygon(p: Polygon | MultiPolygon, intersec: Polygon): Array<Polygon> {
     try {
         const f = intersect(intersec, p);
@@ -97,6 +118,12 @@ function intersectPolygon(p: Polygon | MultiPolygon, intersec: Polygon): Array<P
     return;
 }
 
+/**
+ *
+ * @param p
+ * @param buff
+ * @returns
+ */
 function bufferPolygon(p: Polygon | MultiPolygon, buff: number): Array<Polygon> {
     try {
         const f = buffer(p, buff, { units: 'meters' });
@@ -641,6 +668,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
     /**
      * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
+     * @returns returns zoom level depending on selected teilmarkt
      */
     public determineZoomFactor(): number {
         // Bauland
@@ -758,6 +786,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
     /**
      * transformRequest
+     * @param url url
+     * @param resourceType
+     * @returns returns transformed url
      */
     public transformRequest(url, resourceType) {
         if (!url.startsWith('http') && resourceType === 'Tile') {

@@ -303,7 +303,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * getStichtag returns the correct stichtag for Bremen/Bremerhaven
+     * getStichtag calculate the correct stichtag for Bremen/Bremerhaven
+     * @returns returns the correct stichtag for Bremen/Bremerhaven
      */
     public getStichtag(): string {
         const index = this.STICHTAGE.indexOf(this.stichtag);
@@ -352,6 +353,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
      * printURL builds the url for the current location
+     * @returns the url for the current location
      */
     public printURL(): string {
         let url = '/boris-print/?';
@@ -447,6 +449,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
      * checkIfStichtagFtsExist checks if features for the currently selected stichtag exist
+     * @returns true or false if feature array is filled or is empty
      */
     public checkIfStichtagFtsExist(): boolean {
         const filteredFts = this.features.features.filter((ft: Feature) =>

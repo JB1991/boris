@@ -31,6 +31,7 @@ export class BodenrichtwertService {
 
     /**
      * Returns the features as an Observable
+     * @returns returns feature as observable
      */
     public getFeatures(): Observable<FeatureCollection> {
         return this.features.asObservable();
@@ -95,6 +96,7 @@ export class BodenrichtwertService {
      * @param lat Latitude
      * @param lon Longitude
      * @param entw Teilmarkt
+     * @returns returns feature
      */
     public getFeatureByLatLonEntw(lat: number, lon: number, entw: Array<string>): Observable<FeatureCollection> {
         // OGC Filter for each teilmarkt/entwicklungszustand
@@ -160,7 +162,7 @@ export class BodenrichtwertService {
     /**
      * Handling of HTTP errors by logging it to the console
      * @param error HTTP error to be handled
-     * @private
+     * @returns returns error
      */
     private static handleError(error: HttpErrorResponse) {
         return throwError(error);
