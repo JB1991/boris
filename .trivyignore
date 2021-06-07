@@ -1,0 +1,17 @@
+# critical
+CVE-2021-33574 # max risk is a denial of service
+CVE-2021-20231 # tls is not handled from container
+CVE-2021-20232 # tls is not handled from container
+
+# high
+CVE-2020-1751 # not relevant, amd64 architecture is not affected
+CVE-2020-1752 # requires authenticated local attacker
+CVE-2021-3326 # not relevant, requires japanese input encoding
+CVE-2018-12886 # gcc compiler is not used to build binaries
+CVE-2019-15847 # gcc compiler is not used to build binaries
+CVE-2020-24659 # tls is not handled from container
+CVE-2021-20305 # tls is not handled from container
+CVE-2019-12290 # not relevant, we are not resolving unkown domain names
+CVE-2019-13115 # tls is not handled from container
+CVE-2019-3843 # requires authenticated local attacker
+CVE-2019-3844 # requires authenticated local attacker
