@@ -45,7 +45,7 @@ export class ImmobilienFormatter {
 
         printName = this.nipixRuntime.translate(printName);
 
-        return '<b>' + (params).marker + printName + '</b><br>' +
+        return '<strong>' + (params).marker + printName + '</strong><br>' +
             $localize`Preisentwicklung seit` + ' ' + this.nipixStatic.referenceDate.replace('_', '/')
             + ': ' + entw + '%<br>' +
             $localize`Zugrunde liegende Fälle` + ' (' + params.name + '): ' + faelle;
