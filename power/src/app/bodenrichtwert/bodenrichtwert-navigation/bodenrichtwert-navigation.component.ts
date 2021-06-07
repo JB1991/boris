@@ -178,6 +178,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
 
     /**
      * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
+     * @param teilmarkt teilmarkt
+     * @returns returns zoom level depending on selected teilmarkt
      */
     public determineZoomFactor(teilmarkt: Teilmarkt): number {
         // Bauland
@@ -213,6 +215,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     /**
      * pointOnPolygon returns a point (transformed to wgs84) guranteed to be on the feature
      * @param ft feature
+     * @returns returns wgs84 point
      */
     public pointOnPolygon(ft: Feature): number[] {
         const poly = polygon(ft.geometry['coordinates']);
@@ -280,6 +283,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param from projection from (EPSG-Code)
      * @param to projection to (EPSG-Code)
      * @param coord coordinate [x, y]
+     * @returns returns transformed coordinates
      */
     private transformCoordinates(from: string, to: string, coord: number[]): number[] {
         const result = proj4(from, to).forward(coord);
