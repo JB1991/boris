@@ -1,11 +1,13 @@
 import {
     ElementFilter, FormFilter, GroupTagFilter, TaskFilter, TextFilter, TimeFilter, UserFilter
 } from './formapi.model';
+/* eslint-disable max-lines,complexity */
 
 /**
+ * Creates query for form api
  * @param f Filter
+ * @returns filter query
  */
-/* eslint-disable-next-line complexity */
 export function FormFilterToString(f: FormFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<FormFilter>;
@@ -59,9 +61,10 @@ export function FormFilterToString(f: FormFilter): string {
 }
 
 /**
+ * Creates query for form api
  * @param f Filter
+ * @returns filter query
  */
-/* eslint-disable-next-line complexity */
 export function TaskFilterToString(f: TaskFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<TaskFilter>;
@@ -113,9 +116,10 @@ export function TaskFilterToString(f: TaskFilter): string {
 }
 
 /**
+ * Creates query for form api
  * @param f Filter
+ * @returns filter query
  */
-/* eslint-disable-next-line complexity */
 export function UserFilterToString(f: UserFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<UserFilter>;
@@ -159,9 +163,10 @@ export function UserFilterToString(f: UserFilter): string {
 }
 
 /**
+ * Creates query for form api
  * @param f Filter
+ * @returns filter query
  */
-/* eslint-disable-next-line complexity */
 export function GroupTagFilterToString(f: GroupTagFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<GroupTagFilter>;
@@ -199,9 +204,10 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
 }
 
 /**
+ * Creates query for form api
  * @param f Filter
+ * @returns filter query
  */
-/* eslint-disable-next-line complexity */
 export function ElementFilterToString(f: ElementFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<ElementFilter>;
@@ -249,7 +255,9 @@ export function ElementFilterToString(f: ElementFilter): string {
 }
 
 /**
+ * Creates query for form api
  * @param f Filter
+ * @returns filter query
  */
 export function TextFilterToString(f: TextFilter): string {
     if (f.hasOwnProperty('contains')) {
@@ -259,7 +267,9 @@ export function TextFilterToString(f: TextFilter): string {
 }
 
 /**
+ * Creates query for form api
  * @param f Filter
+ * @returns filter query
  */
 export function TimeFilterToString(f: TimeFilter): string {
     if (f.hasOwnProperty('after')) {
@@ -269,9 +279,11 @@ export function TimeFilterToString(f: TimeFilter): string {
 }
 
 /**
- * @param s
- * @param s.field
- * @param s.desc
+ * Creates query for form api
+ * @param s Sort config
+ * @param s.field Field to sort
+ * @param s.desc Order of sorting
+ * @returns Sort query
  */
 export function SortToString(s: {
     field: string;

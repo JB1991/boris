@@ -1,10 +1,12 @@
 <!-- landing page -->
 <main class="mainpage"
       id="content">
+    <h1 class="sr-only"
+        i18n>Online Formulare</h1>
     <div class="row m-0 mt-3">
         <section class="col-12 col-lg-6">
             <div class="jumbotron">
-                <h1 class="display-4">
+                <h2 class="display-4">
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
@@ -22,7 +24,7 @@
                     <span class="ml-1"
                           id="formFillout"
                           i18n>Formular ausfüllen</span>
-                </h1>
+                </h2>
 
                 <p class="lead"
                    i18n>Wenn Sie eine Formular PIN erhalten haben, geben Sie diese hier ein
@@ -74,7 +76,7 @@
 
         <section class="col-12 col-lg-6">
             <div class="jumbotron">
-                <h1 class="display-4">
+                <h2 class="display-4">
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
@@ -90,7 +92,7 @@
                     </svg>
                     <span class="ml-1"
                           i18n>Formular finden</span>
-                </h1>
+                </h2>
 
                 <p class="lead"
                    i18n>Wenn Sie ein Formular einreichen wollen, finden Sie hier unsere öffentlichen Formulare.</p>
@@ -125,7 +127,7 @@
         <section class="col-12 col-lg-6"
                  *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
             <div class="jumbotron">
-                <h1 class="display-4">
+                <h2 class="display-4">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -143,7 +145,7 @@
                     </svg>
                     <span class="ml-1"
                           i18n>Notarportal</span>
-                </h1>
+                </h2>
 
                 <p class="lead"
                    i18n>Als Notar erhalten Sie die Möglichkeit über unser Onlineportal einen digitalen Datenaustausch
@@ -159,7 +161,7 @@
         <section class="col-12 col-lg-6"
                  *ngIf="auth.IsAuthenticated() || !auth.IsAuthEnabled()">
             <div class="jumbotron">
-                <h1 class="display-4">
+                <h2 class="display-4">
                     <svg width="0.8em"
                          height="0.8em"
                          viewBox="0 0 16 16"
@@ -175,7 +177,7 @@
                     </svg>
                     <span class="ml-1"
                           i18n>Mitarbeiter</span>
-                </h1>
+                </h2>
 
                 <p class="lead"
                    i18n>Interner Bereich für die Mitarbeiter der Landesvermessung von Niedersachsen.</p>
