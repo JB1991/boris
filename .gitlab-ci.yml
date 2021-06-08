@@ -192,8 +192,10 @@ helm-dry-run:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
   script:
-    - helm upgrade power ./chart/power -n dev -f "./chart/power/values-$CI_COMMIT_REF_NAME.yaml" --install --dry-run
+    - helm upgrade power bitnami/nginx -n dev -f "./chart/values-$CI_COMMIT_REF_NAME.yaml" --install --dry-run
   only:
     - dev
     - staging
@@ -205,9 +207,12 @@ kubesec:
   needs: []
   dependencies: []
   cache: {}
+  before_script:
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
   script:
-    - helm template power ./chart/power -f "./chart/power/values-$CI_COMMIT_REF_NAME.yaml" | kubesec-scan.sh -
-    - helm template power ./chart/power -f "./chart/power/values-$CI_COMMIT_REF_NAME.yaml" | kubesec-check.sh -
+    - helm template power bitnami/nginx -f "./chart/values-$CI_COMMIT_REF_NAME.yaml" | kubesec-scan.sh -
+    - helm template power bitnami/nginx -f "./chart/values-$CI_COMMIT_REF_NAME.yaml" | kubesec-check.sh -
   only:
     - dev
     - staging
@@ -330,10 +335,12 @@ helm-deploy:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
   script:
-    - helm upgrade power ./chart/power -n "$CI_COMMIT_REF_NAME" -f "./chart/power/values-$CI_COMMIT_REF_NAME.yaml" --install
-      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
-      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
+    - helm upgrade power bitnami/nginx -n "$CI_COMMIT_REF_NAME" -f "./chart/values-$CI_COMMIT_REF_NAME.yaml" --install
+      --set-string commonLabels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string commonAnnotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
     - dev
     - staging
@@ -353,18 +360,17 @@ helm-deploy:branches:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
   script:
-    - helm upgrade "$CI_COMMIT_REF_NAME" ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
-      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
-      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
+    - helm upgrade "$CI_COMMIT_REF_NAME" bitnami/nginx -n dev -f ./chart/values-dev.yaml --install
+      --set-string commonLabels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string commonAnnotations.deployedAt="$CI_JOB_STARTED_AT"
       --set-string image.tag="$CI_COMMIT_REF_NAME"
-      --set ingress.hosts[0].host="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
-      --set ingress.tls[0].hosts[0]="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
-      --set ingress.hosts[0].paths[0].serviceName="$CI_COMMIT_REF_NAME-power"
-      --set ingress.hosts[1].host="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
-      --set ingress.tls[1].hosts[0]="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
-      --set ingress.hosts[1].paths[0].serviceName="$CI_COMMIT_REF_NAME-power"
-      --set defaultDenyNetworkPolicy=false
+      --set ingress.hostname="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
+      --set ingress.extraHosts[0].name="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
+      --set ingress.extraTls[0].hosts[0]="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
+      --set ingress.extraTls[1].hosts[0]="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
   only:
     - /^demo-.*/
 

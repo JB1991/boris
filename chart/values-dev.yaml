@@ -55,7 +55,40 @@ clusterDomain: cluster.local
 
 ## Extra objects to deploy (value evaluated as a template)
 ##
-extraDeploy: []
+extraDeploy:
+  - |
+    apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: {{ template "common.names.fullname" . }}
+      labels: {{- include "common.labels.standard" . | nindent 4 }}
+    spec:
+      podSelector:
+        matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  name: kong
+              podSelector:
+                matchLabels:
+                  app.kubernetes.io/name: kong
+                  app.kubernetes.io/instance: kong
+          ports:
+            - protocol: TCP
+              port: 8081
+        - from:
+            - podSelector:
+                matchLabels:
+                  app.kubernetes.io/name: prometheus
+              namespaceSelector:
+                matchLabels:
+                  name: prometheus
+          ports:
+            - protocol: TCP
+              port: 9113
+      policyTypes:
+        - Ingress
 
 ## Add labels to all the deployed resources
 ##
@@ -211,7 +244,7 @@ podAffinityPreset: ""
 ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
 ## Allowed values: soft, hard
 ##
-podAntiAffinityPreset: soft
+podAntiAffinityPreset: hard
 
 ## Node affinity preset
 ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
@@ -357,7 +390,7 @@ extraVolumeMounts:
 serviceAccount:
   ## Specifies whether a ServiceAccount should be created
   ##
-  create: false
+  create: true
   ## The name of the ServiceAccount to use.
   ## If not set and create is true, a name is generated using the `common.names.fullname` template
   # name:
@@ -826,7 +859,7 @@ metrics:
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 ##
 pdb:
-  create: false
+  create: true
   ## Min number of pods that must still be available after the eviction
   ##
   minAvailable: 1
