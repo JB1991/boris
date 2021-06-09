@@ -11,6 +11,7 @@ CVE-2021-20232
 CVE-2020-24659
 CVE-2021-20305
 CVE-2019-13627
+CVE-2019-13115
 
 # amd64 architecture is not affected
 CVE-2020-1751
@@ -32,14 +33,6 @@ CVE-2019-15847
 
 # we are not resolving unkown domain names
 CVE-2019-12290
-
-
-#####################
-##  bitnami-nginx  ##
-#####################
-
-# tls is not handled from container
-CVE-2019-13115
 
 # curl is not used
 CVE-2021-22898
