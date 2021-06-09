@@ -232,8 +232,7 @@ podLabels: {}
 ## Pod annotations
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
-podAnnotations:
-  seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
+podAnnotations: {}
 
 ## Pod affinity preset
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
