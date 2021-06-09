@@ -1,8 +1,8 @@
-########################
-#### bitnami-debian ####
-########################
+######################
+##  bitnami-debian  ##
+######################
 
-# max risk is a denial of service
+# max risk is denial of service
 CVE-2021-33574
 
 # tls is not handled from container
@@ -13,7 +13,7 @@ CVE-2021-20305
 CVE-2019-13115
 CVE-2019-13627
 
-# not relevant, amd64 architecture is not affected
+# amd64 architecture is not affected
 CVE-2020-1751
 CVE-2020-10029
 
@@ -22,7 +22,7 @@ CVE-2020-1752
 CVE-2019-3843
 CVE-2019-3844
 
-# not relevant, requires uncommon input encoding
+# requires uncommon input encoding
 CVE-2021-3326
 CVE-2019-25013
 CVE-2020-27618
@@ -31,8 +31,11 @@ CVE-2020-27618
 CVE-2018-12886
 CVE-2019-15847
 
-# not relevant, we are not resolving unkown domain names
+# we are not resolving unkown domain names
 CVE-2019-12290
 
-# not relevant, curl issue
+# curl is not used
 CVE-2021-22898
+
+# ldap is not used
+CVE-2020-20178
