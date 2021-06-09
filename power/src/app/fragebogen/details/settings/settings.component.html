@@ -1,7 +1,9 @@
 <power-modalmini #settingsmodal>
-    <div class="form-group">
+    <div class="form-group"
+         for="select-owner">
         <label i18n>Besitzer</label>
         <select class="form-control"
+                id="select-owner"
                 [(ngModel)]="owner">
             <option *ngFor="let user of availableUsers"
                     [value]="user.id">

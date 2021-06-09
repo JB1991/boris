@@ -8,16 +8,16 @@
 
 <power-modalmini #formattinghelpmodal>
     <p>
-        <label i18n>Für die Formatierung und Gliederung von Texten wird "Markdown" verwendet. Eine Einführung finden Sie
-            unter:</label>
+        <span i18n>Für die Formatierung und Gliederung von Texten wird "Markdown" verwendet. Eine Einführung finden Sie
+            unter:</span>
         <a href="https://en.wikipedia.org/wiki/Markdown"
            target="_blank"
            rel="noopener noreferrer nofollow"> Wikipedia</a>
     </p>
 
     <p>
-        <label i18n>Es ist eine Auszeichnungssprache und ist im Internet im technischen Umfeld verbreitet. Lesen Sie
-            weitere Details unter der folgenden Seite:</label>
+        <span i18n>Es ist eine Auszeichnungssprache und ist im Internet im technischen Umfeld verbreitet. Lesen Sie
+            weitere Details unter der folgenden Seite:</span>
         <a href="https://daringfireball.net/projects/markdown/syntax"
            target="_blank"
            rel="noopener noreferrer nofollow">
@@ -28,88 +28,90 @@
     <table class="table table-striped table-bordered .table-responsive">
         <thead>
             <tr>
-                <th scope="col"><label i18n>Formatierung</label></th>
-                <th scope="col"><label i18n>Befehl</label></th>
+                <th scope="col"
+                    i18n>Formatierung</th>
+                <th scope="col"
+                    i18n>Befehl</th>
             </tr>
         </thead>
         <tbody>
 
             <tr>
-                <td><em><label i18n>kursiv</label></em></td>
-                <td><label>*text*</label></td>
+                <td><em i18n>kursiv</em></td>
+                <td>*text*</td>
             </tr>
             <tr>
-                <td><strong><label i18n>fett</label></strong></td>
-                <td><label>**text**</label></td>
+                <td><strong i18n>fett</strong></td>
+                <td>**text**</td>
             </tr>
             <tr>
-                <td><strong><em><label i18n>kursiv und fett</label></em></strong></td>
-                <td><label>***text***</label></td>
+                <td><strong><em i18n>kursiv und fett</em></strong></td>
+                <td>***text***</td>
             </tr>
             <tr>
                 <td>
                     <ul>
-                        <li><label i18n>Einfache Liste</label></li>
-                        <li><label i18n>Einfache Liste</label></li>
+                        <li i18n>Einfache Liste</li>
+                        <li i18n>Einfache Liste</li>
                     </ul>
                 </td>
-                <td><label>* text</label><br>
-                    <label>* text</label>
+                <td>* text<br>
+                    * text
                 </td>
             </tr>
             <tr>
                 <td>
                     <ol>
-                        <li><label i18n>Nummerierte Liste</label></li>
-                        <li><label i18n>Nummerierte Liste</label></li>
+                        <li i18n>Nummerierte Liste</li>
+                        <li i18n>Nummerierte Liste</li>
                     </ol>
                 </td>
                 <td>
-                    <label>1. text</label><br>
-                    <label>2. text</label>
+                    1. text<br>
+                    2. text
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h1><label i18n>Überschrift Ebene 1</label></h1>
+                    <h1 i18n>Überschrift Ebene 1</h1>
                 </td>
-                <td><label># text</label></td>
+                <td># text</td>
             </tr>
             <tr>
                 <td>
-                    <h2><label i18n>Überschrift Ebene 2</label></h2>
+                    <h2 i18n>Überschrift Ebene 2</h2>
                 </td>
-                <td><label>## text</label></td>
+                <td>## text</td>
             </tr>
             <tr>
                 <td>
-                    <h3><label i18n>Überschrift Ebene 3</label></h3>
+                    <h3 i18n>Überschrift Ebene 3</h3>
                 </td>
-                <td><label>### text</label></td>
+                <td>### text</td>
             </tr>
             <tr>
                 <td>
-                    <h4><label i18n>Überschrift Ebene 4</label></h4>
+                    <h4 i18n>Überschrift Ebene 4</h4>
                 </td>
-                <td><label>#### text</label></td>
+                <td>#### text</td>
             </tr>
             <tr>
-                <td><label><a href="https://en.wikipedia.org/wiki/Markdown"
-                           rel="noopener noreferrer nofollow">Link</a></label></td>
-                <td><label>[Link](https://en.wikipedia.org/wiki/Markdown)</label></td>
+                <td><a href="https://en.wikipedia.org/wiki/Markdown"
+                       rel="noopener noreferrer nofollow">Link</a></td>
+                <td>[Link](https://en.wikipedia.org/wiki/Markdown)</td>
             </tr>
             <tr>
-                <td><label i18n>Bild einbinden</label>
+                <td><span i18n>Bild einbinden</span>
                     <img src="/assets/logos/logo.png"
                          alt="Logo"
                          title="Logo LGLN"
                          height="25px">
                 </td>
-                <td><label>![Logo](/assets/logos/logo.png "Logo LGLN")</label></td>
+                <td>![Logo](/assets/logos/logo.png "Logo LGLN")</td>
             </tr>
             <tr>
-                <td><label i18n>Formatierung verhindern, z.B. "*text"</label></td>
-                <td><label>\*text</label></td>
+                <td i18n>Formatierung verhindern, z.B. "*text"</td>
+                <td>\*text</td>
             </tr>
         </tbody>
     </table>

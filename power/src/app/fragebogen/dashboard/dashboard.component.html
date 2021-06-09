@@ -820,6 +820,8 @@
                     <div class="form-group m-0 mr-2"
                          *ngIf="formTotal > formPerPage">
                         <select class="custom-select"
+                                i18n-aria-label
+                                aria-label="Formularanzahl pro Seite"
                                 (change)="formPerPage = $event.target.value; updateForms(false)">
                             <option *ngFor=" let size of formPageSizes">
                                 {{ size }}

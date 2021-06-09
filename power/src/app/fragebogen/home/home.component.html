@@ -36,18 +36,18 @@
                           (ngSubmit)="submitPIN(pinInput.value)"
                           class="form-inline">
                         <label class="control-label sr-only"
-                               id="pinLabel"
+                               for="pinInput"
                                i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu
                             gelangen.</label>
                         <input type="text"
                                class="form-control mr-2 w-mobile"
                                #pinInput="ngModel"
+                               id="pinInput"
                                name="pinInput"
                                [(ngModel)]="pin"
                                [class.is-invalid]="pinFormular.submitted && pinInput.invalid"
                                i18n-placeholder
                                placeholder="Formular PIN"
-                               aria-labelledby="pinLabel"
                                required>
                         <button type="submit"
                                 class="btn btn-success"

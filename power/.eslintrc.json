@@ -132,7 +132,76 @@
             "extends": [
                 "plugin:@angular-eslint/template/recommended"
             ],
-            "rules": {}
+            "rules": {
+                "@angular-eslint/template/accessibility-alt-text": "error",
+                "@angular-eslint/template/accessibility-elements-content": "error",
+                "@angular-eslint/template/accessibility-label-for": "warn",
+                "@angular-eslint/template/no-positive-tabindex": "error",
+                "@angular-eslint/template/accessibility-table-scope": "error",
+                "@angular-eslint/template/accessibility-valid-aria": "error",
+                "@angular-eslint/template/banana-in-box": "error",
+                "@angular-eslint/template/click-events-have-key-events": "warn",
+                "@angular-eslint/template/mouse-events-have-key-events": "error",
+                "@angular-eslint/template/i18n": [
+                    "warn",
+                    {
+                        "checkId": false,
+                        "checkText": false,
+                        "checkAttributes": true,
+                        "ignoreAttributes": [
+                            "role",
+                            "scope",
+                            "rel",
+                            "for",
+                            "name",
+                            "eid",
+                            "content",
+                            "value",
+                            "sizes",
+                            "list",
+                            "autocomplete",
+                            "d",
+                            "cx",
+                            "cy",
+                            "r",
+                            "step",
+                            "min",
+                            "max",
+                            "rows",
+                            "previousText",
+                            "nextText",
+                            "firstText",
+                            "lastText",
+                            "result",
+                            "pattern",
+                            "placement",
+                            "heading",
+                            "fill-rule",
+                            "data-toggle",
+                            "describedby",
+                            "aria-labelledby",
+                            "aria-describedby",
+                            "aria-roledescription",
+                            "aria-controls",
+                            "aria-haspopup",
+                            "aria-live",
+                            "maxlength",
+                            "routerLinkActive",
+                            "transform",
+                            "page",
+                            "typeaheadOptionField",
+                            "onsubmit",
+                            "groupName",
+                            "behaviour",
+                            "orientation",
+                            "lockAxis",
+                            "dragClass",
+                            "dragHandleSelector"
+                        ],
+                        "ignoreTags": []
+                    }
+                ]
+            }
         }
     ]
 }
