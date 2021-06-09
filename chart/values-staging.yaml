@@ -232,7 +232,8 @@ podLabels: {}
 ## Pod annotations
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
-podAnnotations: {}
+podAnnotations:
+  seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
 
 ## Pod affinity preset
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
@@ -292,7 +293,6 @@ podSecurityContext:
   fsGroup: 1001
   runAsUser: 1001
   runAsNonRoot: true
-  seccompProfile: runtime/default
   sysctls: []
 
 ## NGINX Core containers' Security Context (only main container).
