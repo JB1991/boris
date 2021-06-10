@@ -367,10 +367,10 @@ helm-deploy:branches:
       --set-string commonLabels.commit="$CI_COMMIT_SHORT_SHA"
       --set-string commonAnnotations.deployedAt="$CI_JOB_STARTED_AT"
       --set-string image.tag="$CI_COMMIT_REF_NAME"
-      --set ingress.hostname="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
-      --set ingress.extraHosts[0].name="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
-      --set ingress.extraTls[0].hosts[0]="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
-      --set ingress.extraTls[1].hosts[0]="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
+      --set-string ingress.hostname="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
+      --set-string ingress.extraHosts[0].name="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
+      --set-string ingress.extraTls[0].hosts[0]="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
+      --set-string ingress.extraTls[1].hosts[0]="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
   only:
     - /^demo-.*/
 
@@ -393,7 +393,6 @@ helm-delete:branches:
     - helm uninstall "$CI_COMMIT_REF_NAME" -n dev
     - curl -s -X DELETE -H "Account:$IBM_ACCOUNT_ID" -H "Authorization:Bearer $TOKEN" -H "accept:application/json" --url "https://de.icr.io/api/v1/images/de.icr.io%2Fpower%2Fpower%3A$CI_COMMIT_REF_NAME"
   only:
-    - merge_requests
     - /^demo-.*/
   when: manual
   allow_failure: false
