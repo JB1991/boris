@@ -300,6 +300,7 @@ podSecurityContext:
 containerSecurityContext:
   enabled: true
   runAsUser: 1001
+  privileged: false
   runAsNonRoot: true
   readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
