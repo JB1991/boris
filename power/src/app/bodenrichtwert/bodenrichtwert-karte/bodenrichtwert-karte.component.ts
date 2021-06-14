@@ -305,7 +305,6 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         if (this.map) {
             // Teilmarkt changed
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
-                console.log("TEILMARKT", changes.teilmarkt);
                 // update layer
                 this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
                 this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
@@ -321,7 +320,6 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             }
             // Stichtag changed
             if (changes.stichtag && !changes.stichtag.firstChange) {
-                console.log("SICHTAG", changes.stichtag);
                 // update layer
                 this.map.setFilter('bauland', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
                 this.map.setFilter('sanierungsgebiet', ['==', 'stag', this.stichtag]);
