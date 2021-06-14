@@ -305,6 +305,15 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         if (this.map) {
             // Teilmarkt changed
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
+                console.log("TEILMARKT", changes.teilmarkt);
+                // update layer
+                this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+                this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+                this.map.setLayoutProperty('landwirtschaft', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
+                this.map.setLayoutProperty('bauland_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+                this.map.setLayoutProperty('sanierungsgebiet_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+                this.map.setLayoutProperty('landwirtschaft_bremen', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
+
                 this.map.easeTo({
                     zoom: this.zoom,
                     center: this.latLng ? [this.latLng.lng, this.latLng.lat] : this.map.getCenter()
@@ -312,6 +321,15 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             }
             // Stichtag changed
             if (changes.stichtag && !changes.stichtag.firstChange) {
+                console.log("SICHTAG", changes.stichtag);
+                // update layer
+                this.map.setFilter('bauland', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
+                this.map.setFilter('sanierungsgebiet', ['==', 'stag', this.stichtag]);
+                this.map.setFilter('landwirtschaft', ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]);
+                this.map.setFilter('bauland_bremen', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
+                this.map.setFilter('sanierungsgebiet_bremen', ['all', ['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'], ['==', 'stag', this.stichtag]]);
+                this.map.setFilter('landwirtschaft_bremen', ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]);
+
                 // needed to update labeling
                 this.map.easeTo({
                     zoom: this.map.getZoom()
@@ -443,7 +461,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             source: this.ndsSource,
             'source-layer': 'br_brzone_flat_with_display',
             paint: {
-                'line-color': this.teilmarkt.hexColor,
+                'line-color': '#c4153a',
                 'line-width': {
                     'stops': [[11, 0], [13, 1], [18, 2]]
                 },
@@ -480,7 +498,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             source: this.ndsSource,
             'source-layer': 'br_brzone_flat_with_display',
             paint: {
-                'line-color': this.teilmarkt.hexColor,
+                'line-color': '#009900',
                 'line-width': {
                     'stops': [[8, 0], [10, 1], [11, 2]]
                 },
@@ -499,7 +517,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 'text-halo-color': '#fff',
                 'text-halo-width': 2,
                 'text-halo-blur': 2,
-                'text-color': this.teilmarkt.hexColor
+                'text-color': '#c4153a'
             },
             layout: {
                 'visibility': 'visible',
@@ -519,7 +537,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 'text-halo-color': '#fff',
                 'text-halo-width': 2,
                 'text-halo-blur': 2,
-                'text-color': this.teilmarkt.hexColor
+                'text-color': '#009900'
             },
             layout: {
                 'visibility': 'visible',
@@ -540,7 +558,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             source: this.bremenSource,
             'source-layer': 'br_brzone_flat_bremen_with_display',
             paint: {
-                'line-color': this.teilmarkt.hexColor,
+                'line-color': '#c4153a',
                 'line-width': {
                     'stops': [[11, 0], [13, 1], [18, 2]]
                 },
@@ -577,7 +595,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             source: this.bremenSource,
             'source-layer': 'br_brzone_flat_bremen_with_display',
             paint: {
-                'line-color': this.teilmarkt.hexColor,
+                'line-color': '#009900',
                 'line-width': {
                     'stops': [[8, 0], [10, 1], [11, 2]]
                 },
