@@ -7,7 +7,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
 import pointOnFeature from '@turf/point-on-feature';
-import polygon from '@turf/unkink-polygon';
+import { polygon } from '@turf/helpers';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
