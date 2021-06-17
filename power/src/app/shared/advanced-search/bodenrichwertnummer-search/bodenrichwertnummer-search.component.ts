@@ -7,7 +7,7 @@ import { Feature, FeatureCollection } from 'geojson';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import pointOnFeature from '@turf/point-on-feature';
-import polygon from '@turf/unkink-polygon';
+import { polygon } from '@turf/helpers';
 import { toWgs84 } from '@turf/projection';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 
