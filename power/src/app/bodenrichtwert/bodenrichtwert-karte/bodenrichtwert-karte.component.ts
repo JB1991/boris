@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { GeolocateControl, LngLat, LngLatBounds, Map, ScaleControl, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource, Map as MapBoxMap } from 'maplibre-gl';
+import { GeolocateControl, LngLat, LngLatBounds, Map, ScaleControl, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'maplibre-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
@@ -838,7 +838,7 @@ function bufferPolygon(p: Polygon | MultiPolygon): Array<Polygon> {
  * @param source source to which the features are set
  */
 function dynamicLabelling(
-    map: MapBoxMap,
+    map: Map,
     layerNames: string[],
     getter: (n: Feature) => string,
     doNotDisplay: string[],
