@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedImmo = true;
     public showBrowserNotice = true;
     public showOfflineNotice = true;
-    public showIENotice = true;
+    public showIENotice = false;
     public config = environment.config;
     public appVersion = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
