@@ -46,7 +46,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         this.container.style.overflow = 'auto';
         this.container.style.zIndex = '9999';
         this.container.style.backgroundColor = '#FFFFFF';
-        this.container.classList.add('p-3');
+        this.container.className = 'p-3';
 
         const text = document.createElement('div');
         /* istanbul ignore else */
@@ -71,7 +71,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         this.container.insertAdjacentHTML('beforeend', '<br><br><div class="small"><code>' + msgB64 + '</code></div>');
 
         document.body.appendChild(this.container);
-        document.body.classList.add('overflow-hidden');
+        document.body.className += ' overflow-hidden';
     }
 
     /**
