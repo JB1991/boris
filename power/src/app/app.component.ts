@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedImmo = true;
     public showBrowserNotice = true;
     public showOfflineNotice = true;
+    public showIENotice = true;
     public config = environment.config;
     public appVersion = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
@@ -104,10 +105,18 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
                 this.showBrowserNotice = false;
             }
+
+            // IE+Edge deprecation notice
+            var isIE = /*@cc_on!@*/false || !!document['documentMode'];
+            var isEdge = !isIE && !!window.StyleMedia;
+            if (isIE || isEdge) {
+                this.showIENotice = true;
+            }
         } else {
             // disable warnings
             this.showOfflineNotice = false;
             this.showBrowserNotice = false;
+            this.showIENotice = false;
             this.hasInternet = true;
             this.appVersion = { version: 'cache', branch: 'rendered' };
             environment.config.version = this.appVersion;
