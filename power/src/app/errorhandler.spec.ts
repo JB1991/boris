@@ -1,5 +1,6 @@
 import { GlobalErrorHandler } from './errorhandler';
 import { Platform } from '@angular/cdk/platform';
+import { HttpClient } from '@angular/common/http';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { UpdateService } from './update.service';
@@ -12,7 +13,7 @@ describe('GlobalErrorHandler', () => {
         spyOn(alerts, 'NewAlert');
         spyOn(console, 'error');
 
-        handler = new GlobalErrorHandler('de', alerts, Platform.prototype, new MockUpdateService() as UpdateService);
+        handler = new GlobalErrorHandler('de', alerts, Platform.prototype, new MockUpdateService() as UpdateService, HttpClient.prototype);
         spyOn(handler, 'reload');
     });
 

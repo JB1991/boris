@@ -1,4 +1,7 @@
 import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Platform } from '@angular/cdk/platform';
 
@@ -13,7 +16,8 @@ export class GlobalErrorHandler implements ErrorHandler {
     constructor(@Inject(LOCALE_ID) public locale: string,
         public alerts: AlertsService,
         public platform: Platform,
-        public us: UpdateService) { }
+        public us: UpdateService,
+	private http: HttpClient) { }
 
     handleError(error: Error): void {
         // check if app needs reload
@@ -31,6 +35,12 @@ export class GlobalErrorHandler implements ErrorHandler {
         for (const err of this.errorList) {
             msgStr += '\n\n' + err.toString() + '\n' + err?.stack;
         }
+
+        // Post data to Bakend
+        this.http.post<any>('/report', msgStr).subscribe(data => {
+        })
+
+        // Encode Error Message
         const msgB64 = btoa(unescape(encodeURIComponent(msgStr)));
 
         // show error
@@ -82,3 +92,4 @@ export class GlobalErrorHandler implements ErrorHandler {
         window.location.reload();
     }
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */
