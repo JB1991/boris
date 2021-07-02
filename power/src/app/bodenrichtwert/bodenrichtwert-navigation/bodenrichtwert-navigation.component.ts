@@ -104,7 +104,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                     this.bodenrichtwertService.updateFeatures(res);
                 },
                 err => {
-                    console.log(err);
+                    console.error(err);
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
                 }
             );
@@ -120,7 +120,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             .subscribe(
                 res => this.geosearchService.updateFeatures(res.features[0]),
                 err => {
-                    console.log(err);
+                    console.error(err);
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
                 }
             );
@@ -135,7 +135,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         this.alkisWfsService.getFlurstueckfromCoordinates(lng, lat).subscribe(
             res => this.alkisWfsService.updateFeatures(res),
             err => {
-                console.log(err);
+                console.error(err);
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
             }
         );

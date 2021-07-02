@@ -303,7 +303,6 @@ export class ImmobilienComponent implements OnInit {
      */
     queryURL(params) {
 
-        console.log('queryURL');
         this.parseURLTimeRange(params);
 
         let selectionId = 0; // Default ID: 0

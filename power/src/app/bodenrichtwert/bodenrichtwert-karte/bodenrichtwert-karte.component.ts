@@ -723,7 +723,7 @@ function polygonToPoint(p: Polygon): Point {
         }
     } catch (e) {
         if (!environment.production) {
-            console.log(e);
+            console.error(e);
         }
     }
 
@@ -765,7 +765,7 @@ function getLargestPolygon(mp: MultiPolygon): Polygon {
             }
         } catch (e) {
             if (!environment.production) {
-                console.log(e);
+                console.error(e);
             }
         }
     });
@@ -793,7 +793,7 @@ function intersectPolygon(p: Polygon | MultiPolygon, intersec: Polygon): Array<P
         return [];
     } catch (e) {
         if (!environment.production) {
-            console.log(e);
+            console.error(e);
         }
     }
     return;
@@ -817,7 +817,7 @@ function bufferPolygon(p: Polygon | MultiPolygon): Array<Polygon> {
         }
     } catch (e) {
         if (!environment.production) {
-            console.log(e);
+            console.error(e);
         }
     }
 
@@ -924,7 +924,7 @@ function dynamicLabelling(
                 p = each.geometry;
             } catch (e) {
                 if (!environment.production) {
-                    console.log(e);
+                    console.error(e);
                 }
             }
         });
