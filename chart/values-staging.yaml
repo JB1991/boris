@@ -380,7 +380,8 @@ extraVolumes:
 ##
 extraVolumeMounts:
   - name: power-config
-    mountPath: /opt/bitnami/nginx/conf/server_blocks/common
+    mountPath: /opt/bitnami/nginx/conf/server_blocks
+    subPath: power.conf
     readOnly: true
   - name: bitnami-tmp
     mountPath: /opt/bitnami/nginx/tmp
@@ -617,6 +618,7 @@ initContainers:
     volumeMounts:
       - name: power-config
         mountPath: /server_blocks/
+        subPath: power.conf
     env:
       - name: BKG_GEOCODING_SECRET
         valueFrom:
