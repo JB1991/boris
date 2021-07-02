@@ -15,6 +15,7 @@ describe('GlobalErrorHandler', () => {
 
         handler = new GlobalErrorHandler('de', alerts, Platform.prototype, new MockUpdateService() as UpdateService, HttpClient.prototype);
         spyOn(handler, 'reload');
+        spyOn(handler.http, 'post');
     });
 
     it('should be created', () => {
@@ -22,6 +23,13 @@ describe('GlobalErrorHandler', () => {
     });
 
     it('should handle error', () => {
+        handler.handleError(new Error('Fatal error: Out of pizza (allocated 8 pieces) (tried to allocate 1 more piece)'));
+        expect(handler.reload).toHaveBeenCalledTimes(0);
+    });
+
+    it('should handle error 2', () => {
+        handler.container = document.createElement('div');
+        document.body.append(handler.container);
         handler.handleError(new Error('Fatal error: Out of pizza (allocated 8 pieces) (tried to allocate 1 more piece)'));
         expect(handler.reload).toHaveBeenCalledTimes(0);
     });

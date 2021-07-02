@@ -73,6 +73,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
 
         // set baseurl
+        /* istanbul ignore next */
         if (location.origin.startsWith('https://demo-')) {
             environment.baseurl = 'https://dev.power.niedersachsen.dev';
             environment.borisOws = environment.baseurl + environment.borisOws;
@@ -110,6 +111,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             /* eslint-disable-next-line */
             const isIE = /*@cc_on!@*/false || !!document['documentMode'];
             const isEdge = !isIE && !!window.StyleMedia;
+            /* istanbul ignore next */
             if (isIE || isEdge) {
                 this.showIENotice = true;
             }
