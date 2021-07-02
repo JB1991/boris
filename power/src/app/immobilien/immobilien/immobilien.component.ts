@@ -199,16 +199,19 @@ export class ImmobilienComponent implements OnInit {
         }
 
         // Update Range
-        this.nipixStatic.referenceDate =
-            this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex].replace('/', '_');
-        this.chart_range['data'][2] = [
-            this.nipixRuntime.state.rangeStartIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
-            -1
-        ];
-        this.chart_range['data'][3] = [
-            this.nipixRuntime.state.rangeEndIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
-            -1
-        ];
+        if (this.nipixRuntime.state.rangeStartIndex &&
+            this.nipixRuntime.state.rangeEndIndex) {
+            this.nipixStatic.referenceDate =
+                this.nipixRuntime.availableQuartal[this.nipixRuntime.state.rangeStartIndex].replace('/', '_');
+            this.chart_range['data'][2] = [
+                this.nipixRuntime.state.rangeStartIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
+                -1
+            ];
+            this.chart_range['data'][3] = [
+                this.nipixRuntime.state.rangeEndIndex * 100 / (this.nipixRuntime.availableQuartal.length - 1),
+                -1
+            ];
+        }
     }
 
     /**
@@ -300,10 +303,11 @@ export class ImmobilienComponent implements OnInit {
      */
     queryURL(params) {
 
+        console.log('queryURL');
         this.parseURLTimeRange(params);
 
+        let selectionId = 0; // Default ID: 0
         if (params['c']) {
-            let selectionId = 0; // Default ID: 0
             for (let i = 0; i < this.nipixStatic.data.selections.length; i++) {
                 const item = this.nipixStatic.data.selections[i];
                 const eqName = item.name.replace(/[^a-zA-Z0-9]/g, '');
@@ -312,8 +316,10 @@ export class ImmobilienComponent implements OnInit {
                     break;
                 }
             }
-            this.nipixRuntime.state.activeSelection = selectionId;
+        }
+        this.nipixRuntime.state.activeSelection = selectionId;
 
+        if (params['c']) {
             if (params['a']) { // Aggr
                 this.parseURLAggr(selectionId, params);
             } else if (params['s']) { // Single
@@ -321,9 +327,9 @@ export class ImmobilienComponent implements OnInit {
             } else if (params['m']) { // MultiSelect
                 this.parseURLMultiSelect(selectionId, params);
             }
-            setTimeout(this.staticChange.bind(this), 50, selectionId, true);
-
         }
+        setTimeout(this.staticChange.bind(this), 50, selectionId, true);
+
         this.cdr.detectChanges();
 
     }

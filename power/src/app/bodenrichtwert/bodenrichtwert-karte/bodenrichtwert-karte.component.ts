@@ -9,141 +9,7 @@ import buffer from '@turf/buffer';
 import intersect from '@turf/intersect';
 import pointOnFeature from '@turf/point-on-feature';
 import union from '@turf/union';
-
-type Point = {
-    type: 'Point';
-    coordinates: number[];
-};
-
-type Polygon = {
-    type: 'Polygon';
-    coordinates: number[][][];
-};
-
-type MultiPolygon = {
-    type: 'MultiPolygon';
-    coordinates: number[][][][];
-};
-
-/**
- *
- * @param p
- * @returns
- */
-function polygonToPoint(p: Polygon): Point {
-    try {
-        const point = pointOnFeature(p);
-
-        if (point && point.geometry) {
-            return {
-                type: 'Point',
-                coordinates: point.geometry.coordinates,
-            };
-        }
-    } catch (e) {
-        if (!environment.production) {
-            console.log(e);
-        }
-    }
-
-    return;
-}
-
-/**
- *
- * @param mp
- * @returns
- */
-function multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
-    return mp.coordinates.map(f => ({
-        type: 'Polygon',
-        coordinates: f,
-    }));
-}
-
-/**
- *
- * @param mp
- * @returns
- */
-function getLargestPolygon(mp: MultiPolygon): Polygon {
-    let areaX = 0;
-    let largest: Polygon;
-
-    multiPolygonToPolygons(mp).forEach(p => {
-        try {
-            const a = area(p);
-            if (!largest || a > areaX) {
-                if (a > areaX) {
-                    areaX = a;
-                    largest = {
-                        type: 'Polygon',
-                        coordinates: p.coordinates,
-                    };
-                }
-            }
-        } catch (e) {
-            if (!environment.production) {
-                console.log(e);
-            }
-        }
-    });
-    return largest;
-}
-
-/**
- *
- * @param p
- * @param intersec
- * @returns
- */
-function intersectPolygon(p: Polygon | MultiPolygon, intersec: Polygon): Array<Polygon> {
-    try {
-        const f = intersect(intersec, p);
-        if (f && f.geometry) {
-            switch (f.geometry.type) {
-                case 'Polygon':
-                    return [f.geometry];
-                case 'MultiPolygon':
-                    return multiPolygonToPolygons(f.geometry);
-            }
-        }
-
-        return [];
-    } catch (e) {
-        if (!environment.production) {
-            console.log(e);
-        }
-    }
-    return;
-}
-
-/**
- *
- * @param p
- * @param buff
- * @returns
- */
-function bufferPolygon(p: Polygon | MultiPolygon, buff: number): Array<Polygon> {
-    try {
-        const f = buffer(p, buff, { units: 'meters' });
-        if (f && f.geometry) {
-            switch (f.geometry.type) {
-                case 'Polygon':
-                    return [f.geometry];
-                case 'MultiPolygon':
-                    return multiPolygonToPolygons(f.geometry);
-            }
-        }
-    } catch (e) {
-        if (!environment.production) {
-            console.log(e);
-        }
-    }
-
-    return [];
-}
-
+import { GeoJSONSource } from 'maplibre-gl';
 
 /* eslint-disable max-lines */
 @Component({
@@ -786,7 +652,12 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     source.setData(this.landwirtschaftData);
                 }
 
-                this.dynamicLabelling(this.baulandData, ['bauland', 'bauland_bremen'], 'baulandSource');
+                dynamicLabelling(
+                    this.map,
+                    ['bauland', 'bauland_bremen'],
+                    (f) => f.properties.objektidentifikator,
+                    this.doNotDisplay,
+                    this.map.getSource('baulandSource') as GeoJSONSource);
             } else {
 
                 this.baulandData.features = [];
@@ -795,7 +666,12 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                     source.setData(this.baulandData);
                 }
 
-                this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
+                dynamicLabelling(
+                    this.map,
+                    ['landwirtschaft', 'landwirtschaft_bremen'],
+                    (f) => f.properties.objektidentifikator,
+                    this.doNotDisplay,
+                    this.map.getSource('landwirtschaftSource') as GeoJSONSource);
             }
         }
     }
@@ -812,159 +688,274 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         }
         return { url: url };
     }
+}
 
-    /**
-     * dynamicLabelling
-     * @param labelData
-     * @param layerNames
-     * @param sourceName
-     */
-    public dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
-        labelData.features = [];
 
-        const featureMap: Record<string, Feature<Polygon>[]> = {};
+type Point = {
+    type: 'Point';
+    coordinates: number[];
+};
 
-        const mapSW = this.map.getBounds().getSouthWest();
-        const mapNE = this.map.getBounds().getNorthEast();
+type Polygon = {
+    type: 'Polygon';
+    coordinates: number[][][];
+};
 
-        const mapViewBound: Polygon = {
-            type: 'Polygon',
-            coordinates: [
-                [
-                    [mapSW.lng, mapSW.lat],
-                    [mapSW.lng, mapNE.lat],
-                    [mapNE.lng, mapNE.lat],
-                    [mapNE.lng, mapSW.lat],
-                    [mapSW.lng, mapSW.lat]
-                ]
-            ]
-        };
+type MultiPolygon = {
+    type: 'MultiPolygon';
+    coordinates: number[][][][];
+};
 
-        let buffer: number;
-        if (this.teilmarkt.value.includes('B')) {
-            if (this.map.getZoom() > 17) {
-                buffer = 0;
-            } else if (this.map.getZoom() > 16) {
-                buffer = -10;
-            } else if (this.map.getZoom() > 15) {
-                buffer = -20;
-            } else if (this.map.getZoom() > 14) {
-                buffer = -40;
-            } else if (this.map.getZoom() < 14) {
-                buffer = -80;
+/**
+ *
+ * @param p polygon
+ * @returns point
+ */
+function polygonToPoint(p: Polygon): Point {
+    try {
+        const point = pointOnFeature(p);
+
+        if (point && point.geometry) {
+            return {
+                type: 'Point',
+                coordinates: point.geometry.coordinates,
+            };
+        }
+    } catch (e) {
+        if (!environment.production) {
+            console.log(e);
+        }
+    }
+
+    return;
+}
+
+/**
+ *
+ * @param mp multiPolygon
+ * @returns array of polygons
+ */
+function multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
+    return mp.coordinates.map(f => ({
+        type: 'Polygon',
+        coordinates: f,
+    }));
+}
+
+/**
+ *
+ * @param mp multiPolygon
+ * @returns largest polygon
+ */
+function getLargestPolygon(mp: MultiPolygon): Polygon {
+    let areaX = 0;
+    let largest: Polygon;
+
+    multiPolygonToPolygons(mp).forEach(p => {
+        try {
+            const a = area(p);
+            if (!largest || a > areaX) {
+                if (a > areaX) {
+                    areaX = a;
+                    largest = {
+                        type: 'Polygon',
+                        coordinates: p.coordinates,
+                    };
+                }
+            }
+        } catch (e) {
+            if (!environment.production) {
+                console.log(e);
+            }
+        }
+    });
+    return largest;
+}
+
+/**
+ *
+ * @param p polygon or multiPolygon
+ * @param intersec polygon
+ * @returns array of polygons
+ */
+function intersectPolygon(p: Polygon | MultiPolygon, intersec: Polygon): Array<Polygon> {
+    try {
+        const f = intersect(intersec, p);
+        if (f && f.geometry) {
+            switch (f.geometry.type) {
+                case 'Polygon':
+                    return [f.geometry];
+                case 'MultiPolygon':
+                    return multiPolygonToPolygons(f.geometry);
             }
         }
 
-        this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
-            if (!f || !f.geometry) {
-                return;
-            }
+        return [];
+    } catch (e) {
+        if (!environment.production) {
+            console.log(e);
+        }
+    }
+    return;
+}
 
-            if (this.doNotDisplay.includes(f.properties['objektidentifikator'])) {
-                return;
-            }
-
-            let p: Polygon;
-
+/**
+ *
+ * @param p polygon or multiPolygon
+ * @returns array of polygons
+ */
+function bufferPolygon(p: Polygon | MultiPolygon): Array<Polygon> {
+    try {
+        const f = buffer(p, - Math.sqrt(area(p)) / 8, { units: 'meters' });
+        if (f && f.geometry) {
             switch (f.geometry.type) {
-                case 'MultiPolygon':
-                    p = getLargestPolygon(f.geometry);
-                    break;
                 case 'Polygon':
-                    p = f.geometry;
-                    break;
-                default:
-                    return;
+                    return [f.geometry];
+                case 'MultiPolygon':
+                    return multiPolygonToPolygons(f.geometry);
             }
+        }
+    } catch (e) {
+        if (!environment.production) {
+            console.log(e);
+        }
+    }
 
-            if (p && p.coordinates) {
-                if (featureMap[f.properties.objektidentifikator]) {
-                    featureMap[f.properties.objektidentifikator].push({
-                        type: 'Feature',
-                        geometry: p,
-                        properties: f.properties,
-                    });
-                } else {
-                    featureMap[f.properties.objektidentifikator] = [{
-                        type: 'Feature',
-                        geometry: p,
-                        properties: f.properties,
-                    }];
+    switch (p.type) {
+        case 'Polygon':
+            return [p];
+        case 'MultiPolygon':
+            return [getLargestPolygon(p)];
+    }
+}
+
+/**
+ * dynamicLabelling
+ * @param map mapbox map
+ * @param layerNames queried layers
+ * @param getter identification getter
+ * @param doNotDisplay ignore features with identificator
+ * @param source source to which the features are set
+ */
+function dynamicLabelling(
+    map: Map,
+    layerNames: string[],
+    getter: (n: Feature) => string,
+    doNotDisplay: string[],
+    source: GeoJSONSource) {
+    const featureMap: Record<string, Feature<Polygon>[]> = {};
+
+    const mapSW = map.getBounds().getSouthWest();
+    const mapNE = map.getBounds().getNorthEast();
+
+    const mapViewBound: Polygon = {
+        type: 'Polygon',
+        coordinates: [
+            [
+                [mapSW.lng, mapSW.lat],
+                [mapSW.lng, mapNE.lat],
+                [mapNE.lng, mapNE.lat],
+                [mapNE.lng, mapSW.lat],
+                [mapSW.lng, mapSW.lat]
+            ]
+        ]
+    };
+
+    map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
+        if (!f || !f.geometry) {
+            return;
+        }
+
+        let p: Polygon;
+
+        switch (f.geometry.type) {
+            case 'MultiPolygon':
+                p = getLargestPolygon(f.geometry);
+                break;
+            case 'Polygon':
+                p = f.geometry;
+                break;
+            default:
+                return;
+        }
+
+        const id = getter(f);
+
+        if (doNotDisplay.includes(id)) {
+            return;
+        }
+
+        if (p && p.coordinates) {
+            if (featureMap[id]) {
+                featureMap[id].push({
+                    type: 'Feature',
+                    geometry: p,
+                    properties: f.properties,
+                });
+            } else {
+                featureMap[id] = [{
+                    type: 'Feature',
+                    geometry: p,
+                    properties: f.properties,
+                }];
+            }
+        }
+    });
+
+    const features: Array<Feature<Polygon | Point>> = [];
+
+    // eslint-disable-next-line complexity
+    Object.keys(featureMap).forEach(key => {
+        let p: Polygon;
+
+        featureMap[key].forEach(each => {
+            try {
+                if (p && p.coordinates) {
+                    const unionX = union(p, each);
+                    switch (unionX.geometry.type) {
+                        case 'Polygon':
+                            p = unionX.geometry;
+                            return;
+                        case 'MultiPolygon':
+                            p = getLargestPolygon(unionX.geometry);
+                            return;
+                    }
+                }
+                p = each.geometry;
+            } catch (e) {
+                if (!environment.production) {
+                    console.log(e);
                 }
             }
         });
 
-        const features: Array<Feature<Polygon | Point>> = [];
-
-        // eslint-disable-next-line complexity
-        Object.keys(featureMap).forEach(key => {
-            let p: Polygon;
-
-            featureMap[key].forEach(each => {
-                try {
-                    if (p && p.coordinates) {
-                        const unionX = union(p, each);
-                        switch (unionX.geometry.type) {
-                            case 'Polygon':
-                                p = unionX.geometry;
-                                return;
-                            case 'MultiPolygon':
-                                p = getLargestPolygon(unionX.geometry);
-                                return;
-                        }
-                    }
-                    p = each.geometry;
-                } catch (e) {
-                    if (!environment.production) {
-                        console.log(e);
-                    }
-                }
-            });
-
-            intersectPolygon(p, mapViewBound).forEach(i => {
-                if (this.teilmarkt.value.includes('LF')) {
-                    const point = polygonToPoint(i);
-                    if (point && point.coordinates) {
-                        features.push({
-                            type: 'Feature',
-                            geometry: point,
-                            properties: featureMap[key][0].properties,
-                        });
-                        return;
-                    }
+        intersectPolygon(p, mapViewBound).forEach(i => {
+            bufferPolygon(i).sort((a, b) => area(b) - area(a)).slice(0, 1).forEach(b => {
+                const point = polygonToPoint(b);
+                if (point && point.coordinates) {
                     features.push({
                         type: 'Feature',
-                        geometry: i,
+                        geometry: point,
                         properties: featureMap[key][0].properties,
                     });
                     return;
                 }
-                bufferPolygon(i, buffer).sort((a, b) => area(b) - area(a)).slice(0, 2).forEach(b => {
-                    const point = polygonToPoint(b);
-                    if (point && point.coordinates) {
-                        features.push({
-                            type: 'Feature',
-                            geometry: point,
-                            properties: featureMap[key][0].properties,
-                        });
-                        return;
-                    }
-                    features.push({
-                        type: 'Feature',
-                        geometry: b,
-                        properties: featureMap[key][0].properties,
-                    });
+                features.push({
+                    type: 'Feature',
+                    geometry: b,
+                    properties: featureMap[key][0].properties,
                 });
             });
         });
+    });
 
-        labelData.features = features;
-
-        const source = this.map.getSource(sourceName);
-        if (source.type === 'geojson') {
-            source.setData(labelData);
-        }
+    if (source.type === 'geojson') {
+        source.setData({
+            type: 'FeatureCollection',
+            features: features,
+        });
     }
 }
+
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
