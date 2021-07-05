@@ -1,0 +1,54 @@
+<div class="form-row py-1 align-items-center">
+    <div class="col-12">
+        <label i18n>Bodenrichtwertnummer</label>
+    </div>
+    <div class="col-auto"
+         [ngClass]="loading ? 'd-block' : 'd-none'">
+        <div class="spinner-border spinner-border-sm text-secondary"
+             role="status"
+             aria-hidden="true">
+            <span class="sr-only"
+                  i18n>Wird geladen....</span>
+        </div>
+    </div>
+    <div class="col">
+        <input type="text"
+               class="form-control"
+               name="bodenrichtwertnummer"
+               placement="bottom"
+               placeholder="Bodenrichtwertnummer"
+               i18n-placeholder
+               aria-label="Suche"
+               i18n-aria-label
+               aria-placeholder="Bitte Bodenrichtwertnummer eingeben"
+               i18n-aria-placeholder
+               [(ngModel)]="brwNummer"
+               [ngbTypeahead]="search"
+               [inputFormatter]="inputFormatter"
+               [resultTemplate]="results"
+               [focusFirst]="true"
+               (input)="onInput($event)"
+               (selectItem)="searchBodenrichtwert($event.item)"
+               aria-labelledby="Bodenrichtwertnummer">
+    </div>
+</div>
+
+<!-- Flurstück Result Template -->
+<ng-template #results
+             class="template"
+             let-p="result.properties"
+             let-t="term">
+    <div>
+        <ngb-highlight [result]="p.wnum"
+                       [term]="t"></ngb-highlight>
+        <br>
+        <ngb-highlight *ngIf="p.gema"
+                       [result]="p.gema + ' - '"></ngb-highlight>
+        <ngb-highlight *ngIf="p.objektidentifikator.includes('DEHBBR')"
+                       result="Bremen">
+        </ngb-highlight>
+        <ngb-highlight *ngIf="p.objektidentifikator.includes('DENIBR')"
+                       result="Niedersachsen">
+        </ngb-highlight>
+    </div>
+</ng-template>

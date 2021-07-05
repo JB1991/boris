@@ -1,4 +1,4 @@
-import { Map } from 'mapbox-gl';
+import { Map } from 'maplibre-gl';
 import { environment } from '@env/environment';
 
 export default class BodenrichtwertKarteLayerControl {
@@ -40,11 +40,11 @@ export default class BodenrichtwertKarteLayerControl {
 
         const icon = document.createElement('i');
         icon.className = 'bi bi-layers';
-        this.btn.append(icon);
+        this.btn.appendChild(icon);
 
         this.container = document.createElement('div');
         this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-        this.container.append(this.btn);
+        this.container.appendChild(this.btn);
 
         return this.container;
     }

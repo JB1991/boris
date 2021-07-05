@@ -8,8 +8,6 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
     let component: WrapperComponent;
     let fixture: ComponentFixture<WrapperComponent>;
 
-    const formContent = require('../../../testdata/fragebogen/form-content.json');
-
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -52,20 +50,6 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
 
         expect(component.props['data']).toEqual(5);
         expect(component.props['model']['mode']).toEqual('edit');
-    });
-
-    it('should do surveyjs 2', () => {
-        component.model = JSON.parse(JSON.stringify(formContent));
-        component.data = { 'data': 5 };
-
-        component.ngOnChanges();
-        fixture.detectChanges();
-        component.props['onValueChanged']({});
-        component.props['onCurrentPageChanged']({});
-        component.props['onComplete']({});
-        fixture.detectChanges();
-
-        expect(component.data).toEqual({ 'data': 5 });
     });
 });
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -1,125 +1,15 @@
-import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { GeolocateControl, LngLat, LngLatBounds, Map, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'mapbox-gl';
+import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { GeolocateControl, LngLat, LngLatBounds, Map, ScaleControl, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'maplibre-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
-import BodenrichtwertKarteLayerControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-layer-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
-import { FeatureCollection, Feature } from 'geojson';
-import * as turf from '@turf/turf';
-
-type Point = {
-    type: 'Point';
-    coordinates: number[];
-};
-
-type Polygon = {
-    type: 'Polygon';
-    coordinates: number[][][];
-};
-
-type MultiPolygon = {
-    type: 'MultiPolygon';
-    coordinates: number[][][][];
-};
-
-function polygonToPoint(p: Polygon): Point {
-    try {
-        const point = turf.pointOnFeature(p);
-
-        if (point && point.geometry) {
-            return {
-                type: 'Point',
-                coordinates: point.geometry.coordinates,
-            };
-        }
-    } catch (e) {
-        if (!environment.production) {
-            console.log(e);
-        }
-    }
-
-    return;
-}
-
-function multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
-    return mp.coordinates.map(f => ({
-        type: 'Polygon',
-        coordinates: f,
-    }));
-}
-
-function getLargestPolygon(mp: MultiPolygon): Polygon {
-    let area = 0;
-    let largest: Polygon;
-
-    multiPolygonToPolygons(mp).forEach(p => {
-        try {
-            const a = turf.area(p);
-            if (!largest || a > area) {
-                if (a > area) {
-                    area = a;
-                    largest = {
-                        type: 'Polygon',
-                        coordinates: p.coordinates,
-                    };
-                }
-            }
-        } catch (e) {
-            if (!environment.production) {
-                console.log(e);
-            }
-        }
-    });
-    return largest;
-}
-
-function intersectPolygon(p: Polygon | MultiPolygon, intersect: Polygon): Array<Polygon> {
-    try {
-        const f = turf.intersect(intersect, p);
-        if (f && f.geometry) {
-            switch (f.geometry.type) {
-                case 'Polygon':
-                    return [f.geometry];
-                case 'MultiPolygon':
-                    return multiPolygonToPolygons(f.geometry);
-            }
-        }
-
-        return [];
-    } catch (e) {
-        if (!environment.production) {
-            console.log(e);
-        }
-    }
-    return;
-}
-
-function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon> {
-    try {
-        const f = turf.buffer(p, buffer, { units: 'meters' });
-        if (f && f.geometry) {
-            switch (f.geometry.type) {
-                case 'Polygon':
-                    return [f.geometry];
-                case 'MultiPolygon':
-                    const arr = multiPolygonToPolygons(f.geometry);
-
-                    if (arr.length > 2) {
-                        return [arr.shift(), arr.pop()];
-                    }
-
-                    return arr;
-            }
-        }
-    } catch (e) {
-        if (!environment.production) {
-            console.log(e);
-        }
-    }
-
-    return [];
-}
-
+import { FeatureCollection, Feature, } from 'geojson';
+import area from '@turf/area';
+import buffer from '@turf/buffer';
+import intersect from '@turf/intersect';
+import pointOnFeature from '@turf/point-on-feature';
+import union from '@turf/union';
+import { GeoJSONSource } from 'maplibre-gl';
 
 /* eslint-disable max-lines */
 @Component({
@@ -128,13 +18,16 @@ function bufferPolygon(p: Polygon | MultiPolygon, buffer: number): Array<Polygon
     styleUrls: ['./bodenrichtwert-karte.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertKarteComponent implements OnChanges {
+export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
-    // Mapbox GL Map Object
+    @ViewChild('map')
+    public mapContainer: ElementRef<HTMLElement>;
+
+    // Maplibre GL Map Object
     public map: Map;
 
     // baseUrl
-    public baseUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+    public baseUrl = environment.baseurl;
 
     // map style url
     public MAP_STYLE_URL = environment.basemap;
@@ -142,12 +35,12 @@ export class BodenrichtwertKarteComponent implements OnChanges {
     // font
     // public font = 'Klokantech Noto Sans Regular';
 
-    // NDS Bounds MapBox Type
+    // NDS Bounds Maplibre Type
     public bounds = new LngLatBounds([
         [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
     ]);
 
-    // Mapbox GL Marker
+    // Maplibre GL Marker
     public marker: Marker = new Marker({
         color: '#c4153a',
         draggable: true
@@ -278,6 +171,14 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         if (this.map) {
             // Teilmarkt changed
             if (changes.teilmarkt && !changes.teilmarkt.firstChange && !this.resetMapFired) {
+                // update layer
+                this.map.setLayoutProperty('bauland', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+                this.map.setLayoutProperty('sanierungsgebiet', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+                this.map.setLayoutProperty('landwirtschaft', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
+                this.map.setLayoutProperty('bauland_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+                this.map.setLayoutProperty('sanierungsgebiet_bremen', 'visibility', this.teilmarkt.value.includes('B') ? 'visible' : 'none');
+                this.map.setLayoutProperty('landwirtschaft_bremen', 'visibility', this.teilmarkt.value.includes('LF') ? 'visible' : 'none');
+
                 this.map.easeTo({
                     zoom: this.zoom,
                     center: this.latLng ? [this.latLng.lng, this.latLng.lat] : this.map.getCenter()
@@ -285,6 +186,14 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             }
             // Stichtag changed
             if (changes.stichtag && !changes.stichtag.firstChange) {
+                // update layer
+                this.map.setFilter('bauland', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
+                this.map.setFilter('sanierungsgebiet', ['==', 'stag', this.stichtag]);
+                this.map.setFilter('landwirtschaft', ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]);
+                this.map.setFilter('bauland_bremen', ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]);
+                this.map.setFilter('sanierungsgebiet_bremen', ['all', ['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'], ['==', 'stag', this.stichtag]]);
+                this.map.setFilter('landwirtschaft_bremen', ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]);
+
                 // needed to update labeling
                 this.map.easeTo({
                     zoom: this.map.getZoom()
@@ -328,21 +237,245 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
     }
 
+    ngAfterViewInit() {
+        // create Maplibre object
+        this.map = new Map({
+            container: this.mapContainer.nativeElement,
+            style: this.MAP_STYLE_URL,
+            zoom: 7,
+            transformRequest: this.transformRequest,
+            bounds: this.bounds,
+            maxZoom: 18,
+            minZoom: 5,
+            trackResize: true
+        });
+
+        // add load handler
+        this.map.on('load', () => {
+            this.loadMap();
+        });
+    }
+
     /**
-     * loadMap initializes the Mapbox GL map object
+     * loadMap initializes the Maplibre GL map object
      * @param event map
      */
     /* istanbul ignore next */
-    public loadMap(event: Map) {
-        this.map = event;
+    public loadMap() {
+        this.map.addSource('ndsgeojson', { type: 'geojson', data: this.baseUrl + '/assets/boden/niedersachsen.geojson' });
+        this.map.addSource('baulandSource', { type: 'geojson', data: this.baulandData });
+        this.map.addSource('landwirtschaftSource', { type: 'geojson', data: this.landwirtschaftData });
 
         this.map.addSource('geoserver_br_br', this.bremenSource);
-
         this.map.addSource('geoserver_nds_br', this.ndsSource);
-
         this.map.addSource('geoserver_nds_fst', this.ndsFstSource);
-
         this.map.addSource('geoserver_br_verg', this.ndsVergSource);
+
+        this.map.addLayer({
+            id: 'nds',
+            type: 'line',
+            maxzoom: 11,
+            source: 'ndsgeojson',
+            paint: {
+                'line-color': '#c4153a',
+                'line-width': {
+                    'stops': [[8, 1], [11, 1]]
+                },
+                'line-opacity': {
+                    'stops': [[8, 1], [11, 1]]
+                }
+            }
+        });
+        this.map.addLayer({
+            id: 'building-extrusion',
+            type: 'fill-extrusion',
+            minzoom: 15,
+            source: 'openmaptiles',
+            'source-layer': 'building',
+            paint: {
+                'fill-extrusion-color': 'rgb(219, 219, 218)',
+                'fill-extrusion-height': 0,
+                'fill-extrusion-opacity': 0.7,
+                'fill-extrusion-height-transition': {
+                    duration: 600,
+                    delay: 0
+                }
+            }
+        });
+        this.map.addLayer({
+            id: 'flurstuecke',
+            type: 'line',
+            minzoom: 15,
+            source: this.ndsFstSource,
+            'source-layer': 'ax_flurstueck_nds',
+            paint: {
+                'line-color': '#96999e',
+                'line-width': {
+                    'stops': [[15, 0], [16, 1], [18, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[15, 0.5]]
+                }
+            }
+        });
+        this.map.addLayer({
+            id: 'bauland',
+            type: 'line',
+            minzoom: 11,
+            source: this.ndsSource,
+            'source-layer': 'br_brzone_flat_with_display',
+            paint: {
+                'line-color': '#c4153a',
+                'line-width': {
+                    'stops': [[11, 0], [13, 1], [18, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[11, 0], [13, 1]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]
+        });
+        this.map.addLayer({
+            id: 'sanierungsgebiet',
+            type: 'line',
+            minzoom: 11,
+            source: this.ndsVergSource,
+            'source-layer': 'br_verfahren',
+            paint: {
+                'line-color': '#0080FF',
+                'line-dasharray': [7, 5],
+                'line-width': {
+                    'stops': [[11, 0], [13, 2], [18, 4]]
+                },
+                'line-opacity': {
+                    'stops': [[11, 0], [13, .6]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['==', 'stag', this.stichtag]
+        });
+        this.map.addLayer({
+            id: 'landwirtschaft',
+            type: 'line',
+            minzoom: 10,
+            source: this.ndsSource,
+            'source-layer': 'br_brzone_flat_with_display',
+            paint: {
+                'line-color': '#009900',
+                'line-width': {
+                    'stops': [[8, 0], [10, 1], [11, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[8, 0], [10, 1]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]
+        });
+        this.map.addLayer({
+            id: 'bauland_labels',
+            type: 'symbol',
+            source: 'baulandSource',
+            paint: {
+                'text-halo-color': '#fff',
+                'text-halo-width': 2,
+                'text-halo-blur': 2,
+                'text-color': '#c4153a'
+            },
+            layout: {
+                'visibility': 'visible',
+                'text-field': ['get', 'display'],
+                'text-max-width': 0,
+                'text-size': {
+                    'stops': [[12, 10], [15, 16]]
+                },
+                'text-font': ['Cantarell Regular']
+            }
+        });
+        this.map.addLayer({
+            id: 'landwirtschaft_labels',
+            type: 'symbol',
+            source: 'landwirtschaftSource',
+            paint: {
+                'text-halo-color': '#fff',
+                'text-halo-width': 2,
+                'text-halo-blur': 2,
+                'text-color': '#009900'
+            },
+            layout: {
+                'visibility': 'visible',
+                'text-field': ['get', 'display'],
+                'text-max-width': 0,
+                'text-size': {
+                    'stops': [[10, 20], [15, 24]]
+                },
+                'text-font': ['Cantarell Regular']
+            }
+        });
+
+
+        this.map.addLayer({
+            id: 'bauland_bremen',
+            type: 'line',
+            minzoom: 11,
+            source: this.bremenSource,
+            'source-layer': 'br_brzone_flat_bremen_with_display',
+            paint: {
+                'line-color': '#c4153a',
+                'line-width': {
+                    'stops': [[11, 0], [13, 1], [18, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[11, 0], [13, 1]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['in', 'entw', 'B', 'SF', 'R', 'E'], ['==', 'stag', this.stichtag]]
+        });
+        this.map.addLayer({
+            id: 'sanierungsgebiet_bremen',
+            type: 'line',
+            minzoom: 11,
+            source: this.bremenSource,
+            'source-layer': 'br_brzone_flat_bremen_with_display',
+            paint: {
+                'line-color': '#0080FF',
+                'line-dasharray': [7, 5],
+                'line-width': {
+                    'stops': [[11, 0], [13, 2], [18, 4]]
+                },
+                'line-opacity': {
+                    'stops': [[11, 0], [13, .6]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('B') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['in', 'verg', 'San', 'SoSt', 'Entw', 'StUb'], ['==', 'stag', this.stichtag]]
+        });
+        this.map.addLayer({
+            id: 'landwirtschaft_bremen',
+            type: 'line',
+            minzoom: 10,
+            source: this.bremenSource,
+            'source-layer': 'br_brzone_flat_bremen_with_display',
+            paint: {
+                'line-color': '#009900',
+                'line-width': {
+                    'stops': [[8, 0], [10, 1], [11, 2]]
+                },
+                'line-opacity': {
+                    'stops': [[8, 0], [10, 1]]
+                }
+            },
+            layout: this.teilmarkt.value.includes('LF') ? { visibility: 'visible' } : { visibility: 'none' },
+            filter: ['all', ['==', 'entw', 'LF'], ['==', 'stag', this.stichtag]]
+        });
+
+        // add scale
+        const scale = new ScaleControl({
+            unit: 'metric'
+        });
+        this.map.addControl(scale, 'bottom-left');
 
         // add navigation control
         const navControl = new NavigationControl({
@@ -351,15 +484,19 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         this.map.addControl(navControl, 'top-right');
 
         // add geolocation control
-        const geolocateControl = new GeolocateControl();
+        const geolocateControl = new GeolocateControl({
+            showUserLocation: false
+        });
         this.map.addControl(geolocateControl, 'top-right');
+        geolocateControl.on('geolocate', (evt) => {
+            this.latLngChange.emit(new LngLat(evt.coords.longitude, evt.coords.latitude));
+        });
 
-        // temporarily deactivated
-        // const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
-        // this.map.addControl(pitchControl, 'top-right');
+        const pitchControl = new BodenrichtwertKartePitchControl(this.marker);
+        this.map.addControl(pitchControl, 'top-right');
 
-        const layerControl = new BodenrichtwertKarteLayerControl();
-        this.map.addControl(layerControl, 'top-right');
+        // const layerControl = new BodenrichtwertKarteLayerControl();
+        // this.map.addControl(layerControl, 'top-right');
 
         // update the map on reload if coordinates exist
         if (this.latLng) {
@@ -367,6 +504,23 @@ export class BodenrichtwertKarteComponent implements OnChanges {
             this.marker.setLngLat(this.latLng).addTo(this.map);
             this.flyTo();
         }
+
+        // add handler
+        this.map.on('click', (event) => {
+            this.onMapClickEvent(event);
+        });
+        this.map.on('moveend', () => {
+            this.onMoveEnd();
+        });
+        this.map.on('rotateend', () => {
+            this.onRotate();
+        });
+        this.map.on('zoomend', () => {
+            this.onZoomEnd();
+        });
+        this.map.on('pitchend', () => {
+            this.onPitchEnd();
+        });
     }
 
     /**
@@ -396,6 +550,7 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
     /**
      * determineZoomFactor determines the zoom depending on current zoomlvl and teilmarkt
+     * @returns returns zoom level depending on selected teilmarkt
      */
     public determineZoomFactor(): number {
         // Bauland
@@ -493,26 +648,39 @@ export class BodenrichtwertKarteComponent implements OnChanges {
 
                 this.landwirtschaftData.features = [];
                 const source = this.map.getSource('landwirtschaftSource');
-                if (source.type === 'geojson') {
+                if (source && source.type === 'geojson') {
                     source.setData(this.landwirtschaftData);
                 }
 
-                this.dynamicLabelling(this.baulandData, ['bauland', 'bauland_bremen'], 'baulandSource');
+                dynamicLabelling(
+                    this.map,
+                    ['bauland', 'bauland_bremen'],
+                    (f) => f.properties.objektidentifikator,
+                    this.doNotDisplay,
+                    this.map.getSource('baulandSource') as GeoJSONSource);
             } else {
 
                 this.baulandData.features = [];
                 const source = this.map.getSource('baulandSource');
-                if (source.type === 'geojson') {
+                if (source && source.type === 'geojson') {
                     source.setData(this.baulandData);
-                };
+                }
 
-                this.dynamicLabelling(this.landwirtschaftData, ['landwirtschaft', 'landwirtschaft_bremen'], 'landwirtschaftSource');
-            };
+                dynamicLabelling(
+                    this.map,
+                    ['landwirtschaft', 'landwirtschaft_bremen'],
+                    (f) => f.properties.objektidentifikator,
+                    this.doNotDisplay,
+                    this.map.getSource('landwirtschaftSource') as GeoJSONSource);
+            }
         }
     }
 
     /**
      * transformRequest
+     * @param url url
+     * @param resourceType
+     * @returns returns transformed url
      */
     public transformRequest(url, resourceType) {
         if (!url.startsWith('http') && resourceType === 'Tile') {
@@ -520,144 +688,274 @@ export class BodenrichtwertKarteComponent implements OnChanges {
         }
         return { url: url };
     }
+}
 
-    /**
-     * dynamicLabelling
-     * @param labelData
-     * @param layerNames
-     * @param sourceName
-     */
-    public dynamicLabelling(labelData: FeatureCollection, layerNames: string[], sourceName: string) {
-        labelData.features = [];
 
-        const featureMap: Record<string, Feature<Polygon>[]> = {};
+type Point = {
+    type: 'Point';
+    coordinates: number[];
+};
 
-        const mapSW = this.map.getBounds().getSouthWest();
-        const mapNE = this.map.getBounds().getNorthEast();
+type Polygon = {
+    type: 'Polygon';
+    coordinates: number[][][];
+};
 
-        const mapViewBound: Polygon = {
-            type: 'Polygon',
-            coordinates: [
-                [
-                    [mapSW.lng, mapSW.lat],
-                    [mapSW.lng, mapNE.lat],
-                    [mapNE.lng, mapNE.lat],
-                    [mapNE.lng, mapSW.lat],
-                    [mapSW.lng, mapSW.lat]
-                ]
-            ]
-        };
+type MultiPolygon = {
+    type: 'MultiPolygon';
+    coordinates: number[][][][];
+};
 
-        let buffer: number;
-        if (this.map.getZoom() > 18) {
-            buffer = 0;
-        } else if (this.map.getZoom() > 17) {
-            buffer = -5;
-        } else if (this.map.getZoom() > 16) {
-            buffer = -10;
-        } else if (this.map.getZoom() > 15) {
-            buffer = -20;
-        } else if (this.map.getZoom() > 14) {
-            buffer = -30;
-        } else if (this.map.getZoom() < 14) {
-            buffer = -40;
+/**
+ *
+ * @param p polygon
+ * @returns point
+ */
+function polygonToPoint(p: Polygon): Point {
+    try {
+        const point = pointOnFeature(p);
+
+        if (point && point.geometry) {
+            return {
+                type: 'Point',
+                coordinates: point.geometry.coordinates,
+            };
+        }
+    } catch (e) {
+        if (!environment.production) {
+            console.error(e);
+        }
+    }
+
+    return;
+}
+
+/**
+ *
+ * @param mp multiPolygon
+ * @returns array of polygons
+ */
+function multiPolygonToPolygons(mp: MultiPolygon): Array<Polygon> {
+    return mp.coordinates.map(f => ({
+        type: 'Polygon',
+        coordinates: f,
+    }));
+}
+
+/**
+ *
+ * @param mp multiPolygon
+ * @returns largest polygon
+ */
+function getLargestPolygon(mp: MultiPolygon): Polygon {
+    let areaX = 0;
+    let largest: Polygon;
+
+    multiPolygonToPolygons(mp).forEach(p => {
+        try {
+            const a = area(p);
+            if (!largest || a > areaX) {
+                if (a > areaX) {
+                    areaX = a;
+                    largest = {
+                        type: 'Polygon',
+                        coordinates: p.coordinates,
+                    };
+                }
+            }
+        } catch (e) {
+            if (!environment.production) {
+                console.error(e);
+            }
+        }
+    });
+    return largest;
+}
+
+/**
+ *
+ * @param p polygon or multiPolygon
+ * @param intersec polygon
+ * @returns array of polygons
+ */
+function intersectPolygon(p: Polygon | MultiPolygon, intersec: Polygon): Array<Polygon> {
+    try {
+        const f = intersect(intersec, p);
+        if (f && f.geometry) {
+            switch (f.geometry.type) {
+                case 'Polygon':
+                    return [f.geometry];
+                case 'MultiPolygon':
+                    return multiPolygonToPolygons(f.geometry);
+            }
         }
 
-        this.map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
-            if (!f || !f.geometry) {
-                return;
-            }
+        return [];
+    } catch (e) {
+        if (!environment.production) {
+            console.error(e);
+        }
+    }
+    return;
+}
 
-            if (this.doNotDisplay.includes(f.properties['objektidentifikator'])) {
-                return;
-            };
-
-            let p: Polygon;
-
+/**
+ *
+ * @param p polygon or multiPolygon
+ * @returns array of polygons
+ */
+function bufferPolygon(p: Polygon | MultiPolygon): Array<Polygon> {
+    try {
+        const f = buffer(p, - Math.sqrt(area(p)) / 8, { units: 'meters' });
+        if (f && f.geometry) {
             switch (f.geometry.type) {
-                case 'MultiPolygon':
-                    p = getLargestPolygon(f.geometry);
-                    break;
                 case 'Polygon':
-                    p = f.geometry;
-                    break;
-                default:
-                    return;
+                    return [f.geometry];
+                case 'MultiPolygon':
+                    return multiPolygonToPolygons(f.geometry);
             }
+        }
+    } catch (e) {
+        if (!environment.production) {
+            console.error(e);
+        }
+    }
 
-            if (p && p.coordinates) {
-                if (featureMap[f.properties.objektidentifikator]) {
-                    featureMap[f.properties.objektidentifikator].push({
-                        type: 'Feature',
-                        geometry: p,
-                        properties: f.properties,
-                    });
-                } else {
-                    featureMap[f.properties.objektidentifikator] = [{
-                        type: 'Feature',
-                        geometry: p,
-                        properties: f.properties,
-                    }];
+    switch (p.type) {
+        case 'Polygon':
+            return [p];
+        case 'MultiPolygon':
+            return [getLargestPolygon(p)];
+    }
+}
+
+/**
+ * dynamicLabelling
+ * @param map mapbox map
+ * @param layerNames queried layers
+ * @param getter identification getter
+ * @param doNotDisplay ignore features with identificator
+ * @param source source to which the features are set
+ */
+function dynamicLabelling(
+    map: Map,
+    layerNames: string[],
+    getter: (n: Feature) => string,
+    doNotDisplay: string[],
+    source: GeoJSONSource) {
+    const featureMap: Record<string, Feature<Polygon>[]> = {};
+
+    const mapSW = map.getBounds().getSouthWest();
+    const mapNE = map.getBounds().getNorthEast();
+
+    const mapViewBound: Polygon = {
+        type: 'Polygon',
+        coordinates: [
+            [
+                [mapSW.lng, mapSW.lat],
+                [mapSW.lng, mapNE.lat],
+                [mapNE.lng, mapNE.lat],
+                [mapNE.lng, mapSW.lat],
+                [mapSW.lng, mapSW.lat]
+            ]
+        ]
+    };
+
+    map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
+        if (!f || !f.geometry) {
+            return;
+        }
+
+        let p: Polygon;
+
+        switch (f.geometry.type) {
+            case 'MultiPolygon':
+                p = getLargestPolygon(f.geometry);
+                break;
+            case 'Polygon':
+                p = f.geometry;
+                break;
+            default:
+                return;
+        }
+
+        const id = getter(f);
+
+        if (doNotDisplay.includes(id)) {
+            return;
+        }
+
+        if (p && p.coordinates) {
+            if (featureMap[id]) {
+                featureMap[id].push({
+                    type: 'Feature',
+                    geometry: p,
+                    properties: f.properties,
+                });
+            } else {
+                featureMap[id] = [{
+                    type: 'Feature',
+                    geometry: p,
+                    properties: f.properties,
+                }];
+            }
+        }
+    });
+
+    const features: Array<Feature<Polygon | Point>> = [];
+
+    // eslint-disable-next-line complexity
+    Object.keys(featureMap).forEach(key => {
+        let p: Polygon;
+
+        featureMap[key].forEach(each => {
+            try {
+                if (p && p.coordinates) {
+                    const unionX = union(p, each);
+                    switch (unionX.geometry.type) {
+                        case 'Polygon':
+                            p = unionX.geometry;
+                            return;
+                        case 'MultiPolygon':
+                            p = getLargestPolygon(unionX.geometry);
+                            return;
+                    }
+                }
+                p = each.geometry;
+            } catch (e) {
+                if (!environment.production) {
+                    console.error(e);
                 }
             }
         });
 
-        const features: Array<Feature<Polygon | Point>> = [];
-
-        // eslint-disable-next-line complexity
-        Object.keys(featureMap).forEach(key => {
-            let p: Polygon;
-
-            featureMap[key].forEach(each => {
-                try {
-                    if (p && p.coordinates) {
-                        const union = turf.union(p, each);
-                        switch (union.geometry.type) {
-                            case 'Polygon':
-                                p = union.geometry;
-                                return;
-                            case 'MultiPolygon':
-                                p = getLargestPolygon(union.geometry);
-                                return;
-                        }
-                    }
-                    p = each.geometry;
-                } catch (e) {
-                    if (!environment.production) {
-                        console.log(e);
-                    }
-                }
-            });
-
-            intersectPolygon(p, mapViewBound).forEach(i => {
-                bufferPolygon(i, buffer).forEach(b => {
-                    if (this.map.getZoom() > 14) {
-                        const point = polygonToPoint(b);
-                        if (point && point.coordinates) {
-                            features.push({
-                                type: 'Feature',
-                                geometry: point,
-                                properties: featureMap[key][0].properties,
-                            });
-                            return;
-                        }
-                    }
+        intersectPolygon(p, mapViewBound).forEach(i => {
+            bufferPolygon(i).sort((a, b) => area(b) - area(a)).slice(0, 1).forEach(b => {
+                const point = polygonToPoint(b);
+                if (point && point.coordinates) {
                     features.push({
                         type: 'Feature',
-                        geometry: b,
+                        geometry: point,
                         properties: featureMap[key][0].properties,
                     });
+                    return;
+                }
+                features.push({
+                    type: 'Feature',
+                    geometry: b,
+                    properties: featureMap[key][0].properties,
                 });
             });
         });
+    });
 
-        labelData.features = features;
-
-        const source = this.map.getSource(sourceName);
-        if (source.type === 'geojson') {
-            source.setData(labelData);
-        }
+    if (source.type === 'geojson') {
+        source.setData({
+            type: 'FeatureCollection',
+            features: features,
+        });
     }
 }
+
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

@@ -1,9 +1,7 @@
 /* istanbul ignore file */
-import { Injectable } from '@angular/core';
-import { SimpleChange } from '@angular/core';
-import { Properties } from '@turf/turf';
+import { Injectable, SimpleChange } from '@angular/core';
 import { FeatureCollection } from 'geojson';
-import { FillExtrusionLayer, Map, SymbolLayer } from 'mapbox-gl';
+import { FillExtrusionLayer, Map } from 'maplibre-gl';
 
 export interface ExtrusionLayerOptions {
     extrusionHeight: number;
@@ -74,6 +72,10 @@ export class BodenrichtwertKarte3dLayerService {
     /**
      * onFeaturesChange removes Layers depending on whether a previous feature exists or not
      * and adds Layer depending on whether the rotation angle/pitch is > minPitch
+     * @param fts SimpleChange
+     * @param map map object
+     * @param stichtag current stichtag
+     * @param teilmarkt current teilmarkt
      */
     public onFeaturesChange(fts: SimpleChange, map: Map, stichtag: string, teilmarkt: any) {
         const previousFeatures = fts.previousValue;
@@ -92,6 +94,7 @@ export class BodenrichtwertKarte3dLayerService {
      * @param fts features
      * @param map map
      * @param stichtag stichtag
+     * @param teilmarkt teilmarkt
      */
     // tslint:disable-next-line: max-func-body-length
     public add3dLayer(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: any) {
@@ -171,8 +174,9 @@ export class BodenrichtwertKarte3dLayerService {
 
     /**
      * filterCollectionByStag filters the feature collection by a given stichtag (stag)
-     * @param features features
+     * @param fts FeatureCollection
      * @param stichtag stichtag
+     * @returns returns the filtered features
      */
     public filterCollectionByStag(fts: FeatureCollection, stichtag: string) {
         const filteredFts = fts.features.filter(ft =>
@@ -183,9 +187,10 @@ export class BodenrichtwertKarte3dLayerService {
 
     /**
      * onRotate updates the opacity of 3d layers depending on the rotation angle/pitch
-     * @param collection collection with selected features
+     * @param fts FeatureCollection
      * @param map map
      * @param stichtag stichtag
+     * @param teilmarkt teimarkt
      */
     public onRotate(fts: FeatureCollection, map: Map, stichtag: string, teilmarkt: any) {
         const filteredFts = this.filterCollectionByStag(fts, stichtag);
@@ -208,6 +213,8 @@ export class BodenrichtwertKarte3dLayerService {
      * getOpacityByRotation returns a number between 0 and 0.6 as opacity.
      * The opacity is calculated depending on the current rotation angle/pitch of the map
      * @param map map object
+     * @param maxOpacity number
+     * @returns returns the opacity
      */
     public getOpacityByRotation(map: Map, maxOpacity: number): number {
         let opacity: number;

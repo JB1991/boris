@@ -27,7 +27,7 @@ describe('Shared.Auth.AuthGuard', () => {
 
     it('should disable access', (done) => {
         // set config
-        environment.config = { modules: ['forms', 'feedback'], localized: false, version: { version: '', branch: '' } };
+        environment.config = { modules: ['forms', 'feedback'], localized: false, languages: [], version: { version: '', branch: '' } };
 
         guard.canActivate(new ActivatedRouteSnapshot(), { url: '/nipix' } as RouterStateSnapshot).then((value) => {
             expect(value).toBeFalse();
@@ -37,7 +37,7 @@ describe('Shared.Auth.AuthGuard', () => {
 
     it('should allow access', (done) => {
         // set config
-        environment.config = { modules: ['forms', 'feedback'], localized: false, version: { version: '', branch: '' } };
+        environment.config = { modules: ['forms', 'feedback'], localized: false, languages: [], version: { version: '', branch: '' } };
 
         guard.canActivate(new ActivatedRouteSnapshot(), { url: '/forms/dashboard' } as RouterStateSnapshot)
             .then((value) => {

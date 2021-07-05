@@ -1,0 +1,43 @@
+#######################
+##  bitnami-minideb  ##
+#######################
+
+# max risk is denial of service
+CVE-2021-33574
+
+# tls is not handled from container
+CVE-2021-20231
+CVE-2021-20232
+CVE-2020-24659
+CVE-2021-20305
+CVE-2019-13627
+CVE-2019-13115
+CVE-2021-33560
+CVE-2021-3580
+
+# amd64 architecture is not affected
+CVE-2020-1751
+CVE-2020-10029
+
+# requires authenticated local attacker
+CVE-2020-1752
+CVE-2019-3843
+CVE-2019-3844
+
+# requires uncommon input encoding
+CVE-2021-3326
+CVE-2019-25013
+CVE-2020-27618
+
+# gcc compiler is not used to build binaries
+CVE-2018-12886
+CVE-2019-15847
+
+# we are not resolving unkown domain names
+CVE-2019-12290
+
+# curl is not used
+CVE-2021-22898
+
+# ldap is not used
+CVE-2020-20178

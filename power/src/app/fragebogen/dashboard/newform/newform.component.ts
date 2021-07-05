@@ -30,7 +30,7 @@ export class NewformComponent {
     /**
      * Opens new form modal
      */
-    public open() {
+    public open(): void {
         this.searchText = '';
         this.title = '';
         this.tagList = [];
@@ -41,7 +41,7 @@ export class NewformComponent {
     /**
      * Fetch all Templates (Forms with id, title) for the current search text
      */
-    public fetchTemplates() {
+    public fetchTemplates(): void {
         const queryParams: GetFormsParams = {
             fields: ['id', 'content', 'owner.name', 'extract'],
             filter: {
@@ -66,13 +66,14 @@ export class NewformComponent {
     /**
      * Creates new formular
      */
-    public NewForm() {
+    public NewForm(): void {
         // check if form is filled incorrect
         if (!this.title) {
             this.alerts.NewAlert('danger', $localize`Ungültige Einstellungen`,
                 $localize`Bitte geben Sie einen Titel an.`);
             return;
         }
+
         // load template
         if (this.template) {
             this.formAPI
@@ -89,6 +90,7 @@ export class NewformComponent {
                 });
             return;
         }
+
         // make new form
         this.makeForm(JSON.parse(JSON.stringify(defaultTemplate)));
         this.modal.close();
@@ -96,23 +98,31 @@ export class NewformComponent {
 
     /**
      * Makes new formular
-     * @param template SurveyJS Template
+     * @param tpl SurveyJS Template
      */
-    public async makeForm(template: any) {
+    public async makeForm(tpl: any): Promise<void> {
         try {
-            if (!template) {
+            if (!tpl) {
                 throw new Error('template is required');
             }
             if (!this.title) {
                 throw new Error('title is required');
             }
-            template.title.default = this.title;
-            const r = await this.formAPI.createForm({ tags: this.tagList, content: template, access: 'public' });
+            this.escapeTitle();
+            tpl.title.default = this.title;
+            const r = await this.formAPI.createForm({ tags: this.tagList, content: tpl, access: 'public' });
             this.out.emit(r.id);
         } catch (error) {
             console.error(error);
             this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
         }
+    }
+
+    /**
+     * Escapes Title
+     */
+    public escapeTitle(): void {
+        this.title = this.title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

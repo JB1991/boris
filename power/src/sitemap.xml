@@ -25,7 +25,7 @@
       <changefreq>monthly</changefreq>
    </url>
    <url>
-      <loc>https://immobilienmarkt.niedersachsen.de/ogc-services</loc>
+      <loc>https://immobilienmarkt.niedersachsen.de/ogc-dienste</loc>
       <changefreq>monthly</changefreq>
    </url>
 </urlset>

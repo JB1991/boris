@@ -12,7 +12,7 @@
 <div class="row m-0 mb-4">
     <section class="col-12 col-lg-6 mb-3">
         <div class="jumbotron m-0">
-            <h1 class="display-4">
+            <h2 class="display-4">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -26,7 +26,7 @@
                 </svg>
                 <span class="ml-2"
                       i18n>Feedback geben</span>
-            </h1>
+            </h2>
 
             <p class="lead"
                i18n="@@feedback_steps">Geben Sie bitte eine genaue Beschreibung des Problems oder Ihres Vorschlages an,
@@ -100,7 +100,7 @@
 
     <section class="col-12 col-lg-6 mb-3">
         <div class="jumbotron m-0">
-            <h1 class="display-4">
+            <h2 class="display-4">
                 <svg width="1em"
                      height="1em"
                      viewBox="0 0 16 16"
@@ -116,7 +116,7 @@
                 </svg>
                 <span class="ml-2"
                       i18n>Feedbackübersicht</span>
-            </h1>
+            </h2>
 
             <div class="row m-0">
                 <div class="col-12 p-0 mb-2">
@@ -175,13 +175,13 @@
             <ng-container *ngFor="let ticket of this.rss; let i = index;">
                 <div class="card w-100 mb-2 bg-light">
                     <div class="card-body">
-                        <h5 class="card-title d-inline">
+                        <h3 class="card-title h5 d-inline">
                             {{ filterTitle(ticket.getElementsByTagName('summary').item(0).textContent) }}
-                        </h5>
+                        </h3>
                         &nbsp;
-                        <h6 class="card-subtitle mb-2 text-muted d-inline">
+                        <h4 class="card-subtitle h6 mb-2 text-muted d-inline">
                             {{ ticket.getElementsByTagName('updated').item(0).textContent | date:'short' }}
-                        </h6>
+                        </h4>
                         <p class="card-text lineb">
                             {{ filterBody(ticket.getElementsByTagName('description').item(0).textContent) }}
                         </p>

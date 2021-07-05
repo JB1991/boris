@@ -1,4 +1,4 @@
-import 'zone.js/dist/zone-node';
+import 'zone.js/node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
@@ -47,6 +47,7 @@ export function app(lang: string): express.Express {
     // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
     server.engine('html', ngExpressEngine({
         bootstrap: AppServerModule,
+        inlineCriticalCss: false,
         extraProviders: [{ provide: LOCALE_ID, useValue: lang }],
     } as any));
 

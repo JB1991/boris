@@ -10,18 +10,16 @@
     <div *ngIf="mode === 'gmb'"
          class="alert alert-info alert-gmb"
          role="alert">
-        <span i18n>
-            Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie
-        </span> <a [routerLink]="['/landesgrundstuecksmarktberichte']"
+        <span i18n>Ein Archiv der Landes&shy;grund&shy;stücks&shy;markt&shy;berichte finden sie</span>&nbsp;<a
+           [routerLink]="['/landesgrundstuecksmarktberichte']"
            i18n>hier</a>.
     </div>
 
     <div *ngIf="mode === 'lmb'"
          class="alert alert-info alert-gmb"
          role="alert">
-        <span i18n>
-            Die Grund&shy;stücks&shy;markt&shy;berichte finden sie
-        </span> <a [routerLink]="['/grundstuecksmarktberichte']"
+        <span i18n>Die Grund&shy;stücks&shy;markt&shy;berichte finden sie</span>&nbsp;<a
+           [routerLink]="['/grundstuecksmarktberichte']"
            i18n>hier</a>.
     </div>
 
@@ -65,20 +63,24 @@
     <div *ngFor="let rd of berichteFiltered"
          class="card m-0 mb-2"
          role="table">
-        <div class="card-header">
-            <div class="row">
+        <div class="card-header"
+             role="rowgroup">
+            <div class="row"
+                 role="row">
                 <h5 class="col-md-12 mb-0"
-                    role="rowheader">
-                    <b *ngIf="rd.name !== 'Niedersachsen'"
-                       i18n>Gutachterausschuss </b>
-                    <b>{{rd.name}}</b>
+                    role="columnheader">
+                    <strong *ngIf="rd.name !== 'Niedersachsen'"
+                            class="mr-1"
+                            i18n>Gutachterausschuss</strong>
+                    <strong>{{rd.name}}</strong>
                 </h5>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body"
+             role="rowgroup">
             <dl *ngFor="let bj of rd.berichte"
                 class="row"
-                role="rowgroup">
+                role="row">
                 <div class="col-md-12 p-0">
                     <!-- Bodenrichtwert (brz) -->
                     <input type="checkbox"
@@ -93,9 +95,9 @@
                                [attr.aria-label]="ariaLabelBericht(bj.key, rd.name)">
                             <span>
                                 <i class="bi bi-plus-circle remove-check"
-                                      aria-hidden="true"></i>
+                                   aria-hidden="true"></i>
                                 <i class="bi bi-dash-circle display-check"
-                                      aria-hidden="true"></i>
+                                   aria-hidden="true"></i>
                             </span>
                             <span>
                                 <ng-container *ngIf="rd.name === 'Niedersachsen'; else gmb"
@@ -111,11 +113,12 @@
                         <div class="dl">
                             <span class="tc">
                                 <i class="bi bi-download"
-                                      aria-hidden="true"></i>
+                                   aria-hidden="true"></i>
                             </span>
                             <span class="tc">
                                 {{bj.value['file']}} (<a href="{{downloadPath}}/{{bj.value['fileurl']}}"
                                    target="_blank"
+                                   rel="noopener"
                                    [attr.aria-label]="ariaLabelBericht(bj.key, rd.name, true)"
                                    i18n>Download</a>)
                             </span>
@@ -137,8 +140,15 @@
         </div>
     </div>
 
-    <br>
-    <br>
+    <div *ngIf="mode === 'gmb'"
+         class="my-5">
+        <div class="h5">Landkreise</div>
+        <span *ngFor="let kreis of selectMenu() | slice:1; let i = index">
+            <a class="p-2 d-inline-block"
+               [routerLink]="['/grundstuecksmarktberichte']"
+               [queryParams]="{landkreis: kreis.value}">{{ kreis.value }}</a>
+        </span>
+    </div>
 
     <small *ngIf="mode === 'gmb'"
            i18n>* Die dargestellten Landkreise stellen den Gebietsstand vom 01.01.2020 dar. Es können Abweichungen zu

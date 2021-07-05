@@ -1,21 +1,25 @@
 <div class="p-0">
-    <ng-container *ngIf="chartOption?.series.length != 0">
+    <ng-container *ngIf="chartOption?.series.length !== 0">
         <h3 i18n>Zeitliche Entwicklung</h3>
         <ng-container *ngIf="features?.features[0].properties.gema === 'Bremerhaven'; else bremen">
-            <p i18n> Die Bodenrichtwerte in Bremerhaven werden in einem Zweijahreszyklus festgelegt.
-                Der letzte Stichtag war der {{ getStichtag('BREMERHAVEN') | date }}.
-                Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem Stichtag
-                ermittelt werden.
-                Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+            <p>
+                <span i18n>Die Bodenrichtwerte in Bremerhaven werden in einem Zweijahreszyklus festgelegt.
+                    Der letzte Stichtag war der</span> {{ getStichtag('BREMERHAVEN') | date }}.
+                <span i18n>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem
+                    Stichtag ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen
+                    Entwicklungen.</span>
+            </p>
         </ng-container>
         <ng-template #bremen>
             <ng-container *ngIf="features?.features[0].properties.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen';
                      else niedersachsen">
-                <p i18n> Die Bremer Bodenrichtwerte werden in einem Zweijahreszyklus festgelegt.
-                    Der letzte Stichtag war der {{ getStichtag('BREMEN') | date }}.
-                    Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem Stichtag
-                    ermittelt werden.
-                    Sie berücksichtigt keine unterjährigen konjunkturellen Entwicklungen.</p>
+                <p>
+                    <span i18n>Die Bremer Bodenrichtwerte werden in einem Zweijahreszyklus festgelegt.
+                        Der letzte Stichtag war der</span> {{ getStichtag('BREMEN') | date }}.
+                    <span i18n>Die zeitliche Entwicklungsreihe berücksichtigt nur die Bodenrichtwerte, die zu diesem
+                        Stichtag ermittelt werden. Sie berücksichtigt keine unterjährigen konjunkturellen
+                        Entwicklungen.</span>
+                </p>
             </ng-container>
         </ng-template>
         <ng-template #niedersachsen>

@@ -2,7 +2,9 @@ export const environment = {
     production: true,
     test: false,
     appName: 'POWER',
-    ows: '/geoserver/boris/ows?',
+    baseurl: '',
+    borisOws: '/geoserver/boris/ows?',
+    alkisOws: '/geoserver/alkis/ows?',
     basemap: '/assets/boden/basemap.json',
     baviStyles: [
         'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-classic.json',
@@ -19,7 +21,6 @@ export const environment = {
     config: {
         modules: [
             'bodenrichtwerte',
-            'bodenwertkalkulator',
             'immobilienpreisindex',
             'immobilienpreiskalkulator',
             'grundstuecksmarktberichte',
@@ -27,11 +28,16 @@ export const environment = {
             'landesgrundstuecksmarktberichte',
             'forms',
             'feedback',
-            'ogc-services',
+            'ogc-dienste',
             'login',
             'logout'
         ],
         localized: true,
+        languages: [
+            { short: 'de', name: 'Deutsch', url: '' },
+            { short: 'de-simple', name: 'Einfache Sprache', url: '/de-simple' },
+            { short: 'en', name: 'English', url: '/en' },
+        ],
         version: {
             version: 'local',
             branch: 'offline'

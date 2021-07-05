@@ -19,10 +19,11 @@
  */
 
 /** IE11 requires the following for NgClass support on SVG elements */
-import 'classlist.js'; // Run `npm install --save classlist.js`.
-import 'core-js/es/array'; // required for Array.includes() and Array.form()
+import 'core-js/es/array';
+import 'core-js/es/string/pad-start';
+import 'core-js/es/string/pad-end';
 import 'core-js/es/object/values';
-import 'core-js/features/url-search-params'; // required for URLSearchParams
+import 'core-js/stable/url-search-params';
 
 /**
  * Web Animations `@angular/platform-browser/animations`
@@ -49,7 +50,7 @@ import 'web-animations-js'; // Run `npm install --save web-animations-js`.
 /**
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js/dist/zone'; // Included with Angular CLI.
+import 'zone.js'; // Included with Angular CLI.
 
 /**
  * Load `$localize` - used if i18n tags appear in Angular templates.
@@ -60,6 +61,7 @@ import '@angular/localize/init';
  * APPLICATION IMPORTS
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // aws-sdk requires global to exist
 (window as any).global = window;
 

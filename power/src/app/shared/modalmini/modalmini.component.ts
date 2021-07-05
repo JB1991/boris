@@ -14,15 +14,18 @@ export class ModalminiComponent implements OnDestroy {
     @ViewChild('modalmini') public modal: ModalDirective;
     @ViewChild('mymodal') public div: ElementRef;
     @Input() public checkInvalid = false;
+    @Input() public easyclose = true;
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
-    public focusedElement: any;
+    public focusedElement: HTMLElement;
     public isOpen = false;
     public title = '';
 
-    constructor(public modalService: BsModalService,
-        public cdr: ChangeDetectorRef) { }
+    constructor(
+        public modalService: BsModalService,
+        public cdr: ChangeDetectorRef
+    ) { }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.isOpen) {
             this.close();
         }
@@ -33,23 +36,25 @@ export class ModalminiComponent implements OnDestroy {
      * Opens modal
      * @param title Title to display
      */
-    public open(title?: string) {
+    public open(title?: string): void {
         // open modal
         this.title = title;
         this.isOpen = true;
+        this.modal.config.ignoreBackdropClick = !this.easyclose;
+        this.modal.config.keyboard = this.easyclose;
         this.modal.show();
         document.body.appendChild(this.div.nativeElement);
         this.cdr.detectChanges();
 
         // focus
-        this.focusedElement = document.activeElement;
+        this.focusedElement = document.activeElement as HTMLElement;
         this.div.nativeElement.children[2].focus();
     }
 
     /**
      * Closes modal
      */
-    public close() {
+    public close(): void {
         if (!this.isOpen) {
             return;
         }
@@ -79,7 +84,7 @@ export class ModalminiComponent implements OnDestroy {
      * Toggles modal
      * @param title Title to display
      */
-    public toggle(title?: string) {
+    public toggle(title?: string): void {
         if (this.isOpen) {
             this.close();
         } else {
@@ -88,7 +93,8 @@ export class ModalminiComponent implements OnDestroy {
     }
 
     /**
-     * Returns true if modal is visible
+     * Returns visibility state
+     * @returns True if modal is visible
      */
     public isVisible(): boolean {
         return this.isOpen;

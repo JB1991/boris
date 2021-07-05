@@ -31,8 +31,10 @@ export class QuestionSettingsComponent {
 
     /**
      * Opens modal
+     * @param question Question number
+     * @param page Page number
      */
-    public open(question: number, page: number) {
+    public open(question: number, page: number): void {
         // check data
         if (page < 0 || page >= this.model.pages.length) {
             throw new Error('page is invalid');
@@ -54,7 +56,7 @@ export class QuestionSettingsComponent {
      * Modal close callback
      * @param value True if no invalid forms found
      */
-    public close(value: boolean) {
+    public close(value: boolean): void {
         if (value) {
             // changed something
             if (this.copy && this.copy !== JSON.stringify(this.model)) {
@@ -75,11 +77,22 @@ export class QuestionSettingsComponent {
     }
 
     /**
+     * Switches title on or off
+     */
+    public toggleQuestionTitle(): void {
+        if (!this.model.pages[this.page].elements[this.question].titleLocation || this.model.pages[this.page].elements[this.question].titleLocation === 'default') {
+            this.model.pages[this.page].elements[this.question].titleLocation = 'hidden';
+        } else {
+            this.model.pages[this.page].elements[this.question].titleLocation = 'default';
+        }
+    }
+
+    /**
      * Migrates element to newest version
      */
     /* istanbul ignore next */
     /* eslint-disable-next-line complexity */
-    private migration() {
+    private migration(): void {
         // add commentText
         if (['radiogroup', 'checkbox', 'imageselector', 'rating', 'file', 'nouislider']
             .includes(this.model.pages[this.page].elements[this.question].type)) {

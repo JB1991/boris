@@ -1,5 +1,9 @@
 import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { environment } from '@env/environment';
+import { Platform } from '@angular/cdk/platform';
 
 import { UpdateService } from './update.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
@@ -11,13 +15,14 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     constructor(@Inject(LOCALE_ID) public locale: string,
         public alerts: AlertsService,
-        public us: UpdateService) { }
+        public platform: Platform,
+        public us: UpdateService,
+	private http: HttpClient) { }
 
-    handleError(error: Error) {
+    handleError(error: Error): void {
         // check if app needs reload
         console.error(error);
-        const chunkFailedMessage = /Loading chunk [\d]+ failed/;
-        if (chunkFailedMessage.test(error.message)) {
+        if (error.message.indexOf('Loading chunk') !== -1) {
             console.error(error);
             this.us.cleanupServiceWorker();
             this.reload();
@@ -30,6 +35,12 @@ export class GlobalErrorHandler implements ErrorHandler {
         for (const err of this.errorList) {
             msgStr += '\n\n' + err.toString() + '\n' + err?.stack;
         }
+
+        // Post data to Bakend
+        this.http.post<any>('/report', msgStr).subscribe(data => {
+        })
+
+        // Encode Error Message
         const msgB64 = btoa(unescape(encodeURIComponent(msgStr)));
 
         // show error
@@ -45,17 +56,23 @@ export class GlobalErrorHandler implements ErrorHandler {
         this.container.style.overflow = 'auto';
         this.container.style.zIndex = '9999';
         this.container.style.backgroundColor = '#FFFFFF';
-        this.container.classList.add('p-3');
+        this.container.className = 'p-3';
 
         const text = document.createElement('div');
-        text.innerText = $localize`Ein Fehler ist aufgetreten, um den Fehler zu beheben, versuchen Sie bitte folgendes: Löschen Sie den Browser-Cache, deaktivieren Sie alle Browser-Plugins und aktualisieren Sie Ihren Webbrowser. Sollten diese Schritte Ihr Problem nicht beheben, dann kontaktieren Sie uns bitte mit dem untenstehenden Code. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
+        /* istanbul ignore else */
+        if (!(this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK)) {
+            text.innerText = $localize`Ihr Webbrowser ist veraltet und wird von uns nicht unterstützt. Bitte verwenden Sie einen aktuelleren Webbrowser, wie Google Chrome oder Mozilla Firefox.` + ' ';
+        }
+        text.innerText += $localize`Ein Fehler ist aufgetreten, um den Fehler zu beheben, versuchen Sie bitte folgendes: Löschen Sie den Browser-Cache, deaktivieren Sie alle Browser-Plugins und aktualisieren Sie Ihren Webbrowser. Sollten diese Schritte Ihr Problem nicht beheben, dann kontaktieren Sie uns bitte mit dem untenstehenden Code. Bitte Senden Sie uns den Code als Text und nicht als Screenshot.`;
         this.container.appendChild(text);
+
 
         const mail = document.createElement('div');
         mail.innerText = $localize`Kontakt:` + ' incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com';
         this.container.appendChild(mail);
 
         const link = document.createElement('a');
+        /* eslint-disable-next-line scanjs-rules/assign_to_href */
         link.href = 'mailto:incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com?subject=Fehlerbericht&body=' + msgB64;
         link.innerText = $localize`E-Mail Programm öffnen`;
         this.container.appendChild(link);
@@ -64,14 +81,15 @@ export class GlobalErrorHandler implements ErrorHandler {
         this.container.insertAdjacentHTML('beforeend', '<br><br><div class="small"><code>' + msgB64 + '</code></div>');
 
         document.body.appendChild(this.container);
-        document.body.classList.add('overflow-hidden');
+        document.body.className += ' overflow-hidden';
     }
 
     /**
      * Reloads page
      */
     /* istanbul ignore next */
-    public reload() {
+    public reload(): void {
         window.location.reload();
     }
 }
+/* vim: set expandtab ts=4 sw=4 sts=4: */

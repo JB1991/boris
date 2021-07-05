@@ -7,6 +7,7 @@ describe('POWER-Frontend', () => {
     const PAGES = [
         '/',
         '/feedback',
+        '/ogc-dienste',
         '/notfound',
         '/bodenrichtwerte',
         '/grundstuecksmarktberichte',

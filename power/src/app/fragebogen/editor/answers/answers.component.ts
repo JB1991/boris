@@ -31,14 +31,14 @@ export class AnswersComponent {
     /**
      * Emit change if formular has changed
      */
-    public changed() {
+    public changed(): void {
         this.dataChange.emit(this.data);
     }
 
     /**
      * Add new answer
      */
-    public addAnswer() {
+    public addAnswer(): void {
         if (!this.hasImg) {
             this.data.push({
                 value: '',
@@ -60,8 +60,9 @@ export class AnswersComponent {
 
     /**
      * Delete answer
+     * @param i Index
      */
-    public delAnswer(i: number) {
+    public delAnswer(i: number): void {
         // check data
         if (i < 0 || i >= this.data.length) {
             throw new Error('i is invalid');
@@ -74,7 +75,7 @@ export class AnswersComponent {
      * Moves item up
      * @param i Index
      */
-    public moveUp(i: number) {
+    public moveUp(i: number): void {
         // check data
         if (i < 0 || i >= this.data.length) {
             throw new Error('i is invalid');
@@ -91,7 +92,7 @@ export class AnswersComponent {
      * Moves item down
      * @param i Index
      */
-    public moveDown(i: number) {
+    public moveDown(i: number): void {
         // check data
         if (i < 0 || i >= this.data.length) {
             throw new Error('i is invalid');
@@ -108,7 +109,7 @@ export class AnswersComponent {
      * Delete image
      * @param i Index
      */
-    public delImage(i: number) {
+    public delImage(i: number): void {
         // check data
         if (i < 0 || i >= this.data.length) {
             throw new Error('i is invalid');
@@ -122,7 +123,7 @@ export class AnswersComponent {
      * @param i Answer number
      */
     /* istanbul ignore next */
-    public uploadImage(i: number) {
+    public uploadImage(i: number): void {
         // check data
         if (i < 0 || i >= this.data.length) {
             throw new Error('i is invalid');
@@ -172,6 +173,8 @@ export class AnswersComponent {
                     this.dataChange.emit(this.data);
                     input.remove();
                 };
+
+                /* eslint-disable-next-line scanjs-rules/assign_to_src */
                 img.src = String(reader.result);
             };
         };

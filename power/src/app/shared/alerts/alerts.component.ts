@@ -14,7 +14,7 @@ export class AlertsComponent {
      * Removes alert from list
      * @param id alert id
      */
-    public onClosed(id: number) {
+    public onClosed(id: number): void {
         if (id < 0 || id >= this.alerts.alertslist.length) {
             throw new Error('Invalid id');
         }

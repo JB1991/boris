@@ -14,8 +14,11 @@ export class ModuleGuard implements CanActivate {
 
     /**
      * Called before a protected route is loaded to check if module is enabled
+     * @param next ActivatedRouteSnapshot
+     * @param state RouterStateSnapshot
+     * @returns Promise of boolean
      */
-    async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
         // check if module is enabled
         for (const module of environment.config.modules) {
             if (state.url.startsWith('/' + module)) {
@@ -24,6 +27,7 @@ export class ModuleGuard implements CanActivate {
         }
 
         // disabled
+        /* istanbul ignore else */
         if (!environment.production) {
             console.error('Module is disabled');
         }

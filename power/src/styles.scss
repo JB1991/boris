@@ -1,10 +1,10 @@
 /*!* You can add global styles to this file, and also import other style files *!*/
-$primary: #006aff;
+$primary: #005ee4;
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
-@import '~nouislider/distribute/nouislider.css';
+@import '~nouislider/dist/nouislider.css';
 @import '~survey-angular/survey.css';
-@import '~mapbox-gl/dist/mapbox-gl.css';
+@import '~maplibre-gl/dist/maplibre-gl.css';
 @import 'app/fragebogen/fragebogen.scss';
 
 @mixin font($font-family, $font-file) {
@@ -29,6 +29,10 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden !important;
+}
+
+code {
+    color: #c43434 !important;
 }
 
 $font-family-sans-serif: // Safari for macOS and iOS (San Francisco)

@@ -9,6 +9,7 @@ export class UmlautCorrectionPipe implements PipeTransform {
         ['Buero, hochw. Dienste', 'Büro, hochw. Dienste'],
         ['Handel, Geschaefte', 'Handel, Geschäfte'],
         ['Verbrauchermaerkte', 'Verbrauchermärkte'],
+        ['QuakenbrÃ¼ck', 'Quakenbrück'],
         ['u.ae', 'u.ä'],
         ['usw', 'usw.']
     ]);

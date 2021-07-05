@@ -10,14 +10,15 @@ stages:
   - package
   - scan
   - deploy
+  - delete
 
 cache: &global_cache
-  key: ${CI_COMMIT_REF_SLUG}
+  key: "${CI_COMMIT_REF_SLUG}"
   paths:
     - power/node_modules/
   policy: pull-push
 
-init:npm:
+npm-install:
   stage: init
   image: node:lts-alpine
   interruptible: true
@@ -32,61 +33,15 @@ init:npm:
     - tags
     - dev
     - staging
-    - production
+    - prod
+    - /^demo-.*/
 
-init:helm-dev:
-  stage: init
-  interruptible: true
-  cache: {}
-  script:
-    - helm template power ./chart/power -f ./chart/power/values-dev.yaml --dependency-update --output-dir manifest-dev
-  artifacts:
-    name: "manifest"
-    expire_in: 2 hrs
-    public: false
-    paths:
-      - manifest-dev
-  only:
-    - merge_requests
-    - tags
-    - dev
-
-init:helm-staging:
-  stage: init
-  interruptible: true
-  cache: {}
-  script:
-    - helm template power ./chart/power -f ./chart/power/values-staging.yaml --dependency-update --output-dir manifest-staging
-  artifacts:
-    name: "manifest"
-    expire_in: 2 hrs
-    public: false
-    paths:
-      - manifest-staging
-  only:
-    - staging
-
-init:helm-production:
-  stage: init
-  interruptible: true
-  cache: {}
-  script:
-    - helm template power ./chart/power -f ./chart/power/values-production.yaml --dependency-update --output-dir manifest-production
-  artifacts:
-    name: "manifest"
-    expire_in: 2 hrs
-    public: false
-    paths:
-      - manifest-production
-  only:
-    - production
-
-test:karma:
+test-karma:
   stage: test
   image: trion/ng-cli-karma:latest
   interruptible: true
   needs:
-    - job: init:npm
+    - job: npm-install
       artifacts: false
   dependencies: []
   cache:
@@ -102,19 +57,21 @@ test:karma:
       junit: power/output/junit_karma.xml
     paths:
       - power/output/junit_karma.xml
+      - power/coverage/report-lcov/lcov.info
   only:
     - merge_requests
     - tags
     - dev
     - staging
-    - production
+    - prod
+    - /^demo-.*/
 
-test:e2e:
+test-e2e:
   stage: test
   image: trion/ng-cli-e2e:latest
   interruptible: true
   needs:
-    - job: init:npm
+    - job: npm-install
       artifacts: false
   dependencies: []
   cache:
@@ -122,7 +79,7 @@ test:e2e:
     policy: pull
   script:
     - cd power
-    - node_modules/protractor/bin/webdriver-manager update --versions.chrome 89.0.4389.23 --gecko false --standalone false
+    - node_modules/protractor/bin/webdriver-manager update --versions.chrome 91.0.4472.77 --gecko false --standalone false
     - node_modules/@angular/cli/bin/ng e2e -c staging --webdriver-update=false
   artifacts:
     expire_in: 2 days
@@ -136,9 +93,11 @@ test:e2e:
     - tags
     - dev
     - staging
-    - production
+    - prod
+    - /^demo-.*/
+  when: manual
 
-test:audit:
+npm-audit:
   stage: test
   image: node:lts-alpine
   interruptible: true
@@ -147,21 +106,21 @@ test:audit:
   cache: {}
   script:
     - cd power
-    - npm audit
+    - npm audit --production
   only:
     - merge_requests
     - tags
     - dev
     - staging
-    - production
-  allow_failure: true
+    - prod
+    - /^demo-.*/
 
-test:lint:
+lint-ts:
   stage: test
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: init:npm
+    - job: npm-install
       artifacts: false
   dependencies: []
   cache:
@@ -175,14 +134,15 @@ test:lint:
     - tags
     - dev
     - staging
-    - production
+    - prod
+    - /^demo-.*/
 
-test:lint-html:
+lint-html:
   stage: test
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: init:npm
+    - job: npm-install
       artifacts: false
   dependencies: []
   cache:
@@ -196,14 +156,15 @@ test:lint-html:
     - tags
     - dev
     - staging
-    - production
+    - prod
+    - /^demo-.*/
 
-test:lint-styles:
+lint-styles:
   stage: test
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: init:npm
+    - job: npm-install
       artifacts: false
   dependencies: []
   cache:
@@ -217,9 +178,10 @@ test:lint-styles:
     - tags
     - dev
     - staging
-    - production
+    - prod
+    - /^demo-.*/
 
-test:helm-dry-run:
+helm-dry-run:
   stage: test
   interruptible: true
   needs: []
@@ -230,113 +192,38 @@ test:helm-dry-run:
     - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
     - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
     - kubectl config use-context default
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
   script:
-    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install --dry-run
+    - helm upgrade power bitnami/nginx -n dev -f "./chart/values-$CI_COMMIT_REF_NAME.yaml" --install --dry-run
   only:
     - dev
     - staging
-    - production
+    - prod
 
-test:kubesec-dev:
+kubesec:
   stage: test
   interruptible: true
-  needs:
-    - job: init:helm-dev
-      artifacts: true
-  dependencies:
-    - init:helm-dev
+  needs: []
+  dependencies: []
   cache: {}
+  before_script:
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
   script:
-    - cat manifest-dev/power/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-dev/power/templates/*.yaml | kubesec-check.sh -
+    - helm template power bitnami/nginx -f "./chart/values-$CI_COMMIT_REF_NAME.yaml" | kubesec-scan.sh -
+    - helm template power bitnami/nginx -f "./chart/values-$CI_COMMIT_REF_NAME.yaml" | kubesec-check.sh -
   only:
-    - merge_requests
-    - tags
     - dev
-
-test:kubesec-staging:
-  stage: test
-  interruptible: true
-  needs:
-    - job: init:helm-staging
-      artifacts: true
-  dependencies:
-    - init:helm-staging
-  cache: {}
-  script:
-    - cat manifest-staging/power/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-staging/power/templates/*.yaml | kubesec-check.sh -
-  only:
     - staging
+    - prod
 
-test:kubesec-production:
-  stage: test
-  interruptible: true
-  needs:
-    - job: init:helm-production
-      artifacts: true
-  dependencies:
-    - init:helm-production
-  cache: {}
-  script:
-    - cat manifest-production/power/templates/*.yaml | kubesec-scan.sh -
-    - cat manifest-production/power/templates/*.yaml | kubesec-check.sh -
-  only:
-    - production
-
-test:kube-linter-dev:
-  stage: test
-  interruptible: true
-  needs:
-    - job: init:helm-dev
-      artifacts: true
-  dependencies:
-    - init:helm-dev
-  cache: {}
-  script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-dev/power/templates/*.yaml
-  only:
-    - merge_requests
-    - tags
-    - dev
-  allow_failure: true
-
-test:kube-linter-staging:
-  stage: test
-  interruptible: true
-  needs:
-    - job: init:helm-staging
-      artifacts: true
-  dependencies:
-    - init:helm-staging
-  cache: {}
-  script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-staging/power/templates/*.yaml
-  only:
-    - staging
-  allow_failure: true
-
-test:kube-linter-production:
-  stage: test
-  interruptible: true
-  needs:
-    - job: init:helm-production
-      artifacts: true
-  dependencies:
-    - init:helm-production
-  cache: {}
-  script:
-    - kube-linter lint -v --add-all-built-in --exclude required-annotation-email,required-label-owner manifest-production/power/templates/*.yaml
-  only:
-    - production
-  allow_failure: true
-
-build:
+build-test:
   stage: build
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: init:npm
+    - job: npm-install
       artifacts: false
   dependencies: []
   cache:
@@ -347,7 +234,7 @@ build:
     - node_modules/@angular/cli/bin/ng run power:prerender:staging
   artifacts:
     name: "compiled dist"
-    expire_in: 2 days
+    expire_in: 2 hours
     public: false
     paths:
       - power/dist/power/browser
@@ -356,13 +243,14 @@ build:
     - tags
     - dev
     - staging
+    - /^demo-.*/
 
-build:production:
+build-prod:
   stage: build
   image: node:lts-alpine
   interruptible: true
   needs:
-    - job: init:npm
+    - job: npm-install
       artifacts: false
   dependencies: []
   cache:
@@ -373,188 +261,142 @@ build:production:
     - node_modules/@angular/cli/bin/ng run power:prerender:de
   artifacts:
     name: "compiled dist"
-    expire_in: 2 days
+    expire_in: 2 hours
     public: false
     paths:
       - power/dist/power/browser
   only:
-    - production
+    - prod
 
-package:development:
+kaniko-build:
   stage: package
   image:
     name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [ "" ]
-  interruptible: false
+    entrypoint: [""]
   dependencies:
-    - build
+    - build-test
+    - build-prod
   cache: {}
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:latest --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
+    - /kaniko/executor --context "$CI_PROJECT_DIR" --dockerfile "$CI_PROJECT_DIR/Dockerfile" --destination "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME" --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
   only:
     - dev
-
-package:staging:
-  stage: package
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [ "" ]
-  interruptible: false
-  dependencies:
-    - build
-  cache: {}
-  environment:
-    name: staging
-    action: prepare
-  script:
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:staging --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
-  only:
     - staging
+    - prod
+    - /^demo-.*/
 
-package:production:
-  stage: package
+trivy:
+  stage: scan
+  dependencies: []
+  cache: {}
+  before_script:
+    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i="$(( i + 1 ))" ; done
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+  script:
+    - docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+    - trivy image -s UNKNOWN,MEDIUM,HIGH,CRITICAL --no-progress --exit-code 1 "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+  only:
+    - dev
+    - staging
+    - prod
+    - /^demo-.*/
+  allow_failure: true
+
+sonarqube:
+  stage: scan
   image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [ "" ]
-  interruptible: false
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
   dependencies:
-    - build:production
+    - test-karma
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" # Defines the location of the analysis task cache
+    GIT_DEPTH: "0" # Tells git to fetch all the branches of the project, required by the analysis task
+  script:
+    - sonar-scanner
+  only:
+    - dev
+  allow_failure: true
+
+helm-deploy:
+  stage: deploy
+  dependencies: []
   cache: {}
   environment:
-    name: production
-    action: prepare
+    name: "$CI_COMMIT_REF_NAME"
+    action: start
+  before_script:
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
   script:
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:production --build-arg=COMMIT="$CI_COMMIT_SHORT_SHA" --build-arg=BRANCH="$CI_COMMIT_REF_NAME"
+    - helm upgrade power bitnami/nginx -n "$CI_COMMIT_REF_NAME" -f "./chart/values-$CI_COMMIT_REF_NAME.yaml" --install
+      --set-string commonLabels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string commonAnnotations.deployedAt="$CI_JOB_STARTED_AT"
+      --set-string podLabels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string podAnnotations.deployedAt="$CI_JOB_STARTED_AT"
   only:
-    - production
+    - dev
+    - staging
+    - prod
+
+helm-deploy:branches:
+  stage: deploy
+  dependencies: []
+  cache: {}
+  environment:
+    name: "$CI_COMMIT_REF_NAME"
+    action: start
+    url: "https://$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
+    on_stop: helm-delete:branches
+  before_script:
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - helm repo add bitnami https://charts.bitnami.com/bitnami
+    - helm repo update
+  script:
+    - helm upgrade "$CI_COMMIT_REF_NAME" bitnami/nginx -n dev -f ./chart/values-dev.yaml --install
+      --set-string commonLabels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string commonAnnotations.deployedAt="$CI_JOB_STARTED_AT"
+      --set-string podLabels.commit="$CI_COMMIT_SHORT_SHA"
+      --set-string podAnnotations.deployedAt="$CI_JOB_STARTED_AT"
+      --set-string image.tag="$CI_COMMIT_REF_NAME"
+      --set-string ingress.hostname="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
+      --set-string ingress.extraHosts[0].name="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
+      --set-string ingress.extraTls[0].hosts[0]="$CI_COMMIT_REF_NAME.power-cluster-65655d4c73bf47a3300821aa2939abf4-0001.eu-de.containers.appdomain.cloud"
+      --set-string ingress.extraTls[1].hosts[0]="$CI_COMMIT_REF_NAME.power.niedersachsen.dev"
+  only:
+    - /^demo-.*/
+
+helm-delete:branches:
+  stage: delete
+  dependencies: []
+  cache: {}
+  variables:
+    GIT_STRATEGY: none
+  environment:
+    name: "$CI_COMMIT_REF_NAME"
+    action: stop
+  before_script:
+    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
+    - kubectl config use-context default
+    - TOKEN=$(curl -s -X POST https://iam.cloud.ibm.com/identity/token -H "content-type:application/x-www-form-urlencoded" -H "accept:application/json" -d "grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=$IBM_CR_APIKEY" | jq -r ".access_token")
+  script:
+    - helm uninstall "$CI_COMMIT_REF_NAME" -n dev
+    - curl -s -X DELETE -H "Account:$IBM_ACCOUNT_ID" -H "Authorization:Bearer $TOKEN" -H "accept:application/json" --url "https://de.icr.io/api/v1/images/de.icr.io%2Fpower%2Fpower%3A$CI_COMMIT_REF_NAME"
+  only:
+    - /^demo-.*/
   when: manual
   allow_failure: false
-
-scan:development:
-  stage: scan
-  interruptible: false
-  needs:
-    - job: package:development
-      artifacts: false
-  dependencies: []
-  cache: {}
-  before_script:
-    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-  script:
-    - docker pull "$CI_REGISTRY_IMAGE:latest"
-    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:latest"
-  only:
-    - dev
-  allow_failure: true
-
-scan:staging:
-  stage: scan
-  interruptible: false
-  needs:
-    - job: package:staging
-      artifacts: false
-  dependencies: []
-  cache: {}
-  environment:
-    name: staging
-    action: prepare
-  before_script:
-    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-  script:
-    - docker pull "$CI_REGISTRY_IMAGE:staging"
-    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:staging"
-  only:
-    - staging
-  allow_failure: true
-
-scan:production:
-  stage: scan
-  interruptible: false
-  needs:
-    - job: package:production
-      artifacts: false
-  dependencies: []
-  cache: {}
-  environment:
-    name: production
-    action: prepare
-  before_script:
-    - i=0; while [ "$i" -lt 12 ]; do docker info &> /dev/null && break; sleep 5; i=$(( i + 1 )) ; done
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --username "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
-  script:
-    - docker pull "$CI_REGISTRY_IMAGE:production"
-    - trivy image --no-progress --ignore-unfixed --exit-code 1 "$CI_REGISTRY_IMAGE:production"
-  only:
-    - production
-  allow_failure: true
-
-deploy:development:
-  stage: deploy
-  interruptible: false
-  needs:
-    - job: package:development
-      artifacts: false
-  dependencies: []
-  cache: {}
-  before_script:
-    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
-    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
-    - kubectl config use-context default
-  script:
-    - helm upgrade power ./chart/power -n dev -f ./chart/power/values-dev.yaml --install
-      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
-      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
-  only:
-    - dev
-
-deploy:staging:
-  stage: deploy
-  interruptible: false
-  needs:
-    - job: package:staging
-      artifacts: false
-  dependencies: []
-  cache: {}
-  environment:
-    name: staging
-    action: start
-  before_script:
-    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
-    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
-    - kubectl config use-context default
-  script:
-    - helm upgrade power ./chart/power -n staging -f ./chart/power/values-staging.yaml --install
-      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
-      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
-  only:
-    - staging
-
-deploy:production:
-  stage: deploy
-  interruptible: false
-  needs:
-    - job: package:production
-      artifacts: false
-  dependencies: []
-  cache: {}
-  environment:
-    name: production
-    action: start
-  before_script:
-    - kubectl config set-cluster k8s --server="$KUBE_API_URL" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials "$KUBE_DEPLOY_SECRET_NAME" --token="$KUBE_API_TOKEN"
-    - kubectl config set-context default --cluster=k8s --user="$KUBE_DEPLOY_SECRET_NAME"
-    - kubectl config use-context default
-  script:
-    - helm upgrade power ./chart/power -n prod -f ./chart/power/values-production.yaml --install
-      --set-string labels.commit="$CI_COMMIT_SHORT_SHA"
-      --set-string annotations.deployedAt="$CI_JOB_STARTED_AT"
-  only:
-    - production

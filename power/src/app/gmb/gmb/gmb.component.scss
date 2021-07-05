@@ -18,8 +18,8 @@ div.title h1 {
     padding: 1rem;
 }
 
-.checksum div:nth-child(2) {
-    background-color: darkgrey;
+.checksum div:nth-child(2n) {
+    background-color: #6c757d;
     color: white;
 }
 

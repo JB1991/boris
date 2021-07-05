@@ -2,7 +2,6 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
-import { Meta, Title } from '@angular/platform-browser';
 
 import { FeedbackComponent } from './feedback.component';
 import { AuthService } from '@app/shared/auth/auth.service';
@@ -20,8 +19,6 @@ describe('Static.Feedback.FeedbackComponent', () => {
                 FormsModule
             ],
             providers: [
-                Title,
-                Meta,
                 AuthService,
                 AlertsService
             ],
@@ -42,20 +39,18 @@ describe('Static.Feedback.FeedbackComponent', () => {
         expect(component.loadRSSFeed).toHaveBeenCalledTimes(1);
     });
 
-    it('should have a title', () => {
-        expect(component.titleService.getTitle()).toContain('Feedback');
-    });
-
     it('should show the mail address', () => {
         expect(document.body.innerHTML)
             .toContain('incoming+kay-lgln-power-22861970-issue-@incoming.gitlab.com');
     });
 
     it('should search without email', () => {
+        /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'BORIS';
         component.doSearch();
         expect(component.search).toEqual('BORIS');
 
+        /* eslint-disable-next-line scanjs-rules/assign_to_search */
         component.search = 'dagobert@duck.net';
         component.doSearch();
         expect(component.search).toEqual('');

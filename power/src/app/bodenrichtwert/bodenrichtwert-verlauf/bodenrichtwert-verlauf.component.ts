@@ -124,6 +124,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
     /**
      * onChartInit initializes the chart
+     * @param event event for initializing the chart
      */
     public onChartInit(event: any): void {
         this.echartsInstance = event;
@@ -144,6 +145,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     /**
      * tooltipFormatter formats the content of the tooltip floating layer
      * @param params params
+     * @returns returns the adjusted tooltip
      */
     public tooltipFormatter(params: Array<any>): string {
         const res = [];
@@ -228,6 +230,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     /**
      * filterByStichtag filters out the features between the first and last year of the series
      * @param features features
+     * @returns returns the filtered features
      */
     public filterByStichtag(features: Array<Feature>): Array<Feature> {
         const firstYear = this.seriesTemplate[0].stag;
@@ -269,7 +272,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     /**
      * getKeyValuePairs grouped the feature items by the name of the Nutzungsart or the Bodenrichtwertnummer
-     * @param features
+     * @param features feature array
      * @returns the feature items grouped
      */
     public getKeyValuePairs(features: Array<Feature>): Map<string, Array<Feature>> {
@@ -294,6 +297,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * groupBy groups a given feature array by a specific callback function
      * @param list feature array
      * @param keyGetter keyGetter
+     * @returns returns a map object
      */
     public groupBy(list: Array<Feature>, keyGetter: (item: Feature) => string): Map<string, Array<Feature>> {
         const map = new Map<string, Array<Feature>>();
@@ -328,7 +332,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             }
         }
         return series;
-    };
+    }
 
     /**
      * getVergOfSeries extracts the Verfahrensgrund (San, Entw, Sost, StUb) if existing from the series
@@ -381,9 +385,9 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
 
     /**
      * copySeriesData copies the series items into a new array
-     * @param series
-     * @param seriesVergValues
-     * @param idx
+     * @param series array with series items
+     * @param seriesVergValues array with series items which hold verg values
+     * @param idx index
      * @returns the series copied into new array
      */
     public copySeriesData(series: Array<SeriesItem>,
@@ -404,8 +408,58 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     }
 
     /**
+     * fillGapWithinAYear fills a gap within a year if the series is interrupted and reused at a later time
+     * @param series series
+     * @returns a series with filled gaps
+     */
+    public fillGapWithinAYear(series: Array<SeriesItem>) {
+        // check gap in series
+        const seriesFilledGap: Array<SeriesItem> = this.deepCopy(this.seriesTemplate);
+        let i = -1;
+        do {
+            i++;
+            let j = i + 1;
+            do {
+                j++;
+                // fill graph
+                if (series[i].brw !== null && series[i + 1].brw === null && series[j].brw !== null && typeof (series[i].brw) !== 'string') {
+                    seriesFilledGap[i].brw = (series[i].brw).toString();
+                    seriesFilledGap[i].nutzung = series[i].nutzung;
+                    seriesFilledGap[i].verf = series[i].verf;
+                    seriesFilledGap[i + 1].brw = (series[i].brw).toString();
+                    seriesFilledGap[i + 1].nutzung = series[i].nutzung;
+                    seriesFilledGap[i + 1].verf = series[i].verf;
+                    seriesFilledGap[i + 1].forwarded = true;
+                }
+            } while (series[j].brw === null && j < (series.length - 1));
+        } while (typeof (seriesFilledGap[i + 1].brw) !== 'string' && i < (series.length - 3));
+        return seriesFilledGap;
+    }
+
+    /**
+     * copyLastItem copies the last item of the series into the same array one index higher
+     * @param series array with series items
+     * @returns the series including the last item copied
+     */
+    public copyLastItem(series: Array<SeriesItem>) {
+        // Forwarding the last element of the series
+        const seriesValues = series.filter(element => element.brw);
+        if (seriesValues.length > 0 && typeof (seriesValues[seriesValues.length - 1]).brw !== 'string') {
+            const lastItemStag = seriesValues[seriesValues.length - 1].stag;
+            const idx = series.findIndex(element => element.stag === lastItemStag);
+            series[idx + 1].brw = (series[idx].brw).toString();
+            series[idx + 1].nutzung = series[idx].nutzung;
+            series[idx + 1].verg = series[idx].verg;
+            series[idx + 1].verf = series[idx].verf;
+            series[idx + 1].forwarded = true;
+        }
+        return series;
+    }
+
+    /**
      * deleteSeriesVergItems removes the verg attribute of a given series
      * @param series series
+     * @returns returns the series without verfahrensgrund items
      */
     public deleteSeriesVergItems(series: Array<SeriesItem>): Array<SeriesItem> {
         let i: number;
@@ -577,13 +631,16 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
     /**
      * deepCopy
      * @param data array with seriesItems
+     * @returns returns JSON object
      */
     public deepCopy(data: Array<SeriesItem>) {
         return JSON.parse(JSON.stringify(data));
     }
 
     /**
-     * getStichtag returns the correct stichtag for bremerhaven or bremen
+     * getStichtag calculates the correct stichtag for bremerhaven or bremen
+     * @param l string 'Bremen' or 'Bremerhaven'
+     * @returns returns the correct stichtag for bremerhaven or bremen
      */
     public getStichtag(l: 'BREMEN' | 'BREMERHAVEN'): string {
         if (new Date().getFullYear() % 2 !== 0) {

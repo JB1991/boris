@@ -20,9 +20,9 @@ export class CommentComponent {
 
     /**
      * Opens make task modal
-     * @param i Task index
+     * @param task Task
      */
-    public open(task: Task) {
+    public open(task: Task): void {
         this.id = task.id;
         this.description = task.description;
         this.modal.open($localize`Kommentar`);

@@ -45,7 +45,7 @@ export class ImmobilienFormatter {
 
         printName = this.nipixRuntime.translate(printName);
 
-        return '<b>' + (params).marker + printName + '</b><br>' +
+        return '<strong>' + (params).marker + printName + '</strong><br>' +
             $localize`Preisentwicklung seit` + ' ' + this.nipixStatic.referenceDate.replace('_', '/')
             + ': ' + entw + '%<br>' +
             $localize`Zugrunde liegende Fälle` + ' (' + params.name + '): ' + faelle;
@@ -79,7 +79,7 @@ export class ImmobilienFormatter {
             }
 
             if ((this.nipixRuntime.state.selectedChartLine !== '')
-                && (this.nipixRuntime.state.selectedChartLine !== name)) {
+                && (this.nipixRuntime.state.selectedChartLine !== params.seriesName)) {
                 printlegend = false;
             }
 

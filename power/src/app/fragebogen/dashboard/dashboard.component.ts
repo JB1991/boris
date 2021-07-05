@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { Meta, Title } from '@angular/platform-browser';
 
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { FormAPIService, GetFormsParams, GetTasksParams } from '../formapi.service';
 import { FormStatus, Access, TaskStatus, FormFilter, Task, Form, FormField, TaskField } from '../formapi.model';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 @Component({
     selector: 'power-forms-dashboard',
@@ -39,25 +39,24 @@ export class DashboardComponent implements OnInit {
     public taskSortDesc = true;
 
     constructor(
-        public titleService: Title,
-        public meta: Meta,
         public router: Router,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public formAPI: FormAPIService
+        public formAPI: FormAPIService,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Dashboard - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
+        this.seo.setTitle($localize`Dashboard - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.updateForms(true);
         this.updateTasks(true);
         this.updateTags(true);
     }
 
-    public async deleteForm(id: string) {
+    public async deleteForm(id: string): Promise<void> {
         // Ask user to confirm deletion
         if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
             return;
@@ -80,7 +79,7 @@ export class DashboardComponent implements OnInit {
      * Imports form from JSON
      */
     /* istanbul ignore next */
-    public importForm() {
+    public importForm(): void {
         const input = document.createElement('input');
         input.id = 'file-upload';
         input.type = 'file';
@@ -97,17 +96,22 @@ export class DashboardComponent implements OnInit {
             const reader = new FileReader();
             // Upload success
             reader.onload = () => {
-                this.formAPI
-                    .createForm({
+                try {
+                    this.formAPI.createForm({
                         content: JSON.parse(reader.result.toString()),
-                    })
-                    .then(() => {
+                    }).then(() => {
+                        this.formSortDesc = true;
+                        this.formSort = 'created';
                         this.updateForms(false);
-                    })
-                    .catch((error) => {
+                        this.alerts.NewAlert('success', $localize`Import erfolgreich`, $localize`Der Fragebogen wurde erfolgreich importiert`);
+                    }).catch((error) => {
                         console.error(error);
                         this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, this.formAPI.getErrorMessage(error));
                     });
+                } catch (e) {
+                    console.error(e);
+                    this.alerts.NewAlert('danger', $localize`Erstellen fehlgeschlagen`, $localize`Das Dokument ist kein gültiges Formular.`);
+                }
             };
             // FileReader is async -> call readAsText() after declaring the onload handler
             reader.readAsText(file);
@@ -115,7 +119,7 @@ export class DashboardComponent implements OnInit {
         input.click();
     }
 
-    public async updateForms(navigate: boolean) {
+    public async updateForms(navigate: boolean): Promise<void> {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetFormsParams = {
@@ -162,7 +166,7 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public async updateTasks(navigate: boolean) {
+    public async updateTasks(navigate: boolean): Promise<void> {
         try {
             this.loadingscreen.setVisible(true);
             const params: GetTasksParams = {
@@ -197,7 +201,7 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public async updateTags(navigate: boolean) {
+    public async updateTags(navigate: boolean): Promise<void> {
         try {
             this.loadingscreen.setVisible(true);
             const response = await this.formAPI.getTags({});
@@ -213,7 +217,7 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    public changeFormSort(sort: FormField) {
+    public changeFormSort(sort: FormField): void {
         if (this.formSort === sort) {
             this.formSortDesc = !this.formSortDesc;
         } else {
@@ -223,7 +227,7 @@ export class DashboardComponent implements OnInit {
         this.updateForms(false);
     }
 
-    public changeTaskSort(sort: TaskField) {
+    public changeTaskSort(sort: TaskField): void {
         if (this.taskSort === sort) {
             this.taskSortDesc = !this.taskSortDesc;
         } else {

@@ -16,7 +16,10 @@ import { LoadingscreenModule } from './loadingscreen/loadingscreen.module';
 import { SvgPipe } from './pipes/svg.pipe';
 import { HyphenatePipe } from './pipes/hyphenate.pipe';
 import { ModalminiFooterDirective } from './modalmini/modalmini-footer.directive';
-import { FlurstueckSearchComponent } from './flurstueck-search/flurstueck-search.component';
+import { FlurstueckSearchComponent } from './advanced-search/flurstueck-search/flurstueck-search.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
+import { BodenrichwertnummerSearchComponent } from './advanced-search/bodenrichwertnummer-search/bodenrichwertnummer-search.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +31,9 @@ import { FlurstueckSearchComponent } from './flurstueck-search/flurstueck-search
         SvgPipe,
         HyphenatePipe,
         ModalminiFooterDirective,
-        FlurstueckSearchComponent
+        FlurstueckSearchComponent,
+        AdvancedSearchComponent,
+        BodenrichwertnummerSearchComponent
     ],
     exports: [
         GeosearchComponent,
@@ -42,12 +47,14 @@ import { FlurstueckSearchComponent } from './flurstueck-search/flurstueck-search
         SvgPipe,
         HyphenatePipe,
         ModalminiFooterDirective,
-        FlurstueckSearchComponent
+        FlurstueckSearchComponent,
+        AdvancedSearchComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         NgbTypeaheadModule,
+        TabsModule,
         ModalModule.forRoot(),
         A11yModule
     ]

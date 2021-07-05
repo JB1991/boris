@@ -23,6 +23,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     const getForm = require('../../../testdata/fragebogen/get-form.json');
     const getTasks = require('../../../testdata/fragebogen/get-tasks.json');
     const getTask = require('../../../testdata/fragebogen/get-task.json');
+    const getTaskContent = require('../../../testdata/fragebogen/get-task-content.json');
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -379,14 +380,19 @@ describe('Fragebogen.Details.DetailsComponent', () => {
     /**
      * OPEN TASK
      */
-    it('should open task', () => {
+    it('should open task', (done) => {
         component.form = JSON.parse(JSON.stringify(getForm.form));
         fixture.detectChanges();
 
         component.tasks = JSON.parse(JSON.stringify(getTasks.tasks));
+
+        spyOn(component.formapi, 'getTask').and.returnValue(Promise.resolve(getTaskContent));
         spyOn(component.preview, 'open');
-        component.openTask(0);
-        expect(component.preview.open).toHaveBeenCalledTimes(1);
+
+        component.openTask(0).then(() => {
+            expect(component.preview.open).toHaveBeenCalledTimes(1);
+            done();
+        });
     });
 
     it('should open task crash', () => {
@@ -574,7 +580,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         component.createTaskEvent({
             amount: 10,
-            copy: true,
+            copyvalue: true,
         }).then(() => {
             expect(component.updateTasks).toHaveBeenCalledTimes(1);
             done();
@@ -587,7 +593,7 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         spyOn(component, 'updateTasks');
         component.createTaskEvent({
             amount: 10,
-            copy: true,
+            copyvalue: true,
         }).then(() => {
             expect(component.alerts.NewAlert).toHaveBeenCalledTimes(1);
             done();

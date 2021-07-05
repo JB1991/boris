@@ -1,18 +1,21 @@
 /* eslint-disable max-lines */
 import {
-    Component, OnDestroy, Inject, PLATFORM_ID,
-    ChangeDetectionStrategy, ChangeDetectorRef, OnInit
+    Component, OnDestroy, Inject, PLATFORM_ID, OnInit,
+    ChangeDetectionStrategy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
-import { AlkisWfsService } from '@app/shared/flurstueck-search/alkis-wfs.service';
-import { Feature, FeatureCollection } from 'geojson';
-import { Subscription } from 'rxjs';
-import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
-import proj4 from 'proj4';
 import { DatePipe, Location, isPlatformBrowser } from '@angular/common';
-import { LngLat } from 'mapbox-gl';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { LngLat, LngLatBounds } from 'maplibre-gl';
+import { Feature, FeatureCollection } from 'geojson';
+import proj4 from 'proj4';
+
+import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
+import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
+import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
+
+import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -126,6 +129,12 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     public isBrowser = true;
 
     /**
+     * NDS Bounds MapLibre Type
+     */
+    public bounds = new LngLatBounds([
+        [6.19523325024787, 51.2028429493903], [11.7470832174838, 54.1183357191213]
+    ]);
+    /**
      * Possible selections of Stichtage
      */
     public STICHTAGE: Array<string> = [
@@ -148,6 +157,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         { value: ['LF'], text: $localize`Land- und forstwirtschaftliche Flächen`, hexColor: '#009900' },
     ];
 
+    /**
+     * Print modal
+     */
+    @ViewChild('print') public printModal: ModalminiComponent;
+
     /* istanbul ignore next */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
@@ -155,15 +169,14 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         private geosearchService: GeosearchService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
-        private titleService: Title,
         private cdr: ChangeDetectorRef,
         private route: ActivatedRoute,
         public location: Location,
-        private meta: Meta,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Bremerhaven, Wertermittlung, Bodenrichtwerte, BORIS, Bo­den­richt­wert­zo­ne` });
+        this.seo.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Bremerhaven, Wertermittlung, Bodenrichtwerte, BORIS, Bo­den­richt­wert­zo­ne` });
 
         this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.address = adr;
@@ -182,8 +195,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         this.stichtag = this.STICHTAGE[0];
         this.teilmarkt = this.TEILMAERKTE[0];
 
-        this.changeURL();
-
         if (!isPlatformBrowser(this.platformId)) {
             this.isBrowser = false;
         }
@@ -191,12 +202,17 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /* istanbul ignore next */
     ngOnInit() {
+        // eslint-disable-next-line complexity
         this.route.queryParams.subscribe(params => {
             // lat and lat
-            if (params['lat'] && params['lng']) {
-                this.latLng = new LngLat(params['lng'], params['lat']);
+            const lat = +params['lat'];
+            const lng = +params['lng'];
+            if (lat && lng) {
+                if (this.validateLngLat(lat, lng)) {
+                    this.latLng = new LngLat(lng, lat);
+                }
                 // coordinate exists but no zoom
-                if (!params['zoom'] && params['teilmarkt'] === 'Bauland') {
+                if (this.latLng && !params['zoom'] && params['teilmarkt'] === 'Bauland') {
                     this.zoom = this.standardBaulandZoom;
                 } else {
                     this.zoom = this.standardLandZoom;
@@ -206,29 +222,55 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             // teilmarkt
             if (params['teilmarkt']) {
                 const filteredTeilmarkt = this.TEILMAERKTE.filter((res: Teilmarkt) => res.text === params['teilmarkt']);
-                this.teilmarkt = filteredTeilmarkt[0];
+                if (filteredTeilmarkt.length) {
+                    this.teilmarkt = filteredTeilmarkt[0];
+                }
             }
 
             // stichtag
-            if (params['stichtag']) {
+            if (this.STICHTAGE.includes(params['stichtag'])) {
                 this.stichtag = params['stichtag'];
             }
 
             // zoom
-            if (params['zoom']) {
-                this.zoom = Number(params['zoom']);
+            const zoomParam = +params['zoom'];
+            if (zoomParam) {
+                if (zoomParam >= 18) {
+                    this.zoom = 18;
+                } else if (zoomParam <= 5) {
+                    this.zoom = 5;
+                } else {
+                    this.zoom = zoomParam;
+                }
+            } else {
+                this.zoom = 7;
             }
 
             // rotation
-            if (params['pitch']) {
-                this.pitch = Number(params['pitch']);
+            const pitchParam = +params['pitch'];
+            if (pitchParam) {
+                if (pitchParam >= 60) {
+                    this.pitch = 60;
+                } else if (pitchParam <= 0) {
+                    this.pitch = 0;
+                } else {
+                    this.pitch = pitchParam;
+                }
             }
 
             // bearing
-            if (params['bearing']) {
-                this.bearing = Number(params['bearing']);
+            const bearingParam = +params['bearing'];
+            if (bearingParam) {
+                if (bearingParam >= 180) {
+                    this.bearing = 180;
+                } else if (bearingParam <= -180) {
+                    this.bearing = -180;
+                } else {
+                    this.bearing = bearingParam;
+                }
             }
             this.cdr.detectChanges();
+            this.changeURL();
         });
     }
 
@@ -242,7 +284,27 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * getStichtag returns the correct stichtag for Bremen/Bremerhaven
+     * validateLngLat validates the latitude and longitude
+     * @param lat latitude
+     * @param lng longitude
+     * @returns true/false if lat and lng are valid
+     */
+    private validateLngLat(lat: number, lng: number): boolean {
+        if ((lat <= 90 && lat >= -90) && (lng <= 180 && lng >= -180)) {
+            const latLng = new LngLat(lng, lat);
+            if (this.bounds.contains(latLng)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * getStichtag calculate the correct stichtag for Bremen/Bremerhaven
+     * @returns returns the correct stichtag for Bremen/Bremerhaven
      */
     public getStichtag(): string {
         const index = this.STICHTAGE.indexOf(this.stichtag);
@@ -259,7 +321,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             if (year % 2 === 0) {
                 return this.STICHTAGE[index + 1];
             }
-        };
+        }
 
         if (index >= this.STICHTAGE.length - 1) {
             return this.STICHTAGE[this.STICHTAGE.length - 1];
@@ -291,6 +353,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
      * printURL builds the url for the current location
+     * @returns the url for the current location
      */
     public printURL(): string {
         let url = '/boris-print/?';
@@ -351,6 +414,13 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * Opens print modal
+     */
+    public openPrintModal() {
+        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
+    }
+
+    /**
      * changeURL updates the URL if stichtag, teilmarkt or latLng changed
      */
     public changeURL() {
@@ -379,6 +449,7 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
 
     /**
      * checkIfStichtagFtsExist checks if features for the currently selected stichtag exist
+     * @returns true or false if feature array is filled or is empty
      */
     public checkIfStichtagFtsExist(): boolean {
         const filteredFts = this.features.features.filter((ft: Feature) =>

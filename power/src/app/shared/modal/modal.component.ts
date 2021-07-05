@@ -22,20 +22,20 @@ export class ModalComponent implements OnDestroy {
     @ViewChild('mymodal') public div: ElementRef;
     @Input() public checkInvalid = false;
     @Output() public closing: EventEmitter<boolean> = new EventEmitter();
-    public focusedElement: any;
+    public focusedElement: HTMLElement;
     public isOpen = false;
     public title = '';
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number,
         public cdr: ChangeDetectorRef) { }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this.isOpen) {
             this.close();
         }
     }
 
-    @HostListener('document:keyup.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    @HostListener('document:keyup.escape', ['$event']) onKeydownHandler(event: KeyboardEvent): void {
         /* istanbul ignore next */
         if (document.getElementsByClassName('modal-backdrop').length !== 0) {
             return;
@@ -50,7 +50,7 @@ export class ModalComponent implements OnDestroy {
      * Opens modal
      * @param title Title to display
      */
-    public open(title?: string) {
+    public open(title?: string): void {
         // open modal
         this.title = title;
         this.isOpen = true;
@@ -59,14 +59,14 @@ export class ModalComponent implements OnDestroy {
         this.cdr.detectChanges();
 
         // focus
-        this.focusedElement = document.activeElement;
+        this.focusedElement = document.activeElement as HTMLElement;
         this.div.nativeElement.children[2].focus();
     }
 
     /**
      * Closes modal
      */
-    public close() {
+    public close(): void {
         if (!this.isOpen) {
             return;
         }
@@ -97,7 +97,7 @@ export class ModalComponent implements OnDestroy {
      * Set Viewport to the footer
      */
     /* istanbul ignore next */
-    public scrollToFooter() {
+    public scrollToFooter(): void {
         const footer = document.getElementById('footer-' + this.uniqId);
         footer.scrollIntoView({
             behavior: 'smooth',
@@ -109,7 +109,7 @@ export class ModalComponent implements OnDestroy {
      * Toggles modal
      * @param title Title to display
      */
-    public toggle(title?: string) {
+    public toggle(title?: string): void {
         if (this.isOpen) {
             this.close();
         } else {
@@ -118,7 +118,8 @@ export class ModalComponent implements OnDestroy {
     }
 
     /**
-     * Returns true if modal is visible
+     * Returns visibility state
+     * @returns True if modal is visible
      */
     public isVisible(): boolean {
         return this.isOpen;

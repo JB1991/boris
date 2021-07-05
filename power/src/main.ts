@@ -8,6 +8,7 @@ if (environment.production) {
     enableProdMode();
 }
 
+/* eslint-disable-next-line scanjs-rules/call_addEventListener */
 document.addEventListener('DOMContentLoaded', () => {
     platformBrowserDynamic().bootstrapModule(AppModule)
         .then(() => {

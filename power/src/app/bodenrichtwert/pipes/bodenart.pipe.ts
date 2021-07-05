@@ -62,14 +62,16 @@ export class BodenartPipe implements PipeTransform {
     /**
      * Checks if a bodenart exists for a given key
      * @param value key einer Bodenart
+     * @returns returns true/false if bodenart exists
      */
     private bodTypeExists(value: string): boolean {
         return this.bodTypes.some(b => b.key === value);
     }
 
     /**
-     * Returns the bodenart for a given key
+     * Checks the bodenart for a given key
      * @param value key einer Bodenart
+     * @returns Returns the bodenart for a given key
      */
     private getBodType(value: string): any {
         return this.bodTypes.find(b => b.key === value);
@@ -80,6 +82,7 @@ export class BodenartPipe implements PipeTransform {
      * concatenates them to an value for the display
      * @param types keys of given bodenarten
      * @param operator defines how to combine multiple bodenarten
+     * @returns returns string of concatenated bodenarten
      */
     private buildDisplayValue(types: Array<string>, operator: string): string {
         let displayValue = '';
@@ -118,6 +121,7 @@ export class BodenartPipe implements PipeTransform {
      * Returns the correct valueString of a bodType for a specific operator
      * @param bodType bodType contains the bodenart with all values
      * @param operator defines how to combine multiple bodenarten
+     * @returns Returns the correct valueString of a bodType for a specific operator
      */
     private getValueByOperator(bodType: any, operator: string): string {
         let value = '';
@@ -146,6 +150,7 @@ export class BodenartPipe implements PipeTransform {
      * Checks a given string based on regular expressions for
      * different bodenarten combinations
      * @param value string with multiple bodenarten keys
+     * @returns return the types of the different bodenarten
      */
     private matchRegExp(value: string): string[] {
         let types: string[] = [];

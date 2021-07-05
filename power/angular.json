@@ -28,7 +28,6 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "localize": true,
-                        "aot": true,
                         "outputPath": "dist/power/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -46,23 +45,17 @@
                         ],
                         "scripts": [],
                         "allowedCommonJsDependencies": [
-                            "bootstrap-slider",
-                            "ngx-bootstrap-icons",
-                            "css-element-queries",
-                            "epsg",
-                            "hyphen",
-                            "lodash",
                             "echarts",
-                            "zrender",
+                            "hyphen",
                             "showdown",
-                            "inputmask",
-                            "nouislider",
-                            "suggestions",
-                            "fast-xml-parser",
-                            "surveyjs-widgets",
-                            "@mapbox/mapbox-gl-geocoder",
-                            "@mapbox/mapbox-sdk"
-                        ]
+                            "rbush"
+                        ],
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true
                     },
                     "configurations": {
                         "production": {
@@ -84,11 +77,19 @@
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
-                            "optimization": true,
+                            "optimization": {
+                                "scripts": true,
+                                "styles": {
+                                    "minify": true,
+                                    "inlineCritical": false
+                                },
+                                "fonts": true
+                            },
                             "outputHashing": "all",
+                            "subresourceIntegrity": false,
+                            "crossOrigin": "anonymous",
                             "sourceMap": false,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -114,11 +115,19 @@
                                     "with": "src/environments/environment.staging.ts"
                                 }
                             ],
-                            "optimization": true,
+                            "optimization": {
+                                "scripts": true,
+                                "styles": {
+                                    "minify": true,
+                                    "inlineCritical": false
+                                },
+                                "fonts": true
+                            },
                             "outputHashing": "all",
+                            "subresourceIntegrity": false,
+                            "crossOrigin": "anonymous",
                             "sourceMap": false,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -211,7 +220,9 @@
                         "localize": false,
                         "outputPath": "dist/power/server",
                         "main": "server.ts",
-                        "tsConfig": "src/tsconfig.server.json"
+                        "tsConfig": "src/tsconfig.server.json",
+                        "sourceMap": true,
+                        "optimization": false
                     },
                     "configurations": {
                         "production": {
@@ -282,7 +293,7 @@
                             "/login",
                             "/logout",
                             "/feedback",
-                            "/ogc-services",
+                            "/ogc-dienste",
                             "/notfound",
                             "/bodenrichtwerte",
                             "/grundstuecksmarktberichte",

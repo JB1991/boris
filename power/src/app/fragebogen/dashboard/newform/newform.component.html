@@ -6,6 +6,7 @@
         <input type="text"
                class="form-control"
                [(ngModel)]="title"
+               (input)="escapeTitle()"
                [class.is-invalid]="!title"
                id="formtitle"
                name="formtitle"
@@ -57,9 +58,10 @@
     <!-- tags -->
     <div class="form-group">
         <label for="form-tags"
-               i18n>Tags hinzufügen</label>
+               i18n>Tags hinzufügen (maximal 5)</label>
         <power-tagbox [(tagList)]="tagList"
                       [dataList]="tags"
+                      [max]="5"
                       eid="form-tags"
                       i18n-placeholder
                       placeholder="Tag mit Enter hinzufügen"></power-tagbox>
@@ -68,8 +70,8 @@
     <!-- modal buttons -->
     <div class="modal-footer"
          powerModalminiFooter>
-        <label class="text-muted"
-               i18n>* Pflichtfeld</label>
+        <span class="text-muted"
+              i18n>* Pflichtfeld</span>
         <button type="button"
                 class="btn btn-success"
                 i18n-title

@@ -1,5 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Meta, Title } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { OgcServicesComponent } from './ogc-services.component';
 
@@ -9,9 +11,10 @@ describe('OgcServicesComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            providers: [
-                Title,
-                Meta
+            imports: [
+                RouterTestingModule.withRoutes([]),
+                BrowserAnimationsModule,
+                AccordionModule.forRoot()
             ],
             declarations: [
                 OgcServicesComponent

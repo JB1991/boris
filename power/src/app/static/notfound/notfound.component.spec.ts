@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Meta, Title } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 import { NotfoundComponent } from './notfound.component';
 
@@ -9,9 +10,11 @@ describe('Static.Notfound.NotfoundComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
+            imports: [
+                RouterTestingModule.withRoutes([])
+            ],
             providers: [
-                Title,
-                Meta
+                SEOService
             ],
             declarations: [
                 NotfoundComponent

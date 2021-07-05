@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
@@ -16,6 +17,7 @@ export class AuthService {
     constructor(@Inject(LOCALE_ID) public locale: string,
         public router: Router,
         public httpClient: HttpClient) {
+        /* istanbul ignore else */
         if (localStorage) {
             // load session
             this.loadSession(true);
@@ -27,7 +29,7 @@ export class AuthService {
      * @param refresh should refresh token if expired
      */
     /* eslint-disable complexity */
-    public async loadSession(refresh = true) {
+    public async loadSession(refresh = true): Promise<void> {
         // check if session is loaded and still valid
         if (this.IsAuthenticated()) {
             this.sessionCheck();
@@ -96,7 +98,7 @@ export class AuthService {
     /**
      * Refreshes session after 5 minutes
      */
-    private sessionCheck() {
+    private sessionCheck(): void {
         /* istanbul ignore next */
         if (environment.production) {
             // clear refresh timeout
@@ -106,6 +108,7 @@ export class AuthService {
             }
 
             // set refresh timeout
+            /* eslint-disable-next-line scanjs-rules/call_setTimeout */
             this.timerHandle = setTimeout(async () => {
                 await this.loadSession(true);
             }, 5 * 60000);
@@ -114,6 +117,7 @@ export class AuthService {
 
     /**
      * Returns user object
+     * @returns User object
      */
     public getUser(): User {
         return this.user;
@@ -121,6 +125,7 @@ export class AuthService {
 
     /**
      * Returns auth header
+     * @returns Bearer token
      */
     public getBearer(): string {
         // check token
@@ -135,6 +140,7 @@ export class AuthService {
      * @param responsetype How to parse file
      * @param contenttype Content-Type of file expected
      * @param auth True to send authoriziation
+     * @returns Header
      */
     public getHeaders(responsetype = 'json', contenttype = 'application/json', auth = true): any {
         let header = new HttpHeaders().set('Content-Type', contenttype)
@@ -153,8 +159,9 @@ export class AuthService {
     /**
      * Requests auth token from keycloak
      * @param code Auth code
+     * @returns Promise
      */
-    public async KeycloakToken(code: string) {
+    public async KeycloakToken(code: string): Promise<void> {
         // check data
         if (!code) {
             throw new Error('code is required');
@@ -195,6 +202,7 @@ export class AuthService {
 
     /**
      * Gets user info from keycloak
+     * @returns User info
      */
     public parseUserinfo(): any {
         const b64 = this.user.token.access_token.split('.')[1];
@@ -203,6 +211,7 @@ export class AuthService {
 
     /**
      * IsAuthEnabled returns true if auth module is enabled
+     * @returns True if auth is enabled
      */
     public IsAuthEnabled(): boolean {
         if (!environment.production) {
@@ -213,6 +222,7 @@ export class AuthService {
 
     /**
      * IsAuthenticated returns true if user has valid session
+     * @returns True if user is authenticated
      */
     public IsAuthenticated(): boolean {
         if (this.user && this.user.token && this.user.expires && new Date() < this.user.expires) {
@@ -221,6 +231,10 @@ export class AuthService {
         return false;
     }
 
+    /**
+     * Get role of user
+     * @returns Role
+     */
     private getRole(): Role {
         let role: Role = 'user';
         if (this.user.data && this.user.data.roles && Array.isArray(this.user.data.roles)) {
@@ -241,6 +255,10 @@ export class AuthService {
         return role;
     }
 
+    /**
+     * Get groups of user
+     * @returns Groups
+     */
     private getGroups(): Array<string> {
         if (this.user.data && this.user.data.groups && Array.isArray(this.user.data.groups)) {
             return this.user.data.groups;
@@ -248,6 +266,13 @@ export class AuthService {
         return [];
     }
 
+    /**
+     * Validates if user is authorized
+     * @param roles Roles
+     * @param owner Owner
+     * @param groups Groups
+     * @returns True if authorized
+     */
     public IsAuthorized(roles: Array<Role>, owner: string, groups: Array<string>): boolean {
         if (!this.IsAuthEnabled()) {
             return true;
@@ -277,6 +302,12 @@ export class AuthService {
     }
 }
 
+/**
+ * Checks if role is allowed
+ * @param role Role
+ * @param allowed Allowed roles array
+ * @returns True if allowed
+ */
 function hasRole(role: Role, allowed: Array<Role>): boolean {
     for (const r of allowed) {
         if (r === role) {

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@app/shared/auth/auth.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 @Component({
     selector: 'power-forms-home',
@@ -14,22 +14,21 @@ export class HomeComponent {
     public pin: string;
 
     constructor(
-        public titleService: Title,
-        public meta: Meta,
         public router: Router,
         public auth: AuthService,
-        public alerts: AlertsService
+        public alerts: AlertsService,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Formulare - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
+        this.seo.setTitle($localize`Formulare - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
     /**
      * Redirects to formular fillout dialogue
      * @param pin Formular pin
      */
-    submitPIN(pin: string) {
+    public submitPIN(pin: string): void {
         if (!pin) {
             this.alerts.NewAlert('danger', $localize`Eingabe ungültig`, $localize`Bitte geben Sie eine PIN ein.`);
             return;

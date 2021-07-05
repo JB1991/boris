@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 @Component({
     selector: 'power-notfound',
@@ -9,17 +9,16 @@ import { Meta, Title } from '@angular/platform-browser';
 export class NotfoundComponent implements OnDestroy {
 
     constructor(
-        public titleService: Title,
-        public meta: Meta,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Seite nicht gefunden - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'robots', content: 'noindex,follow' });
-        this.meta.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+        this.seo.setTitle($localize`Seite nicht gefunden - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'robots', content: 'noindex,follow' });
+        this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
     }
 
     ngOnDestroy(): void {
         // reset robots
-        this.meta.updateTag({ name: 'robots', content: 'index,follow' });
+        this.seo.updateTag({ name: 'robots', content: 'index,follow' });
     }
 }

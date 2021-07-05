@@ -15,7 +15,8 @@ export interface ComponentCanDeactivate {
 export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate> {
     /**
      * Asks user to confirm leaving the page if component.canDeactivate() returns false
-     * @param component
+     * @param component Angular component
+     * @returns Boolean or Obersable
      */
     canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> {
         return component.canDeactivate() ?

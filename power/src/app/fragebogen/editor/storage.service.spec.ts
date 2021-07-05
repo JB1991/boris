@@ -1,6 +1,5 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { StorageService } from './storage.service';
@@ -8,7 +7,6 @@ import { AuthService } from '@app/shared/auth/auth.service';
 
 describe('Fragebogen.Editor.StorageService', () => {
     let service: StorageService;
-    let httpClient: HttpClient;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -21,7 +19,6 @@ describe('Fragebogen.Editor.StorageService', () => {
             ]
         });
         service = TestBed.inject(StorageService);
-        httpClient = TestBed.inject(HttpClient);
     }));
 
     it('should be created', () => {

@@ -5,6 +5,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AppComponent } from './app.component';
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
+import { SEOService } from './shared/seo/seo.service';
 
 describe('AppComponent', () => {
     let app: AppComponent;
@@ -19,7 +20,7 @@ describe('AppComponent', () => {
             ],
             providers: [
                 AuthService,
-                UpdateService,
+                SEOService,
                 { provide: UpdateService, useClass: MockUpdateService }
             ],
             declarations: [

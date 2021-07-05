@@ -5,7 +5,11 @@
     flex-direction: column;
 }
 
-mgl-map {
+.mapboxgl-map {
     height: 100%;
     width: 100%;
+}
+
+:host ::ng-deep .mapboxgl-control-container button {
+    margin: 5px;
 }

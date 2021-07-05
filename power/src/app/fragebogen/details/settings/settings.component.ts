@@ -1,7 +1,7 @@
 import { Component, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
-import {Form, User} from '@app/fragebogen/formapi.model';
+import { Form, User } from '@app/fragebogen/formapi.model';
 import { AuthService } from '@app/shared/auth/auth.service';
 
 @Component({
@@ -27,13 +27,14 @@ export class SettingsComponent {
     public owner: string;
 
     constructor(public auth: AuthService) {
-        this.old = {owner: {}};
+        this.old = { owner: {} };
     }
 
     /**
      * Opens settings modal
+     * @param form Form
      */
-    public open(form: Form) {
+    public open(form: Form): void {
         if (!form.tags) {
             form.tags = [];
         }

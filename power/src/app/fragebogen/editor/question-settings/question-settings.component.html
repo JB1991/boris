@@ -3,7 +3,7 @@
              (closing)="close($event)">
     <div class="container px-1 px-lg-3"
          *ngIf="question !== null && model.pages[page].elements[question]">
-        <accordion [isAnimated]="true"
+        <accordion [isAnimated]="false"
                    [closeOthers]="true">
             <!-- common -->
             <accordion-group i18n-heading
@@ -41,7 +41,7 @@
                            i18n>Fragen Titel *</label>
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].title"
                                                     eid="question-title"
-                                                    required="true"
+                                                    [required]="true"
                                                     maxlength="200"></power-forms-editor-localeinput>
                 </div>
 
@@ -49,14 +49,14 @@
                 <div class="form-group">
                     <label for="question-description"
                            i18n>Fragen Beschreibung</label>
-                    <power-forms-editor-localeinput textarea="true"
+                    <power-forms-editor-localeinput [textarea]="true"
                                                     [(locale)]="model.pages[page].elements[question].description"
                                                     eid="question-description"
                                                     describedby="question-descriptionHelp">
                     </power-forms-editor-localeinput>
                     <small id="question-descriptionHelp"
                            class="form-text text-muted"
-                           i18n>Dieser Text wird unter der Frage angezeigt.</small>
+                           i18n>Dieser Text wird unter dem Titel angezeigt.</small>
                 </div>
 
                 <!-- markdown-instructions -->
@@ -90,6 +90,19 @@
                     <power-forms-editor-localeinput [(locale)]="model.pages[page].elements[question].requiredErrorText"
                                                     eid="question-requiredErrorText"
                                                     maxlength="200"></power-forms-editor-localeinput>
+                </div>
+
+                <!-- question-titleLocation -->
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox"
+                           class="custom-control-input"
+                           [checked]="!model.pages[page].elements[question].titleLocation || model.pages[page].elements[question].titleLocation === 'default'"
+                           (click)="toggleQuestionTitle()"
+                           name="question-titleLocation"
+                           id="question-titleLocation">
+                    <label class="custom-control-label"
+                           for="question-titleLocation"
+                           i18n>Titel und Beschreibung anzeigen</label>
                 </div>
 
                 <!-- question-hasComment -->
@@ -355,6 +368,18 @@
                                i18n>Zusätzliches Eingabefeld aktivieren</label>
                     </div>
 
+                    <!-- question-circa -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].circa"
+                               name="question-circa"
+                               id="question-circa">
+                        <label class="custom-control-label"
+                               for="question-circa"
+                               i18n>Schätzwertangabe</label>
+                    </div>
+
                     <!-- question-step -->
                     <div class="form-group">
                         <label for="question-step"
@@ -515,7 +540,7 @@
                     </div>
 
                     <!-- question-acceptedTypes-->
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="form-acceptedTypes"
                                i18n>Erlaubte Dateitypen</label>
                         <select class="custom-select"
@@ -524,10 +549,10 @@
                                 name="form-acceptedTypes">
                             <option value="application/pdf"
                                     i18n>PDF-Dokumente</option>
-                            <option value="image/png,image/jpeg,image/gif"
+                            <option value="image/png,image/jpeg"
                                     i18n>Bilder</option>
                         </select>
-                    </div>-->
+                    </div>
 
                     <!-- question-maxSize -->
                     <div class="form-group">
@@ -725,6 +750,18 @@
                                i18n>Mehrfachauswahl erlauben</label>
                     </div>
 
+                    <!-- question-mobiletext -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input"
+                               [(ngModel)]="model.pages[page].elements[question].mobiletext"
+                               name="question-mobiletext"
+                               id="question-mobiletext">
+                        <label class="custom-control-label"
+                               for="question-mobiletext"
+                               i18n>Auf Mobilgeräten nur Text anzeigen</label>
+                    </div>
+
                     <!-- question-imageWidth -->
                     <div class="form-group">
                         <label for="question-imageWidth"
@@ -792,8 +829,7 @@
                 </div>
 
                 <!-- question-colCount -->
-                <div class="form-group"
-                     *ngIf="model.pages[page].elements[question].type !== 'imageselector'">
+                <div class="form-group">
                     <label for="question-colCount"
                            i18n>Darstellung in Spalten</label>
                     <input type="number"

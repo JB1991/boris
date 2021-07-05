@@ -6,7 +6,9 @@ export const environment = {
     production: false,
     test: true,
     appName: 'POWER',
-    ows: '/geoserver/boris/ows?',
+    baseurl: '',
+    borisOws: '/geoserver/boris/ows?',
+    alkisOws: '/geoserver/alkis/ows?',
     basemap: '/assets/boden/basemap.json',
     baviStyles: [
         'https://basisvisualisierung.niedersachsen.dev/styles/vt-style-classic.json',
@@ -23,7 +25,6 @@ export const environment = {
     config: {
         modules: [
             'bodenrichtwerte',
-            'bodenwertkalkulator',
             'immobilienpreisindex',
             'immobilienpreiskalkulator',
             'grundstuecksmarktberichte',
@@ -31,11 +32,16 @@ export const environment = {
             'landesgrundstuecksmarktberichte',
             'forms',
             'feedback',
-            'ogc-services',
+            'ogc-dienste',
             'login',
             'logout'
         ],
         localized: true,
+        languages: [
+            { short: 'de', name: 'Deutsch', url: '' },
+            { short: 'de-simple', name: 'Einfache Sprache', url: '/de-simple' },
+            { short: 'en', name: 'English', url: '/en' },
+        ],
         version: {
             version: 'local',
             branch: 'offline'
@@ -49,4 +55,4 @@ export const environment = {
  * below file. Don't forget to comment it out in production mode
  * because it will have a performance impact when errors are thrown
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

@@ -389,7 +389,10 @@
                                     previousText="&lsaquo;"
                                     nextText="&rsaquo;"
                                     firstText="&laquo;"
-                                    lastText="&raquo;">
+                                    lastText="&raquo;"
+                                    role="navigation"
+                                    aria-label="Antworten"
+                                    i18n-aria-label>
                         </pagination>
                     </div>
                     <div class="d-sm-none">
@@ -401,7 +404,10 @@
                                     previousText="&lsaquo;"
                                     nextText="&rsaquo;"
                                     firstText="&laquo;"
-                                    lastText="&raquo;">
+                                    lastText="&raquo;"
+                                    role="navigation"
+                                    aria-label="Antworten"
+                                    i18n-aria-label>
                         </pagination>
                     </div>
                 </div>
@@ -434,15 +440,17 @@
             <div class="float-sm-right">
                 <div class="d-inline-block w-50 pr-2 align-top"
                      style="min-width: 100px; max-width: 200px;">
-                    <input class="form-control"
-                           id="form-search"
-                           type="text"
-                           role="search"
-                           i18n-placeholder
-                           placeholder="Suche"
-                           i18n-aria-label
-                           aria-label="Suche"
-                           (change)="formSearch = $event.target.value; updateForms(false)">
+                    <div class="form-group">
+                        <label for="form-search"
+                               class="sr-only"
+                               i18n>Formular suchen</label>
+                        <input class="form-control"
+                               id="form-search"
+                               type="search"
+                               i18n-placeholder
+                               placeholder="Suche"
+                               (change)="formSearch = $event.target.value; updateForms(false)">
+                    </div>
                 </div>
                 <div class="d-inline-block w-50"
                      style="min-width: 100px; max-width: 200px;">
@@ -787,7 +795,7 @@
                         id="button-import"
                         i18n-title
                         title="Formular importieren"
-                        (click)="importForm(); this.formSort = 'created'; this.formSortDesc = true; this.formSort = 'created'; updateForms(false)">
+                        (click)="importForm()">
                     <svg width="1em"
                          height="1em"
                          viewBox="0 0 16 16"
@@ -812,6 +820,8 @@
                     <div class="form-group m-0 mr-2"
                          *ngIf="formTotal > formPerPage">
                         <select class="custom-select"
+                                i18n-aria-label
+                                aria-label="Formularanzahl pro Seite"
                                 (change)="formPerPage = $event.target.value; updateForms(false)">
                             <option *ngFor=" let size of formPageSizes">
                                 {{ size }}
@@ -828,7 +838,10 @@
                                     previousText="&lsaquo;"
                                     nextText="&rsaquo;"
                                     firstText="&laquo;"
-                                    lastText="&raquo;">
+                                    lastText="&raquo;"
+                                    role="navigation"
+                                    aria-label="Formulare"
+                                    i18n-aria-label>
                         </pagination>
                     </div>
                     <div class="d-none d-sm-inline">
@@ -841,7 +854,10 @@
                                     previousText="&lsaquo;"
                                     nextText="&rsaquo;"
                                     firstText="&laquo;"
-                                    lastText="&raquo;">
+                                    lastText="&raquo;"
+                                    role="navigation"
+                                    aria-label="Formulare"
+                                    i18n-aria-label>
                         </pagination>
                     </div>
                 </div>

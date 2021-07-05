@@ -22,6 +22,7 @@ module.exports = function(config) {
             reporters: [
                 { type: 'html', subdir: '.' },
                 { type: 'text-summary' },
+                { type: 'lcov', subdir: 'report-lcov' }
             ]
         },
         reporters: ['progress', 'kjhtml', 'coverage', 'junit'],

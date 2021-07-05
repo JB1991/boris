@@ -22,15 +22,17 @@
                   aria-hidden="true"
                   i18n>Formulare</span>
             <div class="float-right">
-                <input class="form-control"
-                       id="form-search"
-                       type="text"
-                       role="search"
-                       placeholder="Suche"
-                       aria-description="Suchen Sie hier nach einem Formular."
-                       i18n-placeholder
-                       i18n-aria-description
-                       (change)="search = $event.target.value; update(false)">
+                <div class="form-group">
+                    <label for="form-search"
+                           class="sr-only"
+                           i18n>Formular suchen</label>
+                    <input class="form-control"
+                           id="form-search"
+                           type="search"
+                           i18n-placeholder
+                           placeholder="Suche"
+                           (change)="search = $event.target.value; update(false)">
+                </div>
             </div>
         </div>
         <div class="card-body table-responsive p-0">
@@ -153,10 +155,8 @@
                     <div class="form-group m-0 mr-2"
                          *ngIf="total > perPage">
                         <select class="custom-select"
-                                aria-label="Formularanzahl pro Seite"
-                                aria-description="Wählen Sie aus, wie viele Formulare pro Seite angezeigt werden sollen."
                                 i18n-aria-label
-                                i18n-aria-description
+                                aria-label="Formularanzahl pro Seite"
                                 (change)="perPage = $event.target.value; update(false)">
                             <option *ngFor=" let size of pageSizes">
                                 {{ size }}
@@ -173,9 +173,7 @@
                                 firstText="&laquo;"
                                 lastText="&raquo;"
                                 role="navigation"
-                                aria-label="Seitennavigation"
-                                [attr.aria-description]="'Derzeit ist Seite ' + page +
-                                                    ' von ' + totalPages + ' Seiten ausgewählt.'"
+                                aria-label="Formulare"
                                 i18n-aria-label>
                     </pagination>
                 </div>

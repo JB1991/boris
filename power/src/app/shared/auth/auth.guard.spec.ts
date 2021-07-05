@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { environment } from '@env/environment';
 
@@ -39,7 +38,7 @@ describe('Shared.Auth.AuthGuard', () => {
     it('should open in dev', (done) => {
         // not in production
         environment.production = false;
-        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
+        guard.canActivate().then((value) => {
             expect(value).toBeTrue();
             done();
         });
@@ -48,7 +47,7 @@ describe('Shared.Auth.AuthGuard', () => {
     it('should deny access', (done) => {
         // unauthorized
         environment.production = true;
-        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
+        guard.canActivate().then((value) => {
             expect(value).toBeFalse();
             done();
         });
@@ -61,7 +60,7 @@ describe('Shared.Auth.AuthGuard', () => {
         expire.setSeconds(expire.getSeconds() + 900);
         guard.auth.user = { 'expires': expire, 'token': 6, 'data': null };
 
-        guard.canActivate(new ActivatedRouteSnapshot(), { url: '/private' } as RouterStateSnapshot).then((value) => {
+        guard.canActivate().then((value) => {
             expect(value).toBeTrue();
             done();
         });

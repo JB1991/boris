@@ -4,6 +4,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FeatureCollection } from 'geojson';
 import { environment } from '@env/environment';
+import { Teilmarkt } from './bodenrichtwert-component/bodenrichtwert.component';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class BodenrichtwertService {
     /**
      * URL where to fetch GeoJSON from
      */
-    private url = environment.ows;
+    private url = environment.borisOws;
 
     /**
      * Boris BRZ Layer
@@ -30,6 +31,7 @@ export class BodenrichtwertService {
 
     /**
      * Returns the features as an Observable
+     * @returns returns feature as observable
      */
     public getFeatures(): Observable<FeatureCollection> {
         return this.features.asObservable();
@@ -43,11 +45,58 @@ export class BodenrichtwertService {
         this.features.next(features);
     }
 
+    public getFeatureByBRWNumber(brwNumber: string, stichtag: string, teilmarkt: Teilmarkt) {
+
+        // OGC Filter for each teilmarkt/entwicklungszustand
+        let ogcFilter = '';
+
+        teilmarkt.value.forEach(entwType => {
+            ogcFilter += '<ogc:PropertyIsEqualTo>\n' +
+                '          <ogc:PropertyName>entw</ogc:PropertyName>\n' +
+                '            <ogc:Literal>' + entwType + '</ogc:Literal>\n' +
+                '        </ogc:PropertyIsEqualTo>\n';
+        });
+
+        // OGC Query for each layer to be searched
+        let ogcQuery = '';
+
+        this.borisLayer.forEach(layer => {
+            ogcQuery +=
+                '<wfs:Query typeName="' + layer + '" srsName="EPSG:3857">' +
+                '<ogc:Filter>' +
+                '<ogc:And>' +
+                '<ogc:Or>\n' + ogcFilter + '</ogc:Or>\n' +
+                '<ogc:PropertyIsEqualTo>' +
+                '<ogc:PropertyName>stag</ogc:PropertyName>' +
+                '<ogc:Literal>' + stichtag + '</ogc:Literal>' +
+                '</ogc:PropertyIsEqualTo>' +
+                '<ogc:PropertyIsLike wildCard="*" singleChar="_" escapeChar="/\">' +
+                '<ogc:PropertyName>wnum</ogc:PropertyName>' +
+                '<ogc:Literal>' + brwNumber + '*' + '</ogc:Literal>' +
+                '</ogc:PropertyIsLike>' +
+                '</ogc:And>' +
+                '</ogc:Filter>' +
+                '</wfs:Query>';
+        });
+
+        const filter = '<wfs:GetFeature ' +
+            'xmlns:ogc="http://www.opengis.net/ogc" ' +
+            'xmlns:wfs="http://www.opengis.net/wfs" ' +
+            'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
+            'service="WFS" version="1.1.0" outputFormat="JSON" maxFeatures="10">' + ogcQuery + '</wfs:GetFeature>';
+
+        return this.http.post<FeatureCollection>(
+            this.url,
+            filter,
+            { 'responseType': 'json' }
+        ).pipe(catchError(BodenrichtwertService.handleError));
+    }
     /**
      * Returns the FeatureCollection identified by latitude, longitude and Teilmarkt
      * @param lat Latitude
      * @param lon Longitude
      * @param entw Teilmarkt
+     * @returns returns feature
      */
     public getFeatureByLatLonEntw(lat: number, lon: number, entw: Array<string>): Observable<FeatureCollection> {
         // OGC Filter for each teilmarkt/entwicklungszustand
@@ -113,7 +162,7 @@ export class BodenrichtwertService {
     /**
      * Handling of HTTP errors by logging it to the console
      * @param error HTTP error to be handled
-     * @private
+     * @returns returns error
      */
     private static handleError(error: HttpErrorResponse) {
         return throwError(error);

@@ -3,9 +3,9 @@ import {
     EventEmitter, OnChanges, ChangeDetectionStrategy
 } from '@angular/core';
 import { ShowdownConverter } from 'ngx-showdown';
-import * as Survey from 'survey-angular';
-import * as Slider from './nouislider';
-import * as Image from './imageselector';
+import { Model, SurveyNG, StylesManager, surveyLocalization, SurveyModel } from 'survey-angular';
+import * as Slider from './widgets/nouislider';
+import * as Image from './widgets/imageselector';
 
 @Component({
     selector: 'power-forms-surveyjs-wrapper',
@@ -25,7 +25,7 @@ export class WrapperComponent implements OnChanges {
     @Output() public interimResult: EventEmitter<any> = new EventEmitter();
     @Output() public changes: EventEmitter<any> = new EventEmitter();
 
-    public survey: Survey.Survey;
+    public survey: Model;
     public props: any;
 
     constructor(public showdownConverter: ShowdownConverter) {
@@ -45,19 +45,19 @@ export class WrapperComponent implements OnChanges {
         });
     }
 
-    ngOnChanges() {
-        Survey.StylesManager.applyTheme(this.theme);
-        Survey.surveyLocalization.defaultLocale = 'de';
+    ngOnChanges(): void {
+        StylesManager.applyTheme(this.theme);
+        surveyLocalization.defaultLocale = 'de';
 
         // load custom widgets
-        Slider.init(Survey);
-        Image.init(Survey);
+        Slider.init();
+        Image.init();
 
         // create survey
-        this.survey = new Survey.Model(this.model);
+        this.survey = new Model(this.model);
 
         // add markdown renderer
-        this.survey.onTextMarkdown.add((s, options) => {
+        this.survey.onTextMarkdown.add((_: SurveyModel, options) => {
             let str = options.text.split('\n\n').join('<br\><br\>');
             str = this.showdownConverter.makeHtml(str);
             /* istanbul ignore else */
@@ -66,6 +66,20 @@ export class WrapperComponent implements OnChanges {
                 str = str.substring(0, str.length - 4);
             }
             options.html = str;
+        });
+
+        // add handler
+        /* istanbul ignore next */
+        this.survey.onValueChanged.add((sender: SurveyModel, _) => {
+            this.changes.emit(sender.data);
+        });
+        /* istanbul ignore next */
+        this.survey.onCurrentPageChanged.add((sender: SurveyModel, _) => {
+            this.interimResult.emit(sender.data);
+        });
+        /* istanbul ignore next */
+        this.survey.onComplete.add((sender: SurveyModel, options) => {
+            this.submitResult.emit({ result: sender.data, options: options });
         });
 
         // set options
@@ -80,22 +94,13 @@ export class WrapperComponent implements OnChanges {
         // build property model
         this.props = { model: this.survey, css: this.css };
         if (this.model && this.model['data']) {
-            this.props['data'] = this.model['data'];
+            this.props.data = this.model['data'];
         } else if (this.data) {
-            this.props['data'] = this.data;
+            this.props.data = this.data;
         }
-        this.props['onValueChanged'] = (s, _) => {
-            this.changes.emit(s.data);
-        };
-        this.props['onCurrentPageChanged'] = (s, _) => {
-            this.interimResult.emit(s.data);
-        };
-        this.props['onComplete'] = (s, o) => {
-            this.submitResult.emit({ result: s.data, options: o });
-        };
 
         // render survey
-        Survey.SurveyNG.render(this.surveyjsDiv.nativeElement, this.props);
+        SurveyNG.render(this.surveyjsDiv.nativeElement, this.props);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

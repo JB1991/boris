@@ -1,13 +1,13 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, NavigationError, Router } from '@angular/router';
-import { Meta, Title } from '@angular/platform-browser';
 import { Platform } from '@angular/cdk/platform';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 
 import { AuthService } from '@app/shared/auth/auth.service';
 import { UpdateService } from './update.service';
+import { SEOService } from './shared/seo/seo.service';
 import { environment } from '@env/environment';
 
 @Component({
@@ -22,8 +22,9 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isCollapsedImmo = true;
     public showBrowserNotice = true;
     public showOfflineNotice = true;
+    public showIENotice = false;
     public config = environment.config;
-    public appVersion: any = { version: 'dev', branch: 'local' };
+    public appVersion = { version: 'dev', branch: 'local' };
     public hasInternet = navigator.onLine;
     public uri = location;
     public baseurl = location.pathname + location.search;
@@ -32,9 +33,6 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
     private unsubscribe$: Subject<void> = new Subject<void>();
 
     constructor(
-        public titleService: Title,
-        public meta: Meta,
-        @Inject(DOCUMENT) private doc,
         @Inject(LOCALE_ID) public locale: string,
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -43,11 +41,12 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
         public auth: AuthService,
         public router: Router,
         public platform: Platform,
-        public us: UpdateService
+        public us: UpdateService,
+        public seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
+        this.seo.setTitle($localize`Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf Bodenrichtwerte und Grundstücksmarktdaten von Niedersachsen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwerte, BORIS, Grundstücksmarktberichte, Landesgrundstücksmarktberichte, Landesgrund­stücks­markt­daten, Immobilienpreisindex, NIPIX, Immobilien-Preis-Kalkulator, IPK` });
 
         // check for updates
         this.us.checkForUpdates();
@@ -65,16 +64,6 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 if (this.baseurl.startsWith('/' + this.locale + '/')) {
                     this.baseurl = this.baseurl.substr(this.locale.length + 1);
                 }
-
-                // update canonical url
-                const links = this.doc.head.getElementsByTagName('link');
-                for (let i = 0; i < links.length; i++) {
-                    if (links[i].getAttribute('rel') === 'canonical') {
-                        links[i].setAttribute('href', 'https://immobilienmarkt.niedersachsen.de'
-                            + (this.locale !== 'de' ? '/' + this.locale : '')
-                            + (event.urlAfterRedirects.startsWith('/grundstuecksmarktberichte') ? event.urlAfterRedirects : event.urlAfterRedirects.split('?')[0]));
-                    }
-                }
             } else if (event instanceof NavigationError) {
                 // log navigation error if not in production
                 if (!environment.production) {
@@ -82,19 +71,29 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
                 }
             }
         });
+
+        // set baseurl
+        if (location.origin.startsWith('https://demo-')) {
+            environment.baseurl = 'https://dev.power.niedersachsen.dev';
+            environment.borisOws = environment.baseurl + environment.borisOws;
+            environment.alkisOws = environment.baseurl + environment.alkisOws;
+            environment.formAPI = environment.baseurl + environment.formAPI;
+        }
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        /* istanbul ignore else */
         if (isPlatformBrowser(this.platformId)) {
             // load version
             this.httpClient.get('/assets/version.json').subscribe(data => {
                 if (data && data['version']) {
-                    this.appVersion = data;
+                    this.appVersion = data as { version: string, branch: string };
                     environment.config.version = this.appVersion;
                 }
                 this.showOfflineNotice = false;
             }, error => {
                 // failed to load
+                console.error(error);
                 console.error('could not load version.json');
                 this.appVersion = { version: 'cache', branch: 'offline' };
                 environment.config.version = this.appVersion;
@@ -106,21 +105,30 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
             if (this.platform.SAFARI || this.platform.FIREFOX || this.platform.BLINK) {
                 this.showBrowserNotice = false;
             }
+
+            // IE+Edge deprecation notice
+            /* eslint-disable-next-line */
+            const isIE = /*@cc_on!@*/false || !!document['documentMode'];
+            const isEdge = !isIE && !!window.StyleMedia;
+            if (isIE || isEdge) {
+                this.showIENotice = true;
+            }
         } else {
             // disable warnings
             this.showOfflineNotice = false;
             this.showBrowserNotice = false;
+            this.showIENotice = false;
             this.hasInternet = true;
             this.appVersion = { version: 'cache', branch: 'rendered' };
             environment.config.version = this.appVersion;
         }
     }
 
-    ngAfterViewChecked() {
+    ngAfterViewChecked(): void {
         this.cdRef.detectChanges();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
         this._subscription.unsubscribe();

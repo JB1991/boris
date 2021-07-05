@@ -1,8 +1,13 @@
 import {
     ElementFilter, FormFilter, GroupTagFilter, TaskFilter, TextFilter, TimeFilter, UserFilter
 } from './formapi.model';
+/* eslint-disable max-lines,complexity */
 
-/* eslint-disable-next-line complexity */
+/**
+ * Creates query for form api
+ * @param f Filter
+ * @returns filter query
+ */
 export function FormFilterToString(f: FormFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<FormFilter>;
@@ -52,10 +57,14 @@ export function FormFilterToString(f: FormFilter): string {
         return 'created-' + TimeFilterToString(f['created']);
     } else {
         return 'updated-' + TimeFilterToString(f['updated']);
-    };
+    }
 }
 
-/* eslint-disable-next-line complexity */
+/**
+ * Creates query for form api
+ * @param f Filter
+ * @returns filter query
+ */
 export function TaskFilterToString(f: TaskFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<TaskFilter>;
@@ -106,7 +115,11 @@ export function TaskFilterToString(f: TaskFilter): string {
     }
 }
 
-/* eslint-disable-next-line complexity */
+/**
+ * Creates query for form api
+ * @param f Filter
+ * @returns filter query
+ */
 export function UserFilterToString(f: UserFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<UserFilter>;
@@ -149,7 +162,11 @@ export function UserFilterToString(f: UserFilter): string {
     }
 }
 
-/* eslint-disable-next-line complexity */
+/**
+ * Creates query for form api
+ * @param f Filter
+ * @returns filter query
+ */
 export function GroupTagFilterToString(f: GroupTagFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<GroupTagFilter>;
@@ -186,7 +203,11 @@ export function GroupTagFilterToString(f: GroupTagFilter): string {
     }
 }
 
-/* eslint-disable-next-line complexity */
+/**
+ * Creates query for form api
+ * @param f Filter
+ * @returns filter query
+ */
 export function ElementFilterToString(f: ElementFilter): string {
     if (f.hasOwnProperty('and')) {
         const and = f['and'] as Array<ElementFilter>;
@@ -233,6 +254,11 @@ export function ElementFilterToString(f: ElementFilter): string {
     }
 }
 
+/**
+ * Creates query for form api
+ * @param f Filter
+ * @returns filter query
+ */
 export function TextFilterToString(f: TextFilter): string {
     if (f.hasOwnProperty('contains')) {
         return (f.lower ? 'lower-' : '') + 'contains=' + f['contains'];
@@ -240,6 +266,11 @@ export function TextFilterToString(f: TextFilter): string {
     return (f.lower ? 'lower-' : '') + 'equals=' + f['equals'];
 }
 
+/**
+ * Creates query for form api
+ * @param f Filter
+ * @returns filter query
+ */
 export function TimeFilterToString(f: TimeFilter): string {
     if (f.hasOwnProperty('after')) {
         return 'after=' + f['after'];
@@ -247,6 +278,13 @@ export function TimeFilterToString(f: TimeFilter): string {
     return 'before=' + f['before'];
 }
 
+/**
+ * Creates query for form api
+ * @param s Sort config
+ * @param s.field Field to sort
+ * @param s.desc Order of sorting
+ * @returns Sort query
+ */
 export function SortToString(s: {
     field: string;
     desc: boolean;

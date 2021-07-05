@@ -25,12 +25,12 @@ export class UpdateService {
     /**
      * Checks for update and reloads
      */
-    public checkForUpdates() {
+    public checkForUpdates(): void {
         /* istanbul ignore else */
         if (this.updates.isEnabled) {
             // subscribe to updates
             /* istanbul ignore next */
-            this.updates.available.subscribe(event => {
+            this.updates.available.subscribe(() => {
                 // do update
                 this.updates.activateUpdate().then(() => {
                     console.log('Reloading to complete update');
@@ -45,7 +45,7 @@ export class UpdateService {
      * Deletes cache and unregisters service worker
      */
     /* istanbul ignore next */
-    public cleanupServiceWorker() {
+    public cleanupServiceWorker(): void {
         console.log('Deleting cache and service workers');
 
         // delete cache

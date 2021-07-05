@@ -62,7 +62,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 4. Linter ausführen (TypeScript, CSS/SCSS und HTML)
    ```
-   npm run lint
+   npm run lint power
    npm run lint:styles
    npm run lint:html
    ```
@@ -77,7 +77,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 2. Sprachstrings exportieren
    ```
    cd power
-   ng extract-i18n power --format=xlf2 --ivy=true --output-path src/locales
+   ng extract-i18n power --format=xlf2 --output-path src/locales
    ```
    * Bitte die Datei `messages.xlf` nach dem String `node_modules` durchsuchen und die entsprechenden Einträge entfernen.
    Leider gibt es derzeit keinen `exclude`-Parameter (siehe https://github.com/angular/angular-cli/issues/18885).
@@ -93,7 +93,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
 
 5. Sprache testen
    ```
-   ng serve --open --configuration=en
+   ng serve --open -c en
    ```
 
 ## Coding Guideline
@@ -188,23 +188,9 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 * Abhängigkeiten
   * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [BORIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/borisni-database-vboris2)
   * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
-  * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
+  * [Maplibre GL](https://www.npmjs.com/package/maplibre-gl)
   * [ECharts](https://www.npmjs.com/package/echarts)
   * [GeoJSON](https://www.npmjs.com/package/geojson)
-
-### Bodenwerte
-* Visualisierung von Bodenwerten (Flurstück)
-* Funktionen
-  * Adresssuche, Reverse Geocoding
-  * Geolocation Positionsbestimmung
-  * 3D-Gebäude
-  * Selektion und Addition von Flurstücken
-* Benötigt Datensatz mit Flurstücken und Werten
-* Derzeit mit offiziellen LGLN Testdaten + zufällig generierten Werten (100.000€ - 1.000.000€)
-* Abhängigkeiten
-  * [Präsentations-Microservice](https://gitlab.com/lgln/power.ni/presentation) inkl. [ALKIS-Datenbank](https://gitlab.com/lgln/power.ni/boris.ni/alkis-database)
-  * [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
-  * [Mapbox GL JS](https://www.npmjs.com/package/mapbox-gl)
 
 ### Fragebogenonline
 * Dynamisches erstellen von Fragebogen, welche online ausgefüllt werden können
@@ -243,7 +229,7 @@ Die Authentifizierungskomponente lässt sich in der Datei [config.json](power/sr
 * Funktionen
   * Adresssuche (Von Adresse zu Geokoordinaten)
   * Reverse Geocoding (Von Geokoordinaten zu Adresse)
-* Verwendung in den Modulen Bodenrichtwerte und Bodenwerte
+* Verwendung in dem Modul Bodenrichtwerte
 * Weiterleitung der Anfragen per nginx Reverse Proxy an den BKG Geocoder (siehe Abhängigkeiten)
 * Abhängigkeiten:
   * [BKG GeoCoder](https://www.bkg.bund.de/SharedDocs/Produktinformationen/BKG/DE/P-2015/150119-Geokodierung.html)

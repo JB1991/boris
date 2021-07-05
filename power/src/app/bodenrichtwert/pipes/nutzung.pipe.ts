@@ -101,7 +101,7 @@ export class NutzungPipe implements PipeTransform {
                     res += '';
                 } else {
                     res += ' (' + this.ergaenzende_art_der_nutzung[nutzung['enuta']] + ')';
-                };
+                }
             }
         }
 

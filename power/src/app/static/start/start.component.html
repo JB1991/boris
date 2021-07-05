@@ -1,5 +1,7 @@
 <main class="mainpage"
       id="content">
+    <h1 class="sr-only"
+        i18n>Immobilienmarkt Portal Niedersachsen</h1>
     <div class="mb-5">
         <carousel [interval]="5000"
                   [pauseOnFocus]="true"
@@ -116,29 +118,6 @@
                     </div>
                 </div>
             </slide>
-            <slide *ngIf="config.modules.includes('bodenwertkalkulator')">
-                <img src="./assets/images/bg-bodenrichtwerte.png"
-                     i18n-alt
-                     alt="Bodenwertkalkulator"
-                     class="carousel-image">
-                <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
-                    <h2 class="display-4">
-                        <span style="color: #343a40;">BOWERT</span>
-                        <span style="color: #c4153a;">.NI</span>
-                    </h2>
-                    <div class="lead text-dark">
-                        <h3 class="h5"
-                            i18n>Bodenwertkalkulator Niedersachsen</h3>
-                        <p i18n="@@bodenwertkalkulator_shortdescription">Rechner zum summieren von geschätzten Preisen
-                            von Flurstücken</p>
-                        <a class="btn btn-primary"
-                           href=""
-                           (click)="$event.preventDefault(); scrollToElement('bodenwertkalkulator')"
-                           role="button"
-                           i18n>Mehr dazu</a>
-                    </div>
-                </div>
-            </slide>
             <slide *ngIf="config.modules.includes('forms')">
                 <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
@@ -162,7 +141,7 @@
                     </div>
                 </div>
             </slide>
-            <slide *ngIf="config.modules.includes('ogc-services')">
+            <slide *ngIf="config.modules.includes('ogc-dienste')">
                 <img src="./assets/images/bg-bodenrichtwerte.png"
                      i18n-alt
                      alt="OGC Darstellungs- und Downloaddienste"
@@ -170,7 +149,7 @@
                 <div class="carousel-caption text-center p-2 p-md-3 my-4 my-md-5">
                     <h2 class="display-4">
                         <span style="color: #343a40;"
-                              i18n>Datendienste</span>
+                              i18n>OGC Dienste</span>
                     </h2>
                     <div class="lead text-dark">
                         <h3 class="h5"
@@ -179,7 +158,7 @@
                             Schnittstellen bereit</p>
                         <a class="btn btn-primary"
                            href=""
-                           (click)="$event.preventDefault(); scrollToElement('ogc-services')"
+                           (click)="$event.preventDefault(); scrollToElement('ogc-dienste')"
                            role="button"
                            i18n>Mehr dazu</a>
                     </div>
@@ -239,7 +218,7 @@
                    title="Bodenrichtwerte"
                    tabindex="-1">
                     <img src="./assets/images/bodenrichtwerte.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Bodenrichtwerte">
                 </a>
@@ -276,7 +255,7 @@
                    title="Grundstücksmarktberichte"
                    tabindex="-1">
                     <img src="./assets/images/grundstuecksmarktberichte.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Grundstücksmarktberichte">
                 </a>
@@ -316,7 +295,7 @@
                    title="Landesgrundstücksmarktdaten"
                    tabindex="-1">
                     <img src="./assets/images/landesgrundstuecksmarktdaten.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Landesgrundstücksmarktdaten">
                 </a>
@@ -353,7 +332,7 @@
                    title="Immobilienpreisindex"
                    tabindex="-1">
                     <img src="./assets/images/immobilienpreisindex.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Immobilienpreisindex">
                 </a>
@@ -377,15 +356,16 @@
                 <div class="lead">
                     <h3 class="h5 text-break"
                         i18n>Immobilien-Preis-Kalkulator</h3>
-                    <p class="text-justify"
-                       i18n="@@immobilienpreiskalkulator_description">Mit Hilfe des Immobilien-Preis-Kalkulators können
-                        Sie schnell und einfach das Preisniveau für Ihr freistehendes Ein-/Zweifamilienhaus, Ihr
-                        Reihenhaus, Ihre Doppelhaushälfte oder Ihre Eigentumswohnung abschätzen. Der
-                        Immobilien-Preis-Kalkulator basiert auf Marktmodellen (Vergleichsfaktoren), die durch die
-                        Gutachterausschüsse für Grundstückswerte aus der Kaufpreissammlung mit Hilfe
-                        mathematisch-statistischer Verfahren (multiple Regression) ermittelt werden. Eine Auskunft auf
-                        Grundlage des Immobilien-Preis-Kalkulators ist
-                        <strong class="font-weight-bold">gebührenpflichtig</strong>.
+                    <p class="text-justify">
+                        <span i18n>Mit Hilfe des Immobilien-Preis-Kalkulators können
+                            Sie schnell und einfach das Preisniveau für Ihr freistehendes Ein-/Zweifamilienhaus, Ihr
+                            Reihenhaus, Ihre Doppelhaushälfte oder Ihre Eigentumswohnung abschätzen. Der
+                            Immobilien-Preis-Kalkulator basiert auf Marktmodellen (Vergleichsfaktoren), die durch die
+                            Gutachterausschüsse für Grundstückswerte aus der Kaufpreissammlung mit Hilfe
+                            mathematisch-statistischer Verfahren (multiple Regression) ermittelt werden. Eine Auskunft
+                            auf Grundlage des Immobilien-Preis-Kalkulators ist</span>&nbsp;<strong
+                                class="font-weight-bold"
+                                i18n>gebührenpflichtig</strong>.
                     </p>
                 </div>
             </div>
@@ -398,7 +378,7 @@
                    title="Immobilienpreiskalkulator"
                    tabindex="-1">
                     <img src="./assets/images/immobilienpreiskalkulator.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Immobilienpreiskalkulator">
                 </a>
@@ -406,42 +386,6 @@
         </div>
         <hr class="my-5"
             *ngIf="config.modules.includes('immobilienpreiskalkulator')">
-
-        <div class="row my-1"
-             *ngIf="config.modules.includes('bodenwertkalkulator')"
-             id="bodenwertkalkulator">
-            <div class="col-md-7"
-                 [class.order-md-2]="getCardOrder('bodenwertkalkulator')">
-                <a class="h2 display-4"
-                   [routerLink]="['/bodenwertkalkulator']">
-                    <span style="color: #343a40;">BOWERT</span>
-                    <span style="color: #c4153a;">.NI</span>
-                </a>
-                <div class="lead">
-                    <h3 class="h5 text-break"
-                        i18n>Bodenwertkalkulator Niedersachsen</h3>
-                    <p class="text-justify"
-                       i18n="@@bodenwertkalkulator_description">Die Gutachterausschüsse und der Obere Gutachterausschuss
-                        für Grundstückswerte in Niedersachsen und Bremen stellen interessierten Nutzern unter BORIS.NI
-                        Bodenrichtwerte für Bauland und für Flächen der Land- und Forstwirtschaft in Niedersachsen,
-                        Bremen und Bremerhaven zur Verfügung.</p>
-                </div>
-            </div>
-            <div class="col-md-5 d-flex justify-content-center align-self-center"
-                 aria-hidden="true">
-                <a [routerLink]="['/bodenwertkalkulator']"
-                   i18n-title
-                   title="Bodenwertkalkulator"
-                   tabindex="-1">
-                    <img src="./assets/images/bodenwertkalkulator.png"
-                         class="img-thumbnail img-fluid mx-auto"
-                         i18n-alt
-                         alt="Bodenwertkalkulator">
-                </a>
-            </div>
-        </div>
-        <hr class="my-5"
-            *ngIf="config.modules.includes('bodenwertkalkulator')">
 
         <div class="row my-1"
              *ngIf="config.modules.includes('forms')"
@@ -465,18 +409,18 @@
                           (ngSubmit)="submitPIN(pinInput.value)"
                           class="form-inline mb-3">
                         <label class="control-label sr-only"
-                               id="pinLabel"
+                               for="pinInput"
                                i18n>Eingabefeld für eine Formular PIN, um zum entsprechenden Formular zu
                             gelangen.</label>
                         <input type="text"
                                class="form-control mr-2 w-mobile"
                                #pinInput="ngModel"
+                               id="pinInput"
                                name="pinInput"
                                [(ngModel)]="pin"
                                [class.is-invalid]="pinFormular.submitted && pinInput.invalid"
                                i18n-placeholder
                                placeholder="Formular PIN"
-                               aria-labelledby="pinLabel"
                                required>
 
                         <button type="submit"
@@ -509,7 +453,7 @@
                    title="Formulare"
                    tabindex="-1">
                     <img src="./assets/images/forms.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="Formulare">
                 </a>
@@ -519,13 +463,13 @@
             *ngIf="config.modules.includes('forms')">
 
         <div class="row my-1"
-             *ngIf="config.modules.includes('ogc-services')"
-             id="ogc-services">
+             *ngIf="config.modules.includes('ogc-dienste')"
+             id="ogc-dienste">
             <div class="col-md-7"
-                 [class.order-md-2]="getCardOrder('ogc-services')">
+                 [class.order-md-2]="getCardOrder('ogc-dienste')">
                 <a class="h2 display-4"
-                   [routerLink]="['/ogc-services']">
-                    <span style="color: #343a40;">Datendienste</span>
+                   [routerLink]="['/ogc-dienste']">
+                    <span style="color: #343a40;">OGC Dienste</span>
                 </a>
                 <div class="lead">
                     <h3 class="h5 text-break"
@@ -538,12 +482,12 @@
             </div>
             <div class="col-md-5 d-flex justify-content-center align-self-center"
                  aria-hidden="true">
-                <a [routerLink]="['/ogc-services']"
+                <a [routerLink]="['/ogc-dienste']"
                    i18n-title
                    title="OGC Darstellungs- und Downloaddienste"
                    tabindex="-1">
                     <img src="./assets/images/ogcdienste.png"
-                         class="img-thumbnail img-fluid mx-auto"
+                         class="figure-img img-thumbnail img-fluid mx-auto w-100"
                          i18n-alt
                          alt="OGC Darstellungs- und Downloaddienste">
                 </a>

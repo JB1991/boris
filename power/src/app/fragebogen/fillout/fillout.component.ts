@@ -1,9 +1,7 @@
 import { Component, HostListener, ViewChild, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '@env/environment';
-import * as Survey from 'survey-angular';
+import { surveyLocalization } from 'survey-angular';
 
 import { FormAPIService } from '../formapi.service';
 import { WrapperComponent } from '../surveyjs/wrapper.component';
@@ -11,6 +9,7 @@ import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { Bootstrap4_CSS } from '@app/fragebogen/surveyjs/style';
 import { PublicForm, PublicTask } from '../formapi.model';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 @Component({
     selector: 'power-forms-fillout',
@@ -21,7 +20,7 @@ export class FilloutComponent implements AfterViewInit {
     @ViewChild('wrapper') public wrapper: WrapperComponent;
     public language = 'de';
     public submitted = false;
-    public languages = Survey.surveyLocalization.localeNames;
+    public languages = surveyLocalization.localeNames;
 
     public pin = '';
     public form: PublicForm;
@@ -35,20 +34,19 @@ export class FilloutComponent implements AfterViewInit {
 
     constructor(
         @Inject(LOCALE_ID) public locale: string,
-        public titleService: Title,
-        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
-        public formapi: FormAPIService
+        public formapi: FormAPIService,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Formulare - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
+        this.seo.setTitle($localize`Formulare - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         // get pin
         this.pin = this.route.snapshot.paramMap.get('pin');
         if (this.pin) {
@@ -64,6 +62,10 @@ export class FilloutComponent implements AfterViewInit {
         }
     }
 
+    /**
+     * canDeactivate event handler
+     * @returns True if can leave page
+     */
     @HostListener('window:beforeunload') canDeactivate(): boolean {
         // on test environment skip
         if (!environment.production) {
@@ -75,11 +77,15 @@ export class FilloutComponent implements AfterViewInit {
     /**
      * Set language
      */
-    public setLanguage() {
+    public setLanguage(): void {
         this.wrapper.survey.locale = this.language;
     }
 
-    public loadForm(id: string) {
+    /**
+     * Loads form
+     * @param id Form id
+     */
+    public loadForm(id: string): void {
         // load form by id
         this.loadingscreen.setVisible(true);
         this.formapi.getPublicForm(id, { fields: ['id', 'content', 'access'] }).then(result => {
@@ -107,11 +113,11 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /**
-     * submit Task
+     * Submits task
      * @param id Form pin
      * @param result Task result
      */
-    public submitTask(id: string, result: any) {
+    public submitTask(id: string, result: any): void {
         // check data
         if (!id) {
             throw new Error('id is required');
@@ -119,9 +125,12 @@ export class FilloutComponent implements AfterViewInit {
         if (!result) {
             throw new Error('no data provided');
         }
+        result.options.showDataSaving($localize`Die Ergebnisse werden auf dem Server gespeichert, dies kann einige Sekunden dauern.`);
+        this.submitted = true;
 
         this.formapi.createPublicTask(id, result.result).then(() => {
             this.setUnsavedChanges(false);
+            result.options.showDataSavingClear();
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
@@ -132,9 +141,10 @@ export class FilloutComponent implements AfterViewInit {
     }
 
     /**
-     * Load form data
+     * Loads form data
+     * @returns Promise
      */
-    public async loadData() {
+    public async loadData(): Promise<void> {
         if (!this.pin) {
             throw new Error('pin is required');
         }
@@ -161,16 +171,18 @@ export class FilloutComponent implements AfterViewInit {
      * Submits form after completing it
      * @param result Data
      */
-    public submit(result: any) {
+    public submit(result: any): void {
         // check data
         if (!result) {
             throw new Error('no data provided');
         }
+        result.options.showDataSaving($localize`Die Ergebnisse werden auf dem Server gespeichert, dies kann einige Sekunden dauern.`);
         this.submitted = true;
 
         // complete
         this.formapi.updatePublicTask(this.pin, result.result, true).then(() => {
             this.setUnsavedChanges(false);
+            result.options.showDataSavingClear();
             this.alerts.NewAlert('success', $localize`Speichern erfolgreich`, $localize`Ihre Daten wurden erfolgreich gespeichert.`);
         }).catch((error: Error) => {
             // failed to complete task
@@ -184,7 +196,7 @@ export class FilloutComponent implements AfterViewInit {
      * Receives form data to save it
      * @param result Data
      */
-    public progress(result: any) {
+    public progress(result: any): void {
         // check data
         if (!result) {
             throw new Error('no data provided');
@@ -207,20 +219,21 @@ export class FilloutComponent implements AfterViewInit {
      * Receives change events
      * @param result Data
      */
-    public changed(result: any) {
+    public changed(result: any): void {
         this.setUnsavedChanges(true);
     }
 
     /**
-     * Sets unsaved changes state
+     * Set unsaved changes state
      * @param state true or false
      */
-    public setUnsavedChanges(state: boolean) {
+    public setUnsavedChanges(state: boolean): void {
         this.data.UnsavedChanges = state;
     }
 
     /**
-     * Returns true if unsaved changes exists
+     * Returns unsaved changes state
+     * @returns True if unsaved changes exists
      */
     public getUnsavedChanges(): boolean {
         return this.data.UnsavedChanges;

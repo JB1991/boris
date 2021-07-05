@@ -28,7 +28,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
     constructor(@Inject(UNIQ_ID_TOKEN) public uniqId: number) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         // make question list
         this.questions = [];
         for (let i = 0; i < this.model.pages.length; i++) {
@@ -57,7 +57,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
     }
 
     /* eslint-disable-next-line complexity */
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges): void {
         // check if data exists
         if (!this.data || this.struct.length > 0) {
             this.loadChoices(null);
@@ -123,7 +123,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
      * @param event Event
      */
     /* eslint-disable-next-line complexity */
-    public modelChanged(event: Event) {
+    public modelChanged(event: Event): void {
         // convert form to condition object
         this.data = '';
         for (const item of this.struct) {
@@ -194,7 +194,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
      * Connects choices with element
      * @param event Event
      */
-    public loadChoices(event: Event) {
+    public loadChoices(event: Event): void {
         for (const item of this.struct) {
             item.choices = null;
 
@@ -236,10 +236,11 @@ export class ConditionsComponent implements OnInit, OnChanges {
      * @param event Event
      * @param i Number of condition
      */
-    public switchValueType(event, i: number) {
-        if (event.target.value === 'empty' || event.target.value === 'notempty') {
+    public switchValueType(event: Event, i: number): void {
+        const target = event.target as HTMLInputElement;
+        if (target.value === 'empty' || target.value === 'notempty') {
             this.struct[i].value = null;
-        } else if (event.target.value === 'anyof' || event.target.value === 'allof') {
+        } else if (target.value === 'anyof' || target.value === 'allof') {
             if (typeof this.struct[i].value !== 'object' || this.struct[i].value === null) {
                 this.struct[i].value = [];
             }
@@ -252,11 +253,11 @@ export class ConditionsComponent implements OnInit, OnChanges {
 
     /**
      * Select or deselect choice
-     * @param event
+     * @param event Event
      * @param i Condition number
      * @param j Choice number
      */
-    public selectedItems(event, i: number, j: number) {
+    public selectedItems(event: Event, i: number, j: number): void {
         const index = this.struct[i].value.indexOf(this.struct[i].choices[j].value);
 
         // check if item is in list
@@ -271,7 +272,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
     /**
      * Adds entry to conditions
      */
-    public ConditionAdd() {
+    public ConditionAdd(): void {
         this.struct.splice(this.struct.length, 0, {
             condition: (this.struct.length === 0 ? '' : 'and'),
             question: '',
@@ -285,7 +286,7 @@ export class ConditionsComponent implements OnInit, OnChanges {
     /**
      * Removes entry from conditions
      */
-    public ConditionDel() {
+    public ConditionDel(): void {
         // check if condition exists
         if (this.struct.length === 0) {
             return;

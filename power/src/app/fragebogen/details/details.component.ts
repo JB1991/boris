@@ -1,16 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { PreviewComponent } from '@app/fragebogen/surveyjs/preview/preview.component';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { LoadingscreenService } from '@app/shared/loadingscreen/loadingscreen.service';
 import { AuthService } from '@app/shared/auth/auth.service';
-import { FormAPIService, GetTasksParams } from '../formapi.service';
+import { FormAPIService, GetTasksParams, GetTaskParams } from '../formapi.service';
 import { TaskStatus, TaskField, Form, Task, User, Access } from '../formapi.model';
 import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { PaginationComponent } from 'ngx-bootstrap/pagination';
+import { SEOService } from '@app/shared/seo/seo.service';
 
 /* eslint-disable max-lines */
 @Component({
@@ -42,21 +41,20 @@ export class DetailsComponent implements OnInit {
     public taskSortDesc = true;
 
     constructor(
-        public titleService: Title,
-        public meta: Meta,
         public router: Router,
         public route: ActivatedRoute,
         public alerts: AlertsService,
         public loadingscreen: LoadingscreenService,
         public formapi: FormAPIService,
-        public auth: AuthService
+        public auth: AuthService,
+        private seo: SEOService
     ) {
-        this.titleService.setTitle($localize`Formular Details - Immobilienmarkt.NI`);
-        this.meta.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
-        this.meta.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
+        this.seo.setTitle($localize`Formular Details - Immobilienmarkt.NI`);
+        this.seo.updateTag({ name: 'description', content: $localize`Ausfüllen von online Formularen und Anträgen` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Formulare, Anträge` });
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         // get id
         this.loadingscreen.setVisible(true);
         this.id = this.route.snapshot.paramMap.get('id');
@@ -75,9 +73,10 @@ export class DetailsComponent implements OnInit {
 
     /**
      * Load form data
-     * @param navigate
+     * @param navigate True to navigate back to dashboard
+     * @returns Promise
      */
-    public async updateForm(navigate: boolean) {
+    public async updateForm(navigate: boolean): Promise<void> {
         if (!this.id) {
             throw new Error('id is required');
         }
@@ -105,8 +104,9 @@ export class DetailsComponent implements OnInit {
 
     /**
      * Deletes form
+     * @returns Promise
      */
-    public async deleteForm() {
+    public async deleteForm(): Promise<void> {
         try {
             // Ask user to confirm deletion
             if (!confirm($localize`Möchten Sie dieses Formular wirklich löschen?`)) {
@@ -127,8 +127,9 @@ export class DetailsComponent implements OnInit {
 
     /**
      * Archives form
+     * @returns Promise
      */
-    public async archiveForm() {
+    public async archiveForm(): Promise<void> {
         try {
             // Ask user to confirm achivation
             if (!confirm($localize`Möchten Sie dieses Formular wirklich archivieren?\n\
@@ -148,9 +149,10 @@ export class DetailsComponent implements OnInit {
 
     /**
      * Downloads results as csv
+     * @returns Promise
      */
     /* istanbul ignore next */
-    public async getCSV() {
+    public async getCSV(): Promise<void> {
         try {
             alert($localize`Für den nachfolgenden CSV-Download bitte die UTF-8 Zeichenkodierung verwenden.`);
             const r = await this.formapi.getCSV(this.form.id);
@@ -174,8 +176,9 @@ export class DetailsComponent implements OnInit {
     /**
      * Deletes an existing task
      * @param i Number of task
+     * @returns Promise
      */
-    public async deleteTask(i: number) {
+    public async deleteTask(i: number): Promise<void> {
         try {
             // check data
             if (i < 0 || i >= this.tasks.length) {
@@ -185,7 +188,7 @@ export class DetailsComponent implements OnInit {
             if (!confirm($localize`Möchten Sie diese Antwort wirklich löschen?`)) {
                 return;
             }
-            const r = await this.formapi.deleteTask(this.tasks[i].id);
+            await this.formapi.deleteTask(this.tasks[i].id);
             this.tasks.splice(i, 1);
             this.alerts.NewAlert('success', $localize`Antwort gelöscht`,
                 $localize`Die Antwort wurde erfolgreich gelöscht.`);
@@ -202,8 +205,9 @@ export class DetailsComponent implements OnInit {
     /**
      * Generate a new pin for a task
      * @param i Number of task
+     * @returns Promise
      */
-    public async newPin(i: number) {
+    public async newPin(i: number): Promise<void> {
         try {
             // check data
             if (i < 0 || i >= this.tasks.length) {
@@ -230,8 +234,9 @@ export class DetailsComponent implements OnInit {
     /**
      * Make task completed
      * @param i Number of task
+     * @returns Promise
      */
-    public async completeTask(i: number) {
+    public async completeTask(i: number): Promise<void> {
         try {
             // check data
             if (i < 0 || i >= this.tasks.length) {
@@ -258,14 +263,22 @@ export class DetailsComponent implements OnInit {
     /**
      * Opens preview of task results
      * @param i Number of task
+     * @returns Promise
      */
-    public openTask(i: number) {
+    public async openTask(i: number): Promise<void> {
         try {
             // check data
             if (i < 0 || i >= this.tasks.length) {
                 throw new Error('invalid i');
             }
-            this.preview.open('display', this.tasks[i].content);
+
+            const params: GetTaskParams = {
+                fields: ['content'],
+            };
+
+            const r = await this.formapi.getTask(this.tasks[i].id, params);
+
+            this.preview.open('display', r.task.content);
         } catch (error) {
             // failed to delete task
             console.error(error);
@@ -277,7 +290,7 @@ export class DetailsComponent implements OnInit {
      * Exports form to json
      */
     /* istanbul ignore next */
-    public exportForm() {
+    public exportForm(): void {
         // load form
         this.formapi.getForm(this.form.id, { fields: ['content'] }).then(result => {
             // download json
@@ -298,7 +311,11 @@ export class DetailsComponent implements OnInit {
         });
     }
 
-    public async updateTags() {
+    /**
+     * Updates tags
+     * @returns Promise
+     */
+    public async updateTags(): Promise<void> {
         try {
             const r = await this.formapi.getTags({});
             this.availableTags = r.tags;
@@ -308,7 +325,11 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public async updateGroups() {
+    /**
+     * Updates groups
+     * @returns Promise
+     */
+    public async updateGroups(): Promise<void> {
         try {
             const r = await this.formapi.getGroups({});
             this.availableGroups = r.groups;
@@ -318,7 +339,11 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public async updateUsers() {
+    /**
+     * Updates users
+     * @returns Promise
+     */
+    public async updateUsers(): Promise<void> {
         try {
             const r = await this.formapi.getUsers({ fields: ['id', 'name'] });
             this.availableUsers = r.users;
@@ -328,10 +353,14 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public async updateTasks() {
+    /**
+     * Updates tasks
+     * @returns Promise
+     */
+    public async updateTasks(): Promise<void> {
         this.loadingscreen.setVisible(true);
         const params: GetTasksParams = {
-            fields: ['id', 'pin', 'description', 'created', 'updated', 'status', 'content'],
+            fields: ['id', 'pin', 'description', 'created', 'updated', 'status'],
             filter: { form: { id: this.id } },
             limit: Number(this.taskPerPage),
             offset: (this.taskPage - 1) * this.taskPerPage,
@@ -366,7 +395,11 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public changeTaskSort(sort: TaskField) {
+    /**
+     * Sorts tasks
+     * @param sort Sort filter
+     */
+    public changeTaskSort(sort: TaskField): void {
         if (this.taskSort === sort) {
             this.taskSortDesc = !this.taskSortDesc;
         } else {
@@ -376,7 +409,17 @@ export class DetailsComponent implements OnInit {
         this.updateTasks();
     }
 
-    public async updateFormEvent(event: { id: string; tags?: Array<string>; groups?: Array<string>; owner?: string }) {
+    /**
+     * Update forms event
+     * @param event Event
+     * @param event.id Form id
+     * @param event.tags Form tags
+     * @param event.groups Form groups
+     * @param event.owner Form owner
+     * @returns Promise
+     */
+    public async updateFormEvent(event: { id: string; tags?: Array<string>; groups?: Array<string>; owner?: string }
+    ): Promise<void> {
         try {
             const b: any = {};
             if (event.tags) {
@@ -396,7 +439,14 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public async publishFormEvent(event: { id: string; access: Access }) {
+    /**
+     * Publish forms event
+     * @param event Event
+     * @param event.id Task id
+     * @param event.access Task access level
+     * @returns Promise
+     */
+    public async publishFormEvent(event: { id: string; access: Access }): Promise<void> {
         try {
             await this.formapi.updateForm(event.id, { access: event.access, status: 'published' });
             this.updateForm(false);
@@ -406,7 +456,14 @@ export class DetailsComponent implements OnInit {
         }
     }
 
-    public async commentTaskEvent(event: { id: string; description: string }) {
+    /**
+     * Comment task event
+     * @param event Event
+     * @param event.id Task id
+     * @param event.description Task comment
+     * @returns Promise
+     */
+    public async commentTaskEvent(event: { id: string; description: string }): Promise<void> {
         try {
             await this.formapi.updateTask(event.id, { description: event.description });
             this.updateTasks();
@@ -417,9 +474,13 @@ export class DetailsComponent implements OnInit {
     }
 
     /**
-     * createTaskEvent
+     * Creates tasks
+     * @param event Event
+     * @param event.amount Amount of tasks to create
+     * @param event.copyvalue Copy pins to clipboard
+     * @returns Promise
      */
-    public async createTaskEvent(event: { amount: number; copy: boolean }) {
+    public async createTaskEvent(event: { amount: number; copyvalue: boolean }): Promise<void> {
         try {
             const r = await this.formapi.createTask(this.form.id, {}, event.amount);
             this.taskSort = 'created';
@@ -428,7 +489,7 @@ export class DetailsComponent implements OnInit {
             this.updateTasks();
             // copy to clipboard
             /* istanbul ignore else */
-            if (event.copy) {
+            if (event.copyvalue) {
                 const selBox = document.createElement('textarea');
                 selBox.style.position = 'fixed';
                 selBox.style.left = '0';

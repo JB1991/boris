@@ -4,6 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { Observable } from 'rxjs';
 import { Feature, FeatureCollection } from 'geojson';
+import { environment } from '@env/environment';
 
 describe('Bodenrichtwert.BodenrichtwertService', () => {
     const feature: Feature = require('../../testdata/geosearch/feature.json');
@@ -14,7 +15,7 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
     const entw = ['B'];
     const lat = 52.40729;
     const lon = 9.80205;
-    const url = '/geoserver/boris/ows?';
+    const url = environment.borisOws;
 
     let service: BodenrichtwertService;
     let httpClient: HttpClient;

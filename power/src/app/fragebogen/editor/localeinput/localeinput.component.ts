@@ -18,7 +18,9 @@ export class LocaleInputComponent {
     @Output() public localeChange = new EventEmitter<any>();
     public displayLang = 'default';
 
-    constructor(@Inject(LOCALE_ID) public lang: string) {
+    constructor(
+        @Inject(LOCALE_ID) public lang: string
+    ) {
         /* istanbul ignore else */
         if (lang !== 'de') {
             this.displayLang = lang;
@@ -27,9 +29,18 @@ export class LocaleInputComponent {
 
     /**
      * Updates values
-     * @param data data
      */
-    public updateValue() {
+    public updateValue(): void {
+        this.locale[this.displayLang] = this.escapeHtml(this.locale[this.displayLang]);
         this.localeChange.emit(this.locale);
+    }
+
+    /**
+     * Escape user input
+     * @param unsafe Unsafe string
+     * @returns Escaped string
+     */
+    public escapeHtml(unsafe: string): string {
+        return unsafe.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 }
