@@ -6,10 +6,10 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { Feature, FeatureCollection } from 'geojson';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import pointOnFeature from '@turf/point-on-feature';
 import { polygon } from '@turf/helpers';
 import { toWgs84 } from '@turf/projection';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
+import polylabel from 'polylabel';
 
 @Component({
     selector: 'power-bodenrichwertnummer-search',
@@ -62,22 +62,25 @@ export class BodenrichwertnummerSearchComponent {
     /**
      * Return the wnum (brw-nummer) and brzname property
      * @param feature GeoJSON feature
+     * @returns inputFormatter
      */
     public inputFormatter = (feature: Feature) =>
         feature.properties.wnum + ' - ' + feature.properties.brzname;
 
     /**
      * search for selected brw-nummer on form submit
-     * @param value form value as feature
-     * @param ft
+     * @param ft feature
      */
     public searchBodenrichtwert(ft: Feature) {
         const latLng = this.pointOnPolygon(ft);
-        this.bodenrichtwertService.getFeatureByLatLonEntw(latLng[1], latLng[0], this.teilmarkt.value).subscribe(
-            (res: FeatureCollection) => this.handleHttpResponse(res),
-            (err: HttpErrorResponse) => this.handleHttpError(err)
-        );
-        this.closing.emit(true);
+        console.log('latLng', latLng);
+        if (latLng) {
+            this.bodenrichtwertService.getFeatureByLatLonEntw(latLng[1], latLng[0], this.teilmarkt.value).subscribe(
+                (res: FeatureCollection) => this.handleHttpResponse(res),
+                (err: HttpErrorResponse) => this.handleHttpError(err)
+            );
+            this.closing.emit(true);
+        }
     }
 
     /**
@@ -85,11 +88,10 @@ export class BodenrichwertnummerSearchComponent {
      * @param ft feature
      * @returns point
      */
-    public pointOnPolygon(ft: Feature) {
+    public pointOnPolygon(ft: Feature): number[] {
         let poly = polygon(ft.geometry['coordinates']);
         poly = toWgs84(poly);
-        const point = pointOnFeature(poly);
-        return point.geometry.coordinates;
+        return polylabel(poly.geometry.coordinates, 0.0001, false);
     }
 
     /**
@@ -124,6 +126,7 @@ export class BodenrichwertnummerSearchComponent {
     /**
      * Pass the search input to the Geosearch service
      * @param text$ Input as Observable
+     * @returns search
      */
     public search = (text$: Observable<string>) =>
         text$.pipe(

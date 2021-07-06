@@ -6,12 +6,12 @@ import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
-import pointOnFeature from '@turf/point-on-feature';
-import { polygon } from '@turf/helpers';
 import proj4 from 'proj4';
 import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { LngLat } from 'maplibre-gl';
+import polylabel from 'polylabel';
+import area from '@turf/area';
 
 /* eslint-disable max-lines */
 @Component({
@@ -218,14 +218,28 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @returns returns wgs84 point
      */
     public pointOnPolygon(ft: Feature): number[] {
-        const poly = polygon(ft.geometry['coordinates']);
-        const point = pointOnFeature(poly);
+        let point: number[];
+
+        switch (ft.geometry.type) {
+            case 'Polygon':
+                point = polylabel(ft.geometry.coordinates, 0.0001, false);
+                break;
+            case 'MultiPolygon':
+                const p = ft.geometry.coordinates.map(f => ({
+                    type: 'Polygon',
+                    coordinates: f,
+                })).sort((i, j) => area(i) - area(j)).shift();
+
+                point = polylabel(p.coordinates, 0.0001, false);
+                break
+        }
+
         const wgs84_point = this.transformCoordinates(
             epsg['EPSG:3857'],
             epsg['EPSG:4326'],
             [
-                point.geometry.coordinates[0],
-                point.geometry.coordinates[1]
+                point[0],
+                point[1]
             ]
         );
         return wgs84_point;
