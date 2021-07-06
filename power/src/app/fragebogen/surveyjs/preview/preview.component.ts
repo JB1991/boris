@@ -68,7 +68,7 @@ export class PreviewComponent {
      */
     public debugPrint(data: any): void {
         if (!environment.production) {
-            console.log(data);
+            console.info(data);
         }
     }
 

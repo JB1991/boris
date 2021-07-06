@@ -38,7 +38,7 @@ describe('Static.Login.LoginComponent', () => {
         component = fixture.componentInstance;
         httpTestingController = TestBed.inject(HttpTestingController);
 
-        spyOn(console, 'log');
+        spyOn(console, 'info');
         spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');
@@ -63,7 +63,7 @@ describe('Static.Login.LoginComponent', () => {
         component.auth.user = { 'expires': expire, 'token': 5, 'data': null };
 
         component.authenticate().then(() => {
-            expect(console.log).toHaveBeenCalledWith('User is authenticated');
+            expect(console.info).toHaveBeenCalledWith('User is authenticated');
             done();
         });
     });
@@ -73,7 +73,7 @@ describe('Static.Login.LoginComponent', () => {
         spyOn(component.activatedRoute.snapshot.queryParamMap, 'get').and.returnValue('abc');
 
         component.authenticate().then(() => {
-            expect(console.log).toHaveBeenCalledWith('User has authenticated');
+            expect(console.info).toHaveBeenCalledWith('User has authenticated');
             done();
         });
 

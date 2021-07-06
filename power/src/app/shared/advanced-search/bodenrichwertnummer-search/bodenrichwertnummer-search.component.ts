@@ -73,7 +73,6 @@ export class BodenrichwertnummerSearchComponent {
      */
     public searchBodenrichtwert(ft: Feature) {
         const latLng = this.pointOnPolygon(ft);
-        console.log('latLng', latLng);
         if (latLng) {
             this.bodenrichtwertService.getFeatureByLatLonEntw(latLng[1], latLng[0], this.teilmarkt.value).subscribe(
                 (res: FeatureCollection) => this.handleHttpResponse(res),

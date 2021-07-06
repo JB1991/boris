@@ -33,7 +33,7 @@ export class UpdateService {
             this.updates.available.subscribe(() => {
                 // do update
                 this.updates.activateUpdate().then(() => {
-                    console.log('Reloading to complete update');
+                    console.warn('Reloading to complete update');
                     // this.cleanupServiceWorker();
                     window.location.reload();
                 });
@@ -46,7 +46,7 @@ export class UpdateService {
      */
     /* istanbul ignore next */
     public cleanupServiceWorker(): void {
-        console.log('Deleting cache and service workers');
+        console.warn('Deleting cache and service workers');
 
         // delete cache
         if ('caches' in window) {
