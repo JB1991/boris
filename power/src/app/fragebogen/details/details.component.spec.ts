@@ -55,7 +55,6 @@ describe('Fragebogen.Details.DetailsComponent', () => {
         fixture = TestBed.createComponent(DetailsComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');

@@ -21,7 +21,6 @@ describe('Fragebogen.Surveyjs.WrapperComponent', () => {
         fixture = TestBed.createComponent(WrapperComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         fixture.detectChanges();
     }));

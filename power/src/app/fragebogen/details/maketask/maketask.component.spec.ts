@@ -32,7 +32,6 @@ describe('Fragebogen.Details.MaketaskComponent', () => {
         fixture = TestBed.createComponent(MaketaskComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         fixture.detectChanges();
     }));

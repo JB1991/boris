@@ -32,7 +32,6 @@ describe('Static.Logout.LogoutComponent', () => {
         fixture = TestBed.createComponent(LogoutComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         spyOn(component.router, 'navigate');
 

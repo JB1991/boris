@@ -29,7 +29,6 @@ describe('UpdateService', () => {
             ]
         });
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         service = TestBed.inject(UpdateService);
     });

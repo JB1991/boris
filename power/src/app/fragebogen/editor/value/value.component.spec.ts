@@ -20,7 +20,6 @@ describe('Fragebogen.Editor.ValueComponent', () => {
         fixture = TestBed.createComponent(ValueComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         fixture.detectChanges();
     }));

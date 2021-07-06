@@ -39,7 +39,6 @@ describe('Fragebogen.PublicDashboard.DashboardComponent', () => {
         fixture = TestBed.createComponent(PublicDashboardComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');

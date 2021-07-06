@@ -19,7 +19,6 @@ describe('Fragebogen.Editor.HistoryService', () => {
             ]
         });
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         service = TestBed.inject(HistoryService);
     }));

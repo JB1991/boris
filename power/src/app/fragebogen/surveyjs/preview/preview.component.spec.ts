@@ -28,7 +28,6 @@ describe('Fragebogen.Surveyjs.Preview.PreviewComponent', () => {
         component = fixture.componentInstance;
         component.form = { locale: 'de' };
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         fixture.detectChanges();
     }));
