@@ -6,8 +6,6 @@ import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
-import proj4 from 'proj4';
-import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { LngLat } from 'maplibre-gl';
 import polylabel from 'polylabel';
@@ -207,25 +205,14 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param fts features
      */
     public onFlurstueckChange(fts: FeatureCollection): void {
-        const latLng = this.pointOnPolygon(fts.features[0]);
-        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
-        this.latLngChange.emit(new LngLat(latLng[0], latLng[1]));
-    }
-
-    /**
-     * pointOnPolygon returns a point (transformed to wgs84) guranteed to be on the feature
-     * @param ft feature
-     * @returns returns wgs84 point
-     */
-    public pointOnPolygon(ft: Feature): number[] {
         let point: number[];
 
-        switch (ft.geometry.type) {
+        switch (fts.features[0].geometry.type) {
             case 'Polygon':
-                point = polylabel(ft.geometry.coordinates, 0.0001, false);
+                point = polylabel(fts.features[0].geometry.coordinates, 0.0001, false);
                 break;
             case 'MultiPolygon':
-                const p = ft.geometry.coordinates.map(f => ({
+                const p = fts.features[0].geometry.coordinates.map(f => ({
                     type: 'Polygon',
                     coordinates: f,
                 })).sort((i, j) => area(i) - area(j)).shift();
@@ -233,16 +220,8 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 point = polylabel(p.coordinates, 0.0001, false);
                 break
         }
-
-        const wgs84_point = this.transformCoordinates(
-            epsg['EPSG:3857'],
-            epsg['EPSG:4326'],
-            [
-                point[0],
-                point[1]
-            ]
-        );
-        return wgs84_point;
+        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        this.latLngChange.emit(new LngLat(point[0], point[1]));
     }
 
     /**
@@ -290,17 +269,5 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     public onFocus() {
         this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         this.latLngChange.emit(new LngLat(this.latLng.lng, this.latLng.lat));
-    }
-
-    /**
-     * transformCoordinates transforms coordinates from one projection to another projection with EPSG-Codes
-     * @param from projection from (EPSG-Code)
-     * @param to projection to (EPSG-Code)
-     * @param coord coordinate [x, y]
-     * @returns returns transformed coordinates
-     */
-    private transformCoordinates(from: string, to: string, coord: number[]): number[] {
-        const result = proj4(from, to).forward(coord);
-        return result;
     }
 }

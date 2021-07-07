@@ -45,7 +45,6 @@
         "bootstrap-icons": "^1.5.0",
         "core-js": "^3.15.2",
         "echarts": "^4.9.0",
-        "epsg": "^0.5.0",
         "fuse.js": "^6.4.6",
         "geojson": "^0.5.0",
         "hyphen": "^1.6.4",

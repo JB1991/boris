@@ -6,10 +6,9 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { Feature, FeatureCollection } from 'geojson';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { polygon } from '@turf/helpers';
-import { toWgs84 } from '@turf/projection';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import polylabel from 'polylabel';
+import area from '@turf/area';
 
 @Component({
     selector: 'power-bodenrichwertnummer-search',
@@ -83,14 +82,27 @@ export class BodenrichwertnummerSearchComponent {
     }
 
     /**
-     * pointOnPolygon returns a point on the given feature geometry in WGS84 coordinates
+     * pointOnPolygon returns a point on the given feature geometry
      * @param ft feature
      * @returns point
      */
     public pointOnPolygon(ft: Feature): number[] {
-        let poly = polygon(ft.geometry['coordinates']);
-        poly = toWgs84(poly);
-        return polylabel(poly.geometry.coordinates, 0.0001, false);
+        let point: number[];
+
+        switch (ft.geometry.type) {
+            case 'Polygon':
+                point = polylabel(ft.geometry.coordinates, 0.0001, false);
+                break;
+            case 'MultiPolygon':
+                const p = ft.geometry.coordinates.map(f => ({
+                    type: 'Polygon',
+                    coordinates: f,
+                })).sort((i, j) => area(i) - area(j)).shift();
+
+                point = polylabel(p.coordinates, 0.0001, false);
+                break
+        }
+        return point;
     }
 
     /**
