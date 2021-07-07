@@ -1,0 +1,16 @@
+# Static
+
+
+## Feedback
+
+Benutzer können uns über den Link "Rückmeldung geben" Feedback senden.
+Dieses wird über die dort stehende E-Mail-Adresse an den [Service Desk](https://gitlab.com/lgln/power.ni/power-frontend/-/issues/service_desk) in diesem Repository weitergeleitet und automatisch in ein Issue konvertiert.
+Wenn wir das Issue kommentieren, erhält der Benutzer die Antwort per Mail, sodass eine beidseitige Kommunikation möglich ist.
+Auch Screenshots können die Nutzer senden.
+
+Ein Nachteil ist, dass die Benutzer folgende Auto-Response erhalten: `Thank you for your support request! We are tracking your request as ticket #1, and will respond as soon as we can.`
+
+Die Auto-Response ist nur mit dem [kostenpflichtigen GitLab-Premium](https://about.gitlab.com/pricing/) über [E-Mail-Templates](https://gitlab.com/help/user/project/service_desk#using-customized-email-templates) änderbar.
+
+Über die Datei `.gitlab/issue_templates/Feedback.md` wird neuen Issues automatisch das Label "Feedback" hinzugefügt.
+Per [GitLab Quick Actions](https://docs.gitlab.com/ee/user/project/quick_actions.html) können bei Bedarf weitere Aktionen automatisch ausgeführt werden.
