@@ -71,13 +71,12 @@ describe('BodenrichwertnummerSearchComponent', () => {
         expect(component.brwNummer).toBeUndefined();
     });
 
-    /* TODO: Test defekt
     it('searchBodenrichtwert should successfully call bodenrichtwertService', () => {
         spyOn(component.bodenrichtwertService, 'getFeatureByLatLonEntw').and.callThrough();
         const brwNummer = JSON.parse(JSON.stringify(brw));
         component.searchBodenrichtwert(brwNummer.features[0]);
         expect(component.bodenrichtwertService.getFeatureByLatLonEntw).toHaveBeenCalledTimes(1);
-    });*/
+    });
 
     it('handleHttpResponse should handle and parse response', () => {
         spyOn(component.bodenrichtwertService, 'updateFeatures');
