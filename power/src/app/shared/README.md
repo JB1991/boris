@@ -1,17 +1,26 @@
 # Shared
 
+Im Shared Modul befinden sich häufig genutzte Komponenten, die überall im Frontend benötigt werden. Es dient somit der einfachen wiederverwendbarkeit von Code, in dem dieser Code als Komponente hier ausgelagert wird.
 
-## Geosearch
 
+## Advanced Search
+
+TODO
+
+
+## Alertsmodul
+
+* Anzeigen von Fehlermeldungen an den Benutzer
 * Funktionen
-  * Adresssuche (Von Adresse zu Geokoordinaten)
-  * Reverse Geocoding (Von Geokoordinaten zu Adresse)
-* Verwendung in dem Modul Bodenrichtwerte
-* Weiterleitung der Anfragen per nginx Reverse Proxy an den BKG Geocoder (siehe Abhängigkeiten)
-* Abhängigkeiten:
-  * [BKG GeoCoder](https://www.bkg.bund.de/SharedDocs/Produktinformationen/BKG/DE/P-2015/150119-Geokodierung.html)
-  * [RxJS](https://angular.io/guide/rx-library)
-  * [GeoJSON](https://www.npmjs.com/package/geojson)
+  * Unterstützt success, danger, info und warning Meldungen
+  * Timeout frei einstellbar
+  * Maximal 4 Meldungen gleichzeitig zu sehen
+* Schnittstellen
+  * `AlertsService` zum Constructor hinzufügen
+  * `NewAlert`: Erstellen neuer Meldung
+* Abhängigkeiten
+  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
+  * [bootstrap-icons](https://icons.getbootstrap.com/)
 
 
 ## Authentifizierungsmodul
@@ -40,19 +49,17 @@
   * Keycloak
 
 
-## Alertsmodul
+## Geosearch
 
-* Anzeigen von Fehlermeldungen an den Benutzer
 * Funktionen
-  * Unterstützt success, danger, info und warning Meldungen
-  * Timeout frei einstellbar
-  * Maximal 4 Meldungen gleichzeitig zu sehen
-* Schnittstellen
-  * `AlertsService` zum Constructor hinzufügen
-  * `NewAlert`: Erstellen neuer Meldung
-* Abhängigkeiten
-  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
-  * [bootstrap-icons](https://icons.getbootstrap.com/)
+  * Adresssuche (Von Adresse zu Geokoordinaten)
+  * Reverse Geocoding (Von Geokoordinaten zu Adresse)
+* Verwendung in dem Modul Bodenrichtwerte
+* Weiterleitung der Anfragen per nginx Reverse Proxy an den BKG Geocoder (siehe Abhängigkeiten)
+* Abhängigkeiten:
+  * [BKG GeoCoder](https://www.bkg.bund.de/SharedDocs/Produktinformationen/BKG/DE/P-2015/150119-Geokodierung.html)
+  * [RxJS](https://angular.io/guide/rx-library)
+  * [GeoJSON](https://www.npmjs.com/package/geojson)
 
 
 ## Loadingscreenmodul
@@ -68,3 +75,33 @@
   * `setVisible`: Anzeigen oder verstecken des Ladebildschirmes
 * Abhängigkeiten
   * Keine
+
+
+## Markdown-Instructions
+
+TODO
+
+
+## Modal
+
+Eine fullscreen Modalkomponente fürs Frontend.
+
+
+## Modalmini
+
+Eine Modalkomponente für die Bootstrap Modals.
+
+
+## Pipes
+
+TODO
+
+
+## SEO
+
+Ein SEO Service für das Frontend.
+
+
+## Tagbox
+
+Eine Tag-Auswahl Komponente fürs Frontend.

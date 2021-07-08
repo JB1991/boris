@@ -1,5 +1,7 @@
 # Static
 
+Im Static Modul befinden sich einzelne allgemeine Seiten, die zu keinem anderen Modul dazu gehören.
+
 
 ## Feedback
 
@@ -14,3 +16,28 @@ Die Auto-Response ist nur mit dem [kostenpflichtigen GitLab-Premium](https://abo
 
 Über die Datei `.gitlab/issue_templates/Feedback.md` wird neuen Issues automatisch das Label "Feedback" hinzugefügt.
 Per [GitLab Quick Actions](https://docs.gitlab.com/ee/user/project/quick_actions.html) können bei Bedarf weitere Aktionen automatisch ausgeführt werden.
+
+
+## Login
+
+Die Loginseite leitet zum IAM-Provider weiter und verarbeitet die Accesstokens, nach erfolgreichem Login des Benutzers.
+
+
+## Logout
+
+Die Logoutseite leutet zum IAM-Provider weiter, um den Benutzer auszuloggen.
+
+
+## Notfound
+
+Eine statische 404 Not Found Seite vom Frontend.
+
+
+## OGC-Services
+
+Eine statische Informationsseite über die OGC Datendienste des LGLN.
+
+
+## Start
+
+Die statische Startseite / Landingpage vom Frontend.

@@ -19,7 +19,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    ```
 5. docker ([Linux](https://docs.docker.com/engine/install/ubuntu/) | [Windows](https://docs.docker.com/docker-for-windows/install/))
 
-## Lokal starten
+## Ausführen
 
 1. Projekt klonen
    ```
@@ -104,7 +104,7 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    npm run prerender
    ```
 
-## Docker-Container lokal erstellen
+## Docker-Container
 
 1. Prerendering ausführen (siehe oben)
 
@@ -118,9 +118,12 @@ Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesverme
    docker run -it --rm -p 8080:8081 power-frontend:latest
    ```
 
-## Coding Guideline
-Die Programmier-Richtlinie für dieses Projekt ist hier zu finden:
-[Coding Guideline - Angular-Frontend](https://gitlab.com/lgln/power.ni/coding-guidelines/angular-frontend)
+## Coding Guidelines
+Die Programmier-Richtlinien für dieses Projekt sind hier zu finden:
+- [Allgemeine Richtlinien](https://gitlab.com/lgln/power.ni/coding-guidelines/allgemein)
+- [Angular und TypeScript](https://gitlab.com/lgln/power.ni/coding-guidelines/angular-frontend)
+- [Barrierefreiheit](https://gitlab.com/lgln/power.ni/coding-guidelines/accessibility)
+- [Suchmaschinenoptimierung](https://gitlab.com/lgln/power.ni/coding-guidelines/seo)
 
 ## Konfiguration
 
