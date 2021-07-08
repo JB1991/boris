@@ -4,8 +4,7 @@
 [![coverage report](https://gitlab.com/lgln/power.ni/power-frontend/badges/dev/coverage.svg)](https://gitlab.com/lgln/power.ni/power-frontend/-/commits/dev)
 
 In diesem Projekt wird an einer Plattform zur Visualisierung von Wertermittlungsinformationen gearbeitet.
-Diese Plattform wird als Single-Page-Application (SPA) realisiert, die weitere Dienste (für z.B. Daten oder
-Geokodierung) einbindet.
+Diese Plattform wird als Single-Page-Application (SPA) realisiert, die weitere Dienste (für z.B. Daten oder Geokodierung) einbindet.
 
 Entwickelt wird dieses Projekt vom Landesamt für Geoinformation und Landesvermessung Niedersachsen (LGLN) - Landesvermessung und Geobasisinformationen - Landesbetrieb - Fachgebiet 223 - Anwendungsentwicklung Wertermittlungs- u. Geschäftsinformationen.
 
