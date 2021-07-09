@@ -662,6 +662,16 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                             lng: 9.7557494003822,
                             properties: {display: 130},
                         },
+                        {
+                            lat: 52.43336837635533,
+                            lng: 9.715375393126635,
+                            properties: { brw: 130 },
+                        },
+                        {
+                            lat: 52.48606574248538,
+                            lng: 9.726679369115345,
+                            properties: { brw: 130 },
+                        },
                     ]),
                     'baulandSource');
             } else {
