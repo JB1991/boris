@@ -21,12 +21,12 @@ export class GmbofflineComponent implements OnInit {
     changeTitle() {
         if (this.mode === 'gmb') {
             this.seo.setTitle($localize`Grundstücksmarktberichte (Archiv) - Immobilienmarkt.NI`);
-            this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Grundstücksmarktberichte der Landkreise von Niedersachsen` });
-            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktberichte, Landkreis` });
+            this.seo.updateTag({ name: 'description', content: $localize`Grundstücksmarktberichte geben einen fundierten Einblick in das Geschehen am Grundstücksmarkt, insbesondere über Umsätze, Preisentwicklungen und Preisniveau in den Teilmärkten.` });
+            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Grundstücksmarktbericht, Landkreis, Download, Grundstücksmarkt, Grundstück, Entwicklung, Umsatz, Bauland, Bodenrichtwert, Haus, Wohnung, Miete` });
         } else if (this.mode === 'lmb') {
             this.seo.setTitle($localize`Landesgrundstücksmarktberichte (Archiv) - Immobilienmarkt.NI`);
-            this.seo.updateTag({ name: 'description', content: $localize`Gebührenfreier Zugriff auf die Landesgrundstücksmarktberichte von Niedersachsen` });
-            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktberichte` });
+            this.seo.updateTag({ name: 'description', content: $localize`Der Landesgrundstücksmarktbericht gibt einen Überblick über Immobilienverkäufe in Niedersachsen. Er ist das Ergebnis der Auswertung sämtlicher Grundstückskaufverträge durch die Gutachterausschüsse für Grundstückswerte.` });
+            this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Landesgrundstücksmarktbericht, Download, Grundstücksmarkt, Grundstück, Entwicklung, Umsatz, Bauland, Bodenrichtwert, Haus, Wohnung, Miete` });
         }
     }
 

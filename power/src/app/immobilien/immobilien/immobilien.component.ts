@@ -57,7 +57,7 @@ export class ImmobilienComponent implements OnInit {
         private seo: SEOService
     ) {
         this.seo.setTitle($localize`Immobilienpreisindex - Immobilienmarkt.NI`);
-        this.seo.updateTag({ name: 'description', content: $localize`Der Immobilienpreisindex bildet die Preisentwicklung von Eigenheimen und Eigentumswohnungen in Niedersachsen ab` });
+        this.seo.updateTag({ name: 'description', content: $localize`Zur Darstellung der Preisentwicklung von Eigenheimen und Eigentumswohnungen leitet der obere Gutachterausschuss den niedersächsischen Immobilienpreisindex (NIPIX) ab.` });
         this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Immobilienpreisindex, NIPIX, Preisentwicklung, Wohnungsmarktregion, Eigenheim, Eigentumswohnung` });
 
         if (!isPlatformBrowser(this.platformId)) {
