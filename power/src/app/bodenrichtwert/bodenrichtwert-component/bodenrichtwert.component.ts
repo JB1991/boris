@@ -175,8 +175,8 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
         private seo: SEOService
     ) {
         this.seo.setTitle($localize`Bodenrichtwerte - Immobilienmarkt.NI`);
-        this.seo.updateTag({ name: 'description', content: $localize`Die Bodenrichtwerte für Niedersachsen und Bremen werden mit zeitlicher Entwicklung dargestellt` });
-        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Bremen, Bremerhaven, Wertermittlung, Bodenrichtwerte, BORIS, Bo­den­richt­wert­zo­ne` });
+        this.seo.updateTag({ name: 'description', content: $localize`Bodenrichtwerte für Bauland und landwirtschaftliche Nutzflächen werden flächendeckend in BORIS.NI für das Land Niedersachsen und Bremen kostenfrei zur Verfügung gestellt.` });
+        this.seo.updateTag({ name: 'keywords', content: $localize`Immobilienmarkt, Niedersachsen, Wertermittlung, Bodenrichtwertinformationssystem, Bodenrichtwert, BORIS.NI, BORIS, Bauland, Landwirtschaft, Nutzfläche, Bo­den­richt­wert­zo­ne, Bremen` });
 
         this.addressSubscription = this.geosearchService.getFeatures().subscribe(adr => {
             this.address = adr;
