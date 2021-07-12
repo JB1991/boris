@@ -5,7 +5,23 @@ Im Shared Modul befinden sich häufig genutzte Komponenten, die überall im Fron
 
 ## Advanced Search
 
-TODO
+* Verwendung in dem Modul Bodenrichtwerte
+* Komponenten:
+    * `AdvancedSearchComponent` Tab-Menü auf Basis des Modalmini zum Auswählen einer Suchfunktion
+    * `BodenrichwertnummerSearchComponent` Formular zur Eingabe/Suche einer Bodenrichtwertnummer
+    * `FlurstueckSearchComponent` Formular zur Eingabe/Suche
+    * `AlkisWfsService` zur Abfrage von Flurstücken (Flurstückskennzeichen oder LatLng-Koordinaten)
+    * `GemarkungWfsService` zur Abfrage von Gemarkungen (Gemarkungsschlüssel oder Suchtext)
+* Funktionen:
+    * Suche einer Bodenrichtwertzone über die Bodenrichtwertnummer
+    * Suche eines Flurstücks über Gemarkung, Flur, Flurstücksnummer
+    * Suche einer Gemarkung über Gemarkungsschlüssel oder Gemarkungs- bzw. Gemeindenamen
+* Abhängigkeiten:
+    * [RxJS](https://angular.io/guide/rx-library)
+    * [GeoJSON](https://www.npmjs.com/package/geojson)
+    * [Turf/area](https://www.npmjs.com/package/@turf/area)
+    * [Fuse](https://www.npmjs.com/package/fuse.js) 
+    * [Polylable](https://github.com/mapbox/polylabel)
 
 
 ## Alertsmodul
@@ -94,7 +110,9 @@ Eine Modalkomponente für die Bootstrap Modals.
 
 ## Pipes
 
-TODO
+Angular Pipes:
+* `HyphenatePipe` führt für einen String die Silbentrennung durch
+* `SvgPipe` TODO
 
 
 ## SEO
