@@ -1,7 +1,6 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '@env/environment';
-import * as exp from 'constants';
 
 import { SEOService } from './seo.service';
 
