@@ -27,7 +27,7 @@ export class GemarkungWfsService {
     }
 
     /**
-     * Returns the features as an Observable
+     * @returns features as an Observable
      */
     public getFeatures(): Observable<Feature> {
         return this.features.asObservable();
@@ -151,6 +151,7 @@ export class GemarkungWfsService {
     /**
      * Handling of HTTP errors by logging it to the console
      * @param error HTTP error to be handled
+     * @returns observable error
      */
     private static handleError(error: HttpErrorResponse) {
         return throwError(error);

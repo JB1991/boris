@@ -25,7 +25,7 @@ export class AlkisWfsService {
     }
 
     /**
-     * Returns the features as an Observable
+     * @returns eatures as an Observable
      */
     public getFeatures(): Observable<FeatureCollection> {
         return this.features.asObservable();
@@ -83,9 +83,9 @@ export class AlkisWfsService {
 
     /**
      * Use geo coordinates to get Flurstueck feature
-     * @param lng
+     * @param lng Longitude
      * @param lat Latitude
-     * @param lon Longitude
+     * @returns observable feature collection
      */
     public getFlurstueckfromCoordinates(lng: number, lat: number): Observable<FeatureCollection> {
         const filter = '<wfs:GetFeature ' +
@@ -115,6 +115,7 @@ export class AlkisWfsService {
     /**
      * Handling of HTTP errors by logging it to the console
      * @param error HTTP error to be handled
+     * @returns observable error
      */
     private static handleError(error: HttpErrorResponse) {
         return throwError(error);

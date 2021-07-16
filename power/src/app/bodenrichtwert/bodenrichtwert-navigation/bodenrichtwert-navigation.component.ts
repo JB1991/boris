@@ -195,7 +195,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      */
     public onAddressChange(feature: Feature): void {
         this.latLngChange.emit(new LngLat(feature?.geometry['coordinates'][0], feature?.geometry['coordinates'][1]));
-        if (!this.latLng) {
+        if (this.zoom < this.determineZoomFactor(this.teilmarkt)) {
             this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         }
     }
@@ -220,7 +220,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                 point = polylabel(p.coordinates, 0.0001, false);
                 break
         }
-        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        if (this.zoom < this.determineZoomFactor(this.teilmarkt)) {
+            this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        }
         this.latLngChange.emit(new LngLat(point[0], point[1]));
     }
 

@@ -3,7 +3,7 @@ import { GeolocateControl, LngLat, LngLatBounds, Map, ScaleControl, MapMouseEven
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
-import { FeatureCollection, Polygon } from 'geojson';
+import { Polygon } from 'geojson';
 import { DynamicLabellingService } from './dynamic-labelling.service';
 
 /* eslint-disable max-lines */
@@ -190,7 +190,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             if (changes.latLng && changes.latLng.currentValue !== undefined) {
                 this.marker.setLngLat(this.latLng).addTo(this.map);
                 if (this.expanded) {
-                    this.flyTo();
+                    this.fly();
                 }
             }
             // collapsed
@@ -204,7 +204,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             // expanded
             if (changes.expanded && this.latLng) {
                 if (changes.expanded.currentValue) {
-                    this.flyTo();
+                    this.fly();
                 }
             }
             // resetMapFired triggered by navigation resetMap only if details are collapsed
@@ -496,7 +496,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         if (this.latLng) {
             this.map.resize();
             this.marker.setLngLat(this.latLng).addTo(this.map);
-            this.flyTo();
+            this.fly();
         }
 
         // add handler
@@ -559,7 +559,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /**
      * flyTo executes a flyTo for a given latLng
      */
-    public flyTo() {
+    public fly() {
         this.map.flyTo({
             center: [this.latLng.lng, this.latLng.lat],
             zoom: this.zoom,
@@ -582,7 +582,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
      * @param event MapEvent with coordinates
      */
     public onMapClickEvent(event: MapMouseEvent | MapTouchEvent): void {
-        if (!this.latLng) {
+        if (this.zoom < this.determineZoomFactor()) {
             this.zoomChange.emit(this.determineZoomFactor());
         }
         if (event.lngLat) {

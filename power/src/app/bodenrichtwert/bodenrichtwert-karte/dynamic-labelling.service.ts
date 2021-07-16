@@ -4,7 +4,6 @@ import area from '@turf/area';
 import intersect from '@turf/intersect';
 import union from '@turf/union';
 import { Feature } from 'geojson';
-import { MapboxGeoJSONFeature } from 'maplibre-gl';
 import polylabel from 'polylabel';
 import pointInPolygon from '@turf/boolean-point-in-polygon'
 
