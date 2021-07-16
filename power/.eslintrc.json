@@ -74,6 +74,17 @@
                     "error",
                     "always"
                 ],
+                "no-console": [
+                    "warn",
+                    {
+                        "allow": [
+                            "warn",
+                            "error",
+                            "trace",
+                            "info"
+                        ]
+                    }
+                ],
                 "@typescript-eslint/no-empty-function": "off",
                 "@typescript-eslint/no-var-requires": "off",
                 "@typescript-eslint/consistent-type-assertions": "error",

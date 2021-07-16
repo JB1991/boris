@@ -11,13 +11,13 @@ import { environment } from '@env/environment';
     providedIn: 'root'
 })
 export class SEOService {
-    private BASE_URL = 'https://immobilienmarkt.niedersachsen.de';
+    public BASE_URL = 'https://immobilienmarkt.niedersachsen.de';
     public URL_PARAMETER: string[] = [];
 
     constructor(
         public title: Title,
         public meta: Meta,
-        @Inject(DOCUMENT) private doc: Document,
+        @Inject(DOCUMENT) public doc: Document,
         @Inject(LOCALE_ID) public locale: string,
         public router: Router
     ) {
@@ -127,6 +127,7 @@ export class SEOService {
      * @returns True of robots are allowed to index current page
      */
     public getAllowRobots(): boolean {
+        /* istanbul ignore next */
         return this.meta.getTag('name="robots"')?.content === 'index,follow';
     }
 

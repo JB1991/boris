@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
         // check if user is authenticated
         if (this.auth.IsAuthenticated()) {
-            console.log('User is authenticated');
+            console.info('User is authenticated');
             this.router.navigate([redirect], { replaceUrl: true });
             return;
         }
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
 
             // check if user is authenticated
             if (this.auth.IsAuthenticated()) {
-                console.log('User has authenticated');
+                console.info('User has authenticated');
                 this.router.navigate([redirect], { replaceUrl: true });
                 return;
             }

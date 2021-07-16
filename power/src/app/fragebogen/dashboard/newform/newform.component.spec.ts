@@ -39,7 +39,6 @@ describe('Fragebogen.Dashboard.Newform.NewformComponent', () => {
         fixture = TestBed.createComponent(NewformComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');

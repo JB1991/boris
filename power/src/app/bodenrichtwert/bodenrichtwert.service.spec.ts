@@ -60,6 +60,16 @@ describe('Bodenrichtwert.BodenrichtwertService', () => {
         const request = httpTestingController.expectOne(url);
         request.flush(featureByLatLonEntw);
     });
+
+    it('getFeatureByBRWNumber should return a feature', (done) => {
+        service.getFeatureByBRWNumber('1234', date.toString(), { value: entw, text: 'Bauland', hexColor: '#ffffffff' }).subscribe(next => {
+            expect(next).toEqual(featureByLatLonEntw);
+            expect(next.type).toEqual('FeatureCollection');
+            done();
+        });
+        const request = httpTestingController.expectOne(url);
+        request.flush(featureByLatLonEntw);
+    });
 });
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */

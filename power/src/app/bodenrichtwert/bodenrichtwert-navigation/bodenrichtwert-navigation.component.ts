@@ -6,12 +6,10 @@ import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlertsService } from '@app/shared/alerts/alerts.service';
 import { Feature, FeatureCollection } from 'geojson';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';
-import pointOnFeature from '@turf/point-on-feature';
-import { polygon } from '@turf/helpers';
-import proj4 from 'proj4';
-import * as epsg from 'epsg';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 import { LngLat } from 'maplibre-gl';
+import polylabel from 'polylabel';
+import area from '@turf/area';
 
 /* eslint-disable max-lines */
 @Component({
@@ -104,7 +102,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
                     this.bodenrichtwertService.updateFeatures(res);
                 },
                 err => {
-                    console.log(err);
+                    console.error(err);
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
                 }
             );
@@ -120,7 +118,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
             .subscribe(
                 res => this.geosearchService.updateFeatures(res.features[0]),
                 err => {
-                    console.log(err);
+                    console.error(err);
                     this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
                 }
             );
@@ -135,7 +133,7 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
         this.alkisWfsService.getFlurstueckfromCoordinates(lng, lat).subscribe(
             res => this.alkisWfsService.updateFeatures(res),
             err => {
-                console.log(err);
+                console.error(err);
                 this.alerts.NewAlert('danger', $localize`Laden fehlgeschlagen`, err.message);
             }
         );
@@ -207,28 +205,23 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * @param fts features
      */
     public onFlurstueckChange(fts: FeatureCollection): void {
-        const latLng = this.pointOnPolygon(fts.features[0]);
-        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
-        this.latLngChange.emit(new LngLat(latLng[0], latLng[1]));
-    }
+        let point: number[];
 
-    /**
-     * pointOnPolygon returns a point (transformed to wgs84) guranteed to be on the feature
-     * @param ft feature
-     * @returns returns wgs84 point
-     */
-    public pointOnPolygon(ft: Feature): number[] {
-        const poly = polygon(ft.geometry['coordinates']);
-        const point = pointOnFeature(poly);
-        const wgs84_point = this.transformCoordinates(
-            epsg['EPSG:3857'],
-            epsg['EPSG:4326'],
-            [
-                point.geometry.coordinates[0],
-                point.geometry.coordinates[1]
-            ]
-        );
-        return wgs84_point;
+        switch (fts.features[0].geometry.type) {
+            case 'Polygon':
+                point = polylabel(fts.features[0].geometry.coordinates, 0.0001, false);
+                break;
+            case 'MultiPolygon':
+                const p = fts.features[0].geometry.coordinates.map(f => ({
+                    type: 'Polygon',
+                    coordinates: f,
+                })).sort((i, j) => area(i) - area(j)).shift();
+
+                point = polylabel(p.coordinates, 0.0001, false);
+                break
+        }
+        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        this.latLngChange.emit(new LngLat(point[0], point[1]));
     }
 
     /**
@@ -276,17 +269,5 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
     public onFocus() {
         this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
         this.latLngChange.emit(new LngLat(this.latLng.lng, this.latLng.lat));
-    }
-
-    /**
-     * transformCoordinates transforms coordinates from one projection to another projection with EPSG-Codes
-     * @param from projection from (EPSG-Code)
-     * @param to projection to (EPSG-Code)
-     * @param coord coordinate [x, y]
-     * @returns returns transformed coordinates
-     */
-    private transformCoordinates(from: string, to: string, coord: number[]): number[] {
-        const result = proj4(from, to).forward(coord);
-        return result;
     }
 }

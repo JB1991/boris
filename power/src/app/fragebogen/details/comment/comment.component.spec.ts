@@ -34,7 +34,6 @@ describe('Fragebogen.Details.CommentComponent', () => {
         fixture = TestBed.createComponent(CommentComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         fixture.detectChanges();
     }));

@@ -64,7 +64,7 @@ export class AlkisWfsService {
             'xmlns:wfs="http://www.opengis.net/wfs" ' +
             'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
             'service="WFS" version="1.1.0" outputFormat="JSON">' +
-            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:3857">' +
+            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:4326">' +
             '<ogc:Filter>' +
             '<ogc:PropertyIsEqualTo>' +
             '<ogc:PropertyName>flurstueckskennzeichen</ogc:PropertyName>' +
@@ -93,7 +93,7 @@ export class AlkisWfsService {
             'xmlns:wfs="http://www.opengis.net/wfs" ' +
             'xmlns:gml="http://www.opengis.net/gml/3.2" ' +
             'service="WFS" version="1.1.0" outputFormat="JSON">' +
-            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:3857">' +
+            '<wfs:Query typeName="ax_flurstueck_nds" srsName="EPSG:4326">' +
             '<ogc:Filter>' +
             '<ogc:Intersects>' +
             '<ogc:PropertyName>wkb_geometry</ogc:PropertyName>' +

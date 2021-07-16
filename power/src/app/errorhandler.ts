@@ -1,7 +1,5 @@
 import { ErrorHandler, Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Platform } from '@angular/cdk/platform';
 
@@ -17,7 +15,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         public alerts: AlertsService,
         public platform: Platform,
         public us: UpdateService,
-	private http: HttpClient) { }
+        public http: HttpClient) { }
 
     handleError(error: Error): void {
         // check if app needs reload
@@ -33,11 +31,12 @@ export class GlobalErrorHandler implements ErrorHandler {
         // craft error
         let msgStr = location.href + '\n' + navigator.userAgent + '\n' + environment.config.version.branch + '/' + environment.config.version.version;
         for (const err of this.errorList) {
-            msgStr += '\n\n' + err.toString() + '\n' + err?.stack;
+            msgStr += '\n\n' + err.toString() + '\n' + /* istanbul ignore next */ err?.stack;
         }
 
         // Post data to Bakend
-        this.http.post<any>('/report', msgStr).subscribe(data => {
+        /* istanbul ignore next */
+        this.http.post<any>('/report', msgStr)?.subscribe(data => {
         })
 
         // Encode Error Message

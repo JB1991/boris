@@ -41,7 +41,6 @@ describe('Fragebogen.Editor.FormularSettingsComponent', () => {
         fixture = TestBed.createComponent(FormularSettingsComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         spyOn(component.alerts, 'NewAlert');
         fixture.detectChanges();

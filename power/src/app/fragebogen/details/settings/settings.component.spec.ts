@@ -32,7 +32,6 @@ describe('Fragebogen.Details.SettingsComponent', () => {
         fixture = TestBed.createComponent(SettingsComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         fixture.detectChanges();
     }));

@@ -32,7 +32,6 @@ describe('Static.Start.StartComponent', () => {
         fixture = TestBed.createComponent(StartComponent);
         component = fixture.componentInstance;
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         spyOn(component.router, 'navigate');
         spyOn(component.alerts, 'NewAlert');

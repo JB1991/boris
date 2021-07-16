@@ -1,3 +1,21 @@
+# Immobilienpreisindex
+
+* Darstellung des Immobilienpreisindexes als Grafik
+* Darstellung der Wohnungsmarktregionen als Karte mit Auswahlfunktion
+* Funktionen
+  * Auswahl der darzustellenden Indexreihen nach Wohnungsmarktregion und Indextyp
+  * Aggregation mehrerer Wohnungsmarktregionen
+  * Individuelle Bestimmung der anzuzeigenden Regionen / Aggregationen
+* Details zur Konfiguration sind in der Datei [README.md](power/src/app/immobilien/immobilien/README.md) zu finden.
+* Datenquellen
+  * Konfiguration (cfg.json)
+  * Karte als GeoJSON mit Nipix-Daten als property (erzeugt von GeoServer mit PostGIS Backend)
+* Abhängigkeiten
+  * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap/#/)
+  * [ngx-bootstrap-icons](https://www.npmjs.com/package/ngx-bootstrap-icons)
+  * [ECharts](https://www.npmjs.com/package/echarts)
+
+
 ## Strukturen und Konfiguration der NiPix Applikation
 
 ### Abhängigkeiten
@@ -8,10 +26,10 @@
 ### Projektstruktur
 Die Anwendung besteht aus mehreren Quelldateien:
 *  [immobilien.component.ts](doc/immobilien.component.md) / immobilien.component.html / immobilien.component.scss<br>
-*Dieses sind die Hauptdateien der Anwendung und beinhaltet den Grundaufbau sowie Eventhandler.* 
+*Dieses sind die Hauptdateien der Anwendung und beinhaltet den Grundaufbau sowie Eventhandler.*
 
 *  [immobilien.chatoptions.ts](doc/immobilien.chatoptions.md)<br>
-*Diese Datei stellt die Konfiguration der Echarts Komponente bereit und beinhaltet hierfür die Funktionen "getMapOptions", "getChartOptions" und "getChartOptionsMerge".<br> 
+*Diese Datei stellt die Konfiguration der Echarts Komponente bereit und beinhaltet hierfür die Funktionen "getMapOptions", "getChartOptions" und "getChartOptionsMerge".<br>
 Die einzelnen Konfigurationsobjekte werden hierbei aus folgenden Dateien entnommen:*
 
 *  immobilien.chartoptions-mapoptions.ts<br>
@@ -193,8 +211,8 @@ Im Quellcode der NiPix Applikation haben Sie die Möglichkeit einen URL zu einer
 *  "selections" (Array of Objects): Geordnete Liste von möglichen Auswahlkategorien unter Angabe des Namens, des Typs
     - single: Auswahl einzelner Regionen (siehe preset single)
     - multi: Auswahl mehrerer Presets als aggr. Kurve
-    - multiIndex: wie multi, jedoch mit zusätzlicher Wahl des Index-Types 
-    - multiSelect: wie multi, jedoch mit Auswahl der einzelnen Regionen (ähnl. single) 
+    - multiIndex: wie multi, jedoch mit zusätzlicher Wahl des Index-Types
+    - multiSelect: wie multi, jedoch mit Auswahl der einzelnen Regionen (ähnl. single)
  sowie der verwendeten Presets:
 
 ```
@@ -218,8 +236,8 @@ Im Quellcode der NiPix Applikation haben Sie die Möglichkeit einen URL zu einer
 			"preset": ["1", "2", "3", "4", "5"],
 			"selected": 1
 		}
-	] 
-```	
+	]
+```
 
 #### Gemeinden CSV Datei
 
@@ -229,7 +247,7 @@ Die Gemeinden CSV Datei hat folgendes Format:
 
 *  keine Anführungszeichen oder ähnliches zum einfassen des Feldinhaltes
 
-```	
+```
 	AGS;Geme_Bezeichnung;WOMA_ID
 	3462001;Blomberg;4101
 	3462002;Dunum;4101

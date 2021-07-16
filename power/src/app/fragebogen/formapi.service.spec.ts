@@ -44,7 +44,6 @@ describe('Fragebogen.FormAPIService', () => {
             ]
         });
 
-        spyOn(console, 'log');
         spyOn(console, 'error');
         service = TestBed.inject(FormAPIService);
         httpTestingController = TestBed.inject(HttpTestingController);
