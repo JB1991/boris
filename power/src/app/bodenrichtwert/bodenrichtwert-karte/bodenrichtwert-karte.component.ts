@@ -633,9 +633,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         const landwirtschaftsSource = this.map.getSource('landwirtschaftSource') as GeoJSONSource;
         const baulandSource = this.map.getSource('baulandSource') as GeoJSONSource;
 
-        if (this.teilmarkt.value.includes('B')) {
+        if (this.teilmarkt.value.includes('B') && baulandSource) {
 
-            if (landwirtschaftsSource && landwirtschaftsSource.type === 'geojson') {
+            if (landwirtschaftsSource) {
                 landwirtschaftsSource.setData({
                     type: 'FeatureCollection',
                     features: []
@@ -664,7 +664,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 type: 'FeatureCollection',
                 features: features,
             });
-        } else {
+        } else if (landwirtschaftsSource) {
 
             if (baulandSource && baulandSource.type === 'geojson') {
                 baulandSource.setData({
