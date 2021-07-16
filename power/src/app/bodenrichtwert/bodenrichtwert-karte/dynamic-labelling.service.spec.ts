@@ -1,11 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
 import { DynamicLabellingService } from './dynamic-labelling.service';
-import { MapboxGeoJSONFeature } from 'maplibre-gl';
 import { Feature, Point } from 'geojson';
-import * as exp from 'constants';
 
-const f1: MapboxGeoJSONFeature = {
+const f1: Feature = {
     type: 'Feature',
     geometry: {
         type: 'Polygon',
@@ -21,17 +19,10 @@ const f1: MapboxGeoJSONFeature = {
         objid: 'DENIBR4321B04151',
         stag: '2020-12-31',
         wnum: '04304151',
-    },
-    layer: {
-        id: 'brwzonen',
-        type: 'line',
-    },
-    source: '',
-    sourceLayer: '',
-    state: {},
+    }
 }
 
-const f2: MapboxGeoJSONFeature = {
+const f2: Feature = {
     type: 'Feature',
     geometry: {
         type: 'Polygon',
@@ -47,17 +38,10 @@ const f2: MapboxGeoJSONFeature = {
         objid: 'DENIBR4321B04151',
         stag: '2020-12-31',
         wnum: '123',
-    },
-    layer: {
-        id: 'brwzonen',
-        type: 'line',
-    },
-    source: '',
-    sourceLayer: '',
-    state: {},
+    }
 }
 
-const f3: MapboxGeoJSONFeature = {
+const f3: Feature = {
     type: 'Feature',
     geometry: {
         type: 'MultiPolygon',
@@ -73,14 +57,7 @@ const f3: MapboxGeoJSONFeature = {
         objid: 'DENIBR4321B04151',
         stag: '2020-12-31',
         wnum: '123',
-    },
-    layer: {
-        id: 'brwzonen',
-        type: 'line',
-    },
-    source: '',
-    sourceLayer: '',
-    state: {},
+    }
 }
 
 const p1: Feature<Point> = {

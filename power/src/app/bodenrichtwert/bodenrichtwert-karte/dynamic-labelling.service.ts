@@ -137,7 +137,7 @@ export class DynamicLabellingService {
      * @returns features
      */
     public dynamicLabelling(
-        input: MapboxGeoJSONFeature[],
+        input: Feature[],
         bound: Polygon,
         idGetter: (n: Feature) => string,
         doNotDisplayGetter: (n: Feature) => string,
