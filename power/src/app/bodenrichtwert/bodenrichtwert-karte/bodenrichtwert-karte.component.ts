@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { GeolocateControl, LngLat, LngLatBounds, Map, ScaleControl, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource } from 'maplibre-gl';
+import { GeolocateControl, LngLat, LngLatBounds, Map, ScaleControl, MapMouseEvent, MapTouchEvent, Marker, NavigationControl, VectorSource, GeoJSONSource } from 'maplibre-gl';
 import BodenrichtwertKartePitchControl from '@app/bodenrichtwert/bodenrichtwert-karte/bodenrichtwert-karte-pitch-control';
 import { environment } from '@env/environment';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
-import { FeatureCollection } from 'geojson';
+import { FeatureCollection, Polygon } from 'geojson';
 import { DynamicLabellingService } from './dynamic-labelling.service';
 
 /* eslint-disable max-lines */
@@ -118,16 +118,6 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         type: 'vector',
         tiles: [this.baseUrl + this.ndsFstTiles],
         bounds: this.ndsBounds,
-    };
-
-    public baulandData: FeatureCollection = {
-        type: 'FeatureCollection',
-        features: []
-    };
-
-    public landwirtschaftData: FeatureCollection = {
-        type: 'FeatureCollection',
-        features: []
     };
 
     @Input() latLng: LngLat;
@@ -260,8 +250,14 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /* istanbul ignore next */
     public loadMap() {
         this.map.addSource('ndsgeojson', { type: 'geojson', data: this.baseUrl + '/assets/boden/niedersachsen.geojson' });
-        this.map.addSource('baulandSource', { type: 'geojson', data: this.baulandData });
-        this.map.addSource('landwirtschaftSource', { type: 'geojson', data: this.landwirtschaftData });
+        this.map.addSource('baulandSource', { type: 'geojson', data: {
+            type: 'FeatureCollection',
+            features: []
+        } });
+        this.map.addSource('landwirtschaftSource', { type: 'geojson', data: {
+            type: 'FeatureCollection',
+            features: []
+        } });
 
         this.map.addSource('geoserver_br_br', this.bremenSource);
         this.map.addSource('geoserver_nds_br', this.ndsSource);
@@ -508,7 +504,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             this.onMapClickEvent(event);
         });
         this.map.on('moveend', () => {
-            this.onMoveEnd();
+            this.relabel();
         });
         this.map.on('rotateend', () => {
             this.onRotate();
@@ -615,82 +611,79 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     }
 
     /**
-     * onMoveEnd
+     * relabel
      */
-    public onMoveEnd() {
-        if (this.map) {
-            if (this.teilmarkt.value.includes('B')) {
+    public relabel() {
+        const mapSW = this.map.getBounds().getSouthWest();
+        const mapNE = this.map.getBounds().getNorthEast();
 
-                this.landwirtschaftData.features = [];
-                const source = this.map.getSource('landwirtschaftSource');
-                if (source && source.type === 'geojson') {
-                    source.setData(this.landwirtschaftData);
-                }
+        const mapViewBound: Polygon = {
+            type: 'Polygon',
+            coordinates: [
+                [
+                    [mapSW.lng, mapSW.lat],
+                    [mapSW.lng, mapNE.lat],
+                    [mapNE.lng, mapNE.lat],
+                    [mapNE.lng, mapSW.lat],
+                    [mapSW.lng, mapSW.lat]
+                ]
+            ]
+        };
 
-                this.dynamicLabellingService.dynamicLabelling(
-                    this.map,
-                    ['bauland', 'bauland_bremen'],
-                    (f) => f.properties.objektidentifikator,
-                    (f) => f.properties.wnum,
-                    [
-                        '04307171'
-                    ],
-                    this.dynamicLabellingService.generatePointFeatures([
-                        // wnum: 04307171 - ASB Umring Langenhagen
-                        {
-                            lat: 52.4333645400087,
-                            lng: 9.698011330059643,
-                            properties: {display: 130},
-                        },
-                        {
-                            lat: 52.43821616734934,
-                            lng: 9.656380976422724,
-                            properties: {display: 130},
-                        },
-                        {
-                            lat: 52.45547417953654,
-                            lng: 9.673021529653596,
-                            properties: {display: 130},
-                        },
-                        {
-                            lat: 52.46679714990489,
-                            lng: 9.719547336560112,
-                            properties: {display: 130},
-                        },
-                        {
-                            lat: 52.4723241988992,
-                            lng: 9.7557494003822,
-                            properties: {display: 130},
-                        },
-                        {
-                            lat: 52.43336837635533,
-                            lng: 9.715375393126635,
-                            properties: { brw: 130 },
-                        },
-                        {
-                            lat: 52.48606574248538,
-                            lng: 9.726679369115345,
-                            properties: { brw: 130 },
-                        },
-                    ]),
-                    'baulandSource');
-            } else {
+        const landwirtschaftsSource = this.map.getSource('landwirtschaftSource') as GeoJSONSource;
+        const baulandSource = this.map.getSource('baulandSource') as GeoJSONSource;
 
-                this.baulandData.features = [];
-                const source = this.map.getSource('baulandSource');
-                if (source && source.type === 'geojson') {
-                    source.setData(this.baulandData);
-                }
+        if (this.teilmarkt.value.includes('B')) {
 
-                this.dynamicLabellingService.dynamicLabelling(
-                    this.map,
-                    ['landwirtschaft', 'landwirtschaft_bremen'],
-                    (f) => f.properties.objektidentifikator,
-                    null,
-                    [],
-                    [],
-                    'landwirtschaftSource');
+            if (landwirtschaftsSource && landwirtschaftsSource.type === 'geojson') {
+                landwirtschaftsSource.setData({
+                    type: 'FeatureCollection',
+                    features: []
+                });
             }
+
+            const features = this.dynamicLabellingService.dynamicLabelling(
+                this.map.queryRenderedFeatures(null, {layers: ['bauland', 'bauland_bremen']}),
+                mapViewBound,
+                (f) => f.properties.objektidentifikator,
+                (f) => f.properties.wnum,
+                [
+                    '04307171'
+                ],
+                this.dynamicLabellingService.generatePointFeatures([
+                    // wnum: 04307171 - ASB Umring Langenhagen
+                    {lat: 52.4333645400087, lng: 9.698011330059643, properties: {display: 130}},
+                    {lat: 52.43821616734934, lng: 9.656380976422724, properties: {display: 130}},
+                    {lat: 52.45547417953654, lng: 9.673021529653596, properties: {display: 130}},
+                    {lat: 52.46679714990489, lng: 9.719547336560112, properties: {display: 130}},
+                    {lat: 52.4723241988992, lng: 9.7557494003822, properties: {display: 130}},
+                    {lat: 52.43336837635533, lng: 9.715375393126635, properties: {display: 130}},
+                    {lat: 52.48606574248538, lng: 9.726679369115345, properties: {display: 130}},
+                ]));
+            baulandSource.setData({
+                type: 'FeatureCollection',
+                features: features,
+            });
+        } else {
+
+            if (baulandSource && baulandSource.type === 'geojson') {
+                baulandSource.setData({
+                    type: 'FeatureCollection',
+                    features: []
+                });
+            }
+
+            const features = this.dynamicLabellingService.dynamicLabelling(
+                this.map.queryRenderedFeatures(null, {layers: ['landwirtschaft', 'landwirtschaft_bremen']}),
+                mapViewBound,
+                (f) => f.properties.objektidentifikator,
+                null,
+                [],
+                []);
+            landwirtschaftsSource.setData({
+                type: 'FeatureCollection',
+                features: features,
+            });
         }
     }
 

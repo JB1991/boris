@@ -1,11 +1,10 @@
-/* eslint-disable max-lines */
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import area from '@turf/area';
 import intersect from '@turf/intersect';
 import union from '@turf/union';
 import { Feature } from 'geojson';
-import { Map as MapBoxMap } from 'maplibre-gl';
+import { MapboxGeoJSONFeature } from 'maplibre-gl';
 import polylabel from 'polylabel';
 import pointInPolygon from '@turf/boolean-point-in-polygon'
 
@@ -41,7 +40,7 @@ export class DynamicLabellingService {
 
         const height = 3;
         width += 2;
-        const data = new Uint8ClampedArray(width * height * bytesPerPixel);
+        const data = new Uint8Array(width * height * bytesPerPixel);
 
         let p = 0;
         for (let h = 0; h < height; h++) {
@@ -129,41 +128,23 @@ export class DynamicLabellingService {
 
     /**
      * dynamicLabelling
-     * @param map mapbox map
-     * @param layerNames queried layers
+     * @param input input features
+     * @param bound bounding box
      * @param idGetter identification getter
      * @param doNotDisplayGetter get property
      * @param doNotDisplay ignore features with property from doNotDisplayGetter
-     * @param additional additional Features to add to source
-     * @param sourceName source to which the features are set
+     * @param additional additional features
+     * @returns features
      */
     public dynamicLabelling(
-        map: MapBoxMap,
-        layerNames: string[],
+        input: MapboxGeoJSONFeature[],
+        bound: Polygon,
         idGetter: (n: Feature) => string,
         doNotDisplayGetter: (n: Feature) => string,
         doNotDisplay: string[],
-        additional: Array<Feature<Point>>,
-        sourceName: string) {
+        additional: Array<Feature<Point>>): Array<Feature<Point>> {
         const featureMap: Record<string, Feature<Polygon>[]> = {};
-
-        const mapSW = map.getBounds().getSouthWest();
-        const mapNE = map.getBounds().getNorthEast();
-
-        const mapViewBound: Polygon = {
-            type: 'Polygon',
-            coordinates: [
-                [
-                    [mapSW.lng, mapSW.lat],
-                    [mapSW.lng, mapNE.lat],
-                    [mapNE.lng, mapNE.lat],
-                    [mapNE.lng, mapSW.lat],
-                    [mapSW.lng, mapSW.lat]
-                ]
-            ]
-        };
-
-        map.queryRenderedFeatures(null, { layers: layerNames }).forEach(f => {
+        input.forEach(f => {
             if (!f || !f.geometry) {
                 return;
             }
@@ -205,7 +186,7 @@ export class DynamicLabellingService {
         const features: Array<Feature<Point>> = [];
 
         additional.forEach(a => {
-            if (pointInPolygon(a, mapViewBound)) {
+            if (pointInPolygon(a, bound)) {
                 features.push(a);
             }
         })
@@ -235,7 +216,7 @@ export class DynamicLabellingService {
                 }
             });
 
-            const i = this.intersectPolygon(p, mapViewBound);
+            const i = this.intersectPolygon(p, bound);
 
             switch (i.type) {
                 case 'Polygon':
@@ -266,16 +247,7 @@ export class DynamicLabellingService {
             }
         });
 
-        const source = map.getSource(sourceName);
-
-        if (source.type === 'geojson') {
-            source.setData({
-                type: 'FeatureCollection',
-                features: features,
-            });
-        } else {
-            console.error('source is not of type geojson');
-        }
+        return features;
     }
 }
 
