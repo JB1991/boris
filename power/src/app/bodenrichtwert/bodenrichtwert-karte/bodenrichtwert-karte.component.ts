@@ -483,6 +483,9 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
         });
         this.map.addControl(geolocateControl, 'top-right');
         geolocateControl.on('geolocate', (evt) => {
+            if (this.zoom < this.determineZoomFactor()) {
+                this.zoomChange.emit(this.determineZoomFactor());
+            }
             this.latLngChange.emit(new LngLat(evt.coords.longitude, evt.coords.latitude));
         });
 
