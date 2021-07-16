@@ -48,7 +48,7 @@
         "fuse.js": "^6.4.6",
         "geojson": "^0.5.0",
         "hyphen": "^1.6.4",
-        "maplibre-gl": "^1.15.2",
+        "maplibre-gl": "=1.14.0",
         "ngx-bootstrap": "^6.2.0",
         "ngx-echarts": "^6.0.1",
         "ngx-showdown": "^6.0.0",
