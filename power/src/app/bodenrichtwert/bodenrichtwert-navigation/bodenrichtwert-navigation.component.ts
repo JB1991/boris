@@ -269,7 +269,9 @@ export class BodenrichtwertNavigationComponent implements OnChanges {
      * onFocus emits the current location to trigger a map focus
      */
     public onFocus() {
-        this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        if (this.zoom < this.determineZoomFactor(this.teilmarkt)) {
+            this.zoomChange.emit(this.determineZoomFactor(this.teilmarkt));
+        }
         this.latLngChange.emit(new LngLat(this.latLng.lng, this.latLng.lat));
     }
 }
