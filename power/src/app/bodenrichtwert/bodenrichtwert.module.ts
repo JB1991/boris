@@ -16,6 +16,7 @@ import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/b
 import { BodenrichtwertPdfComponent } from './bodenrichtwert-pdf/bodenrichtwert-pdf.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
+import { BodenrichtwertKarteService } from './bodenrichtwert-karte/bodenrichtwert-karte.service';
 import { SharedModule } from '../shared/shared.module';
 import { NutzungPipe } from './pipes/nutzung.pipe';
 import { BeitragPipe } from './pipes/beitrag.pipe';
@@ -70,7 +71,12 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         AlertModule.forRoot(),
         CollapseModule.forRoot()
     ],
-    providers: [BodenrichtwertService, DatePipe, DecimalPipe]
+    providers: [
+        BodenrichtwertService,
+        BodenrichtwertKarteService,
+        DatePipe,
+        DecimalPipe
+    ]
 })
 export class BodenrichtwertModule {
 }

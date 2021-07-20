@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DatePipe, DecimalPipe } from '@angular/common';
 
 import { SharedModule } from '@app/shared/shared.module';
+import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
 
 import { BodenrichtwertPdfComponent } from './bodenrichtwert-pdf.component';
 
@@ -27,6 +28,7 @@ describe('Bodenrichtwert.BodenrichtwertPdf.BodenrichtwertPdfComponent', () => {
                 SharedModule
             ],
             providers: [
+                BodenrichtwertKarteService,
                 DatePipe,
                 DecimalPipe
             ]

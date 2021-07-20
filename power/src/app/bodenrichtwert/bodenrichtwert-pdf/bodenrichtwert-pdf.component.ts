@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
+import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
 
 @Component({
@@ -24,6 +25,7 @@ export class BodenrichtwertPdfComponent {
     public testMode = false;
 
     constructor(
+        private mapService: BodenrichtwertKarteService,
         private decimalPipe: DecimalPipe,
         private datePipe: DatePipe,
     ) {
@@ -105,7 +107,7 @@ export class BodenrichtwertPdfComponent {
                         body: [
                             [
                                 {
-                                    image: 'lglnlogo',//this.mapService.getScreenshot(),
+                                    image: this.mapService.getScreenshot(),
                                     alignment: 'center',
                                     fit: [515, 515],
                                     link: location.href,
