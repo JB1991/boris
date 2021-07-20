@@ -77,8 +77,13 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         DatePipe,
         DecimalPipe,
         EntwicklungszustandPipe,
+        VerfahrensartPipe,
+        EntwicklungszusatzPipe,
         BeitragPipe,
         NutzungPipe,
+        BauweisePipe,
+        BodenartPipe,
+        UmlautCorrectionPipe
     ]
 })
 export class BodenrichtwertModule {

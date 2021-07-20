@@ -13,6 +13,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FeatureCollection } from 'geojson';
 import { LngLat } from 'maplibre-gl';
+import { EntwicklungszustandPipe } from '../pipes/entwicklungszustand.pipe';
+import { VerfahrensartPipe } from '../pipes/verfahrensart.pipe';
+import { EntwicklungszusatzPipe } from '../pipes/entwicklungszusatz.pipe';
+import { NutzungPipe } from '../pipes/nutzung.pipe';
+import { BeitragPipe } from '../pipes/beitrag.pipe';
+import { BauweisePipe } from '../pipes/bauweise.pipe';
+import { BodenartPipe } from '../pipes/bodenart.pipe';
+import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
 
 describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () => {
     let component: BodenrichtwertComponent;
@@ -41,7 +49,15 @@ describe('Bodenrichtwert.BodenrichtwertComponent.BodenrichtwertComponent', () =>
             ],
             providers: [
                 DatePipe,
-                DecimalPipe
+                DecimalPipe,
+                EntwicklungszustandPipe,
+                VerfahrensartPipe,
+                EntwicklungszusatzPipe,
+                BeitragPipe,
+                NutzungPipe,
+                BauweisePipe,
+                BodenartPipe,
+                UmlautCorrectionPipe
             ]
         }).compileComponents();
     }));
