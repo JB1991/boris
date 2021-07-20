@@ -13,6 +13,7 @@ import { BodenrichtwertVerlaufComponent } from './bodenrichtwert-verlauf/bodenri
 import { BodenrichtwertKarteComponent } from './bodenrichtwert-karte/bodenrichtwert-karte.component';
 import { BodenrichtwertDetailComponent } from './bodenrichtwert-detail/bodenrichtwert-detail.component';
 import { BodenrichtwertNavigationComponent } from './bodenrichtwert-navigation/bodenrichtwert-navigation.component';
+import { BodenrichtwertPdfComponent } from './bodenrichtwert-pdf/bodenrichtwert-pdf.component';
 import { UmrechnungComponent } from './bodenrichtwert-detail/umrechnung/umrechnung.component';
 import { BodenrichtwertService } from './bodenrichtwert.service';
 import { SharedModule } from '../shared/shared.module';
@@ -45,6 +46,7 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         BodenrichtwertDetailComponent,
         BodenrichtwertVerlaufComponent,
         BodenrichtwertNavigationComponent,
+        BodenrichtwertPdfComponent,
         UmrechnungComponent,
         NutzungPipe,
         BeitragPipe,

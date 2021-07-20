@@ -148,7 +148,7 @@
                         alt="Bodenrichtwerte - amtlicher Ausdruck"
                         title="Bodenrichtwerte - amtlicher Ausdruck"
                         i18n-title
-                        (click)="openPrintModal()">
+                        (click)="pdf.create()">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="20px"
                          height="20px"
@@ -285,30 +285,4 @@
     </ng-template>
 </ng-container>
 
-<power-modalmini #print>
-    <span i18n>Wenn Sie die Adresse vom Objekt im amtlichen Ausdrück benötigen, dann verwenden Sie bitte die</span>
-    <span>&nbsp;</span>
-    <a href="https://www.boris.niedersachsen.de/boris/bodenrichtwerte"
-       target="_blank"
-       rel="noopener noreferrer nofollow"
-       (click)="print.close()"
-       i18n>Altanwendung BORIS.NI</a>.
-
-    <!-- modal buttons -->
-    <div class="modal-footer"
-         powerModalminiFooter>
-        <a class="btn btn-primary"
-           role="button"
-           [href]="(features?.features.length && checkIfStichtagFtsExist() ? printURL() : '')"
-           target="_blank"
-           rel="noopener noreferrer nofollow"
-           (click)="print.close()"
-           title="Bodenrichtwerte - amtlicher Ausdruck"
-           i18n-title>
-            <i class="bi bi-printer mr-2"
-               role="img"
-               aria-hidden="true"></i>
-            <span i18n>Zum Ausdruck</span>
-        </a>
-    </div>
-</power-modalmini>
+<power-bodenrichtwert-pdf #pdf></power-bodenrichtwert-pdf>
