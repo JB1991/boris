@@ -15,6 +15,8 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { SEOService } from '@app/shared/seo/seo.service';
+import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
+import { BodenrichtwertPdfComponent } from '../bodenrichtwert-pdf/bodenrichtwert-pdf.component';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -160,12 +162,14 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Print modal
      */
     @ViewChild('print') public printModal: ModalminiComponent;
+    @ViewChild('pdf') public pdf: BodenrichtwertPdfComponent;
 
     /* istanbul ignore next */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
         private geosearchService: GeosearchService,
+        public mapService: BodenrichtwertKarteService,
         private bodenrichtwertService: BodenrichtwertService,
         private alkisWfsService: AlkisWfsService,
         private cdr: ChangeDetectorRef,
@@ -391,6 +395,15 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
             return false;
         }
 
+    }
+
+    /**
+     * Opens pdf
+     */
+    public openPDF() {
+        setTimeout(() => {
+            this.pdf.create();
+        }, 200);
     }
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

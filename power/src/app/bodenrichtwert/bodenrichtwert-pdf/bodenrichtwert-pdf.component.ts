@@ -9,6 +9,9 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
 import { Teilmarkt } from '../bodenrichtwert-component/bodenrichtwert.component';
+import { NutzungPipe } from '../pipes/nutzung.pipe';
+import { BeitragPipe } from '../pipes/beitrag.pipe';
+import { EntwicklungszustandPipe } from '../pipes/entwicklungszustand.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-pdf',
@@ -28,6 +31,9 @@ export class BodenrichtwertPdfComponent {
         private mapService: BodenrichtwertKarteService,
         private decimalPipe: DecimalPipe,
         private datePipe: DatePipe,
+        private entwicklungszustandPipe: EntwicklungszustandPipe,
+        private beitragPipe: BeitragPipe,
+        private nutzungPipe: NutzungPipe,
     ) {
         /* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */
         (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -39,7 +45,6 @@ export class BodenrichtwertPdfComponent {
      */
     // eslint-disable-next-line complexity
     public async create(): Promise<boolean> {
-        console.log(this.features);
         // pdf definition
         const docDefinition: any = {
             pageSize: 'A4', // 595.28, 841.89
@@ -56,7 +61,7 @@ export class BodenrichtwertPdfComponent {
                         width: 38
                     },
                     {
-                        text: $localize`Landesamt für Geoinformation\nund Landesvermessung Niedersachsen`,
+                        text: this.features.features[0].properties.gabe,
                         width: 300,
                         fontSize: 16,
                         margin: [5, 0, 0, 0]
@@ -84,7 +89,7 @@ export class BodenrichtwertPdfComponent {
                     text: $localize`Auszug aus der Bodenrichtwertkarte`,
                     bold: true,
                     alignment: 'center',
-                    fontSize: 15
+                    fontSize: 16
                 },
                 {
                     text: '(' + $localize`Erstellt am` + ' ' + this.datePipe.transform(Date()) + ')',
@@ -92,14 +97,22 @@ export class BodenrichtwertPdfComponent {
                     alignment: 'center'
                 },
                 {
-                    text: $localize`Adresse` + ': ' + (this.address ? this.address.properties.text : $localize`Keine Adresse gefunden`) + '\n' +
-                        $localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties.gemarkungsnummer + ', ' +
-                        $localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties.flurnummer + ', ' +
-                        $localize`Flurstück` + ': ' + this.flurstueck.features[0].properties.zaehler +
-                        (this.flurstueck.features[0].properties.nenner ? '/' + this.flurstueck.features[0].properties.nenner : '') + '\n' +
-                        $localize`Stichtag` + ': ' + this.datePipe.transform(this.stichtag) + '\n' +
-                        $localize`Teilmarkt` + ': ' + this.teilmarkt.text + '\n',
+                    text: [
+                        $localize`Bodenrichtwertkarte` + ' ' + this.teilmarkt.text + ' ' + $localize`auf der Grundlage der aktuellen amtlichen Geobasisdaten`,
+                        '\n',
+                        $localize`Stichtag` + ': ' + this.datePipe.transform(this.stichtag)
+                    ],
                     margin: [0, 20, 0, 20]
+                },
+                {
+                    text: [
+                        $localize`Adresse` + ': ' + (this.address ? this.address.properties.text : $localize`Keine Adresse gefunden`) + '\n',
+                        $localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties.gemarkungsnummer + ', ',
+                        $localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties.flurnummer + ', ',
+                        $localize`Flurstück` + ': ' + this.flurstueck.features[0].properties.zaehler,
+                        (this.flurstueck.features[0].properties.nenner ? '/' + this.flurstueck.features[0].properties.nenner : '') + '\n',
+                    ],
+                    margin: [0, 0, 0, 20]
                 },
                 {
                     table: {
@@ -127,6 +140,10 @@ export class BodenrichtwertPdfComponent {
                     },
                 },
                 {
+                    stack: this.getBRW(),
+                    pageBreak: 'before'
+                },
+                {
                     stack: [
                         {
                             text: $localize`Die Inhalte der Bodenrichtwerte Auskunft können Sie auch online über diesen QR-Code oder Link einsehen:`
@@ -143,6 +160,64 @@ export class BodenrichtwertPdfComponent {
                     ],
                     unbreakable: true,
                     margin: [0, 20, 0, 20]
+                },
+                {
+                    stack: [
+                        {
+                            text: $localize`Erläuterungen zu der Bodenrichtwertkarte`,
+                            bold: true,
+                            fontSize: 16
+                        },
+                        {
+                            text: $localize`Gesetzliche Bestimmungen`,
+                            bold: true,
+                            fontSize: 13,
+                            margin: [0, 20, 0, 0]
+                        },
+                        {
+                            text: $localize`Bodenrichtwerte werden gemäß § 193 Absatz 5 BauGB vom zuständigen Gutachterausschuss für Grundstückswerte nach den Bestimmungen des BauGB und der ImmoWertV ermittelt. Die Bodenrichtwerte wurden zum oben angegebenen Stichtag ermittelt.`,
+                            alignment: 'justify'
+                        },
+                        {
+                            text: $localize`Begriffsdefinition`,
+                            bold: true,
+                            fontSize: 13,
+                            margin: [0, 20, 0, 0]
+                        },
+                        {
+                            text: [
+                                $localize`Der Bodenrichtwert (§ 196 Absatz 1 BauGB ) ist der durchschnittliche Lagewert des Bodens für die Mehrheit von Grundstücken innerhalb eines abgegrenzten Gebiets (Bodenrichtwertzone), die nach ihren Grundstücksmerkmalen, insbesondere nach Art und Maß der Nutzbarkeit weitgehend übereinstimmen und für die im Wesentlichen gleiche allgemeine Wertverhältnisse vorliegen. Er ist bezogen auf den Quadratmeter Grundstücksfläche eines Grundstücks mit den dargestellten Grundstücksmerkmalen (Bodenrichtwertgrundstück).`,
+                                '\n',
+                                $localize`Der Bodenrichtwert enthält keine Wertanteile für Aufwuchs, Gebäude, bauliche und sonstige Anlagen. Bei bebauten Grundstücken ist der Bodenrichtwert ermittelt worden, der sich ergeben würde, wenn der Boden unbebaut wäre (§ 196 Absatz 1 Satz 2 BauGB).`,
+                                '\n',
+                                $localize`Eventuelle Abweichungen eines einzelnen Grundstücks vom Bodenrichtwert hinsichtlich seiner Grundstücksmerkmale (zum Beispiel hinsichtlich des Erschließungszustands, des beitragsrechtlichen Zustands, der Art und des Maßes der baulichen Nutzung) sind bei der Ermittlung des Verkehrswerts des betreffenden Grundstücks zu berücksichtigen.`,
+                                '\n',
+                                $localize`Die Abgrenzung der Bodenrichtwertzone sowie die Festsetzung der Höhe des Bodenrichtwerts begründet keine Ansprüche zum Beispiel gegenüber den Trägern der Bauleitplanung, Baugenehmigungsbehörden oder Landwirtschaftsbehörden.`
+                            ],
+                            alignment: 'justify'
+                        },
+                        {
+                            text: $localize`Darstellung`,
+                            bold: true,
+                            fontSize: 13,
+                            margin: [0, 20, 0, 0]
+                        },
+                        {
+                            text: $localize`Der Bodenrichtwert wird mit seiner Begrenzungslinie (Bodenrichtwertzone) sowie mit seinen wertbeeinflussenden Grundstücksmerkmalen dargestellt.`,
+                            alignment: 'justify'
+                        },
+                        {
+                            text: $localize`Hinweis`,
+                            bold: true,
+                            fontSize: 13,
+                            margin: [0, 20, 0, 0]
+                        },
+                        {
+                            text: $localize`Diese Präsentation und die ihr zugrunde liegenden Angaben des amtlichen Vermessungswesens sind gesetzlich geschützt. Die Verwertung für nichteigene oder wirtschaftliche Zwecke und die öffentliche Wiedergabe sind nur mit Erlaubnis des Herausgebers gestattet.`,
+                            alignment: 'justify'
+                        }
+                    ],
+                    pageBreak: 'before'
                 }
             ],
             images: {
@@ -161,5 +236,45 @@ export class BodenrichtwertPdfComponent {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns makepdf Array for BRWs
+     * @returns makepdf Array
+     */
+    public getBRW(): any {
+        let tmp: any = [
+            {
+                text: $localize`Bodenrichtwertzonen`,
+                bold: true,
+                fontSize: 16,
+                margin: [0, 0, 0, 20]
+            },
+        ]
+
+        // for each brw
+        for (const brw of this.features.features) {
+            if (this.datePipe.transform(brw.properties.stag) === this.datePipe.transform(this.stichtag)) {
+                console.log(brw);
+
+                tmp.push({
+                    text: [
+                        {
+                            text: $localize`Bodenrichtwertzone` + ': ' + brw.properties.wnum + '\n\n',
+                            bold: true
+                        },
+                        $localize`Bodenrichtwert` + ': ' + this.decimalPipe.transform(brw.properties.brw, '1.0-1') + ' €/m²\n',
+                        $localize`Entwicklungszustand` + ': ' + this.entwicklungszustandPipe.transform(brw.properties.entw) + '\n',
+                        $localize`Beitragssituation` + ': ' + this.beitragPipe.transform(brw.properties.beit) + '\n',
+                        $localize`Nutzung` + ':\n',
+                        $localize`Art der Nutzung` + ': ' + this.nutzungPipe.transform(brw.properties.nutzung) + '\n',
+                    ],
+                    margin: [0, 0, 0, 20]
+                });
+            }
+        }
+
+        // return array
+        return tmp;
     }
 }

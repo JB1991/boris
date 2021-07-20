@@ -75,7 +75,10 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         BodenrichtwertService,
         BodenrichtwertKarteService,
         DatePipe,
-        DecimalPipe
+        DecimalPipe,
+        EntwicklungszustandPipe,
+        BeitragPipe,
+        NutzungPipe,
     ]
 })
 export class BodenrichtwertModule {

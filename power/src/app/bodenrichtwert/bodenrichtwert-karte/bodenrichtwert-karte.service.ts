@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { Injectable } from '@angular/core';
-import { Map } from 'maplibre-gl';
+import { Map, Marker } from 'maplibre-gl';
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +9,21 @@ import { Map } from 'maplibre-gl';
 export class BodenrichtwertKarteService {
 
     public map: Map;
+    public marker: Marker;
 
     constructor() { }
+
+    /**
+     * Zooms view to selection
+     */
+    public zoomToSelection() {
+        // update marker and andress
+        const longlat = this.marker.getLngLat();
+        this.map.jumpTo({
+            center: [longlat.lng, longlat.lat],
+            zoom: 16.5
+        });
+    }
 
     /**
      * Returns screenshot of map
