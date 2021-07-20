@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LngLat, LngLatBounds } from 'maplibre-gl';
 import { Feature, FeatureCollection } from 'geojson';
-import proj4 from 'proj4';
 
 import { GeosearchService } from '@app/shared/geosearch/geosearch.service';
 import { AlkisWfsService } from '@app/shared/advanced-search/flurstueck-search/alkis-wfs.service';

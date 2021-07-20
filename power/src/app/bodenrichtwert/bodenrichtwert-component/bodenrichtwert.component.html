@@ -285,4 +285,9 @@
     </ng-template>
 </ng-container>
 
-<power-bodenrichtwert-pdf #pdf></power-bodenrichtwert-pdf>
+<power-bodenrichtwert-pdf [address]="address"
+                          [flurstueck]="flurstueck"
+                          [stichtag]="stichtag"
+                          [teilmarkt]="teilmarkt"
+                          [features]="features"
+                          #pdf></power-bodenrichtwert-pdf>
