@@ -109,7 +109,7 @@ export class BodenrichtwertPdfComponent {
                         '\n',
                         $localize`Stichtag` + ': ' + this.datePipe.transform(this.stichtag)
                     ],
-                    margin: [0, 20, 0, 20]
+                    margin: [0, 20, 0, 10]
                 },
                 {
                     text: [
@@ -119,7 +119,7 @@ export class BodenrichtwertPdfComponent {
                         $localize`Flurstück` + ': ' + this.flurstueck.features[0].properties.zaehler,
                         (this.flurstueck.features[0].properties.nenner ? '/' + this.flurstueck.features[0].properties.nenner : '') + '\n',
                     ],
-                    margin: [0, 0, 0, 20]
+                    margin: [0, 0, 0, 10]
                 },
                 {
                     table: {
@@ -170,12 +170,12 @@ export class BodenrichtwertPdfComponent {
                 {
                     stack: [
                         {
-                            text: $localize`Die Inhalte der Bodenrichtwerte Auskunft und die Umrechnungstabellen können Sie auch online über diesen QR-Code oder Link einsehen:`
+                            text: $localize`Die Inhalte der Bodenrichtwerte Auskunft und die Umrechnungstabellen können Sie auch online über diesen QR-Code oder Link einsehen` + ':'
                         },
                         {
                             qr: location.href,
-                            fit: 200,
-                            margin: [0, 10, 0, 10]
+                            fit: 150,
+                            margin: [0, 5, 0, 5]
                         },
                         {
                             text: location.href,
@@ -183,7 +183,7 @@ export class BodenrichtwertPdfComponent {
                         }
                     ],
                     unbreakable: true,
-                    margin: [0, 20, 0, 20]
+                    margin: [0, 10, 0, 10]
                 },
                 {
                     stack: [
@@ -196,7 +196,7 @@ export class BodenrichtwertPdfComponent {
                             text: $localize`Gesetzliche Bestimmungen`,
                             bold: true,
                             fontSize: 13,
-                            margin: [0, 20, 0, 0]
+                            margin: [0, 10, 0, 0]
                         },
                         {
                             text: $localize`Bodenrichtwerte werden gemäß § 193 Absatz 5 BauGB vom zuständigen Gutachterausschuss für Grundstückswerte nach den Bestimmungen des BauGB und der ImmoWertV ermittelt. Die Bodenrichtwerte wurden zum oben angegebenen Stichtag ermittelt.`,
@@ -206,7 +206,7 @@ export class BodenrichtwertPdfComponent {
                             text: $localize`Begriffsdefinition`,
                             bold: true,
                             fontSize: 13,
-                            margin: [0, 20, 0, 0]
+                            margin: [0, 10, 0, 0]
                         },
                         {
                             text: [
@@ -224,7 +224,7 @@ export class BodenrichtwertPdfComponent {
                             text: $localize`Darstellung`,
                             bold: true,
                             fontSize: 13,
-                            margin: [0, 20, 0, 0]
+                            margin: [0, 10, 0, 0]
                         },
                         {
                             text: $localize`Der Bodenrichtwert wird mit seiner Begrenzungslinie (Bodenrichtwertzone) sowie mit seinen wertbeeinflussenden Grundstücksmerkmalen dargestellt.`,
@@ -234,7 +234,7 @@ export class BodenrichtwertPdfComponent {
                             text: $localize`Hinweis`,
                             bold: true,
                             fontSize: 13,
-                            margin: [0, 20, 0, 0]
+                            margin: [0, 10, 0, 0]
                         },
                         {
                             text: $localize`Diese Präsentation und die ihr zugrunde liegenden Angaben des amtlichen Vermessungswesens sind gesetzlich geschützt. Die Verwertung für nichteigene oder wirtschaftliche Zwecke und die öffentliche Wiedergabe sind nur mit Erlaubnis des Herausgebers gestattet.`,
@@ -273,17 +273,16 @@ export class BodenrichtwertPdfComponent {
                 text: $localize`Bodenrichtwertzonen`,
                 bold: true,
                 fontSize: 16,
-                margin: [0, 0, 0, 20]
+                margin: [0, 0, 0, 10]
             },
         ];
 
         // for each brw
         for (const brw of this.features.features) {
             if (this.datePipe.transform(brw.properties.stag) === this.datePipe.transform(this.stichtag)) {
-                console.log(brw);
                 const tmp: any = [
                     {
-                        text: $localize`Bodenrichtwertzone` + ': ' + brw.properties.wnum + '\n\n',
+                        text: $localize`Bodenrichtwertzone` + ': ' + brw.properties.wnum + '\n',
                         bold: true
                     }
                 ];
@@ -371,7 +370,7 @@ export class BodenrichtwertPdfComponent {
                 // add to array
                 ret.push({
                     text: tmp,
-                    margin: [0, 0, 0, 20]
+                    margin: [0, 0, 0, 10]
                 });
             }
         }
