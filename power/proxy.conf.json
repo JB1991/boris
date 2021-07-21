@@ -43,5 +43,11 @@
         "changeOrigin": true,
         "secure": false,
         "debugLevel": "info"
+    },
+    "/boris-umdatei/": {
+        "target": "https://dev.power.niedersachsen.dev",
+        "changeOrigin": true,
+        "secure": false,
+        "debugLevel": "info"
     }
 }
