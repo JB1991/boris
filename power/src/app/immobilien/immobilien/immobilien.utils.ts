@@ -117,10 +117,10 @@ export class ImmobilienUtils {
                     'color': seriesColor
                 }
             },
-            label: {
-                show: true,
-                position: 'right',
-                formatter: labelFormatter
+            'label': {
+                'show': true,
+                'position': 'right',
+                'formatter': labelFormatter
             },
             'data': data
         };

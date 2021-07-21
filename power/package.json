@@ -51,7 +51,6 @@
         "hyphen": "^1.6.4",
         "maplibre-gl": "^1.14.0",
         "ngx-bootstrap": "^6.2.0",
-        "ngx-echarts": "^6.0.1",
         "ngx-showdown": "^6.0.0",
         "ngx-smooth-dnd": "^0.4.1",
         "nouislider": "^15.2.0",

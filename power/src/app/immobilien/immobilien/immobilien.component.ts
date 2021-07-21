@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy, PLATFORM_ID } from '@angular/core';
 import { Location, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +22,11 @@ declare const require: any;
     styleUrls: ['./immobilien.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ImmobilienComponent implements OnInit {
+export class ImmobilienComponent implements OnInit, AfterViewInit {
+
+    //echarts Components
+    @ViewChild('echartsMap') echartsMap: ElementRef;
+    @ViewChild('echartsChart') echartsChart: ElementRef;
 
     // Config URl
     configUrl = 'assets/data/cfg.json';
@@ -132,9 +136,18 @@ export class ImmobilienComponent implements OnInit {
      * Init the Application.
      */
     ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.initNipix();
-        }
+       // if (isPlatformBrowser(this.platformId)) {
+       //     this.initNipix();
+       // }
+    }
+
+    ngAfterViewInit() {
+        this.nipixRuntime.map.obj = echarts.init(this.echartsMap.nativeElement);
+        this.nipixRuntime.map.obj.on('selectchanged', this.onMapSelectChange.bind(this));
+        this.nipixRuntime.chart.obj = echarts.init(this.echartsChart.nativeElement);
+        this.nipixRuntime.chart.obj.on('click', this.chartClicked.bind(this));
+        this.nipixRuntime.chart.obj.on('datazoom', this.onDataZoom.bind(this));
+        this.initNipix();
     }
 
     /**
@@ -403,6 +416,9 @@ export class ImmobilienComponent implements OnInit {
             'geoCoordMapBottom': this.nipixStatic.data.geoCoordMap['bottom']
         }, selectType);
         this.nipixRuntime.state.mapWidth = 10000;
+        
+        this.nipixRuntime.map.obj.setOption(this.nipixRuntime.map.options);
+
         // Update Map Selection; Wait a little time for browser to render
         setTimeout(this.updateMapSelect.bind(this), 100);
 
@@ -413,26 +429,23 @@ export class ImmobilienComponent implements OnInit {
      */
     /* eslint-disable-next-line complexity */
     onMapSelectChange(param) {
+        if (param.isFromClick === false) {
+            return;
+        }
+        console.log('select', param);
+        const sdata = this.nipixRuntime.map.options.series[0]['data'];
+        let selectedlist = [];
+        if (param['type'] === 'selectchanged' &&
+            (param['fromAction'] === 'select' ||
+             param['fromAction'] === 'unselect') &&
+                 param['selected'].length === 1) {
 
-        // Get List of selected items in map
-        let selectedlist = null;
-        if (param['type'] === 'mapselectchanged' && param['batch'] !== undefined && param['batch'] !== null) {
-            selectedlist = param['batch'][0]['selected'];
-        } else {
-            selectedlist = param['selected'];
+            param['selected'][0]['dataIndex'].forEach(function(index) {
+                selectedlist.push(sdata[index]['name']);
+            });
         }
 
-
-        // Get keys of selected items
-        const ok = Object.keys(selectedlist);
-
-        // Iterate over all selected Regions and collect them in an array
-        const nval = [];
-        for (let i = 0; i < ok.length; i++) {
-            if (selectedlist[ok[i]] === true) {
-                nval.push(ok[i]);
-            }
-        }
+        const nval = selectedlist;
 
         // Adds the current selection state to the draw item
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
@@ -461,6 +474,7 @@ export class ImmobilienComponent implements OnInit {
      * Toggle the Selection of an Subitem
      */
     toggleMapSelect(category, name, typ = 'undefined') {
+        console.log('toggle', category, name, typ);
         this.nipixRuntime.resetHighlight();
         for (let i = 0; i < this.nipixRuntime.drawPresets.length; i++) {
             if (this.nipixRuntime.drawPresets[i].name === category) {
@@ -681,7 +695,7 @@ export class ImmobilienComponent implements OnInit {
             this.nipixRuntime.chart.obj.setOption(
                 Object.assign(this.nipixRuntime.chart.options, chartOptionMerge),
                 true,
-                true
+                false
             );
         }
 
@@ -910,6 +924,8 @@ export class ImmobilienComponent implements OnInit {
         if ((id === 99) && (event === true)) {
             this.onPanelChangeWoMa();
         }
+
+        this.cdr.detectChanges();
 
     }
 

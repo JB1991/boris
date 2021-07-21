@@ -5,18 +5,9 @@
      [ngClass]="{'rowrtl': nipixStatic.layoutRtl === true}">
     <div class="col-sm-8 p-0"
          *ngIf="isBrowser">
-        <div echarts
-             [options]="this.nipixRuntime.map.options"
-             [loading]="!mapLoaded"
-             (chartInit)="onChartInit($event)"
-             (chartSelectChanged)="onMapSelectChange($event)"
+        <div #echartsMap
              class="demo-chart chart-map"></div>
-        <div echarts
-             [options]="this.nipixRuntime.chart.options"
-             (chartInit)="onChartChartInit($event)"
-             (chartDataZoom)="onDataZoom($event)"
-             (chartClick)="chartClicked($event)"
-             (chartFinished)="onChartFinished($event)"
+        <div #echartsChart
              class="demo-chart chart-graph"></div>
         <div style="text-align: center;"
              [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}"

@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { EChartsOption, SeriesOption } from 'echarts';
+import { Component, Input, OnChanges, AfterViewInit, ElementRef, ViewChild, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import * as echarts from 'echarts';
 import { Feature, FeatureCollection } from 'geojson';
 import { NutzungPipe } from '@app/bodenrichtwert/pipes/nutzung.pipe';
 import { VerfahrensartPipe } from '@app/bodenrichtwert/pipes/verfahrensart.pipe';
@@ -13,6 +13,7 @@ export interface SeriesItem {
     nutzung: string;
     verg: string;
     verf: string;
+    forwarded: boolean;
 }
 
 @Component({
@@ -22,29 +23,31 @@ export interface SeriesItem {
     providers: [NutzungPipe, VerfahrensartPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BodenrichtwertVerlaufComponent implements OnChanges {
+export class BodenrichtwertVerlaufComponent implements OnChanges, AfterViewInit {
 
     @Input() STICHTAGE: string[];
     @Input() teilmarkt: Teilmarkt;
+
+    @ViewChild('echartsInst') echartsInst: ElementRef;
 
     // table data for screenreader
     public srTableData: Array<any> = [];
     public srTableHeader: Array<string> = [];
 
     seriesTemplate: Array<SeriesItem> = [
-        { stag: '2012', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2013', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2014', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2015', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2016', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2017', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2018', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2019', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: '2020', brw: null, nutzung: '', verg: '', verf: '' },
-        { stag: 'heute', brw: null, nutzung: '', verg: '', verf: '' }
+        { stag: '2012', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2013', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2014', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2015', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2016', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2017', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2018', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2019', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: '2020', brw: null, nutzung: '', verg: '', verf: '', forwarded: false },
+        { stag: 'heute', brw: null, nutzung: '', verg: '', verf: '', forwarded: false }
     ];
 
-    public chartOption: EChartsOption = {
+    public chartOption: echarts.EChartsOption = {
         tooltip: {
             trigger: 'axis',
             confine: true,
@@ -119,16 +122,24 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
             if (this.features && !changes.features.firstChange) {
                 this.features.features = this.filterByStichtag(this.features.features);
                 this.generateChart(this.features.features);
+                if (this.echartsInstance) {
+                    this.echartsInstance.resize();
+                }
             }
         }
     }
+
+    ngAfterViewInit() {
+        this.echartsInstance = echarts.init(this.echartsInst.nativeElement);
+    }
+
     /**
      * onChartInit initializes the chart
      * @param event event for initializing the chart
      */
-    public onChartInit(event: any): void {
+    /*public onChartInit(event: any): void {
         this.echartsInstance = event;
-    }
+    }*/
 
     /**
      * clearChart clears the chartOptions
@@ -496,7 +507,7 @@ export class BodenrichtwertVerlaufComponent implements OnChanges {
      * @param label label
      */
     public setChartOptionsSeries(series: Array<SeriesItem>, label: string): void {
-        (this.chartOption.series as Array<SeriesOption>).push({
+        (this.chartOption.series as Array<echarts.SeriesOption>).push({
             name: label,
             type: 'line',
             step: 'end',
