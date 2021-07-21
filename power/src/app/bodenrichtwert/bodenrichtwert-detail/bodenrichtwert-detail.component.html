@@ -290,7 +290,7 @@
                                role="button"
                                title="Umrechnungsdatei"
                                i18n-title
-                               [href]="umrechnung.dateiname.substr(0, umrechnung.dateiname.lastIndexOf('.')).replace('http://', 'https://') + '.pdf'"
+                               [href]="defineUmrechnungstabURL(umrechnung.dateiname)"
                                target="_blank"
                                rel="noopener noreferrer nofollow">
                                 {{umrechnung.text | einflussgroesse}}

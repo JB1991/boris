@@ -49,6 +49,18 @@ export class BodenrichtwertDetailComponent implements OnChanges {
             this.filteredFeatures = this.features.features.filter(ft => ft.properties.stag === this.stichtag + 'Z').sort((i, j) => i.properties.brw - j.properties.brw);
         }
     }
+
+    /**
+     * defineUmrechnstabURL
+     * @param url url of boris alt
+     * @returns url for the new location
+     */
+    public defineUmrechnungstabURL(url: string): string {
+        const host = location.host;
+        const path = url.replace('http://boris.niedersachsen.de', '');
+        const newUrl = 'https://' + host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
+        return newUrl;
+    }
 }
 
 /* vim: set expandtab ts=4 sw=4 sts=4: */
