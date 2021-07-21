@@ -17,6 +17,7 @@ import { BeitragPipe } from '../pipes/beitrag.pipe';
 import { BauweisePipe } from '../pipes/bauweise.pipe';
 import { BodenartPipe } from '../pipes/bodenart.pipe';
 import { UmlautCorrectionPipe } from '../pipes/umlaut-correction.pipe';
+import { EinflussgroessePipe } from '../pipes/einflussgroesse.pipe';
 
 @Component({
     selector: 'power-bodenrichtwert-pdf',
@@ -71,18 +72,14 @@ export class BodenrichtwertPdfComponent {
                         width: 38
                     },
                     {
-                        text: this.features.features[0].properties.gabe,
-                        width: 300,
+                        text: this.features.features[0].properties.gabe.replace('Grundstückswerte', 'Grundstückswerte\n'),
+                        width: '*',
                         fontSize: 16,
                         margin: [5, 0, 0, 0]
                     },
                     {
-                        text: '',
-                        width: '*'
-                    },
-                    {
                         image: 'ndswappen',
-                        width: 30,
+                        width: 38,
                         alignment: 'right'
                     }
                 ],
@@ -116,7 +113,7 @@ export class BodenrichtwertPdfComponent {
                 },
                 {
                     text: [
-                        $localize`Adresse` + ': ' + (this.address ? this.address.properties.text : $localize`Keine Adresse gefunden`) + '\n',
+                        (this.address ? $localize`Adresse` + ': ' + this.address.properties.text + '\n' : $localize`Bezeichnung der Bodenrichtswertzone` + ': ' + this.features.features[0].properties.brzname + '\n'),
                         $localize`Gemarkung` + ': ' + this.flurstueck.features[0].properties.gemarkungsnummer + ', ',
                         $localize`Flurnummer` + ': ' + this.flurstueck.features[0].properties.flurnummer + ', ',
                         $localize`Flurstück` + ': ' + this.flurstueck.features[0].properties.zaehler,
@@ -148,6 +145,23 @@ export class BodenrichtwertPdfComponent {
                         hLineColor: /* istanbul ignore next */ function (i, node) { return 'gray'; },
                         vLineColor: /* istanbul ignore next */ function (i, node) { return 'gray'; },
                     },
+                },
+                {
+                    columns: [
+                        {
+                            text: $localize`Maßstab` + ' xxx',
+                            width: 200,
+                        },
+                        {
+                            text: '',
+                            width: '*'
+                        },
+                        {
+                            text: $localize`© OpenMapTiles © OpenStreetMap contributors`,
+                            width: 300,
+                            alignment: 'right'
+                        }
+                    ]
                 },
                 {
                     stack: this.getBRW(),
@@ -345,6 +359,13 @@ export class BodenrichtwertPdfComponent {
                 }
                 if (brw.properties.bem) {
                     tmp.push($localize`Bemerkung` + ': ' + brw.properties.bem + '\n');
+                }
+
+                // Umrechnungsdatei
+                if (brw.properties.umrechnungstabellendatei) {
+                    const path = brw.properties.umrechnungstabellendatei[0].dateiname.replace('http://boris.niedersachsen.de', '');
+                    const newUrl = 'https://' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
+                    tmp.push($localize`Umrechnungstabelle` + ': ' + newUrl);
                 }
 
                 // add to array

@@ -148,7 +148,7 @@
                         alt="Bodenrichtwerte - amtlicher Ausdruck"
                         title="Bodenrichtwerte - amtlicher Ausdruck"
                         i18n-title
-                        (click)="mapService.zoomToSelection(); openPDF()">
+                        (click)="mapService.zoomToSelection(); openPrintModal()">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="20px"
                          height="20px"
@@ -284,6 +284,25 @@
         </span>
     </ng-template>
 </ng-container>
+
+<power-modalmini #print>
+    <span i18n>Dieses Modal dient Ihrer entschleunigung, vielen Dank.</span>
+
+    <!-- modal buttons -->
+    <div class="modal-footer"
+         powerModalminiFooter>
+        <button class="btn btn-primary"
+                type="button"
+                (click)="print.close(); pdf.create()"
+                title="Bodenrichtwerte - amtlicher Ausdruck"
+                i18n-title>
+            <i class="bi bi-printer mr-2"
+               role="img"
+               aria-hidden="true"></i>
+            <span i18n>Zum Ausdruck</span>
+        </button>
+    </div>
+</power-modalmini>
 
 <power-bodenrichtwert-pdf [address]="address"
                           [flurstueck]="flurstueck"

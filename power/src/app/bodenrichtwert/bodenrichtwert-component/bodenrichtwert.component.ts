@@ -16,7 +16,6 @@ import { ModalminiComponent } from '@app/shared/modalmini/modalmini.component';
 import { BodenrichtwertService } from '@app/bodenrichtwert/bodenrichtwert.service';
 import { SEOService } from '@app/shared/seo/seo.service';
 import { BodenrichtwertKarteService } from '../bodenrichtwert-karte/bodenrichtwert-karte.service';
-import { BodenrichtwertPdfComponent } from '../bodenrichtwert-pdf/bodenrichtwert-pdf.component';
 
 export interface Teilmarkt {
     value: Array<string>;
@@ -162,7 +161,6 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
      * Print modal
      */
     @ViewChild('print') public printModal: ModalminiComponent;
-    @ViewChild('pdf') public pdf: BodenrichtwertPdfComponent;
 
     /* istanbul ignore next */
     constructor(
@@ -398,12 +396,11 @@ export class BodenrichtwertComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Opens pdf
+     * Opens print modal
      */
-    public openPDF() {
-        setTimeout(() => {
-            this.pdf.create();
-        }, 200);
+    public openPrintModal() {
+        this.printModal.open($localize`Bodenrichtwerte - amtlicher Ausdruck`);
     }
+
 }
 /* vim: set expandtab ts=4 sw=4 sts=4: */

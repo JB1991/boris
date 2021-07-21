@@ -83,7 +83,8 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         NutzungPipe,
         BauweisePipe,
         BodenartPipe,
-        UmlautCorrectionPipe
+        UmlautCorrectionPipe,
+        EinflussgroessePipe
     ]
 })
 export class BodenrichtwertModule {

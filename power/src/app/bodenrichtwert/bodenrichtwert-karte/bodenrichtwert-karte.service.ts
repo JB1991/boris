@@ -21,7 +21,7 @@ export class BodenrichtwertKarteService {
         const longlat = this.marker.getLngLat();
         this.map.jumpTo({
             center: [longlat.lng, longlat.lat],
-            zoom: 16.5
+            zoom: this.map.getZoom()
         });
     }
 
