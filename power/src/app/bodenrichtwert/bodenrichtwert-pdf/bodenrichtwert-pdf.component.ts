@@ -170,7 +170,7 @@ export class BodenrichtwertPdfComponent {
                 {
                     stack: [
                         {
-                            text: $localize`Die Inhalte der Bodenrichtwerte Auskunft können Sie auch online über diesen QR-Code oder Link einsehen:`
+                            text: $localize`Die Inhalte der Bodenrichtwerte Auskunft und die Umrechnungstabellen können Sie auch online über diesen QR-Code oder Link einsehen:`
                         },
                         {
                             qr: location.href,
@@ -364,7 +364,7 @@ export class BodenrichtwertPdfComponent {
                 // Umrechnungsdatei
                 if (brw.properties.umrechnungstabellendatei) {
                     const path = brw.properties.umrechnungstabellendatei[0].dateiname.replace('http://boris.niedersachsen.de', '');
-                    const newUrl = 'https://' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
+                    const newUrl = location.protocol + '//' + location.host + '/boris-umdatei' + path.substr(0, path.lastIndexOf('.')) + '.pdf';
                     tmp.push($localize`Umrechnungstabelle` + ': ' + newUrl);
                 }
 
