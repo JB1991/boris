@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { Polygon } from 'geojson';
 import { DynamicLabellingService } from './dynamic-labelling.service';
+import { AlertsService } from '@app/shared/alerts/alerts.service';
 
 /* eslint-disable max-lines */
 @Component({
@@ -150,6 +151,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     @Input() standardLandZoom: number;
 
     constructor(
+        public alerts: AlertsService,
         private dynamicLabellingService: DynamicLabellingService,
     ) { }
 
@@ -226,21 +228,27 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
     ngAfterViewInit() {
         // create Maplibre object
-        this.map = new Map({
-            container: this.mapContainer.nativeElement,
-            style: this.MAP_STYLE_URL,
-            zoom: 7,
-            transformRequest: this.transformRequest,
-            bounds: this.bounds,
-            maxZoom: 18,
-            minZoom: 5,
-            trackResize: true
-        });
+        try {
+            this.map = new Map({
+                container: this.mapContainer.nativeElement,
+                style: this.MAP_STYLE_URL,
+                zoom: 7,
+                transformRequest: this.transformRequest,
+                bounds: this.bounds,
+                maxZoom: 18,
+                minZoom: 5,
+                trackResize: true
+            });
 
-        // add load handler
-        this.map.on('load', () => {
-            this.loadMap();
-        });
+            // add load handler
+            this.map.on('load', () => {
+                this.loadMap();
+            });
+        } catch (error) {
+            // WebGL missing
+            console.error(error);
+            this.alerts.NewAlert('danger', $localize`Karte laden fehlgeschlagen`, $localize`Bitte überprüfen Sie die WebGL Unterstützung von Ihrem Webbrowser.`);
+        }
     }
 
     /**
@@ -250,14 +258,18 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     /* istanbul ignore next */
     public loadMap() {
         this.map.addSource('ndsgeojson', { type: 'geojson', data: this.baseUrl + '/assets/boden/niedersachsen.geojson' });
-        this.map.addSource('baulandSource', { type: 'geojson', data: {
-            type: 'FeatureCollection',
-            features: []
-        } });
-        this.map.addSource('landwirtschaftSource', { type: 'geojson', data: {
-            type: 'FeatureCollection',
-            features: []
-        } });
+        this.map.addSource('baulandSource', {
+            type: 'geojson', data: {
+                type: 'FeatureCollection',
+                features: []
+            }
+        });
+        this.map.addSource('landwirtschaftSource', {
+            type: 'geojson', data: {
+                type: 'FeatureCollection',
+                features: []
+            }
+        });
 
         this.map.addSource('geoserver_br_br', this.bremenSource);
         this.map.addSource('geoserver_nds_br', this.ndsSource);
@@ -646,7 +658,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             }
 
             const features = this.dynamicLabellingService.dynamicLabelling(
-                this.map.queryRenderedFeatures(null, {layers: ['bauland', 'bauland_bremen']}),
+                this.map.queryRenderedFeatures(null, { layers: ['bauland', 'bauland_bremen'] }),
                 mapViewBound,
                 (f) => f.properties.objektidentifikator,
                 (f) => f.properties.wnum,
@@ -655,13 +667,13 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 ],
                 this.dynamicLabellingService.generatePointFeatures([
                     // wnum: 04307171 - ASB Umring Langenhagen
-                    {lat: 52.4333645400087, lng: 9.698011330059643, properties: {display: 130}},
-                    {lat: 52.43821616734934, lng: 9.656380976422724, properties: {display: 130}},
-                    {lat: 52.45547417953654, lng: 9.673021529653596, properties: {display: 130}},
-                    {lat: 52.46679714990489, lng: 9.719547336560112, properties: {display: 130}},
-                    {lat: 52.4723241988992, lng: 9.7557494003822, properties: {display: 130}},
-                    {lat: 52.43336837635533, lng: 9.715375393126635, properties: {display: 130}},
-                    {lat: 52.48606574248538, lng: 9.726679369115345, properties: {display: 130}},
+                    { lat: 52.4333645400087, lng: 9.698011330059643, properties: { display: 130 } },
+                    { lat: 52.43821616734934, lng: 9.656380976422724, properties: { display: 130 } },
+                    { lat: 52.45547417953654, lng: 9.673021529653596, properties: { display: 130 } },
+                    { lat: 52.46679714990489, lng: 9.719547336560112, properties: { display: 130 } },
+                    { lat: 52.4723241988992, lng: 9.7557494003822, properties: { display: 130 } },
+                    { lat: 52.43336837635533, lng: 9.715375393126635, properties: { display: 130 } },
+                    { lat: 52.48606574248538, lng: 9.726679369115345, properties: { display: 130 } },
                 ]));
             baulandSource.setData({
                 type: 'FeatureCollection',
@@ -677,7 +689,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
             }
 
             const features = this.dynamicLabellingService.dynamicLabelling(
-                this.map.queryRenderedFeatures(null, {layers: ['landwirtschaft', 'landwirtschaft_bremen']}),
+                this.map.queryRenderedFeatures(null, { layers: ['landwirtschaft', 'landwirtschaft_bremen'] }),
                 mapViewBound,
                 (f) => f.properties.objektidentifikator,
                 null,
