@@ -242,6 +242,8 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
                 trackResize: true,
                 preserveDrawingBuffer: true
             });
+            this.mapService.map = this.map;
+            this.mapService.marker = this.marker;
 
             // add load handler
             this.map.on('load', () => {
