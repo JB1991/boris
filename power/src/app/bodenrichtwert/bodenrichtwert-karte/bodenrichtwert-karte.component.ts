@@ -5,11 +5,8 @@ import { environment } from '@env/environment';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { Polygon } from 'geojson';
 import { DynamicLabellingService } from './dynamic-labelling.service';
-<<<<<<< HEAD
 import { BodenrichtwertKarteService } from './bodenrichtwert-karte.service';
-=======
 import { AlertsService } from '@app/shared/alerts/alerts.service';
->>>>>>> dev
 
 /* eslint-disable max-lines */
 @Component({
