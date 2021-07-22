@@ -8,7 +8,6 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
     let fixture: ComponentFixture<UmrechnungComponent>;
 
     const tableWgfz: UmrechnungsTable = require('../../../../testdata/bodenrichtwert/umrechnung-table-wgfz.json');
-    const tableArtBebauung: UmrechnungsTable = require('../../../../testdata/bodenrichtwert/umrechnung-table-artbebauung.json');
     const tableFlae: UmrechnungsTable = require('../../../../testdata/bodenrichtwert/umrechnung-table-flae.json');
     const tableFail: UmrechnungsTable = require('../../../../testdata/bodenrichtwert/umrechnung-table-fail.json');
 
@@ -78,17 +77,6 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
         expect(component.objectId).toEqual('4313UW0007');
         expect(component.einflussgroesse).toEqual('Wertrelevante Geschossflächenzahl');
 
-        // Art der Bebauung
-        component.table = tableArtBebauung;
-        component.actualValue = 'MFH';
-        component.ngOnInit();
-        expect(component.actualKoef).toEqual({ 'bzwt': 2, 'koef': 1.35 });
-        expect(component.objectId).toEqual('4920UW0099');
-        expect(component.einflussgroesse).toEqual('Art der Bebauung');
-        component.table = tableArtBebauung;
-        component.actualValue = 'EFH';
-        component.ngOnInit();
-        expect(component.actualKoef).toEqual({ 'bzwt': 1, 'koef': 1 });
     });
 
     it('ngOninit should not intialize actualKoef', () => {
@@ -96,12 +84,6 @@ describe('Bodenrichtwert.BodenrichtwertDetail.Umrechnung.UmrechnungComponent', (
         expect(component.actualKoef).toEqual({ 'bzwt': 200, 'koef': 123.0 });
         expect(component.objectId).toEqual('0015UW0002');
         expect(component.einflussgroesse).toEqual('Fläche in m²');
-
-        // Art der Bebauung
-        component.table = tableArtBebauung;
-        component.actualValue = 'GH';
-        component.ngOnInit();
-        expect(component.actualKoef).toEqual(undefined);
 
         // Fail
         component.table = tableFail;

@@ -23,7 +23,6 @@ import { EntwicklungszustandPipe } from './pipes/entwicklungszustand.pipe';
 import { EntwicklungszusatzPipe } from './pipes/entwicklungszusatz.pipe';
 import { ObjectIdPipe } from './pipes/object-id.pipe';
 import { EinflussgroessePipe } from './pipes/einflussgroesse.pipe';
-import { ArtDerBebauungPipe } from './pipes/art-der-bebauung.pipe';
 import { BauweisePipe } from './pipes/bauweise.pipe';
 import { BodenartPipe } from './pipes/bodenart.pipe';
 import { VerfahrensartPipe } from './pipes/verfahrensart.pipe';
@@ -53,7 +52,6 @@ import { GagKontaktdatenPipe } from './pipes/gag-kontaktdaten.pipe';
         EntwicklungszusatzPipe,
         ObjectIdPipe,
         EinflussgroessePipe,
-        ArtDerBebauungPipe,
         BauweisePipe,
         BodenartPipe,
         VerfahrensartPipe,

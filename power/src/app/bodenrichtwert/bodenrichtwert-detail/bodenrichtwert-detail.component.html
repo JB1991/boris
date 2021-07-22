@@ -270,7 +270,7 @@
                         <power-bodenrichtwert-detail-umrechnung #umrechnungstabelle
                                                                 [table]="umrechnung"
                                                                 [brw]="feature.properties.brw"
-                                                                [actualValue]="umrechnung.text === 'Art der Bebauung' ? feature.properties.nutzung[0]['enuta'] : feature.properties[umrechnung.text.toLowerCase()]">
+                                                                [actualValue]="feature.properties[umrechnung.text.toLowerCase()]"
                         </power-bodenrichtwert-detail-umrechnung>
                     </dd>
                 </ng-container>
