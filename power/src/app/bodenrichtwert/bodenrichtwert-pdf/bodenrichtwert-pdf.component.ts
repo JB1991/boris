@@ -152,7 +152,7 @@ export class BodenrichtwertPdfComponent {
                     alignment: 'center',
                     relativePosition: {
                         x: 0,
-                        y: -285
+                        y: this.getMapIconOffset()
                     }
                 },
                 {
@@ -397,5 +397,31 @@ export class BodenrichtwertPdfComponent {
 
         // return array
         return ret;
+    }
+
+    /**
+     * Returns y offset of map icon
+     * @returns y offset
+     */
+    public getMapIconOffset(): number {
+        const height = this.getRealImageHeight();
+        if (height >= 515) {
+            return -285;
+        }
+        return (Math.ceil(height / 2) * -1) - 32;
+    }
+
+    /**
+     * Returns real height of image
+     * @returns Height
+     */
+    public getRealImageHeight(): number {
+        const x = this.mapService.getMapWidth();
+        const y = this.mapService.getMapHeight();
+
+        if (x > y) {
+            return (y / x) * 515;
+        }
+        return 515;
     }
 }

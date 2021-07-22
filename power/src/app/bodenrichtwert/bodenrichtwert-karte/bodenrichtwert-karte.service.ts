@@ -32,4 +32,20 @@ export class BodenrichtwertKarteService {
     public getScreenshot(): string {
         return this.map.getCanvas().toDataURL('image/png');
     }
+
+    /**
+     * Returns map heigth in pixels
+     * @returns Height
+     */
+    public getMapHeight(): number {
+        return this.map.getCanvas().height
+    }
+
+    /**
+     * Returns map width in pixels
+     * @returns Width
+     */
+    public getMapWidth(): number {
+        return this.map.getCanvas().width
+    }
 }
