@@ -5,7 +5,11 @@ import { environment } from '@env/environment';
 import { Teilmarkt } from '@app/bodenrichtwert/bodenrichtwert-component/bodenrichtwert.component';
 import { Polygon } from 'geojson';
 import { DynamicLabellingService } from './dynamic-labelling.service';
+<<<<<<< HEAD
 import { BodenrichtwertKarteService } from './bodenrichtwert-karte.service';
+=======
+import { AlertsService } from '@app/shared/alerts/alerts.service';
+>>>>>>> dev
 
 /* eslint-disable max-lines */
 @Component({
@@ -151,6 +155,7 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
     @Input() standardLandZoom: number;
 
     constructor(
+        public alerts: AlertsService,
         private dynamicLabellingService: DynamicLabellingService,
         private mapService: BodenrichtwertKarteService
     ) { }
@@ -228,24 +233,28 @@ export class BodenrichtwertKarteComponent implements OnChanges, AfterViewInit {
 
     ngAfterViewInit() {
         // create Maplibre object
-        this.map = new Map({
-            container: this.mapContainer.nativeElement,
-            style: this.MAP_STYLE_URL,
-            zoom: 7,
-            transformRequest: this.transformRequest,
-            bounds: this.bounds,
-            maxZoom: 18,
-            minZoom: 5,
-            trackResize: true,
-            preserveDrawingBuffer: true
-        });
-        this.mapService.map = this.map;
-        this.mapService.marker = this.marker;
+        try {
+            this.map = new Map({
+                container: this.mapContainer.nativeElement,
+                style: this.MAP_STYLE_URL,
+                zoom: 7,
+                transformRequest: this.transformRequest,
+                bounds: this.bounds,
+                maxZoom: 18,
+                minZoom: 5,
+                trackResize: true,
+                preserveDrawingBuffer: true
+            });
 
-        // add load handler
-        this.map.on('load', () => {
-            this.loadMap();
-        });
+            // add load handler
+            this.map.on('load', () => {
+                this.loadMap();
+            });
+        } catch (error) {
+            // WebGL missing
+            console.error(error);
+            this.alerts.NewAlert('danger', $localize`Karte laden fehlgeschlagen`, $localize`Bitte überprüfen Sie die WebGL Unterstützung von Ihrem Webbrowser.`);
+        }
     }
 
     /**
