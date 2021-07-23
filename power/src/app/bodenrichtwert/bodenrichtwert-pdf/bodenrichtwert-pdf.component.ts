@@ -299,7 +299,7 @@ export class BodenrichtwertPdfComponent {
 
         // for each brw
         for (const brw of this.features.features) {
-            if (this.datePipe.transform(brw.properties.stag) === this.datePipe.transform(this.stichtag)) {
+            if (Date.parse(brw.properties.stag) === Date.parse(this.stichtag)) {
                 const tmp: any = [
                     {
                         text: $localize`Bodenrichtwertzone` + ': ' + brw.properties.wnum + '\n',
