@@ -86,13 +86,13 @@
              *ngIf="item.type === 'regex'">
             <label for="validatorText{{ i }}{{ uniqId }}"
                    class="sr-only"
-                   i18n>Fehlermeldung für Benutzer*</label>
+                   i18n>Fehlermeldung für Nutzende*</label>
             <power-forms-editor-localeinput [(locale)]="item.text"
                                             eid="validatorText{{ i }}{{ uniqId }}"
                                             [required]="true"
                                             maxlength="200"
                                             i18n-placeholder
-                                            placeholder="Fehlermeldung für Benutzer"></power-forms-editor-localeinput>
+                                            placeholder="Fehlermeldung für Nutzende"></power-forms-editor-localeinput>
         </div>
 
         <div class="form-group col-8 col-lg-4 mb-1 mb-lg-0"
@@ -209,7 +209,7 @@
     <option value="{pagecount}"
             i18n>Seitenanzahl</option>
     <option value="{locale}"
-            i18n>Sprache des Benutzers in Kurzform (z.B. de)</option>
+            i18n>Sprache der nutzenden Person in Kurzform (z.B. de)</option>
     <option value="{correctedanswers}"
             i18n>Anzahl korrekter Antworten (Quiz)</option>
     <option value="{incorrectedanswers}"
