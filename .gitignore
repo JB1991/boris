@@ -25,6 +25,7 @@ power/node_modules/
 *.launch
 .settings/
 *.sublime-workspace
+workspace.code-workspace
 
 # IDE - VSCode
 .vscode/*
