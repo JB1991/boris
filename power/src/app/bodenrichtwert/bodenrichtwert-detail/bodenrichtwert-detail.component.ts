@@ -13,7 +13,7 @@ export class BodenrichtwertDetailComponent implements OnChanges {
         'brz': $localize`Bodenrichtwertzone`,
         'umwert': $localize`Umrechnungstabelle`,
         'umdatei': $localize`Umrechnungsdatei`,
-        'state': $localize`Beitragsabgabenrechtlicher Zustand`,
+        'state': $localize`Beitrags- und abgabenrechtlicher Zustand`,
         'usage': $localize`Art der Nutzung`,
         'value': $localize`Bodenrichtwert`,
         'flae': $localize`Grundstücksfläche`,

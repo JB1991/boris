@@ -576,19 +576,19 @@ export class FormAPIService {
             return $localize`Bitte geben Sie nicht mehr als 5 Gruppen an.`;
 
         } else if (msg.startsWith('element has no title: ')) {
-            return $localize`Bitte geben sie einen Titel an:` + ' ' + msg.slice(22);
+            return $localize`Bitte geben Sie einen Titel an` + ': ' + msg.slice(22);
 
         } else if (msg.startsWith('unknown group:')) {
             return $localize`Die Gruppe konnte nicht gefunden werden.`;
 
         } else if (msg.startsWith('user not found:')) {
-            return $localize`Der Benutzer konnte nicht gefunden werden.`;
+            return $localize`Das Profil konnte nicht gefunden werden.`;
 
         } else if (msg.startsWith('user already exists:')) {
-            return $localize`Server Fehler: Dieser Benutzer existiert bereits.`;
+            return $localize`Server Fehler: Dieses Profil existiert bereits.`;
 
         } else if (msg.startsWith('element not found:')) {
-            return $localize`Der Favorite konnte nicht gefunden werden.`;
+            return $localize`Der Favorit konnte nicht gefunden werden.`;
 
         } else if (msg === 'task not found') {
             return $localize`Die von Ihnen angegebene PIN ist ungültig.`;

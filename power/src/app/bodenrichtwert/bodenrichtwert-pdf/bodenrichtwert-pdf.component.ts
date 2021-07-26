@@ -327,7 +327,7 @@ export class BodenrichtwertPdfComponent {
 
                 // Beitragsrechtlicher Zustand (beit)
                 if (brw.properties.beit) {
-                    tmp.push($localize`Beitragsabgabenrechtlicher Zustand` + ': ' + this.beitragPipe.transform(brw.properties.beit) + '\n');
+                    tmp.push($localize`Beitrags- und abgabenrechtlicher Zustand` + ': ' + this.beitragPipe.transform(brw.properties.beit) + '\n');
                 }
 
                 // Nutzung - Art und Ergänzung (nuta, enuta)

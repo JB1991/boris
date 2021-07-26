@@ -668,7 +668,7 @@
             <button type="button"
                     class="btn btn-success btn-sm mr-2"
                     i18n-title
-                    title="Neue PIN erstellen"
+                    title="Neue PIN generieren"
                     (click)="maketask.open()"
                     *ngIf="form.status === 'published' && form.access !== 'public' && auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)">
                 <svg width="1em"
@@ -687,7 +687,7 @@
                           d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
                 </svg>
                 <span class="d-none d-sm-inline ml-1"
-                      i18n>Neue PIN erstellen</span>
+                      i18n>Neue PIN generieren</span>
             </button>
 
             <button *ngIf="auth.IsAuthorized(['admin', 'manager', 'editor'], form.owner.id, form.groups)"
