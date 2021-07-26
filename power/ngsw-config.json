@@ -43,8 +43,7 @@
         "!/vector-tiles/**",
         "!/download/**",
         "!/formapi/**",
-        "!/feedback-rss/**",
-        "!/boris-print/**"
+        "!/feedback-rss/**"
     ],
     "navigationRequestStrategy": "freshness"
 }

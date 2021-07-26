@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /boris-print/
 Disallow: /forms/fillout/
 Disallow: /login
 Disallow: /logout
