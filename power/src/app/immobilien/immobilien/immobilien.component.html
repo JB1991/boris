@@ -526,7 +526,11 @@
                     Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
                 </button>
 
+                <label class="sr-only"
+                       for="nipix-gemeinden-input"
+                       i18n>Gemeinde suchen</label>
                 <input type="text"
+                       id="nipix-gemeinden-input"
                        class="form-control"
                        list="nipix-gemeinden"
                        [(ngModel)]="selectedWoMaValue"

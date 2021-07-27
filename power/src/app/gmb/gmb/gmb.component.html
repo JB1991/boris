@@ -41,6 +41,9 @@
             <span i18n>Berichte für den Landkreis</span> "{{kreise[selectedKreis]}}"
         </h2>
         <div class="col-md-12 dropdown">
+            <label class="sr-only"
+                   for="landkreise"
+                   i18n>Landkreisauswahl</label>
             <select id="landkreise"
                     class="form-select"
                     i18n-aria-label
@@ -84,6 +87,7 @@
                 role="row">
                 <div class="col-md-12 p-0">
                     <!-- Bodenrichtwert (brz) -->
+                    <!-- [html-validate-disable-next input-missing-label] -->
                     <input type="checkbox"
                            [checked]="berichteOpened.indexOf(bj.value['file'].split('.')[0]) !== -1"
                            (change)="checkValue($event)"

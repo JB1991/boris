@@ -2,6 +2,7 @@
 <div class="form-group">
     <!-- editable = true -->
     <ng-container *ngIf="editable">
+        <!-- [html-validate-disable-next input-missing-label] -->
         <input type="text"
                attr.list="tagList-{{ eid }}"
                class="form-control"
@@ -21,6 +22,7 @@
     </ng-container>
 
     <!-- editable = false -->
+    <!-- [html-validate-disable-next input-missing-label] -->
     <select *ngIf="!editable"
             class="custom-select"
             [(ngModel)]="tagInput"
