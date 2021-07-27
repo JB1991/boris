@@ -39,9 +39,11 @@
                         type="button">
                     <i class="bi bi-plus-circle"
                        *ngIf="staticExpand(p) === false"
+                       role="img"
                        aria-hidden="true"></i>
                     <i class="bi bi-dash-circle"
                        *ngIf="staticExpand(p) === true"
+                       role="img"
                        aria-hidden="true"></i>
                     {{nipixRuntime.translate(select['name'])}}
                 </button>
@@ -59,10 +61,12 @@
                             attr.aria-label="Kategorie auswählen. Aktuelle Auswahl {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}">
                         <i class="bi bi-house-fill"
                            *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory === 'gebrauchte Eigenheime'"
+                           role="img"
                            aria-hidden="true">
                         </i>
                         <i class="bi bi-building"
                            *ngIf="nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory === 'gebrauchte Eigentumswohnungen'"
+                           role="img"
                            aria-hidden="true">
                         </i>
                         {{nipixRuntime.translate(nipixRuntime.getDrawPreset(select['preset'][0]).nipixCategory)}}
@@ -78,10 +82,12 @@
                                 *ngFor="let f of nipixRuntime.availableNipixCategories">
                             <i class="bi bi-house-fill"
                                *ngIf="f === 'gebrauchte Eigenheime'"
+                               role="img"
                                aria-hidden="true">
                             </i>
                             <i class="bi bi-building"
                                *ngIf="f === 'gebrauchte Eigentumswohnungen'"
+                               role="img"
                                aria-hidden="true">
                             </i>
                             {{nipixRuntime.translate(f)}}
@@ -168,10 +174,12 @@
                                   style="padding-left: 0.5rem;">
                                 <i class="bi bi-house-fill"
                                    *ngIf="f === 'gebrauchte Eigenheime'"
+                                   role="img"
                                    aria-hidden="true">
                                 </i>
                                 <i class="bi bi-building"
                                    *ngIf="f === 'gebrauchte Eigentumswohnungen'"
+                                   role="img"
                                    aria-hidden="true">
                                 </i>
                                 {{nipixRuntime.translate(f)}}
@@ -305,9 +313,11 @@
                                 {{ nipixRuntime.translate(itm) }}
                                 <i class="bi bi-house-fill"
                                    *ngIf="itm === 'gebrauchte Eigenheime'"
+                                   role="img"
                                    aria-hidden="true"></i>
                                 <i class="bi bi-building"
                                    *ngIf="itm === 'gebrauchte Eigentumswohnungen'"
+                                   role="img"
                                    aria-hidden="true"></i>
                                 ({{ nipixRuntime.translate(nipixStatic.data.shortNames[itm]) }})
                             </span>
@@ -359,9 +369,11 @@
                         type="button">
                     <i class="bi bi-plus-circle"
                        *ngIf="staticExpand(97) === false"
+                       role="img"
                        aria-hidden="true"></i>
                     <i class="bi bi-dash-circle"
                        *ngIf="staticExpand(97) === true"
+                       role="img"
                        aria-hidden="true"></i>
                     <span i18n>Zeitraum auswählen</span>
                 </button>
@@ -430,9 +442,11 @@
                         type="button">
                     <i class="bi bi-plus-circle"
                        *ngIf="staticExpand(98) === false"
+                       role="img"
                        aria-hidden="true"></i>
                     <i class="bi bi-dash-circle"
                        *ngIf="staticExpand(98) === true"
+                       role="img"
                        aria-hidden="true"></i>
                     Export / Download
                 </button>
@@ -446,6 +460,7 @@
                               (click)="nipixRuntime.export.exportMapAsImage()"
                               (keydown.enter)="nipixRuntime.export.exportMapAsImage()">
                             <i class="bi bi-file-earmark-image"
+                               role="img"
                                aria-hidden="true"></i>
                             Export als Bild (png)
                         </span>
@@ -457,6 +472,7 @@
                               (click)="nipixRuntime.export.exportGeoJSON()"
                               (keydown.enter)="nipixRuntime.export.exportGeoJSON()">
                             <i class="bi bi-file-earmark-richtext"
+                               role="img"
                                aria-hidden="true"></i>
                             Export als GeoJSON
                         </span>
@@ -471,6 +487,7 @@
                               (click)="nipixRuntime.export.exportAsImage()"
                               (keydown.enter)="nipixRuntime.export.exportAsImage()">
                             <i class="bi bi-file-earmark-image"
+                               role="img"
                                aria-hidden="true"></i>
                             Export als Bild (png)
                         </span>
@@ -482,6 +499,7 @@
                               (click)="nipixRuntime.export.exportNiPixGeoJson(true)"
                               (keydown.enter)="nipixRuntime.export.exportNiPixGeoJson(true)">
                             <i class="bi bi-file-earmark-richtext"
+                               role="img"
                                aria-hidden="true"></i>
                             Export als GeoJSON
                         </span>
@@ -493,6 +511,7 @@
                               (click)="nipixRuntime.export.exportNiPixGeoJson(false)"
                               (keydown.enter)="nipixRuntime.export.exportNiPixGeoJson(false)">
                             <i class="bi bi-file-earmark-spreadsheet"
+                               role="img"
                                aria-hidden="true"></i>
                             Export als CSV
                         </span>
@@ -507,9 +526,11 @@
                         type="button">
                     <i class="bi bi-plus-circle"
                        *ngIf="staticExpand(99) === false"
+                       role="img"
                        aria-hidden="true"></i>
                     <i class="bi bi-dash-circle"
                        *ngIf="staticExpand(99) === true"
+                       role="img"
                        aria-hidden="true"></i>
                     Zu welcher Wohnungsmarktregion gehört meine Gemeinde?
                 </button>
