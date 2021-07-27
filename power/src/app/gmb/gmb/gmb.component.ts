@@ -102,16 +102,6 @@ export class GmbComponent implements OnInit {
         'color': ['#000000']
     };
 
-    /**
-     * Constructor:
-     *
-     * @param platformId
-     * @param http Inject HttpClient
-     * @param route
-     * @param location
-     * @param cdr
-     * @param seo
-     */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -200,7 +190,7 @@ export class GmbComponent implements OnInit {
 
     /**
      * Gets chart element for map
-     * @param ec
+     * @param ec Chart
      */
     onChartInit(ec) {
         this.map = ec;
@@ -231,6 +221,7 @@ export class GmbComponent implements OnInit {
 
     /**
      * Generate Map Regionen
+     * @returns Array of regions
      */
     getRegionen() {
         const res = [];
@@ -280,7 +271,8 @@ export class GmbComponent implements OnInit {
 
     /**
      * generate Kreisliste
-     * @param arr
+     * @param arr Array
+     * @returns Kreisliste
      */
     generateKreisliste(arr) {
         if (arr === undefined) {
@@ -363,7 +355,7 @@ export class GmbComponent implements OnInit {
 
     /**
      * Filter Berichte based on selection
-     * @param lmb
+     * @param lmb True if LBM
      */
     filterBerichte(lmb = false) {
         if (this.selectedKreis === undefined && !lmb) {
@@ -381,7 +373,7 @@ export class GmbComponent implements OnInit {
 
     /**
      * Handle the Change of an Selection in the Map
-     * @param param
+     * @param param Map param
      */
     onMapSelectChange(param) {
 

@@ -20,6 +20,7 @@ export class GeosearchService {
 
     /**
      * Returns the features as an Observable
+     * @returns Feature Observable
      */
     public getFeatures(): Observable<Feature> {
         return this.features.asObservable();
@@ -36,6 +37,7 @@ export class GeosearchService {
     /**
      * Search for locations in lower saxony
      * @param search The search string to be passed to the GeoCoder
+     * @returns FeatureCollection Observable
      */
     public search(search: string): Observable<FeatureCollection> {
         const header = new HttpHeaders().set('Content-Type', 'application/json')
@@ -55,9 +57,10 @@ export class GeosearchService {
 
     /**
      * Translate geo coordinates to an address
+     * If the parameter `distance` changes, the html text in `bodenrichtwert.component` must be changed accordingly.
      * @param lat Latitude
      * @param lon Longitude
-     * If the parameter `distance` changes, the html text in `bodenrichtwert.component` must be changed accordingly.
+     * @returns FeatureCollection Observable
      */
     public getAddressFromCoordinates(lat: number, lon: number): Observable<FeatureCollection> {
         const header = new HttpHeaders().set('Content-Type', 'application/json')
@@ -78,8 +81,9 @@ export class GeosearchService {
     /**
      * Handling of HTTP errors by logging it to the console
      * @param error HTTP error to be handled
+     * @returns Error Observable
      */
-    private static handleError(error: HttpErrorResponse) {
+    private static handleError(error: HttpErrorResponse): Observable<never> {
         return throwError(error);
     }
 }

@@ -15,7 +15,7 @@ export class ImmobilienHelper {
      *
      * Source: https://stackoverflow.com/a/5624139
      *
-     * @param {int} c Color Component
+     * @param {number} c Color Component
      * @returns {string} Hex Component
      */
     static componentToHex(c) {
@@ -26,9 +26,9 @@ export class ImmobilienHelper {
     /**
      * Convert RGB color to Hex
      *
-     * @param {int} r red color
-     * @param {int} g green color
-     * @param {int} b blue coor
+     * @param {number} r red color
+     * @param {number} g green color
+     * @param {number} b blue coor
      * @returns {string} Hex-Color
      */
     static rgbToHex(r, g, b) {
@@ -136,8 +136,8 @@ export class ImmobilienHelper {
      *
      * @param data Data for Download
      * @param filename Filename for the Data to download
-     * @param filetype
-     * @param isurl
+     * @param filetype Content-Type
+     * @param isurl True if is url
      */
     static downloadFile(data, filename, filetype = 'text/csv', isurl = false): any {
         let url = data;
@@ -166,6 +166,7 @@ export class ImmobilienHelper {
         } else {
             const anchor = document.createElement('a');
             anchor.download = filename;
+            /* eslint-disable-next-line scanjs-rules/assign_to_href */
             anchor.href = url;
             anchor.click();
         }
@@ -192,8 +193,8 @@ export class ImmobilienHelper {
      *
      * @param array Array with th data which should converted
      * @param keys Keys which data should be used
-     * @param split
-     * @param feld
+     * @param split Split value
+     * @param feld Quote character
      * @returns CSV String
      */
     static convertArrayToCSV(array, keys, split = ';', feld = '"') {

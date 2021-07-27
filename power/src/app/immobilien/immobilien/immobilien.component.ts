@@ -42,16 +42,6 @@ export class ImmobilienComponent implements OnInit {
     // URL
     urlIndex = null;
 
-    /**
-     * Constructor:
-     *
-     * @param platformId
-     * @param route
-     * @param location
-     * @param http Inject HttpClient
-     * @param cdr
-     * @param seo
-     */
     constructor(
         /* eslint-disable-next-line @typescript-eslint/ban-types */
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -177,8 +167,7 @@ export class ImmobilienComponent implements OnInit {
      * Format CSV; Seperator: Semikolon;
      * Fields: AGS, Geme_Bezeichnung, WOMA_ID
      *
-     * @param url
-     * @params {string} url Url to Gemeinnde CSV
+     * @param {string} url Url to Gemeinnde CSV
      */
     loadGemeinden(url) {
         // Load nipix
@@ -341,6 +330,7 @@ export class ImmobilienComponent implements OnInit {
                 this.parseURLMultiSelect(selectionId, params);
             }
         }
+        /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         setTimeout(this.staticChange.bind(this), 50, selectionId, true);
 
         this.cdr.detectChanges();
@@ -419,6 +409,7 @@ export class ImmobilienComponent implements OnInit {
         }, selectType);
         this.nipixRuntime.state.mapWidth = 10000;
         // Update Map Selection; Wait a little time for browser to render
+        /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         setTimeout(this.updateMapSelect.bind(this), 100);
 
     }
@@ -829,7 +820,6 @@ export class ImmobilienComponent implements OnInit {
      * Get the Region Name for "Find My WoMaReg".
      * Handle found WoMaReg.
      *
-     * @param WoMa Region ID
      * @param id
      * @returns WoMaReg Name
      */
@@ -922,6 +912,7 @@ export class ImmobilienComponent implements OnInit {
      * Check Static Expand
      *
      * @param id id of the tab
+     * @returns True if expanded
      */
     staticExpand(id) {
         if (this.accOpen[id] === true) {

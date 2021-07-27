@@ -1,5 +1,7 @@
 /**
- * @param position
+ * getScatter
+ * @param position Position
+ * @returns Object
  */
 function getScatter(position) {
     return {

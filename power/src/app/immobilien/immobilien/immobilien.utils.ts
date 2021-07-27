@@ -129,8 +129,7 @@ export class ImmobilienUtils {
      * @param color Series color (Must be valid for convertColor)
      * @param labelFormatter Custom labelFormatter function
      * @param selectedChartLine Name of the selected chart line (for highlghting)
-     * @param zIndex xAxisIndex (degfault 0) (see echarts api)
-     * @param xIndex
+     * @param xIndex xAxisIndex (degfault 0) (see echarts api)
      * @param yIndex yAxisIndex (Default 0) (see echarts api)
      * @param seriesType SeriesTyp (default line) (see echarts api)
      * @returns echarts Series Object
@@ -177,8 +176,7 @@ export class ImmobilienUtils {
      * @param data raw Series Data
      * @param date date arry for data
      * @param field Data array field
-     * @param offset
-     * @offset Offset for ercentage calculation
+     * @param offset Offset for ercentage calculation
      * @returns Data array
      */
     static generateDrawSeriesData(data, date = [], field = null, offset = 100) {

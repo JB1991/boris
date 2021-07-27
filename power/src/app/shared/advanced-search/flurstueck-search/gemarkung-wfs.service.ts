@@ -27,6 +27,7 @@ export class GemarkungWfsService {
     }
 
     /**
+     * Returns Features
      * @returns features as an Observable
      */
     public getFeatures(): Observable<Feature> {

@@ -25,7 +25,8 @@ export class AlkisWfsService {
     }
 
     /**
-     * @returns eatures as an Observable
+     * Returns Features
+     * @returns Features as an Observable
      */
     public getFeatures(): Observable<FeatureCollection> {
         return this.features.asObservable();
