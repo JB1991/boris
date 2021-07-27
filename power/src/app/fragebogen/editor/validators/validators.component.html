@@ -4,6 +4,7 @@
             <label for="validatorType{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Typ*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <select class="custom-select"
                     [(ngModel)]="item.type"
                     (change)="switchType($event, i); modelChanged($event)"
@@ -31,6 +32,7 @@
             <label for="validatorMin{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Minimaler Wert/Länge/Anzahl*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <input type="number"
                    class="form-control"
                    [(ngModel)]="item.min"
@@ -50,6 +52,7 @@
             <label for="validatorMax{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Maximaler Wert/Länge/Anzahl*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <input type="number"
                    class="form-control"
                    [(ngModel)]="item.max"
@@ -69,6 +72,7 @@
             <label for="validatorData{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Regulärerausdruck*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <input type="text"
                    class="form-control"
                    [(ngModel)]="item.regex"
@@ -100,6 +104,7 @@
             <label for="validatorExpQuestion{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Formularfeld*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <input type="text"
                    class="form-control"
                    [attr.list]="'validationlist-' + uniqId"
@@ -119,6 +124,7 @@
             <label for="validatorExpOperator{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Operator*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <select class="custom-select"
                     [(ngModel)]="item.operator"
                     (change)="switchValueType($event, i); modelChanged($event)"
@@ -154,6 +160,7 @@
             <label for="validatorExpValueA{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Wert oder Variabel</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <input type="text"
                    class="form-control"
                    [attr.list]="'validationlist-' + uniqId"
@@ -171,6 +178,7 @@
             <div *ngIf="item.operator === 'anyof' || item.operator === 'allof'">
                 <div class="custom-control custom-checkbox"
                      *ngFor="let choice of item.choices; index as j">
+                    <!-- [html-validate-disable-next input-missing-label] -->
                     <input class="custom-control-input"
                            type="checkbox"
                            id="conditionValueB{{ i }}{{ j }}{{ uniqId }}"
@@ -244,6 +252,7 @@
              class="bi bi-dash"
              fill="currentColor"
              xmlns="http://www.w3.org/2000/svg"
+             role="img"
              focusable="false"
              aria-hidden="true">
             <path fill-rule="evenodd"
@@ -263,6 +272,7 @@
              class="bi bi-plus"
              fill="currentColor"
              xmlns="http://www.w3.org/2000/svg"
+             role="img"
              focusable="false"
              aria-hidden="true">
             <path fill-rule="evenodd"
@@ -284,6 +294,7 @@
     <div class="col-12 col-lg-8 p-0">
         <select class="custom-select"
                 (change)="selectDefaultValidator($event)"
+                id="validatorDefault"
                 name="validatorDefault"
                 required>
             <option value=""

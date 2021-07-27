@@ -35,6 +35,7 @@ export class NipixRuntime {
 
     private nipixStatic: ImmobilenNipixStatic.NipixStatic;
 
+    /* eslint-disable-next-line scanjs-rules/call_setTimeout */
     private highlightedTimeout = setTimeout(this.highlightTimeout.bind(this), 10000);
 
     public formatter: ImmobilienFormatter.ImmobilienFormatter;
@@ -194,8 +195,7 @@ export class NipixRuntime {
      * Get draw object for a specific name
      *
      * @param name Name of the draw Object
-     *
-     * @return draw Object
+     * @returns draw Object
      */
     public getDrawPreset(name: string) {
         const result = this.drawPresets.filter(drawitem => drawitem['name'] === name);
@@ -248,6 +248,7 @@ export class NipixRuntime {
 
         }
         clearTimeout(this.highlightedTimeout);
+        /* eslint-disable-next-line scanjs-rules/call_setTimeout */
         this.highlightedTimeout = setTimeout(this.highlightTimeout.bind(this), 10000);
     }
 
@@ -273,7 +274,8 @@ export class NipixRuntime {
     }
 
     /**
-     * Update the Selectiopn of the Map aware of the activer Draw Item
+     * Update the Selection of the Map aware of the activer Draw Item
+     * @param id id
      */
     public updateMapSelect(id = null) {
         if (this.map.obj === null) {

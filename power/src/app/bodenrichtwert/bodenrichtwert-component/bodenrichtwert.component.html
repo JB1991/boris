@@ -59,8 +59,10 @@
                          [ngClass]="{'col-lg-1' : !isCollapsed}">
                         <button class="btn p-0 w-100 rounded-0 collapse-btn-size"
                                 type="button"
-                                title="Detailansicht ein- bzw. ausklappen"
                                 i18n-title
+                                title="Detailansicht ein- bzw. ausklappen"
+                                i18n-aria-label
+                                aria-label="Detailansicht ein- bzw. ausklappen"
                                 (click)="isCollapsed = !isCollapsed"
                                 [attr.aria-expanded]="!isCollapsed"
                                 aria-controls="collapseDetails">
@@ -82,19 +84,19 @@
                             <div class="row p-0 pb-2 m-0 border-bottom align-items-center details-header-height">
                                 <div class="col-12 col-lg p-0">
                                     <!-- no address and no features but latLng set-->
-                                    <h6 *ngIf="!address && !features?.features.length"
-                                        class="px-1 px-lg-2 pt-2 m-0 text-center"
-                                        i18n>Es liegen keine Bodenrichtwertdaten für diese Koordinate vor.</h6>
+                                    <div *ngIf="!address && !features?.features.length"
+                                         class="h6 px-1 px-lg-2 pt-2 m-0 text-center"
+                                         i18n>Es liegen keine Bodenrichtwertdaten für diese Koordinate vor.</div>
                                     <!-- - no address but features -->
-                                    <h6 *ngIf="!address && features?.features.length "
-                                        class="px-1 px-lg-2 pt-2 m-0 text-center">
+                                    <div *ngIf="!address && features?.features.length "
+                                         class="h6 px-1 px-lg-2 pt-2 m-0 text-center">
                                         {{ features.features[0].properties.brzname | umlautCorrection }}
-                                    </h6>
+                                    </div>
                                     <!-- address and features -->
-                                    <h6 *ngIf="address"
-                                        class="px-1 px-lg-2 pt-2 m-0 text-center">
+                                    <div *ngIf="address"
+                                         class="h6 px-1 px-lg-2 pt-2 m-0 text-center">
                                         {{ address.properties.text }}
-                                    </h6>
+                                    </div>
                                     <ng-template [ngTemplateOutlet]="flurstueckskennzeichen"></ng-template>
                                 </div>
                                 <div class="col-12 col-lg-2 p-0">
@@ -109,9 +111,9 @@
         </div>
         <div>
             <!-- no address and no features - inital state -->
-            <h5 *ngIf="!latLng"
-                class="px-1 px-lg-2 pt-2 text-center"
-                i18n>Wählen Sie eine Position</h5>
+            <div *ngIf="!latLng"
+                 class="h5 px-1 px-lg-2 pt-2 text-center"
+                 i18n>Wählen Sie eine Position</div>
         </div>
     </div>
 
@@ -144,8 +146,8 @@
                  class="col-auto col-lg-6 p-0">
                 <button class="nav-link btn p-2 m-2"
                         type="button"
-                        i18n-alt
-                        alt="Bodenrichtwerte - amtlicher Ausdruck"
+                        i18n-aria-label
+                        aria-label="Bodenrichtwerte - amtlicher Ausdruck"
                         title="Bodenrichtwerte - amtlicher Ausdruck"
                         i18n-title
                         (click)="mapService.zoomToSelection(); openPrintModal()">
@@ -155,14 +157,13 @@
                          fill="currentColor"
                          class="bi bi-printer"
                          viewBox="0 0 16 16"
+                         role="img"
                          focusable="false"
                          aria-hidden="true">
                         <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
                         <path
                               d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
                     </svg>
-                    <span class="sr-only"
-                          i18n>Bodenrichtwerte - amtlicher Ausdruck</span>
                 </button>
             </div>
             <div class="p-0"
@@ -171,8 +172,8 @@
                         class="nav-link btn p-2 m-2"
                         [ngClass]="{'active': hintsActive}"
                         type="button"
-                        i18n-alt
-                        alt="Hinweise zur aktuellen Darstellung"
+                        i18n-aria-label
+                        aria-label="Hinweise zur aktuellen Darstellung"
                         i18n-title
                         title="Hinweise zur aktuellen Darstellung"
                         (click)="hintsActive = !hintsActive">
@@ -182,6 +183,7 @@
                          fill="currentColor"
                          class="bi bi-info-circle"
                          viewBox="0 0 16 16"
+                         role="img"
                          focusable="false"
                          aria-hidden="true">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -250,6 +252,7 @@
                      viewBox="0 0 20 22"
                      width="24"
                      height="20"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <g transform="translate(-10,-20) scale(0.5,0.4)">

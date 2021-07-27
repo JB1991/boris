@@ -6,12 +6,12 @@
     "rules": {
         "attr-case": "off",
         "element-name": "off",
-        "no-inline-style": "warn",
         "prefer-native-element": "off",
-        "text-content": "warn",
+        "text-content": "error",
+        "heading-level": "error",
+        "no-inline-style": "warn",
+        "input-missing-label": "warn",
         "missing-doctype": "off",
-        "no-missing-references": "off",
-        "heading-level": "warn",
-        "input-missing-label": "off"
+        "no-missing-references": "off"
     }
 }

@@ -19,6 +19,7 @@
                      class="bi bi-info-circle-fill"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path fill-rule="evenodd"
@@ -53,6 +54,7 @@
                          class="bi bi-envelope"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         role="img"
                          focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
@@ -84,6 +86,7 @@
                          class="bi bi-clipboard"
                          fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg"
+                         role="img"
                          focusable="false"
                          aria-hidden="true">
                         <path fill-rule="evenodd"
@@ -107,6 +110,7 @@
                      class="bi bi-journals"
                      fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg"
+                     role="img"
                      focusable="false"
                      aria-hidden="true">
                     <path
@@ -120,7 +124,11 @@
 
             <div class="row m-0">
                 <div class="col-12 p-0 mb-2">
+                    <label class="sr-only"
+                           for="search-input"
+                           i18n>Suche nach Feedback und Tickets</label>
                     <input type="text"
+                           id="search-input"
                            class="form-control d-inline w-75"
                            style="max-width: 500px;"
                            [(ngModel)]="search"
@@ -142,6 +150,7 @@
                              class="bi bi-search"
                              fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg"
+                             role="img"
                              focusable="false"
                              aria-hidden="true">
                             <path fill-rule="evenodd"
@@ -155,7 +164,11 @@
                 </div>
 
                 <div class="col-12 p-0">
+                    <label class="sr-only"
+                           for="search-filter"
+                           i18n>Suchfilter für Tickets</label>
                     <select class="custom-select w-75"
+                            id="search-filter"
                             style="max-width: 250px;"
                             [(ngModel)]="stateFilter"
                             (change)="doSearch()">

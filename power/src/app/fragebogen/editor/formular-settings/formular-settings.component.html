@@ -124,6 +124,7 @@
                            [(ngModel)]="model.navigateToUrl"
                            name="form-navigateToUrl"
                            id="form-navigateToUrl"
+                           i18n-placeholder
                            placeholder="https://..."
                            aria-describedby="form-navigateToUrlHelp"
                            autocomplete="off">
@@ -147,6 +148,7 @@
                            [(ngModel)]="model.logo"
                            name="form-logo"
                            id="form-logo"
+                           i18n-placeholder
                            placeholder="https://..."
                            aria-describedby="form-logoHelp"
                            autocomplete="off">
@@ -366,6 +368,7 @@
                                          class="bi bi-caret-up"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path fill-rule="evenodd"
@@ -387,6 +390,7 @@
                                          class="bi bi-caret-down"
                                          fill="currentColor"
                                          xmlns="http://www.w3.org/2000/svg"
+                                         role="img"
                                          focusable="false"
                                          aria-hidden="true">
                                         <path fill-rule="evenodd"
@@ -429,6 +433,7 @@
                         <div class="form-group">
                             <label for="page-questionsOrder-{{ i }}"
                                    i18n>Fragen Reihenfolge</label>
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <select class="custom-select"
                                     [(ngModel)]="page.questionsOrder"
                                     id="page-questionsOrder-{{ i }}"
@@ -448,6 +453,7 @@
 
                         <!-- page-visible -->
                         <div class="custom-control custom-checkbox mb-3">
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="checkbox"
                                    class="custom-control-input"
                                    [(ngModel)]="page.visible"
@@ -464,6 +470,7 @@
 
                         <!-- page-readOnly -->
                         <div class="custom-control custom-checkbox mb-3">
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="checkbox"
                                    class="custom-control-input"
                                    [(ngModel)]="page.readOnly"
@@ -482,6 +489,7 @@
                         <div class="form-group">
                             <label for="page-maxTimeToFinish-{{ i }}"
                                    i18n>Zeitlimit in Sekunden für die Seite</label>
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="number"
                                    class="form-control"
                                    [(ngModel)]="page.maxTimeToFinish"
@@ -601,6 +609,7 @@
                  class="bi bi-hdd"
                  fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg"
+                 role="img"
                  focusable="false"
                  aria-hidden="true">
                 <path fill-rule="evenodd"

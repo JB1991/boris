@@ -2,6 +2,7 @@
 <div class="form-group">
     <!-- editable = true -->
     <ng-container *ngIf="editable">
+        <!-- [html-validate-disable-next input-missing-label] -->
         <input type="text"
                attr.list="tagList-{{ eid }}"
                class="form-control"
@@ -21,6 +22,7 @@
     </ng-container>
 
     <!-- editable = false -->
+    <!-- [html-validate-disable-next input-missing-label] -->
     <select *ngIf="!editable"
             class="custom-select"
             [(ngModel)]="tagInput"
@@ -45,14 +47,12 @@
                         class="close ml-1 text-white"
                         i18n-title
                         title="Löschen"
-                        i18n-alt
-                        alt="Löschen"
+                        i18n-aria-label
+                        aria-label="Löschen"
                         (click)="removeTag(i)">
                     <i class="bi bi-x"
                        role="img"
                        aria-hidden="true"></i>
-                    <span class="sr-only"
-                          i18n>Löschen</span>
                 </button>
             </span>
         </div>
@@ -64,8 +64,6 @@
                     class="badge badge-danger mr-2 mt-2 border-0"
                     i18n-title
                     title="Alle löschen"
-                    i18n-alt
-                    alt="Alle löschen"
                     (click)="removeAll()">
                 <span class="d-inline-block py-1"
                       i18n>Alle löschen</span>

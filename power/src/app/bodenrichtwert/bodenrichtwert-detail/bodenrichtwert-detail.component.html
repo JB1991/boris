@@ -11,12 +11,13 @@
                 </div>
                 <div class="row"
                      role="row">
-                    <h5 class="col-md-5 mb-0"
-                        role="rowheader"><strong>{{brzStrings.brz | hyphenate}}</strong>
+                    <div class="h5 col-md-5 mb-0"
+                         role="rowheader"><strong>{{brzStrings.brz | hyphenate}}</strong>
                         <svg *ngIf="teilmarkt?.value[0] === 'LF'; else svgBauland"
                              viewBox="0 0 20 22"
                              width="24"
                              height="20"
+                             role="img"
                              focusable="false"
                              aria-hidden="true">
                             <g transform="translate(0,0) scale(0.4,0.4)">
@@ -29,6 +30,7 @@
                             <svg viewBox="0 0 20 22"
                                  width="24"
                                  height="20"
+                                 role="img"
                                  focusable="false"
                                  aria-hidden="true">
                                 <g transform="translate(0,0) scale(0.4,0.4)">
@@ -38,10 +40,10 @@
                                 </g>
                             </svg>
                         </ng-template>
-                    </h5>
-                    <h5 class="col-md-7 mb-0"
-                        role="cell">{{feature.properties.wnum}}
-                    </h5>
+                    </div>
+                    <div class="h5 col-md-7 mb-0"
+                         role="cell">{{feature.properties.wnum}}
+                    </div>
                 </div>
             </div>
             <div class="card-body"
@@ -307,9 +309,9 @@
         <div class="card-header">
             <div class="row"
                  role="row">
-                <h5 class="col-12 mb-0"
-                    role="columnheader"><strong i18n>Herausgegeben von</strong>
-                </h5>
+                <div class="h5 col-12 mb-0"
+                     role="columnheader"><strong i18n>Herausgegeben von</strong>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -320,13 +322,13 @@
                     <img width="200px"
                          height="75px"
                          i18n-alt
-                         alt="Freie Hansestadt Bremen"
+                         alt="Freie Hansestadt Bremen Wappen"
                          src="./assets/logos/bremen_wappen.svg"
                          *ngIf="features?.features[0].properties.gema === 'Bremerhaven' || features?.features[0].properties.gabe === 'Gutachterausschuss für Grundstückswerte in Bremen'">
                     <img width="200px"
                          height="50px"
                          i18n-alt
-                         alt="Niedersachsen"
+                         alt="Niedersachsen Wappen"
                          src="./assets/logos/niedersachsen.png"
                          *ngIf="features?.features[0].properties.gema !== 'Bremerhaven' && features?.features[0].properties.gabe !== 'Gutachterausschuss für Grundstückswerte in Bremen'">
                     <br><br>

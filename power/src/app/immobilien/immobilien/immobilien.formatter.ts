@@ -55,8 +55,7 @@ export class ImmobilienFormatter {
      * Format Series Label
      *
      * @param params eCharts Formatter parameter (see echarts api)
-     *
-     * @return Formatted String
+     * @returns Formatted String
      */
     /* eslint-disable-next-line complexity */
     public formatLabel = (params) => {
@@ -120,8 +119,7 @@ export class ImmobilienFormatter {
      * Get Label for a specific Series
      *
      * @param series series Id
-     *
-     * @return series label (sort)
+     * @returns series label (sort)
      */
     public getSeriesLabel(series) {
         if (this.nipixStatic.data.regionen[series] !== undefined) {
@@ -138,8 +136,7 @@ export class ImmobilienFormatter {
      * Gets the color for a specific series
      *
      * @param series series id
-     *
-     * @return Series Color
+     * @returns Series Color
      */
     public getSeriesColor(series) {
         if (this.nipixStatic.data.regionen[series] !== undefined) {
