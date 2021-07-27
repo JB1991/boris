@@ -18,7 +18,7 @@
              (chartClick)="chartClicked($event)"
              (chartFinished)="onChartFinished($event)"
              class="demo-chart chart-graph"></div>
-        <div style="text-align: center;"
+        <div class="text-center"
              [ngStyle]="{'font-size': nipixStatic.textOptions.fontSizePage+'rem'}"
              i18n
              aria-hidden="true">HINWEIS: Das Basisjahr der Indexreihenberechnung richtet sich nach der unteren Auswahl
@@ -96,9 +96,8 @@
                 </div>
 
                 <!-- Content: MultiSelect - Anzahl Vergleiche -->
-                <div class="btn-group btn-block"
+                <div class="btn-group btn-block mb-3"
                      dropdown
-                     style="margin-bottom: 1rem;"
                      *ngIf="select['type'] === 'multiSelect'">
                     <button class="btn btn-block dropdown-toggle"
                             id="dropdownVergleich-{{select['name']}}"
@@ -123,7 +122,8 @@
 
                 <!-- Content: Hinweis Vergleiche -->
                 <div *ngIf="select['type'] === 'multiSelect'"
-                     style="padding-left: 40px; margin-bottom: 1rem;"
+                     style="padding-left: 40px;"
+                     class="mb-3"
                      i18n
                      aria-hidden="true">HINWEIS: Eine Auswahl über die Karte ist für die Vergleiche leider nicht
                     möglich.</div>
@@ -170,8 +170,7 @@
                                 </span>
                             </ng-container>
 
-                            <span class="dotlabel"
-                                  style="padding-left: 0.5rem;">
+                            <span class="dotlabel pl-2">
                                 <i class="bi bi-house-fill"
                                    *ngIf="f === 'gebrauchte Eigenheime'"
                                    role="img"
@@ -190,9 +189,8 @@
                     <li>
                         <ng-container *ngFor="let itm of select['preset']; let i = index">
                             <ng-container *ngIf="nipixRuntime.getDrawPreset(itm).show">
-                                <span class="check custom-checkbox"
-                                      [style.background-color]="getCustomColor(itm)"
-                                      style="padding-bottom: 0.5rem; padding-top: 0.5rem;">
+                                <span class="check custom-checkbox py-2"
+                                      [style.background-color]="getCustomColor(itm)">
 
                                     <input id="{{i}}vall"
                                            [checked]="nipixRuntime.getDrawPreset(itm).values.length > 0"
@@ -213,30 +211,25 @@
                                            *ngIf="select['preset'].length > 1">
 
                                     <label for="{{i}}vall"
-                                           style="margin-bottom: 0;"
-                                           class="custom-control-label"
+                                           class="custom-control-label mb-0"
                                            *ngIf="select['preset'].length === 1">
                                     </label>
                                     <label for="{{i}}vall_"
-                                           style="margin-bottom: 0;"
-                                           class="custom-control-label"
+                                           class="custom-control-label mb-0"
                                            *ngIf="select['preset'].length > 1">
                                     </label>
 
                                 </span>
-                                <span class="dotlabel"
-                                      style="vertical-align: middle;"
+                                <span class="dotlabel align-middle"
                                       *ngIf="select['type'] === 'single' && nipixRuntime.getDrawPreset(itm).values.length === 0"
                                       i18n>Alles auswählen</span>
-                                <span class="dotlabel"
-                                      style="vertical-align: middle;"
+                                <span class="dotlabel align-middle"
                                       *ngIf="select['type'] === 'single' && nipixRuntime.getDrawPreset(itm).values.length > 0"
                                       i18n>Auswahl aufheben</span>
                             </ng-container>
                         </ng-container>
                         <ng-container *ngIf="select['type'] === 'multiSelect'">
-                            <span class="dotlabel"
-                                  style="padding-left: 0.5rem; vertical-align: middle;"
+                            <span class="dotlabel pl-2 align-middle"
                                   i18n>Alles/Nichts auswählen</span>
                         </ng-container>
 
@@ -267,12 +260,10 @@
                                            *ngIf="select['preset'].length > 1">
 
                                     <label for="{{i}}v1{{subitem}}"
-                                           style="margin-bottom: 0;"
-                                           class="custom-control-label"
+                                           class="custom-control-label mb-0"
                                            *ngIf="select['preset'].length === 1"></label>
                                     <label for="{{i}}v1{{subitem}}_"
-                                           style="margin-bottom: 0;"
-                                           class="custom-control-label"
+                                           class="custom-control-label mb-0"
                                            *ngIf="select['preset'].length > 1"></label>
 
                                 </span>
@@ -559,7 +550,7 @@
             </accordion-group>
         </accordion>
 
-        <div style="text-align: center; margin-top: 1rem;">
+        <div class="mt-3 text-center">
             <a href="{{nipixStatic.agnbUrl}}"
                target="_blank"
                rel="noopener noreferrer nofollow"
