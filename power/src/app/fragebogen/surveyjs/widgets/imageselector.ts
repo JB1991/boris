@@ -55,7 +55,6 @@ export function init(): void {
                 figure.setAttribute('role', 'checkbox');
                 figure.setAttribute('aria-label', choice.text);
                 figure.setAttribute('aria-checked', 'false');
-                // figure.setAttribute('aria-describedby', question.ariaTitleId);
                 if (!choice.isVisible) {
                     figure.style.display = 'none';
                     figure.setAttribute('aria-hidden', 'true');
@@ -232,9 +231,7 @@ export function init(): void {
             question.readOnlyChangedCallback = null;
             question.visibleChoicesChangedCallback = null;
         },
-        pdfRender: function (_, options) {
-            // TODO
-        },
+        pdfRender: function (_, options) { }
     };
 
     CustomWidgetCollection.Instance.addCustomWidget(widget, 'customtype');
