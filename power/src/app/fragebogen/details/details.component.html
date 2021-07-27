@@ -265,9 +265,12 @@
                   i18n>Antworten</span>
             <div class="float-md-right row">
                 <div class="col-sm">
+                    <label class="sr-only"
+                           for="filter-task-status"
+                           i18n>Antworten filtern nach Status</label>
                     <select class="browser-default custom-select"
-                            (change)="taskStatus = $event.target.value; this.updateTasks()"
-                            aria-roledescription="Antworten filtern nach Status.">
+                            id="filter-task-status"
+                            (change)="taskStatus = $event.target.value; this.updateTasks()">
                         <option value="all"
                                 selected
                                 i18n>Status: Alle</option>
@@ -741,7 +744,11 @@
             <div class="float-lg-right mt-2 mt-lg-0">
                 <div class="form-inline">
                     <div class="form-group m-0 mr-2">
+                        <label class="sr-only"
+                               for="pagination-tasks"
+                               i18n>Anzahl von Antworten pro Seite</label>
                         <select class="custom-select"
+                                id="pagination-tasks"
                                 (change)="taskPerPage = $event.target.value; updateTasks()">
                             <option *ngFor=" let size of taskPageSizes ">
                                 {{ size }}

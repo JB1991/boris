@@ -4,6 +4,7 @@
             <label for="conditionCondition{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Verknüpfung*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <select class="custom-select"
                     [(ngModel)]="item.condition"
                     (change)="modelChanged($event)"
@@ -23,6 +24,7 @@
             <label for="conditionQuestion{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Formularfeld*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <input type="text"
                    class="form-control"
                    [attr.list]="'conditionlist-' + uniqId"
@@ -41,6 +43,7 @@
             <label for="conditionOperator{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Operator*</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <select class="custom-select"
                     [(ngModel)]="item.operator"
                     (change)="switchValueType($event, i); modelChanged($event)"
@@ -76,6 +79,7 @@
             <label for="conditionValueA{{ i }}{{ uniqId }}"
                    class="sr-only"
                    i18n>Wert oder Variabel</label>
+            <!-- [html-validate-disable-next input-missing-label] -->
             <input type="text"
                    class="form-control"
                    [attr.list]="'conditionlist-' + uniqId"
@@ -93,6 +97,7 @@
             <div *ngIf="item.operator === 'anyof' || item.operator === 'allof'">
                 <div class="custom-control custom-checkbox"
                      *ngFor="let choice of item.choices; index as j">
+                    <!-- [html-validate-disable-next input-missing-label] -->
                     <input class="custom-control-input"
                            type="checkbox"
                            id="conditionValueB{{ i }}{{ j }}{{ uniqId }}"

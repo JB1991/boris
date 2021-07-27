@@ -431,6 +431,7 @@
                         <div class="form-group">
                             <label for="page-questionsOrder-{{ i }}"
                                    i18n>Fragen Reihenfolge</label>
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <select class="custom-select"
                                     [(ngModel)]="page.questionsOrder"
                                     id="page-questionsOrder-{{ i }}"
@@ -450,6 +451,7 @@
 
                         <!-- page-visible -->
                         <div class="custom-control custom-checkbox mb-3">
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="checkbox"
                                    class="custom-control-input"
                                    [(ngModel)]="page.visible"
@@ -466,6 +468,7 @@
 
                         <!-- page-readOnly -->
                         <div class="custom-control custom-checkbox mb-3">
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="checkbox"
                                    class="custom-control-input"
                                    [(ngModel)]="page.readOnly"
@@ -484,6 +487,7 @@
                         <div class="form-group">
                             <label for="page-maxTimeToFinish-{{ i }}"
                                    i18n>Zeitlimit in Sekunden für die Seite</label>
+                            <!-- [html-validate-disable-next input-missing-label] -->
                             <input type="number"
                                    class="form-control"
                                    [(ngModel)]="page.maxTimeToFinish"

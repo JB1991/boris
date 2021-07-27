@@ -11,6 +11,7 @@
                 <label for="answer-value-{{ i }}{{ uniqId }}"
                        class="sr-only"
                        i18n>Datenwert</label>
+                <!-- [html-validate-disable-next input-missing-label] -->
                 <input type="text"
                        class="form-control"
                        [(ngModel)]="item.value"
@@ -110,6 +111,7 @@
                  *ngIf="hasImg">
                 <label for="answer-image-{{ i }}{{ uniqId }}"
                        class="sr-only">Bild URL*</label>
+                <!-- [html-validate-disable-next input-missing-label] -->
                 <input type="url"
                        class="form-control"
                        [(ngModel)]="item.imageLink"
